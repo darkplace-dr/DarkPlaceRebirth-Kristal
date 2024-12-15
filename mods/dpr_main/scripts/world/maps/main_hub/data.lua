@@ -706,7 +706,7 @@ return {
           name = "transition",
           type = "",
           shape = "rectangle",
-          x = -40,
+          x = -80,
           y = 200,
           width = 40,
           height = 80,
