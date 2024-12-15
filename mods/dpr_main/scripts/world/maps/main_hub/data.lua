@@ -706,13 +706,17 @@ return {
           name = "transition",
           type = "",
           shape = "rectangle",
-          x = -80,
+          x = -40,
           y = 200,
           width = 40,
           height = 80,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["facing"] = "right",
+            ["marker"] = "west3",
+            ["shop"] = "jeku_shop"
+          }
         },
         {
           id = 33,
@@ -977,7 +981,7 @@ return {
           name = "west3",
           type = "",
           shape = "point",
-          x = 40,
+          x = 240,
           y = 240,
           width = 0,
           height = 0,

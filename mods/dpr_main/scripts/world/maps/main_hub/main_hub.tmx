@@ -206,7 +206,13 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="32" name="transition" x="-80" y="200" width="40" height="80"/>
+  <object id="32" name="transition" x="-40" y="200" width="40" height="80">
+   <properties>
+    <property name="facing" value="right"/>
+    <property name="marker" value="west3"/>
+    <property name="shop" value="jeku_shop"/>
+   </properties>
+  </object>
   <object id="33" name="transition" x="920" y="200" width="40" height="80">
    <properties>
     <property name="map" value="hub_prefountain"/>
@@ -290,7 +296,7 @@
   <object id="39" name="west2" x="40" y="640">
    <point/>
   </object>
-  <object id="40" name="west3" x="40" y="240">
+  <object id="40" name="west3" x="240" y="240">
    <point/>
   </object>
   <object id="41" name="east1" x="880" y="960">
