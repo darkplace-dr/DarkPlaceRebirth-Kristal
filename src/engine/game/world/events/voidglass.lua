@@ -11,7 +11,7 @@
 ---
 ---@field collider          ColliderGroup
 ---
----@overload fun(...) : MagicGlass
+---@overload fun(...) : VoidGlass
 local VoidGlass, super = Class(MagicGlass)
 
 function VoidGlass:init(x, y, w, h, isBroken)
