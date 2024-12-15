@@ -28,17 +28,33 @@ end
 -- "string" .. Sprite()
 string_metatable.__concat = function (a, b)
     -- Do not allow nil to be concatenated
-    if type(b) == "nil" then
-        return a..""
+    if type(a) == "nil" or type(b) == "nil" then
+        return error("attempt to concatenate a nil value")
     end
 
+    -- Handle the a value
+    -- If it's a class, concatenate its name
+    if isClass(a) then
+        a = Utils.getClassName(a)
+    -- If it's a table, dump it
+    elseif type(a) == "table" then
+        a = Utils.dump(a)
+    -- If all fails, just convert it to a string
+    else
+        a = tostring(a)
+    end
+
+    -- Handle the b value
     -- If it's a class, concatenate its name
     if isClass(b) then
-        return a..Utils.getClassName(b)
+        b = Utils.getClassName(b)
     -- If it's a table, dump it
     elseif type(b) == "table" then
-        return a..Utils.dump(b)
+        b = Utils.dump(b)
+    -- If all fails, just convert it to a string
+    else
+        b = tostring(b)
     end
-    -- Just convert it to a string
-    return a..tostring(b)
+
+    return a..b
 end
