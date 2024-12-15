@@ -4,3 +4,7 @@ build/
 output/
 
 *.tiled-session
+
+mods/
+!mods/dpr_main/*
+!mods/dpr_light/*
