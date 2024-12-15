@@ -522,6 +522,7 @@ function Map:loadMarkers(layer)
         v.center_y = v.center_y + (layer.offsety or 0)
 
         self.markers[v.name] = v
+        self.markers[v.id] = v
     end
 end
 
