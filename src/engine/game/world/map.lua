@@ -732,6 +732,8 @@ function Map:loadObject(name, data)
         return TileButton(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "magicglass" then
         return MagicGlass(data.x, data.y, data.width, data.height)
+    elseif name:lower() == "voidglass" then
+        return VoidGlass(data.x, data.y, data.width, data.height, data.properties["broken"])
     elseif name:lower() == "warpdoor" then
         return WarpDoor(data.x, data.y, data.properties)
     elseif name:lower() == "warpbin" then

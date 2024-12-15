@@ -68,7 +68,7 @@ return {
       objects = {
         {
           id = 29,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 200,
@@ -81,7 +81,7 @@ return {
         },
         {
           id = 30,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 160,
@@ -93,34 +93,8 @@ return {
           properties = {}
         },
         {
-          id = 31,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 540,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 32,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 40,
-          y = 540,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 33,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 80,
@@ -129,11 +103,13 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["broken"] = true
+          }
         },
         {
           id = 34,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 120,
@@ -748,6 +724,19 @@ return {
           y = 600,
           width = 120,
           height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 79.875,
+          y = 540,
+          width = 14,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
