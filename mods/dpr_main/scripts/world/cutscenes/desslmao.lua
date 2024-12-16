@@ -324,11 +324,12 @@ local desslmao = {
 		Assets.stopAndPlaySound("wing")
 
 		cutscene:setSpeaker()
-		cutscene:textTagged("* Hee...", whodis)
+		cutscene:hideNametag()
+		--cutscene:textTagged("* Hee...", whodis)
 		boss:shake(16, 0)
 		Assets.stopAndPlaySound("wing")
-		cutscene:textTagged("* Uheeheehee!!", whodis)
-		cutscene:hideNametag()
+		--cutscene:textTagged("* Uheeheehee!!", whodis)
+		
 
 		boss:fadeTo(0, 0.1, function() boss:fadeTo(1, 0.05) end)
 		cutscene:panTo(boss.x, boss.y+256, 2)
@@ -343,15 +344,43 @@ local desslmao = {
         
 		cutscene:wait(1.2)
 		cutscene:setSpeaker(boss)
-		cutscene:textTagged("* I'm sorry![wait:10]\n* I simply couldn't contain myself!", whodis)
-		cutscene:textTagged("* Uheehee!", whodis)
+		cutscene:textTagged("* Alright,[wait:6] let's cut the crap.", whodis)
+		--cutscene:textTagged("* Uheehee!", whodis)
 		cutscene:hideNametag()
 
         if susie then
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* Who the hell are you?!", "angry", "susie")
         end
-
+		
+		cutscene:setSpeaker(boss)
+		cutscene:textTagged("* I'm the mimic.[wait:10] You know me.\n* I've been the boss here since forever.", whodis)
+		
+		cutscene:setSpeaker("dess")
+		cutscene:textTagged("* yea and?", "neutral", "dess")
+		
+		cutscene:setSpeaker(boss)
+		cutscene:textTagged("* I'm sick of it![wait:10]\n* I'm sick of all this meta-on-meta nonsense!", whodis)
+		cutscene:textTagged("* Jokes upon memes upon cycles\nof the same tired things...\n* All of us on different 'layers'", whodis)
+		cutscene:textTagged("* Tell me,[wait:6] what do the other party members think?", whodis)
+		
+		if susie then
+            cutscene:setSpeaker("susie")
+            cutscene:textTagged("* ...???", "shy", "susie")
+        end
+		
+		cutscene:setSpeaker("dess")
+		cutscene:textTagged("* Look man.", "condescending", "dess")
+		cutscene:textTagged("* That's no reason to go\nall 'boss-fightey\nstartey' on us.", "eyebrow", "dess")
+		
+		cutscene:setSpeaker(boss)
+		cutscene:textTagged("* What I'm saying is...", whodis)
+		cutscene:textTagged("* It's exhausting,[wait:6] 'Dess'.[wait:10]\n* I'm just a bossfight,[wait:6] I can't change that.", whodis)
+		cutscene:textTagged("* But what I *can* do is talk.[wait:10]\n* So all I really have to say is...", whodis)
+		cutscene:textTagged("* Happy new year,[wait:6] 1998!", whodis)
+		
+		--[[ -- OLD DIALOGUE THAT I HATE BECAUSE I WAS TERRIBLE AT WRITING -char
+			 -- not the other people your writing is fine I just really hate the mimic's writing ok
 		boss:fadeTo(0.2, 0.05)
 		cutscene:wait(1)
 		boss:setActor("susie")
@@ -428,18 +457,21 @@ local desslmao = {
 
 		cutscene:setSpeaker()
 		cutscene:textTagged("* Suit yourself![wait:5] Uheehee!", whodis)
-
+		--]]
 		cutscene:hideNametag()
 		cutscene:attachCamera(1)
 		cutscene:startEncounter("mimicboss", true, boss)
 
 		Game:setFlag("mimicBossDone", true)
 		Game:setFlag("mimic_defeated", true)
+		Game.inventory:addItemTo("key_items", "keyCard", true)
 		boss:remove()
 		cutscene:attachFollowers(5)
 		cutscene:wait(1)
 
 		cutscene:setSpeaker("dess")
+		cutscene:textTagged("* ...?", "eyebrow", "dess")
+		cutscene:textTagged("* weird way to end a meme section but ok", "eyebrow", "dess")
 		cutscene:textTagged("* well that was fun", "condescending", "dess")
 		cutscene:textTagged("* so whaddaya say we all go and smoke a ciggie outside a 7-11?", "genuine", "dess")
 		if susie then

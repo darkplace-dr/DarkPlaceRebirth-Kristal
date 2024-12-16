@@ -115,7 +115,7 @@ function DarkEquipMenu:getStatsPreview()
     local party = self.party:getSelected()
     local current_stats = party:getStats()
     if self.state == "ITEMS" and self:canEquipSelected() then
-        local preview_stats = Utils.copy(party.stats)
+        local preview_stats = Utils.copy(party:getBaseStats())
         local equipment = self:getEquipPreview()
         for i = 1, 3 do
             if equipment[i] then
