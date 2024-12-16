@@ -48,6 +48,13 @@ function character:init()
         defense = 2,
         magic = 1
     }
+	-- Stats added upon arc completion
+	self.arcBonusStats = {
+		health = 30,
+		attack = 2,
+		defense = 1,
+		magic = 4
+	}
 
     -- Weapon icon in equip menu
     self.weapon_icon = "ui/menu/equip/bat"
@@ -97,6 +104,10 @@ function character:init()
     self.gameover_message = { "You aren't done,\nbuddy.[wait:10] Give em'\nhell!" }
 	
 	self.frost_resist = true
+end
+
+function character:onArc()
+	self:addSpell("siderostat")
 end
 
 function character:onLevelUpLVLib(level)
