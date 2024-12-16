@@ -217,6 +217,9 @@ function actor:init(style)
         ["diagonal_kick_right"] = {-5, -1},
         ["diagonal_kick_left"] = {-3, -1},
     }
+
+    -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
+    self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
 end
 
 return actor

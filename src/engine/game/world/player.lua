@@ -193,6 +193,7 @@ end
 function Player:isMovementEnabled()
     return not OVERLAY_OPEN
         and not Game.lock_movement
+        and not Game.taunt_lock_movement
         and not self.slide_lock_movement
         and Game.state == "OVERWORLD"
         and self.world.state == "GAMEPLAY"
