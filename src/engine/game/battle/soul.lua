@@ -249,7 +249,7 @@ function Soul:onRemove(parent)
 
     -- Timeslow
     Game.stage.timescale = 1
-    --Game.battle.music.pitch = Game.battle.music.basepitch
+    Game.battle.music.pitch = Game.battle.music.basepitch
     self.vhsfx.active = false
     self.outlinefx.active = false
     self.concentratebg:remove()
@@ -309,7 +309,7 @@ function Soul:transitionTo(x, y, should_destroy)
 	
 	--Focus placebo stuff
 	Game.stage.timescale = 1
-	--Game.battle.music.pitch = Game.battle.music.basepitch
+	Game.battle.music.pitch = Game.battle.music.basepitch
     self.vhsfx.active = false
 	self.outlinefx.active = false
     if should_destroy == true then
@@ -845,7 +845,7 @@ function Soul:update()
         if not (Kristal.DebugSystem.state == "SELECTION" and Kristal.Config["objectSelectionSlowdown"]) then
         Game.stage.timescale = Utils.approach(Game.stage.timescale, 0.5, DTMULT / 4)
         end
-        --Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch/2, DTMULT / 4)
+        Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch/2, DTMULT / 4)
         self.timescale = Utils.approach(self.timescale, 2, DTMULT / 4)
         self.vhsfx.active = true
         if self.timeslow_sfx then self.timeslow_sfx:play() end
@@ -854,7 +854,7 @@ function Soul:update()
         if not (Kristal.DebugSystem.state == "SELECTION" and Kristal.Config["objectSelectionSlowdown"]) then
         Game.stage.timescale = Utils.approach(Game.stage.timescale, 1, DTMULT / 4)
         end
-        --Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch, DTMULT / 4)
+        Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch, DTMULT / 4)
         self.timescale = Utils.approach(self.timescale, 1, DTMULT / 4)
         self.vhsfx.active = false
         if self.timeslow_sfx then self.timeslow_sfx:stop() end
