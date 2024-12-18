@@ -32,5 +32,8 @@ GITHUB_REPOS = {
 	},
 	BrendaK7200={
 		"dlc_forest"
+	},
+	JustAnotherRandomGithubUser={
+		"dpr_spamtown_dlc"
 	}
 }
