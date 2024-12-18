@@ -88,6 +88,20 @@ function Soul:init(x, y, color)
     self.graze_sprite.inherit_color = true
     self.graze_sprite.graze_scale = self.graze_size_factor
     self:addChild(self.graze_sprite)
+	
+	self.outline = Sprite("player/heart_invert") -- Creating this first so sprite_focus will be on top of it
+    self.outline:setOrigin(0.5, 0.5)
+    self.outline.alpha = 0
+    self.outline.color = {0, 1, 1}
+    self.outline.debug_select = false
+    self:addChild(self.outline)
+
+	self.sprite_focus = Sprite("player/heart_dodge_focus")
+    self.sprite_focus:setOrigin(0.5, 0.5)
+    self.sprite_focus.inherit_color = false
+	self.sprite_focus.alpha = 0
+    self.sprite_focus.debug_select = false
+    self:addChild(self.sprite_focus)
 
     self.width = self.sprite.width
     self.height = self.sprite.height
@@ -168,6 +182,55 @@ function Soul:init(x, y, color)
     self.special_only = false   -- If set to true, only bullets with the variable "self.special_parry" set to true can be parried.
 
 	-- Taunt variables end here
+
+	-- Timeslow ("Focus" Placebo) variables start here; outline is created above.	
+	self.force_timeslow = nil -- Forces the Focus ability on or off, regardless of if the placebo is equipped.
+	
+	--self.outline = Sprite("player/heart_slow")
+    --self.outline:setOrigin(0.5, 0.5)
+    --self.outline.alpha = 0
+    --self:addChild(self.outline)
+
+    self.timeslow_sfx = Assets.getSound("concentrating")
+    self.timeslow_sfx:setLooping(true)
+
+    self.afterimage_delay = 5
+    self.drain_rate = 3        -- Number of frames to wait before losing TP
+    self.drain_timer = 0
+
+
+    self.focus_holder = nil
+    for _,party in ipairs(Game.battle.party) do
+        if self.force_timeslow then self.focus_holder = Game.battle.party[1]     
+        elseif Game.party[_]:checkArmor("focus") then self.focus_holder = party
+        end
+    end
+    self.outlinefx = BattleOutlineFX()
+    self.outlinefx:setAlpha(0)
+
+    if self.focus_holder then
+        if self.focus_holder:getFX("outlinefx") then
+            self.focus_holder:removeFX("outlinefx")
+        end
+    end
+    if Game.stage:getFX("timeslowvhs") then
+        Game.stage:removeFX("timeslowvhs")
+    end
+
+    -- Apply outlinefx to whoever has Focus equipped, or the leader if force_timeslow is true
+    if self.focus_holder then self.focus_holder:addFX(self.outlinefx, "outlinefx") end
+    self.vhsfx = Game.stage:addFX(VHSFilterFX(), "timeslowvhs")
+    self.vhsfx.timescale = 2 -- I dunno if this even works.
+    self.vhsfx.active = false
+    self.concentratebg = ConcentrateBG({1, 1, 1})
+    self.concentratebg.alpha_fx = self.concentratebg:addFX(AlphaFX())
+    self.concentratebg.alpha_fx.alpha = 0
+    Game.battle:addChild(self.concentratebg)
+
+
+    --Game.battle.music.basepitch = Game.battle.music.pitch
+
+	-- Timeslow ("Focus" Placebo) variables end here
 end
 
 ---@param parent Object
@@ -183,6 +246,15 @@ function Soul:onRemove(parent)
         self.parried_loop_sfx:stop()
         self.parried_loop_sfx = nil
     end
+
+    -- Timeslow
+    Game.stage.timescale = 1
+    --Game.battle.music.pitch = Game.battle.music.basepitch
+    self.vhsfx.active = false
+    self.outlinefx.active = false
+    self.concentratebg:remove()
+    if self.timeslow_sfx then self.timeslow_sfx:stop() end
+    Input.clear("focus_placebo")
 end
 
 --- *(Override)* Called when waves are started
@@ -234,6 +306,17 @@ function Soul:transitionTo(x, y, should_destroy)
     else
         self.transition_destroy = false
     end
+	
+	--Focus placebo stuff
+	Game.stage.timescale = 1
+	--Game.battle.music.pitch = Game.battle.music.basepitch
+    self.vhsfx.active = false
+	self.outlinefx.active = false
+    if should_destroy == true then
+        self.concentratebg:remove()
+        self.timeslow_sfx:stop()
+    end
+	Input.clear("focus_placebo")
 end
 
 ---@return boolean
@@ -658,6 +741,20 @@ function Soul:update()
     end
 
     super.update(self)
+
+    ---@diagnostic disable-next-line: undefined-field
+	if Input.down("cancel") and not self.blue then -- Reduced hitbox size can get you stuck in collision with the blue soul, so it can't use this.
+		self.collider.radius = 4
+		self.sprite_focus.alpha = 1
+	else
+		self.collider.radius = 8
+		self.sprite_focus.alpha = 0
+	end
+	
+    local focus_equipped = false
+    for _,party in ipairs(Game.party) do
+        if party:checkArmor("focus") then focus_equipped = true end
+    end
 	
 	-- Taunt code starts here
 	if self.force_taunt ~= false then
@@ -735,6 +832,69 @@ function Soul:update()
 	end
 	end
 	-- Taunt code ends here
+	
+	-- Focus code starts here
+	if self.force_timeslow ~= false then
+	if focus_equipped or self.force_timeslow == true then
+	if not self.transitioning then
+        self.outlinefx.active = true
+    end
+    -- Cut timescale in half when holding A and not out of TP
+    if not self.transitioning and Input.down("focus_placebo") and Game:getTension() > 0 then
+        -- Make sure the game pauses when object selection and selection slowdown is active.
+        if not (Kristal.DebugSystem.state == "SELECTION" and Kristal.Config["objectSelectionSlowdown"]) then
+        Game.stage.timescale = Utils.approach(Game.stage.timescale, 0.5, DTMULT / 4)
+        end
+        --Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch/2, DTMULT / 4)
+        self.timescale = Utils.approach(self.timescale, 2, DTMULT / 4)
+        self.vhsfx.active = true
+        if self.timeslow_sfx then self.timeslow_sfx:play() end
+	else
+        -- Make sure the game pauses when object selection and selection slowdown is active.
+        if not (Kristal.DebugSystem.state == "SELECTION" and Kristal.Config["objectSelectionSlowdown"]) then
+        Game.stage.timescale = Utils.approach(Game.stage.timescale, 1, DTMULT / 4)
+        end
+        --Game.battle.music.pitch = Utils.approach(Game.battle.music.pitch, Game.battle.music.basepitch, DTMULT / 4)
+        self.timescale = Utils.approach(self.timescale, 1, DTMULT / 4)
+        self.vhsfx.active = false
+        if self.timeslow_sfx then self.timeslow_sfx:stop() end
+    end
+
+    -- Remove 1 TP for every drain_rate frames of slowdown active
+    if not self.transitioning and Input.down("focus_placebo") and Game:getTension() > 0 then
+        if self.drain_timer >= self.drain_rate then
+            Game:removeTension(DTMULT*1.3) -- Should keep the drain rate roughly the same, regardless of framerate? Hopefully? Kinda looks like it does but I can't be sure?
+            self.drain_timer = 0
+        else
+            self.drain_timer = self.drain_timer + 1
+        end
+    end
+
+    -- Error sound if trying to use slowdown when out of TP
+    if Input.pressed("focus_placebo") and Game:getTension() <= 0 then
+        Assets.playSound("ui_cant_select", 2)
+    end
+
+    -- Soul VFX
+    if not self.transitioning and Input.down("focus_placebo") and Game:getTension() > 0 then
+    self.outline.alpha = Utils.approach(self.outline.alpha, 1, DTMULT / 4)
+    self.concentratebg.alpha_fx.alpha = 1
+    if self.afterimage_delay >= 5 then
+        local afterimage = AfterImage(self.outline, 0.5)
+        afterimage.debug_select = false
+        self:addChild(afterimage)
+        self.afterimage_delay = 0
+    else
+        self.afterimage_delay = self.afterimage_delay + DTMULT
+    end
+    else
+    self.outline.alpha = Utils.approach(self.outline.alpha, 0, DTMULT / 4)
+    self.concentratebg.alpha_fx.alpha = Utils.approach(self.concentratebg.alpha_fx.alpha, 0, DTMULT / 4)
+    end
+    if self.focus_holder then self.outlinefx:setAlpha(self.outline.alpha - 0.2) end
+	end
+	end
+	-- Focus code ends here
 end
 
 function Soul:draw()
