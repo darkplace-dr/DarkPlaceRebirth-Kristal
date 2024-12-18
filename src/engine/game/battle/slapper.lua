@@ -25,13 +25,25 @@ function Slapper:update()
     super.update(self)
 
     if Input.pressed("z") then
-        self.caster:setAnimation("battle/attack_repeat")
+        if self.caster.sprite then
+            self.caster:setAnimation("battle/attack_repeat")
+            if self.target.health > 0 then
+                self.target:flash()
+                self.target:hurt(self.power, self.caster, self.target.onDefeatFatal)
+            end
+        else
+            if self.target.health > 0 then
+                self.target:hurt(self.power - 10, self.caster, self.target.onDefeatFatal)
+            end
+        end
         if self.target.health > 0 then
-            self.hits = self.hits + 1
+            if self.caster.sprite then
+                self.hits = self.hits + self.power
+            else
+                self.hits = self.hits + self.power-10
+            end
             Game.battle:shakeCamera(4)
             Assets.playSound("damage")
-            self.target:hurt(self.power, self.caster, self.target.onDefeatFatal)
-            self.target:flash()
             self.target.hit_count = 0
         end
     end
