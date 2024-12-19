@@ -240,6 +240,7 @@ DarkFountain = require("src.engine.game.world.events.darkfountain")
 FountainFloor = require("src.engine.game.world.events.fountainfloor")
 QuicksaveEvent = require("src.engine.game.world.events.quicksave")
 MirrorArea = require("src.engine.game.world.events.mirror")
+SuperStar = require("src.engine.game.world.events.superstar")
 
 ToggleController = require("src.engine.game.world.events.controllers.togglecontroller")
 FountainShadowController = require("src.engine.game.world.events.controllers.fountainshadowcontroller")

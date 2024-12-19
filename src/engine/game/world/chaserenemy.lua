@@ -124,32 +124,36 @@ end
 
 function ChaserEnemy:onCollide(player)
     if self:isActive() and player:includes(Player) then
-        self.encountered = true
-        local encounter = self.encounter
-        if not encounter and Registry.getEnemy(self.enemy or self.actor.id) then
-            encounter = Encounter()
-            encounter:addEnemy(self.actor.id)
-        end
-        if encounter then
-            self.world.encountering_enemy = true
-            self.sprite:setAnimation("hurt")
-            self.sprite.aura = false
-            Game.lock_movement = true
-            self.world.timer:script(function(wait)
-                Assets.playSound("tensionhorn")
-                wait(8/30)
-                local src = Assets.playSound("tensionhorn")
-                src:setPitch(1.1)
-                wait(12/30)
-                self.world.encountering_enemy = false
-                Game.lock_movement = false
-                local enemy_target = self
-                if self.enemy then
-                    enemy_target = {{self.enemy, self}}
-                end
-                Game:encounter(encounter, true, enemy_target, self)
-            end)
-        end
+		if player.invincible_colors then
+			self:explode()
+		else
+			self.encountered = true
+			local encounter = self.encounter
+			if not encounter and Registry.getEnemy(self.enemy or self.actor.id) then
+				encounter = Encounter()
+				encounter:addEnemy(self.actor.id)
+			end
+			if encounter then
+				self.world.encountering_enemy = true
+				self.sprite:setAnimation("hurt")
+				self.sprite.aura = false
+				Game.lock_movement = true
+				self.world.timer:script(function(wait)
+					Assets.playSound("tensionhorn")
+					wait(8/30)
+					local src = Assets.playSound("tensionhorn")
+					src:setPitch(1.1)
+					wait(12/30)
+					self.world.encountering_enemy = false
+					Game.lock_movement = false
+					local enemy_target = self
+					if self.enemy then
+						enemy_target = {{self.enemy, self}}
+					end
+					Game:encounter(encounter, true, enemy_target, self)
+				end)
+			end
+		end
     end
 end
 
