@@ -4,7 +4,7 @@ return {
     end,
     ending = function(cutscene, event)
         Game.world.map.sliding = false
-		if Game.world.map.slide_time < Game:getFlag("slide_hs", 999) then
+		if Game.world.map.slide_time < Game:getFlag("slide_hs", 999) and Game.world.map.slide_time > 8 then
 			Game:setFlag("slide_hs", Game.world.map.slide_time)
 		end
     end,
