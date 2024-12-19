@@ -29,8 +29,7 @@ function DarkPowerMenu:init()
          ["attack"] = Assets.getTexture("ui/menu/icon/sword"),
         ["defense"] = Assets.getTexture("ui/menu/icon/armor"),
           ["magic"] = Assets.getTexture("ui/menu/icon/magic"),
-		["arcstar"] = Assets.getTexture("ui/menu/icon/arcStar"),
-    }
+   }
 
     self.bg = UIBox(0, 0, self.width, self.height)
     self.bg.layer = -1
@@ -265,7 +264,7 @@ function DarkPowerMenu:draw()
     Draw.setColor(1, 1, 1, 1)
     Draw.draw(self.caption_sprites[  "char"],  42, -28, 0, 2, 2)
     Draw.draw(self.caption_sprites[ "stats"],  42,  98, 0, 2, 2)
-	
+
     local x, y, offset
     if self.data_shown == "spells" then
         x = 298
@@ -317,9 +316,6 @@ end
 function DarkPowerMenu:drawStats()
     local party = self.party:getSelected()
     Draw.setColor(1, 1, 1, 1)
-	if party:getFlag("arc", false) then
-		Draw.draw(self.stat_icons["arcstar"],      188, 124, 0, 2, 2)
-	end
     Draw.draw(self.stat_icons[ "attack"], -8, 124, 0, 2, 2)
     Draw.draw(self.stat_icons["defense"], -8, 149, 0, 2, 2)
     Draw.draw(self.stat_icons[  "magic"], -8, 174, 0, 2, 2)
