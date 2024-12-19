@@ -27,7 +27,7 @@ function item:init()
     }
 
     self.bonuses = {
-        attack = 1
+        attack = 0
     }
 
     -- Where this item can be used (world, battle, all, or none)

@@ -23,7 +23,7 @@ return {
                 },
                 Kills = 0,
                 SaveID = 0,
-                version = 0.1,
+                version = 0.01,
                 Map = "main_hub",
                 Mod = "dpr_main",
                 Health = 900,
