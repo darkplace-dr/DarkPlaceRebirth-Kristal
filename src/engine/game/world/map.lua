@@ -742,6 +742,8 @@ function Map:loadObject(name, data)
         return FountainFloor(data.x, data.y, data.width, data.height)
     elseif name:lower() == "quicksave" then
         return QuicksaveEvent(data.x, data.y, data.width, data.height, data.properties["marker"])
+    elseif name:lower() == "superstar" then
+        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "sprite" then
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)

@@ -394,6 +394,8 @@ function PartyMember:getWeaponIcon() return self.weapon_icon end
 
 function PartyMember:getHealth() return Game:isLight() and self.lw_health or self.health end
 function PartyMember:getSavedMHP() return self.saved_mhp end
+
+function PartyMember:getStarmanTheme() return "default" end
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
     -- lol
