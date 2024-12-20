@@ -135,7 +135,7 @@ local cliffside = {
 
                 cutscene:wait(4)
 
-                cutscene:textTagged("* Wow...[wait:30]\n* It's sad how I'm waiting a reply...", "really", "hero")
+                cutscene:textTagged("* Wow...[wait:30]\n* It's sad how I'm waiting for a reply...", "really", "hero")
 
                 hero:setSprite("walk/down")
 
@@ -360,25 +360,67 @@ local cliffside = {
             --cutscene:text("* You seem to already know me.", "neutral", "cat")
         end
 
-        Game:getQuest("cliffsides_cat"):unlock()
-        cutscene:textTagged("* quest created", "neutral", "cat", cattag)
+        cattag = {nametag = "Cat"}
 
+        cutscene:textTagged("* My name is cat.", "neutral", "cat", cattag)
+        cutscene:textTagged("* Say... You don't look like you're from around here.", "neutral", "cat", cattag)
+        cutscene:textTagged("* The both of you...", "neutral", "cat", cattag)
+        cutscene:textTagged("* Has fate brought you here?\n[wait:10]* Perchance Lady Luck?", "neutral", "cat", cattag)
 
-        --cutscene:setSpeaker("cat")
-        --cutscene:textTagged("* My name is cat.", "neutral")
-        --cutscene:textTagged("* Say... You don't look like you're from around here.", "neutral")
-        --cutscene:textTagged("* The both of you...", "neutral")
-        --cutscene:textTagged("* Has fate brought you here?\n[wait:10]* Perchance Lady Luck?", "neutral")
+        cat = cutscene:getCharacter("cat")
+        cutscene:wait(cutscene:walkTo(cat, cat.x, cat.y - 50, 1.5, "up"))
+        cutscene:wait(1)
 
-        --cat walking
+        cutscene:textTagged("* Follow me...", "neutral", "cat", cattag)
 
-        --cutscene:text("* Follow me...", "neutral")
-
-        --cat keep walking
+        cutscene:wait(cutscene:walkTo(cat, cat.x, cat.y - 200, 3, "up"))
 
         cutscene:hideNametag()
         Game:setFlag("met_cat", true)
+        Game:getQuest("cliffsides_cat"):unlock()
     end,
+
+    cat_1 = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        local cat = cutscene:getCharacter("cat")
+        cutscene:wait(cutscene:walkTo(hero, 400, 460, 2, "right"))
+        cutscene:showNametag("Cat")
+        cutscene:text("* Hello,[wait:5] I've been expecting you.", "neutral", cat)
+        cutscene:text("* As you can [color:yellow]see[color:reset][wait:5]\nthere are many hidden paths here.", "neutral", cat)
+        cutscene:text("* I will show you the ones needed to progress.", "neutral", cat)
+        cutscene:text("* I suggest you look around for [color:yellow]secret[color:reset] paths.", "neutral", cat)
+        cutscene:text("* Let's move on.", "neutral", cat)
+        cutscene:hideNametag()
+        cutscene:wait(cutscene:walkTo(cat, cat.x + 300, cat.y + 80, 3, "up"))
+        cat:remove()
+        Game:setFlag("cliffsidecat_1", true)
+    end,
+
+    pebblin = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        local pebblin = cutscene:getCharacter("pebblin")
+        cutscene:walkTo(hero, 465, hero.y, 4, "right")
+        Game.world.music:fade(0, 4)
+        cutscene:wait(3)
+        Assets.playSound("criticalswing")
+        cutscene:wait(cutscene:slideTo(pebblin, pebblin.x, 260, 1, "in-cubic"))
+        Assets.playSound("rudebuster_hit")
+        pebblin:shake(5)
+        hero:setSprite("battle/defeat")
+        cutscene:wait(cutscene:slideTo(hero, hero.x - 250, hero.y, 1, "out-cubic"))
+        cutscene:wait(0.5)
+        Assets.playSound("wing")
+        hero:shake(5)
+        cutscene:wait(1)
+        Assets.playSound("wing")
+        hero:shake(5)
+        hero:resetSprite()
+        cutscene:wait(1)
+        cutscene:startEncounter("pebblin_tutorial", true, {{"pebblin", pebblin}})
+        pebblin:remove()
+        Game.world.music:fade(1, 0.5)
+    end,
+
     reverse_cliff_2 = function (cutscene, event)
         local end_y = 80
         local p_y = Game.world.player.y
