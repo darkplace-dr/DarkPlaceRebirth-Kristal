@@ -70,6 +70,9 @@ function Actor:init()
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {}
+
+    -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
+    self.taunt_sprites = {}
 end
 
 -- Callbacks

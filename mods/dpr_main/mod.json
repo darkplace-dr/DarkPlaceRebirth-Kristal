@@ -98,6 +98,22 @@
 		"NORWAY"
 	],
 
+    //Custom keybinds
+    "keybinds": [
+        {
+            "name": "Taunt",
+            "id": "taunt",
+            "keys": ["v"],
+            "gamepad": []
+        },
+        {
+            "name": "Focus",
+            "id": "focus_placebo",
+            "keys": ["a"],
+            "gamepad": []
+        },
+    ],
+
     // Equipment for your party. Not specifying equipment defaults to the following.
     "equipment": {
         "kris": {

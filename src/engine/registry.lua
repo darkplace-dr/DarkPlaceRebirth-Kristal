@@ -33,6 +33,7 @@
 ---@field borders table<string, Border>
 ---@field minigames table<string, MinigameHandler>
 ---@field materials table<string, Material>
+---@field shaders table<string, Shader>
 ---
 local Registry = {}
 local self = Registry
@@ -69,6 +70,7 @@ Registry.paths = {
     ["combos"]           = "battle/combos",
     ["quests"]           = "data/quests",
     ["materials"]        = "data/materials",
+    ["shaders"]          = "shaders",
 }
 
 ---@param preload boolean?
@@ -144,6 +146,7 @@ function Registry.initialize(preload)
         Registry.initCombos()
         Registry.initQuests()
         Registry.initMaterials()
+        Registry.initShaders()
 
         Kristal.callEvent(KRISTAL_EVENT.onRegistered)
     end
@@ -726,8 +729,16 @@ function Registry.registerMinigame(id, class)
     self.minigames[id] = class
 end
 
+---@param id string
+---@param class Material
 function Registry.registerMaterial(id, class)
     self.materials[id] = class
+end
+
+---@param id string
+---@param class Shader
+function Registry.registerShader(id, class)
+    self.shaders[id] = class
 end
 
 -- Internal Functions --
@@ -1051,6 +1062,15 @@ function Registry.initMaterials()
         assert(material ~= nil, '"data/materials/' .. path .. '.lua" does not return value')
         material.id = material.id or path
         self.materials[material.id] = material
+    end
+end
+
+function Registry.initShaders()
+    self.shaders = {}
+
+    for _,path,shader in Registry.iterScripts("shaders/") do
+        assert(shader ~= nil, '"shaders/'..path..'.lua" does not return value')
+        self.shaders[path] = shader
     end
 end
 

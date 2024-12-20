@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="830" tileheight="656" tilecount="63" columns="0">
+<tileset version="1.9" tiledversion="1.9.0" name="hometownobjects" tilewidth="830" tileheight="656" tilecount="64" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -192,5 +192,8 @@
  </tile>
  <tile id="64">
   <image width="146" height="110" source="../../../assets/sprites/tilesets/objects/asgore_car.png"/>
+ </tile>
+ <tile id="65">
+  <image width="114" height="49" source="../../../assets/sprites/tilesets/objects/sans_counter.png"/>
  </tile>
 </tileset>

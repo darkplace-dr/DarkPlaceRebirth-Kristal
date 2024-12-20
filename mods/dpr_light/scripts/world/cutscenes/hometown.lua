@@ -145,7 +145,8 @@ return {
             cutscene:hideNametag()
             Game.world.music:resume()
         elseif Game.world.sanscheck >= 8 then
-            if Game:getFlag("fun") == 8 then
+		    local FUN = Game:getFlag("FUN")
+            if FUN == 8 then
                 cutscene:showNametag("Sans?", {font = "sans"})
                 cutscene:text("[font:sans]* human...", "eyes_closed", "sans")
                 cutscene:hideNametag()

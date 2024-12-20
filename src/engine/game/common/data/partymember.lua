@@ -29,10 +29,12 @@
 ---@field lw_health number
 ---
 ---@field stats {health: number, attack: number, defense: number, magic: number}
+---@field arcBonusStats {health: number, attack: number, defense: number, magic: number}
 ---
 ---@field max_stats {health: number, attack: number, defense: number, magic: number}
 ---
 ---@field lw_stats {health: number, attack: number, defense: number}
+---@field lw_arcBonusStats {health: number, attack:number, defense: number}
 ---
 ---@field weapon_icon string
 ---
@@ -122,9 +124,16 @@ function PartyMember:init()
         magic = 0,
         health_def = 100 -- placeholder for true MHP, do not use
     }
+	-- Arc Completion Bonus Stats
+	self.arcBonusStats = {
+		health = 0,
+		attack = 0,
+		defense = 0,
+		magic = 0,
+	}
     -- Max stats from level-ups
     self.max_stats = {}
-    
+	
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
     self.stronger_absent = {}
 
@@ -134,6 +143,12 @@ function PartyMember:init()
         attack = 10,
         defense = 10
     }
+	-- Arc Completion Bonus LW Stats
+	self.lw_arcBonusStats = {
+		health = 0,
+		attack = 0,
+		defense = 0,
+	}
 
     -- Weapon icon in equip menu
     self.weapon_icon = "ui/menu/equip/sword"
@@ -258,11 +273,18 @@ function PartyMember:init()
     self.opinions = {}
     self.default_opinion = 50
     
+	
     -- this fucking sucks but i don't care lol
+	
+	-- based
+	--   -char
     self.mhp_damage = 0
 
     -- protection points for soul shield mechanic
     self.pp = 0
+	
+	-- whether or not the next attack should be reflected
+	self.reflectNext = false
 end
 
 -- Callbacks
@@ -285,6 +307,10 @@ function PartyMember:onTurnStart(battler)
         battler:heal(turnHealing)
     end
 end
+
+--- *(Override)* Called upon completion of this character's arc
+function PartyMember:onArc() end
+
 --- *(Override)* Called whenever this party member's action select turn starts
 ---@param battler PartyBattler The party member's associated battler
 ---@param undo    boolean      Whether their previous action was just undone
@@ -370,11 +396,32 @@ function PartyMember:getHealth() return Game:isLight() and self.lw_health or sel
 function PartyMember:getSavedMHP() return self.saved_mhp end
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
-    if light or (light == nil and Game:isLight()) then
-        return self.lw_stats
+    -- lol
+	--  -char
+	local baseBaseStats = {}
+	if light or (light == nil and Game:isLight()) then
+		baseBaseStats = Utils.copy(self.lw_stats, false)
+		if self:getFlag("arc", false) then
+			for i,v in pairs(baseBaseStats) do
+				if self.lw_arcBonusStats and self.lw_arcBonusStats[i] then
+					baseBaseStats[i] = baseBaseStats[i]+self.lw_arcBonusStats[i]
+				end
+			end
+		end
+		
     else
-        return self.stats
+		baseBaseStats = Utils.copy(self.stats, false)
+		if self:getFlag("arc", false) then
+			for i,v in pairs(baseBaseStats) do
+				if self.arcBonusStats and self.arcBonusStats[i] then
+					baseBaseStats[i] = baseBaseStats[i]+self.arcBonusStats[i]
+				end
+			end
+		end
+		
     end
+	
+	return baseBaseStats
 end
 
 function PartyMember:getMaxStats() return self.max_stats end
@@ -1495,6 +1542,14 @@ function PartyMember:addOpinion(other_party, amount)
     end
     self.opinions[other_party] = self:getOpinion(other_party) + amount
     return self.opinions[other_party]
+end
+
+-- Completes a character's Arc
+-- this is kind of lazy tbh but like sue me
+--   -char
+function PartyMember:completeArc()
+	self:setFlag("arc", true)
+	self:onArc()
 end
 
 return PartyMember

@@ -41,13 +41,11 @@ function Mimic:init()
     -- Dialogue randomly displayed in the enemy's speech bubble
     self.dialogue = {
         "Uheehee!",
-		"Here or there?",
-		"Can you see me?",
-		"Maybe, maybe not!",
-		"From the darkness\ncomes stars!",
-		"From the cold\ncomes warmth!",
-		"From the clock\ncomes destiny!",
-		"Will you find out?",
+		"Happy New Year 1998!",
+		"Don't forget!",
+		"Don't forget, 1998!",
+		"Will you find out?", -- this is a reference to one of the best websites ever created and as such i elect to never remove it no matter how little it makes sense
+		-- for those who want to know........ https://jessiespizza.neocities.org/
     }
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
@@ -57,7 +55,7 @@ function Mimic:init()
     self.text = {
         "* Uheehee!",
         "* The air grows cold.",
-        "* It's too easy to become anyone you want to be!",
+        "* ...",
     }
     -- Text displayed at the bottom of the screen when the enemy has low health
     self.low_health_text = "* Mimic grows exhausted."
