@@ -36,6 +36,7 @@ function item:init()
         noel = "I prefer cats... (I WANT IT!!!)",
         noelle = "*ding* I love the bell!",
         ceroba = "Back where it belongs.",
+        jamm = "Nope, definitely not!"
     }
 end
 
