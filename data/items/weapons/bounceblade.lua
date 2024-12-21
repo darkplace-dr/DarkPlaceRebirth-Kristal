@@ -51,6 +51,7 @@ function item:init()
         susie = "What is this, rubber?",
         ralsei = "Soft and squishy!",
         noelle = "S-stop thwacking me!",
+        jamm = "So is this like... a practice sword?"
     }
 end
 

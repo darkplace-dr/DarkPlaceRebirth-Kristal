@@ -46,6 +46,7 @@ function item:init()
         susie = "... this is trash.",
         ralsei = "Should we fix this...?",
         noelle = "(Wh... why give this to me?)",
+        jamm = "Fess up. Who got scammed?"
     }
 end
 

@@ -51,6 +51,7 @@ function item:init()
         susie = "Let the games begin!",
         ralsei = "It's too, um, evil.",
         noelle = "...? It smiled at me?",
+        jamm = "Hey, I'm not a farmer!"
     }
 end
 
