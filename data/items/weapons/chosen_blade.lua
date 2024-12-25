@@ -55,7 +55,8 @@ function item:init()
         noelle = "It feels... magical?",
         hero = "Back where it belongs.",
         dess = "little ol' me a hero? surely you're jestin",
-        brenda = "Swords aren't really my style."
+        brenda = "Swords aren't really my style.",
+        jamm = "What do I look like, the main character?"
     }
 end
 

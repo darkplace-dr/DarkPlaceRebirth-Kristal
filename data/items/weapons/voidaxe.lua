@@ -37,6 +37,7 @@ function item:init()
         noelle = "It feels... cold?",
 		dess = "no way jose",
         brenda = "... No.",
+        jamm = "*Kirby flashbacks*"
     }
 end
 
