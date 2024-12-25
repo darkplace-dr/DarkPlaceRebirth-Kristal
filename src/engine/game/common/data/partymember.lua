@@ -259,10 +259,15 @@ function PartyMember:init()
     self.default_opinion = 50
     
     -- this fucking sucks but i don't care lol
+    -- based
+	--   -char
     self.mhp_damage = 0
 
     -- protection points for soul shield mechanic
     self.pp = 0
+
+    -- whether or not the next attack should be reflected
+	self.reflectNext = false
 end
 
 -- Callbacks

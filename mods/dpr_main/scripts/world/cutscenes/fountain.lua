@@ -42,6 +42,11 @@ return function(cutscene)
     if not Game:getFlag("used_hub_fountain") then
         if not Game:getFlag("fountainInteracted") then
             Game:setFlag("fountainInteracted", true)
+            if Game:isDessMode() then
+                showDialog("[voice:dess][speed:0.5]wow pretty fountain")
+                showDialog("[voice:dess][speed:0.5]hey maybe if i seal it i can go to the light world")
+                showDialog("[voice:dess][speed:0.5]i'll finally be able to touch grass")
+            end
     
             if cutscene:getCharacter("susie") then
                 showDialog("[voice:susie][speed:0.5]So this is this world's Dark Fountain?")
@@ -70,6 +75,10 @@ return function(cutscene)
         local seal = cutscene:choicer({"Yes", "No"})
 
         if seal == 1 then
+            if Game:isDessMode() then
+                showDialog("[voice:dess][speed:0.5]check this fuckin shit out")
+            end
+            
             if cutscene:getCharacter("susie") then
                 if Game.party[1].id == "susie" then
                     showDialog("[voice:susie][speed:0.5]Well,[wait:5] here goes nothing...")
@@ -87,6 +96,7 @@ return function(cutscene)
                     showDialog("[voice:susie][speed:0.5]Let's go home.")
                 end
             end
+            cutscene:text("[voice:nil][speed:0.5][noskip]* (It was as if your very SOUL was glowing...)", nil, nil, {top = true})
 
             Game.world.music:stop()
     
@@ -158,6 +168,11 @@ return function(cutscene)
             Game:setFlag("used_hub_fountain", true)
             cutscene:after(Game:swapIntoMod("dpr_light"))
         else
+            if Game:isDessMode() then
+                showDialog("[voice:dess][speed:0.5]actually maybe i should stay here for just a bit longer")
+                showDialog("[voice:dess][speed:0.5]there might be more CONTENT:tm: to discover")
+            end
+
             if cutscene:getCharacter("susie") then
                 showDialog("[voice:susie][speed:0.5]Maybe it's better to wait until later...")
                 showDialog("[voice:susie][speed:0.5]There's probably so much more to explore in this Dark World.")

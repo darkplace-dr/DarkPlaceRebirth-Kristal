@@ -1,7 +1,22 @@
 return {
     kill = function(cutscene, battler, enemy)
-		cutscene:text("* Alright,[wait:10] you fuckin' uhhh ready for this?", "neutral", "dess")
-		cutscene:text("* Okay here we go", "calm", "dess")
+		if Game:getFlag("dessQuoteUnquoteSpares", 0) == 0 then
+			cutscene:text("* Alright,[wait:10] you fuckin' uhhh ready for this?", "neutral", "dess")
+			cutscene:text("* Okay here we go", "calm", "dess")
+		elseif Game:getFlag("dessQuoteUnquoteSpares", 0) == 1 then
+			cutscene:text("* No no trust me I'll spare them this time.", "neutral", "dess")
+		elseif Game:getFlag("dessQuoteUnquoteSpares", 0) == 2 then
+			cutscene:text("* Okay so MAYBE we got off on the wrong foot...", "neutral_b", "dess")
+			cutscene:text("* (if you're a filthy pacifist runner)", "condescending", "dess")
+			cutscene:text("* But no trust me I'll be nice this time.", "genuine", "dess")
+		elseif Game:getFlag("dessQuoteUnquoteSpares", 0) == 3 then
+			cutscene:text("* alright,[wait:6] same shit different asshole.", "condescending", "dess")
+		elseif Game:getFlag("dessQuoteUnquoteSpares", 0) == 4 then
+			cutscene:text("* Again?", "reverse", "dess")
+		else
+			cutscene:text("* Teehee.", "teehee", "dess")
+		end
+		Game:addFlag("dessQuoteUnquoteSpares", 1, 0)
 
 		cutscene:wait(2)
 		enemy:defeat("KILLED", true)

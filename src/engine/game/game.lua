@@ -1563,4 +1563,12 @@ function Game:hasDLC(dlc)
     return false
 end
 
+function Game:isDessMode()
+    if Game:getFlag("Dess_Mode") then
+        return true
+    else
+        return false
+    end
+end
+
 return Game
