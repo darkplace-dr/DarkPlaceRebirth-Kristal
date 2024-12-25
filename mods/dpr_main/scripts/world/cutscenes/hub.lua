@@ -505,12 +505,8 @@ local hub = {
             cutscene:textTagged("* What the hell are you doing here???", "teeth", "susie")
             cutscene:textTagged("* i'm keeping people away from the elevator.", "neutral", "sans")
             cutscene:textTagged("* Why?! We got places to be here, dude!!", "angry_b", "susie")
-            cutscene:textTagged("* well,[wait:5] i would let you pass if the elevator was finished.", "joking", "sans")
-            cutscene:textTagged("* ...it looks finished to me.", "suspicious", "susie")
-            cutscene:textTagged("* oh, that's because it is.", "look_left", "sans")
-            cutscene:textTagged("* it doesn't go anywhere yet, though.", "neutral", "sans")
-            cutscene:textTagged("* give it some time,[wait:5] it'll come eventually.", "wink", "sans")
-            cutscene:textTagged("* Right...", "sus_nervous", "susie")
+            cutscene:textTagged("* contractual obligations.", "joking", "sans")
+            cutscene:textTagged("* ...[wait:10]right.", "suspicious", "susie")
             cutscene:textTagged("* anyways, what's up?", "neutral", "sans")
             Game:setFlag("susieHasMetSans", true)
 
@@ -624,9 +620,16 @@ local hub = {
 				
         if choice == 1 then
             local kid = #Game.party > 1 and "kids" or "kid"
-            cutscene:textTagged(string.format("* sorry %s,[wait:5] but you can't access the elevator right now.", kid), "eyes_closed", "sans")
-            cutscene:textTagged("* it kinda...[wait:5] doesn't go anywhere yet.", "look_left", "sans")
-            cutscene:textTagged("* so come back later,[wait:2] 'k?", "wink", "sans")
+            cutscene:textTagged(string.format("* sorry %s,[wait:5] but you can't access the elevator.", kid), "neutral", "sans")
+            cutscene:textTagged("* i've been hired to keep anyone from entering it.", "eyes_closed", "sans")
+            cutscene:textTagged("* so i unfortunately can't move from this spot.", "neutral", "sans")
+            if Game.world.player.facing == "left" then
+                cutscene:textTagged("* that's right...", "look_left", "sans")
+                cutscene:textTagged("* camera right that is.", "joking", "sans")
+                cutscene:textTagged("* my right is camera left.", "wink", "sans")
+            else
+                cutscene:textTagged("* that's right.[wait:5] not even if you talk to me from my right.", "look_left", "sans")
+            end
             cutscene:hideNametag()
         elseif choice == 2 then
             if cutscene:getCharacter("susie") then
