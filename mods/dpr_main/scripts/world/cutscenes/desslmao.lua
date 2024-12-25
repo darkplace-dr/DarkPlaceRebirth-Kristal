@@ -452,6 +452,8 @@ local desslmao = {
 			dess_party:increaseStat("defense", -10)
 			dess_party:setActor("dess")
 			Game:setFlag("super_dess", false)
+			Game:setFlag("dess_canact", false)
+			Game:getPartyMember("dess").has_act = false
 			Game.world.player:setActor("dess")
 			cutscene:wait(2)
 			Game.world.music:play("gimmieyourwalletmiss", 1, 1)
