@@ -235,6 +235,7 @@ function Soul:init(x, y, color)
     -- for monster souls
     if Game.party[1].monster then
         self:setScale(-1, -1)
+        self.sprite_focus:setColor(1, 0, 0)
     end
 end
 
