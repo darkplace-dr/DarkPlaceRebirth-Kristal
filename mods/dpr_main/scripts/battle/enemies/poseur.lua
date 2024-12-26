@@ -40,6 +40,8 @@ function Poseur:init()
     self:registerAct("Act 1")
     self:registerAct("Act 2", nil, "susie")
     self:registerAct("Act 3")
+
+    self.killable = true
 end
 
 function Poseur:onAct(battler, name)

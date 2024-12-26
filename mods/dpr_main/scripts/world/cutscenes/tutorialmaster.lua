@@ -31,7 +31,7 @@ local tutorialmaster = {
         master:setAnimation({ "bop" })
         cutscene:text("* I'm Dess Master.\n[wait:5]* Don't ask me about DESS's.")
 
-        local choices = { "Stars", "2", "Fact" }
+        local choices = { "Stars", "Use", "Fact" }
         table.insert(choices, "Bye")
         local c = cutscene:choicer(choices)
         if c == 1 then
@@ -62,8 +62,16 @@ local tutorialmaster = {
                 end
             end
         elseif c == 2 then
-            master:setAnimation({ "shocked" })
-            cutscene:text("* BING BING BING TWO.")
+			cutscene:text("* Dess' use is still unknown.[wait:5]\n* To find out, you're on your own.")
+			cutscene:text("* Some still say she is a wizard...[wait:5]\n* But I have yet to see her cast 'Blizzard'!")
+			if Game:hasPartyMember("dess") then
+                cutscene:text("* I'm Dess,[wait:5] not Noelle.\n* I shoot badass stars not snowflakes.", "condescending", "dess")
+                master:setAnimation({ "shocked" })
+                cutscene:text("* Exactly![wait:5] That's not a wizard spell!")
+				master:setAnimation({ "bop" })
+				cutscene:text("* Well maybe it is actually...")
+				cutscene:text("* Seriously though.[wait:10] Keep her magic up,\nthose badass stars can deal some damage.")
+            end
         elseif c == 3 then
             cutscene:text("* Dess will stop being annoying,[wait:5] if you give me money to buy cigarettes.")
             cutscene:text("* Sorry,[wait:5] that was a lie.")

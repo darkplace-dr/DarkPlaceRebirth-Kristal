@@ -142,6 +142,8 @@ function EnemyBattler:init(actor, use_overlay)
     self.tiredness = 0
 	
 	self.service_mercy = 20
+
+    self.killable = false
 end
 
 ---@param bool boolean

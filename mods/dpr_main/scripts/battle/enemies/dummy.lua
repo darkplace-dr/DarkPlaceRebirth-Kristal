@@ -18,6 +18,8 @@ function Dummy:init()
     -- Enemy reward
     self.money = 100
 
+    self.experience = 5
+
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 20
 
@@ -50,6 +52,8 @@ function Dummy:init()
     -- Register party act with Ralsei called "Tell Story"
     -- (second argument is description, usually empty)
     self:registerAct("Tell Story", "", {"ralsei"})
+
+    self.killable = true
 end
 
 function Dummy:onAct(battler, name)

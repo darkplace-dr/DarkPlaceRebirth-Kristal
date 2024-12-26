@@ -7,7 +7,11 @@ function character:init()
     self.name = "Dess"
 
     -- Actor (handles overworld/battle sprites)
-    self:setActor("dess")
+    if Game:getFlag("super_dess") == true then
+        self:setActor("dess_super")
+    else
+        self:setActor("dess")
+    end
     self:setLightActor("dess")
     self:setDarkTransitionActor("kris_dark_transition") -- placeholder
 
@@ -22,7 +26,11 @@ function character:init()
     self.soul_color = {1, 1, 1}
 
     -- Whether the party member can act / use spells
-    self.has_act = false
+    if Game:getFlag("dess_canact") then
+        self.has_act = true
+    else
+        self.has_act = false
+    end
     self.has_spells = true
 
     -- Whether the party member can use their X-Action

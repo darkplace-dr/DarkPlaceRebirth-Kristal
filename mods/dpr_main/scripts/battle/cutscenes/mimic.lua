@@ -29,7 +29,9 @@ return {
             else
                 cutscene:text("* idk looks fine to me lol", "kind", "dess")
             end]]
-            cutscene:text("* idk looks fine to me lol", "kind", "dess")
+            if not Game:isDessMode() then
+                cutscene:text("* idk looks fine to me lol", "kind", "dess")
+            end
         end
 
         enemy:shake(5)
@@ -54,7 +56,11 @@ return {
             cutscene:text("* ...", "shock", "susie")
         end
         if dess then
-            cutscene:text("* well erm... THAT just happened lol", "condescending", "dess")
+            if Game:isDessMode() then
+                cutscene:text("* and STAY down", "angry", "dess")
+            else
+                cutscene:text("* well erm... THAT just happened lol", "condescending", "dess")
+            end
         end
     end
 }
