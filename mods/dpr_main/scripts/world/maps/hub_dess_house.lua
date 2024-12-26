@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 14,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 5,
-  nextobjectid = 23,
+  nextlayerid = 6,
+  nextobjectid = 29,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -22,6 +22,12 @@ return {
       firstgid = 1,
       filename = "../tilesets/main_area.tsx",
       exportfilename = "../tilesets/main_area.lua"
+    },
+    {
+      name = "hub_objects",
+      firstgid = 209,
+      filename = "../tilesets/hub_objects.tsx",
+      exportfilename = "../tilesets/hub_objects.lua"
     }
   },
   layers = {
@@ -62,6 +68,36 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 5,
+      name = "objects_tiles",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 128,
+          y = 256,
+          width = 240,
+          height = 240,
+          rotation = 0,
+          gid = 211,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 3,
       name = "collision",
       class = "",
@@ -76,7 +112,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 200,
@@ -89,7 +125,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 160,
@@ -102,7 +138,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 160,
@@ -115,7 +151,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 120,
@@ -128,7 +164,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -141,7 +177,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 440,
@@ -154,7 +190,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 480,
@@ -167,7 +203,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 440,
@@ -180,12 +216,25 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 360,
           width = 120,
           height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 130,
+          y = 148,
+          width = 234,
+          height = 70,
           rotation = 0,
           visible = true,
           properties = {}
@@ -209,7 +258,7 @@ return {
         {
           id = 1,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 240,
@@ -225,7 +274,7 @@ return {
         {
           id = 22,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 240,
@@ -236,6 +285,37 @@ return {
           properties = {
             ["actor"] = "diamond_trash",
             ["cutscene"] = "hub.garbage"
+          }
+        },
+        {
+          id = 27,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 133.333,
+          y = 174,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* This is also an air conditioner but I was indeciseive on where to put it so I put two of them."
+          }
+        },
+        {
+          id = 28,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 289.333,
+          y = 174,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* It's one of those air conditioners from motels that overheat for some reaon.",
+            ["text2"] = "* What?[wait:10] Did you think it was a window?"
           }
         }
       }
@@ -257,7 +337,7 @@ return {
         {
           id = 9,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 320,
@@ -270,7 +350,7 @@ return {
         {
           id = 10,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 280,
           y = 360,
