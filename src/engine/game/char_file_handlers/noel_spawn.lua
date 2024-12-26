@@ -11,7 +11,6 @@ function Noel:checkNoel()
         save_id = 0
     end
 
-   print(noelsave.SaveID, save_id)
     if noelsave and noel_char and noelsave.SaveID ~= save_id then
         Game:removePartyMember("noel")
         Game.world:removeFollower("noel")
