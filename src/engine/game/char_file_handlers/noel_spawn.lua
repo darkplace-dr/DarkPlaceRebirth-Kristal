@@ -3,15 +3,16 @@ local self = Noel
 
 function Noel:checkNoel()
     local noelsave = Noel:loadNoel()
-    local noel_char = Game:hasPartyMember("noel")
-    if noelsave and not noel_char and noelsave.SaveID ~= Game:getFlag("noel_SaveID") then
-        Game:removePartyMember("noel")
-        Game.world:removeFollower("noel")
-        local noel = Game.world:getCharacter("noel")
-        if noel then noel:remove() end
-        Noel:NoelEnter(noelsave)
-        print("oh1")
-    elseif noelsave and noel_char and noelsave.SaveID ~= Game:getFlag("noel_SaveID") then
+    local noel_char = Game.world:getCharacter("noel")
+    local save_id
+    if Game:getFlag("noel_SaveID") then
+        save_id = Game:getFlag("noel_SaveID")
+    else
+        save_id = 0
+    end
+
+   print(noelsave.SaveID, save_id)
+    if noelsave and noel_char and noelsave.SaveID ~= save_id then
         Game:removePartyMember("noel")
         Game.world:removeFollower("noel")
         local noel = Game.world:getCharacter("noel")
@@ -24,9 +25,10 @@ function Noel:checkNoel()
         local noel = Game.world:getCharacter("noel")
         if noel then noel:remove() end
         print("oh3")
+    elseif noelsave and not Game:hasPartyMember("noel") then
+        Noel:NoelEnter(noelsave)
+        print("oh4")
     end
-
-    print("oh4")
 end
 
 function Noel:test()
@@ -34,7 +36,7 @@ function Noel:test()
 end
 
 local place_holder = function(cutscene, event)
-
+    local save = Noel:loadNoel()
     if #Game.party == 3 then 
         cutscene:text("* Party full.", "bruh", "noel")
     else
@@ -45,6 +47,7 @@ local place_holder = function(cutscene, event)
             local noel = cutscene:getCharacter("noel")
             noel:convertToFollower()
             cutscene:attachFollowers()
+            Game:setFlag("noel_SaveID", save["SaveID"])
             Game:addPartyMember("noel")
         else
             cutscene:text("* Alright.", "bruh", "noel")

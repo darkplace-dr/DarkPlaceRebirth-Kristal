@@ -493,10 +493,68 @@ local hub = {
         cutscene:wait(2)
 
         fun_fax:remove()
-        Game.world.music:fade(1, 0.5)
+        Game.world.music:fade(1, 0.25)
     end,
 
     sans = function(cutscene, event)
+
+        if Game.world.player.facing == "left" then
+            local sans = Game.world:getCharacter("sans")
+            Assets.playSound("noise")
+            cutscene:wait(cutscene:slideTo(sans, sans.x - 40, sans.y, 0.1))
+
+            if sans.x == 350 then
+                Game.world.music:pause()
+                local music_cut = Music()
+                cutscene:wait(2)
+                music_cut:play("fanfare")
+                cutscene:detachFollowers()
+                for i,_ in ipairs(Game.party) do
+                    local chara = Game.party[i]
+                    local actor = Game.world:getCharacter(chara.actor.id)
+                    cutscene:walkTo(actor, actor.x, actor.y + 80, 3.5, "up")
+                    actor:setFacing("up")
+                end
+
+
+                sans.layer = 0.7
+                cutscene:wait(3)
+                music_cut:stop()
+
+                local elevator = Game.stage.objects[12]
+                elevator:open()
+                cutscene:wait(0.01)
+                sans.x = 462
+                sans.y = 122
+                --elevator:open()
+                cutscene:wait(0.5)
+                music_cut:play("deltarune/muscle")
+                cutscene:wait(2)
+                cutscene:textTagged("* [wait:30]hey.", "neutral", "sans")
+                cutscene:textTagged("* so,[wait:5] you guys won't believe what just happened.", "joking", "sans")
+                cutscene:textTagged("* but they literally[wait:10]just[wait:10] finished the elevator.", "wink", "sans")
+                cutscene:textTagged("* guess my work here is done.", "eyes_closed", "sans")
+                cutscene:textTagged("* so, you kids won't be seeing me anytime soon.", "joking", "sans")
+                cutscene:textTagged("* [wait:20]bye.", "neutral", "sans")
+                music_cut:stop()
+                Game.world.fader:fadeOut(nil, {alpha = 1, speed = 10})
+                elevator:close()
+                sans.x = 550
+                sans.y = 150
+
+                Assets.playSound("noise")
+                --cutscene:wait(1)
+                cutscene:wait(cutscene:attachFollowers())
+                Assets.playSound("noise")
+                Game.world.fader:fadeIn(nil, {alpha = 1, speed = 0.1})
+                Game.world.music:resume()
+                cutscene:wait(1)
+            end
+
+            return
+        end
+
+
         local susieHasMetSans = Game:getFlag("susieHasMetSans", false)
         local dessHasMetSans = Game:getFlag("dessHasMetSans", false)
         if cutscene:getCharacter("susie") and susieHasMetSans == false then
@@ -613,7 +671,7 @@ local hub = {
         else
             cutscene:showNametag("sans.", {font = "sans"})
             cutscene:text("[font:sans]* 'sup?", "neutral", "sans")
-            cutscene:hideNametag()			
+ 		
         end
 				
         local choice = cutscene:choicer({"Elevator", "How are\nyou here?", "Brother", "Nothing"})

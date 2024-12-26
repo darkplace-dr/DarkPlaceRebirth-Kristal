@@ -24,6 +24,7 @@ function SmallBullet:onShot(star)
 		Game.battle.soul.star = nil
 	end
 	self.physics.speed = -6
+        self.sprite:flash()
 	Game:giveTension(3)
 end
 
