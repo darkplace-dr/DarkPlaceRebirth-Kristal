@@ -40,7 +40,13 @@ local place_holder = function(cutscene, event)
         cutscene:text("* Party full.", "bruh", "noel")
     else
         cutscene:text("* May I join the party?", "bruh", "noel")
-        local choicer = cutscene:choicer({"Yes", "No"})
+        local choicer
+        if Game:isDessMode() then
+            cutscene:text("* nah this is dess mode[font:main_mono,16]TM[font:reset] so it's only me", "condescending", "dess")
+            choicer = 2
+        else
+            choicer = cutscene:choicer({"Yes", "No"})
+        end
         if choicer == 1 then
             cutscene:text("* Cool beans.", "bruh", "noel")
             local noel = cutscene:getCharacter("noel")
