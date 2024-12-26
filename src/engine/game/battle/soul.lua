@@ -231,6 +231,11 @@ function Soul:init(x, y, color)
     --Game.battle.music.basepitch = Game.battle.music.pitch
 
 	-- Timeslow ("Focus" Placebo) variables end here
+
+    -- for monster souls
+    if Game.party[1].monster then
+        self:setScale(-1, -1)
+    end
 end
 
 ---@param parent Object
