@@ -52,11 +52,13 @@ function item:init()
         susie = "Look. I have standards.",
         ralsei = "It's still wearable!",
         noelle = "(Reminds me of Asgore...)",
-        dess = "now i can go toe to toe with that BITCH catty",
+        dess = "now i can go toe to toe with that BITCH catty", -- who tf wrote this lmao
         jamm = "Ehh... Okay...?",
         ["jamm+marcy"] = "You want this, Marcy? Eh, sure...",
         noel = "Perfect for reverse weddings!",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...I look stupid."
 end
 
 function item:getShopDescription()

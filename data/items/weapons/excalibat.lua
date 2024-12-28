@@ -56,6 +56,8 @@ function item:init()
 		jamm = "I know I like green, but...",
                 noel = [[I WILL RULE "BASEBALL" ENGLAND!!!]],
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...and my bat is very very big."
 end
 
 function item:onEquip(character, replacement)

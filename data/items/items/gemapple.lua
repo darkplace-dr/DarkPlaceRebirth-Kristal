@@ -56,6 +56,8 @@ function item:init()
 		jamm = "Why don't we just cut our losses and sell it next time?",
 		noel = "Keep it ... Trust me ...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Looks rad at least."
 end
 
 function item:getBattleText(user, target)

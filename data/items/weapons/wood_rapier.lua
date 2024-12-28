@@ -1,35 +1,30 @@
-local item, super = Class(HealItem, "lightcandy")
+local item, super = Class(Item, "wood_rapier")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "LightCandy"
-    -- Name displayed when used in battle (optional)
-    self.use_name = nil
+    self.name = "Wood Rapier"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "item"
+    self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = nil
+    self.icon = "ui/menu/icon/rapier"
 
     -- Battle description
-    self.effect = "Heals\n120HP"
+    self.effect = ""
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "White candy with a chalky texture.\nIt'll recover 120HP."
-
-    -- Amount healed (HealItem variable)
-    self.heal_amount = 120
+    self.description = "A wooden practice rapier with a bark-\neinforced shell."
 
     -- Default shop price (sell price is halved)
-    self.price = 200
+    self.price = 60
     -- Whether the item can be sold
     self.can_sell = true
 
     -- Consumable target mode (ally, party, enemy, enemies, or none)
-    self.target = "ally"
+    self.target = "none"
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
     -- Item this item will get turned into when consumed
@@ -38,24 +33,31 @@ function item:init()
     self.instant = false
 
     -- Equip bonuses (for weapons and armor)
-    self.bonuses = {}
+    self.bonuses = {
+        attack = 0,
+    }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        frisk = true,
+    }
 
-    -- Character reactions (key = party member id)
+    -- Character reactions
     self.reactions = {
-        susie = "Hey, this rules!",
-        ralsei = "Nice and chalky.",
-        noelle = "(I-isn't this the chalk I gave her?)",
-		dess = "rudys got the chalkzone",
-        jamm = "Not the first time I ate chalk. Not the last, either.",
+        susie = "What's this!? A TOOTHPICK?",
+        ralsei = "That's yours, Frisk...",
+        noelle = "(wow...)",
+		dess = "Its not cool enough",
     }
 	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Blegh."
+	self.rdReactions["dess"] = "Fencing is for geeks."
+end
+
+function item:convertToLightEquip(chara)
+    return "ut_weapons/stick"
 end
 
 return item

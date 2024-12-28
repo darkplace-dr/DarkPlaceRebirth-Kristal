@@ -57,6 +57,8 @@ function item:init()
         jamm = "No thanks. Not after last time.",
         noel = "Now I can be an edgy bitch.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Heavy metal!"
 end
 
 function item:onEquip(character, replacement)

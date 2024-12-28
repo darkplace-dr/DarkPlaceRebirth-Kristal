@@ -51,6 +51,7 @@ function item:init()
         susie = "Nah, lances aren't really my style.",
         ralsei = "Um, that looks dangerous...",
         noelle = "It feels... magical?",
+		dess = "badass",
 		jamm = {
             jamm = "I never was a swords guy.",
             brenda = "Uhh... lances aren't swords?",
@@ -59,6 +60,9 @@ function item:init()
             noel = "Sure, give it to the possesed kid...",
         },
     }
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "That thing is seriously cursed..."
 end
 
 return item

@@ -21,6 +21,17 @@ function item:init()
 
     -- Amount healed (HealItem variable)
     self.heal_amount = 60
+	self.heal_amounts = {
+        kris = 60,
+        susie = 60,
+        ralsei = 60,
+        noelle = 60,
+        YOU = 60,
+        dess = nil,
+        brenda = 60,
+		jamm = 60,
+        noel = 60,
+    }
 
     -- Default shop price (sell price is halved)
     self.price = 100
@@ -48,8 +59,11 @@ function item:init()
         susie = "Hell yeah! Crunchy!",
         ralsei = "(Am I supposed to eat this?)",
         noelle = "(I'll just lick it off...)",
+		dess = "throw it at a window instead",
 		jamm = "Remind me to visit the dentist after this.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...no."
 end
 
 return item

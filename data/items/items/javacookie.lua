@@ -56,10 +56,13 @@ function item:init()
         susie = "It says GUTS!",
         ralsei = "It says Fluffy...",
         noelle = "I... I can't read these symbols...",
+		dess = "thank god its not a javascript cookie",
         jamm = "Better than Bedrock.",
         ["jamm+marcy"] = "You prefer Bedrock, Marcy?",
 		noel = "uh... are ya sure?",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...'Scratching'??"
 end
 
 return item

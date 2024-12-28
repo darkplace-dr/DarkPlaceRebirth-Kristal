@@ -57,6 +57,8 @@ function item:init()
         noel = "(Don't eat it, Don't eat it, Don't eat it, Don't eat it, Don't eat it.)",
 		jamm = "Is this Nyarla's? No? Okay then."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...I've seen movies about this."
 end
 
 function item:onEquip(character)

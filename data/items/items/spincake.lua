@@ -55,8 +55,11 @@ function item:init()
         susie = "I'm dizzy.",
         ralsei = "Mmm, thank you!",
         noelle = "My eyes are spinning...",
+		dess = "[joke removed due to in appropiate content]",
         jamm = "I need to sit down...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "The taste of pastry justice."
 end
 
 return item

@@ -52,9 +52,12 @@ function item:init()
     self.reactions = {
         robo_susie = "I'm too ultimate for that.",
         noyno = "Ommmmmm.....",
+		dess = "za warudo",
         noel = "I'm immune to chronomancy.",
         jamm = "Speed. I am speed."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Head in the game..."
 end
 
 -- Function overrides go here

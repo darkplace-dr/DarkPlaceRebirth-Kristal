@@ -56,6 +56,8 @@ function item:init()
         noel = "",
         nelle = "Ah, my first wand..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...ha, ha."
 end
 
 function item:convertToLightEquip(inventory)

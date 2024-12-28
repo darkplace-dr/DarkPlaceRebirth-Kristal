@@ -57,6 +57,8 @@ function item:init()
         brenda = "I prefer the Bluejays.",
 		jamm = "DAYTON DRAGONS!"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Who? It's quality, though."
 end
 
 --function item:convertToLightEquip(chara)

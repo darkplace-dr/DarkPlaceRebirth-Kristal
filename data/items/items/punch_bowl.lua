@@ -34,6 +34,7 @@ function item:init()
         ["brenda"] = 40,
 		["jamm"] = 0,
         ["noel"] = 999999999999999999999999999999, --fucking send him
+		-- :salute:
 	}
 
     -- Default shop price (sell price is halved)
@@ -69,6 +70,8 @@ function item:init()
 		jamm = "Alright. I punched it. What next?",
         noel = "I AM WHO IS ALL YET NONE!!!",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Eugh! Fake sugar!"
 end
 
 return item

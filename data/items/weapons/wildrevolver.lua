@@ -58,6 +58,8 @@ function item:init()
         brenda = "Time to enact some justice!",
         ceroba = "Is that...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Cowboys are out, Spaceships are in!"
 end
 
 return item

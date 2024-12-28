@@ -54,8 +54,11 @@ function item:init()
             ralsei = "Ah, I'm refreshed!"
         },
         noelle = "Mints? I love mints!",
+		dess = "jesser we have to cook methm",
         jamm = "And we used it here, why?",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "('Sending me high, high, hiiigh'...)"
 end
 
 function item:onWorldUse(target)

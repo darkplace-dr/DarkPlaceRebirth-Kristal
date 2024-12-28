@@ -56,6 +56,8 @@ function item:init()
 		brenda = "I don't play sports.",
 		jamm = "Don't want to hit a crotch again!"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "My cause is just, my will is strong..."
 end
 
 --function item:convertToLightEquip(chara)

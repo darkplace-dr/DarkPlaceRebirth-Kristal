@@ -55,10 +55,13 @@ function item:init()
         susie = "Ew, what the hell is this?!",
         ralsei = "A nice healthy snack to start the day!",
         noelle = "U-uh, sure..?",
+		dess = "OOOOOOH, BANANA",
 		noel = "AHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA",
 		jamm = "Gotta cut it up so I don't look gay...",
         ["jamm+marcy"] = "It's good for you, Marcy!",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Sure."
 end
 
 return item

@@ -48,8 +48,11 @@ function item:init()
         susie = "Don't throw mints at me!",
         ralsei = "It's minty!",
         noelle = "What are you throwing?",
+		dess = "oh shiit food fight",
         jamm = "Mints aren't my favorite, but...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "-! Almost swung on reaction!"
 end
 
 function item:onWorldUse(target)

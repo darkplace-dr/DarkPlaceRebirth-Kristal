@@ -27,6 +27,7 @@ function item:init()
         ["kris"] = 80,
         ["susie"] = 20,
         ["ralsei"] = 50,
+		["dess"] = 70,
         ["noelle"] = 70,
 		["jamm"] = 30,
     }
@@ -67,9 +68,12 @@ function item:init()
         susie = "THAT'S it?",
         ralsei = "Aww, thanks, Kris!",
         noelle = "Umm, it's ok, Kris, I'll share...",
+		dess = "sorry link, come back when you're a bit more, eeeeerrrrm, richer",
         jamm = "I thought this was hollow...?",
         ["jamm+marcy"] = "Prepare for a sugar rush, guys...!",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Cute."
 end
 
 function item:onWorldUse(target)

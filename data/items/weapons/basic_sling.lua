@@ -50,9 +50,12 @@ function item:init()
         susie = "What is this, a chew toy?",
         ralsei = "U-um... No thanks.",
         noelle = "O-oh, you just... Ow, my eye!",
+		dess = "stardew sucks ass",
         jamm = "Ol' reliable.",
         noel = "I will break it..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "I don't fight with toys."
 end
 
 function item:convertToLightEquip(inventory)

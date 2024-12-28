@@ -51,8 +51,11 @@ function item:init()
         susie = "This is Ralsei's deal.",
         ralsei = "I'm a prickly prince!",
         noelle = "(It's like Santa's beard?)",
+		dess = "who ever uses these",
         jamm = "Don't even think about it."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Who even makes these?!"
 end
 
 return item

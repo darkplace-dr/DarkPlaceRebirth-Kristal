@@ -37,6 +37,8 @@ function item:init()
         brenda = "(I'll just wipe my hands on my pants...)",
         jamm = "Isn't this dangerously cheesy???",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Meh. Junk."
 end
 
 return item

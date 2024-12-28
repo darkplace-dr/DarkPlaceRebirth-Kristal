@@ -61,9 +61,12 @@ function item:init()
         susie = "Tastes like theft.",
         ralsei = "I feel really bad...",
         noelle = "???",
+		dess = "do you get it",
 		jamm = "Not the first stolen food I ate.",
 		noel = "If this was green I would die.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Doesn't feel right."
 	
 	--self.light_item = "light/gamerblood"
 end

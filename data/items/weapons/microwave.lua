@@ -50,8 +50,11 @@ function item:init()
     self.reactions = {
         iphone = "...",
         noel = [[Do you want me to make "HOT POCKET"s?]],
+		dess = "another unused thing i think smh",
 		jamm = "I mean, am I supposed to throw it, or...?"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "This... is impractical."
 end
 
 function item:onBattleUpdate(battler)

@@ -54,9 +54,12 @@ function item:init()
     self.reactions = {
         susie = "It's too confusing...",
         ralsei = "I can't wrap my head around it...",
+		dess = "id rather get someone else to do it for me",
         noelle = "Print??? Return??? What is this saying???",
 		jamm = "Oh, yeah. This is easy to read."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "That weirdo might like this."
 end
 
 return item

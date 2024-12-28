@@ -51,9 +51,12 @@ function item:init()
         susie = "The aftertaste packs a punch.",
         ralsei = "How elegant!",
         noelle = "Such a soothing sound...",
+		dess = "kickass",
 		jamm = "Ooh! Spine tingling, I love it!",
 		noel = "The Meat Factory.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Kickass!"
 
     self.sounds = {
         ["kris"] = "synthsoda/kris",

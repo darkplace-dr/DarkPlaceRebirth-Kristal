@@ -53,6 +53,8 @@ function item:init()
         ["jamm+marcy"] = "Spells \"Family.\"",
         noel = "\"Dear Lunet?\"",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Feels like a sleepover..."
 end
 
 return item

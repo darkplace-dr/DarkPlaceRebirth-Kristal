@@ -57,6 +57,8 @@ function item:init()
 		jamm = "Not the first time I drank oil. Ow, though...",
 		noel = "[color:red]kill me...",
 	}
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Cough! Cough! The hell?"
 end
 
 -- Function overrides go here

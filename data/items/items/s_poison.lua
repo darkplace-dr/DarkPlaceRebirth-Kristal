@@ -48,8 +48,11 @@ function item:init()
         susie = "Ugh! ...tastes good?",
         ralsei = "Ow... er, thanks, Kris!",
         noelle = "(I'll... just pretend to drink it...)",
+		dess = "this sucks good",
         jamm = "Blech! What is this!?",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...no on the doping."
 
     -- Amount the poison damages in the world
     self.world_poison_amount = 20
@@ -70,6 +73,9 @@ function item:getBattleText(user, target)
 end
 
 function item:onWorldUse(target)
+	if target.id == "dess" and Game:getFlag("realDess") then
+		return false
+	end
     if target.id == "noelle" then
         return true
     end

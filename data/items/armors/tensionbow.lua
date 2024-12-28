@@ -47,8 +47,11 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+		dess = "im supa magical now",
         noel = "I feel tense. Good...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Another magic bow??"
 end
 
 return item

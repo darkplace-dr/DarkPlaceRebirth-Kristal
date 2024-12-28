@@ -56,6 +56,8 @@ function item:init()
         ["jamm+marcy"] = "We'll get you a better one, Marcy.",
         noel = "?.. This isn't meant to be here."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Ol' reliable."
 end
 
 --function item:convertToLightEquip(chara)
