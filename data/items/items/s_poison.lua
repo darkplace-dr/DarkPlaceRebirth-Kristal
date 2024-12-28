@@ -48,6 +48,7 @@ function item:init()
         susie = "Ugh! ...tastes good?",
         ralsei = "Ow... er, thanks, Kris!",
         noelle = "(I'll... just pretend to drink it...)",
+		dess = "this sucks good",
         jamm = "Blech! What is this!?",
     }
 
@@ -70,6 +71,9 @@ function item:getBattleText(user, target)
 end
 
 function item:onWorldUse(target)
+	if target.id == "dess" and Game:getFlag("realDess") then
+		return false
+	end
     if target.id == "noelle" then
         return true
     end

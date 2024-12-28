@@ -53,6 +53,7 @@ function item:init()
         susie = "Another one?!",
         ralsei = "Do I look good?",
         noelle = "It's pretty...",
+		dess = "yet another ribbion dialogue",
         ceroba = "Back where it should be.",
         noel = "I'll tie it to my umbrella.",
 		jamm = "I don't know how I'd make it work.",

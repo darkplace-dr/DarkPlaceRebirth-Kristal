@@ -47,8 +47,10 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+		dess = "nonfunctional lol",
         noel = "I just don't want it.",
     }
+
 end
 
 return item

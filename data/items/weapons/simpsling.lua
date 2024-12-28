@@ -49,7 +49,8 @@ function item:init()
     self.reactions = {
         jamm = "Don't have a cow, man.",
         ["jamm+marcy"] = "Huh? Yuri Nator? ...Oh. Clever, Marcy.",
-        noel = "SnIperMonkeyP"
+        noel = "SnIperMonkeyP",
+		dess = "play undertale 2 revenge of the robots",
     }
 end
 
