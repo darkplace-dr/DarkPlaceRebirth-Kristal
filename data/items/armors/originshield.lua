@@ -54,11 +54,14 @@ function item:init()
             noelle = "I-I'll um, p-protect you, Susie!",
             susie = "Uh, thanks I guess?"
         },
+		dess = "im not gonna sugarcoat it",
         brenda = "So I can just say \"no\" to damage sometimes with this?",
 		jamm = "Oof! It's heavy...",
 		mario = "Mario feels like a gladiator again.",
         noel = "(My quirk does a better job.)",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Better than a broken heart."
 
     self.dodge_chance = 0.1
     self.dodge_defend_bonus = 0.15

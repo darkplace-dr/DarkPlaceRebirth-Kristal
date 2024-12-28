@@ -48,8 +48,11 @@ function item:init()
         susie = "Don't throw dust at me!",
         ralsei = "It's minty!",
         noelle = "What are you sprinkling?",
+		dess = "jesser we have to cook cocainer",
         jamm = "Dust isn't my favorite, but...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "*sneeze* stop doin' that!"
 end
 
 function item:onWorldUse(target)

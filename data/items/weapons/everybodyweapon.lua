@@ -50,9 +50,12 @@ function item:init()
         susie = "Uhhh... Ok.",
         ralsei = "A perfect fit!",
         noelle = "Wh... what is this?",
+		dess = "boringggg but ok",
         noel = "Nice try...",
         jamm = "Now how do I use this..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "It's bat-like enough but..."
 end
 
 function item:canEquip(character, slot_type, slot_index)

@@ -1,35 +1,30 @@
-local item, super = Class(HealItem, "lightcandy")
+local item, super = Class(Item, "hyper_knife")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "LightCandy"
-    -- Name displayed when used in battle (optional)
-    self.use_name = nil
+    self.name = "HyperKnife"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "item"
+    self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = nil
+    self.icon = "ui/menu/icon/knife"
 
     -- Battle description
-    self.effect = "Heals\n120HP"
+    self.effect = ""
     -- Shop description
-    self.shop = ""
+    self.shop = "Well, i found this knife in the ground."
     -- Menu description
-    self.description = "White candy with a chalky texture.\nIt'll recover 120HP."
-
-    -- Amount healed (HealItem variable)
-    self.heal_amount = 120
+    self.description = "The completely (not) exclusive Knife of Dumbie."
 
     -- Default shop price (sell price is halved)
-    self.price = 200
+    self.price = 500
     -- Whether the item can be sold
     self.can_sell = true
 
     -- Consumable target mode (ally, party, enemy, enemies, or none)
-    self.target = "ally"
+    self.target = "none"
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
     -- Item this item will get turned into when consumed
@@ -38,24 +33,28 @@ function item:init()
     self.instant = false
 
     -- Equip bonuses (for weapons and armor)
-    self.bonuses = {}
+    self.bonuses = {
+        attack = 5,
+    }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = nil
-    self.bonus_icon = nil
+    self.bonus_name = "Ultra Knife"
+    self.bonus_icon = "ui/menu/ui/knife"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        dumbie = true,
+		kris = true,
+    }
 
-    -- Character reactions (key = party member id)
+    -- Character reactions
     self.reactions = {
-        susie = "Hey, this rules!",
-        ralsei = "Nice and chalky.",
-        noelle = "(I-isn't this the chalk I gave her?)",
-		dess = "rudys got the chalkzone",
-        jamm = "Not the first time I ate chalk. Not the last, either.",
+        dumbie = "THE POWER OF SUN, IN THE PALM OF MY HAND!!!!!",
+        brenda = "I... don't really like knives.",
+		dess = "isnt this unused now",
+		jamm = "Not my weapon. I said no!"
     }
 	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Blegh."
+	self.rdReactions["dess"] = "Nah."
 end
 
 return item

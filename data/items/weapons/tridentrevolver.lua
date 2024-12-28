@@ -58,6 +58,8 @@ function item:init()
         brenda = "It's fightin' time!",
 		jamm = "Three times what I'm used to..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Doesn't that weirdo like this?"
 end
 
 return item

@@ -50,8 +50,11 @@ function item:init()
         susie = "Smells like Noelle",
         ralsei = "Are you... proposing?",
         noelle = "(Thank goodness...)",
+		dess = "snowgrave route heheheheh",
         jamm = "It's pretty cold, huh..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Cute, reminds me of mom."
 end
 
 return item

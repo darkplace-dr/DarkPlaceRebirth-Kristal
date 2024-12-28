@@ -57,6 +57,8 @@ function item:init()
         ["jamm+marcy"] = "Hold on tight, Marcy!",
         noel = "Too much power for one man. Maybe enough power for two man. Defiently too much power for one man.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Can't we just call up Ice-E's?"
 end
 
 function item:canEquip(character, slot_type, slot_index)

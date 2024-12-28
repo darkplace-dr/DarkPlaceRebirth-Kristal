@@ -62,6 +62,8 @@ function item:init()
 	jamm = "Wait. I'm *not* supposed to eat it? Okay then.",
         noel = "I wear the banana???",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Hold this? Why???"
 end
 
 return item

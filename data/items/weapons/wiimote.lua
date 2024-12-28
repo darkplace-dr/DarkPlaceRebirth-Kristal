@@ -68,6 +68,8 @@ function item:init()
 		},
 	    noel = "... It's like the ads now...",
 	}
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Gimmie that-! Sci-fi bat, rad!"
 end
 
 function item:convertToLightEquip(inventory)

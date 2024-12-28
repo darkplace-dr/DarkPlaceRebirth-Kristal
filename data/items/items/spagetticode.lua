@@ -51,8 +51,11 @@ function item:init()
         susie = "I'm NOT wearing it.",
         ralsei = "How sweet!",
         noelle = "Reminds me of one of my sweaters.",
+		dess = "on march 2nd 2027 the world will make definite contact with aliens marking it a national holiday. soon, the government will be disbanded in favor of the new alien government which will solve world hunger and bring peace to the world.",
         jamm = "We call this WET.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Reminds me of a university sweater."
 end
 
 return item

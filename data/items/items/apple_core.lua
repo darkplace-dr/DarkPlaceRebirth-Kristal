@@ -68,6 +68,8 @@ function item:init()
         ["jamm+marcy"] = "...But we don't eat this part, Marcy.",
 		noel = "Don't waste food.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Who cares."
 end
 
 return item

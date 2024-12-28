@@ -54,9 +54,12 @@ function item:init()
             susie = "Hey, feed ME!!!"
         },
         noelle = "Oh, it's... sticky?",
+		dess = "pure sugar yum",
         jamm = "I'm not much of a sweet tooth. But...",
         ["jamm+marcy"] = "Here, Marcy. It's not my kind of snack.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "It's just sugar."
 end
 
 

@@ -54,6 +54,8 @@ function item:init()
         noel = "A heated blanket would do a better job.",
         dess = "i remember you're firegraves"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Hell yeah! I'm chilly!"
 end
 
 return item

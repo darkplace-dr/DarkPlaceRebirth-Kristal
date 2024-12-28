@@ -42,6 +42,9 @@ function item:init()
 	    jamm = "A lot of holes... You sure it's effective?",
         noel = "",
     }
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "What kind of..."
 end
 
 function item:convertToLightEquip(chara)

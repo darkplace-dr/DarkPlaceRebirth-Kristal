@@ -55,6 +55,8 @@ function item:init()
 	jamm = "Ow! Splinter...",
         noel = "you can only get one of these...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "No bat's got a hilt!"
 end
 
 function item:convertToLightEquip(chara)

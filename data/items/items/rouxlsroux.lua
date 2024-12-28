@@ -57,7 +57,10 @@ function item:init()
         ralsei = "Yum, is this spaghetti?",
         noelle = "Tastes like... jumprope?",
         jamm = "Huh. Roux... Not bad.",
+		dess = "(does a very realistic depiction of dance move titled 'the worm')",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Something out of a horror flick..."
 end
 
 return item

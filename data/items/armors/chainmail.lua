@@ -48,11 +48,13 @@ function item:init()
         susie = "Damn, guess I'm cursed.",
         ralsei = "A letter?... For me...?",
         noelle = "Armor? (It's cool...)",
-        dess = "ermmm this has GOT to be bait",
+        dess = "ermmm this has GOT to be bait dont feed the trolls guys",
         jamm = "Don't think this is a good idea...",
         noel = "I'll take my chances.",
         ["jamm+marcy"] = "Marcy, we don't respond to these.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "The last what-what lottery?"
 end
 
 return item

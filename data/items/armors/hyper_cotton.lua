@@ -49,7 +49,10 @@ function item:init()
     self.reactions = {
         dumbie = "Uh, thanks?",
         noel = "Hail the cotton gods!",
+		dess = "*sighhHhhhhh* unused",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Eh???"
 end
 
 return item

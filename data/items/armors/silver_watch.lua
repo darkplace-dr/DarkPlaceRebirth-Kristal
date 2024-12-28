@@ -58,6 +58,8 @@ function item:init()
         jamm = "Nah, I got my own. It's a Fitbit!",
         noel = "I already have a pocket watch...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Give that back!"
 end
 
 function item:convertToLightEquip(chara)

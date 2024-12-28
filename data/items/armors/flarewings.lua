@@ -57,6 +57,8 @@ function item:init()
         noel = "Cool anime shit.",
 		jamm = "So is this like an elytra, or...?"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Badass..."
 end
 
 return item

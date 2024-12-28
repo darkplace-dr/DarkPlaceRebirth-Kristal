@@ -61,10 +61,13 @@ function item:init()
         susie = "Stay Hydrated!",
         ralsei = "Stay Hydrated!",
         noelle = "Stay Hydrated!",
+		dess = "r/hydrohomies",
         brenda = "(I should probably drink more water...)",
 		jamm = "r/hydrohomies",
 		noel = "Stay Hydrated!",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Stay Hydrated!"
 	
 	--self.light_item = "light/gamerblood"
 end

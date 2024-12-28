@@ -50,8 +50,11 @@ function item:init()
         susie = "Ugh, it's too small!",
         ralsei = "Oh, it's too scary!",
         noelle = "(It's kinda cool...)",
+		dess = "HALLOWEEN IS BETTER FUCK CHRISTMAS",
         jamm = "Not really my style..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Christmas is better."
 end
 
 function item:convertToLightEquip(chara)

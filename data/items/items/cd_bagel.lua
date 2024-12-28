@@ -51,9 +51,12 @@ function item:init()
         susie = "It's got crunch.",
         ralsei = "How elegant!",
         noelle = "What a nice song...",
+		dess = ">look inside >cd",
         jamm = "So what decides these songs?",
         noel = "I'm seeing stars.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Need a toaster boombox."
 
     self.sounds = {
         ["kris"] = "cd_bagel/kris",

@@ -28,7 +28,7 @@ function item:init()
         ["ralsei"] = 60,
         ["noelle"] = 10,
         ["YOU"] = 60,
-        ["dess"] = 60,
+        ["dess"] = 10,
         ["brenda"] = 60,
 		["jamm"] = 999,
 		["mario"] = 10,
@@ -64,6 +64,9 @@ function item:init()
         ["jamm+marcy"] = "Like your mother used to make, right, Marcy?",
 		mario = "Blech! That tastes like shit!"
 	}
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "...Can't do meat."
 end
 
 -- Function overrides go here
@@ -72,7 +75,7 @@ function item:onBattleUse(user, target)
 	if target.chara.id == "jamm" then
 		target:heal(999, {1, 0, 1})
 		target:addShield(45)
-	elseif target.chara.id == "noelle" then
+	elseif target.chara.id == "noelle" or target.chara.id == "dess" then -- the non-meat eaters
 		target:heal(10, {1, 0, 1})
 	else
 		target:heal(60, {1, 0, 1})

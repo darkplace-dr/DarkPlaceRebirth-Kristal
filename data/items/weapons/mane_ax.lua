@@ -53,6 +53,9 @@ function item:init()
 	jamm = "I mean, I'm not THAT strong...",
         noel = "I'm gonna pull a [Rude Buster]!",
     }
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "What, and chop the ball??"
 end
 
 return item

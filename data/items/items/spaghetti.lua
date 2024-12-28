@@ -55,6 +55,8 @@ function item:init()
         ["jamm+marcy"] = "You don't like it either, do you? It's okay!",
 		mario = "That's-a so nice!"
 	}
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Was this aged in a cask???"
 end
 
 -- Function overrides go here

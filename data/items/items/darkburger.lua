@@ -24,7 +24,8 @@ function item:init()
     self.heal_amount = 70
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
-        ["noelle"] = 20
+        ["noelle"] = 20,
+		["dess"] = 20,
     }
 
     -- Default shop price (sell price is halved)
@@ -55,8 +56,11 @@ function item:init()
         susie = "Cooked to perfection!",
         ralsei = "A bit burnt...?",
         noelle = "I-is this real meat...?",
+		dess = "sorry man i only eat lettuce",
         jamm = "Burnt food isn't all that bad.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Ugh, indigestion."
 end
 
 return item

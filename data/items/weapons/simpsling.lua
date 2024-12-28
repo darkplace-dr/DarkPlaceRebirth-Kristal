@@ -49,8 +49,11 @@ function item:init()
     self.reactions = {
         jamm = "Don't have a cow, man.",
         ["jamm+marcy"] = "Huh? Yuri Nator? ...Oh. Clever, Marcy.",
-        noel = "SnIperMonkeyP"
+        noel = "SnIperMonkeyP",
+		dess = "play undertale 2 revenge of the robots",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Rebellious? Cool. But no thanks."
 end
 
 function item:convertToLightEquip(inventory)

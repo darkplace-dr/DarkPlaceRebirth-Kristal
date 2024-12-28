@@ -59,6 +59,8 @@ function item:init()
         ["jamm+marcy"] = "It won't fit either of us...!",
         noel = "I am not a circus.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Two tails?"
 end
 
 return item

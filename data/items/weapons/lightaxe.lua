@@ -54,6 +54,8 @@ function item:init()
         brenda = "Die monster, you don't belong in this world!",
 		jamm = "A light weapon? In a dark world? Sketchy..."
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Don't fear the reaper."
 end
 
 return item

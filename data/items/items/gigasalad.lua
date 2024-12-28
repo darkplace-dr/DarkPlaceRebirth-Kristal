@@ -25,6 +25,7 @@ function item:init()
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
         ["noelle"] = 90,
+		["dess"] = 80, -- -10 HP for the ranch tax
 		["jamm"] = 1,
     }
 
@@ -56,9 +57,13 @@ function item:init()
         susie = "Why this!?",
         ralsei = "Let's be healthy!",
         noelle = "Something to graze on!",
+		dess = "told you i eat lettuce",
         jamm = "Not much of a salad eater...",
         ["jamm+marcy"] = "It's good for you, Marcy!",
     }
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Drench it in ranch, heh."
 end
 
 return item

@@ -55,6 +55,8 @@ function item:init()
 		jamm = "But I'm not an NRA member!",
         noel = "Pathetic"
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "I ain't a murderer bub."
 end
 
 function item:convertToLightEquip(inventory)

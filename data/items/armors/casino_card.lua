@@ -49,6 +49,8 @@ function item:init()
         jamm = "No stranger to this.",
         ["jamm+marcy"] = "Gamble in moderation, Marcy.",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Takin' it to Vegas, baby."
 end
 
 function item:applyMoneyBonus(gold)

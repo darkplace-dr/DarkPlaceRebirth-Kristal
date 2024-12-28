@@ -54,6 +54,8 @@ function item:init()
         mario = "Tastes like glue!",
         noel = "Seam sells these ... right?",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Not on the merch! Ugh, fine."
 end
 
 return item

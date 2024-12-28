@@ -57,6 +57,8 @@ function item:init()
 		jamm = "For (i = 0, i < 2, i++), equip socks.",
         noel = "*wears like gloves* Same stats...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Haha, funny joke."
 end
 
 return item

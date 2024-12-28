@@ -70,6 +70,8 @@ function item:init()
         kangel = "It goes with my outfit!",
 		jamm = "I'm... Already taken...",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "So gaudy, ew."
 end
 
 function item:getReaction(user_id, reactor_id)

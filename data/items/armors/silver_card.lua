@@ -52,6 +52,8 @@ function item:init()
         jamm = "(Did they max it out...?)",
         noel = "How do I use one of these?",
     }
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "ATM Card, sweet."
 end
 
 function item:applyMoneyBonus(gold)

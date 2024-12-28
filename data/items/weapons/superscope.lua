@@ -56,6 +56,9 @@ function item:init()
         brenda = "Let's-a go!",
 		jamm = "Never thought I'd see one of these again..."
     }
+	
+	self.rdReactions = Utils.copy(self.reactions)
+	self.rdReactions["dess"] = "Isn't this old news?"
 end
 
 function item:convertToLightEquip(inventory)
