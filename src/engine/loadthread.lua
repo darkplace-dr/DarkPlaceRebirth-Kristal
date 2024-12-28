@@ -274,7 +274,7 @@ local loaders = {
                 end
                 for lib_id, lib in pairs(all_sharedlibs) do
                     local lib_path = lib.path:sub(#"sharedlibs/")
-                    local enabled = false
+                    local enabled = lib.default or false
                     if mod.config and mod.config[lib.id] then
                         enabled = true
                     end
