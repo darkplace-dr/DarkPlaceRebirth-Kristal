@@ -233,7 +233,21 @@ function Soul:init(x, y, color)
 	-- Timeslow ("Focus" Placebo) variables end here
 
     -- for monster souls
-    if Game.party[1].monster then
+
+    local highest_priority = -10
+    local highest_priority_chara = nil
+
+    for _, chara in ipairs(Game.party) do
+        if chara.soul_priority and chara.soul_priority > highest_priority then
+            highest_priority = chara.soul_priority
+            highest_priority_chara = chara
+        end
+    end
+
+   self.priority_chara = highest_priority_chara
+
+
+    if self.priority_chara.monster then
         self:setScale(-1, -1)
         self.sprite_focus:setColor(1, 0, 0)
     end
