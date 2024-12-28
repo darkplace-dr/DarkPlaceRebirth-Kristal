@@ -49,12 +49,9 @@ function item:init()
     self.reactions = {
         susie = "Well, if I have to.",
         ralsei = "It's a bit too heavy...",
-        jamm = "Too shiny. Don't want to dirty it.",
         noelle = "(W-wow, what presence...)",
-		dess = "ffs no",
+        jamm = "Too shiny. Don't want to dirty it."
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "The balance is all wrong."
 end
 
 return item

@@ -54,8 +54,6 @@ function item:init()
         ["jamm+marcy"] = "Relatable. // What do you mean, papa?",
         noel = "Am I being detained?",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Could wear it in a show."
 end
 
 return item

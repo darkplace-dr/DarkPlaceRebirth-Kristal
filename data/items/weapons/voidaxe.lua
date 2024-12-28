@@ -39,8 +39,6 @@ function item:init()
         brenda = "... No.",
         jamm = "*Kirby flashbacks*"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "It's like space! Rad!"
 end
 
 return item

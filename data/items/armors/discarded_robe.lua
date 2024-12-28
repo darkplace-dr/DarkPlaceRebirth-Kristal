@@ -54,8 +54,6 @@ function item:init()
         jamm = "Oops, put it on backwards! Let me just... There we go!",
         noel = "Smells like cats!!! :D",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Check it out, I'm a wiz!"
 end
 
 return item

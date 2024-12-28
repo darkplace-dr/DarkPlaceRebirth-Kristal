@@ -58,8 +58,6 @@ function item:init()
         ["jamm+marcy"] = "That reminds me. Never eat Lunchables, Marcy.",
         noel = "(I will treat this like a candy dispenser.)",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "I don't need two jobs."
 end
 
 function item:applyMoneyBonus(gold)

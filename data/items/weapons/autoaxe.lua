@@ -50,11 +50,8 @@ function item:init()
         susie = "*chainsaw noises* Hahaha!!",
         ralsei = "(Is this a good idea?)",
         noelle = "*zrrt* A-AHH! Scared myself...",
-		dess = "this is a great idea",
-        jamm = "Woah! Shakes a lot...",
+        jamm = "Woah! Shakes a lot..."
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "That's gonna kill somebody."
 end
 
 return item

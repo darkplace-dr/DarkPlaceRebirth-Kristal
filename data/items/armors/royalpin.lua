@@ -53,8 +53,6 @@ function item:init()
         jamm = "Not that I'm a part of her fan club, but...",
         noel = "Ow! MOTHERFU-",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "A pin for the collection."
 end
 
 return item

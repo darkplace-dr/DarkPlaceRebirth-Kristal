@@ -43,8 +43,6 @@ function item:init()
         noel = "Uwa~ True Emo~",
 		jamm = "Gotta support goth culture.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Hate the look but it's magic."
 end
 
 return item
