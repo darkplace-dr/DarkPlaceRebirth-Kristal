@@ -27,8 +27,7 @@ function item:init()
         ["kris"] = 120,
         ["susie"] = 10,
         ["ralsei"] = 120,
-        ["noelle"] = 400,
-		["dess"] = 40,
+        ["noelle"] = 400
     }
 
     -- Default shop price (sell price is halved)
@@ -65,11 +64,8 @@ function item:init()
             ralsei = "It's grape juice!",
             susie = "Huh, really?"
         },
-        noelle = "(Wonder if they sell this in gallons?)",
-		dess = "tastes like shit",
+        noelle = "(Wonder if they sell this in gallons?)"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "That's a first, too intense."
 end
 
 function item:getBattleHealAmount(id)

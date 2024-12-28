@@ -46,11 +46,8 @@ function item:init()
         susie = "... this is trash.",
         ralsei = "Should we fix this...?",
         noelle = "(Wh... why give this to me?)",
-        jamm = "Fess up. Who got scammed?",
-		dess = "billy mays'd, eh?",
+        jamm = "Fess up. Who got scammed?"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "It's scrap, who cares."
 end
 
 function item:getShopDescription()

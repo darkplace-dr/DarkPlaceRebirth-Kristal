@@ -53,8 +53,6 @@ function item:init()
         jamm = "Seems like a torture device.",
         noel = "Good job using debug cheater.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Punk."
 end
 
 return item

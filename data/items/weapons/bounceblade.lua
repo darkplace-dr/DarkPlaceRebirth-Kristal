@@ -51,11 +51,8 @@ function item:init()
         susie = "What is this, rubber?",
         ralsei = "Soft and squishy!",
         noelle = "S-stop thwacking me!",
-        jamm = "So is this like... a practice sword?",
-		dess = "im gonna poke holes in it",
+        jamm = "So is this like... a practice sword?"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Fun, but no."
 end
 
 function item:convertToLightEquip(chara)

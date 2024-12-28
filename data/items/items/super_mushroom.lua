@@ -69,8 +69,6 @@ function item:init()
 		mario = "Imma feel lightheaded! Wheeee!",
 		noel = "I'm big now?",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Woah. Fancy that."
 end
 
 function item:onWorldUse(target)

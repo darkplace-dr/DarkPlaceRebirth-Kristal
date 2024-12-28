@@ -54,8 +54,6 @@ function item:init()
         brenda = "Shot over a game of cards...",
 		jamm = "Why, Hornet...?",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "I don't do guns."
 end
 
 function item:convertToLightEquip(inventory)

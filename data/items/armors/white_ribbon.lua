@@ -56,8 +56,6 @@ function item:init()
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "Just like my eyes.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Reminds me of somthin'."
 end
 
 return item

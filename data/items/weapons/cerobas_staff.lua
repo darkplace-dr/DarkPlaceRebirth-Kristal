@@ -32,15 +32,12 @@ function item:init()
     self.reactions = {
         susie = "A stick with a ribbon? Seriously?",
         ralsei = "Not sure if I can use this...",
-		dess = "not on my wizard shit rn srry",
         martlet = "This belongs to Ceroba...",
-        noel = "I want it, but I don't want to use it.",
+        noel = "I prefer cats... (I WANT IT!!!)",
         noelle = "*ding* I love the bell!",
-        jamm = "Nope, definitely not!",
         ceroba = "Back where it belongs.",
+        jamm = "Nope, definitely not!"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Not my kind of big stick."
 end
 
 function item:convertToLightEquip(chara)

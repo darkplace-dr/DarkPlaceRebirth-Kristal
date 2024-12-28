@@ -47,11 +47,8 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-		dess = "nonfunctional lol",
         noel = "I just don't want it.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "A cape?! ...maybe."
 end
 
 return item

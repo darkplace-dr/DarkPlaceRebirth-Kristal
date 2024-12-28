@@ -55,8 +55,6 @@ function item:init()
         jamm = "",
         ["jamm+marcy"] = "Just like yours, Marcy..."
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Hey, that looks like-!!"
 
     self.light_item = "ut_armors/heart_locket"
 end
