@@ -35,6 +35,8 @@ function Noel:test()
 end
 
 local place_holder = function(cutscene, event)
+    --Game.world:getCharacter("noel").actor.default = "dess_mode/walk"
+
     local save = Noel:loadNoel()
     if #Game.party == 3 then 
         cutscene:text("* Party full.", "bruh", "noel")
@@ -43,7 +45,19 @@ local place_holder = function(cutscene, event)
         local choicer
         if Game:isDessMode() then
             cutscene:text("* nah this is dess mode[font:main_mono,16]TM[font:reset] so it's only me", "condescending", "dess")
-            choicer = 2
+            choicer = 0 --to avoid all choicer dialouge
+            if save.understand and save.understand.dessmode then
+            else
+                if save.met_dess and save.met_dess.met then
+                    cutscene:text("* Uhm,[wait:10][face:...] what???", "oh", "noel")
+                    cutscene:text("* Dess, I need some context here.", "neutral", "noel")
+                    cutscene:text("* You can't just say [voice:dess]dess mode[font:main_mono,16]TM[font:reset][voice:noel] and expect me to understand.", "bruh", "noel")
+                else
+                    cutscene:text("* Wha-[wait:10][face:huh] what?", "oh", "noel")
+                    cutscene:text("* What [wait:5][face:oh](or who)[face:bruh][wait:5] in the world is dess mode?", "...", "noel")
+                    cutscene:text("* Do I even know you?", "...", "noel")
+                end
+            end
         else
             choicer = cutscene:choicer({"Yes", "No"})
         end
@@ -54,7 +68,7 @@ local place_holder = function(cutscene, event)
             cutscene:attachFollowers()
             Game:setFlag("noel_SaveID", save["SaveID"])
             Game:addPartyMember("noel")
-        else
+        elseif choicer == 2 then
             cutscene:text("* Alright.", "bruh", "noel")
         end
     end
