@@ -48,11 +48,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
         jamm = "I suppose it's better...",
-        noel = "(Hey, it fits in my hand.)",
-		dess = "still hate stardew",
+        noel = "(Hey, it fits in my hand.)"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "I can't even hold this."
 end
 
 function item:convertToLightEquip(inventory)

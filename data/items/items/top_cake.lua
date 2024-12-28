@@ -51,12 +51,9 @@ function item:init()
         susie = "Mmm, seconds!",
         ralsei = "Whoops.",
         noelle = "Happy birthday! Haha!",
-		dess = "happy easter",
         jamm = "That's a LOT of sugar.",
         ["jamm+marcy"] = "Here. We'll split it, Marcy.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Happy new year! Heh!"
 end
 
 return item

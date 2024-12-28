@@ -48,11 +48,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
         mario = "Ooh, a mallet!",
-        noel = "(Why is it wooden???)",
-		dess = "this shit aint lucky",
+        noel = "(Why is it wooden???)"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Ugh, that's is a toy."
 end
 
 function item:convertToLightEquip(inventory)

@@ -55,8 +55,6 @@ function item:init()
         brenda = "I hate Welsh.",
 		jamm = "Cald.. Cael... Caledfa... No thanks."
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Can't spell it, won't use it."
 end
 
 function item:convertToLightEquip(chara)

@@ -52,8 +52,6 @@ function item:init()
         jamm = "How are we even carrying this?",
         noel = "You fucking idiot.",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Whuh? Heh? Heheh? Pfft."
 end
 
 function item:canEquip(character, slot_type, slot_index)

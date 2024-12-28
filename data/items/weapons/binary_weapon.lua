@@ -48,7 +48,7 @@ function item:init()
         susie = true,
         ralsei = false,
         noelle = true,
-        dess = false,
+        dess = true,
         brenda = true,
         jamm = true,
 		mario = true,
@@ -65,8 +65,6 @@ function item:init()
         noel = "no...",
 		jamm = "What did you say about Ania!?"
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "I... no."
 end
 
 return item

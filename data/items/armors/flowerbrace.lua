@@ -70,8 +70,6 @@ function item:init()
 		},
         dess = "ew im alergic to flowers AND love",
     }
-	self.rdReactions = Utils.copy(self.reactions)
-	self.rdReactions["dess"] = "Nope."
 end
 
 function item:onEquip(character, replacement)
