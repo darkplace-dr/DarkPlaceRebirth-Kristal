@@ -51,6 +51,7 @@ function item:init()
         susie = "I'm gonna floop someone.",
         ralsei = "More headwear? YES!",
         noelle = "I can't wear this...",
+		dess = "fucking lazy item",
         brenda = "Hopefully this doesn't mess up my hair.",
 	jamm = "Always wanted to play Football. No, not Soccer.",
         noel = "Better safe then sorry?",

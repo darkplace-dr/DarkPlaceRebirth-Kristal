@@ -51,6 +51,7 @@ function item:init()
         susie = "Hell'd you call this!?",
         ralsei = "I made this.",
         noelle = "B-Brainfreeze! ... kidding!",
+		dess = "[joke censored from mod]",
         jamm = "Tastes... Dignified.",
         ["jamm+marcy"] = "Marcy, it's not THAT funny. ...*snrk*",
         noel = "Why is it fluctuating?",

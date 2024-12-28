@@ -50,7 +50,8 @@ function item:init()
         susie = "Smells like Noelle",
         ralsei = "Are you... proposing?",
         noelle = "(Thank goodness...)",
-        jamm = "It's pretty cold, huh..."
+        jamm = "It's pretty cold, huh...",
+		dess = "snowgrave route heheheheh",
     }
 end
 

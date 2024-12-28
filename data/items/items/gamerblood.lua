@@ -61,9 +61,10 @@ function item:init()
         susie = "Hell yeah.",
         ralsei = "This tastes like green...?",
         noelle = "How does Berdly drink these?",
+		dess = "yeah im a gamer",
         brenda = "I can just taste the heart disease.",
-	jamm = "*cough* My throat... *cough*",
-	noel = "Wait, it's not real blood?",
+		jamm = "*cough* My throat... *cough*",
+		noel = "Wait, it's not real blood?",
     }
 	
 	self.light_item = "light/gamerblood"

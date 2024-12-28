@@ -49,6 +49,7 @@ function item:init()
     self.reactions = {
         dumbie = "Uh, thanks?",
         noel = "Hail the cotton gods!",
+		dess = "*sighhHhhhhh* unused",
     }
 end
 

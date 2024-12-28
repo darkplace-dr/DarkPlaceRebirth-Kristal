@@ -51,6 +51,7 @@ function item:init()
         susie = "(It's SO good!)",
         ralsei = "K-Kris!? I...",
         noelle = "(Huh? I didn't know Kris liked this flavor.)",
+		dess = "yoo its got legos in it",
         jamm = "IT'S JUST SO GOOD!",
     }
 end

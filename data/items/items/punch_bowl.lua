@@ -34,6 +34,7 @@ function item:init()
         ["brenda"] = 40,
 		["jamm"] = 0,
         ["noel"] = 999999999999999999999999999999, --fucking send him
+		-- :salute:
 	}
 
     -- Default shop price (sell price is halved)
