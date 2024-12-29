@@ -26,5 +26,14 @@ GITHUB_REPOS = {
 	},
 	polypoyo={
 		"dlc_test"
+	},
+	NelleMonelle={
+		"dlc_yellow"
+	},
+	BrendaK7200={
+		"dlc_forest"
+	},
+	JustAnotherRandomGithubUser={
+		"dpr_spamtown_dlc"
 	}
 }

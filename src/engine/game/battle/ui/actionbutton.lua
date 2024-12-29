@@ -44,7 +44,7 @@ function ActionButton:select()
             }
 
             Game.battle:addMenuItem({
-                ["name"] = self.battler.chara:getXActName() or "X-Action",
+                ["name"] = Game.battle.encounter.xact_name or (Game.battle.encounter.xact_names and Game.battle.encounter.xact_names[self.battler.chara.id]) or self.battler.chara:getXActName() or "X-Action",
                 ["tp"] = 0,
                 ["color"] = {self.battler.chara:getXActColor()},
                 ["data"] = spell,
@@ -125,6 +125,30 @@ function ActionButton:select()
     elseif self.type == "item" then
         Game.battle:clearMenuItems()
         for i,item in ipairs(Game.inventory:getStorage("items")) do
+            Game.battle:addMenuItem({
+                ["name"] = item:getName(),
+                ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
+                ["description"] = item:getBattleDescription(),
+                ["data"] = item,
+                ["callback"] = function(menu_item)
+                    Game.battle.selected_item = menu_item
+
+                    if not item.target or item.target == "none" then
+                        Game.battle:pushAction("ITEM", nil, menu_item)
+                    elseif item.target == "ally" then
+                        Game.battle:setState("PARTYSELECT", "ITEM")
+                    elseif item.target == "enemy" then
+                        Game.battle:setState("ENEMYSELECT", "ITEM")
+                    elseif item.target == "party" then
+                        Game.battle:pushAction("ITEM", Game.battle.party, menu_item)
+                    elseif item.target == "enemies" then
+                        Game.battle:pushAction("ITEM", Game.battle:getActiveEnemies(), menu_item)
+                    end
+                end
+            })
+        end
+        if Game.inventory:hasItem("oddstone") then
+            local item = Registry.createItem("oddstone")
             Game.battle:addMenuItem({
                 ["name"] = item:getName(),
                 ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",

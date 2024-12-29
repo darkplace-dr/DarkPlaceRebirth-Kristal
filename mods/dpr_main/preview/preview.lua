@@ -53,6 +53,7 @@ function preview:update()
     local is_options = (MainMenu.state == "OPTIONS")
         or (MainMenu.state == "DEFAULTNAME")
         or (MainMenu.state == "CONTROLS")
+        or (Utils.startsWith(MainMenu.state, "plugin"))
     if is_options and self.music_once == 0 then
 
         self.music_settings = Music("options_starry")
@@ -242,8 +243,7 @@ function preview:draw()
 end
 
 function preview:drawOverlay()
-    if (TARGET_MOD == self.mod_id and self.menu.state == "TITLE")
-        or (self:areWeSelected() and self.menu.state == "FILESELECT") then
+    if TARGET_MOD == self.mod_id and self.menu.state == "TITLE" then
         self:drawSplashText()
     end
 

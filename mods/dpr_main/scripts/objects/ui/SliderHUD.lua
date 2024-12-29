@@ -20,19 +20,19 @@ function SliderHUD:draw()
 	love.graphics.print(" x" .. 4, 50, 30)
 
 	local comp_steps = 0
-	for k,v in pairs(Game:getFlag("quest_progress")) do
-		if Game:getFlag("quest_progress_max")[k] <= 0 then
-			if Game:getFlag("quest_completed")[k] then
-				comp_steps = comp_steps + 1
-			end
-		else
-			if v >= Game:getFlag("quest_progress_max")[k] then
-				comp_steps = comp_steps + Game:getFlag("quest_progress_max")[k]
-			else
-				comp_steps = comp_steps + v
-			end
-		end
-	end
+	-- for k,v in pairs(Game:getFlag("quest_progress")) do
+		-- if Game:getFlag("quest_progress_max")[k] <= 0 then
+			-- if Game:getFlag("quest_completed")[k] then
+				-- comp_steps = comp_steps + 1
+			-- end
+		-- else
+			-- if v >= Game:getFlag("quest_progress_max")[k] then
+				-- comp_steps = comp_steps + Game:getFlag("quest_progress_max")[k]
+			-- else
+				-- comp_steps = comp_steps + v
+			-- end
+		-- end
+	-- end
 
 	love.graphics.printf("★x" .. comp_steps, SCREEN_WIDTH/2 + 120, 30, SCREEN_WIDTH, "left")
 

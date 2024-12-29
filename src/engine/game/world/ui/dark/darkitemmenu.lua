@@ -47,6 +47,9 @@ function DarkItemMenu:getCurrentStorage()
 end
 
 function DarkItemMenu:getSelectedItem()
+    if Game.inventory:hasItem("oddstone") and self.selected_item == 13 then
+        return Registry.createItem("oddstone")
+    end
     return Game.inventory:getItem(self:getCurrentItemType(), self.selected_item)
 end
 
@@ -55,13 +58,23 @@ function DarkItemMenu:updateSelectedItem()
         return
     end
     local items = self:getCurrentStorage()
-    if #items == 0 then
+    if Game.inventory:hasItem("oddstone") and #items == 0 then
+        self.item_selected_x = 1
+        self.item_selected_y = 8
+        self.selected_item = (2 * (self.item_selected_y - 1) + self.item_selected_x)
+        local odd_item = Registry.createItem("oddstone")
+        Game.world.menu:setDescription(odd_item:getDescription(), true)
+    elseif #items == 0 then
         self.state = "MENU"
         Game.world.menu:setDescription("", false)
     else
         if self.selected_item > #items then
             self.item_selected_x = (#items - 1) % 2 + 1
             self.item_selected_y = math.floor((#items - 1) / 2) + 1
+            if Game.inventory:hasItem("oddstone") then
+                self.item_selected_x = 1
+                self.item_selected_y = 8
+            end
             self.selected_item = (2 * (self.item_selected_y - 1) + self.item_selected_x)
         elseif self.selected_item < 1 then
             self.item_selected_x = 1
@@ -70,6 +83,9 @@ function DarkItemMenu:updateSelectedItem()
         end
         if items[self.selected_item] then
             Game.world.menu:setDescription(items[self.selected_item]:getDescription(), true)
+        elseif self.item_selected_x == 1 and self.item_selected_y == 8 then
+            local odd_item = Registry.createItem("oddstone")
+            Game.world.menu:setDescription(odd_item:getDescription(), true)
         else
             Game.world.menu:setDescription("", true)
         end
@@ -137,11 +153,14 @@ function DarkItemMenu:update()
         end
         if self.item_header_selected < 1 then self.item_header_selected = 3 end
         if self.item_header_selected > 3 then self.item_header_selected = 1 end
-        if Input.pressed("confirm") and (#Game.inventory:getStorage(self:getCurrentItemType()) > 0) then
+        if Input.pressed("confirm") and (#Game.inventory:getStorage(self:getCurrentItemType()) > 0 or Game.inventory:hasItem("oddstone")) then
             self.ui_select:stop()
             self.ui_select:play()
             self.item_selected_x = 1
             self.item_selected_y = 1
+            if #Game.inventory:getStorage(self:getCurrentItemType()) <= 0 and Game.inventory:hasItem("oddstone") then
+                self.item_selected_y = 8
+            end
             self.selected_item = 1
             self.state = "SELECT"
 
@@ -165,7 +184,13 @@ function DarkItemMenu:update()
             end
         end
         if Input.pressed("up") then
-            self.item_selected_y = self.item_selected_y - 1
+            if #Game.inventory:getStorage(self:getCurrentItemType()) > 0 then
+                if self.item_selected_y == 8 then
+                    local items = self:getCurrentStorage()
+                    self.item_selected_y = math.floor((#items - 1) / 2) + 2
+                end
+                self.item_selected_y = self.item_selected_y - 1
+            end
         end
         if Input.pressed("down") then
             self.item_selected_y = self.item_selected_y + 1
@@ -177,6 +202,10 @@ function DarkItemMenu:update()
                 self.item_selected_x = ((#items - 1) % 2) + 1
             end
             self.item_selected_y = math.floor((#items - 1) / 2) + 1
+            if Game.inventory:hasItem("oddstone") then
+                self.item_selected_x = 1
+                self.item_selected_y = 8
+            end
         end
         self.selected_item = (2 * (self.item_selected_y - 1) + self.item_selected_x)
         if self.item_selected_y ~= old_y or self.item_selected_x ~= old_x then
@@ -187,6 +216,9 @@ function DarkItemMenu:update()
         if Input.pressed("confirm") then
             --self.selected_item = (2 * (self.item_selected_y - 1) + self.item_selected_x)
             local item = items[self.selected_item]
+            if self.item_selected_x == 1 and self.item_selected_y == 8 then
+                item = Registry.createItem("oddstone")
+            end
             if self.item_header_selected == 2 then
                 self.state = "USE"
 
@@ -204,6 +236,9 @@ function DarkItemMenu:update()
 
                         if result ~= false then
                             Game.inventory:removeItem(item)
+                        end
+                        if self.item_selected_y >= 8 then
+                            self.item_selected_y = 1
                         end
                     end
                     self:updateSelectedItem()
@@ -307,6 +342,24 @@ function DarkItemMenu:draw()
         item:onMenuDraw(self.parent)
     end
 
+    if Game.inventory:hasItem("oddstone") then
+        local odd_item = Registry.createItem("oddstone")
+        -- Draw the item shadow
+        Draw.setColor(PALETTE["world_text_shadow"])
+        local name = odd_item:getWorldMenuName()
+        love.graphics.print(name, 54 + 2, 40 + (7 * 30) + 2)
+
+        if self.state == "MENU" then
+            Draw.setColor(PALETTE["world_gray"])
+        else
+            if odd_item.usable_in == "world" or odd_item.usable_in == "all" then
+                Draw.setColor(PALETTE["world_text"])
+            else
+                Draw.setColor(PALETTE["world_text_unusable"])
+            end
+        end
+        love.graphics.print(name, 54, 40 + (7 * 30))
+    end
     super.draw(self)
 end
 

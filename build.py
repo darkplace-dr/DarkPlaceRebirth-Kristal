@@ -95,6 +95,10 @@ try:
 except FileExistsError:
     pass
 try:
+    os.makedirs(os.path.join(build_path, "lovepkg"))
+except FileExistsError:
+    pass
+try:
     os.makedirs(os.path.join(build_path, "kristal"))
 except FileExistsError:
     pass
@@ -126,7 +130,7 @@ try:
 except:
     pass
 
-kristal_love_path = os.path.join(output_path, "kristal-"+ver_str+".love")
+kristal_love_path = os.path.join(build_path, "lovepkg", "kristal.love")
 
 print("Copying engine files...")
 
@@ -136,7 +140,8 @@ ignorefiles = [
     ".vscode",
     "docs",
     "lib",
-    "build"
+    "build",
+    "output"
 ]
 
 try:
@@ -155,7 +160,7 @@ shutil.make_archive(os.path.join(build_path, "kristal"), 'zip', os.path.join(bui
 print("Removing copied files...")
 shutil.rmtree(os.path.join(build_path, "kristal"))
 
-print("Renaming .zip to .love and moving it to the output folder...")
+print("Renaming .zip to .love and preparing for packaging...")
 shutil.move(os.path.join(build_path, "kristal.zip"), kristal_love_path)
 
 love2d_path = None
@@ -215,7 +220,7 @@ setInfo("FileVersion", windows_ver)
 setInfo("ProductVersion", windows_ver)
 setInfo("FileDescription", file_description)
 setInfo("InternalName", "Kristal")
-setInfo("LegalCopyright", "Copyright © 2023 Kristal Team")
+setInfo("LegalCopyright", "Copyright © 2024 Kristal Team")
 setInfo("OriginalFilename", "kristal.exe")
 setInfo("ProductName", "Kristal")
 
@@ -255,13 +260,16 @@ for file in copyfiles:
 print("Copying libraries...")
 
 for file in os.listdir(os.path.join(kristal_path, "lib")):
-    shutil.copy(os.path.join(kristal_path, "lib", file), os.path.join(build_path, "executable"))
+    if file.endswith(".dll"):
+        shutil.copy(os.path.join(kristal_path, "lib", file), os.path.join(build_path, "executable"))
+    shutil.copy(os.path.join(kristal_path, "lib", file), os.path.join(build_path, "lovepkg"))
 
-print("Zipping built file...")
+print("Zipping Kristal packages...")
+shutil.make_archive(os.path.join(output_path, "kristal-"+ver_str+"-love"), 'zip', os.path.join(build_path, "lovepkg"))
 shutil.make_archive(os.path.join(output_path, "kristal-"+ver_str+"-win"), 'zip', os.path.join(build_path, "executable"))
 
 print("Done!")
 print("Generated files:")
-print("> kristal-"+ver_str+".love")
-print("> kristal-"+ver_str+".zip")
+print("> kristal-"+ver_str+"-love.zip")
+print("> kristal-"+ver_str+"-win.zip")
 print("> example-mod.zip")

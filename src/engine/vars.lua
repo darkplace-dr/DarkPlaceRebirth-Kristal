@@ -281,4 +281,9 @@ KRISTAL_EVENT = {
     onRegisterShops = "onRegisterShops", -- shop scripts finished registering / in: Registry.initShops() / passes: NONE / returns: NONE
     onRegisterMinigames = "onRegisterMinigames", -- minigame scripts finished registering / in: Registry.initMinigames() / passes: NONE / returns: NONE
     onRegistered = "onRegistered", -- all scripts finished registering / in: Registry.initialize(preload) / passes: NONE / returns: NONE
+
+    --dark place events--
+    onDPDessTalk = "onDPDessTalk", -- talked to dess in Dess - THE BEGINNING / in: dpr_main/scripts/world/cutscenes/desslmao.lua / passes: NONE / returns: NONE
+    onDPUnlockPartyMember = "onDPUnlockPartyMember", -- player unlocked a new party member / in: Game:unlockPartyMember(member) / passes: string:member / returns: NONE
+    onDPWarpBinUsed = "onDPWarpBinUsed", -- player used the warp bin / in: Game:unlockPartyMember(member) / passes: string:code, WarpBinCodeInfo?:action / returns: NONE
 }

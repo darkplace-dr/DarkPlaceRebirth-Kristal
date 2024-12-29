@@ -97,7 +97,7 @@ end
 
 function LightMenu:onButtonSelect(button)
     if button == 1 then
-        if Game.inventory:getItemCount(self.storage, false) > 0 then
+        if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
             self.state = "ITEMMENU"
             Input.clear("confirm")
             self.box = LightItemMenu()
@@ -188,10 +188,10 @@ function LightMenu:draw()
     love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
 
     love.graphics.setFont(self.font)
-    if Game.inventory:getItemCount(self.storage, false) <= 0 then
-        Draw.setColor(PALETTE["world_gray"])
-    else
+    if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
         Draw.setColor(PALETTE["world_text"])
+    else
+        Draw.setColor(PALETTE["world_gray"])
     end
     love.graphics.print("ITEM", 84, 188 + (36 * 0))
     Draw.setColor(PALETTE["world_text"])

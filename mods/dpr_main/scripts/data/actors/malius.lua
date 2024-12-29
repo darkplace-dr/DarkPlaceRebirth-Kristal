@@ -27,10 +27,14 @@ function actor:init()
 
     self.animations = {
         ["idle"] = {"idle", 0.25, true},
+        ["powerup"] = {"powerup", 1/15, true},
+        ["hit"] = {"hit", 1/15, false},
     }
 
     self.offsets = {
         ["idle"] = {0, 0},
+        ["powerup"] = {-5, -4},
+        ["hit"] = {-5, -6},
     }
 end
 

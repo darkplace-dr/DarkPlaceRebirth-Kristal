@@ -38,7 +38,6 @@ function actor:init()
 
         -- Battle animations
         ["battle/idle"]         = {"battle_dungeonkiller/idle", 0.2, true},
-        ["battle/low_health"]   = {"battle_dungeonkiller/low_hp", 0.2, true},
 
         ["battle/attack"]       = {"battle_dungeonkiller/attack", 1/15, false},
         ["battle/act"]          = {"battle_dungeonkiller/act", 1/15, false},

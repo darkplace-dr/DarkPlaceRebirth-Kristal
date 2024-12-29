@@ -24,8 +24,8 @@
 
     // The inventory. Contains three darkburgers, a cell phone and a shadow crystal by default.
     "inventory": {
-        "items": ["glowshard", "darkburger", "darkburger", "darkburger"],
-        "key_items": ["cell_phone", "shadowcrystal"]
+        "items": [],
+        "key_items": []
     },
 	
 	// Reaction messages for specific names that players may input in the naming screen.
@@ -97,6 +97,22 @@
 		"RALSEI",
 		"NORWAY"
 	],
+
+    //Custom keybinds
+    "keybinds": [
+        {
+            "name": "Taunt",
+            "id": "taunt",
+            "keys": ["v"],
+            "gamepad": []
+        },
+        {
+            "name": "Focus",
+            "id": "focus_placebo",
+            "keys": ["a"],
+            "gamepad": []
+        },
+    ],
 
     // Equipment for your party. Not specifying equipment defaults to the following.
     "equipment": {

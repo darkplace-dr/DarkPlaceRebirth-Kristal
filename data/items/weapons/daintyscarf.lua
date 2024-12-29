@@ -50,6 +50,9 @@ function item:init()
         susie = "IT'S MADE OF DOILIES!",
         ralsei = "I'll protect everyone!",
         noelle = "S-stop covering me with it!",
+		dess = "who am i the queen of england",
+        jamm = "I can't even heal us."
+
     }
 end
 

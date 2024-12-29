@@ -35,6 +35,7 @@ return function(cutscene, event)
         -- user changed their mind
         return
     elseif not action then
+        Kristal.callEvent(KRISTAL_EVENT.onDPWarpBinUsed, action_raw)
         if event then
             if event.foolproof_counter == nil then event.foolproof_counter = 0 end
             event.foolproof_counter = event.foolproof_counter + 1
@@ -143,6 +144,7 @@ return function(cutscene, event)
         cutscene:playSound("impact")
 
         cutscene:wait(1)
+        Kristal.callEvent(KRISTAL_EVENT.onDPWarpBinUsed, action_raw, action)
         cutscene:loadMap(dest_map, marker, "down")
         cutscene:fadeIn(0.25)
     end

@@ -48,6 +48,8 @@ function actor:init()
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     self.offsets = {

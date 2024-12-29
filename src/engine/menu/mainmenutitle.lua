@@ -84,6 +84,13 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
         elseif option == "dlc" then
             self.menu:setState("DLC")
             --love.system.openURL("file://"..love.filesystem.getSource().."/mods")
+        elseif option == "modfolder" then
+            -- FIXME: the game might freeze when using love.system.openURL to open a file directory
+            if (love.system.getOS() == "Windows") then
+                os.execute('start /B \"\" \"'..love.filesystem.getSaveDirectory()..'/mods\"')
+            else
+                love.system.openURL("file://"..love.filesystem.getSaveDirectory().."/mods")
+            end
 
         elseif option == "options" then
             self.menu:setState("OPTIONS")

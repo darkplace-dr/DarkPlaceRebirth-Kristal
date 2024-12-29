@@ -3,11 +3,14 @@ local UfoEncounter, super = Class(Encounter)
 function UfoEncounter:init()
     super.init(self)
 
-    -- Text displayed at the bottom of the screen at the start of the encounter
-    self.text = "* It's too easy!"
-
     -- Battle music ("battle" is rude buster)
-    self.music = "threestrikesyoureout"
+    if Game:isDessMode() then
+        self.music = nil
+        self.text = "* Undefeatable."
+    else
+        self.music = "threestrikesyoureout"
+        self.text = "* It's too easy!"
+    end
 
     -- Enables the purple grid battle background
     self.background = false
@@ -26,6 +29,8 @@ function UfoEncounter:init()
     if Game:getFlag("mimic_defeated") == true then
         self.boss_rush = true
     end
+
+    self.font = Assets.getFont("main")
 end
 
 function UfoEncounter:onBattleInit()
@@ -37,6 +42,29 @@ function UfoEncounter:onBattleInit()
         self.bg = StarsBG({1, 1, 1})
 	    Game.battle:addChild(self.bg)
     end
+end
+
+function UfoEncounter:draw()
+    local nrg = Game.battle.encounter.energy 
+    super.draw(self)
+    love.graphics.setFont(self.font)
+
+    Draw.setColor(0, 0.1, 0.5, 1)
+    love.graphics.print("ENERGY: "..nrg.."%", 72, 20)
+    love.graphics.print("ENERGY: "..nrg.."%", 68, 20)
+    love.graphics.print("ENERGY: "..nrg.."%", 70, 22)
+    love.graphics.print("ENERGY: "..nrg.."%", 70, 18)
+
+    love.graphics.rectangle("fill", 48,8, 204,14)
+    Draw.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", 50,10, 200,10)
+    Draw.setColor(1, 1, 0.5, 1)
+    love.graphics.rectangle("fill", 50,10, nrg * 2,10)
+
+    love.graphics.print("ENERGY: "..nrg.."%", 70, 20)
+
+
+    --Game.battle.encounter.energy
 end
 
 function UfoEncounter:onActionsEnd()

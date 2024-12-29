@@ -53,6 +53,62 @@ function Player:init(chara, x, y)
     self.outlinefx = self:addFX(outlinefx)
 	
 	self.disable_running = false
+	
+	self.siner = 0
+	
+	self.invincible_colors = false
+	self.inv_timer = 0
+	self.old_song = ""
+    local so_gamer = [[
+#define OCTAVES 4  // Reduced number of octaves
+
+extern vec2 iResolution;
+extern float iTime;
+
+float random (in vec2 uv) {
+    return fract(sin(dot(uv.xy, vec2(3.1, 6.1))) * 30.1);
+}
+
+float noise (in vec2 uv) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+float fbm (in vec2 uv) {
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;  // Initialize frequency to 1.0
+
+    for (int i = 0; i < OCTAVES; i++) {
+        value += amplitude * noise(uv * frequency);  // Apply frequency scaling here
+        frequency *= 2.0;  // Double the frequency each octave
+        amplitude *= 0.5;
+    }
+    return value;
+}
+
+vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
+    vec2 uv = screen_coords / iResolution;
+
+    uv.x *= iResolution.x / iResolution.y;
+
+    vec3 col = 2.3 * 0.5 + cos(iTime * 8 + 10.0 * fbm(uv * 3.14159) + vec3(0, 23, 21));  // Use a constant for pi
+    col += fbm(uv * 6.0);
+
+    return Texel(tex, texture_coords) * vec4(col, 1.0) * color;
+}
+
+    ]]
+    self.so_gamer = love.graphics.newShader(so_gamer)
 end
 
 function Player:getDebugInfo()
@@ -193,6 +249,7 @@ end
 function Player:isMovementEnabled()
     return not OVERLAY_OPEN
         and not Game.lock_movement
+        and not Game.taunt_lock_movement
         and not self.slide_lock_movement
         and Game.state == "OVERWORLD"
         and self.world.state == "GAMEPLAY"
@@ -224,6 +281,7 @@ function Player:handleMovement()
 	if self.disable_running then running = false end
 
     local speed = self.walk_speed
+	
     if running then
         if self.run_timer > 60 then
             speed = speed + (Game:isLight() and 6 or 5)
@@ -235,6 +293,10 @@ function Player:handleMovement()
     end
 	
 	if self.disable_running then speed = self.walk_speed end
+	
+	if self.invincible_colors then
+		speed = speed * 1.5
+	end
 
     self:move(walk_x, walk_y, speed * DTMULT)
 
@@ -394,6 +456,73 @@ function Player:update()
     outlinefx:setAlpha(self.battle_alpha)
 
     super.update(self)
+	
+    if self.invincible_colors then
+        self:starman()
+    end
+end
+
+function Player:starman()
+	
+    if Kristal.Config["simplifyVFX"] == true then
+		self.siner = self.siner + DT * 40
+		self.inv_timer = self.inv_timer - DT
+		self:setColor(Utils.hsvToRgb(((self.siner * 8) % 255)/255, 255/255, 255/255))
+		if (self.inv_timer + DT) % 0.125 < self.inv_timer % 0.125 then
+			local afterimage = Sprite(self.sprite:getTexture(), self.x - self.sprite:getOffset()[1], self.y - self.sprite:getOffset()[2])
+			afterimage:setScale(2, 2)
+			afterimage:setOrigin(0.5, 1)
+			afterimage:setColor(self.color)
+			Game.world:spawnObject(afterimage)
+			Game.world.stage.timer:tween(0.5, afterimage, {alpha = 0}, 'linear', function()
+                            afterimage:remove()
+                        end)
+		end
+	
+	if self.inv_timer <= 0 and self.invincible_colors then
+		self.invincible_colors = false
+		Game.world.music:play(self.old_song)
+		self:setColor(1, 1, 1, 1)
+                self:removeFX(66)
+	end
+
+    else
+        self.siner = self.siner + DT * 40
+        self.inv_timer = self.inv_timer - DT
+
+        if not self.shader_applied then
+            self:addFX(ShaderFX(self.so_gamer, {
+                ["iTime"] = function () return love.timer.getTime() end,
+                ["iResolution"] = { love.graphics.getWidth(), love.graphics.getHeight() }
+            }), 66)
+            self.shader_applied = true
+        end
+
+        if (self.inv_timer + DT) % 0.125 < self.inv_timer % 0.125 then
+            local afterimage = Sprite(self.sprite:getTexture(), self.x - self.sprite:getOffset()[1], self.y - self.sprite:getOffset()[2])
+            afterimage:setScale(2, 2)
+            afterimage:setOrigin(0.5, 1)
+            -- Apply the shader effect to the afterimage
+
+            local hey_yall = love.timer.getTime()
+            afterimage:addFX(ShaderFX(self.so_gamer, {
+                ["iTime"] = function () return hey_yall end,
+                ["iResolution"] = { love.graphics.getWidth(), love.graphics.getHeight() }
+            }))
+            Game.world:spawnObject(afterimage)
+            Game.world.stage.timer:tween(0.5, afterimage, {alpha = 0}, 'linear', function()
+                afterimage:remove()
+            end)
+        end
+
+        if self.inv_timer <= 0 and self.invincible_colors then
+            self.invincible_colors = false
+            self:setColor(1, 1, 1, 1)
+            self:removeFX(66)
+            self.shader_applied = false
+            Game.world.music:play(self.old_song)
+        end
+    end
 end
 
 function Player:draw()

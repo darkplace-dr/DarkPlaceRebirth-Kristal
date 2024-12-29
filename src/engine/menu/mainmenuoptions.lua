@@ -82,6 +82,7 @@ end
 -------------------------------------------------------------------------------
 
 function MainMenuOptions:onEnter(old_state)
+    if old_state == "plugins" then return end
     self.selected_option = 1
     self.selected_page = 1
 
@@ -657,6 +658,22 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("engine", "Instant Quit", "instantQuit")
 
     self:registerConfigOption("gameplay", "Prefer Goner Keybd.", "prefersGonerKeyboard")
+    self:registerConfigOption("gameplay", "Enable Shatter", "enableShatter")
+    self:registerOption("gameplay", "Plugins", function ()
+        local active, total = 0, 0
+        local enabled = Kristal.Config["plugins/enabled_plugins"] or {}
+        for _, mod in ipairs(Kristal.Mods.getMods()) do
+            if mod.plugin then total = total + 1 end
+            if enabled[mod.id] then active = active + 1 end
+        end
+        return active.."/"..total
+    end,
+    function ()
+        ---@diagnostic disable-next-line: undefined-field
+        if Kristal.PluginLoader == nil then Assets.playSound("ui_cant_select"); return end
+        self:remove_noel_char()
+        self.menu:pushState("plugins")
+    end)
 end
 
 -------------------------------------------------------------------------------

@@ -42,6 +42,7 @@ Kristal.warp_bin_codes = {
     },
     ["FLOORONE"] = { result = "main_hub", mod = "dpr_main" },
     ["ENCOUNTR"] = { result = "encounter_test", mod = "dpr_main" },
+    ["SLIDER"] = { result = "slider_start", mod = "dpr_main" },
 }
 local gray_area_info = {
     result = function(cutscene)

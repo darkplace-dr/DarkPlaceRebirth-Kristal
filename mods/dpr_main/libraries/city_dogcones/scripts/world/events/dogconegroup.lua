@@ -4,11 +4,12 @@ function DogConeGroup:init(data)
     super.init(self, data)
 
     self:setOrigin(0, 0)
-    self:setHitbox(0, self.height / 2, self.width, self.height / 2)
+    self:setHitbox(0, 20, self.width, self.height - 20)
+    self.interact_count = 0
 
     self.solid = false
 
-    self.scissor_fx = ScissorFX(0, 0, self.width, self.height)
+    self.scissor_fx = ScissorFX(-40, -40, self.width+80, self.height+80)
     self:addFX(self.scissor_fx)
 
     self.cones = { }
@@ -53,23 +54,36 @@ function DogConeGroup:onLoad()
 end
 
 function DogConeGroup:createCones()
-    local j = math.floor(self.width / 40)
+    local width = math.floor(self.width / 40)
+    local height = math.floor(self.height / 40)
 
-    for i=1,j do
-        local cone = Sprite("world/events/dogcone")
-        cone.x     = self:getInactiveConePosition(self.cone_origin)
-        self:addChild(cone)
-        cone:setScale(2)
-        table.insert(self.cones, cone)
+    for _=1,width do
+        for _=1,height do
+            local cone = Sprite("world/events/dogcone")
+            cone.x, cone.y = self:getInactiveConePosition(self.cone_origin)
+            cone.debug_select = false
+            self:addChild(cone)
+            cone:setScale(2)
+            table.insert(self.cones, cone)
+        end
     end
 end
 
 function DogConeGroup:getActiveConePosition(index)
-    return ((index - 1) * 40) + 6
+    return ((((index - 1) % math.floor(self.width / 40))) * 40) + 6,
+    math.floor((index-1) / (self.width/40)) * 40
 end
 
 function DogConeGroup:getInactiveConePosition(origin)
-    return origin == "left" and -34 or self.width + 6
+    if origin == "left" then
+        return -34, 0
+    elseif origin == "right" then
+        return self.width + 6, 0
+    elseif origin == "top" then
+        return 6, -20
+    else
+        return 6, self.height + 0
+    end
 end
 
 ---Changes the state that the dogcones are in, or does nothing if they are already in that state.
@@ -80,6 +94,8 @@ function DogConeGroup:setConesState(state, options)
     local new
 
     local statedict = {
+        open        = false ,
+        closed      = true  ,
         inactive    = false ,
         active      = true  ,
         on          = true  ,
@@ -107,12 +123,15 @@ function DogConeGroup:setConesState(state, options)
 
 
     for i, cone in ipairs(self.cones) do
-        local target_x = not new and self:getInactiveConePosition(origin) or self:getActiveConePosition(i)
+        --- @diagnostic disable-next-line: unbalanced-assignments # it's fine dw
+        local target_x, target_y = self:getInactiveConePosition(origin)
+        if new then target_x, target_y = self:getActiveConePosition(i) end
         if instant then
             cone.x = target_x
+            cone.y = target_y
 
         else
-            cone:slideTo(target_x, cone.y, frames/30)
+            cone:slideTo(target_x, target_y, frames/30)
 
         end
     end
@@ -123,20 +142,16 @@ end
 
 function DogConeGroup:onInteract(player, dir)
     if not self.solid then
-        return true
+        return false
     end
 
-    local interact = self:getFlag("interact", 0)
+    self.interact_count = self.interact_count + 1
 
-    if interact > 3 then
-        Assets.playSound("snd_pombark", 1, Utils.pick({1, 1, 1, 1, 1, 1, 1, Utils.random(0.6, 1.6)}))
-
+    if self.interact_count > 3 and math.random() < 1/8 then
+        Assets.playSound("snd_pombark", 1, Utils.random(0.6, 1.6))
     else
         Assets.playSound("snd_pombark")
-
     end
-
-    self:setFlag("interact", interact + 1)
 
     return true
 end
@@ -147,7 +162,7 @@ end
 ---that the code WILL get angry if you don't specify `"right"`.
 ---@param origin any
 function DogConeGroup:assertOrigin(origin)
-    assert(type(origin) == "string" and (origin == "left" or origin == "right"), "Cone group origin must be 'left' or 'right', but was '" .. origin .. "' instead.")
+    assert(type(origin) == "string" and (origin == "left" or origin == "right" or origin == "top" or origin == "bottom"), "Cone group origin must be 'left' or 'right', but was '" .. origin .. "' instead.")
 end
 
 return DogConeGroup

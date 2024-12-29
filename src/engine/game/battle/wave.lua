@@ -84,6 +84,28 @@ function Wave:init()
     -- Timer for convenience
     self.timer = Timer()
     self:addChild(self.timer)
+
+    -- Ceroba's shield on turn start
+    if Game.battle:getPartyBattler("ceroba") then
+        if not Game.battle.no_buff_loop then
+            Game.battle.no_buff_loop = true
+            self.timer:after(0.05, function()
+                local diamond = Sprite("effects/spells/ceroba/diamond")
+                diamond:setOrigin(0.5, 0.5)
+                diamond:setColor(Game:getSoulColor())
+                diamond:setScale(2, 2)
+                diamond:setPosition(Game.battle.soul:getExactPosition(Game.battle.soul.width/2, Game.battle.soul.height/2))
+                diamond.layer = Game.battle.soul.layer + 1
+                Assets.playSound("trap")
+                diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.5) end)
+                Game.battle.soul.parent:addChild(diamond)
+            end)
+            self.timer:after(0.5, function()
+                Assets.playSound("equip_armor")
+                Game:getSoulPartyMember().pp = 1
+            end)
+        end
+    end
 end
 
 --- *(Override)* Called every frame after [`Wave:onStart()`](lua://Wave.onStart) has run

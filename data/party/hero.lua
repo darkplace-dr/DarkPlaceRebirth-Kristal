@@ -35,11 +35,10 @@ function character:init()
     self.weapon_icon = "ui/menu/equip/sword"
 
     self:setWeapon("chosen_blade")
-    self:setArmor(1, "amber_card") -- Placeholder
-    self:setArmor(2, "amber_card") -- Placeholder
 
     self.lw_weapon_default = "light/pencil"
     self.lw_armor_default = "light/bandage"
+    self.lw_portrait = "face/hero/neutral_closed"
 
     self.color = {1, 0.5, 0}
     self.dmg_color = {1, 0.5, 0.25}
@@ -50,7 +49,7 @@ function character:init()
     self.icon_color = {1, 127/255, 39/255}
 
     self.menu_icon = "party/hero/head"
-    self.head_icons = "party/hero/icon" -- Placeholder
+    self.head_icons = "party/hero/icon"
     self.name_sprite = "party/hero/name"
 
     self.attack_sprite = "effects/attack/cut"
@@ -58,7 +57,7 @@ function character:init()
     self.attack_pitch = 1
 
     self.battle_offset = {2, 1}
-    self.head_icon_offset = nil
+    self.head_icon_offset = {0, -3}
     self.menu_icon_offset = {3, 0}
 
     self.gameover_message = nil

@@ -28,10 +28,12 @@ function FileButton:setData(data)
     self.area = data and data.room_name or "------------"
 
     if data and data.playtime then
-        local minutes = math.floor(data.playtime / 60)
+        local hours = math.floor(data.playtime / 3600)
+        local minutes = math.floor(data.playtime / 60 % 60)
         local seconds = math.floor(data.playtime % 60)
-        self.time = string.format("%d:%02d", minutes, seconds)
+        self.time = string.format("%d:%02d:%02d", hours, minutes, seconds)
     else
+        -- Don't ask why it's not "--:--:--" -- ask Toby
         self.time = "--:--"
     end
 end
@@ -97,37 +99,41 @@ function FileButton:draw()
     if not self.prompt then
         -- Draw the name shadow
         Draw.setColor(0, 0, 0)
-        local name_x = (self.width-self.font:getWidth(self.name))/2 + 2
-        love.graphics.print(self.name, name_x + 2, 2 + 2)
+        local name_x = Utils.clamp((self.width-self.font:getWidth(self.name))/2 + 2, 6, self.width - 6)
+        local name_sx = self.font:getWidth(self.name) <= 256 and 1 or 256/self.font:getWidth(self.name)
+        love.graphics.print(self.name, name_x + 2, 2 + 2, 0, name_sx, 1)
         -- Draw the name
         Draw.setColor(self:getDrawColor())
-        love.graphics.print(self.name, name_x, 2)
+        love.graphics.print(self.name, name_x, 2, 0, name_sx, 1)
 
         -- Draw the time shadow
-        local time_x = (self.width-self.font:getWidth(self.time))/2 + 2
+        local time_x = Utils.clamp((self.width-self.font:getWidth(self.time))/2 + 2, 6, self.width - 6)
+        local time_sx = self.font:getWidth(self.time) <= 256 and 1 or 256/self.font:getWidth(self.time) + 2
         Draw.setColor(0, 0, 0)
-        love.graphics.print(self.time, time_x + 2, 76 + 2)
+        love.graphics.print(self.time, time_x + 2, 76 + 2, 0, time_sx, 1)
         -- Draw the time
         Draw.setColor(self:getDrawColor())
-        love.graphics.print(self.time, time_x, 76)
+        love.graphics.print(self.time, time_x, 76, 0, time_sx, 1)
     else
         -- Draw the prompt shadow
-        local prompt_x = (self.width-self.font:getWidth(self.prompt))/2 + 2
+        local prompt_x = Utils.clamp((self.width-self.font:getWidth(self.prompt))/2 + 2, 6, self.width - 6)
+        local prompt_sx = self.font:getWidth(self.prompt) <= 256 and 1 or 256/self.font:getWidth(self.prompt)
         Draw.setColor(0, 0, 0)
-        love.graphics.print(self.prompt, prompt_x + 2, 2 + 2)
+        love.graphics.print(self.prompt, prompt_x + 2, 2 + 2, 0, prompt_sx, 1)
         -- Draw the prompt
         Draw.setColor(self:getDrawColor())
-        love.graphics.print(self.prompt, prompt_x, 2)
+        love.graphics.print(self.prompt, prompt_x, 2, 0, prompt_sx, 1)
     end
 
     if not self.choices then
         -- Draw the area shadow
-        local area_x = (self.width-self.font:getWidth(self.area))/2 + 2
+        local area_x = Utils.clamp((self.width-self.font:getWidth(self.area))/2 + 2, 6, self.width - 6)
+        local area_sx = self.font:getWidth(self.area) <= 256 and 1 or 256/self.font:getWidth(self.area)
         Draw.setColor(0, 0, 0)
-        love.graphics.print(self.area, area_x + 2, 38 + 2)
+        love.graphics.print(self.area, area_x + 2, 38 + 2, 0, area_sx, 1)
         -- Draw the area
         Draw.setColor(self:getDrawColor())
-        love.graphics.print(self.area, area_x, 38)
+        love.graphics.print(self.area, area_x, 38, 0, area_sx, 1)
     else
         -- Draw the shadow for choice 1
         Draw.setColor(0, 0, 0)

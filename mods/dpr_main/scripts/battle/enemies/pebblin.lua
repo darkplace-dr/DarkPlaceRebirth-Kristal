@@ -4,23 +4,25 @@ function Pebblin:init()
     super.init(self)
 
     self.name = "Pebblin"
-    self:setActor("dummy") -- Placeholder
+    self:setActor("pebblin")
 
     self.max_health = 150
     self.health = 150
     self.attack = 3
     self.defense = 5
     self.money = 15
-    self.experience = 3
+    if Game.world.map.id == "grey_cliffside/cliffside_right_3" then
+        self.experience = 10
+    else
+        self.experience = 3
+    end
 
     self.killable = true
 
     self.spare_points = 20
 
-    self.waves = { -- Placeholder
-        "basic",
-        "aiming",
-        "movingarena"
+    self.waves = {
+        "pebbledrop"
     }
 
     self.dialogue = { -- Placeholder
@@ -68,6 +70,32 @@ function Pebblin:onAct(battler, name)
     -- If the act is none of the above, run the base onAct function
     -- (this handles the Check act)
     return super.onAct(self, battler, name)
+end
+
+function Pebblin:onDefeat(damage, battler)
+    self:onDefeatFatal(damage, battler)
+    return
+end
+
+function Pebblin:onDefeatFatal(damage, battler)
+    self.hurt_timer = -1
+
+    Assets.playSound("vaporized", 1.2)
+
+    local sprite = self:getActiveSprite()
+
+    sprite.visible = false
+    sprite:stopShake()
+
+    local death_x, death_y = sprite:getRelativePos(0, 0, self)
+    local death
+    death = DustEffect(sprite:getTexture(), death_x, death_y, function() self:remove() end)
+     
+    death:setColor(sprite:getDrawColor())
+    death:setScale(sprite:getScale())
+    self:addChild(death)
+
+    self:defeat("KILLED", true)
 end
 
 return Pebblin

@@ -368,7 +368,9 @@ function LightAdvancedSaveMenu:drawSaveFile(index, data, x, y, selected, header)
             local time_text = string.format("%d:%02d", minutes, seconds)
             love.graphics.print(time_text, x + 234 - self.font:getWidth(time_text), y + 6)
     
-            love.graphics.print(data.room_name, x + (260 / 2) - self.font:getWidth(data.room_name) / 2, y + 82)
+            local room_x = Utils.clamp((260 / 2) - self.font:getWidth(data.room_name)/2, 12, math.huge)
+            local room_sx = self.font:getWidth(data.room_name) <= 237 and 1 or 237/self.font:getWidth(data.room_name)
+            love.graphics.print(data.room_name, x + room_x, y + 82, 0, room_sx, 1)
     
             if selected and not header and self.selected_y ~= 3 then
                 Draw.setColor(Game:getSoulColor())

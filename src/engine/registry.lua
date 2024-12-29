@@ -32,6 +32,8 @@
 ---@field shops table<string, Shop>
 ---@field borders table<string, Border>
 ---@field minigames table<string, MinigameHandler>
+---@field materials table<string, Material>
+---@field shaders table<string, Shader>
 ---
 local Registry = {}
 local self = Registry
@@ -67,6 +69,8 @@ Registry.paths = {
     ["minigames"]        = "minigames",
     ["combos"]           = "battle/combos",
     ["quests"]           = "data/quests",
+    ["materials"]        = "data/materials",
+    ["shaders"]          = "shaders",
 }
 
 ---@param preload boolean?
@@ -102,6 +106,18 @@ function Registry.initialize(preload)
                 local chunk = love.filesystem.load("scripts/"..path..".lua")
                 self.base_scripts[path] = chunk
             end
+
+            Kristal.PluginLoader.script_chunks = {}
+            for plugin in Kristal.PluginLoader.iterPlugins(true) do
+                for _,path in ipairs(Utils.getFilesRecursive(plugin.path.."/scripts", ".lua")) do
+                    local chunk = love.filesystem.load(plugin.path.."/scripts/"..path..".lua")
+                    Kristal.PluginLoader.addScriptChunk(plugin.id, path, chunk)
+                end
+                if Mod and love.filesystem.getInfo(plugin.path.."/plugin.lua") then
+                    local chunk = love.filesystem.load(plugin.path.."/plugin.lua")
+                    Kristal.PluginLoader.plugin_scripts[plugin.id] = assert(chunk(), plugin.path.."/plugin.lua returned nil.")
+                end
+            end
         end
 
         Registry.initActors()
@@ -129,6 +145,8 @@ function Registry.initialize(preload)
         Registry.initMinigames()
         Registry.initCombos()
         Registry.initQuests()
+        Registry.initMaterials()
+        Registry.initShaders()
 
         Kristal.callEvent(KRISTAL_EVENT.onRegistered)
     end
@@ -547,6 +565,18 @@ function Registry.createQuest(id, ...)
     end
 end
 
+function Registry.getMaterial(id)
+    return self.materials[id]
+end
+
+function Registry.createMaterial(id, ...)
+    if self.materials[id] then
+        return self.materials[id](...)
+    else
+        error ("Attempted to create nonexistent material \"" .. tostring(id) .. "\"")
+    end
+end
+
 -- Register Functions --
 
 ---@param id string
@@ -697,6 +727,18 @@ end
 ---@param class Minigame
 function Registry.registerMinigame(id, class)
     self.minigames[id] = class
+end
+
+---@param id string
+---@param class Material
+function Registry.registerMaterial(id, class)
+    self.materials[id] = class
+end
+
+---@param id string
+---@param class Shader
+function Registry.registerShader(id, class)
+    self.shaders[id] = class
 end
 
 -- Internal Functions --
@@ -1013,6 +1055,25 @@ function Registry.initQuests()
     end
 end
 
+function Registry.initMaterials()
+    self.materials = {}
+
+    for _,path,material in self.iterScripts(Registry.paths["materials"]) do
+        assert(material ~= nil, '"data/materials/' .. path .. '.lua" does not return value')
+        material.id = material.id or path
+        self.materials[material.id] = material
+    end
+end
+
+function Registry.initShaders()
+    self.shaders = {}
+
+    for _,path,shader in Registry.iterScripts("shaders/") do
+        assert(shader ~= nil, '"shaders/'..path..'.lua" does not return value')
+        self.shaders[path] = shader
+    end
+end
+
 ---@param base_path string
 ---@param exclude_folder boolean?
 ---@return fun() : string?, string?, ...
@@ -1094,6 +1155,12 @@ function Registry.iterScripts(base_path, exclude_folder)
             parse("scripts/"..base_path, library.info.script_chunks)
         end
         parse("scripts/"..base_path, Mod.info.script_chunks)
+        for plugin,_,_ in Kristal.PluginLoader.iterPlugins(true) do
+            local value = Kristal.PluginLoader.script_chunks[plugin.id]
+            if value then
+                parse(base_path, value)
+            end
+        end
     end
 
     CLASS_NAME_GETTER = DEFAULT_CLASS_NAME_GETTER

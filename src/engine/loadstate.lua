@@ -68,6 +68,7 @@ function Loading:beginLoad()
     self.load_complete = false
 
     Kristal.loadAssets("", "all", "")
+    Kristal.loadAssets("", "plugins", "")
     Kristal.loadAssets("", "mods", "", function ()
         self.loading = false
         self.load_complete = true

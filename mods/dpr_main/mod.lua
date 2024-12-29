@@ -6,7 +6,6 @@ function Mod:init()
     self.border_shaders = {}
 
     self:setMusicPitches()
-
 end
 
 function Mod:postInit(new_file)
@@ -26,12 +25,24 @@ function Mod:postInit(new_file)
         if Game.save_name == "SUPER" then
             Game.inventory:addItem("chaos_emeralds")
         end
-
         local baseParty = {}
-        table.insert(baseParty, "hero") -- should be just Hero for now
-        Game:setFlag("_unlockedPartyMembers", baseParty)
+        if Game.save_name == "DESS" then
+            Game:setFlag("Dess_Mode", true)
+
+            table.insert(baseParty, "dess") -- :heckyeah:
+            Game:setFlag("_unlockedPartyMembers", baseParty)
+            Game:addPartyMember("dess")
+            Game:removePartyMember("hero")
+        else
+            table.insert(baseParty, "hero") -- should be just Hero for now
+            Game:setFlag("_unlockedPartyMembers", baseParty)
+        end
 
         Game.world:startCutscene("_main.introcutscene")
+    end
+    if not Game:getFlag("FUN") then
+        local random = math.random(1,100)
+        Game:setFlag("FUN", random)
     end
 end
 

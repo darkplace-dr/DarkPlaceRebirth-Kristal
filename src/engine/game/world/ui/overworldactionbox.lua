@@ -10,8 +10,9 @@ function OverworldActionBox:init(x, y, index, chara)
 
     self.head_sprite = Sprite(chara:getHeadIcons().."/head", 13, 13)
 
+    local ox, oy = chara:getNameOffset()
     if chara:getNameSprite() then
-        self.name_sprite = Sprite(chara:getNameSprite(), 51, 16)
+        self.name_sprite = Sprite(chara:getNameSprite(), 51 + ox, 16 + oy)
         self:addChild(self.name_sprite)
     end
 
@@ -102,13 +103,13 @@ function OverworldActionBox:draw()
         Draw.setColor(1, 1, 1, 1)
 
         local name = self.chara:getName():upper()
-        local spacing = 5 - name:len()
+        local ox, oy = self.chara:getNameOffset()
 
-        local off = 0
+        local start_x = 51 + ox
+        local end_x = start_x + (55 - ox)
         for i = 1, name:len() do
             local letter = name:sub(i, i)
-            love.graphics.print(letter, 51 + off, 16 - 1)
-            off = off + font:getWidth(letter) + spacing
+            love.graphics.print(letter, (start_x + ((i) * ((end_x - start_x)/name:len()))) - font:getWidth(letter), 16 - 1 + oy)
         end
     end
 

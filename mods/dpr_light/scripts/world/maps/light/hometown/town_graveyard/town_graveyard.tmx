@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="18" nextobjectid="21">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="19" nextobjectid="23">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -156,12 +156,22 @@
    </properties>
   </object>
   <object id="19" gid="330" x="52" y="162" width="78" height="50"/>
+  <object id="21" name="npc" x="80" y="350">
+   <properties>
+    <property name="actor" value="brenda_lw"/>
+    <property name="cond" value="Game:hasDLC(&quot;dlc_forest&quot;)"/>
+    <property name="cutscene" value="hometown.brenda"/>
+    <property name="facing" value="left"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="10" name="markers">
   <object id="16" name="spawn" x="1160" y="320">
    <point/>
   </object>
  </objectgroup>
+ <objectgroup id="18" name="controllers"/>
  <imagelayer id="12" name="gateup" offsetx="992" offsety="80">
   <image source="../../../../../../assets/sprites/world/maps/hometown/gravegup.png" width="66" height="320"/>
  </imagelayer>

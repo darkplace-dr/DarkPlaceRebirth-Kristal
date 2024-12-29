@@ -28,7 +28,7 @@ function actor:init()
     -- Sound to play when this actor speaks (optional)
     self.voice = "hero"
     -- Path to this actor's portrait for dialogue (optional)
-    self.portrait_path = nil
+    self.portrait_path = "face/hero"
     -- Offset position for this actor's portrait (optional)
     self.portrait_offset = nil
 
@@ -139,12 +139,6 @@ function actor:init()
 
         ["wall_slam"] = {-1, 0},
     }
-end
-
-
-function actor:onTextSound()
-    Assets.playSound("voice/default", 1, 1)
-    Assets.playSound("voice/battle", 1, 1)
 end
 
 return actor

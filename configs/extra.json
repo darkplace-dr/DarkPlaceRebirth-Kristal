@@ -10,7 +10,8 @@
         "Console": "console",
         "Debug Menu": "debug_menu",
         "Object Selector": "object_selector",
-        "Fast Forward": "fast_forward"
+        "Fast Forward": "fast_forward",
+        "Mod Rebind": "mod_rebind"
     },
 
     // Menu Scroller

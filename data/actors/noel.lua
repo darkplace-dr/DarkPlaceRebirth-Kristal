@@ -89,6 +89,7 @@ function actor:init()
 
         ["brella"] = {-6, -7},
 
+        ["dess_mode/walk"] = {-4, -10},
 
         ["walk/down"] = {0, 1},
         ["walk/up"] = {0, 1},

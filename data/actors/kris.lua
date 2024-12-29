@@ -137,6 +137,9 @@ function actor:init()
         ["t_pose"] = {-4, 0},
     }
 
+    -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
+    self.taunt_sprites = {"pose", "peace", "t_pose", "sit"}
+
     self.menu_anim = "pose"
 end
 

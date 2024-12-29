@@ -1,3 +1,4 @@
+--[[
 Utils.hook(LightItemMenu, "init", function(orig, self)
     orig(self)
 
@@ -210,3 +211,4 @@ Utils.hook(LightItemMenu, "useItem", function(orig, self, item)
         end
     end
 end)
+--]]

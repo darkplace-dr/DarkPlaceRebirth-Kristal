@@ -50,6 +50,8 @@ function item:init()
         susie = "No. Just... no.",
         ralsei = "Comfy! Touch it, Kris!",
         noelle = "Huh? No, I'm not cold.",
+        jamm = "Red is... not my color.",
+		dess = "fgdsfgsdfgsdf",
     }
 end
 

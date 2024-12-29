@@ -19,18 +19,4 @@ function badge:init()
     self.price = 1000
 end
 
-local function updateMaxTensionDeferred()
-    Game.world.timer:after(0.1, function()
-        Mod:updateMaxTension()
-    end)
-end
-
-function badge:onBadgeEquipped()
-    updateMaxTensionDeferred()
-end
-
-function badge:onBadgeRemoved()
-    updateMaxTensionDeferred()
-end
-
 return badge

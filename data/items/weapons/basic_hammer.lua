@@ -48,7 +48,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
         mario = "Ooh, a mallet!",
-        noel = "(Why is it wooden???)"
+        noel = "(Why is it wooden???)",
+		dess = "this shit aint lucky",
     }
 end
 

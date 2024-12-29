@@ -45,7 +45,7 @@ function PartySelectMenu:init(selected)
 		["DELTARUNE"] = self.deltarune,
 		["[color:#7F00FF]Dark Place"] = self.dark_place,
 		["Fangames"] = self.fangames,
-		["Miscelanious"] = self.misc,
+		["Miscellaneous"] = self.misc,
 	}
 
 	if Game:loadNoel() then -- oh ho ho! secret character!

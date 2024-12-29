@@ -28,8 +28,10 @@ function ActionBox:init(x, y, index, battler)
     end
     self.force_head_sprite = false
 
+    self.name_offset_x, self.name_offset_y = battler.chara:getNameOffset()
+
     if battler.chara:getNameSprite() then
-        self.name_sprite = Sprite(battler.chara:getNameSprite(), 51, 14)
+        self.name_sprite = Sprite(battler.chara:getNameSprite(), 51 + self.name_offset_x, 14 + self.name_offset_y)
         self.box:addChild(self.name_sprite)
     end
 
@@ -135,7 +137,7 @@ function ActionBox:update()
 
     self.head_sprite.y = 11 - self.data_offset + self.head_offset_y
     if self.name_sprite then
-        self.name_sprite.y = 14 - self.data_offset
+        self.name_sprite.y = 14 - self.data_offset + self.name_offset_y
     end
     self.hp_sprite.y = 22 - self.data_offset
 
@@ -144,9 +146,10 @@ function ActionBox:update()
         --its a bit messy but i dont have the willpower to clean it
 
         local current_head = self.battler.chara:getHeadIcons().."/"..self.battler:getHeadIcon()
+        local head_has_icons = true
         if not self.head_sprite:hasSprite(current_head) then
             current_head = "ui/battle/icon/"..self.battler:getHeadIcon()
-
+            head_has_icons = false
             if not self.head_sprite:hasSprite(current_head) then
                current_head = self.battler.chara:getHeadIcons().."/head"
             end
@@ -155,6 +158,10 @@ function ActionBox:update()
         if not self.head_sprite:isSprite(current_head) then
             local color = {1, 1, 1}
             self.head_sprite:setColor(self.battler.chara.icon_color or color)
+            if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                -- These icons are already colored and don't play nice with the coloring system.
+                self.head_sprite:setColor(color)
+            end
             self.head_sprite:setSprite(current_head)
         end
     end
@@ -192,13 +199,12 @@ function ActionBox:draw()
         Draw.setColor(1, 1, 1, 1)
 
         local name = self.battler.chara:getName():upper()
-        local spacing = 5 - name:len()
 
-        local off = 0
+        local start_x = self.box.x + (51 + self.name_offset_x)
+        local end_x = start_x + (55 - self.name_offset_x)
         for i = 1, name:len() do
             local letter = name:sub(i, i)
-            love.graphics.print(letter, self.box.x + 51 + off, self.box.y + 14 - self.data_offset - 1)
-            off = off + font:getWidth(letter) + spacing
+            love.graphics.print(letter, (start_x + ((i) * ((end_x - start_x)/name:len()))) - font:getWidth(letter), self.box.y + 14 - self.data_offset - 1 + self.name_offset_y)
         end
     end
 end

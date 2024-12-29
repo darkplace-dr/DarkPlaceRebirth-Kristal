@@ -7,7 +7,7 @@ return function(cutscene)
     
     
     cutscene:wait(5)
-    cutscene:textTagged("* You might wanna get comfy.[wait:5] This'll take a while.", nil, "hero")
+    cutscene:textTagged("* You might wanna get comfy.[wait:5] This'll take a while.", "neutral_closed_b", "hero")
     cutscene:textTagged("* Uh,[wait:5] if you say so.", "suspicious", "susie")
     
     -- Susie walks to the left wall and leans on it.
@@ -31,8 +31,8 @@ return function(cutscene)
     susie:setSprite("walk_unhappy")
     susie:setFacing("right")
     cutscene:textTagged("* Hey,[wait:5] why'd we stop?", "nervous_side", "susie")
-    cutscene:textTagged("* I'm...[wait:5] not sure.", nil, "hero")
-    cutscene:textTagged("* Sans DID say the elevator wasn't finished, though.", nil, "hero")
+    cutscene:textTagged("* I'm...[wait:5] not sure.", "shocked", "hero")
+    cutscene:textTagged("* Sans DID say the elevator wasn't finished, though.", "neutral_closed", "hero")
 
     -- Susie walks towards the center of the room.
     susie:walkTo(316, susie.y, 2)
@@ -68,7 +68,7 @@ return function(cutscene)
     susie:setSprite("away_turn")
     cutscene:textTagged("* ...[wait:10] We're going back down?", "surprise", "susie")
     hero:setFacing("left")
-    cutscene:textTagged("* Better than being stuck,[wait:5] I suppose.", nil, "hero")
+    cutscene:textTagged("* Better than being stuck,[wait:5] I suppose.", "annoyed", "hero")
     cutscene:textTagged("* Yeah,[wait:5] I guess so.", "neutral_side", "susie")
     cutscene:wait(3)
     
@@ -88,7 +88,7 @@ return function(cutscene)
     -- Hero walks over to the door.
     hero:walkToSpeed(316, 354, 4, "down")
     cutscene:showNametag("Hero", {top = true})
-    cutscene:text("* And here we are.[wait:10] Back where we started.", nil, "hero", {top = true})
+    cutscene:text("* And here we are.[wait:10] Back where we started.", "neutral_closed", "hero", {top = true})
 
     -- Wait until Hero stops moving
     cutscene:wait(function() return hero.x == 316 and hero.y == 354 end)

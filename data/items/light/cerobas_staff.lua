@@ -36,7 +36,7 @@ function item:init()
 
     self.dark_item = "cerobas_staff"
 
-    --self.light_bolt_speed = --self.light_bolt_speed * 1.25
+    self.light_bolt_speed = 13.75
     self.light_bolt_direction = "random"
 
 end

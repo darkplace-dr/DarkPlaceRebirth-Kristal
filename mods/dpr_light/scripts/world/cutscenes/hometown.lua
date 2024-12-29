@@ -145,7 +145,8 @@ return {
             cutscene:hideNametag()
             Game.world.music:resume()
         elseif Game.world.sanscheck >= 8 then
-            if Game:getFlag("fun") == 8 then
+		    local FUN = Game:getFlag("FUN")
+            if FUN == 8 then
                 cutscene:showNametag("Sans?", {font = "sans"})
                 cutscene:text("[font:sans]* human...", "eyes_closed", "sans")
                 cutscene:hideNametag()
@@ -174,12 +175,12 @@ return {
                 Assets.playSound("locker")
 
                 for _, party in ipairs(Game.party) do
-                local pc = cutscene:getCharacter(party.actor.id)
-                pc:shake(4, 0)
-                pc:setSprite("battle/hurt")
-                if player.facing == "left" then
-                    pc.flip_x = true
-                end
+                    local pc = cutscene:getCharacter(party:getActor().id)
+                    pc:shake(4, 0)
+                    pc:setSprite("battle/hurt")
+                    if player.facing == "left" then
+                        pc.flip_x = true
+                    end
                 end
                 cutscene:wait(0.25)
 
@@ -187,7 +188,7 @@ return {
                 Kristal.hideBorder(0)
                 Game.state = "GAMEOVER"
                 Game.world:remove()
-                Game.gameover = GameOver(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "[voice:sans]You are alone,[wait:5]\nchild.")
+                Game.gameover = GameOver(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "[voice:sans]You are alone,[wait:5]\nchild.") -- custom message doesn't work??? Ah well.
                 Game.stage:addChild(Game.gameover)
             else
                 cutscene:showNametag("Sans?", {font = "sans"})
@@ -429,5 +430,136 @@ return {
             cutscene:text("* there is a dead body inside of the library's computer lab", "neutral", "dess")
         end
         cutscene:hideNametag()
+    end,
+
+    brenda = function(cutscene, event)
+        local susie = cutscene:getCharacter("susie_lw")
+        local jamm = cutscene:getCharacter("jamm_lw")
+        local jammarcy = cutscene:getCharacter("jammarcy_light")
+        if susie then
+            if not Game:getFlag("hometown_brenda") then
+                Game:setFlag("hometown_brenda", true)
+                event:alert()
+                cutscene:showNametag("Susie")
+                cutscene:text("* Hey,[wait:5] I haven't seen you around town before,[wait:5] who the hell are you?", "annoyed", "susie")
+                cutscene:hideNametag()
+                event:setFacing("down")
+                cutscene:wait(2/3)
+                event:setFacing("right")
+                cutscene:wait(1/2)
+                cutscene:showNametag("???")
+                cutscene:text("* Huh?[wait:10] Me?", "shocked", "brenda_lw")
+                cutscene:showNametag("Brenda")
+				if #Game.party > 1 then
+					cutscene:text("* I'm Brenda![wait:10]\n[face:smile]* What are your names?", "happy", "brenda_lw")
+				else
+					cutscene:text("* I'm Brenda![wait:10]\n[face:smile]* What's your name?", "happy", "brenda_lw")
+				end
+                cutscene:showNametag("Susie")
+                cutscene:text("* Heh,[wait:5] the name's Susie!", "smile", "susie")
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+					cutscene:showNametag("Jamm")
+					cutscene:text("* And my name's Luthane,[wait:10] but I really go by Jamm.", "side_smile", "jamm")
+					if jammarcy then
+						cutscene:text("* This little girl is my daughter,[wait:10] Marcy.", "smile", "jamm")
+						cutscene:showNametag("Marcy")
+						cutscene:text("* H-hello!", "happy", "marcy")
+					end
+				end
+				cutscene:showNametag("Susie")
+                cutscene:text("* You moved here recently?", "neutral_side", "susie")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* Oh nono,[wait:5] not at all.", "neutral", "brenda_lw")
+                cutscene:text("* I'm here as a paranormal investigator.", "wink", "brenda_lw")
+                cutscene:showNametag("Susie")
+                cutscene:text("* What,[wait:5] you believe in ghosts or something?", "smile", "susie")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* What?[wait:10] Pshhh of course not!", "dissapointed", "brenda_lw")
+                cutscene:text("* I'm here to debunk that sorta stuff.", "smug", "brenda_lw")
+                cutscene:text("* I've heard about rumors of there being a cult here in these woods.", "smile_b", "brenda_lw")
+                cutscene:text("* So I'm gonna go in there and prove there's nothing there.", "smug", "brenda_lw")
+                cutscene:showNametag("Susie")
+                cutscene:text("* Alone?", "sus_nervous", "susie")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* [speed:0.3]Yyyyy[speed:1]yes?", "neutral", "brenda_lw")
+                cutscene:showNametag("Susie")
+                cutscene:text("* What if there's like a bear or something?", "suspicious", "susie")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* Pshh,[wait:5] there's no bears in these woods.", "smug", "brenda_lw")
+                cutscene:text("* I think.", "suspicious", "brenda_lw")
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+					cutscene:showNametag("Jamm")
+					cutscene:text("* You \"think\"?", "suspicious", "jamm")
+					cutscene:text("* Wait,[wait:5] are you even licensed in your work?", "suspicious", "jamm")
+					cutscene:showNametag("Brenda")
+					cutscene:text("* Licensed?[wait:10] What,[wait:5] do you think I'm just here for game hunting?", "shocked", "brenda_lw")
+					cutscene:text("* The only thing I'm hunting here are urban legends to disprove.", "angry_b", "brenda_lw")
+					cutscene:text("* Geez,[wait:5] I didn't think you'd need a license to explore some woods.", "suspicious", "brenda_lw")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* Hey,[wait:5] I didn't mean it like that![wait:10][face:look_left] I was just...[wait:5][face:neutral] curious.", "shocked", "jamm")
+					if jammarcy then
+						cutscene:showNametag("Marcy")
+						cutscene:text("* But Marcy thought...", "confused", "marcy")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* Marcy,[wait:5] what harm is going to come of this?", "look_left", "jamm")
+						cutscene:text("* There's literally nothing wrong with exploration.", "side_smile", "jamm")
+					cutscene:showNametag("Brenda")
+					cutscene:text("* Uh huh...", "suspicious", "brenda_lw")
+					end
+				end
+                cutscene:showNametag("Susie")
+                cutscene:text("* Hey,[wait:5] if you're gonna go in the woods alone,[wait:5] maybe I could tag along?", "smile", "susie")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* But...[wait:10] you're just a kid.", "suspicious_b", "brenda_lw")
+                cutscene:showNametag("Susie")
+                cutscene:text("* HEY![wait:10]\n* I'M A TEENAGER,[wait:5] NOT A KID!", "teeth", "susie")
+                cutscene:text("* Besides,[wait:5] I can kick some serious ass.", "smile", "susie")
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+					cutscene:showNametag("Jamm")
+					cutscene:text("* Look,[wait:5] if it's any consolation,[wait:5] I'm an adult.", "neutral", "jamm")
+					cutscene:text("* I'm just...[wait:5] short for my age.", "nervous_left", "jamm")
+				end
+                cutscene:showNametag("Brenda")
+                cutscene:text("* [speed:0.3]...", "suspicious_b", "brenda_lw")
+                cutscene:text("* Sigh,[wait:10] fine.", "dissapointed", "brenda_lw")
+                cutscene:text("* Just stay out of trouble.", "suspicious", "brenda_lw")
+                cutscene:showNametag("Susie")
+                cutscene:text("* No promises!", "smile", "susie")
+                cutscene:hideNametag()
+                cutscene:text("* (Will you follow Brenda into\nthe woods?)")
+                local choice = cutscene:choicer({"Yes", "No"})
+                if choice == 1 then
+                    Game.world.music:fade(0, 1)
+                    cutscene:wait(cutscene:fadeOut(1))
+                    Game:addFollower("brenda_lw")
+                    Game:swapIntoMod("dlc_forest", false)
+                else
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* Alright,[wait:5] I'll be here when you're ready.", "neutral", "brenda_lw")
+                    cutscene:hideNametag()
+                    event:setFacing("left")
+                end
+            else
+                event:setFacing("right")
+                cutscene:showNametag("Brenda")
+                cutscene:text("* You ready to head out?", "neutral", "brenda_lw")
+                cutscene:hideNametag()
+                local choice = cutscene:choicer({"Yes", "No"})
+                if choice == 1 then
+                    Game.world.music:fade(0, 1)
+                    cutscene:wait(cutscene:fadeOut(1))
+                    Game:addFollower("brenda_lw")
+                    Game:swapIntoMod("dlc_forest", false)
+                else
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* Alright,[wait:5] I'll be here when you're ready.", "neutral", "brenda_lw")
+                    cutscene:hideNametag()
+                    event:setFacing("left")
+                end
+            end
+        else
+            cutscene:text("* (This monster seems to be staring intensely at the woods.)")
+            cutscene:text("* (Perhaps [color:#ff00ff]another monster[color:reset] could get her attention.)")
+        end
     end,
 }

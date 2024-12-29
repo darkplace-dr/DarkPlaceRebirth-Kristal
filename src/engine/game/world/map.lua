@@ -97,11 +97,7 @@ function Map:load()
 end
 
 function Map:onEnter()
-    local noelsave = Noel:loadNoel()
-
-    if Game:hasPartyMember("noel") == false and noelsave then
-        Noel:NoelEnter(noelsave)
-    end
+    Noel:checkNoel()
 end
 
 function Map:onExit() end
@@ -526,6 +522,7 @@ function Map:loadMarkers(layer)
         v.center_y = v.center_y + (layer.offsety or 0)
 
         self.markers[v.name] = v
+        self.markers[v.id] = v
     end
 end
 
@@ -745,6 +742,8 @@ function Map:loadObject(name, data)
         return FountainFloor(data.x, data.y, data.width, data.height)
     elseif name:lower() == "quicksave" then
         return QuicksaveEvent(data.x, data.y, data.width, data.height, data.properties["marker"])
+    elseif name:lower() == "superstar" then
+        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "sprite" then
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)

@@ -1,12 +1,14 @@
 ---@type table<string, fun(cutscene:WorldCutscene, event?:NPC|Event)>
 local desslmao = {
 	dessbegin = function(cutscene)
+        Kristal.callEvent(KRISTAL_EVENT.onDPDessTalk)
 		local dess = cutscene:getCharacter("dess")
 		local susie = cutscene:getCharacter("susie")
 
 		local noel = cutscene:getCharacter("noel")
 		local data = Noel:loadNoel()
 
+        local noel_remembered_dess, noel_not_remembered_dess
 		cutscene:showNametag("Dess Holiday?")
 		if #Game.party == 1 then
 			cutscene:text("* Yooo hey it's great to see you again", "condescending", "dess")
@@ -21,11 +23,11 @@ local desslmao = {
 			cutscene:textTagged("* I have literally never seen you before in my life.", "annoyed", "susie")
 		elseif cutscene:getCharacter("hero") then
 			cutscene:setSpeaker("hero")
-            cutscene:textTagged("* Uh,[wait:5] am I supposed to know you?")
+            cutscene:textTagged("* Uh,[wait:5] am I supposed to know you?", "really")
 		elseif noel then -- make sure this is always next to last
 				cutscene:showNametag("Noel")
 			if data.met_dess then
-				cutscene:text("* Nice to see you agian?", "bruh", "noel")
+				cutscene:text("* Nice to see you again?", "bruh", "noel")
 				noel_remembered_dess = true
 			else
 				cutscene:text("* ... [wait:10]Huh?", "huh", "noel")
@@ -215,42 +217,55 @@ local desslmao = {
         if cutscene:getCharacter("susie") then
             susie_party:addOpinion("dess", -10)
         end
-  end,
+	end,
 
 	dessgetoverhere = function(cutscene, event)
-		if Game:getFlag("gotDess") then
-			cutscene:setSpeaker("dess")
-			cutscene:textTagged("* Hey I can do a crazy impression watch this", "condescending", "dess")
-			cutscene:textTagged("* Look at meeee I'm FRISK from UNDERTALE lmao", "calm", "dess")
-
-			if cutscene:getCharacter("noel") then
-				cutscene:showNametag("Noel")
-				cutscene:text("[func:tag]* Damn, where did Dess go?", "bruh", "noel", 
-				{
-					functions = {
-						tag = function (text)
-							text.rotation = 0.1					
-						end
-					}
-				})
-			end
-
-            if cutscene:getCharacter("susie") then
-                cutscene:setSpeaker("susie")
-                cutscene:textTagged("[speed:0.5]* ...", "nervous_side", "susie")
-                cutscene:textTagged("* (Who the hell is THAT?)", "nervous", "susie")
-            end
+		if Game:isDessMode() then
+			cutscene:showNametag("Dess")
+			cutscene:text("* hmmm for some reason i feel like i'm missing something", "neutral_b", "dess")
+			cutscene:text("* oh i know", "eurika", "dess")
 			cutscene:hideNametag()
+			cutscene:text("* (Dess can now ACT!)")
+			Game:setFlag("dess_canact", true)
+			Game:getPartyMember("dess").has_act = true
 			Game:setFlag("dessThingy", true)
+			Game:setFlag("desshere_kills", Game:getPartyMember("dess").kills)
 			event:remove()
 		else
-			local leader = Game.world.player
-			
-			cutscene:showNametag("???")
-			cutscene:textTagged("* Hey fucker you need to come talk to me first", "neutral", "dess")
-			
-			cutscene:hideNametag()
-            leader.y = leader.y + 12
+			if Game:getFlag("gotDess") then
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* Hey I can do a crazy impression watch this", "condescending", "dess")
+				cutscene:textTagged("* Look at meeee I'm FRISK from UNDERTALE lmao", "calm", "dess")
+	
+				if cutscene:getCharacter("noel") then
+					cutscene:showNametag("Noel")
+					cutscene:text("[func:tag]* Damn, where did Dess go?", "bruh", "noel", 
+					{
+						functions = {
+							tag = function (text)
+								text.rotation = 0.1					
+							end
+						}
+					})
+				end
+	
+				if cutscene:getCharacter("susie") then
+					cutscene:setSpeaker("susie")
+					cutscene:textTagged("[speed:0.5]* ...", "nervous_side", "susie")
+					cutscene:textTagged("* (Who the hell is THAT?)", "nervous", "susie")
+				end
+				cutscene:hideNametag()
+				Game:setFlag("dessThingy", true)
+				event:remove()
+			else
+				local leader = Game.world.player
+				
+				cutscene:showNametag("???")
+				cutscene:textTagged("* Hey fucker you need to come talk to me first", "neutral", "dess")
+				
+				cutscene:hideNametag()
+				leader.y = leader.y + 12
+			end
 		end
 	end,
 
@@ -322,11 +337,12 @@ local desslmao = {
 		Assets.stopAndPlaySound("wing")
 
 		cutscene:setSpeaker()
-		cutscene:textTagged("* Hee...", whodis)
+		cutscene:hideNametag()
+		--cutscene:textTagged("* Hee...", whodis)
 		boss:shake(16, 0)
 		Assets.stopAndPlaySound("wing")
-		cutscene:textTagged("* Uheeheehee!!", whodis)
-		cutscene:hideNametag()
+		--cutscene:textTagged("* Uheeheehee!!", whodis)
+		
 
 		boss:fadeTo(0, 0.1, function() boss:fadeTo(1, 0.05) end)
 		cutscene:panTo(boss.x, boss.y+256, 2)
@@ -341,193 +357,314 @@ local desslmao = {
         
 		cutscene:wait(1.2)
 		cutscene:setSpeaker(boss)
-		cutscene:textTagged("* I'm sorry![wait:10]\n* I simply couldn't contain myself!", whodis)
-		cutscene:textTagged("* Uheehee!", whodis)
+		cutscene:textTagged("* Alright,[wait:6] let's cut the crap.", whodis)
+		--cutscene:textTagged("* Uheehee!", whodis)
 		cutscene:hideNametag()
 
         if susie then
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* Who the hell are you?!", "angry", "susie")
         end
-
-		boss:fadeTo(0.2, 0.05)
-		cutscene:wait(1)
-		boss:setActor("susie")
-		cutscene:look(boss, "up")
-		boss:fadeTo(1, 0.05)
-		cutscene:wait(1)
-		cutscene:setSpeaker(nil)
-        if susie then
-            cutscene:textTagged("[face:susie_bangs/smile_b][voice:susie]* I'm you!", whodis)
-
-            cutscene:setSpeaker("susie")
-            cutscene:textTagged("* Wha-?![wait:10] What the hell??", "surprise_frown", "susie")
-        else
-            cutscene:textTagged("[face:susie_bangs/smile_b][voice:susie]* LOOK at me![wait:10] I'm the Angry Dino Girl!", whodis)
-        end
-
-		cutscene:hideNametag()
-
-		boss:fadeTo(0.2, 0.05)
-		cutscene:wait(1)
-		boss:setActor("kris")
-		cutscene:look(boss, "up")
-		boss:fadeTo(1, 0.05)
-		cutscene:wait(1)
-		cutscene:setSpeaker()
-
-        if susie then
-            cutscene:textTagged("* SUSIE LOOK![wait:5]\n* IT'S ME[wait:5] [color:yellow]KRIS[color:reset]!", whodis)
-        else
-            cutscene:textTagged("* AND NOW I'm the blue one!", whodis)
-        end
-		cutscene:textTagged("* Uheeheehee!", whodis)
-		cutscene:hideNametag()
-
-		boss:fadeTo(0.2, 0.05)
-		cutscene:wait(1)
-		boss:setActor("ufoofdoom")
-		boss:fadeTo(1, 0.05)
-		cutscene:setSpeaker("dess")
-		cutscene:textTagged("* Whatever can we fight now", "condescending", "dess")
-
-		cutscene:setSpeaker()
-		cutscene:textTagged("* ...OH![wait:10] I see!", whodis)
-		cutscene:textTagged("* ...Uheehee!", whodis)
-		cutscene:textTagged("* You're even worse than me! Uhee!", whodis)
-
-        if susie then
-            cutscene:setSpeaker("susie")
-            cutscene:textTagged("* Uhh,[wait:10] what do they mean by that?", "nervous", "susie")
-
-			cutscene:setSpeaker()
-            cutscene:textTagged("* Uheehee![wait:10] You're much better!", whodis)
-        end
+		
 		cutscene:setSpeaker(boss)
-		cutscene:textTagged("* It's too easy to be who you want to be!", whodis)
-		cutscene:textTagged("* I know that is not the real Dess Holiday!", whodis)
-
-        if susie then
-            cutscene:textTagged("* Huh???", "surprise_frown", "susie")
-
-            cutscene:setSpeaker(boss)
-            cutscene:textTagged("* Don't act all surprised!", whodis)
-            cutscene:textTagged("* I know that you aren't the real Susie either!", whodis)
-
-            cutscene:setSpeaker("susie")
-            cutscene:textTagged("* ...???", "suspicious")
-            cutscene:textTagged("* Uh.", "suspicious")
-            cutscene:textTagged("* Alright,[wait:5] let's smash this guy into a pulp.", "teeth_smile")
-
-            cutscene:textTagged("* Agreed", "neutral", "dess")
-        else
-            cutscene:textTagged("* Whatever,[wait:5]I wanna smash you already", "neutral", "dess")
-        end
-
-		cutscene:setSpeaker()
-		cutscene:textTagged("* Suit yourself![wait:5] Uheehee!", whodis)
-
-		cutscene:hideNametag()
-		cutscene:attachCamera(1)
-		cutscene:startEncounter("mimicboss", true, boss)
-
-		Game:setFlag("mimicBossDone", true)
-		Game:setFlag("mimic_defeated", true)
-		boss:remove()
-		cutscene:attachFollowers(5)
-		cutscene:wait(1)
-
+		cutscene:textTagged("* I'm the mimic.[wait:10] You know me.\n* I've been the boss here since forever.", whodis)
+		
 		cutscene:setSpeaker("dess")
-		cutscene:textTagged("* well that was fun", "condescending", "dess")
-		cutscene:textTagged("* so whaddaya say we all go and smoke a ciggie outside a 7-11?", "genuine", "dess")
+		cutscene:textTagged("* yea and?", "neutral", "dess")
+		
+		cutscene:setSpeaker(boss)
+		cutscene:textTagged("* I'm sick of it![wait:10]\n* I'm sick of all this meta-on-meta nonsense!", whodis)
+		cutscene:textTagged("* Jokes upon memes upon cycles\nof the same tired things...\n* All of us on different 'layers'", whodis)
+		cutscene:textTagged("* Tell me,[wait:6] what do the other party members think?", whodis)
+		
 		if susie then
-			cutscene:setSpeaker("susie")
-			cutscene:textTagged("* What the hell is a 7-11?", "nervous_side", "susie")
-			cutscene:setSpeaker("dess")
-			cutscene:textTagged("* damn that's not what you said last time", "eyebrow", "dess")
-			cutscene:setSpeaker("susie")
-			cutscene:textTagged("* Why do you keep acting like I'm supposed to know you?", "suspicious", "susie")
-			cutscene:setSpeaker("dess")
-			cutscene:textTagged("* uhhh because you are?", "condescending", "dess")
-			cutscene:textTagged("* damn this really IS a reboot", "neutral_b", "dess")
-			cutscene:textTagged("* ok tell you what,[wait:5] I'll give the leader spot back", "genuine_b", "dess")
-			cutscene:textTagged("* IF and only IF", "calm_b", "dess")
-			cutscene:textTagged("* you promise to by me a Mug:tm: Root Beer when this is all over", "condescending", "dess")
-			cutscene:setSpeaker("susie")
-			cutscene:textTagged("* ...[wait:10] Fine.", "suspicious", "susie")
-			cutscene:textTagged("* You are the single weirdest person I've ever met.", "annoyed", "susie")
-			cutscene:setSpeaker("dess")
-			cutscene:textTagged("* i'll take that as a compliment", "heckyeah", "dess")
-		else
-			cutscene:textTagged("[speed:0.5]* ...", "genuine", "dess")
-			cutscene:textTagged("* dang no takers then?", "neutral_b", "dess")
-			cutscene:textTagged("* oh well more ciggies for me then", "condescending", "dess")
-		end
-		cutscene:hideNametag()
-
-		local susie_party = Game:getPartyMember("susie")
-        if susie then
-            susie_party:addOpinion("dess", -10)
+            cutscene:setSpeaker("susie")
+            cutscene:textTagged("* ...???", "shy", "susie")
         end
-
-		if Game:getPartyMember("dess").kills >= 9 then
-			cutscene:wait(3)
+		if Game:isDessMode() then
 			cutscene:setSpeaker("dess")
-			cutscene:textTagged("* Hey actually wait", "genuine", "dess")
-			cutscene:textTagged("* wouldn't it be cool if like...", "kind", "dess")
-			cutscene:textTagged("* All of the sensless murder we've been doing like...", "condescending", "dess")
-			cutscene:textTagged("* Allowed us to actually kill people normally?", "kind", "dess")
-			cutscene:showNametag("Dess", {top = true})
-			cutscene:textTagged("* That'd be a cool reference to hit Deltarune fangame made by Vyletbunni known as Deltatraveler where in the section 2 obliteration route you can actually kill the animals and people if you clear out all the enemies in the first few rooms", "condescending", "dess", {top = true})
-			if susie then
-                cutscene:setSpeaker("susie")
-                cutscene:textTagged("* ...", "neutral_side", "susie")
-                cutscene:textTagged("* Oooookay then...", "neutral", "susie")
-			end
-			Assets.playSound("ominous")
-			Game:setFlag("can_kill", true)
+			cutscene:textTagged("* uhhh this is dess mode there's nobody else here", "eyebrow", "dess")
 		end
+		
 		cutscene:setSpeaker("dess")
-		if #Game.world.followers == 3 then
-			cutscene:textTagged("* anyways imma be chillin in the diner if you guys need me", "kind", "dess")
+		cutscene:textTagged("* Look man.", "condescending", "dess")
+		cutscene:textTagged("* That's no reason to go\nall 'boss-fightey\nstartey' on us.", "eyebrow", "dess")
+		
+		cutscene:setSpeaker(boss)
+		cutscene:textTagged("* What I'm saying is...", whodis)
+		cutscene:textTagged("* It's exhausting,[wait:6] 'Dess'.[wait:10]\n* I'm just a bossfight,[wait:6] I can't change that.", whodis)
+		cutscene:textTagged("* But what I *can* do is talk.[wait:10]\n* So all I really have to say is...", whodis)
+		if Game:isDessMode() then
+			cutscene:text("[noskip]* Happy new year,[wait:6] 199-", nil, nil, {auto = true})
+			cutscene:setSpeaker("dess")
+			cutscene:textTagged("* okay i've had enough of your crap", "angry", "dess")
+			cutscene:textTagged("* i have no idea what anything you're saying means", "neutral_b", "dess")
+			cutscene:textTagged("* and frankly,[wait:5] you're starting to piss me off", "annoyed", "dess")
+			cutscene:textTagged("* this is MY area,[wait:5] not yours", "angry", "dess")
+			cutscene:textTagged("* and i'm gonna kick your fuckin ass", "heckyeah", "dess")
+			Assets.playSound("cardrive", 1.5, 0.9)
+			Game.world.music:fade(0, 0.8)
+			cutscene:wait(cutscene:fadeOut(1, {color = {1,1,1}}))
+			local dess_party = Game:getPartyMember("dess")
+			dess_party:increaseStat("health", 250)
+			dess_party:increaseStat("attack", 15)
+			dess_party:increaseStat("magic", 20)
+			dess_party:increaseStat("defense", 10)
+			dess_party:setActor("dess_super")
+			Game:setFlag("super_dess", true)
+			Game.world.player:setActor("dess_super")
+			cutscene:wait(2)
+			Game.world.music:play("undefeatable", 1, 1)
+			cutscene:wait(cutscene:fadeIn(1))
+			cutscene:wait(1)
+			cutscene:setSpeaker(nil)
+			cutscene:text("[noskip]* (Dess's stats increased dramatically!)")
+			cutscene:setSpeaker(boss)
+			cutscene:textTagged("* What the hell?!", whodis)
+			cutscene:setSpeaker("dess")
+			cutscene:textTagged("* heh,[wait:5] what's wrong,[wait:5] deer got your tongue?", "condescending", "dess_super")
+			cutscene:textTagged("* you may think you had the advantage since it was just me...", "calm", "dess_super")
+			cutscene:textTagged("* but you're dead wrong, bucko", "angry", "dess_super")
+			cutscene:textTagged("* your biggest mistake was invading my domain...", "neutral", "dess_super")
+			cutscene:textTagged("* and now...?", "doom_shiteatinggrin", "dess_super")
+			cutscene:textTagged("* You're fuckin dead,[wait:5] kiddo.", "hackerman", "dess_super")
 			cutscene:hideNametag()
-			cutscene:wait(cutscene:fadeOut(1))
+			cutscene:attachCamera(1)
+			cutscene:startEncounter("mimicboss", true, boss)
+	
+			Game:setFlag("mimicBossDone", true)
+			Game:setFlag("mimic_defeated", true)
+			Game.inventory:addItemTo("key_items", "keyCard", true)
+			boss:remove()
+			cutscene:attachFollowers(5)
+			Game.world.music:fade(0, 0.75)
 			cutscene:wait(1)
 
-			-- Party setup 2: Desslectric boogaloo
-			local newparty = Game.world.followers[3].actor.id
-			Game:addPartyMember(newparty)
-			Game:removePartyMember("dess")
-			Game.world:removeFollower(newparty)
-			cutscene:getCharacter(newparty):remove()
-			cutscene:wait(0.5)
-			for i, v in ipairs(Game.world.followers) do
-				v:setActor(Game.party[i+1]:getActor())
-			end
-			Game.world.player:setActor(Game.party[1]:getActor())
-			cutscene:interpolateFollowers()
-			cutscene:wait(0.5)
-
+			cutscene:textTagged("* ...", "angry", "dess_super")
+			cutscene:textTagged("* wow that was fucking awesome how the fuck did i do that", "wtf", "dess_super")
+			cutscene:textTagged("* is this the power of the chaos emeralds...?", "neutral_b", "dess_super")
+			Assets.playSound("cardrive", 1.5, 0.9)
+			cutscene:wait(cutscene:fadeOut(1, {color = {1,1,1}}))
+			dess_party:heal(250)
+			dess_party:increaseStat("health", -250)
+			dess_party:increaseStat("attack", -15)
+			dess_party:increaseStat("magic", -20)
+			dess_party:increaseStat("defense", -10)
+			dess_party:setActor("dess")
+			Game:setFlag("super_dess", false)
+			Game:setFlag("dess_canact", false)
+			Game:getPartyMember("dess").has_act = false
+			Game.world.player:setActor("dess")
+			cutscene:wait(2)
+			Game.world.music:play("gimmieyourwalletmiss", 1, 1)
 			cutscene:wait(cutscene:fadeIn(1))
+			cutscene:wait(1)
+			cutscene:setSpeaker(nil)
+			cutscene:text("[noskip]* (Dess's stats returned to normal)")
+			cutscene:text("[noskip]* (Dess can no longer ACT.)")
+			cutscene:setSpeaker("dess")
+			cutscene:textTagged("* oh", "weed", "dess")
+			cutscene:textTagged("* well thats fuckin bullshit", "mspaint", "dess")
+			cutscene:textTagged("* i wanted to be op forever", "angry", "dess")
+			cutscene:textTagged("* oh well", "neutral_b", "dess")
+	
+			if Game:getPartyMember("dess").kills >= Game:getFlag("desshere_kills") + 9 then
+				cutscene:wait(3)
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* oh wait actually", "wtf", "dess")
+				cutscene:textTagged("* i killed all those stupid ufos that were here", "condescending", "dess")
+				cutscene:textTagged("* that means i can kill most enemies for realsies now", "heckyeah", "dess")
+				cutscene:textTagged("* aw yeah,[wait:5] fun mode is enabled now", "challenging", "dess")
+				Assets.playSound("ominous")
+				Game:setFlag("can_kill", true)
+			end
 		else
-			cutscene:textTagged("* ok time to stop leading", "genuine", "dess")
-			cutscene:hideNametag()
-			cutscene:hideNametag()
-
-			cutscene:wait(cutscene:fadeOut(1))
+			cutscene:textTagged("* Happy new year,[wait:6] 1998!", whodis)
+		
+			--[[ -- OLD DIALOGUE THAT I HATE BECAUSE I WAS TERRIBLE AT WRITING -char
+				 -- not the other people your writing is fine I just really hate the mimic's writing ok
+			boss:fadeTo(0.2, 0.05)
 			cutscene:wait(1)
-			Game:movePartyMember("dess", 2)
-			for i, v in ipairs(Game.world.followers) do
-				v:setActor(Game.party[i+1]:getActor())
+			boss:setActor("susie")
+			cutscene:look(boss, "up")
+			boss:fadeTo(1, 0.05)
+			cutscene:wait(1)
+			cutscene:setSpeaker(nil)
+			if susie then
+				cutscene:textTagged("[face:susie_bangs/smile_b][voice:susie]* I'm you!", whodis)
+	
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* Wha-?![wait:10] What the hell??", "surprise_frown", "susie")
+			else
+				cutscene:textTagged("[face:susie_bangs/smile_b][voice:susie]* LOOK at me![wait:10] I'm the Angry Dino Girl!", whodis)
 			end
-			Game.world.player:setActor(Game.party[1]:getActor())
-			cutscene:interpolateFollowers()
-			cutscene:wait(0.5)
-
-			cutscene:wait(cutscene:fadeIn(1))
+	
+			cutscene:hideNametag()
+	
+			boss:fadeTo(0.2, 0.05)
+			cutscene:wait(1)
+			boss:setActor("kris")
+			cutscene:look(boss, "up")
+			boss:fadeTo(1, 0.05)
+			cutscene:wait(1)
+			cutscene:setSpeaker()
+	
+			if susie then
+				cutscene:textTagged("* SUSIE LOOK![wait:5]\n* IT'S ME[wait:5] [color:yellow]KRIS[color:reset]!", whodis)
+			else
+				cutscene:textTagged("* AND NOW I'm the blue one!", whodis)
+			end
+			cutscene:textTagged("* Uheeheehee!", whodis)
+			cutscene:hideNametag()
+	
+			boss:fadeTo(0.2, 0.05)
+			cutscene:wait(1)
+			boss:setActor("ufoofdoom")
+			boss:fadeTo(1, 0.05)
+			cutscene:setSpeaker("dess")
+			cutscene:textTagged("* Whatever can we fight now", "condescending", "dess")
+	
+			cutscene:setSpeaker()
+			cutscene:textTagged("* ...OH![wait:10] I see!", whodis)
+			cutscene:textTagged("* ...Uheehee!", whodis)
+			cutscene:textTagged("* You're even worse than me! Uhee!", whodis)
+	
+			if susie then
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* Uhh,[wait:10] what do they mean by that?", "nervous", "susie")
+	
+				cutscene:setSpeaker()
+				cutscene:textTagged("* Uheehee![wait:10] You're much better!", whodis)
+			end
+			cutscene:setSpeaker(boss)
+			cutscene:textTagged("* It's too easy to be who you want to be!", whodis)
+			cutscene:textTagged("* I know that is not the real Dess Holiday!", whodis)
+	
+			if susie then
+				cutscene:textTagged("* Huh???", "surprise_frown", "susie")
+	
+				cutscene:setSpeaker(boss)
+				cutscene:textTagged("* Don't act all surprised!", whodis)
+				cutscene:textTagged("* I know that you aren't the real Susie either!", whodis)
+	
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* ...???", "suspicious")
+				cutscene:textTagged("* Uh.", "suspicious")
+				cutscene:textTagged("* Alright,[wait:5] let's smash this guy into a pulp.", "teeth_smile")
+	
+				cutscene:textTagged("* Agreed", "neutral", "dess")
+			else
+				cutscene:textTagged("* Whatever,[wait:5]I wanna smash you already", "neutral", "dess")
+			end
+	
+			cutscene:setSpeaker()
+			cutscene:textTagged("* Suit yourself![wait:5] Uheehee!", whodis)
+			--]]
+			cutscene:hideNametag()
+			cutscene:attachCamera(1)
+			cutscene:startEncounter("mimicboss", true, boss)
+	
+			Game:setFlag("mimicBossDone", true)
+			Game:setFlag("mimic_defeated", true)
+			Game.inventory:addItemTo("key_items", "keyCard", true)
+			boss:remove()
+			cutscene:attachFollowers(5)
+			cutscene:wait(1)
+	
+			cutscene:setSpeaker("dess")
+			cutscene:textTagged("* ...?", "eyebrow", "dess")
+			cutscene:textTagged("* weird way to end a meme section but ok", "eyebrow", "dess")
+			cutscene:textTagged("* well that was fun", "condescending", "dess")
+			cutscene:textTagged("* so whaddaya say we all go and smoke a ciggie outside a 7-11?", "genuine", "dess")
+			if susie then
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* What the hell is a 7-11?", "nervous_side", "susie")
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* damn that's not what you said last time", "eyebrow", "dess")
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* Why do you keep acting like I'm supposed to know you?", "suspicious", "susie")
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* uhhh because you are?", "condescending", "dess")
+				cutscene:textTagged("* damn this really IS a reboot", "neutral_b", "dess")
+				cutscene:textTagged("* ok tell you what,[wait:5] I'll give the leader spot back", "genuine_b", "dess")
+				cutscene:textTagged("* IF and only IF", "calm_b", "dess")
+				cutscene:textTagged("* you promise to by me a Mug:tm: Root Beer when this is all over", "condescending", "dess")
+				cutscene:setSpeaker("susie")
+				cutscene:textTagged("* ...[wait:10] Fine.", "suspicious", "susie")
+				cutscene:textTagged("* You are the single weirdest person I've ever met.", "annoyed", "susie")
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* i'll take that as a compliment", "heckyeah", "dess")
+			else
+				cutscene:textTagged("[speed:0.5]* ...", "genuine", "dess")
+				cutscene:textTagged("* dang no takers then?", "neutral_b", "dess")
+				cutscene:textTagged("* oh well more ciggies for me then", "condescending", "dess")
+			end
+			cutscene:hideNametag()
+	
+			local susie_party = Game:getPartyMember("susie")
+			if susie then
+				susie_party:addOpinion("dess", -10)
+			end
+	
+			if Game:getPartyMember("dess").kills >= 9 then
+				cutscene:wait(3)
+				cutscene:setSpeaker("dess")
+				cutscene:textTagged("* Hey actually wait", "genuine", "dess")
+				cutscene:textTagged("* wouldn't it be cool if like...", "kind", "dess")
+				cutscene:textTagged("* All of the sensless murder we've been doing like...", "condescending", "dess")
+				cutscene:textTagged("* Allowed us to actually kill people normally?", "kind", "dess")
+				cutscene:showNametag("Dess", {top = true})
+				cutscene:textTagged("* That'd be a cool reference to hit Deltarune fangame made by Vyletbunni known as Deltatraveler where in the section 2 obliteration route you can actually kill the animals and people if you clear out all the enemies in the first few rooms", "condescending", "dess", {top = true})
+				if susie then
+					cutscene:setSpeaker("susie")
+					cutscene:textTagged("* ...", "neutral_side", "susie")
+					cutscene:textTagged("* Oooookay then...", "neutral", "susie")
+				end
+				Assets.playSound("ominous")
+				Game:setFlag("can_kill", true)
+			end
+			cutscene:setSpeaker("dess")
+			if #Game.world.followers == 3 then
+				cutscene:textTagged("* anyways imma be chillin in the diner if you guys need me", "kind", "dess")
+				cutscene:hideNametag()
+				cutscene:wait(cutscene:fadeOut(1))
+				cutscene:wait(1)
+	
+				-- Party setup 2: Desslectric boogaloo
+				local newparty = Game.world.followers[3].actor.id
+				Game:addPartyMember(newparty)
+				Game:removePartyMember("dess")
+				Game.world:removeFollower(newparty)
+				cutscene:getCharacter(newparty):remove()
+				cutscene:wait(0.5)
+				for i, v in ipairs(Game.world.followers) do
+					v:setActor(Game.party[i+1]:getActor())
+				end
+				Game.world.player:setActor(Game.party[1]:getActor())
+				cutscene:interpolateFollowers()
+				cutscene:wait(0.5)
+	
+				cutscene:wait(cutscene:fadeIn(1))
+			else
+				cutscene:textTagged("* ok time to stop leading", "genuine", "dess")
+				cutscene:hideNametag()
+				cutscene:hideNametag()
+	
+				cutscene:wait(cutscene:fadeOut(1))
+				cutscene:wait(1)
+				Game:movePartyMember("dess", 2)
+				for i, v in ipairs(Game.world.followers) do
+					v:setActor(Game.party[i+1]:getActor())
+				end
+				Game.world.player:setActor(Game.party[1]:getActor())
+				cutscene:interpolateFollowers()
+				cutscene:wait(0.5)
+	
+				cutscene:wait(cutscene:fadeIn(1))
+			end
+			cutscene:setSpeaker()
+			cutscene:text("* (Dess is no longer leading the party!)")
 		end
-		cutscene:setSpeaker()
-		cutscene:text("* (Dess is no longer leading the party!)")
 	end,
 }
 return desslmao

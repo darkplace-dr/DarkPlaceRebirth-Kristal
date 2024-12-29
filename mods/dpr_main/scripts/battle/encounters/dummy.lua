@@ -7,9 +7,15 @@ function Dummy:init()
     self.text = "* The tutorial begins...?"
 
     -- Battle music ("battle" is rude buster)
-    self.music = "battle"
-    -- Enables the purple grid battle background
-    self.background = true
+    if Game:isDessMode() then
+        self.music = "batterup"
+        self.background = false
+	    self.hide_world = true
+    else
+        self.music = "battle"
+        -- Enables the purple grid battle background
+        self.background = true
+    end
 
     -- Add the dummy enemy to the encounter
     self:addEnemy("dummy")
@@ -18,6 +24,13 @@ function Dummy:init()
     --self:addEnemy("dummy")
 
 
+end
+
+function Dummy:onBattleInit()
+    if Game:isDessMode() then
+        self.bg = StarsBG({1, 1, 1})
+        Game.battle:addChild(self.bg)
+    end
 end
 
 function Dummy:onReturnToWorld(events)

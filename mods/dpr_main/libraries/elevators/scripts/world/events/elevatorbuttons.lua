@@ -73,7 +73,10 @@ function ElevatorButtons:onInteract(chara)
             self.elevator:moveTo(decision)
             if self.elevator.floors[incmenu.decision].cutscene then
                 self.elevator.infinite = true
-                Game.world.timer:after(1/30, function() Game.world:startCutscene(self.elevator.floors[incmenu.decision].cutscene, self) end)
+				cutscene:wait(1/30)
+                cutscene:after(function()
+				    Game.world:startCutscene(self.elevator.floors[incmenu.decision].cutscene, self) 
+                end)
                 return
             end
         end)

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,10 +9,11 @@ return {
   height = 17,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 49,
+  nextlayerid = 10,
+  nextobjectid = 69,
   properties = {
-    ["music"] = "demonic_little_grey_cliffs"
+    ["music"] = "demonic_little_grey_cliffs",
+    ["name"] = "Cliffside - Beginning"
   },
   tilesets = {
     {
@@ -115,6 +116,35 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 8,
+      name = "objects_mg",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 58,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 400,
+          width = 160,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 4,
       name = "collision",
       class = "",
@@ -153,32 +183,6 @@ return {
           properties = {}
         },
         {
-          id = 5,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 440,
-          y = 360,
-          width = 40,
-          height = 320,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 7,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 480,
-          y = 360,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 8,
           name = "",
           type = "",
@@ -199,45 +203,6 @@ return {
           x = 0,
           y = 160,
           width = 560,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 18,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 480,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 19,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 400,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 20,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 360,
-          width = 80,
           height = 40,
           rotation = 0,
           visible = true,
@@ -400,14 +365,27 @@ return {
           properties = {}
         },
         {
-          id = 47,
+          id = 56,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 960,
-          y = 440,
-          width = 80,
+          x = 440,
+          y = 360,
+          width = 240,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 480,
+          width = 240,
+          height = 200,
           rotation = 0,
           visible = true,
           properties = {}
@@ -485,6 +463,102 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 50,
+          name = "savepoint",
+          type = "",
+          shape = "rectangle",
+          x = 300,
+          y = 180,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* These monochromatic cliffs seem to go on forever.",
+            ["text2"] = "* The power of a new adventure shines within you."
+          }
+        },
+        {
+          id = 61,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 400,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "!met_cat",
+            ["solid"] = true
+          }
+        },
+        {
+          id = 62,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "cat",
+            ["flagcheck"] = "met_cat"
+          }
+        },
+        {
+          id = 63,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 600,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "cliffside.cat_1",
+            ["flagcheck"] = "met_cat"
+          }
+        },
+        {
+          id = 65,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 960,
+          y = 470,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "grey_cliffside/cave_1",
+            ["marker"] = "entry"
+          }
+        },
+        {
+          id = 68,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 1200,
+          y = 480,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "grey_cliffside/cliffside_right_3",
+            ["marker"] = "west"
+          }
         }
       }
     },
@@ -527,6 +601,77 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 51,
+          name = "spawn",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 66,
+          name = "cave_exit",
+          type = "",
+          shape = "point",
+          x = 1000,
+          y = 550,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 67,
+          name = "east",
+          type = "",
+          shape = "point",
+          x = 1160,
+          y = 540,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 64,
+          name = "toggle",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "!cliffsidecat_1",
+            ["target"] = { id = 62 }
+          }
         }
       }
     },

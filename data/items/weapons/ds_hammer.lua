@@ -52,6 +52,8 @@ function item:init()
 			brenda = "(Please don't hurt me, but...)"
 		},
         noel = "wow... nintendo go supermario nintendo bes company go ninwahooo- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        jamm = "So, uh... How do I hold it?",
+		dess = "check my custom emblem"
     }
 end
 

@@ -234,10 +234,11 @@ function SaveMenu:draw()
         love.graphics.print(data.name, 120, 120)
         love.graphics.print("LV "..data.level, 352, 120)
 
-        local minutes = math.floor(data.playtime / 60)
+        local hours = math.floor(data.playtime / 3600)
+        local minutes = math.floor(data.playtime / 60 % 60)
         local seconds = math.floor(data.playtime % 60)
-        local time_text = string.format("%d:%02d", minutes, seconds)
-        love.graphics.print(time_text, 520 - self.font:getWidth(time_text), 120)
+        local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
+        love.graphics.print(time_text, 522 - self.font:getWidth(time_text), 120)
 
         -- Room name
         love.graphics.print(data.room_name, 319.5 - self.font:getWidth(data.room_name)/2, 170)
@@ -398,7 +399,9 @@ function SaveMenu:drawSaveFile(index, data, x, y, selected, header)
             local time_text = string.format("%d:%02d", minutes, seconds)
             love.graphics.print(time_text, x + 234 - self.font:getWidth(time_text), y + 6)
     
-            love.graphics.print(data.room_name, x + (260 / 2) - self.font:getWidth(data.room_name) / 2, y + 82)
+            local room_x = Utils.clamp((260 / 2) - self.font:getWidth(data.room_name)/2, 12, math.huge)
+            local room_sx = self.font:getWidth(data.room_name) <= 237 and 1 or 237/self.font:getWidth(data.room_name)
+            love.graphics.print(data.room_name, x + room_x, y + 82, 0, room_sx, 1)
     
             if selected and not header and self.selected_y ~= 3 then
                 Draw.setColor(Game:getSoulColor())

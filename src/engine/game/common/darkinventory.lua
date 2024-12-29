@@ -9,6 +9,7 @@ function DarkInventory:init()
     self.storage_for_type = {
         ["item"]   = "items",
         ["key"]    = "key_items",
+        ["odd"]    = "oddities",
         ["weapon"] = "weapons",
         ["armor"]  = "armors",
         ["badge"]  = "badges",
@@ -17,7 +18,7 @@ function DarkInventory:init()
     self.storage_enabled = Game:getConfig("enableStorage")
 
     -- Order the storages are converted to the light world
-    self.convert_order = {"key_items", "weapons", "armors", "items", "storage"}
+    self.convert_order = {"key_items", "oddities", "weapons", "armors", "items", "storage"}
 end
 
 function DarkInventory:clear()
@@ -26,6 +27,7 @@ function DarkInventory:clear()
     self.storages = {
         ["items"]     = {id = "items",     max = 12,                       sorted = true,  name = "ITEMs",       fallback = "storage"},
         ["key_items"] = {id = "key_items", max = 12,                       sorted = true,  name = "KEY ITEMs",   fallback = nil      },
+        ["oddities"]  = {id = "oddities",  max = 66,                       sorted = true,  name = "ITEMs",       fallback = nil      },
         ["weapons"]   = {id = "weapons",   max = Game.default_equip_slots, sorted = false, name = "WEAPONs",     fallback = nil      },
         ["armors"]    = {id = "armors",    max = Game.default_equip_slots, sorted = false, name = "ARMORs",      fallback = nil      },
         ["storage"]   = {id = "storage",   max = 24,                       sorted = false, name = "STORAGE",     fallback = nil      },

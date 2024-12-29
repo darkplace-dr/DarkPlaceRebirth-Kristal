@@ -7,45 +7,45 @@ function spell:init()
     self.cast_name = "DIAMOND GUARD"
 
     self.effect = "Raise\nShield"
-    self.description = "Raises a temporary diamond shield to one party member."
+    self.description = "Raises a temporary diamond shield to\nprotect the SOUL."
 
-    self.cost = 45
+    self.cost = 50
 
-    self.target = "ally"
+    self.target = "none"
 
-    self.tags = {"heal"}
+    self.tags = {}
+end
+
+function spell:getCastMessage(user, target)
+    if Game:getSoulPartyMember().pp > 0 then
+        return "* But the SOUL was already protected."
+    else
+        return "* "..user.chara:getName().." protected the SOUL!"
+    end
+end
+
+function spell:getLightCastMessage(user, target)
+    if Game:getSoulPartyMember().pp > 0 then
+        return "* But the SOUL was already protected."
+    else
+        return "* "..user.chara:getName().." protected the SOUL!"
+    end
 end
 
 function spell:onCast(user, target)
-
-	target:addShield(math.floor(target.chara:getStat("health")) / 4)
-
-    local function generateSlash(scale_x)
-        local cutAnim = Sprite("battle/bullets/ceroba/diamond")
-        cutAnim:setOrigin(0.5, 0.5)
-        cutAnim:setScale(2.5 * scale_x, 2.5)
-        cutAnim:setColor(1, 1, 0)
-        cutAnim:setPosition(target:getRelativePos(target.width/2, target.height/2))
-        cutAnim.layer = target.layer + 0.01
-        Assets.playSound("trap")
-        cutAnim:play(1/20, false, function(s) s:remove() end)
-        user.parent:addChild(cutAnim)
+	if Game:getSoulPartyMember().pp > 0 then
+        Game:giveTension(self.cost)
+    else
+        Game.battle.no_buff_loop = false
     end
-
-    Game.battle.timer:after(15/30, function()
-		target:flash()
-	end)
-    
-    generateSlash(1)
-
-	--Game.battle.hail_cd = 4
 end
 
---[[function spell:isUsable(chara)
-	if Game.battle.hail_cd > 0 then
-		return false
-	end
-	return true
-end]]
+function spell:onLightCast(user, target)
+	if Game:getSoulPartyMember().pp > 0 then
+        Game:giveTension(self.cost)
+    else
+        Game.battle.no_buff_loop = false
+    end
+end
 
 return spell

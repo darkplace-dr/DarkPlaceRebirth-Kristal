@@ -50,6 +50,8 @@ function item:init()
         susie = "Well, if I have to.",
         ralsei = "It's a bit too heavy...",
         noelle = "(W-wow, what presence...)",
+		dess = "ffs no",
+        jamm = "Too shiny. Don't want to dirty it."
     }
 end
 

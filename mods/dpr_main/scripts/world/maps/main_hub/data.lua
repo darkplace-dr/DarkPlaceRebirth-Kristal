@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 78,
+  nextobjectid = 82,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -22,6 +22,11 @@ return {
       firstgid = 1,
       filename = "../../tilesets/main_area.tsx",
       exportfilename = "../../tilesets/main_area.lua"
+    },
+    {
+      name = "other-objects",
+      firstgid = 209,
+      filename = "../../tilesets/other-objects.tsx"
     }
   },
   layers = {
@@ -792,8 +797,8 @@ return {
           name = "npc",
           type = "",
           shape = "point",
-          x = 460,
-          y = 160,
+          x = 550,
+          y = 150,
           width = 0,
           height = 0,
           rotation = 0,
@@ -854,7 +859,7 @@ return {
           name = "dogconegroup",
           type = "",
           shape = "rectangle",
-          x = 160.919,
+          x = -40,
           y = 200,
           width = 40,
           height = 40,
@@ -869,14 +874,47 @@ return {
           name = "dogconegroup",
           type = "",
           shape = "rectangle",
-          x = 160.81,
-          y = 240.518,
+          x = -40,
+          y = 240,
           width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
             ["default_state"] = true
+          }
+        },
+        {
+          id = 78,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 424,
+          y = 926,
+          width = 72,
+          height = 104,
+          rotation = 0,
+          gid = 210,
+          visible = true,
+          properties = {
+            ["cond"] = "not Noel:loadNoel() and Game:getFlag(\"FUN\") == 99"
+          }
+        },
+        {
+          id = 80,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 424,
+          y = 900,
+          width = 72,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cond"] = "not Noel:loadNoel() and Game:getFlag(\"FUN\") == 99",
+            ["cutscene"] = "shared_cutscenes.greyarea",
+            ["solid"] = true
           }
         }
       }

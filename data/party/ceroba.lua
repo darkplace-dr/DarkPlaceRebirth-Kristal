@@ -14,6 +14,7 @@ function character:init()
 
     self.soul_priority = 1
     self.soul_color = {1, 1, 1}
+    self.monster = true
 
     self.has_act = false
     self.has_spells = true
@@ -24,7 +25,7 @@ function character:init()
     self.lw_portrait = "face/ceroba/neutral_1"
 
     self:addSpell("diamond_guard")
-    self:addSpell("paralyze")
+    self:addSpell("paralysis")
 
     self.health = 180
 

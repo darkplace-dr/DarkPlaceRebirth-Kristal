@@ -142,6 +142,16 @@ function Battle:init()
 	self.superpower = false
 
 	self.super_timer = 0
+	
+    -- Base pitch for the music to return to when not using timeslow.
+    -- This must be changed along with music.pitch in order to correctly change the music's pitch.
+    self.music.basepitch = self.music.pitch
+
+    if Game:getSoulPartyMember().pp > 0 then
+        self.no_buff_loop = true
+    else
+        self.no_buff_loop = false
+    end
 
     self.month = tonumber(os.date("%m"))
     self.day = tonumber(os.date("%d"))
@@ -899,6 +909,19 @@ function Battle:onStateChange(old,new)
     end
 
     self.encounter:onStateChange(old,new)
+	
+    if old == "INTRO" then
+        self.music.basepitch = self.music.pitch
+    end
+	
+    if self.discoball then
+        -- For some reason this happens twice
+        if new == "ACTIONSELECT" then
+            self.discoball.tweendir = 1
+        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
+            self.discoball.tweendir = -1
+        end
+    end
 end
 
 function Battle:getSoulLocation(always_origin)
@@ -947,6 +970,13 @@ function Battle:swapSoul(object)
     object.layer = self.soul.layer
     self.soul = object
     self:addChild(object)
+	
+    --Timeslow/Focus placebo stuff
+    Game.stage.timescale = 1
+	Game.battle.music.pitch = Game.battle.music.basepitch
+	Game.battle.soul.vhsfx.active = false
+	Game.battle.soul.outlinefx.active = false
+	Input.clear("focus_placebo")
 end
 
 function Battle:resetAttackers()

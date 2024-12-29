@@ -7,7 +7,11 @@ function character:init()
     self.name = "Dess"
 
     -- Actor (handles overworld/battle sprites)
-    self:setActor("dess")
+    if Game:getFlag("super_dess") == true then
+        self:setActor("dess_super")
+    else
+        self:setActor("dess")
+    end
     self:setLightActor("dess")
     self:setDarkTransitionActor("kris_dark_transition") -- placeholder
 
@@ -19,10 +23,16 @@ function character:init()
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 1
     -- The color of this character's soul (optional, defaults to red)
-    self.soul_color = {1, 0, 0}
+    self.soul_color = {1, 1, 1}
+    -- ayo why you looking at this shit?
+    self.monster = true
 
     -- Whether the party member can act / use spells
-    self.has_act = false
+    if Game:getFlag("dess_canact") then
+        self.has_act = true
+    else
+        self.has_act = false
+    end
     self.has_spells = true
 
     -- Whether the party member can use their X-Action
@@ -139,6 +149,15 @@ function character:drawPowerStat(index, x, y, menu)
 		love.graphics.draw(icon, x+170, y+6, 0, 2, 2)
         return true
     end
+end
+
+function character:lightLVStats()
+    self.lw_stats = {
+        health = self:getLightLV() == 20 and 99 or 16 + self:getLightLV() * 4,
+        attack = 9 + self:getLightLV() * 2 + math.floor(self:getLightLV() / 4),
+        defense = 9 + math.ceil(self:getLightLV() / 4),
+        magic = self:getLightLV()
+    }
 end
 
 function character:getStarmanTheme() return "dess" end

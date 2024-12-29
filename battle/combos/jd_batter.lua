@@ -65,7 +65,7 @@ function test:doCutscene(cutscene, target)
 			dess_input_1 = true
 		end
 	end, true)
-	local text = SimpleText(110, 120, Input.getText("confirm"))
+	local text = ButtonPrompt(110, 120, "confirm", 0.75)
 	text:setColor({1, 0, 0, 1})
 	Game.battle:addChild(text)
 	cutscene:wait(0.25)
@@ -95,7 +95,7 @@ function test:doCutscene(cutscene, target)
 			return
 		end
 	end
-	can_proceed = false
+	local can_proceed = false
 	cutscene:setAnimation(dess, "battle/attack")
 	cutscene:wait(0.2)
 	Assets.playSound("boowomp", 1, 1)
@@ -111,7 +111,7 @@ function test:doCutscene(cutscene, target)
 			jamm_input_1 = true
 		end
 	end, true)
-	text = SimpleText(250, 120, Input.getText("cancel"))
+	text = ButtonPrompt(250, 120, "cancel", 0.8)
 	text:setColor({1, 1, 0, 1})
 	Game.battle:addChild(text)
 	cutscene:wait(0.25)
@@ -156,7 +156,7 @@ function test:doCutscene(cutscene, target)
 	end)
 	if not miss then
 		cutscene:setAnimation(dess, "battle/attack_ready")
-		text = SimpleText(110, 120, Input.getText("confirm"))
+		text = ButtonPrompt(110, 120, "confirm", 0.85)
 		text:setColor({1, 0, 0, 1})
 		Game.battle:addChild(text)
 	end
@@ -168,6 +168,7 @@ function test:doCutscene(cutscene, target)
 		end
 	end, true)
 	cutscene:wait(function() return can_proceed end)
+    cutscene:wait()
 	text:remove()
 	if not dess_input_2 then
 		local percent = DamageNumber("msg", "miss", dess.x, dess.y - 20, {1, 0, 0, 1})
@@ -206,7 +207,7 @@ function test:doCutscene(cutscene, target)
 		end
 		if jamm.x > target.x - 100 then
 			jamm:setLayer(target.layer + 0.5)
-			text = SimpleText(target.x + 40, target.y - 80, Input.getText("cancel"))
+			text = ButtonPrompt(target.x + 40, target.y - 80, "cancel", 0.9)
 			text:setColor({1, 1, 0, 1})
 			Game.battle:addChild(text)
 			cutscene:during(function()

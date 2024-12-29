@@ -43,19 +43,20 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
-        YOU = true
+        hero = true
     }
 
     -- Character reactions
     self.reactions = {
         susie = "Nah, lances aren't really my style.",
-        ralsei = "Um, that looks dangerous, Kris.",
+        ralsei = "Um, that looks dangerous...",
         noelle = "It feels... magical?",
+		dess = "badass",
 		jamm = {
             jamm = "I never was a swords guy.",
-            brenda = "Grah, lances aren't swords !! /lh",
+            brenda = "Uhh... lances aren't swords?",
         },
-	kris = {
+	    kris = {
             noel = "Sure, give it to the possesed kid...",
         },
     }

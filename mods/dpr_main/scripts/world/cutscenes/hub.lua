@@ -7,33 +7,25 @@ local hub = {
     wall = function(cutscene, event)
         -- Open textbox and wait for completion
         cutscene:text("* The wall seems cracked.")
+        if Game:isDessMode() then
+            local dess = cutscene:getCharacter("dess")
 
-        -- If we have Susie, play a cutscene
-        local susie = cutscene:getCharacter("susie")
-        if susie then
-            -- Detach camera and followers (since characters will be moved)
             cutscene:detachCamera()
             cutscene:detachFollowers()
 
-            -- All text from now is spoken by Susie
-            cutscene:showNametag("Susie")
-            cutscene:setSpeaker(susie)
-            cutscene:text("* Hey,[wait:5] think I can break\nthis wall?", "smile")
+            cutscene:showNametag("Dess")
+            if Game:getFlag("wall_hit", false) then
+                cutscene:text("* okay this time for SURE im gonna wreck it", "annoyed", "dess")
+            else
+                cutscene:text("* as a wise man once said", "calm_b", "dess")
+                cutscene:text("* I'm gonna wreck it!", "angry", "dess")
+            end
             cutscene:hideNametag()
-
-            -- Get the bottom-center of the broken wall
             local x = event.x + event.width/2
             local y = event.y + event.height/2
 
             if Game:getFlag("wall_hit", false) then
-                cutscene:walkTo(Game.world.player, x, y + 100, 0.75, "up")
-                cutscene:walkTo(susie, x, y + 60, 0.75, "up")
-                if cutscene:getCharacter("ralsei") then
-                    cutscene:walkTo("ralsei", x, y + 100, 0.75, "up")
-                end
-                if cutscene:getCharacter("noelle") then
-                    cutscene:walkTo("noelle", x, y + 100, 0.75, "up")
-                end
+                cutscene:walkTo(dess, x, y + 60, 0.75, "up")
                 cutscene:wait(1)
 
                 -- wall guardian appearing
@@ -42,70 +34,148 @@ local hub = {
                 Assets.playSound("drive")
                 cutscene:slideTo(wall, wall.x, y + 60, 0.5)
                 cutscene:wait(0.25)
-                cutscene:slideTo(susie, x - 60, y + 120, 0.25, "linear")
-                cutscene:slideTo(Game.world.player, x + 60, y + 120, 0.25, "linear")
-                susie:setSprite("shock_right")
+                cutscene:slideTo(dess, x - 60, y + 120, 0.25, "linear")
+                dess:setSprite("battle/hurt")
                 cutscene:wait(0.25)
                 Assets.playSound("impact")
                 cutscene:shakeCamera(0,16,1)
                 cutscene:wait(1)
-                cutscene:showNametag("Susie")
-                cutscene:text("* Guess not!", "surprise_frown")
-                susie:setAnimation({"away_scratch", 0.25, true})
-                susie:shake(4)
+                cutscene:showNametag("Dess")
+                cutscene:text("* oh you gotta be fuckin kidding me", "angry", "dess")
+                cutscene:hideNametag()
+                dess:shake(4)
+                Assets.playSound("wing")
+                dess:resetSprite()
             else
+                cutscene:walkTo(dess, x, y + 40, 0.75, "up")
                 
-                -- Move Susie up to the wall over 0.75 seconds
-                cutscene:walkTo(susie, x, y + 40, 0.75, "up")
-                -- Move other party members behind Susie
-                cutscene:walkTo(Game.world.player, x, y + 100, 0.75, "up")
-                if cutscene:getCharacter("ralsei") then
-                    cutscene:walkTo("ralsei", x + 60, y + 100, 0.75, "up")
-                end
-                if cutscene:getCharacter("noelle") then
-                    cutscene:walkTo("noelle", x - 60, y + 100, 0.75, "up")
-                end
-                
-                -- Wait 1.5 seconds
                 cutscene:wait(1.5)
                 
-                -- Walk back,
-                cutscene:wait(cutscene:walkTo(susie, x, y + 60, 0.5, "up", true))
-                -- and run forward!
-                cutscene:wait(cutscene:walkTo(susie, x, y + 20, 0.2))
+                cutscene:wait(cutscene:walkTo(dess, x, y + 60, 0.5, "up", true))
+                cutscene:wait(cutscene:walkTo(dess, x, y + 20, 0.2))
                 
-                -- Slam!!
                 Assets.playSound("impact")
-                susie:shake(4)
-                susie:setSprite("shock_up")
+                dess:shake(4)
                 
-                -- Slide back a bit
-                cutscene:slideTo(susie, x, y + 40, 0.1)
+                cutscene:slideTo(dess, x, y + 60, 0.1)
                 cutscene:wait(1.5)
                 
-                -- owie
-                susie:setAnimation({"away_scratch", 0.25, true})
-                susie:shake(4)
+                dess:resetSprite()
+                dess:shake(4)
                 Assets.playSound("wing")
                 
                 cutscene:wait(1)
 
-                cutscene:showNametag("Susie")
-                cutscene:text("* Guess not.", "nervous")
+                cutscene:showNametag("Dess")
+                cutscene:text("* damn", "neutral_b", "dess")
+                cutscene:hideNametag()
             end
-            cutscene:hideNametag()
 
-            -- Reset Susie's sprite
-            susie:resetSprite()
-
-            -- Reattach the camera
-            cutscene:attachCamera()
-
-            -- Align the follower positions behind Kris's current position
-            cutscene:alignFollowers()
-            -- And reattach them, making them return to their target positions
+            cutscene:wait(cutscene:attachCamera(1))
             cutscene:attachFollowers()
             Game:setFlag("wall_hit", true)
+        else
+    
+            -- If we have Susie, play a cutscene
+            local susie = cutscene:getCharacter("susie")
+            if susie then
+                -- Detach camera and followers (since characters will be moved)
+                cutscene:detachCamera()
+                cutscene:detachFollowers()
+    
+                -- All text from now is spoken by Susie
+                cutscene:showNametag("Susie")
+                cutscene:setSpeaker(susie)
+                cutscene:text("* Hey,[wait:5] think I can break\nthis wall?", "smile")
+                cutscene:hideNametag()
+    
+                -- Get the bottom-center of the broken wall
+                local x = event.x + event.width/2
+                local y = event.y + event.height/2
+    
+                if Game:getFlag("wall_hit", false) then
+                    cutscene:walkTo(Game.world.player, x, y + 100, 0.75, "up")
+                    cutscene:walkTo(susie, x, y + 60, 0.75, "up")
+                    if cutscene:getCharacter("ralsei") then
+                        cutscene:walkTo("ralsei", x, y + 100, 0.75, "up")
+                    end
+                    if cutscene:getCharacter("noelle") then
+                        cutscene:walkTo("noelle", x, y + 100, 0.75, "up")
+                    end
+                    cutscene:wait(1)
+    
+                    -- wall guardian appearing
+                    local wall = Game.world:spawnObject(NPC("wall", x, 0, {cutscene = "hub.wall_guardian"}))
+    
+                    Assets.playSound("drive")
+                    cutscene:slideTo(wall, wall.x, y + 60, 0.5)
+                    cutscene:wait(0.25)
+                    cutscene:slideTo(susie, x - 60, y + 120, 0.25, "linear")
+                    cutscene:slideTo(Game.world.player, x + 60, y + 120, 0.25, "linear")
+                    susie:setSprite("shock_right")
+                    cutscene:wait(0.25)
+                    Assets.playSound("impact")
+                    cutscene:shakeCamera(0,16,1)
+                    cutscene:wait(1)
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* Guess not!", "surprise_frown")
+                    susie:setAnimation({"away_scratch", 0.25, true})
+                    susie:shake(4)
+                else
+                    
+                    -- Move Susie up to the wall over 0.75 seconds
+                    cutscene:walkTo(susie, x, y + 40, 0.75, "up")
+                    -- Move other party members behind Susie
+                    cutscene:walkTo(Game.world.player, x, y + 100, 0.75, "up")
+                    if cutscene:getCharacter("ralsei") then
+                        cutscene:walkTo("ralsei", x + 60, y + 100, 0.75, "up")
+                    end
+                    if cutscene:getCharacter("noelle") then
+                        cutscene:walkTo("noelle", x - 60, y + 100, 0.75, "up")
+                    end
+                    
+                    -- Wait 1.5 seconds
+                    cutscene:wait(1.5)
+                    
+                    -- Walk back,
+                    cutscene:wait(cutscene:walkTo(susie, x, y + 60, 0.5, "up", true))
+                    -- and run forward!
+                    cutscene:wait(cutscene:walkTo(susie, x, y + 20, 0.2))
+                    
+                    -- Slam!!
+                    Assets.playSound("impact")
+                    susie:shake(4)
+                    susie:setSprite("shock_up")
+                    
+                    -- Slide back a bit
+                    cutscene:slideTo(susie, x, y + 40, 0.1)
+                    cutscene:wait(1.5)
+                    
+                    -- owie
+                    susie:setAnimation({"away_scratch", 0.25, true})
+                    susie:shake(4)
+                    Assets.playSound("wing")
+                    
+                    cutscene:wait(1)
+    
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* Guess not.", "nervous")
+                end
+                cutscene:hideNametag()
+    
+                -- Reset Susie's sprite
+                susie:resetSprite()
+    
+                -- Reattach the camera
+                cutscene:attachCamera()
+    
+                -- Align the follower positions behind Kris's current position
+                cutscene:alignFollowers()
+                -- And reattach them, making them return to their target positions
+                cutscene:attachFollowers()
+                Game:setFlag("wall_hit", true)
+
+            end
         end
     end,
 
@@ -155,7 +225,86 @@ local hub = {
     end,
 
     malius = function(cutscene, event)
-        Game.world:openMenu(FuseMenu())
+        cutscene:text("* Well, [wait:5]well. [wait:5]Welcome to the FUSING ROOM.")
+        cutscene:text("* I am this room's smith, [wait:5]MALIUS.")
+        cutscene:text("* Using my skills, [wait:5]I can FUSE items to create NEW ONES.")
+        cutscene:text("* Or I can REPAIR whatever broken items you possess.")
+	
+        local choice = cutscene:choicer({"Fix Item", "Fuse", "Fix Us", "Leave"})
+        if choice == 2 then
+            cutscene:after(function()
+                Game.world:openMenu(FuseMenu())
+            end)	
+        elseif choice == 3 then
+            local malius = cutscene:getCharacter("malius")
+            cutscene:detachCamera()
+            cutscene:detachFollowers()
+            cutscene:text("* Your body is a weapon,[wait:5]too. [wait:5]You must take care of it from time to time.")
+            cutscene:text("* Huh-hah![wait:5] Let's feel my technique.")
+
+            Game.world.music:pause()
+            Assets.playSound("noise")
+            malius:setAnimation("powerup")
+            cutscene:wait(1.5)
+
+            local order = {}
+
+            for i = #Game.party, 1, -1 do
+                table.insert(order, Game.party[i])
+            end
+
+            for i, party in pairs(order) do
+                local id = party.actor.id 
+
+                local char = cutscene:getCharacter(id)
+                local x, y = char.x, char.y
+                local facing = char.facing
+
+                char.layer = 0.39
+                char.x, char.y = 460, 348
+                char:setFacing("down")
+
+                if id == "susie" then
+                    char:setSprite("shock_left")
+                elseif id == "dess" then
+                    char:setSprite("beatbox")
+                elseif id == "ceroba_dw" then
+                    char.x = char.x - 10
+                    char.y = char.y + 15
+                    char:setSprite("fall")
+                elseif id == "mario" then
+                    char.x = char.x - 30
+                    char:setSprite("slide")
+                elseif id == "noelle" then
+                    char:setSprite("shocked")
+                end
+
+                malius:setAnimation("hit")
+                Assets.playSound("squeaky")
+                cutscene:wait(9/15)
+                malius:setAnimation("hit")
+                Assets.playSound("squeaky")
+                cutscene:wait(9/15)
+                
+                char:resetSprite()
+
+                char.x, char.y = x, y
+                char.layer = 0.4
+                char:setFacing(facing)
+            end
+
+            malius:resetSprite()
+
+            Game.world.music:resume()
+            Assets.playSound("power")
+            for _,chara in ipairs(Game.party) do
+                chara:heal(math.huge, false)
+            end
+            cutscene:text("* (Somehow, [wait:5]everyone's HP was restored.)")
+            cutscene:interpolateFollowers()
+            cutscene:attachFollowers()
+            cutscene:attachCamera()
+        end
     end,
 
     fun_fax = function(cutscene, event)
@@ -344,23 +493,78 @@ local hub = {
         cutscene:wait(2)
 
         fun_fax:remove()
-        Game.world.music:fade(1, 0.5)
+        Game.world.music:fade(1, 0.25)
     end,
 
     sans = function(cutscene, event)
+
+        if Game.world.player.facing == "left" then
+            local sans = Game.world:getCharacter("sans")
+            Assets.playSound("noise")
+            cutscene:wait(cutscene:slideTo(sans, sans.x - 40, sans.y, 0.1))
+
+            if sans.x == 350 then
+                Game.world.music:pause()
+                local music_cut = Music()
+                cutscene:wait(2)
+                music_cut:play("fanfare")
+                cutscene:detachFollowers()
+                for i,_ in ipairs(Game.party) do
+                    local chara = Game.party[i]
+                    local actor = Game.world:getCharacter(chara.actor.id)
+                    cutscene:walkTo(actor, actor.x, actor.y + 80, 3.5, "up")
+                    actor:setFacing("up")
+                end
+
+
+                sans.layer = 0.7
+                cutscene:wait(3)
+                music_cut:stop()
+
+                local elevator = Game.stage.objects[12]
+                elevator:open()
+                cutscene:wait(0.01)
+                sans.x = 462
+                sans.y = 122
+                --elevator:open()
+                cutscene:wait(0.5)
+                music_cut:play("deltarune/muscle")
+                cutscene:wait(2)
+                cutscene:textTagged("* [wait:30]hey.", "neutral", "sans")
+                cutscene:textTagged("* so,[wait:5] you guys won't believe what just happened.", "joking", "sans")
+                cutscene:textTagged("* but they literally[wait:10]just[wait:10] finished the elevator.", "wink", "sans")
+                cutscene:textTagged("* guess my work here is done.", "eyes_closed", "sans")
+                cutscene:textTagged("* so, you kids won't be seeing me anytime soon.", "joking", "sans")
+                cutscene:textTagged("* [wait:20]bye.", "neutral", "sans")
+                music_cut:stop()
+                Game.world.fader:fadeOut(nil, {alpha = 1, speed = 10})
+                elevator:close()
+                sans.x = 550
+                sans.y = 150
+
+                Assets.playSound("noise")
+                --cutscene:wait(1)
+                cutscene:wait(cutscene:attachFollowers())
+                Assets.playSound("noise")
+                Game.world.fader:fadeIn(nil, {alpha = 1, speed = 0.1})
+                Game.world.music:resume()
+                cutscene:wait(1)
+            end
+
+            return
+        end
+
+
         local susieHasMetSans = Game:getFlag("susieHasMetSans", false)
+        local dessHasMetSans = Game:getFlag("dessHasMetSans", false)
         if cutscene:getCharacter("susie") and susieHasMetSans == false then
             cutscene:textTagged("* YOU!?", "teeth_b", "susie")
             cutscene:textTagged("* 'sup.", "neutral", "sans")
             cutscene:textTagged("* What the hell are you doing here???", "teeth", "susie")
             cutscene:textTagged("* i'm keeping people away from the elevator.", "neutral", "sans")
             cutscene:textTagged("* Why?! We got places to be here, dude!!", "angry_b", "susie")
-            cutscene:textTagged("* well,[wait:5] i would let you pass if the elevator was finished.", "joking", "sans")
-            cutscene:textTagged("* ...it looks finished to me.", "suspicious", "susie")
-            cutscene:textTagged("* oh, that's because it is.", "look_left", "sans")
-            cutscene:textTagged("* it doesn't go anywhere yet, though.", "neutral", "sans")
-            cutscene:textTagged("* give it some time,[wait:5] it'll come eventually.", "wink", "sans")
-            cutscene:textTagged("* Right...", "sus_nervous", "susie")
+            cutscene:textTagged("* contractual obligations.", "joking", "sans")
+            cutscene:textTagged("* ...[wait:10]right.", "suspicious", "susie")
             cutscene:textTagged("* anyways, what's up?", "neutral", "sans")
             Game:setFlag("susieHasMetSans", true)
 
@@ -444,19 +648,46 @@ local hub = {
                 cutscene:text("[font:sans]* can't do that on a janitor's salary unfortunately.", "eyes_closed", "sans")
                 cutscene:hideNametag()
             end]]
+        elseif Game:isDessMode() and dessHasMetSans == false then
+            cutscene:showNametag("Dess")
+            cutscene:text("* holy shit is that the i remember you're genocides guy", "wtf_b", "dess")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans][speed:0.5]* ...", "look_left", "sans")
+            cutscene:text("[font:sans]* who?", "neutral", "sans")
+            cutscene:showNametag("Dess")
+            cutscene:text("* y'know,[wait:5] the funny bone man?", "eyebrow", "dess")
+            cutscene:text("* the megalovania guy[wait:10]\n* the bad time guy[wait:10]\n* the gaster blaster guy", "neutral_c", "dess")
+            cutscene:text("* i'm pretty sure the pope knows you exist btw", "neutral", "dess")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* hmm...", "look_left", "sans")
+            cutscene:text("[font:sans]* sorry kid,[wait:5] you must be thinkin' about someone else.", "wink", "sans")
+            cutscene:text("[font:sans]* after all,[wait:5] i'm nothin' more than a simple janitor.", "joking", "sans")
+            cutscene:showNametag("Dess")
+            cutscene:text("* damn", "neutral_b", "dess")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* anyways, what's up?", "neutral", "sans")
+            cutscene:hideNametag()
+            Game:setFlag("dessHasMetSans", true)
         else
             cutscene:showNametag("sans.", {font = "sans"})
             cutscene:text("[font:sans]* 'sup?", "neutral", "sans")
-            cutscene:hideNametag()			
+ 		
         end
 				
         local choice = cutscene:choicer({"Elevator", "How are\nyou here?", "Brother", "Nothing"})
 				
         if choice == 1 then
             local kid = #Game.party > 1 and "kids" or "kid"
-            cutscene:textTagged(string.format("* sorry %s,[wait:5] but you can't access the elevator right now.", kid), "eyes_closed", "sans")
-            cutscene:textTagged("* it kinda...[wait:5] doesn't go anywhere yet.", "look_left", "sans")
-            cutscene:textTagged("* so come back later,[wait:2] 'k?", "wink", "sans")
+            cutscene:textTagged(string.format("* sorry %s,[wait:5] but you can't access the elevator.", kid), "neutral", "sans")
+            cutscene:textTagged("* i've been hired to keep anyone from entering it.", "eyes_closed", "sans")
+            cutscene:textTagged("* so i unfortunately can't move from this spot.", "neutral", "sans")
+            if Game.world.player.facing == "left" then
+                cutscene:textTagged("* that's right...", "look_left", "sans")
+                cutscene:textTagged("* camera right that is.", "joking", "sans")
+                cutscene:textTagged("* my right is camera left.", "wink", "sans")
+            else
+                cutscene:textTagged("* that's right.[wait:5] not even if you talk to me from my right.", "look_left", "sans")
+            end
             cutscene:hideNametag()
         elseif choice == 2 then
             if cutscene:getCharacter("susie") then
@@ -536,7 +767,8 @@ local hub = {
                 YOU = "date",
                 susie = "shock",
                 ralsei = "surprised_down",
-                noelle = "shocked"
+                noelle = "shocked",
+                dess = "battle/hurt"
             }
 
             cutscene:showNametag("Takodachi")
@@ -874,6 +1106,83 @@ local hub = {
                 end
             end
         end
+    end,
+
+    garbage = function(cutscene, event)
+        local texts = {}
+        local function genBigText(text, x, y, scale, goner, wait_time)
+            scale = scale or 2
+            wait_time = wait_time or 0.2
+
+            local text_o = Game.world:spawnObject(Text(text, x, y, 300, 500, { style = goner and "GONER" or "dark" }))
+            text_o:setScale(scale)
+            text_o.parallax_x = 0
+            text_o.parallax_y = 0
+            if goner then
+                text_o.alpha = 1
+            end
+            table.insert(texts, text_o)
+
+            cutscene:wait(wait_time)
+
+            return text_o
+        end
+        local function flashScreen()
+            local flash = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+            flash.layer = 100
+            flash.color = { 1, 1, 1 }
+            flash.alpha = 1
+            flash.parallax_x = 0
+            flash.parallax_y = 0
+            Game.world:addChild(flash)
+            Game.world.timer:tween(1.5, flash, { alpha = 0 }, "linear", function()
+                flash:remove()
+            end)
+        end
+        local function fadeOutBigText()
+            for _, v in ipairs(texts) do
+                Game.world.timer:tween(2, v, { alpha = 0 }, "linear", function()
+                    v:remove()
+                end)
+            end
+            cutscene:wait(2)
+        end
+
+        local garbage = cutscene:getCharacter("diamond_trash")
+
+        Game.world.music:pause()
+        local music_inst = Music()
+        cutscene:after(function() music_inst:remove() end)
+
+        if event.interact_count == 1 then
+            cutscene:showNametag("Trash Rudinn")
+            music_inst:play("voiceover/garbage", 1, 1, false)
+            cutscene:text("[noskip][voice:nil]* Hellooo...[wait:1.5]", nil, garbage, { auto = true })
+            cutscene:hideNametag()
+            genBigText("I'm", 240, 40)
+            genBigText("a", 360, 40, 2, false, 0.1)
+            genBigText("piece", 205, 110)
+            genBigText("of", 370, 110)
+            flashScreen()
+            genBigText("GARBAGE", 35, 160, 6, true, 2)
+            fadeOutBigText()
+        else
+            cutscene:showNametag("Trash Rudinn")
+            music_inst:play("voiceover/stillgarbage", 1, 1, false)
+            cutscene:text("[noskip][voice:nil]* Oh hi,[wait:1] thanks for checking in.[wait:2]\n* I'm...", nil, garbage, { auto = true })
+            cutscene:hideNametag()
+            genBigText("still", 210, 40)
+            genBigText("a", 380, 40, 2, false, 0.1)
+            genBigText("piece", 205, 110)
+            genBigText("of", 370, 110)
+            flashScreen()
+            genBigText("GARBAGE", 35, 160, 6, true, 2)
+            fadeOutBigText()
+        end
+
+        cutscene:wait(1)
+        cutscene:look("down")
+        Game.world.music:resume()
     end,
 }
 return hub

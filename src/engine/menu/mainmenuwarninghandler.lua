@@ -14,7 +14,22 @@ function MainMenuWarningHandler:init(menu)
     self.warnings = Utils.split(love.filesystem.read("assets/warning.txt"), "\n")
     -- Removes the last item and errors if that wasn't a blank line
     assert(table.remove(self.warnings, #self.warnings) == "", "No final newline on warnings.txt!")
-    if Kristal.Config["seenLegitWarning"] then
+
+    local char = Noel:loadNoel()
+    local nuh_uh = false
+
+    if char then
+        if char.version == 0.01 then
+        else
+            love.filesystem.remove("saves/null.char")
+            nuh_uh = true
+        end
+    end
+
+    if nuh_uh == true then
+        Assets.playSound("ominous", 10, 0.5)
+        self.current_warning = "Invalid null.char found!?!?\nnull.char has been [color:red][shake:0.55]deleted.\n\n\n\n\n\n\n\n\n[color:white]WARNING\nnan_spawn.lua is [color:red]missing!\n(IMPORTANT FILE)"
+    elseif Kristal.Config["seenLegitWarning"] then
         self.current_warning = Utils.pick(self.warnings)
     else
         self.current_warning = "May contain swears/profanity"
@@ -47,10 +62,9 @@ function MainMenuWarningHandler:update()
         ), Utils.clampMap(
             self.animation_clock, 0, 1.3, 1, 0.0
         ))
-        local luma = Utils.clampMap(
+        self.alphafx.alpha = Utils.clampMap(
             self.animation_clock, 0, 1.3, 1, 0
         )
-        self.container:setColor(luma,luma,luma)
     end
 end
 
@@ -59,6 +73,7 @@ function MainMenuWarningHandler:onEnter()
 	self.active = true
     local options = {align = "center"}
     self.container = self.menu.stage:addChild(Object(0,0,SCREEN_WIDTH, SCREEN_HEIGHT))
+    self.alphafx = self.container:addFX(AlphaFX(1))
     self.container:setScaleOrigin(0.5, 0.5)
     self.text_warn = self.container:addChild(Text("asdf", 0, 115 + 30, options))
     self.text_warn.inherit_color = true

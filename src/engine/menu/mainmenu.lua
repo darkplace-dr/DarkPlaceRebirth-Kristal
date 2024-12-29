@@ -53,6 +53,7 @@ function MainMenu:enter()
     self.deadzone_config = MainMenuDeadzone(self)
     self.dlc_handler = MainMenuDLCHandler(self)
     self.warning_handler = MainMenuWarningHandler(self)
+    self.plugins = MainMenuPlugins(self)
 
     -- Register states
     self.state = "NONE"
@@ -71,6 +72,15 @@ function MainMenu:enter()
     self.state_manager:addState("DEADZONE", self.deadzone_config)
     self.state_manager:addState("DLC", self.dlc_handler)
     self.state_manager:addState("WARNING", self.warning_handler)
+    self.state_manager:addState("plugins", self.plugins)
+
+    for _, mod in ipairs(Kristal.Mods.getMods()) do
+		if not mod.plugin then goto continue end
+		if not love.filesystem.getInfo(mod.path.."/options.lua") then goto continue end
+		local result = love.filesystem.load(mod.path.."/options.lua")(mod)
+		self.state_manager:addState("plugin_"..mod.id, result(MainMenu))
+		::continue::
+	end
 
     self.fader = Fader()
     self.fader.layer = 10000
@@ -106,6 +116,18 @@ function MainMenu:enter()
         self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
     end
     local dlc_ids = Utils.getKeys(Kristal.Mods.data)
+	for _,dlc in ipairs(dlc_ids) do
+		local our_mod = nil
+		for _,mod in ipairs(Kristal.Mods.list) do
+			if dlc == mod.id then
+				our_mod = mod
+				break
+			end
+		end
+		if our_mod.plugin_path then
+			Utils.removeFromTable(dlc_ids, dlc)
+		end
+	end
     Utils.removeFromTable(dlc_ids, "dpr_main")
     Utils.removeFromTable(dlc_ids, "dpr_light")
     if #dlc_ids > 0 then
@@ -292,6 +314,14 @@ function MainMenu:update()
         end
         self.heart.x = self.heart.x + ((self.heart_target_x - self.heart.x) / 2) * DTMULT
         self.heart.y = self.heart.y + ((self.heart_target_y - self.heart.y) / 2) * DTMULT
+    end
+
+    if Kristal.Shatter then
+        if Kristal.Config["enableShatter"] then
+            Kristal.Shatter.active = true
+        else
+            Kristal.Shatter.active = false
+        end
     end
 end
 

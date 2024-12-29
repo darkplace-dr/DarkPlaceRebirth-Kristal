@@ -419,8 +419,16 @@ function ActorSprite:update()
 
     if not self.playing then
         local floored_frame = math.floor(self.walk_frame)
+
+        local anim_speed = self.actor.walk_anim_speed
+
         if floored_frame ~= self.walk_frame or ((self.directional or self.walk_override) and self.walking) then
-            self.walk_frame = Utils.approach(self.walk_frame, floored_frame + 1, DT * (self.walk_speed > 0 and self.walk_speed or 1))
+
+            if anim_speed then
+                self.walk_frame = Utils.approach(self.walk_frame, floored_frame + 1, DT * (self.walk_speed > 0 and self.walk_speed*anim_speed or anim_speed))
+            else
+                self.walk_frame = Utils.approach(self.walk_frame, floored_frame + 1, DT * (self.walk_speed > 0 and self.walk_speed or 1))
+            end
             local last_frame = self.frame
             self:setFrame(floored_frame)
             if self.frame ~= last_frame and self.on_footstep and self.frame % 2 == 0 then
