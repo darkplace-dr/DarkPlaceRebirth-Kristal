@@ -26,9 +26,15 @@ function USFSoul:draw()
             self.width * self.origin_x, self.width * self.origin_y)
     end
 
-    drawSprite(1, 1, self.siner / 8)
-    drawSprite(self.siner / 4, self.siner / 4, 1 + 0.6 - self.siner / 16)
-    drawSprite(self.siner / 8, self.siner / 8, 1 + 0.6 - self.siner / 24)
+    if Game.party[1].monster then
+        drawSprite(-1, -1, self.siner / 8)
+        drawSprite(-self.siner / 4, -self.siner / 4, 1 + 0.6 - self.siner / 16)
+        drawSprite(-self.siner / 8, -self.siner / 8, 1 + 0.6 - self.siner / 24)
+    else
+        drawSprite(1, 1, self.siner / 8)
+        drawSprite(self.siner / 4, self.siner / 4, 1 + 0.6 - self.siner / 16)
+        drawSprite(self.siner / 8, self.siner / 8, 1 + 0.6 - self.siner / 24)
+    end
 
     super.draw(self)
 end

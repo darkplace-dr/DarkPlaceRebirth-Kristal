@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -916,6 +916,19 @@ return {
             ["cutscene"] = "shared_cutscenes.greyarea",
             ["solid"] = true
           }
+        },
+        {
+          id = 81,
+          name = "NewYearCountDown",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 118,
+          width = 120,
+          height = 92,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

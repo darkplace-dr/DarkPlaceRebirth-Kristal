@@ -280,11 +280,11 @@ local hub = {
                 end
 
                 malius:setAnimation("hit")
-                Assets.playSound("squeaky")
                 cutscene:wait(9/15)
+                Assets.playSound("squeaky")
                 malius:setAnimation("hit")
-                Assets.playSound("squeaky")
                 cutscene:wait(9/15)
+                Assets.playSound("squeaky")
                 
                 char:resetSprite()
 
@@ -493,6 +493,7 @@ local hub = {
         cutscene:wait(2)
 
         fun_fax:remove()
+        random_theme:remove()
         Game.world.music:fade(1, 0.25)
     end,
 
