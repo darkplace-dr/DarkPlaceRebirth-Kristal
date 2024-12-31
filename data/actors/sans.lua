@@ -27,7 +27,7 @@ function actor:init()
     if self.month == 10 and self.day == 31 then
         self.default = "sumpkin"
     else
-        self.default = "idle"
+        self.default = "walk"
     end
 
     -- Sound to play when this actor speaks (optional)
@@ -51,6 +51,11 @@ function actor:init()
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {
         ["shrug"] = {-3, 0},
+        ["icecream_1"] = {-2, 0},
+        ["icecream_2"] = {-2, 0},
+        ["icecream_3"] = {-2, 0},
+        ["icecream_4"] = {-2, 0},
+        ["icecream_5"] = {-2, 0},
         ["bike"] = {0, -4},
     }
 
