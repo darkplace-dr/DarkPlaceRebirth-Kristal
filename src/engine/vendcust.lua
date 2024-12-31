@@ -34,6 +34,7 @@ GITHUB_REPOS = {
 		"dlc_forest"
 	},
 	JustAnotherRandomGithubUser={
-		"dpr_spamtown_dlc"
+		"dpr_spamtown_dlc",
+		"dpr_underground_dlc"
 	}
 }
