@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="43">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="44">
  <editorsettings>
   <export target="main_1.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="music" value="dev"/>
+  <property name="name" value="Dev Diner - Main Area"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/devroom.tsx"/>
  <tileset firstgid="145" source="../../../tilesets/devroom_objects.tsx"/>
@@ -139,19 +140,14 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="41" name="interactable" x="960" y="185" width="50" height="66">
+  <object id="42" name="npc" x="960" y="260">
    <properties>
+    <property name="actor" value="devroom_pc"/>
     <property name="cutscene" value="devroom.pc"/>
-    <property name="solid" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="42" name="sprite" x="970" y="185">
-   <properties>
-    <property name="speed" type="int" value="-1"/>
-    <property name="texture" value="world/maps/devroom/pc"/>
    </properties>
    <point/>
   </object>
+  <object id="43" name="savepoint" x="1020" y="500" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="19" name="shop" x="360" y="280">

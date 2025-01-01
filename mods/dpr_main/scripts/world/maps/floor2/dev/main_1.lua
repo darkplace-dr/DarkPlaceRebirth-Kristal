@@ -10,9 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 43,
+  nextobjectid = 44,
   properties = {
-    ["music"] = "dev"
+    ["music"] = "dev",
+    ["name"] = "Dev Diner - Main Area"
   },
   tilesets = {
     {
@@ -595,36 +596,33 @@ return {
           }
         },
         {
-          id = 41,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 960,
-          y = 185,
-          width = 50,
-          height = 66,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "devroom.pc",
-            ["solid"] = true
-          }
-        },
-        {
           id = 42,
-          name = "sprite",
+          name = "npc",
           class = "",
           shape = "point",
-          x = 970,
-          y = 185,
+          x = 960,
+          y = 260,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           properties = {
-            ["speed"] = -1,
-            ["texture"] = "world/maps/devroom/pc"
+            ["actor"] = "devroom_pc",
+            ["cutscene"] = "devroom.pc"
           }
+        },
+        {
+          id = 43,
+          name = "savepoint",
+          class = "",
+          shape = "rectangle",
+          x = 1020,
+          y = 500,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

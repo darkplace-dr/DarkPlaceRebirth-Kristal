@@ -6,11 +6,12 @@ local devroom = {
     ---@param cutscene WorldCutscene
     pc = function(cutscene, event, chara)
         ---@diagnostic disable-next-line: assign-type-mismatch
-        local sprite = Game.world:getEvent(42) ---@type Sprite
+        local devroom_pc = cutscene:getCharacter("devroom_pc")
         local t_c = "[color:#000099]"
 
         local function nothingText()
             if love.math.random(1, 10) == 1 then
+                devroom_pc:setAnimation("wonka")
                 local nothing = Assets.playSound("nothing")
         		Game.world.music:pause()
         		cutscene:text(t_c.."[voice:none][noskip]* [[speed:0.7]You get [wait:10]NOTHING!\n[wait:16]You lose![wait:30]\nGood day,[wait:2] sir!]",
@@ -20,14 +21,16 @@ local devroom = {
         		end)
         		Game.world.music:resume()
             else
+                devroom_pc:setAnimation("happy")
                 cutscene:text(t_c.."* [So you get nothing!]")
            	end
         end
 
-        sprite:setFrame(2)
+        devroom_pc:setAnimation("happy")
         Assets.stopAndPlaySound("pc_on", 0.5)
         cutscene:text(t_c.."* [The PC is on!]")
         Assets.stopSound("pc_on")
+        devroom_pc:setAnimation("on")
         Assets.stopAndPlaySound("pc_enter", 0.5)
         cutscene:text(t_c.."* [What do you want to do?]")
 
@@ -35,7 +38,9 @@ local devroom = {
         local c = cutscene:choicer({"Get Gifts", "What's that?", "Turn off"})
 
         if c == 1 then
+            devroom_pc:setAnimation("happy")
             cutscene:text(t_c.."* [Alright,[wait:2] let's see what we have for you today...]")
+            devroom_pc:setAnimation("loading")
             cutscene:text(t_c.."* [speed:0.1][...]")
             if love.system.getOS() == "Android" or love.system.getOS() == "iOS" then
                 cutscene:text(t_c.."* [Unfortunately,[wait:2] I cannot check for save files on a "..love.system.getOS().." system.]")
@@ -72,6 +77,7 @@ local devroom = {
             end
 
             if #new_gifts <= 0 then
+                devroom_pc:setAnimation("on")
                 cutscene:text(t_c.."* [Nope![wait:3] There's nothing new for you!]")
                 nothingText()
                 goto turnoff
@@ -84,7 +90,9 @@ local devroom = {
                 end
                 local item = Registry.createItem(gifts[gift].item_id)
                 local item_name = item:getName()
+                devroom_pc:setAnimation("happy")
                 cutscene:text(t_c.."* [Seems like you have played [color:yellow]"..game_name..t_c.."!]")
+                devroom_pc:setAnimation("on")
                 cutscene:text(t_c.."* [A gift is registered for playing this game![wait:3]\nHere's your [color:yellow]"..item_name..t_c.."!]")
                 if Game.inventory:addItem(item) then
                     if item.id == "egg" then
@@ -95,17 +103,21 @@ local devroom = {
                     gift_status[gift] = true
                     cutscene:text("* You got the "..item_name..".")
                     if i < #new_gifts then
+                        devroom_pc:setAnimation("happy")
                         cutscene:text(t_c.."* [And we're not done yet!]")
                     end
                 else
+                    devroom_pc:setAnimation("oh")
                     cutscene:text(t_c.."* [Oh but your inventory is full!]")
                     nothingText()
+                    devroom_pc:setAnimation("happy")
                     cutscene:text(t_c.."* [But no worries,[wait:2] I'll keep your gift with me until you can take it!]")
                     cutscene:text(t_c.."* [So come back soon!]")
                     break
                 end
             end
 
+            devroom_pc:setAnimation("happy")
             cutscene:text(t_c.."* [That's all for now!]")
             cutscene:text(t_c.."* [Thank you,[wait:2] come again soon!]")
 
@@ -124,7 +136,7 @@ local devroom = {
 	    end
 
         ::turnoff::
-        sprite:setFrame(1)
+        devroom_pc:setAnimation("off")
         Assets.stopAndPlaySound("pc_off", 0.5)
         cutscene:text(t_c.."* [The PC is off!]")
     end,
