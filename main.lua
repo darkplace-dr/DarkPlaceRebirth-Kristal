@@ -303,6 +303,7 @@ Border = require("src.engine.border")
 ImageBorder = require("src.engine.imageborder")
 
 GameOver = require("src.engine.game.gameover")
+GameOverSF = require("src.engine.game.gameoversf")
 
 Legend = require("src.engine.game.legend")
 

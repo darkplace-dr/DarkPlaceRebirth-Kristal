@@ -626,7 +626,8 @@ end
 
 ---@param x? number
 ---@param y? number
-function Game:gameOver(x, y)
+---@param sf? boolean
+function Game:gameOver(x, y, sf)
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
@@ -637,8 +638,13 @@ function Game:gameOver(x, y)
     if self.legend   then self.legend  :remove() end
     if self.dogcheck then self.dogcheck:remove() end
 
-    self.gameover = GameOver(x or 0, y or 0)
-    self.stage:addChild(self.gameover)
+    if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
+        self.gameover = GameOver(x or 0, y or 0)
+        self.stage:addChild(self.gameover)
+    else
+        self.gameover = GameOverSF(sf == "bearers" and true or nil)
+        self.stage:addChild(self.gameover)
+    end
 end
 
 ---@param cutscene          string
