@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 62,
+  nextlayerid = 10,
+  nextobjectid = 63,
   properties = {
     ["music"] = "dev"
   },
@@ -29,35 +29,6 @@ return {
     }
   },
   layers = {
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 4,
-      name = "objects_bg",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 1,
-          name = "space_bg",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 0,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
-    },
     {
       type = "tilelayer",
       x = 0,
