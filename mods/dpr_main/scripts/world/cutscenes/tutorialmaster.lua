@@ -63,14 +63,14 @@ local tutorialmaster = {
             end
         elseif c == 2 then
 			cutscene:text("* Dess' use is still unknown.[wait:5]\n* To find out, you're on your own.")
-			cutscene:text("* Some still say she is a wizard...[wait:5]\n* But I have yet to see her cast 'Blizzard'!")
+			cutscene:text("* Some still say she is a wizard.[wait:5]\n* But I have yet to see her cast 'Blizzard'!")
 			if Game:hasPartyMember("dess") then
                 cutscene:text("* I'm Dess,[wait:5] not Noelle.\n* I shoot badass stars not snowflakes.", "condescending", "dess")
                 master:setAnimation({ "shocked" })
                 cutscene:text("* Exactly![wait:5] That's not a wizard spell!")
 				master:setAnimation({ "bop" })
 				cutscene:text("* Well maybe it is actually...")
-				cutscene:text("* Seriously though.[wait:10] Keep her magic up,\nthose badass stars can deal some damage.")
+				cutscene:text("* Seriously though.[wait:10] Keep her magic up, those badass stars \ncan deal some damage.")
             end
         elseif c == 3 then
             cutscene:text("* Dess will stop being annoying,[wait:5] if you give me money to buy cigarettes.")
