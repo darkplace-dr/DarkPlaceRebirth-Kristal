@@ -396,6 +396,8 @@ local desslmao = {
 		cutscene:textTagged("* But what I *can* do is talk.[wait:10]\n* So all I really have to say is...", whodis)
 		if Game:isDessMode() then
 			cutscene:text("[noskip]* Happy new year,[wait:6] 199-", nil, nil, {auto = true})
+            Game.world.music:stop()
+            Assets.playSound("recordscratch")
 			cutscene:setSpeaker("dess")
 			cutscene:textTagged("* okay i've had enough of your crap", "angry", "dess")
 			cutscene:textTagged("* i have no idea what anything you're saying means", "neutral_b", "dess")
@@ -414,7 +416,7 @@ local desslmao = {
 			Game:setFlag("super_dess", true)
 			Game.world.player:setActor("dess_super")
 			cutscene:wait(2)
-			Game.world.music:play("undefeatable", 1, 1)
+			Game.world.music:play("undefeatable", 0.65, 1)
 			cutscene:wait(cutscene:fadeIn(1))
 			cutscene:wait(1)
 			cutscene:setSpeaker(nil)
