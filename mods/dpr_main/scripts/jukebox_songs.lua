@@ -40,6 +40,14 @@ return {
     album = "dr_ch1"
   },
   {
+    name = "Enemy Approaching!",
+    file = "battleut",
+    composer = "Toby Fox",
+    released = "2015",
+    origin = "Undertale",
+    album = "undertale"
+  },
+  {
     name = "Faint Courage",
     file = "AUDIO_DEFEAT",
     composer = "Toby Fox",
@@ -96,6 +104,14 @@ return {
     album = "dr_ts"
   },
   {
+    name = "Green Room",
+    file = "greenroom",
+    composer = "Toby Fox",
+    released = "2022",
+    origin = "deltarune.com",
+    album = "deltarunedotcom"
+  },
+  {
     name = "THE HOLY",
     file = "deltarune/THE_HOLY",
     composer = "Toby Fox",
@@ -106,14 +122,6 @@ return {
   {
     name = "sans.",
     file = "deltarune/muscle",
-    composer = "Toby Fox",
-    released = "2015",
-    origin = "Undertale",
-    album = "undertale"
-  },
-  {
-    name = "Enemy Approaching!",
-    file = "battleut",
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
