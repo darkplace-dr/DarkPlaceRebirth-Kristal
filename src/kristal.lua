@@ -1396,7 +1396,8 @@ function Kristal.funnytitle(force_icon)
         "Doki Doki Literature Club!"
     }
     local funnytitle_rand = love.math.random(#funnytitles)
-    local funnytitle = funnytitles[force_icon or funnytitle_rand] or "Depa Runts"
+    if force_icon then funnytitle_rand = force_icon end
+    local funnytitle = funnytitles[funnytitle_rand] or "Depa Runts"
     local funnyicon = Assets.getTextureData("kristal/icons/icon_"..tostring(funnytitle_rand)) or Kristal.icon
     love.window.setTitle(funnytitle)
     love.window.setIcon(funnyicon)
