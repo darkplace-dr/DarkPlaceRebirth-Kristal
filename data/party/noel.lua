@@ -9,10 +9,12 @@ function character:init()
     -- Display name
     self.name = "Noel"
 
-    self.cm_draw = true
+    self.cm_draw = true --for the character select draw function
 
     -- Actor (handles sprites)
     self:setActor("noel")
+    self:setDarkTransitionActor("noel")
+
     local lever = "-1"
     -- Display level (saved to the save file)
     self.level = lever
