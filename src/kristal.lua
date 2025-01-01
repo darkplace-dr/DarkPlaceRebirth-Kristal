@@ -1369,7 +1369,7 @@ function Kristal.funnytitle(force_icon)
         "Deltarune",
         "Half-Life",
         "* GOD damnit KRIS where the HELL are WE!?",
-        "* GOD damn YOU where the HELL are WE!?",
+        "* GOD damnit HERO where the HELL are WE!?",
         "* SO, I have no fucking clue where we are.",
         "* z...z.....z.....z.......Z.........Z",
         "Kristale",
@@ -1377,7 +1377,7 @@ function Kristal.funnytitle(force_icon)
         WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
         WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
         WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT?",
-        "Kris Tea",
+        "A DESS, a FLIMBO, and a DELF from the SHELF",
         "* REDDIT GOLD POG!!",
         "LOOK ITS bAnNAna and MEGALORE!!!",
         "GREYAREA",
