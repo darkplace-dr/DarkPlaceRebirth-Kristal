@@ -1355,6 +1355,52 @@ function Kristal.setDesiredWindowTitleAndIcon()
     local mod = shouldWindowUseModBranding()
     love.window.setIcon(mod and mod.window_icon_data or Kristal.icon)
     love.window.setTitle(mod and mod.name or Kristal.game_default_name)
+
+    -- eh, this is mildly amusing
+    if Mod then
+        Kristal.funnytitle()
+    end
+end
+
+-- Sets a random title and icon to the game window.
+function Kristal.funnytitle(force_icon)
+    if Utils.random() < 0.5 then return end
+    local funnytitles = {
+        "Deltarune",
+        "Half-Life",
+        "* GOD damnit KRIS where the HELL are WE!?",
+        "* GOD damn YOU where the HELL are WE!?",
+        "* SO, I have no fucking clue where we are.",
+        "* z...z.....z.....z.......Z.........Z",
+        "Kristale",
+        "* \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT?",
+        "Kris Tea",
+        "* REDDIT GOLD POG!!",
+        "LOOK ITS bAnNAna and MEGALORE!!!",
+        "GREYAREA",
+        "Kristal",
+        "Spamton Sweepstakes",
+        "Includes Darkness!",
+        "It's raining somewhere else...",
+        "Minecraft",
+        "Counter Strike Source Not Found()",
+        "Grian Is Watching You.",
+        "PLAY THE RIBBIT MOD, NOW!!!",
+        "Dark Place: REBIRTH",
+        "Thetaseal",
+        "Undertale Yellow: The Roba Edition",
+        "Power Star",
+        "Doki Doki Literature Club!"
+    }
+    local funnytitle_rand = love.math.random(#funnytitles)
+    if force_icon then funnytitle_rand = force_icon end
+    local funnytitle = funnytitles[funnytitle_rand] or "Depa Runts"
+    local funnyicon = Assets.getTextureData("kristal/icons/icon_"..tostring(funnytitle_rand)) or Kristal.icon
+    love.window.setTitle(funnytitle)
+    love.window.setIcon(funnyicon)
 end
 
 --- Called internally. Calls the `preInit` event on the mod and initializes the registry.
