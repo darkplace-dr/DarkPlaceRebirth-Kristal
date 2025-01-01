@@ -18,6 +18,7 @@ return function(cutscene)
     transition.layer = WORLD_LAYERS["top"]
     local waiting = true
     local endData
+    local noel
     transition.end_callback = function(trans, data)
         waiting = false
         endData = data
@@ -27,10 +28,36 @@ return function(cutscene)
     for _, character in ipairs(endData) do
         local char = Game.world:getPartyCharacterInParty(character.party)
         local kx, ky = character.sprite_1:localToScreenPos(character.sprite_1.width / 2, 0)
-        char:setScreenPos(kx + 8, transition.final_y)
-        char.visible = true
-        char:setFacing("down")
+        if character.party.name == "Noel" then
+            noel = character
+            char:setSprite("brella")
+        else
+            char:setScreenPos(kx + 8, transition.final_y)
+            char.visible = true
+            char:setFacing("down")
+        end
     end
+
+    if Game:hasPartyMember("noel") then
+        local noel_actor = Game.world:getCharacter("noel")
+        local kx, ky = noel.sprite_1:localToScreenPos(noel.sprite_1.width / 2, 0)
+
+        local nx, ny = noel_actor:getScreenPos()
+
+        noel_actor:setScreenPos(-nx, -50)
+        local ky = noel_actor.y + 50 + transition.final_y
+       -- noel_actor.x = noel.x
+        --local px, py = noel:getScreenPos()
+        Assets.playSound("elecdoor_close", 2, 0.1)
+        cutscene:wait(cutscene:slideTo(noel_actor, kx*2, ky, 4, "out-cubic"))
+
+        --fuck it, its close enough
+        cutscene:wait(0.2)
+        Assets.playSound("wing")
+        noel_actor:setFacing("down")
+        noel_actor:resetSprite()
+    end
+    
     cutscene:wait(0.2)
     cutscene:attachCamera()
     cutscene:interpolateFollowers()

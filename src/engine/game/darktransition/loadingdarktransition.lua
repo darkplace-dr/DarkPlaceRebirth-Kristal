@@ -151,13 +151,17 @@ function LoadingDarkTransition:init(final_y, options)
         for i, data in ipairs(self.character_data) do
             data.x = DTRANS[i].x
             data.y = DTRANS[i].y - 230
-            data.sprite_1:set("ball") -- or data.sprite_1:set("jump_ball")
-            data.sprite_2:set("ball") -- or data.sprite_2:set("jump_ball")
-            data.sprite_3:set("ball") -- or data.sprite_3:set("jump_ball")
 
-            data.sprite_1.visible = true
-            data.sprite_2.visible = true
-            data.sprite_3.visible = true
+            if data.party.name == "Noel" then
+            else
+                data.sprite_1:set("ball") -- or data.sprite_1:set("jump_ball")
+                data.sprite_2:set("ball") -- or data.sprite_2:set("jump_ball")
+                data.sprite_3:set("ball") -- or data.sprite_3:set("jump_ball")
+
+                data.sprite_1.visible = true
+                data.sprite_2.visible = true
+                data.sprite_3.visible = true
+            end
 
             data.sprite_2.alpha = 0.5
             data.sprite_3.alpha = 0.25
@@ -378,7 +382,11 @@ function LoadingDarkTransition:draw()
                 data.sprite_1:setActor(data.party:getDarkTransitionActor())
                 data.sprite_2:setActor(data.party:getDarkTransitionActor())
                 data.sprite_3:setActor(data.party:getDarkTransitionActor())
-                data.sprite_1:set("run")
+                if data.party.name == "Noel" then
+                    data.sprite_1:set("walk/down")
+                else
+                    data.sprite_1:set("run") 
+                end
             end
         end
         if (math.floor(self.timer) >= 60) and not self.do_once2 then
@@ -390,7 +398,11 @@ function LoadingDarkTransition:draw()
                 data.sprite_1:setActor(data.party:getDarkTransitionActor())
                 data.sprite_2:setActor(data.party:getDarkTransitionActor())
                 data.sprite_3:setActor(data.party:getDarkTransitionActor())
-                data.sprite_1:set("run")
+                if data.party.name == "Noel" then
+                    data.sprite_1:set("walk/up")
+                else
+                    data.sprite_1:set("run") 
+                end
             end
         end
         if (self.timer > 60 and self.timer < 68) then
@@ -413,7 +425,11 @@ function LoadingDarkTransition:draw()
 
             for _, data in ipairs(self.character_data) do
                 data.sprite_1.visible = true
-                data.sprite_1:set("forward")
+                if data.party.name == "Noel" then
+                    data.sprite_1:set("walk/up_1")
+                else
+                    data.sprite_1:set("forward")
+                end
             end
         end
         if (self.doorblack == 1) then
@@ -495,7 +511,11 @@ function LoadingDarkTransition:draw()
 
         for _, data in ipairs(self.character_data) do
             data.sprite_1.visible = true
-            data.sprite_1:set("turn")
+            if data.party.name == "Noel" then
+                data.sprite_1:set("walk/down_1")
+            else
+                data.sprite_1:set("turn")
+            end
         end
     end
     if (self.soundcon == 1) then
@@ -540,7 +560,10 @@ function LoadingDarkTransition:draw()
 
             for _, data in ipairs(self.character_data) do
                 data.sprite_1.visible = true
-                data.sprite_1:set("light")
+                if data.party.name == "Noel" then 
+                else
+                    data.sprite_1:set("light")
+                end
             end
         end
     end
@@ -558,7 +581,10 @@ function LoadingDarkTransition:draw()
 
             for _, data in ipairs(self.character_data) do
                 data.sprite_1.visible = true
-                data.sprite_1:set("light")
+                if data.party.name == "Noel" then
+                else
+                    data.sprite_1:set("light")
+                end
             end
 
         end
@@ -577,17 +603,30 @@ function LoadingDarkTransition:draw()
             self.timer = 0
 
             for _, data in ipairs(self.character_data) do
-                data.sprite_2:set("white")
-                data.sprite_3:set("dark")
-                data.top = data.sprite_3.texture:getHeight()
-                print(data.top)
+                if data.party.name == "Noel" then 
+                    data.sprite_1.cutout_bottom = 0
+                    data.top = data.sprite_1.texture:getHeight()
+                    data.sprite_2.cutout_top = data.top
+                    data.sprite_3.cutout_top = data.top
 
-                data.sprite_1.cutout_bottom = 0
-                data.sprite_2.cutout_top = data.top
-                data.sprite_3.cutout_top = data.top
+                    data.sprite_2:set("walk/down_1")
+                    data.sprite_3:set("walk/down_1")
 
-                data.sprite_2.visible = true
-                data.sprite_3.visible = true
+                    data.sprite_2.visible = true
+                    data.sprite_3.visible = true
+                else
+                    data.sprite_2:set("white")
+                    data.sprite_3:set("dark")
+                    data.top = data.sprite_3.texture:getHeight()
+                    print(data.top)
+    
+                    data.sprite_1.cutout_bottom = 0
+                    data.sprite_2.cutout_top = data.top
+                    data.sprite_3.cutout_top = data.top
+    
+                    data.sprite_2.visible = true
+                    data.sprite_3.visible = true
+                end
             end
         end
     end
@@ -634,21 +673,25 @@ function LoadingDarkTransition:draw()
             self.particle_timer = self.particle_timer + DTMULT
 
             for i, data in ipairs(self.character_data) do
-                if data.top > 2 then
-                    data.top = data.top - 0.5 * DTMULT
-                    if (self.quick_mode) then
-                        data.top = data.top - 1.5 * DTMULT
-                    end
+                if data.party.name == "Noel" then 
+
                 else
-                    data.top = 0
-                end
+                    if data.top > 2 then
+                        data.top = data.top - 0.5 * DTMULT
+                        if (self.quick_mode) then
+                            data.top = data.top - 1.5 * DTMULT
+                        end
+                    else
+                        data.top = 0
+                    end
 
-                if data.top >= 2 then
-                    local x = ((data.x + 3) + math.random((data.sprite_1.width - 6)))
-                    local y = (data.y + data.top)
+                    if data.top >= 2 then
+                        local x = ((data.x + 3) + math.random((data.sprite_1.width - 6)))
+                        local y = (data.y + data.top)
 
-                    for _ = 1, particle_amount do
-                        self:addChild(DarkTransitionParticle(x, y))
+                        for _ = 1, particle_amount do
+                            self:addChild(DarkTransitionParticle(x, y))
+                        end
                     end
                 end
             end
@@ -667,18 +710,38 @@ function LoadingDarkTransition:draw()
             self.con      = 32
 
             for _, data in ipairs(self.character_data) do
-                data.x = Utils.round(data.x)
-                data.y = Utils.round(data.y)
 
-                data.sprite_1:set("smear")
-                data.sprite_1:setFrame(1)
 
-                data.sprite_2.visible = false
-                data.sprite_3.visible = false
+                if data.party.name == "Noel" then
+                    data.x = Utils.round(data.x)
+                    --data.y = Utils.round(data.y)
+                    Assets.playSound("wing")
+                    data.sprite_1:set("brella")
+                    data.sprite_2:set("brella")
+                    data.sprite_3:set("brella")
 
-                data.sprite_1:setCutout()
-                data.sprite_2:setCutout()
-                data.sprite_3:setCutout()
+                    data.sprite_2.visible = false
+                    data.sprite_3.visible = false
+
+                    data.sprite_1:setCutout()
+                    data.sprite_2:setCutout()
+                    data.sprite_3:setCutout()
+                    self.noel_brella = true
+
+                else
+                    data.x = Utils.round(data.x)
+                    data.y = Utils.round(data.y)
+    
+                    data.sprite_1:set("smear")
+                    data.sprite_1:setFrame(1)
+    
+                    data.sprite_2.visible = false
+                    data.sprite_3.visible = false
+    
+                    data.sprite_1:setCutout()
+                    data.sprite_2:setCutout()
+                    data.sprite_3:setCutout()
+                end
             end
         end
     end
@@ -727,15 +790,23 @@ function LoadingDarkTransition:draw()
             self.rect_draw = 0
 
             for _, data in ipairs(self.character_data) do
-                data.sprite_1:set("ball")
-                data.sprite_2:set("ball")
-                data.sprite_3:set("ball")
-
-                data.sprite_2.visible = true
-                data.sprite_3.visible = true
-
-                data.sprite_2.alpha = 0.5
-                data.sprite_3.alpha = 0.25
+                if data.party.name == "Noel" then
+                    data.sprite_2.visible = true
+                    data.sprite_3.visible = true
+    
+                    data.sprite_2.alpha = 0.5
+                    data.sprite_3.alpha = 0.25
+                else
+                    data.sprite_1:set("ball")
+                    data.sprite_2:set("ball")
+                    data.sprite_3:set("ball")
+    
+                    data.sprite_2.visible = true
+                    data.sprite_3.visible = true
+    
+                    data.sprite_2.alpha = 0.5
+                    data.sprite_3.alpha = 0.25
+                end
             end
         end
     end
@@ -748,12 +819,15 @@ function LoadingDarkTransition:draw()
         end
 
         for _, data in ipairs(self.character_data) do
-            data.sprite_1:setFrame(math.floor(self.timer / 2) + 1)
-            data.sprite_2:setFrame(math.floor(self.timer / 2) + 1)
-            data.sprite_3:setFrame(math.floor(self.timer / 2) + 1)
-
-            data.sprite_2.y = -self.velocity
-            data.sprite_3.y = -self.velocity * 2
+            if data.party.name == "Noel" then
+            else
+                data.sprite_1:setFrame(math.floor(self.timer / 2) + 1)
+                data.sprite_2:setFrame(math.floor(self.timer / 2) + 1)
+                data.sprite_3:setFrame(math.floor(self.timer / 2) + 1)
+    
+                data.sprite_2.y = -self.velocity
+                data.sprite_3.y = -self.velocity * 2
+            end
         end
 
         if (math.floor(self.timer) >= 11) and not self.do_once4 then
@@ -766,7 +840,10 @@ function LoadingDarkTransition:draw()
             end
             self.do_once5 = true
             for i, data in ipairs(self.character_data) do
-                data.y = -57
+                if data.party.name == "Noel" then
+                else
+                    data.y = -57
+                end
             end
             -- TODO: why are these different? (answer: sprite sizes lol)
             --self.susie_y = -20
@@ -781,18 +858,26 @@ function LoadingDarkTransition:draw()
                 Assets.playSound("dtrans_flip")
 
                 for i, data in ipairs(self.character_data) do
-                    data.sprite_1:set("landed")
-                    data.sprite_2.visible = false
-                    data.sprite_3.visible = false
+                    if data.party.name == "Noel" then
+                    else
+                        data.sprite_1:set("landed")
+                        data.sprite_2.visible = false
+                        data.sprite_3.visible = false
+                    end
                 end
 
                 self.con              = 34
                 self.timer            = 0
                 self.velocity         = 0
                 for i, data in ipairs(self.character_data) do
-                    data.y = (self.final_y / 2) - data.sprite_1.height
-                    data.remx = data.x
-                    data.remy = data.y
+                    if data.party.name == "Noel" then
+                        data.remx = data.x
+                        data.remy = data.y
+                    else
+                        data.y = (self.final_y / 2) - data.sprite_1.height
+                        data.remx = data.x
+                        data.remy = data.y
+                    end
                 end
                 self.getup_index      = 0
                 self.fake_screenshake = 1
@@ -911,6 +996,10 @@ function LoadingDarkTransition:draw()
         end
         data.sprite_holder.x = data.x + self.fake_shakeamount
         data.sprite_holder.y = data.y
+
+        if data.party.name == "Noel" and self.noel_brella then
+            data.y = data.y - DT*500
+        end
     end
 
     --self.stage:draw()
