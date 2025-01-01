@@ -154,7 +154,29 @@ function GeneralUtils:hasSaveFiles(id, specific_file, fused_identify)
 end
 
 function GeneralUtils:hasWiiBIOS()
-    return not not love.filesystem.getInfo("wii_settings.json")
+	local paths = {
+        "LOVE/kristal/",                      		-- Source code version
+        "kristal/",                           		-- Executable version
+    }
+
+    for i,v in ipairs(paths) do
+        if love.system.getOS() == "Windows" then
+            paths[i] = "Roaming/"..v
+        elseif love.system.getOS() == "OS X" then
+            paths[i] = v
+        elseif love.system.getOS() == "Linux" then
+            local data_home = os.getenv("XDG_DATA_HOME") or os.getenv("HOME").."/.local/share"
+            paths[i] = data_home..v
+        end
+    end
+
+    for _,path in ipairs(paths) do
+        if GeneralUtils:fileExists(path.."/wii_settings.json") then
+            return true
+        end
+    end
+	
+    return false
 end
 
 ---@param ... any # Extra parameters to cond()
