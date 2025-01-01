@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -102,7 +102,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 360,
@@ -115,7 +115,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -146,7 +146,7 @@ return {
         {
           id = 2,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 16000,
           y = 280,
@@ -162,7 +162,7 @@ return {
         {
           id = 5,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 280,
@@ -194,7 +194,7 @@ return {
         {
           id = 3,
           name = "leftmark",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 320,
@@ -207,7 +207,7 @@ return {
         {
           id = 6,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 320,
@@ -232,7 +232,7 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 1,
+      parallaxx = 0.75,
       parallaxy = 1,
       properties = {},
       encoding = "lua",
