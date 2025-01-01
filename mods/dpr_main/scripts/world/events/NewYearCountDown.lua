@@ -22,31 +22,35 @@ end
 
 function NewYearCountDown:update()
     super.update(self)
+
     local time = os.date("*t")
-    if time.month == 1 and time.sec > 0 then
+
+    if time.month ~= 12 then
+        self:remove()
+    elseif time.month == 1 and time.sec > 0 then
         self:explode()
     else
         --self.text:setText("00:00:00")
         local seconds = 60 - time.sec
-	if seconds == 60 then
+	    if seconds == 60 then
             seconds = "00"
-	elseif seconds < 10 then
+	    elseif seconds < 10 then
             seconds = "0".. seconds
-	end
+	    end
 
         local minutes = 60 - time.min
-	if minutes == 60 then
+	    if minutes == 60 then
             minutes = "00"
-	elseif minutes < 10 then
+	    elseif minutes < 10 then
             minutes = "0".. minutes
-	end
+	    end
 
         local hours = 24 - time.hour
-	if hours == 24 then
+	    if hours == 24 then
             hours = "00"
-	elseif hours < 10 then
+	    elseif hours < 10 then
             hours = "0".. hours 
-	end
+	    end
 	
         self.text:setText(hours ..":".. minutes ..":".. seconds)
     end
