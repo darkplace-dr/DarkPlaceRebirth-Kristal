@@ -40,16 +40,11 @@ return function(cutscene)
 
     if Game:hasPartyMember("noel") then
         local noel_actor = Game.world:getCharacter("noel")
-        local kx, ky = noel.sprite_1:localToScreenPos(noel.sprite_1.width / 2, 0)
-
         local nx, ny = noel_actor:getScreenPos()
 
         noel_actor:setScreenPos(-nx, -50)
-        local ky = noel_actor.y + 50 + transition.final_y
-       -- noel_actor.x = noel.x
-        --local px, py = noel:getScreenPos()
         Assets.playSound("elecdoor_close", 2, 0.1)
-        cutscene:wait(cutscene:slideTo(noel_actor, kx*2, ky, 4, "out-cubic"))
+        cutscene:wait(cutscene:slideTo(noel_actor, 578, 704, 4, "out-cubic"))
 
         --fuck it, its close enough
         cutscene:wait(0.2)
