@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="21">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="22">
  <editorsettings>
   <export target="gimmick_test1.lua" format="lua"/>
  </editorsettings>
@@ -68,12 +68,17 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="objects_vents">
-  <object id="7" name="worse_vent" x="808.737" y="519.571" width="60" height="60">
+  <object id="9" name="slidearea" x="431.903" y="191.644" width="190.251" height="193.49"/>
+  <object id="21" name="ventlauncher" x="816" y="528" width="48" height="48">
    <properties>
-    <property name="target" type="object" value="8"/>
+    <property name="direction" value="up"/>
+    <property name="launch_sound" value="jump"/>
+    <property name="launch_time" type="float" value="1.5"/>
+    <property name="make_steam" type="bool" value="false"/>
+    <property name="marker" type="object" value="8"/>
+    <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
-  <object id="9" name="slidearea" x="431.903" y="191.644" width="190.251" height="193.49"/>
  </objectgroup>
  <objectgroup color="#ff007f" id="7" name="objects_party">
   <object id="19" name="footstep" x="1169.31" y="117.587" width="40" height="40"/>

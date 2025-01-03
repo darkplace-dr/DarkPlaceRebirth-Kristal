@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 48,
   tileheight = 48,
   nextlayerid = 10,
-  nextobjectid = 21,
+  nextobjectid = 22,
   properties = {
     ["border"] = "cliffside",
     ["music"] = "demonic_little_grey_cliffs",
@@ -180,21 +180,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 7,
-          name = "worse_vent",
-          type = "",
-          shape = "rectangle",
-          x = 808.737,
-          y = 519.571,
-          width = 60,
-          height = 60,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["target"] = { id = 8 }
-          }
-        },
-        {
           id = 9,
           name = "slidearea",
           type = "",
@@ -206,6 +191,26 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 21,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 816,
+          y = 528,
+          width = 48,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "up",
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 1.5,
+            ["make_steam"] = false,
+            ["marker"] = { id = 8 },
+            ["sprite"] = "world/events/worse_vent"
+          }
         }
       }
     },
