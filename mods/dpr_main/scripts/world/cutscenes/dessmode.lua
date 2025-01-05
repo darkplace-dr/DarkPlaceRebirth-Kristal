@@ -26,7 +26,7 @@ local cliffside = {
         lightsource.alpha = 0.25
         Game.world.player:addChild(lightsource)
 
-        local textobj = shakytextobject("Press " .. getBind("menu") .. "to open your menu.", 115, 810)
+        local textobj = shakytextobject("Press " .. getBind("menu") .. "to open your menu.", 115, 405)
         textobj.layer = 2
         Game.world:addChild(textobj)
 
@@ -82,7 +82,7 @@ local cliffside = {
         --Game.world.menu:addChild()
 
         textobj:setText("Press " .. getBind("confirm") .. "to select the TALK option.")
-        textobj.x, textobj.y = 10, 560
+        textobj.x, textobj.y = 10, 280
 
 
         cutscene:wait(function ()
