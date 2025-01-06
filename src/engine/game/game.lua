@@ -1553,6 +1553,17 @@ function Game:getUnlockedPartyMembers()
     return Game:getFlag("_unlockedPartyMembers")
 end
 
+--- Checks if you have a party member unlocked and returns true if you do. Returns false otherwise
+---@param member string -- the party member ID to check for
+function Game:hasUnlockedPartyMember(member)
+    for i, v in ipairs(Game:getUnlockedPartyMembers()) do
+        if v == member then
+            return true
+        end
+    end
+    return false
+end
+
 function Game:getQuest(id)
     return self.quests_data[id]
 end
