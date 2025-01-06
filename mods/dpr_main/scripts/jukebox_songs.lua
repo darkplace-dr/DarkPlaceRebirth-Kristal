@@ -48,6 +48,14 @@ return {
     album = "undertale"
   },
   {
+    name = "I'LL SHOW YOU THE POWER OF",
+    file = "spamgolor_battle",
+    composer = "JustAnAverageChilly",
+    released = "2024",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
+  },
+  {
     name = "Faint Courage",
     file = "AUDIO_DEFEAT",
     composer = "Toby Fox",
@@ -134,5 +142,13 @@ return {
     released = "2015",
     origin = "Undertale",
     album = "undertale"
+  },
+  {
+    name = "BIGGEST SHOT",
+    file = "omega_spamton",
+    composer = "BrendaK7200",
+    released = "2025",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
   },
 }
