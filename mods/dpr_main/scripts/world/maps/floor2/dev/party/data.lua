@@ -10,8 +10,9 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 64,
+  nextobjectid = 65,
   properties = {
+    ["border"] = "dev",
     ["music"] = "dev"
   },
   tilesets = {
@@ -566,6 +567,23 @@ return {
             ["actor"] = "susie",
             ["cutscene"] = "partyroom.susie",
             ["sprite"] = "wall_right"
+          }
+        },
+        {
+          id = 64,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 330,
+          y = 420,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "hero",
+            ["cutscene"] = "partyroom.hero",
+            ["facing"] = "down"
           }
         }
       }

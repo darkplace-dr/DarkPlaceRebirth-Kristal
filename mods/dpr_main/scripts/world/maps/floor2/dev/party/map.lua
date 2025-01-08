@@ -21,6 +21,10 @@ function PartyRoom:onEnter()
     if Game:hasUnlockedPartyMember("susie") == false or Game:hasPartyMember("susie") then
         susie:remove()
     end
+    local hero = self:getEvent(64)
+    if Game:hasUnlockedPartyMember("hero") == false or Game:hasPartyMember("hero") then
+        hero:remove()
+    end
 end
 
 return PartyRoom
