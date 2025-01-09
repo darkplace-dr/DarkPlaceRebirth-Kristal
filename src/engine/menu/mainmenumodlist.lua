@@ -74,7 +74,9 @@ function MainMenuModList:onLeave(new_state)
     end
 
     self.active = false
-
+    
+    self.menu.heart:setColor(Kristal.getSoulColor())
+    self.menu.heart:setSprite("player/heart_menu")
     self.menu.heart_outline.visible = false
 end
 
@@ -178,6 +180,7 @@ function MainMenuModList:update()
     if self.list:isOnCreate() then
         if not self.reset_soul then
             self.menu.heart:setColor(Kristal.getSoulColor())
+            self.menu.heart:setSprite("player/heart_menu")
         end
         self.reset_soul = true
     else

@@ -47,6 +47,13 @@ function MainMenuFileSelect:onEnter(old_state)
 
     self.selected_x = 1
     self.selected_y = 1
+    
+    if MainMenu.mod_list:getSelectedMod().soulColor then
+        MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+    end
+    if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+        MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
+    end
 
     self.selected_global = 1
 
@@ -231,6 +238,12 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
         if Input.is("cancel", key) then
             if not TARGET_MOD then
                 self.menu:setState("MODSELECT")
+				if MainMenu.mod_list:getSelectedMod().soulColor then
+					MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+				end
+                if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+                    MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
+                end
             else
                 self.menu:setState("TITLE")
                 self.menu.title_screen:selectOption("play")
@@ -261,6 +274,19 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
                     self.selected_y = 1
                     self.selected_global = 1
                     self:updateSelected()
+                elseif self.selected_x == 3 then
+                    if not TARGET_MOD then
+                        self.menu:setState("MODSELECT")
+						if MainMenu.mod_list:getSelectedMod().soulColor then
+							MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+						end
+                        if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+                            MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
+                        end
+                    else
+                        self.menu:setState("TITLE")
+                        self.menu.title_screen:selectOption("play")
+                    end
                 end
             end
             return true
