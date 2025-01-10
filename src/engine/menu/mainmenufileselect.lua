@@ -51,7 +51,7 @@ function MainMenuFileSelect:onEnter(old_state)
     if MainMenu.mod_list:getSelectedMod().soulColor then
         MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
     end
-    if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+    if MainMenu.mod_list:getSelectedMod().soulFacing then
         MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
     end
 
@@ -241,7 +241,7 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
 				if MainMenu.mod_list:getSelectedMod().soulColor then
 					MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
 				end
-                if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+                if MainMenu.mod_list:getSelectedMod().soulFacing then
                     MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
                 end
             else
@@ -280,7 +280,7 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
 						if MainMenu.mod_list:getSelectedMod().soulColor then
 							MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
 						end
-                        if MainMenu.mod_list:getSelectedMod().soulFacing and not Assets.data.texture["player/heart_menu"] and Assets.getTexture("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu") then
+                        if MainMenu.mod_list:getSelectedMod().soulFacing then
                             MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
                         end
                     else
