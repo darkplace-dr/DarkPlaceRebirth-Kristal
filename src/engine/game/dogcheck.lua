@@ -90,7 +90,7 @@ function DogCheck:start()
     if not self.variant then
         local month = os.date("*t").month
         local day = os.date("*t").day
-        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "chapter2", "montypython", "house"}
+        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "montypython", "house"}
         if month >= 3 and month <= 5 then
             table.insert(variant_choices, "spring")
         elseif month >= 6 and month <= 8 then
