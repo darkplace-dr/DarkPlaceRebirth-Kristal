@@ -1588,4 +1588,13 @@ function Game:isDessMode()
     end
 end
 
+--- Debug function -
+--- Unlocks every party member (Except for Noel since their unlock mechanics are weird)
+function Game:unlockAllPartyMembers()
+    local unlock = {"brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nelle", "noelle", "pauling", "ralsei", "susie"}
+    for i, v in ipairs(unlock) do
+        Game:unlockPartyMember(v)
+    end
+end
+
 return Game
