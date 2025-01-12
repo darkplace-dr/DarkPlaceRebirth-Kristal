@@ -363,7 +363,7 @@ function lib:initGlobalSave()
     data["global"] = {}
 
     data["files"] = {}
-    for i = 1, 4 do
+    for i = 1, 3 do
         data["files"][i] = {}
     end
 

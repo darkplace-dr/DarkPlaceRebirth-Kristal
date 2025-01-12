@@ -90,7 +90,7 @@ function LightHealItem:onLightBattleUse(user, target)
         self:playLightBattleUseSound(user, target)
         local amount = self:getBattleHealAmount(target.chara.id)
         amount = self:applyBattleHealBonuses(user, amount)
-        target:heal(amount)
+        target:heal(amount, false)
         text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
         Game.battle:battleText(text)
         return true
@@ -99,7 +99,7 @@ function LightHealItem:onLightBattleUse(user, target)
         for _,battler in ipairs(target) do
             local amount = self:getBattleHealAmount(battler.chara.id)
             amount = self:applyBattleHealBonuses(user, amount)
-            battler:heal(amount)
+            battler:heal(amount, false)
         end
         Game.battle:battleText(text)
         return true

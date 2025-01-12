@@ -1,4 +1,4 @@
-local item, super = Class(LightHealItem, "ut_items/hush_puppy")
+local item, super = Class(LightHealItem, "mg_item/hush_puppy")
 
 function item:init()
     super.init(self)

@@ -249,7 +249,7 @@ function LightEncounter:soulTransition(x, y)
         target_x, target_y = 49, 455
     end
 
-    local soul_chara = Game.world:getPartyCharacter(Game:getSoulPartyMember())
+    local soul_chara = Game.world:getPartyCharacterInParty(Game:getSoulPartyMember())
     local fake_player = FakeClone(soul_chara, soul_chara:getScreenPos())
     fake_player.layer = Game.battle.fader.layer + 1
     Game.battle:addChild(fake_player)

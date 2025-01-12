@@ -5,7 +5,7 @@ function LightBattleUI:init()
 
     self.current_encounter_text = Game.battle.encounter.text
 
-    self.encounter_text = UnderTextbox(14, 17, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 53, "main_mono", nil, true)
+    self.encounter_text = UnderTextbox(14, 17, (SCREEN_WIDTH) - (105), SCREEN_HEIGHT - 53, "main_mono", nil, true)
     self.encounter_text.text.default_voice = "battle"
     self.encounter_text.text.line_offset = 5
     self.encounter_text:setText("")

@@ -140,7 +140,7 @@ function LightBattle:createPartyBattlers()
         self:addChild(battler)
         table.insert(self.party, battler)
     else
-        for i = 1, math.min(4, #Game.party) do
+        for i = 1, math.min(3, #Game.party) do
             local battler = LightPartyBattler(Game.party[i])
             self:addChild(battler)
             table.insert(self.party, battler)
@@ -328,7 +328,13 @@ function LightBattle:postInit(state, encounter)
     end
 end
 
+---@deprecated
 function LightBattle:getSoulPosition()
+    Kristal.Console:warn("Deprecated method LightBattle:getSoulPosition in use")
+    return self:getSoulLocation()
+end
+
+function LightBattle:getSoulLocation()
     if self.soul then
         return self.soul:getPosition()
     end
@@ -797,17 +803,18 @@ function LightBattle:onStateChange(old, new)
                 break
             end
         end
-        
+        local function finish()
+            self.soul.can_move = true
+
+            self:setState("DEFENDING")
+        end
         if not dont_change then
-            self.arena:setTargetSize(nil, self.begin_arena_height)
+            self.arena:setTargetSize(self.arena.target_size and self.arena.target_size.width, self.begin_arena_height, finish)
             self.begin_arena_height = nil
         else
             self.begin_arena_height = nil
+            finish()
         end
-
-        self.soul.can_move = true
-
-        self:setState("DEFENDING")
     elseif new == "DEFENDING" then
         self.wave_length = 0
         self.wave_timer = 0
@@ -2429,7 +2436,7 @@ function LightBattle:onKeyPressed(key)
             -- "You dare bring light into my lair? You must die!" -Ganon 1993
             if key == "j" and Input.shift() then
                 if self.soul then
-                    Game:gameOver(self:getSoulPosition())
+                    Game:gameOver(self:getSoulLocation())
                 else
                     Game:gameOver()
                 end

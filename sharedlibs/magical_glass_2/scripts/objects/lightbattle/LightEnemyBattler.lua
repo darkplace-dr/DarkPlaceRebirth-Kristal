@@ -820,7 +820,7 @@ function LightEnemyBattler:hurt(amount, battler, on_defeat, options)
 
     self.health = self.health - amount
 
-    if amount > 0 then	-- Why is this check here? The previous return removes the other case
+    if amount > 0 then
         self.hurt_timer = 1
         self:onHurt(amount, battler)
     end
