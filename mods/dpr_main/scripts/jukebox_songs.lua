@@ -112,6 +112,14 @@ return {
     album = "dr_ts"
   },
   {
+    name = "Undefeatable",
+    file = "undefeatable",
+    composer = "Tomoya Ohtani",
+    released = "2022",
+    origin = "Sonic Frontiers",
+    album = "sonic_frontiers_stillness_and_motion"
+  },
+  {
     name = "Green Room",
     file = "greenroom",
     composer = "Toby Fox",
