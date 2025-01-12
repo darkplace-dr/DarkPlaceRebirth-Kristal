@@ -1,0 +1,172 @@
+{
+    "id": "magical-glass",
+    "authors": [
+        "Nyakorita",                    // original author
+        "Sam Deluxe",                   // current author and lead programmer
+        "FireRainV",                    // second in command
+        "Bor",                          // contributor
+        "Just Another Random User",     // contributor
+    ],
+    "version": "v2.14.5",
+    "engineVer": "v0.9.0-dev",
+
+    "config": {
+        
+        ///// Default Battle System
+        // If an encounter isn't forcing a battle system, the system set here will be used
+        // as a fallback.
+        //
+        // Second value sets the default world type if no map is present.
+        // Used when playing using just an encounter without a map.
+        ///// First Value:
+        // "undertale"
+        // "deltarune"
+        //
+        ///// Second Value:
+        // true = Light
+        // false = Dark
+        /////
+        "default_battle_system": ["deltarune", false],
+        
+        ///// Shared Light EXP and LV
+        // Whether EXP is global to all party members or local to each
+        /////
+        "shared_light_exp": false,
+
+        ///// Light Battle TP
+        // Enables tension and grazing in Light Battles.
+        // In addition, adds the Defend command to the mercy action button in Light Battles.
+        /////
+        "light_battle_tp": false,
+
+        ///// UNDERTALE Text Skipping
+        // Disables skipping text in ANY textbox when holding down confirm or menu.
+        /////
+        "undertale_text_skipping": false,
+        
+        ///// Game Over Skipping
+        // Whether you can skip the game over screen by repeatly pressing the confirm button.
+        /////
+        // First Value: Whether you can skip it in the dark world.
+        // Second Value: Whether you can skip it in the light world.
+        /////
+        "gameover_skipping": [true, true],
+        
+        ///// UNDERTALE Movement Can Run
+        // Enables the ability to run when using the Undertale player movement.
+        /////
+        "undertale_movement_can_run": false,
+        
+        ///// Light Battles HP Gauge Length Cap
+        // Limits the length of the HP bar in light battles.
+        ///// Values:
+        //
+        // true
+        // Limits the gauge at 99. 
+        // false
+        // Doesn't limit the gauge.
+        //
+        // number
+        // Limits the gauge to the number specified.
+        //
+        /////
+        "hp_gauge_length_cap": true,
+
+        ///// Key Item Conversion
+        // Like in Deltarune, converts the Dark World inventory to the Ball of Junk and items like the Shadow Crystal to Glass 
+        // when traveling to the Light World or back.
+        /////
+        "key_item_conversion": true,
+        
+        ///// Equipment Conversion
+        // Like in Deltarune, converts items like the Spookysword to the Halloween Pencil and the Silver Watch to the Wristwatch
+        // when traveling to the Light World or back.
+        // This works somewhat differently than normal, because almost everyone can equip any light item, so the mechanic was adjusted.
+        /////
+        "equipment_conversion": true,
+
+        ///// Punch Card Exploit Emulation
+        // Re-creates Undertale's Punch Card wrong warp and moving in cutscenes exploit.
+        /////
+        "punch_card_exploit": true,
+
+        ///// UNDERTALE Menu Display
+        // Subtracts 10 from base AT and DF in the Light World's STAT menu.
+        // Moves the currency amount in the menu to be align with the rest of the amonuts.
+        // Displays a MAGIC stat if any member has a MAGIC value that's more than 0.
+        /////
+        "undertale_menu_display": false,
+        
+        ///// Always Show Magic
+        // Displays the MAGIC stat in the Light World STAT menu even if there's no
+        // member in the current party who has more than 0 MAGIC or even when not using Undertale stat display.
+        /////
+        "always_show_magic": false,
+
+        ///// Gauge Style
+        // Determines the appearance of gauges drawn in ENEMYSELECT or PARTYSELECT in Light Battles.
+        ///// Values:
+        //
+        // "undertale"
+        // UNDERTALE-styled HP gauge. (Also supports Mercy gauge)
+        //
+        // "deltarune"
+        // deltarune-styled HP and Mercy gauges.
+        //
+        // "deltatraveler"
+        // The gauge styles used in Deltatraveler.
+        //
+        /////
+        "gauge_style": "undertale",
+        
+        ///// Enemy Gauge Smoothness
+        // Whether the enemy HP/MERCY bar when hit/gain mercy will be smooth like Deltatraveler or be accurate to Undertale.
+        /////
+        "enemy_gauge_smoothness": false,
+
+        ///// Mercy Bar
+        // Draws the Mercy Bar in Light Battles.
+        /////
+        "mercy_bar": false,
+
+        ///// Mercy Messages
+        // Shows the amount of mercy added to an enemy when their mercy gauge increases in Light Battles.
+        /////
+        "mercy_messages": false,
+
+        ///// Enemy Bar Percentages
+        // Draws the HP and Mercy text and Percentages on the gauges.
+        /////
+        "enemy_bar_percentages": false,
+
+        ///// Light Enemy Chaser Auras
+        // Whether enemies in the light world will also have auras.
+        /////
+        "light_enemy_auras": false,
+        
+        ///// Expanded Light Save Menu
+        // Allows having 3 save slots in the light world save points.
+        /////
+        "expanded_light_save_menu": false,
+        
+        ///// Multi-Party Mode in Solo-Party
+        // Whether Multi-Party light battle style will also be enabled when playing with just a single party member.
+        /////
+        "multi_always_on": false,
+        
+        ///// Multi-Party Deltarune Spare Style
+        // Whether you can only spare a single enemy per battler in Multi-Party light battles.
+        /////
+        "multi_deltarune_spare": false,
+        
+        ///// Multi-Party Deltarune Spare Style
+        // Whether when playing with multiple party members, the leader name will be mentioned as 'You'.
+        /////
+        "multi_leader_mentioned_as_you": false,
+        
+        ///// Debug Mode
+        // Determines whether the library is in its debug mode state.
+        /////
+        "debug": false,
+    }
+}
