@@ -1,7 +1,7 @@
 local greyarea, super = Class(Map)
 
 function greyarea:onEnter()
-    --Game.stage:setWeather("rain", false, true)
+    Game.stage:setWeather("rain", false, true)
 
     local savedData = Noel:loadNoel()
     if not savedData then
@@ -10,7 +10,7 @@ function greyarea:onEnter()
 end
 
 function greyarea:onExit()
-    --Game.stage:resetWeather()
+    Game.stage:resetWeather()
 end
 
 function greyarea:update()
