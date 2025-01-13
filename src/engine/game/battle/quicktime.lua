@@ -9,7 +9,7 @@ function Quicktime:init(user, target)
 
     self.caster = user
     self.font = Assets.getFont("main")
-    local rbm = {"z", "x"}
+    self.rbm = {"confirm", "cancel"}
 --, "c", "w", "a", "s", "d"
 
     local meth = love.math.random(4, 10)*2
@@ -17,7 +17,7 @@ function Quicktime:init(user, target)
     self.limit = meth
 
     for i = 1, self.limit do
-        self["n"..i.."n"] = Utils.pick(rbm)
+        self["n"..i.."n"] = Utils.pick(self.rbm)
     end
 
     local halfLimit = self.limit / 2
@@ -71,7 +71,7 @@ end
 function Quicktime:update()
     super.update(self)
 
-    local click = Input.pressed("x") or Input.pressed("z")
+    local click = Input.pressed("cancel") or Input.pressed("confirm")
 
     for i = 1, self.limit do
         if self.hits == i then
@@ -119,7 +119,11 @@ function Quicktime:draw()
         y = y + love.math.random(-shakeAmount, shakeAmount)
         
         if self.hits <= i then
-            love.graphics.print(self['n'..i..'n'], x, y)
+            if Input.usingGamepad() then
+                Draw.draw(Input.getTexture(self['n'..i..'n']), x, y, 0, 2, 2)
+            else
+                love.graphics.print(Input.getText(self['n'..i..'n'], nil, true), x, y)
+            end
         end
     end
 
@@ -134,4 +138,5 @@ function Quicktime:draw()
     Draw.setColor(1, 1, 1, 1)
     super.draw(self)
 end
+
 return Quicktime
