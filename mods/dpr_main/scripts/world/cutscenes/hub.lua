@@ -402,7 +402,9 @@ local hub = {
         local track_names = {}
 
         for track_name, _ in pairs(music_assets) do
-            table.insert(track_names, track_name)
+            if not Utils.startsWith(track_name, "voiceover/") then
+                table.insert(track_names, track_name)
+            end
         end
 
         local random_theme = Music(Utils.pick(track_names), 0.8, 1)
