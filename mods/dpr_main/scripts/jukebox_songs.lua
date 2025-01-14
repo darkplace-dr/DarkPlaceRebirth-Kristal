@@ -10,8 +10,8 @@ return {
   {
     name = "demonic little grey cliffs",
     file = "demonic_little_grey_cliffs",
-    composer = "??????",
-    released = "??????",
+    composer = "SadDiamondMan",
+    released = "2024",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text"
   },
@@ -27,6 +27,14 @@ return {
     name = "Our Castle Town",
     file = "mainhub",
     composer = "Spunky Tunky",
+    released = "2024",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
+  },
+  {
+    name = "Uwa!! So STARRY!",
+    file = "options_starry",
+    composer = "J.A.R.U.",
     released = "2024",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text"
