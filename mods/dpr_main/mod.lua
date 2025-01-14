@@ -166,9 +166,10 @@ function Mod:onMapMusic(map, music)
             return "greenroom"
         end
     end
-	
-    -- Cyber City music
-    if music == "deltarune/cybercity" and Game:getFlag("can_kill", true) then
+
+    -- Cyber City music	
+	local can_kill = Game:getFlag("can_kill", false)
+    if music == "deltarune/cybercity" and can_kill == true then
         return "deltarune/cybercity_alt"
     end
 end
