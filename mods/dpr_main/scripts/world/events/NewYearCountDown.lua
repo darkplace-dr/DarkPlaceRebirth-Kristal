@@ -20,15 +20,28 @@ function NewYearCountDown:init(x, y)
     --self.debug_select = true
 end
 
+function NewYearCountDown:onLoad()
+	super:onLoad(self)
+    local time = os.date("*t")
+	if time.month ~= 12 then
+        self:remove()
+	end
+end
+
 function NewYearCountDown:update()
     super.update(self)
 
     local time = os.date("*t")
 
-    if time.month ~= 12 then
-        self:remove()
-    elseif time.month == 1 and time.sec > 0 then
+    if time.month == 1 and time.sec > 0 then
         self:explode()
+		Game.world.timer:after(20/30, function()
+			local firework = Firework(self.x+60, self.y+46, "world/firework/shape_hny", 2)
+			firework.physics.speed_x = -2
+			firework.physics.speed_y = -6
+			firework.layer = self.layer
+			Game.world:addChild(firework)
+		end)
     else
         --self.text:setText("00:00:00")
         local seconds = 60 - time.sec
