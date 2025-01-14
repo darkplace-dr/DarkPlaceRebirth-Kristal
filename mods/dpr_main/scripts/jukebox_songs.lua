@@ -136,6 +136,22 @@ return {
     album = "deltarunedotcom"
   },
   {
+    name = "WELCOME TO THE CITY",
+    file = "deltarune/cybercity",
+    composer = "Toby Fox",
+    released = "2021",
+    origin = "Deltarune",
+    album = "dr_ch2"
+  },
+  {
+    name = "WELCOME TO THE CITY (Alt)",
+    file = "deltarune/cybercity_alt",
+    composer = "Toby Fox",
+    released = "2021",
+    origin = "Deltarune",
+    album = "dr_ch2"
+  },
+  {
     name = "THE HOLY",
     file = "deltarune/THE_HOLY",
     composer = "Toby Fox",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="33" height="28" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="39">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="33" height="28" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -74,26 +74,16 @@
    </properties>
   </object>
   <object id="25" name="savepoint" x="640" y="800" width="40" height="40"/>
-  <object id="26" name="transition" x="1320" y="800" width="40" height="120"/>
+  <object id="26" name="transition" x="1320" y="800" width="40" height="120">
+   <properties>
+    <property name="map" value="hub_starwalker"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
   <object id="27" name="transition" x="600" y="1120" width="120" height="40">
    <properties>
     <property name="map" value="tower_outside"/>
     <property name="marker" value="entry"/>
-   </properties>
-  </object>
-  <object id="31" name="dogconegroup" x="1278.5" y="798.5" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="32" name="dogconegroup" x="1278.5" y="839.5" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="33" name="dogconegroup" x="1278.45" y="880.136" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
@@ -108,6 +98,9 @@
    <point/>
   </object>
   <object id="38" name="east" x="60" y="860">
+   <point/>
+  </object>
+  <object id="39" name="west" x="1280" y="860">
    <point/>
   </object>
  </objectgroup>

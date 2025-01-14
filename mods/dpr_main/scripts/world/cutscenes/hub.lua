@@ -1265,5 +1265,29 @@ local hub = {
         cutscene:look("down")
         Game.world.music:resume()
     end,
+
+    unreadable_legend = function(cutscene, event)
+        if not Game:isDessMode() then
+            cutscene:text("* (It appears some kind of legend is written here...)")
+            cutscene:text("* (Read it?)")
+			
+            local choicer = cutscene:choicer({"Read", "Do not"})
+			
+            if choicer == 1 then
+                cutscene:text("* (You attempted the read the legend transcribed on the plaque...)")
+                cutscene:text("* ([speed:0.5]...[wait:10][speed:1]but it was so utterly incomprehensible that it made your head spin.)")
+                cutscene:text("* (Perhaps some legends are best left forgotten...)")
+            else
+                if love.math.random(1, 10) == 1 then
+                    cutscene:text("* (You legen't.)")
+                else
+                    cutscene:text("* (You decided to spare yourself of a headache.)")
+                end
+            end
+        else
+            cutscene:textTagged("* I tried reading this once but then i remembered i can't read", "neutral", "dess")
+            cutscene:textTagged("* Such are the pros of being illiterate", "condescending", "dess")
+        end
+    end,
 }
 return hub

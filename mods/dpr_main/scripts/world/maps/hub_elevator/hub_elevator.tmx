@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -16,24 +16,29 @@
    <properties>
     <property name="map" value="intro/lab_reception"/>
     <property name="marker" value="entry_elevator"/>
+    <property name="sound" value="elecdoor_close"/>
    </properties>
   </object>
   <object id="29" name="elevator" x="0" y="0" width="40" height="40">
    <properties>
     <property name="color_1" type="color" value="#ff321fc3"/>
     <property name="color_2" type="color" value="#ff4429ff"/>
-    <property name="color_3" type="color" value="#ff4429ff"/>
-    <property name="cutscene_3" value="broken_elevator"/>
+    <property name="color_3" type="color" value="#ff2368b8"/>
+    <property name="color_4" type="color" value="#ff4429ff"/>
+    <property name="cutscene_4" value="broken_elevator"/>
     <property name="dest_1" value="pre_pit"/>
     <property name="dest_2" value="main_hub"/>
-    <property name="dest_3" value="nothing"/>
+    <property name="dest_3" value="floorcyber/pre_elevator"/>
+    <property name="dest_4" value="nothing"/>
     <property name="length_1" type="int" value="140"/>
     <property name="length_2" type="int" value="40"/>
     <property name="length_3" type="int" value="40"/>
+    <property name="length_4" value="40"/>
     <property name="mod_1" value="dpr_pit_dlc"/>
     <property name="name_1" value="The Dark Pit"/>
     <property name="name_2" value="Floor 1"/>
-    <property name="name_3" value="Nowhere"/>
+    <property name="name_3" value="Cyber Floor"/>
+    <property name="name_4" value="Nowhere"/>
    </properties>
   </object>
  </objectgroup>

@@ -126,8 +126,8 @@ end
 function Mod:setMusicPitches()
 
     MUSIC_PITCHES["deltarune/THE_HOLY"] = 0.9
-
-
+    MUSIC_PITCHES["deltarune/cybercity"] = 0.97
+    MUSIC_PITCHES["deltarune/cybercity_alt"] = 1.2
 end
 
 function Mod:getGlobalNextLvRequiredEXP()
@@ -154,6 +154,7 @@ function Mod:registerDebugOptions(debug)
 end
 
 function Mod:onMapMusic(map, music)
+    -- Diner music
     local cur_song = Game:getFlag("curJukeBoxSong")
 
     if music == "dev" then
@@ -164,5 +165,10 @@ function Mod:onMapMusic(map, music)
         else
             return "greenroom"
         end
+    end
+	
+    -- Cyber City music
+    if music == "deltarune/cybercity" and Game:getFlag("can_kill", true) then
+        return "deltarune/cybercity_alt"
     end
 end
