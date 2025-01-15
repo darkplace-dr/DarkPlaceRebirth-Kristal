@@ -1329,6 +1329,7 @@ local hub = {
             if done_state == "KILLED" or done_state == "FROZEN" then
                 susie:resetSprite()
                 cutscene:wait(1)
+                -- This Susie text needs to be changed
                 cutscene:textTagged("* Hey,[wait:5] uh.", "neutral", "susie")
                 cutscene:textTagged("* I know they were in our way,[wait:5] but...", "annoyed_down", "susie")
                 susie:setFacing("up")

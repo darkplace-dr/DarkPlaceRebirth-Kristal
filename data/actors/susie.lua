@@ -27,6 +27,8 @@ function actor:init(style)
     -- This actor's default sprite or animation, relative to the path (defaults to "")
     if susie_style == 1 then
         self.default = "walk_bangs"
+    elseif Game:getFlag("sus_serious") == true then
+        self.default = "walk_bangs_unhappy"
     else
         self.default = "walk"
     end
