@@ -1368,26 +1368,24 @@ local hub = {
                     cutscene:wait(2)
                     good_star:remove()
                 else
-                    cutscene:hideNametag()
                     Game:addPartyMember("ostarwalker")
                     Game:unlockPartyMember("ostarwalker")
-                    good_star:convertToFollower(#Game.party)
-					
+                    good_star:convertToFollower()
+				
 					Game.world.music:pause()
                     local party_jingle = Music("deltarune/charjoined")
                     party_jingle:play()
                     party_jingle.source:setLooping(false)
                     
                     cutscene:text("[noskip]* [color:yellow]Starwalker[color:reset] joined the party.")
-                    good_star:convertToFollower()
 					Game.world.music:resume()
                     party_jingle:remove()
                 end
                 Game:setFlag("ostarwalker_party", true)
             end
             Game:setFlag("starwalker_defeated", true)
-            cutscene:interpolateFollowers()
             cutscene:wait(cutscene:attachFollowers())
+            cutscene:interpolateFollowers()
         end
     end,
 
