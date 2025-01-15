@@ -3,15 +3,17 @@ function NewYearCountDown:init(x, y)
     super.init(self, x or 80, y or 100, 60*2, 46*2)
 
     self.board = Sprite("world/events/new_years_board")
+    self.board:play(0.2, true)
     self:addChild(self.board)
 
     self.board:setScale(2)
 
     self.text = Text("")
-    self.text.y = 22
-    self.text.x = 14
+    self.text.y = 24
+    self.text.x = 36
     self:addChild(self.text)
-    self.text:setColor(0, 0.5, 1)
+    self.text:setColor(0, 1, 0)
+    self.text:setScale(0.5, 1)
 
     self.text.debug_select = false
     self.board.debug_select = false
@@ -23,7 +25,7 @@ end
 function NewYearCountDown:onLoad()
 	super:onLoad(self)
     local time = os.date("*t")
-	if time.month ~= 12 then
+	if time.month ~= 12 and time.day ~= 31 then
         self:remove()
 	end
 end
