@@ -64,6 +64,22 @@ return {
     album = "dark_place_with_text"
   },
   {
+    name = "Susie",
+    file = "deltarune/s_neo",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "STARSTRUCK", -- official name according to the Soundcloud upload
+    file = "starwalker",
+    composer = "Nyako",
+    released = "March 21st, 2024",
+    origin = "Kristal",
+    album = "default"
+  },
+  {
     name = "Faint Courage",
     file = "AUDIO_DEFEAT",
     composer = "Toby Fox",

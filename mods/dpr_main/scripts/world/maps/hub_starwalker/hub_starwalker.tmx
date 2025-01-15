@@ -72,6 +72,8 @@
   <object id="15" name="npc" x="550" y="320">
    <properties>
     <property name="actor" value="starwalker"/>
+    <property name="cond" value="not Game:getFlag(&quot;ostarwalker_party&quot;, false) and not Game:getFlag(&quot;ostarwalker_killed&quot;, false)"/>
+    <property name="cutscene" value="hub.starwalker"/>
    </properties>
    <point/>
   </object>

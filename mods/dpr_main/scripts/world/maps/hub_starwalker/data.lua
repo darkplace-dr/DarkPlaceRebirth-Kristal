@@ -315,7 +315,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "starwalker"
+            ["actor"] = "starwalker",
+            ["cond"] = "not Game:getFlag(\"ostarwalker_party\", false) and not Game:getFlag(\"ostarwalker_killed\", false)",
+            ["cutscene"] = "hub.starwalker"
           }
         },
         {

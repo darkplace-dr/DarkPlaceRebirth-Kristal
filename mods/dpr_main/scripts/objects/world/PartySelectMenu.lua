@@ -33,7 +33,7 @@ function PartySelectMenu:init(selected)
 
 	--these are the pages, for organization
 
-	self.deltarune = {"kris", "susie", "ralsei", "noelle"}
+	self.deltarune = {"kris", "susie", "ralsei", "noelle", "berdly", "ostarwalker"}
 
 	self.dark_place = {"hero", "dess", "brenda", "jamm"}
 
