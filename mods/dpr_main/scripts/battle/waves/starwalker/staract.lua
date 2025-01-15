@@ -25,18 +25,20 @@ function StarAct:onStart()
         afterimage.layer = self.starwalker.layer - 1
         Game.battle:addChild(afterimage)
 
-        self.timer:after(0.5, function()
-            Assets.playSound("great_shine", 1, 0.8)
-            Assets.playSound("great_shine")
-            Assets.playSound("closet_impact", 1, 1.5)
-            Game.battle:swapSoul(BlueSoul())
+        if Game.save_name ~= "BLUE" then
+            self.timer:after(0.5, function()
+                Assets.playSound("great_shine", 1, 0.8)
+                Assets.playSound("great_shine")
+                Assets.playSound("closet_impact", 1, 1.5)
+                Game.battle:swapSoul(BlueSoul())
 
-            local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
-            soulafterimage.graphics.grow_x = 0.2
-            soulafterimage.graphics.grow_y = 0.2
-            Game.battle.soul:addChild(soulafterimage)
-            soulafterimage.y = soulafterimage.y - 8
-        end)
+                local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
+                soulafterimage.graphics.grow_x = 0.2
+                soulafterimage.graphics.grow_y = 0.2
+                Game.battle.soul:addChild(soulafterimage)
+                soulafterimage.y = soulafterimage.y - 8
+            end)
+        end
 
         self.timer:after(1, function()
             self.colormask = self.starwalker:addFX(ColorMaskFX())

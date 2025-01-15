@@ -23,34 +23,36 @@ function Stardust:onStart()
         end)
     end)
 
-    self.timer:after(10, function()
-        self.starwalker:setMode("still")
-        self.starwalker.sprite:set("reaching")
-        Assets.playSound("ui_select")
+    if Game.save_name ~= "BLUE" then
+        self.timer:after(10, function()
+            self.starwalker:setMode("still")
+            self.starwalker.sprite:set("reaching")
+            Assets.playSound("ui_select")
 		
-        self.timer:after(2, function()
-            self.starwalker.sprite:set("acting")
-            Assets.playSound("sparkle_glock")
-            local afterimage = AfterImage(self.starwalker, 0.5)
-            afterimage.graphics.grow_x = 0.05
-            afterimage.graphics.grow_y = 0.05
-            afterimage.layer = self.starwalker.layer - 1
-            Game.battle:addChild(afterimage)
+            self.timer:after(2, function()
+                self.starwalker.sprite:set("acting")
+                Assets.playSound("sparkle_glock")
+                local afterimage = AfterImage(self.starwalker, 0.5)
+                afterimage.graphics.grow_x = 0.05
+                afterimage.graphics.grow_y = 0.05
+                afterimage.layer = self.starwalker.layer - 1
+                Game.battle:addChild(afterimage)
 
-            self.timer:after(0.5, function()
-                Assets.playSound("great_shine", 1, 0.8)
-                Assets.playSound("great_shine")
-                Assets.playSound("closet_impact", 1, 1.5)
-                Game.battle:swapSoul(Soul())
+                self.timer:after(0.5, function()
+                    Assets.playSound("great_shine", 1, 0.8)
+                    Assets.playSound("great_shine")
+                    Assets.playSound("closet_impact", 1, 1.5)
+                    Game.battle:swapSoul(Soul())
 
-                local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
-                soulafterimage.graphics.grow_x = 0.2
-                soulafterimage.graphics.grow_y = 0.2
-                Game.battle.soul:addChild(soulafterimage)
-                soulafterimage.y = soulafterimage.y - 8
+                    local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
+                    soulafterimage.graphics.grow_x = 0.2
+                    soulafterimage.graphics.grow_y = 0.2
+                    Game.battle.soul:addChild(soulafterimage)
+                    soulafterimage.y = soulafterimage.y - 8
+                end)
             end)
         end)
-    end)
+    end
 end
 
 function Stardust:onEnd()
