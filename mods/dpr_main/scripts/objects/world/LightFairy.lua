@@ -17,8 +17,8 @@ end
 function LightFairy:update()
     super.update(self)
 
-    self.x = self.x + (math.sin((self.siner / self.sinx)) * self.period)
-    self.y = self.y + (math.sin((self.siner / self.siny)) * self.period)
+    self.x = self.x + (math.sin((self.siner / self.sinx)) * self.period) * DTMULT
+    self.y = self.y + (math.sin((self.siner / self.siny)) * self.period) * DTMULT
     self.siner = self.siner + DTMULT
 end
 

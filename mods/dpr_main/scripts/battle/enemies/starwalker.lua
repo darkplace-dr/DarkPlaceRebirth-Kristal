@@ -174,7 +174,12 @@ function Starwalker:onAct(battler, name)
         self:addMercy(8)
         return "* The Original Starwalker  absorbs the\nACT"
     elseif name == "Standard" then
-        self:addMercy(4)
+        if Game:isDessMode() then
+            self:addMercy(12)
+        else
+            self:addMercy(4)
+        end
+
         if battler.chara.id == "ralsei" then
             Game:gameOver(Game.world.player.x, Game.world.player.y)
             return "* Ralsei explodes and dies\n(it got [color:yellow]absorbed[color:reset])"
@@ -191,7 +196,12 @@ end
 
 function Starwalker:onShortAct(battler, name)
     if name == "Standard" then
-        self:addMercy(4)
+        if Game:isDessMode() then
+            self:addMercy(12)
+        else
+            self:addMercy(4)
+        end
+
         if battler.chara.id == "ralsei" then
             Game:gameOver(Game.world.player.x, Game.world.player.y)
             return "* Ralsei explodes and dies"

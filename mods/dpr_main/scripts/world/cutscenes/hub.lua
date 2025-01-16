@@ -1270,6 +1270,7 @@ local hub = {
 
     starwalker = function(cutscene, event)
         local susie = cutscene:getCharacter("susie")
+        local dess = cutscene:getCharacter("dess")
         local star = cutscene:getCharacter("starwalker")
 
 		--original starcheck code by AcousticJamm
@@ -1281,30 +1282,45 @@ local hub = {
             cutscene:text("* My old [color:yellow]sprite[color:reset] was [color:yellow]Pissing[color:reset] me\noff...", nil, event)
             cutscene:text("* I was the original   [color:yellow]Starwalker[color:reset]")
             cutscene:hideNametag()
-            if susie then
-                Game.world.starcheck = Game.world.starcheck + 1
-            end
+
+            Game.world.starcheck = Game.world.starcheck + 1
             --Kristal.callEvent("completeAchievement", "starwalker")
         else
             Game.world.music:stop()
             cutscene:text("* [color:yellow]You[color:reset] are [color:yellow]Pissing[color:reset] me off...", nil, event)
-            cutscene:textTagged("* I,[wait:5] uh,[wait:5] what?", "sus_nervous", "susie")
-            cutscene:textTagged("* Well,[wait:5] hey,[wait:5] you know\nwhat?", "annoyed", "susie")
-            cutscene:textTagged("* You piss us off too.", "smirk", "susie")
-            local cutscene_music = Music("deltarune/s_neo")
-            cutscene:detachFollowers()
 
-            cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y - 40, 1, "down", true)
-            cutscene:wait(cutscene:walkTo(susie, Game.world.player.x, Game.world.player.y, 1, facing))
+            if not Game:isDessMode() then
+                if susie then
+                    cutscene:textTagged("* I,[wait:5] uh,[wait:5] what?", "sus_nervous", "susie")
+                    cutscene:textTagged("* Well,[wait:5] hey,[wait:5] you know\nwhat?", "annoyed", "susie")
+                    cutscene:textTagged("* You piss us off too.", "smirk", "susie")
+                    local cutscene_music = Music("deltarune/s_neo")
+                    cutscene:detachFollowers()
+
+                    if GeneralUtils:getLeader().id ~= "susie" then
+                        cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y - 40, 1, "down", true)
+                        cutscene:wait(cutscene:walkTo(susie, Game.world.player.x, Game.world.player.y, 1, facing))
+                    end
 				
-            cutscene:textTagged("* If you have a problem\nwith us,[wait:5] then we have\na problem with you.", "smirk", "susie")
-            cutscene:textTagged("* Do you know what we do\nwith problems?", "smirk", "susie")
-            cutscene:textTagged("* We stomp.[wait:10] Them.[wait:10] Into.[wait:10]\nThe.[wait:10] Ground.", "smile", "susie")
-            cutscene_music:stop()
+                    cutscene:textTagged("* If you have a problem\nwith us,[wait:5] then we have\na problem with you.", "smirk", "susie")
+                    cutscene:textTagged("* Do you know what we do\nwith problems?", "smirk", "susie")
+                    cutscene:textTagged("* We stomp.[wait:10] Them.[wait:10] Into.[wait:10]\nThe.[wait:10] Ground.", "smile", "susie")
+                    cutscene_music:stop()
+                end
+            else
+                cutscene:textTagged("* Oh[speed:0.5]...[wait:10][speed:1] am i?", "condescending", "dess")
+                cutscene:textTagged("* Wouldn't be the first time I've heard that sentence", "neutral_b", "dess")
+                cutscene:textTagged("* Given being annoying is what I do best", "smug", "dess")
+                cutscene:textTagged("* Bring it, starman", "challenging", "dess")
+            end
+
             Assets.playSound("boost")
 
             star.sprite:set("wings")
-            susie:setSprite("shock_right")
+
+            if susie then
+                susie:setSprite("shock_right")
+            end
 
             local offset = star.sprite:getOffset()
 
@@ -1318,7 +1334,14 @@ local hub = {
             star.parent:addChild(flash)
 
             cutscene:wait(1)
-            cutscene:text("* Uh,[wait:5] what-", "surprise_frown", "susie", {auto=true})
+
+            if not Game:isDessMode() then
+                if susie then
+                    cutscene:text("* Uh,[wait:5] what-", "surprise_frown", "susie", {auto=true})
+                end
+            else
+                cutscene:text("* WAIT SHIT I'M NOT READY-", "wtf_b", "dess", {auto=true})
+            end
 
             local encounter = cutscene:startEncounter("starwalker", true, {{"starwalker", star}})
 
@@ -1327,46 +1350,115 @@ local hub = {
             local done_state = defeated_enemies[1].done_state
 			
             if done_state == "KILLED" or done_state == "FROZEN" then
-                susie:resetSprite()
-                cutscene:wait(1)
-                -- This Susie text needs to be changed
-                cutscene:textTagged("* Hey,[wait:5] uh.", "neutral", "susie")
-                cutscene:textTagged("* I know they were in our way,[wait:5] but...", "annoyed_down", "susie")
-                susie:setFacing("up")
-                cutscene:textTagged("* What happened to the ACTing thing?", "neutral", "susie")
-                cutscene:textTagged("* ...", "annoyed_down", "susie")
-                if cutscene:getCharacter("dess") then
-                    cutscene:textTagged("* Well there goes a potential party member", "condescending", "dess")
+                if not Game:isDessMode() then
+                    susie:resetSprite()
+                    cutscene:wait(1)
+                    cutscene:textTagged("* Hey,[wait:5] uh.", "neutral", "susie")
+                    cutscene:textTagged("* I know they were in our way,[wait:5] but...", "annoyed_down", "susie")
+                    susie:setFacing("up")
+                    cutscene:textTagged("* What happened to the ACTing thing?", "neutral", "susie")
+                    cutscene:textTagged("* ...", "annoyed_down", "susie")
+                    if cutscene:getCharacter("dess") then
+                        cutscene:textTagged("* Well there goes a potential party member", "condescending", "dess")
+                    end
+                else
+                    cutscene:textTagged("*YEAHHHHHH I fuckin did it", "swag", "dess")
+					
+                    Assets.playSound("boost")
+                    local dess_party = Game:getPartyMember("dess")
+                    dess_party:increaseStat("health", 25)
+                    dess_party:increaseStat("attack", 1)
+                    dess_party:increaseStat("defense", 1)
+                    dess_party:increaseStat("magic", 1)
+                    cutscene:text("* (Dess became stronger!)")
                 end
+
                 Assets.playSound("ominous")
                 cutscene:wait(1.5)
                 Game:setFlag("ostarwalker_killed", true)
                 Game.world.player:setFacing("down")
             else
-                susie:resetSprite()
+                if susie then
+                    susie:resetSprite()
+                end
+				
                 local good_star = cutscene:spawnNPC("ostarwalker", star.x, star.y)
                 Game.world.music:resume()
 
                 cutscene:textTagged("* I changed my    [color:yellow]mind[color:reset]", nil, "ostarwalker")
-                cutscene:textTagged("* You guys are actually pretty [color:yellow]cool[color:reset].", nil, "ostarwalker")
+				
+                local guys = #Game.party > 1 and "You guys" or "You"
+                cutscene:textTagged(string.format("* %s are actually pretty [color:yellow]cool[color:reset].", guys), nil, "ostarwalker")
 
-                cutscene:textTagged("* Uh...[wait:5]thanks??", "nervous_side", "susie")
+                if susie then
+                    cutscene:textTagged("* Uh...[wait:5]thanks??", "nervous_side", "susie")
+                end
 
                 good_star:setFacing("left")
                 cutscene:textTagged("* As such, I will also    [color:yellow]join[color:reset]", nil, "ostarwalker")
-                cutscene:textTagged("* Join...[wait:5]what?", "suspicious", "susie")
-                cutscene:textTagged("* The\n[color:yellow]        party[color:reset]", nil, "ostarwalker")
-                cutscene:textTagged("* Oh.", "surprise", "susie")
+                if susie then
+                    cutscene:textTagged("* Join...[wait:5]what?", "suspicious", "susie")
+                    cutscene:textTagged("* The\n[color:yellow]        party[color:reset]", nil, "ostarwalker")
+                    cutscene:textTagged("* Oh.", "surprise", "susie")
+                end
 
                 if #Game.party >= 3 then
-                    cutscene:textTagged("* Oh", nil, "ostarwalker")
+                    cutscene:wait(1)
+                    cutscene:textTagged("* Wait", nil, "ostarwalker")
                     cutscene:textTagged("* Your [color:yellow]party[color:reset] is        full", nil, "ostarwalker")
                     cutscene:textTagged("* I will join             the [color:yellow]Party Room[color:reset]", nil, "ostarwalker")
-                    cutscene:hideNametag()
+
                     local alpha = good_star:addFX(AlphaFX())
                     Game.world.timer:tween(1, alpha, { alpha = 0 })
                     Assets.playSound("hypnosis")
                     cutscene:wait(2)
+                    good_star:remove()
+                elseif Game:isDessMode() then
+                    cutscene:textTagged("* Erm actually this is Dess Mode[font:main_mono,16]TM[font:reset]", "condescending", "dess")
+                    cutscene:textTagged("* So I get to be the only party member", "challenging", "dess")
+                    Game.world.music:stop()
+                    cutscene:textTagged("* Oh", nil, "ostarwalker")
+                    cutscene:textTagged("* I see", nil, "ostarwalker")
+                    cutscene:textTagged("* I'll be on my     [color:yellow]way[color:reset] then", nil, "ostarwalker")
+
+                    local alpha = good_star:addFX(AlphaFX())
+                    Game.world.timer:tween(1, alpha, { alpha = 0 })
+                    Assets.playSound("hypnosis")
+                    cutscene:wait(4)
+					
+                    Game.world.timer:tween(0.5, alpha, { alpha = 1 })
+                    Assets.playSound("hypnosis", 1, 1.5)
+					
+                    cutscene:wait(1)
+
+                    cutscene:textTagged("* Oh wait actually", nil, "ostarwalker")
+                    cutscene:textTagged("* Since you defeated    [color:yellow]me[color:reset]", nil, "ostarwalker")
+                    cutscene:textTagged("* I'll give you [color:yellow]this[color:reset]", nil, "ostarwalker")
+					
+                    Assets.playSound("boost")
+                    local dess_party = Game:getPartyMember("dess")
+                    dess_party:increaseStat("health", 25)
+                    dess_party:increaseStat("attack", 1)
+                    dess_party:increaseStat("defense", 1)
+                    dess_party:increaseStat("magic", 1)
+                    cutscene:text("* (Dess became stronger!)")
+					
+                    cutscene:textTagged("* ...A free stat boost?", "wtf", "dess")
+                    cutscene:textTagged("* and I DON'T have to kill anyone for it??", "doom_AURGHHHHHH", "dess")
+                    cutscene:textTagged("*            Yes", nil, "ostarwalker")
+                    cutscene:textTagged("* ...", "neutral", "dess")
+                    cutscene:textTagged("* A bit anticlimatic ngl", "eyebrow", "dess")
+                    cutscene:textTagged("* But I suppose any stat boost is a good one", "neutral_c", "dess")
+                    cutscene:textTagged("* So uhh thanks ig", "genuine_b", "dess")
+                    cutscene:textTagged("* You're    [color:yellow]welcome[color:reset]", nil, "ostarwalker")
+                    cutscene:textTagged("* I'm [color:yellow]going[color:reset] now", nil, "ostarwalker")
+                    cutscene:textTagged("* Bye", nil, "ostarwalker")
+					
+                    local alpha = good_star:addFX(AlphaFX())
+                    Game.world.timer:tween(1, alpha, { alpha = 0 })
+                    Assets.playSound("hypnosis")
+                    cutscene:wait(2)
+                    Game.world.music:resume()
                     good_star:remove()
                 else
                     Game:addPartyMember("ostarwalker")
@@ -1398,7 +1490,7 @@ local hub = {
             local choicer = cutscene:choicer({"Read", "Do not"})
 			
             if choicer == 1 then
-                cutscene:text("* (You attempted the read the legend transcribed on the plaque...)")
+                cutscene:text("* (You attempted to read the legend transcribed on the plaque...)")
                 cutscene:text("* ([speed:0.5]...[wait:10][speed:1]but it was so utterly incomprehensible that it made your head spin.)")
                 cutscene:text("* (Perhaps some legends are best left forgotten...)")
             else

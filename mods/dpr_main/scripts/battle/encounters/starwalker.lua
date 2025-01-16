@@ -25,7 +25,10 @@ end
 
 function Starwalker:onBattleInit()
     super.onBattleInit(self)
-    if self.boss_rush == true then
+    if Game:isDessMode() and not self.boss_rush then
+        self.bg = StarsBG({1, 1, 1})
+        Game.battle:addChild(self.bg)
+    elseif self.boss_rush == true then
         Game.battle.dojo_bg = DojoBG({1, 1, 1})
         Game.battle:addChild(Game.battle.dojo_bg)
     end
