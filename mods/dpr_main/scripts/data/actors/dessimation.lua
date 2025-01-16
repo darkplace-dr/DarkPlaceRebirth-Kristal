@@ -23,7 +23,7 @@ function actor:init()
 
     self.animations = {
         ["idle"]          = {"idle", 0.2, true},
-        ["hurt"]          = {"hurt", 1/15, false, temp=true, duration=0.5},
+        ["hurt"]          = {"hurt", 1/15, false},
         ["attack"]        = {"attack", 1/23, false},
         ["spell"]         = {"spell", 1/10, false, next="spellsuper"},
         ["spellsuper"]    = {"spellsuper", 2/30, false, next="spellsuperend"},
