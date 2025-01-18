@@ -104,7 +104,14 @@ function Choicebox:draw()
     local heart_y = soul_positions[self.current_choice + 1][2]
 
     Draw.setColor(Game:getSoulColor())
-    Draw.draw(self.heart, heart_x, heart_y, 0, 2, 2)
+
+    self.priority_chara = Game:getSoulPartyMember()
+    if self.priority_chara.monster then
+        Draw.draw(self.heart, heart_x + 18, heart_y + 18, 0, -2, -2)
+    else
+        Draw.draw(self.heart, heart_x, heart_y, 0, 2, 2)
+    end
+
 end
 
 function Choicebox:setSize(w, h)
