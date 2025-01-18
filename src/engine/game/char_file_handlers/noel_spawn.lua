@@ -38,6 +38,7 @@ local place_holder = function(cutscene, event)
     --Game.world:getCharacter("noel").actor.default = "dess_mode/walk"
 
     local save = Noel:loadNoel()
+
     if #Game.party == 3 then 
         cutscene:text("* Party full.", "bruh", "noel")
     else
@@ -52,6 +53,8 @@ local place_holder = function(cutscene, event)
                     cutscene:text("* Uhm,[wait:10][face:...] what???", "oh", "noel")
                     cutscene:text("* Dess, I need some context here.", "neutral", "noel")
                     cutscene:text("* You can't just say [voice:dess]dess mode[font:main_mono,16]TM[font:reset][voice:noel] and expect me to understand.", "bruh", "noel")
+
+                    Noel:saveNoel({understand = {dessmode = true}})
                 else
                     cutscene:text("* Wha-[wait:10][face:huh] what?", "oh", "noel")
                     cutscene:text("* What [wait:5][face:oh](or who)[face:bruh][wait:5] in the world is dess mode?", "...", "noel")
@@ -61,6 +64,26 @@ local place_holder = function(cutscene, event)
         else
             choicer = cutscene:choicer({"Yes", "No"})
         end
+        if choicer == 1 then
+            cutscene:text("* Cool beans.", "bruh", "noel")
+            local noel = cutscene:getCharacter("noel")
+            noel:convertToFollower()
+            cutscene:attachFollowers()
+            Game:setFlag("noel_SaveID", save["SaveID"])
+            Game:addPartyMember("noel")
+        elseif choicer == 2 then
+            cutscene:text("* Alright.", "bruh", "noel")
+        end
+    end
+end
+
+local dess_mode = function(cutscene, event)
+    local save = Noel:loadNoel()
+    if not Game:getFlag("dess_has_met_the_noel_in_dess_mode") then --Dialouge isn't something im good at rn so im not gonna do it
+    else
+        cutscene:text("* May I join the party?", "bruh", "noel")
+        local choicer = cutscene:choicer({"Yes", "No"})
+
         if choicer == 1 then
             cutscene:text("* Cool beans.", "bruh", "noel")
             local noel = cutscene:getCharacter("noel")
@@ -101,7 +124,8 @@ function Noel:NoelEnter(noelsave)
             warphub = {384, 361, {cutscene = place_holder, animation = "brella"}},
             room1 = {400, 740, {cutscene = place_holder, animation = "brella"}},
             main_hub = {460, 380, {cutscene = place_holder, animation = "brella"}},
-            main_hub_south = {350, 160, {cutscene = place_holder, animation = "brella"}},
+            main_hub_south = {660, 730, {cutscene = place_holder, animation = "brella"}},
+            ["floorcyber/dog_highway"] = {1006, 428, {cutscene = place_holder}},
             ["steamworks/05"] = {260, 290, {cutscene = place_holder}},
             ["steamworks/09"] = {1000, 390, {cutscene = place_holder}},
             ["steamworks/15"] = {490, 510, {cutscene = place_holder}},
@@ -112,7 +136,6 @@ function Noel:NoelEnter(noelsave)
     if map == savedData.Map and mod == savedData.Mod then
         local position = spawnPositions[savedData.Map] 
         if position then
-            print(4)
             if position[3] then
                 Noel:spawnNoel(position[1], position[2], position[3])
             else
@@ -123,13 +146,20 @@ function Noel:NoelEnter(noelsave)
 end
 
 function Noel:spawnNoel(x, y, data)
+    local save = Noel:loadNoel()
     if Game:hasPartyMember("noel") then
         Noel:checkNoel()
     else
-        if data then
+        if Game:isDessMode() and save.understand and save.understand.dessmode then
+            
+            Game.world:spawnNPC("noel", x, y, {cutscene = dess_mode})   
+        elseif data then
             Game.world:spawnNPC("noel", x, y, data)
         else
             Game.world:spawnNPC("noel", x, y, {cutscene = "noel.found_again"})
+        end
+        if Game.world.map.id == "floorcyber/dog_highway" then
+            Game.world:getCharacter("noel"):setFacing("up")
         end
     end
 end

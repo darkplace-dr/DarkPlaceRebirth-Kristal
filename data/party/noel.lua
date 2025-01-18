@@ -19,7 +19,7 @@ function character:init()
     -- Display level (saved to the save file)
     self.level = lever
     -- Default title / class (saved to the save file)
-    self.title = "Preist.\nDoesn't understand\nhow his class works."
+    self.title = "Preist\nDoesn't understand\nhow his class works."
 
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 0.1
@@ -133,7 +133,35 @@ function character:init()
     self.default_opinion = 0
 
     self.pain_img = Assets.getTexture("ui/menu/icon/pain")
+end
 
+function character:getTitle()
+    local save = Noel:loadNoel()
+    local prefix = "LV"..self:getLevel().." "
+    if Game:isDessMode() and save.understand and save.understand.dessmode then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return prefix.."Preist\nDoesn't understand\nhow his class works."
+        else
+            return prefix.."Preist\nDoesn't understand\nhow her class works."
+        end
+    else
+        return prefix..""..self.title
+    end
+end
+
+function character:getName()
+    local save = Noel:loadNoel()
+    if Game:isDessMode() and save.understand and save.understand.dessmode then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return "dess"
+        else
+            return "Noel"
+        end
+    else
+        return "Noel"
+    end
 end
 
 function character:onLightLevelUp(level) end --do not remove this or noel will not work in light battles 

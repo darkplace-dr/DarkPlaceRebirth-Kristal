@@ -438,7 +438,14 @@ function DarkMenu:drawButton(index, x, y)
     Draw.draw(sprite, x - x_offset, y, 0, 2, 2)
     if index == self.selected_submenu and self.state == "MAIN" then
         Draw.setColor(Game:getSoulColor())
-        Draw.draw(self.heart_sprite, x + 15 - x_offset, y + 25, 0, 2, 2, self.heart_sprite:getWidth() / 2, self.heart_sprite:getHeight() / 2)
+        
+        self.priority_chara = Game:getSoulPartyMember()
+        local shape = {2, 2}
+        if self.priority_chara.monster then
+            shape = {-2, -2}
+        end
+
+        Draw.draw(self.heart_sprite, x + 15 - x_offset, y + 25, 0, shape[1], shape[2], self.heart_sprite:getWidth() / 2, self.heart_sprite:getHeight() / 2)
     end
 
     Draw.popScissor()
