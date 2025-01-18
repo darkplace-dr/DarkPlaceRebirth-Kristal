@@ -1,6 +1,8 @@
-local CharacterMenu, super = Class(Object)
+---@class DarkCharacterMenu : Object
+---@overload fun(...) : DarkCharacterMenu
+local DarkCharacterMenu, super = Class(Object)
 
-function CharacterMenu:init(selected)
+function DarkCharacterMenu:init(selected)
     super.init(self)
 
     self.parallax_x = 0
@@ -48,8 +50,8 @@ function CharacterMenu:init(selected)
 	self:selection(0)
 end
 
-function CharacterMenu:removeParty()
-	if (self.selected == 1 and #Game.party == 1) or (self.selected == 1 and Game.party[2].id == "noel") or #Game.party == 1 or (self.selected > #Game.party) then
+function DarkCharacterMenu:removeParty()
+	if (self.selected == 1 and #Game.party == 1) or (self.selected == 1 and Game.party[2].id == "noel") or #Game.party == 1 then
 		self.ui_cant_select:stop()
 		self.ui_cant_select:play()
 		self.heart_sprite:shake(0, 5)
@@ -63,7 +65,7 @@ function CharacterMenu:removeParty()
 	end
 end
 
-function CharacterMenu:partySprites()
+function DarkCharacterMenu:partySprites()
 
 	for i, sprite in ipairs(self.sprites) do
 		self.sprites[sprite] = nil
@@ -101,7 +103,7 @@ function CharacterMenu:partySprites()
 	end
 end
 
-function CharacterMenu:selection(num)
+function DarkCharacterMenu:selection(num)
 	local chr = self.sprites[self.selected]
 
 	if chr then
@@ -131,24 +133,18 @@ function CharacterMenu:selection(num)
 
 		local soul_color = chr.party.soul_color or {1, 0, 0}
 		self.heart_sprite:setColor(soul_color)
-		if chr.party.monster then
-			self.heart_sprite:setScale(-1)
-		else
-			self.heart_sprite:setScale(1)
-		end
 
-		local text = chr.party.title_extended or chr.party:getTitle() or "* Placeholder~"
+		local text = chr.party.title_extended or chr.party.title or "* Placeholder~"
 		self.text:setText(text)
 	else
 		self.text:setText("Empty")
 		self.heart_sprite:setColor({1, 0, 0})
-		self.heart_sprite:setScale(1)
 	end
 
 	self.target_x = self.bg.x + (self.selected) * 100
 end
 
-function CharacterMenu:update()
+function DarkCharacterMenu:update()
 	super.update(self)
 
     self.heart_sprite.x = self.heart_sprite.x + (self.target_x - self.heart_sprite.x) * 20 * DT
@@ -177,7 +173,7 @@ function CharacterMenu:update()
 		elseif self.ready then
 			self.ui_select:stop()
 			self.ui_select:play()
-			Game.world:openMenu(PartySelectMenu(self.selected))
+			Game.world:openMenu(DarkPartyMenu(self.selected))
 		else
 			self.ready = true
 		end
@@ -187,11 +183,8 @@ function CharacterMenu:update()
 	end
 end
 
-function CharacterMenu:draw()
+function DarkCharacterMenu:draw()
     super.draw(self)
-
-	love.graphics.setFont(self.font)
-
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setLineWidth(6)
 	local y = 300
@@ -204,15 +197,13 @@ function CharacterMenu:draw()
 	if Game.party[self.selected] then
 		self:drawStats()
 	end
+
+    local x, y = 320, 100
 end
 
-function CharacterMenu:drawStats()
-
+function DarkCharacterMenu:drawStats()
 	local party = Game:getPartyMember(Game.party[self.selected].id)
-
 	love.graphics.setColor(1, 1, 1)
-
-	love.graphics.print(party:getName(), 80, 90)
 
 	if party.cm_draw then
 		party:CharacterMenuDraw()
@@ -230,4 +221,4 @@ function CharacterMenu:drawStats()
 	end
 end
 
-return CharacterMenu
+return DarkCharacterMenu
