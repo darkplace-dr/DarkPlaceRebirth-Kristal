@@ -49,7 +49,7 @@ function CharacterMenu:init(selected)
 end
 
 function CharacterMenu:removeParty()
-	if (self.selected == 1 and #Game.party == 1) or (self.selected == 1 and Game.party[2].id == "noel") or #Game.party == 1 then
+	if (self.selected == 1 and #Game.party == 1) or (self.selected == 1 and Game.party[2].id == "noel") or #Game.party == 1 or (self.selected > #Game.party) then
 		self.ui_cant_select:stop()
 		self.ui_cant_select:play()
 		self.heart_sprite:shake(0, 5)
@@ -131,12 +131,18 @@ function CharacterMenu:selection(num)
 
 		local soul_color = chr.party.soul_color or {1, 0, 0}
 		self.heart_sprite:setColor(soul_color)
+		if chr.party.monster then
+			self.heart_sprite:setScale(-1)
+		else
+			self.heart_sprite:setScale(1)
+		end
 
-		local text = chr.party.title_extended or chr.party.title or "* Placeholder~"
+		local text = chr.party.title_extended or chr.party:getTitle() or "* Placeholder~"
 		self.text:setText(text)
 	else
 		self.text:setText("Empty")
 		self.heart_sprite:setColor({1, 0, 0})
+		self.heart_sprite:setScale(1)
 	end
 
 	self.target_x = self.bg.x + (self.selected) * 100
@@ -183,6 +189,9 @@ end
 
 function CharacterMenu:draw()
     super.draw(self)
+
+	love.graphics.setFont(self.font)
+
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setLineWidth(6)
 	local y = 300
@@ -195,13 +204,15 @@ function CharacterMenu:draw()
 	if Game.party[self.selected] then
 		self:drawStats()
 	end
-
-    local x, y = 320, 100
 end
 
 function CharacterMenu:drawStats()
+
 	local party = Game:getPartyMember(Game.party[self.selected].id)
+
 	love.graphics.setColor(1, 1, 1)
+
+	love.graphics.print(party:getName(), 80, 90)
 
 	if party.cm_draw then
 		party:CharacterMenuDraw()
