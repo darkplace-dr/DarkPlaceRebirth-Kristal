@@ -147,7 +147,7 @@ end
 function Mod:registerDebugOptions(debug)
     debug:registerOption("main", "Party Menu", "Enter the  Party  Menu.", 
         function () 
-            Game.world:openMenu(CharacterMenu()) 
+            Game.world:openMenu(DarkCharacterMenu()) 
             debug:closeMenu()
         end
     )
