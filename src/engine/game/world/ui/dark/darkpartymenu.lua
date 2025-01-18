@@ -437,7 +437,7 @@ function DarkPartyMenu:draw()
 	if self.selected and self.selected.char and self.state ~= "menu_select" then
 		local party = self.selected.char
 		x = self.bg.x - 10
-		love.graphics.print(party.name, x, 220)
+		love.graphics.print(party:getName(), x, 220)
 		love.graphics.print("HP "..party.health.."/"..party.stats["health"], x, 245)
 		love.graphics.print("ATK "..party.stats["attack"], x, 270)
 
