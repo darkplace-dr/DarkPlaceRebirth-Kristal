@@ -217,7 +217,7 @@ function DarkCharacterMenu:drawStats()
 	love.graphics.print(party:getName(), 80, 90)
 
 	if party.cm_draw then
-		party:DarkCharacterMenuDraw()
+		party:CharacterMenuDraw()
 	else
 		local x = 330
 		love.graphics.print("ATK "..party.stats["attack"], x, 310)
