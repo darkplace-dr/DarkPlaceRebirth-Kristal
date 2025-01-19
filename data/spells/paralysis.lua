@@ -30,7 +30,7 @@ function spell:onCast(user, target)
 	diamond.layer = target.layer + 1
 	Assets.playSound("trap")
 	diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
-	user.parent:addChild(diamond)
+	Game.battle:addChild(diamond)
 
 	Game.battle.timer:after(0.65, function()
 		target:flash()
@@ -54,7 +54,7 @@ function spell:onLightCast(user, target)
 	diamond.layer = target.layer + 1
 	Assets.playSound("trap")
 	diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
-	user.parent:addChild(diamond)
+	Game.battle:addChild(diamond)
 
 	Game.battle.timer:after(0.65, function()
 		target:hurt(damage, user)
