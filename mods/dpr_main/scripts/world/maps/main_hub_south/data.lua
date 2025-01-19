@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 39,
+  nextobjectid = 40,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -305,7 +305,10 @@ return {
           height = 120,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["map"] = "hub_starwalker",
+            ["marker"] = "entry"
+          }
         },
         {
           id = 27,
@@ -321,51 +324,6 @@ return {
           properties = {
             ["map"] = "tower_outside",
             ["marker"] = "entry"
-          }
-        },
-        {
-          id = 31,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 1278.5,
-          y = 798.5,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 32,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 1278.5,
-          y = 839.5,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 33,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 1278.45,
-          y = 880.136,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
           }
         }
       }
@@ -429,6 +387,19 @@ return {
           class = "",
           shape = "point",
           x = 60,
+          y = 860,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 39,
+          name = "west",
+          class = "",
+          shape = "point",
+          x = 1280,
           y = 860,
           width = 0,
           height = 0,

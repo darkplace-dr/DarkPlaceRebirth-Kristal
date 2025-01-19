@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 68,
+  nextobjectid = 74,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -187,93 +187,119 @@ return {
       properties = {},
       objects = {
         {
-          id = 57,
-          name = "worse_vent",
-          type = "",
-          shape = "rectangle",
-          x = 1290,
-          y = 830,
-          width = 60,
-          height = 60,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["target"] = { id = 63 }
-          }
-        },
-        {
-          id = 58,
-          name = "worse_vent",
+          id = 68,
+          name = "ventlauncher",
           type = "",
           shape = "rectangle",
           x = 1470,
-          y = 530,
-          width = 60,
-          height = 60,
+          y = 540,
+          width = 40,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["target"] = { id = 35 }
+            ["direction"] = "up",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 35 },
+            ["sprite"] = "world/events/worse_vent"
           }
         },
         {
-          id = 59,
-          name = "worse_vent",
+          id = 69,
+          name = "ventlauncher",
           type = "",
           shape = "rectangle",
           x = 1390,
-          y = 330,
-          width = 60,
-          height = 60,
+          y = 340,
+          width = 40,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["target"] = { id = 36 }
+            ["direction"] = "left",
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 2,
+            ["make_steam"] = false,
+            ["marker"] = { id = 36 },
+            ["sprite"] = "world/events/worse_vent"
           }
         },
         {
-          id = 60,
-          name = "worse_vent",
-          type = "",
-          shape = "rectangle",
-          x = 930,
-          y = 730,
-          width = 60,
-          height = 60,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["target"] = { id = 47 }
-          }
-        },
-        {
-          id = 61,
-          name = "worse_vent",
-          type = "",
-          shape = "rectangle",
-          x = 1450,
-          y = 730,
-          width = 60,
-          height = 60,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["target"] = { id = 30 }
-          }
-        },
-        {
-          id = 62,
-          name = "worse_vent",
+          id = 70,
+          name = "ventlauncher",
           type = "",
           shape = "rectangle",
           x = 1110,
-          y = 550,
-          width = 60,
-          height = 60,
+          y = 560,
+          width = 40,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["target"] = { id = 28 }
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 1,
+            ["make_steam"] = false,
+            ["marker"] = { id = 28 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 71,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 930,
+          y = 740,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "right",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 47 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 72,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1290,
+          y = 840,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "up",
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 2,
+            ["make_steam"] = false,
+            ["marker"] = { id = 63 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 73,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1450,
+          y = 740,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "left",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 30 },
+            ["sprite"] = "world/events/worse_vent"
           }
         }
       }

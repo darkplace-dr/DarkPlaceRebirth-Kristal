@@ -3,15 +3,17 @@ function NewYearCountDown:init(x, y)
     super.init(self, x or 80, y or 100, 60*2, 46*2)
 
     self.board = Sprite("world/events/new_years_board")
+    self.board:play(0.2, true)
     self:addChild(self.board)
 
     self.board:setScale(2)
 
     self.text = Text("")
-    self.text.y = 22
-    self.text.x = 14
+    self.text.y = 24
+    self.text.x = 36
     self:addChild(self.text)
-    self.text:setColor(0, 0.5, 1)
+    self.text:setColor(0, 1, 0)
+    self.text:setScale(0.5, 1)
 
     self.text.debug_select = false
     self.board.debug_select = false
@@ -20,15 +22,28 @@ function NewYearCountDown:init(x, y)
     --self.debug_select = true
 end
 
+function NewYearCountDown:onLoad()
+	super:onLoad(self)
+    local time = os.date("*t")
+	if time.month ~= 12 and time.day ~= 31 then
+        self:remove()
+	end
+end
+
 function NewYearCountDown:update()
     super.update(self)
 
     local time = os.date("*t")
 
-    if time.month ~= 12 then
-        self:remove()
-    elseif time.month == 1 and time.sec > 0 then
+    if time.month == 1 and time.sec > 0 then
         self:explode()
+		Game.world.timer:after(20/30, function()
+			local firework = Firework(self.x+60, self.y+46, "world/firework/shape_hny", 2)
+			firework.physics.speed_x = -2
+			firework.physics.speed_y = -6
+			firework.layer = self.layer
+			Game.world:addChild(firework)
+		end)
     else
         --self.text:setText("00:00:00")
         local seconds = 60 - time.sec

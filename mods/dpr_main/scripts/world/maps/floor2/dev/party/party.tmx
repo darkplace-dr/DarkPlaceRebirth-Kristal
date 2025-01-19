@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="63">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="65">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="border" value="dev"/>
   <property name="music" value="dev"/>
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/devroom_mono.tsx"/>
@@ -98,6 +99,22 @@
   <object id="59" gid="146" x="440" y="280" width="100" height="70"/>
   <object id="60" gid="146" x="440" y="400" width="100" height="70"/>
   <object id="61" gid="146" x="440" y="520" width="100" height="70"/>
+  <object id="63" name="npc" x="145" y="515">
+   <properties>
+    <property name="actor" value="susie"/>
+    <property name="cutscene" value="partyroom.susie"/>
+    <property name="sprite" value="wall_right"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" name="npc" x="330" y="420">
+   <properties>
+    <property name="actor" value="hero"/>
+    <property name="cutscene" value="partyroom.hero"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="3" name="main" x="760" y="600">

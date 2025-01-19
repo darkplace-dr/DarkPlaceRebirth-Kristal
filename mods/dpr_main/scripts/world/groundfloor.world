@@ -69,6 +69,13 @@
             "width": 640,
             "x": -920,
             "y": 1720
+        },
+        {
+            "fileName": "maps/hub_starwalker/hub_starwalker.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 1200,
+            "y": 1720
         }
     ],
     "onlyShowAdjacentMaps": false,

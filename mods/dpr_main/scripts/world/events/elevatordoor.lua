@@ -8,11 +8,17 @@ function ElevatorDoor:init(data)
     local properties = data.properties or {}
 
     self.type = data.properties["type"] or "floor1"
+    self.double_doors = data.properties["double_doors"] or false
 
     --TO-DO: find a way to make these sprites customizable.
     self.sprite_inside     = Sprite("world/events/elevatordoor/"..self.type.."/inside")
-    self.sprite_door_left  = Sprite("world/events/elevatordoor/"..self.type.."/door")
-    self.sprite_door_right = Sprite("world/events/elevatordoor/"..self.type.."/door")
+    if not self.double_doors then
+        self.sprite_door_left  = Sprite("world/events/elevatordoor/"..self.type.."/door")
+        self.sprite_door_right = Sprite("world/events/elevatordoor/"..self.type.."/door")
+    else
+        self.sprite_door_left  = Sprite("world/events/elevatordoor/"..self.type.."/door_left")
+        self.sprite_door_right = Sprite("world/events/elevatordoor/"..self.type.."/door_right")
+    end
     self.sprite_frame      = Sprite("world/events/elevatordoor/"..self.type.."/frame")
     
     self.sprite_inside.debug_select = false

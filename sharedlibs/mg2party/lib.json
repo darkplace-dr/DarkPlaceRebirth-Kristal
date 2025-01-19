@@ -1,0 +1,9 @@
+{
+    "id": "mg2party",
+    "dependencies": [
+        "magical-glass-2"
+    ],
+    "config": {
+        "useUndertaleWhenAlone": false
+    }
+}

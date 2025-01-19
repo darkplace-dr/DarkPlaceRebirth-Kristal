@@ -34,33 +34,24 @@ local tutorialmaster = {
         local choices = { "Stars", "Use", "Fact" }
         table.insert(choices, "Bye")
         local c = cutscene:choicer(choices)
-        if c == 1 then
-            if master:getFlag("sorry_dess") then
-                cutscene:text("* Last I checked STAR isn't an actual type...")
-                cutscene:text("* But my thing says your type is STAR so...[wait:5] screw it.")
-                cutscene:text("* You are a BALL of FIRE Dess.\n[wait:5]* A giant ball OF fire.")
-                cutscene:text("* I think that's what that means anyWAY.")
-                if master:getFlag("dungeonkiller") then
-                    cutscene:text("* That phone over there is[wait:5] odd...")
-                    cutscene:text("* They keep saying things that don't make sense.")
-                    cutscene:text("* (Sometimes I feel like I'm the only one who can see them.)")
-                    cutscene:text("* (I still have no idea who " ..
-                    Game.save_name .. " is and what they have to do with you Dess...)")
-                end
-            else
+        if c == 1 then-- cringe cringe cringe die die die (I added this in legacy and i want it gone it shall be gone forever)
                 cutscene:text("* Dess's power of the STARS.")
                 cutscene:text("* Will[wait:5] HOPEFULLY[wait:5] get her run over by CARS.")
-                cutscene:text("*[speed:0.3] ...")
-                cutscene:text("*[speed:0.3] ...")
-                cutscene:text("* Great,\n[wait:5]now I feel like a piece of sh[wait:5]-tupid[speed:0.3]...")
-                cutscene:text("* Sorry for being mean...[wait:5]\n* There's no excuse for my actions...")
-                cutscene:text("* I'll try being nicer\nfrom now on.")
-                master:setFlag("sorry_dess", true)
-                if master:getFlag("dungeonkiller") then
-                    cutscene:text("* Someone told me someone else made some other person do something.")
-                    cutscene:text("* Say...[wait:5] any of you know of a " .. Game.save_name .. "?")
-                end
-            end
+                cutscene:text("[noskip]* Time to drop some BARS[speed:0.1][func:stop]... ... ...[instant]\n[func:tag][color:red]Metal Pipe[color:reset].[stopinstant][wait:4]      ", nil, nil, 
+                    {
+                        functions = {
+                            tag = function (text)
+                                Game.world.fader:fadeIn(nil, {speed = 0.5, color = {1, 1, 1}, alpha = 1})
+                                Assets.playSound("bad_pipe")
+                            end,
+                            stop = function (text)
+                                Game.world.music:pause()
+                            end
+                        },
+                        auto = true
+                    }
+                )
+                Game.world.music:resume()
         elseif c == 2 then
 			cutscene:text("* Dess' use is still unknown.[wait:5]\n* To find out, you're on your own.")
 			cutscene:text("* Some still say she is a wizard.[wait:5]\n* But I have yet to see her cast 'Blizzard'!")
@@ -76,9 +67,6 @@ local tutorialmaster = {
             cutscene:text("* Dess will stop being annoying,[wait:5] if you give me money to buy cigarettes.")
             cutscene:text("* Sorry,[wait:5] that was a lie.")
             cutscene:text("* Give me money,[wait:5] to buy cigarettes.")
-            if master:getFlag("sorry_dess") then
-                cutscene:text("* Sorry for calling you annoying by the way.")
-            end
         elseif c == 4 then
             cutscene:text("* Later,[wait:5] Chum.")
         end

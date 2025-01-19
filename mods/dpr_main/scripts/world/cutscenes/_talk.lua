@@ -48,6 +48,9 @@ return {
                 cutscene:text("* (You give a moment of silence for those in need...)")
                 cutscene:text("[speed:0.1]* (...)\n[wait:10](...)\n[wait:10](...)")
                 cutscene:text("* (There will always be hope.)")
+            elseif map == "warp_hub/hub" then
+                cutscene:text("* y'know I remember this place being a LOT bigger before", "neutral_b", "dess")
+                cutscene:text("* why is it just a tiny island now?", "eyebrow", "dess")
             else
                 cutscene:text("* allan please add dialogue", "neutral", "dess")
             end

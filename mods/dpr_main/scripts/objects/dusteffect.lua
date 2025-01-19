@@ -33,12 +33,21 @@ function DustEffect:init(texture, x, y)
 
                     local particle = DustEffectParticle({r, g, b, a}, x - 1, y - 1)
                     self:addChild(particle)
-                    Game.battle.timer:after(math.floor(delay / 3) / 30, function()
-                        particle.activated = true
-                        particle.physics.gravity_direction = math.rad(-90)
-                        particle.physics.gravity = (Utils.random(0.25) + 0.1)
-                        particle.physics.speed_x = (Utils.random(2) - 1)
-                    end)
+                    if Game.battle then
+                        Game.battle.timer:after(math.floor(delay / 3) / 30, function()
+                            particle.activated = true
+                            particle.physics.gravity_direction = math.rad(-90)
+                            particle.physics.gravity = (Utils.random(0.25) + 0.1)
+                            particle.physics.speed_x = (Utils.random(2) - 1)
+                        end)
+                    else
+                        Game.world.timer:after(math.floor(delay / 3) / 30, function()
+                            particle.activated = true
+                            particle.physics.gravity_direction = math.rad(-90)
+                            particle.physics.gravity = (Utils.random(0.25) + 0.1)
+                            particle.physics.speed_x = (Utils.random(2) - 1)
+                        end)
+                    end
                 end
             end
             delay = delay + 1
