@@ -50,6 +50,7 @@ function item:init()
         dumbie = "Uh, thanks?",
         noel = "Hail the cotton gods!",
 		dess = "*sighhHhhhhh* unused",
+		jamm = "So... Yoshi's Island?",
     }
 end
 

@@ -69,6 +69,7 @@ function item:init()
 	    brenda = "Not a fan, huh?",
 	    noyno = "We should buy more!",
 	    dess = "C'mon, man...",
+		jamm = "I can see that...",
         },
 	YOU = {
 	    susie = "(Oh, damn...)",
@@ -77,6 +78,7 @@ function item:init()
 	    brenda = "Yeesh.",
 	    noyno = "Haha! Yes!",
 	    dess = "It's not that bad",
+		jamm = "(I don't want to try it...)",
 	},
 	susie = {
 	    susie = "AUGH, rotten milk!",
@@ -85,6 +87,7 @@ function item:init()
 	    brenda = "(That didn't look pleasant.)",
 	    noyno = "Rotten milk isn't *that* bad.",
 	    dess = "Really?",
+		jamm = "That can't taste good.",
 	},
 	ralsei = {
 	    susie = "Ralsei, are you good?!",
@@ -93,6 +96,7 @@ function item:init()
 	    brenda = "Yikes.",
 	    noyno = "Oh, toughen up!",
 	    dess = "God dammit.",
+		jamm = "Ugh...",
 	},
 	noelle = {
 	    susie = "What's it like?",
@@ -100,14 +104,16 @@ function item:init()
 	    noelle = "Tastes like a mix...",
 	    brenda = "Weird.",
 	    noyno = "I wanna know! Tell me!",
+		jamm = "How does it taste?",
 	},
-        dess = {
+    dess = {
 	    dess = "Hell yeah, Wayside School reference.",
 	    susie = "(Why does she like it?!)",
 	    ralsei = "(I'm glad someone likes it?)",
 	    noelle = "Self-esteem is important!",
 	    brenda = "(SHE LIKES IT??)",
 	    noyno = "(Her ego is bigger than mine?!)",
+		jamm = "Of course...",
 	},
 	brenda = {
 	    susie = "(Jeez...)",
@@ -116,6 +122,7 @@ function item:init()
 	    brenda = "I think I'm gonna be sick...",
 	    noyno = "And I thought *I* hated her.",
 	    dess = "yea",
+		jamm = "Jeez, wow...",
 	},
 	noyno = {
 	    susie = "Heh.",
@@ -124,6 +131,7 @@ function item:init()
 	    brenda = "Terrible, isn't it?",
 	    noyno = "This is disgusting!",
 	    dess = "Hm",
+		jamm = "Yeah, glad you agree.",
 	},
 	robo_susie = {
 	    robo_susie = "It's better than paint.",
@@ -133,12 +141,20 @@ function item:init()
 	    brenda = "Wow, really??",
 	    noyno = "Same diets, I suppose.",
 	    dess = "Dang, finally",
+		jamm = "(You drink paint???)",
     },
 	ceroba = {
 		ceroba = "It's... Uh...",
 	    susie = "Terrible?",
 	    brenda = "Disgusting?",
 	    dess = "Literally perfect?",
+		jamm = "Worst thing you ever tasted?",
+	},
+	jamm = {
+		jamm = "Is this expired???",
+	    brenda = "Not expired. Trust me...",
+	    susie = "Ugh, what???",
+	    dess = "It isn't expired lmao",
 	},
     }
 end
