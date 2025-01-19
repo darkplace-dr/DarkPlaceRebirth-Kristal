@@ -120,6 +120,8 @@ function actor:init()
         -- Cutscene offsets
         
     }
+
+    self.menu_anim = "nerd"
 end
 
 return actor

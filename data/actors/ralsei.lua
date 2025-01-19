@@ -294,6 +294,8 @@ function actor:initChapter2()
         ["splat"] = {-15, 21},
         ["stool"] = {-11, 18}
     }
+
+    self.menu_anim = "pose"
 end
 
 return actor

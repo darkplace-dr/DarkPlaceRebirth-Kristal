@@ -112,6 +112,11 @@ function actor:init()
 	if Game:getFlag("jamm_closure") then
 		self.taunt_sprites = {"box", "ghost_bs", "maid"}
 	end
+
+    self.menu_anim = "bs_win"
+    if Game:getFlag("jamm_closure") then
+		self.menu_anim = "ghost_bs"
+	end
 end
 
 return actor

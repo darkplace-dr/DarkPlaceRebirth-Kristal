@@ -222,6 +222,8 @@ function actor:init(style)
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
+
+    self.menu_anim = "pose"
 end
 
 return actor

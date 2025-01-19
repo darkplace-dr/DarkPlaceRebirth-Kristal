@@ -84,6 +84,8 @@ function actor:init()
         ["battle/hurt"] = {-4, -3},
         ["battle/defeat"] = {-1, 10}
     }
+
+    self.menu_anim = "base"
 end
 
 -- Function overrides go here
