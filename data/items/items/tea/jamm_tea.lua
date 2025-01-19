@@ -60,6 +60,20 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+		jamm = {
+			jamm = "Orange flavored. Neat.",
+		},
+		noel = {
+			noel = "Did you feed me bacon grease???",
+			jamm = "(That says a lot...)",
+		},
+		mario = {
+			mario = "Mmm, pasta sauce!",
+			jamm = "Wow, you chugged that down quickly!",
+		},
+		pauling = {
+			jamm = "(She gave it a thumbs up...!)",
+		},
     }
 end
 

@@ -30,7 +30,7 @@ function item:init()
         ["susie"] = placeholder,
         ["noelle"] = placeholder,
         ["dess"] = placeholder,
-        ["jamm"] = placeholder,
+        ["jamm"] = 60,
         ["mario"] = placeholder,
         ["pauling"] = 10,
     }
@@ -60,6 +60,9 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+		jamm = {
+			jamm = "It tastes like... eggs? Neat!",
+		},
     }
 end
 
