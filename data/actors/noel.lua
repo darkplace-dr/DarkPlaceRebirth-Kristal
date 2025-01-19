@@ -47,7 +47,7 @@ function actor:init()
     self.color = {1, 1, 1}
     self.path = "party/noel"
 
-    if Game:isDessMode() and save.understand and save.understand.dessmode then
+    if Noel:isDess() then
         self.default = "dess_mode/walk"
         
         self.menu_anim = "dess_mode/walk/down_1"
