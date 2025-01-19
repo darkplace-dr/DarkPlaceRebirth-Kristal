@@ -8,6 +8,7 @@ function spell:init()
 
     self.effect = "Raise\nShield"
     self.description = "Raises a temporary diamond shield to\nprotect the SOUL."
+    self.check = "Raises a temporary\ndiamond shield to protect the\nSOUL."
 
     self.cost = 50
 

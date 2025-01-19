@@ -3,23 +3,17 @@ local spell, super = Class(Spell, "flowershot")
 function spell:init()
     super.init(self)
 
-    -- Display name
     self.name = "FlowerShot"
-    -- Name displayed when cast (optional)
     self.cast_name = nil
 
-    -- Battle description
     self.effect = "Damage w/\nFLOWERS"
-    -- Menu description
     self.description = "Summons a large flower that shoots smaller\nflowers that explode upon impact."
+	self.check = {"Summons a large\nflower that shoots smaller\nflowers.", "* ...which explode upon impact."}
 
-    -- TP cost
     self.cost = 80
 
-    -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemies"
 
-    -- Tags that apply to this spell
     self.tags = {"damage"}
 end
 
