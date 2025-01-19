@@ -26,6 +26,7 @@ function character:init()
 
     self:addSpell("diamond_guard")
     self:addSpell("paralysis")
+    self:addSpell("flowershot")
 
     self.health = 180
 
@@ -63,6 +64,9 @@ function character:init()
     self.attack_box_color = {1, 0, 0.35}
     self.xact_color = {1, 0, 0.35}
 
+    self.light_color = {237/255, 140/255, 36/255}
+    self.light_xact_color = {237/255, 140/255, 36/255}
+
     self.icon_color = {1, 0, 87/255}
 
     self.menu_icon = "party/ceroba/head"
@@ -89,6 +93,13 @@ function character:onLevelUp(level)
         self:increaseStat("attack", 1)
         self:increaseStat("magic", 1)
     end
+end
+
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 10)
+    self:increaseStat("attack", 1)
+    self:increaseStat("defense", 1)
+    self:increaseStat("magic", 2)
 end
 
 function character:lightLVStats()
