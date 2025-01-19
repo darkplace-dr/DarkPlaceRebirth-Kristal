@@ -138,7 +138,7 @@ end
 function character:getTitle()
     local save = Noel:loadNoel()
     local prefix = "LV"..self:getLevel().." "
-    if Game:isDessMode() and save.understand and save.understand.dessmode then
+    if Noel:isDess() then
         local meth = math.random(1, 15)
         if meth == 1 then
             return prefix.."Preist\nDoesn't understand\nhow his class works."
@@ -152,7 +152,7 @@ end
 
 function character:getName()
     local save = Noel:loadNoel()
-    if Game:isDessMode() and save.understand and save.understand.dessmode then
+    if Noel:isDess() then
         local meth = math.random(1, 15)
         if meth == 1 then
             return "dess"
