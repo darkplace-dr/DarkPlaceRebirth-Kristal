@@ -72,6 +72,11 @@ function TrafficCar:setDirection(direction)
         self.car_sprite:set(self.path..self.car_path)
         self.legs_sprite:setSprite(self.path..self.legs_path)
         self.legs_sprite:stop(false)
+	-- NO MORE MEMORY LEAK!!! - ddelta
+	elseif direction == "up" then
+        self.car_sprite:set(self.path..self.car_path.."_up")
+        self.legs_sprite:setSprite(self.path..self.legs_path) -- Maybe add legs for cars going up later?
+        self.legs_sprite:stop(false)
     -- To be added in a Future:tm: Update:tm:
     --[[
     elseif direction == "right" or direction == "left" then
@@ -97,6 +102,7 @@ function TrafficCar:update()
 
     local destroy_check = {
         down    = (self.y >= Game.world.map.height * 40 + 30),
+        up      = (self.y < -30),
         right   = (self.x >= (Game.world.map.width * 40 + (self.car_sprite.width * 2))),
         left    = (self.x <= (0 - (self.car_sprite.width * 2))),
     }
@@ -115,6 +121,12 @@ function TrafficCar:update()
 
         if (self.walkdir == "down") then
             -- Yes, cars walking down specifically have this behaviour of ignoring the normalf walk speed reduction
+            if self.alwayswalking then
+                self.y = self.y + self.speed*DTMULT
+            else
+                self.y = self.y + eff_speed
+            end
+        elseif (self.walkdir == "up") then
             if self.alwayswalking then
                 self.y = self.y + self.speed*DTMULT
             else
@@ -309,6 +321,10 @@ function TrafficCar:draw()
 
     love.graphics.setColor(1, 1, 1, 1)
     if self.walkdir == "down" then
+        self:setLegsSpritePosition(0, (self.downframe * 2))
+        self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
+
+    elseif self.walkdir == "up" then
         self:setLegsSpritePosition(0, (self.downframe * 2))
         self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
 
