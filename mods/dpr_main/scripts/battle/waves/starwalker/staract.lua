@@ -25,7 +25,7 @@ function StarAct:onStart()
         afterimage.layer = self.starwalker.layer - 1
         Game.battle:addChild(afterimage)
 
-        if Game.save_name ~= "BLUE" then
+        if not Game:isSpecialMode "BLUE" then
             self.timer:after(0.5, function()
                 Assets.playSound("great_shine", 1, 0.8)
                 Assets.playSound("great_shine")

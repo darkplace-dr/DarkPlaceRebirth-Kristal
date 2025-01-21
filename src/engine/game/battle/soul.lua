@@ -160,7 +160,7 @@ function Soul:init(x, y, color)
     -- hi -sam
     self.parry_lock_movement = 0
 
-    if Game.save_name:upper() == "PEPPINO" then
+    if Game:isSpecialMode "PEPPINO" then
         self.parry_sfx = Assets.getSound("sugarcoat")
     else
         self.parry_sfx = Assets.getSound("taunt")

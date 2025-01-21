@@ -23,7 +23,7 @@ function Stardust:onStart()
         end)
     end)
 
-    if Game.save_name ~= "BLUE" then
+    if not Game:isSpecialMode "BLUE" then
         self.timer:after(10, function()
             self.starwalker:setMode("still")
             self.starwalker.sprite:set("reaching")

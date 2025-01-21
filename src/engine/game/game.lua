@@ -1597,4 +1597,11 @@ function Game:unlockAllPartyMembers()
     end
 end
 
+---@param name string
+function Game:isSpecialMode(name)
+    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
+    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
+    return Game.save_name:upper() == name:upper()
+end
+
 return Game

@@ -23,11 +23,11 @@ function Mod:postInit(new_file)
         Game:setFlag("library_experience", 0)
         Game:setFlag("library_kills", 0)
 		
-        if Game.save_name == "SUPER" then
+        if Game:isSpecialMode "SUPER" then
             Game.inventory:addItem("chaos_emeralds")
         end
         local baseParty = {}
-        if Game.save_name == "DESS" then
+        if Game:isSpecialMode "DESS" then
             Game:setFlag("Dess_Mode", true)
 
             table.insert(baseParty, "dess") -- :heckyeah:
