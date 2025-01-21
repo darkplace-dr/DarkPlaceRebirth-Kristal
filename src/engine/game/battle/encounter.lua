@@ -325,8 +325,7 @@ end
 ---@return Soul
 function Encounter:createSoul(x, y, color)
     local player = Game.party[1]
-    local player_name = Game.save_name:upper()
-    if player_name == "BLUE" then
+    if Game:isSpecialMode "BLUE" then
         return BlueSoul(x, y, color)
     else
         return Soul(x, y, color)

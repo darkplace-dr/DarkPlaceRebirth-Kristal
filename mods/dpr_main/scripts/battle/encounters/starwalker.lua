@@ -43,7 +43,7 @@ function Starwalker:update()
 end
 
 function Starwalker:createSoul(x, y, color)
-    if self.starwalker.blue or Game.save_name == "BLUE" then
+    if self.starwalker.blue or Game:isSpecialMode "BLUE" then
         return BlueSoul(x, y)
     end
     return Soul(x, y, color)

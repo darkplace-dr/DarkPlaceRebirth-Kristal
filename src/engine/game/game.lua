@@ -1597,4 +1597,9 @@ function Game:unlockAllPartyMembers()
     end
 end
 
+---@param name string
+function Game:isSpecialMode(name)
+    return Game.save_name:upper() == name:upper()
+end
+
 return Game
