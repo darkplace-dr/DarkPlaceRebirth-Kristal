@@ -51,13 +51,19 @@ end
 
 function item:onWorldUse(target)
     local amount = self:getWorldHealAmount(target.id)
+    local best_amount
     for _,member in ipairs(Game.party) do
+        local equip_amount = 0
         for _,equip in ipairs(member:getEquipment()) do
-            if equip.applyHealBonus then
-                amount = equip:applyHealBonus(amount)
+            if equip.getHealBonus then
+                equip_amount = equip_amount + equip:getHealBonus()
             end
         end
+        if not best_amount or equip_amount > best_amount then
+            best_amount = equip_amount
+        end
     end
+    amount = amount + best_amount
 
     Assets.playSound("power")
     if target.id == Game.party[1].id then
@@ -84,7 +90,9 @@ function item:onLightBattleUse(user, target)
     Assets.stopAndPlaySound("power")
     local amount = self:getBattleHealAmount(target.chara.id)
     for _,equip in ipairs(user.chara:getEquipment()) do
-        amount = equip:applyHealBonus(amount)
+        if equip.getHealBonus then
+            amount = amount + equip:getHealBonus()
+        end
     end
     target:heal(amount)
     Game.battle:battleText(self:getLightBattleText(user, target).."\n"..self:getLightBattleHealingText(user, target, amount))
@@ -93,7 +101,9 @@ end
 function item:onBattleUse(user, target)
     local amount = self:getBattleHealAmount(target.chara.id)
     for _,equip in ipairs(user.chara:getEquipment()) do
-        amount = equip:applyHealBonus(amount)
+        if equip.getHealBonus then
+            amount = amount + equip:getHealBonus()
+        end
     end
     target:heal(amount)
 end

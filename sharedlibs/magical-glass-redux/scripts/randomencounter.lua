@@ -66,7 +66,13 @@ function RandomEncounter:start()
         if self.bubble then
             Game.lock_movement = true
             MagicalGlassLib.initiating_random_encounter = true
-            Game.world.player:alert((15 + Utils.random(5)) / 30, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble, callback = function() Game:encounter(self:getNextEncounter(), true, nil, nil, self.light);MagicalGlassLib.random_encounter = self.id;Game.lock_movement = false;MagicalGlassLib.initiating_random_encounter = nil end})
+            local timer = (15 + Utils.random(5)) / 30
+            if Mod.libs["multiplayer"] then
+                for _,player in ipairs(Game.world.other_players) do
+                    player:alert(timer, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble})
+                end
+            end
+            Game.world.player:alert(timer, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble, callback = function() Game:encounter(self:getNextEncounter(), true, nil, nil, self.light);MagicalGlassLib.random_encounter = self.id;Game.lock_movement = false;MagicalGlassLib.initiating_random_encounter = nil end})
         else
             Game:encounter(self:getNextEncounter(), true, nil, nil, self.light)
             MagicalGlassLib.random_encounter = self.id

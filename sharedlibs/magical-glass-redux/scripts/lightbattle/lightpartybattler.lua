@@ -1,10 +1,7 @@
-local LightPartyBattler, super = Class(Battler)
+local LightPartyBattler, super = Class()
 
 function LightPartyBattler:init(chara)
     self.chara = chara
-    self.actor = chara:getActor()
-
-    super.init(self, x, y, self.actor:getSize())
 
     self.action = nil
 
@@ -16,12 +13,13 @@ function LightPartyBattler:init(chara)
     self.targeted = false
     
     self.has_save = false
+    self.manual_spare = false
     
     -- Karma (KR) calculations
     self.karma = 0
     self.karma_timer = 0
     self.karma_bonus = 0
-    self.prev_health = self.chara:getHealth()
+    self.prev_health = 0
     self.inv_bonus = 0
 end
 
@@ -86,7 +84,8 @@ end
 
 function LightPartyBattler:hurt(amount, exact, color, options)
     options = options or {}
-    self.sleeping = false
+    
+    self:setSleeping(false)
 
     if not options["all"] then
         Assets.playSound("hurt")
@@ -99,11 +98,7 @@ function LightPartyBattler:hurt(amount, exact, color, options)
             amount = math.ceil((amount * self:getElementReduction(element)))
         end
 
-        if self.chara.id == "noel" then
-            self:noel_damage(amount)
-        else
-            self:removeHealth(amount)
-        end
+        self:removeHealth(amount)
     else
         if not exact then
             amount = self:calculateDamage(amount)
@@ -114,12 +109,8 @@ function LightPartyBattler:hurt(amount, exact, color, options)
                 amount = math.ceil((3 * amount) / 4)
             end
         end
-
-        if self.chara.id == "noel" then
-            self:noel_damage(amount) -- Use a seprate function for a secret character that nobody will ever find on a regular playthrough.
-        else
-            self:removeHealthBroken(amount) -- Use a separate function for cleanliness
-        end
+        
+        self:removeHealthBroken(amount)
     end
 
     Game.battle:shakeCamera(2, 2, 0.35, 1)
@@ -183,19 +174,17 @@ function LightPartyBattler:revive()
     self.is_down = false
 end
 
-function LightPartyBattler:heal(amount, sparkle_color, show_up, sound)
+function LightPartyBattler:heal(amount, playsound)
     MagicalGlassLib.heal_amount = amount
-    if sound or sound == nil then
+
+    if playsound ~= false then
         Assets.stopAndPlaySound("power")
     end
-
-    amount = math.floor(amount)
 
     if self.chara:getHealth() < self.chara:getStat("health") then
         self.chara:setHealth(math.min(self.chara:getStat("health"), self.chara:getHealth() + amount))
     end
-
-    local was_down = self.is_down
+    
     self:checkHealth()
 end
 
@@ -205,16 +194,6 @@ function LightPartyBattler:checkHealth()
     elseif (self.is_down) and self.chara:getHealth() > 0 then
         self:revive()
     end
-end
-
-function LightPartyBattler:statusMessage(...)
-    local message = super.statusMessage(self, 0, self.height/2, ...)
-    message.y = message.y - 4
-    return message
-end
-
-function LightPartyBattler:recruitMessage(...)
-    return super.recruitMessage(self, ...)
 end
 
 function LightPartyBattler:isActive()
@@ -252,10 +231,6 @@ function LightPartyBattler:toggleSaveButton(value)
 end
 
 function LightPartyBattler:update()
-    if self.actor then
-        self.actor:onBattleUpdate(self)
-    end
-
     if self.chara:getWeapon() then
         self.chara:getWeapon():onBattleUpdate(self)
     end
@@ -276,8 +251,8 @@ function LightPartyBattler:update()
             self.karma_bonus = 0
             self.inv_bonus = 0
             for _,equip in ipairs(self.chara:getEquipment()) do
-                if equip.applyInvBonus then
-                    self.inv_bonus = equip:applyInvBonus(self.inv_bonus)
+                if equip.getInvBonus then
+                    self.inv_bonus = self.inv_bonus + equip:getInvBonus()
                 end
             end
             if self.inv_bonus >= 15/30 then
@@ -316,38 +291,6 @@ function LightPartyBattler:update()
             end
         end
         self.prev_health = self.chara:getHealth()
-    end
-
-    super.update(self)
-end
-
-function LightPartyBattler:noel_damage(amount) -- DO NOT QUESTION MY CHOICES
-    local meth = love.math.random(1, 3) --random number for hit chance
-    if meth == 1 then -- haha, funny noel/null damage joke thingy
-        Assets.playSound("awkward")
-        Assets.playSound("voice/noel-#")
-        self:removeHealth(0)
-    else-- haha, 10 times the pain and funny noise
-        Assets.playSound("voice/noel-#")
-        self:removeHealth(amount * 10)
-    end
-    if self.noel_hit_counter and self.noel_hit_counter > 5 and self.chara.health >= 1 then -- for if noel decides you fucking suck at dodging
-        Assets.playSound("voice/stop_getting_hit")
-        Assets.playSound("grab")
-        Assets.playSound("alert")
-        Assets.playSound("impact")
-        Assets.playSound("jump")
-        Assets.playSound("locker")
-        Assets.playSound("petrify")
-        Assets.playSound("ominous")
-        Assets.playSound("rudebuster_hit")
-        Assets.playSound("rudebuster_swing")
-        love.window.setTitle("STOP GETTING HIT")
-        self.noel_hit_counter = -1
-    elseif self.noel_hit_counter then
-        self.noel_hit_counter = self.noel_hit_counter + 1
-    else 
-        self.noel_hit_counter = 1
     end
 end
 

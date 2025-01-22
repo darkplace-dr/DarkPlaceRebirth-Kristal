@@ -37,6 +37,13 @@ function EncounterZone:update()
         else
             self.accepting = false
         end
+        if Mod.libs["multiplayer"] then
+            for _,player in ipairs(Game.world.other_players) do
+                if player.parent and self.collider:collidesWith(player) then
+                    self.accepting = true
+                end
+            end
+        end
     end
     MagicalGlassLib.in_encounter_zone = self.accepting
 
@@ -59,7 +66,7 @@ end
 
 function EncounterZone:draw()
     super.draw(self)
-    if DEBUG_RENDER and self.collider and Game.world.player and (self.collider:collidesWith(Game.world.player) or self.type == "map") then
+    if DEBUG_RENDER and self.collider and self.accepting then
         love.graphics.push()
         love.graphics.origin()
 

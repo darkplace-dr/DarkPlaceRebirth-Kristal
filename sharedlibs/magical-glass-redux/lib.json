@@ -2,13 +2,14 @@
     "id": "magical-glass",
     "authors": [
         "Nyakorita",                    // original author
-        "Sam Deluxe",                   // current author and lead programmer
-        "FireRainV",                    // second in command
+        "Sam Deluxe",                   // previous author and lead programmer
+        "FireRainV",                    // current developer
         "Bor",                          // contributor
         "Just Another Random User",     // contributor
     ],
-    "version": "v2.14.5",
-    "engineVer": "v0.9.0-dev",
+
+    "version": "v2.21.10",
+    "engineVer": "v0.10.0-dev",
 
     "config": {
         
@@ -38,9 +39,25 @@
         // In addition, adds the Defend command to the mercy action button in Light Battles.
         /////
         "light_battle_tp": false,
+        
+        ///// Light Battle TP Name
+        // The name of tension in light battles.
+        /////
+        "light_battle_tp_name": "TP",
+        
+        ///// Light level name
+        // The name (and short name) of light levels.
+        /////
+        "light_level_name": "LOVE",
+        "light_level_name_short": "LV",
+        "light_level_name_dark": "LV",
 
         ///// UNDERTALE Text Skipping
-        // Disables skipping text in ANY textbox when holding down confirm or menu.
+        // Disables text skipping in ANY textbox when holding down cancel or menu.
+        /////
+        // false = Allows text skipping
+        // "slim" = Text which cannot be skipped in UT battles won't be skippable (like the YOU WON! text)
+        // true = Text skipping is not allowed (like holding down the menu button to quickly skip dialogue)
         /////
         "undertale_text_skipping": false,
         
@@ -51,6 +68,20 @@
         // Second Value: Whether you can skip it in the light world.
         /////
         "gameover_skipping": [true, true],
+        
+        ///// Dark Battles In The Light World Color Mode
+        // Controls what color palette will be used for dark battles in the light world.
+        /////
+        // false = Normal
+        // "slim" = Colors the head icon and the health bar
+        // true = Colors the head icon, the health bar, the attack box and battle strips (in solo party member, also colors the damage)
+        /////
+        "light_world_dark_battle_color_override": "slim",
+        
+        ///// Dark Battles In The Light World Tension
+        // Whether dark battles in the light world will have tension.
+        /////
+        "light_world_dark_battle_tension": true,
         
         ///// UNDERTALE Movement Can Run
         // Enables the ability to run when using the Undertale player movement.
@@ -63,6 +94,7 @@
         //
         // true
         // Limits the gauge at 99. 
+        //
         // false
         // Doesn't limit the gauge.
         //
@@ -72,11 +104,11 @@
         /////
         "hp_gauge_length_cap": true,
 
-        ///// Key Item Conversion
+        ///// Item Conversion
         // Like in Deltarune, converts the Dark World inventory to the Ball of Junk and items like the Shadow Crystal to Glass 
         // when traveling to the Light World or back.
         /////
-        "key_item_conversion": true,
+        "item_conversion": true,
         
         ///// Equipment Conversion
         // Like in Deltarune, converts items like the Spookysword to the Halloween Pencil and the Silver Watch to the Wristwatch
@@ -93,13 +125,12 @@
         ///// UNDERTALE Menu Display
         // Subtracts 10 from base AT and DF in the Light World's STAT menu.
         // Moves the currency amount in the menu to be align with the rest of the amonuts.
-        // Displays a MAGIC stat if any member has a MAGIC value that's more than 0.
         /////
         "undertale_menu_display": false,
         
         ///// Always Show Magic
-        // Displays the MAGIC stat in the Light World STAT menu even if there's no
-        // member in the current party who has more than 0 MAGIC or even when not using Undertale stat display.
+        // Displays the MAGIC stat and spells in the Light World STAT menu even if there's no
+        // member in the current party who can cast spells.
         /////
         "always_show_magic": false,
 

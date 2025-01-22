@@ -8,7 +8,6 @@ function item:onLightBattleUse(user, target)
         amount = math.ceil(target.chara:getStat("health") / 2)
     end
     target:heal(amount)
-    Assets.stopAndPlaySound("power")
     Game.battle:battleText(self:getLightBattleText(user, target).."\n"..self:getLightBattleHealingText(user, target, amount))
 end
 

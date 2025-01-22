@@ -2,6 +2,8 @@ local actor, super = Class("susie_lw", true)
 
 function actor:init(style)
     super.init(self)
+    
+    local susie_style = style or Game:getConfig("susieStyle")
 
     -- Table of sprite animations
     Utils.merge(self.animations, {
@@ -41,7 +43,7 @@ function actor:init(style)
         ["diagonal_kick_left"] = {"diagonal_kick_left", 4/30, false}
     }, false)
 
-    if Game:getConfig("susieStyle") == 1 then
+    if susie_style == 1 then
         self.animations["battle/transition"] = {"bangs_wall_right", 0, true}
     end
 
