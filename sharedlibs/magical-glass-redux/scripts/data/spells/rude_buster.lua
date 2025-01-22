@@ -1,5 +1,11 @@
 local spell, super = Class("rude_buster", true)
 
+function spell:init()
+    super.init(self)
+    
+    self.check = {"Deals moderate Rude-elemental damage to\none foe.", "* Depends on Attack & Magic."}
+end
+
 function spell:onLightCast(user, target)
     user.delay_turn_end = true
     Game.battle.timer:after(15/30, function()

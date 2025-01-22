@@ -1,9 +1,9 @@
 local LightStatusDisplay, super = Class(Object, "LightStatusDisplay")
 
-function LightStatusDisplay:init(x, y, story)
+function LightStatusDisplay:init(x, y, event)
     super.init(self, x, y, SCREEN_WIDTH + 1, 43)
     
-    self.story = story
+    self.event = event
 end
 
 function LightStatusDisplay:getHPGaugeLengthCap()
@@ -11,24 +11,25 @@ function LightStatusDisplay:getHPGaugeLengthCap()
 end
 
 function LightStatusDisplay:draw()
-    if self.story and Game.battle.party[1] then
-        self:drawStatusStripStory()
+    if self.event and Game.battle.party[1] then
+        self:drawStatusStripEvent()
     else
         self:drawStatusStrip()
     end
 end
 
-function LightStatusDisplay:drawStatusStripStory()
+function LightStatusDisplay:drawStatusStripEvent()
     local x, y = 200, 10
     
     local karma_mode = Game.battle.encounter.karma_mode
     local karma_mode_offset = karma_mode and 20 or 0
     
     local level = Game:isLight() and Game.battle.party[1].chara:getLightLV() or Game.battle.party[1].chara:getLevel()
+    local level_name = Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")
 
     love.graphics.setFont(Assets.getFont("namelv", 24))
-    love.graphics.setColor(COLORS["white"])
-    love.graphics.print("LV " .. level, x - karma_mode_offset - (#tostring(level) > 2 and (#tostring(level) * 15) - 30 or 0), y)
+    love.graphics.setColor(MG_PALETTE["player_text"])
+    love.graphics.print(level_name.." " .. level, x - karma_mode_offset - (#level_name - 2) * 15 - (#tostring(level) > 2 and (#tostring(level) * 15) - 30 or 0), y)
 
     love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 74 - karma_mode_offset, y + 5)
 
@@ -56,7 +57,7 @@ function LightStatusDisplay:drawStatusStripStory()
         love.graphics.setColor(Game:isLight() and MG_PALETTE["player_karma_health"] or MG_PALETTE["player_karma_health_dark"])
         love.graphics.rectangle("fill", x + 110 - karma_mode_offset, y, (limit == true and math.ceil((Utils.clamp(current, 0, max + (karma_mode and 5 or 10)) / max) * size) * 1.2 + 1 or Utils.clamp(current, 0, max + (karma_mode and 5 or 10)) * 1.2 + 1), 21)
         love.graphics.setColor(Game:isLight() and MG_PALETTE["player_health"] or {Game.battle.party[1].chara:getColor()})
-        love.graphics.rectangle("fill", x + 110 - karma_mode_offset, y, (limit == true and math.ceil((Utils.clamp(current - karma, 0, max + 10) / max) * size) * 1.2 + 1 or Utils.clamp(current - karma, 0, max + 10) * 1.2 + 1) - (karma_mode and 1 or 0), 21)
+        love.graphics.rectangle("fill", x + 110 - karma_mode_offset, y, (limit == true and math.ceil((Utils.clamp(current - karma, 0, max + (karma_mode and 5 or 10)) / max) * size) * 1.2 + 1 or Utils.clamp(current - karma, 0, max + (karma_mode and 5 or 10)) * 1.2 + 1) - (karma_mode and 1 or 0), 21)
     end
 
     if max < 10 and max >= 0 then
@@ -67,7 +68,7 @@ function LightStatusDisplay:drawStatusStripStory()
         current = "0" .. tostring(current)
     end
 
-    local color = COLORS.white
+    local color = MG_PALETTE["player_text"]
     if not Game.battle.party[1].is_down then
         if Game.battle.party[1].sleeping then
             color = MG_PALETTE["player_sleeping_text"]
@@ -79,6 +80,7 @@ function LightStatusDisplay:drawStatusStripStory()
     end
     
     if Game.battle.hp_display then current = Game.battle.hp_display end
+    if Game.battle.max_hp_display then max = Game.battle.max_hp_display end
     
     love.graphics.setColor(color)
     love.graphics.print(current .. " / " .. max, x + 115 + size * 1.2 + 1 + 14 + (karma_mode and Assets.getTexture("ui/lightbattle/kr"):getWidth() + 12 or 0) - karma_mode_offset, y)
@@ -100,8 +102,8 @@ function LightStatusDisplay:drawStatusStrip()
             local karma = battler.karma
 
             love.graphics.setFont(Assets.getFont("namelv", 24))
-            love.graphics.setColor(COLORS["white"])
-            love.graphics.print(name .. "   LV " .. level, x, y)
+            love.graphics.setColor(MG_PALETTE["player_text"])
+            love.graphics.print(name .. "   "..(Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")).." " .. level, x, y)
             
             love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 214 - karma_mode_offset, y + 5)
             
@@ -136,7 +138,7 @@ function LightStatusDisplay:drawStatusStrip()
                 current = "0" .. tostring(current)
             end
 
-            local color = COLORS.white
+            local color = MG_PALETTE["player_text"]
             if not battler.is_down then
                 if battler.sleeping then
                     color = MG_PALETTE["player_sleeping_text"]
@@ -148,6 +150,7 @@ function LightStatusDisplay:drawStatusStrip()
             end
             
             if Game.battle.hp_display then current = Game.battle.hp_display end
+            if Game.battle.max_hp_display then max = Game.battle.max_hp_display end
             
             love.graphics.setColor(color)
             love.graphics.print(current .. " / " .. max, x + 245 + size * 1.2 + 1 + 14 + (karma_mode and Assets.getTexture("ui/lightbattle/kr"):getWidth() + 12 or 0) - karma_mode_offset, y)
@@ -162,10 +165,10 @@ function LightStatusDisplay:drawStatusStrip()
             local karma = battler.karma
             
             love.graphics.setFont(Assets.getFont("namelv", 24))
-            love.graphics.setColor(COLORS["white"])
+            love.graphics.setColor(MG_PALETTE["player_text"])
             love.graphics.print(name, x, y - 7)
             love.graphics.setFont(Assets.getFont("namelv", 16))
-            love.graphics.print("LV " .. level, x, y + 13)
+            love.graphics.print((Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")).." " .. level, x, y + 13)
             
             love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 66, y + 15)
             
@@ -199,7 +202,7 @@ function LightStatusDisplay:drawStatusStrip()
                 current = "0" .. tostring(current)
             end
             
-            local color = COLORS.white
+            local color = MG_PALETTE["player_text"]
             if battler.is_down then
                 color = MG_PALETTE["player_down_text"]
             elseif battler.sleeping then
@@ -218,6 +221,23 @@ function LightStatusDisplay:drawStatusStrip()
                 love.graphics.setColor(battler.chara:getColor())
                 love.graphics.setLineWidth(2)
                 love.graphics.rectangle("line", x - 3, y - 7, 201, 35)
+            end
+            
+            if battler:isTargeted() and Game:getConfig("targetSystem") and Game.battle.state == "ENEMYDIALOGUE" then
+                love.graphics.setColor(1, 1, 1, 1)
+                love.graphics.setLineWidth(2)
+                local function target_text_area()
+                    love.graphics.rectangle("fill", x + 1, y - 9, 25, 4)
+                end
+                love.graphics.stencil(target_text_area, "replace", 1)
+                love.graphics.setStencilTest("equal", 0)
+                if math.floor(Kristal.getTime() * 3) % 2 == 0 then
+                    love.graphics.rectangle("line", x - 3, y - 7, 201, 35)
+                else
+                    love.graphics.rectangle("line", x - 2, y - 6, 199, 33)
+                end
+                love.graphics.setStencilTest()
+                love.graphics.draw(Assets.getTexture("ui/lightbattle/chartarget"), x + 2, y - 9)
             end
         end
     end

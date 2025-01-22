@@ -10,14 +10,6 @@ function ImageViewer:init(sprite, x, y)
     self:setScale(2)
 end
 
-function ImageViewer:update()
-    super.update(self)
-    if Game.world:hasCutscene() then
-        self:remove()
-        Game.world:closeMenu()
-    end
-end
-
 function ImageViewer:onKeyPressed(key)
     if Input.isConfirm(key) or Input.isCancel(key) then
         self:remove()

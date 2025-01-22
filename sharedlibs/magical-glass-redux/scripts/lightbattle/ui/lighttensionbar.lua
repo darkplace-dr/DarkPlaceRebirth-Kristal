@@ -37,11 +37,6 @@ function LightTensionBar:init(x, y, dont_animate)
     self.tsiner = 0
 
     self.tension_preview = 0
-
-    self.shifted = false
-    self.shift_progress = 0
-    self.shift_done = true
-    self.shift_up = false
 end
 
 function LightTensionBar:show()
@@ -74,18 +69,6 @@ end
 
 function LightTensionBar:getPercentageFor250(variable)
     return variable / 250
-end
-
-function LightTensionBar:processSlideIn()
-    if self.animating_in then
-        self.animation_timer = self.animation_timer + DTMULT
-        if self.animation_timer > 12 then
-            self.animation_timer = 12
-            self.animating_in = false
-        end
-
-        self.x = Ease.outCubic(self.animation_timer, self.init_x, 54, 12)
-    end
 end
 
 function LightTensionBar:processTension()
@@ -141,7 +124,6 @@ function LightTensionBar:processTension()
 end
 
 function LightTensionBar:update()
-    self:processSlideIn()
     self:processTension()
 
     super.update(self)
@@ -149,13 +131,14 @@ end
 
 function LightTensionBar:drawText()
     love.graphics.setFont(self.tp_font)
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print("T", -20 + 1, 1)
-    love.graphics.print("P", -20 + 1, 22)
+    for i = 1, #Kristal.getLibConfig("magical-glass", "light_battle_tp_name") do
+        local char = string.sub(Kristal.getLibConfig("magical-glass", "light_battle_tp_name"), i, i)
+        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.print(char, -20 + 1, 1 + (i-1) * 21)
 
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.print("T", -20, 0)
-    love.graphics.print("P", -20, 21)
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.print(char, -20, (i-1) * 21)
+    end
 
     local tamt = math.floor(self:getPercentageFor250(self.apparent) * 100)
     self.maxed = false

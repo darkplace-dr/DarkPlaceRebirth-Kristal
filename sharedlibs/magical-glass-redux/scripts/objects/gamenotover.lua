@@ -106,13 +106,19 @@ function GameNotOver:update()
                     local function has_soul() return Game.battle.soul end
                     Game.battle.timer:afterCond(has_soul, function() -- apply inv frames
                         Game.battle.soul.inv_timer = Game:isLight() and 1 or (4/3)
-                        for _,party in ipairs(Game.battle.party) do
-                            for _,equip in ipairs(party.chara:getEquipment()) do
-                                if equip.applyInvBonus then
-                                    Game.battle.soul.inv_timer = equip:applyInvBonus(Game.battle.soul.inv_timer)
+                        local best_amount
+                        for _,battler in ipairs(Game.battle.party) do
+                            local equip_amount = 0
+                            for _,equip in ipairs(battler.chara:getEquipment()) do
+                                if equip.getInvBonus then
+                                    equip_amount = equip_amount + equip:getInvBonus()
                                 end
                             end
+                            if not best_amount or equip_amount > best_amount then
+                                best_amount = equip_amount
+                            end
                         end
+                        Game.battle.soul.inv_timer = Game.battle.soul.inv_timer + best_amount
                     end)
                 end
             elseif self.reload[1] == "SHOP" then -- If we were in a shop, re-enter it

@@ -39,7 +39,6 @@ function LightSoul:init(x, y, color)
     self:addChild(self.graze_sprite)
 
     self.graze_collider = CircleCollider(self, 0, 0, 25 * self.graze_size_factor)
-    self.graze_collider.collidable = Game.battle.tension
 
     self.original_x = x
     self.original_y = y
@@ -298,13 +297,19 @@ function LightSoul:moveYExact(amount, move_x)
 end
 
 function LightSoul:onDamage(bullet, amount)
-    for _,party in ipairs(Game.battle.party) do
-        for _,equip in ipairs(party.chara:getEquipment()) do
-            if equip.applyInvBonus then
-                self.inv_timer = equip:applyInvBonus(self.inv_timer)
+    local best_amount
+    for _,battler in ipairs(Game.battle.party) do
+        local equip_amount = 0
+        for _,equip in ipairs(battler.chara:getEquipment()) do
+            if equip.getInvBonus then
+                equip_amount = equip_amount + equip:getInvBonus()
             end
         end
+        if not best_amount or equip_amount > best_amount then
+            best_amount = equip_amount
+        end
     end
+    self.inv_timer = self.inv_timer + best_amount
 end
 
 function LightSoul:onCollide(bullet)
@@ -348,30 +353,6 @@ function LightSoul:doMovement()
 end
 
 function LightSoul:update()
-
-    if self.transitioning then
-        if self.timer >= 7 then
-            Input.clear("cancel")
-            self.timer = 0
-            if self.transition_destroy then
-                Game.battle:addChild(HeartBurst(self.target_x, self.target_y, {Game:getSoulColor()}))
-                self:remove()
-            else
-                self.transitioning = false
-                self:setExactPosition(self.target_x, self.target_y)
-            end
-        else
-            self:setExactPosition(
-                Utils.lerp(self.original_x, self.target_x, self.timer / 7),
-                Utils.lerp(self.original_y, self.target_y, self.timer / 7)
-            )
-            self.alpha = Utils.lerp(0, self.target_alpha or 1, self.timer / 3)
-            self.sprite:setColor(self.color[1], self.color[2], self.color[3], self.alpha)
-            self.timer = self.timer + (1 * DTMULT)
-        end
-        return
-    end
-
     self.graze_collider.collidable = Game.battle.tension
 
     -- Input movement

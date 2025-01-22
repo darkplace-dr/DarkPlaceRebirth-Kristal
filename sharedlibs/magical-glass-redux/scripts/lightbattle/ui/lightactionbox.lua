@@ -9,7 +9,7 @@ function LightActionBox:init(x, y, index, battler)
     self.selected_button = 1
     self.last_button = 1
 
-    if not Game.battle.encounter.story then
+    if not Game.battle.encounter.event then
         self:createButtons()
     end
 end
@@ -23,7 +23,7 @@ function LightActionBox:createButtons()
 
     self.buttons = {}
 
-    local btn_types = {"fight", "act", "magic", "item", "mercy"}
+    local btn_types = {"fight", "act", "magic", "item", "mercy"} -- There's also "defend" and "spare" as a seperated buttons instead of being part of "mercy"
 
     if not self.battler.chara:hasAct() then Utils.removeFromTable(btn_types, "act") end
     if not self.battler.chara:hasSpells() then Utils.removeFromTable(btn_types, "magic") end
@@ -32,11 +32,19 @@ function LightActionBox:createButtons()
         btn_types = Kristal.libCall(lib_id, "getLightActionButtons", self.battler, btn_types) or btn_types
     end
     btn_types = Kristal.modCall("getLightActionButtons", self.battler, btn_types) or btn_types
+    
+    if #btn_types == 1 then
+        btn_types = {false, false, btn_types[1], false, false}
+    elseif #btn_types == 2 then
+        btn_types = {false, btn_types[1], false, btn_types[2], false}
+    elseif #btn_types == 3 then
+        btn_types = {btn_types[1], false, btn_types[2], false, btn_types[3]}
+    end
 
     for i,btn in ipairs(btn_types) do
         if type(btn) == "string" then
             local x
-            if #btn_types <= 4 then
+            if #btn_types == 4 then
                 x = math.floor(67 + ((i - 1) * 156))
                 if i == 2 then
                     x = x - 3
@@ -44,7 +52,7 @@ function LightActionBox:createButtons()
                     x = x + 1
                 end
             else
-                x = math.floor(67 + ((i - 1) * 117))
+                x = math.floor(67 + ((i - 1) * 117) - (#btn_types-5) * 117 / 2)
             end
             
             local button = LightActionButton(btn, self.battler, x, 175)
@@ -75,7 +83,6 @@ function LightActionBox:snapSoulToButton()
 
         Game.battle.soul.x = self.buttons[self.selected_button].x - 19
         Game.battle.soul.y = self.buttons[self.selected_button].y + 279
-        Game.battle:toggleSoul(true)
     end
 end
 
@@ -102,8 +109,8 @@ function LightActionBox:update()
 end
 
 function LightActionBox:select()
-    self.buttons[self.selected_button]:select()
     self.last_button = self.selected_button
+    self.buttons[self.selected_button]:select()
 end
 
 function LightActionBox:unselect()

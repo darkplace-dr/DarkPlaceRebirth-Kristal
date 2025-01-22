@@ -1,20 +1,17 @@
 local LightEncounter = Class()
 
 function LightEncounter:init()
-    -- Sets the encounter ID incase it was started without an encounter file
-    if not self.id then
-        self.id = "_local"
-    end
-
     -- Text that will be displayed when the battle starts
     self.text = "* A skirmish breaks out!"
 
-    -- Is a "story" encounter (can't attack, only hp and lv are shown. a wave is started as soon as the battle starts)
-    self.story = false
+    -- Is an "event" encounter (can't attack, only hp and lv are shown. A wave is started as soon as the battle starts)
+    self.event = false
+    self.event_waves = {"_story"}
     
     -- A table defining the default location of where the soul should move to
     -- during the battle transition. If this is nil, it will move to the default location.
     self.soul_target = nil
+    self.soul_offset = nil
 
     -- Speeds up the soul transition (useful for world hazards encounters)
     self.fast_transition = false
@@ -60,116 +57,116 @@ function LightEncounter:init()
 end
 
 function LightEncounter:onSoulTransition()
-    local soul_char = Game.world:getPartyCharacterInParty(Game:getSoulPartyMember())
+    local soul_char = Mod.libs["multiplayer"] and Game.world.player or Game.world:getPartyCharacterInParty(Game:getSoulPartyMember())
     Game.battle.fake_player = Game.battle:addChild(FakeClone(soul_char, soul_char:getScreenPos()))
     Game.battle.fake_player.layer = Game.battle.fader.layer + 1
 
     Game.battle.timer:script(function(wait)
-        -- Black bg
-        wait(1/30)
+        -- Black bg (also, just the fake player without the soul)
+        wait(2/30)
         -- Show heart
         Assets.stopAndPlaySound("noise")
-        local player = Game.battle.fake_player.ref
-        local x, y = Game.world.soul:localToScreenPos()
-        Game.battle:spawnSoul(x, y)
-        Game.battle.soul.sprite:set("player/heart_menu")
-        Game.battle.soul.sprite:setScale(2)
-        Game.battle.soul.sprite:setOrigin(0.5)
-        Game.battle.soul.layer = Game.battle.fader.layer + 2
-        Game.battle.soul.can_move = false
+        local transition_soul = Sprite("player/heart_menu", Game.world.soul:getScreenPos())
+        transition_soul:setScale(2)
+        transition_soul:setOrigin(0.5)
+        transition_soul:setColor(self:getSoulColor())
+        transition_soul:setLayer(Game.battle.fader.layer + 2)
+        Game.battle:addChild(transition_soul)
+
         if not self.fast_transition then
             wait(2/30)
             -- Hide heart
-            Game.battle.soul.visible = false
+            transition_soul.visible = false
             wait(2/30)
             -- Show heart
-            Game.battle.soul.visible = true
+            transition_soul.visible = true
             Assets.stopAndPlaySound("noise")
             wait(2/30)
             -- Hide heart
-            Game.battle.soul.visible = false
+            transition_soul.visible = false
             wait(2/30)
             -- Show heart
-            Game.battle.soul.visible = true
+            transition_soul.visible = true
             Assets.stopAndPlaySound("noise")
             wait(2/30)
             -- Do transition
             Game.battle.fake_player:remove()
             Assets.playSound("battlefall")
-
-            if self.story then
-                local center_x, center_y = Game.battle.arena:getCenter()
-                local soul_offset_x = self:storyWave().soul_offset_x
-                local soul_offset_y = self:storyWave().soul_offset_y
-                local soul_x = self:storyWave().soul_start_x or (soul_offset_x and center_x + soul_offset_x)
-                local soul_y = self:storyWave().soul_start_y or (soul_offset_y and center_y + soul_offset_y)
-                local target_x, target_y = soul_x or center_x, soul_y or center_y
-                if self.soul_target then
-                    target_x, target_y = self.soul_target[1], self.soul_target[2]
-                end
-                Game.battle.soul:slideTo(target_x, target_y, 17/30)
-            else
-                local target_x, target_y = 49, 455
-                if self.soul_target then
-                    target_x, target_y = self.soul_target[1], self.soul_target[2]
-                end
-                Game.battle.soul:slideTo(target_x, target_y, 17/30)
+            
+            local target_x, target_y = 49, 455
+            local offset_x, offset_y = 0, 0
+            if self.soul_target then
+                target_x, target_y = self.soul_target[1], self.soul_target[2]
+            elseif self.event then
+                target_x, target_y = Game.battle.arena:getCenter()
             end
+            if self.soul_offset then
+                offset_x, offset_y = self.soul_offset[1], self.soul_offset[2]
+            end
+            transition_soul:slideTo(target_x + offset_x, target_y + offset_y, self.event and 10/30 or 18/30)
 
-            wait(17/30)
+            wait(self.event and 10/30 or 18/30)
+            
             -- Wait
-            wait(5/30)
-            Game.battle.soul.sprite:set("player/heart_light")
-            Game.battle.soul.sprite:setScale(1)
-            Game.battle.soul.x = Game.battle.soul.x - 1
-            Game.battle.soul.y = Game.battle.soul.y - 1
+            if not self.event then
+                wait(3/30)
+            else
+                wait(1/30)
+            end
+            
+            transition_soul:remove()
+            Game.battle:spawnSoul(target_x + offset_x - 1, target_y + offset_y - 1)
+            Game.battle.soul:setLayer(Game.battle.fader.layer + 2)
 
-            Game.battle.fader:fadeIn(nil, {speed=5/30})
+            if not self.event then
+                Game.battle.fader:fadeIn(nil, {speed=5/30})
+            else
+                Game.battle.fader.alpha = 0
+            end
         else
             wait(1/30)
             -- Hide heart
-            Game.battle.soul.visible = false
+            transition_soul.visible = false
             wait(1/30)
             -- Show heart
-            Game.battle.soul.visible = true
+            transition_soul.visible = true
             Assets.stopAndPlaySound("noise")
             wait(1/30)
             -- Hide heart
-            Game.battle.soul.visible = false
+            transition_soul.visible = false
             wait(1/30)
             -- Show heart
-            Game.battle.soul.visible = true
+            transition_soul.visible = true
             Assets.stopAndPlaySound("noise")
             wait(1/30)
             -- Do transition
             Game.battle.fake_player:remove()
             Assets.playSound("battlefall")
             
-            if self.story then
-                local center_x, center_y = Game.battle.arena:getCenter()
-                local soul_offset_x = self:storyWave().soul_offset_x
-                local soul_offset_y = self:storyWave().soul_offset_y
-                local soul_x = self:storyWave().soul_start_x or (soul_offset_x and center_x + soul_offset_x)
-                local soul_y = self:storyWave().soul_start_y or (soul_offset_y and center_y + soul_offset_y)
-                local target_x, target_y = soul_x or center_x, soul_y or center_y
-                if self.soul_target then
-                    target_x, target_y = self.soul_target[1], self.soul_target[2]
-                end
-                Game.battle.soul:slideTo(target_x, target_y, 11/30)
+            local target_x, target_y = 49, 455
+            local offset_x, offset_y = 0, 0
+            if self.soul_target then
+                target_x, target_y = self.soul_target[1], self.soul_target[2]
+            elseif self.event then
+                target_x, target_y = Game.battle.arena:getCenter()
+            end
+            if self.soul_offset then
+                offset_x, offset_y = self.soul_offset[1], self.soul_offset[2]
+            end
+            transition_soul:slideTo(target_x + offset_x, target_y + offset_y, 10/30)
+            
+            wait(10/30)
+            
+            -- Wait
+            if not self.event then
+                wait(3/30)
             else
-                local target_x, target_y = 49, 455
-                if self.soul_target then
-                    target_x, target_y = self.soul_target[1], self.soul_target[2]
-                end
-                Game.battle.soul:slideTo(target_x, target_y, 11/30)
+                wait(5/30)
             end
             
-            wait(11/30)
-            
-            Game.battle.soul.sprite:set("player/heart_light")
-            Game.battle.soul.sprite:setScale(1)
-            Game.battle.soul.x = Game.battle.soul.x - 1
-            Game.battle.soul.y = Game.battle.soul.y - 1
+            transition_soul:remove()
+            Game.battle:spawnSoul(target_x + offset_x - 1, target_y + offset_y - 1)
+            Game.battle.soul:setLayer(Game.battle.fader.layer + 2)
             
             Game.battle.fader.alpha = 0
         end
@@ -188,13 +185,13 @@ end
 
 function LightEncounter:onBattleInit() end
 
-function LightEncounter:storyWave()
-    return "_story"
+function LightEncounter:eventWaves()
+    return self.event_waves
 end
 
 function LightEncounter:setBattleState()
     if Game.battle.forced_victory then return end
-    if self.story then
+    if self.event then
         Game.battle:setState("ENEMYDIALOGUE")
         Game.battle.soul.can_move = true
     else
@@ -295,7 +292,7 @@ function LightEncounter:onFlee()
 
     Game.battle.soul.collidable = false
     Game.battle.soul.y = Game.battle.soul.y + 4
-    Game.battle.soul.sprite:setAnimation({"player/heartgtfo", 1/15, true})
+    Game.battle.soul.sprite:setAnimation({"player/heart_gtfo", 1/15, true})
     Game.battle.soul.physics.speed_x = -3
 
     Game.battle.timer:after(1, function()
@@ -333,8 +330,8 @@ function LightEncounter:update() end
 
 function LightEncounter:draw() end
 function LightEncounter:drawBackground()
-    love.graphics.setColor(self.background_color or {1, 1, 1, 1})
-    love.graphics.draw(Assets.getTexture(self.background_image) or Assets.getTexture("ui/lightbattle/backgrounds/battle"), 15, 9)
+    love.graphics.setColor(self.background_color)
+    love.graphics.draw(Assets.getTexture(self.background_image), 0, 0)
 end
 
 -- Functions
@@ -392,9 +389,10 @@ end
 
 function LightEncounter:getNextWaves()
     local waves = {}
-    if self.story then
-        local wave = self:storyWave()
-        table.insert(waves, wave)
+    if self.event then
+        for _,wave in ipairs(self:eventWaves()) do
+            table.insert(waves, wave)
+        end
     else
         for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
             local wave = enemy:selectWave()
@@ -440,14 +438,17 @@ function LightEncounter:createSoul(x, y, color)
 end
 
 function LightEncounter:setFlag(flag, value)
+    if self.id == nil then return end
     Game:setFlag("lw_encounter#"..self.id..":"..flag, value)
 end
 
 function LightEncounter:getFlag(flag, default)
+    if self.id == nil then return end
     return Game:getFlag("lw_encounter#"..self.id..":"..flag, default)
 end
 
 function LightEncounter:addFlag(flag, amount)
+    if self.id == nil then return end
     return Game:addFlag("lw_encounter#"..self.id..":"..flag, amount)
 end
 

@@ -28,7 +28,7 @@ function LightActionButton:select()
     Game.battle.current_menu_rows = nil
 
     if Game.battle.encounter:onActionSelect(self.battler, self) then return end
-    if Kristal.callEvent("onActionSelect", self.battler, self) then return end
+    if Kristal.callEvent(MG_EVENT.onLightActionSelect, self.battler, self) then return end
 
     if self.type == "fight" then
         Game.battle:setState("ENEMYSELECT", "ATTACK")
@@ -175,23 +175,19 @@ function LightActionButton:select()
             ["special"] = "spare",
             ["callback"] = function(menu_item)
                 if Kristal.getLibConfig("magical-glass", "multi_deltarune_spare") and Game.battle.multi_mode then
+                    self.battler.manual_spare = true
                     Game.battle:setState("ENEMYSELECT", "SPARE")
                 else
                     Game.battle:pushAction("SPARE", Game.battle:getActiveEnemies())
                 end
             end
         })
-        local battler_can_defend = Kristal.getLibConfig("magical-glass", "light_battle_tp") or not Game:isLight()
-        if self.battler.chara.light_can_defend ~= nil then
-            battler_can_defend = self.battler.chara.light_can_defend
-        end
-        if battler_can_defend then
+        if Kristal.getLibConfig("magical-glass", "light_battle_tp") or not Game:isLight() then
             Game.battle:addMenuItem({
                 ["name"] = "Defend",
                 ["special"] = "defend",
                 ["callback"] = function(menu_item)
-                    Game.battle:toggleSoul(false)
-                    Game.battle:pushAction("DEFEND", nil, {tp = Game.battle.tension and -16 or 0})
+                    Game.battle:pushAction("DEFEND", nil, {tp = -16})
                 end
             })
         end
@@ -228,11 +224,16 @@ function LightActionButton:select()
             })
         end
         Game.battle:setState("MENUSELECT", "MERCY")
+    elseif self.type == "spare" then
+        self.battler.manual_spare = true
+        Game.battle:setState("ENEMYSELECT", "SPARE")
+    elseif self.type == "defend" then
+        Game.battle:pushAction("DEFEND", nil, {tp = -16})
     end
 end
 
 function LightActionButton:unselect()
-    -- Do nothing ?
+    self.battler.manual_spare = false
 end
 
 function LightActionButton:draw()
@@ -243,7 +244,7 @@ function LightActionButton:draw()
     end
     
     if self.rainbow then
-        self:setColor(Utils.hslToRgb(Kristal.getTime() / 0.75 % 1, 1, 0.7))
+        self:setColor(Utils.hslToRgb(Kristal.getTime() / 0.75 % 1, 1, 0.69))
     end
 
     super.draw(self)

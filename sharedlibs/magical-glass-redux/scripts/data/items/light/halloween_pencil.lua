@@ -5,6 +5,7 @@ function item:init()
 
     -- Display name
     self.short_name = "HllwPencil"
+    self.dark_name = "Hallow Pencil"
 
     self.price = 6
 end

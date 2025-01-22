@@ -1,7 +1,7 @@
 local SpareDust, super = Class(Sprite, "SpareDust")
 
 function SpareDust:init(x, y)
-    super.init(self, "effects/spare/dustcloud", x, y)
+    super.init(self, "effects/lightspare/dustcloud", x, y)
 
     self:play(5/30, false, function(s) s:remove() end)
 

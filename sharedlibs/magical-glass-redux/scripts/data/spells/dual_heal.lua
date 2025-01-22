@@ -1,5 +1,11 @@
 local spell, super = Class("dual_heal", true)
 
+function spell:init()
+    super.init(self)
+    
+    self.check = {"Heavenly light restores a little HP to\nall party members.", "* Depends on Magic."}
+end
+
 function spell:onLightCast(user, target)
     local amount = math.ceil(Game:isLight() and user.chara:getStat("magic") * 3 or user.chara:getStat("magic") * 5.5)
     for _,battler in ipairs(Game.battle.party) do

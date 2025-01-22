@@ -10,10 +10,10 @@ local LightDamageNumber, super = Class(Object)
 
 function LightDamageNumber:init(msg_type, arg, x, y, color, enemy)
     super.init(self, x, y)
+    
+    self.font = Assets.getFont("lwdmg")
 
     self:setOrigin(0.5)
-
-    self.color = color or {1, 0, 0}
 
     self.physics.speed_y = -4
     self.physics.gravity = 0.5
@@ -25,31 +25,33 @@ function LightDamageNumber:init(msg_type, arg, x, y, color, enemy)
     self.layer = BATTLE_LAYERS["damage_numbers"]
 
     self.type = msg_type or "msg"
+    
+    self.color = color or (self.type == "damage" and COLORS.red or COLORS.silver)
 
-    if self.type == "msg" then
+    if self.type == "text" then
+        self.text = arg or ""
+    elseif self.type == "msg" then
         self.message = arg or "miss"
     elseif self.type == "damage" and string.sub(tostring(arg or 0), 1, 1) == "+" and self.enemy.health + tonumber(arg) >= self.enemy.max_health then
         self.type = "msg"
         self.message = "max"
     else
-        self.font = Assets.getFont("lwdmg")
         self.amount = arg or 0
         if self.type == "mercy" then
             if self.amount == 100 then
-                self.color = {0, 1, 0}
+                self.color = COLORS.lime
             else
-                self.color = COLORS["yellow"]
+                self.color = COLORS.yellow
             end
             if self.amount >= 0 then
                 self.text = "+"..self.amount.."%"
             else
                 self.text = self.amount.."%"
             end
-        elseif self.type == "miss" then
-            self.color = {1, 1, 1}
         else
             self.text = tostring(self.amount)
         end
+        self.text = self.text:upper()
     end
 
     if self.message and self.message ~= "_special" then

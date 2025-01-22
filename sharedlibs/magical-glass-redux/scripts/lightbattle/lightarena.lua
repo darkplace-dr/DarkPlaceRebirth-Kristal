@@ -84,10 +84,10 @@ function LightArena:setShape(shape)
     self.processed_width = self.width
     self.processed_height = self.height
 
-    self.left = math.floor(self.x - self.width / 2)
-    self.right = math.floor(self.x + self.width / 2)
-    self.top = math.floor(self.y - self.height / 2)
-    self.bottom = math.floor(self.y + self.height / 2)
+    self.left = math.floor(self.x - self.width/2)
+    self.right = math.floor(self.x + self.width/2)
+    self.top = math.floor(self.y - self.height/2)
+    self.bottom = math.floor(self.y + self.height/2)
 
     self.triangles = love.math.triangulate(Utils.unpackPolygon(self.shape))
 
@@ -98,24 +98,25 @@ function LightArena:setShape(shape)
     self.area_collider = PolygonCollider(self, Utils.copy(shape, true))
 
     self.collider.colliders = {}
+    -- this looks like garbage, but I have no idea of any other better way to fix the issue of the soul colliding with the edges of the arena being inaccurate and asymmetric
     for i,v in ipairs(Utils.getPolygonEdges(self.shape)) do
-        if #Utils.getPolygonEdges(self.shape) == 4 then -- this looks like garbage, but I have no idea of any other better way to fix the issue of the soul colliding with the edges of the arena being inaccurate and asymmetric
-            if i == 1 then
-                if self.height % 2 == 1 then
-                    table.insert(self.collider.colliders, LineCollider(self, v[1][1] - 1, v[1][2], v[2][1] + 1, v[2][2]))
-                else
-                    table.insert(self.collider.colliders, LineCollider(self, v[1][1] - 1, v[1][2] - 1, v[2][1] + 1, v[2][2] - 1))
-                end
-            elseif i == 2 then
+        if #Utils.getPolygonEdges(self.shape) >= 4 then
+            if i % 4 == 1 then
+                table.insert(self.collider.colliders, LineCollider(self, v[1][1] - 1, v[1][2] - 1, v[2][1], v[2][2] - 1))
+            elseif i % 4 == 2 then
                 if self.width % 2 == 1 then
-                    table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2] - 1, v[2][1], v[2][2] + 1))
+                    table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2] - 1, v[2][1], v[2][2]))
                 else
-                    table.insert(self.collider.colliders, LineCollider(self, v[1][1] + 1, v[1][2] - 1, v[2][1] + 1, v[2][2] + 1))
+                    table.insert(self.collider.colliders, LineCollider(self, v[1][1] + 1, v[1][2] - 1, v[2][1] + 1, v[2][2]))
                 end
-            elseif i == 3 then
-                table.insert(self.collider.colliders, LineCollider(self, v[1][1] + 1, v[1][2] + 1, v[2][1] - 1, v[2][2] + 1))
-            elseif i == 4 then
-                table.insert(self.collider.colliders, LineCollider(self, v[1][1] - 1, v[1][2] + 1, v[2][1] - 1, v[2][2] - 1))
+            elseif i % 4 == 3 then
+                if self.height % 2 == 1 then
+                    table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2], v[2][1] - 1, v[2][2]))
+                else
+                    table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2] + 1, v[2][1] - 1, v[2][2] + 1))
+                end
+            else
+                table.insert(self.collider.colliders, LineCollider(self, v[1][1] - 1, v[1][2], v[2][1] - 1, v[2][2] - 1))
             end
         else
             table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2], v[2][1], v[2][2]))
@@ -124,7 +125,7 @@ function LightArena:setShape(shape)
 end
 
 function LightArena:setBorderColor(r, g, b, a)
-    self.border.color = {r, g, b, a or 1}
+    self.color = {r, g, b, a or 1}
 end
 
 function LightArena:setBackgroundColor(r, g, b, a)
@@ -132,7 +133,7 @@ function LightArena:setBackgroundColor(r, g, b, a)
 end
 
 function LightArena:getBorderColor()
-    return self.border.color
+    return self.color
 end
 
 function LightArena:getBackgroundColor()
@@ -217,7 +218,7 @@ function LightArena:update()
         self:setSize(self.width, self.height)
     end
 
-    super:update(self)
+    super.update(self)
 
     if NOCLIP then return end
 
@@ -268,6 +269,7 @@ function LightArena:preDraw()
     self.sprite_border.x = self.x
     self.sprite_border.y = self.y
     self.sprite_border.width = self.sprite.width + 1
+    self.sprite_border.height = self.sprite.height + 1
 end
 
 function LightArena:draw()
