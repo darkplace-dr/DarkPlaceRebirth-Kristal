@@ -1,5 +1,5 @@
 {
-    //Extra Binding Pages Menu - Config
+    //Extra Binding Pages Menu - Config test
     "saveAfterModification": false,     //Save keybinds when modifying them.
     "cancelToExit": false,              //Allow you to press the cancel key to get out of the binding menu.
     "hideIfNoExtra": true,              //Hide the page counter and the arrows when there is no extra keybind.
