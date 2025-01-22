@@ -108,9 +108,9 @@ function actor:init()
         ["walk/right"] = "walk_shadowed/right",
     }
 
-    self.taunt_sprites = {"box", "bs_win", "maid"}
+    self.taunt_sprites = {"box", "bs_win", "maid", "bt"}
 	if Game:getFlag("jamm_closure") then
-		self.taunt_sprites = {"box", "ghost_bs", "maid"}
+		self.taunt_sprites = {"box", "ghost_bs", "maid", "bt"}
 	end
 end
 
