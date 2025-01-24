@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 26,
+  nextobjectid = 27,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity",
@@ -152,7 +152,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 680,
@@ -165,7 +165,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 680,
@@ -178,7 +178,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -191,7 +191,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 0,
@@ -204,7 +204,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = -40,
@@ -217,7 +217,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 1160,
@@ -246,7 +246,7 @@ return {
         {
           id = 6,
           name = "savepoint",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 320,
           y = 420,
@@ -259,7 +259,7 @@ return {
         {
           id = 7,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 400,
@@ -275,7 +275,7 @@ return {
         {
           id = 12,
           name = "traffic_car_generator",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 508,
           y = -40,
@@ -291,28 +291,9 @@ return {
           }
         },
         {
-          id = 13,
-          name = "traffic_car_generator",
-          type = "",
-          shape = "rectangle",
-          x = 572,
-          y = 1160,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["car_type"] = "up",
-            ["gen_rate"] = 20,
-            ["gen_speed"] = -15,
-            ["group"] = 0,
-            ["prepopulate"] = true
-          }
-        },
-        {
           id = 15,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 560,
@@ -327,7 +308,7 @@ return {
         {
           id = 16,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 520,
@@ -342,7 +323,7 @@ return {
         {
           id = 17,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 480,
@@ -357,7 +338,7 @@ return {
         {
           id = 18,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 440,
@@ -372,7 +353,7 @@ return {
         {
           id = 19,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 400,
@@ -387,7 +368,7 @@ return {
         {
           id = 20,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 600,
@@ -402,7 +383,7 @@ return {
         {
           id = 21,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 640,
@@ -417,7 +398,7 @@ return {
         {
           id = 22,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -430,7 +411,7 @@ return {
         {
           id = 23,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 380,
           y = 320,
@@ -446,7 +427,7 @@ return {
         {
           id = 24,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 400,
@@ -459,7 +440,7 @@ return {
         {
           id = 25,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 740,
           y = 320,
@@ -470,6 +451,24 @@ return {
           properties = {
             ["group"] = 0,
             ["type"] = 0
+          }
+        },
+        {
+          id = 26,
+          name = "traffic_car_generator",
+          class = "",
+          shape = "rectangle",
+          x = 572,
+          y = 1160,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["gen_rate"] = 20,
+            ["gen_speed"] = 15,
+            ["group"] = 0,
+            ["walkdir"] = "up"
           }
         }
       }
@@ -491,7 +490,7 @@ return {
         {
           id = 8,
           name = "east",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 560,
@@ -504,7 +503,7 @@ return {
         {
           id = 14,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 260,
           y = 430,

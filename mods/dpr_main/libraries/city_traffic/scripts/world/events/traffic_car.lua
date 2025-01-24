@@ -1,3 +1,4 @@
+---@diagnostic disable inject-field
 local TrafficCar, super = Class(Event)
 
 function TrafficCar:init(data)
@@ -46,12 +47,14 @@ function TrafficCar:init(data)
         self.walklerp       = 0
         self.walkx          = 0
         self.walky          = 0
+        self.freshness = #Utils.filter(Game.world.children, function (v)
+            return isClass(v) and v:includes(Registry.events["traffic_car"]) 
+        end) - 1
 
-        -- This is only used for something that isn't implemented so its not worth running yet
-        --[[self.freshness      = 0
-        for _, car in ipairs(Game.world:getEvents("traffic_car")) do
-            self.freshness = self.freshness + 1
-        end]]
+        self.speedadjust_min = 10
+        self.speedadjust_max = 24
+        self.speedadjust_proximity = 200
+        self.speedadjust_divisor = 16
     end
 
     self:setSize(self.car_sprite.width * 2, self.car_sprite.height * 2)
@@ -65,33 +68,32 @@ function TrafficCar:init(data)
 end
 
 function TrafficCar:setDirection(direction)
-    -- Unused for now
-    --local old = self.walkdir
+    local old = self.walkdir
     self.walkdir = direction
     if direction == "down" then
         self.car_sprite:set(self.path..self.car_path)
         self.legs_sprite:setSprite(self.path..self.legs_path)
         self.legs_sprite:stop(false)
-	-- NO MORE MEMORY LEAK!!! - ddelta
+        self:setSize(self.car_sprite.width * 2, self.car_sprite.height * 2)
+        self:setHitbox(7 * 2, 12 * 2, 25 * 2, 16 * 2)
 	elseif direction == "up" then
         self.car_sprite:set(self.path..self.car_path.."_up")
         self.legs_sprite:setSprite(self.path..self.legs_path) -- Maybe add legs for cars going up later?
         self.legs_sprite:stop(false)
-    -- To be added in a Future:tm: Update:tm:
-    --[[
+        self:setSize(self.car_sprite.width * 2, self.car_sprite.height * 2)
+        self:setHitbox(7 * 2, 12 * 2, 25 * 2, 16 * 2)
     elseif direction == "right" or direction == "left" then
         self.car_sprite:set(self.path..self.car_path.."_side")
         self.legs_sprite:set(self.path..self.legs_path.."_side")
-    ]]
+        self:setSize(self.car_sprite.width * 2, self.car_sprite.height * 2)
+        self:setHitbox(10 * 2, 11 * 2, 34 * 2, 14 * 2)
     else
-        -- The illusion of choice
         if not Kristal.getLibConfig("city_traffic", "allowInvalidCarDirection") then
-            error("Tried to set traffic_car to invalid direction '" .. tostring(direction) .. "'! Must be 'down'." --[[, 'right', or 'left'."]])
+            error("Tried to set traffic_car to invalid direction '" .. tostring(direction) .. "'! Must be 'down', 'right', or 'left'.")
         end
     end
 
-    -- There is no point in this callback when the direction never actually changes
-    --Kristal.callEvent("onTrafficCarDirectionChange", self, old, direction)
+    Kristal.callEvent("onTrafficCarDirectionChange", self, old, direction)
 end
 
 function TrafficCar:update()
@@ -100,16 +102,33 @@ function TrafficCar:update()
         return
     end
 
+    local fsx, fsy = self:getFullScale()
     local destroy_check = {
-        down    = (self.y >= Game.world.map.height * 40 + 30),
-        up      = (self.y < -30),
-        right   = (self.x >= (Game.world.map.width * 40 + (self.car_sprite.width * 2))),
-        left    = (self.x <= (0 - (self.car_sprite.width * 2))),
+        down    = (self.y >= Game.world.map.height * 40 + self.car_sprite.height * fsy),
+        up      = (self.y <= (0 - (self.car_sprite.height * fsy))),
+        right   = (self.x >= (Game.world.map.width * 40 + (self.car_sprite.width * fsy))),
+        left    = (self.x <= (0 - (self.car_sprite.width * fsx))),
     }
 
     if destroy_check[self.walkdir] then
         self.endme = true
     end
+    
+    Object.startCache()
+    for _, carkiller in ipairs(self.world:getEvents("car_killer")) do
+        if self:collidesWith(carkiller) then
+            if carkiller.explode_car then 
+                self:explode(0, 0, false, {playsound = carkiller.quieter_explosion}) 
+                if carkiller.quieter_explosion then
+                    Assets.stopAndPlaySound("badexplosion", 0.4)
+                end
+            else 
+                self.endme = true 
+            end
+            break
+        end
+    end
+    Object.endCache()
 
     if not Game.world.cutscene and self.touchcon == 0 and self._active and not Game.world.menu and not Game.world.car_collision then
         if self.alwayswalking == true then
@@ -117,25 +136,22 @@ function TrafficCar:update()
         end
 
         -- Cleaned up from the deltarune version so we check self.walking just the once
-        local eff_speed = self.walking and ((self.speed / 4) * DTMULT) or self.speed * DTMULT
+        local eff_speed = self.speed * DTMULT
+        -- In DELTARUNE, this only applies to cars walking down - however, given car_turner was unimplemented 
+        -- and the code implies `alwayswalking` was never going to be used with these directions, i've made this
+        -- apply to all directions as this is the behaviour modders will probably expect from the car turner.
+        if self.walking and not self.alwayswalking then
+            eff_speed = eff_speed / 4
+        end
 
         if (self.walkdir == "down") then
-            -- Yes, cars walking down specifically have this behaviour of ignoring the normalf walk speed reduction
-            if self.alwayswalking then
-                self.y = self.y + self.speed*DTMULT
-            else
-                self.y = self.y + eff_speed
-            end
+            self.y = self.y + eff_speed
         elseif (self.walkdir == "up") then
-            if self.alwayswalking then
-                self.y = self.y + self.speed*DTMULT
-            else
-                self.y = self.y + eff_speed
-            end
+            self.y = self.y - eff_speed
         elseif (self.walkdir == "right") then
             self.x = self.x + eff_speed
         elseif (self.walkdir == "left") then
-            self.x = self.x + eff_speed
+            self.x = self.x - eff_speed
         end
     end
 
@@ -238,50 +254,70 @@ function TrafficCar:update()
         end
     end
 
-    -- Turner is not implemented due to the lack of code for left/right cars
-    --[[
+    Object.startCache()
     for _, turner in ipairs(Game.world:getEvents("car_turner")) do
-        if self:collidesWith(turner) then
+        if self:collidesWith(turner) and turner.walkdir ~= self.walkdir then
             local car = Registry.createEvent("traffic_car", {x = self.x, y = self.y})
-            Game.world:spawnObject(car, self.layer)
+            car.car_path = self.car_path
+            car.legs_path = self.legs_path
             car.speed = self.speed
             -- In DELTARUNE, the unimplemented turner would only turn cars to face right,
             -- this is still used as the default, but turner objects can now change it
-            car.walkdir = turner.walkdir or "right"
+            car.walkdir = self.walkdir
+            car:setDirection(turner.walkdir or "right")
             car.remspeed = self.remspeed
+            car.alwayswalking = self.alwayswalking
             car.group = self.group
             car.walking = self.walking
-            car.car_active = self._active
+            if self.walking then
+                car.walklerp = 1
+            end
+            car._active = self._active
             car.touchcon = self.touchcon
             car.touchtimer = self.touchtimer
-            car.speedadjust = true
+            car.speedadjust = turner.speedadjust -- DELTARUNE sets to true, but this one is a bit funky so we'll default to false instead and make it a toggle on the turner
+            if turner.speedadjust then
+                car.speedadjust_min = turner.speedadjust_min
+                car.speedadjust_max = turner.speedadjust_max
+                car.speedadjust_proximity = turner.speedadjust_proximity
+                car.speedadjust_divisor = turner.speedadjust_divisor
+            end
             car.turned = 1
+            Game.world:spawnObject(car, self.layer)
 
             self.endme = true
         end
     end
+    Object.endCache()
 
     -- This one is related to car turning above, or at least i think it is
-    -- I don't actually know what this does because we never see it happen in DELTARUNE anyway
+    -- This makes the car slow down while it's close to the player - normally gets enabled when the car turns.
     if self.speedadjust then
         local sx, sy = self:getPosition()
         local px, py = Game.world.player:getPosition()
         local chardist = Utils.dist(sx, sy, px, py)
 
-        if chardist >= 200 then
-            self.idealspeed = 24
+        if chardist >= self.speedadjust_proximity then
+            self.idealspeed = self.speedadjust_max
         else
-            self.idealspeed = math.max((chardist / 16), 10)
+            self.idealspeed = math.max((chardist / 16), self.speedadjust_min)
         end
         self.speed = Utils.approach(self.speed, self.idealspeed, 1)
         -- This should be the equivalent of what instance_place is doing in DELTARUNE
         local carcheck
-        for _, car in ipairs(Game.world:getEvents("traffic_car")) do
-            if self:collidesWith(car) then
+        Object.startCache()
+        for _, car in ipairs(Utils.filter(Game.world.children, function (v)
+            return isClass(v) and v:includes(Registry.events["traffic_car"]) 
+        end)) do
+            -- DELTARUNE inaccuracy (this was unimplemented so whether you can even call it that depends...)
+            -- usually this doesn't check the car walkdir but i do it here because otherwise high density cars will sometimes push each other offroad while turning
+            if self:collidesWith(car) and car.walkdir == self.walkdir then
                 carcheck = car
                 break
             end
         end
+        Object.endCache()
+        -- Newer cars push older cars out of the way
         if carcheck then
             if carcheck.freshness > self.freshness then
                 self.y = self.y - 12
@@ -290,7 +326,7 @@ function TrafficCar:update()
             end
         end
     end
-    ]]--
+    --
 
     if self:collidesWith(Game.world.player) and not Game.world.car_collision and self._active and self.touchcon == 0 then
         if not Kristal.callEvent("onTrafficCollision", self, Game.world.player) then
@@ -323,21 +359,19 @@ function TrafficCar:draw()
     if self.walkdir == "down" then
         self:setLegsSpritePosition(0, (self.downframe * 2))
         self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
-
+		
     elseif self.walkdir == "up" then
         self:setLegsSpritePosition(0, (self.downframe * 2))
         self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
 
     elseif self.walkdir == "right" then
-        self:setLegsSpritePosition(0, (self.downframe * 2) - 32)
+        self:setLegsSpritePosition(0, (self.downframe * 2))
         self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
 
     elseif self.walkdir == "left" then
-        self:setLegsSpritePosition(self.width, (self.downframe * 2) - 32)
-        self:setCarSpritePosition(self.width + self.walkx, self.walky + (self.downframe * 4))
-        self.legs_sprite.scale_x = -1
-        self.car_sprite.scale_x  = -1
-
+        self:setLegsSpritePosition(0, (self.downframe * 2))
+        self:setCarSpritePosition(self.walkx, self.walky + (self.downframe * 4))
+        self.flip_x = true
     end
 
     if self.walking then
@@ -370,6 +404,7 @@ end
 
 -- Okay i will clean this up eventually but its so fiddly that i need to remember how it all pieces together
 -- In the meantime i pray that you don't want to have custom car sprites because you will actually suffer
+-- Update: i am probably never going to clean this up
 
 function TrafficCar:setCarSpritePosition(x, y)
     if x then
@@ -391,20 +426,33 @@ function TrafficCar:setLegsSpritePosition(x, y)
 end
 
 function TrafficCar:getLegOffsetForCurrentFrame()
-    local tbl = {
+    local down_offsets_x = {
         6,
         2,
         6,
         5,
     }
-    local tbl2 = {
+    local down_offsets_y = {
         16,
         16,
         16,
         16,
     }
 
-    return tbl[self.legs_sprite.frame] * 2, tbl2[self.legs_sprite.frame] * 2
+    local side_offsets_x = {
+        16,
+        2,
+    }
+    local side_offsets_y = {
+        12,
+        12,
+    }
+
+    if self.walkdir == "left" or self.walkdir == "right" then
+        return side_offsets_x[self.legs_sprite.frame] * 2, side_offsets_y[self.legs_sprite.frame] * 2
+    end
+
+    return down_offsets_x[self.legs_sprite.frame] * 2, down_offsets_y[self.legs_sprite.frame] * 2
 end
 
 return TrafficCar
