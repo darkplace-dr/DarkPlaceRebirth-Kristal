@@ -38,3 +38,8 @@ GITHUB_REPOS = {
 		"dpr_underground_dlc"
 	}
 }
+
+-- Disables Kristal's built-in Main menu and \
+-- immediately loads the target mod.
+---@type boolean
+AUTO_MOD_START = false
