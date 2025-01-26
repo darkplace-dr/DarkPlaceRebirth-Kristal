@@ -1,0 +1,17 @@
+{
+    // Putting this at the top so I remember to remove it for non-DPR
+    "default": true,
+    "id": "pausebutton",
+    "version": "1.0.0",
+    "authors": [
+        "Hyperboid",
+    ],
+    "keybinds": [
+        {
+            "name": "Pause",
+            "id": "pause",
+            "keys": ["pause"],
+            "gamepad": ["gamepad:back"],
+        }
+    ]
+}
