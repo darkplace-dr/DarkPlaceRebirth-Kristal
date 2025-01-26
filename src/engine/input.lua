@@ -921,7 +921,7 @@ end
 ---@param alias string
 ---@param gamepad? boolean
 ---@return string
-function Input.getText(alias, gamepad, no_brackets)
+function Input.getText(alias, gamepad, no_brackets, padded)
     local name = Input.getPrimaryBind(alias, gamepad) or "unbound"
     name = self.key_groups[alias] and self.key_groups[alias][1] or name
     if no_brackets then
@@ -933,7 +933,7 @@ function Input.getText(alias, gamepad, no_brackets)
                 return "[button:" .. gamepad_button .. "]"
             end
         end
-        return name:upper()
+        return name:upper() .. (padded and " " or "")
     else
         if type(name) == "table" then
             name = table.concat(name, "+")
@@ -943,7 +943,7 @@ function Input.getText(alias, gamepad, no_brackets)
                 return "[button:" .. gamepad_button .. "]"
             end
         end
-        return "["..name:upper().."]"
+        return "["..name:upper().."]" .. (padded and " " or "")
     end
 end
 
