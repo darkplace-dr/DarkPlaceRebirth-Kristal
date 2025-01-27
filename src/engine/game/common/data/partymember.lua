@@ -394,34 +394,15 @@ function PartyMember:getWeaponIcon() return self.weapon_icon end
 
 function PartyMember:getHealth() return Game:isLight() and self.lw_health or self.health end
 function PartyMember:getSavedMHP() return self.saved_mhp end
+
+
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
-    -- lol
-	--  -char
-	local baseBaseStats = {}
-	if light or (light == nil and Game:isLight()) then
-		baseBaseStats = Utils.copy(self.lw_stats, false)
-		if self:getFlag("arc", false) then
-			for i,v in pairs(baseBaseStats) do
-				if self.lw_arcBonusStats and self.lw_arcBonusStats[i] then
-					baseBaseStats[i] = baseBaseStats[i]+self.lw_arcBonusStats[i]
-				end
-			end
-		end
-		
+    if light or (light == nil and Game:isLight()) then
+        return self.lw_stats
     else
-		baseBaseStats = Utils.copy(self.stats, false)
-		if self:getFlag("arc", false) then
-			for i,v in pairs(baseBaseStats) do
-				if self.arcBonusStats and self.arcBonusStats[i] then
-					baseBaseStats[i] = baseBaseStats[i]+self.arcBonusStats[i]
-				end
-			end
-		end
-		
+        return self.stats
     end
-	
-	return baseBaseStats
 end
 
 function PartyMember:getMaxStats() return self.max_stats end
@@ -1549,6 +1530,11 @@ end
 --   -char
 function PartyMember:completeArc()
 	self:setFlag("arc", true)
+	for i,v in pairs(stats) do
+		if self.arcBonusStats and self.arcBonusStats[i] then
+			self:increaseStat(i, self.arcBonusStats[i])
+		end
+	end
 	self:onArc()
 end
 
