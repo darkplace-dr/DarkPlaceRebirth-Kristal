@@ -1,3 +1,9 @@
+if OrigGlobal then
+    local chunk = love.filesystem.load("src/funnymetagag.lua")
+    setfenv(chunk, OrigGlobal)
+    chunk()
+end
+
 require("src.engine.tweaks")
 
 require("src.engine.vars")
