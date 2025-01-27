@@ -179,6 +179,22 @@ function DarkPowerMenu:update()
             self:updateDescription()
             return
         end
+        if Input.pressed("confirm") then
+            local spell = self:getSpells()[self.selected_spell]
+            if self:canCast(spell) then
+                self.state = "USE"
+                if spell.target == "ally" or spell.target == "party" then
+
+                    local target_type = spell.target == "ally" and "SINGLE" or "ALL"
+
+                    self:selectParty(target_type, spell)
+                else
+                    Game:removeTension(spell:getTPCost())
+                    spell:onWorldCast()
+                    self.state = "SPELLS"
+                end
+            end
+        end
         local spells = self:getSpells()
         local old_selected = self.selected_spell
         if Input.pressed("up", true) then
@@ -508,9 +524,8 @@ function DarkPowerMenu:drawCombos()
 end
 
 function DarkPowerMenu:canCast(spell)
-    if not Game:getFlag("tension_storage") then return false end
-    if Game:getTension() < spell:getTPCost(self.party:getSelected()) then return false end
-
+    --if not Game:getFlag("tension_storage") then return false end
+    if Game:getTension() <= spell:getTPCost(self.party:getSelected()) then return false end
     return spell:hasWorldUsage(self.party:getSelected())
 end
 
