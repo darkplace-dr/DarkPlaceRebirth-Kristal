@@ -59,6 +59,7 @@ function item:init()
         dess = "i feel a sudden urge to sell microtransactions",
         brenda = "Uhh... This isn't gonna kill me, is it?",
         noel = "(I would consume it.)",
+        jamm = "It's a little warm still...",
     }
 end
 

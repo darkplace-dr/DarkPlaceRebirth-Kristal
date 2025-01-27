@@ -20,21 +20,24 @@ return {
                 end
             end
             cutscene:wait(2.5)
-            local susie = cutscene:getCharacter("susie")
+            local susie = cutscene:getCharacter("susie_lw")
             local hero = cutscene:getCharacter("hero_lw")
             if susie then
-                cutscene:textTagged("* Hey,[wait:5] uhh...", "nervous_side", susie)
-                cutscene:textTagged("* Has this mountain always been here?", "nervous", susie)
+                cutscene:showNametag("Susie")
+                cutscene:text("* Hey,[wait:5] uhh...", "nervous_side", "susie")
+                cutscene:text("* Has this mountain always been here?", "nervous", "susie")
                 if hero then
-                    cutscene:textTagged("* I mean,[wait:5] a huge mountain is kinda hard to miss.", nil, hero)
-                    cutscene:textTagged("* This might seem like a stretch,[wait:5] but...", nil, hero)
-                    cutscene:textTagged("* Maybe it just appeared here one day?", nil, hero)
-                    cutscene:textTagged("* Reality IS kinda unstable right now.", nil, hero)
-
-                    cutscene:textTagged("* Hmm...", "neutral_side", susie)
-                    cutscene:textTagged("* Well,[wait:5] that just means we get to go on another cool adventure!", "smile", susie)
-                    cutscene:textTagged("* Sounds good to me.", nil, hero)
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* I mean,[wait:5] a huge mountain is kinda hard to miss.", "neutral_closed_b", "hero")
+                    cutscene:text("* This might seem like a stretch,[wait:5] but...", "neutral_closed", "hero")
+                    cutscene:text("* Maybe it just appeared here one day?", "neutral_closed_b", "hero")
+                    cutscene:text("* Reality IS kinda unstable right now.", "suspicious", "hero")
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* Hmm...", "neutral_side", "susie")
+                    cutscene:text("* Well,[wait:5] that just means we get to go on another cool adventure!", "smile", "susie")
+                    cutscene:text("* Sounds good to me.", "happy", "hero")
                 end
+                cutscene:hideNametag()
             end
             cutscene:text("* (Will you climb the mountain?)")
             cutscene:text("* (You have a feeling that you won't be able to return for a while if you do.)")

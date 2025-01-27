@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   name = "hometownobjects",
   class = "",
   tilewidth = 830,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 63,
+  tilecount = 64,
   tiles = {
     {
       id = 1,
@@ -402,6 +402,12 @@ return {
       image = "../../../assets/sprites/tilesets/objects/asgore_car.png",
       width = 146,
       height = 110
+    },
+    {
+      id = 65,
+      image = "../../../assets/sprites/tilesets/objects/sans_counter.png",
+      width = 114,
+      height = 49
     }
   }
 }

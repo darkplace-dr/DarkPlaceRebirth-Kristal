@@ -3,11 +3,14 @@ local UfoEncounter, super = Class(Encounter)
 function UfoEncounter:init()
     super.init(self)
 
-    -- Text displayed at the bottom of the screen at the start of the encounter
-    self.text = "* It's too easy!"
-
     -- Battle music ("battle" is rude buster)
-    self.music = "threestrikesyoureout"
+    if Game:isDessMode() then
+        self.music = nil
+        self.text = "* Undefeatable."
+    else
+        self.music = "threestrikesyoureout"
+        self.text = "* It's too easy!"
+    end
 
     -- Enables the purple grid battle background
     self.background = false

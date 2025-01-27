@@ -7,11 +7,11 @@ function actor:init()
     self.name = "Brenda"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 26
-    self.height = 46
+    self.width = 25
+    self.height = 50
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {4, 34, 19, 14}
+    self.hitbox = {3, 38, 19, 14}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {0, 1, 1}
@@ -71,8 +71,8 @@ function actor:init()
         -- Battle offsets
         ["battle/idle"] = {-5, -1},
 
-        ["battle/attack"] = {-5, -2},
-        ["battle/attackready"] = {-5, -2},
+        ["battle/attack"] = {-8, -11},
+        ["battle/attackready"] = {-8, -11},
         ["battle/act"] = {-4, -1},
         ["battle/actready"] = {-4, -1},
         ["battle/spell"] = {-6, -2},
@@ -82,7 +82,7 @@ function actor:init()
         ["battle/defend"] = {-13, -1},
 
         ["battle/defeat"] = {-5, 5},
-        ["battle/hurt"] = {-5, -2},
+        ["battle/hurt"] = {-13, -5},
 
         ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-22, -3},

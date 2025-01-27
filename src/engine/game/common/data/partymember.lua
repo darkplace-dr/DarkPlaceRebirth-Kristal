@@ -29,12 +29,10 @@
 ---@field lw_health number
 ---
 ---@field stats {health: number, attack: number, defense: number, magic: number}
----@field arcBonusStats {health: number, attack: number, defense: number, magic: number}
 ---
 ---@field max_stats {health: number, attack: number, defense: number, magic: number}
 ---
 ---@field lw_stats {health: number, attack: number, defense: number}
----@field lw_arcBonusStats {health: number, attack:number, defense: number}
 ---
 ---@field weapon_icon string
 ---
@@ -124,16 +122,9 @@ function PartyMember:init()
         magic = 0,
         health_def = 100 -- placeholder for true MHP, do not use
     }
-	-- Arc Completion Bonus Stats
-	self.arcBonusStats = {
-		health = 0,
-		attack = 0,
-		defense = 0,
-		magic = 0,
-	}
     -- Max stats from level-ups
     self.max_stats = {}
-	
+    
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
     self.stronger_absent = {}
 
@@ -143,12 +134,6 @@ function PartyMember:init()
         attack = 10,
         defense = 10
     }
-	-- Arc Completion Bonus LW Stats
-	self.lw_arcBonusStats = {
-		health = 0,
-		attack = 0,
-		defense = 0,
-	}
 
     -- Weapon icon in equip menu
     self.weapon_icon = "ui/menu/equip/sword"
@@ -273,17 +258,15 @@ function PartyMember:init()
     self.opinions = {}
     self.default_opinion = 50
     
-	
     -- this fucking sucks but i don't care lol
-	
-	-- based
+    -- based
 	--   -char
     self.mhp_damage = 0
 
     -- protection points for soul shield mechanic
     self.pp = 0
-	
-	-- whether or not the next attack should be reflected
+
+    -- whether or not the next attack should be reflected
 	self.reflectNext = false
 end
 
@@ -307,10 +290,6 @@ function PartyMember:onTurnStart(battler)
         battler:heal(turnHealing)
     end
 end
-
---- *(Override)* Called upon completion of this character's arc
-function PartyMember:onArc() end
-
 --- *(Override)* Called whenever this party member's action select turn starts
 ---@param battler PartyBattler The party member's associated battler
 ---@param undo    boolean      Whether their previous action was just undone
@@ -395,6 +374,7 @@ function PartyMember:getWeaponIcon() return self.weapon_icon end
 function PartyMember:getHealth() return Game:isLight() and self.lw_health or self.health end
 function PartyMember:getSavedMHP() return self.saved_mhp end
 
+function PartyMember:getStarmanTheme() return "default" end
 
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
@@ -941,23 +921,26 @@ end
 
 ---@param data table
 function PartyMember:loadEquipment(data)
-    if type(data.weapon) == "table" then
-        if Registry.getItem(data.weapon.id) then
-            local weapon = Registry.createItem(data.weapon.id)
-            if weapon then
-                weapon:load(data.weapon)
-                self:setWeapon(weapon)
+    self:setWeapon(nil)
+    if data.weapon then
+        if type(data.weapon) == "table" then
+            if Registry.getItem(data.weapon.id) then
+                local weapon = Registry.createItem(data.weapon.id)
+                if weapon then
+                    weapon:load(data.weapon)
+                    self:setWeapon(weapon)
+                else
+                    Kristal.Console:error("Could not load weapon \""..data.weapon.id.."\"")
+                end
             else
-                Kristal.Console:error("Could not load weapon \""..data.weapon.id.."\"")
+                Kristal.Console:error("Could not load weapon \"".. data.weapon.id .."\"")
             end
         else
-            Kristal.Console:error("Could not load weapon \"".. data.weapon.id .."\"")
-        end
-    else
-        if Registry.getItem(data.weapon) then
-            self:setWeapon(data.weapon)
-        else
-            Kristal.Console:error("Could not load weapon \"".. (data.weapon or "nil") .."\"")
+            if Registry.getItem(data.weapon) then
+                self:setWeapon(data.weapon)
+            else
+                Kristal.Console:error("Could not load weapon \"".. (data.weapon or "nil") .."\"")
+            end
         end
     end
     for i = 1, 2 do

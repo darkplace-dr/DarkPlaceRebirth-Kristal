@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="81">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="82">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -234,7 +234,7 @@
    </properties>
    <point/>
   </object>
-  <object id="63" name="npc" x="460" y="160">
+  <object id="63" name="npc" x="465" y="150">
    <properties>
     <property name="actor" value="sans"/>
     <property name="cutscene" value="hub.sans"/>
@@ -257,12 +257,12 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="76" name="dogconegroup" x="160.919" y="200" width="40" height="40">
+  <object id="76" name="dogconegroup" x="-40" y="200" width="40" height="40">
    <properties>
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="77" name="dogconegroup" x="160.81" y="240.518" width="40" height="40">
+  <object id="77" name="dogconegroup" x="-40" y="240" width="40" height="40">
    <properties>
     <property name="default_state" type="bool" value="true"/>
    </properties>
@@ -279,6 +279,7 @@
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="81" name="NewYearCountDown" x="760" y="118" width="120" height="92"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="4" name="markers">
   <object id="35" name="south" x="460" y="1040">

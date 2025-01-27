@@ -142,6 +142,8 @@ function EnemyBattler:init(actor, use_overlay)
     self.tiredness = 0
 	
 	self.service_mercy = 20
+
+    self.killable = false
 end
 
 ---@param bool boolean
@@ -333,10 +335,9 @@ function EnemyBattler:spare(pacify)
             parent:addChild(img2)
             self:remove()
         end)
-        
-        self:defeat(pacify and "PACIFIED" or "SPARED", false)
     end
 
+    self:defeat(pacify and "PACIFIED" or "SPARED", false)
     self:onSpared()
 end
 

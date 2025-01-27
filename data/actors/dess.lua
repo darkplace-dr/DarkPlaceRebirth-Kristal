@@ -106,7 +106,9 @@ function actor:init()
         ["paneton"] = {-20, -10},
     }
 
-    self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton"}
+    self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}
+
+    self.menu_anim = "sonic_adventure"
 end
 
 return actor

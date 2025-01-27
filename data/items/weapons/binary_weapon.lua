@@ -48,7 +48,7 @@ function item:init()
         susie = true,
         ralsei = false,
         noelle = true,
-        dess = true,
+        dess = false,
         brenda = true,
         jamm = true,
 		mario = true,

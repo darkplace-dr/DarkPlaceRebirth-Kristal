@@ -51,6 +51,8 @@ function item:init()
         susie = "(Soft...)",
         ralsei = "Oh! My fur's staticy!",
         noelle = "Sure, I'll... huh? It's a weapon?",
+		dess = "i dont have a reaction to EVERYTHING dipshit",
+        jamm = "Too soft... Too... zzz...",
     }
 end
 

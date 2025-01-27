@@ -525,6 +525,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "brenda_lw",
+            ["cond"] = "Game:hasDLC(\"dlc_forest\")",
             ["cutscene"] = "hometown.brenda",
             ["facing"] = "left"
           }
@@ -573,24 +574,7 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 22,
-          name = "toggle",
-          type = "",
-          shape = "point",
-          x = 120,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cond"] = "not Game:hasDLC(\"dlc_forest\")",
-            ["target"] = { id = 21 }
-          }
-        }
-      }
+      objects = {}
     },
     {
       type = "imagelayer",

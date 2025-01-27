@@ -28,7 +28,7 @@ function actor:init()
     -- Sound to play when this actor speaks (optional)
     self.voice = "hero"
     -- Path to this actor's portrait for dialogue (optional)
-    self.portrait_path = nil
+    self.portrait_path = "face/hero"
     -- Offset position for this actor's portrait (optional)
     self.portrait_offset = nil
 
@@ -37,6 +37,9 @@ function actor:init()
 
     -- Table of sprite animations
     self.animations = {
+        -- Movement animations
+        ["slide"]               = {"slide", 4/30, true},
+
         -- Cutscene animations
         ["sit"] = {"sit", 0.25, true},
     }
@@ -51,6 +54,8 @@ function actor:init()
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {
+        ["slide"] = {0, 0},
+
         -- Cutscene offsets
         ["fall"] = {-8, -2},
 

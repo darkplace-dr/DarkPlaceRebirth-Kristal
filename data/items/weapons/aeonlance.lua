@@ -51,6 +51,7 @@ function item:init()
         susie = "Nah, lances aren't really my style.",
         ralsei = "Um, that looks dangerous...",
         noelle = "It feels... magical?",
+		dess = "badass",
 		jamm = {
             jamm = "I never was a swords guy.",
             brenda = "Uhh... lances aren't swords?",

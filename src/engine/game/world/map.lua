@@ -522,6 +522,7 @@ function Map:loadMarkers(layer)
         v.center_y = v.center_y + (layer.offsety or 0)
 
         self.markers[v.name] = v
+        self.markers[v.id] = v
     end
 end
 
@@ -594,7 +595,8 @@ function Map:loadObjects(layer, depth, layer_type)
                 local env = setmetatable({}, {__index = function(t, k)
                     return Game.flags[uid..":"..k] or Game.flags[k] or _G[k]
                 end})
-                skip_loading = not setfenv(loadstring("return "..v.properties["cond"]), env)()
+                local chunk, _ = assert(loadstring("return "..v.properties["cond"]))
+                skip_loading = not setfenv(chunk, env)()
             elseif v.properties["flagcheck"] then
                 local inverted, flag = Utils.startsWith(v.properties["flagcheck"], "!")
 
@@ -741,6 +743,8 @@ function Map:loadObject(name, data)
         return FountainFloor(data.x, data.y, data.width, data.height)
     elseif name:lower() == "quicksave" then
         return QuicksaveEvent(data.x, data.y, data.width, data.height, data.properties["marker"])
+    elseif name:lower() == "superstar" then
+        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "sprite" then
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)

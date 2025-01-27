@@ -50,7 +50,9 @@ function item:init()
         susie = "Uhhh... Ok.",
         ralsei = "A perfect fit!",
         noelle = "Wh... what is this?",
+		dess = "boringggg but ok",
         noel = "Nice try...",
+        jamm = "Now how do I use this..."
     }
 end
 

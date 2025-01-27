@@ -305,6 +305,13 @@ function love.load(args)
         Kristal.HTTPS.thread:start()
     end
 
+    -- TARGET_MOD being already set -> mod developer has
+    -- a preference for auto mod start. We particularly wouldn't
+    -- want the user to overwrite this since it can break some mods
+    if not TARGET_MOD and Kristal.Args["auto-mod-start"] then
+        AUTO_MOD_START = true
+    end
+
     -- TARGET_MOD being already set -> is defined by the mod developer
     -- and we wouldn't want the user to overwrite it
     if not TARGET_MOD and Kristal.Args["mod"] then
@@ -684,12 +691,19 @@ function Kristal.errorHandler(msg)
 
     Draw.setColor(1, 1, 1, 1)
 
+    local coroutine_crash
     if not trace then
         trace = ""
         if not critical then
             trace = debug.traceback("", 2)
         end
+        if COROUTINE_TRACEBACK then
+            trace = COROUTINE_TRACEBACK .. "\n" .. trace
+            coroutine_crash = true
+        end
     end
+
+    COROUTINE_TRACEBACK = nil
 
     love.graphics.origin()
 
@@ -745,11 +759,19 @@ function Kristal.errorHandler(msg)
             ypos = ypos + (32 * #lines)
             love.graphics.setFont(font)
 
+            local shown_coroutine = false
             for l in trace:gmatch("(.-)\n") do
                 if not l:match("boot.lua") then
                     if l:match("stack traceback:") then
                         love.graphics.setFont(font)
-                        love.graphics.printf("Traceback:", pos, ypos, warp)
+                        if coroutine_crash and not shown_coroutine then
+                            love.graphics.printf("Coroutine Traceback:", pos, ypos, warp)
+                            shown_coroutine = true
+                        elseif coroutine_crash then
+                            love.graphics.printf("Main Traceback:", pos, ypos, warp)
+                        else
+                            love.graphics.printf("Traceback:", pos, ypos, warp)
+                        end
                         ypos = ypos + 32
                     else
                         if ypos >= window_height - 40 - 32 then
@@ -1032,6 +1054,12 @@ function Kristal.returnToMenu()
     Kristal.clearModState()
 	
 	Kristal.loadAssets("", "plugins", "")
+
+    -- Quit the game if the menu is disabled
+    if AUTO_MOD_START and TARGET_MOD then
+        love.event.quit(0)
+        return
+    end
 
     -- Reload mods and return to memu
     Kristal.loadAssets("", "mods", "", function ()
@@ -1355,6 +1383,52 @@ function Kristal.setDesiredWindowTitleAndIcon()
     local mod = shouldWindowUseModBranding()
     love.window.setIcon(mod and mod.window_icon_data or Kristal.icon)
     love.window.setTitle(mod and mod.name or Kristal.game_default_name)
+
+    -- eh, this is mildly amusing
+    if Mod then
+        Kristal.funnytitle()
+    end
+end
+
+-- Sets a random title and icon to the game window.
+function Kristal.funnytitle(force_icon)
+    if Utils.random() < 0.5 then return end
+    local funnytitles = {
+        "Deltarune",
+        "Half-Life",
+        "* GOD damnit KRIS where the HELL are WE!?",
+        "* GOD damnit HERO where the HELL are WE!?",
+        "* SO, I have no fucking clue where we are.",
+        "* z...z.....z.....z.......Z.........Z",
+        "Kristale",
+        "* \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+        WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT?",
+        "A DESS, a FLIMBO, and a DELF from the SHELF",
+        "* REDDIT GOLD POG!!",
+        "LOOK ITS bAnNAna and MEGALORE!!!",
+        "GREYAREA",
+        "Kristal",
+        "Spamton Sweepstakes",
+        "Includes Darkness!",
+        "It's raining somewhere else...",
+        "Minecraft",
+        "Counter Strike Source Not Found()",
+        "Grian Is Watching You.",
+        "PLAY THE RIBBIT MOD, NOW!!!",
+        "Dark Place: REBIRTH",
+        "Thetaseal",
+        "Undertale Yellow: The Roba Edition",
+        "Power Star",
+        "Doki Doki Literature Club!"
+    }
+    local funnytitle_rand = love.math.random(#funnytitles)
+    if force_icon then funnytitle_rand = force_icon end
+    local funnytitle = funnytitles[funnytitle_rand] or "Depa Runts"
+    local funnyicon = Assets.getTextureData("kristal/icons/icon_"..tostring(funnytitle_rand)) or Kristal.icon
+    love.window.setTitle(funnytitle)
+    love.window.setIcon(funnyicon)
 end
 
 --- Called internally. Calls the `preInit` event on the mod and initializes the registry.

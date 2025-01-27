@@ -21,7 +21,8 @@ function character:init()
     self.soul_priority = 1
     -- The color of this character's soul (optional, defaults to red)
     self.soul_color = {1, 1, 1}
-
+    -- Is this party member a monster? (optional)
+    self.monster = true
     -- Whether the party member can act / use spells
     self.has_act = false
     self.has_spells = true

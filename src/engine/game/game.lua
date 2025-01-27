@@ -94,6 +94,9 @@ function Game:enter(previous_state, save_id, save_name, fade)
 
     self.lock_movement = false
 
+    self:initTaunt()
+    self:initBattleTaunt()
+
     fade = fade ~= false
     if type(save_id) == "table" then
         local save = save_id
@@ -623,7 +626,8 @@ end
 
 ---@param x? number
 ---@param y? number
-function Game:gameOver(x, y)
+---@param sf? boolean
+function Game:gameOver(x, y, sf)
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
@@ -634,8 +638,13 @@ function Game:gameOver(x, y)
     if self.legend   then self.legend  :remove() end
     if self.dogcheck then self.dogcheck:remove() end
 
-    self.gameover = GameOver(x or 0, y or 0)
-    self.stage:addChild(self.gameover)
+    if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
+        self.gameover = GameOver(x or 0, y or 0)
+        self.stage:addChild(self.gameover)
+    else
+        self.gameover = GameOverSF(sf == "bearers" and true or nil)
+        self.stage:addChild(self.gameover)
+    end
 end
 
 ---@param cutscene          string
@@ -1177,6 +1186,26 @@ function Game:update()
 
     Kristal.callEvent(KRISTAL_EVENT.postUpdate, DT)
 
+    self:updateTaunt()
+    self:updateBattleTaunt()
+
+    if self.save_name == "MERG" then
+        for _, party in ipairs(self.party) do
+            if party.health > 1 then
+                party.health = 1
+            end
+            if party.stats.health ~= 1 then
+                party.stats.health = 1
+            end
+        end
+        if self.battle then
+            self.battle:targetAll()
+            for _,enemy in ipairs(self.battle:getActiveEnemies()) do
+                enemy.current_target = "ALL"
+            end
+        end
+    end
+
     for _, badge in ipairs(self:getBadgeStorage()) do
         badge:update(badge.equipped)
     end
@@ -1296,6 +1325,147 @@ function Game:getBadgeEquipped(badge, ignore_light)
     return total_count
 end
 
+--- Taunt Mechanic
+function Game:isTauntingAvaliable()
+    if self.let_me_taunt then return true end
+    if self.save_name:upper() == "PEPPINO" then return true end
+
+    for _,party in ipairs(self.party) do
+        if party:checkArmor("pizza_toque") then return true end
+    end
+    return false
+end
+
+--Overworld taunt
+function Game:initTaunt()
+    self.taunt_lock_movement = false
+    --[[
+	Utils.hook(Actor, "init", function(orig, self)
+        orig(self)
+        self.taunt_sprites = {}
+    end)
+	--]]
+    Utils.hook(Player, "isMovementEnabled",
+        ---@overload fun(orig:function, self:Player) : boolean
+        function(orig, self)
+            return orig(self)
+                and not Game.taunt_lock_movement
+        end
+    )
+
+end
+
+function Game:updateTaunt()
+    if not (OVERLAY_OPEN or TextInput.active)
+        and self:isTauntingAvaliable()
+        and Input.pressed("taunt", false)
+        and not self.taunt_lock_movement
+        and (self.state == "OVERWORLD" and self.world.state == "GAMEPLAY"
+            and not self.world:hasCutscene() and not self.lock_movement)
+    then
+        -- awesome workaround for run_anims
+        self.world.player:setState("WALK")
+        self.world.player.running = false
+        for _, follower in ipairs(self.world.followers) do
+            if follower:getTarget() == self.world.player and follower.state == "RUN" then
+                follower.state_manager:setState("WALK")
+                follower.running = false
+            end
+        end
+        self.world.player:resetFollowerHistory()
+        self.taunt_lock_movement = true
+
+        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+
+        for _,chara in ipairs(self.stage:getObjects(Character)) do
+            if not chara.actor or not chara.visible then goto continue end
+
+            -- workaround due to actors being loaded first by registry
+            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
+            if not sprites or #sprites <= 0 then goto continue end
+
+            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
+            shine:setOrigin(0.5, 0.5)
+            shine:setScale(1)
+			chara.layer = chara.layer + 0.1
+            shine.layer = chara.layer - 0.1
+            self.world:addChild(shine)
+
+            chara.sprite:set(Utils.pick(sprites))
+            shine:play(1/30, false, function()
+                shine:remove()
+                chara:resetSprite()
+			    chara.layer = chara.layer - 0.1
+            end)
+
+            ::continue::
+        end
+
+        self.world.timer:after(1/3, function()
+            self.taunt_lock_movement = false
+        end)
+    end
+end
+
+--Battle taunt
+function Game:initBattleTaunt()
+    self.taunt_cooldown = 0
+    self.state_blacklist = {
+        "DEFENDINGBEGIN",
+        "DEFENDING", -- handled by the soul itself, so this is ignored
+        "DEFENDINGEND",
+        "ENEMYDIALOGUE",
+        "ATTACKING",
+        "ACTIONS",
+        "ACTIONSDONE",
+        "INTRO",
+        "TRANSITION",
+        "TRANSITIONOUT"
+    }
+end
+
+function Game:updateBattleTaunt()
+    if
+        self:isTauntingAvaliable()
+        and Input.pressed("taunt", false)
+        and self.taunt_cooldown == 0
+        and (Game.state == "BATTLE" and not Game.battle:hasCutscene())
+        and not Utils.containsValue(self.state_blacklist, Game.battle.state)
+        and not (OVERLAY_OPEN or TextInput.active)
+    then
+        self.taunt_cooldown = 2.1
+
+        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+
+        for _,chara in ipairs(Game.battle.party) do
+            if not chara.actor or chara.is_down then goto continue end
+
+            -- workaround due of actors being loaded first by registry
+            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
+            if not sprites or #sprites <= 0 then goto continue end
+
+            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
+            shine:setOrigin(0.5, 0.5)
+            shine:setScale(1)
+            shine.layer = chara.layer - 0.1
+            Game.battle:addChild(shine)
+
+            chara:toggleOverlay(true)
+            chara.overlay_sprite:setSprite(Utils.pick(sprites))
+            shine:play(1/30, false, function()
+                shine:remove()
+                chara:toggleOverlay(false)
+            end)
+
+            ::continue::
+        end
+
+    end
+
+    self.taunt_cooldown = Utils.approach(self.taunt_cooldown, 0, DT)
+end
+
+
 --stuff for Noel the Noel-body
 
 local save_dir = "saves"
@@ -1383,6 +1553,17 @@ function Game:getUnlockedPartyMembers()
     return Game:getFlag("_unlockedPartyMembers")
 end
 
+--- Checks if you have a party member unlocked and returns true if you do. Returns false otherwise
+---@param member string -- the party member ID to check for
+function Game:hasUnlockedPartyMember(member)
+    for i, v in ipairs(Game:getUnlockedPartyMembers()) do
+        if v == member then
+            return true
+        end
+    end
+    return false
+end
+
 function Game:getQuest(id)
     return self.quests_data[id]
 end
@@ -1397,6 +1578,30 @@ function Game:hasDLC(dlc)
         end
     end
     return false
+end
+
+function Game:isDessMode()
+    if Game:getFlag("Dess_Mode") then
+        return true
+    else
+        return false
+    end
+end
+
+--- Debug function -
+--- Unlocks every party member (Except for Noel since their unlock mechanics are weird)
+function Game:unlockAllPartyMembers()
+    local unlock = {"berdly", "brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nelle", "noelle", "ostarwalker", "pauling", "ralsei", "susie"}
+    for i, v in ipairs(unlock) do
+        Game:unlockPartyMember(v)
+    end
+end
+
+---@param name string
+function Game:isSpecialMode(name)
+    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
+    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
+    return Game.save_name:upper() == name:upper()
 end
 
 return Game

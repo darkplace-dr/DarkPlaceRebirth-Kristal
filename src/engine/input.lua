@@ -227,7 +227,7 @@ function Input.resetBinds(gamepad, mod_id)
             ["debug_menu"] = {},
             ["object_selector"] = {},
             ["fast_forward"] = {},
-            ["mod_rebind"] = {},
+            ["mod_rebind"] = {"gamepad:x"},
         }
         if gamepad ~= true then Utils.merge(Input.key_bindings, key_bindings) end
         if gamepad ~= false then Utils.merge(Input.gamepad_bindings, gamepad_bindings) end
@@ -324,7 +324,7 @@ function Input.resetBinds(gamepad, mod_id)
             ["debug_menu"] = {},
             ["object_selector"] = {},
             ["fast_forward"] = {},
-            ["mod_rebind"] = {},
+            ["mod_rebind"] = {"gamepad:x"},
         }
         for _,mod in ipairs(Kristal.Mods.getMods()) do
             if mod.keybinds then
@@ -660,6 +660,23 @@ function Input.update()
     end
 end
 
+---Vibrates the connected gamepad if it exists.
+---@param strength_left number
+---@param strength_right number
+---@param duration number
+---@overload fun(duration:number)
+---@overload fun(strength:number, duration:number)
+function Input.vibrate(strength_left, strength_right, duration)
+    if strength_right == nil then
+        strength_left, strength_right, duration = 1, 1, strength_left
+    elseif duration == nil then
+        strength_left, strength_right, duration = strength_left, strength_left, strength_right
+    end
+    if Input.connected_gamepad then
+        Input.connected_gamepad:setVibration(strength_left, strength_right, duration)
+    end
+end
+
 ---@return boolean
 function Input.usingGamepad()
     return Input.active_gamepad ~= nil
@@ -904,18 +921,30 @@ end
 ---@param alias string
 ---@param gamepad? boolean
 ---@return string
-function Input.getText(alias, gamepad)
+function Input.getText(alias, gamepad, no_brackets, padded)
     local name = Input.getPrimaryBind(alias, gamepad) or "unbound"
     name = self.key_groups[alias] and self.key_groups[alias][1] or name
-    if type(name) == "table" then
-        name = table.concat(name, "+")
-    else
-        local is_gamepad, gamepad_button = Utils.startsWith(name, "gamepad:")
-        if is_gamepad then
-            return "[button:" .. gamepad_button .. "]"
+    if no_brackets then
+        if type(name) == "table" then
+            name = table.concat(name, "+")
+        else
+            local is_gamepad, gamepad_button = Utils.startsWith(name, "gamepad:")
+            if is_gamepad then
+                return "[button:" .. gamepad_button .. "]"
+            end
         end
+        return name:upper() .. (padded and " " or "")
+    else
+        if type(name) == "table" then
+            name = table.concat(name, "+")
+        else
+            local is_gamepad, gamepad_button = Utils.startsWith(name, "gamepad:")
+            if is_gamepad then
+                return "[button:" .. gamepad_button .. "]"
+            end
+        end
+        return "["..name:upper().."]" .. (padded and " " or "")
     end
-    return "["..name:upper().."]"
 end
 
 ---@param alias string

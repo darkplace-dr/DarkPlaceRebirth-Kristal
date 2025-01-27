@@ -50,6 +50,8 @@ function item:init()
         susie = "My finger won't fit!",
         ralsei = "*Chapter 1 flashbacks*",
         noelle = "I-is that a gun!?",
+        jamm = "Can't even aim a gun.",
+		dess = "if only game programming would allow it",
     }
 end
 

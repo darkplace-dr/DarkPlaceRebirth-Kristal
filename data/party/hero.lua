@@ -38,6 +38,7 @@ function character:init()
 
     self.lw_weapon_default = "light/pencil"
     self.lw_armor_default = "light/bandage"
+    self.lw_portrait = "face/hero/neutral_closed"
 
     self.color = {1, 0.5, 0}
     self.dmg_color = {1, 0.5, 0.25}

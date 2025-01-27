@@ -51,6 +51,8 @@ function item:init()
         susie = "No way, that's creepy.",
         ralsei = "If I have to fight...",
         noelle = "(Feels like guitar strings...)",
+        jamm = "It feels weird...",
+		dess = "smth smth dess guitar",
     }
 end
 

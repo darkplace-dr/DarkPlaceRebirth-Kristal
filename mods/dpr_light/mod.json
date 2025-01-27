@@ -35,6 +35,10 @@
     // this option is explicitly set to false; else, it's done if this is set to true.
     "setWindowTitleAndIcon": null,
 
+    "sharedlibs": [
+        "mg2party",
+        "magical-glass-2"
+    ],
     // Config values for the engine and any libraries you may have.
     // These config values can control chapter-specific features as well.
     "config": {

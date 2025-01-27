@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="8">
+ <editorsettings>
+  <export target="everhall_end.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="none"/>
+ </properties>
+ <tileset firstgid="1" source="../../../tilesets/devroom.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+29,29,29,29,29,29,29,29,29,29,29,29,29,29,38,17,
+41,41,41,41,41,41,41,41,41,41,41,41,41,41,16,17,
+53,53,53,53,41,53,53,53,53,53,53,53,53,53,16,17,
+53,53,53,53,53,53,53,53,53,53,53,53,53,53,16,17,
+65,65,65,65,65,65,65,65,65,65,65,65,65,65,16,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,16,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,16,17,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,50,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
+</data>
+ </layer>
+ <layer id="5" name="tallies" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+39,39,39,39,39,39,39,39,39,39,39,39,39,39,0,0,
+39,39,39,39,39,39,39,39,39,39,39,39,39,39,0,0,
+39,39,39,39,39,39,39,39,39,39,51,39,39,39,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="1" x="0" y="240" width="560" height="40"/>
+  <object id="2" x="560" y="280" width="40" height="80"/>
+  <object id="3" x="0" y="360" width="560" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="5" name="transiton" x="-40" y="280" width="40" height="80">
+   <properties>
+    <property name="map" value="floor2/dev/everhall_entry"/>
+    <property name="marker" value="hall_exit"/>
+   </properties>
+  </object>
+  <object id="7" name="interactable" x="400" y="240" width="40" height="40">
+   <properties>
+    <property name="text1" value="* So,[wait:5] you made it to the end,[wait:5] did you?"/>
+    <property name="text2" value="* Yes,[wait:5] every tick here really is a decade."/>
+    <property name="text3" value="* However,[wait:5] I've really been here longer than that."/>
+    <property name="text4" value="* I just ran out of space on the walls to continue counting."/>
+    <property name="text5" value="* Unlike me,[wait:5] I can bet you aren't an immortal."/>
+    <property name="text6" value="* Make the most of your life,[wait:5] alright?"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="4" name="entry" x="40" y="320">
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="6" name="Tile Layer 3" width="16" height="12">
+  <data encoding="csv">
+0,0,7,8,0,0,0,7,8,0,0,0,7,8,0,0,
+0,0,19,20,0,0,0,19,20,0,0,0,19,20,0,0,
+0,0,31,32,0,0,0,31,32,0,0,0,31,32,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

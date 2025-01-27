@@ -8,7 +8,7 @@ function actor:init()
     self.width = 26
     self.height = 54
 
-    self.hitbox = {3.5, 42, 20, 13}
+    self.hitbox = {4, 42, 19, 13}
 
     self.soul_offset = {13.5, 28}
 
@@ -48,6 +48,8 @@ function actor:init()
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     self.offsets = {

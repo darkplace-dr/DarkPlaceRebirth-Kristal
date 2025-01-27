@@ -1,6 +1,7 @@
 local MainHub, super = Class(Map)
 
 function MainHub:onEnter()
+    super.onEnter(self)
 	self.ina = Music("inainaina", 0)
 end
 

@@ -61,6 +61,10 @@ function item:init()
         susie = "Mmm... face",
         ralsei = "(uncomfortable)",
         noelle = "Umm, what is this? It's cute...",
+		dess = {
+			dess = "lancers baking is shit",
+			susie = "You're this close, twerp.",
+		},
         jamm = "(Better keep this away from Marcy...)",
         ["jamm+marcy"] = "(Quick, while Marcy isn't looking...!)"
     }

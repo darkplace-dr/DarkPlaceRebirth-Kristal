@@ -64,11 +64,18 @@
             "y": 560
         },
         {
-            "fileName": "maps/dess_house.tmx",
-            "height": 840,
-            "width": 880,
-            "x": -1160,
-            "y": 1440
+            "fileName": "maps/hub_dess_house.tmx",
+            "height": 560,
+            "width": 640,
+            "x": -920,
+            "y": 1720
+        },
+        {
+            "fileName": "maps/hub_starwalker/hub_starwalker.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 1200,
+            "y": 1720
         }
     ],
     "onlyShowAdjacentMaps": false,

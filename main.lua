@@ -1,3 +1,9 @@
+if OrigGlobal then
+    local chunk = love.filesystem.load("src/funnymetagag.lua")
+    setfenv(chunk, OrigGlobal)
+    chunk()
+end
+
 require("src.engine.tweaks")
 
 require("src.engine.vars")
@@ -103,6 +109,7 @@ ShadowFX = require("src.engine.drawfx.shadowfx")
 FountainShadowFX = require("src.engine.drawfx.fountainshadowfx")
 GradientFX = require("src.engine.drawfx.gradientfx")
 ScissorFX = require("src.engine.drawfx.scissorfx")
+VHSFilterFX = require("src.engine.drawfx.vhsfilterfx")
 
 Collider = require("src.engine.colliders.collider")
 ColliderGroup = require("src.engine.colliders.collidergroup")
@@ -206,6 +213,7 @@ DarkConfigMenu = require("src.engine.game.world.ui.dark.darkconfigmenu")
 DarkMenuPartySelect = require("src.engine.game.world.ui.dark.darkmenupartyselect")
 DarkStorageMenu = require("src.engine.game.world.ui.dark.darkstoragemenu")
 DarkBadgeMenu = require("src.engine.game.world.ui.dark.darkbadgemenu")
+DarkCharacterMenu = require("src.engine.game.world.ui.dark.darkcharactermenu")
 DarkPartyMenu = require("src.engine.game.world.ui.dark.darkpartymenu")
 
 LightMenu = require("src.engine.game.world.ui.light.lightmenu")
@@ -239,6 +247,7 @@ DarkFountain = require("src.engine.game.world.events.darkfountain")
 FountainFloor = require("src.engine.game.world.events.fountainfloor")
 QuicksaveEvent = require("src.engine.game.world.events.quicksave")
 MirrorArea = require("src.engine.game.world.events.mirror")
+SuperStar = require("src.engine.game.world.events.superstar")
 
 ToggleController = require("src.engine.game.world.events.controllers.togglecontroller")
 FountainShadowController = require("src.engine.game.world.events.controllers.fountainshadowcontroller")
@@ -261,6 +270,8 @@ XSlashSpell = require("src.engine.game.battle.xslashspell")
 Quicktime = require("src.engine.game.battle.quicktime")
 Slapper = require("src.engine.game.battle.slapper")
 Combo = require("src.engine.game.battle.combo")
+
+BlueSoul = require("src.engine.game.battle.souls.bluesoul")
 
 BattleUI = require("src.engine.game.battle.ui.battleui")
 ActionBox = require("src.engine.game.battle.ui.actionbox")
@@ -290,6 +301,7 @@ MirrorEffect = require("src.engine.game.effects.mirroreffect")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
 DojoBG = require("src.engine.game.battle.bg.dojobg")
+ConcentrateBG = require("src.engine.game.battle.bg.concentratebg")
 
 Shop = require("src.engine.game.shop")
 Shopkeeper = require("src.engine.game.shop.shopkeeper")
@@ -298,6 +310,7 @@ Border = require("src.engine.border")
 ImageBorder = require("src.engine.imageborder")
 
 GameOver = require("src.engine.game.gameover")
+GameOverSF = require("src.engine.game.gameoversf")
 
 Legend = require("src.engine.game.legend")
 

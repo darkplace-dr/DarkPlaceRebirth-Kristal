@@ -28,7 +28,7 @@ function actor:init()
     -- Sound to play when this actor speaks (optional)
     self.voice = "hero"
     -- Path to this actor's portrait for dialogue (optional)
-    self.portrait_path = nil
+    self.portrait_path = "face/hero"
     -- Offset position for this actor's portrait (optional)
     self.portrait_offset = nil
 

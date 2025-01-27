@@ -37,18 +37,27 @@ end
 
 function actor:init()
     super.init(self)
+
+    local save = Noel:loadNoel()
+
     self.name = "Noel"
     self.width = 33
     self.height = 40
     self.hitbox = {7, 28, 19, 14}
     self.color = {1, 1, 1}
     self.path = "party/noel"
-    self.default = "walk"
+
+    if Noel:isDess() then
+        self.default = "dess_mode/walk"
+        
+        self.menu_anim = "dess_mode/walk/down_1"
+    else
+        self.default = "walk"
+        
+        self.menu_anim = "brella"
+    end
 
     self.voice = "noel"
-
-
-    self.menu_anim = "brella"
 
     self.portrait_path = "face/noel"
 
@@ -89,6 +98,12 @@ function actor:init()
 
         ["brella"] = {-6, -7},
 
+        --["dess_mode/walk"] = {-4, -10},
+
+        ["dess_mode/walk/up"] = {-4, -10},
+        ["dess_mode/walk/down"] = {-4, -10},
+        ["dess_mode/walk/left"] = {-4, -10},
+        ["dess_mode/walk/right"] = {-4, -10},
 
         ["walk/down"] = {0, 1},
         ["walk/up"] = {0, 1},
@@ -102,6 +117,11 @@ function actor:init()
         ["walk/up"] = "walk/down",
         ["walk/left"] = "walk/left",
         ["walk/right"] = "walk/right",
+        
+        ["dess_mode/walk/down"] = "walk/up",
+        ["dess_mode/walk/up"] = "walk/down",
+        ["dess_mode/walk/left"] = "walk/left",
+        ["dess_mode/walk/right"] = "walk/right",
     }
 
 end

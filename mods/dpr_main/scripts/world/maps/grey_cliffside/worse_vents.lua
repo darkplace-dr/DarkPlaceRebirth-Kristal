@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -9,8 +9,8 @@ return {
   height = 40,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 56,
+  nextlayerid = 9,
+  nextobjectid = 74,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -70,13 +70,13 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 4, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 13, 13, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 13, 13, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23, 23, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 28, 28, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 4, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 8, 8, 9, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8, 9, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 1073741827, 1073741828, 0,
@@ -122,7 +122,7 @@ return {
       name = "decal",
       class = "",
       visible = true,
-      opacity = 1,
+      opacity = 0.44,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
@@ -138,18 +138,18 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 58, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 76, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 76, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 71, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -175,8 +175,140 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 8,
+      name = "objects_vents",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 68,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1470,
+          y = 540,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "up",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 35 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 69,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1390,
+          y = 340,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "left",
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 2,
+            ["make_steam"] = false,
+            ["marker"] = { id = 36 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 70,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1110,
+          y = 560,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 1,
+            ["make_steam"] = false,
+            ["marker"] = { id = 28 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 71,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 930,
+          y = 740,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "right",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 47 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 72,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1290,
+          y = 840,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "up",
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 2,
+            ["make_steam"] = false,
+            ["marker"] = { id = 63 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 73,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 1450,
+          y = 740,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "left",
+            ["launch_sound"] = "jump",
+            ["make_steam"] = false,
+            ["marker"] = { id = 30 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 5,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -200,74 +332,6 @@ return {
           properties = {}
         },
         {
-          id = 29,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 1440,
-          y = 720,
-          width = 80,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.worse_vents",
-            ["marker"] = "one",
-            ["once"] = false
-          }
-        },
-        {
-          id = 34,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 1480,
-          y = 520,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.worse_vents",
-            ["marker"] = "two",
-            ["once"] = false
-          }
-        },
-        {
-          id = 41,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 1400,
-          y = 320,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.worse_vents",
-            ["marker"] = "three",
-            ["once"] = false
-          }
-        },
-        {
-          id = 42,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 920,
-          y = 720,
-          width = 80,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.worse_vents",
-            ["marker"] = "four",
-            ["once"] = false
-          }
-        },
-        {
           id = 54,
           name = "transition",
           type = "",
@@ -281,6 +345,22 @@ return {
           properties = {
             ["map"] = "grey_cliffside/dead_room1",
             ["marker"] = "entry_2"
+          }
+        },
+        {
+          id = 64,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 841,
+          y = -40,
+          width = 159,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "grey_cliffside/the_end",
+            ["marker"] = "entry"
           }
         }
       }
@@ -314,7 +394,7 @@ return {
         },
         {
           id = 30,
-          name = "one",
+          name = "",
           type = "",
           shape = "point",
           x = 1280,
@@ -327,7 +407,7 @@ return {
         },
         {
           id = 35,
-          name = "two",
+          name = "",
           type = "",
           shape = "point",
           x = 1520,
@@ -340,7 +420,7 @@ return {
         },
         {
           id = 36,
-          name = "three",
+          name = "",
           type = "",
           shape = "point",
           x = 960,
@@ -353,11 +433,24 @@ return {
         },
         {
           id = 47,
-          name = "four",
+          name = "",
           type = "",
           shape = "point",
           x = 1240,
           y = 840,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 960,
+          y = 120,
           width = 0,
           height = 0,
           rotation = 0,
@@ -732,6 +825,45 @@ return {
           y = 880,
           width = 160,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1000,
+          y = 0,
+          width = 40,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 66,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 840,
+          y = 160,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 67,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 0,
+          width = 40,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {}

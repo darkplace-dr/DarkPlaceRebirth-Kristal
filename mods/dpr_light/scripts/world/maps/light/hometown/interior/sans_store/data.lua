@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 31,
+  nextlayerid = 7,
+  nextobjectid = 33,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -184,6 +184,37 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_sans",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 32,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 543,
+          y = 164,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "sans"
+          }
         }
       }
     },
@@ -464,6 +495,20 @@ return {
             ["map"] = "light/hometown/town_mid",
             ["marker"] = "entrysans"
           }
+        },
+        {
+          id = 31,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 476,
+          y = 206,
+          width = 228,
+          height = 98,
+          rotation = 0,
+          gid = 66,
+          visible = true,
+          properties = {}
         }
       }
     },

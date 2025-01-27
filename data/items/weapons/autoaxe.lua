@@ -50,6 +50,8 @@ function item:init()
         susie = "*chainsaw noises* Hahaha!!",
         ralsei = "(Is this a good idea?)",
         noelle = "*zrrt* A-AHH! Scared myself...",
+		dess = "this is a great idea",
+        jamm = "Woah! Shakes a lot..."
     }
 end
 

@@ -321,9 +321,15 @@ end
 ---@param x         number  The x-coordinate the soul should spawn at.
 ---@param y         number  The y-coordinate the soul should spawn at.
 ---@param color?    table   A custom color for the soul, that should override its default.
+---@return BlueSoul
 ---@return Soul
 function Encounter:createSoul(x, y, color)
-    return Soul(x, y, color)
+    local player = Game.party[1]
+    if Game:isSpecialMode "BLUE" then
+        return BlueSoul(x, y, color)
+    else
+        return Soul(x, y, color)
+    end
 end
 
 ---@return boolean

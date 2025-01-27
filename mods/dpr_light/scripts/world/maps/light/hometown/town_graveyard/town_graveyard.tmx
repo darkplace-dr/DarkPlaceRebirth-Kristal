@@ -159,6 +159,7 @@
   <object id="21" name="npc" x="80" y="350">
    <properties>
     <property name="actor" value="brenda_lw"/>
+    <property name="cond" value="Game:hasDLC(&quot;dlc_forest&quot;)"/>
     <property name="cutscene" value="hometown.brenda"/>
     <property name="facing" value="left"/>
    </properties>
@@ -170,15 +171,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="18" name="controllers">
-  <object id="22" name="toggle" x="120" y="280">
-   <properties>
-    <property name="cond" value="not Game:hasDLC(&quot;dlc_forest&quot;)"/>
-    <property name="target" type="object" value="21"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
+ <objectgroup id="18" name="controllers"/>
  <imagelayer id="12" name="gateup" offsetx="992" offsety="80">
   <image source="../../../../../../assets/sprites/world/maps/hometown/gravegup.png" width="66" height="320"/>
  </imagelayer>

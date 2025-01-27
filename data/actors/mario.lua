@@ -100,6 +100,8 @@ function actor:init()
 
         -- Walk Speed (optional)
         self.walk_speed_override = 16
+
+    self.menu_anim = "pose_star"
 end
 
 return actor

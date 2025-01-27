@@ -145,7 +145,8 @@ return {
             cutscene:hideNametag()
             Game.world.music:resume()
         elseif Game.world.sanscheck >= 8 then
-            if Game:getFlag("fun") == 8 then
+		    local FUN = Game:getFlag("FUN")
+            if FUN == 8 then
                 cutscene:showNametag("Sans?", {font = "sans"})
                 cutscene:text("[font:sans]* human...", "eyes_closed", "sans")
                 cutscene:hideNametag()
@@ -456,7 +457,7 @@ return {
 				end
                 cutscene:showNametag("Susie")
                 cutscene:text("* Heh,[wait:5] the name's Susie!", "smile", "susie")
-				if jamm or jammarcy then
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* And my name's Luthane,[wait:10] but I really go by Jamm.", "side_smile", "jamm")
 					if jammarcy then
@@ -486,7 +487,7 @@ return {
                 cutscene:showNametag("Brenda")
                 cutscene:text("* Pshh,[wait:5] there's no bears in these woods.", "smug", "brenda_lw")
                 cutscene:text("* I think.", "suspicious", "brenda_lw")
-				if jamm or jammarcy then
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* You \"think\"?", "suspicious", "jamm")
 					cutscene:text("* Wait,[wait:5] are you even licensed in your work?", "suspicious", "jamm")
@@ -513,7 +514,7 @@ return {
                 cutscene:showNametag("Susie")
                 cutscene:text("* HEY![wait:10]\n* I'M A TEENAGER,[wait:5] NOT A KID!", "teeth", "susie")
                 cutscene:text("* Besides,[wait:5] I can kick some serious ass.", "smile", "susie")
-				if jamm or jammarcy then
+				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* Look,[wait:5] if it's any consolation,[wait:5] I'm an adult.", "neutral", "jamm")
 					cutscene:text("* I'm just...[wait:5] short for my age.", "nervous_left", "jamm")

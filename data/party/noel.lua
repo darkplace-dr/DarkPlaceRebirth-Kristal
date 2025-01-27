@@ -2,19 +2,24 @@ local character, super = Class(PartyMember, "noel")
 
 function character:init()
     super.init(self)
+    self.lw_portrait = "face/noel/neutral"
+    self.lw_armor_default = "light/none"
+
     self.set_buttons = {"magic", "item", "spare", "tension"}
     -- Display name
     self.name = "Noel"
 
-    self.cm_draw = true
+    self.cm_draw = true --for the character select draw function
 
     -- Actor (handles sprites)
     self:setActor("noel")
+    self:setDarkTransitionActor("noel")
+
     local lever = "-1"
     -- Display level (saved to the save file)
     self.level = lever
     -- Default title / class (saved to the save file)
-    self.title = "Preist.\nDoesn't understand\nhow his class works."
+    self.title = "Preist\nDoesn't understand\nhow his class works."
 
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 0.1
@@ -64,7 +69,6 @@ function character:init()
         magic = 1
     }
 
-    -- Max stats from level-ups
     self.lw_max_stats = {
         health = 900,
         attack = 11,
@@ -75,12 +79,8 @@ function character:init()
     -- Weapon icon in equip menu
     self.weapon_icon = "ui/menu/equip/old_umbrella"
 
-    -- Equipment (saved to the save file)
-
-    -- Default light world equipment item IDs (saves current equipment)
     self.lw_weapon_default = "light/old_umbrella"
     self.weapon_default = "old_umbrella"
-    --self.lw_armor_default = "light/bandage"
 
     -- Character color (for action box outline and hp bar)
     self.color = {1, 1, 1}
@@ -133,8 +133,38 @@ function character:init()
     self.default_opinion = 0
 
     self.pain_img = Assets.getTexture("ui/menu/icon/pain")
-
 end
+
+function character:getTitle()
+    local save = Noel:loadNoel()
+    local prefix = "LV"..self:getLevel().." "
+    if Noel:isDess() then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return prefix.."Preist\nDoesn't understand\nhow his class works."
+        else
+            return prefix.."Preist\nDoesn't understand\nhow her class works."
+        end
+    else
+        return prefix..""..self.title
+    end
+end
+
+function character:getName()
+    local save = Noel:loadNoel()
+    if Noel:isDess() then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return "dess"
+        else
+            return "Noel"
+        end
+    else
+        return "Noel"
+    end
+end
+
+function character:onLightLevelUp(level) end --do not remove this or noel will not work in light battles 
 
 function character:PainStat(y)
     local i = y

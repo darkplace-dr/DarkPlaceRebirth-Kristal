@@ -17,7 +17,7 @@ function GonerBackground:init(x, y, song, song_pitch_increases, music_obj)
 
     self.music_pitch_inc = 0.02
     local music_pitch = self.music_pitch_inc
-    self.music_target_pitch = song == "AUDIO_ANOTHERHIM" and 0.8 or 1
+    self.music_target_pitch = song and 0.95 or 1
     if not song_pitch_increases then
         music_pitch = 1
         self.music_target_pitch = 1

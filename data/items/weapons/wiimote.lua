@@ -50,7 +50,7 @@ function item:init()
         pauling = true,
 		
 		-- Sword
-        YOU = true,
+        hero = true,
         kris = true,
 		
 		-- Bat

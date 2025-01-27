@@ -54,6 +54,7 @@ function item:init()
             susie = "Hey, feed ME!!!"
         },
         noelle = "Oh, it's... sticky?",
+		dess = "pure sugar yum",
         jamm = "I'm not much of a sweet tooth. But...",
         ["jamm+marcy"] = "Here, Marcy. It's not my kind of snack.",
     }

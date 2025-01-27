@@ -19,7 +19,7 @@ function MainMenuWarningHandler:init(menu)
     local nuh_uh = false
 
     if char then
-        if char.version == 0.1 then
+        if char.version == 0.01 then
         else
             love.filesystem.remove("saves/null.char")
             nuh_uh = true

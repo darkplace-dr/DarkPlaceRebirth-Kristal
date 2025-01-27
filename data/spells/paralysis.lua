@@ -7,6 +7,7 @@ function spell:init()
 
     self.effect = "Ceroba's\nSpecial"
     self.description = "Deals massive damage to one enemy.\nDepends on Magic."
+	self.check = "Deals massive\ndamage to one enemy.\nDepends on Magic."
 
     self.cost = 70
 
@@ -22,16 +23,14 @@ end
 function spell:onCast(user, target)
 	local damage = self:getDamage(user, target)
 
-	local function generateSlash()
-		local diamond = Sprite("effects/spells/ceroba/diamond")
-		diamond:setOrigin(0.5, 0.5)
-		diamond:setScale(2.5, 2.5)
-		diamond:setPosition(target:getRelativePos(target.width/2, target.height/2))
-		diamond.layer = target.layer + 1
-		Assets.playSound("trap")
-		diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
-		user.parent:addChild(diamond)
-	end
+	local diamond = Sprite("effects/spells/ceroba/diamond")
+	diamond:setOrigin(0.5, 0.5)
+	diamond:setScale(2, 2)
+	diamond:setPosition(target:getRelativePos(target.width/2, target.height/2))
+	diamond.layer = target.layer + 1
+	Assets.playSound("trap")
+	diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
+	Game.battle:addChild(diamond)
 
 	Game.battle.timer:after(0.65, function()
 		target:flash()
@@ -42,23 +41,20 @@ function spell:onCast(user, target)
 		Game.battle:finishActionBy(user)
 	end)
 
-	generateSlash(1)
 	return false
 end
 
 function spell:onLightCast(user, target)
 	local damage = self:getDamage(user, target)
 
-	local function generateSlash()
-		local diamond = Sprite("effects/spells/ceroba/diamond")
-		diamond:setOrigin(0.5, 0.5)
-		diamond:setScale(3.5, 3.5)
-		diamond:setPosition(target:getRelativePos(target.width/2, target.height/2))
-		diamond.layer = target.layer + 1
-		Assets.playSound("trap")
-		diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
-		user.parent:addChild(diamond)
-	end
+	local diamond = Sprite("effects/spells/ceroba/diamond")
+	diamond:setOrigin(0.5, 0.5)
+	diamond:setScale(3, 3)
+	diamond:setPosition(target:getRelativePos(target.width/2, target.height/2))
+	diamond.layer = target.layer + 1
+	Assets.playSound("trap")
+	diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
+	Game.battle:addChild(diamond)
 
 	Game.battle.timer:after(0.65, function()
 		target:hurt(damage, user)
@@ -68,17 +64,14 @@ function spell:onLightCast(user, target)
 		Game.battle:finishActionBy(user)
 	end)
 
-	generateSlash(1)
 	return false
 end
 
 function spell:getDamage(user, target)
     if Game:isLight() then
-        local min_magic = Utils.clamp(user.chara:getStat("magic") - 3, 1, 999)
-        return math.ceil((min_magic * 8) + 45 + Utils.random(10))
+        return math.ceil(((user.chara:getStat("magic") - 2) * 8) + 45 + Utils.random(5))
     else
-		local min_magic = Utils.clamp(user.chara:getStat("magic") - 10, 1, 999)
-		return math.ceil((min_magic * 12) + 90 + Utils.random(10))
+		return math.ceil(((user.chara:getStat("magic") - 10) * 10) + 75 + Utils.random(10))
     end
 end
 

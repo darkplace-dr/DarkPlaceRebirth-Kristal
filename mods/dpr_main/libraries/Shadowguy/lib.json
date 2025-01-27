@@ -1,0 +1,24 @@
+{
+    "id": "shadowguy",
+    "authors": [
+        "KateBulka"
+    ],
+    "version": "v1.0.0",
+    "engineVer": "v0.9.0-dev",
+	
+    "config": {
+        "dialogue": [
+            "For the BOSS!!",
+            "This'll knock your\nsocks OFF!",
+            "Show me what you've got!",
+            "I don't have shade\nto throw.",
+        ],
+
+        "full_mercy": [
+            "That was COOL!",
+            "Maybe we should do some\nmusic clip.",
+            "Nice show, kids.",
+            "You guys are cool!\nYou could become big!"
+        ],
+    }
+}

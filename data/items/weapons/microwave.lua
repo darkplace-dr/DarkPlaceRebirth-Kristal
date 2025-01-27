@@ -50,6 +50,7 @@ function item:init()
     self.reactions = {
         iphone = "...",
         noel = [[Do you want me to make "HOT POCKET"s?]],
+		dess = "another unused thing i think smh",
 		jamm = "I mean, am I supposed to throw it, or...?"
     }
 end

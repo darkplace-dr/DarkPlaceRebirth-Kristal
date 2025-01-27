@@ -51,6 +51,7 @@ function item:init()
         susie = "It's got crunch.",
         ralsei = "How elegant!",
         noelle = "What a nice song...",
+		dess = ">look inside >cd",
         jamm = "So what decides these songs?",
         noel = "I'm seeing stars.",
     }
