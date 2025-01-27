@@ -122,6 +122,15 @@ function PartyMember:init()
         magic = 0,
         health_def = 100 -- placeholder for true MHP, do not use
     }
+
+	-- Arc Completion Bonus Stats
+	self.arcBonusStats = {
+		health = 0,
+		attack = 0,
+		defense = 0,
+		magic = 0,
+	}
+
     -- Max stats from level-ups
     self.max_stats = {}
     
@@ -290,6 +299,10 @@ function PartyMember:onTurnStart(battler)
         battler:heal(turnHealing)
     end
 end
+
+--- *(Override)* Called upon completion of this character's arc
+function PartyMember:onArc() end
+
 --- *(Override)* Called whenever this party member's action select turn starts
 ---@param battler PartyBattler The party member's associated battler
 ---@param undo    boolean      Whether their previous action was just undone
@@ -1513,7 +1526,7 @@ end
 --   -char
 function PartyMember:completeArc()
 	self:setFlag("arc", true)
-	for i,v in pairs(stats) do
+	for i,v in pairs(self.stats) do
 		if self.arcBonusStats and self.arcBonusStats[i] then
 			self:increaseStat(i, self.arcBonusStats[i])
 		end
