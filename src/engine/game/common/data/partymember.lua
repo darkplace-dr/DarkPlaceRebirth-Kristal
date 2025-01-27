@@ -375,6 +375,7 @@ function PartyMember:getHealth() return Game:isLight() and self.lw_health or sel
 function PartyMember:getSavedMHP() return self.saved_mhp end
 
 function PartyMember:getStarmanTheme() return "default" end
+
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
     if light or (light == nil and Game:isLight()) then
@@ -1505,6 +1506,19 @@ function PartyMember:addOpinion(other_party, amount)
     end
     self.opinions[other_party] = self:getOpinion(other_party) + amount
     return self.opinions[other_party]
+end
+
+-- Completes a character's Arc
+-- this is kind of lazy tbh but like sue me
+--   -char
+function PartyMember:completeArc()
+	self:setFlag("arc", true)
+	for i,v in pairs(stats) do
+		if self.arcBonusStats and self.arcBonusStats[i] then
+			self:increaseStat(i, self.arcBonusStats[i])
+		end
+	end
+	self:onArc()
 end
 
 return PartyMember
