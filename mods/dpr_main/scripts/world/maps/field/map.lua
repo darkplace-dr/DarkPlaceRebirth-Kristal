@@ -53,6 +53,9 @@ function field:onEnter()
 		"I hope,\nI dream,\nI love this wonderful world.",
 		"I wish to see whatever happens next.",
 		"I wish I could sing.",
+		"I wish I could be a better friend.",
+		"I hope this all won't be for nothing.",
+		"I dream about creating something meaningful.",
 		--"", -- Please, add more.
 		--"", -- All I ask for are your Hopes and Dreams.
 		--"", --       -Charbomber
