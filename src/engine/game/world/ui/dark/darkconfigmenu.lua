@@ -34,11 +34,6 @@ function DarkConfigMenu:init()
     self.reset_flash_timer = 0
     self.rebinding = false
 
-    self.keybinds = Input.getBinds()
-
-    self.current_page = 1
-    self.max_pages = Utils.ceil(#self.keybinds/7)
-	
     self.current_config_page = 1
     self.max_config_pages = 2
 
@@ -76,7 +71,7 @@ function DarkConfigMenu:onKeyPressed(key)
             local gamepad = Utils.startsWith(key, "gamepad:")
 
             local worked = key ~= "escape" and
-                Input.setBind(self.keybinds[self.currently_selected + 7*(self.current_page-1)], 1, key, gamepad)
+                Input.setBind(Input.orderedNumberToKey(self.currently_selected), 1, key, gamepad)
 
             self.rebinding = false
 
@@ -128,46 +123,14 @@ function DarkConfigMenu:onKeyPressed(key)
         local old_selected = self.currently_selected
         if Input.pressed("up") then
             self.currently_selected = self.currently_selected - 1
-            if self.currently_selected ~= 8 and self.current_page == self.max_pages and self.max_pages ~= 1 and self.keybinds[self.currently_selected + 7*(self.current_page-1)] == nil then
-                self.currently_selected = #self.keybinds - 7*(self.current_page-1)
-            end
         end
         if Input.pressed("down") then
             self.currently_selected = self.currently_selected + 1
-            if self.currently_selected <= 8 and self.keybinds[self.currently_selected + 7*(self.current_page-1)] == nil then
-                self.currently_selected = 8
-            end
         end
-
-        if Input.pressed("right") then
-
-                if self.keybinds[self.currently_selected + 7*(self.current_page)] == nil and self.current_page ~= self.max_pages and self.currently_selected < 8 then
-                    if self.currently_selected < 9 - Utils.round((8 - (#self.keybinds - 7*(self.current_page)/2))) then
-                        self.currently_selected = #self.keybinds - 7*(self.current_page)
-                    else
-                        self.currently_selected = 8
-                    end
-                end
-            end
 
         self.currently_selected = Utils.clamp(self.currently_selected, 1, 9)
 
         if old_selected ~= self.currently_selected then
-            self.ui_move:stop()
-            self.ui_move:play()
-        end
-
-        local old_page = self.current_page
-        if Input.pressed("left") then
-            self.current_page = self.current_page - 1
-        end
-        if Input.pressed("right") then
-            self.current_page = self.current_page + 1
-        end
-
-        self.current_page = Utils.clamp(self.current_page, 1, self.max_pages)
-
-        if old_page ~= self.current_page then
             self.ui_move:stop()
             self.ui_move:play()
         end
@@ -396,30 +359,6 @@ function DarkConfigMenu:draw()
         Draw.setColor(Game:getSoulColor())
         Draw.draw(self.heart_sprite, 63, 48 + ((self.currently_selected - 1) * 32))
     else
-
-        local page_offset = ((self.max_pages >= 10 and self.current_page >= 10) and 14) or ((self.max_pages >= 10 and self.current_page < 10) and 6) or 0
-
-        if Game:getConfig("hideIfNoExtra") and self.max_pages > 1 then
-            love.graphics.print(self.current_page.."/"..self.max_pages, 418 - page_offset, -4 + (28 * 9) + 4)
-        end
-
-    --  Code for the arrow sprite
-        local sine_off
-        if sine_off == nil then
-            sine_off = 0
-        end
-
-        sine_off = math.sin((Kristal.getTime()*30)/16) * 3
-
-        if Game:getConfig("showArrow") and Game:getConfig("hideIfNoExtra") and self.max_pages > 1 then
-            if self.current_page ~= 1 then -- Gauche
-                Draw.draw(self.flat_arrow_sprite, 410 - page_offset + sine_off, 264, 0, -1, 1)
-            end
-            if self.current_page ~= self.max_pages then -- Droite
-                Draw.draw(self.flat_arrow_sprite, 466 + page_offset - sine_off, 264)
-            end
-        end
-
         -- NOTE: This is forced to true if using a PlayStation in DELTARUNE... Kristal doesn't have a PlayStation port though.
         local dualshock = Input.getControllerType() == "ps4"
 
@@ -432,50 +371,51 @@ function DarkConfigMenu:draw()
             love.graphics.print(Kristal.isConsole() and "Button" or "Gamepad", 353, -12)
         end
 
-        for index, name in ipairs(self.keybinds) do --self.currently_selected + self.selected_correction
-            if index > (self.current_page-1)*7 and index <= 7*self.current_page then
-                Draw.setColor(PALETTE["world_text"])
-                if self.currently_selected == index - (self.current_page-1)*7 then
-                    if self.rebinding then
-                        Draw.setColor(PALETTE["world_text_rebind"])
-                    else
-                        Draw.setColor(PALETTE["world_text_hover"])
-                    end
-                end
-
-                if dualshock then
-                    love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (29 * (index - (self.current_page-1)*7)))
+        for index, name in ipairs(Input.order) do
+            if index > 7 then
+                break
+            end
+            Draw.setColor(PALETTE["world_text"])
+            if self.currently_selected == index then
+                if self.rebinding then
+                    Draw.setColor(PALETTE["world_text_rebind"])
                 else
-                    love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (28 * (index - (self.current_page-1)*7)) + 4)
+                    Draw.setColor(PALETTE["world_text_hover"])
                 end
+            end
 
-                local shown_bind = self:getBindNumberFromIndex(index)
+            if dualshock then
+                love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (29 * index))
+            else
+                love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (28 * index) + 4)
+            end
 
-                if not Kristal.isConsole() then
-                    local alias = Input.getBoundKeys(name, false)[1]
-                    if type(alias) == "table" then
-                        local title_cased = {}
-                        for _, word in ipairs(alias) do
-                            table.insert(title_cased, Utils.titleCase(word))
-                        end
-                        love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * (index - (self.current_page-1)*7)))
-                    elseif alias ~= nil then
-                        love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * (index - (self.current_page-1)*7)))
+            local shown_bind = self:getBindNumberFromIndex(index)
+
+            if not Kristal.isConsole() then
+                local alias = Input.getBoundKeys(name, false)[1]
+                if type(alias) == "table" then
+                    local title_cased = {}
+                    for _, word in ipairs(alias) do
+                        table.insert(title_cased, Utils.titleCase(word))
                     end
+                    love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * index))
+                elseif alias ~= nil then
+                    love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * index))
                 end
+            end
 
-                Draw.setColor(1, 1, 1)
+            Draw.setColor(1, 1, 1)
 
-                if Input.hasGamepad() then
-                    local alias = Input.getBoundKeys(name, true)[1]
-                    if alias then
-                        local btn_tex = Input.getButtonTexture(alias)
-                        if dualshock then
-                            Draw.draw(btn_tex, 353 + 42, -2 + (29 *  (index - (self.current_page-1)*7)), 0, 2, 2, btn_tex:getWidth() / 2, 0)
-                        else
-                            Draw.draw(btn_tex, 353 + 42 + 16 - 6, -2 + (28 *  (index - (self.current_page-1)*7)) + 11 - 6 + 1, 0, 2, 2,
-                                    btn_tex:getWidth() / 2, 0)
-                        end
+            if Input.hasGamepad() then
+                local alias = Input.getBoundKeys(name, true)[1]
+                if alias then
+                    local btn_tex = Input.getButtonTexture(alias)
+                    if dualshock then
+                        Draw.draw(btn_tex, 353 + 42, -2 + (29 * index), 0, 2, 2, btn_tex:getWidth() / 2, 0)
+                    else
+                        Draw.draw(btn_tex, 353 + 42 + 16 - 6, -2 + (28 * index) + 11 - 6 + 1, 0, 2, 2,
+                                btn_tex:getWidth() / 2, 0)
                     end
                 end
             end
@@ -488,7 +428,7 @@ function DarkConfigMenu:draw()
 
         if (self.reset_flash_timer > 0) then
             Draw.setColor(Utils.mergeColor(PALETTE["world_text_hover"], PALETTE["world_text_selected"],
-                                           ((self.reset_flash_timer / 10) - 0.1)))
+                                        ((self.reset_flash_timer / 10) - 0.1)))
         end
 
         if dualshock then
