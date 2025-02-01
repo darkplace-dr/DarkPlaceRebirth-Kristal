@@ -312,10 +312,10 @@ function DarkConfigMenu:draw()
         sine_off = math.sin((Kristal.getTime()*30)/16) * 3
 
         if Game:getConfig("showArrow") and self.max_config_pages > 1 then
-            if self.current_config_page ~= 1 then -- Gauche
+            if self.current_config_page ~= 1 then
                 Draw.draw(self.flat_arrow_sprite, 410 - page_offset + sine_off, 264, 0, -1, 1)
             end
-            if self.current_config_page ~= self.max_pages then -- Droite
+            if self.current_config_page ~= self.max_config_pages then
                 Draw.draw(self.flat_arrow_sprite, 466 + page_offset - sine_off, 264)
             end
         end
