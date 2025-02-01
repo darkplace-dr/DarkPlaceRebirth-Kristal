@@ -978,38 +978,6 @@ function Input.getControllerType()
     return "xbox"
 end
 
----@return table? keynames
-function Input.getBinds()
-    local keynames = {}
-    
-    for _, key in pairs(Input.order) do
-        table.insert(keynames, key)
-    end
-
-    for k,v in pairs(Kristal.Mods.getMods()) do
-        if v.keybinds then
-            for _,modBind in pairs(v.keybinds) do
-                table.insert(keynames, modBind.id)
-            end
-        end
-        if v.libs then
-            for _,lib in pairs(v.libs) do
-                if lib.keybinds then
-                    for _,modBind in pairs(lib.keybinds) do
-                        table.insert(keynames, modBind.id)
-                    end
-                end
-            end
-        end
-    end
-
-    for _, key in pairs(Game:getConfig("bannedKeys", Game:getConfig("banDebugKeys"))) do
-        Utils.removeFromTable(keynames, key)
-    end
-
-    return keynames
-end
-
 ---@param bind string
 ---@return string? name
 function Input.getBindName(bind)
