@@ -6,7 +6,7 @@ function character:init()
     self.name = "Mario"
 
     self:setActor("mario")
-    self:setLightActor("mario")
+    self:setLightActor("mario_lw")
     self:setDarkTransitionActor("mario_dark_transition")
 
     self.level = 1
