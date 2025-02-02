@@ -249,6 +249,18 @@ function Music:remove()
     self.removed = true
 end
 
+function Music:setNext(music)
+    if (not self.intro_played) and self.source_intro then
+        self.source = love.audio.newSource(Assets.getMusicPath(music), "stream")
+    else
+        self.intro_played = false
+        self.source_intro = self.source
+        self.source_intro:setLooping(false)
+        self.source = love.audio.newSource(Assets.getMusicPath(music), "stream")
+    end
+    self.source:setLooping(true)
+end
+
 function Music:_update()
     if self.fade_speed ~= 0 and self.volume ~= self.target_volume then
         self.volume = Utils.approach(self.volume, self.target_volume, DT / self.fade_speed)
