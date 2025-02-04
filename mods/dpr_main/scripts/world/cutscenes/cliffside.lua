@@ -700,11 +700,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
 
     susie = function (cutscene, event)
         local hero = cutscene:getCharacter("hero")
-        local susie = cutscene:getCharacter("suzy_lw")
-
-
-
-
+        local susie = cutscene:getCharacter("susie")
 
         hero:walkTo(300, 820, 1.5, "up")
         cutscene:wait(1.5)
@@ -859,7 +855,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
 
         lore_board:slideTo(-120, 680, 15)
 
-        cutscene:text("[noskip][speed:0.1]* (Suzy joined the[func:remove] party!)[wait:20]\n\n[speed:1]UwU",
+        cutscene:text("[noskip][speed:0.1]* (Susie joined the[func:remove] party!)[wait:20]\n\n[speed:1]UwU",
             {
                 auto = true,
                 functions = {
@@ -871,9 +867,9 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
         fan:remove()
 
         susie:convertToFollower()
-        Game:setFlag("cliffside_suzy", true)
-        Game:addPartyMember("suzy")
-        Game:unlockPartyMember("suzy")
+        Game:setFlag("cliffside_susie", true)
+        Game:addPartyMember("susie")
+        Game:unlockPartyMember("susie")
         cutscene:wait(cutscene:attachFollowers())
 
         Game.world.music:resume()
