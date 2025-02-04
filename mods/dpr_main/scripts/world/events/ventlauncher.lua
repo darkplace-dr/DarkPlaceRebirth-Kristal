@@ -164,7 +164,7 @@ function VentLauncher:update()
 end
 
 function VentLauncher:onEnter(player)
-    if player == Game.world.player and (not Game.world.jumping or self.sequence_jump) and self.cooldown == 0 then
+    if player == Game.world.player and (not Game.world.jumping or self.sequence_jump) and self.cooldown == 0 and not Game.world.player.cliff then
 
         self.steam_active = false
         self.timer:after(2, function ()

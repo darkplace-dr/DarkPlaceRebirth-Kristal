@@ -22,9 +22,9 @@ return {
         end
     end,
     tattle = function(cutscene, battler, enemy)
-        cutscene:text("* That's a training dummy, Hero!", nil, "suzy_lw")
-        cutscene:text("* Like the name implies,[wait:5] It's only purpose is to be used like a training dummy. [wait:5]* Duh!", nil, "suzy_lw")
-        cutscene:text("* So try your best to break it in half![wait:10] * Or don't...", nil, "suzy_lw")
+        cutscene:text("* That's a training dummy, Hero! Like the name says, It's purpose it to be beat up and ", nil, "suzy_lw")
+        cutscene:text("* Placeholder.", nil, "suzy_lw")
+
 
     end
 }
