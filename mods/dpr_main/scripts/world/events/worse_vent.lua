@@ -38,7 +38,7 @@ end
 
 function WorseVent:onEnter(player)
     if not player:includes(Player) then return end
-    if player.jumping then return end
+    if player.jumping or Game.world.player.state == "SLIDE" then return end
     if Game.world:hasCutscene() then return end
     -- Game.world:startCutscene("cliffside", "worse_vents", self)
     Game.world.timer:script(function (origWait)

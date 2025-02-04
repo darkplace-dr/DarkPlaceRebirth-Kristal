@@ -311,7 +311,7 @@ local cliffside = {
         --gonerText("\nCareful.[wait:10]\nYou can't go down\nthose cliffs.", false)
 
         local whodis = {nametag = "???"}
-        cutscene:textTagged("* Careful.[wait:10]\nYou can't go down those cliffs.", nil, "cat", whodis)
+        cutscene:textTagged("* Cyaweful.[wait:10]\nnyu cyan't go dyown doshe cliffs.", nil, "cat", whodis)
 
         local wat = 0.5
         Game.world.player:setFacing("left")
@@ -338,13 +338,14 @@ local cliffside = {
        elseif choicer == 4 then
        end]]
 
-        cutscene:setSpeaker("hero")
-        cutscene:textTagged("* Who's there?", "neutral_closed_b")
+        --cutscene:setSpeaker("hero")
+        --cutscene:textTagged("* Who's there?", "neutral_closed_b")
 
-        cutscene:textTagged("* Me.[wait:10]\nI'm there.\n[wait:10]Up here.", nil, "cat", whodis)
+        cutscene:textTagged("* up hewe tiny humwan.", nil, "cat", whodis)
         Game.world.player:setFacing("up")
         cutscene:wait(1)
         local cattag = {nametag = "Cat?"}
+        cutscene:textTagged("* Hewwo thewe-[wait:5][shake:5]*COUGH*[wait:5]/n[face:neutral]* Pardon me.", nil, "cat", cattag)
         cutscene:textTagged("* Hello there.", "neutral", "cat", cattag)
         cutscene:hideNametag()
         cutscene:setSpeaker("cat")
@@ -422,6 +423,10 @@ local cliffside = {
     end,
 
     reverse_cliff_2 = function (cutscene, event)
+
+
+        local data = event.data
+
         local end_y = 80
         local p_y = Game.world.player.y
         local tiles = 12
@@ -460,7 +465,7 @@ local cliffside = {
 
         cutscene:wait(function ()
             if Game.world.player.y < -20 then
-                local x = Game.world.player.x - 240 + 400
+                local x = Game.world.player.x - data.x + 400
                 phys_speed = Game.world.player.physics.speed_y
                 Game.world:mapTransition("grey_cliffside/cliffside_start", x, 1040)
 
@@ -523,6 +528,126 @@ local cliffside = {
         Assets.playSound("dtrans_flip")
         Game.world.player.walk_speed = 4
     end,
+
+    reverse_cliff_up = function (cutscene, event)
+        local data = event.data
+
+        local top = data.properties["top"]
+
+        if Game.world.player.jumping then return end
+
+        Game.world.player:setState("SLIDE")
+
+        Game.world.player.walk_speed = -12
+        print(top)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < top then
+                return true
+            else
+                return false
+            end
+        end)
+
+        Game.world.player:setState("WALK")
+
+        Game.world.player.walk_speed = 4
+    end,
+
+    reverse_cliff_0 = function (cutscene, event)
+        if Game.world.player.jumping then return end
+
+        local data = event.data
+
+        local end_y = 80
+        local p_y = Game.world.player.y
+        local tiles = 12
+        local length = tiles * 40
+        local reverse_spot = p_y + length / 2
+
+        Assets.playSound("noise")
+
+        Game.world.player.cliff = true
+
+        Game.world.player:setState("SLIDE")
+
+        cutscene:wait(function ()
+            if Game.world.player.walk_speed < -8 then
+                Assets.playSound("jump", 1, 0.5)
+                Game.world.player.physics.speed_y = -10
+                Game.world.player.physics.friction = -1.5
+                Game.world.player.walk_speed = -8
+
+                return true
+            else
+                Game.world.player.walk_speed = Game.world.player.walk_speed - DT * 8
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < p_y then
+                Game.world.player:setState("WALK")
+                Game.world.player:setSprite("walk/down_1")
+                Game.world.player.noclip = true
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < reverse_spot then
+                local x = Game.world.player.x - 240 + 400
+                phys_speed = Game.world.player.physics.speed_y
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < 520 then
+                Game.world.player.physics.friction = 4
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.physics.speed_y == 0 then
+                Game.world.player.physics.friction = -1
+
+                Game.world.player.physics.speed_y = 1
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y > 420 then
+                return true
+            else
+                return false
+            end
+        end)
+
+        Game.world.player.noclip = false
+        Game.world.player.physics.friction = 0
+        Game.world.player.physics.speed_y = 0
+        Game.world.player:setFacing("down")
+        Game.world.player:resetSprite()
+        Game.world.player:shake(5)
+        Assets.playSound("dtrans_flip")
+        Game.world.player.walk_speed = 4
+        Game.world.player.cliff = nil
+    end,
     warp_bin = function (cutscene, event)
         Game.world:mapTransition("main_hub")
     end,
@@ -570,10 +695,16 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
         end)
         video:remove()
     end,
+    suzy = function (cutscene, event)
+    end,
 
     susie = function (cutscene, event)
         local hero = cutscene:getCharacter("hero")
-        local susie = cutscene:getCharacter("susie")
+        local susie = cutscene:getCharacter("suzy_lw")
+
+
+
+
 
         hero:walkTo(300, 820, 1.5, "up")
         cutscene:wait(1.5)
@@ -728,7 +859,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
 
         lore_board:slideTo(-120, 680, 15)
 
-        cutscene:text("[noskip][speed:0.1]* (Susie joined the[func:remove] party!)[wait:20]\n\n[speed:1]UwU",
+        cutscene:text("[noskip][speed:0.1]* (Suzy joined the[func:remove] party!)[wait:20]\n\n[speed:1]UwU",
             {
                 auto = true,
                 functions = {
@@ -740,9 +871,9 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
         fan:remove()
 
         susie:convertToFollower()
-        Game:setFlag("cliffside_susie", true)
-        Game:addPartyMember("susie")
-        Game:unlockPartyMember("susie")
+        Game:setFlag("cliffside_suzy", true)
+        Game:addPartyMember("suzy")
+        Game:unlockPartyMember("suzy")
         cutscene:wait(cutscene:attachFollowers())
 
         Game.world.music:resume()

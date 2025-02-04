@@ -46,11 +46,13 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
+        suzy = true,
     }
 
     -- Character reactions
     self.reactions = {
         susie = "Me? Some sorta chosen one? Nah.",
+        suzy = "Chosen One? Heck Yeah!",
         ralsei = "Um, I don't think this is mine.",
         noelle = "It feels... magical?",
         hero = "Back where it belongs.",
