@@ -1776,10 +1776,8 @@ function lib:init()
     end)
 
     Utils.hook(LightItemMenu, "init", function(orig, self)
-    
         orig(self)
-
-        -- States: ITEMSELECT, ITEMOPTION, PARTYSELECT
+        if TARGET_MOD == "dpr_main" then return end
 
         if Mod.libs["moreparty"] and #Game.party > 3 then
             if not Kristal.getLibConfig("moreparty", "classic_mode") then
@@ -1794,10 +1792,11 @@ function lib:init()
         self.party_select_bg.layer = -1
         self.party_selecting = 1
         self:addChild(self.party_select_bg)
-
     end)
     
     Utils.hook(LightItemMenu, "update", function(orig, self)
+        if TARGET_MOD == "dpr_main" then orig(self) return end
+        
         if self.state == "ITEMOPTION" then
             if Input.pressed("cancel") then
                 self.state = "ITEMSELECT"
@@ -1870,10 +1869,11 @@ function lib:init()
         else
             orig(self)
         end
-
     end)
 
     Utils.hook(LightItemMenu, "draw", function(orig, self)
+        if TARGET_MOD == "dpr_main" then orig(self) return end
+        
         love.graphics.setFont(self.font)
 
         local inventory = Game.inventory:getStorage(self.storage)
@@ -1949,10 +1949,11 @@ function lib:init()
         end
 
         Object.draw(self)
-
     end)
 
     Utils.hook(LightItemMenu, "useItem", function(orig, self, item)
+        if TARGET_MOD == "dpr_main" then orig(self, item) return end
+        
         local result
         if item.target == "ally" then
             result = item:onWorldUse(Game.party[self.party_selecting])
@@ -2859,6 +2860,8 @@ function lib:init()
     end)
 
     Utils.hook(LightMenu, "draw", function(orig, self)
+        if TARGET_MOD == "dpr_main" then orig(self) return end
+        
         Object.draw(self)
         
         if self.box and self.box.state == "PARTYSELECT" then
@@ -2909,15 +2912,17 @@ function lib:init()
             love.graphics.print("CELL", 84, 188 + (36 * 2))
             
             if Mod.libs["light_menu_talk"] then
-                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or not Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") and #Game.party > 1 then
+                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or #Game.party > 1 then
                     Draw.setColor(PALETTE["world_text"])
                     love.graphics.print("TALK", 84, 188 + (36 * 3))
                 end
             end
         else
             if Mod.libs["light_menu_talk"] then
-                Draw.setColor(PALETTE["world_text"])
-                love.graphics.print("TALK", 84, 188 + (36 * 2))
+                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or #Game.party > 1 then
+                    Draw.setColor(PALETTE["world_text"])
+                    love.graphics.print("TALK", 84, 188 + (36 * 2))
+                end
             end
         end
 
