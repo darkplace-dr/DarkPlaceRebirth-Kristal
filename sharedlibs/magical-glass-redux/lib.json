@@ -8,7 +8,7 @@
         "Just Another Random User",     // contributor
     ],
 
-    "version": "v2.21.10",
+    "version": "v2.25.20",
     "engineVer": "v0.10.0-dev",
     
     "default": true, // Dark Place Rebirth
@@ -31,7 +31,7 @@
         /////
         "default_battle_system": ["deltarune", false],
         
-        ///// Shared Light EXP and LV
+        ///// Shared Light EXP
         // Whether EXP is global to all party members or local to each
         /////
         "shared_light_exp": false,

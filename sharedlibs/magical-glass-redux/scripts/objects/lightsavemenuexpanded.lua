@@ -274,7 +274,7 @@ function LightSaveMenuExpanded:draw()
             
             -- Header
             love.graphics.print(data.name, x + (w/2) - self.font:getWidth(data.name)/2, y)
-            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.lw_save_lv or Game.party[1] and Game.party[1]:getLightLV() or 0), x, y)
+            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.save_level or Game.party[1] and Game.party[1]:getLightLV() or 0), x, y)
 
             local minutes = math.floor(data.playtime / 60)
             local seconds = math.floor(data.playtime % 60)
@@ -339,9 +339,9 @@ function LightSaveMenuExpanded:drawSaveFile(index, data, x, y, selected, header)
         if header then
             love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(Game.party[1] and Game.party[1]:getLightLV() or 0), x + 26, y + 6)
         elseif self.saved_file then
-            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.lw_save_lv or 0), x + 26, y + 6)
+            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.save_level or 0), x + 26, y + 6)
         else
-            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.lw_save_lv or 0), x + 50, y + 6)
+            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..(mg.save_level or 0), x + 50, y + 6)
         end
 
         love.graphics.print(data.name, x + (493 / 2) - self.font:getWidth(data.name) / 2, y + 6)

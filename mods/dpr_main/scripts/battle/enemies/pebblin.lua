@@ -89,7 +89,7 @@ function Pebblin:onDefeatFatal(damage, battler)
 
     local death_x, death_y = sprite:getRelativePos(0, 0, self)
     local death
-    death = DustEffect(sprite:getTexture(), death_x, death_y, function() self:remove() end)
+    death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() self:remove() end)
      
     death:setColor(sprite:getDrawColor())
     death:setScale(sprite:getScale())

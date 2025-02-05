@@ -3,26 +3,19 @@ local UnderPlayer, super = Class(Player, "UnderPlayer")
 function UnderPlayer:init(chara, x, y)
     super.init(self, chara, x, y)
 
-	-- If 'true', the player will be unable to run, like in Undertale
+    -- If 'true', the player will be unable to run, like in Undertale
     self.force_walk = not Kristal.getLibConfig("magical-glass", "undertale_movement_can_run")
-	-- The movement speed of the player.
+    -- The movement speed of the player.
     self.walk_speed = Game:isLight() and 6 or 4
     
-    -- Related to holding up and down at the same time (also known as the Frisk Dance or Murder Dance)
+    -- Don't edit the stuff below
     self.dance = nil
-    self.fix_movement = false
-    
-    -- If 'false', if you run into an Event with collisions while walking diagonally, the player will stop moving, like in Undertale
-	self.event_diagonal_walk = false
-
-	-- Don't edit the stuff below
-	self.can_move_x = true
+    self.fix_movement = {false, false}
+    self.can_move_x = true
     self.can_move_y = true
-	self.event_collision_diagonal = false
     self.event_collide = {}
     self.gone_direction = {}
-    self.fix_movement2 = false
-    self.speed = self.walk_speed
+    self.speed = 0
 end
 
 function UnderPlayer:handleMovement()
@@ -111,7 +104,6 @@ function UnderPlayer:handleMovement()
         self.speed = self.speed + 5
     end
     
-    
     if Input.down("up") and Input.down("down") then
         if not can_move_y then
             if self.dance == nil then
@@ -129,30 +121,29 @@ function UnderPlayer:handleMovement()
     
     if self.gone_direction["left"] and not Input.down("left") then
         self.gone_direction["left"] = false
-        self.fix_movement2 = true
+        self.fix_movement[2] = true
     end
     if self.gone_direction["right"] and not Input.down("right") then
         self.gone_direction["right"] = false
-        self.fix_movement2 = true
+        self.fix_movement[2] = true
     end
     if self.gone_direction["up"] and not Input.down("up") then
         self.gone_direction["up"] = false
-        self.fix_movement2 = true
+        self.fix_movement[2] = true
     end
     if self.gone_direction["down"] and not Input.down("down") then
         self.gone_direction["down"] = false
-        self.fix_movement2 = true
+        self.fix_movement[2] = true
     end
 
-    if not self.fix_movement2 and event_collide and self.moving_x ~= 0 and self.moving_y ~= 0 then
+    if not self.fix_movement[2] and event_collide and self.moving_x ~= 0 and self.moving_y ~= 0 then
         self.facing = self.sprite.facing
-    elseif not (Input.down("up") and Input.down("down") and not can_move_x and self.moving_x ~= 0) or self.fix_movement and self.fix_movement ~= self.moving_x then
+    elseif not (Input.down("up") and Input.down("down") and not can_move_x and self.moving_x ~= 0) or self.fix_movement[1] and self.fix_movement[1] ~= self.moving_x then
         self:move(walk_x, walk_y, self.speed * DTMULT)
-        self.fix_movement = false
-        self.fix_movement2 = false
+        self.fix_movement = {false, false}
     else
         self.facing = "down"
-        self.fix_movement = self.moving_x
+        self.fix_movement[1] = self.moving_x
     end
     
     self.sprite.facing = self.facing
@@ -203,8 +194,8 @@ function UnderPlayer:doMoveAmount(type, amount, other_amount)
             end
             Object.endCache()
 
-			self.can_move_x = true
-			self.can_move_y = true
+            self.can_move_x = true
+            self.can_move_y = true
 
             if collided then
                 self[type] = last_a
@@ -212,9 +203,9 @@ function UnderPlayer:doMoveAmount(type, amount, other_amount)
 
                 if not target:includes("Event") then
                     if self.moving_y < 0 and (Input.down("up") and Input.down("down")) then
-						if not self["last_collided_"..other] == true then
-							self[type] = self[type] + self.speed
-						end
+                        if not self["last_collided_"..other] == true then
+                            self[type] = self[type] + self.speed
+                        end
                         self.facing = "down"
                         self.sprite.facing = self.facing
                         local collided, target = self.world:checkCollision(self.collider, self.enemy_collision)
@@ -224,53 +215,38 @@ function UnderPlayer:doMoveAmount(type, amount, other_amount)
                     end
                 else
                     self.event_collide[type] = true
-                    if self.event_diagonal_walk == true then
-						if self.moving_x > 0 and (Input.down("right") and self.facing == "right") then
-							self.can_move_y = false
-						end
-						if self.moving_x < 0 and (Input.down("left") and self.facing == "left") then
-							self.can_move_y = false
-						end
-						if self.moving_y > 0 and (Input.down("down") and self.facing == "down") then
-							self.can_move_x = false
-						end
-						if self.moving_y < 0 and (Input.down("up") and self.facing == "up") then
-							self.can_move_x = false
-						end
-					else
-						if (Input.down("down")) then
-							self.sprite.facing = self.facing
-							self.can_move_x = false
-							if (Input.down("right")) then
-								self.sprite.facing = self.facing
-								self.can_move_y = false
-							end
-							if (Input.down("left")) then
-								self.sprite.facing = self.facing
-								self.can_move_y = false
-							end
-						end
-						if (Input.down("up")) then
-							self.sprite.facing = self.facing
-							self.can_move_x = false
-							if (Input.down("right")) then
-								self.sprite.facing = self.facing
-								self.can_move_y = false
-							end
-							if (Input.down("left")) then
-								self.sprite.facing = self.facing
-								self.can_move_y = false
-							end
-						end
-						if (Input.down("right")) then
-							self.sprite.facing = self.facing
-							self.can_move_y = false
-						end
-						if (Input.down("left")) then
-							self.sprite.facing = self.facing
-							self.can_move_y = false
-						end
-					end
+                    if (Input.down("down")) then
+                        self.sprite.facing = self.facing
+                        self.can_move_x = false
+                        if (Input.down("right")) then
+                            self.sprite.facing = self.facing
+                            self.can_move_y = false
+                        end
+                        if (Input.down("left")) then
+                            self.sprite.facing = self.facing
+                            self.can_move_y = false
+                        end
+                    end
+                    if (Input.down("up")) then
+                        self.sprite.facing = self.facing
+                        self.can_move_x = false
+                        if (Input.down("right")) then
+                            self.sprite.facing = self.facing
+                            self.can_move_y = false
+                        end
+                        if (Input.down("left")) then
+                            self.sprite.facing = self.facing
+                            self.can_move_y = false
+                        end
+                    end
+                    if (Input.down("right")) then
+                        self.sprite.facing = self.facing
+                        self.can_move_y = false
+                    end
+                    if (Input.down("left")) then
+                        self.sprite.facing = self.facing
+                        self.can_move_y = false
+                    end
                 end
 
                 if target and target.onCollide then
@@ -304,13 +280,13 @@ function UnderPlayer:move(x, y, speed, keep_facing)
 end
 
 function UnderPlayer:update()
-	if not self["last_collided_x"] == true then
-		self.can_move_y = true
-	end
-	if not self["last_collided_y"] == true then
-		self.can_move_x = true
-	end
-	super.update(self)
+    if not self["last_collided_x"] == true then
+        self.can_move_y = true
+    end
+    if not self["last_collided_y"] == true then
+        self.can_move_x = true
+    end
+    super.update(self)
 end
 
 return UnderPlayer

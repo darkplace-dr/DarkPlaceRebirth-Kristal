@@ -435,7 +435,7 @@ function character:lightLVStats()
 			magic = 7
 		}
 	}
-    self.lw_stats = levelstats[self:getLightLV()]
+    return levelstats[self:getLightLV()]
 end
 
 function character:drawPowerStat(index, x, y, menu)

@@ -8,7 +8,7 @@ function LightTensionBar:init(x, y, dont_animate)
 
     super.init(self, x or 25, y or 55)
 
-    self.layer = BATTLE_LAYERS["ui"] - 1
+    self.layer = LIGHT_BATTLE_LAYERS["ui"] - 2
 
     self.tp_bar_fill = Assets.getTexture("ui/lightbattle/tp_bar_fill")
     self.tp_bar_outline = Assets.getTexture("ui/lightbattle/tp_bar_outline")
@@ -132,7 +132,7 @@ end
 function LightTensionBar:drawText()
     love.graphics.setFont(self.tp_font)
     for i = 1, #Kristal.getLibConfig("magical-glass", "light_battle_tp_name") do
-        local char = string.sub(Kristal.getLibConfig("magical-glass", "light_battle_tp_name"), i, i)
+        local char = Utils.sub(Kristal.getLibConfig("magical-glass", "light_battle_tp_name"), i, i)
         love.graphics.setColor(0, 0, 0, 1)
         love.graphics.print(char, -20 + 1, 1 + (i-1) * 21)
 

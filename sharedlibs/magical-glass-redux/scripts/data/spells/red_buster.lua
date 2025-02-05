@@ -20,7 +20,7 @@ function spell:onLightCast(user, target)
             target:hurt(damage, user)
             Game.battle:finishAction()
         end)
-        blast.layer = BATTLE_LAYERS["above_ui"]
+        blast.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
         Game.battle:addChild(blast)
     end)
     return false
@@ -28,9 +28,9 @@ end
 
 function spell:getDamage(user, target, pressed)
     if Game:isLight() then
-        local damage = math.ceil((user.chara:getStat("magic") * 2.25) + (user.chara:getStat("attack") * 4.25) - (target.defense * 1.625)) + 25
+        local damage = math.ceil((user.chara:getStat("magic") * 2) + (user.chara:getStat("attack") * 5) - (target.defense * 4)) + 40
         if pressed then
-            damage = damage + 10
+            damage = damage + 20
         end
         return damage
     else

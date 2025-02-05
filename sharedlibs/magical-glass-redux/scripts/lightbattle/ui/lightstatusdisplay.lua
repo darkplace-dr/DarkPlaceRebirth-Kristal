@@ -27,9 +27,14 @@ function LightStatusDisplay:drawStatusStripEvent()
     local level = Game:isLight() and Game.battle.party[1].chara:getLightLV() or Game.battle.party[1].chara:getLevel()
     local level_name = Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")
 
-    love.graphics.setFont(Assets.getFont("namelv", 24))
+    local font = Assets.getFont("namelv", 24)
+    love.graphics.setFont(font)
     love.graphics.setColor(MG_PALETTE["player_text"])
-    love.graphics.print(level_name.." " .. level, x - karma_mode_offset - (#level_name - 2) * 15 - (#tostring(level) > 2 and (#tostring(level) * 15) - 30 or 0), y)
+    local lenght = font:getWidth(level_name) - 30
+    if font:getWidth(level) > 30 then
+        lenght = lenght + font:getWidth(level) - 30
+    end
+    love.graphics.print(level_name.." "..level, x - karma_mode_offset - lenght, y)
 
     love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 74 - karma_mode_offset, y + 5)
 

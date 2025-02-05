@@ -86,6 +86,7 @@ function LightPartyBattler:hurt(amount, exact, color, options)
     options = options or {}
     
     self:setSleeping(false)
+    Game.battle:shakeCamera(2, 2, 0.35)
 
     if not options["all"] then
         Assets.playSound("hurt")
@@ -112,8 +113,6 @@ function LightPartyBattler:hurt(amount, exact, color, options)
         
         self:removeHealthBroken(amount)
     end
-
-    Game.battle:shakeCamera(2, 2, 0.35, 1)
 end
 
 function LightPartyBattler:removeHealth(amount)

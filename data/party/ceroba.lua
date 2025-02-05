@@ -103,7 +103,7 @@ function character:onLevelUpLVLib(level)
 end
 
 function character:lightLVStats()
-    self.lw_stats = {
+    return {
         health = self:getLightLV() <= 20 and math.min(35 + self:getLightLV() * 5) or 25 + self:getLightLV() * 5,
         attack = 9 + self:getLightLV() + math.floor(self:getLightLV() / 3),
         defense = 9 + math.ceil(self:getLightLV() / 4),

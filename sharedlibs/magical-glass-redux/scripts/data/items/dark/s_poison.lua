@@ -25,7 +25,7 @@ function item:onLightBattleUse(user, target)
             return false
         end
     end)
-    Game.battle:battleText(self:getLightBattleText(user, target).."\n"..string.sub(self:getLightBattleHealingText(user, target, self.battle_heal_amount), 1, -2).."?"
+    Game.battle:battleText(self:getLightBattleText(user, target).."\n"..Utils.sub(self:getLightBattleHealingText(user, target, self.battle_heal_amount), 1, -2).."?"
     .."\n* "..target.chara:getNameOrYou().." "..(select(2, target.chara:getNameOrYou()) and "are" or "is").." poisoned.")
 end
 

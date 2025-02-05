@@ -194,7 +194,7 @@ function character:drawPowerStat(index, x, y, menu)
 end
 
 function character:lightLVStats()
-    self.lw_stats = {
+    return {
         health = self:getLightLV() <= 20 and math.min(25 + self:getLightLV() * 5,99) or 25 + self:getLightLV() * 5,
         attack = 10 + self:getLightLV() * 2 + math.floor(self:getLightLV() / 4),
         defense = 9 + math.ceil(self:getLightLV() / 4),

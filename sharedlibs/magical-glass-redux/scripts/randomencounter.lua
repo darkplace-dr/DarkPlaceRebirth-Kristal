@@ -3,13 +3,19 @@
 local RandomEncounter = Class()
 
 function RandomEncounter:init()
-    -- The amount of enemies that can be encountered
+    -- The amount of enemies that can be defeated violently
     self.population = nil
     
+    -- The amount of steps it takes to start a random encounter initially
+    self.initial_minimum_steps = 20
+    -- A random amount of steps that will be added to the step counter initially
+    self.initial_random_steps = 5
     -- The minimum amount of steps it takes to start a random encounter
     self.minimum_steps = 30
-    -- The amount of steps it takes to start a nobody encounter
-    self.nobody_steps = 20
+    -- A random amount of steps that will be added to the step counter
+    self.random_steps = 15
+    -- The amount of steps it takes to start an empty encounter
+    self.empty_steps = 20
     
     -- Whether the steps amount will increase when not that many monsters left
     self.use_population_factor = true
@@ -18,8 +24,8 @@ function RandomEncounter:init()
     -- If this is nil, the battle starts instantly
     self.bubble = "effects/alert"
     
-    -- "But Nobody Came" encounter used if you meet the nobodyCame() returns true
-    self.nobody_encounter = "_nobody"
+    -- The encounter that will happen if the entire population was defeated violently
+    self.empty_encounter = "_nobody"
     
     -- Table with the encounters that can be triggered by this random encounter
     self.encounters = {}
@@ -29,16 +35,16 @@ function RandomEncounter:init()
 end
 
 function RandomEncounter:resetSteps(default)
-    if not self:nobodyCame() then
-        if not default and self.use_population_factor and self.population then
-            local steps = self.minimum_steps / 2
-            local pop_factor = math.min(steps / math.max(0, steps - self:getFlag("violent", 0)), 8)
-            MagicalGlassLib.steps_until_encounter = math.ceil(self.minimum_steps + (Utils.round(Utils.random(steps))) * pop_factor)
-        else
-            MagicalGlassLib.steps_until_encounter = self.minimum_steps
+    if not self:populationKilled() then
+        local minimum_steps = default and self.initial_minimum_steps or self.minimum_steps
+        local random_steps = default and self.initial_random_steps or self.random_steps
+        local pop_factor = 1
+        if self.use_population_factor and self.population then
+            pop_factor = math.min(self.population / (self.population - self:getFlag("violent", 0)), 8)
         end
+        MagicalGlassLib.steps_until_encounter = math.ceil((minimum_steps + Utils.round(Utils.random(random_steps))) * pop_factor)
     else
-        MagicalGlassLib.steps_until_encounter = self.nobody_steps
+        MagicalGlassLib.steps_until_encounter = self.empty_steps
     end
 end
 
@@ -46,15 +52,23 @@ function RandomEncounter:active()
     return true
 end
 
+function RandomEncounter:getEncounters()
+    return self.encounters
+end
+
+function RandomEncounter:getEmptyEncounter()
+    return self.empty_encounter
+end
+
 function RandomEncounter:getNextEncounter()
-    if not self:nobodyCame() then
-        return Utils.pick(self.encounters)
+    if not self:populationKilled() then
+        return Utils.pick(self:getEncounters())
     else
-        return self.nobody_encounter
+        return self:getEmptyEncounter()
     end
 end
 
-function RandomEncounter:nobodyCame()
+function RandomEncounter:populationKilled()
     if self.population and self:getFlag("violent", 0) >= self.population then
         return true
     end
@@ -69,7 +83,9 @@ function RandomEncounter:start()
             local timer = (15 + Utils.random(5)) / 30
             if Mod.libs["multiplayer"] then
                 for _,player in ipairs(Game.world.other_players) do
-                    player:alert(timer, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble})
+                    if player.parent then
+                        player:alert(timer, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble})
+                    end
                 end
             end
             Game.world.player:alert(timer, {layer = WORLD_LAYERS["above_events"], sprite = self.bubble, callback = function() Game:encounter(self:getNextEncounter(), true, nil, nil, self.light);MagicalGlassLib.random_encounter = self.id;Game.lock_movement = false;MagicalGlassLib.initiating_random_encounter = nil end})

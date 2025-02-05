@@ -35,7 +35,7 @@ function item:init()
 
     self.light_bolt_count = 3
     self.light_bolt_speed = 10
-    self.light_bolt_speed_variance = nil
+    self.light_bolt_speed_variance = 0
     self.light_bolt_start = -90
     self.light_bolt_miss_threshold = 2
     self.light_bolt_direction = "right"
@@ -88,10 +88,10 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     sprite:setOrigin(0.5)
     local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
     sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
-    sprite.layer = BATTLE_LAYERS["above_ui"] + 5
+    sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
     sprite.color = {battler.chara:getLightMultiboltAttackColor()}
     enemy.parent:addChild(sprite)
-    Game.battle:shakeCamera(2, 2, 0.35, 1)
+    Game.battle:shakeCamera(2, 2, 0.35)
 
     if crit then
         sprite:setColor(1, 1, 130/255)

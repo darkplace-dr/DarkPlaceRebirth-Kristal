@@ -9,7 +9,7 @@ function LightSoul:init(x, y, color)
         self:setColor(1, 0, 0)
     end
 
-    self.layer = BATTLE_LAYERS["soul"]
+    self.layer = LIGHT_BATTLE_LAYERS["soul"]
 
     self.sprite = Sprite("player/heart_light")
     self.sprite:setOrigin(0.5, 0.5)
@@ -296,9 +296,9 @@ function LightSoul:moveYExact(amount, move_x)
     return true
 end
 
-function LightSoul:onDamage(bullet, amount)
+function LightSoul:onDamage(bullet, amount, battlers)
     local best_amount
-    for _,battler in ipairs(Game.battle.party) do
+    for _,battler in ipairs(battlers) do
         local equip_amount = 0
         for _,equip in ipairs(battler.chara:getEquipment()) do
             if equip.getInvBonus then
@@ -309,7 +309,7 @@ function LightSoul:onDamage(bullet, amount)
             best_amount = equip_amount
         end
     end
-    self.inv_timer = self.inv_timer + best_amount
+    self.inv_timer = self.inv_timer + (best_amount or 0)
 end
 
 function LightSoul:onCollide(bullet)
@@ -402,7 +402,7 @@ function LightSoul:update()
         self:onCollide(bullet)
     end
 
-    if self.inv_timer > 0 then -- 
+    if self.inv_timer > 0 then
         self.inv_flash_timer = self.inv_flash_timer + DT
         local amt = math.floor(self.inv_flash_timer / (2/30)) -- flashing is faster in ut
         if (amt % 2) == 1 then

@@ -22,7 +22,7 @@ return {
     
         local death_x, death_y = sprite:getRelativePos(0, 0, enemy)
         local death
-        death = DustEffect(sprite:getTexture(), death_x, death_y, function() enemy:remove() end)
+        death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() enemy:remove() end)
          
         death:setColor(sprite:getDrawColor())
         death:setScale(sprite:getScale())

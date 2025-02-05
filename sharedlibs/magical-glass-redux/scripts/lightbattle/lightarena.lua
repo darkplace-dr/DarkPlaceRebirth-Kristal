@@ -27,17 +27,16 @@ function LightArena:init(x, y, shape)
 
     self.sprite = ArenaSprite(self)
     self.sprite.color = {0, 0, 0}
-    self.sprite.layer = BATTLE_LAYERS["below_ui"]
+    self.sprite.layer = LIGHT_BATTLE_LAYERS["arena"]
     self:addChild(self.sprite)
 
     self.sprite_border = ArenaSprite(self)
     self.sprite_border:setOrigin(0.5, 0.5)
     self.sprite_border.background = false
-    self.sprite_border.layer = BATTLE_LAYERS["above_bullets"]
+    self.sprite_border.layer = LIGHT_BATTLE_LAYERS["arena_border"]
     Game.battle:addChild(self.sprite_border)
 
     self.mask = ArenaMask(1, 0, 0, self)
-    self.mask.layer = BATTLE_LAYERS["above_ui"]
     self:addChild(self.mask)
 
     self.target_shape = {}
@@ -252,7 +251,7 @@ end
 
 function LightArena:changePosition(pos, move_soul, callback)
     self.target_position = pos
-    self.move_soul = move_soul or true
+    self.move_soul = move_soul ~= false
     self.target_position_callback = callback
 end
 

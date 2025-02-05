@@ -907,6 +907,19 @@ function EnemyBattler:defeat(reason, violent)
             end
             self:setRecruitStatus(false)
         end
+        if self.done_state == "KILLED" or self.done_state == "FROZEN" then
+            Game.battle.killed = true
+            for i, battler in ipairs(Game.battle.party) do
+                battler.chara.kills = battler.chara.kills + 1
+            end
+            if self.done_state == "FROZEN" then
+                Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
+            else
+                Game.battle.xp = Game.battle.xp + self.experience
+            end
+        end
+    elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
+        Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
     end
     
     if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
@@ -923,18 +936,6 @@ function EnemyBattler:defeat(reason, violent)
     end
     
     Game.battle.money = Game.battle.money + self.money
-
-    if self.done_state == "KILLED" or self.done_state == "FROZEN" then
-        Game.battle.killed = true
-        for i, party in ipairs(Game.party) do
-            party.kills = party.kills + 1
-        end
-        if self.done_state == "FROZEN" then
-            Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
-        else
-            Game.battle.xp = Game.battle.xp + self.experience
-        end
-    end
 
     Game.battle:removeEnemy(self, true)
 end

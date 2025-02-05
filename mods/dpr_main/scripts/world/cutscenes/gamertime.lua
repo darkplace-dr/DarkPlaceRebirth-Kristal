@@ -230,7 +230,7 @@ return {
             
                 local death_x, death_y = sprite:getRelativePos(0, 0, self)
                 local death
-                death = DustEffect(sprite:getTexture(), death_x, death_y, function() berdly:remove() end)
+                death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() berdly:remove() end)
                  
                 death:setColor(sprite:getDrawColor())
                 death:setScale(sprite:getScale())

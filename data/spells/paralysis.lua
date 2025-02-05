@@ -51,7 +51,7 @@ function spell:onLightCast(user, target)
 	diamond:setOrigin(0.5, 0.5)
 	diamond:setScale(3, 3)
 	diamond:setPosition(target:getRelativePos(target.width/2, target.height/2))
-	diamond.layer = target.layer + 1
+	diamond.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
 	Assets.playSound("trap")
 	diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.1) end)
 	Game.battle:addChild(diamond)

@@ -21,12 +21,19 @@ function character:init()
 end
 
 function character:lightLVStats()
-    self.lw_stats = {
+    return {
         health = self:getLightLV() <= 20 and math.min(25 + self:getLightLV() * 5,99) or 25 + self:getLightLV() * 5,
         attack = 10 + self:getLightLV() * 2 + math.floor(self:getLightLV() / 4),
         defense = 9 + math.ceil(self:getLightLV() / 4),
         magic = math.ceil(self:getLightLV() / 4)
     }
+end
+
+function character:onLightTurnStart(battler)
+    super.onLightTurnStart(self, battler)
+    if self:getFlag("auto_attack", false) then
+        Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[1], nil, {points = 150})
+    end
 end
 
 return character
