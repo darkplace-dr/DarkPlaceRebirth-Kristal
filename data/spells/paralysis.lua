@@ -7,7 +7,7 @@ function spell:init()
 
     self.effect = "Ceroba's\nSpecial"
     self.description = "Deals massive damage to one enemy.\nDepends on Magic."
-	self.check = "Deals massive\ndamage to one enemy.\nDepends on Magic."
+	self.check = {"Deals massive\ndamage to one enemy.", "* Depends on Magic."}
 
     self.cost = 70
 
