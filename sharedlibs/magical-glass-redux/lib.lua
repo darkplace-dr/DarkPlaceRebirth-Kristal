@@ -1648,12 +1648,12 @@ function lib:init()
 
         if Mod.libs["moreparty"] and #Game.party > 3 then
             if not Kristal.getLibConfig("moreparty", "classic_mode") then
-                self.party_select_bg = UIBox(-97, 242, 492, #Game.party == 4 and 52 or 90)
+                self.party_select_bg = UIBox(-92, 242, 482, 90)
             else
-                self.party_select_bg = UIBox(-37, 242, 372, 90)
+                self.party_select_bg = UIBox(-36, 242, 370, 90)
             end
         else
-            self.party_select_bg = UIBox(-37, 242, 372, 52)
+            self.party_select_bg = UIBox(-36, 242, 370, 52)
         end
         self.party_select_bg.visible = false
         self.party_select_bg.layer = -1
@@ -1663,6 +1663,8 @@ function lib:init()
     end)
     
     Utils.hook(LightItemMenu, "update", function(orig, self)
+        lib.is_light_menu_partyselect = false
+    
         if self.state == "ITEMOPTION" then
             if Input.pressed("cancel") then
                 self.state = "ITEMSELECT"
@@ -1678,6 +1680,7 @@ function lib:init()
                 self.option_selecting = self.option_selecting + 1
             end
     
+            -- this wraps in deltatraveler
             self.option_selecting = Utils.clamp(self.option_selecting, 1, 3)
     
             if self.option_selecting ~= old_selecting then
@@ -1688,11 +1691,18 @@ function lib:init()
             if Input.pressed("confirm") then
                 local item = Game.inventory:getItem(self.storage, self.item_selecting)
                 if self.option_selecting == 1 and (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
-                    self.party_selecting = 1
-                    if #Game.party > 1 and item.target == "ally" then
+                    local condition = #Game.party > 1 and not item.skip_overworld_selection
+                    if condition and item.target == "ally" then
                         self.ui_select:stop()
                         self.ui_select:play()
                         self.party_select_bg.visible = true
+                        self.party_selecting = 1
+                        self.state = "PARTYSELECT"
+                    elseif condition and item.target == "party" then
+                        self.ui_select:stop()
+                        self.ui_select:play()
+                        self.party_select_bg.visible = true
+                        self.party_selecting = "all"
                         self.state = "PARTYSELECT"
                     else
                         self:useItem(item)
@@ -1704,32 +1714,46 @@ function lib:init()
                 end
             end
         elseif self.state == "PARTYSELECT" then
+            lib.is_light_menu_partyselect = true
             if Input.pressed("cancel") then
                 self.party_select_bg.visible = false
                 self.state = "ITEMOPTION"
                 return
             end
     
-            local old_selecting = self.party_selecting
+            if self.party_selecting ~= "all" then
+                local old_selecting = self.party_selecting
 
-            if Input.pressed("right") then
-                self.party_selecting = self.party_selecting + 1
-            end
-    
-            if Input.pressed("left") then
-                self.party_selecting = self.party_selecting - 1
-            end
+                if Input.pressed("right") then
+                    self.party_selecting = self.party_selecting + 1
+                end
+        
+                if Input.pressed("left") then
+                    self.party_selecting = self.party_selecting - 1
+                end
 
-            self.party_selecting = Utils.clamp(self.party_selecting, 1, #Game.party)
+                -- this wraps in deltatraveler
+                -- if self.party_selecting < 1 then
+                    -- self.party_selecting = #Game.party
+                -- elseif self.party_selecting > #Game.party then
+                    -- self.party_selecting = 1
+                -- end
+                self.party_selecting = Utils.clamp(self.party_selecting, 1, #Game.party)
 
-            if self.party_selecting ~= old_selecting then
-                self.ui_move:stop()
-                self.ui_move:play()
-            end
+                if self.party_selecting ~= old_selecting then
+                    self.ui_move:stop()
+                    self.ui_move:play()
+                end
 
-            if Input.pressed("confirm") then
-                local item = Game.inventory:getItem(self.storage, self.item_selecting)
-                self:useItem(item)
+                if Input.pressed("confirm") then
+                    local item = Game.inventory:getItem(self.storage, self.item_selecting)
+                    self:useItem(item, self.party_selecting)
+                end
+            else
+                if Input.pressed("confirm") then
+                    local item = Game.inventory:getItem(self.storage, self.item_selecting)
+                    self:useItem(item, Game.party)
+                end
             end
 
         else
@@ -1739,81 +1763,49 @@ function lib:init()
     end)
 
     Utils.hook(LightItemMenu, "draw", function(orig, self)
-        love.graphics.setFont(self.font)
-
-        local inventory = Game.inventory:getStorage(self.storage)
-    
-        for index, item in ipairs(inventory) do
-            if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
-                Draw.setColor(PALETTE["world_text"])
-            else
-                Draw.setColor(PALETTE["world_text_unusable"])
-            end
-            if self.state == "PARTYSELECT" then
-                local function party_box_area()
-                    local party_box = self.party_select_bg
-                    love.graphics.rectangle("fill", party_box.x - 24, party_box.y - 24, party_box.width + 48, party_box.height + 48)
-                end
-                love.graphics.stencil(party_box_area, "replace", 1)
-                love.graphics.setStencilTest("equal", 0)
-            end
-            love.graphics.print(item:getName(), 20, -28 + (index * 32))
-            love.graphics.setStencilTest()
-        end
-
-        if self.state ~= "PARTYSELECT" then
-            local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
-                Draw.setColor(PALETTE["world_text"])
-            else
-                Draw.setColor(PALETTE["world_gray"])
-            end
-            love.graphics.print("USE" , 20 , 284)
-            Draw.setColor(PALETTE["world_text"])
-            love.graphics.print("INFO", 116, 284)
-            love.graphics.print("DROP", 230, 284)
-        end
-    
-        Draw.setColor(Game:getSoulColor())
-        if self.state == "ITEMSELECT" then
-            Draw.draw(self.heart_sprite, -4, -20 + (32 * self.item_selecting), 0, 2, 2)
-        elseif self.state == "ITEMOPTION" then
-            if self.option_selecting == 1 then
-                Draw.draw(self.heart_sprite, -4, 292, 0, 2, 2)
-            elseif self.option_selecting == 2 then
-                Draw.draw(self.heart_sprite, 92, 292, 0, 2, 2)
-            elseif self.option_selecting == 3 then
-                Draw.draw(self.heart_sprite, 206, 292, 0, 2, 2)
-            end
-        elseif self.state == "PARTYSELECT" then
-            local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            Draw.setColor(PALETTE["world_text"])
-            
-            local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
-            
-            Draw.printAlign("Use " .. item:getName() .. " on", 150, 231, "center")
-
-            for i,party in ipairs(Game.party) do
-                if i <= z then
-                    love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 269)
-                else
-                    love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 269 + 38)
-                end
-            end
-
-            Draw.setColor(Game:getSoulColor())
-            for i,party in ipairs(Game.party) do
-                if i == self.party_selecting then
-                    if i <= z then
-                        Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 277, 0, 2, 2)
-                    else
-                        Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 277 + 38, 0, 2, 2)
-                    end
-                end
-            end
-        end
-
         Object.draw(self)
+
+        -- Draw items as plain text, when on the "storage select" part of the menu
+        if Utils.containsValue(Input.component_stack, self.menu_storageselect) then
+            Draw.setColor(COLORS.gray)
+            for i, item in ipairs(self.storage) do
+                if i > 8 then break end -- Can only fit 8 items, don't draw any more
+                love.graphics.print(item:getName(), 28, 40 + 32 * (i-1))
+            end
+        end
+    
+    
+    
+    
+    
+    
+    
+    
+        local font = love.graphics.getFont()
+        love.graphics.setFont(Assets.getFont("main"))
+        if self.party_select_bg.visible then
+            local item = Game.inventory:getItem(self.storage, self.selected_item)
+            love.graphics.printf("Use " .. item:getName() .. " on", -45, 233, 400, "center")
+    
+    
+            --[[
+            if item.heal_amount then
+                love.graphics.setFont(Assets.getFont("small"))
+                local menu_items = {}
+                menu_items = self.menu_partyselect:getMenuItems()
+                for i, chara in ipairs(Game.party) do
+                    local draw_x = menu_items[i].x - 155
+                    local draw_y = menu_items[i].y + 300
+                    love.graphics.printf(chara.lw_health .. "/" .. chara.lw_stats.health, draw_x, draw_y, 400, "center")
+                end
+            end
+            --]]
+        end
+        --love.graphics.setFont(Assets.getFont("main"))
+    
+        --love.graphics.printf(#self.item .. "/" .. Game.inventory.storages["items"].max, -305, (not Game.world.menu.top and 265 or 33), 400, "center")
+    
+        love.graphics.setFont(font)
 
     end)
 
@@ -1832,6 +1824,7 @@ function lib:init()
                 Game.inventory:removeItem(item)
             end
         end
+
     end)
     
     Utils.hook(World, "onKeyPressed", function(orig, self, key)
@@ -2718,75 +2711,52 @@ function lib:init()
         self.lw_stats_bonus = data.lw_stats_bonus or self.lw_stats_bonus
     end)
 
-    Utils.hook(LightMenu, "draw", function(orig, self)
+   Utils.hook(LightMenu, "draw", function(orig, self)
         Object.draw(self)
-        
-        if self.box and self.box.state == "PARTYSELECT" then
-            local function party_box_area()
-                local party_box = self.box.party_select_bg
-                love.graphics.rectangle("fill", party_box.x + 188, party_box.y + 52, party_box.width + 48, party_box.height + 48)
-            end
-            love.graphics.stencil(party_box_area, "replace", 1)
-            love.graphics.setStencilTest("equal", 0)
-        end
 
         local offset = 0
         if self.top then
             offset = 270
         end
-
+    
         local chara = Game.party[1]
-
+    
         love.graphics.setFont(self.font)
         Draw.setColor(PALETTE["world_text"])
         love.graphics.print(chara:getName(), 46, 60 + offset)
-
+    
         love.graphics.setFont(self.font_small)
-        love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").."  "..chara:getLightLV(), 46, 100 + offset)
+        love.graphics.print("LV  "..chara:getLightLV(), 46, 100 + offset)
         love.graphics.print("HP  "..chara:getHealth().."/"..chara:getStat("health"), 46, 118 + offset)
-        if Kristal.getLibConfig("magical-glass", "undertale_menu_display") then
-            love.graphics.print(Game:getConfig("lightCurrencyShort"), 46, 136 + offset)
-            love.graphics.print(Game.lw_money, 82, 136 + offset)
-        else
-            love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
-        end
-
+        love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
+    
         love.graphics.setFont(self.font)
-        if Game.inventory:getItemCount(self.storage, false) <= 0 then
-            Draw.setColor(PALETTE["world_gray"])
-        else
+        if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
             Draw.setColor(PALETTE["world_text"])
+        else
+            Draw.setColor(PALETTE["world_gray"])
         end
         love.graphics.print("ITEM", 84, 188 + (36 * 0))
         Draw.setColor(PALETTE["world_text"])
         love.graphics.print("STAT", 84, 188 + (36 * 1))
-        if Game:getFlag("has_cell_phone", false) then
+        if Game:getFlag("has_cell_phone") then
             if #Game.world.calls > 0 then
                 Draw.setColor(PALETTE["world_text"])
             else
                 Draw.setColor(PALETTE["world_gray"])
             end
             love.graphics.print("CELL", 84, 188 + (36 * 2))
-            
-            if Mod.libs["light_menu_talk"] then
-                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or not Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") and #Game.party > 1 then
-                    Draw.setColor(PALETTE["world_text"])
-                    love.graphics.print("TALK", 84, 188 + (36 * 3))
-                end
-            end
+            Draw.setColor(PALETTE["world_text"])
+            love.graphics.print("TALK", 84, 188 + (36 * 3))
         else
-            if Mod.libs["light_menu_talk"] then
-                Draw.setColor(PALETTE["world_text"])
-                love.graphics.print("TALK", 84, 188 + (36 * 2))
-            end
+            Draw.setColor(PALETTE["world_text"])
+            love.graphics.print("TALK", 84, 188 + (36 * 2))
         end
-
+    
         if self.state == "MAIN" then
             Draw.setColor(Game:getSoulColor())
             Draw.draw(self.heart_sprite, 56, 160 + (36 * self.current_selecting), 0, 2, 2)
         end
-        
-        love.graphics.setStencilTest()
     end)
 
     Utils.hook(LightStatMenu, "init", function(orig, self)
