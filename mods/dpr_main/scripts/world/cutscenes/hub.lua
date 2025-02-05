@@ -1160,7 +1160,7 @@ local hub = {
             return
         end
 
-        if Game.money <= item.price then
+        if Game.money < item.price then
             onMoneyNotEnough()
         elseif not Game.inventory:addItem(item.id) then
             onInventoryFull()

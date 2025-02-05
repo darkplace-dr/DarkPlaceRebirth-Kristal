@@ -43,7 +43,6 @@ function item:init()
         defense = 20,
         attack = 10
     }
-
 end
 
 function item:showEquipText(target)

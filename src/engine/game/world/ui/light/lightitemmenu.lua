@@ -134,7 +134,7 @@ function LightItemMenu:init()
         self.menu_itemselect:setFocused()
     end)
 
-    self.party_select_bg = UIBox(-36, 242, 372, 53)
+    self.party_select_bg = UIBox(-37, 242, 372, 52)
     self.party_select_bg.visible = false
     self:addChild(self.party_select_bg)
 
@@ -252,7 +252,6 @@ function LightItemMenu:draw()
     --love.graphics.printf(#self.item .. "/" .. Game.inventory.storages["items"].max, -305, (not Game.world.menu.top and 265 or 33), 400, "center")
 
     love.graphics.setFont(font)
-
 end
 
 function LightItemMenu:useItem(item)

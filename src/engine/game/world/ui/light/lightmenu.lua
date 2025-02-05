@@ -185,7 +185,12 @@ function LightMenu:draw()
     love.graphics.setFont(self.font_small)
     love.graphics.print("LV  "..chara:getLightLV(), 46, 100 + offset)
     love.graphics.print("HP  "..chara:getHealth().."/"..chara:getStat("health"), 46, 118 + offset)
-    love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
+    if MagicalGlassLib and Kristal.getLibConfig("magical-glass", "undertale_menu_display") then
+        love.graphics.print(Game:getConfig("lightCurrencyShort"), 46, 136 + offset)
+        love.graphics.print(Game.lw_money, 82, 136 + offset)
+    else
+        love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
+    end
 
     love.graphics.setFont(self.font)
     if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then

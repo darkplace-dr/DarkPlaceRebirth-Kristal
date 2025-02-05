@@ -105,7 +105,6 @@ function LightActionBox:update()
     end
 
     super.update(self)
-
 end
 
 function LightActionBox:select()

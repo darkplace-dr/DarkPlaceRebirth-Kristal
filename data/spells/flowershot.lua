@@ -77,7 +77,7 @@ function spell:onLightCast(user, target)
 	local bigflower = Sprite("effects/spells/ceroba/flower_large", 320, 580)
 	bigflower:setOrigin(0.5, 0.5)
 	bigflower:setScale(3, 3)
-	bigflower.layer = BATTLE_LAYERS["above_bullets"] + 1
+	bigflower.layer = LIGHT_BATTLE_LAYERS["above_arena_border"] + 1
 	Game.battle:addChild(bigflower)
 	bigflower:play(1/10)
 	bigflower:slideToSpeed(320, 240, 20, function()
@@ -95,7 +95,7 @@ function spell:onLightCast(user, target)
 			local flower = Sprite("effects/spells/ceroba/flower_large", bigflower.x, bigflower.y)
 			flower:setOrigin(0.5, 0.5)
 			flower:setScale(2, 2)
-			flower.layer = BATTLE_LAYERS["above_bullets"]
+			flower.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
 			Game.battle:addChild(flower)
 			flower:play(1/10)
 			flower:slideToSpeed(targetX, targetY, 20, function()
@@ -109,7 +109,7 @@ function spell:onLightCast(user, target)
 				local explosion = Sprite("effects/spells/ceroba/explosion", targetX, targetY)
 				explosion:setOrigin(0.5, 0.5)
 				explosion:setScale(2, 2)
-				explosion.layer = BATTLE_LAYERS["above_battlers"]
+				explosion.layer = LIGHT_BATTLE_LAYERS["above_arena_border"] - 1
 				Game.battle:addChild(explosion)
 				explosion:play(1/10, false, function(this)
 					this:remove()

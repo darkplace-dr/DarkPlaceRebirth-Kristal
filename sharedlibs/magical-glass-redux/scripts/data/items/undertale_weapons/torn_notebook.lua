@@ -42,7 +42,7 @@ function item:init()
 
     self.light_bolt_count = 2
     self.light_bolt_speed = 10
-    self.light_bolt_speed_variance = nil
+    self.light_bolt_speed_variance = 0
     self.light_bolt_start = {-50, -25} 
     self.light_bolt_miss_threshold = 2
     self.light_bolt_direction = "left"
@@ -54,7 +54,6 @@ function item:init()
 
     self.attack_sound = "bookspin"
     self.attack_pitch = 0.9
-    
 end
 
 function item:onLightAttack(battler, enemy, damage, stretch, crit)
@@ -75,7 +74,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     sprite:setScale(2)
     local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
     sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
-    sprite.layer = BATTLE_LAYERS["above_ui"] + 5
+    sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
     sprite.color = {battler.chara:getLightMultiboltAttackColor()}
     enemy.parent:addChild(sprite)
 
@@ -83,13 +82,11 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         sprite:setColor(1, 1, 130/255)
     end
     
-    Game.battle.timer:during(27/30, function()
+    Game.battle.timer:during(24/30, function()
         timer = timer + DTMULT
-        siner = siner + DTMULT
-
-        if timer < 15 then
+        if timer <= 14 then
             sprite.scale_x = (math.cos(siner / 2) * 2)
-        elseif timer > 15 then
+        else
             if not hit then
                 sprite:setScale(2, 2)
                 Assets.stopAndPlaySound("punchstrong")
@@ -112,7 +109,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
                 end
             end
         end
-
+        siner = siner + DTMULT
     end,
     function(this)
         local sound = enemy:getDamageSound() or "damage"

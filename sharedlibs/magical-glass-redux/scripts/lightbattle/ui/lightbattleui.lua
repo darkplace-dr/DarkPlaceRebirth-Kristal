@@ -3,7 +3,7 @@ local LightBattleUI, super = Class(Object)
 function LightBattleUI:init()
     super.init(self, 0, 270)
 
-    self.layer = BATTLE_LAYERS["ui"]
+    self.layer = LIGHT_BATTLE_LAYERS["ui"]
 
     self.current_encounter_text = Game.battle.encounter.text
 
@@ -55,7 +55,7 @@ function LightBattleUI:init()
 
     for i,battler in ipairs(Game.battle.party) do
         self.action_box_ut = LightActionBox(20, 0, i, battler)
-        self.action_box_ut.layer = BATTLE_LAYERS["below_ui"] + 2
+        self.action_box_ut.layer = LIGHT_BATTLE_LAYERS["ui"] - 1
         self.action_box_ut:move(self:getRelativePos())
         Game.battle:addChild(self.action_box_ut)
         table.insert(self.action_boxes, self.action_box_ut)
@@ -98,7 +98,7 @@ function LightBattleUI:init()
     
     self.xact_text = {}
     for i = 1, 3 do
-        self.xact_text[i] = Text("", self.style == "undertale" and 290 or 312, 15 + 32 * (i-1), nil, nil, {["font"] = "main_mono"})
+        self.xact_text[i] = Text("", 122, 15 + 32 * (i-1), nil, nil, {["font"] = "main_mono"})
         Game.battle.arena:addChild(self.xact_text[i])
     end
     
@@ -116,8 +116,14 @@ function LightBattleUI:init()
     Game.battle.arena:addChild(self.flee_text)
     
     self.status_display = LightStatusDisplay(0, 390, Game.battle.encounter.event and not Game.battle.multi_mode)
-    self.status_display.layer = BATTLE_LAYERS["below_ui"]
+    self.status_display.layer = LIGHT_BATTLE_LAYERS["ui"] - 2
     Game.battle:addChild(self.status_display)
+    
+    self:resetXACTPosition()
+end
+
+function LightBattleUI:resetXACTPosition()
+    self.xact_x_pos = 122
 end
 
 function LightBattleUI:clearEncounterText()
@@ -437,6 +443,26 @@ function LightBattleUI:drawState()
             end
         end
         
+        for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+            local enemy_name = "* " .. enemy.name .. (self.enemy_counter[enemy.id] > 1 and enemy.index ~= "" and " " .. enemy.index or "")
+            if self.xact_x_pos < font_mono:getWidth(enemy_name) + 122 then
+                self.xact_x_pos = font_mono:getWidth(enemy_name) + 122
+            end
+        end
+        for _,text in ipairs(self.xact_text) do
+            text.x = self.xact_x_pos
+            if not self.draw_mercy or self.xact_x_pos <= 314 then
+                text:setScale(1, 1)
+                text.visible = true
+            elseif self.xact_x_pos <= 378 then
+                text:setScale(0.5, 1)
+                text.visible = true
+            else
+                text:setScale(1, 1)
+                text.visible = false
+            end
+        end
+        
         local remainder = #enemies % 3
         if remainder == 0 then
             remainder = #enemies
@@ -485,7 +511,7 @@ function LightBattleUI:drawState()
                     if enemy_special_text.enemy ~= enemy or enemy_special_text.enemy_name ~= enemy.name .. (enemy.index ~= "" and " " .. enemy.index or "") then
                         enemy_special_text.enemy = enemy
                         enemy_special_text.enemy_name = enemy.name .. (enemy.index ~= "" and " " .. enemy.index or "")
-                        enemy_special_text:setText("[shake:"..MagicalGlassLib.light_battle_shake_text.."][wave:7,15,11]" .. string.sub(name, 3))
+                        enemy_special_text:setText("[shake:"..MagicalGlassLib.light_battle_shake_text.."][wave:7,15,11]" .. Utils.sub(name, 3))
                         enemy_special_text.text_width = enemy_special_text.text_width + 24
                         enemy_special_text.text_height = enemy_special_text.text_height + 10
                     end
@@ -537,6 +563,11 @@ function LightBattleUI:drawState()
                 elseif self.style ~= "undertale" then
                     comment_text.x = 74 + font_mono:getWidth(name)
                     comment_text:setColor(128/255, 128/255, 128/255, 1)
+                    if font_mono:getWidth(name) + (font_mono:getWidth(enemy.comment) / 2) < 264 then
+                        comment_text:setScale(1, 1)
+                    else
+                        comment_text:setScale(0.5, 1)
+                    end
                     comment_text:setText("[shake:"..MagicalGlassLib.light_battle_shake_text.."]" .. enemy.comment)
                 end
 

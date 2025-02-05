@@ -99,6 +99,7 @@ function item:onLightBattleUse(user, target)
         Assets.playSound("dogresidue")
     end)
 
+    Game.battle:battleText(self:getLightBattleText(user, target))
     while #Game.inventory:getStorage("items") < Game.inventory:getStorage("items").max do
         local items = {
             "undertale/dog_salad",
@@ -111,7 +112,6 @@ function item:onLightBattleUse(user, target)
         }
         Game.inventory:addItem(Utils.pick(items))
     end
-    Game.battle:battleText(self:getLightBattleText(user, target))
     return true
 end
 

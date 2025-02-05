@@ -36,7 +36,6 @@ function item:init()
     }
 
     self.light_bolt_direction = "random"
-
 end
 
 function item:showEquipText(target)

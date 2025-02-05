@@ -3,7 +3,7 @@ local LightGauge, super = Class(Object)
 function LightGauge:init(type, amount, x, y, enemy, color)
     super.init(self, x, y)
 
-    self.layer = BATTLE_LAYERS["damage_numbers"]
+    self.layer = LIGHT_BATTLE_LAYERS["damage_numbers"]
     self.timer = Timer()
     self:addChild(self.timer)
 
@@ -30,7 +30,7 @@ function LightGauge:init(type, amount, x, y, enemy, color)
         self.real_value = self.enemy.health
         self.max_value = self.enemy.max_health
         self.extra_width = (self.width / self.max_value)
-        self.reversed = (string.sub(tostring(amount), 1, 1) == "+" or amount < 0) and true or false -- heal
+        self.reversed = (Utils.sub(tostring(amount), 1, 1) == "+" or amount < 0) and true or false -- heal
     elseif self.type == "mercy" then
         self.value = self.enemy.mercy
         self.real_value = self.enemy.mercy
@@ -89,7 +89,6 @@ function LightGauge:draw()
         Draw.setColor(self.color)
         love.graphics.rectangle("fill", 0, 8, self.value * self.extra_width, self.height)
     end
-
 end
 
 return LightGauge

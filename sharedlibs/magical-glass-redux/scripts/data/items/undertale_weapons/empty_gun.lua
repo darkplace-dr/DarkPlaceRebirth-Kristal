@@ -40,7 +40,7 @@ function item:init()
 
     self.light_bolt_count = 4
     self.light_bolt_speed = 15
-    self.light_bolt_speed_variance = nil
+    self.light_bolt_speed_variance = 0
     self.light_bolt_start = 120
     self.light_bolt_miss_threshold = 3
     self.light_multibolt_variance = {{180, 210, 240}, {300, 330, 360}, {400, 430, 460}}
@@ -66,7 +66,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     sprite:setOrigin(0.5)
     local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
     sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
-    sprite.layer = BATTLE_LAYERS["above_ui"] + 5
+    sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
     sprite.color = {battler.chara:getLightMultiboltAttackColor()}
     enemy.parent:addChild(sprite)
     sprite:play(2/30, true)
@@ -92,7 +92,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star.rotation = math.rad(20 * i)
             local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
             star:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
-            star.layer = BATTLE_LAYERS["above_ui"] + 5
+            star.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
             star.init_x = star.x
             star.init_y = star.y
             star.color = {battler.chara:getLightMultiboltAttackColor()}
@@ -148,7 +148,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             ring:setOrigin(0.5)
             local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
             ring:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
-            ring.layer = BATTLE_LAYERS["above_ui"] + 5
+            ring.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
             ring.color = {battler.chara:getLightMultiboltAttackColor()}
             enemy.parent:addChild(ring)
     

@@ -125,11 +125,7 @@ function GameNotOver:update()
                 Game:enterShop(self.reload[2])
             end
         end
-        local function reset_color() 
-            Game.fader:setColor(0, 0, 0)
-            Game.fader.fade_color = Game.fader.color
-        end
-        Game.fader:fadeIn(reset_color, {alpha = 1, speed = 1, color = {1, 1, 1}})
+        Game.fader:fadeIn(nil, {alpha = 1, speed = 1, color = {1, 1, 1}})
     end
 end
 
