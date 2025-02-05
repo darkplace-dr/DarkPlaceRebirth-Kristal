@@ -174,6 +174,8 @@ function Music:seek(time)
     if source then
         if self.source_intro and source == self.source then
             time = -self.source_intro:getDuration() + time
+        elseif self.source_intro then
+            self.intro_last_pos = time
         end
         source:seek(time)
     end
@@ -280,16 +282,15 @@ function Music:_update()
             self.intro_dt = self.source_intro:tell() - self.intro_last_pos
             self.intro_last_pos = self.source_intro:tell()
         end
-        local function introIsPlaying()
-            local dur = self.source_intro:getDuration()
-            if dur > 0 then
-                return self.source_intro:isPlaying()
-                    and self.source_intro:tell() <= (dur - self.intro_dt)
-            end
-            return self.source_intro:isPlaying()
-        end
-        if (not introIsPlaying() and not self.temporary_halt) then
+        local dur = self.source_intro:getDuration()
+        if
+            self.source_intro:isPlaying() and ((not self.temporary_halt)
+            and self.source_intro:tell() >= (dur - (self.intro_dt * 1.2)))
+        then
+            -- We're JUST about to enter the loop, so we sleep the main thread until it's time to.
+            love.timer.sleep(math.min(.2, dur - self.source_intro:tell()))
             self.intro_played = true
+            self.source_intro:pause()
             self.source:play()
         end
     end
