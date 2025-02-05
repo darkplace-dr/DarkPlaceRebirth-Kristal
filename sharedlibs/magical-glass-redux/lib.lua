@@ -2000,18 +2000,17 @@ function lib:init()
             end
 
             local maxed = target:heal(amount, false)
-            local message
-            if item and item.getLightWorldHealingText then
-                message = item:getLightWorldHealingText(target, amount, maxed)
-            end
-
-            if text and message then
-                message = text .. "\n" .. message
+            if text and item and item.getLightWorldHealingText and item:getLightWorldHealingText(target, amount, maxed) then
+                if type(text) == "table" then
+                    text[#text] = text[#text] .. "\n" .. item:getLightWorldHealingText(target, amount, maxed)
+                else
+                    text = text .. "\n" .. item:getLightWorldHealingText(target, amount, maxed)
+                end
             end
             
-            if message or text then
+            if text then
                 if not Game.world:hasCutscene() then
-                    Game.world:showText(message or text)
+                    Game.world:showText(text)
                 end
             else
                 Assets.stopAndPlaySound("power")
@@ -2084,7 +2083,13 @@ function lib:init()
             end
 
             target:heal(amount, false)
-            text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+            if self:getLightBattleHealingText(user, target, amount) then
+                if type(text) == "table" then
+                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                else
+                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                end
+            end
             Game.battle:battleText(text)
             return true
         elseif self.target == "party" then
@@ -2102,7 +2107,13 @@ function lib:init()
                 battler:heal(amount, false)
             end
 
-            text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+            if self:getLightBattleHealingText(user, target, amount) then
+                if type(text) == "table" then
+                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                else
+                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                end
+            end
             Game.battle:battleText(text)
             return true
         elseif self.target == "enemy" then
@@ -2116,7 +2127,13 @@ function lib:init()
 
             target:heal(amount)
             
-            text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+            if self:getLightBattleHealingText(user, target, amount) then
+                if type(text) == "table" then
+                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                else
+                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                end
+            end
             Game.battle:battleText(text)
             return true
         elseif self.target == "enemies" then
@@ -2132,7 +2149,13 @@ function lib:init()
                 enemy:heal(amount)
             end
             
-            text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+            if self:getLightBattleHealingText(user, target, amount) then
+                if type(text) == "table" then
+                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                else
+                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                end
+            end
             Game.battle:battleText(text)
             return true
         else
