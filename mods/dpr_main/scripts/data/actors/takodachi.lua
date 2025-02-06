@@ -55,7 +55,7 @@ end
 function actor:onWorldUpdate(chara)
     if not Game.world.map.ina then return end
     if Game.world.cutscene and Game.world.cutscene.id ~= "room1.wah" then return end
-    if chara.sprite.sprite ~= "takolyshit" then
+    if chara.sprite.sprite ~= "takolyshit" and not (PauseLib and PauseLib.paused) then
         if not Game.world.map.ina:isPlaying() then
             Game.world.map.ina:resume()
         end
