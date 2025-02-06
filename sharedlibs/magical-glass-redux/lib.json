@@ -10,8 +10,6 @@
 
     "version": "v2.25.23",
     "engineVer": "v0.10.0-dev",
-    
-    "default": true, // Dark Place Rebirth
 
     "config": {
         
