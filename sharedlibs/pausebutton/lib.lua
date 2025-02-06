@@ -21,12 +21,12 @@ function PauseLib:setPaused(new)
         self.paused = true
         Kristal.callEvent("onPause")
         if not self.paused then return end -- Allow suppressing pauses
-        self.overlay = Kristal.Stage:addChild(PauseOverlay())
         ---@type Music[]
         self.paused_music = Music.getPlaying()
         for _, mus in pairs(self.paused_music) do
             mus:pause()
         end
+        self.overlay = Kristal.Stage:addChild(PauseOverlay())
     else
         self.paused = false
         for _, mus in pairs(self.paused_music) do
