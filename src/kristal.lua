@@ -1275,7 +1275,11 @@ function Kristal.loadModAssets(id, asset_type, asset_paths, after)
 
     -- Finally load all assets (libraries first)
     for _, lib_id in ipairs(mod.lib_order) do
-        Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
+        if not mod.libs[lib_id].preload_assets then
+            Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
+        else
+            finishLoadStep()
+        end
     end
     Kristal.loadAssets(mod.path, asset_type or "all", asset_paths or "", finishLoadStep)
     for plugin in Kristal.PluginLoader.iterPlugins(true) do
