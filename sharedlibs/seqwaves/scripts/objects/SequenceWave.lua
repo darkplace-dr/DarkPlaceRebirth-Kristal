@@ -46,6 +46,12 @@ function SequenceWave:update()
             end
             self:spawnObject(self.waves[1])
             self.waves[1]:onStart()
+            if self.waves[1].arena_x and self.waves[1].arena_y then
+                self:setArenaPosition(self.waves[1].arena_x, self.waves[1].arena_y)
+            end
+            if self.waves[1].arena_width and self.waves[1].arena_height then
+                self:setArenaSize(self.waves[1].arena_width, self.waves[1].arena_height)
+            end
         end
     end
 end
@@ -56,6 +62,12 @@ function SequenceWave:onStart()
     end
     self:spawnObject(self.waves[1])
     self.waves[1]:onStart()
+    if self.waves[1].arena_x and self.waves[1].arena_y then
+        self:setArenaPosition(self.waves[1].arena_x, self.waves[1].arena_y)
+    end
+    if self.waves[1].arena_width and self.waves[1].arena_height then
+        self:setArenaSize(self.waves[1].arena_width, self.waves[1].arena_height)
+    end
     super.onStart(self)
 end
 
