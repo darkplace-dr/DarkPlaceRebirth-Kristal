@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Rude\nDamage"
     -- Menu description
     self.description = "Deals moderate Rude-elemental damage to\none friend. Depends on Attack & Magic."
+    -- Check description
+    self.check = {"Deals moderate Rude-elemental damage to\none friend.", "* Depends on Attack & Magic."}
 
     -- TP cost
     self.cost = 50

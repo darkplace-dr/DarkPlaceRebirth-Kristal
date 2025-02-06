@@ -87,7 +87,6 @@ function LightItemMenu:init()
                 self.party_select_bg.visible = true
                 --Game.world:showHealthBars()
             elseif #Game.party > 1 and item.target == "party" then
-                -- TODO: Technically this should use a "confirm use on all" prompt like MG does, but I don't have that implemented.
                 -- Assets.playSound("ui_select")
                 self.party_selecting = 1
                 self:useItem(item)

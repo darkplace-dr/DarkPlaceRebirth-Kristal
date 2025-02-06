@@ -11,7 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "Steal\nhealth?"
     -- Menu description
-    self.description = "* I AM THE DRACULA!!!\nGIVE ME YOUR HEALTH POINTS!!!!"
+    self.description = "I AM THE DRACULA!!!\nGIVE ME YOUR HEALTH POINTS!!!!"
+    -- Check description
+    self.check = "I AM THE DRACULA!\n* GIVE ME YOUR HEALTH POINTS!!!!"
 
     -- TP cost
     self.cost = 20

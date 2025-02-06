@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Damage\nw/ STAR"
     -- Menu description
     self.description = "Deals magical Star damage to\none enemy."
+    -- Check description
+    self.check = "Deals magical star damage to one enemy."
 
     -- TP cost
     self.cost = 16

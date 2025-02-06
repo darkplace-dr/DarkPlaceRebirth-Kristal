@@ -151,7 +151,7 @@ function LightAttackBox:checkAttackEnd(battler, score, bolts, close)
             if score > 430 then
                 score = score * 1.8
             end
-            if score > 400 then
+            if score >= 400 then
                 score = score * 1.25
             end
         end

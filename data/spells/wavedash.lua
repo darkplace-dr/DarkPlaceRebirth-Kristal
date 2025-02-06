@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Elec\nDamage"
     -- Menu description
     self.description = "Wave-Dashes and deals moderate damage to one\nfoe. Depends on Attack & Magic."
+    -- Check description
+    self.check = {"Wave-Dashes and deals moderate damage to one\nfoe.", "* Depends on Attack & Magic."}
 
     -- TP cost
     self.cost = 24

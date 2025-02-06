@@ -3538,7 +3538,7 @@ function lib:init()
     end)
 
     Utils.hook(Spell, "getLightCastMessage", function(orig, self, user, target)
-        return "* "..user.chara:getNameOrYou().." cast "..self:getName().."."..(Utils.containsValue(self.tags, "heal") and "\n"..self:getHealMessage(user, target, lib.heal_amount) or "")
+        return "* "..user.chara:getNameOrYou().." cast "..self:getName().."."..(Utils.containsValue(self.tags, "heal") and self:getHealMessage(user, target, lib.heal_amount) and "\n"..self:getHealMessage(user, target, lib.heal_amount) or "")
     end)
     
     Utils.hook(Spell, "onLightWorldStart", function(orig, self, user, target)
@@ -3552,7 +3552,7 @@ function lib:init()
     end)
     
     Utils.hook(Spell, "getLightWorldCastMessage", function(orig, self, user, target)
-        return "* "..user:getNameOrYou().." cast "..self:getName().."."..(Utils.containsValue(self.tags, "heal") and "\n"..self:getWorldHealMessage(user, target, lib.heal_amount) or "")
+        return "* "..user:getNameOrYou().." cast "..self:getName().."."..(Utils.containsValue(self.tags, "heal") and self:getWorldHealMessage(user, target, lib.heal_amount) and "\n"..self:getWorldHealMessage(user, target, lib.heal_amount) or "")
     end)
     
     Utils.hook(Spell, "getWorldHealMessage", function(orig, self, user, target, amount) 

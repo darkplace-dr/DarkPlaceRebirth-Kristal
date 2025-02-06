@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Reflect\nDamage"
     -- Menu description
     self.description = "Use mirroring tech to trick\nenemies and reflect one hit."
+    -- Check description
+    self.check = "Use mirroring tech to trick enemies and reflect one hit."
 
     -- TP cost
     self.cost = 100

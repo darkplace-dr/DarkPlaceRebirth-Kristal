@@ -8,7 +8,7 @@
         "Just Another Random User",     // contributor
     ],
 
-    "version": "v2.25.23",
+    "version": "v2.25.26",
     "engineVer": "v0.10.0-dev",
 
     // In DPR: Load assets once when the engine starts.

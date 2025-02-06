@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Harmless\nSpare :)"
     -- Menu description
     self.description = "I'm gonna hit you,\nsafely of course. :)"
+    -- Check description
+    self.check = "I'm gonna hit you,[wait:10] safely of course. :)"
 
     -- TP cost
     self.cost = 0

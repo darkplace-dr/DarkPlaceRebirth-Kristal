@@ -22,7 +22,7 @@ function LightEncounter:init()
     self.background_color = Game:isLight() and {34/255, 177/255, 76/255, 1} or {175/255, 35/255, 175/255, 1}
 
     -- The music used for this encounter
-    self.music = "battle_ut"
+    self.music = Game:isLight() and "battle_ut" or "battle_dt"
 
     -- Whether characters have the X-Action option in their spell menu
     self.default_xactions = Game:getConfig("partyActions")

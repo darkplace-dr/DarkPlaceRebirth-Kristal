@@ -10,6 +10,8 @@ function spell:init()
     self.effect = "Flame"
     -- Menu description
     self.description = "Attempt to slow down an enemy, making them lose their turn."
+    -- Check description
+    self.check = "Attempt to slow down\nan enemy, making them lose\ntheir turn."
 
     -- TP cost
     self.cost = 50
