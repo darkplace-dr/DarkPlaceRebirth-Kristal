@@ -11,7 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "Heal\nAllies"
     -- Menu description
-    self.description = "Holy bat magic heals the spirits\nof party members. Depends on Magic and Attack."
+    self.description = "Holy bat magic heals the spirits\nof party members. Depends on Attack & Magic."
+    -- Check description
+    self.check = {"Holy bat magic heals the spirits of party members.", "* Depends on Attack & Magic."}
 
     -- TP cost
     self.cost = 48

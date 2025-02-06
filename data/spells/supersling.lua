@@ -10,6 +10,8 @@ function spell:init()
     self.effect = "Healing\nService"
     -- Menu description
     self.description = "Slingshot healing bullets to an enemy, making them more likely to spare us."
+    -- Check description
+    self.check = "Slingshot healing bullets to an enemy, making\nthem more likely to spare us."
 
     -- TP cost
     self.cost = 32

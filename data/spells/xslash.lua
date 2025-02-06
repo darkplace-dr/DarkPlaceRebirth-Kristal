@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Physical\nDamage"
     -- Menu description
     self.description = "Deals large physical damage to 1 enemy."
+    -- Check description
+    self.check = "Deals large physical damage to 1 enemy."
 
     -- TP cost
     self.cost = 40

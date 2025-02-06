@@ -11,7 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "Setup\nShield"
     -- Menu description
-    self.description = "Sets up a barrier to protect \none party member from damage."
+    self.description = "Sets up a barrier to protect\none party member from damage."
+    -- Check description
+    self.check = "Sets up a barrier\nto protect one party member\nfrom damage."
 
     -- TP cost
     self.cost = 40

@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Not Power\nBounce"
     -- Menu description
     self.description = "Deals physical damage to 1 enemy until you miss the action command."
+    -- Check description
+    self.check = "Deals physical damage to 1 enemy until you\nmiss the action command."
 
     -- TP cost
     self.cost = 60

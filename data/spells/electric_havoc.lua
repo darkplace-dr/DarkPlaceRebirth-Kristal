@@ -10,6 +10,8 @@ function spell:init()
     self.effect = "Electric\nStorm"
     -- Menu description
     self.description = "Bolts an enemy 3 times. Extremely powerful."
+    -- Check description
+    self.check = "Bolts an enemy\n3 times.\n* Extremely powerful."
 
     -- TP cost
     self.cost = 100

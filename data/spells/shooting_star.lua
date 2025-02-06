@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Holy\nDamage"
     -- Menu description
     self.description = "Deals magical HOLY damage to\none enemy."
+    -- Check description
+    self.check = "Deals magical holy damage to one enemy."
 
     -- TP cost
     self.cost = 16

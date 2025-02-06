@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "ELEC\nDamage"
     -- Menu description
     self.description = "Deals a large amount of ELEC damage in multiple hits to one foe."
+    -- Check description
+    self.check = "Deals a large amount of elec damage in multiple hits to one foe."
 
     -- TP cost
     self.cost = 60
