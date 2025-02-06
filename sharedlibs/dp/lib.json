@@ -1,0 +1,10 @@
+{
+    "id": "dpcommon",
+    "default": true,
+    "dependencies": [
+        "pausebutton"
+    ],
+    "optionalDependencies": [
+        "magical-glass"
+    ]
+}
