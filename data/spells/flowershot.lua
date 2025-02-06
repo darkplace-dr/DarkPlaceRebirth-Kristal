@@ -8,7 +8,7 @@ function spell:init()
 
     self.effect = "Damage w/\nFLOWERS"
     self.description = "Summons a large flower that shoots smaller\nflowers that explode upon impact."
-	self.check = {"Summons a large\nflower that shoots smaller\nflowers.", "* ...which explode upon impact."}
+	self.check = {"Summons a large\nflower that shoots smaller\nflowers.", "* ...[wait:5] which explode upon impact."}
 
     self.cost = 80
 
