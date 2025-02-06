@@ -11,6 +11,9 @@
     "version": "v2.25.23",
     "engineVer": "v0.10.0-dev",
 
+    // In DPR: Load assets once when the engine starts.
+    "preload_assets": true,
+
     "config": {
         
         ///// Default Battle System
