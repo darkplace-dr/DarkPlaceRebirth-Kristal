@@ -41,22 +41,12 @@ function SequenceWave:update()
         self.waves[1]:remove()
         table.insert(self.waves_to_clear, table.remove(self.waves, 1))
         if self.waves[1] then
-            for i = 1, #self.attackers do
-                self.attackers[i].selected_wave = self.waves[1].id
-            end
-            self:spawnObject(self.waves[1])
-            self.waves[1]:onStart()
-            if self.waves[1].arena_x and self.waves[1].arena_y then
-                self:setArenaPosition(self.waves[1].arena_x, self.waves[1].arena_y)
-            end
-            if self.waves[1].arena_width and self.waves[1].arena_height then
-                self:setArenaSize(self.waves[1].arena_width, self.waves[1].arena_height)
-            end
+            self:startNextSubwave()
         end
     end
 end
 
-function SequenceWave:onStart()
+function SequenceWave:startNextSubwave()
     for i = 1, #self.attackers do
         self.attackers[i].selected_wave = self.waves[1].id
     end
@@ -68,6 +58,10 @@ function SequenceWave:onStart()
     if self.waves[1].arena_width and self.waves[1].arena_height then
         self:setArenaSize(self.waves[1].arena_width, self.waves[1].arena_height)
     end
+end
+
+function SequenceWave:onStart()
+    self:startNextSubwave()
     super.onStart(self)
 end
 
