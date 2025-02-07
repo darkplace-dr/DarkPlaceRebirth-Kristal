@@ -27,6 +27,8 @@ Ease = require("src.lib.easing")
 SemVer = require("src.lib.semver")
 require("src.lib.stable_sort")
 
+NativeFS = require("src.lib.nativefs")
+
 Class = require("src.utils.class")
 require("src.utils.graphics")
 
