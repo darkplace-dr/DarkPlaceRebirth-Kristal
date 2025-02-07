@@ -349,7 +349,8 @@ function lib:init()
             end
             
             if self.ui_sound ~= false and self.current_choice ~= old_choice then
-                Game.battle:playMoveSound()
+                Game.battle.ui_move:stop()
+                Game.battle.ui_move:play()
             end
 
             if Input.pressed("confirm") then
@@ -1583,10 +1584,8 @@ function lib:init()
         options = options or {}
         self.default_sound = options["default_sound"] or "default"
         self.no_sound_overlap = options["no_sound_overlap"] or false
-        if Game.battle and Game.battle.light then
-            if options["no_sound_overlap"] == nil then
-                self.no_sound_overlap = true
-            end
+        if options["no_sound_overlap"] == nil and Game.battle and Game.battle.light then
+            self.no_sound_overlap = true
         end
         orig(self, text, x, y, w, h, options)
     end)
@@ -1625,7 +1624,7 @@ function lib:init()
             if not self.no_sound_overlap then
                 Assets.playSound("voice/" .. self.state.typing_sound)
             else
-                Assets.stopAndPlaySound("voice/" .. self.state.typing_sound, nil, nil, true)
+                Assets.stopAndPlaySound("voice/" .. self.state.typing_sound)
             end
         end
     end)
@@ -3718,16 +3717,6 @@ function lib:init()
             message = "* The enemies recovered " .. amount .. " HP."
         end
         return message
-    end)
-
-    Utils.hook(SpeechBubble, "init", function(orig, self, text, x, y, options, speaker)
-        orig(self, text, x, y, options, speaker)
-        self.text.no_sound_overlap = options["no_sound_overlap"] or false
-        if Game.battle and Game.battle.light then
-            if options["no_sound_overlap"] == nil then
-                self.text.no_sound_overlap = true
-            end
-        end
     end)
 
     Utils.hook(SpeechBubble, "draw", function(orig, self)

@@ -160,16 +160,6 @@ function LightBattle:isPagerMenu()
     return false
 end
 
-function LightBattle:playSelectSound()
-    self.ui_select:stop()
-    self.ui_select:play()
-end
-
-function LightBattle:playMoveSound()
-    self.ui_move:stop()
-    self.ui_move:play()
-end
-
 function LightBattle:toggleSoul(soul)
     if not self.soul then
         self:spawnSoul(self.arena:getCenter())
@@ -2903,7 +2893,8 @@ function LightBattle:onKeyPressed(key)
 
             if can_select then
                 if menu_item.special ~= "flee" then
-                    self:playSelectSound()
+                    self.ui_select:stop()
+                    self.ui_select:play()
                 end
                 menu_item["callback"](menu_item)
                 return
@@ -2947,7 +2938,8 @@ function LightBattle:onKeyPressed(key)
                 end
             end
             if self.current_menu_x ~= old_position then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         elseif Input.is("right", key) then
             local old_position = self.current_menu_x
@@ -2970,7 +2962,8 @@ function LightBattle:onKeyPressed(key)
                 self.current_menu_x = 1  
             end
             if self:isPagerMenu() or self.current_menu_x ~= old_position then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         end
         if Input.is("up", key) then
@@ -2997,7 +2990,8 @@ function LightBattle:onKeyPressed(key)
                 end
             end
             if self:isPagerMenu() or self.current_menu_y ~= old_position then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         elseif Input.is("down", key) then
             local old_position = self.current_menu_y
@@ -3016,7 +3010,8 @@ function LightBattle:onKeyPressed(key)
                 end
             end
             if self:isPagerMenu() or self.current_menu_y ~= old_position then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         end
     elseif self.state == "BUTNOBODYCAME" then
@@ -3036,7 +3031,8 @@ function LightBattle:onKeyPressed(key)
             if Kristal.callEvent(MG_EVENT.onLightBattleEnemySelect, self.state_reason, self.current_menu_y) then return end
             self.enemyselect_cursor_memory[self.state_reason] = self.current_menu_y
 
-            self:playSelectSound()
+            self.ui_select:stop()
+            self.ui_select:play()
             if #self.enemies_index == 0 then return end
             self.selected_enemy = self.current_menu_y
             if self.state_reason == "XACT" then
@@ -3124,7 +3120,8 @@ function LightBattle:onKeyPressed(key)
             until (self.enemies_index[self.current_menu_y] and self.enemies_index[self.current_menu_y].selectable)
 
             if self.current_menu_y ~= old_location then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         elseif Input.is("down", key) then
             if #self.enemies_index == 0 then return end
@@ -3141,7 +3138,8 @@ function LightBattle:onKeyPressed(key)
             until (self.enemies_index[self.current_menu_y] and self.enemies_index[self.current_menu_y].selectable)
 
             if self.current_menu_y ~= old_location then
-                self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         end
     elseif self.state == "PARTYSELECT" then
@@ -3150,7 +3148,8 @@ function LightBattle:onKeyPressed(key)
             if Kristal.callEvent(MG_EVENT.onLightBattlePartySelect, self.state_reason, self.current_menu_y) then return end
             self.partyselect_cursor_memory[self.state_reason] = self.current_menu_y
 
-            self:playSelectSound()
+            self.ui_select:stop()
+            self.ui_select:play()
             if self.state_reason == "SPELL" then
                 self:pushAction("SPELL", self.party[self.current_menu_y], self.selected_spell)
             elseif self.state_reason == "ITEM" then
@@ -3176,13 +3175,15 @@ function LightBattle:onKeyPressed(key)
             return
         end
         if Input.is("up", key) then
-            self:playMoveSound()
+            self.ui_move:stop()
+            self.ui_move:play()
             self.current_menu_y = self.current_menu_y - 1
             if self.current_menu_y < 1 then
                 self.current_menu_y = #self.party
             end
         elseif Input.is("down", key) then
-            self:playMoveSound()
+            self.ui_move:stop()
+            self.ui_move:play()
             self.current_menu_y = self.current_menu_y + 1
             if self.current_menu_y > #self.party then
                 self.current_menu_y = 1
@@ -3220,7 +3221,8 @@ function LightBattle:handleActionSelectInput(key)
 
         if Input.isConfirm(key) then
             actbox:select()
-            self:playSelectSound()
+            self.ui_select:stop()
+            self.ui_select:play()
             return
         elseif Input.isCancel(key) then
             local old_selecting = self.current_selecting
@@ -3228,19 +3230,22 @@ function LightBattle:handleActionSelectInput(key)
             self:previousParty()
 
             if self.current_selecting ~= old_selecting then
-                -- self:playMoveSound()
+                self.ui_move:stop()
+                self.ui_move:play()
                 self.battle_ui.action_boxes[self.current_selecting]:unselect()
             end
             return
-        elseif Input.is("left", key) and #self.battle_ui.action_boxes[1].buttons > 1 then
+        elseif Input.is("left", key) and #self.battle_ui.action_boxes[self.current_selecting].buttons > 1 then
             actbox.selected_button = actbox.selected_button - 1
-            self:playMoveSound()
+            self.ui_move:stop()
+            self.ui_move:play()
             if actbox then
                 actbox:snapSoulToButton()
             end
-        elseif Input.is("right", key) and #self.battle_ui.action_boxes[1].buttons > 1 then
+        elseif Input.is("right", key) and #self.battle_ui.action_boxes[self.current_selecting].buttons > 1 then
             actbox.selected_button = actbox.selected_button + 1
-            self:playMoveSound()
+            self.ui_move:stop()
+            self.ui_move:play()
             if actbox then
                 actbox:snapSoulToButton()
             end

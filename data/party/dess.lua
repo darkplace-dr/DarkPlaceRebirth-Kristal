@@ -25,7 +25,8 @@ function character:init()
     -- The color of this character's soul (optional, defaults to red)
     self.soul_color = {1, 1, 1}
     -- ayo why you looking at this shit?
-    self.monster = true
+    -- In which direction will this character's soul face (optional, defaults to facing up)
+    self.soul_facing = "down"
 
     -- Whether the party member can act / use spells
     if Game:getFlag("dess_canact") then

@@ -33,6 +33,26 @@ local self = Assets
 
 Assets.saved_data = nil
 
+local function checkOverwrite(path)
+    -- Function to split a string by a delimiter
+    local function split(str, delimiter)
+        local result = {}
+        for match in (str..delimiter):gmatch("(.-)"..delimiter) do
+            table.insert(result, match)
+        end
+        return result
+    end
+    
+    local split_path = split(path, "/")
+    if #split_path > 1 then
+        if split_path[1] == "player" then
+            table.insert(split_path, 2, Kristal.getSoulFacing())
+            return table.concat(split_path, "/")
+        end
+    end
+    return path
+end
+
 function Assets.clear()
     self.loaded = false
     self.data = {
@@ -256,15 +276,17 @@ function Assets.getFontScale(path, size)
 end
 
 ---@param path string
+---@param dont_overwrite boolean
 ---@return love.Image
-function Assets.getTexture(path)
-    return self.data.texture[path]
+function Assets.getTexture(path, dont_overwrite)
+    return not dont_overwrite and self.data.texture[checkOverwrite(path)] or self.data.texture[path]
 end
 
 ---@param path string
+---@param dont_overwrite boolean
 ---@return love.ImageData
-function Assets.getTextureData(path)
-    return self.data.texture_data[path]
+function Assets.getTextureData(path, dont_overwrite)
+    return not dont_overwrite and self.data.texture_data[checkOverwrite(path)] or self.data.texture_data[path]
 end
 
 ---@param texture love.Image|string
@@ -278,15 +300,17 @@ function Assets.getTextureID(texture)
 end
 
 ---@param path string
+---@param dont_overwrite boolean
 ---@return love.Image[]
-function Assets.getFrames(path)
-    return self.data.frames[path]
+function Assets.getFrames(path, dont_overwrite)
+    return not dont_overwrite and self.data.frames[checkOverwrite(path)] or self.data.frames[path]
 end
 
 ---@param path string
+---@param dont_overwrite boolean
 ---@return string[]
-function Assets.getFrameIds(path)
-    return self.data.frame_ids[path]
+function Assets.getFrameIds(path, dont_overwrite)
+    return not dont_overwrite and self.data.frame_ids[checkOverwrite(path)] or self.data.frame_ids[path]
 end
 
 ---@param texture string
@@ -302,13 +326,14 @@ function Assets.getFramesFor(texture)
 end
 
 ---@param path string
+---@param dont_overwrite boolean
 ---@return love.Image[]
-function Assets.getFramesOrTexture(path)
-    local texture = Assets.getTexture(path)
+function Assets.getFramesOrTexture(path, dont_overwrite)
+    local texture = Assets.getTexture(path, dont_overwrite)
     if texture then
         return {texture}
     else
-        return Assets.getFrames(path)
+        return Assets.getFrames(path, dont_overwrite)
     end
 end
 
