@@ -127,12 +127,9 @@ function DarkCharacterMenu:selection(num)
 
 	if chr then 
 		chr:addFX(OutlineFX(), "outline")
+		chr:getFX("outline"):setColor(chr.party:getColor())
 
-		local color = chr.party.color or {1, 1, 1}
-		chr:getFX("outline"):setColor(unpack(color))
-
-		local soul_color = chr.party.soul_color or {1, 0, 0}
-		self.heart_sprite:setColor(soul_color)
+		self.heart_sprite:setColor(chr.party:getSoulColor())
 		self.heart_sprite:setSprite("player/"..chr.party:getSoulFacing().."/heart")
 
 		local text = chr.party.title_extended or chr.party:getTitle() or "* Placeholder~"
@@ -140,7 +137,7 @@ function DarkCharacterMenu:selection(num)
 	else
 		self.text:setText("Empty")
 		self.heart_sprite:setColor({1, 0, 0})
-		self.heart_sprite:setScale(1)
+        self.heart_sprite:setSprite("player/up/heart")
 	end
 
 	self.target_x = self.bg.x + (self.selected) * 100
