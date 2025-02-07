@@ -6,9 +6,19 @@ function Mod:init()
     self.border_shaders = {}
 
     self:setMusicPitches()
+
+    if DELTARUNE_SAVE_ID then
+        DeltaruneLoader.load({chapter = 2, completed = true, slot = DELTARUNE_SAVE_ID})
+    end
 end
 
 function Mod:postInit(new_file)
+    if DELTARUNE_SAVE_ID then
+        local save = DeltaruneLoader.getCompletion(2,DELTARUNE_SAVE_ID)
+        self:loadDeltaruneFile(save)
+        Game.save_id = DELTARUNE_SAVE_ID
+        DELTARUNE_SAVE_ID = nil
+    end
     local items_list = {
         {
             result = "soulmantle",
@@ -171,5 +181,16 @@ function Mod:onMapMusic(map, music)
 	local can_kill = Game:getFlag("can_kill", false)
     if music == "deltarune/cybercity" and can_kill == true then
         return "deltarune/cybercity_alt"
+    end
+end
+
+---@param file DeltaruneSave
+function Mod:loadDeltaruneFile(file)
+    -- TODO: Load items into custom storages, and
+    -- give the player access to that stuff much later in the game.
+    file:load()
+    if file.failed_snowgrave then
+    elseif file.snowgrave then
+        Game:setFlag("POST_SNOWGRAVE", true)
     end
 end
