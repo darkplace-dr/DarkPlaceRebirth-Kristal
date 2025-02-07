@@ -232,12 +232,6 @@ function Soul:init(x, y, color)
 
 	-- Timeslow ("Focus" Placebo) variables end here
 
-    -- for monster souls
-    self.priority_chara = Game:getSoulPartyMember()
-    if self.priority_chara.monster then
-        self:setScale(-1, -1)
-        self.sprite_focus:setColor(1, 0, 0)
-    end
 end
 
 ---@param parent Object

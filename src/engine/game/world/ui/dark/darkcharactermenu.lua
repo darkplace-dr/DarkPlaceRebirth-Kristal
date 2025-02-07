@@ -133,11 +133,7 @@ function DarkCharacterMenu:selection(num)
 
 		local soul_color = chr.party.soul_color or {1, 0, 0}
 		self.heart_sprite:setColor(soul_color)
-		if chr.party.monster then
-			self.heart_sprite:setScale(-1)
-		else
-			self.heart_sprite:setScale(1)
-		end
+		self.heart_sprite:setSprite("player/"..chr.party:getSoulFacing().."/heart")
 
 		local text = chr.party.title_extended or chr.party:getTitle() or "* Placeholder~"
 		self.text:setText(text)

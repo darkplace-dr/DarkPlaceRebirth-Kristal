@@ -381,7 +381,7 @@ local loaders = {
 
     ["sprites"] = { "assets/sprites", function (base_dir, path, full_path)
         local id = checkExtension(path, "png", "jpg")
-        if id then
+        if id and not (string.find(base_dir, "sharedlibs/") and string.find(path, "player/")) then -- Temporary thing, prevents sharedlibs from overwriting soul facing sprites.
             local ok = pcall(function () data.assets.texture_data[id] = love.image.newImageData(full_path) end)
             if not ok then
                 error("Image \"" .. path .. "\" is invalid or corrupted!")

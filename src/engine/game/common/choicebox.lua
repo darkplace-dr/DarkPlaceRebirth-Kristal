@@ -105,12 +105,7 @@ function Choicebox:draw()
 
     Draw.setColor(Game:getSoulColor())
 
-    self.priority_chara = Game:getSoulPartyMember()
-    if self.priority_chara.monster then
-        Draw.draw(self.heart, heart_x + 18, heart_y + 18, 0, -2, -2)
-    else
-        Draw.draw(self.heart, heart_x, heart_y, 0, 2, 2)
-    end
+    Draw.draw(self.heart, heart_x, heart_y, 0, 2, 2)
 
 end
 
