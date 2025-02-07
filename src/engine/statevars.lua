@@ -40,5 +40,9 @@ NOCLIP = false
 
 REGISTRY_LOADED = false
 
+--- Which Deltarune save file should be loaded upon mod startup.
+---@type 1|2|3|nil
+DELTARUNE_SAVE_ID = nil
+
 ---@type string?
 COROUTINE_TRACEBACK = nil

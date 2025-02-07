@@ -1,8 +1,8 @@
----@class MainMenuFileSelect : StateClass
+---@class MainMenuFileSelectDark : StateClass
 ---
 ---@field menu MainMenu
 ---
----@overload fun(menu:MainMenu) : MainMenuFileSelect
+---@overload fun(menu:MainMenu) : MainMenuFileSelectDark
 local MainMenuFileSelect, super = Class(StateClass)
 
 function MainMenuFileSelect:init(menu)
