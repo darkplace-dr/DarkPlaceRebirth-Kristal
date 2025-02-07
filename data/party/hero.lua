@@ -15,6 +15,7 @@ function character:init()
 
     self.soul_priority = 2
     self.soul_color = {1, 0, 0}
+    self.soul_facing = "up"
 
     self.has_act = true
     self.has_spells = false
