@@ -8,10 +8,10 @@
         "Just Another Random User",     // contributor
     ],
 
-    "version": "v2.25.28",
+    "version": "v2.25.29",
     "engineVer": "v0.10.0-dev",
     
-    "default": true, // Dark Place Rebirth
+    "preload_assets": true, // In DPR: Load assets once when the engine starts.
 
     "config": {
         
