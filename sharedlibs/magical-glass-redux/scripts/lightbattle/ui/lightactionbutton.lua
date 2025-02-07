@@ -217,7 +217,8 @@ function LightActionButton:select()
                     if chance >= Utils.random(1, 100, 1) then
                         Game.battle:setState("FLEEING")
                     else
-                        Game.battle:playSelectSound()
+                        Game.battle.ui_select:stop()
+                        Game.battle.ui_select:play()
                         Game.battle:setState("FLEEFAIL")
                     end
                 end
