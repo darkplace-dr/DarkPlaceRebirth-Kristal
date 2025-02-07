@@ -92,6 +92,7 @@ ModButton = require("src.engine.menu.objects.modbutton")
 DLCButton = require("src.engine.menu.objects.DLCbutton")
 ModCreateButton = require("src.engine.menu.objects.modcreatebutton")
 FileButton = require("src.engine.menu.objects.filebutton")
+DarkFileButton = require("src.engine.menu.objects.darkfilebutton")
 FileNamer = require("src.engine.menu.objects.filenamer")
 
 DarkTransitionLine = require("src.engine.game.darktransition.darktransitionline")

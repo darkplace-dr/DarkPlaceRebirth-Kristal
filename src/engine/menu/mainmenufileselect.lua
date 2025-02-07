@@ -64,7 +64,7 @@ function MainMenuFileSelect:onEnter(old_state)
     for i = 0, 1 do
         for k = 0, 1 do
             local data = Kristal.loadData("file_" .. file, self.mod.id)
-            local button = FileButton(self, file, data, 28 + SCREEN_WIDTH/2 * (k), 110 + 160 * (i), 264, 112)
+            local button = DarkFileButton(self, file, data, 28 + SCREEN_WIDTH/2 * (k), 110 + 160 * (i), 264, 112)
 
             if i == 1 then
                 button.selected = true
