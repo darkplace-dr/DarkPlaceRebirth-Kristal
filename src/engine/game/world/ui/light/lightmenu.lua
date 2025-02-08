@@ -135,7 +135,7 @@ function LightMenu:onButtonSelect(button)
             self.ui_select:stop()
             self.ui_select:play()
 
-            Game.world:startCutscene("world_dialogue")
+            Game.world:startCutscene("_talk_light")
 
             return
         end
@@ -146,7 +146,7 @@ function LightMenu:onButtonSelect(button)
         self.ui_select:stop()
         self.ui_select:play()
 
-        Game.world:startCutscene("world_dialogue")
+        Game.world:startCutscene("_talk_light")
 
         return
     end
