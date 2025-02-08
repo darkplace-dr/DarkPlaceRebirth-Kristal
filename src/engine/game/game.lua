@@ -91,6 +91,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
     self.quick_save = nil
 
     Kristal.callEvent(KRISTAL_EVENT.init)
+    Game:runHooks()
 
     self.lock_movement = false
 
@@ -131,6 +132,20 @@ function Game:enter(previous_state, save_id, save_name, fade)
     end
 end
 
+function Game:runHooks()
+    Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+        if Game:getFlag("marcy_joined") then
+            self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
+            self.acts[#self.acts].color = {0, 1, 1}
+        end
+    end)
+    Utils.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+        if Game:getFlag("marcy_joined") then
+            self:registerActFor("jamm", name, description, party, tp, highlight, icons)
+            self.acts[#self.acts].color = {0, 1, 1}
+        end
+    end)
+end
 
 function Game:leave()
     self:clear()
