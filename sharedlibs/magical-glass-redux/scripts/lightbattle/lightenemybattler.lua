@@ -259,20 +259,6 @@ function LightEnemyBattler:registerShortActFor(char, name, description, party, t
     table.insert(self.acts, act)
 end
 
-function EnemyBattler:registerMarcyAct(name, description, party, tp, highlight, icons)
-	if Game:getFlag("marcy_joined") then
-		self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
-		self.acts[#self.acts].color = {0, 1, 1}
-	end
-end
-
-function EnemyBattler:registerShortMarcyAct(name, description, party, tp, highlight, icons)
-	if Game:getFlag("marcy_joined") then
-		self:registerActFor("jamm", name, description, party, tp, highlight, icons)
-		self.acts[#self.acts].color = {0, 1, 1}
-	end
-end
-
 function LightEnemyBattler:removeAct(name)
     for i,act in ipairs(self.acts) do
         if act.name == name then
