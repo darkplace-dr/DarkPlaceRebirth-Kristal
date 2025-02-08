@@ -8,10 +8,8 @@
         "Just Another Random User",     // contributor
     ],
 
-    "version": "v2.25.29",
+    "version": "v2.25.30",
     "engineVer": "v0.10.0-dev",
-    
-    "preload_assets": true, // In DPR: Load assets once when the engine starts.
 
     "config": {
         
