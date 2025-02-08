@@ -16,7 +16,7 @@ function DarkCharacterMenu:init(selected)
 	self.ui_cancel = Assets.newSound("ui_cancel")
 	self.ui_cancel_small = Assets.newSound("ui_cancel_small")
 
-    self.heart_sprite = Sprite("player/heart")
+    self.heart_sprite = Sprite("player/up/heart")
 	self.heart_sprite:setOrigin(0.5, 0.5)
 
     self.up = Assets.getTexture("ui/page_arrow_up")
