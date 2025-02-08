@@ -300,6 +300,20 @@ function EnemyBattler:removeAct(name)
     end
 end
 
+function EnemyBattler:registerMarcyAct(name, description, party, tp, highlight, icons)
+	if Game:getFlag("marcy_joined") then
+		self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
+		self.acts[#self.acts].color = {0, 1, 1}
+	end
+end
+
+function EnemyBattler:registerShortMarcyAct(name, description, party, tp, highlight, icons)
+	if Game:getFlag("marcy_joined") then
+		self:registerActFor("jamm", name, description, party, tp, highlight, icons)
+		self.acts[#self.acts].color = {0, 1, 1}
+	end
+end
+
 --- Non-violently defeats the enemy and removes them from battle (if [`exit_on_defeat`](lua://EnemyBattler.exit_on_defeat) is `true`)
 ---@param pacify?   boolean Whether the enemy was defeated by pacifying them rather than sparing them (defaults to `false`)
 function EnemyBattler:spare(pacify)
