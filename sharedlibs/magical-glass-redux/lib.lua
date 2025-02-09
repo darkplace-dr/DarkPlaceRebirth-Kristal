@@ -49,8 +49,8 @@ function lib:unload()
     LightAttackBox           = nil
     LightAttackBar           = nil
     LightStatusDisplay       = nil
-    RandomEncounter          = nil
     LightShop                = nil
+    RandomEncounter          = nil
     
     Textbox.REACTION_X_BATTLE = ORIG_REACTION_X_BATTLE
     Textbox.REACTION_Y_BATTLE = ORIG_REACTION_Y_BATTLE
