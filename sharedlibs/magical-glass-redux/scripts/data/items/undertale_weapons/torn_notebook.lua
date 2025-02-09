@@ -69,7 +69,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     local impact = "effects/lightattack/impact"
     local siner = 0
     local timer = 0
-    local hit_stage = 1
+    local hit = false
     sprite:setOrigin(0.5)
     sprite:setScale(2)
     local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
@@ -91,20 +91,14 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         if timer <= 14 then
             sprite.scale_x = (math.cos(siner / 2) * 2)
         else
-            if hit_stage < 3 then
-                if hit_stage == 1 then
-                    Assets.stopAndPlaySound("punchstrong")
-                    if crit then
-                        Assets.stopAndPlaySound("saber3")
-                    end
-                    sprite:setSprite(impact.."_2")
-                    sprite:setScale(0.5, 0.5)
-                    hit_stage = 2
+            if not hit then
+                sprite:setScale(0.5, 0.5)
+                Assets.stopAndPlaySound("punchstrong")
+                if crit then
+                    Assets.stopAndPlaySound("saber3")
                 end
-                if hit_stage == 2 and timer >= 16 then
-                    sprite:setAnimation({impact, 1/30, true})
-                    hit_stage = 3
-                end
+                sprite:setAnimation({impact, 1/30, true})
+                hit = true
             else
                 sprite.scale_x = sprite.scale_x + 0.5 * DTMULT
                 sprite.scale_y = sprite.scale_y + 0.5 * DTMULT
