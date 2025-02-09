@@ -61,36 +61,23 @@ function LightAttackBox:createBolts()
 
         for i = 1, lane.weapon and lane.weapon.getLightBoltCount and lane.weapon:getLightBoltCount() or 1 do
             local bolt
-            local scale_y = (1 / #self.attackers)
+            local scale_y = 1 / #self.attackers
+            local sprite_height = 128 * scale_y
+            local y = 320 + (sprite_height * (Utils.getIndex(self.attackers, lane.battler) - 1)) - (#self.attackers - 1) * sprite_height / 2
             if i == 1 then
                 if lane.direction == "left" then
-                    bolt = LightAttackBar(start_x + (lane.weapon and lane.weapon.getLightBoltStart and lane.weapon:getLightBoltStart() or -16), 319, battler, scale_y)
+                    bolt = LightAttackBar(start_x + (lane.weapon and lane.weapon.getLightBoltStart and lane.weapon:getLightBoltStart() or -16), y, battler, scale_y)
                 else
-                    bolt = LightAttackBar(start_x - (lane.weapon and lane.weapon.getLightBoltStart and lane.weapon:getLightBoltStart() or -16), 319, battler, scale_y)
+                    bolt = LightAttackBar(start_x - (lane.weapon and lane.weapon.getLightBoltStart and lane.weapon:getLightBoltStart() or -16), y, battler, scale_y)
                 end
             else
                 if lane.direction == "left" then
-                    bolt = LightAttackBar(start_x + (lane.weapon and lane.weapon.getLightMultiboltVariance and lane.weapon:getLightMultiboltVariance(i - 1) or 94 + 110 * (i - 2)), 319, battler, scale_y)
+                    bolt = LightAttackBar(start_x + (lane.weapon and lane.weapon.getLightMultiboltVariance and lane.weapon:getLightMultiboltVariance(i - 1) or 94 + 110 * (i - 2)), y, battler, scale_y)
                 else
-                    bolt = LightAttackBar(start_x - (lane.weapon and lane.weapon.getLightMultiboltVariance and lane.weapon:getLightMultiboltVariance(i - 1) or 94 + 110 * (i - 2)), 319, battler, scale_y)
+                    bolt = LightAttackBar(start_x - (lane.weapon and lane.weapon.getLightMultiboltVariance and lane.weapon:getLightMultiboltVariance(i - 1) or 94 + 110 * (i - 2)), y, battler, scale_y)
                 end
                 bolt.sprite:setSprite(bolt.inactive_sprite)
             end
-            local centerizer = 0
-            if #self.attackers == 1 then
-                centerizer = 1
-            elseif #self.attackers == 2 then
-                centerizer = 33
-            elseif #self.attackers == 3 then
-                centerizer = 43
-            elseif #self.attackers == 4 then
-                centerizer = 49
-            elseif #self.attackers == 5 then
-                centerizer = 51
-            else
-                centerizer = 51 + (#self.attackers - 5) * 2
-            end
-            bolt.y = math.ceil(bolt.y - (bolt.sprite.height * scale_y * (#self.attackers - Utils.getIndex(self.attackers, lane.battler)))) + centerizer
             bolt.target_magnet = 0
             bolt.layer = LIGHT_BATTLE_LAYERS["above_arena"] + 1
             table.insert(lane.bolts, bolt)
