@@ -8,7 +8,7 @@ function actor:init()
 
     -- Width and height for this actor, used to determine its center
     self.width = 24
-    self.height = 40
+    self.height = 41
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
     self.hitbox = {2, 25, 20, 14}
