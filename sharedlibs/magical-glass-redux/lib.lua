@@ -1509,7 +1509,7 @@ function lib:init()
         end
     end)
     
-    Utils.hook(Item, "onLightAttack", function(orig, self, battler, enemy, damage, stretch)
+    Utils.hook(Item, "onLightAttack", function(orig, self, battler, enemy, damage, stretch, crit)
         if damage <= 0 then
             enemy:onDodge(battler, true)
         end
@@ -1532,26 +1532,35 @@ function lib:init()
         sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
         sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
         enemy.parent:addChild(sprite)
-        -- sprite:play((stretch^(1/1.5) / 4) / 1.5, false, function(this)
-        sprite:play(Game:isLight() and ((stretch^(1/1.5) / 4) / 1.5) or 1/8, false, function(this) -- dark stuff here
-            local sound = enemy:getDamageSound() or "damage"
-            if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
-                Assets.stopAndPlaySound(sound)
-            end
-            enemy:hurt(damage, battler)
-
-            if Game:isLight() then -- dark stuff here
-                battler.chara:onLightAttackHit(enemy, damage)
-            else
-                battler.chara:onAttackHit(enemy, damage)
-            end
+        -- sprite:play((stretch / 4) / 1.6, false, function(this)
+        sprite:play(Game:isLight() and (stretch / 4) / 1.6 or 1/8, false, function(this) -- dark stuff here
+            Game.battle.timer:after(3/30, function()
+                self:onLightAttackHurt(battler, enemy, damage, stretch, crit, Game:isLight())
+            end)
+            
             this:remove()
             Utils.removeFromTable(enemy.dmg_sprites, this)
-
-            Game.battle:finishActionBy(battler)
         end)
 
         return false
+    end)
+    
+    Utils.hook(Item, "onLightAttackHurt", function(orig, self, battler, enemy, damage, stretch, crit, light, finish)
+        local sound = enemy:getDamageSound() or "damage"
+        if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
+            Assets.stopAndPlaySound(sound)
+        end
+        enemy:hurt(damage, battler)
+
+        if light ~= false then
+            battler.chara:onLightAttackHit(enemy, damage)
+        else
+            battler.chara:onAttackHit(enemy, damage)
+        end
+
+        if finish ~= false then
+            Game.battle:finishActionBy(battler)
+        end
     end)
 
     Utils.hook(Item, "onLightMiss", function(orig, self, battler, enemy, anim, show_status, attacked)
@@ -2002,9 +2011,9 @@ function lib:init()
             local maxed = target:heal(amount, false)
             if text and item and item.getLightWorldHealingText and item:getLightWorldHealingText(target, amount, maxed) then
                 if type(text) == "table" then
-                    text[#text] = text[#text] .. "\n" .. item:getLightWorldHealingText(target, amount, maxed)
+                    text[#text] = text[#text] .. (text[#text] ~= "" and "\n" or "") .. item:getLightWorldHealingText(target, amount, maxed)
                 else
-                    text = text .. "\n" .. item:getLightWorldHealingText(target, amount, maxed)
+                    text = text .. (text ~= "" and "\n" or "") .. item:getLightWorldHealingText(target, amount, maxed)
                 end
             end
             
@@ -2085,9 +2094,9 @@ function lib:init()
             target:heal(amount, false)
             if self:getLightBattleHealingText(user, target, amount) then
                 if type(text) == "table" then
-                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text[#text] = text[#text] .. (text[#text] ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 else
-                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text = text .. (text ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 end
             end
             Game.battle:battleText(text)
@@ -2109,9 +2118,9 @@ function lib:init()
 
             if self:getLightBattleHealingText(user, target, amount) then
                 if type(text) == "table" then
-                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text[#text] = text[#text] .. (text[#text] ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 else
-                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text = text .. (text ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 end
             end
             Game.battle:battleText(text)
@@ -2129,9 +2138,9 @@ function lib:init()
             
             if self:getLightBattleHealingText(user, target, amount) then
                 if type(text) == "table" then
-                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text[#text] = text[#text] .. (text[#text] ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 else
-                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text = text .. (text ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 end
             end
             Game.battle:battleText(text)
@@ -2151,9 +2160,9 @@ function lib:init()
             
             if self:getLightBattleHealingText(user, target, amount) then
                 if type(text) == "table" then
-                    text[#text] = text[#text] .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text[#text] = text[#text] .. (text[#text] ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 else
-                    text = text .. "\n" .. self:getLightBattleHealingText(user, target, amount)
+                    text = text .. (text ~= "" and "\n" or "") .. self:getLightBattleHealingText(user, target, amount)
                 end
             end
             Game.battle:battleText(text)
@@ -3518,7 +3527,7 @@ function lib:init()
                 if target:includes(LightEnemyBattler) and target.immune_to_damage then
                     target:onDodge(user, true)
                 end
-            else
+            elseif type(target) == "table" then
                 for _,enemy in ipairs(target) do
                     if enemy:includes(LightEnemyBattler) and enemy.immune_to_damage then
                         enemy:onDodge(user, true)
