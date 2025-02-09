@@ -5,7 +5,7 @@ function item:init()
 
     -- Display name
     self.name = "Torn Notebook"
-    self.short_name = "TorNotbo"
+    self.short_name = "TornNotbo"
     self.serious_name = "Notebook"
 
     -- Item type (item, key, weapon, armor)
@@ -69,7 +69,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     local impact = "effects/lightattack/impact"
     local siner = 0
     local timer = 0
-    local hit = false
+    local hit_stage = 1
     sprite:setOrigin(0.5)
     sprite:setScale(2)
     local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
@@ -79,7 +79,11 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     enemy.parent:addChild(sprite)
 
     if crit then
-        sprite:setColor(1, 1, 130/255)
+        if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
+            sprite:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+        else
+            sprite:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+        end
     end
     
     Game.battle.timer:during(24/30, function()
@@ -87,19 +91,25 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         if timer <= 14 then
             sprite.scale_x = (math.cos(siner / 2) * 2)
         else
-            if not hit then
-                sprite:setScale(2, 2)
-                Assets.stopAndPlaySound("punchstrong")
-                if crit then
-                    Assets.stopAndPlaySound("saber3")
+            if hit_stage < 3 then
+                if hit_stage == 1 then
+                    Assets.stopAndPlaySound("punchstrong")
+                    if crit then
+                        Assets.stopAndPlaySound("saber3")
+                    end
+                    sprite:setSprite(impact.."_2")
+                    sprite:setScale(0.5, 0.5)
+                    hit_stage = 2
                 end
-                sprite:setAnimation({impact, 1/30, true})
-                hit = true
+                if hit_stage == 2 and timer >= 16 then
+                    sprite:setAnimation({impact, 1/30, true})
+                    hit_stage = 3
+                end
             else
                 sprite.scale_x = sprite.scale_x + 0.5 * DTMULT
                 sprite.scale_y = sprite.scale_y + 0.5 * DTMULT
 
-                if sprite.scale_x > 4 then
+                if sprite.scale_x > 3 then
                     sprite.alpha = sprite.alpha - 0.3 * DTMULT
                 end
 
@@ -112,18 +122,14 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         siner = siner + DTMULT
     end,
     function(this)
-        local sound = enemy:getDamageSound() or "damage"
-        if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
-            Assets.stopAndPlaySound(sound)
-        end
-        enemy:hurt(damage, battler)
         sprite:remove()
         Utils.removeFromTable(enemy.dmg_sprites, sprite)
-
-        battler.chara:onLightAttackHit(enemy, damage)
-
-        Game.battle:finishActionBy(battler)
     end)
+    
+    Game.battle.timer:after(24/30, function()
+        self:onLightAttackHurt(battler, enemy, damage, stretch, crit)
+    end)
+    
     return false
 end
 

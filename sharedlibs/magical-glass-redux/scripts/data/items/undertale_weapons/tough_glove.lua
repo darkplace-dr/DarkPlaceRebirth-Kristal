@@ -99,18 +99,14 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         
         Game.battle:shakeCamera(2, 2, 0.35)
         Game.battle:shakeAttackSprite(sprite)
+        
+        Game.battle.timer:after(10/30, function()
+            self:onLightAttackHurt(battler, enemy, damage, stretch, crit)
+        end)
 
         sprite:play(2/30, false, function(this)
-            local sound = enemy:getDamageSound() or "damage"
-            if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
-                Assets.stopAndPlaySound(sound)
-            end
-            enemy:hurt(damage, battler)
-
-            battler.chara:onLightAttackHit(enemy, damage)
             this:remove()
             Utils.removeFromTable(enemy.dmg_sprites, this)
-            Game.battle:finishActionBy(battler)
         end)
     else
         local state = "PRESS" -- PRESS, PUNCHING, DONE
@@ -159,24 +155,15 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             end
 
             if punches > 0 then
-                local sound = enemy:getDamageSound() or "damage"
-                if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
-                    Assets.stopAndPlaySound(sound)
-                end
                 local new_damage = math.ceil(damage * (punches / self.attack_punches))
-                enemy:hurt(new_damage, battler)
-        
-                if punches < self.attack_punches and damage <= 0 then
+                if punches < self.attack_punches and new_damage <= 0 then
                     enemy:onDodge(battler, true)
                 end
-                
-                battler.chara:onLightAttackHit(enemy, new_damage)
-                Game.battle:finishActionBy(battler)
+                self:onLightAttackHurt(battler, enemy, new_damage, stretch, crit)
             else
                 self:onLightMiss(battler, enemy, true, nil, false)
                 Game.battle:finishActionBy(battler)
             end
-
         end
 
         Game.battle.timer:during(self.attack_punch_time, function()
@@ -244,7 +231,10 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
                         punch:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
                         enemy.parent:addChild(punch)
                         Game.battle:shakeAttackSprite(punch)
-                        punch:play(2/30, false, function(s) s:remove(); Utils.removeFromTable(enemy.dmg_sprites, punch) finishAttack() end)
+                        Game.battle.timer:after(10/30, function()
+                            finishAttack()
+                        end)
+                        punch:play(2/30, false, function(s) s:remove(); Utils.removeFromTable(enemy.dmg_sprites, punch) end)
                     end
 
                 end

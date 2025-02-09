@@ -71,7 +71,11 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     sprite:play(1/30, true)
 
     if crit then
-        sprite:setColor(1, 1, 130/255)
+        if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
+            sprite:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+        else
+            sprite:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+        end
         Assets.stopAndPlaySound("saber3")
     end
 
@@ -87,7 +91,11 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         star.ang = 12.25
         star.color = {battler.chara:getLightMultiboltAttackColor()}
         if crit then
-            star:setColor(1, 1, 130/255)
+            if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
+                star:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+            else
+                star:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            end
         end
         enemy.parent:addChild(star)
         star.battler_id = battler and Game.battle:getPartyIndex(battler.chara.id) or nil
@@ -120,28 +128,23 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
                 end
             end
 
-            star.rotation = star.rotation + math.rad(star.ang) * DTMULT
+            star.rotation = star.rotation - math.rad(star.ang) * DTMULT
             if star.alpha < 0.05 then
                 star:remove()
             end
         end
     end,
     function()
-        local sound = enemy:getDamageSound() or "damage"
-        if sound and type(sound) == "string" and (damage > 0 or enemy.always_play_damage_sound) then
-            Assets.stopAndPlaySound(sound)
-        end
-        enemy:hurt(damage, battler)
-
-        battler.chara:onLightAttackHit(enemy, damage)
         sprite:remove()
         Utils.removeFromTable(enemy.dmg_sprites, sprite)
         for _,star in ipairs(stars) do
             star:remove()
             Utils.removeFromTable(enemy.dmg_sprites, star)
         end
-
-        Game.battle:finishActionBy(battler)
+    end)
+    
+    Game.battle.timer:after(20/30, function()
+        self:onLightAttackHurt(battler, enemy, damage, stretch, crit)
     end)
 
     return false

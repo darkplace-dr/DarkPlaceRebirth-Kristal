@@ -18,7 +18,7 @@ function LightEncounter:init()
 
     -- Whether the default grid background is drawn
     self.background = true
-    self.background_image = "ui/lightbattle/backgrounds/battle"
+    self.background_image = "ui/lightbattle/backgrounds/standard"
     self.background_color = Game:isLight() and {34/255, 177/255, 76/255, 1} or {175/255, 35/255, 175/255, 1}
 
     -- The music used for this encounter
@@ -351,7 +351,7 @@ function LightEncounter:addEnemy(enemy, x, y, ...)
     if x and y then
         enemy_obj:setPosition(x, y)
     else
-        local x, y = SCREEN_WIDTH/2 + math.floor((#enemies + 1) / 2) * 150 * ((#enemies % 2 == 0) and -1 or 1), 240
+        local x, y = SCREEN_WIDTH/2 - 1 + math.floor((#enemies + 1) / 2) * 152 * ((#enemies % 2 == 0) and -1 or 1), 244
         enemy_obj:setPosition(x, y)
     end
 
