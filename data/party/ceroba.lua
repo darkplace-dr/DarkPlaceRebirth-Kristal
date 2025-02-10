@@ -25,7 +25,7 @@ function character:init()
     self.lw_portrait = "face/ceroba/neutral_1"
 
     self:addSpell("diamond_guard")
-    self:addSpell("paralysis")
+    self:addSpell("flower_barrage")
     self:addSpell("flowershot")
 
     self.health = 180
