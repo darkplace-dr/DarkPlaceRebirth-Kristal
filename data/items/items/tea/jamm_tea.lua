@@ -33,6 +33,7 @@ function item:init()
         ["jamm"] = 40,
         ["mario"] = 65,
         ["pauling"] = 40,
+        ["ceroba"] = 70,
     }
 
     -- Default shop price (sell price is halved)
@@ -73,6 +74,10 @@ function item:init()
 		},
 		pauling = {
 			jamm = "(She gave it a thumbs up...!)",
+		},
+        ceroba = {
+            ceroba = "Good coffee.",
+			jamm = "(Coffee?)",
 		},
     }
 end

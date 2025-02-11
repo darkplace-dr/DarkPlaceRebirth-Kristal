@@ -61,6 +61,7 @@ function item:init()
         noelle = "(I'll just lick it off...)",
 		dess = "throw it at a window instead",
 		jamm = "Remind me to visit the dentist after this.",
+        ceroba = "I'm NOT eating the brick.",
     }
 end
 

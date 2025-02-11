@@ -30,6 +30,7 @@ function item:init()
         ["brenda"] = nil,
 		["jamm"] = -50,
         ["noel"] = -100,
+        ["ceroba"] = nil,
 	}
 
     -- Default shop price (sell price is halved)
@@ -56,9 +57,18 @@ function item:init()
         brenda = "No.",
 		jamm = "Not the first time I drank oil. Ow, though...",
 		noel = "[color:red]kill me...",
+        ceroba = "I'm NOT drinking OIL!",
 	}
 end
 
 -- Function overrides go here
+
+function item:onWorldUse(target)
+	if target.id == "noelle" or target.id == "brenda" or target.id == "ceroba" then
+		return false
+    else
+        return super.onWorldUse(self, target)
+	end
+end
 
 return item

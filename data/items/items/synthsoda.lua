@@ -54,6 +54,7 @@ function item:init()
 		dess = "kickass",
 		jamm = "Ooh! Spine tingling, I love it!",
 		noel = "The Meat Factory.",
+        ceroba = "", -- empty until sound effect is added
     }
 
     self.sounds = {

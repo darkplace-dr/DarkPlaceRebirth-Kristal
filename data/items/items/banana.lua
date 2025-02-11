@@ -59,6 +59,7 @@ function item:init()
 		noel = "AHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA", -- I have no idea what was going trough my mind at this point in time but instead of changing it im going to leave it as is and write this long sentence because I am feeling a bit overwhelmed right now somehow and i want to procrastonate on adding the other reactions at the moment (the dess reactions charbomber made (in the desshere dlc(that charbomber made(not noel(i made noel)))))
 		jamm = "Gotta cut it up so I don't look gay...",
         ["jamm+marcy"] = "It's good for you, Marcy!",
+        ceroba = "Haven't had one of these in a while..."
     }
 end
 

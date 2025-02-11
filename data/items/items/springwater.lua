@@ -65,6 +65,7 @@ function item:init()
         brenda = "(I should probably drink more water...)",
 		jamm = "r/hydrohomies",
 		noel = "Stay Hydrated!",
+        ceroba = "It's good to stay hydrated.",
     }
 	
 	--self.light_item = "light/gamerblood"

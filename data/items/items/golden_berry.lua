@@ -42,6 +42,7 @@ function item:init()
         dess = "ew fruit",
         mario = "Blech! That tastes like shit!",
         brenda = "Is that gold paint?",
+        ceroba = "Not the best kind of berry I had...",
     }
 end
 

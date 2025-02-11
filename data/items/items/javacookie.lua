@@ -60,6 +60,7 @@ function item:init()
         jamm = "Better than Bedrock.",
         ["jamm+marcy"] = "You prefer Bedrock, Marcy?",
 		noel = "uh... are ya sure?",
+        ceroba = "What's \"java\"?"
     }
 end
 
