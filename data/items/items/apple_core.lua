@@ -67,6 +67,7 @@ function item:init()
 		jamm = "Yeah... No way am I eating that...",
         ["jamm+marcy"] = "...But we don't eat this part, Marcy.",
 		noel = "Don't waste food.",
+        ceroba = "God, the taste is awful...",
     }
 end
 

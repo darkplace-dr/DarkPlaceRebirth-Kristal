@@ -30,6 +30,7 @@ function item:init()
 		["dess"] = 70,
         ["noelle"] = 70,
 		["jamm"] = 30,
+        ["ceroba"] = 30,
     }
 
     -- nice
@@ -71,6 +72,7 @@ function item:init()
 		dess = "sorry link, come back when you're a bit more, eeeeerrrrm, richer",
         jamm = "I thought this was hollow...?",
         ["jamm+marcy"] = "Prepare for a sugar rush, guys...!",
+        ceroba = "Not a fan of chocolate personally...",
     }
 end
 

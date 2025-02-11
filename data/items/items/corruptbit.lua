@@ -54,6 +54,7 @@ function item:init()
         noelle = "(Is this even edible?)",
         dess = "lmao it hurts",
 		jamm = "What exactly is this...?",
+        ceroba = "Is this safe to consume?",
     }
 end
 

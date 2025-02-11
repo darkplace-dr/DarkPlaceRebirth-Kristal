@@ -60,6 +60,7 @@ function item:init()
 		dess = "told you i eat lettuce",
         jamm = "Not much of a salad eater...",
         ["jamm+marcy"] = "It's good for you, Marcy!",
+        ceroba = "At least it's good for me.",
     }
 	
 end

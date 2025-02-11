@@ -57,6 +57,7 @@ function item:init()
         noelle = "(Kris took two thirds of it...)",
 		dess = "idk sorry im just thinking about club penguin",
         jamm = "I can barely taste the tomato. Wait...",
+        ceroba = "A pretty good sandwich.",
     }
 end
 

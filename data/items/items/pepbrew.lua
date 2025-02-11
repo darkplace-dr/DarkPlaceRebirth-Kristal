@@ -57,6 +57,7 @@ function item:init()
 		jamm = "Gotta save some for Marcy. She'd love this.",
         ["jamm+marcy"] = "Here, Marcy! I knew you'd like it!",
         noel = "What flavor is this?",
+        ceroba = "Energizing like coffee.",
     }
 end
 

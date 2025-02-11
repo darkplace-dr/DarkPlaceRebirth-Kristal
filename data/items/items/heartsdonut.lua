@@ -31,6 +31,7 @@ function item:init()
 		["dess"] = 80,
 		["jamm"] = 70,
 		["noel"] = 400,
+        ["ceroba"] = 60,
     }
 
     -- ?????
@@ -73,7 +74,8 @@ function item:init()
 		dess = "haha blood",
         jamm = "AcousticJAMM.",
         ["jamm+marcy"] = "AcousticJAMM. // MarcyJAMM.",
-        noel = "Chewy!"
+        noel = "Chewy!",
+        ceroba = "That's jam. (And a good one.)"
     }
 end
 

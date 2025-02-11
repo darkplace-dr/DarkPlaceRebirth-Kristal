@@ -65,6 +65,7 @@ function item:init()
         brenda = "I can just taste the heart disease.",
 		jamm = "*cough* My throat... *cough*",
 		noel = "Wait, it's not real blood?",
+        ceroba = "There's GOTTA be tons of caffeine in there.",
     }
 	
 	self.light_item = "light/gamerblood"

@@ -1,10 +1,10 @@
-local item, super = Class(HealItem, "noelle_tea")
+local item, super = Class(HealItem, "ceroba_tea")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Noelle Tea"
+    self.name = "Ceroba Tea"
     -- Name displayed when used in battle (optional)
     self.use_name = nil
 
@@ -18,18 +18,19 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "It's own-flavored tea.\nThe flavor just says \"Noelle.\""
-
+    self.description = "It's own-flavored tea.\nThe flavor just says \"Ceroba.\""
     -- Amount healed (HealItem variable)
     self.heal_amount = 50
     -- Amount this item heals for specific characters
+    -- Party member this tea is from
+    local tea_self = "ceroba"
+    local placeholder = 50
     self.heal_amounts = {
-        ["kris"] = 70,
-        ["susie"] = 120,
-        ["ralsei"] = 50,
-        ["noelle"] = 10,
-        ["dess"] = 1998,
-        ["ceroba"] = 60,
+		["susie"] = 90,
+		["ralsei"] = 70,
+		["noelle"] = 60,
+		["dess"] = 90,
+		["ceroba"] = 0,
     }
 
     -- Default shop price (sell price is halved)
@@ -57,20 +58,27 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-        kris = {
-            susie = "(... do they like it?)",
-            ralsei = "(They're drinking it...)",
-            noelle = "(Umm, do they like it or not...?)"
-        },
-        susie = {
-            susie = "Hell yeah, eggnog!!",
-            ralsei = "D-don't drink so fast!"
-        },
-        ralsei = "It's soft and sweet.",
-        noelle = "... this is just water! You're pranking me, right?!",
-        jamm = "Tastes like hot cocoa... I like it.",
-        dess = "tastes like shit",
-        ceroba = "(It's so sweet...)"
+	susie = {
+	    susie = "Dang, that's pretty good!",
+	    ceroba = "(Didn't expect that.)",
+	},
+	ralsei = {
+	    susie = "Cool.",
+	    ralsei = "It's good!",
+	    ceroba = "(I'm glad.)",
+	},
+	noelle = {
+	    noelle = "I think it's alright...",
+	    ceroba = "(Okay.)",
+	},
+    dess = {
+	    dess = "I feel Roba taste",
+	    susie = "(...what?)",
+	    ralsei = "(I don't get it)",
+	    noelle = "(Is that good?)",
+	    ceroba = "(What's that supposed to mean!?)",
+	},
+	ceroba = "Tasteless.",
     }
 end
 

@@ -48,6 +48,7 @@ function item:init()
 		jamm = "(Did it bark at me!?)",
         ["jamm+marcy"] = "(Did it bark at us!?)",
 		noel = "Not going to question this.",
+    ceroba = "I-is it alive?!",
     }
 end
 

@@ -33,6 +33,7 @@ function item:init()
         ["jamm"] = 60,
         ["mario"] = placeholder,
         ["pauling"] = 10,
+        ["ceroba"] = 20,
     }
 
     -- Default shop price (sell price is halved)
@@ -63,6 +64,7 @@ function item:init()
 		jamm = {
 			jamm = "It tastes like... eggs? Neat!",
 		},
+        ceroba = "I can barely taste anything...",
     }
 end
 
