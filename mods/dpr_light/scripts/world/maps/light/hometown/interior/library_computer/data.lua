@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -58,7 +58,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 410,
@@ -71,7 +71,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 410,
@@ -84,7 +84,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 30,
@@ -97,7 +97,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = -10,
@@ -110,7 +110,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 576,
           y = 30,
@@ -123,7 +123,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 408,
@@ -136,7 +136,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 408,
@@ -149,7 +149,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 170,
           y = 176,
@@ -162,7 +162,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 148,
           y = 176,
@@ -175,7 +175,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 308,
           y = 192,
@@ -188,7 +188,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 432,
           y = 296,
@@ -201,7 +201,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 508,
           y = 198,
@@ -214,7 +214,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 126,
@@ -227,7 +227,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 104,
           y = 86,
@@ -254,43 +254,9 @@ return {
       properties = {},
       objects = {
         {
-          id = 19,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 490,
-          y = 370,
-          width = 60,
-          height = 36,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["solid"] = true,
-            ["text1"] = "* (It's a recycling bin.)",
-            ["text2"] = "* (Looks like someone accidentally printed off a lot of useless emails.)"
-          }
-        },
-        {
-          id = 20,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 82,
-          y = 362,
-          width = 36,
-          height = 38,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["solid"] = true,
-            ["text1"] = "* (It's a trashcan. You get the feeling it doesn't have any friends.)",
-            ["text2"] = "* (It's hard to explain why you feel this way about a trashcan.)"
-          }
-        },
-        {
           id = 21,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 470,
           y = 104,
@@ -306,7 +272,7 @@ return {
         {
           id = 22,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 100,
           y = 86,
@@ -322,7 +288,7 @@ return {
         {
           id = 23,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 256,
           y = 86,
@@ -337,7 +303,7 @@ return {
         {
           id = 25,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -354,7 +320,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 136,
           y = 362,
@@ -368,7 +334,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 304,
           y = 340,
@@ -380,102 +346,9 @@ return {
           properties = {}
         },
         {
-          id = 28,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 318,
-          y = 256,
-          width = 62,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text1"] = "* (Looks like the library's state-of-the-art public laptop.)",
-            ["text2"] = "* (Someone left it on.)"
-          }
-        },
-        {
-          id = 30,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 170,
-          y = 292,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a computer. The monitor is flickering brightly.)"
-          }
-        },
-        {
-          id = 31,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 148,
-          y = 186,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a computer. The monitor is flickering brightly.)"
-          }
-        },
-        {
-          id = 34,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 468,
-          y = 264,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text1"] = "* (It's a computer.)",
-            ["text2"] = "* (Someone tried to check their email,[wait:5] but the Internet is down.)"
-          }
-        },
-        {
-          id = 35,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 468,
-          y = 212,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text1"] = "* (It's a computer.)",
-            ["text2"] = "* (Someone tried to check their email,[wait:5] but the Internet is down.)"
-          }
-        },
-        {
-          id = 36,
-          name = "interactable",
-          class = "",
-          shape = "rectangle",
-          x = 170,
-          y = 240,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a computer. The monitor is flickering brightly.)"
-          }
-        },
-        {
           id = 37,
           name = "berdly_desk",
-          class = "",
+          type = "",
           shape = "point",
           x = 357,
           y = 208,
@@ -490,7 +363,7 @@ return {
         {
           id = 38,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 332,
           y = 166,
@@ -507,7 +380,7 @@ return {
         {
           id = 39,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 400,
@@ -540,7 +413,7 @@ return {
         {
           id = 24,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,
