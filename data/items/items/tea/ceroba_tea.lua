@@ -31,6 +31,7 @@ function item:init()
 		["noelle"] = 60,
 		["dess"] = 90,
 		["ceroba"] = 0,
+        ["brenda"] = 200,
     }
 
     -- Default shop price (sell price is halved)
@@ -79,6 +80,13 @@ function item:init()
 	    ceroba = "(What's that supposed to mean!?)",
 	},
 	ceroba = "Tasteless.",
+    brenda = {
+        brenda = "(Women... pretty...)",
+        ceroba = "... Why are you looking at me like that?",
+        dess = "Ah, I take it you are a resident of the island of Lesbos?",
+        susie = "Dude, you look like a tomato, haha!",
+        noel = "I thought cantalopes were GREEN, not RED."
+    },
     }
 end
 
