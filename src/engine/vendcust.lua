@@ -36,6 +36,9 @@ GITHUB_REPOS = {
 	JustAnotherRandomGithubUser={
 		"dpr_spamtown_dlc",
 		"dpr_underground_dlc"
+	},
+	DiamondBor={
+		"dlc_trials"
 	}
 }
 

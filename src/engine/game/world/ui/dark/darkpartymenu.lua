@@ -37,7 +37,7 @@ function DarkPartyMenu:init(selected)
 
 	self.deltarune = {"kris", "susie", "ralsei", "noelle", "berdly", "ostarwalker"}
 
-	self.dark_place = {"hero", "dess", "brenda", "jamm"}
+	self.dark_place = {"hero", "dess", "brenda", "jamm", "bor"}
 
 	self.fangames = {"ceroba", "pauling"}
 

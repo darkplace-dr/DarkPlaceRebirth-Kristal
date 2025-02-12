@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="42">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="43">
  <editorsettings>
-  <export target="tower_outside.lua" format="lua"/>
+  <export target="data.lua" format="lua"/>
  </editorsettings>
- <tileset firstgid="1" source="../tilesets/blue_grass_lol.tsx"/>
- <tileset firstgid="209" source="../tilesets/main_area.tsx"/>
- <tileset firstgid="417" source="../tilesets/cliffs.tsx"/>
+ <tileset firstgid="1" source="../../../tilesets/blue_grass_lol.tsx"/>
+ <tileset firstgid="209" source="../../../tilesets/main_area.tsx"/>
+ <tileset firstgid="417" source="../../../tilesets/cliffs.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="22">
   <data encoding="csv">
 288,288,288,288,288,288,288,288,288,288,288,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,105,
@@ -110,7 +110,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="collision">
+ <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
   <object id="2" x="440" y="560" width="40" height="160"/>
   <object id="5" x="480" y="720" width="80" height="40"/>
   <object id="6" x="560" y="760" width="40" height="40"/>
@@ -147,7 +147,7 @@
    <polygon points="0,0 -160,0 -160,160"/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="objects">
+ <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="17" name="transition" x="760" y="390" width="120" height="40">
    <properties>
     <property name="map" value="main_hub_south"/>
@@ -156,13 +156,16 @@
   </object>
   <object id="41" name="transition" x="0" y="880" width="160" height="40">
    <properties>
-    <property name="map" value="main_hub_south"/>
-    <property name="marker" value="south"/>
+    <property name="map" value="main_outdoors/tower_outskirts_1"/>
+    <property name="marker" value="entry"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="markers">
+ <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="18" name="entry" x="820" y="520">
+   <point/>
+  </object>
+  <object id="42" name="entry2" x="140" y="840">
    <point/>
   </object>
   <object id="19" name="spawn" x="820" y="660">
@@ -188,7 +191,7 @@
 0,0,0,10,26,0,0,0,0,0,0,0,0,0,0,10,26,11,27,0,0,0,0,0,0,0,0,0,0,0,
 0,0,10,26,0,0,0,0,0,0,0,0,0,0,10,26,11,27,0,0,0,0,0,0,0,0,0,0,0,0,
 0,10,26,0,0,0,0,0,0,0,0,0,0,10,26,11,27,0,0,0,0,0,0,0,0,0,0,0,0,0,
-10,26,0,0,0,0,0,0,0,0,0,0,0,0,11,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+10,26,0,0,0,0,0,0,0,0,0,0,10,26,11,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 26,0,0,0,0,0,0,0,0,0,0,0,26,11,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,11,27,0,0,203,205,0,203,205,204,203,205,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

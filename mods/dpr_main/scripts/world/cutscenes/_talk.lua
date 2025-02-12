@@ -9,7 +9,7 @@ return {
             elseif map == "main_hub_south" then
                 cutscene:text("* the start of a new adventure", "condescending", "dess")
                 cutscene:text("* its filling me with DESSTERMINATION", "calm_b", "dess")
-            elseif map == "tower_outside" then
+            elseif map == "main_outdoors/tower_outside" then
                 cutscene:text("* wow who knew the tower looked so ugly on the outside", "condescending", "dess")
                 cutscene:text("* its almost like this is some king of...[wait:10]\n* [color:red]unfinished map", "mspaint", "dess")
             elseif map == "main_hub" then -- Might use this dialogue for the Cliffside deadrooms, but I can't think of anything better rn

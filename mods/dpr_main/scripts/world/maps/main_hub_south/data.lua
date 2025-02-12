@@ -322,7 +322,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "tower_outside",
+            ["map"] = "main_outdoors/tower_outside",
             ["marker"] = "entry"
           }
         }

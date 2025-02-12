@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,25 +10,25 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 42,
+  nextobjectid = 43,
   properties = {},
   tilesets = {
     {
       name = "blue_grass_lol",
       firstgid = 1,
-      filename = "../tilesets/blue_grass_lol.tsx"
+      filename = "../../../tilesets/blue_grass_lol.tsx"
     },
     {
       name = "main_area",
       firstgid = 209,
-      filename = "../tilesets/main_area.tsx",
-      exportfilename = "../tilesets/main_area.lua"
+      filename = "../../../tilesets/main_area.tsx",
+      exportfilename = "../../../tilesets/main_area.lua"
     },
     {
       name = "cliffs",
       firstgid = 417,
-      filename = "../tilesets/cliffs.tsx",
-      exportfilename = "../tilesets/cliffs.lua"
+      filename = "../../../tilesets/cliffs.tsx",
+      exportfilename = "../../../tilesets/cliffs.lua"
     }
   },
   layers = {
@@ -207,7 +207,7 @@ return {
       name = "collision",
       class = "",
       visible = true,
-      opacity = 1,
+      opacity = 0.5,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
@@ -587,8 +587,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_hub_south",
-            ["marker"] = "south"
+            ["map"] = "main_outdoors/tower_outskirts_1",
+            ["marker"] = "entry"
           }
         }
       }
@@ -614,6 +614,19 @@ return {
           shape = "point",
           x = 820,
           y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "entry2",
+          type = "",
+          shape = "point",
+          x = 140,
+          y = 840,
           width = 0,
           height = 0,
           rotation = 0,
@@ -670,7 +683,7 @@ return {
         0, 0, 0, 10, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 26, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 10, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 26, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 10, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 26, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        10, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        10, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 26, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 11, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 27, 0, 0, 203, 205, 0, 203, 205, 204, 203, 205, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

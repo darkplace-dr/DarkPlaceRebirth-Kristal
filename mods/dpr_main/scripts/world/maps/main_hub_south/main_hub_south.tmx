@@ -82,7 +82,7 @@
   </object>
   <object id="27" name="transition" x="600" y="1120" width="120" height="40">
    <properties>
-    <property name="map" value="tower_outside"/>
+    <property name="map" value="main_outdoors/tower_outside"/>
     <property name="marker" value="entry"/>
    </properties>
   </object>

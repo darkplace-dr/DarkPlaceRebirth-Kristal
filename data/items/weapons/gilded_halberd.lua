@@ -43,11 +43,13 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         berdly = true,
+        jerdly = true,
     }
 
     -- Character reactions
     self.reactions = {
         berdly = "Oh, going classy, are we, Kristopher? So be it!",
+        jerdly = "Oh-ho! Thank you for the superchat!",
         susie = "THAT thing? Hell if I do.",
         ralsei = "Ummm... it's too heavy...",
         noelle = "(Why does this smell like fried chicken???)",

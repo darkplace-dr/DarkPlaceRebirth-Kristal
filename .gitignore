@@ -4,3 +4,9 @@ build/
 output/
 
 *.tiled-session
+/mods/dlc_forest
+/mods/dlc_trials
+/mods/dpr_jamm_dlc
+/mods/dlc_yellow
+DarkPlaceREBIRTH.lnk
+open.bat

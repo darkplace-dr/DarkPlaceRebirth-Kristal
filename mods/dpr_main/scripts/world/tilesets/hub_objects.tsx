@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.0" name="hub_objects" tilewidth="130" tileheight="120" tilecount="4" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="hub_objects" tilewidth="130" tileheight="120" tilecount="11" columns="0">
  <editorsettings>
   <export target="hub_objects.lua" format="lua"/>
  </editorsettings>
@@ -15,5 +15,40 @@
  </tile>
  <tile id="3">
   <image width="130" height="66" source="../../../assets/sprites/world/maps/hub/plaque.png"/>
+ </tile>
+ <tile id="6">
+  <image width="41" height="49" source="../../../assets/sprites/world/events/dark_stand.png"/>
+ </tile>
+ <tile id="7">
+  <image width="41" height="49" source="../../../assets/sprites/world/events/light_stand.png"/>
+ </tile>
+ <tile id="9">
+  <image width="41" height="49" source="../../../assets/sprites/world/events/mossy_stand.png"/>
+ </tile>
+ <tile id="10">
+  <image width="32" height="32" source="../../../assets/sprites/world/events/void_fragment_1.png"/>
+  <animation>
+   <frame tileid="10" duration="200"/>
+   <frame tileid="11" duration="200"/>
+   <frame tileid="12" duration="200"/>
+   <frame tileid="13" duration="200"/>
+   <frame tileid="11" duration="200"/>
+   <frame tileid="12" duration="200"/>
+   <frame tileid="13" duration="200"/>
+   <frame tileid="12" duration="200"/>
+   <frame tileid="11" duration="200"/>
+   <frame tileid="10" duration="200"/>
+   <frame tileid="13" duration="200"/>
+   <frame tileid="11" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="11">
+  <image width="32" height="32" source="../../../assets/sprites/world/events/void_fragment_2.png"/>
+ </tile>
+ <tile id="12">
+  <image width="32" height="32" source="../../../assets/sprites/world/events/void_fragment_3.png"/>
+ </tile>
+ <tile id="13">
+  <image width="32" height="32" source="../../../assets/sprites/world/events/void_fragment_4.png"/>
  </tile>
 </tileset>

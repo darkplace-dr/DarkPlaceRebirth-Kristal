@@ -302,6 +302,8 @@ SnowGraveSnowflake = require("src.engine.game.effects.snowgravesnowflake")
 FatalEffect = require("src.engine.game.effects.fataleffect")
 RudeBusterBeam = require("src.engine.game.effects.rudebusterbeam")
 RudeBusterBurst = require("src.engine.game.effects.rudebusterburst")
+IceBeamSpell = require("src.engine.game.effects.icebeamspell")
+IceBurst = require("src.engine.game.effects.iceburst")
 MirrorEffect = require("src.engine.game.effects.mirroreffect")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
