@@ -379,6 +379,7 @@ local loaders = {
 
     -- Asset Loaders
 
+    --[[
     ["sprites"] = { "assets/sprites", function (base_dir, path, full_path)
         local id = checkExtension(path, "png", "jpg")
         if id then
@@ -402,7 +403,7 @@ local loaders = {
                 end
             end
         end
-    end },
+    end }, --]]
     ["fonts"] = { "assets/fonts", function (base_dir, path, full_path)
         local id = checkExtension(path, "ttf")
         if id then
