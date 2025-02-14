@@ -11,6 +11,9 @@ function SpaceBG:init()
 
     self.physics.speed_x = 0.3
     self.debug_select = false
+
+    self.space_bg = true
+
 end
 
 return SpaceBG

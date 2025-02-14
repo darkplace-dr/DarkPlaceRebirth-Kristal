@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -31,7 +31,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 240,
@@ -44,7 +44,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 201,
           y = 200,
@@ -57,7 +57,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 240,
@@ -70,7 +70,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 360,
@@ -83,7 +83,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -112,7 +112,7 @@ return {
         {
           id = 6,
           name = "elevatorbuttons",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 200,
@@ -125,7 +125,7 @@ return {
         {
           id = 7,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -142,7 +142,7 @@ return {
         {
           id = 29,
           name = "elevator",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -154,21 +154,25 @@ return {
             ["color_1"] = "#ff321fc3",
             ["color_2"] = "#ff4429ff",
             ["color_3"] = "#ff2368b8",
-            ["color_4"] = "#ff4429ff",
-            ["cutscene_4"] = "broken_elevator",
+            ["color_4"] = "#ff373887",
+            ["color_5"] = "#ff4429ff",
+            ["cutscene_5"] = "broken_elevator",
             ["dest_1"] = "pre_pit",
             ["dest_2"] = "main_hub",
             ["dest_3"] = "floorcyber/pre_elevator",
-            ["dest_4"] = "nothing",
+            ["dest_4"] = "seal_room/seal_room_1",
+            ["dest_5"] = "nothing",
             ["length_1"] = 140,
             ["length_2"] = 40,
             ["length_3"] = 40,
-            ["length_4"] = "40",
+            ["length_4"] = 40,
+            ["length_5"] = 40,
             ["mod_1"] = "dpr_pit_dlc",
             ["name_1"] = "The Dark Pit",
             ["name_2"] = "Floor 1",
             ["name_3"] = "Cyber Floor",
-            ["name_4"] = "Nowhere"
+            ["name_4"] = "Room",
+            ["name_5"] = "Nowhere"
           }
         }
       }
@@ -190,7 +194,7 @@ return {
         {
           id = 5,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,
@@ -203,7 +207,7 @@ return {
         {
           id = 32,
           name = "buttons",
-          class = "",
+          type = "",
           shape = "point",
           x = 380,
           y = 260,
@@ -216,7 +220,7 @@ return {
         {
           id = 33,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 320,
@@ -229,7 +233,7 @@ return {
         {
           id = 34,
           name = "entry_up",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 260,

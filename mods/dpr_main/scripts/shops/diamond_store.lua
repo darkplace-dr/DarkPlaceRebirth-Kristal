@@ -60,6 +60,7 @@ self.talktext = ({
   self:registerItem("tension_storage", {stock = 1})
   self:registerItem("tension_plus", {stock = 4})
   self:registerItem("friend_buster", {stock = 1})
+  self:registerItem("bp_plus", {stock = 1})
   
   self:registerTalk("Yourself")
   --self:registerTalk("...")
@@ -169,11 +170,19 @@ function Diamond_Store:startTalk(talk)
                 "[emote:lookdown]* We've talked on multiple occasions.",
                 "[emote:huh]* Pretend you don't know me agian and I'll knock your teeth out...",
                 })
+            elseif Game.party[1].id == "brenda" then
+                self:startDialogue({
+                "[emote:blink_3]* Brenda you already know me.",
+                "[emote:look_left]* But, in case you forgot.",
+                "[emote:lookdown]* I live in Germany.",
+                })
+            elseif Game.party[1].id == "bor" then
+                self:startDialogue({
+                "[emote:blink_3]* I don't know.[wait:5] Ask Bor.",
+                })
             else
                 self:startDialogue({
-                "[emote:talk]* So uh...[emote:idle]",
-                "[emote:talk]* My name is Sad-Diamond-Man...[emote:idle]",
-                "[emote:talk]* Most people shorten it to SDM.[emote:idle]"
+                "[emote:huh]* I sell shit.",
                 })
             end
 	elseif talk == "Why are you sad?" then
