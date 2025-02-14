@@ -1,6 +1,8 @@
 ---@class PaletteFX : FXBase
 ---@field base_pal number[][]
 ---@field live_pal number[][]
+---@overload fun(imagedata:love.ImageData|string|Actor, line:integer, transformed:boolean?, priority:number?)
+---@overload fun(base_pal:number[][], live_pal:number[][], transformed:boolean?, priority:number?)
 local PaletteFX, super = Class(FXBase)
 
 ---@param imagedata love.ImageData|string|Actor
