@@ -1,15 +1,25 @@
 ---@class PaletteFX : FXBase
 ---@field base_pal number[][]
 ---@field live_pal number[][]
+---@overload fun(imagedata:love.ImageData|string|Actor, line:integer, transformed:boolean?, priority:number?)
+---@overload fun(base_pal:number[][], live_pal:number[][], transformed:boolean?, priority:number?)
 local PaletteFX, super = Class(FXBase)
 
----@param imagedata love.ImageData
+---@param imagedata love.ImageData|string|Actor
 ---@param line integer
 ---@overload fun(self:PaletteFX, base_pal: number[][], live_pal:number[][], transformed, priority)
 function PaletteFX:init(imagedata, line, transformed, priority)
     super.init(self, priority or 0)
 
     self.shader = Assets.getShader("palette")
+
+    if isClass(imagedata) and imagedata.includes and imagedata:includes(Actor) then
+        ---@cast imagedata Actor
+        imagedata = imagedata:getSpritePath() .. "/palette"
+    end
+    if type(imagedata) == "string" then
+        imagedata = Assets.getTextureData(imagedata)
+    end
 
     if type(imagedata) == "userdata" then
         ---@cast imagedata love.ImageData
@@ -25,6 +35,7 @@ function PaletteFX:init(imagedata, line, transformed, priority)
         end
     else
         ---@cast imagedata -love.ImageData
+        ---@cast imagedata -(string|Actor)
         ---@cast line -integer
         self.base_pal = imagedata
         self.live_pal = line
