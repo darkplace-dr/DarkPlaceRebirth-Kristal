@@ -16,10 +16,10 @@
         },
         {
             "fileName": "maps/hub_marketplace.tmx",
-            "height": 640,
-            "width": 840,
-            "x": -920,
-            "y": 240
+            "height": 480,
+            "width": 1240,
+            "x": -1320,
+            "y": 320
         },
         {
             "fileName": "maps/spamgolor_meeting.tmx",

@@ -1169,6 +1169,88 @@ local hub = {
             onPurchaseComplete(item.post_purchase)
         end
     end,
+	
+    sansshop = function(cutscene, event) -- note: currently unfinished
+        local sans = cutscene:getCharacter("sans")
+		
+        local function onDeclinedOffer()
+            cutscene:textTagged("* don't you know a \ngood deal when you \nhear one?", "joking", "sans")
+        end
+		 
+        cutscene:textTagged("* heya.", "neutral", "sans")
+        cutscene:textTagged("* i decided to try selling some goods in this marketplace.", "look_left", "sans")
+        cutscene:textTagged("* anything you want?", "neutral", "sans")
+		
+        local choice = cutscene:choicer({ "Food", "Nevermind" })
+		
+        if choice == 1 then
+            cutscene:textTagged("* i'm currently selling some fried snow for 5G...", "joking", "sans")
+            cutscene:textTagged("* and some hot dogs,\n[wait:5] 30G for each one.", "neutral", "sans")
+            cutscene:textTagged("* which one will it be?", "wink", "sans")
+			
+            local choice = cutscene:choicer({ "Hot Dog", "Fried Snow" })
+			
+            if choice == 1 then
+                cutscene:showShop()
+                cutscene:textTagged("* cool.\n[wait:5]* that'll be 30G.", "neutral", "sans")
+                local dog_choice = cutscene:choicer({ "Buy", "No" })
+                if dog_choice == 1 then
+                    if Game.money <= 30 then
+                        cutscene:textTagged("* whoops, you don't have\n enough cash.")
+					else
+                        --not done yet
+
+                        cutscene:playSound("locker")
+                        --Game.inventory:addItem("ut_hotdog")
+                        --Game.money = Game.money - 30
+                        cutscene:textTagged("* thanks, kid.\n[wait:5]* here's your 'dog.", "wink", "sans")
+                    end
+                else
+                end
+                cutscene:hideShop()
+            elseif choice == 2 then
+                cutscene:showShop()
+                cutscene:textTagged("* cool.\n[wait:5]* that'll be 5G.", "neutral", "sans")
+                local snow_choice = cutscene:choicer({ "Buy", "No" })
+                if snow_choice == 1 then
+                    cutscene:textTagged("* did i say 5G?\n[wait:5]* i meant 50G.", "look_left", "sans")
+                    local snow_choice2 = cutscene:choicer({ "Buy", "No" })
+                    if snow_choice2 == 1 then
+                        cutscene:textTagged("* really?\n[wait:5]* how about 5000G?", "joking", "sans")
+                        local snow_choice3 = cutscene:choicer({ "Buy", "No" })
+                        if snow_choice3 == 1 then
+                            cutscene:textTagged("* 50000G.\n[wait:5]* that's my final offer.", "neutral", "sans")
+                            local snow_choice4 = cutscene:choicer({ "Buy", "No" })
+                            if snow_choice4 == 1 then
+                                if Game.money >= 50000 then
+                                    cutscene:textTagged("* wow,[wait:5] that's a lot \nof cash.", "neutral", "sans")
+                                    cutscene:textTagged("* that's why i'm sorry \nto say...", "eyes_closed", "sans")
+                                    cutscene:textTagged("* i can't sell you \nthis fried snow.", "neutral", "sans")
+                                    cutscene:textTagged("* it's got too much \nsentimental value.", "wink", "sans")
+                                else
+                                    cutscene:textTagged("* what? \n[wait:5]* you don't have the \nmoney?", "neutral", "sans")
+                                    cutscene:textTagged("* hey, that's okay.", "eyes_closed", "sans")
+                                    cutscene:textTagged("* i don't have any snow.", "wink", "sans")
+                                end
+                            else
+                                onDeclinedOffer()
+                            end
+                        else
+                            onDeclinedOffer()
+                        end
+                    else
+                        onDeclinedOffer()
+                    end
+                else
+                    cutscene:textTagged("* dang.", "eyes_closed", "sans")
+                    cutscene:textTagged("* i should probably charge way more for it then.", "wink", "sans")
+                end
+                cutscene:hideShop()
+            end
+        else
+            cutscene:textTagged("* i'll be here if you need anything.", "wink", "sans")
+        end
+    end,
 
     money_hole = function(cutscene, event)
         if Game:getFlag("money_hole") == 1 then
