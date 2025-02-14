@@ -386,4 +386,19 @@ end
         end)
 ]]
 
+function Noel:setFlag()
+end
+
+function Noel:getFlag()
+end
+
+function Noel:remove()
+end
+
+function Noel:delete()
+end
+
+function Noel:erase()
+end
+
 return Noel

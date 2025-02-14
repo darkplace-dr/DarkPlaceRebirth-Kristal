@@ -281,7 +281,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/dead_room1",
+            ["map"] = "grey_cliffside/dead_room1_start",
             ["marker"] = "entry_2"
           }
         },
