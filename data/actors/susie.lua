@@ -83,7 +83,10 @@ function actor:init(style)
         ["jump_ball"]           = {"ball", 1/15, true},
 
         ["diagonal_kick_right"] = {"diagonal_kick_right", 4/30, false},
-        ["diagonal_kick_left"] = {"diagonal_kick_left", 4/30, false}
+        ["diagonal_kick_left"] = {"diagonal_kick_left", 4/30, false},
+
+        ["laugh_right"] = {"laugh_right", 0.2, true},
+        ["away_scratch"] = {"away_scratch", 0.2, true},
     }
 
     if susie_style == 1 then
