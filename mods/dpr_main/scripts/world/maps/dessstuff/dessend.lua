@@ -392,8 +392,8 @@ return {
           visible = true,
           properties = {
             ["actor"] = "dess_plush",
-            ["cutscene"] = "plushies.dess_plush",
-            ["flagcheck"] = "!dess_plush"
+            ["cond"] = "Game:getFlag(\"mimicBossDone\") and not Game:getFlag(\"dess_plush\")",
+            ["cutscene"] = "plushies.dess_plush"
           }
         },
         {

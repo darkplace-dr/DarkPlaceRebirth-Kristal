@@ -11,9 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "None"
     -- Menu description
-    self.description = "Deals moderate Rude-elemental damage to\none foe. Depends on Attack & Magic."
+    self.description = "Gives information on an enemy or boss."
     -- Check description
-    self.check = {"Deals moderate Rude-elemental damage to\none foe.", "* Depends on Attack & Magic."}
+    self.check = {"Gives information on an enemy or\nboss."}
 
     -- TP cost
     self.cost = 0

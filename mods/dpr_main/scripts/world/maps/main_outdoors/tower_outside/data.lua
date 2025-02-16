@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 43,
+  nextobjectid = 44,
   properties = {},
   tilesets = {
     {
@@ -589,6 +589,22 @@ return {
           properties = {
             ["map"] = "main_outdoors/tower_outskirts_1",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 43,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "lazul",
+            ["cutscene"] = "tower_outside.lazul"
           }
         }
       }

@@ -63,6 +63,11 @@ self.talktext = ({
   self:registerItem("bp_plus", {stock = 1})
   
   self:registerTalk("Yourself")
+
+  local quest = Game:getFlag("package_quest")
+  if quest and quest == 1 then
+    self:registerTalkAfter("Delivery?", 1)
+  end
   --self:registerTalk("...")
   --self:registerTalk("...")
   --self:registerTalk("...")
@@ -162,6 +167,7 @@ function Diamond_Store:postInit()
 end
 
 function Diamond_Store:startTalk(talk)
+--print(Game.inventory:removeItem("diamond_package"))
 	if talk == "Yourself" then
             if Game.party[1].id == "jamm" then
                 self:startDialogue({
@@ -189,6 +195,22 @@ function Diamond_Store:startTalk(talk)
         self:startDialogue({
             "* Ask that again and nobody will find your body.",
         })
+	elseif talk == "Delivery?" then
+        self:startDialogue({
+            "* Oh,[wait:5] thanks?",
+            "* Um...",
+            "* You were not meant to deliver that. I sent a thing to do it.",
+            "* Eh, it doesn't matter.",
+            "* I'll put some money in your pockets for your troubles.",
+        })
+            Game.inventory:removeItem("diamond_package")
+            if Game.money == 0 then
+                    Game.money = 500
+                else 
+                    Game.money = Game.money + Game.money/4
+            end
+            Game:setFlag("package_quest", 2)
+            self:registerTalkAfter("Yourself", 1)
 	elseif talk == "..." then
         self:startDialogue({
             "* ...",

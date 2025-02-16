@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="43">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="44">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -159,6 +159,13 @@
     <property name="map" value="main_outdoors/tower_outskirts_1"/>
     <property name="marker" value="entry"/>
    </properties>
+  </object>
+  <object id="43" name="npc" x="120" y="400">
+   <properties>
+    <property name="actor" value="lazul"/>
+    <property name="cutscene" value="tower_outside.lazul"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">

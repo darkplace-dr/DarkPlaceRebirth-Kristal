@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 58,
+  nextobjectid = 65,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -143,6 +143,58 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 63,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 40,
+          y = 280,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 280,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 40,
+          y = 240,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 240,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -167,14 +219,14 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 0, 8, 6,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 0, 18, 18,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23, 0, 10, 23,
-        0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 0, 21, 23, 0, 23, 23,
-        0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 9, 0, 20, 23, 0, 23, 23,
-        0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 3, 3, 71, 71, 71, 71,
-        3, 13, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 71, 71,
-        13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 18, 18, 18, 18, 18, 18,
-        18, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 28, 28, 28, 28, 28, 28,
-        28, 17, 18, 18, 12, 13, 13, 13, 13, 13, 14, 18, 18, 19, 0, 0, 0, 0, 0, 0,
-        0, 27, 28, 28, 17, 18, 82, 83, 84, 18, 19, 28, 28, 29, 0, 0, 0, 0, 0, 0,
+        0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 0, 21, 23, 0, 23, 23,
+        0, 0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 9, 0, 20, 23, 0, 23, 23,
+        0, 0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 3, 3, 71, 71, 71, 71,
+        0, 0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 71, 71,
+        0, 0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 18, 18, 18, 18, 18, 18,
+        0, 0, 7, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 28, 28, 28, 28, 28, 28,
+        0, 0, 17, 18, 12, 13, 13, 13, 13, 13, 14, 18, 18, 19, 0, 0, 0, 0, 0, 0,
+        0, 0, 27, 28, 17, 18, 82, 83, 84, 18, 19, 28, 28, 29, 0, 0, 0, 0, 0, 0,
         4, 0, 0, 0, 27, 28, 82, 83, 84, 28, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         84, 0, 0, 0, 0, 0, 82, 83, 84, 0, 0, 0, 0, 0, 0, 0, 2, 3, 4, 0,
         85, 0, 0, 0, 0, 0, 82, 83, 84, 0, 2147483652, 2147483651, 2147483650, 0, 0, 0, 17, 18, 19, 0,
@@ -427,6 +479,21 @@ return {
             ["map"] = "grey_cliffside/the_end",
             ["marker"] = "entry"
           }
+        },
+        {
+          id = 60,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 460,
+          y = 540,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "cat"
+          }
         }
       }
     },
@@ -444,32 +511,6 @@ return {
       parallaxy = 1,
       properties = {},
       objects = {
-        {
-          id = 1,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 120,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 2,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 320,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
         {
           id = 3,
           name = "",
@@ -804,6 +845,32 @@ return {
           y = 200,
           width = 40,
           height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 120,
+          width = 80,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 59,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 320,
+          width = 80,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}

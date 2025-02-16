@@ -40,7 +40,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        suzy = "What's this!? A CHOPSTICK?",
+        suzy = "YEAH!",
     }
 end
 
