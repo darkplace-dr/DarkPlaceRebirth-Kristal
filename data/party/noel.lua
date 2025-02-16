@@ -233,7 +233,7 @@ function character:save()
     local save = Noel:loadNoel()
 
     if Kristal.temp_save == true then
-    elseif save then
+    elseif save and Game:hasPartyMember("noel") then
         local num = love.math.random(1, 999999)
         Game:setFlag("noel_SaveID", num)
         local newData = {

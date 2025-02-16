@@ -21,7 +21,7 @@ function item:init()
     self.description = "A small green gem with a plus sign on it.\nRaises maximum BP by 3."
 
     -- Default shop price (sell price is halved)
-    self.price = 0
+    self.price = 999
     -- Whether the item can be sold
     self.can_sell = false
 

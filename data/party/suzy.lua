@@ -143,6 +143,8 @@ end
 function character:getReaction(item, user)
     local menu = Game.world.menu
 
+    if not menu then return "" end
+
     local selected = menu.box.selected_slot
     if item or user.id ~= self.id then
         return super.getReaction(self, item, user)

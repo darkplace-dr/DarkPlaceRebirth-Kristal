@@ -64,6 +64,10 @@
 		"GARFZONE": "[style:GONER][spacing:3.2]GEE...SOME PEOPLE ENJOY\nA LITTLE MUSIC IN THE\nMORNING...",
 		"SWALLOW": "[style:GONER][spacing:3.2]WHAT DO YOU MEAN?\nAFRICAN OR EUROPEAN?",
 		"A": "[spacing:3.2]Oh wow, reeaaal\ncreative there,\nbucko...",
+		"BABA": "[spacing:3.2]IS YOU",
+		"PIZZAROLD": "[spacing:3.2]WELCOME BACK\n\n\n       :D",
+		"GRU": "[spacing:3.2]Is that the MINIONS guy?",
+		"DRU": "[spacing:3.2]Is that the MINIONS guy's brother or something?",
 		// Extra visual bit is handled by preview.lua
 		"SWELLOW": "[style:GONER][spacing:3.2]AWW THE SCRUNKLY.\nTHE GOOBER. A\nSWELL FELLOW. A\nLITTLE FELLA.",
 		"PAUL": "[style:none][spacing:0]KAAAAAAAAA!\nPaul is the favorite\nof all!",
