@@ -61,6 +61,8 @@ function Firework:update()
 		Game.world:addChild(explosion)
 		Assets.playSound("explosion_firework", 1, 0.8+Utils.random(0.1))
 		self:remove()
+		if not Game.world.map.has_firework_shadows then return end
+		Game.world.map.fw_shadows_active = true
 	end
 end
 
