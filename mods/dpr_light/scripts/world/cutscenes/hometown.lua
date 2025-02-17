@@ -432,37 +432,49 @@ return {
         if cutscene:getCharacter("noelle_lw") then
             local noelle = cutscene:getCharacter("noelle_lw")
             local berdly = Game.world.map:getEvent("berdly_desk")
-            Game.world.music.volume = 1
-            Game.world.music:play("deltarune/flashback_excerpt")
+            Game.world.music:play("deltarune/flashback_excerpt", 1)
             cutscene:showNametag("Noelle")
             cutscene:text("* [speed:0.1][shake:1]...", "surprise_frown", "noelle")
-            cutscene:text("* [shake:1]B...\n[shake:0]* [shake:1]Berdly...?", "surprise_frown_b", "noelle")
+            cutscene:text("* [shake:1]B...\n[wait:10][shake:0]* [shake:1]Berdly...?", "surprise_frown_b", "noelle")
             cutscene:hideNametag()
             noelle.following = false
-            Game:getPartyMember("noelle"):getActor().default = "walk_sad" -- why doesn't this work until she's NPC???
+            Game:getPartyMember("noelle"):getActor().default = "walk_sad"
+            noelle:resetSprite()
             cutscene:wait(cutscene:walkTo(noelle, noelle.x, noelle.y - 40, 0.15, "left"))
             cutscene:wait(cutscene:walkTo(noelle, noelle.x - 40, noelle.y, 0.15, "up"))
             cutscene:wait(cutscene:walkTo(noelle, noelle.x, berdly.y, 0.4, "right"))
             cutscene:wait(cutscene:walkTo(noelle, berdly.x - 40, berdly.y, 0.2, "right"))
-            noelle:convertToNPC({cutscene="hometown.noelle"})
             cutscene:showNametag("Noelle")
             cutscene:text("* [shake:1]BERDLY![wait:10] HEY!", "afraid_b", "noelle")
             cutscene:text("* [shake:1]WAKE UP!", "afraid_b", "noelle")
             cutscene:hideNametag()
             cutscene:wait(2)
+            noelle:setSprite("head_lowered")
             cutscene:showNametag("Noelle")
-            cutscene:text("* [speed:0.5]Berdly...", "surprise_frown_b", "noelle")
-            cutscene:text("* [speed:0.5]He...[wait:10] He's...", "surprise_frown_b", "noelle")
-            cutscene:text("* [speed:0.5]He's...[wait:10] Not waking up...", "sad", "noelle")
-            cutscene:text("* [speed:0.5]Is he...?", "down", "noelle")
+            cutscene:text("* [speed:0.5]This...[wait:10] Can't be...", nil, "noelle")
+            cutscene:text("* [speed:0.5]He's been here...[wait:10] This entire time?", nil, "noelle")
+            cutscene:hideNametag()
+            cutscene:wait(2)
+            cutscene:showNametag("Noelle")
+            cutscene:text("* [speed:0.5]So...[wait:10] That wasn't just a nightmare after all...?", nil, "noelle")
+            cutscene:text("* [speed:0.5]But that would mean...", nil, "noelle")
+            cutscene:text("* [speed:0.5]He's not...", nil, "noelle")
+            cutscene:hideNametag()
+            cutscene:wait(1)
+            Game.world.music:fade(0, 0.5)
+            cutscene:wait(1)
+            cutscene:showNametag("Noelle")
+            cutscene:text("* [speed:0.1][shake:1]...alive,[wait:5] anymore?", nil, "noelle", {skip=false})
             noelle:convertToNPC({cutscene="hometown.noelle"})
+            Game:getPartyMember("noelle").lw_portrait = "face/noelle/down"
+            Game:setFlag("visited_berdly_WR", true)
         end
         cutscene:hideNametag()
     end,
 
     noelle = function(cutscene, event)
         cutscene:showNametag("Noelle")
-        cutscene:text("* [speed:0.5]...", "down", "noelle")
+        cutscene:text("* [speed:0.5]I...[wait:10] Need a minute...", "down", "noelle")
         cutscene:hideNametag()
     end,
 
