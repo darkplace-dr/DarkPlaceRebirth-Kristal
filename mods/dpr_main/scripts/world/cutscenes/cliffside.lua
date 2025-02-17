@@ -11,7 +11,7 @@ local cliffside = {
 
     slide_controls = function (cutscene, event)
         local text = Game.world.map.textobjjj
-        text:slideTo(-280, text.y, 4, "out-cubic")
+        text:slideTo(-300, text.y, 4, "out-cubic")
     end,
 
     free_dragon = function (cutscene, event)
@@ -1041,8 +1041,14 @@ local cliffside = {
         Game.world.player.cliff = nil
     end,
     warp_bin = function (cutscene, event)
-        cutscene:text("* Bin tutorial goes here. Don't forget.")
-        Game.world:mapTransition("main_hub")
+
+
+        if Game:getFlag("tutor_free_crystal") then
+            cutscene:text("* Bin tutorial goes here. Don't forget.")
+            Game.world:mapTransition("main_outdoors/tower_outside")
+        else
+            cutscene:text("* Error: 2 or more lightners required to activate a broken bin.")
+        end
     end,
     video = function (cutscene, event)
         local cool = [[

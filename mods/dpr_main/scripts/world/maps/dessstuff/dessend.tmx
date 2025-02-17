@@ -138,8 +138,8 @@
   <object id="65" name="npc" x="120" y="80" width="40" height="40">
    <properties>
     <property name="actor" value="dess_plush"/>
+    <property name="cond" value="Game:getFlag(&quot;mimicBossDone&quot;) and not Game:getFlag(&quot;dess_plush&quot;)"/>
     <property name="cutscene" value="plushies.dess_plush"/>
-    <property name="flagcheck" value="!dess_plush"/>
    </properties>
   </object>
   <object id="69" name="warpbin" x="240" y="80" width="120" height="40">

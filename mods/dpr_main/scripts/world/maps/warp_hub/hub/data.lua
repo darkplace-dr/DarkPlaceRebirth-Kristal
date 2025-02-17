@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 11,
+  nextlayerid = 7,
+  nextobjectid = 13,
   properties = {
     ["music"] = "warphub"
   },
@@ -20,6 +20,12 @@ return {
       firstgid = 1,
       filename = "../../../tilesets/space.tsx",
       exportfilename = "../../../tilesets/space.lua"
+    },
+    {
+      name = "main_area",
+      firstgid = 13,
+      filename = "../../../tilesets/main_area.tsx",
+      exportfilename = "../../../tilesets/main_area.lua"
     }
   },
   layers = {
@@ -56,9 +62,9 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 87, 87, 87, 87, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 74, 74, 74, 74, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 87, 87, 87, 87, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0,
         0, 0, 0, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 0, 0, 0,
         0, 0, 0, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 0, 0, 0,
@@ -68,6 +74,38 @@ return {
         0, 0, 0, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 0, 0, 0,
         0, 0, 0, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 0, 0, 0,
         0, 0, 0, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 0, 0, 0
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 12,
+      id = 6,
+      name = "Tile Layer 2",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 20,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 74, 74, 74, 74, 74, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 87, 87, 87, 87, 87, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 74, 74, 74, 74, 74, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -156,6 +194,21 @@ return {
             ["actor"] = "diamond_giant",
             ["cutscene"] = "warp_hub.diamond_store",
             ["sprite"] = "hole_empty"
+          }
+        },
+        {
+          id = 11,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 40,
+          width = 160,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "warp_hub.bin_codes"
           }
         }
       }

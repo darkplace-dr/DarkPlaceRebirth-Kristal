@@ -20,7 +20,7 @@ function map:onEnter()
     self.text_dragon = createShakyText("[shake:0.6][color:red]DRAGON", 400, 80)
 
 
-    self.textobjjj = shakytextobject("[shake:0.6][color:yellow] -- CONTROLS --\n[Q] - Quest Menu\n[C or CTRL] - Menu\n[Z or ENTER] - Confirm\n[Z or SHIFT] - Cancel", 20, 480)
+    self.textobjjj = shakytextobject("[shake:0.6][color:yellow] -- CONTROLS --\n"..Input.getText("quest").. (Input.usingGamepad() and "" or " ").. " - Quest Menu\n"..Input.getText("menu").. (Input.usingGamepad() and "" or " ").. " or [CTRL] - Menu\n"..Input.getText("confirm").. (Input.usingGamepad() and "" or " ").. " or [ENTER] - Confirm\n"..Input.getText("cancel").. (Input.usingGamepad() and "" or " ").. " or [SHIFT] - Cancel", 20, 480)
     self.textobjjj.layer = 2
     Game.world:addChild(self.textobjjj)
 
@@ -47,6 +47,30 @@ function map:onExit()
     if Game:getFlag("met_stranger") == 1 then
         Game.world:startCutscene("cliffside", "stranger_item")
     end
+end
+
+function map:update()
+    super.update(self)
+    local download = Game.world:getCharacter("download")
+
+    if download then
+        if download.x < 0 then
+            download:setScale(-2, 2)
+            download.x = 1
+            download.physics.speed_x = 1
+            download.x = 1
+        elseif download.x > 145 then
+            download:setScale(2, 2)
+            download.x = 144
+            download.physics.speed_x = -1
+            download.x = 144
+        end
+    elseif Game:getFlag("tutor_free_crystal", false) then
+        Game.world:spawnNPC("download", 50, 240)
+        local download = Game.world:getCharacter("download")
+            download.physics.speed_x = -1
+    end
+
 end
 
 return map
