@@ -95,11 +95,11 @@ function FireworkExplosion:update()
 		end
 		
 		if not self.maintain_shape then
-			data.alpha = data.alpha - 0.01
+			data.alpha = data.alpha - 0.01 * DTMULT
 		end
 		
 		if data.sprite_timer > 0 then
-			data.sprite_timer = data.sprite_timer - 1
+			data.sprite_timer = data.sprite_timer - 1 * DTMULT
 		end
 	end
 end
