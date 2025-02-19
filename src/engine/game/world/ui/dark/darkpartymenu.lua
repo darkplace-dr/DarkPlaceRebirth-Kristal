@@ -50,7 +50,8 @@ function DarkPartyMenu:init(selected)
 		["Miscellaneous"] = self.misc,
 	}
 
-	if Game:loadNoel() then -- oh ho ho! secret character!
+        -- added slot_spected = 1 to prevent playing as noel
+	if Game:loadNoel() and not self.slot_selected == 1 then -- oh ho ho! secret character!
 		table.insert(self.unlocked, "noel")
 	end
 
@@ -317,113 +318,13 @@ function DarkPartyMenu:iconSelect(number, playsound)
 	end
 end
 
-function DarkPartyMenu:brendawhatthefuck()
+function DarkPartyMenu:unused()
 
 		if Input.pressed("left", true) then
 			self:iconSelect(-1)
 		elseif Input.pressed("right", true) then
 			self:iconSelect(1)
 		end
-
---[[		if Input.pressed("confirm") then
-			local can_select = true
-
-			local menus = {}
-
-			for k in pairs(self.character_menus) do
-				table.insert(menus, k)
-			end
-
-			local menu_name = menus[self.selected_menu]
-			local menu = self.character_menus[menu_name]
-
-			local party = menu[self.party_selected]
-
-			local unlocked = false
-	
-			for _, key in ipairs(self.unlocked) do
-				if key == party then
-					unlocked = true
-					break
-				end
-			end
-
-			for i, v in ipairs(Game.party) do
-				if v.id == party then
-					can_select = false
-				end
-			end
-
-			if can_select and unlocked then
-
-				if self.slot_selected == 1 and party == "noel" then
-                    return
-				end
-
-				self.ui_select:stop()
-				self.ui_select:play()
-				local party_member = Game:getPartyMember(party)
-				if Game.party[self.slot_selected] then
-					Game.party[self.slot_selected] = party_member
-					if self.slot_selected > 1 then
-						Game.world.followers[self.slot_selected - 1]:setActor(Game.party[self.slot_selected]:getActor())
-					else
-						Game.world.player:setActor(Game.party[1]:getActor())
-					end
-				else
-					Game:addPartyMember(party)
-					if self.slot_selected > 1 then
-						if Game.world.followers[self.slot_selected - 1] then
-							Game.world.followers[self.slot_selected - 1]:setActor(Game.party[self.slot_selected]:getActor())
-						else
-							local follower = Game.world:spawnFollower(party)
-							follower:setActor(Game.party[self.slot_selected]:getActor())
-							follower:setFacing("down")
-						end
-					end
-				end
-			else
-				self.ui_cant_select:stop()
-				self.ui_cant_select:play()
-			end
-		end
-		if Input.pressed("cancel") then
-			for i, v in ipairs(self.character_index) do
-				local menus = {}
-	
-				for k in pairs(self.character_menus) do
-					table.insert(menus, k)
-				end
-	
-				local menu_name = menus[self.selected_menu]
-				local menu = self.character_menus[menu_name]
-	
-				local party = menu[i]
-	
-				local unlocked = false
-		
-				for _, key in ipairs(self.unlocked) do
-					if key == party then
-						unlocked = true
-						break
-					end
-				end
-				local path = "ui/menu/party/"
-				local sprite = v
-	
-				if i == self.party_selected then
-					if unlocked then
-						sprite:setSprite(path..party)
-						sprite.icon_path = path..party
-					else
-						sprite:setSprite(path.."unknown")
-					end
-				end
-			end
-			self.ui_cancel_small:stop()
-			self.ui_cancel_small:play()
-			self.state = "menu_select"
-		end]]
 end
 
 function DarkPartyMenu:draw()
