@@ -3,7 +3,7 @@ local character, super = Class(PartyMember, "noel")
 function character:init()
     super.init(self)
     self.lw_portrait = "face/noel/neutral"
-    self.lw_armor_default = "light/none"
+    self.lw_armor_default = nil
 
     self.set_buttons = {"magic", "item", "spare", "tension"}
     -- Display name
