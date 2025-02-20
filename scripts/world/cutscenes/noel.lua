@@ -1,6 +1,7 @@
 return {
 
     meet = function(cutscene)
+--Game.world.camera:setZoom(2.25)
         if not Noel:loadNoel() then
             cutscene:text("* Gonna make a char file real quick.", "bruh", "noel")
             cutscene:text("* This is just placeholder text okay?", "bruh", "noel")

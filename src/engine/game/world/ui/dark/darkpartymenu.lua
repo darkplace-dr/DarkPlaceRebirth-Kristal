@@ -50,11 +50,9 @@ function DarkPartyMenu:init(selected)
 		["Miscellaneous"] = self.misc,
 	}
 
-        -- added slot_spected = 1 to prevent playing as noel
-	if Game:loadNoel() and not self.slot_selected == 1 then -- oh ho ho! secret character!
+	if Game:loadNoel() then -- oh ho ho! secret character!
 		table.insert(self.unlocked, "noel")
 	end
-
 
 	-- This removes all menus that contain no unlocked characters
 	for i, menu in pairs(self.character_menus) do
@@ -105,7 +103,7 @@ function DarkPartyMenu:selection(num)
 			table.insert(menus, k)
 		end
 		local noeltitle = "[shake:1]"..(" "):rep(26)
-		if Game:loadNoel() then --SECRET MENU!
+		if Game:loadNoel() and self.slot_selected > 1 then --SECRET MENU!
 			table.insert(menus, noeltitle)
 		end
 		
