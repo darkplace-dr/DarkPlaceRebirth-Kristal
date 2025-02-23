@@ -100,30 +100,27 @@ function LightAttackBox:getFirstBolt(battler)
 end
 
 function LightAttackBox:evaluateHit(battler, close)
-    local value = 0
     if close < 1 then
-        value = value + 110
+        return 110
     elseif close < 2 then
-        value = value + 90
+        return 90
     elseif close < 3 then
-        value = value + 80 
+        return 80 
     elseif close < 4 then
-        value = value + 70
+        return 70
     elseif close < 5 then
-        value = value + 50
+        return 50
     elseif close < 10 then
-        value = value + 40
+        return 40
     elseif close < 16 then
-        value = value + 20
+        return 20
     elseif close < 22 then
-        value = value + 15
+        return 15
     elseif close < 28 then
-        value = value + 10
+        return 10
     else
-        value = value + 0
+        return 0
     end
-
-    return value
 end
 
 function LightAttackBox:checkAttackEnd(battler, score, bolts, close)
@@ -176,8 +173,6 @@ function LightAttackBox:hit(battler)
         elseif close < 5 then
             Assets.stopAndPlaySound("hit")
             bolt.sprite:setColor(128/255, 1, 1)
-        elseif close < 28 then
-            bolt.sprite:setColor(192/255, 0, 0)
         else
             bolt.sprite:setColor(192/255, 0, 0)
         end
