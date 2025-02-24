@@ -101,7 +101,7 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
 
     uv.x *= iResolution.x / iResolution.y;
 
-    vec3 col = 2.3 * 0.5 + cos(iTime * 8 + 10.0 * fbm(uv * 3.14159) + vec3(0, 23, 21));  // Use a constant for pi
+    vec3 col = 2.3 * 0.5 + cos(iTime * 8.0 + 10.0 * fbm(uv * 3.14159) + vec3(0, 23, 21));  // Use a constant for pi
     col += fbm(uv * 6.0);
 
     return Texel(tex, texture_coords) * vec4(col, 1.0) * color;
