@@ -72,7 +72,7 @@ return {
                     or (Input.down("c") and Input.down("d"))
                     or (Input.down("gamepad:leftshoulder") and Input.down("gamepad:rightshoulder"))
                 ) then
-                    Game.fader:fadeOut { speed = 0 }
+                    --Game.fader:fadeOut { speed = 0 }
                     -- Kristal.hideBorder(0) takes an entire frame, which is too slow.
                     BORDER_ALPHA = 0
                     Game:setFlag("skipped_intro", true)
@@ -90,9 +90,7 @@ return {
                                 Game.world:startCutscene("_main.snowgraveskip")
                             end)
                         else]]
-                            Game.tutorial = true
-                            Game.world:loadMap("grey_cliffside/cliffside_start", nil, "down")
-                            Game.world:startCutscene("cliffside.intro")
+                            Game.world:loadMap("grey_cliffside/dead_room1_start", "spawn", "down")
                         --end
                     end)
                     cutscene:endCutscene()
@@ -453,13 +451,11 @@ return {
             cutscene:wait(1)
             gonerText("IS IN YOUR HANDS[wait:20]")
             cutscene:wait(1.5)
-            Game.fader:fadeOut {speed = 0}
+            --Game.fader:fadeOut {speed = 0}
     
             cutscene:after(function()
                 Game:setGlobalFlag("Intro_seen", true)
-                Game.tutorial = true
-                Game.world:mapTransition("grey_cliffside/cliffside_start", nil, "down")
-                Game.world:startCutscene("cliffside.intro")
+                Game.world:loadMap("grey_cliffside/dead_room1_start", "spawn", "down")
             end)
 
         end

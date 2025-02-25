@@ -23,7 +23,11 @@ function actor:init()
     -- Path to this actor's sprites (defaults to "")
     self.path = "party/noelle/dark"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "walk"
+    if Game:getFlag("visited_berdly_WR") then
+        self.default = "walk_sad"
+    else
+        self.default = "walk"
+    end
 
     -- Sound to play when this actor speaks (optional)
     self.voice = "noelle"
@@ -217,6 +221,8 @@ function actor:init()
         ["head_lowered_look_left"] = {0, 0},
         ["head_lowered_look_right"] = {0, 0},
     }
+
+    self.menu_anim = "blush"
 end
 
 function actor:getAnimation(anim)

@@ -30,9 +30,10 @@ function item:init()
         ["susie"] = placeholder,
         ["noelle"] = placeholder,
         ["dess"] = placeholder,
-        ["jamm"] = placeholder,
+        ["jamm"] = 60,
         ["mario"] = placeholder,
         ["pauling"] = 10,
+        ["ceroba"] = 20,
     }
 
     -- Default shop price (sell price is halved)
@@ -60,6 +61,10 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+		jamm = {
+			jamm = "It tastes like... eggs? Neat!",
+		},
+        ceroba = "I can barely taste anything...",
     }
 end
 

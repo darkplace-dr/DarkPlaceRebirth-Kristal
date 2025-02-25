@@ -14,7 +14,7 @@ function character:init()
 
     self.soul_priority = 1
     self.soul_color = {1, 1, 1}
-    self.monster = true
+    self.soul_facing = "down"
 
     self.has_act = false
     self.has_spells = true
@@ -25,7 +25,8 @@ function character:init()
     self.lw_portrait = "face/ceroba/neutral_1"
 
     self:addSpell("diamond_guard")
-    self:addSpell("paralysis")
+    self:addSpell("flower_barrage")
+    self:addSpell("flowershot")
 
     self.health = 180
 
@@ -63,6 +64,9 @@ function character:init()
     self.attack_box_color = {1, 0, 0.35}
     self.xact_color = {1, 0, 0.35}
 
+    self.light_color = {237/255, 140/255, 36/255}
+    self.light_xact_color = {237/255, 140/255, 36/255}
+
     self.icon_color = {1, 0, 87/255}
 
     self.menu_icon = "party/ceroba/head"
@@ -91,8 +95,15 @@ function character:onLevelUp(level)
     end
 end
 
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 10)
+    self:increaseStat("attack", 1)
+    self:increaseStat("defense", 1)
+    self:increaseStat("magic", 2)
+end
+
 function character:lightLVStats()
-    self.lw_stats = {
+    return {
         health = self:getLightLV() <= 20 and math.min(35 + self:getLightLV() * 5) or 25 + self:getLightLV() * 5,
         attack = 9 + self:getLightLV() + math.floor(self:getLightLV() / 3),
         defense = 9 + math.ceil(self:getLightLV() / 4),

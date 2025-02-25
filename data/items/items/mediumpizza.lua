@@ -31,6 +31,7 @@ function item:init()
         ["brenda"] = 30,
 		["jamm"] = nil,
         ["noel"] = 300,
+        ["ceroba"] = 30,
 	}
 
     -- Default shop price (sell price is halved)
@@ -57,6 +58,7 @@ function item:init()
 		jamm = "Hold on. There are mushrooms.",
         ["jamm+marcy"] = "You're a picky eater too, huh, Marcy?",
 		noel = "So, THIS is a PIZZA!",
+        ceroba = "Fancy.",
 	}
 end
 

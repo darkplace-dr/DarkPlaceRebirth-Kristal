@@ -15,6 +15,7 @@ function character:init()
 
     self.soul_priority = 2
     self.soul_color = {1, 0, 0}
+    self.soul_facing = "up"
 
     self.has_act = true
     self.has_spells = false
@@ -42,7 +43,7 @@ function character:init()
 
     self.color = {1, 0.5, 0}
     self.dmg_color = {1, 0.5, 0.25}
-    self.attack_bar_color = {1, 0.5, 162/255}
+    self.attack_bar_color = {1, 0.75, 0}
     self.attack_box_color = {1, 0.5, 0}
     self.xact_color = {1, 0.5, 0}
 

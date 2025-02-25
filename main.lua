@@ -1,3 +1,9 @@
+if OrigGlobal then
+    local chunk = love.filesystem.load("src/funnymetagag.lua")
+    setfenv(chunk, OrigGlobal)
+    chunk()
+end
+
 require("src.engine.tweaks")
 
 require("src.engine.vars")
@@ -20,6 +26,8 @@ JSON = require("src.lib.json")
 Ease = require("src.lib.easing")
 SemVer = require("src.lib.semver")
 require("src.lib.stable_sort")
+
+NativeFS = require("src.lib.nativefs")
 
 Class = require("src.utils.class")
 require("src.utils.graphics")
@@ -70,7 +78,8 @@ MainMenuModList = require("src.engine.menu.mainmenumodlist")
 MainMenuModCreate = require("src.engine.menu.mainmenumodcreate")
 MainMenuModConfig = require("src.engine.menu.mainmenumodconfig")
 MainMenuModError = require("src.engine.menu.mainmenumoderror")
-MainMenuFileSelect = require("src.engine.menu.mainmenufileselect")
+MainMenuFileSelectDark = require("src.engine.menu.mainmenufileselectdark")
+MainMenuCompletionSelect = require("src.engine.menu.mainmenucompletionselect")
 MainMenuFileName = require("src.engine.menu.mainmenufilename")
 MainMenuDefaultName = require("src.engine.menu.mainmenudefaultname")
 MainMenuControls = require("src.engine.menu.mainmenucontrols")
@@ -84,6 +93,7 @@ ModButton = require("src.engine.menu.objects.modbutton")
 DLCButton = require("src.engine.menu.objects.DLCbutton")
 ModCreateButton = require("src.engine.menu.objects.modcreatebutton")
 FileButton = require("src.engine.menu.objects.filebutton")
+DarkFileButton = require("src.engine.menu.objects.darkfilebutton")
 FileNamer = require("src.engine.menu.objects.filenamer")
 
 DarkTransitionLine = require("src.engine.game.darktransition.darktransitionline")
@@ -104,6 +114,7 @@ FountainShadowFX = require("src.engine.drawfx.fountainshadowfx")
 GradientFX = require("src.engine.drawfx.gradientfx")
 ScissorFX = require("src.engine.drawfx.scissorfx")
 VHSFilterFX = require("src.engine.drawfx.vhsfilterfx")
+PaletteFX = require("src.engine.drawfx.palettefx")
 
 Collider = require("src.engine.colliders.collider")
 ColliderGroup = require("src.engine.colliders.collidergroup")
@@ -207,6 +218,7 @@ DarkConfigMenu = require("src.engine.game.world.ui.dark.darkconfigmenu")
 DarkMenuPartySelect = require("src.engine.game.world.ui.dark.darkmenupartyselect")
 DarkStorageMenu = require("src.engine.game.world.ui.dark.darkstoragemenu")
 DarkBadgeMenu = require("src.engine.game.world.ui.dark.darkbadgemenu")
+DarkCharacterMenu = require("src.engine.game.world.ui.dark.darkcharactermenu")
 DarkPartyMenu = require("src.engine.game.world.ui.dark.darkpartymenu")
 
 LightMenu = require("src.engine.game.world.ui.light.lightmenu")
@@ -291,6 +303,8 @@ SnowGraveSnowflake = require("src.engine.game.effects.snowgravesnowflake")
 FatalEffect = require("src.engine.game.effects.fataleffect")
 RudeBusterBeam = require("src.engine.game.effects.rudebusterbeam")
 RudeBusterBurst = require("src.engine.game.effects.rudebusterburst")
+IceBeamSpell = require("src.engine.game.effects.icebeamspell")
+IceBurst = require("src.engine.game.effects.iceburst")
 MirrorEffect = require("src.engine.game.effects.mirroreffect")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
@@ -304,6 +318,7 @@ Border = require("src.engine.border")
 ImageBorder = require("src.engine.imageborder")
 
 GameOver = require("src.engine.game.gameover")
+GameOverSF = require("src.engine.game.gameoversf")
 
 Legend = require("src.engine.game.legend")
 

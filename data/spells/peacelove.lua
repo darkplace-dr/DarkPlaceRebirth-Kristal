@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Induce\nSPARE."
     -- Menu description
     self.description = "Increases every enemy's SPARE bar\nby a varying amount."
+    -- Check description
+    self.check = "Increases every enemy's spare bar by a varying amount."
 
     -- TP cost
     self.cost = 64

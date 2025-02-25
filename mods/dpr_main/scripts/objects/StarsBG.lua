@@ -32,6 +32,9 @@ function StarsBG:draw()
     self:drawFill()
 	self:drawBack()
 	self:drawFront()
+
+    Draw.setColor(0, 0, 0, Game.battle.background_fade_alpha)
+    love.graphics.rectangle("fill", -20, -20, SCREEN_WIDTH + 40, SCREEN_HEIGHT + 40)
 end
 
 function StarsBG:drawFill()

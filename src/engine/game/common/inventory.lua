@@ -502,6 +502,9 @@ function Inventory:loadStorage(storage, data)
                 storage[i] = Registry.createItem(item.id)
                 storage[i]:load(item)
             else
+                storage[i] = Registry.createItem("testdog")
+                storage[i]:load(item)
+                storage[i].saved_item = item.id
                 Kristal.Console:error("Could not load item \""..item.id.."\"")
             end
         end

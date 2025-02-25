@@ -3,21 +3,23 @@ local character, super = Class(PartyMember, "noel")
 function character:init()
     super.init(self)
     self.lw_portrait = "face/noel/neutral"
-    self.lw_armor_default = "light/none"
+    self.lw_armor_default = nil
 
     self.set_buttons = {"magic", "item", "spare", "tension"}
     -- Display name
     self.name = "Noel"
 
-    self.cm_draw = true
+    self.cm_draw = true --for the character select draw function
 
     -- Actor (handles sprites)
     self:setActor("noel")
+    self:setDarkTransitionActor("noel")
+
     local lever = "-1"
     -- Display level (saved to the save file)
     self.level = lever
     -- Default title / class (saved to the save file)
-    self.title = "Preist.\nDoesn't understand\nhow his class works."
+    self.title = "Preist\nDoesn't understand\nhow his class works."
 
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 0.1
@@ -131,7 +133,35 @@ function character:init()
     self.default_opinion = 0
 
     self.pain_img = Assets.getTexture("ui/menu/icon/pain")
+end
 
+function character:getTitle()
+    local save = Noel:loadNoel()
+    local prefix = "LV"..self:getLevel().." "
+    if Noel:isDess() then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return prefix.."Preist\nDoesn't understand\nhow his class works."
+        else
+            return prefix.."Preist\nDoesn't understand\nhow her class works."
+        end
+    else
+        return prefix..""..self.title
+    end
+end
+
+function character:getName()
+    local save = Noel:loadNoel()
+    if Noel:isDess() then
+        local meth = math.random(1, 15)
+        if meth == 1 then
+            return "dess"
+        else
+            return "Noel"
+        end
+    else
+        return "Noel"
+    end
 end
 
 function character:onLightLevelUp(level) end --do not remove this or noel will not work in light battles 
@@ -203,7 +233,7 @@ function character:save()
     local save = Noel:loadNoel()
 
     if Kristal.temp_save == true then
-    elseif save then
+    elseif save and Game:hasPartyMember("noel") then
         local num = love.math.random(1, 999999)
         Game:setFlag("noel_SaveID", num)
         local newData = {

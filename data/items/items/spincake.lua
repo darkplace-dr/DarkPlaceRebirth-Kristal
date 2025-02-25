@@ -55,7 +55,9 @@ function item:init()
         susie = "I'm dizzy.",
         ralsei = "Mmm, thank you!",
         noelle = "My eyes are spinning...",
+		dess = "[joke removed due to in appropiate content]",
         jamm = "I need to sit down...",
+        ceroba = "It's like my mind is spinning...",
     }
 end
 

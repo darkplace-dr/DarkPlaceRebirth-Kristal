@@ -300,6 +300,20 @@ function EnemyBattler:removeAct(name)
     end
 end
 
+function EnemyBattler:registerMarcyAct(name, description, party, tp, highlight, icons)
+	if Game:getFlag("marcy_joined") then
+		self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
+		self.acts[#self.acts].color = {0, 1, 1}
+	end
+end
+
+function EnemyBattler:registerShortMarcyAct(name, description, party, tp, highlight, icons)
+	if Game:getFlag("marcy_joined") then
+		self:registerActFor("jamm", name, description, party, tp, highlight, icons)
+		self.acts[#self.acts].color = {0, 1, 1}
+	end
+end
+
 --- Non-violently defeats the enemy and removes them from battle (if [`exit_on_defeat`](lua://EnemyBattler.exit_on_defeat) is `true`)
 ---@param pacify?   boolean Whether the enemy was defeated by pacifying them rather than sparing them (defaults to `false`)
 function EnemyBattler:spare(pacify)
@@ -335,10 +349,9 @@ function EnemyBattler:spare(pacify)
             parent:addChild(img2)
             self:remove()
         end)
-        
-        self:defeat(pacify and "PACIFIED" or "SPARED", false)
     end
 
+    self:defeat(pacify and "PACIFIED" or "SPARED", false)
     self:onSpared()
 end
 
@@ -908,6 +921,19 @@ function EnemyBattler:defeat(reason, violent)
             end
             self:setRecruitStatus(false)
         end
+        if self.done_state == "KILLED" or self.done_state == "FROZEN" then
+            Game.battle.killed = true
+            for i, battler in ipairs(Game.battle.party) do
+                battler.chara.kills = battler.chara.kills + 1
+            end
+            if self.done_state == "FROZEN" then
+                Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
+            else
+                Game.battle.xp = Game.battle.xp + self.experience
+            end
+        end
+    elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
+        Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
     end
     
     if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
@@ -924,18 +950,6 @@ function EnemyBattler:defeat(reason, violent)
     end
     
     Game.battle.money = Game.battle.money + self.money
-
-    if self.done_state == "KILLED" or self.done_state == "FROZEN" then
-        Game.battle.killed = true
-        for i, party in ipairs(Game.party) do
-            party.kills = party.kills + 1
-        end
-        if self.done_state == "FROZEN" then
-            Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
-        else
-            Game.battle.xp = Game.battle.xp + self.experience
-        end
-    end
 
     Game.battle:removeEnemy(self, true)
 end

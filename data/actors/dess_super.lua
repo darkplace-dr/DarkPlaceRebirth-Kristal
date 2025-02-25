@@ -99,4 +99,54 @@ function actor:init()
     }
 end
 
+function actor:onSpriteInit(sprite)
+    super.onSpriteInit(sprite)
+	
+    sprite.flame = Assets.getFrames("effects/aura")
+    sprite.flameframe = 0
+	
+    sprite.flame1alpha = 0
+    sprite.flame2alpha = 0
+    sprite.flamecontimer = 0
+    sprite.specialcontimer = 0
+end
+
+function actor:preSpriteDraw(sprite)
+    super.preSpriteDraw(sprite)
+
+    sprite.flamecontimer = sprite.flamecontimer + DTMULT
+    sprite.specialcontimer = sprite.specialcontimer + DTMULT
+	
+    sprite.flameframe = ((sprite.specialcontimer / 4) % 2)
+	
+    sprite.flame1alpha = sprite.flamecontimer / 15
+    sprite.flame2alpha = sprite.specialcontimer / 15
+	
+    if sprite.flame2alpha >= 0.9 then
+        sprite.flame2alpha = 0.9
+    end
+    if sprite.specialcontimer >= 15 then
+        sprite.flame2alpha = (1 - (sprite.specialcontimer / 60))
+        if sprite.flame2alpha < 0 then
+            sprite.flame2alpha = 0
+        end
+    end
+    if sprite.specialcontimer >= 60 then
+        sprite.specialcontimer = 12
+    end
+
+    love.graphics.setColor(1, 1, 0, (1.4 + math.abs((math.sin((sprite.flamecontimer / 4)) / 2)))/2)
+    if not Game.battle or Game.battle and sprite.anim == "walk/right" then
+        Draw.draw(sprite.flame[1], 23/2, 46, 0, -1/2, (1.2 + math.abs((math.sin((sprite.specialcontimer / 4)) / 2)))/2, 99/2 + 10, 90)
+    else
+        Draw.draw(sprite.flame[1], 23/2 + 10, 46, 0, -1/2, (1.2 + math.abs((math.sin((sprite.specialcontimer / 4)) / 2)))/2, 99/2 + 10, 90)
+    end	
+    love.graphics.setColor(0.5, 0.5, 0, (sprite.flame2alpha / 1.4))
+    if not Game.battle or Game.battle and sprite.anim == "walk/right" then
+        Draw.draw(sprite.flame[2], 23/2, 46, 0, -1/2, 1.4/2, 99/2 + 10, 90)
+    else
+        Draw.draw(sprite.flame[2], 23/2 + 10, 46, 0, -1/2, 1.4/2, 99/2 + 10, 90)
+    end	
+end
+
 return actor

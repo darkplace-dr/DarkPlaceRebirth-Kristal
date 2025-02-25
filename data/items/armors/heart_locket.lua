@@ -52,7 +52,7 @@ function item:init()
         brenda = "Oh god why is it beating.",
         ceroba = "Reminds me of Kanako...",
         noel = "oh... you found it...",
-        jamm = "",
+        jamm = "It's just like...",
         ["jamm+marcy"] = "Just like yours, Marcy..."
     }
 

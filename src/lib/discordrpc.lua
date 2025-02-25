@@ -6,7 +6,20 @@ if ffi.os == "Windows" then
     name = name .. "-" .. ffi.arch
 end
 
-local ok, discordRPClib = pcall(ffi.load, name)
+local search_paths = {"", "lib/"}
+
+local ok, discordRPClib
+for _, search_path in ipairs(search_paths) do
+    ok, discordRPClib = pcall(ffi.load, search_path .. name)
+
+    if not discordRPClib then
+        ok = false
+    end
+
+    if ok then
+        break
+    end
+end
 
 -- Apparently, that doesn't work for some reason like it did for the https module.
 -- It's fine since Discord RPC isn't critical for Rebirth but it's a bit weird

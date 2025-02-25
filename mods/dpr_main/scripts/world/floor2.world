@@ -1,0 +1,55 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floor2/dev/main_1.tmx",
+            "height": 640,
+            "width": 1280,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floor2/dev/pre_elevator.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -720,
+            "y": 40
+        },
+        {
+            "fileName": "maps/floor2/dev/party/party.tmx",
+            "height": 640,
+            "width": 960,
+            "x": 400,
+            "y": -1240
+        },
+        {
+            "fileName": "maps/floor2/dev/coffeeshop.tmx",
+            "height": 480,
+            "width": 960,
+            "x": 120,
+            "y": -520
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall_entry.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -800,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall.tmx",
+            "height": 480,
+            "width": 16000,
+            "x": -80,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall_end.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 16000,
+            "y": -1920
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

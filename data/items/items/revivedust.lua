@@ -48,7 +48,9 @@ function item:init()
         susie = "Don't throw dust at me!",
         ralsei = "It's minty!",
         noelle = "What are you sprinkling?",
+		dess = "jesser we have to cook cocainer",
         jamm = "Dust isn't my favorite, but...",
+        ceroba = "*cough* *cough* What's that!?",
     }
 end
 

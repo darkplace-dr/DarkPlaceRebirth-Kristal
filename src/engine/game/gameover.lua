@@ -37,7 +37,7 @@ function GameOver:init(x, y, force_message)
 	
 	self.force_message = force_message
 
-    self.is_nohit = Game.save_name:upper() == "MERG"
+    self.is_nohit = Game:isSpecialMode "MERG"
 end
 
 function GameOver:onRemove(parent)

@@ -11,7 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "Heal\nAlly?"
     -- Menu description
-    self.description = "* This is a weird ass spell.\nLike, it heals only one guy and then I die. smh my head.."
+    self.description = "This is a weird ass spell.\nLike, it heals only one guy and then I die. smh my head.."
+    -- Check description
+    self.check = {"This is a weird ass spell.", "* Like, it heals only one guy and then I die. smh my head.."}
 
     -- TP cost
     self.cost = 1

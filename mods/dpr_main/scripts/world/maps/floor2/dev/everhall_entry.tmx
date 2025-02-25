@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="14">
+ <editorsettings>
+  <export target="everhall_entry.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tilesets/devroom.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,37,29,29,29,29,29,29,29,29,29,29,29,29,29,
+17,17,18,41,41,41,41,41,41,41,41,41,41,41,41,41,
+17,17,18,41,53,53,53,53,53,53,53,53,53,53,53,53,
+17,17,18,53,53,53,53,53,53,53,53,53,53,53,53,53,
+17,17,18,65,65,65,65,65,65,65,65,65,65,65,65,65,
+17,17,18,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,18,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,49,5,5,5,5,5,5,5,5,5,5,5,5,5,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
+</data>
+ </layer>
+ <layer id="6" name="tallies" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,39,39,39,39,39,39,39,39,39,39,39,39,39,
+0,0,0,39,39,39,39,39,39,39,39,39,39,39,39,39,
+0,0,0,39,39,39,39,39,39,51,39,39,39,39,39,39,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="2" x="120" y="240" width="100" height="40"/>
+  <object id="3" x="300" y="240" width="340" height="40"/>
+  <object id="4" x="120" y="360" width="520" height="40"/>
+  <object id="5" x="80" y="280" width="40" height="80"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="2" name="objects_elevator">
+  <object id="1" name="elevatordoor" x="200" y="240" width="120" height="40">
+   <properties>
+    <property name="type" value="devroom"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <properties>
+   <property name="music" value="none"/>
+  </properties>
+  <object id="6" name="savepoint" x="150" y="300" width="40" height="40"/>
+  <object id="7" name="transition" x="640" y="280" width="40" height="80">
+   <properties>
+    <property name="map" value="floor2/dev/everhall"/>
+    <property name="marker" value="leftmark"/>
+   </properties>
+  </object>
+  <object id="10" name="interactable" x="360" y="240" width="40" height="40">
+   <properties>
+    <property name="text1" value="* A memento to the age of old, one long forgotten."/>
+    <property name="text2" value="* Every tick on the wall represents a decade I have been lost to the void."/>
+    <property name="text3" value="* (Before attempting this, be sure you have a LOT of free time and save frequently.)"/>
+    <property name="text4" value="* (I'm serious, one room of \nthis alone takes a while to complete.)"/>
+   </properties>
+  </object>
+  <object id="13" name="transition" x="221" y="220" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/dev/elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="8" name="entry_elevator" x="260" y="310">
+   <point/>
+  </object>
+  <object id="9" name="hall_exit" x="600" y="320">
+   <point/>
+  </object>
+  <object id="11" name="spawn" x="360" y="330">
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="7" name="Tile Layer 3" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,7,8,0,0,0,7,8,0,0,0,7,8,
+0,0,0,0,19,20,0,0,0,19,20,0,0,0,19,20,
+0,0,0,0,31,32,0,0,0,31,32,0,0,0,31,32,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

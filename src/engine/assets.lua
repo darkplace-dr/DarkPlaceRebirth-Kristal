@@ -58,6 +58,19 @@ function Assets.clear()
     self.quads = {}
 end
 
+---@param path string
+---@return new_path string
+function Assets.checkSpritesOverride(path)
+    local split_path = Utils.splitFast(path, "/")
+    if #split_path > 1 then
+        if split_path[1] == "player" then
+            table.insert(split_path, 2, Kristal.getSoulFacing())
+            return table.concat(split_path, "/")
+        end
+    end
+    return path
+end
+
 ---@param data Assets.data
 function Assets.loadData(data)
     Utils.merge(self.data, data, true)
@@ -165,6 +178,11 @@ function Assets.parseData(data)
         local src = love.audio.newSource(sound_data)
         self.sounds[key] = src
     end
+
+    -- create single-instance shaders
+    for key,shader_path in pairs(data.shader_paths) do
+        self.data.shaders[key] = love.graphics.newShader(shader_path)
+    end
     -- may be a memory hog, we clone the existing source so we dont need the sound data anymore
     --self.data.sound_data = {}
 end
@@ -253,13 +271,13 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
-    return self.data.texture[path]
+    return self.data.texture[Assets.checkSpritesOverride(path)] or self.data.texture[path]
 end
 
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
-    return self.data.texture_data[path]
+    return self.data.texture_data[Assets.checkSpritesOverride(path)] or self.data.texture_data[path]
 end
 
 ---@param texture love.Image|string
@@ -275,13 +293,13 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
-    return self.data.frames[path]
+    return self.data.frames[Assets.checkSpritesOverride(path)] or self.data.frames[path]
 end
 
 ---@param path string
 ---@return string[]
 function Assets.getFrameIds(path)
-    return self.data.frame_ids[path]
+    return self.data.frame_ids[Assets.checkSpritesOverride(path)] or self.data.frame_ids[path]
 end
 
 ---@param texture string
@@ -431,8 +449,12 @@ function Assets.newVideo(video, load_audio)
     return love.graphics.newVideo(self.data.videos[video], {audio = load_audio})
 end
 
+function Assets.getShader(id)
+    return self.data.shaders[id]
+end
+
 function Assets.newShader(id)
-    return love.graphics.newShader(self.data.shaders[id])
+    return love.graphics.newShader(self.data.shader_paths[id])
 end
 
 Assets.clear()

@@ -10,6 +10,8 @@ function spell:init()
     self.effect = "Flame"
     -- Menu description
     self.description = "Deals damage to enemies."
+    -- Check description
+    self.check = "Deals damage to enemies."
 
     -- TP cost
     self.cost = 40

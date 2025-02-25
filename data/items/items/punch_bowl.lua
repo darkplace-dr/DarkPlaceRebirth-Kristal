@@ -34,6 +34,8 @@ function item:init()
         ["brenda"] = 40,
 		["jamm"] = 0,
         ["noel"] = 999999999999999999999999999999, --fucking send him
+		-- :salute:
+        ["ceroba"] = 60,
 	}
 
     -- Default shop price (sell price is halved)
@@ -68,6 +70,7 @@ function item:init()
         brenda = "Never really been a fan.",
 		jamm = "Alright. I punched it. What next?",
         noel = "I AM WHO IS ALL YET NONE!!!",
+        ceroba = "So many fruit tastes...",
     }
 end
 

@@ -54,7 +54,9 @@ function item:init()
             ralsei = "Ah, I'm refreshed!"
         },
         noelle = "Mints? I love mints!",
+		dess = "jesser we have to cook methm",
         jamm = "And we used it here, why?",
+        ceroba = "Mints are alright, I suppose.",
     }
 end
 

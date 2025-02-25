@@ -51,7 +51,9 @@ function item:init()
         susie = "Hey, this rules!",
         ralsei = "Nice and chalky.",
         noelle = "(I-isn't this the chalk I gave her?)",
+		dess = "rudys got the chalkzone",
         jamm = "Not the first time I ate chalk. Not the last, either.",
+        ceroba = "(...why does it remind me of chalk?)",
     }
 end
 

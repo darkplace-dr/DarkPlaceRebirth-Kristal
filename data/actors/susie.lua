@@ -27,6 +27,8 @@ function actor:init(style)
     -- This actor's default sprite or animation, relative to the path (defaults to "")
     if susie_style == 1 then
         self.default = "walk_bangs"
+    elseif Game:getFlag("sus_serious") == true then
+        self.default = "walk_bangs_unhappy"
     else
         self.default = "walk"
     end
@@ -81,7 +83,10 @@ function actor:init(style)
         ["jump_ball"]           = {"ball", 1/15, true},
 
         ["diagonal_kick_right"] = {"diagonal_kick_right", 4/30, false},
-        ["diagonal_kick_left"] = {"diagonal_kick_left", 4/30, false}
+        ["diagonal_kick_left"] = {"diagonal_kick_left", 4/30, false},
+
+        ["laugh_right"] = {"laugh_right", 0.2, true},
+        ["away_scratch"] = {"away_scratch", 0.2, true},
     }
 
     if susie_style == 1 then
@@ -220,6 +225,8 @@ function actor:init(style)
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
+
+    self.menu_anim = "pose"
 end
 
 return actor

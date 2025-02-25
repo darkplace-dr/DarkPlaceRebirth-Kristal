@@ -286,6 +286,9 @@ function Encounter:getSoulColor()
     return Game:getSoulColor()
 end
 
+---@return string
+function Encounter:getSoulFacing() end
+
 --- *(Override)* Gets the position that the soul will appear at when starting waves.
 ---@return integer x
 ---@return integer y
@@ -325,8 +328,7 @@ end
 ---@return Soul
 function Encounter:createSoul(x, y, color)
     local player = Game.party[1]
-    local player_name = Game.save_name:upper()
-    if player_name == "BLUE" then
+    if Game:isSpecialMode "BLUE" then
         return BlueSoul(x, y, color)
     else
         return Soul(x, y, color)

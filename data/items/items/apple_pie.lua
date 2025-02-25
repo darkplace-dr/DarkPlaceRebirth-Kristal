@@ -29,7 +29,8 @@ function item:init()
         ["noelle"] = 40,
 		["dess"] = 250,
         ["brenda"] = 60,
-		["jamm"] = 99999
+		["jamm"] = 99999,
+        ["ceroba"] = 110
 	}
 
     -- Default shop price (sell price is halved)
@@ -65,6 +66,7 @@ function item:init()
 		jamm = "I'm lovin' it!",
         ["jamm+marcy"] = "I'm lovin' it! // What?",
 		noel = "I wish I had a grandma.",
+        ceroba = "It's really good!",
     }
 end
 

@@ -52,7 +52,7 @@ function item:init()
         noelle = "Wh- uh... airline food?",
 	    dess = "69 lmao",
         brenda = "Sus Among U-",
-	    jamm = "Well, I'm on my way to the White House. Don't wait up.",
+	    jamm = "Well, I'm on my way to YouTube. Don't wait up.",	-- Was a politics joke before, you're welcome
         ["jamm+marcy"] =  "Shouldn't make this joke around Marcy...",
         noel = "An oversized mug would be better.",
     }

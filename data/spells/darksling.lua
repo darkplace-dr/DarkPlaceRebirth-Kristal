@@ -10,6 +10,8 @@ function spell:init()
     self.effect = "Non-Boss\nSpecial"
     -- Menu description
     self.description = "Deals massive damage to non-boss enemies."
+    -- Check description
+    self.check = "Deals massive damage to non-boss enemies."
 
     -- TP cost
     self.cost = 55

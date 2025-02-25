@@ -51,8 +51,11 @@ function item:init()
         susie = "It's got crunch.",
         ralsei = "How elegant!",
         noelle = "What a nice song...",
+		dess = ">look inside >cd",
         jamm = "So what decides these songs?",
         noel = "I'm seeing stars.",
+        ceroba = "", -- empty until sound effect is added
+        brenda = "Sounds like home."
     }
 
     self.sounds = {

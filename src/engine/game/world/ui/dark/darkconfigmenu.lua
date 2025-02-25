@@ -25,7 +25,7 @@ function DarkConfigMenu:init()
     self.bg.debug_select = false
     self:addChild(self.bg)
 
-    -- MAIN, VOLUME, CONTROLS
+    -- MAIN, VOLUME, CONTROLS, BORDER
     self.state = "MAIN"
 
     self.currently_selected = 0
@@ -34,39 +34,74 @@ function DarkConfigMenu:init()
     self.reset_flash_timer = 0
     self.rebinding = false
 
-    self.keybinds = Input.getBinds()
+    self.current_config_page = 1
+    self.max_config_pages = 2
 
-    self.current_page = 1
-    self.max_pages = Utils.ceil(#self.keybinds/7)
+    self.border_types = {
+        {"off",     "OFF",     nil},
+        {"dynamic", "Dynamic", nil},
+        {"simple",  "Simple",  "simple"},
+        {"none",    "None",    nil}
+    }
+    self.keybinds = {}
+    
+    self:registerKeybind()
+
+    self.control_page = 1
+    self.max_control_page = math.ceil(#self.keybinds/7)
 end
 
-function DarkConfigMenu:getBindNumberFromIndex(current_index)
-    local shown_bind = 1
-    local alias = Input.orderedNumberToKey(current_index)
-    local keys = Input.getBoundKeys(alias, Input.usingGamepad())
-    for index, current_key in ipairs(keys) do
-        if Input.usingGamepad() then
-            if Utils.startsWith(current_key, "gamepad:") then
-                shown_bind = index
-                break
-            end
-        else
-            if not Utils.startsWith(current_key, "gamepad:") then
-                shown_bind = index
-                break
-            end
+function DarkConfigMenu:registerKeybind()
+    local alr_used = {}
+
+    for _, keybind in ipairs(Input.order) do
+        if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+            table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
+            table.insert(alr_used, keybind)
         end
     end
-    return shown_bind
+
+    if not Game:getConfig("onlyMyDLCBind") then
+        for mod_id, keys in pairs(Input.mod_keybinds) do
+            local mod = Kristal.Mods.getMod(mod_id)
+            if mod["hideKeybinds"] then
+                goto continue
+            end
+
+            for _, keybind in ipairs(keys) do
+                if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+                    table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
+                    table.insert(alr_used, keybind)
+                end
+            end
+
+            ::continue::
+        end
+    else
+        local mod_id , keys = Mod.info.id, Input.mod_keybinds[Mod.info.id]
+        local mod = Kristal.Mods.getMod(mod_id)
+        if mod["hideKeybinds"] then
+            goto continue
+        end
+
+        for _, keybind in ipairs(keys) do
+            if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+                table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
+                table.insert(alr_used, keybind)
+            end
+        end
+        ::continue::
+    end
 end
 
 function DarkConfigMenu:onKeyPressed(key)
     if self.state == "CONTROLS" then
         if self.rebinding then
             local gamepad = Utils.startsWith(key, "gamepad:")
+            local key_rebind = self.keybinds[self.currently_selected + ((self.control_page - 1) * 7)]["keybind"]
 
             local worked = key ~= "escape" and
-                Input.setBind(self.keybinds[self.currently_selected + 7*(self.current_page-1)], 1, key, gamepad)
+                Input.setBind(key_rebind, 1, key, gamepad)
 
             self.rebinding = false
 
@@ -118,27 +153,16 @@ function DarkConfigMenu:onKeyPressed(key)
         local old_selected = self.currently_selected
         if Input.pressed("up") then
             self.currently_selected = self.currently_selected - 1
-            if self.currently_selected ~= 8 and self.current_page == self.max_pages and self.max_pages ~= 1 and self.keybinds[self.currently_selected + 7*(self.current_page-1)] == nil then
-                self.currently_selected = #self.keybinds - 7*(self.current_page-1)
+            if (self.currently_selected > 1 and self.currently_selected <= 7) and not self.keybinds[self.currently_selected + 8*(self.control_page - 1)] then
+                self.currently_selected = #self.keybinds - 7*(self.control_page - 1)
             end
         end
         if Input.pressed("down") then
             self.currently_selected = self.currently_selected + 1
-            if self.currently_selected <= 8 and self.keybinds[self.currently_selected + 7*(self.current_page-1)] == nil then
+            if self.currently_selected < 8 and not self.keybinds[self.currently_selected + 7*(self.control_page - 1)] then
                 self.currently_selected = 8
             end
         end
-
-        if Input.pressed("right") then
-
-                if self.keybinds[self.currently_selected + 7*(self.current_page)] == nil and self.current_page ~= self.max_pages and self.currently_selected < 8 then
-                    if self.currently_selected < 9 - Utils.round((8 - (#self.keybinds - 7*(self.current_page)/2))) then
-                        self.currently_selected = #self.keybinds - 7*(self.current_page)
-                    else
-                        self.currently_selected = 8
-                    end
-                end
-            end
 
         self.currently_selected = Utils.clamp(self.currently_selected, 1, 9)
 
@@ -147,19 +171,27 @@ function DarkConfigMenu:onKeyPressed(key)
             self.ui_move:play()
         end
 
-        local old_page = self.current_page
+        local old_page = self.control_page
         if Input.pressed("left") then
-            self.current_page = self.current_page - 1
+            self.control_page = self.control_page - 1
         end
         if Input.pressed("right") then
-            self.current_page = self.current_page + 1
+            self.control_page = self.control_page + 1
         end
 
-        self.current_page = Utils.clamp(self.current_page, 1, self.max_pages)
+        self.control_page = Utils.clamp(self.control_page, 1, self.max_control_page)
 
-        if old_page ~= self.current_page then
+        if old_page ~= self.control_page then
             self.ui_move:stop()
             self.ui_move:play()
+
+            if not self.keybinds[self.currently_selected + 7*(self.control_page - 1)] and self.currently_selected <= 7 then
+                if self.currently_selected <= (#self.keybinds - 7*self.control_page)/2 + 7 then
+                    self.currently_selected = #self.keybinds - 7*(self.control_page - 1)
+                else
+                    self.currently_selected = 8
+                end
+            end
         end
     end
 end
@@ -169,24 +201,32 @@ function DarkConfigMenu:update()
         if Input.pressed("confirm") then
             self.ui_select:stop()
             self.ui_select:play()
-
-            if self.currently_selected == 1 then
-                self.state = "VOLUME"
-                self.noise_timer = 0
-            elseif self.currently_selected == 2 then
-                self.state = "CONTROLS"
-                self.currently_selected = 1
-            elseif self.currently_selected == 3 then
-                Kristal.Config["simplifyVFX"] = not Kristal.Config["simplifyVFX"]
-            elseif self.currently_selected == 4 then
-                Kristal.Config["fullscreen"] = not Kristal.Config["fullscreen"]
-                love.window.setFullscreen(Kristal.Config["fullscreen"])
-            elseif self.currently_selected == 5 then
-                Kristal.Config["autoRun"] = not Kristal.Config["autoRun"]
-            elseif self.currently_selected == 6 then
-                Game:returnToMenu()
-            elseif self.currently_selected == 7 then
-                Game.world.menu:closeBox()
+			
+            if self.current_config_page == 1 then
+                if self.currently_selected == 1 then
+                    self.state = "VOLUME"
+                    self.noise_timer = 0
+                elseif self.currently_selected == 2 then
+                    self.state = "CONTROLS"
+                    self.currently_selected = 1
+                elseif self.currently_selected == 3 then
+                    Kristal.Config["simplifyVFX"] = not Kristal.Config["simplifyVFX"]
+                elseif self.currently_selected == 4 then
+                    Kristal.Config["fullscreen"] = not Kristal.Config["fullscreen"]
+                    love.window.setFullscreen(Kristal.Config["fullscreen"])
+                elseif self.currently_selected == 5 then
+                    Kristal.Config["autoRun"] = not Kristal.Config["autoRun"]
+                elseif self.currently_selected == 6 then
+                    Game:returnToMenu()
+                elseif self.currently_selected == 7 then
+                    Game.world.menu:closeBox()
+                end
+            elseif self.current_config_page == 2 then
+                if self.currently_selected == 1 then
+                    self.state = "BORDER"
+                elseif self.currently_selected == 2 then
+                    Game.world.menu:closeBox()
+                end
             end
 
             return
@@ -210,7 +250,26 @@ function DarkConfigMenu:update()
             self.ui_move:play()
         end
 
-        self.currently_selected = Utils.clamp(self.currently_selected, 1, 7)
+        if self.current_config_page == 1 then
+            self.currently_selected = Utils.clamp(self.currently_selected, 1, 7)
+        elseif self.current_config_page == 2 then
+            self.currently_selected = Utils.clamp(self.currently_selected, 1, 2)
+        end
+		
+        local old_page = self.current_config_page
+        if Input.pressed("left") then
+            self.current_config_page = self.current_config_page - 1
+        end
+        if Input.pressed("right") then
+            self.current_config_page = self.current_config_page + 1
+        end
+
+        self.current_config_page = Utils.clamp(self.current_config_page, 1, self.max_config_pages)
+
+        if old_page ~= self.current_config_page then
+            self.ui_move:stop()
+            self.ui_move:play()
+        end
     elseif self.state == "VOLUME" then
         if Input.pressed("cancel") or Input.pressed("confirm") then
             Kristal.setVolume(Utils.round(Kristal.getVolume() * 100) / 100)
@@ -246,6 +305,41 @@ function DarkConfigMenu:update()
                 self.currently_selected = 2
                 Input.clear("confirm", true)
             end
+        else
+            return
+        end
+    elseif self.state == "BORDER" then
+        if Input.pressed("cancel") or Input.pressed("confirm") then
+                self.state = "MAIN"
+				self.currently_selected = 1
+                self.ui_select:stop()
+                self.ui_select:play()
+        end
+        local border_index = -1
+        for current_index, border in ipairs(self.border_types) do
+            if border[1] == Kristal.Config["borders"] then
+                border_index = current_index
+            end
+        end
+        if border_index == -1 then
+            border_index = 1
+        end
+        local old_index = border_index
+        if Input.pressed("left") then
+            border_index = math.max(border_index - 1, 1)
+        end
+        if Input.pressed("right") then
+            border_index = math.min(border_index + 1, #self.border_types)
+        end
+        if old_index ~= border_index then
+            self.ui_move:stop()
+            self.ui_move:play()
+            Kristal.Config["borders"] = self.border_types[border_index][1]
+            if self.border_types[border_index][1] == "off" then
+                Kristal.resetWindow()
+            elseif self.border_types[old_index][1] == "off" then
+                Kristal.resetWindow()
+            end
         end
     end
 
@@ -264,55 +358,63 @@ function DarkConfigMenu:draw()
 
     if self.state ~= "CONTROLS" then
         love.graphics.print("CONFIG", 188, -12)
-
-        if self.state == "VOLUME" then
-            Draw.setColor(PALETTE["world_text_selected"])
+		
+        local page_offset = ((self.max_config_pages >= 10 and self.current_config_page >= 10) and 14) or ((self.max_config_pages >= 10 and self.current_config_page < 10) and 6) or 0
+        if self.max_config_pages > 1 then
+            love.graphics.print(self.current_config_page.."/"..self.max_config_pages, 418 - page_offset, -4 + (28 * 9) + 4)
         end
-        love.graphics.print("Master Volume", 88, 38 + (0 * 32))
-        Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("Controls", 88, 38 + (1 * 32))
-        love.graphics.print("Simplify VFX", 88, 38 + (2 * 32))
-        love.graphics.print("Fullscreen", 88, 38 + (3 * 32))
-        love.graphics.print("Auto-Run", 88, 38 + (4 * 32))
-        love.graphics.print("Return to Title", 88, 38 + (5 * 32))
-        love.graphics.print("Back", 88, 38 + (6 * 32))
-
-        if self.state == "VOLUME" then
-            Draw.setColor(PALETTE["world_text_selected"])
-        end
-        love.graphics.print(Utils.round(Kristal.getVolume() * 100) .. "%", 348, 38 + (0 * 32))
-        Draw.setColor(PALETTE["world_text"])
-        love.graphics.print(Kristal.Config["simplifyVFX"] and "ON" or "OFF", 348, 38 + (2 * 32))
-        love.graphics.print(Kristal.Config["fullscreen"] and "ON" or "OFF", 348, 38 + (3 * 32))
-        love.graphics.print(Kristal.Config["autoRun"] and "ON" or "OFF", 348, 38 + (4 * 32))
-
-        Draw.setColor(Game:getSoulColor())
-        Draw.draw(self.heart_sprite, 63, 48 + ((self.currently_selected - 1) * 32))
-    else
-
-        local page_offset = ((self.max_pages >= 10 and self.current_page >= 10) and 14) or ((self.max_pages >= 10 and self.current_page < 10) and 6) or 0
-
-        if Game:getConfig("hideIfNoExtra") and self.max_pages > 1 then
-            love.graphics.print(self.current_page.."/"..self.max_pages, 418 - page_offset, -4 + (28 * 9) + 4)
-        end
-
+		
     --  Code for the arrow sprite
-        local sine_off
-        if sine_off == nil then
-            sine_off = 0
-        end
+        local sine_off = math.sin((Kristal.getTime()*30)/16) * 3
 
-        sine_off = math.sin((Kristal.getTime()*30)/16) * 3
-
-        if Game:getConfig("showArrow") and Game:getConfig("hideIfNoExtra") and self.max_pages > 1 then
-            if self.current_page ~= 1 then -- Gauche
+        if Game:getConfig("showArrow") and self.max_config_pages > 1 then
+            if self.current_config_page ~= 1 then
                 Draw.draw(self.flat_arrow_sprite, 410 - page_offset + sine_off, 264, 0, -1, 1)
             end
-            if self.current_page ~= self.max_pages then -- Droite
+            if self.current_config_page ~= self.max_config_pages then
                 Draw.draw(self.flat_arrow_sprite, 466 + page_offset - sine_off, 264)
             end
         end
 
+        if self.current_config_page == 1 then
+            if self.state == "VOLUME" then
+                Draw.setColor(PALETTE["world_text_selected"])
+            end
+            love.graphics.print("Master Volume", 88, 38 + (0 * 32))
+            Draw.setColor(PALETTE["world_text"])
+            love.graphics.print("Controls", 88, 38 + (1 * 32))
+            love.graphics.print("Simplify VFX", 88, 38 + (2 * 32))
+            love.graphics.print("Fullscreen", 88, 38 + (3 * 32))
+            love.graphics.print("Auto-Run", 88, 38 + (4 * 32))
+            love.graphics.print("Return to Title", 88, 38 + (5 * 32))
+            love.graphics.print("Back", 88, 38 + (6 * 32))
+
+            if self.state == "VOLUME" then
+                Draw.setColor(PALETTE["world_text_selected"])
+            end
+            love.graphics.print(Utils.round(Kristal.getVolume() * 100) .. "%", 348, 38 + (0 * 32))
+            Draw.setColor(PALETTE["world_text"])
+            love.graphics.print(Kristal.Config["simplifyVFX"] and "ON" or "OFF", 348, 38 + (2 * 32))
+            love.graphics.print(Kristal.Config["fullscreen"] and "ON" or "OFF", 348, 38 + (3 * 32))
+            love.graphics.print(Kristal.Config["autoRun"] and "ON" or "OFF", 348, 38 + (4 * 32))
+		elseif self.current_config_page == 2 then
+            if self.state == "BORDER" then
+                Draw.setColor(PALETTE["world_text_selected"])
+            end
+            love.graphics.print("Border", 88, 38 + (0 * 32))
+            Draw.setColor(PALETTE["world_text"])
+            love.graphics.print("Back", 88, 38 + (1 * 32))
+			
+            if self.state == "BORDER" then
+                love.graphics.setColor(PALETTE["world_text_selected"])
+            end
+            love.graphics.print(Kristal.getBorderName(), 348, 38 + (0 * 32))
+            Draw.setColor(PALETTE["world_text"])
+		end
+
+        Draw.setColor(Game:getSoulColor())
+        Draw.draw(self.heart_sprite, 63, 48 + ((self.currently_selected - 1) * 32))
+    else
         -- NOTE: This is forced to true if using a PlayStation in DELTARUNE... Kristal doesn't have a PlayStation port though.
         local dualshock = Input.getControllerType() == "ps4"
 
@@ -325,10 +427,13 @@ function DarkConfigMenu:draw()
             love.graphics.print(Kristal.isConsole() and "Button" or "Gamepad", 353, -12)
         end
 
-        for index, name in ipairs(self.keybinds) do --self.currently_selected + self.selected_correction
-            if index > (self.current_page-1)*7 and index <= 7*self.current_page then
+        Draw.pushScissor()
+        Draw.scissor(15, 30, 440, 200)
+        for index, key_info in ipairs(self.keybinds) do
+            if not (index < ((self.control_page - 1) * 7) - 1 or index > (self.control_page * 7)) then
                 Draw.setColor(PALETTE["world_text"])
-                if self.currently_selected == index - (self.current_page-1)*7 then
+                local offset = ((self.control_page - 1) * 7)
+                if self.currently_selected == index - offset then
                     if self.rebinding then
                         Draw.setColor(PALETTE["world_text_rebind"])
                     else
@@ -337,42 +442,41 @@ function DarkConfigMenu:draw()
                 end
 
                 if dualshock then
-                    love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (29 * (index - (self.current_page-1)*7)))
+                    love.graphics.print(key_info.keybind:gsub("_", " "):upper(), 23, -4 + (29 * (index - offset)))
                 else
-                    love.graphics.print(name:gsub("_", " "):upper(), 23, -4 + (28 * (index - (self.current_page-1)*7)) + 4)
+                    love.graphics.print(key_info.keybind:gsub("_", " "):upper(), 23, -4 + (28 * (index - offset)) + 4)
                 end
-
-                local shown_bind = self:getBindNumberFromIndex(index)
-
+                
                 if not Kristal.isConsole() then
-                    local alias = Input.getBoundKeys(name, false)[1]
+                    local alias = Input.getBoundKeys(key_info.keybind, false)[1]
                     if type(alias) == "table" then
                         local title_cased = {}
                         for _, word in ipairs(alias) do
                             table.insert(title_cased, Utils.titleCase(word))
                         end
-                        love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * (index - (self.current_page-1)*7)))
+                        love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * (index - offset)))
                     elseif alias ~= nil then
-                        love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * (index - (self.current_page-1)*7)))
+                        love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * (index - offset)))
                     end
                 end
 
                 Draw.setColor(1, 1, 1)
 
                 if Input.hasGamepad() then
-                    local alias = Input.getBoundKeys(name, true)[1]
+                    local alias = Input.getBoundKeys(key_info.keybind, true)[1]
                     if alias then
                         local btn_tex = Input.getButtonTexture(alias)
                         if dualshock then
-                            Draw.draw(btn_tex, 353 + 42, -2 + (29 *  (index - (self.current_page-1)*7)), 0, 2, 2, btn_tex:getWidth() / 2, 0)
+                            Draw.draw(btn_tex, 353 + 42, -2 + (29 * (index - offset)), 0, 2, 2, btn_tex:getWidth() / 2, 0)
                         else
-                            Draw.draw(btn_tex, 353 + 42 + 16 - 6, -2 + (28 *  (index - (self.current_page-1)*7)) + 11 - 6 + 1, 0, 2, 2,
+                            Draw.draw(btn_tex, 353 + 42 + 16 - 6, -2 + (28 * (index - offset)) + 11 - 6 + 1, 0, 2, 2,
                                     btn_tex:getWidth() / 2, 0)
                         end
                     end
                 end
             end
         end
+        Draw.popScissor()
 
         Draw.setColor(PALETTE["world_text"])
         if self.currently_selected == 8 then
@@ -381,7 +485,7 @@ function DarkConfigMenu:draw()
 
         if (self.reset_flash_timer > 0) then
             Draw.setColor(Utils.mergeColor(PALETTE["world_text_hover"], PALETTE["world_text_selected"],
-                                           ((self.reset_flash_timer / 10) - 0.1)))
+                                        ((self.reset_flash_timer / 10) - 0.1)))
         end
 
         if dualshock then
@@ -407,6 +511,24 @@ function DarkConfigMenu:draw()
             Draw.draw(self.heart_sprite, -2, 34 + ((self.currently_selected - 1) * 29))
         else
             Draw.draw(self.heart_sprite, -2, 34 + ((self.currently_selected - 1) * 28) + 2)
+        end
+
+
+        Draw.setColor(COLORS.white)
+        local page_offset = ((self.max_control_page >= 10 and self.control_page >= 10) and 14) or ((self.max_control_page >= 10 and self.control_page < 10) and 6) or 0
+        if self.max_control_page > 1 then
+            love.graphics.print(self.control_page.."/"..self.max_control_page, 418 - page_offset, -4 + (28 * 9) + 4)
+        end
+
+        local sine_off = math.sin((Kristal.getTime()*30)/16) * 3
+
+        if Game:getConfig("showArrow") and self.max_control_page > 1 then
+            if self.control_page ~= 1 then
+                Draw.draw(self.flat_arrow_sprite, 410 - page_offset + sine_off, 264, 0, -1, 1)
+            end
+            if self.control_page ~= self.max_control_page then
+                Draw.draw(self.flat_arrow_sprite, 466 + page_offset - sine_off, 264)
+            end
         end
     end
 

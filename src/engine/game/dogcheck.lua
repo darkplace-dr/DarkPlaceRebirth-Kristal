@@ -90,7 +90,7 @@ function DogCheck:start()
     if not self.variant then
         local month = os.date("*t").month
         local day = os.date("*t").day
-        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "chapter2", "montypython", "house"}
+        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "montypython", "house"}
         if month >= 3 and month <= 5 then
             table.insert(variant_choices, "spring")
         elseif month >= 6 and month <= 8 then
@@ -145,6 +145,9 @@ function DogCheck:start()
     elseif self.variant == "banned" then
         createDog(cust_sprites_base.."/banned", 1, 0, 0, 2)
         playSong("AUDIO_DEFEAT", 1.5)
+    elseif self.variant == "banned_b" then
+        createDog(cust_sprites_base.."/banned_b", 1, 0, 0, 1)
+        playSong(song_path.."mutation")
     elseif self.variant == "chapter2" then
         createDog("misc/dog_sleep", 0.8, -960, -580)
         playSong(song_path.."alarm_titlescreen", 1, 1)

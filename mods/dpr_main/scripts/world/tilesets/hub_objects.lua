@@ -1,10 +1,10 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   name = "hub_objects",
   class = "",
-  tilewidth = 120,
+  tilewidth = 130,
   tileheight = 120,
   spacing = 0,
   margin = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 3,
+  tilecount = 11,
   tiles = {
     {
       id = 0,
@@ -42,6 +42,104 @@ return {
       image = "../../../assets/sprites/world/maps/hub/desshouse.png",
       width = 120,
       height = 120
+    },
+    {
+      id = 3,
+      image = "../../../assets/sprites/world/maps/hub/plaque.png",
+      width = 130,
+      height = 66
+    },
+    {
+      id = 6,
+      image = "../../../assets/sprites/world/events/dark_stand.png",
+      width = 41,
+      height = 49
+    },
+    {
+      id = 7,
+      image = "../../../assets/sprites/world/events/light_stand.png",
+      width = 41,
+      height = 49
+    },
+    {
+      id = 9,
+      image = "../../../assets/sprites/world/events/mossy_stand.png",
+      width = 41,
+      height = 49
+    },
+    {
+      id = 10,
+      image = "../../../assets/sprites/world/events/void_fragment_1.png",
+      width = 32,
+      height = 32,
+      animation = {
+        {
+          tileid = 10,
+          duration = 200
+        },
+        {
+          tileid = 11,
+          duration = 200
+        },
+        {
+          tileid = 12,
+          duration = 200
+        },
+        {
+          tileid = 13,
+          duration = 200
+        },
+        {
+          tileid = 11,
+          duration = 200
+        },
+        {
+          tileid = 12,
+          duration = 200
+        },
+        {
+          tileid = 13,
+          duration = 200
+        },
+        {
+          tileid = 12,
+          duration = 200
+        },
+        {
+          tileid = 11,
+          duration = 200
+        },
+        {
+          tileid = 10,
+          duration = 200
+        },
+        {
+          tileid = 13,
+          duration = 200
+        },
+        {
+          tileid = 11,
+          duration = 200
+        }
+      }
+    },
+    {
+      id = 11,
+      image = "../../../assets/sprites/world/events/void_fragment_2.png",
+      width = 32,
+      height = 32
+    },
+    {
+      id = 12,
+      image = "../../../assets/sprites/world/events/void_fragment_3.png",
+      width = 32,
+      height = 32
+    },
+    {
+      id = 13,
+      image = "../../../assets/sprites/world/events/void_fragment_4.png",
+      width = 32,
+      height = 32
     }
   }
 }

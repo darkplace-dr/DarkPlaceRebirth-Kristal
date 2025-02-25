@@ -147,6 +147,8 @@ function preview:update()
         setVideo("piles")
     elseif self:isNameChosen("DECEMBER", false) then
         setVideo("december")
+    elseif self:isNameChosen("JERMA", false) then
+        setVideo("jerma")
     elseif self.naming_video then
         self.naming_video_fade_phase = 1
     end

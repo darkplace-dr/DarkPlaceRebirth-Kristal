@@ -16,6 +16,7 @@
 ---
 ---@field soul_priority integer
 ---@field soul_color    table
+---@field soul_facing   string
 ---
 ---@field has_act       boolean
 ---@field has_spells    boolean
@@ -95,6 +96,8 @@ function PartyMember:init()
     self.soul_priority = 2
     -- The color of this character's soul (optional, defaults to red)
     self.soul_color = {1, 0, 0}
+    -- In which direction will this character's soul face (optional, defaults to facing up)
+    self.soul_facing = "up"
 
     -- Whether the party member can act (defaults to true)
     self.has_act = true
@@ -122,6 +125,15 @@ function PartyMember:init()
         magic = 0,
         health_def = 100 -- placeholder for true MHP, do not use
     }
+
+	-- Arc Completion Bonus Stats
+	self.arcBonusStats = {
+		health = 0,
+		attack = 0,
+		defense = 0,
+		magic = 0,
+	}
+
     -- Max stats from level-ups
     self.max_stats = {}
     
@@ -290,6 +302,10 @@ function PartyMember:onTurnStart(battler)
         battler:heal(turnHealing)
     end
 end
+
+--- *(Override)* Called upon completion of this character's arc
+function PartyMember:onArc() end
+
 --- *(Override)* Called whenever this party member's action select turn starts
 ---@param battler PartyBattler The party member's associated battler
 ---@param undo    boolean      Whether their previous action was just undone
@@ -362,6 +378,7 @@ function PartyMember:getLightEXPNeeded(lv) return self.lw_exp_needed[lv] or 0 en
 
 function PartyMember:getSoulPriority() return self.soul_priority end
 function PartyMember:getSoulColor() return Utils.unpackColor(self.soul_color or {1, 0, 0}) end
+function PartyMember:getSoulFacing() return self.soul_facing end
 
 function PartyMember:hasAct() return self.has_act end
 function PartyMember:hasSpells() return self.has_spells end
@@ -375,6 +392,7 @@ function PartyMember:getHealth() return Game:isLight() and self.lw_health or sel
 function PartyMember:getSavedMHP() return self.saved_mhp end
 
 function PartyMember:getStarmanTheme() return "default" end
+
 ---@param light? boolean
 function PartyMember:getBaseStats(light)
     if light or (light == nil and Game:isLight()) then
@@ -920,23 +938,26 @@ end
 
 ---@param data table
 function PartyMember:loadEquipment(data)
-    if type(data.weapon) == "table" then
-        if Registry.getItem(data.weapon.id) then
-            local weapon = Registry.createItem(data.weapon.id)
-            if weapon then
-                weapon:load(data.weapon)
-                self:setWeapon(weapon)
+    self:setWeapon(nil)
+    if data.weapon then
+        if type(data.weapon) == "table" then
+            if Registry.getItem(data.weapon.id) then
+                local weapon = Registry.createItem(data.weapon.id)
+                if weapon then
+                    weapon:load(data.weapon)
+                    self:setWeapon(weapon)
+                else
+                    Kristal.Console:error("Could not load weapon \""..data.weapon.id.."\"")
+                end
             else
-                Kristal.Console:error("Could not load weapon \""..data.weapon.id.."\"")
+                Kristal.Console:error("Could not load weapon \"".. data.weapon.id .."\"")
             end
         else
-            Kristal.Console:error("Could not load weapon \"".. data.weapon.id .."\"")
-        end
-    else
-        if Registry.getItem(data.weapon) then
-            self:setWeapon(data.weapon)
-        else
-            Kristal.Console:error("Could not load weapon \"".. (data.weapon or "nil") .."\"")
+            if Registry.getItem(data.weapon) then
+                self:setWeapon(data.weapon)
+            else
+                Kristal.Console:error("Could not load weapon \"".. (data.weapon or "nil") .."\"")
+            end
         end
     end
     for i = 1, 2 do
@@ -980,7 +1001,11 @@ end
 function PartyMember:loadSpells(data)
     self.spells = {}
     for _,v in ipairs(data) do
-        self:addSpell(v)
+        if Registry.getSpell(v) then
+            self:addSpell(v)
+        else
+            Kristal.Console:error("Could not load spell \"".. (v or "nil") .."\"")
+        end
     end
 end
 
@@ -1502,6 +1527,19 @@ function PartyMember:addOpinion(other_party, amount)
     end
     self.opinions[other_party] = self:getOpinion(other_party) + amount
     return self.opinions[other_party]
+end
+
+-- Completes a character's Arc
+-- this is kind of lazy tbh but like sue me
+--   -char
+function PartyMember:completeArc()
+	self:setFlag("arc", true)
+	for i,v in pairs(self.stats) do
+		if self.arcBonusStats and self.arcBonusStats[i] then
+			self:increaseStat(i, self.arcBonusStats[i])
+		end
+	end
+	self:onArc()
 end
 
 return PartyMember

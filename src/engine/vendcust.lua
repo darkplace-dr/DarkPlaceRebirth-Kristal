@@ -34,6 +34,15 @@ GITHUB_REPOS = {
 		"dlc_forest"
 	},
 	JustAnotherRandomGithubUser={
-		"dpr_spamtown_dlc"
+		"dpr_spamtown_dlc",
+		"dpr_underground_dlc"
+	},
+	DiamondBor={
+		"dlc_trials"
 	}
 }
+
+-- Disables Kristal's built-in Main menu and \
+-- immediately loads the target mod.
+---@type boolean
+AUTO_MOD_START = false

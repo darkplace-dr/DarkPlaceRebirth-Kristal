@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 82,
+  nextobjectid = 83,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -26,7 +26,8 @@ return {
     {
       name = "other-objects",
       firstgid = 209,
-      filename = "../../tilesets/other-objects.tsx"
+      filename = "../../tilesets/other-objects.tsx",
+      exportfilename = "../../tilesets/other-objects.lua"
     }
   },
   layers = {
@@ -250,7 +251,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 80,
@@ -263,7 +264,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 680,
           y = 360,
@@ -276,7 +277,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -289,7 +290,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 360,
@@ -302,7 +303,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 680,
@@ -315,7 +316,7 @@ return {
         {
           id = 18,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 200,
           y = 1000,
@@ -333,7 +334,7 @@ return {
         {
           id = 19,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 560,
           y = 1000,
@@ -351,7 +352,7 @@ return {
         {
           id = 20,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 720,
           y = 880,
@@ -369,7 +370,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 200,
           y = 880,
@@ -387,7 +388,7 @@ return {
         {
           id = 25,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -400,7 +401,7 @@ return {
         {
           id = 26,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 360,
@@ -413,7 +414,7 @@ return {
         {
           id = 45,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 240,
           y = 120,
@@ -431,7 +432,7 @@ return {
         {
           id = 46,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 680,
           y = 120,
@@ -449,7 +450,7 @@ return {
         {
           id = 50,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 680,
@@ -462,7 +463,7 @@ return {
         {
           id = 51,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 880,
@@ -475,7 +476,7 @@ return {
         {
           id = 52,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 1000,
@@ -488,7 +489,7 @@ return {
         {
           id = 53,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 1000,
@@ -501,7 +502,7 @@ return {
         {
           id = 54,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 760,
           y = 680,
@@ -514,7 +515,7 @@ return {
         {
           id = 55,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 280,
@@ -527,7 +528,7 @@ return {
         {
           id = 56,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 160,
@@ -540,7 +541,7 @@ return {
         {
           id = 57,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 160,
@@ -553,7 +554,7 @@ return {
         {
           id = 58,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 280,
@@ -566,7 +567,7 @@ return {
         {
           id = 66,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 500,
           y = 80,
@@ -595,7 +596,7 @@ return {
         {
           id = 65,
           name = "elevatordoor",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 80,
@@ -624,7 +625,7 @@ return {
         {
           id = 27,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 1080,
@@ -640,7 +641,7 @@ return {
         {
           id = 28,
           name = "script",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 920,
@@ -656,7 +657,7 @@ return {
         {
           id = 29,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 920,
@@ -672,7 +673,7 @@ return {
         {
           id = 30,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 600,
@@ -688,7 +689,7 @@ return {
         {
           id = 31,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 600,
@@ -704,7 +705,7 @@ return {
         {
           id = 32,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 200,
@@ -721,7 +722,7 @@ return {
         {
           id = 33,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 200,
@@ -737,7 +738,7 @@ return {
         {
           id = 34,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 480,
@@ -753,7 +754,7 @@ return {
         {
           id = 48,
           name = "savepoint",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 280,
@@ -766,7 +767,7 @@ return {
         {
           id = 59,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 880,
@@ -782,7 +783,7 @@ return {
         {
           id = 62,
           name = "npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 460,
           y = 560,
@@ -799,9 +800,9 @@ return {
         {
           id = 63,
           name = "npc",
-          type = "",
+          class = "",
           shape = "point",
-          x = 550,
+          x = 465,
           y = 150,
           width = 0,
           height = 0,
@@ -815,7 +816,7 @@ return {
         {
           id = 68,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 80,
@@ -830,7 +831,7 @@ return {
         {
           id = 70,
           name = "warpbin",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 120,
@@ -845,7 +846,7 @@ return {
         {
           id = 74,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 420,
           y = 60,
@@ -861,7 +862,7 @@ return {
         {
           id = 76,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 200,
@@ -876,7 +877,7 @@ return {
         {
           id = 77,
           name = "dogconegroup",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 240,
@@ -891,7 +892,7 @@ return {
         {
           id = 78,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 424,
           y = 926,
@@ -907,7 +908,7 @@ return {
         {
           id = 80,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 424,
           y = 900,
@@ -920,6 +921,32 @@ return {
             ["cutscene"] = "shared_cutscenes.greyarea",
             ["solid"] = true
           }
+        },
+        {
+          id = 81,
+          name = "NewYearCountDown",
+          class = "",
+          shape = "rectangle",
+          x = 760,
+          y = 118,
+          width = 120,
+          height = 92,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 82,
+          name = "metalsonic_plush",
+          class = "",
+          shape = "point",
+          x = 680,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -940,7 +967,7 @@ return {
         {
           id = 35,
           name = "south",
-          type = "",
+          class = "",
           shape = "point",
           x = 460,
           y = 1040,
@@ -953,7 +980,7 @@ return {
         {
           id = 38,
           name = "west1",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 960,
@@ -966,7 +993,7 @@ return {
         {
           id = 39,
           name = "west2",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 640,
@@ -979,7 +1006,7 @@ return {
         {
           id = 40,
           name = "west3",
-          type = "",
+          class = "",
           shape = "point",
           x = 240,
           y = 240,
@@ -992,7 +1019,7 @@ return {
         {
           id = 41,
           name = "east1",
-          type = "",
+          class = "",
           shape = "point",
           x = 880,
           y = 960,
@@ -1005,7 +1032,7 @@ return {
         {
           id = 42,
           name = "east2",
-          type = "",
+          class = "",
           shape = "point",
           x = 880,
           y = 640,
@@ -1018,7 +1045,7 @@ return {
         {
           id = 43,
           name = "east3",
-          type = "",
+          class = "",
           shape = "point",
           x = 880,
           y = 240,
@@ -1031,7 +1058,7 @@ return {
         {
           id = 44,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 460,
           y = 251,
@@ -1044,7 +1071,7 @@ return {
         {
           id = 73,
           name = "landing",
-          type = "",
+          class = "",
           shape = "point",
           x = 460,
           y = 644,
@@ -1057,7 +1084,7 @@ return {
         {
           id = 75,
           name = "entry_elevator",
-          type = "",
+          class = "",
           shape = "point",
           x = 460,
           y = 170,

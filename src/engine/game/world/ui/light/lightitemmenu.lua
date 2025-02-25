@@ -87,7 +87,6 @@ function LightItemMenu:init()
                 self.party_select_bg.visible = true
                 --Game.world:showHealthBars()
             elseif #Game.party > 1 and item.target == "party" then
-                -- TODO: Technically this should use a "confirm use on all" prompt like MG does, but I don't have that implemented.
                 -- Assets.playSound("ui_select")
                 self.party_selecting = 1
                 self:useItem(item)
@@ -134,7 +133,7 @@ function LightItemMenu:init()
         self.menu_itemselect:setFocused()
     end)
 
-    self.party_select_bg = UIBox(-36, 242, 372, 53)
+    self.party_select_bg = UIBox(-37, 242, 372, 52)
     self.party_select_bg.visible = false
     self:addChild(self.party_select_bg)
 
@@ -252,7 +251,6 @@ function LightItemMenu:draw()
     --love.graphics.printf(#self.item .. "/" .. Game.inventory.storages["items"].max, -305, (not Game.world.menu.top and 265 or 33), 400, "center")
 
     love.graphics.setFont(font)
-
 end
 
 function LightItemMenu:useItem(item)

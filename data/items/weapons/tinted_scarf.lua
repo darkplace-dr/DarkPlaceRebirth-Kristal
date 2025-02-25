@@ -50,6 +50,7 @@ function item:init()
     self.reactions = {
         susie = "Who the hell painted this so badly?",
         ralsei = "It's... Familiar!",
+		dess = "donut steal",
         prince = "Going classy, are we?",
         noelle = "Huh? N-No, I'm not cold.",
 		jamm = "Missed a spot. Yeah, right there.",

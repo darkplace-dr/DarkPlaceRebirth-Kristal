@@ -1,11 +1,11 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   name = "other-objects",
   class = "",
-  tilewidth = 49,
-  tileheight = 52,
+  tilewidth = 57,
+  tileheight = 70,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 2,
+  tilecount = 3,
   tiles = {
     {
       id = 0,
@@ -36,6 +36,12 @@ return {
       image = "../../../assets/sprites/world/events/gdoor_1.png",
       width = 36,
       height = 52
+    },
+    {
+      id = 2,
+      image = "../../../assets/sprites/world/events/sansstation.png",
+      width = 57,
+      height = 70
     }
   }
 }

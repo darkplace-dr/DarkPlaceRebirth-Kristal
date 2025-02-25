@@ -33,6 +33,7 @@ function item:init()
         ["jamm"] = 40,
         ["mario"] = 65,
         ["pauling"] = 40,
+        ["ceroba"] = 70,
     }
 
     -- Default shop price (sell price is halved)
@@ -60,6 +61,24 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+		jamm = {
+			jamm = "Orange flavored. Neat.",
+		},
+		noel = {
+			noel = "Did you feed me bacon grease???",
+			jamm = "(That says a lot...)",
+		},
+		mario = {
+			mario = "Mmm, pasta sauce!",
+			jamm = "Wow, you chugged that down quickly!",
+		},
+		pauling = {
+			jamm = "(She gave it a thumbs up...!)",
+		},
+        ceroba = {
+            ceroba = "Good coffee.",
+			jamm = "(Coffee?)",
+		},
     }
 end
 

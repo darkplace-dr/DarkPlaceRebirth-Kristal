@@ -70,7 +70,7 @@
  <objectgroup id="4" name="objects">
   <object id="12" name="transition" x="160" y="480" width="122" height="34">
    <properties>
-    <property name="map" value="grey_cliffside/dead_room1"/>
+    <property name="map" value="grey_cliffside/dead_room1_start"/>
     <property name="marker" value="entry_2"/>
    </properties>
   </object>

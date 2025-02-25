@@ -61,8 +61,10 @@ function item:init()
         susie = "Tastes like theft.",
         ralsei = "I feel really bad...",
         noelle = "???",
+		dess = "do you get it",
 		jamm = "Not the first stolen food I ate.",
 		noel = "If this was green I would die.",
+        ceroba = "What? It's STOLEN?",
     }
 	
 	--self.light_item = "light/gamerblood"

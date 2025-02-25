@@ -26,7 +26,7 @@ local cliffside = {
         lightsource.alpha = 0.25
         Game.world.player:addChild(lightsource)
 
-        local textobj = shakytextobject("Press " .. getBind("menu") .. "to open your menu.", 115, 810)
+        local textobj = shakytextobject("Press " .. getBind("menu") .. "to open your menu.", 115, 405)
         textobj.layer = 2
         Game.world:addChild(textobj)
 
@@ -82,7 +82,7 @@ local cliffside = {
         --Game.world.menu:addChild()
 
         textobj:setText("Press " .. getBind("confirm") .. "to select the TALK option.")
-        textobj.x, textobj.y = 10, 560
+        textobj.x, textobj.y = 10, 280
 
 
         cutscene:wait(function ()
@@ -132,8 +132,14 @@ local cliffside = {
                 dess:setSprite("walk/down")
                 cutscene:wait(0.75)
                 cutscene:textTagged("* oh hey its the person who chose my name", "heckyeah", "dess")
-                cutscene:textTagged("* welcome to DESS MODE:tm:", "swag", "dess")
+                cutscene:textTagged("* welcome to DESS MODE[font:main_mono,16]TM[font:reset]", "swag", "dess")
+                if Game:isSpecialMode("i can literally put anything in this check and it behaves as expected since dess mode doesn't apply in EVERYCHALLEN") then
+                    cutscene:textTagged("* specifically nightmare mode[font:main_mono,16]TM[font:reset] ", "doom_shiteatinggrin", "dess")
+                end
                 cutscene:textTagged("* where im the main character and you only get to play as ME", "heckyeah", "dess")
+                if Game:isSpecialMode("warning overkill attack!!!") then
+                    cutscene:textTagged("* and also the game is blatantly unfair", "doom_shiteatinggrin", "dess")
+                end
                 cutscene:textTagged("* if your playing this on the day this came out then merry krismas", "challenging", "dess")
                 cutscene:textTagged("* if not then uhhh idk", "neutral_b", "dess")
                 cutscene:textTagged("* ok where tf did wing gaster put me", "angry", "dess")

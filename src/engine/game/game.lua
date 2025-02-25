@@ -91,6 +91,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
     self.quick_save = nil
 
     Kristal.callEvent(KRISTAL_EVENT.init)
+    Game:loadHooks()
 
     self.lock_movement = false
 
@@ -131,6 +132,22 @@ function Game:enter(previous_state, save_id, save_name, fade)
     end
 end
 
+function Game:loadHooks()
+    if MagicalGlassLib then
+        Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            if Game:getFlag("marcy_joined") then
+                self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
+                self.acts[#self.acts].color = {0, 1, 1}
+            end
+        end)
+        Utils.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            if Game:getFlag("marcy_joined") then
+                self:registerActFor("jamm", name, description, party, tp, highlight, icons)
+                self.acts[#self.acts].color = {0, 1, 1}
+            end
+        end)
+    end
+end
 
 function Game:leave()
     self:clear()
@@ -626,7 +643,8 @@ end
 
 ---@param x? number
 ---@param y? number
-function Game:gameOver(x, y)
+---@param sf? boolean
+function Game:gameOver(x, y, sf)
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
@@ -637,8 +655,13 @@ function Game:gameOver(x, y)
     if self.legend   then self.legend  :remove() end
     if self.dogcheck then self.dogcheck:remove() end
 
-    self.gameover = GameOver(x or 0, y or 0)
-    self.stage:addChild(self.gameover)
+    if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
+        self.gameover = GameOver(x or 0, y or 0)
+        self.stage:addChild(self.gameover)
+    else
+        self.gameover = GameOverSF(sf == "bearers" and true or nil)
+        self.stage:addChild(self.gameover)
+    end
 end
 
 ---@param cutscene          string
@@ -1032,10 +1055,30 @@ function Game:getSoulColor()
     return 1, 0, 0, 1
 end
 
+---@return string
+function Game:getSoulFacing()
+    if Game.state == "BATTLE" and Game.battle and Game.battle.encounter and Game.battle.encounter.getSoulFacing and Game.battle.encounter:getSoulFacing() then
+        return Game.battle.encounter:getSoulFacing()
+    end
+
+    local face = Kristal.callEvent(KRISTAL_EVENT.getSoulFacing)
+    if face ~= nil then
+        return face
+    end
+    
+    local chara = Game:getSoulPartyMember()
+    
+    if chara and chara:getSoulPriority() >= 0 and chara:getSoulFacing() then
+        return chara:getSoulFacing()
+    end
+    
+    return "up"
+end
+
 ---@return PartyMember
 function Game:getActLeader()
     for _,party in ipairs(self.party) do
-        if party.has_act then
+        if party:hasAct() then
             return party
         end
     end
@@ -1547,6 +1590,17 @@ function Game:getUnlockedPartyMembers()
     return Game:getFlag("_unlockedPartyMembers")
 end
 
+--- Checks if you have a party member unlocked and returns true if you do. Returns false otherwise
+---@param member string -- the party member ID to check for
+function Game:hasUnlockedPartyMember(member)
+    for i, v in ipairs(Game:getUnlockedPartyMembers()) do
+        if v == member then
+            return true
+        end
+    end
+    return false
+end
+
 function Game:getQuest(id)
     return self.quests_data[id]
 end
@@ -1569,6 +1623,22 @@ function Game:isDessMode()
     else
         return false
     end
+end
+
+--- Debug function -
+--- Unlocks every party member (Except for Noel since their unlock mechanics are weird) --Thank you for not adding Noel to this list!
+function Game:unlockAllPartyMembers()
+    local unlock = {"berdly", "bor", "brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nelle", "noelle", "ostarwalker", "pauling", "ralsei", "susie", "suzy"}
+    for i, v in ipairs(unlock) do
+        Game:unlockPartyMember(v)
+    end
+end
+
+---@param name string
+function Game:isSpecialMode(name)
+    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
+    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
+    return Game.save_name:upper() == name:upper()
 end
 
 return Game

@@ -11,7 +11,9 @@ function spell:init()
     -- Battle description
     self.effect = "Heal\nFast"
     -- Menu description
-    self.description = "* You need to go fast."
+    self.description = "You need to go fast."
+    -- Check description
+    self.check = "You need to go fast."
 
     -- TP cost
     self.cost = 25

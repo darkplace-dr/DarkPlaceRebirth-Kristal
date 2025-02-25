@@ -17,6 +17,7 @@ function item:init()
     self.heal_amounts = {
         ["susie"] = 90,
         ["dess"] = 50,
+        ["ceroba"] = nil,
     }
 
     self.price = 35
@@ -39,8 +40,16 @@ function item:init()
         noelle = "O-OW! I th-think I chipped a tooth...",
         hero = "Better than nothing.",
         dess = "mmm yummy rocks",
+        ceroba = "That's. A rock.",
     }
 end
 
+function item:onWorldUse(target)
+	if target.id == "ceroba" then
+		return false
+    else
+        return super.onWorldUse(self, target)
+	end
+end
 
 return item

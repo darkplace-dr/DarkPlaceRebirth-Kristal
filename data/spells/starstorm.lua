@@ -12,6 +12,8 @@ function spell:init()
     self.effect = "Star/Dark\nto All."
     -- Menu description
     self.description = "Star/Dark damage to all foes."
+    -- Check description
+    self.check = "Star/Dark damage to all foes."
 
     -- TP cost
     self.cost = 50

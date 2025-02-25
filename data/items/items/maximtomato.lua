@@ -57,6 +57,7 @@ function item:init()
 		jamm = "Overheal. I like it!",
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Woah.",
+        ceroba = "Nice and refreshing!",
     }
 end
 

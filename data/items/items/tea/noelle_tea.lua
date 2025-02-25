@@ -27,7 +27,9 @@ function item:init()
         ["kris"] = 70,
         ["susie"] = 120,
         ["ralsei"] = 50,
-        ["noelle"] = 10
+        ["noelle"] = 10,
+        ["dess"] = 1998,
+        ["ceroba"] = 60,
     }
 
     -- Default shop price (sell price is halved)
@@ -67,6 +69,8 @@ function item:init()
         ralsei = "It's soft and sweet.",
         noelle = "... this is just water! You're pranking me, right?!",
         jamm = "Tastes like hot cocoa... I like it.",
+        dess = "tastes like shit",
+        ceroba = "(It's so sweet...)"
     }
 end
 
