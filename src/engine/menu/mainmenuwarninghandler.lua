@@ -14,6 +14,15 @@ function MainMenuWarningHandler:init(menu)
     self.warning_state = ""
 
     self.warnings = Utils.split(love.filesystem.read("assets/warning.txt"), "\n")
+    -- Clean up line endings
+    do
+        local banned = {[" "] = true, ["\r"] = true, ["\t"] = true, ["\\"] = true}
+        for index, value in ipairs(self.warnings) do
+            while banned[self.warnings[index][#self.warnings[index]]] do
+                self.warnings[index] = Utils.sub(self.warnings[index], 1, utf8.len(self.warnings[index])-1)
+            end
+        end
+    end
     -- Removes the last item and errors if that wasn't a blank line
     assert(table.remove(self.warnings, #self.warnings) == "", "No final newline on warnings.txt!")
 
@@ -33,7 +42,6 @@ function MainMenuWarningHandler:init(menu)
         self.current_warning = "Invalid null.char found!?!?\nnull.char has been [color:red][shake:0.55]deleted.\n\n\n\n\n\n\n\n\n[color:white]WARNING\nnan_spawn.lua is [color:red]missing!\n(IMPORTANT FILE)"
     elseif Kristal.Config["seenLegitWarning"] then
         self.current_warning = Utils.pick(self.warnings)
-        self.current_warning = string.sub(self.current_warning, 1, -2)  -- Removes a character that doesn't fucking exist
 
 	if self.current_warning == "state_SUBNAUTICA" then
 
