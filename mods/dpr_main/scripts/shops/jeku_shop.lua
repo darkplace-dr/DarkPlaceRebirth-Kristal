@@ -8,7 +8,7 @@ Mod.jeku_memory = {
     -- Misc.
     meet_jeku = nil,
     meet_jeku_empty = nil,
-    
+
     -- Related to Dark Place Legacy
     remember_legacy = nil,
     killed_in_legacy = nil,
@@ -93,7 +93,6 @@ if Mod.jeku_memory["remember_legacy"] then
         local ok = false
         for i=0,3 do
             ok = GeneralUtils:hasSaveFiles("dark_place", "ikilledyouoncedidn'ti_"..i)
-            print(ok)
             if ok then break end
         end
         Mod.jeku_memory["killed_in_legacy"] = ok
