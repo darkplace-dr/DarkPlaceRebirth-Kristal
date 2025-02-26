@@ -5,9 +5,9 @@ output/
 
 *.tiled-session
 
-mods/
-!mods/dpr_main/*
-!mods/dpr_light/*
+mods/*
+!/mods/dpr_main/
+!/mods/dpr_light/
 
 DarkPlaceREBIRTH.lnk
 open.bat
