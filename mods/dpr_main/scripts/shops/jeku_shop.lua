@@ -25,17 +25,14 @@ Mod.jeku_memory = {
 
     -- Battle
     can_fight = false,
-    has_fought = false,
+    has_fought = false
 }
-if love.filesystem.getInfo(memfile) then
-    Mod.jeku_memory = Utils.merge(Mod.jeku_memory, JSON.decode(love.filesystem.read(memfile)))
-end
 
 local function saveJekuMemory()
     if Mod == nil then
         Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")
     else
-        if love.system.getOS() == "Windows" then -- So turns out LOVE can't modify hidden files. That's annoying.
+        if love.filesystem.getInfo(memfile) and love.system.getOS() == "Windows" then -- So turns out LOVE can't modify hidden files. That's annoying.
             os.execute("attrib -h "..love.filesystem.getSaveDirectory().."/"..memfile)
         end
 
@@ -50,6 +47,10 @@ local function saveJekuMemory()
     end
 end
 
+if love.filesystem.getInfo(memfile) then
+    Mod.jeku_memory = Utils.merge(Mod.jeku_memory, JSON.decode(love.filesystem.read(memfile)))
+end
+
 -- Mod won't exist when leaving the error screen, so we'll try to save the file before letting Kristal handle the error
 Utils.hook(Kristal, "errorHandler", function(orig, self, ...)
     if not pcall(saveJekuMemory) then
@@ -61,10 +62,12 @@ end)
 
 -- Did the player play Dark Place Legacy?
 if Mod.jeku_memory["remember_legacy"] == nil then
+    print("JEKUHANDLER: Check remember_legacy")
     Mod.jeku_memory["remember_legacy"] = GeneralUtils:hasSaveFiles("dark_place")
 end
 
-if Mod.jeku_memory["remember_legacy"] then
+if Mod.jeku_memory["remember_legacy"] and (Mod.jeku_memory["first_meet_legacy"] == nil or Mod.jeku_memory["killed_in_legacy"] == nil) then
+    print("JEKUHANDLER: Check first_meet_legacy")
     -- Try to see if the player saw Jeku in Legacy by checking the shop's flags
     local paths = {
         "LOVE/kristal/saves/dark_place/", -- Source code version
@@ -98,6 +101,7 @@ if Mod.jeku_memory["remember_legacy"] then
 
     -- Did Jeku killed the player in Legacy?
     if Mod.jeku_memory["killed_in_legacy"] == nil then
+        print("JEKUHANDLER: Check killed_in_legacy")
         local ok = false
         for i=0,3 do
             ok = GeneralUtils:hasSaveFiles("dark_place", "ikilledyouoncedidn'ti_"..i)
