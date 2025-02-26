@@ -14,34 +14,36 @@ function MainMenuWarningHandler:init(menu)
     self.warning_state = ""
 
     self.warnings = Utils.split(love.filesystem.read("assets/warning.txt"), "\n")
+    -- Clean up line endings
+    do
+        local banned = {[" "] = true, ["\r"] = true, ["\t"] = true}
+        for index, value in ipairs(self.warnings) do
+            while banned[self.warnings[index][#self.warnings[index]]] do
+                self.warnings[index] = Utils.sub(self.warnings[index], 1, utf8.len(self.warnings[index])-1)
+            end
+        end
+    end
     -- Removes the last item and errors if that wasn't a blank line
     assert(table.remove(self.warnings, #self.warnings) == "", "No final newline on warnings.txt!")
 
-    local char = Noel:loadNoel()
-    local nuh_uh = false
+    local noel_data = Noel:loadNoel()
+    local noel_reset = false
 
-    if char then
-        if char.version == 0.01 then
-        else
-            love.filesystem.remove("saves/null.char")
-            nuh_uh = true
-        end
+    if noel_data and noel_data.version ~= 0.01 then
+        love.filesystem.remove("saves/null.char")
+        noel_reset = true
     end
 
-    if nuh_uh == true then
-        Assets.playSound("ominous", 10, 0.5)
-        self.current_warning = "Invalid null.char found!?!?\nnull.char has been [color:red][shake:0.55]deleted.\n\n\n\n\n\n\n\n\n[color:white]WARNING\nnan_spawn.lua is [color:red]missing!\n(IMPORTANT FILE)"
-    elseif Kristal.Config["seenLegitWarning"] then
+    if Kristal.Config["seenLegitWarning"] then
         self.current_warning = Utils.pick(self.warnings)
-        self.current_warning = string.sub(self.current_warning, 1, -2)  -- Removes a character that doesn't fucking exist
-
-	if self.current_warning == "state_SUBNAUTICA" then
-
-            self.warning_state = "SUBNAUTICA"
-
+        if noel_reset == true then
+            Assets.playSound("ominous", 4, 0.5)
+            self.current_warning = "Invalid null.char found!?!?\nnull.char has been [color:red][shake:0.55]deleted.\n\n\n\n\n\n\n\n\n[color:white]WARNING\nnan_spawn.lua is [color:red]missing!\n(IMPORTANT FILE)"
+        end
+        if Utils.startsWith(self.current_warning, "state_") then
+            self.warning_state = Utils.sub(self.current_warning, utf8.len("state_")+1)
             self.current_warning = ""
-	end
-
+        end
     else
         self.current_warning = "May contain swears/profanity"
         Kristal.Config["seenLegitWarning"] = true
