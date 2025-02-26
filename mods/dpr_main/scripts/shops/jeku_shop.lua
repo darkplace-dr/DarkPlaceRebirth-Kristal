@@ -8,6 +8,7 @@ Mod.jeku_memory = {
     -- Misc.
     meet_jeku = nil,
     meet_jeku_empty = nil,
+    met_noel = false,
 
     -- Related to Dark Place Legacy
     remember_legacy = nil,
@@ -408,7 +409,7 @@ function JekuShop:onEnter()
             self.bubbles[4].visible = false
         end
     else
-        --[[if self.noel then
+        if self.noel and not Mod.jeku_memory["met_noel"] then
             Utils.hook(self, "onKeyPressed", function() end)
             Game.shop.timer:afterCond(function()
                 return self.dialogue_text.state.current_node > #self.dialogue_text.nodes/2
@@ -416,38 +417,41 @@ function JekuShop:onEnter()
             function()
                 unhook(self, "onKeyPressed")
                 Game.shop.music:pause()
-                local savedData = Mod:loadGameN()
+                local savedData = Noel:loadNoel()
 
                 local text = {
-                    "[emote:side]* HOLD ON,[wait:1] WHO ARE YOU??",
+                    "[emote:surprised_side]* HOLD ON,[wait:1] WHO ARE YOU??",
                     "[voice:noel][speed:0.2]* ...Yo?",
                     "[speed:0.2]* ...",
-                    "[emote:crazy]* OH I SEE WHO YOU ARE!!",
-                    "* YOU ARE THAT WEIRD GUY WHO EXISTS EVERYWHERE THAT APPEARED RECENTLY!![wait:3]\n* SO YOU'RE A PARTY MEMBER TOO??",
+                    "[emote:crazy]* OH I SEE WHO YOU ARE!! YOU WERE ALREADY IN THAT OTHER VERSION OF THIS WORLD!",
+                    "[emote:playful]* YOU ARE THAT WEIRD GUY WHO EXISTS EVERYWHERE THAT APPEARED RECENTLY!![wait:3]\n* SO YOU'RE A PARTY MEMBER TOO??",
                     "[voice:noel]* You know who I am?",
-                    "* YOU KNOW WHO [wait:5][color:blue]I[wait:5][color:reset] AM, DON'T YOU?",
+                    "[emote:crazy]* YOU KNOW WHO [wait:5][color:blue]I[wait:5][color:reset] AM, DON'T YOU?",
                     "[voice:noel]* Not until I entered your shop right about now.",
-                    "* AWWWW...[wait:3] I THOUGHT YOU WOULD BE THE ULTIMATE SELF-AWARE GUY IN THIS PLACE.",
-                    "* I saw you could even create textboxes,[wait:2] your power on this world is impressive for someone like you!",
+                    "[emote:playful]* AWWWW...[wait:3] I thought you'd be the kind of character to know everything around here.",
+                    "[emote:playful]* I saw you could even create textboxes,[wait:2] your power on this world is impressive for someone like you!",
                     "[voice:noel]* It's all in the name of the silly.",
-                    "* The silly?",
+                    "[emote:happy]* The silly?",
                     "[voice:noel]* If I can make a reference to a random popular game,[wait:2] I'll make it.",
-                    "* HE EH HE...[wait:3] I SEE WHAT KIND OF CHARACTER YOU ARE NOW...",
+                    "[emote:crazy]* HE EH HE...[wait:3] I SEE WHAT KIND OF CHARACTER YOU ARE NOW...",
                     "[voice:noel]* What the heck does that mean?",
-                    "* ANYWAY, "..Game.save_name..", I'M SURE YOU'RE GETTING BORED OF ME![wait:3]\nI WOULDN'T WANT THAT.[wait:1] NO NO NO!!!",
+                    "[emote:wink_tongueout]* ANYWAY, "..Game.save_name..", I'M SURE YOU'RE GETTING BORED OF ME![wait:3]\nI WOULDN'T WANT THAT.[wait:1] NO NO NO!!!",
                     "[voice:noel]* What do you mean,[wait:2] you see my character????"
                 }
-                if savedData.Player_Name ~= Game.save_name then
-                    table.insert(text, "[voice:noel]* Also aren't they called "..savedData.Player_Name.."??")
-                end
+                -- I don't think Noel remembers the player's name for now?
+
+                --if savedData.Player_Name ~= Game.save_name then
+                --    table.insert(text, "[voice:noel]* Also aren't they called "..savedData.Player_Name.."??")
+                --end
 
                 self:startDialogue(text)
                 Game.shop.timer:afterCond(function() return self.dialogue_text.line_index == 4 end, 
                 function()
                     Game.shop.music:resume()
                 end)
+                Mod.jeku_memory["met_noel"] = true
             end)
-        end]]
+        end
     end
 end
 
