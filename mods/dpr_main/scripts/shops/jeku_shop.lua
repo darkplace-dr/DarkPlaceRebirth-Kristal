@@ -5,23 +5,33 @@ local memfile = JekuShop.memory_file_name
 local memory_update_state = 0.1
 
 Mod.jeku_memory = {
-    killed = false,
-    skipped_death = false,
-    os_timeleft = nil,
+    -- Misc.
+    meet_jeku = nil,
+    meet_jeku_empty = nil,
+    
+    -- Related to Dark Place Legacy
     remember_legacy = nil,
     killed_in_legacy = nil,
-    first_meet_legacy = false
+    first_meet_legacy = false, -- Pretty sure nothing was set to check for this so...
+    welcomed_back_player = false,
+
+    -- Threaten Talk
+    killed = false,
+    skipped_death = false,
+
+    -- Frozen Heart
+    os_timeleft = nil,
+    is_back = false,
+
+    -- Battle
+    can_fight = false,
+    has_fought = false,
 }
 if love.filesystem.getInfo(memfile) then
     Mod.jeku_memory = Utils.merge(Mod.jeku_memory, JSON.decode(love.filesystem.read(memfile)))
-else
-    love.filesystem.write(memfile, JSON.encode(Mod.jeku_memory))
-    if love.system.getOS() == "Windows" then
-        os.execute("attrib +h "..love.filesystem.getSaveDirectory().."/"..memfile)
-    end
 end
--- In normal conditions, save Jeku's file when leaving the mod
-Utils.hook(Kristal, "clearModState", function(orig, self, ...)
+
+local function saveJekuMemory()
     if Mod == nil then
         Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")
     else
@@ -30,29 +40,72 @@ Utils.hook(Kristal, "clearModState", function(orig, self, ...)
             os.execute("attrib +h "..love.filesystem.getSaveDirectory().."/"..memfile)
         end
     end
+end
+
+-- Mod won't exist when leaving the error screen, so we'll try to save the file before letting Kristal handle the error
+Utils.hook(Kristal, "errorHandler", function(orig, self, ...)
+    if not pcall(saveJekuMemory) then
+        Kristal.Console:warn("A crash occured and a problem occured while saving Jeku's memory!!")
+    end
+
     return orig(self, ...)
 end)
--- Mod won't exist when the above hook is called in case of a crash, so try to also save the file when a crash occurs
-Utils.hook(Kristal, "errorHandler", function(orig, self, ...)
-    local function saveJekuMemory()
-        if Mod == nil then
-            Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")
-        else
-            love.filesystem.write(memfile, JSON.encode(Mod.jeku_memory))
-            if love.system.getOS() == "Windows" then
-                os.execute("attrib +h "..love.filesystem.getSaveDirectory().."/"..memfile)
+
+-- Did the player play Dark Place Legacy?
+if Mod.jeku_memory["remember_legacy"] == nil then
+    Mod.jeku_memory["remember_legacy"] = GeneralUtils:hasSaveFiles("dark_place")
+end
+
+if Mod.jeku_memory["remember_legacy"] then
+    -- Try to see if the player saw Jeku in Legacy by checking the shop's flags
+    local paths = {
+        "LOVE/kristal/saves/dark_place/", -- Source code version
+        "kristal/saves/dark_place/",      -- Executable version
+        "LOVE/dark_place/saves/",         -- Source code version but changed Kristal's id in conf.lua
+        "dark_place/saves/",              -- Executable version but changed Kristal's id in conf.lua
+    }
+
+    for i=1,3 do
+        --local path = os.getenv("APPDATA")
+        local savefile
+        for i,path in ipairs(paths) do
+            savefile = GeneralUtils:openExternalJSONFile("Roaming/"..path.."file_"..i..".json")
+            if savefile then break end
+        end
+
+        if savefile then
+
+            for k,v in pairs(savefile.flags) do
+                -- So turns out I did make a flag to check if the player met Jeku, I'm dumb
+                -- But I already made all of this so fuck it we ball
+                if k:find("shop#jeku_shop") or k == "meet_jeku" then
+                    Mod.jeku_memory["first_meet_legacy"] = true
+                end
             end
+
+            break
         end
     end
 
-    if not pcall(saveJekuMemory) then
-        Kristal.Console:warn("A crash occured and Jeku's memory could not be saved!!")
+
+    -- Did Jeku killed the player in Legacy?
+    if Mod.jeku_memory["killed_in_legacy"] == nil then
+        local ok = false
+        for i=0,3 do
+            ok = GeneralUtils:hasSaveFiles("dark_place", "ikilledyouoncedidn'ti_"..i)
+            print(ok)
+            if ok then break end
+        end
+        Mod.jeku_memory["killed_in_legacy"] = ok
+        -- If he did, that means they still met anyway, regardless of if first_meet_legacy is false
+        if ok and Mod.jeku_memory["first_meet_legacy"] == false then
+            Mod.jeku_memory["first_meet_legacy"] = true
+        end
     end
+end
 
-    orig(self, ...)
-end)
 
---if Mod.jeku_memory["remember_legacy"] == nil then
+saveJekuMemory()
 
 
 -- You know what? Fuck you.
@@ -81,6 +134,8 @@ function JekuShop:init()
         return elapsedTime >= sec_7days
     end
 
+    -- Will be reimplemented later after the last Frozen Heart update
+    -- Coming when Silksong releases
     --[[if Mod:hasSaveFiles("frozen_heart", "checkpass0") and (not checkTimeLeft() and not Mod:hasSaveFiles("frozen_heart", "checkpass1")) then
         Game:setFlag("meet_jeku_empt", true)
         self:initEmpty()
@@ -95,6 +150,8 @@ function JekuShop:init()
         end
         self:initJeku()
     end]]
+    Game:setFlag("meet_jeku", true)
+    Mod.jeku_memory["meet_jeku"] = true
     self:initJeku()
 
     self:registerItem("healitem")
@@ -383,6 +440,12 @@ function JekuShop:onEnter()
     end
 end
 
+function JekuShop:onRemoveFromStage(...)
+    print("Called onRemoveFromStage")
+    saveJekuMemory()
+    super.onRemoveFromStage(self, ...)
+end
+
 function JekuShop:update()
     super:update(self)
     if self.empty then
@@ -606,6 +669,7 @@ function JekuShop:startTalk(talk)
             "[emote:wink_tongueout]* I can tell her if you bought it or not!"
         })
     elseif talk == "Behind you" then
+        error("test")
         self:startDialogue({
             "[emote:happy]* Behind me?[wait:4] It's a small glimpse into the entire multiverse!!",
             "[emote:wink_tongueout]* And not just your world's multiverse, [wait:5][emote:crazy]THE ENTIRE FICTIONAL WORLD!",

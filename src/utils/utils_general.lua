@@ -44,6 +44,93 @@ function GeneralUtils:getPartyLove()
     return sum_love/#Game.party
 end
 
+-- Open a file in the AppData/Home folder and return the handle.
+-- IMPORTANT: DON'T FORGET TO CLOSE THE FILE HANDLE RETURNED AFTER USE
+-- IF YOU DON'T NEED THE HANDLE, USE THE SAFE VERSION
+function GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_appid)
+    if not GeneralUtils:fileExists(name, try_wine_route, wine_steam_appid) then
+        return false
+    end
+
+    if love.system.getOS() == "Windows" then
+        local function unixizePathSep(path)
+            return string.gsub(path, "\\", "/")
+        end
+        local appdata = (
+            os.getenv("APPDATA") and (unixizePathSep(os.getenv("APPDATA")).."/../")
+            or (unixizePathSep(os.getenv("USERPROFILE")).."/AppData/")
+        )
+        path = appdata..name
+    elseif love.system.getOS() == "OS X" then
+        if try_wine_route then return false end -- UNIMPLEMENTED
+
+        path = os.getenv("HOME").."/Library/Application Support/"..name
+    elseif love.system.getOS() == "Linux" then
+        if not try_wine_route then
+            -- don't ask why %
+            name = string.gsub(name, "%XDG_CONFIG_HOME%", os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config")
+            local starts_at_root, _ = Utils.startsWith(name, "/")
+            if not starts_at_root then
+                path = os.getenv("HOME").."/"..name
+            else
+                path = name
+            end
+        else -- assuming that a Windows path is passed
+            local wineprefix = os.getenv("WINEPREFIX") or os.getenv("HOME").."/.wine"
+            local user_wineprefix = wineprefix.."/drive_c/users/"..os.getenv("USER")
+            local appdata_wineprefix = user_wineprefix.."/Local Settings/Application Data/" -- 2k3
+            if not directoryExists(appdata_wineprefix) then
+                appdata_wineprefix = user_wineprefix.."/AppData/" -- vista
+            end
+            local path_wineprefix = appdata_wineprefix..name
+
+            local f = io.open(path_wineprefix, "r")
+            if f then return f end
+
+            if wine_steam_appid then
+                local steamroot = os.getenv("STEAMROOT") or os.getenv("HOME").."/.steam"
+                local steampfx = steamroot.."/steam/steamapps/compatdata/"..tostring(wine_steam_appid).."/pfx"
+                local user_steampfx = steampfx.."/drive_c/users/steamuser"
+                local appdata_steampfx = user_steampfx.."/Local Settings/Application Data/" -- 2k3
+                if not directoryExists(appdata_steampfx) then
+                    appdata_steampfx = user_steampfx.."/AppData/" -- vista
+                end
+                local path_steampfx = appdata_steampfx..name
+                local f = io.open(path_steampfx, "r")
+                if f then return f end
+            end
+            return
+        end
+    end
+
+    local f = io.open(path, "r")
+    return f
+end
+
+-- Opens a file from the AppData/Home folder and returns its content in a table
+-- Considered safe as it closes the handle on its own before returning
+function GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
+    local file = GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_appid)
+    if not file then return false end
+    content = {}
+    for l in file:lines() do
+        table.insert(content, l)
+    end
+    file:close()
+    return content
+end
+
+-- Open a JSON file in the AppData/Home folder using GeneralUtils.openExternalFileSafe().
+-- This function handles closing the file handle and decode the file data assuming it's JSON
+---@param try_wine_route? boolean # If true, an attempt to check wineprefixs for the file will be made on Linux. In this case name should be a path for Windows.
+---@param wine_steam_appid? number # The Steam AppID of the game to check for; if specified, wine route will also check the wineprefix corresponding to that AppID.
+--- @return table content
+function GeneralUtils:openExternalJSONFile(name, try_wine_route, wine_steam_appid)
+    local file = GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
+    if not file then return false end
+    return JSON.decode(Utils.getCombinedText(file))
+end
+
 -- Check if a file exists in the AppData/Home folder.
 -- Can/Will be used to check if the player has played certain games like Undertale or Deltarune.
 ---@param try_wine_route? boolean # If true, an attempt to check wineprefixs for the file will be made on Linux. In this case name should be a path for Windows.
@@ -112,6 +199,7 @@ function GeneralUtils:fileExists(name, try_wine_route, wine_steam_appid)
             return false
         end
     end
+    
     return fileExists(path)
 end
 
