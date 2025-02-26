@@ -35,9 +35,17 @@ local function saveJekuMemory()
     if Mod == nil then
         Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")
     else
-        love.filesystem.write(memfile, JSON.encode(Mod.jeku_memory))
+        if love.system.getOS() == "Windows" then -- So turns out LOVE can't modify hidden files. That's annoying.
+            os.execute("attrib -h "..love.filesystem.getSaveDirectory().."/"..memfile)
+        end
+
+        local ok, err = love.filesystem.write(memfile, JSON.encode(Mod.jeku_memory))
+
         if love.system.getOS() == "Windows" then
             os.execute("attrib +h "..love.filesystem.getSaveDirectory().."/"..memfile)
+        end
+        if not ok then
+            print("Writing error: "..err)
         end
     end
 end
@@ -440,7 +448,6 @@ function JekuShop:onEnter()
 end
 
 function JekuShop:onRemoveFromStage(...)
-    print("Called onRemoveFromStage")
     saveJekuMemory()
     super.onRemoveFromStage(self, ...)
 end
@@ -668,7 +675,6 @@ function JekuShop:startTalk(talk)
             "[emote:wink_tongueout]* I can tell her if you bought it or not!"
         })
     elseif talk == "Behind you" then
-        error("test")
         self:startDialogue({
             "[emote:happy]* Behind me?[wait:4] It's a small glimpse into the entire multiverse!!",
             "[emote:wink_tongueout]* And not just your world's multiverse, [wait:5][emote:crazy]THE ENTIRE FICTIONAL WORLD!",
