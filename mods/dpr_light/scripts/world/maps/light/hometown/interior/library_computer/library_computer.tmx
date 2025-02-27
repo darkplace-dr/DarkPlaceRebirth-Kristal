@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="48">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -53,8 +53,16 @@
     <property name="marker" value="entrycyber"/>
    </properties>
   </object>
-  <object id="26" gid="15" x="136" y="362" width="110" height="192"/>
-  <object id="27" gid="16" x="304" y="340" width="222" height="148"/>
+  <object id="26" gid="15" x="652.667" y="456.667" width="110" height="192">
+   <properties>
+    <property name="NOTE" value="This one too"/>
+   </properties>
+  </object>
+  <object id="27" gid="16" x="655" y="344" width="222" height="148">
+   <properties>
+    <property name="NOTE" value="Moving this out of the way until we can find a better way to do this table"/>
+   </properties>
+  </object>
   <object id="37" name="berdly_desk" x="357" y="208">
    <properties>
     <property name="flagcheck" value="POST_SNOWGRAVE"/>
@@ -74,6 +82,67 @@
     <property name="flagcheck" value="POST_SNOWGRAVE"/>
     <property name="once" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="41" name="script" x="279.667" y="421.333" width="81" height="29.3333">
+   <properties>
+    <property name="cutscene" value="hometown.digicomputer"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+  </object>
+  <object id="42" name="npc" x="300" y="470">
+   <properties>
+    <property name="actor" value="susie_lw"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="43" name="npc" x="340" y="470">
+   <properties>
+    <property name="actor" value="noelle_lw"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="44" name="npc" x="300" y="510">
+   <properties>
+    <property name="actor" value="jammarcy_light"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="45" name="npc" x="340" y="510">
+   <properties>
+    <property name="actor" value="dess"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="46" name="npc" x="300" y="560">
+   <properties>
+    <property name="actor" value="ceroba"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="47" name="npc" x="340" y="560">
+   <properties>
+    <property name="actor" value="brenda_lw"/>
+    <property name="facing" value="up"/>
+    <property name="flagcheck" value="hometown_digisetup"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="40" name="npc" x="356" y="266.5">
+   <properties>
+    <property name="actor" value="digicomputer"/>
+    <property name="flagcheck" value="hometown_digicall"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">

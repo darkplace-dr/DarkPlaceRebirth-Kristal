@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="16" height="62" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="45">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="62" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="48">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -280,6 +280,20 @@
   <object id="42" name="interactable" x="240" y="2280" width="160" height="40">
    <properties>
     <property name="cutscene" value="enterdark.shelter"/>
+   </properties>
+  </object>
+  <object id="45" name="script" x="240" y="1000" width="160" height="40">
+   <properties>
+    <property name="cutscene" value="hometown.digicall"/>
+    <property name="flagcheck" value="!hometown_digicall"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="47" name="script" x="240" y="1200" width="160" height="40">
+   <properties>
+    <property name="cutscene" value="hometown.digiwrongway_a"/>
+    <property name="flagcheck" value="!digi_complete"/>
+    <property name="once" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

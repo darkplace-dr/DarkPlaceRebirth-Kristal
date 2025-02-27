@@ -1,7 +1,8 @@
 return {
-  version = "1.5",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.8.6",
+  tiledversion = "1.11.0",
+  class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 16,
@@ -9,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 13,
-  nextobjectid = 45,
+  nextobjectid = 48,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -28,6 +29,7 @@ return {
       type = "group",
       id = 6,
       name = "main",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -44,6 +46,7 @@ return {
           height = 62,
           id = 1,
           name = "tile",
+          class = "",
           visible = true,
           opacity = 1,
           offsetx = 0,
@@ -125,6 +128,7 @@ return {
           height = 62,
           id = 5,
           name = "tile2",
+          class = "",
           visible = true,
           opacity = 1,
           offsetx = 0,
@@ -203,6 +207,7 @@ return {
           image = "../../../../../../assets/sprites/world/maps/hometown/shelterground.png",
           id = 3,
           name = "shelterground",
+          class = "",
           visible = true,
           opacity = 1,
           offsetx = 0,
@@ -221,6 +226,7 @@ return {
           height = 62,
           id = 4,
           name = "tree",
+          class = "",
           visible = true,
           opacity = 1,
           offsetx = 0,
@@ -301,6 +307,7 @@ return {
       draworder = "topdown",
       id = 8,
       name = "collision",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -675,6 +682,7 @@ return {
       draworder = "topdown",
       id = 9,
       name = "objects",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -742,6 +750,40 @@ return {
           properties = {
             ["cutscene"] = "enterdark.shelter"
           }
+        },
+        {
+          id = 45,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 1000,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digicall",
+            ["flagcheck"] = "!hometown_digicall",
+            ["once"] = false
+          }
+        },
+        {
+          id = 47,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 1200,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digiwrongway_a",
+            ["flagcheck"] = "!digi_complete",
+            ["once"] = false
+          }
         }
       }
     },
@@ -750,6 +792,7 @@ return {
       draworder = "topdown",
       id = 10,
       name = "markers",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -794,6 +837,7 @@ return {
       height = 62,
       id = 11,
       name = "treeup",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,

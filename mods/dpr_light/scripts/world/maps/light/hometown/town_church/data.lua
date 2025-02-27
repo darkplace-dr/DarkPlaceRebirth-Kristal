@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 23,
-  nextobjectid = 51,
+  nextobjectid = 52,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -760,6 +760,23 @@ return {
           properties = {
             ["text1"] = "* (It's locked...)",
             ["text2"] = "* (...[wait:5] the town it's pretty empty today.)"
+          }
+        },
+        {
+          id = 51,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 680,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digiwrongway_b",
+            ["flagcheck"] = "!digi_complete",
+            ["once"] = false
           }
         }
       }

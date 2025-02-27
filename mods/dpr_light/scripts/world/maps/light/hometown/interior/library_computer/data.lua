@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.1",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 40,
+  nextlayerid = 7,
+  nextobjectid = 48,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -322,28 +322,32 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 136,
-          y = 362,
+          x = 652.667,
+          y = 456.667,
           width = 110,
           height = 192,
           rotation = 0,
           gid = 15,
           visible = true,
-          properties = {}
+          properties = {
+            ["NOTE"] = "This one too"
+          }
         },
         {
           id = 27,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 304,
-          y = 340,
+          x = 655,
+          y = 344,
           width = 222,
           height = 148,
           rotation = 0,
           gid = 16,
           visible = true,
-          properties = {}
+          properties = {
+            ["NOTE"] = "Moving this out of the way until we can find a better way to do this table"
+          }
         },
         {
           id = 37,
@@ -392,6 +396,140 @@ return {
             ["cutscene"] = "hometown.berdly",
             ["flagcheck"] = "POST_SNOWGRAVE",
             ["once"] = true
+          }
+        },
+        {
+          id = 41,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 279.667,
+          y = 421.333,
+          width = 81,
+          height = 29.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digicomputer",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 42,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 300,
+          y = 470,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "susie_lw",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 43,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 470,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "noelle_lw",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 44,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 300,
+          y = 510,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "jammarcy_light",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 45,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 510,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "dess",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 46,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 300,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "ceroba",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 47,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "brenda_lw",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 40,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 356,
+          y = 266.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "digicomputer",
+            ["flagcheck"] = "hometown_digicall"
           }
         }
       }

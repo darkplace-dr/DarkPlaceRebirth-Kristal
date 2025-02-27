@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="66" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="22" nextobjectid="49">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="66" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="22" nextobjectid="53">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -221,6 +221,27 @@
     <property name="text1" value="* (There's more police tape.)"/>
     <property name="text2" value="* (It says &quot;NGAHHHH!!![wait:5] I MEAN IT!!!&quot;)"/>
     <property name="text3" value="* (It's not clear what is meant by that.)"/>
+   </properties>
+  </object>
+  <object id="50" name="script" x="1480" y="200" width="40" height="240">
+   <properties>
+    <property name="cutscene" value="hometown.digiwrongway_b"/>
+    <property name="flagcheck" value="!digi_complete"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="51" name="script" x="2440" y="200" width="40" height="240">
+   <properties>
+    <property name="cutscene" value="hometown.digiwrongway_c"/>
+    <property name="flagcheck" value="!digi_complete"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="52" name="script" x="1600" y="80" width="200" height="40">
+   <properties>
+    <property name="cutscene" value="hometown.digiwrongway_d"/>
+    <property name="flagcheck" value="!digi_complete"/>
+    <property name="once" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

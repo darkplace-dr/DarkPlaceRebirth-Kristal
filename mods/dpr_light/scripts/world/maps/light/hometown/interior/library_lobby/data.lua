@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 32,
+  nextobjectid = 42,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -51,7 +51,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -64,7 +64,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 400,
@@ -77,7 +77,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 400,
@@ -90,7 +90,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 400,
@@ -103,7 +103,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 0,
@@ -116,7 +116,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 0,
@@ -129,7 +129,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 0,
@@ -142,7 +142,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 400,
@@ -155,7 +155,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 576,
           y = 280,
@@ -168,7 +168,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 396,
           y = 40,
@@ -181,7 +181,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 518,
           y = 40,
@@ -194,7 +194,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 362,
           y = 108,
@@ -207,7 +207,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 338,
@@ -220,12 +220,25 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 418,
           y = 336,
           width = 104,
           height = 62,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 38,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 230,
+          y = 118,
+          width = 48,
+          height = 30,
           rotation = 0,
           visible = true,
           properties = {}
@@ -249,7 +262,7 @@ return {
         {
           id = 18,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 444,
           y = 120,
@@ -268,7 +281,7 @@ return {
         {
           id = 20,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 278,
           y = 108,
@@ -288,7 +301,7 @@ return {
         {
           id = 21,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -305,7 +318,7 @@ return {
         {
           id = 11,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 398,
           y = 212,
@@ -323,7 +336,7 @@ return {
         {
           id = 12,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 206,
@@ -342,7 +355,7 @@ return {
         {
           id = 14,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 74,
@@ -359,7 +372,7 @@ return {
         {
           id = 28,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 158,
           y = 74,
@@ -376,7 +389,7 @@ return {
         {
           id = 29,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 158,
           y = 206,
@@ -393,7 +406,7 @@ return {
         {
           id = 15,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 226,
           y = 108,
@@ -402,6 +415,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["flagcheck"] = "!hometown_digisetup",
             ["solid"] = true,
             ["text1"] = "* (Computer Lab.)\n[wait:5]* (Please surf the web responsibly.)",
             ["text2"] = "* (In fact,[wait:5] maybe don't do it at all.)"
@@ -410,7 +424,7 @@ return {
         {
           id = 30,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 456,
           y = 212,
@@ -422,6 +436,148 @@ return {
             ["solid"] = true,
             ["text1"] = "* (It's the weekly cartoon review.)",
             ["text2"] = "* (Just looking at cartoon criticism is sapping your energy rapidly.)"
+          }
+        },
+        {
+          id = 32,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 420,
+          y = 180,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "susie_lw",
+            ["cutscene"] = "hometown.digi_susie",
+            ["facing"] = "down",
+            ["flagcheck"] = "hometown_digisetup",
+            ["sprite"] = "chill"
+          }
+        },
+        {
+          id = 34,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 460,
+          y = 330,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "dess",
+            ["cutscene"] = "hometown.digi_dess",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 35,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 470,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "ceroba",
+            ["cutscene"] = "hometown.digi_ceroba",
+            ["facing"] = "left",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 36,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 390,
+          y = 380,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "brenda_lw",
+            ["cutscene"] = "hometown.digi_brenda",
+            ["facing"] = "right",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 37,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 250,
+          y = 170,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "noelle_lw",
+            ["cutscene"] = "hometown.digi_noelle",
+            ["facing"] = "down",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 39,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 180,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "jammarcy_light",
+            ["cutscene"] = "hometown.digi_jammarcy",
+            ["facing"] = "up",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 40,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 300,
+          y = 420,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digi_library",
+            ["flagcheck"] = "hometown_digisetup"
+          }
+        },
+        {
+          id = 41,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 278.5,
+          y = 462.5,
+          width = 82.5,
+          height = 15,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hometown.digiwrongway_library",
+            ["flagcheck"] = "!digi_complete",
+            ["once"] = false
           }
         }
       }
@@ -443,7 +599,7 @@ return {
         {
           id = 22,
           name = "entrylibrary",
-          class = "",
+          type = "",
           shape = "point",
           x = 480,
           y = 200,
@@ -456,7 +612,7 @@ return {
         {
           id = 23,
           name = "entrycyber",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 188,
@@ -469,7 +625,7 @@ return {
         {
           id = 25,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,
