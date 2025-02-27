@@ -63,12 +63,10 @@ end)
 
 -- Did the player play Dark Place Legacy?
 if Mod.jeku_memory["remember_legacy"] == nil then
-    print("JEKUHANDLER: Check remember_legacy")
     Mod.jeku_memory["remember_legacy"] = GeneralUtils:hasSaveFiles("dark_place")
 end
 
 if Mod.jeku_memory["remember_legacy"] and (Mod.jeku_memory["first_meet_legacy"] == nil or Mod.jeku_memory["killed_in_legacy"] == nil) then
-    print("JEKUHANDLER: Check first_meet_legacy")
     -- Try to see if the player saw Jeku in Legacy by checking the shop's flags
     local paths = {
         "LOVE/kristal/saves/dark_place/", -- Source code version
@@ -102,7 +100,6 @@ if Mod.jeku_memory["remember_legacy"] and (Mod.jeku_memory["first_meet_legacy"] 
 
     -- Did Jeku killed the player in Legacy?
     if Mod.jeku_memory["killed_in_legacy"] == nil then
-        print("JEKUHANDLER: Check killed_in_legacy")
         local ok = false
         for i=0,3 do
             ok = GeneralUtils:hasSaveFiles("dark_place", "ikilledyouoncedidn'ti_"..i)
@@ -311,6 +308,7 @@ function JekuShop:initJeku()
             side = love.graphics.newImage(Mod.info.path.."/assets/sprites/shopkeepers/jeku/side.png"),
             wink = love.graphics.newImage(Mod.info.path.."/assets/sprites/shopkeepers/jeku/wink.png"),
             wink_tongueout = love.graphics.newImage(Mod.info.path.."/assets/sprites/shopkeepers/jeku/wink_tongueout.png"),
+            surprised_side = love.graphics.newImage(Mod.info.path.."/assets/sprites/shopkeepers/jeku/surprised_side.png"),
         }
         --self.font = love.graphics.newFont("assets/fonts/main.ttf", 32)
         self.jeku_voice = love.audio.newSource(Mod.info.path.."/assets/sounds/voice/jeku.wav", "static")
