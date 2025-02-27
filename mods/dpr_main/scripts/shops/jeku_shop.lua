@@ -60,6 +60,10 @@ Utils.hook(Kristal, "errorHandler", function(orig, self, ...)
 
     return orig(self, ...)
 end)
+Utils.hook(love, "quit", function(orig, self, ...)
+    saveJekuMemory()
+    return orig(self, ...)
+end)
 
 -- Did the player play Dark Place Legacy?
 if Mod.jeku_memory["remember_legacy"] == nil then
