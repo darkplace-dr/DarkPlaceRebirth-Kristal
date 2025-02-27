@@ -23,7 +23,7 @@ function item:init()
     self.heal_amount = 40
 
     -- Default shop price (sell price is halved)
-    self.price = 400
+    self.price = 2222
     -- Whether the item can be sold
     self.can_sell = true
 
