@@ -710,12 +710,12 @@ function JekuShop:startTalk(talk)
             "[emote:side]* Well at least it's what it is on paper.[wait:3] I can't really just go into any world I want.",
             "[emote:crazy]* So I tend to create timelines of the worlds that interest me so I can experiment on them.",
             "[emote:playful]* I'm a huge fan of fighting the protagonists of those worlds![wait:3] Some are REALLY powerful!!",
-            "[emote:playful]* I generally prefer to give them a fair battle.[wait:3] They often beat me, realize I held myself back and then ask to give it my all.",
-            "[emote:insane]* What a mistake.",
-            "[emote:crazy]* I SIMPLY SHATTER REALITY BEFORE THEIR VERY EYES AND DELETE EVERYTHING,[wait:1] INCLUDING THEM!!",
-            "[emote:crazy]* AND THEN I RESTORE EVERYTHING AND WATCH AS THEY TRY TO UNDERSTAND WHAT JUST HAPPENED!",
-            "[emote:insane]* EH HE EH...[wait:4] It's so satisfying...\n[wait:10][emote:side]* But it's not as funny as fighting them the other way.",
-            "[emote:playful]* Being \"OP\" isn't really fun.[wait:3] You get bored after a while.[wait:3] Your adversaries too.[wait:3] It's really no fun!"
+            "[emote:crazy]* I could just delete them. But where's the fun in that?",
+            "[emote:playful]* Isn't it better to actually have a challenge? To see how they adapt to me adapting reality? [emote:crazy]Would you want to fight me if I just killed you on the spot?",
+            "[emote:crazy]* SHATTERING REALITY BEFORE THEIR EYES BEFORE DELETING EVERYTHING THEN RESTORING IT ALL JUST TO SEE THEIR CONFUSED FACE IS REALLY AMUSING,[wait:2] DON'T GET ME WRONG...",
+            "[emote:side]* But it's only a short-time satisfaction.[wait:5] What's the point if I do that every time I fight someone?",
+            "[emote:playful]* Being \"OP\" isn't really fun.[wait:3] You get bored after a while.[wait:3] Your adversaries too.[wait:3] It's just boring!",
+            "[emote:crazy]* But when you start thinking a little,[wait:2] there's so many things you can do with powers like mine that can produce hilarious results!"
         })
     elseif talk == "The Key" then
         self:startDialogue({
