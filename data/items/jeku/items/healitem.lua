@@ -55,7 +55,9 @@ function item:init()
         dess = "bro its unfinished",
         brenda = "Is this a mime sandwich?",
 		jamm = "I feel the glitches inside me.",
-		mario = "Sonic"
+		mario = "Sonic",
+        noel = "Flavorless... As all things should be...",
+        ceroba = "I, uh, can't taste anything??",
     }
 end
 

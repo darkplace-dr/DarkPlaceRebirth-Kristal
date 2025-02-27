@@ -44,15 +44,15 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
-        YOU = true,
+        hero = true,
         susie = true,
         ralsei = false,
         noelle = true,
-        dess = true,
+        dess = false,
         brenda = true,
         jamm = true,
-		mario = true,
-		pauling = true,
+        mario = true,
+        pauling = true,
     }
 
     -- Character reactions
