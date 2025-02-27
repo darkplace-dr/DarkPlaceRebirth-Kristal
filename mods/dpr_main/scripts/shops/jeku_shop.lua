@@ -14,7 +14,7 @@ Mod.jeku_memory = {
     remember_legacy = nil,
     killed_in_legacy = nil,
     first_meet_legacy = false, -- Pretty sure nothing was set to check for this so...
-    welcomed_back_player = false,
+    welcomed_back_player = 0,
 
     -- Threaten Talk
     killed = false,
@@ -221,6 +221,13 @@ end
 
 function JekuShop:initJeku()
     self.encounter_text = "[emote:happy]* HE EH EH!! A PLAYER HAS FINALLY COME TO ME!!"
+    if Mod.jeku_memory["remember_legacy"] and Mod.jeku_memory["welcomed_back_player"] == 0 then
+        Mod.jeku_memory["welcomed_back_player"] = 1
+        self.encounter_text = "[emote:happy]* YOU FOUND ME AGAIN, "..Game.save_name.."![emote:wink] HOW LONG HAS IT BEEN?"
+    elseif Mod.jeku_memory["meet_jeku"] then
+        self.encounter_text = "[emote:happy]* HE EH EH!! WELCOME BACK HERE, "..Game.save_name.."!!"
+    end
+
     self.shop_text = "[emote:playful]* Eh he eh..."
     self.leaving_text = "[emote:wink_tongueout]* Back to play again, hah?\nEh he! Good luck, luck."
     -- Shown when you're in the BUY menu
@@ -276,7 +283,12 @@ function JekuShop:initJeku()
         self:registerTalk("The Key")
     end]]
 
-    self:registerTalk("Who are you?")
+    if Mod.jeku_memory["remember_legacy"] and Mod.jeku_memory["welcomed_back_player"] < 2 then
+        self:registerTalk("You know me?")
+    else
+        self:registerTalk("Who are you?")
+        self:registerTalkAfter("What is true?", 1)
+    end
     self:registerTalk("This shop")
     if love.math.random(1, 100) == 69 then
         self:registerTalk("Flirt") -- :D
@@ -284,8 +296,6 @@ function JekuShop:initJeku()
         self:registerTalk("Threaten")
     end
     self:registerTalk("Behind you")
-
-    self:registerTalkAfter("What is true?", 1)
 
     self.shopkeeper:setActor("jeku")
     self.shopkeeper:setScale(0.5)
@@ -556,6 +566,19 @@ function JekuShop:startTalk(talk)
             "[emote:playful]* I was made to play a little game.[wait:5] A game of murders and trials.[wait:5] A game of \"Vivants\" and \"Tueurs\". A game made of characters controlled by players...[wait:5] By [color:red]strings[color:reset].",
             "[emote:happy]* But the game got cancelled and the world made for it collapsed.[wait:5]\n* But I wasn't erased alongside everyone.",
             "[emote:playful]* I got out of it and discover that what I always believed to be true was in fact[wait:1] true![wait:5] Eh he eh!",
+        })
+    elseif talk == "You know me?" then
+        Game.shop:setFlag("talk_1", false)
+        self:replaceTalk("Who are you?", 1, COLORS.white)
+        self:registerTalkAfter("What is true?", 1)
+        Mod.jeku_memory["welcomed_back_player"] = 2
+        self:startDialogue({
+            "[emote:playful]* Of course I know you![wait:5] You didn't already forget about me,[wait:2] didja?",
+            "[emote:happy]* I was already there in [color:#000050]that other version of this world[color:reset]![wait:5] Before you abandoned it!",
+            "[emote:crazy]* You know,[wait:2] it can hurt to just leave behind a world to rot,[wait:2] especially one as unstable as that place!",
+            "[emote:wink_tongueout]* But oh well,[wait:2] that's just how it goes for fictionnal worlds,[wait:2] doesn't it?[wait:5]\n* It's not like we wouldn't do the same with our own fiction.",
+            "[emote:crazy]* So "..Utils.titleCase(Game.save_name)..",[wait:2] tell me...[wait:5] What is the purpose of THIS world now?",
+            "* And will you let it fall into darkness too?"
         })
     elseif talk == "What is true?" then
         self:startDialogue({
