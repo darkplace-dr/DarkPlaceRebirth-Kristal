@@ -655,19 +655,35 @@ function JekuShop:startTalk(talk)
             })
         end
     elseif talk == "Threaten" then
-        local nb = love.filesystem.read("saves/"..Mod.info.id.."/ikilledyouoncedidn'ti_"..Game.save_id)
-        nb = tonumber(nb)
-        if nb == 1 then
-            self:startDialogue({
-                "[emote:wink_tongueout]* I take it that it amused you?"
-            })
-        elseif nb == 2 then
-            self:startDialogue({
-                "[emote:crazy]* YOU ARE FUN TO PLAY WITH, "..Game.save_name.."!",
-                "[emote:wink_tongueout]* ARE YOU AGAINST THE TIME OR SOMETHING?",
-                "[emote:side]* Time is so important for people like you, eh he eh...",
-                "[emote:crazy]* Ever wondered how many things you missed by rushing whatever you're doing?"
-            })
+        if Mod.jeku_memory["killed"] then
+            if Mod.jeku_memory["killed_in_legacy"] then
+                if Mod.jeku_memory["skipped_death"] then
+                    self:startDialogue({
+                        "[emote:crazy]* EH HE EH HE HE!!",
+                        "[emote:crazy]* I'm sure you knew it was gonna happen![wait:5]\n* I already did this to you in the previous game!",
+                        "[emote:side]* Seeing how fast you've loaded your save,[wait:2] I'm assuming you just wanted to do it just to say you've done it here.",
+                        "[emote:happy]* Then go on,[wait:2] "..Utils.titleCase(Game.save_name).."![wait:5] What's the next mighty step to take back the legacy you left behind?"
+                    })
+                else
+                    self:startDialogue({
+                        "[emote:crazy]* EH HE EH HE HE!!",
+                        "[emote:crazy]* I'm sure you knew it was gonna happen![wait:5]\n* I already did this to you in the previous game!",
+                        "[emote:happy]* Did you perhaps think I would do something else?[wait:5] Or did you just want to do it again to say you did it in this \"reboot\"?",
+                        "[emote:playful]* People like you never stop being entertaining,[wait:2] "..Utils.titleCase(Game.save_name).."!"
+                    })
+                end
+            elseif Mod.jeku_memory["skipped_death"] then
+                self:startDialogue({
+                    "[emote:crazy]* YOU ARE FUN TO PLAY WITH,[wait:2] "..Game.save_name.."!",
+                    "[emote:wink_tongueout]* ARE YOU AGAINST THE TIME OR SOMETHING?",
+                    "[emote:side]* Time is so important for people like you, eh he eh...",
+                    "[emote:crazy]* Ever wondered how many things you missed by rushing whatever you're doing?"
+                })
+            else
+                self:startDialogue({
+                    "[emote:wink_tongueout]* I take it that it amused you?"
+                })
+            end
         else
             if self:getFlag("threaten_jeku", 0) == 0 then
                 self.music:pause()
@@ -783,17 +799,14 @@ function JekuShop:onStateChange(old, new)
     else
         if old == "DIALOGUE" and new == "TALKMENU" then
             if self:getFlag("threaten_jeku") == 6 then
-                local succ, err = love.filesystem.write("saves/"..Mod.info.id.."/ikilledyouoncedidn'ti_"..Game.save_id, "1")
-                if not succ then
-                    print("Writing error: "..err)
-                end
+                Mod.jeku_memory["killed"] = true
                 self:remove()
                 Game.world:remove()
                 Game.state = "GAMEOVER"
                 Kristal.hideBorder(0)
                 self:setFlag("threaten_jeku", 10)
                 Kristal.callEvent("completeAchievement", "jekukilled")
-                Game.stage:addChild(GameOver(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "EH HE EH HE!![wait:5]\nHAPPY NOW??"))
+                Game.stage:addChild(JekuGameOver(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "EH HE EH HE!![wait:5]\nHAPPY NOW??"))
                 return
             end
             if not self.music:isPlaying() then
