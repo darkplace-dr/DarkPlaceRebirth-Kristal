@@ -349,8 +349,8 @@ function Console:run(str)
     if Utils.startsWith(run_string, "=") then
         run_string = "print(" .. Utils.sub(run_string, 2) .. ")"
     end
-    run_string, times = run_string:gsub("Mod.jeku_memory", "nil")
-    if times > 0 then
+    j = run_string:find("Mod.jeku_memory")
+    if j then
         self:error("What do you think you're doing?")
         if Game.shop and Game.shop.id == "jeku_shop" then
             Game.shop.shopkeeper:onEmote("insane")
