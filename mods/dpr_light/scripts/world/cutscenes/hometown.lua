@@ -698,7 +698,7 @@ return {
     end,
 
     digicall = function(cutscene, event)
-        if Game:hasDLC("dlc_digimon") and (#Game.party == 1 and Game:hasPartyMember("hero")) and Game:getFlag("jamm_closure") == true and (Game:hasUnlockedPartyMember("dess") and Game:hasUnlockedPartyMember("susie") and Game:hasUnlockedPartyMember("noelle") and Game:hasUnlockedPartyMember("brenda")) and (Game:hasUnlockedPartyMember("ceroba") or Game:getFlag("whatevertheflagfordeadcerobais") == true) then
+        if Game:hasDLC("dlc_digimon") and (#Game.party == 1 and Game:hasPartyMember("hero")) and Game:getFlag("jamm_closure") == true and Game:getFlag("marcy_unlocked") == true and (Game:hasUnlockedPartyMember("dess") and Game:hasUnlockedPartyMember("susie") and Game:hasUnlockedPartyMember("noelle") and Game:hasUnlockedPartyMember("brenda")) and (Game:hasUnlockedPartyMember("ceroba") or Game:getFlag("whatevertheflagfordeadcerobais") == true) then
             Game:setFlag("hometown_digicall", true)
             Game:setFlag("hometown_digisetup", true)
             Game.world.music:stop()
