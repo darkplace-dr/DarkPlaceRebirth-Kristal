@@ -29,6 +29,25 @@ Mod.jeku_memory = {
     has_fought = false
 }
 
+--[[Mod.jeku_memory = {}
+setmetatable(Mod.jeku_memory, {
+    __index = memory,
+    __newindex = function(t, k, v)
+        if getfenv(2) == Kristal.Console.env then
+            error("What do you think you're doing?")
+        else
+            memory[k] = v
+        end
+    end,
+})
+o_ipairs = ipairs
+function ipairs(t)
+    if t == Mod.jeku_memory then
+        return o_ipairs(memory)
+    end
+    return o_ipairs(t)
+end]]
+
 local function saveJekuMemory()
     if Mod == nil then
         Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")

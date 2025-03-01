@@ -351,7 +351,7 @@ function Console:run(str)
     end
     j = run_string:find("Mod.jeku_memory")
     if j then
-        self:error("What do you think you're doing?")
+        self:log("What do you think you're doing?")
         if Game.shop and Game.shop.id == "jeku_shop" then
             Game.shop.shopkeeper:onEmote("insane")
         end
