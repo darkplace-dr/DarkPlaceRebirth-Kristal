@@ -42,7 +42,7 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        nelle = true,
+        nell = true,
     }
 
     -- Character reactions
@@ -54,7 +54,7 @@ function item:init()
         brenda = "Uh... Abracadabra?",
 		jamm = "I'm not really a wizard.",
         noel = "",
-        nelle = "Ah, my first wand..."
+        nell = "Ah, my first wand..."
     }
 end
 

@@ -1,11 +1,11 @@
-local character, super = Class(PartyMember, "nelle")
+local character, super = Class(PartyMember, "nell")
 
 function character:init()
     super.init(self)
 
-    self.name = "Nelle"
+    self.name = "Nell"
 
-    self:setActor("kris") -- Placeholder
+    self:setActor("nell")
     self:setLightActor("kris_lw") -- Placeholder
     self:setDarkTransitionActor("kris_dark_transition") -- Placeholder
 
@@ -52,9 +52,9 @@ function character:init()
 
     self.icon_color = {22/255, 0, 40/255}
 
-    self.menu_icon = "party/kris/head" -- Placeholder
-    self.head_icons = "party/kris/icon" -- Placeholder
-    self.name_sprite = "party/nelle/name"
+    self.menu_icon = "party/nell/head"
+    self.head_icons = "party/nell/icon"
+    self.name_sprite = "party/nell/name"
 
     self.attack_sprite = "effects/attack/cut" -- Placeholder
     self.attack_sound = "laz_c" -- Placeholder
