@@ -67,10 +67,7 @@ function UFOOfDoom:onAct(battler, name)
             -- Give the enemy 50% mercy
 			self:addMercy(50)
 			-- S-Action text
-            return {
-				"* Jamm asked the UFO to abduct him.",
-				"* ...The UFO felt pity."
-			}
+            return "* Jamm jokingly asked the UFO to abduct him."
 		elseif battler.chara.id == "dess" then
             -- D-Action text
             return "* Dess did absolutely nothing."
