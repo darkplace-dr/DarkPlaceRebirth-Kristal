@@ -1628,7 +1628,7 @@ end
 --- Debug function -
 --- Unlocks every party member (Except for Noel since their unlock mechanics are weird) --Thank you for not adding Noel to this list!
 function Game:unlockAllPartyMembers()
-    local unlock = {"berdly", "bor", "brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nelle", "noelle", "ostarwalker", "pauling", "ralsei", "susie", "suzy"}
+    local unlock = {"berdly", "bor", "brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nell", "noelle", "ostarwalker", "pauling", "ralsei", "susie", "suzy"}
     for i, v in ipairs(unlock) do
         Game:unlockPartyMember(v)
     end
