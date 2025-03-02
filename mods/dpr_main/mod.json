@@ -54,7 +54,10 @@
 		// Agent 7? ~~(Would her Dess% speedrun be invalid just for this change)~~
 		"LUCY": "[style:GONER][spacing:3.2]HEY, THAT'S ME!",
 		"JAMM": "[style:GONER][spacing:3.2]AS IN THAT ASSHAT WHO\nMADE 16 BITS OF CANNED\nSPAM?",
-		"NELLE":"[style:GONER][spacing:3.2]FOR SOME WEIRD REASON...\nTHIS NAME SHINES WITH\nYELLOW POWER.",
+		// I'm surprised it fits (even if barely)
+		"NELLEMONELLE":"[style:GONER][spacing:3.2]HI THE DEV OF DLC YELLOW\nIS HERE.",
+		"NELLE":"[style:GONER][spacing:3.2]YOU FEEL LIKE THIS NAME\nWAS REJECTED BY\nSOMEONE...",
+		"NELL":"[style:GONER][spacing:3.2]LET THE POWER OF DARK\nMAGIC ASSIST YOU.",
 	
 		// Misc. jokes
 		"GHASTTEAR": "[style:GONER][spacing:3.2]HOLY SHIT!!!!!\nGHAST TEAR REAL!!!!!!!!!!",
