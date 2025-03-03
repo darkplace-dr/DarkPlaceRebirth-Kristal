@@ -5,6 +5,9 @@
 ---@overload fun(base_pal:number[][], live_pal:number[][], transformed:boolean?, priority:number?)
 local PaletteFX, super = Class(FXBase)
 
+-- Should always be the same as the value in palette.glsl
+PaletteFX.MAX_PALETTE_ENTRIES = 16
+
 ---@param imagedata love.ImageData|string|Actor
 ---@param line integer
 ---@overload fun(self:PaletteFX, base_pal: number[][], live_pal:number[][], transformed, priority)
@@ -15,10 +18,14 @@ function PaletteFX:init(imagedata, line, transformed, priority)
 
     if isClass(imagedata) and imagedata.includes and imagedata:includes(Actor) then
         ---@cast imagedata Actor
-        imagedata = imagedata:getSpritePath() .. "/palette"
+        imagedata = imagedata:getSpritePath().. "/palette"
     end
     if type(imagedata) == "string" then
-        imagedata = Assets.getTextureData(imagedata)
+        local path = imagedata
+        imagedata = Assets.getTextureData(path)
+        if not imagedata then
+            Kristal.Console:warn("Missing palette, expected to find at "..path)
+        end
     end
 
     if type(imagedata) == "userdata" then
@@ -41,9 +48,17 @@ function PaletteFX:init(imagedata, line, transformed, priority)
         self.live_pal = line
     end
 
-    self.transformed = transformed or false
+    -- Pad end of palette tables
+    if self.base_pal and self.live_pal then
+        while #self.base_pal < self.MAX_PALETTE_ENTRIES do
+            table.insert(self.base_pal, self.base_pal[1])
+            table.insert(self.live_pal, self.live_pal[1])
+        end
+    end
+end
 
-    self.vars = vars or {}
+function PaletteFX:isActive()
+    return super.isActive(self) and self.base_pal and self.live_pal
 end
 
 function PaletteFX:draw(texture)
