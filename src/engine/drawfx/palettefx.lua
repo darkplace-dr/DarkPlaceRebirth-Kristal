@@ -20,8 +20,9 @@ function PaletteFX:init(imagedata, line, transformed, priority)
         ---@cast imagedata Actor
         imagedata = imagedata:getSpritePath().. "/palette"
     end
+    local path
     if type(imagedata) == "string" then
-        local path = imagedata
+        path = imagedata
         imagedata = Assets.getTextureData(path)
         if not imagedata then
             Kristal.Console:warn("Missing palette, expected to find at "..path)
@@ -41,6 +42,8 @@ function PaletteFX:init(imagedata, line, transformed, priority)
                 r,g,b,a = imagedata:getPixel(x - 1, line)
                 table.insert(self.live_pal, {r,g,b,a})
             end
+        else
+            Kristal.Console:warn("Palette image "..(path and (path.." ") or "<unknown>") .. " doesn't have enough entries (expected at least "..line..", got "..(imagedata:getHeight()-1)..")")
         end
     else
         ---@cast imagedata -love.ImageData
