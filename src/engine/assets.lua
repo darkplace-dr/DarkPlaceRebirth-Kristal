@@ -271,7 +271,7 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
-    if self.data.texture[path] then goto done end
+    if not Kristal.Config["lazySprites"] or self.data.texture[path] then goto done end
     do
         local data = Assets.getTextureData(path)
         self.data.texture[path] = data and love.graphics.newImage(data)
@@ -288,7 +288,7 @@ end)
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
-    if self.data.texture_data[path] then goto done end
+    if not Kristal.Config["lazySprites"] or self.data.texture_data[path] then goto done end
     if love.filesystem.getInfo("/assets/sprites/"..path..".png") then
         self.data.texture_data[path] = love.image.newImageData("/assets/sprites/"..path..".png")
         self.texture_ids[self.data.texture_data[path]] = path
@@ -324,7 +324,7 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
-    if self.data.frames[path] then goto done end
+    if not Kristal.Config["lazySprites"] or self.data.frames[path] then goto done end
     do
         local frames = {}
         if Assets.getTexture(path.."_1") then
