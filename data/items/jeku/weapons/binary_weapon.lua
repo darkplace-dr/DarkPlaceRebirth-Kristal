@@ -19,10 +19,10 @@ function item:init()
     self.description = "Looks like trash, but it makes the world run."
 
     -- Default shop price (sell price is halved)
-    self.price = 101
+    self.price = 1101
     -- Whether the item can be sold
     self.can_sell = true
-    self.sell_price = 11
+    self.sell_price = 110
 
     -- Consumable target mode (ally, party, enemy, enemies, or none)
     self.target = "none"
@@ -51,8 +51,8 @@ function item:init()
         dess = false,
         brenda = true,
         jamm = true,
-		mario = true,
-		pauling = true,
+        mario = true,
+        pauling = true,
     }
 
     -- Character reactions

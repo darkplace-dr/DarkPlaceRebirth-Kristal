@@ -194,3 +194,12 @@ function Mod:loadDeltaruneFile(file)
         Game:setFlag("POST_SNOWGRAVE", true)
     end
 end
+
+-- Necessery for Jeku and Noel's interaction in the former's shop
+-- as the function in Noel's actor is not called in that case
+function Mod:onTextSound(voice, node, text)
+    if voice == "noel" and Game.shop then
+        Assets.playSound("voice/noel/"..string.lower(node.character), 1, 1)
+        return true
+    end
+end

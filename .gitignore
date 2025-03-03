@@ -4,9 +4,15 @@ build/
 output/
 
 *.tiled-session
-/mods/dlc_forest
-/mods/dlc_trials
-/mods/dpr_jamm_dlc
-/mods/dlc_yellow
+
+# Ignore all DLCs except dpr_main and dpr_light
+mods/*
+!/mods/dpr_main/
+!/mods/dpr_light/
+
 DarkPlaceREBIRTH.lnk
 open.bat
+
+# Ignore aseprite files
+*.ase
+*.aseprite

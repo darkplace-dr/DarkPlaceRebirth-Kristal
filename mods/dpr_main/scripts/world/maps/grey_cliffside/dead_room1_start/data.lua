@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 65,
+  nextobjectid = 66,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -68,7 +68,7 @@ return {
       objects = {
         {
           id = 29,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 200,
@@ -81,7 +81,7 @@ return {
         },
         {
           id = 30,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 160,
@@ -93,34 +93,8 @@ return {
           properties = {}
         },
         {
-          id = 31,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 540,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 32,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 40,
-          y = 540,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 33,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 80,
@@ -129,11 +103,13 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["broken"] = true
+          }
         },
         {
           id = 34,
-          name = "magicglass",
+          name = "voidglass",
           type = "",
           shape = "rectangle",
           x = 120,
@@ -870,6 +846,19 @@ return {
           x = 0,
           y = 320,
           width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 40,
+          y = 540,
+          width = 40,
           height = 40,
           rotation = 0,
           visible = true,

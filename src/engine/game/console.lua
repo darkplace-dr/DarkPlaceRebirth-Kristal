@@ -349,6 +349,13 @@ function Console:run(str)
     if Utils.startsWith(run_string, "=") then
         run_string = "print(" .. Utils.sub(run_string, 2) .. ")"
     end
+    j = run_string:find("Mod.jeku_memory")
+    if j then
+        self:log("What do you think you're doing?")
+        if Game.shop and Game.shop.id == "jeku_shop" then
+            Game.shop.shopkeeper:onEmote("insane")
+        end
+    end
     local status, err = pcall(function() self:unsafeRun(run_string) end)
     if (not status) and err then
         self:error(self:stripError(err))

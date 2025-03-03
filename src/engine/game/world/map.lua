@@ -733,6 +733,8 @@ function Map:loadObject(name, data)
         return TileButton(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "magicglass" then
         return MagicGlass(data.x, data.y, data.width, data.height)
+    elseif name:lower() == "voidglass" then
+        return VoidGlass(data.x, data.y, data.width, data.height, data.properties["broken"])
     elseif name:lower() == "warpdoor" then
         return WarpDoor(data.x, data.y, data.properties)
     elseif name:lower() == "warpbin" then
@@ -749,6 +751,7 @@ function Map:loadObject(name, data)
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)
         sprite:setScale(data.properties["scalex"] or 2, data.properties["scaley"] or 2)
+        sprite:setOrigin(data.properties["originx"] or 0, data.properties["originy"] or 0)
         return sprite
     end
     if data.gid then
