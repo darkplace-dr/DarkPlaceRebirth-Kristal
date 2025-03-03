@@ -914,7 +914,8 @@ return {
           visible = true,
           properties = {
             ["marker"] = "shop",
-            ["shop"] = "jeku_shop"
+            ["shop"] = "jeku_shop",
+            ["facing"] = "right"
           }
         }
       }

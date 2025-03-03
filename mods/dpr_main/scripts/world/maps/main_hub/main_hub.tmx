@@ -276,6 +276,7 @@
    <properties>
     <property name="marker" value="shop"/>
     <property name="shop" value="jeku_shop"/>
+    <property name="facing" value="right"/>
    </properties>
   </object>
  </objectgroup>
