@@ -93,6 +93,7 @@ function MainMenuOptions:onEnter(old_state)
 end
 
 function MainMenuOptions:onLeave()
+    Kristal.Loader.in_channel:push({config = Kristal.Config})
     self:setState("NONE")
 end
 
@@ -653,6 +654,7 @@ function MainMenuOptions:initializeOptions()
 
     self:registerConfigOption("engine", "Debug Hotkeys", "debug")
     self:registerConfigOption("engine", "Verbose Loader", "verboseLoader")
+    self:registerConfigOption("engine", "Lazy Load Sprites", "lazySprites")
     self:registerConfigOption("engine", "Use System Mouse", "systemCursor", function () Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Always Show Mouse", "alwaysShowCursor", function () Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Instant Quit", "instantQuit")
