@@ -49,7 +49,7 @@ function item:onWorldUse(target)
     Game.world:heal(target, amount)
     Game.world:startCutscene(function(cutscene)
         local subject, verb = "You", "eat"
-        if target.id ~= Mod:getLeader().id then
+        if target.id ~= GeneralUtils:getLeader().id then
             subject = target.name
             verb = "eats"
         end
@@ -57,7 +57,7 @@ function item:onWorldUse(target)
         cutscene:text("* ...")
         local count = 0
         while not Game.inventory:isFull("items", false) do
-            Game.inventory:addItemTo("items", "unoplica", false)
+            Game.inventory:addItemTo("items", "unoplicate", false)
             count = count + 1
             if count > 10 then break end --safe break just in case
         end
@@ -78,10 +78,11 @@ end
 function item:onBattleUse(user, target)
     local count = 0
     while not Game.inventory:isFull("items", false) do
-        Game.inventory:addItemTo("items", "unoplica", false)
+        Game.inventory:addItemTo("items", "unoplicate", false)
         count = count + 1
         if count > 10 then break end --safe break just in case
     end
+    target:heal(self:getBattleHealAmount(target.id))
     return true
 end
 
