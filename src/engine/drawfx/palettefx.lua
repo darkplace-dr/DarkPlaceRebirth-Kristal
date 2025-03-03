@@ -30,15 +30,17 @@ function PaletteFX:init(imagedata, line, transformed, priority)
 
     if type(imagedata) == "userdata" then
         ---@cast imagedata love.ImageData
-        self.base_pal = {}
-        
-        self.live_pal = {}
-        local r,g,b,a
-        for x = 1, imagedata:getWidth() do
-            r,g,b,a = imagedata:getPixel(x - 1, 0)
-            table.insert(self.base_pal, {r,g,b,a})
-            r,g,b,a = imagedata:getPixel(x - 1, line)
-            table.insert(self.live_pal, {r,g,b,a})
+        if imagedata:getHeight() > line then
+            self.base_pal = {}
+            
+            self.live_pal = {}
+            local r,g,b,a
+            for x = 1, imagedata:getWidth() do
+                r,g,b,a = imagedata:getPixel(x - 1, 0)
+                table.insert(self.base_pal, {r,g,b,a})
+                r,g,b,a = imagedata:getPixel(x - 1, line)
+                table.insert(self.live_pal, {r,g,b,a})
+            end
         end
     else
         ---@cast imagedata -love.ImageData
