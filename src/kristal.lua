@@ -292,6 +292,7 @@ function love.load(args)
     -- start load thread
     Kristal.Loader.in_channel = love.thread.getChannel("load_in")
     Kristal.Loader.out_channel = love.thread.getChannel("load_out")
+    Kristal.Loader.in_channel:push({config = Kristal.Config})
 
     Kristal.Loader.thread = love.thread.newThread("src/engine/loadthread.lua")
     Kristal.Loader.thread:start()
