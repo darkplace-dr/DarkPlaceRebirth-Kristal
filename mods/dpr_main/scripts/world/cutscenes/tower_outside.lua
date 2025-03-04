@@ -6,6 +6,10 @@ return {
             cutscene:showNametag("Lazul", {color = {0, 0, 1, 1}})
             cutscene:text("[color:blue]* In case you forgot the bin code:[wait:5] The code is [color:yellow]00000000[color:blue].")
             cutscene:hideNametag()
+        elseif quest and quest > 1 then
+            cutscene:showNametag("Lazul", {color = {0, 0, 1, 1}})
+            cutscene:text("[color:blue]* We have nothing to discuss.")
+            cutscene:hideNametag()
         else
             cutscene:showNametag("Lazul", {color = {0, 0, 1, 1}})
             cutscene:text("[color:blue]* Hey![wait:5] Do you happen to be a delivery man?[wait:5] No?[wait:5] Good.")

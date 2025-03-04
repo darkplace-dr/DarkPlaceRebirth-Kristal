@@ -18,10 +18,10 @@ function character:init()
     self.soul_facing = "up"
 
     self.has_act = true
-    self.has_spells = false
-
-    self.has_xact = true
+    self.has_spells = true
+    self.has_xact = false
     self.xact_name = "H-Action"
+    self:addSpell("half-cify")
 
     self.health = 90
 
