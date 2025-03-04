@@ -32,9 +32,9 @@ function character:init()
 
     self.stats = {
         health = 110,
-        attack = 14,
+        attack = 10,
         defense = 2,
-        magic = 1
+        magic = 4
     }
     self.max_stats = {}
 
@@ -54,18 +54,19 @@ function character:init()
         magic = 5
     }
 
-    self.color = {1, 0, 1}
+    self.color = {106/255, 13/255, 173/255}
 
     self.dmg_color = {0.8, 0.6, 0.8}
 
-    self.attack_bar_color = {234/255, 121/255, 200/255}
+    self.attack_bar_color = self.color
 
-    self.attack_box_color = {0.5, 0, 0.5}
+    self.attack_box_color = {0.6, 0.2, 0.6}
 
-    self.xact_color = {1, 0.5, 1}
+    self.xact_color = {0.7, 0.3, 0.8}
 
     self.menu_icon = "party/susie/head"
     self.head_icons = "party/susie/icon"
+    self.name_sprite = "party/suzy/name"
 
     self.attack_sprite = "effects/attack/mash"
     self.attack_sound = "laz_c"
@@ -80,6 +81,7 @@ function character:init()
     self.gameover_message = nil
 
     self:addSpell("tattle")
+    self:addSpell("half-cify")
 end
 
 -- add later:

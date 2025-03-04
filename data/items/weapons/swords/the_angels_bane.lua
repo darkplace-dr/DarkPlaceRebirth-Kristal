@@ -28,7 +28,8 @@ function item:init()
     self.instant = false
 
     self.bonuses = {
-        attack = 0,
+        attack = 10,
+        magic = 10,
     }
 
     self.bonus_name = "Night"
