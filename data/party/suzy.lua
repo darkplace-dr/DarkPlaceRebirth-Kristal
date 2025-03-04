@@ -82,6 +82,7 @@ function character:init()
 
     self:addSpell("tattle")
     self:addSpell("half-cify")
+    self:addSpell("mend")
 end
 
 -- add later:
@@ -114,7 +115,7 @@ end
 
 function character:getGameOverMessage(main)
     return {
-        "Now's not the time for that!",
+        "Now's not the\ntime for that!",
         main.name..",[wait:5]\nget up...!"
     }
 end
