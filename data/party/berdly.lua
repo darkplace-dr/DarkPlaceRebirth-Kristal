@@ -10,6 +10,8 @@ function character:init()
     self:setActor("berdly")
     self:setLightActor("berdly_lw")
 
+    self.lw_portrait = "face/berdly_lw/smirk"
+
     -- Display level (saved to the save file)
     self.level = Game.chapter
     -- Default title / class (saved to the save file)
@@ -56,6 +58,15 @@ function character:init()
     if Game.chapter >= 2 then
         self:setArmor(2, "royalpin")
     end
+
+    self.lw_health = 20
+
+    self.lw_stats = {
+        health = 20,
+        attack = 10,
+        defense = 10,
+        magic = 1
+    }
 
     -- Default light world equipment item IDs (saves current equipment)
     self.lw_weapon_default = "light/pencil"
@@ -155,6 +166,15 @@ function character:drawPowerStat(index, x, y, menu)
         love.graphics.draw(icon, x+90, y+6, 0, 2, 2)
         return true
     end
+end
+
+function character:lightLVStats()
+    return {
+        health = self:getLightLV() == 20 and 99 or 16 + self:getLightLV() * 4,
+        attack = 8 + self:getLightLV() * 2,
+        defense = 9 + math.ceil(self:getLightLV() / 4),
+        magic = math.ceil(self:getLightLV() / 4)
+    }
 end
 
 return character
