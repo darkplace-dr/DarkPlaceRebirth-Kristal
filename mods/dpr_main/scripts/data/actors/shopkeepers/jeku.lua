@@ -5,8 +5,8 @@ function actor:init()
     self.name = "Jeku"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 210
-    self.height = 275
+    self.width = 181
+    self.height = 233
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
     --self.hitbox = {0, 0, 16, 16}
