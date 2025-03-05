@@ -190,7 +190,6 @@ function PartyBattler:hurt(amount, exact, color, options)
         elseif self.chara.equipped["weapon"].last_stand then
             if (self.chara:getHealth() - amount) <= 0 and not self.last_stood then
                 local neardeath = self.chara:getHealth() - 1
-                neardeath = self.chara:getHealth() - neardeath
                 self:removeHealth(neardeath)
                 self.last_stood = true
             else

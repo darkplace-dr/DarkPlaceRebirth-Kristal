@@ -276,6 +276,7 @@ XSlashSpell = require("src.engine.game.battle.xslashspell")
 Quicktime = require("src.engine.game.battle.quicktime")
 Slapper = require("src.engine.game.battle.slapper")
 Combo = require("src.engine.game.battle.combo")
+Mend = require("src.engine.game.battle.mend")
 
 BlueSoul = require("src.engine.game.battle.souls.bluesoul")
 
