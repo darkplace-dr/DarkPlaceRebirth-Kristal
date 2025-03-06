@@ -225,13 +225,17 @@ function JekuShop:init()
     self.shop_music = "exception"
 
     -- Don't mind me just visiting
-    --self.noel_theme = Music("ticking", 0.75, 0.25) -- i couldnt get the timing right and it sounded like ass
     if Game:hasPartyMember("noel") then
+        --self.noel_theme = Music("ticking", 0.5, 1):seek(self.music:tell()) -- might try agian in the future
+        --self.shop_music
         self.noel = Sprite("face/noel/hey_jeku", 430, 100)
+        self.noel:setScale(1.5)
         self.noel.layer = SHOP_LAYERS["shopkeeper"]
-        self.noel:setScale(3)
         self:addChild(self.noel)
         self.noel:addFX(OutlineFX())
+        self.noel:getFX(OutlineFX):setColor(1, 1, 1)
+
+        self.noel:addFX(OutlineFX())-- need to do this twice
         self.noel:getFX(OutlineFX):setColor(1, 1, 1)
     end
 
@@ -484,9 +488,15 @@ function JekuShop:onEnter()
             end)
         end
     end
+
+    if self.noel then
+        self.noel_theme = Music("ticking", 1, 0.88)
+        self.noel_theme:seek(self.music:tell())
+    end
 end
 
 function JekuShop:onRemoveFromStage(...)
+    Game.shop.noel_theme:remove()
     saveJekuMemory()
     super.onRemoveFromStage(self, ...)
 end
