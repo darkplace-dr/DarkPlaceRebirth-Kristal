@@ -2,6 +2,20 @@
 ---@overload fun(...) : World
 local World, super = Class(Object)
 
+-- The MB easter egg won't happen when entering any DLCs or maps in this list
+-- The list only needs to find the given string in the id so you don't have to add every single map to the list
+-- Especially if they're all in a folder, as the folder name appears in the id
+-- 
+-- But hey, I'd be cool if this list could stay as short as possible, especially the DLC one :D
+World.mb_blacklist = {
+    dlcs = {},
+    maps = {
+        "conversion_rooms",
+        "nothing",
+        "grey_cliffside/dead_room1_start"
+    },
+}
+
 function World:init(map)
     super.init(self)
 
@@ -796,19 +810,46 @@ function World:loadMap(...)
         self.map:onExit()
     end
 
-    if  not Game:getFlag("s", false)
-        and love.math.random(1, 1000) == 666 --funny
-        and (not Game.world.cutscene and not Game.battle)
-    then
-        Kristal.mb_map_dest = map
-        Kristal.mb_marker_dest = marker or {x, y}
-        Kristal.mb_facing_dest = facing
-        Kristal.mb_callback_dest = callback
-        map = "​"
-        marker = "spawn"
-        x, y = nil, nil
-        facing = nil
-        callback = nil
+    if not Game:getFlag("s", false) then
+        local mb_ok = true
+        for type,list in pairs(self.mb_blacklist) do
+            for _,id in ipairs(list) do
+                -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
+                if not (Mod and Mod.info and Mod.info.id) or not (Game.world.map and Game.world.map.id) then
+                    mb_ok = false
+                    break
+                end
+
+                if type == "dlcs" and (Mod and Mod.info and Mod.info.id) then
+                    if Mod.info.id == id then
+                        mb_ok = false
+                        break
+                    end
+                elseif type == "maps" then
+                    if map:find(id) then
+                        mb_ok = false
+                        break
+                    end
+                end
+            end
+
+            if not mb_ok then break end
+        end
+        
+        if  mb_ok
+            and love.math.random(1, 1000) == 666 --funny
+            and (not Game.world.cutscene and not Game.battle)
+        then
+            Kristal.mb_map_dest = map
+            Kristal.mb_marker_dest = marker or {x, y}
+            Kristal.mb_facing_dest = facing
+            Kristal.mb_callback_dest = callback
+            map = "​"
+            marker = "spawn"
+            x, y = nil, nil
+            facing = nil
+            callback = nil
+        end
     end
 
     self:setupMap(map, unpack(args))

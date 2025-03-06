@@ -16,6 +16,8 @@ function mb_map:load()
 
 	self.limit_timer = 900
 
+	self.movement_was_locked = false
+
 	super.load(self)
 end
 
@@ -23,6 +25,14 @@ function mb_map:onEnter()
 	for i,follower in ipairs(Game.world.followers) do
     	follower.visible = false
     end
+
+    for key,_ in pairs(Assets.sound_instances) do
+		Assets.stopSound(key, true)
+	end
+	if Game.lock_movement then
+		self.movement_was_locked = true
+		Game.lock_movement = false
+	end
 end
 
 function mb_map:update()
@@ -65,7 +75,7 @@ function mb_map:update()
 						t:remove()
 						Game.world.fader.alpha = 0
 						Game.world.camera.keep_in_bounds = true
-						Game.lock_movement = false
+						Game.lock_movement = self.movement_was_locked
 						if type(Kristal.mb_marker_dest) == "table" then
 							Game.world:loadMap(Kristal.mb_map_dest, Kristal.mb_marker_dest[1], Kristal.mb_marker_dest[2], Kristal.mb_facing_dest, Kristal.mb_callback_dest)
 						else
@@ -94,6 +104,7 @@ function mb_map:onExit()
 		Game:setFlag("mb_partySet", nil)
 	end
 	Game.world.camera.keep_in_bounds = true
+	Game.lock_movement = self.movement_was_locked
 end
 
 function mb_map:casuallyApproachChild()
