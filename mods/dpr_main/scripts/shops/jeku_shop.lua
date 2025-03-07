@@ -490,7 +490,7 @@ function JekuShop:onEnter()
     end
 
     if self.noel then
-        self.noel_theme = Music("ticking", 1, 0.88)
+        self.noel_theme = Music("ticking", 1, 0.873)
         self.noel_theme:seek(self.music:tell())
     end
 end
