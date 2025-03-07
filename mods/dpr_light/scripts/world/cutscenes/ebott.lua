@@ -35,6 +35,7 @@ return {
                     cutscene:showNametag("Susie")
                     cutscene:text("* Hmm...", "neutral_side", "susie")
                     cutscene:text("* Well,[wait:5] that just means we get to go on another cool adventure!", "smile", "susie")
+                    cutscene:showNametag("Hero")
                     cutscene:text("* Sounds good to me.", "happy", "hero")
                 end
                 cutscene:hideNametag()
