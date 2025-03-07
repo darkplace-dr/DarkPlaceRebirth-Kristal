@@ -31,6 +31,7 @@ function item:init()
 		["jamm"] = -50,
         ["noel"] = -100,
         ["ceroba"] = nil,
+        ["hero"] = 50
 	}
 
     -- Default shop price (sell price is halved)
@@ -58,6 +59,7 @@ function item:init()
 		jamm = "Not the first time I drank oil. Ow, though...",
 		noel = "[color:red]kill me...",
         ceroba = "I'm NOT drinking OIL!",
+        hero = "Not the worst thing I've consumed."
 	}
 end
 
