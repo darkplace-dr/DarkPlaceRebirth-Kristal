@@ -5,7 +5,7 @@
 ---@overload fun(menu:MainMenu) : MainMenuDLCHandler
 local MainMenuDLCHandler, super = Class(StateClass)
 
-require("src.lib.extractor")
+local extractor = require("src.lib.extractor")
 
 function MainMenuDLCHandler:init(menu)
     self.menu = menu
@@ -158,7 +158,9 @@ function MainMenuDLCHandler:onKeyPressedMain(key, is_repeat)
     	Assets.stopAndPlaySound("ui_select")
 		love.system.openURL("file://"..love.filesystem.getSaveDirectory().."/mods")
     elseif Input.ctrl() and key == "f5" then
-    	local force = Input.alt()
+		-- Ctrl+Alt+f<n> is VTY-switching on Linux,
+		-- so we MUST provide Shift as an alternative.
+    	local force = Input.alt() or Input.shift()
     	self:reloadMods(function()
     		self:buildDLCList(force)
     	end)
@@ -516,7 +518,7 @@ function MainMenuDLCHandler:handleZipDownload(data)
 				local name = data.repo..".zip"
 				love.filesystem.write("mods/"..name, body)
 
-				extractZIP("mods/"..name, "mods", true, function()
+				extractor.extractZIP("mods/"..name, "mods", true, function()
 					self.send_request = false
 					self.loading_callback = function()
 						for i,dlc in ipairs(love.filesystem.getDirectoryItems("mods")) do
