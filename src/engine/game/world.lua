@@ -776,6 +776,41 @@ function World:setupMap(map, ...)
     end
 end
 
+function World:canMb(map)
+    if (Kristal.DebugSystem:isMenuOpen() or Game:getFlag("s", false) or (self:hasCutscene() or Game.battle)) then
+        return false
+    end
+    -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
+    if not (Mod and Mod.info and Mod.info.id) or not (self.map and self.map.id) then
+        return false
+    end
+    for obj,list in pairs(self.mb_blacklist) do
+        for _,id in ipairs(list) do
+
+            if obj == "dlcs" and (Mod and Mod.info and Mod.info.id) then
+                if Mod.info.id == id then
+                    return false
+                end
+            elseif obj == "maps" then
+                if isClass(map) and map:includes(Map) then
+                    if map.id:find(id) then
+                        return false
+                    end
+                elseif type(map) == "string" then
+                    if map:find(id) then
+                        return false
+                    end
+                end
+            end
+        end
+    end
+    return true
+end
+
+function World:shouldMb(map)
+    return self:canMb(map) and love.math.random(1, 1000) == 666
+end
+
 --- Loads into a new map file.
 ---@overload fun(self: World, map: string, x: number, y: number, facing?: string, callback?: string, ...: any)
 ---@overload fun(self: World, map: string, marker?: string, facing?: string, callback?: string, ...: any)
@@ -811,50 +846,16 @@ function World:loadMap(...)
     end
 
     -- MB Easter Egg
-    if not Kristal.DebugSystem:isMenuOpen() and not Game:getFlag("s", false) and (not self:hasCutscene() and not Game.battle) then
-        local mb_ok = true
-        for obj,list in pairs(self.mb_blacklist) do
-            for _,id in ipairs(list) do
-                -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
-                if not (Mod and Mod.info and Mod.info.id) or not (self.map and self.map.id) then
-                    mb_ok = false
-                    break
-                end
-
-                if obj == "dlcs" and (Mod and Mod.info and Mod.info.id) then
-                    if Mod.info.id == id then
-                        mb_ok = false
-                        break
-                    end
-                elseif obj == "maps" then
-                    if isClass(map) and map:includes(Map) then
-                        if map.id:find(id) then
-                            mb_ok = false
-                            break
-                        end
-                    elseif type(map) == "string" then
-                        if map:find(id) then
-                            mb_ok = false
-                            break
-                        end
-                    end
-                end
-            end
-
-            if not mb_ok then break end
-        end
-        
-        if mb_ok and love.math.random(1, 1000) == 666 then
-            Kristal.mb_map_dest = map
-            Kristal.mb_marker_dest = marker or {x, y}
-            Kristal.mb_facing_dest = facing
-            Kristal.mb_callback_dest = callback
-            map = "​"
-            marker = "spawn"
-            x, y = nil, nil
-            facing = nil
-            callback = nil
-        end
+    if self:shouldMb(map) then
+        Kristal.mb_map_dest = map
+        Kristal.mb_marker_dest = marker or {x, y}
+        Kristal.mb_facing_dest = facing
+        Kristal.mb_callback_dest = callback
+        map = "​"
+        marker = "spawn"
+        x, y = nil, nil
+        facing = nil
+        callback = nil
     end
 
     self:setupMap(map, unpack(args))
