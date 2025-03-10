@@ -56,7 +56,12 @@ function preview:update()
         or (Utils.startsWith(MainMenu.state, "plugin"))
     if is_options and self.music_once == 0 then
 
-        self.music_settings = Music("options_starry")
+        local date = os.date("*t")
+        if date.month == 3 and date.day == 10 then
+            self.music_settings = Music("options_retro")
+        else
+            self.music_settings = Music("options_starry")
+        end
 
         self.music_once = 1
 

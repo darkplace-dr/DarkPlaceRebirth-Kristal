@@ -18,11 +18,18 @@
 ---@field page_scroll_timer number
 ---
 ---@field noise_timer number
+---@field retro boolean
 ---
 ---@overload fun(menu:MainMenu) : MainMenuOptions
 local MainMenuOptions, super = Class(StateClass)
 
 function MainMenuOptions:init(menu)
+    self.retro = false
+    local date = os.date("*t")
+    if date.month == 3 and date.day == 10 then
+        self.retro = true
+    end
+
     self.menu = menu
 
     self.state_manager = StateManager("MENU", self, true)
@@ -65,8 +72,17 @@ function MainMenuOptions:init(menu)
     self.dog_balloon_siner = 0
 	
     self.clouds_1 = Assets.getTexture("kristal/options_clouds1")
+    if self.retro then
+        self.clouds_1 = Assets.getTexture("kristal/options_retro1")
+    end
     self.clouds_2 = Assets.getTexture("kristal/options_clouds2")
+    if self.retro then
+        self.clouds_2 = Assets.getTexture("kristal/options_retro2")
+    end
     self.moon = Assets.getTexture("kristal/options_moon")
+    if self.retro then
+        self.moon = Assets.getTexture("kristal/options_platform")
+    end
     self.dog = Assets.getTexture("kristal/dog_balloon")
 end
 
@@ -144,14 +160,28 @@ end
 function MainMenuOptions:draw()
     local offset = math.sin(self.dog_balloon_siner * 0.25) * 15
 
-    Draw.setColor(COLORS.black)
+    if self.retro then
+        Draw.setColor(0.36, 0.58, 0.99, 1)
+    else
+        Draw.setColor(COLORS.black)
+    end
     Draw.rectangle("fill", 0, 0, 640, 480)
 
     Draw.setColor(COLORS.white)
     Draw.draw(self.moon, 484, 38, 0, 1, 1)
-    Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
-    Draw.draw(self.dog, 536, 296 + offset, 0, 2, 2)
-    Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
+    if self.retro then
+        Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 200, 0, 1, 1)
+    else
+        Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
+    end
+    if not self.retro then
+        Draw.draw(self.dog, 536, 296 + offset, 0, 2, 2)
+    end
+    if self.retro then
+        Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
+    else
+        Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
+    end
 
     local menu_font = Assets.getFont("main")
 
@@ -708,23 +738,43 @@ function MainMenuOptions:noel_char()
     self.container:setLayer(50)
     --Might come back to this in the future since noel is tecnically a save file
     --self.noel = Sprite("face/noel/hey_jeku")
-    self.noel = Sprite("party/noel/battle/temp_idle_1")
-    self.noel.visible = true
-    self.noel:setOrigin(0.5, 0.5)
-    self.noel:setScale(-2, 2)
-    self.noel.x, self.noel.y = 521, 153
-    self.noel.layer = 50
-    self.container:addChild(self.noel)
-    self.noel:addFX(OutlineFX())
-    self.noel:getFX(OutlineFX):setColor(1, 1, 1)
-
-    self.noel2 = Sprite("party/noel/battle/temp_idle_2")
-    self.noel2.visible = true
-    self.noel2:setOrigin(0.5, 0.5)
-    self.noel2:setScale(-2, 2)
-    self.noel2.x, self.noel2.y = 50, 300
-    self.noel2.layer = 50
-    self.container:addChild(self.noel2)
+    if self.retro then
+        self.noel = Sprite("party/noel/retro_1")
+        self.noel.visible = true
+        self.noel:setOrigin(0.5, 0.5)
+        self.noel:setScale(-2, 2)
+        self.noel.x, self.noel.y = 521, 156
+        self.noel.layer = 50
+        self.container:addChild(self.noel)
+        self.noel:addFX(OutlineFX())
+        self.noel:getFX(OutlineFX):setColor(1, 1, 1)
+    
+        self.noel2 = Sprite("party/noel/retro_2")
+        self.noel2.visible = true
+        self.noel2:setOrigin(0.5, 0.5)
+        self.noel2:setScale(-2, 2)
+        self.noel2.x, self.noel2.y = 50, 300
+        self.noel2.layer = 50
+        self.container:addChild(self.noel2)
+    else
+        self.noel = Sprite("party/noel/battle/temp_idle_1")
+        self.noel.visible = true
+        self.noel:setOrigin(0.5, 0.5)
+        self.noel:setScale(-2, 2)
+        self.noel.x, self.noel.y = 521, 153
+        self.noel.layer = 50
+        self.container:addChild(self.noel)
+        self.noel:addFX(OutlineFX())
+        self.noel:getFX(OutlineFX):setColor(1, 1, 1)
+    
+        self.noel2 = Sprite("party/noel/battle/temp_idle_2")
+        self.noel2.visible = true
+        self.noel2:setOrigin(0.5, 0.5)
+        self.noel2:setScale(-2, 2)
+        self.noel2.x, self.noel2.y = 50, 300
+        self.noel2.layer = 50
+        self.container:addChild(self.noel2)
+    end
 
     end
 end
