@@ -5,7 +5,7 @@
 ---@overload fun(menu:MainMenu) : MainMenuDLCHandler
 local MainMenuDLCHandler, super = Class(StateClass)
 
-require("src.lib.extractor")
+local extractor = require("src.lib.extractor")
 
 function MainMenuDLCHandler:init(menu)
     self.menu = menu
@@ -516,7 +516,7 @@ function MainMenuDLCHandler:handleZipDownload(data)
 				local name = data.repo..".zip"
 				love.filesystem.write("mods/"..name, body)
 
-				extractZIP("mods/"..name, "mods", true, function()
+				extractor.extractZIP("mods/"..name, "mods", true, function()
 					self.send_request = false
 					self.loading_callback = function()
 						for i,dlc in ipairs(love.filesystem.getDirectoryItems("mods")) do

@@ -1,6 +1,8 @@
 -- https://love2d.org/forums/viewtopic.php?t=78293
 local lfs = love.filesystem
 
+local extractor = {}
+
 local function enu(folder, saveDir)
     local filesTable = lfs.getDirectoryItems(folder)
 	if saveDir ~= "" and not lfs.getInfo(saveDir, "directory") then lfs.createDirectory(saveDir) end
@@ -19,7 +21,7 @@ local function enu(folder, saveDir)
     end
 end
 
-function extractZIP(file, dir, delete, callback)
+function extractor.extractZIP(file, dir, delete, callback)
 	local dir = dir or ""
 	local temp = tostring(math.random(1000, 2000))
 	success = lfs.mount(file, temp)
@@ -28,3 +30,5 @@ function extractZIP(file, dir, delete, callback)
 	if delete then lfs.remove(file) end
 	if callback then callback() end
 end
+
+return extractor
