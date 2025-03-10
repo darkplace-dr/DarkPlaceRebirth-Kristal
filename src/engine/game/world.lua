@@ -811,7 +811,7 @@ function World:loadMap(...)
     end
 
     -- MB Easter Egg
-    if not Game:getFlag("s", false) and (not self:hasCutscene() and not Game.battle) then
+    if not Kristal.DebugSystem:isMenuOpen() and not Game:getFlag("s", false) and (not self:hasCutscene() and not Game.battle) then
         local mb_ok = true
         for obj,list in pairs(self.mb_blacklist) do
             for _,id in ipairs(list) do
