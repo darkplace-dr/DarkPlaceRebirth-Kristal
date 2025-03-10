@@ -25,11 +25,11 @@ function MetalSonicPlush:update()
     end
 
     if self.sprite.scale_x > 2 then
-        self.sprite.scale_x = Utils.lerp(self.sprite.scale_x, 2, 0.3)
+        self.sprite.scale_x = Utils.lerp(self.sprite.scale_x, 2, 0.3*DTMULT)
     end
 	
     if self.sprite.scale_y < 2 then
-        self.sprite.scale_y = GeneralUtils:lerpSnap(self.sprite.scale_y, 2, 0.3) --butt-ugly hack to reset the y scale back to its original size
+        self.sprite.scale_y = GeneralUtils:lerpSnap(self.sprite.scale_y, 2, 0.3*DTMULT) --butt-ugly hack to reset the y scale back to its original size
     end
 end
 
@@ -37,12 +37,12 @@ function MetalSonicPlush:onInteract(player, dir)
     if self.cooldown <= 0 then
         Assets.playSound("huehuehue", 0.7)
 
-        self.cooldown = 2.5
+        self.cooldown = .0
         self.sprite.scale_x = 5
         self.sprite.scale_y = 0.25
     end
 
-    return true
+    return false
 end
 
 return MetalSonicPlush
