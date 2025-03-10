@@ -158,7 +158,9 @@ function MainMenuDLCHandler:onKeyPressedMain(key, is_repeat)
     	Assets.stopAndPlaySound("ui_select")
 		love.system.openURL("file://"..love.filesystem.getSaveDirectory().."/mods")
     elseif Input.ctrl() and key == "f5" then
-    	local force = Input.alt()
+		-- Ctrl+Alt+f<n> is VTY-switching on Linux,
+		-- so we MUST provide Shift as an alternative.
+    	local force = Input.alt() or Input.shift()
     	self:reloadMods(function()
     		self:buildDLCList(force)
     	end)
