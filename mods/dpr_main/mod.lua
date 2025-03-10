@@ -53,7 +53,7 @@ function Mod:postInit(new_file)
     end
     
     if not Game:getFlag("FUN") then
-        local random = math.random(1,100)
+        local random = love.math.random(1,100)
         Game:setFlag("FUN", random)
     end
 
