@@ -810,25 +810,33 @@ function World:loadMap(...)
         self.map:onExit()
     end
 
-    if not Game:getFlag("s", false) then
+    -- MB Easter Egg
+    if not Game:getFlag("s", false) and (not self:hasCutscene() and not Game.battle) then
         local mb_ok = true
-        for type,list in pairs(self.mb_blacklist) do
+        for obj,list in pairs(self.mb_blacklist) do
             for _,id in ipairs(list) do
                 -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
-                if not (Mod and Mod.info and Mod.info.id) or not (Game.world.map and Game.world.map.id) then
+                if not (Mod and Mod.info and Mod.info.id) or not (self.map and self.map.id) then
                     mb_ok = false
                     break
                 end
 
-                if type == "dlcs" and (Mod and Mod.info and Mod.info.id) then
+                if obj == "dlcs" and (Mod and Mod.info and Mod.info.id) then
                     if Mod.info.id == id then
                         mb_ok = false
                         break
                     end
-                elseif type == "maps" then
-                    if map:find(id) then
-                        mb_ok = false
-                        break
+                elseif obj == "maps" then
+                    if isClass(map) and map:includes(Map) then
+                        if map.id:find(id) then
+                            mb_ok = false
+                            break
+                        end
+                    elseif type(map) == "string" then
+                        if map:find(id) then
+                            mb_ok = false
+                            break
+                        end
                     end
                 end
             end
@@ -836,10 +844,7 @@ function World:loadMap(...)
             if not mb_ok then break end
         end
         
-        if  mb_ok
-            and love.math.random(1, 1000) == 666 --funny
-            and (not Game.world.cutscene and not Game.battle)
-        then
+        if mb_ok and love.math.random(1, 1000) == 666 then
             Kristal.mb_map_dest = map
             Kristal.mb_marker_dest = marker or {x, y}
             Kristal.mb_facing_dest = facing
