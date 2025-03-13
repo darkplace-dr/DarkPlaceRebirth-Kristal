@@ -834,7 +834,16 @@ end
 ---@param flag  string
 ---@param value any
 function Game:setFlag(flag, value)
+    flag = self:prefixFlagID(flag)
     self.flags[flag] = value
+end
+
+function Game:prefixFlagID(flag)
+    -- TODO: Maybe _not_ special-case FUN?
+    if flag ~= "FUN" and not flag:find("@@") then
+        flag = Mod.info.id.."@@"..flag
+    end
+    return flag
 end
 
 --- Gets the value of the flag named `flag`, returning `default` if the flag does not exist
@@ -842,6 +851,7 @@ end
 ---@param default?  any
 ---@return any
 function Game:getFlag(flag, default)
+    flag = self:prefixFlagID(flag)
     local result = self.flags[flag]
     if result == nil then
         return default
@@ -855,6 +865,7 @@ end
 ---@param amount?   number  (Defaults to `1`)
 ---@return number new_value
 function Game:addFlag(flag, amount)
+    flag = self:prefixFlagID(flag)
     self.flags[flag] = (self.flags[flag] or 0) + (amount or 1)
     return self.flags[flag]
 end
