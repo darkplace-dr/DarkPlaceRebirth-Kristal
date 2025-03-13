@@ -40,6 +40,7 @@ function item:init()
         noelle = "E-EEK!! TH-THERE'S BLOOD ON IT!",
 	    dess = "do i look like a viking to you",
         brenda = "Uh... no.",
+        jamm = "I don't feel comfortable with this...",
     }
 end
 
