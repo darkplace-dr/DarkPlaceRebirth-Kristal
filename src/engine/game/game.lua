@@ -1629,11 +1629,7 @@ function Game:hasDLC(dlc)
 end
 
 function Game:isDessMode()
-    if Game:getFlag("Dess_Mode") then
-        return true
-    else
-        return false
-    end
+    return self:isSpecialMode "DESS"
 end
 
 --- Debug function -

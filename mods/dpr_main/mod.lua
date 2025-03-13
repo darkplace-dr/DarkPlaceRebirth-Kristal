@@ -37,9 +37,7 @@ function Mod:postInit(new_file)
             Game.inventory:addItem("chaos_emeralds")
         end
         local baseParty = {}
-        if Game:isSpecialMode "DESS" then
-            Game:setFlag("Dess_Mode", true)
-
+        if Game:isDessMode() then
             table.insert(baseParty, "dess") -- :heckyeah:
             Game:setFlag("_unlockedPartyMembers", baseParty)
             Game:addPartyMember("dess")
