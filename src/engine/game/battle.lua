@@ -1245,6 +1245,9 @@ function Battle:processAction(action)
             end
 
             local damage = Utils.round(enemy:getAttackDamage(action.damage or 0, battler, action.points or 0))
+            if battler.chara:getWeapon().id == "berserkeraxe" and crit then
+               damage = damage*2
+            end
             if damage < 0 then
                 damage = 0
             end

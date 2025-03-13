@@ -1873,7 +1873,12 @@ function lib:init()
 
             if Input.pressed("confirm") then
                 local item = Game.inventory:getItem(self.storage, self.item_selecting)
-                self:useItem(item)
+                -- TODO: Make it so weapons can only be equipped to certain party members (Why doesn't this code work?)
+                if item.type ~= "weapon" or item.equipable[Game.party[self.party_selecting].id] == true then
+                    self:useItem(item, self.party_selecting)
+                else
+                    Assets.stopAndPlaySound("ui_cant_select")
+                end
             end
 
         else
@@ -1908,6 +1913,7 @@ function lib:init()
 
         if self.state ~= "PARTYSELECT" then
             local item = Game.inventory:getItem(self.storage, self.item_selecting)
+            -- TODO: Make it so weapons can only be equipped to certain party members (Why doesn't this code work?)
             if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
                 Draw.setColor(PALETTE["world_text"])
             else
@@ -1932,7 +1938,11 @@ function lib:init()
             end
         elseif self.state == "PARTYSELECT" then
             local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            Draw.setColor(PALETTE["world_text"])
+            if item.type ~= "weapon" or item.equipable[Game.party[self.party_selecting].id] == true then
+                Draw.setColor(PALETTE["world_text"])
+            else
+                Draw.setColor(PALETTE["world_gray"])
+            end
             
             local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
             
