@@ -102,7 +102,16 @@ end
 
 function Map:onExit() end
 
-function Map:onFootstep(char, num) end
+function Map:onFootstep(char, num)
+	local date = os.date("*t")
+	if date.month == 3 and date.day == 14 and not Game:getFlag("disable_spongestep") then
+		if num == 1 then
+            Assets.playSound("spongestep_1")
+        elseif num == 2 then
+            Assets.playSound("spongestep_2")
+        end
+	end
+end
 
 function Map:onGameOver() end
 
