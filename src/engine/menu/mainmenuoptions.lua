@@ -267,7 +267,7 @@ function MainMenuOptions:draw()
         Draw.popScissor()
     end
 
-    Draw.printShadow("Back", menu_x, 408 - 8, 2, "left", 640)
+    Draw.printShadow("Back", menu_x, 440 - 8, 2, "left", 640)
 
     self.state_manager:draw()
 end
@@ -534,7 +534,7 @@ function MainMenuOptions:getHeartPos()
     else
         -- "Back" button
         x = 27
-        y = 480 - 64 + 3
+        y = 512 - 64 + 3
     end
 
     return x + self.heart_x, y
@@ -648,6 +648,8 @@ function MainMenuOptions:initializeOptions()
                         end)
 
     self:registerConfigOption({ "general", "graphics" }, "Simplify VFX", "simplifyVFX")
+	
+    self:registerConfigOption("general", "Auto-Reload DLC", "ardlc")
 
     self:registerOption("graphics", "Target FPS", function (x, y)
                             if Kristal.Config["fps"] > 0 then

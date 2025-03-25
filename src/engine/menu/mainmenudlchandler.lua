@@ -89,8 +89,17 @@ function MainMenuDLCHandler:onEnter()
 	--self.menu.heart_target_y = -16
 
 	if not self.list then
+		if (Kristal.Config["ardlc"] and Kristal.loadedDLCs ~= true) then
+		
+		end
 		print("Build the DLC list")
 		self:buildDLCList()
+		if (Kristal.Config["ardlc"] and Kristal.loadedDLCs ~= true) then
+			self:reloadMods(function()
+				self:buildDLCList(true)
+			end)
+			Kristal.loadedDLCs = true
+		end
 	else
 		self.list.active = true
 		self.list.visible = true

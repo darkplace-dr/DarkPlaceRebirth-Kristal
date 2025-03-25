@@ -1676,6 +1676,7 @@ function Kristal.loadConfig()
         debug = true,
         fullscreen = false,
         simplifyVFX = false,
+		ardlc = false,
         autoRun = false,
         masterVolume = 0.6,
         favorites = {},
