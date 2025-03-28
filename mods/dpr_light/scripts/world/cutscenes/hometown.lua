@@ -1146,6 +1146,10 @@ return {
             cutscene:text("[font:sans]* as for when?", "look_left", "sans")
             cutscene:text("[font:sans]* tomorrow.", "wink", "sans")
             cutscene:text("[font:sans]* give or take three years.", "joking", "sans")
+			if (cutscene:getCharacter("jamm_lw") or cutscene:getCharacter("jammarcy_light")) then
+				cutscene:showNametag("Jamm")
+				cutscene:text("* (Do we even have os.time() here?)", "nervous", "jamm")
+			end
         else
             cutscene:text("[font:sans]* seeya.", "wink", "sans")
         end
