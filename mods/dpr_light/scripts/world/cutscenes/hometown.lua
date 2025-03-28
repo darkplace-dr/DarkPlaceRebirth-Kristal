@@ -1109,4 +1109,46 @@ return {
         Game.world.music:fade(0, 1)
         cutscene:wait(2)
     end,
+
+    sans = function(cutscene, event)
+        local susie = cutscene:getCharacter("susie_lw")
+        cutscene:showNametag("sans.", {font = "sans"})
+        cutscene:text("[font:sans]* heya.", "neutral", "sans")
+        if susie and not Game:getFlag("hometown_sans") then
+            Game:setFlag("hometown_sans", true)
+            cutscene:showNametag("Susie")
+            cutscene:text("* Aren't you supposed to be guarding the elevator?", "suspicious", "susie")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* yup", "neutral", "sans")
+            cutscene:showNametag("Susie")
+            cutscene:text("* Then why are you still here?", "annoyed", "susie")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* what,[wait:5] never seen a guy with two jobs before?", "wink", "sans")
+            cutscene:showNametag("Susie")
+            cutscene:text("* ...", "bangs/annoyed", "susie")
+            cutscene:text("* I feel like I'm talking to a brick wall whenever I talk to you.", "annoyed", "susie")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* nah,[wait:5] i'm not a brick wall,[wait:5] i'm a cashier.", "joking", "sans")
+            cutscene:showNametag("Susie")
+            cutscene:text("* I thought you were...", "suspicious", "susie")
+            cutscene:text("* Oh nevermind.", "annoyed", "susie")
+            cutscene:showNametag("sans.", {font = "sans"})
+            cutscene:text("[font:sans]* anyways...", "look_left", "sans")
+        end
+        cutscene:text("[font:sans]* you need somethin'?", "neutral", "sans")
+        cutscene:hideNametag()
+        local choice = cutscene:choicer({"When can\nwe see your\nbrother?", "Nothing"})
+        cutscene:showNametag("sans.", {font = "sans"})
+        if choice == 1 then
+            cutscene:text("[font:sans]* you wanna see my brother,[wait:5] huh?", "look_left", "sans")
+            cutscene:text("[font:sans]* hmm...", "eyes_closed", "sans")
+            cutscene:text("[font:sans]* yeah you can see him.", "neutral", "sans")
+            cutscene:text("[font:sans]* as for when?", "look_left", "sans")
+            cutscene:text("[font:sans]* tomorrow.", "wink", "sans")
+            cutscene:text("[font:sans]* give or take three years.", "joking", "sans")
+        else
+            cutscene:text("[font:sans]* seeya.", "wink", "sans")
+        end
+        cutscene:hideNametag()
+    end,
 }
