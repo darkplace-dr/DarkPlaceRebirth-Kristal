@@ -60,6 +60,8 @@ function actor:init()
         ["battle/intro"]        = {"battle/attack", 1/15, true},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
 		
+        ["battle/tactic_freeze"] = {"battle/tactic_freeze", 1/15, false},
+		
 		-- Cutscene animations
 		["sit"]               	= {"sit", 4/30, true},
     }
@@ -91,6 +93,8 @@ function actor:init()
 
         ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-3, 0},
+		
+        ["battle/tactic_freeze"] = {-5, -1},
 		
 		["sit"] = {4, -8},
 		
