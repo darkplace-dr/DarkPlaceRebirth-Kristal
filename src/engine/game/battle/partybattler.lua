@@ -231,7 +231,11 @@ function PartyBattler:hurt(amount, exact, color, options)
     self.hurt_timer = 0
     Game.battle:shakeCamera(4)
 
-    if (not self.defending) and (not self.is_down) then
+    self:doOverlay()
+end
+
+function PartyBattler:doOverlay()
+	if (not self.defending) and (not self.is_down) then
 		self.sleeping = false
 		self.hurting = true
 		self:toggleOverlay(true)
@@ -314,29 +318,7 @@ function PartyBattler:mhp_hurt(amount, exact, color, options)
     self.hurt_timer = 0
     Game.battle:shakeCamera(4)
 
-    if (not self.defending) and (not self.is_down) then
-		self.sleeping = false
-		self.hurting = true
-		self:toggleOverlay(true)
-		self.overlay_sprite:setAnimation("battle/hurt", function()
-			if self.hurting then
-				self.hurting = false
-				self:toggleOverlay(false)
-			end
-			
-			if (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) and self.chara.actor:getAnimation("battle/low_health") then
-				self:setAnimation("battle/low_health")
-			end
-		end)
-		if not self.overlay_sprite.anim_frames then -- backup if the ID doesn't animate, so it doesn't get stuck with the hurt animation
-			Game.battle.timer:after(0.5, function()
-				if self.hurting then
-					self.hurting = false
-					self:toggleOverlay(false)
-				end
-			end)
-		end
-	end
+    self:doOverlay()
 end
 
 
@@ -766,29 +748,7 @@ function PartyBattler:pierce(amount, exact, color, options)
 		self.hurt_timer = 4
 		Game.battle:shakeCamera(4)
 
-		if (not self.defending) and (not self.is_down) then
-			self.sleeping = false
-			self.hurting = true
-			self:toggleOverlay(true)
-			self.overlay_sprite:setAnimation("battle/hurt", function()
-				if self.hurting then
-					self.hurting = false
-					self:toggleOverlay(false)
-				end
-				
-				if (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) and self.chara.actor:getAnimation("battle/low_health") then
-					self:setAnimation("battle/low_health")
-				end
-			end)
-			if not self.overlay_sprite.anim_frames then -- backup if the ID doesn't animate, so it doesn't get stuck with the hurt animation
-				Game.battle.timer:after(0.5, function()
-					if self.hurting then
-						self.hurting = false
-						self:toggleOverlay(false)
-					end
-				end)
-			end
-		end
+		self:doOverlay()
 	end
 end
 
@@ -839,29 +799,7 @@ function PartyBattler:mhp_pierce(amount, exact, color, options)
 		self.hurt_timer = 4
 		Game.battle:shakeCamera(4)
 
-		if (not self.defending) and (not self.is_down) then
-			self.sleeping = false
-			self.hurting = true
-			self:toggleOverlay(true)
-			self.overlay_sprite:setAnimation("battle/hurt", function()
-				if self.hurting then
-					self.hurting = false
-					self:toggleOverlay(false)
-				end
-				
-				if (self.chara:getStat("health") <= (self.chara:getStat("health_def") / 4)) and self.chara.actor:getAnimation("battle/low_health") then
-					self:setAnimation("battle/low_health")
-				end
-			end)
-			if not self.overlay_sprite.anim_frames then -- backup if the ID doesn't animate, so it doesn't get stuck with the hurt animation
-				Game.battle.timer:after(0.5, function()
-					if self.hurting then
-						self.hurting = false
-						self:toggleOverlay(false)
-					end
-				end)
-			end
-		end
+		self:doOverlay()
 	end
 end
 
