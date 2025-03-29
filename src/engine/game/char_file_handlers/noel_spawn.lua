@@ -401,4 +401,20 @@ end
 function Noel:erase()
 end
 
+function Noel:getDebugOptions(context, thing)
+
+    local my_self = thing
+    local context = context
+
+    if my_self.visible then
+        context:addMenuItem("Delete", "Delete this object", function() my_self.visible = false end)
+    else
+        context:addMenuItem("Show", "Show this object.", function() my_self.visible = true end)
+    end
+    context:addMenuItem("Explode", "'cuz it's funny", function()
+        print("no")
+    end)
+    return context
+end
+
 return Noel

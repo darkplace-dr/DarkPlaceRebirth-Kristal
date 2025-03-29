@@ -39,6 +39,19 @@ function Character:init(actor, x, y)
     self.alert_timer = 0
     self.alert_icon = nil
     self.alert_callback = nil
+
+    if self.actor.id == "noel" then
+        print("21")
+        function self:getDebugOptions(context)
+            --local context = context
+    --context:addMenuItem("Cropy", "Copy this object to paste it later", function()
+    --    Kristal.DebugSystem:copyObject(self)
+    --end)
+            local context = Noel:getDebugOptions(context, self)
+            return context
+        end
+
+    end
 end
 
 function Character:getDebugInfo()

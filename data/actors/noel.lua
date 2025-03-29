@@ -11,39 +11,21 @@ function actor:onSpriteInit(sprite)
     sprite:getFX(OutlineFX):setColor(1, 1, 1)
     --print(sprite.sprite_options[1])
     self.b_tog = math.random(10)
-    local s = 195/255
 
     if self.b_tog == 9 then
 
         self.next_time = (os.date("%S") + self:pickRandomDigit())
 
         function self:onWorldDraw(chara)
-
-            self.second = os.date("%S") + 0
-
-            if self.next_time <= self.second then
-                self.next_time = self:pickRandomDigit() + os.date("%S")
-                if self.next_time > (59) then
-                    self.next_time = (self.next_time - 59)
-                end
-                self.blink = 0
-            end
-            if self.blink then
-                local sprite = chara.sprite.sprite_options[1]
-                Draw.setColor(s, s, s, 1)
-
-                if self.sprite_rects[sprite] then
-                    for _, rect in ipairs(self.sprite_rects[sprite]) do
-                        love.graphics.rectangle("fill", rect[1], rect[2], rect[3], rect[4])
-                    end
-                end
-
-                if self.blink >= 1 then
-                    self.blink = nil
-                else
-                    self.blink = (self.blink + DTMULT)
-                end
-            end
+            self:blinkDraw(chara)
+        end
+        function self:onBattleDraw(chara)
+            self:blinkDraw(chara)
+        end
+    else
+        function self:onWorldDraw(chara)
+        end
+        function self:onBattleDraw(chara)
         end
     end
 end
@@ -228,6 +210,35 @@ end
 function actor:onTextSound(node)
     Assets.playSound("voice/noel/"..string.lower(node.character), 1, 1)
     return true
+end
+
+function actor:blinkDraw(chara)
+    local s = 195/255
+    self.second = os.date("%S") + 0
+
+    if self.next_time <= self.second then
+        self.next_time = self:pickRandomDigit() + os.date("%S")
+        if self.next_time > (59) then
+            self.next_time = (self.next_time - 59)
+        end
+        self.blink = 0
+    end
+    if self.blink then
+        local sprite = chara.sprite.sprite_options[1]
+        Draw.setColor(s, s, s, 1)
+
+        if self.sprite_rects[sprite] then
+            for _, rect in ipairs(self.sprite_rects[sprite]) do
+                love.graphics.rectangle("fill", rect[1], rect[2], rect[3], rect[4])
+            end
+        end
+
+        if self.blink >= 1 then
+            self.blink = nil
+        else
+            self.blink = (self.blink + DTMULT)
+        end
+    end
 end
 
 return actor
