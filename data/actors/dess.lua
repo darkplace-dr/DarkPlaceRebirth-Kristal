@@ -60,6 +60,7 @@ function actor:init()
 		["battle/snap"]          = {"battle/snap", 2/30, false, next="battle/idle"},
 		["battle/spellsuper"]    = {"battle/spellsuper", 2/30, false, next="battle/spellsuperend"},
 		["battle/spellsuperend"] = {"battle/spellsuperend", 2/30, true},
+        ["battle/tactic_freeze"] = {"battle/tactic_freeze", 1/15, false},
 
         -- Cutscene animations
         --["laugh"]               = {"laugh", 4/30, true},
@@ -96,6 +97,7 @@ function actor:init()
 		
         ["battle/snap"] = {0, 0},
         ["battle/spellsuper"] = {0, 0},
+        ["battle/tactic_freeze"] = {0, 0},
         
         ["reddit_gold"] = {-20, -20},
         ["sonic_adventure"] = {-20, -10},
