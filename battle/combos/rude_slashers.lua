@@ -10,9 +10,6 @@ function Forest:init()
     self.effect = ""
     -- Menu description
     self.description = "Hero and Susie slash at the enemy many times."
-	if (Game:getFlag("FUN") % 2 == 0) then
-		self.description = "Hero and Suzy slash at the enemy many times."
-	end
 
     -- TP cost
     self.cost = 48
@@ -26,25 +23,14 @@ function Forest:init()
     self.tags = {}
 
     -- Other party members that are required to be in the party.
-    self.party = {"hero"}
-	if (Game:getFlag("FUN") % 2 == 0) then
-		table.insert(self.party, "suzy_lw")	-- Replace this once Suzy gets a dark actor
-	else
-		table.insert(self.party, "susie")
-	end
+    self.party = {"hero", "susie"}
 end
 
 function Forest:doCutscene(cutscene, enemy)
-	local texter = "* Hero and Susie use Rude Slash!"
-	local susie_id = "susie"
-	if (Game:getFlag("FUN") % 2 == 0) then
-		texter = "* Hero and Suzy use Rude Slash!"
-		susie_id = "suzy_lw"	-- Replace this once Suzy gets a dark actor
-	end
 	cutscene:text("* Hero and Susie use Rude Slash!")
 	-- Get players active, get initial positions
 	local krisPlayer = cutscene:getCharacter("hero")
-	local susiePlayer = cutscene:getCharacter(susie_id)
+	local susiePlayer = cutscene:getCharacter("susie")
 	local kx, ky = krisPlayer.x, krisPlayer.y
 	local sx, sy = susiePlayer.x, susiePlayer.y
 	local ex, ey = enemy.x, enemy.y
