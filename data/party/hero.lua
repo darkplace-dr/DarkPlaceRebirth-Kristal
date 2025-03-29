@@ -111,6 +111,19 @@ function character:getTitle()
     end
 end
 
+function character:getActor(light)
+    if light == nil then
+        light = Game.light
+    end
+    if light then
+        return self.lw_actor or self.actor
+    elseif Game.world.map.data.properties.blue_skies then
+        return "hero_sfb"
+    else
+        return self.actor
+    end
+end
+
 function character:addKarma(ammount)
     local newkarma = self:getFlag("karma") + ammount
     if newkarma > 100 then newkarma = 100 end
