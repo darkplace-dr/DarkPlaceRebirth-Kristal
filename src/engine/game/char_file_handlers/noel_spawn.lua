@@ -70,7 +70,7 @@ local place_holder = function(cutscene, event)
 
                     cutscene:text("* Ignoring whatever that is,[wait:5] what brings you here?", "bruh", "noel")
 
-                    choicer = cutscene:choicer({"Join the party", "say nothing\nto confuse him"})
+                    local choicer = cutscene:choicer({"Join the party", "say nothing\nto confuse him"})
 
                     if choicer == 1 then
 
