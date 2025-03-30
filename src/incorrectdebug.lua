@@ -125,6 +125,7 @@ function Debug:update()
     self.text:setColor(fcolor(self.timer / 4, 160 + (math.sin(self.timer / 32) * 60), 255))
     if self.text.x <= 0 or self.text.x+self.text:getTextWidth() >= SCREEN_WIDTH then
         self.text.physics.speed_x = -self.text.physics.speed_x+(Utils.random()/10)*Utils.randomSign()
+        self.text.physics.direction = self.text.physics.direction + Utils.random(math.pi/4, 7*math.pi/4)
         if self.text.x <= 0 then
             self.text.x = self.text.x+5
         else
@@ -134,6 +135,7 @@ function Debug:update()
     end
     if self.text.y <= 0 or self.text.y+self.text:getTextHeight() >= SCREEN_HEIGHT then
         self.text.physics.speed_y = -self.text.physics.speed_y+(Utils.random()/10)*Utils.randomSign()
+        self.text.physics.direction = self.text.physics.direction + Utils.random(math.pi/4, 7*math.pi/4)
         if self.text.y <= 0 then
             self.text.y = self.text.y+5
         else
