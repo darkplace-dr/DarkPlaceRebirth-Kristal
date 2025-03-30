@@ -103,12 +103,17 @@ function Debug:update()
 
         self.error_done = true
 
-        Kristal.loadMod(self.save_data.mod, self.save_data.save_id, self.save_data.name, function ()
-            if Kristal.preInitMod(self.save_data.mod) then
-                Kristal.setDesiredWindowTitleAndIcon()
-                Gamestate.switch(Kristal.States["Game"], self.save_data.save_id, self.save_data.name)
-                Game:load(self.save_data)
-            end
+        Gamestate.switch({})
+
+        Kristal.loadAssets("", "mods", "", function ()
+            Kristal.loadMod(self.save_data.mod, self.save_data.save_id, self.save_data.name, function ()
+                print("Preinit! ", Game, Mod)
+                if Kristal.preInitMod(self.save_data.mod) then
+                    Kristal.setDesiredWindowTitleAndIcon()
+                    print("Preswitch! ", Game, Mod)
+                    Gamestate.switch(Kristal.States["Game"], self.save_data)
+                end
+            end)
         end)
     end
 

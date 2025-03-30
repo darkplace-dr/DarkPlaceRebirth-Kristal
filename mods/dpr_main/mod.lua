@@ -122,9 +122,12 @@ function Mod:postLoad()
         end
         local save_data = Utils.copy(Game:save(Game.world.player:getPosition()), true)
         save_data.save_id = Game.save_id
-        Game:clear()
-        Mod = nil
-        Kristal.setDesiredWindowTitleAndIcon()
+        Kristal.clearModState()
+        Kristal.DebugSystem:refresh()
+        -- End input if it's open
+        if not Kristal.Console.is_open then
+            TextInput.endInput()
+        end
         Kristal.setState("Debug", save_data)
     end
 end
