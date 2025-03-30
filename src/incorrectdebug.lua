@@ -49,6 +49,8 @@ function Debug:enter(previous, save)
     self.timer = 0
     self.error_done = false
 
+    self.shown_textbox = false
+
     self:changeTextText()
 end
 
@@ -69,6 +71,22 @@ end
 
 function Debug:update()
     self.timer = self.timer+DTMULT
+
+    if self.timer >= 600 and not self.shown_textbox then
+        self.shown_textbox = true
+
+        self.textbox = Textbox(56, 344, 530, 104)
+        self.textbox.layer = WORLD_LAYERS["textbox"]
+        self.stage:addChild(self.textbox)
+        self.textbox:setParallax(0, 0)
+
+        self.textbox:setSkippable(false)
+
+        self.textbox:setText("ツイートが毎回深読みされる仲間", function()
+            self.textbox:remove()
+        end)
+        self.textbox.text.state["typing_sound"] = ""
+    end
 
     if self.timer >= 1200 then
         if self.error_done then return end
