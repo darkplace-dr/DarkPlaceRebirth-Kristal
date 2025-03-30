@@ -114,6 +114,20 @@ function Mod:initializeImportantFlags(new_file)
     end
 end
 
+function Mod:postLoad()
+    -- Switch to the very cool debug mode!...?
+    if (Game:getFlag("FUN") >= 90 or Game.save_name == "JOEY") and love.math.random() < 0.1 then
+        if Game.world and Game.world:hasCutscene() then
+            Game.world:stopCutscene()
+        end
+        Game:setFlag("FUN", love.math.random(1,100))
+        local save_data = Utils.copy(Game:save(Game.world.player:getPosition()), true)
+        Kristal.clearModState()
+        Kristal.DebugSystem:refresh()
+        Kristal.setState("Debug", save_data)
+    end
+end
+
 function Mod:addGlobalEXP(exp)
     Game:setFlag("library_experience", Utils.clamp(Game:getFlag("library_experience", 0) + exp, 0, 99999))
 

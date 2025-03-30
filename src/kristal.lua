@@ -13,6 +13,7 @@ if not HOTSWAPPING then
         ["Game"] = require("src.engine.game.game"),
         ["LameFadeout"] = require("src.engine.game.lamefadeout"),
         ["Testing"] = require("src.teststate"),
+        ["Debug"] = require("src.incorrectdebug")
     }
 
     Kristal.Loader = {
@@ -927,6 +928,7 @@ end
 ---| "Menu"    # The main menu state.
 ---| "Game"    # The game state, entered when loading a mod.
 ---| "Testing" # The testing state, used in development.
+---| "Debug"   # Unused
 ---@param ... any Arguments passed to the gamestate.
 function Kristal.setState(state, ...)
     if type(state) == "string" then
