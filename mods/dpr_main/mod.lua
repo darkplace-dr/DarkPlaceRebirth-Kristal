@@ -122,7 +122,6 @@ function Mod:postLoad()
         end
         Game:setFlag("FUN", love.math.random(1,100))
         local save_data = Utils.copy(Game:save(Game.world.player:getPosition()), true)
-        save_data.save_id = Game.save_id
         Kristal.clearModState()
         Kristal.DebugSystem:refresh()
         -- End input if it's open
