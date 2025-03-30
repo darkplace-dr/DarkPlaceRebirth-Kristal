@@ -1,6 +1,9 @@
 local Debug = {}
 
 function Debug:enter(previous, save)
+    Kristal.Console:close()
+    Kristal.DebugSystem:closeMenu()
+
     self.stage = Stage()
 
     self.save_data = save

@@ -124,10 +124,6 @@ function Mod:postLoad()
         local save_data = Utils.copy(Game:save(Game.world.player:getPosition()), true)
         Kristal.clearModState()
         Kristal.DebugSystem:refresh()
-        -- End input if it's open
-        if not Kristal.Console.is_open then
-            TextInput.endInput()
-        end
         Kristal.setState("Debug", save_data)
     end
 end
