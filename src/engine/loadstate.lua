@@ -5,6 +5,13 @@ function Loading:init()
     self.logo_big_star = love.graphics.newImage("assets/sprites/kristal/title/big_star.png")
     self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/text.png")
     self.logo_tagline = love.graphics.newImage("assets/sprites/kristal/title/tagline.png")
+
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.fools = true
+        self.shader_invert = love.graphics.newShader[[ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) { vec4 col = texture2D( texture, texture_coords ); return vec4(1-col.r, 1-col.g, 1-col.b, col.a); } ]]
+        self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/fool.png")
+    end
 end
 
 function Loading:enter(from, dir)
@@ -142,6 +149,14 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
+
+
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        love.graphics.setShader(self.shader_invert)
+    end
+
+
     if Kristal.Config["skipIntro"] then
         love.graphics.push()
         love.graphics.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -261,6 +276,9 @@ function Loading:draw()
 
     -- Reset the draw color
     Draw.setColor(1, 1, 1, 1)
+
+    --Reset Shaders
+    love.graphics.setShader()
 end
 
 function Loading:onKeyPressed(key)

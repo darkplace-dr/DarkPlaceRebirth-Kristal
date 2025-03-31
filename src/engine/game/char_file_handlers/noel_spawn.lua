@@ -360,36 +360,41 @@ function Noel:noels_annoyance(cutscene)
     end
 end
 
+function Noel:getFlag(flag, default)
+    local data
 
---Didnt think it was good enough 
---[[
-        Game.world:startCutscene(function (cutscene, event)
-            Game.world.music:fade(0, 0.25)
+    -- Check if the save file exists
+    if love.filesystem.getInfo("saves/null.char") then
+        data = JSON.decode(love.filesystem.read("saves/null.char"))
+    else
+        return default
+    end
 
-            local turncoat = Music("turncoat", 1, 1)
+    -- Ensure the flags table exists
+    local flags = data.flags or {}
 
-            local index = love.window.showMessageBox("???", "* Don't panic!", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* The game didn't crash!", {"    "}, "info")
-
-            local index = love.window.showMessageBox("???", "* This is a prewritten message...", {"    "}, "warning")
-
-            local index = love.window.showMessageBox("???", "* If youre reading this.", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* I'm probably not awake yet.", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* And won't be for a while.", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* ...", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* What are you waiting for!!!", {"    "}, "warning")
-            local index = love.window.showMessageBox("???", "* Wake me up already "..Game.save_name.."!!!", {"    "}, "warning")
-
-            turncoat:stop()
-            Game.world.music:fade(1, 0.5)
-            --cutscene:text("* The wall seems cracked.", "bruh", "noel")
-        end)
-]]
-
-function Noel:setFlag()
+    -- Return the flag value or default if not found
+    return flags[flag] ~= nil and flags[flag] or default
 end
 
-function Noel:getFlag()
+function Noel:setFlag(flag_name, value)
+    local data
+
+    -- Check if the save file exists
+    if love.filesystem.getInfo("saves/null.char") then
+        data = JSON.decode(love.filesystem.read("saves/null.char"))
+    else
+        data = {}
+    end
+
+    -- Ensure the flags table exists
+    data.flags = data.flags or {}
+
+    -- Set the flag value
+    data.flags[flag_name] = value
+
+    -- Write back to the file
+    love.filesystem.write("saves/null.char", JSON.encode(data))
 end
 
 function Noel:remove()
