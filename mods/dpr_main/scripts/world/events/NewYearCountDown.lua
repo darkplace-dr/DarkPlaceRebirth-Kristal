@@ -22,17 +22,6 @@ function NewYearCountDown:init(x, y)
     --self.debug_select = true
 end
 
-function NewYearCountDown:onLoad()
-    super.onLoad(self)
-	
-    local month = tonumber(os.date("*m"))
-    local day = tonumber(os.date("*d"))
-
-    if month ~= 12 and day ~= 31 then
-        self:remove()
-    end
-end
-
 function NewYearCountDown:update()
     super.update(self)
 
