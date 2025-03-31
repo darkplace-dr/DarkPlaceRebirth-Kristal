@@ -23,11 +23,14 @@ function NewYearCountDown:init(x, y)
 end
 
 function NewYearCountDown:onLoad()
-	super:onLoad(self)
-    local time = os.date("*t")
-	if time.month ~= 12 and time.day ~= 31 then
+    super.onLoad(self)
+	
+    local month = tonumber(os.date("*m"))
+    local day = tonumber(os.date("*d"))
+
+    if month ~= 12 and day ~= 31 then
         self:remove()
-	end
+    end
 end
 
 function NewYearCountDown:update()
