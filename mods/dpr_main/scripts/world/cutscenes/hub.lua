@@ -1252,6 +1252,62 @@ local hub = {
         end
     end,
 
+    lemonade = function(cutscene, event)
+        local lemonade_stand = cutscene:getCharacter("lemonade_stand")
+		cutscene:setSpeaker(lemonade_stand)
+		
+        local function onPurchase()
+		    cutscene:playSound("locker")
+            cutscene:textTagged("* Here you go!\n* Some of my finest lemonade.")
+            cutscene:textTagged("* Oh,[wait:5] one more thing.")
+            cutscene:textTagged("* If,[wait:5] by any chance,[wait:5] you see a duck wandering around somewhere...")
+            cutscene:textTagged("* Don't let him know I'm here or I'll glue you to a tree.")
+        end
+        local function onDeclined()
+            cutscene:textTagged("* Oh!\n* Alright then.")
+            cutscene:textTagged("* Feel free to come back if you've changed your mind!")
+            cutscene:textTagged("* (You better not ask if I've got any grapes though.)")
+        end
+        local function onMoneyNotEnough()
+            cutscene:textTagged("* Uh oh![wait:5]\n* Looks like you don't have enough money.")
+            cutscene:textTagged("* I'll keep this glass ready for you when you have enough though!")
+        end
+        local function onInventoryFull()
+            cutscene:textTagged("* Hold on there.[wait:5]\n* Your inventory's looking pretty packed right now.")
+            cutscene:textTagged("* Try clearing sone of that stuff out first, before I can give you a glass.")
+        end
+		
+		cutscene:textTagged("* Hey there!\n* I'm selling some lemonade.")
+		cutscene:textTagged("* It's cold,[wait:5] it's fresh,[wait:5] and \nit's all home-made!")
+		cutscene:textTagged("* Can I get you a glass?")
+		cutscene:setSpeaker(nil)
+		cutscene:text("* (Buy Lemonade for 60 D$?)")
+		
+		cutscene:showShop()
+        local choice = cutscene:choicer({ "Buy", "Do Not" })
+		cutscene:hideShop()
+		
+        if choice == 2 then
+            cutscene:setSpeaker(lemonade_stand)
+            onDeclined()
+            return
+        end
+        if Game.money < 60 then
+            cutscene:setSpeaker(lemonade_stand)
+            onMoneyNotEnough()
+            return
+        end
+		if not Game.inventory:addItem("lemonade") then
+		    cutscene:setSpeaker(lemonade_stand)
+            onInventoryFull()
+            return
+		end
+		
+        Game.money = Game.money - 60
+		cutscene:setSpeaker(lemonade_stand)
+        onPurchase()
+	end,
+
     money_hole = function(cutscene, event)
         if Game:getFlag("money_hole") == 1 then
             cutscene:text("* (The hole is filled to the brim with cash.)")

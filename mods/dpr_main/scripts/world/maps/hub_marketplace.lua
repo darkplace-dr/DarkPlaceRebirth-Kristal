@@ -410,7 +410,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "lemonade_stand"
+            ["actor"] = "lemonade_stand",
+            ["cutscene"] = "hub.lemonade"
           }
         },
         {

@@ -101,6 +101,7 @@
   <object id="34" name="npc" x="859" y="220">
    <properties>
     <property name="actor" value="lemonade_stand"/>
+    <property name="cutscene" value="hub.lemonade"/>
    </properties>
    <point/>
   </object>
