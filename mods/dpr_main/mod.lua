@@ -116,6 +116,12 @@ end
 
 function Mod:postLoad()
     -- Switch to the very cool debug mode!...?
+
+    if not Game:getFlag("FUN") then
+        local random = love.math.random(1,100)
+        Game:setFlag("FUN", random)
+    end
+
     if (Game:getFlag("FUN") >= 90 or Game.save_name == "JOEY") and love.math.random() < 0.1 then
         if Game.world and Game.world:hasCutscene() then
             Game.world:stopCutscene()
