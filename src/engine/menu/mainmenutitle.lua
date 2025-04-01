@@ -138,7 +138,13 @@ function MainMenuTitle:draw()
     --Draw.draw(self.selected_mod and self.selected_mod.logo or self.logo, 160, 70)
 
     for i, option in ipairs(self.options) do
-        Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
+        local date = os.date("*t")
+        if date.month == 4 and date.day == 1 then
+            Draw.setColor(0, 0, 0, 1)
+            Draw.printLight(option[2], 215, 219 + 32 * (i - 1))
+        else
+            Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
+        end
     end
 end
 

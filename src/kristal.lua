@@ -553,9 +553,6 @@ function Kristal.onKeyPressed(key, is_repeat)
                     Kristal.returnToMenu()
                 end
             end
-        elseif key == "m" and Input.ctrl() and not console_open then
-            Kristal.reloadnoel()
-            print("reloaded noel_spawn.lua")
         end
     end
 
@@ -1653,6 +1650,12 @@ function Kristal.getSoulColor()
     if Kristal.getState() == Game then
         return Game:getSoulColor()
     end
+
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        return unpack(COLORS.green)
+    end
+
     return unpack(COLORS.red)
 end
 
