@@ -836,4 +836,25 @@ function PartyBattler:noel_damage(amount) -- DO NOT QUESTION MY CHOICES
     end
 end
 
+function PartyBattler:onDefeatFatal(damage, battler)
+    self.hurt_timer = -1
+
+    Assets.playSound("deathnoise")
+
+    local sprite = self:getActiveSprite()
+
+    sprite.visible = false
+    sprite:stopShake()
+
+    local death_x, death_y = sprite:getRelativePos(0, 0, self)
+    local death = FatalEffect(sprite:getTexture(), death_x, death_y, function() self:remove() end)
+    death:setColor(sprite:getDrawColor())
+    death:setScale(sprite:getScale())
+    self:addChild(death)
+
+
+    --Game.battle.battle_ui.action_boxes[]
+    --self:defeat("KILLED", true)
+end
+
 return PartyBattler

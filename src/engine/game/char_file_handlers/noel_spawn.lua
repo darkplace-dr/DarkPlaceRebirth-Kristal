@@ -107,7 +107,11 @@ local place_holder = function(cutscene, event)
     if #Game.party == 3 then 
         cutscene:text("* Party full.", "bruh", "noel")
     else
-        cutscene:text("* May I join the party?", "bruh", "noel")
+        if math.random(1, 10) == 9 then
+            cutscene:doki_text("* May I join the party?", "noel", {name = "Noel"})
+       else
+            --cutscene:text("* May I join the party?", "bruh", "noel")
+       end
         local choicer
         if Game:isDessMode() then
             cutscene:text("* nah this is dess mode[font:main_mono,16]TM[font:reset] so it's only me", "condescending", "dess")
@@ -128,7 +132,7 @@ local place_holder = function(cutscene, event)
             choicer = cutscene:choicer({"Yes", "No"})
         end
         if choicer == 1 then
-            cutscene:text("* Cool beans.", "bruh", "noel")
+            cutscene:text("* Swag Bacon.", "bruh", "noel")
             local noel = cutscene:getCharacter("noel")
             noel:convertToFollower()
             cutscene:attachFollowers()
