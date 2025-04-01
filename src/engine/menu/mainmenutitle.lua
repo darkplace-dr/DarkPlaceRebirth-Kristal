@@ -15,6 +15,11 @@ function MainMenuTitle:init(menu)
     self.menu = menu
 
     self.logo = Assets.getTexture("kristal/title_logo_shadow")
+    
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.logo = Assets.getTexture("kristal/title_logo_sun")
+    end
 
     self.selected_option = 1
 end
