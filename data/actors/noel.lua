@@ -65,6 +65,8 @@ function actor:init()
 
     local save = Noel:loadNoel()
 
+    self.noel = true
+
     self.name = "Noel"
     self.width = 33
     self.height = 40
