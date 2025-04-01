@@ -42,6 +42,15 @@ function Savepoint:init(x, y, properties)
 	self.override_power = properties["override_power"]
 end
 
+function Savepoint:update()
+    super.update(self)
+
+    --For Hirty Dackers
+    if Game.world.player and Game.world.player.actor.noel then
+        self:remove()
+    end
+end
+
 function Savepoint:onInteract(player, dir)
 	if Game:getFlag("weird") and (self.text and #self.text > 0) and not self.override_power then
 		local party_text = ""
