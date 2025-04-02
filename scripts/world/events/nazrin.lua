@@ -31,20 +31,10 @@ function Nazrin:onInteract()
                     else
                         cutscene:text("* You don't have enough D$...")
                     end
-                end
-                if book == 2 then
-                    if Game.money >= 200 then
-                        Game.money = Game.money - 200
-                        cutscene:text("* ...")
-                        cutscene:text("* You feel forgiven...")
-                        Game:setFlag("nazrinpissed", false)
-                    else
-                        cutscene:text("* You don't have enough D$...")
-                    end
-                end
-                if book == 3 then
-                    if Game.money >= 300 then
-                        Game.money = Game.money - 300
+                else
+                    local cost = (book == 2) and 200 or 300
+                    if Game.money >= cost then
+                        Game.money = Game.money - cost
                         cutscene:text("* ...")
                         cutscene:text("* You feel forgiven...")
                         Game:setFlag("nazrinpissed", false)
