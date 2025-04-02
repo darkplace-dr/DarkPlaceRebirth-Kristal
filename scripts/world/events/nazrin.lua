@@ -11,7 +11,7 @@ end
 function Nazrin:onInteract()
     Game.world:startCutscene(function(cutscene)
         cutscene:text("* Pray to Nazrin to fuse your objects?")
-        opinion = cutscene:choicer({"Yes", "No"}) == 1
+        local opinion = cutscene:choicer({"Yes", "No"}) == 1
         if opinion then
             if not Game:getFlag("nazrinpissed") then
                 Game.world.timer:after(0, function()
@@ -22,7 +22,7 @@ function Nazrin:onInteract()
                 cutscene:text("* She seems angry at you.")
                 cutscene:showShop()
                 cutscene:text("* Maybe you can donate D$?")
-                book = cutscene:choicer({"100 D$", "200 D$", "300 D$", "None"}, options)
+                local book = cutscene:choicer({"100 D$", "200 D$", "300 D$", "None"}, options)
                 if book == 1 then
                     if Game.money >= 100 then
                         Game.money = Game.money - 100
@@ -31,20 +31,10 @@ function Nazrin:onInteract()
                     else
                         cutscene:text("* You don't have enough D$...")
                     end
-                end
-                if book == 2 then
-                    if Game.money >= 200 then
-                        Game.money = Game.money - 200
-                        cutscene:text("* ...")
-                        cutscene:text("* You feel forgiven...")
-                        Game:setFlag("nazrinpissed", false)
-                    else
-                        cutscene:text("* You don't have enough D$...")
-                    end
-                end
-                if book == 3 then
-                    if Game.money >= 300 then
-                        Game.money = Game.money - 300
+                else
+                    local cost = (book == 2) and 200 or 300
+                    if Game.money >= cost then
+                        Game.money = Game.money - cost
                         cutscene:text("* ...")
                         cutscene:text("* You feel forgiven...")
                         Game:setFlag("nazrinpissed", false)
@@ -54,6 +44,8 @@ function Nazrin:onInteract()
                 end
                 cutscene:hideShop()
             end
+        else
+            cutscene:text("* You religion't.")
         end
     end)
 end
