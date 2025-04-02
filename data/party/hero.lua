@@ -131,4 +131,10 @@ function character:addKarma(ammount)
     self:setFlag("karma", newkarma)
 end
 
+function character:onTurnStart(battler)
+    if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
+        self:heal(9)
+    end
+end
+
 return character

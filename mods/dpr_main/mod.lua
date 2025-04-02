@@ -25,6 +25,41 @@ function Mod:postInit(new_file)
             item1 = "flarewings",
             item2 = "discarded_robe"
         },
+        {
+            result = "dd_burger",
+            item1 = "darkburger",
+            item2 = "darkburger"
+        },
+        {
+            result = "silver_card",
+            item1 = "amber_card",
+            item2 = "amber_card"
+        },
+        {
+            result = "twinribbon",
+            item1 = "pink_ribbon",
+            item2 = "white_ribbon"
+        },
+        {
+            result = "spikeband",
+            item1 = "glowwrist",
+            item2 = "ironshackle"
+        },
+        {
+            result = "tensionbow",
+            item1 = "bshotbowtie",
+            item2 = "tensionbit"
+        },
+        {
+            result = "peanut",
+            item1 = "nut",
+            item2 = "nut"
+        },
+        {
+            result = "quadnut",
+            item1 = "peanut",
+            item2 = "peanut"
+        },
     }
     Kristal.callEvent("setItemsList", items_list)
 
