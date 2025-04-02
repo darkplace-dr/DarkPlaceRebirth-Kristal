@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="86">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="88">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -10,6 +10,7 @@
  </properties>
  <tileset firstgid="1" source="../../tilesets/main_area.tsx"/>
  <tileset firstgid="209" source="../../tilesets/other-objects.tsx"/>
+ <tileset firstgid="212" source="../../tilesets/bright forest.tsx"/>
  <objectgroup color="#ffaaff" id="8" name="objects_bg"/>
  <layer id="1" name="Tile Layer 1" width="23" height="27">
   <data encoding="csv">
@@ -119,8 +120,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,217,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,239,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -171,6 +172,9 @@
   <object id="57" x="0" y="160" width="200" height="40"/>
   <object id="58" x="0" y="280" width="200" height="320"/>
   <object id="66" x="500" y="80" width="180" height="40"/>
+  <object id="86" x="200" y="500">
+   <polygon points="0,0 40,0 40,80 0,80"/>
+  </object>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="objects_elevator">
   <object id="65" name="elevatordoor" x="400" y="80" width="120" height="40"/>
@@ -282,6 +286,9 @@
     <property name="marker" value="shop"/>
     <property name="shop" value="jeku_shop"/>
    </properties>
+  </object>
+  <object id="87" name="nazrin" x="220" y="540">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="4" name="markers">

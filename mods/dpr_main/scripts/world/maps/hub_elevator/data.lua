@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -156,23 +156,27 @@ return {
             ["color_3"] = "#ff2368b8",
             ["color_4"] = "#ff373887",
             ["color_5"] = "#ff4429ff",
+            ["color_6"] = "#ffffff00",
             ["cutscene_5"] = "broken_elevator",
             ["dest_1"] = "pre_pit",
             ["dest_2"] = "main_hub",
             ["dest_3"] = "floorcyber/pre_elevator",
             ["dest_4"] = "seal_room/seal_room_1",
             ["dest_5"] = "nothing",
+            ["dest_6"] = "tritraland/entrance",
             ["length_1"] = 140,
             ["length_2"] = 40,
             ["length_3"] = 40,
             ["length_4"] = 40,
             ["length_5"] = 40,
+            ["length_6"] = 40,
             ["mod_1"] = "dpr_pit_dlc",
             ["name_1"] = "The Dark Pit",
             ["name_2"] = "Floor 1",
             ["name_3"] = "Cyber Floor",
             ["name_4"] = "Room",
-            ["name_5"] = "Nowhere"
+            ["name_5"] = "Nowhere",
+            ["name_6"] = "TritraLand"
           }
         }
       }
