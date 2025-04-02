@@ -11,7 +11,7 @@ end
 function Nazrin:onInteract()
     Game.world:startCutscene(function(cutscene)
         cutscene:text("* Pray to Nazrin to fuse your objects?")
-        opinion = cutscene:choicer({"Yes", "No"}) == 1
+        local opinion = cutscene:choicer({"Yes", "No"}) == 1
         if opinion then
             if not Game:getFlag("nazrinpissed") then
                 Game.world.timer:after(0, function()
@@ -22,7 +22,7 @@ function Nazrin:onInteract()
                 cutscene:text("* She seems angry at you.")
                 cutscene:showShop()
                 cutscene:text("* Maybe you can donate D$?")
-                book = cutscene:choicer({"100 D$", "200 D$", "300 D$", "None"}, options)
+                local book = cutscene:choicer({"100 D$", "200 D$", "300 D$", "None"}, options)
                 if book == 1 then
                     if Game.money >= 100 then
                         Game.money = Game.money - 100
