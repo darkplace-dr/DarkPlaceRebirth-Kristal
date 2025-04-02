@@ -44,6 +44,8 @@ function Nazrin:onInteract()
                 end
                 cutscene:hideShop()
             end
+        else
+            cutscene:text("* You religion't.")
         end
     end)
 end
