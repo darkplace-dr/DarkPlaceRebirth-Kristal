@@ -852,9 +852,14 @@ function PartyBattler:onDefeatFatal(damage, battler)
     death:setScale(sprite:getScale())
     self:addChild(death)
 
-
-    --Game.battle.battle_ui.action_boxes[]
-    --self:defeat("KILLED", true)
+    local num = 0
+    for _,party in ipairs(Game.battle.party) do
+        num = num + 1
+        if self == Game.battle.party[num] then
+            Game.battle.party[num] = nil
+            Game.battle.battle_ui.action_boxes[num]:remove()
+        end
+    end
 end
 
 return PartyBattler
