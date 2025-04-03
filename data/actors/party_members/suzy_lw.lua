@@ -6,7 +6,7 @@ function actor:init()
     -- Display name (optional)
     self.name = "Suzy"
 
-    self.width = 27
+    self.width = 33
     self.height = 42
 
     self.hitbox = {5, 24, 19, 14}

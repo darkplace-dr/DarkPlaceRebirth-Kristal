@@ -858,6 +858,7 @@ function PartyBattler:onDefeatFatal(damage, battler)
         if self == Game.battle.party[num] then
             Game.battle.party[num] = nil
             Game.battle.battle_ui.action_boxes[num]:remove()
+            Game.party[num] = nil
         end
     end
 end
