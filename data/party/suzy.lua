@@ -7,7 +7,7 @@ function character:init()
 
     self:setActor("suzy_lw")
     self:setLightActor("suzy_lw")
-    --self:setDarkTransitionActor("suzy_dark_transition")
+    self:setDarkTransitionActor("suzy_lw") --"suzy_dark_transition"
 
     self.lw_portrait = nil
     self.love = 1
