@@ -435,6 +435,7 @@ return {
                 Game:setFlag("NEXTROUNDMINIGAME", false)
                 Game:setFlag("WONREACTIONTIMEMINIGAME", true)
                 cutscene:text("* You won the game!")
+                Game:setFlag("tl_mwon", true)
                 itemcheck = Game.inventory:addItem("nut")
                 if itemcheck then
                     cutscene:text("* You obtained a Nut.")

@@ -30,16 +30,47 @@ return {
                 cutscene:text("* [voice:nostuki]...I'll give you a reward! The timer will be 12 seconds!")
                 Game:setFlag("tl_nmet", true)
             else
-                if not Game:getFlag("tl_chest") then
-                    cutscene:text("* [voice:nostuki]I have hidden a chest somewhere in this room.")
-                    cutscene:text("* [voice:nostuki]Try to find it! Bet you can't!")
+                if Game:getFlag("tl_mwon") and not Game:getFlag("tl_mwonnr") then
+                    cutscene:text("* [voice:nostuki]You won the arcade game, didn't you?")
+                    cutscene:text("* [voice:nostuki]Honestly, the entire reward being a single nut sucks.")
+                    cutscene:text("* [voice:nostuki]I know he set it up this way so it isn't overpowered...")
+                    cutscene:text("* [voice:nostuki]But still, it is a joke!")
+                    cutscene:text("* [voice:nostuki]So I have prepared a solution!")
+                    cutscene:text("* [voice:nostuki]Me, the great Notsuki!")
+                    itemcheck = Game.inventory:addItem("dancing_tear")
+                    if itemcheck then
+                        Game:setFlag("tl_mwonnr", true)
+                        cutscene:text("* Notsuki hands you a floating tear that dances around you.")
+                        cutscene:text("* [voice:nostuki]It is a dancing tear, makes you REALLY tense.")
+                        cutscene:text("* [voice:nostuki]Those are actually my fuel.")
+                        cutscene:text("* [voice:nostuki]My key doesn't spin by itself you see.")
+                        cutscene:text("* [voice:nostuki]Luckily master has an infinite supply.")
+                        cutscene:text("* [voice:nostuki]Less luckily I need more than half of that infinite supply.")
+                        cutscene:text("* [voice:nostuki]So he can only have one robot running.")
+                        cutscene:text("* [voice:nostuki]Yet he made me as his one and only robot.")
+                        cutscene:text("* [voice:nostuki]...")
+                        cutscene:text("* [voice:nostuki]I am glad I am alive.")
+                        cutscene:text("* [voice:nostuki]I am going to outlive master.")
+                        cutscene:text("* [voice:nostuki]Maybe I should ask him how that makes him feel?")
+                        cutscene:text("* [voice:nostuki]He probably will be happy when I tell him.")
+                        cutscene:text("* [voice:nostuki]I can sense it.")
+                        cutscene:text("* [voice:nostuki]So I should tell him that when he feels down.")
+                        cutscene:text("* [voice:nostuki]...")
+                    else
+                        cutscene:text("* [voice:nostuki]But you should return when you can carry it.")
+                    end
                 else
-                    if not Game:getFlag("tl_ct1") then
-                        cutscene:text("* [voice:nostuki]So you found the chest, huh?")
-                        cutscene:text("* [voice:nostuki]That casette has music I really like on it!")
-                        cutscene:text("* [voice:nostuki]I even tried convincing my master to use it for this room!")
-                        cutscene:text("* [voice:nostuki]But he insisted on using self composed stuff...")
-                        cutscene:text("* [voice:nostuki]Oh well, hope you enjoy that casette as much as I do!")
+                    if not Game:getFlag("tl_chest") then
+                        cutscene:text("* [voice:nostuki]I have hidden a chest somewhere in this room.")
+                        cutscene:text("* [voice:nostuki]Try to find it! Bet you can't!")
+                    else
+                        if not Game:getFlag("tl_ct1") then
+                            cutscene:text("* [voice:nostuki]So you found the chest, huh?")
+                            cutscene:text("* [voice:nostuki]That casette has music I really like on it!")
+                            cutscene:text("* [voice:nostuki]I even tried convincing my master to use it for this room!")
+                            cutscene:text("* [voice:nostuki]But he insisted on using self composed stuff...")
+                            cutscene:text("* [voice:nostuki]Oh well, hope you enjoy that casette as much as I do!")
+                        end
                     end
                 end
             end
