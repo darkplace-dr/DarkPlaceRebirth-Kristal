@@ -5,6 +5,8 @@ function Slider:init(world, data)
 
 	self.sliding = false
 	self.slide_time = 0
+	
+	Game:rollShiny("mario")
 end
 
 function Slider:onEnter()
