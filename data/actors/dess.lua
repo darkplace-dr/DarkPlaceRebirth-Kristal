@@ -111,6 +111,8 @@ function actor:init()
     self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}
 
     self.menu_anim = "sonic_adventure"
+	
+	self.shiny_id = "dess"
 end
 
 return actor
