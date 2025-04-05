@@ -76,6 +76,20 @@ return {
             end
         end
     end,
+    warning = function(cutscene, event)
+        cutscene:text("* [voice:nostuki]You are capable of killing.")
+        cutscene:text("* [voice:nostuki]I control the forcefields you know.")
+        if Game:getFlag("tl_nmet") then
+            cutscene:text("* [voice:nostuki]I should have noticed it sooner...")
+        end
+        if Game:getFlag("tl_chest") then
+            cutscene:text("* [voice:nostuki]I would ask you to return the casette, but I'm not stupid.")
+        end
+        cutscene:text("* [voice:nostuki]I promise you, this land will not see harm!")
+        cutscene:text("* [voice:nostuki]Go away punk, and pray to Nazrin for forgiveness...")
+        Game:setFlag("nazrinpissed", true)
+        Game:setFlag("tl_nkyck", true)
+    end,
     chest = function(cutscene, event)
         cutscene:text("* There is a chest here!")
         if not Game:getFlag("tl_chest") then

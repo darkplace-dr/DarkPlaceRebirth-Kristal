@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="193">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="229">
  <editorsettings>
   <export target="entrance.lua" format="lua"/>
  </editorsettings>
@@ -530,6 +530,49 @@
   <object id="182" name="pushblock" x="1320" y="680" width="40" height="40"/>
   <object id="183" name="pushblock" x="1360" y="720" width="40" height="40"/>
   <object id="184" name="pushblock" x="1360" y="680" width="40" height="40"/>
+  <object id="221" name="forcefield" x="800" y="920" width="600" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="222" name="warpbin" x="1280" y="1000" width="120" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+    <property name="skin" value="cyber_city"/>
+   </properties>
+  </object>
+  <object id="223" name="forcefield" x="800" y="1240" width="600" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="224" name="forcefield" x="800" y="960" width="40" height="280">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="225" name="forcefield" x="1040" y="440" width="160" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="226" name="forcefield" x="1000" y="320" width="40" height="120">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="227" name="forcefield" x="1200" y="320" width="40" height="120">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+   </properties>
+  </object>
+  <object id="228" name="script" x="1040" y="420" width="160" height="20">
+   <properties>
+    <property name="cutscene" value="notsuki.warning"/>
+    <property name="flagcheck" value="can_kill"/>
+    <property name="once" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#aa00ff" id="5" name="markers">
   <object id="12" name="entry_elevator" x="1120" y="380">

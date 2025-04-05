@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 193,
+  nextobjectid = 229,
   properties = {
     ["music"] = "TRITRALAND",
     ["name"] = "Tritra Land"
@@ -2405,6 +2405,129 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 221,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 920,
+          width = 600,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 222,
+          name = "warpbin",
+          type = "",
+          shape = "rectangle",
+          x = 1280,
+          y = 1000,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill",
+            ["skin"] = "cyber_city"
+          }
+        },
+        {
+          id = 223,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 1240,
+          width = 600,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 224,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 960,
+          width = 40,
+          height = 280,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 225,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 1040,
+          y = 440,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 226,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 1000,
+          y = 320,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 227,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 1200,
+          y = 320,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
+          }
+        },
+        {
+          id = 228,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 1040,
+          y = 420,
+          width = 160,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "notsuki.warning",
+            ["flagcheck"] = "can_kill",
+            ["once"] = true
+          }
         }
       }
     },
