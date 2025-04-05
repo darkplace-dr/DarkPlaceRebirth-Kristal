@@ -90,8 +90,8 @@ function ActorSprite:init(actor)
     self.run_away_2 = false
     self.run_away_timer_2 = 0
 	
-	if Game:getFlag("SHINY")[actor:getShinyID()] and not Game.world.map.dont_load_shiny then
-		self:addFX(PaletteFX(actor.path .. "/shiny_palette", 1), "shiny_pal")
+	if Game:getFlag("SHINY", {})[self.actor:getShinyID()] and not Game.world.map.dont_load_shiny then
+		self:addFX(PaletteFX(self.actor.path .. "/shiny_palette", 1), "shiny_pal")
 	end
 end
 
