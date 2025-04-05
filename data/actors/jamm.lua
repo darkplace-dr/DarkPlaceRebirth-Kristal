@@ -121,6 +121,8 @@ function actor:init()
     if Game:getFlag("jamm_closure") then
 		self.menu_anim = "ghost_bs"
 	end
+	
+	self.shiny_id = "jamm"
 end
 
 return actor
