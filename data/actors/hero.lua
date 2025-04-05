@@ -139,6 +139,8 @@ function actor:init()
 
         ["wall_slam"] = {-1, 0},
     }
+	
+	self.shiny_id = "hero"
 end
 
 return actor

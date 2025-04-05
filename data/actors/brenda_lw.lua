@@ -52,6 +52,8 @@ function actor:init()
     }
 
     self.taunt_sprites = {"box"}
+	
+	self.shiny_id = "brenda"
 end
 
 return actor

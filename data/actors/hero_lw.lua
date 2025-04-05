@@ -68,6 +68,8 @@ function actor:init()
         ["ghostwalk_rf"] = {-4, 3},
         ["ghostwalk_ru"] = {-4, 3},
     }
+	
+	self.shiny_id = "hero"
 end
 
 return actor
