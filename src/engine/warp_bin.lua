@@ -72,6 +72,11 @@ function Kristal:getBinCode(code)
                     result = mod.map,
                     mod = id,
                 }
+            else
+                if type(info) == "string" then
+                    info = {result = info}
+                end
+                info.mod = info.mod or id
             end
             return info
         end
