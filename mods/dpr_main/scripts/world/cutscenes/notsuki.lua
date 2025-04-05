@@ -19,61 +19,55 @@ return {
                 cutscene:text("* You aren't the only one, you know.", nil, "notsuki")
                 cutscene:text("* I have to make sure I can reward others too!", nil, "notsuki")
             end
-        else
-            if not Game:getFlag("tl_nmet") then
-                cutscene:text("* Hello, I am Notsuki. Not Natsuki, that's for sure!", nil, "notsuki")
-                cutscene:text("* Welcome to Tritra Land!", nil, "notsuki")
-                cutscene:text("* My master build this place.", nil, "notsuki")
-                cutscene:text("* Mostly so you go to play his other works...", nil, "notsuki")
-                cutscene:text("* This land is fanservice to those that actually bothered with his games.", nil, "notsuki")
-                cutscene:text("* For instance to the right there is a replica of the Cinnamon Clouds race.", nil, "notsuki")
-                cutscene:text("* If you manage to activate the clock and get to me fast enough...", nil, "notsuki")
-                cutscene:text("* ...I'll give you a reward! The timer will be 12 seconds!", nil, "notsuki")
-                Game:setFlag("tl_nmet", true)
+        elseif not Game:getFlag("tl_nmet") then
+            cutscene:text("* Hello, I am Notsuki. Not Natsuki, that's for sure!", nil, "notsuki")
+            cutscene:text("* Welcome to Tritra Land!", nil, "notsuki")
+            cutscene:text("* My master build this place.", nil, "notsuki")
+            cutscene:text("* Mostly so you go to play his other works...", nil, "notsuki")
+            cutscene:text("* This land is fanservice to those that actually bothered with his games.", nil, "notsuki")
+            cutscene:text("* For instance to the right there is a replica of the Cinnamon Clouds race.", nil, "notsuki")
+            cutscene:text("* If you manage to activate the clock and get to me fast enough...", nil, "notsuki")
+            cutscene:text("* ...I'll give you a reward! The timer will be 12 seconds!", nil, "notsuki")
+            Game:setFlag("tl_nmet", true)
+        elseif Game:getFlag("tl_mwon") and not Game:getFlag("tl_mwonnr") then
+            cutscene:text("* You won the arcade game, didn't you?", nil, "notsuki")
+            cutscene:text("* Honestly, the entire reward being a single nut sucks.", nil, "notsuki")
+            cutscene:text("* I know he set it up this way so it isn't overpowered...", nil, "notsuki")
+            cutscene:text("* But still, it is a joke!", nil, "notsuki")
+            cutscene:text("* So I have prepared a solution!", nil, "notsuki")
+            cutscene:text("* Me, the great Notsuki!", nil, "notsuki")
+            local itemcheck = Game.inventory:addItem("dancing_tear")
+            if itemcheck then
+                Game:setFlag("tl_mwonnr", true)
+                cutscene:text("* Notsuki hands you a floating tear that dances around you.")
+                cutscene:text("* It is a dancing tear, makes you REALLY tense.", nil, "notsuki")
+                cutscene:text("* Those are actually my fuel.", nil, "notsuki")
+                cutscene:text("* My key doesn't spin by itself you see.", nil, "notsuki")
+                cutscene:text("* Luckily master has an infinite supply.", nil, "notsuki")
+                cutscene:text("* Less luckily I need more than half of that infinite supply.", nil, "notsuki")
+                cutscene:text("* So he can only have one robot running.", nil, "notsuki")
+                cutscene:text("* Yet he made me as his one and only robot.", nil, "notsuki")
+                cutscene:text("* ...", nil, "notsuki")
+                cutscene:text("* I am glad I am alive.", nil, "notsuki")
+                cutscene:text("* I am going to outlive master.", nil, "notsuki")
+                cutscene:text("* Maybe I should ask him how that makes him feel?", nil, "notsuki")
+                cutscene:text("* He probably will be happy when I tell him.", nil, "notsuki")
+                cutscene:text("* I can sense it.", nil, "notsuki")
+                cutscene:text("* So I should tell him that when he feels down.", nil, "notsuki")
+                cutscene:text("* ...", nil, "notsuki")
             else
-                if Game:getFlag("tl_mwon") and not Game:getFlag("tl_mwonnr") then
-                    cutscene:text("* You won the arcade game, didn't you?", nil, "notsuki")
-                    cutscene:text("* Honestly, the entire reward being a single nut sucks.", nil, "notsuki")
-                    cutscene:text("* I know he set it up this way so it isn't overpowered...", nil, "notsuki")
-                    cutscene:text("* But still, it is a joke!", nil, "notsuki")
-                    cutscene:text("* So I have prepared a solution!", nil, "notsuki")
-                    cutscene:text("* Me, the great Notsuki!", nil, "notsuki")
-                    local itemcheck = Game.inventory:addItem("dancing_tear")
-                    if itemcheck then
-                        Game:setFlag("tl_mwonnr", true)
-                        cutscene:text("* Notsuki hands you a floating tear that dances around you.")
-                        cutscene:text("* It is a dancing tear, makes you REALLY tense.", nil, "notsuki")
-                        cutscene:text("* Those are actually my fuel.", nil, "notsuki")
-                        cutscene:text("* My key doesn't spin by itself you see.", nil, "notsuki")
-                        cutscene:text("* Luckily master has an infinite supply.", nil, "notsuki")
-                        cutscene:text("* Less luckily I need more than half of that infinite supply.", nil, "notsuki")
-                        cutscene:text("* So he can only have one robot running.", nil, "notsuki")
-                        cutscene:text("* Yet he made me as his one and only robot.", nil, "notsuki")
-                        cutscene:text("* ...", nil, "notsuki")
-                        cutscene:text("* I am glad I am alive.", nil, "notsuki")
-                        cutscene:text("* I am going to outlive master.", nil, "notsuki")
-                        cutscene:text("* Maybe I should ask him how that makes him feel?", nil, "notsuki")
-                        cutscene:text("* He probably will be happy when I tell him.", nil, "notsuki")
-                        cutscene:text("* I can sense it.", nil, "notsuki")
-                        cutscene:text("* So I should tell him that when he feels down.", nil, "notsuki")
-                        cutscene:text("* ...", nil, "notsuki")
-                    else
-                        cutscene:text("* But you should return when you can carry it.", nil, "notsuki")
-                    end
-                else
-                    if not Game:getFlag("tl_chest") then
-                        cutscene:text("* I have hidden a chest somewhere in this room.", nil, "notsuki")
-                        cutscene:text("* Try to find it! Bet you can't!", nil, "notsuki")
-                    else
-                        if not Game:getFlag("tl_ct1") then
-                            cutscene:text("* So you found the chest, huh?", nil, "notsuki")
-                            cutscene:text("* That casette has music I really like on it!", nil, "notsuki")
-                            cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
-                            cutscene:text("* But he insisted on using self composed stuff...", nil, "notsuki")
-                            cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
-                        end
-                    end
-                end
+                cutscene:text("* But you should return when you can carry it.", nil, "notsuki")
+            end
+        else
+            if not Game:getFlag("tl_chest") then
+                cutscene:text("* I have hidden a chest somewhere in this room.", nil, "notsuki")
+                cutscene:text("* Try to find it! Bet you can't!", nil, "notsuki")
+            elseif not Game:getFlag("tl_ct1") then
+                cutscene:text("* So you found the chest, huh?", nil, "notsuki")
+                cutscene:text("* That casette has music I really like on it!", nil, "notsuki")
+                cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
+                cutscene:text("* But he insisted on using self composed stuff...", nil, "notsuki")
+                cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
             end
         end
     end,
