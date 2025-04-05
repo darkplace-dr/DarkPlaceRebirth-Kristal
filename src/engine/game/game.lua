@@ -140,7 +140,9 @@ function Game:enter(previous_state, save_id, save_name, fade)
 end
 
 function Game:rollShiny(id)
-	if love.math.random(1, 100) == 66 then
+	local roller = love.math.random(1, 100)
+	-- Kristal.Console:log(id .. ": " .. roller)
+	if roller == 66 then
 		self:getFlag("SHINY")[id] = true
 	else
 		self:getFlag("SHINY")[id] = false
