@@ -45,6 +45,8 @@ function actor:init()
         ["criss_cross_right"] = {0, 8},
         ["criss_cross_down"] = {0, 8},
     }
+	
+	self.shiny_id = "jamm"
 end
 
 function actor:getDefaultSprite()

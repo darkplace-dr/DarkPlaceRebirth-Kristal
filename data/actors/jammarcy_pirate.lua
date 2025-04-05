@@ -105,6 +105,8 @@ function actor:init()
     }
 
     self.taunt_sprites = nil
+	
+	self.shiny_id = "jamm"
 end
 
 function actor:getSoulOffset()
