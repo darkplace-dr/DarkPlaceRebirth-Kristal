@@ -48,13 +48,33 @@ function item:init()
 end
 
 function item:onWorldUse(target)
-    Game.world.music:play("whereverwearenow")
+    if Game.world.map.last_music == nil then
+        Game.world.map.last_music = Game.world.music:isPlaying() and Game.world.music.current or false
+        Game.world.music:play("whereverwearenow")
+    elseif Game.world.map.last_music then
+        Game.world.music:play(Game.world.map.last_music)
+        Game.world.map.last_music = nil
+    else
+        Game.world.music:stop()
+    end
     return false
 end
 
 function item:onBattleSelect(user, target)
-    Game.battle.music:play("facedown")
+    if Game.battle.last_music == nil then
+        Game.battle.last_music = Game.battle.music:isPlaying() and Game.battle.music.current or false
+        Game.battle.music:play("facedown")
+    elseif Game.battle.last_music then
+        Game.battle.music:play(Game.battle.last_music)
+        Game.battle.last_music = nil
+    else
+        Game.battle.music:stop()
+    end
     return false
+end
+
+function item:onBattleDeselect(user, target)
+    self:onBattleSelect(user,target)
 end
 
 function item:getBattleText(user, target)
