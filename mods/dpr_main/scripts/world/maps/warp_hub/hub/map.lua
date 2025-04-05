@@ -4,7 +4,7 @@ function hub:onEnter()
     super.onEnter(self)
 end
 
-function convertToGameTime(real_seconds, sec_per_hour)
+local function convertToGameTime(real_seconds, sec_per_hour)
     local sec_per_minute = sec_per_hour / 60  -- Calculate how many real seconds per in-game minute
 
     local in_game_hours = real_seconds / sec_per_hour

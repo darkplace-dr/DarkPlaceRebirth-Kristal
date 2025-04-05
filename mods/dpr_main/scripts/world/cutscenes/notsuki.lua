@@ -4,7 +4,7 @@ return {
             cutscene:text("* [voice:nostuki]You won the race!")
             if not Game:getFlag("tl_rwon") then
                 cutscene:text("* [voice:nostuki]Take this.")
-                itemcheck = Game.inventory:addItem("harvester")
+                local itemcheck = Game.inventory:addItem("harvester")
                 if itemcheck then
                     cutscene:text("* She hands you a scythe.")
                     cutscene:text("* [voice:nostuki]This scythe heals those who can wield it!")
@@ -37,7 +37,7 @@ return {
                     cutscene:text("* [voice:nostuki]But still, it is a joke!")
                     cutscene:text("* [voice:nostuki]So I have prepared a solution!")
                     cutscene:text("* [voice:nostuki]Me, the great Notsuki!")
-                    itemcheck = Game.inventory:addItem("dancing_tear")
+                    local itemcheck = Game.inventory:addItem("dancing_tear")
                     if itemcheck then
                         Game:setFlag("tl_mwonnr", true)
                         cutscene:text("* Notsuki hands you a floating tear that dances around you.")
@@ -79,7 +79,7 @@ return {
     chest = function(cutscene, event)
         cutscene:text("* There is a chest here!")
         if not Game:getFlag("tl_chest") then
-            itemcheck = Game.inventory:addItem("casette")
+            local itemcheck = Game.inventory:addItem("casette")
             if itemcheck then
                 cutscene:text("* You find a casette, an item that changes the music!")
                 Game:setFlag("tl_chest", true)
