@@ -130,6 +130,25 @@ function Game:enter(previous_state, save_id, save_name, fade)
             instance = 0
         })
     end
+	
+	if not self:getFlag("SHINY") then
+		self:setFlag("SHINY", {})
+		for k,v in ipairs(Game:getFlag("unlockedPartyMembers", {})) do
+			self:rollShiny(v)
+		end
+	end
+end
+
+function Game:rollShiny(id)
+	if love.math.random(1, 100) == 66 then
+		self:getFlag("SHINY")[id] = true
+	else
+		self:getFlag("SHINY")[id] = false
+	end
+end
+
+function Game:forceShiny(id, what)
+	self:getFlag("SHINY")[id] = (what ~= false)
 end
 
 function Game:loadHooks()
