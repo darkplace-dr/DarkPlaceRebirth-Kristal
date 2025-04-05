@@ -102,6 +102,8 @@ function actor:init()
         self.walk_speed_override = 16
 
     self.menu_anim = "pose_star"
+	
+	self.shiny_id = "mario"
 end
 
 return actor

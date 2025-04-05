@@ -14,6 +14,8 @@ function actor:init()
     self.path = "party/mario/dark_transition"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
     self.default = "run"
+	
+	self.shiny_id = "mario"
 end
 
 return actor
