@@ -3,6 +3,21 @@ local lib = {}
 Registry.registerGlobal("DP", lib)
 DP = lib
 
+function lib:init()
+    if MagicalGlassLib then
+		Utils.hook(LightStatMenu, "draw", function(orig, self)
+			orig(self)
+			love.graphics.setFont(self.font)			
+			local party = Game.party[self.party_selecting]
+			if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+				Draw.setColor({235/255, 235/255, 130/255})
+				love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
+			end
+			Draw.setColor(COLORS.white)
+		end)
+    end
+end
+
 function lib:onPause()
     if Game.tutorial then
         PauseLib.paused = false

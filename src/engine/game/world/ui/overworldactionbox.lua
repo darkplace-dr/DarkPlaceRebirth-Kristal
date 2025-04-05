@@ -14,6 +14,10 @@ function OverworldActionBox:init(x, y, index, chara)
     if chara:getNameSprite() then
         self.name_sprite = Sprite(chara:getNameSprite(), 51 + ox, 16 + oy)
         self:addChild(self.name_sprite)
+		
+		if Game:getFlag("SHINY", {})[chara.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+			self.name_sprite:addFX(GradientFX(COLORS.white, {235/255, 235/255, 130/255}, 1, math.pi/2))
+		end
     end
 
     self.hp_sprite   = Sprite("ui/hp", 109, 24)

@@ -35,7 +35,7 @@ function ActionBox:init(x, y, index, battler)
         self.box:addChild(self.name_sprite)
 		
 		if Game:getFlag("SHINY", {})[battler.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
-			self.name_sprite:setColor({235/255, 235/255, 130/255})	-- TODO: Figure out gradient
+			self.name_sprite:addFX(GradientFX(COLORS.white, {235/255, 235/255, 130/255}, 1, math.pi/2))
 		end
     end
 
