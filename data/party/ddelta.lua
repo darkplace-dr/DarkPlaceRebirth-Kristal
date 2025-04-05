@@ -22,6 +22,8 @@ function character:init()
     self.has_xact = true
     self.xact_name = "DD-Action"
 
+    self.lw_portrait = "face/ddelta_lw/aha"
+	
     self.health = 100
 
     self.stats = {
