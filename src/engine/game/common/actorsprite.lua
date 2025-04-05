@@ -89,6 +89,10 @@ function ActorSprite:init(actor)
 
     self.run_away_2 = false
     self.run_away_timer_2 = 0
+	
+	if Game:getFlag("SHINY", {})[self.actor:getShinyID()] and Game:getFlag("SHINY", {})[self.actor:getShinyID()] == true and not Game.world.map.dont_load_shiny then
+		self:addFX(PaletteFX(self.actor.path .. "/shiny_palette", 1), "shiny_pal")
+	end
 end
 
 --- Resets this sprite to the default animation or sprite.
