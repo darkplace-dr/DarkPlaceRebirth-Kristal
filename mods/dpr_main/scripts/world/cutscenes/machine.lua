@@ -3,7 +3,7 @@ return {
         local stall = cutscene:getCharacter("machine")
         stall:setSprite("on")
         cutscene:text("* The machine turns on, each of the four buttons have text on them.")
-        opinion = cutscene:choicer({"Play", "Rules", "Donate", "Shut off"}, options)
+        local opinion = cutscene:choicer({"Play", "Rules", "Donate", "Shut off"})
         if opinion == 1 then
             Game:setFlag("NEXTROUNDMINIGAME", false)
             cutscene:text("* ROUND 1")
@@ -436,7 +436,7 @@ return {
                 Game:setFlag("WONREACTIONTIMEMINIGAME", true)
                 cutscene:text("* You won the game!")
                 Game:setFlag("tl_mwon", true)
-                itemcheck = Game.inventory:addItem("nut")
+                local itemcheck = Game.inventory:addItem("nut")
                 if itemcheck then
                     cutscene:text("* You obtained a Nut.")
                 else
@@ -456,7 +456,7 @@ return {
             cutscene:showShop()
             cutscene:text("* How much do you want to donate?")
             cutscene:text("* (WARNING: DONATING HAS NO EFFECT TO THE GAME.)")
-            donate = cutscene:choicer({"10", "20", "50", "0"}, options)
+            local donate = cutscene:choicer({"10", "20", "50", "0"})
             if donate == 1 then
                 if Game.money >= 10 then
                     Game.money = Game.money - 10
