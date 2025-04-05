@@ -118,10 +118,6 @@ function Character:setActor(actor)
     self.sprite.inherit_color = true
     self.sprite.on_footstep = function(s, n) self:onFootstep(n) end
     self:addChild(self.sprite)
-	
-	if Game:getFlag("SHINY", {})[actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
-		self.sprite:addFX(PaletteFX(actor.path .. "/shiny_palette", 1), "shiny_pal")
-	end
 end
 
 --- Makes the character face in the direction specified by `dir`.
