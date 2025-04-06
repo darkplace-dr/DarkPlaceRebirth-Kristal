@@ -1,6 +1,7 @@
 #define MAX_PALETTE_ENTRIES 16
 uniform vec4 base_palette[MAX_PALETTE_ENTRIES];
 uniform vec4 live_palette[MAX_PALETTE_ENTRIES];
+uniform bool debug;
 
 vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
     vec4 pixel = Texel(image, uvs);
@@ -9,5 +10,6 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
         if(all(lessThan(abs(pixel - color), vec4(0.001))))
             return live_palette[i];
     }
+    if(debug) return vec4(1,0,0,pixel.a);
     return pixel;
 }
