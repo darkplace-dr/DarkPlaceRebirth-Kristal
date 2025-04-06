@@ -95,4 +95,17 @@ function actor:init()
     self.taunt_sprites = {"super_move", "the_roba"}
 end
 
+function actor:onWorldDraw(chara)
+    local player = Game.world.player
+
+    if player.run_timer > 0 and self.default == "walk" then
+        self.default = "run"
+        chara:resetSprite()
+    elseif self.default == "run" and player.run_timer == 0 then
+        self.default = "walk"
+        chara:resetSprite()
+    end
+
+end
+
 return actor
