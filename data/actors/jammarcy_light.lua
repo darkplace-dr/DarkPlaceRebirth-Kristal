@@ -56,6 +56,8 @@ function actor:init()
     }
 
     self.taunt_sprites = {"box", "bs_win", "maid", "pirate"}
+	
+	self.shiny_id = "jamm"
 end
 
 function actor:getSoulOffset()

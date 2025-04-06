@@ -54,6 +54,8 @@ function actor:init()
         ["walk_shadowed/left"] = "walk_shadowed/left",
         ["walk_shadowed/right"] = "walk_shadowed/right",
     }
+	
+	self.shiny_id = "jamm"
 end
 
 return actor

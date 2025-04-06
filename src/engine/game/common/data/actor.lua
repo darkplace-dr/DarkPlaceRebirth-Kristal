@@ -151,6 +151,8 @@ function Actor:getPortraitOffset() return unpack(self.portrait_offset or {0, 0})
 function Actor:getMiniface() return self.miniface end
 function Actor:getMinifaceOffset() return unpack(self.miniface_offset or {0, 0}) end
 
+function Actor:getShinyID() return self.shiny_id or self.id end
+
 function Actor:getFlipDirection(sprite) return self.flip or self.flip_sprites[sprite] end
 
 function Actor:hasTalkSprite(sprite) return self.talk_sprites[sprite] ~= nil end
