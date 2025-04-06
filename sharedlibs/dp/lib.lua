@@ -37,4 +37,8 @@ function lib:load(data)
     end
 end
 
+function lib:preDraw()
+    Assets.getShader("palette"):send("debug",DEBUG_RENDER and ((RUNTIME/0.3)%1>.5))
+end
+
 return lib
