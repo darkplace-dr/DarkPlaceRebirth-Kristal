@@ -60,16 +60,32 @@ return {
                         cutscene:text("* [voice:nostuki]But you should return when you can carry it.")
                     end
                 else
-                    if not Game:getFlag("tl_chest") then
-                        cutscene:text("* [voice:nostuki]I have hidden a chest somewhere in this room.")
-                        cutscene:text("* [voice:nostuki]Try to find it! Bet you can't!")
+                    if Game:getFlag("mimicBossDone") and not Game:getFlag("edwin") then
+                        Game:setFlag("edwin", true)
+                        cutscene:text("* [voice:nostuki]You defeated the mimic?")
+                        cutscene:text("* [voice:nostuki]Woah, you did it without violence.")
+                        cutscene:text("* [voice:nostuki]How do I know?")
+                        cutscene:text("* [voice:nostuki]Easy! K[wait:2]i[wait:2]l[wait:2]l[wait:2]e[wait:2]r[wait:2]s[wait:2] a[wait:2]r[wait:2]e[wait:2]n[wait:2]'t[wait:2] w[wait:2]e[wait:2]l[wait:2]c[wait:2]o[wait:2]m[wait:2]e[wait:2] h[wait:2]e[wait:2]r[wait:2]e.")
+                        cutscene:text("* [voice:nostuki]But you my friend, aren't.")
+                        cutscene:text("* [voice:nostuki]Here, this bat should fit you!")
+                        itemcheck = Game.inventory:addItem("body_pillow")
+                        if itemcheck then
+                            cutscene:text("* Notsuki hands you a body pillow.")
+                        else
+                            cutscene:text("* [voice:nostuki]Can't carry it? Your loss.")
+                        end
                     else
-                        if not Game:getFlag("tl_ct1") then
-                            cutscene:text("* [voice:nostuki]So you found the chest, huh?")
-                            cutscene:text("* [voice:nostuki]That casette has music I really like on it!")
-                            cutscene:text("* [voice:nostuki]I even tried convincing my master to use it for this room!")
-                            cutscene:text("* [voice:nostuki]But he insisted on using self composed stuff...")
-                            cutscene:text("* [voice:nostuki]Oh well, hope you enjoy that casette as much as I do!")
+                        if not Game:getFlag("tl_chest") then
+                            cutscene:text("* [voice:nostuki]I have hidden a chest somewhere in this room.")
+                            cutscene:text("* [voice:nostuki]Try to find it! Bet you can't!")
+                        else
+                            if not Game:getFlag("tl_ct1") then
+                                cutscene:text("* [voice:nostuki]So you found the chest, huh?")
+                                cutscene:text("* [voice:nostuki]That casette has music I really like on it!")
+                                cutscene:text("* [voice:nostuki]I even tried convincing my master to use it for this room!")
+                                cutscene:text("* [voice:nostuki]But he insisted on using self composed stuff...")
+                                cutscene:text("* [voice:nostuki]Oh well, hope you enjoy that casette as much as I do!")
+                            end
                         end
                     end
                 end

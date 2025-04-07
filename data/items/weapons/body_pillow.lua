@@ -1,24 +1,22 @@
-local item, super = Class(Item, "casette")
+local item, super = Class(Item, "body_pillow")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Casette"
-    -- Name displayed when used in battle (optional)
-    self.use_name = nil
+    self.name = "Body Pillow"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "item"
+    self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = nil
+    self.icon = "ui/menu/icon/bat"
 
     -- Battle description
-    self.effect = "Play\nMusic"
+    self.effect = ""
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Changes the current music, has two sides:\nOne for in and one for outside battle."
+    self.description = "Horrible as a bat, but it is soft and reduces damage well."
 
     -- Default shop price (sell price is halved)
     self.price = 400
@@ -35,33 +33,32 @@ function item:init()
     self.instant = false
 
     -- Equip bonuses (for weapons and armor)
-    self.bonuses = {}
+    self.bonuses = {
+        attack = -3,
+        defense = 4,
+        magic = -1,
+    }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        dess = true,
+    }
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+		dess = "yo omori reference",
+		ralsei = "It'l get dirty as a weapon!",
+		susie = "...That's not a weapon.",
+        suzy = "...That's armor AT BEST.",
+		noelle = "Maybe we can replace the sleeve...",
+    }
 end
 
-function item:onWorldUse(target)
-    Game.world.music:play("whereverwearenow")
-    return false
-end
-
-function item:onBattleSelect(user, target)
-    Game.battle.music:play("facedown")
-    return false
-end
-
-function item:getBattleText(user, target)
-    if Game.battle.encounter.onCasetteUse then
-        return Game.battle.encounter:onCasetteUse(self, user)
-    end
-    return "* "..user.chara:getName().." changes the beat with "..self:getUseName().."!"
-end
+--function item:convertToLightEquip(chara)
+--    return "light/pencil"
+--end
 
 return item
