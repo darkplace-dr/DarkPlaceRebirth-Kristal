@@ -54,6 +54,9 @@ function item:init()
 		susie = "...That's not a weapon.",
         suzy = "...That's armor AT BEST.",
 		noelle = "Maybe we can replace the sleeve...",
+        brenda = "Why do we have this?",
+		jamm = "I am not THAT desperate...",
+        ["jamm+marcy"] = "I am not THAT desperate...",
     }
 end
 
