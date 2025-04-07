@@ -25,7 +25,7 @@ function actor:init()
     self.default = "notsuki"
 
     -- Sound to play when this actor speaks (optional)
-    self.voice = "voice/nostuki"
+    self.voice = "nostuki"
     -- Path to this actor's portrait for dialogue (optional)
     self.portrait_path = nil
     -- Offset position for this actor's portrait (optional)
@@ -47,6 +47,11 @@ function actor:init()
         -- Since the width and height is the idle sprite size, the offset is 0,0
         ["notsuki"] = {0, 0},
     }
+end
+
+function actor:onTextSound()
+    -- Play the sound at 40% volume, 100% pitch, preventing overlap with the last time.
+    Assets.stopAndPlaySound("voice/nostuki", .4, 1)
 end
 
 return actor

@@ -97,6 +97,8 @@ function actor:init()
         ["battle/snap"] = {0, 0},
         ["battle/spellsuper"] = {0, 0},
     }
+	
+	self.shiny_id = "dess"
 end
 
 function actor:onSpriteInit(sprite)

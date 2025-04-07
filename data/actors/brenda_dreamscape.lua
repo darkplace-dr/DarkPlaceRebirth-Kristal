@@ -69,6 +69,8 @@ function actor:init()
         ["walk/left"] = "walk/left",
         ["walk/right"] = "walk/right",
     }
+	
+	self.shiny_id = "brenda"
 end
 
 return actor

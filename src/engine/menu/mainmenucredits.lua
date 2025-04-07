@@ -127,9 +127,22 @@ function MainMenuCredits:init(menu)
                 "Tick358",
                 "ArleePuncher",
                 "Tkcool",
+                "Diamond Deltahedron",
+                "Science2048",
+            },
+            {
+                {"Contributors", COLORS.silver},
+                "TritraSerpifeu",
                 "",
                 "",
-            }
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            },
         }
     }
     self.selected_page = 1

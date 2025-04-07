@@ -81,10 +81,6 @@ function Battler:setActor(actor, use_overlay)
         self.overlay_sprite.visible = false
         self:addChild(self.overlay_sprite)
     end
-	
-	if Game:getFlag("SHINY")[self.actor:getShinyID()] and not Game.world.map.dont_load_shiny then
-		self.sprite:addFX(PaletteFX(self.actor.path .. "/shiny_palette", 1), "shiny_pal")
-	end
 end
 
 --- Toggles the visibility of the overlay sprite versus main sprite.
