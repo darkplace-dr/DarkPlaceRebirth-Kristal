@@ -772,6 +772,13 @@ function DebugSystem:registerSubMenus()
     for _,border in ipairs(Utils.removeDuplicates(borders)) do
         self:registerOption("border_menu", border, "Switch to the border \"" .. border .. "\".", function() Game:setBorder(border) end)
     end
+	
+	self:registerOption("main", "Party Menu", "Enter the  Party  Menu.", 
+        function () 
+            Game.world:openMenu(DarkCharacterMenu()) 
+            self:closeMenu()
+        end
+    )
 end
 
 function DebugSystem:registerDefaults()

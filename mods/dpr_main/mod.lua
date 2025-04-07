@@ -209,15 +209,6 @@ function Mod:unlockQuest(quest, silent)
     end
 end
 
-function Mod:registerDebugOptions(debug)
-    debug:registerOption("main", "Party Menu", "Enter the  Party  Menu.", 
-        function () 
-            Game.world:openMenu(DarkCharacterMenu()) 
-            debug:closeMenu()
-        end
-    )
-end
-
 function Mod:onMapMusic(map, music)
     -- Diner music
     local cur_song = Game:getFlag("curJukeBoxSong")
