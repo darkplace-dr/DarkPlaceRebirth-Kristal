@@ -41,8 +41,8 @@ function test:doCutscene(cutscene, target)
 	local dess_input_2 = false
 	local jamm_input_2 = false
 	local miss = false
-	local dess_damage = ((Game:getPartyMember("dess"):getStat("attack") * 130) / 20) - (target.defense * 3)
-	local jamm_damage = ((Game:getPartyMember("jamm"):getStat("attack") * 130) / 20) - (target.defense * 3)
+	local dess_damage = ((Game:getPartyMember("dess"):getStat("attack") * 170) / 20) - (target.defense * 3)
+	local jamm_damage = ((Game:getPartyMember("jamm"):getStat("attack") * 170) / 20) - (target.defense * 3)
 	local marcy
 	if Game:getFlag("marcy_joined") then
 		marcy = Sprite("world/npcs/marcy/right_1", jamm.x-30, jamm.y)
@@ -176,7 +176,7 @@ function test:doCutscene(cutscene, target)
 		local angle = Utils.angle(jamm.x,jamm.y,target.x,target.y)
 		cutscene:wait(cutscene:moveTo(jamm, target.x, target.y, 32))
 		Assets.playSound("damage")
-		target:hurt(jamm_damage/1.5, nil, nil, {1, 1, 0, 1})
+		target:hurt(math.ceil(jamm_damage/1.5), nil, nil, {1, 1, 0, 1})
 		cutscene:during(function()
 			cutscene:moveTo(jamm, jamm.x + (6 * math.cos(angle)), jamm.y + (6 * math.sin(angle)), 32)
 		end, true)
@@ -222,11 +222,11 @@ function test:doCutscene(cutscene, target)
 	can_proceed = false
 	text:remove()
 	if jamm_input_2 then
-		target:hurt((dess_damage + jamm_damage) * 1.2, nil, nil, {1, 1, 0, 1})
+		target:hurt(math.ceil((dess_damage + jamm_damage) * 1.2), nil, nil, {1, 1, 0, 1})
 	else
 		local percent = DamageNumber("msg", "miss", jamm.x, jamm.y - 20, {1, 1, 0, 1})
 		Game.battle:addChild(percent)
-		target:hurt(dess_damage, nil, nil, {1, 0, 0, 1})
+		target:hurt(math.ceil(dess_damage), nil, nil, {1, 0, 0, 1})
 		miss = true
 	end
 	Game.battle.timer:tween(0.7, jamm, {x = 230}, "linear")
