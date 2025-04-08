@@ -58,16 +58,16 @@ function character:init()
     self.lw_weapon_default = "light/cerobas_staff"
     self.lw_armor_default = "light/big_ribbon"
 
-    self.color = {1, 0, 0.35}
-    self.dmg_color = {1, 0, 0.35}
-    self.attack_bar_color = {1, 0, 0.35}
-    self.attack_box_color = {1, 0, 0.35}
-    self.xact_color = {1, 0, 0.35}
+    self.color = {253/255, 0, 85/255}
+    self.dmg_color = {229/255, 0, 95/255}
+    self.attack_bar_color = {253/255, 0, 85/255}
+    self.attack_box_color = {183/255, 0, 76/255}
+    self.xact_color = {253/255, 0, 85/255}
 
     self.light_color = {237/255, 140/255, 36/255}
     self.light_xact_color = {237/255, 140/255, 36/255}
 
-    self.icon_color = {1, 0, 87/255}
+    self.icon_color = {253/255, 0, 85/255}
 
     self.menu_icon = "party/ceroba/head"
     self.head_icons = "party/ceroba/icon"
