@@ -80,7 +80,7 @@ function spell:onLightCast(user, target)
 	bigflower.layer = LIGHT_BATTLE_LAYERS["above_arena_border"] + 1
 	Game.battle:addChild(bigflower)
 	bigflower:play(1/10)
-	bigflower:slideToSpeed(320, 240, 20, function()
+	bigflower:slideToSpeed(320, 320, 20, function()
 		Game.battle.timer:after(1, function()
 			bigflower:fadeOutAndRemove(0.5)
 		end)
