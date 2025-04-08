@@ -212,6 +212,8 @@ function love.load(args)
 
         Draw.setColor(1, 1, 1, 1)
 
+        if Kristal.callEvent(KRISTAL_EVENT.drawScreen, SCREEN_CANVAS) then return end
+
         if Kristal.bordersEnabled() then
             local border = Kristal.getBorder()
 
