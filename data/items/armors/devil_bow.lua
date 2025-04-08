@@ -47,6 +47,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "Oh, fucking thanks I *really* needed a debuff.",
+        ceroba = "That choice is on you.",
     }
 end
 

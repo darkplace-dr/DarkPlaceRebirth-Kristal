@@ -56,6 +56,7 @@ function item:init()
         jamm = "Ehh... Okay...?",
         ["jamm+marcy"] = "You want this, Marcy? Eh, sure...",
         noel = "Perfect for reverse weddings!",
+        ceroba = "This might be just as old as me.",
     }
 end
 

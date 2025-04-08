@@ -41,13 +41,16 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/dice"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        ceroba = false
+    }
 
     -- Character reactions
     self.reactions = {
         dess = "aw dang it",
         jamm = "No stranger to this.",
         ["jamm+marcy"] = "Gamble in moderation, Marcy.",
+        ceroba = "You want me to wear... A card?"
     }
 end
 
