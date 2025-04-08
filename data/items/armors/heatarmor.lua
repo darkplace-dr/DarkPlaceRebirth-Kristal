@@ -52,7 +52,8 @@ function item:init()
 			jamm = "Eh."
 		},
         noel = "A heated blanket would do a better job.",
-        dess = "i remember you're firegraves"
+        dess = "i remember you're firegraves",
+        ceroba = "Warm and... Not really cozy."
     }
 end
 

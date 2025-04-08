@@ -55,6 +55,7 @@ function item:init()
         jamm = "Not really a glasses guy, but...",
         noel = "Can't take em with me.",
         ["jamm+marcy"] = "You look like a real big shot with those, Marcy!",
+        ceroba = "Everything's now pink-yellow-ish...",
     }
 end
 

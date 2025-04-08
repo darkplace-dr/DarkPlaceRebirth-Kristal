@@ -47,6 +47,7 @@ function item:init()
         susie = false,
         dess = false,
 		jamm = false,
+        ceroba = false
     }
 
     -- Character reactions
@@ -58,6 +59,7 @@ function item:init()
         jamm = "Woah! Pop idle much???",
         ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
         noel = "Two bracelets?",
+        ceroba = "Even combined, they're still too small.",
     }
 end
 

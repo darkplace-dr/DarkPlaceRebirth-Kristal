@@ -51,8 +51,9 @@ function item:init()
         ralsei = "*huff* Now I'm protected! *puff*",
         noelle = "No way can I wear that!",
         brenda = "Y'know I wore a suit of armor before, actually.",
-	jamm = "No different than the Halloween I went as a knight.",
-        noel = "I totally get it now."
+	    jamm = "No different than the Halloween I went as a knight.",
+        noel = "I totally get it now.",
+        ceroba = "(I don't remember assigning for the royal guard.)"
     }
 end
 
