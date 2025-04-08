@@ -28,6 +28,22 @@ return {
             cutscene:text("* For instance to the right there is a replica of the Cinnamon Clouds race.", nil, "notsuki")
             cutscene:text("* If you manage to activate the clock and get to me fast enough...", nil, "notsuki")
             cutscene:text("* ...I'll give you a reward! The timer will be 12 seconds!", nil, "notsuki")
+            if Game.playtime <= 1440 then
+                cutscene:text("* ...", nil, "notsuki")
+                cutscene:text("* You are new here, aren't you?", nil, "notsuki")
+                cutscene:text("* You just arrived and came here.", nil, "notsuki")
+                cutscene:text("* That's a compliment, isn't it?", nil, "notsuki")
+                cutscene:text("* Well, I do have this still left from knitting.", nil, "notsuki")
+                cutscene:text("* I know it's junk but it does act as armor.", nil, "notsuki")
+                cutscene:text("* And besides, these scraps are almost worthless.", nil, "notsuki")
+                cutscene:text("* I also have some stuffing left over from making plushies.", nil, "notsuki")
+                cutscene:text("* With enough will they are like milk for the team.", nil, "notsuki")
+                Game.inventory:addItem("bael_fur")
+                Game.inventory:addItem("bael_fur")
+                Game.inventory:addItem("cotton_milk")
+                Game.inventory:addItem("cotton_milk")
+                cutscene:text("* Notsuki hands you two scraps of bael fur as well as two bottles of cotton milk.")
+            end
             Game:setFlag("tl_nmet", true)
         elseif Game:getFlag("tl_mwon") and not Game:getFlag("tl_mwonnr") then
             cutscene:text("* You won the arcade game, didn't you?", nil, "notsuki")
@@ -59,15 +75,31 @@ return {
                 cutscene:text("* But you should return when you can carry it.", nil, "notsuki")
             end
         else
-            if not Game:getFlag("tl_chest") then
-                cutscene:text("* I have hidden a chest somewhere in this room.", nil, "notsuki")
-                cutscene:text("* Try to find it! Bet you can't!", nil, "notsuki")
-            elseif not Game:getFlag("tl_ct1") then
-                cutscene:text("* So you found the chest, huh?", nil, "notsuki")
-                cutscene:text("* That casette has music I really like on it!", nil, "notsuki")
-                cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
-                cutscene:text("* But he insisted on using self composed stuff...", nil, "notsuki")
-                cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
+            if Game:getFlag("mimicBossDone") and not Game:getFlag("edwin") then
+                Game:setFlag("edwin", true)
+                cutscene:text("* You defeated the mimic?", nil, "notsuki")
+                cutscene:text("* Woah, you did it without violence.", nil, "notsuki")
+                cutscene:text("* How do I know?", nil, "notsuki")
+                cutscene:text("* Easy! K[wait:2]i[wait:2]l[wait:2]l[wait:2]e[wait:2]r[wait:2]s[wait:2] a[wait:2]r[wait:2]e[wait:2]n[wait:2]'t[wait:2] w[wait:2]e[wait:2]l[wait:2]c[wait:2]o[wait:2]m[wait:2]e[wait:2] h[wait:2]e[wait:2]r[wait:2]e.", nil, "notsuki")
+                cutscene:text("* But you my friend, aren't.", nil, "notsuki")
+                cutscene:text("* Here, this bat should fit you!", nil, "notsuki")
+                itemcheck = Game.inventory:addItem("body_pillow")
+                if itemcheck then
+                    cutscene:text("* Notsuki hands you a body pillow.")
+                else
+                    cutscene:text("* Can't carry it? Your loss.", nil, "notsuki")
+                end
+            else
+                if not Game:getFlag("tl_chest") then
+                    cutscene:text("* I have hidden a chest somewhere in this room.", nil, "notsuki")
+                    cutscene:text("* Try to find it! Bet you can't!", nil, "notsuki")
+                elseif not Game:getFlag("tl_ct1") then
+                    cutscene:text("* So you found the chest, huh?", nil, "notsuki")
+                    cutscene:text("* That casette has music I really like on it!", nil, "notsuki")
+                    cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
+                    cutscene:text("* But he insisted on using self composed stuff...", nil, "notsuki")
+                    cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
+                end
             end
         end
     end,
