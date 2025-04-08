@@ -28,6 +28,22 @@ return {
             cutscene:text("* For instance to the right there is a replica of the Cinnamon Clouds race.", nil, "notsuki")
             cutscene:text("* If you manage to activate the clock and get to me fast enough...", nil, "notsuki")
             cutscene:text("* ...I'll give you a reward! The timer will be 12 seconds!", nil, "notsuki")
+            if Game.playtime <= 1440 then
+                cutscene:text("* ...", nil, "notsuki")
+                cutscene:text("* You are new here, aren't you?", nil, "notsuki")
+                cutscene:text("* You just arrived and came here.", nil, "notsuki")
+                cutscene:text("* That's a compliment, isn't it?", nil, "notsuki")
+                cutscene:text("* Well, I do have this still left from knitting.", nil, "notsuki")
+                cutscene:text("* I know it's junk but it does act as armor.", nil, "notsuki")
+                cutscene:text("* And besides, these scraps are almost worthless.", nil, "notsuki")
+                cutscene:text("* I also have some stuffing left over from making plushies.", nil, "notsuki")
+                cutscene:text("* With enough will they are like milk for the team.", nil, "notsuki")
+                Game.inventory:addItem("bael_fur")
+                Game.inventory:addItem("bael_fur")
+                Game.inventory:addItem("cotton_milk")
+                Game.inventory:addItem("cotton_milk")
+                cutscene:text("* Notsuki hands you two scraps of bael fur as well as two bottles of cotton milk.")
+            end
             Game:setFlag("tl_nmet", true)
         elseif Game:getFlag("tl_mwon") and not Game:getFlag("tl_mwonnr") then
             cutscene:text("* You won the arcade game, didn't you?", nil, "notsuki")
