@@ -78,6 +78,9 @@ function item:onBattleDeselect(user, target)
 end
 
 function item:getBattleText(user, target)
+    if Game.battle.encounter.onCasetteUse then
+        return Game.battle.encounter:onCasetteUse(self, user)
+    end
     return "* "..user.chara:getName().." changes the beat with "..self:getUseName().."!"
 end
 

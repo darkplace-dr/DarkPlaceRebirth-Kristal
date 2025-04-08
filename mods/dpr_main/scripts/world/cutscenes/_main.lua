@@ -44,7 +44,6 @@ return {
         Game.world:addChild(cover)
 
         if not Game:isDessMode() then
-			Game:rollShiny("hero")
 
             skip_hint = Text("Hold C+D to skip",
                 0, SCREEN_HEIGHT/2+50, SCREEN_WIDTH, SCREEN_HEIGHT,

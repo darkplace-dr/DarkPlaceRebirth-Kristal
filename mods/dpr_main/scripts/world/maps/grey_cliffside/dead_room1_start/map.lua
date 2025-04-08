@@ -26,17 +26,21 @@ function map:onEnter()
 
     self.textobjjj:addFX(OutlineFX(COLORS.black))
 
-    if (Game:getFlag("FUN") % 2 == 0) then -- suzy gets all even fun values
-    	local suzy = Game.world:spawnNPC("suzy_lw", 300, 180)
-        suzy.alpha = 0.2
-	suzy.sprite:addFX(ColorMaskFX({1, 1, 1}))
+    if Game:getFlag("tutor_free_crystal") then
+    else
+        if (Game:getFlag("FUN") % 2 == 0) then -- suzy gets all even fun values
+    	    local suzy = Game.world:spawnNPC("suzy_lw", 300, 180)
+            suzy.alpha = 0.2
+	    suzy.sprite:addFX(ColorMaskFX({1, 1, 1}))
 
-    else -- and susie gets all odd fun values (swap them if you want)
-    	local susie = Game.world:spawnNPC("susie", 315, 180)
-	susie:setSprite("shock_right")
-        susie.alpha = 0.2
-	susie.sprite:addFX(ColorMaskFX({1, 1, 1}))
+        else -- and susie gets all odd fun values (swap them if you want)
+            Game:rollShiny("susie")
+    	    local susie = Game.world:spawnNPC("susie", 315, 180)
+	    susie:setSprite("shock_right")
+            susie.alpha = 0.2
+	    susie.sprite:addFX(ColorMaskFX({1, 1, 1}))
 
+        end
     end
 
     --local dragon = Game.world:spawnNPC("", 300, 180)

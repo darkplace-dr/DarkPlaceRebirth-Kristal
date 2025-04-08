@@ -964,6 +964,7 @@ function Battle:spawnSoul(x, y)
     end
 end
 
+---@param dont_destroy? boolean
 function Battle:returnSoul(dont_destroy)
     if dont_destroy == nil then dont_destroy = false end
     local bx, by = self:getSoulLocation(true)
@@ -1909,6 +1910,9 @@ function Battle:getEnemyFromCharacter(chara)
     end
 end
 
+--- Gets whether a specific character has an action lined up
+---@param character_id integer
+---@return boolean
 function Battle:hasAction(character_id)
     return self.character_actions[character_id] ~= nil
 end
@@ -2036,6 +2040,11 @@ function Battle:getPartyFromTarget(target)
     end
 end
 
+--- Hurts the `target` party member(s)
+---@param amount    number
+---@param exact?    boolean
+---@param target?   number|"ALL"|"ANY"|PartyBattler The target battler's index, instance, or strings for specific selection logic (defaults to `"ANY"`)
+---@return table?
 function Battle:hurt(amount, exact, target)
     -- If target is a numberic value, it will hurt the party battler with that index
     -- "ANY" will choose the target randomly
@@ -2456,6 +2465,8 @@ function Battle:returnToWorld()
     end
 end
 
+---@param text          string|string[]
+---@param dont_finish?  boolean
 function Battle:setActText(text, dont_finish)
     self:battleText(text, function()
         if not dont_finish then
@@ -2481,6 +2492,9 @@ function Battle:shortActText(text)
     self.battle_ui.short_act_text_3:setText(text[3] or "")
 end
 
+--- Sets the current message in the battlebox and moves to the `BATTLETEXT` state until it is advanced, where it returns to the previous state by default
+---@param text string[]|string              The text to set
+---@param post_func? fun():boolean|string   When the text is advanced, the name of the state to move to, or a function to run
 function Battle:battleText(text,post_func)
     local target_state = self:getState()
 

@@ -167,6 +167,8 @@ function Mod:postLoad()
         Kristal.DebugSystem:refresh()
         Kristal.setState("Debug", save_data)
     end
+	
+	Game:rollShiny("hero")
 end
 
 function Mod:addGlobalEXP(exp)
@@ -207,15 +209,6 @@ function Mod:unlockQuest(quest, silent)
     if not silent and Game.stage then
         Game.stage:addChild(QuestCreatedPopup(quest))
     end
-end
-
-function Mod:registerDebugOptions(debug)
-    debug:registerOption("main", "Party Menu", "Enter the  Party  Menu.", 
-        function () 
-            Game.world:openMenu(DarkCharacterMenu()) 
-            debug:closeMenu()
-        end
-    )
 end
 
 function Mod:onMapMusic(map, music)
