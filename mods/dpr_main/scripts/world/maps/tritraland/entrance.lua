@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 229,
+  nextobjectid = 233,
   properties = {
     ["music"] = "TRITRALAND",
     ["name"] = "Tritra Land"
@@ -2527,6 +2527,38 @@ return {
             ["cutscene"] = "notsuki.warning",
             ["flagcheck"] = "can_kill",
             ["once"] = true
+          }
+        },
+        {
+          id = 231,
+          name = "chest",
+          type = "",
+          shape = "rectangle",
+          x = 1880,
+          y = 1760,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "something_defeated",
+            ["item"] = "allegro"
+          }
+        },
+        {
+          id = 232,
+          name = "chest",
+          type = "",
+          shape = "rectangle",
+          x = 1880,
+          y = 1840,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "something_defeated",
+            ["item"] = "first_aid"
           }
         }
       }
