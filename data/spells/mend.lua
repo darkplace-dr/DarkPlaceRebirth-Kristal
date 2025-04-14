@@ -5,7 +5,8 @@ function spell:init()
     self.name = "Mend"
     self.cast_name = nil
 
-    self.effect = "Heals over time."
+    self.effect = "Doesn't\nwork"
+    --self.effect = "Heals over\ntime"
     self.description = "Allan please add description."
     self.check = "Allan please add check."
 

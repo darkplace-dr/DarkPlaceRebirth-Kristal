@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="229">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="233">
  <editorsettings>
   <export target="entrance.lua" format="lua"/>
  </editorsettings>
@@ -571,6 +571,18 @@
     <property name="cutscene" value="notsuki.warning"/>
     <property name="flagcheck" value="can_kill"/>
     <property name="once" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="231" name="chest" x="1880" y="1760" width="40" height="40">
+   <properties>
+    <property name="flagcheck" value="something_defeated"/>
+    <property name="item" value="allegro"/>
+   </properties>
+  </object>
+  <object id="232" name="chest" x="1880" y="1840" width="40" height="40">
+   <properties>
+    <property name="flagcheck" value="something_defeated"/>
+    <property name="item" value="first_aid"/>
    </properties>
   </object>
  </objectgroup>
