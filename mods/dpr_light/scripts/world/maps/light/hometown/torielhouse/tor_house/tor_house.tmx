@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="35" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="38">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="35" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="38">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -89,7 +89,7 @@
   </object>
   <object id="23" name="interactable" x="534" y="236" width="82" height="40">
    <properties>
-    <property name="text" value="* (Mom didn't cooked anything today.)"/>
+    <property name="cutscene" value="tor_home.oven"/>
    </properties>
   </object>
   <object id="24" name="interactable" x="616" y="236" width="80" height="40">
@@ -99,7 +99,7 @@
   </object>
   <object id="25" name="interactable" x="412" y="260" width="44" height="40">
    <properties>
-    <property name="text" value="* There's a photo on the fridge.[wait:5] It's of you,[wait:5] your mother, and your brother."/>
+    <property name="cutscene" value="tor_home.fridge"/>
    </properties>
   </object>
   <object id="26" name="interactable" x="948" y="258" width="94" height="46">
@@ -124,9 +124,8 @@
   <object id="36" gid="39" x="846" y="324" width="94" height="104"/>
   <object id="37" name="interactable" x="852" y="280" width="88" height="40">
    <properties>
+    <property name="cutscene" value="tor_home.chairiel"/>
     <property name="solid" type="bool" value="true"/>
-    <property name="text">* (It's Chairiel!)
-[wait:5]* (The beloved living room chair!)</property>
    </properties>
   </object>
  </objectgroup>

@@ -41,7 +41,9 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        ceroba = false
+    }
 
     -- Character reactions
     self.reactions = {
@@ -49,6 +51,7 @@ function item:init()
         suzy = "Now that's a cool shade of orange!",
         ralsei = "I never thought to use this as armor!",
         dess = "Yo you guys killed a giant spider without me?",
+        ceroba = "I'm not comfortable with that...",
     }
 end
 

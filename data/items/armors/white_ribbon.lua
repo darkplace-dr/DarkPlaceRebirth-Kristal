@@ -43,7 +43,8 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = false,
-        dess = false
+        dess = false,
+        ceroba = false
     }
 
     -- Character reactions
@@ -55,6 +56,7 @@ function item:init()
         jamm = "How adorable!",
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "Just like my eyes.",
+        ceroba = "A bit too small for my hair...",
     }
 end
 

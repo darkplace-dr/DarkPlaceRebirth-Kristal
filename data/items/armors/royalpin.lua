@@ -52,6 +52,7 @@ function item:init()
         dess = "I'm Wing Desster, the royal scientist!",
         jamm = "Not that I'm a part of her fan club, but...",
         noel = "Ow! MOTHERFU-",
+        ceroba = "\"Royal\", huh?",
     }
 end
 

@@ -22,6 +22,11 @@ function item:init()
     self.bonus_icon = nil
     self.can_equip = {}
     self.reactions = {
+        susie = "", -- I was out of imagination -N
+        ralsei = "",
+        noelle = "",
+        dess = "",
+        ceroba = "I feel... Weird.",
     }
 end
 

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -58,7 +58,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 342,
           y = 80,
@@ -71,7 +71,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 386,
           y = 276,
@@ -84,7 +84,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 428,
           y = 316,
@@ -102,7 +102,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 468,
           y = 236,
@@ -115,7 +115,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 684,
           y = 280,
@@ -128,7 +128,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 818,
           y = 320,
@@ -146,7 +146,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 818,
           y = 218,
@@ -159,7 +159,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 858,
           y = 218,
@@ -172,7 +172,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1192,
           y = 324,
@@ -190,7 +190,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1156,
           y = 282,
@@ -209,7 +209,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1270,
           y = 402,
@@ -227,7 +227,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 246,
           y = 314,
@@ -245,7 +245,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 138,
           y = 422,
@@ -263,7 +263,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 236,
           y = 80,
@@ -276,7 +276,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 158,
           y = 400,
@@ -289,7 +289,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 418,
           y = 384,
@@ -302,7 +302,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 854,
           y = 382,
@@ -331,7 +331,7 @@ return {
         {
           id = 17,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 166,
           y = 342,
@@ -351,7 +351,7 @@ return {
         {
           id = 18,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1192,
           y = 320,
@@ -371,7 +371,7 @@ return {
         {
           id = 19,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 276,
           y = 154,
@@ -390,7 +390,7 @@ return {
         {
           id = 21,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 754,
           y = 280,
@@ -405,7 +405,7 @@ return {
         {
           id = 22,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 458,
           y = 236,
@@ -421,7 +421,7 @@ return {
         {
           id = 23,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 534,
           y = 236,
@@ -430,13 +430,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* (Mom didn't cooked anything today.)"
+            ["cutscene"] = "tor_home.oven"
           }
         },
         {
           id = 24,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 616,
           y = 236,
@@ -451,7 +451,7 @@ return {
         {
           id = 25,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 412,
           y = 260,
@@ -460,13 +460,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* There's a photo on the fridge.[wait:5] It's of you,[wait:5] your mother, and your brother."
+            ["cutscene"] = "tor_home.fridge"
           }
         },
         {
           id = 26,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 948,
           y = 258,
@@ -482,7 +482,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 370,
           y = 400,
@@ -496,7 +496,7 @@ return {
         {
           id = 30,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1148,
           y = 382,
@@ -512,7 +512,7 @@ return {
         {
           id = 31,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 684,
           y = 280,
@@ -527,7 +527,7 @@ return {
         {
           id = 36,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 846,
           y = 324,
@@ -541,7 +541,7 @@ return {
         {
           id = 37,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 852,
           y = 280,
@@ -550,8 +550,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (It's Chairiel!)\n[wait:5]* (The beloved living room chair!)"
+            ["cutscene"] = "tor_home.chairiel",
+            ["solid"] = true
           }
         }
       }
@@ -573,7 +573,7 @@ return {
         {
           id = 33,
           name = "entrybathroom",
-          class = "",
+          type = "",
           shape = "point",
           x = 246,
           y = 366,
@@ -586,7 +586,7 @@ return {
         {
           id = 34,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 310,
           y = 222,
@@ -599,7 +599,7 @@ return {
         {
           id = 35,
           name = "entryeast",
-          class = "",
+          type = "",
           shape = "point",
           x = 1158,
           y = 346,

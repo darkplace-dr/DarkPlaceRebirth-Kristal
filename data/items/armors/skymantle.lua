@@ -50,6 +50,7 @@ function item:init()
 		dess = "nonfunctional lol",
         noel = "I just don't want it.",
         jamm = "Huh, like when I was a kid.",
+        ceroba = "Kind of like Asgore's...",
     }
 
 end

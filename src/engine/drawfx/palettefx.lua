@@ -6,7 +6,7 @@
 local PaletteFX, super = Class(FXBase)
 
 -- Should always be the same as the value in palette.glsl
-PaletteFX.MAX_PALETTE_ENTRIES = 16
+PaletteFX.MAX_PALETTE_ENTRIES = 32
 
 ---@param imagedata love.ImageData|string|Actor
 ---@param line integer

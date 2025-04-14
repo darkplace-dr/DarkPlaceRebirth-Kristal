@@ -59,6 +59,7 @@ function item:init()
 		jamm = "Oof! It's heavy...",
 		mario = "Mario feels like a gladiator again.",
         noel = "(My quirk does a better job.)",
+        ceroba = "Heavy but worth it.",
     }
 
 

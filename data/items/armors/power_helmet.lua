@@ -53,8 +53,9 @@ function item:init()
         noelle = "I can't wear this...",
 		dess = "fucking lazy item",
         brenda = "Hopefully this doesn't mess up my hair.",
-	jamm = "Always wanted to play Football. No, not Soccer.",
+	    jamm = "Always wanted to play Football. No, not Soccer.",
         noel = "Better safe then sorry?",
+        ceroba = "It's pressing against my ears...",
     }
 end
 
