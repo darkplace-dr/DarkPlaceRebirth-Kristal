@@ -167,6 +167,8 @@ function Mod:postLoad()
         Kristal.DebugSystem:refresh()
         Kristal.setState("Debug", save_data)
     end
+	
+	Game:rollShiny("hero")
 end
 
 function Mod:addGlobalEXP(exp)

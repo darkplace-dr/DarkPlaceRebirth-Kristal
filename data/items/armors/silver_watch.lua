@@ -57,6 +57,7 @@ function item:init()
         dess = "aint no WAY you stole from my sister bro",
         jamm = "Nah, I got my own. It's a Halofit!",
         noel = "I already have a pocket watch...",
+        ceroba = "Looks expensive..."
     }
 end
 

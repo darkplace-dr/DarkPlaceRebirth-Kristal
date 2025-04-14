@@ -48,6 +48,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "I feel tense. Good...",
+        ceroba = "Feels more tense than usual.",
     }
 end
 

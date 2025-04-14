@@ -51,6 +51,7 @@ function item:init()
         iphone = "I thought it was to clean it.",
 		jamm = "Now all I need is the chill.",
         noel = "I can equip this?",
+        ceroba = "What IS this exactly?",
     }
 end
 

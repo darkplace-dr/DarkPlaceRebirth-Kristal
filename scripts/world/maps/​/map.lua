@@ -33,6 +33,7 @@ function mb_map:onEnter()
 		self.movement_was_locked = true
 		Game.lock_movement = false
 	end
+	Kristal.callEvent(KRISTAL_EVENT.onDPMbStart)
 end
 
 function mb_map:update()
@@ -105,6 +106,7 @@ function mb_map:onExit()
 	end
 	Game.world.camera.keep_in_bounds = true
 	Game.lock_movement = self.movement_was_locked
+	Kristal.callEvent(KRISTAL_EVENT.onDPMbEnd)
 end
 
 function mb_map:casuallyApproachChild()

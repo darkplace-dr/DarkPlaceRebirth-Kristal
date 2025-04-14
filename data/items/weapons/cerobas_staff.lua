@@ -33,7 +33,6 @@ function item:init()
         susie = "A stick with a ribbon? Seriously?",
         ralsei = "Not sure if I can use this...",
 		dess = "not on my wizard shit rn srry",
-        martlet = "This belongs to Ceroba...",
         noel = "I want it, but I don't want to use it.",
         noelle = "*ding* I love the bell!",
         ceroba = "Back where it belongs.",

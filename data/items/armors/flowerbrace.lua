@@ -50,6 +50,7 @@ function item:init()
         mario = false,
         noel = false,
         dess = false,
+        ceroba = false,
 	}
 
     -- Character reactions
@@ -69,6 +70,7 @@ function item:init()
             noel = "Sharing is caring.",
 		},
         dess = "ew im alergic to flowers AND love",
+        ceroba = "It's beautiful... But give it to Jamm.",
     }
 end
 
