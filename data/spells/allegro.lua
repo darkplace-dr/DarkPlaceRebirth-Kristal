@@ -24,17 +24,48 @@ function spell:init()
 end
 
 function spell:getCastMessage(user, target)
-    return "* "..user.chara:getName().." swings with extreme speed and accuracy and hit "..self:getCastName().." three times!"
+    return "* "..user.chara:getName().." swings with extreme speed and accuracy and hits "..self:getCastName().." three times!"
 end
 
 function spell:onCast(user, target)
-    
-    target:flash()
-    damage = math.ceil(target.health/15)
-    target:hurt(damage, battler)
-    target:hurt(damage, battler)
-    target:hurt(damage, battler)
-    Game.battle:finishActionBy(user)
+    local damage = math.ceil(target.health/15)
+    local orig_pos_x, orig_pos_y = user.x, user.y
+    Assets.playSound("shakerbreaker")
+    user:slideTo(target.x - 80, target.y, 0.5)
+    Game.battle.timer:after(1, function()
+        user:slideTo(target.x + 80, target.y, 0.1)
+        Assets.playSound("scytheburst")
+        target:flash()
+        target:hurt(damage, user)
+        Game.battle.timer:after(0.1, function()
+            user.flip_x = true
+        end)
+    end)
+    Game.battle.timer:after(1.5, function()
+        user:slideTo(target.x - 80, target.y, 0.1)
+        Assets.playSound("scytheburst")
+        target:flash()
+        target:hurt(damage, user)
+        Game.battle.timer:after(0.1, function()
+            user.flip_x = false
+        end)
+    end)
+    Game.battle.timer:after(2, function()
+        user:slideTo(target.x + 80, target.y, 0.1)
+        Assets.playSound("scytheburst")
+        target:flash()
+        target:hurt(damage, user)
+        Game.battle.timer:after(0.1, function()
+            user.flip_x = true
+        end)
+    end)
+    Game.battle.timer:after(3, function()
+        user.flip_x = false
+        user:slideTo(orig_pos_x, orig_pos_y, 0.5)
+    end)
+    Game.battle.timer:after(4, function()
+        Game.battle:finishActionBy(user)
+    end)
 
     return false
 end
