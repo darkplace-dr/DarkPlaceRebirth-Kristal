@@ -89,6 +89,34 @@ function actor:init(style)
         ["away_scratch"] = {"away_scratch", 0.2, true},
     }
 
+    -- Alternate animations to use for Susie with eyes
+    self.animations_alt = {
+        ["battle/idle"]         = {"battle_eyes/idle", 0.2, true},
+
+        ["battle/attack"]       = {"battle_eyes/attack", 1/15, false},
+        ["battle/act"]          = {"battle_eyes/act", 1/15, false},
+        ["battle/spell"]        = {"battle_eyes/spell", 1/15, false, next="battle/idle"},
+        ["battle/item"]         = {"battle_eyes/item", 1/12, false, next="battle/idle"},
+        ["battle/spare"]        = {"battle_eyes/act", 1/15, false, next="battle/idle"},
+
+        ["battle/attack_ready"] = {"battle_eyes/attackready", 0.2, true},
+        ["battle/act_ready"]    = {"battle_eyes/actready", 0.2, true},
+        ["battle/spell_ready"]  = {"battle_eyes/spellready", 0.2, true},
+        ["battle/item_ready"]   = {"battle_eyes/itemready", 0.2, true},
+        ["battle/defend_ready"] = {"battle_eyes/defend", 1/15, false},
+
+        ["battle/act_end"]      = {"battle_eyes/actend", 1/15, false, next="battle/idle"},
+
+        ["battle/hurt"]         = {"battle_eyes/hurt", 1/15, false, temp=true, duration=0.5},
+        ["battle/defeat"]       = {"battle_eyes/defeat", 1/15, false},
+
+        ["battle/transition"]   = {self.default.."/right_1", 1/15, false},
+        ["battle/intro"]        = {"battle_eyes/attack", 1/15, true},
+        ["battle/victory"]      = {"battle_eyes/victory", 1/10, false},
+
+        ["battle/rude_buster"]  = {"battle_eyes/rudebuster", 1/15, false, next="battle/idle"},
+    }
+
     if susie_style == 1 then
         self.animations["battle/transition"] = {"bangs_wall_right", 0, true}
     end
@@ -165,6 +193,27 @@ function actor:init(style)
 
         ["battle/rudebuster"] = {-44, -33},
 
+        -- Battle offsets (eyes)
+        ["battle_eyes/idle"] = {-22, -1},
+
+        ["battle_eyes/attack"] = {-26, -25},
+        ["battle_eyes/attackready"] = {-26, -25},
+        ["battle_eyes/act"] = {-24, -25},
+        ["battle_eyes/actend"] = {-24, -25},
+        ["battle_eyes/actready"] = {-24, -25},
+        ["battle_eyes/spell"] = {-22, -30},
+        ["battle_eyes/spellready"] = {-22, -15},
+        ["battle_eyes/item"] = {-22, -1},
+        ["battle_eyes/itemready"] = {-22, -1},
+        ["battle_eyes/defend"] = {-20, -23},
+
+        ["battle_eyes/defeat"] = {-22, -1},
+        ["battle_eyes/hurt"] = {-22, -1},
+
+        ["battle_eyes/victory"] = {-28, -7},
+
+        ["battle_eyes/rudebuster"] = {-44, -33},
+
         -- Cutscene offsets
         ["pose"] = {-1, -1},
 
@@ -227,6 +276,15 @@ function actor:init(style)
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
 
     self.menu_anim = "pose"
+end
+
+function actor:getAnimation(anim)
+    -- If the weird route flag is set and an alt animation is defined, use it instead
+    if Game:getPartyMember("susie"):getFlag("eyes", false) and self.animations_alt[anim] ~= nil then
+        return self.animations_alt[anim] or nil
+    else
+        return super.getAnimation(self, anim)
+    end
 end
 
 return actor

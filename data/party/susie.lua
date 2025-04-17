@@ -127,6 +127,7 @@ function character:init()
     -- Character flags (saved to the save file)
     self.flags = {
         ["auto_attack"] = false,
+        ["eyes"] = true
     }
 end
 
