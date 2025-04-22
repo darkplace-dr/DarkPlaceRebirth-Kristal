@@ -16,7 +16,7 @@ function item:init()
     self.result_item = nil
     self.instant = false
 
-    local num = math.max
+    local num = math.huge
 
     self.bonuses = {
         attack  = num,
