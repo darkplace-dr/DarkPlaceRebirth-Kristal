@@ -163,9 +163,9 @@ function Inventory:removeItemFrom(storage, index)
 end
 
 --- Sets the item stored at `index` of a particular storage
----@param storage?  string|table
----@param index?    integer
----@param item?     string|Item
+---@param storage   string|table
+---@param index     integer
+---@param item      string|Item
 ---@return Item|nil
 function Inventory:setItem(storage, index, item)
     if type(storage) == "string" then
@@ -502,7 +502,7 @@ function Inventory:loadStorage(storage, data)
                 storage[i] = Registry.createItem(item.id)
                 storage[i]:load(item)
             else
-                storage[i] = Registry.createItem("testdog")
+                storage[i] = Registry.createItem("darkrock")
                 storage[i]:load(item)
                 storage[i].saved_item = item.id
                 Kristal.Console:error("Could not load item \""..item.id.."\"")
