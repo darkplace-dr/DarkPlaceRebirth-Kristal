@@ -3,9 +3,30 @@ local greyarea, super = Class(Map)
 function greyarea:onEnter()
     Game.stage:setWeather("rain", false, true)
 
+
+    if not Game:getFlag("greyarea_exit_to") then
+        local error_message = "* You're not supposed to be here."
+        local buttonlist = {"..."}
+
+
+        love.window.showMessageBox("???", error_message, buttonlist)
+        love.window.showMessageBox("???", "* Goodbye.", buttonlist)
+
+
+
+        love.event.quit()
+    end
+
+
     local savedData = Noel:loadNoel()
     if not savedData then
-        Game.world:spawnNPC("noel", 2820, 2180, {cutscene = "noel.meet", sprite = "brella"})
+        local sunkist = "brella"
+
+        if Game:isDessMode() then
+            sunkist = "dess_mode/walk/down_1"
+        end
+
+        Game.world:spawnNPC("noel", 2820, 2180, {cutscene = "noel.meet", sprite = sunkist})
     end
 end
 
