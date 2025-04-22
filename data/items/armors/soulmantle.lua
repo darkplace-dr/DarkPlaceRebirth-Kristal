@@ -62,6 +62,7 @@ function item:init()
         noel = "(I would consume it.)",
         jamm = "It's a little warm still...",
 		fmarcy = "...Can't. Sorry.",
+        ceroba = "I once had a fire magic...",
     }
 end
 

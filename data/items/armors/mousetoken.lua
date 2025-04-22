@@ -53,6 +53,7 @@ function item:init()
         ["jamm+marcy"] = "Marcy wants to go there! // Maybe soon, Marcy.",
         noel = "Is this from a resturant?",
 		fmarcy = "...What I would give to go back.",
+        ceroba = "Isn't that just a normal coin?",
     }
 end
 

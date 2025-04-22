@@ -59,6 +59,7 @@ function item:init()
         jamm = "Nah, I got my own. It's a Halofit!",
         noel = "I already have a pocket watch...",
 		fmarcy = "Time is irrelevant.",
+        ceroba = "Looks expensive..."
     }
 end
 

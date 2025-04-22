@@ -52,6 +52,7 @@ function item:init()
         jamm = "How are we even carrying this?",
         noel = "You fucking idiot.",
 		fmarcy = "...what?",
+        ceroba = "I.. Um... No.",
     }
 end
 

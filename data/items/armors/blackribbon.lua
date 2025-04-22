@@ -44,6 +44,7 @@ function item:init()
         noel = "Uwa~ True Emo~",
 		jamm = "Gotta support goth culture.",
 		fmarcy = "...No. Definitely not.",
+        ceroba = "Not as good as mine."
     }
 end
 

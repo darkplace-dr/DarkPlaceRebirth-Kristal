@@ -56,6 +56,7 @@ function item:init()
 		},
         noel = "I feel like punching things now.",
 		fmarcy = "...Sharp. Maybe it'll help.",
+        ceroba = "Is that considered looking \"badass\"?",
     }
 end
 

@@ -47,6 +47,7 @@ function item:init()
         susie = false,
         dess = false,
 		fmarcy = false,
+        ceroba = false
     }
 
     -- Character reactions
@@ -59,6 +60,7 @@ function item:init()
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "More tension?",
 		fmarcy = "Pink is... not my color.",
+        ceroba = "A bit too small.",
     }
 end
 

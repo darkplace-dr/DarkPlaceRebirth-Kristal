@@ -51,6 +51,7 @@ function item:init()
         noel = false,
         dess = false,
 		fmarcy = false,
+        ceroba = false,
 	}
 
     -- Character reactions
@@ -74,6 +75,7 @@ function item:init()
 		},
         dess = "ew im alergic to flowers AND love",
 		fmarcy = "I... can't accept it.",
+        ceroba = "It's beautiful... But give it to Jamm.",
     }
 end
 

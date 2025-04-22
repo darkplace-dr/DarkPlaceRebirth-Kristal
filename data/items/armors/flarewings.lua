@@ -59,6 +59,7 @@ function item:init()
         noel = "Cool anime shit.",
 		jamm = "So is this like an elytra, or...?",
 		fmarcy = "...Metal and heat don't mix.",
+        ceroba = "(I wonder if I'll be able to...)" -- fly like Martlet
     }
 end
 

@@ -58,6 +58,7 @@ function item:init()
 		jamm = "For (i = 0, i < 2, i++), equip socks.",
         noel = "*wears like gloves* Same stats...",
 		fmarcy = "...Are you implying something?",
+        ceroba = "I, uh... Okay???",
     }
 end
 

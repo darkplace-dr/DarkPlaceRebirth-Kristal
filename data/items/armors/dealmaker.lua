@@ -56,6 +56,7 @@ function item:init()
         noel = "Can't take em with me.",
         ["jamm+marcy"] = "You look like a real big shot with those, Marcy!",
 		fmarcy = "Guess money HAS been tight...",
+        ceroba = "Everything's now pink-yellow-ish...",
     }
 end
 

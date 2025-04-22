@@ -45,6 +45,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
 		jamm = false,
+        ceroba = false,
 	}
 
     -- Character reactions
@@ -57,6 +58,7 @@ function item:init()
         jamm = "No thanks. Not after last time.",
         noel = "Now I can be an edgy bitch.",
 		fmarcy = "...Eh, worth a shot.",
+        ceroba = "I'd rather not."
     }
 end
 

@@ -53,6 +53,7 @@ function item:init()
         ["jamm+marcy"] = "Spells \"Family.\"",
         noel = "\"Dear Lunet?\"",
 		fmarcy = "\"Future\"...?",
+        ceroba = "\"Justice\", huh?",
     }
 end
 

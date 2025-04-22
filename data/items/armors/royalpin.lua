@@ -53,6 +53,7 @@ function item:init()
         jamm = "Not that I'm a part of her fan club, but...",
         noel = "Ow! MOTHERFU-",
 		fmarcy = "...Who is...",
+        ceroba = "\"Royal\", huh?",
     }
 end
 

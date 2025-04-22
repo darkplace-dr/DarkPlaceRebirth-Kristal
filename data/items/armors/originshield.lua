@@ -60,6 +60,7 @@ function item:init()
 		mario = "Mario feels like a gladiator again.",
         noel = "(My quirk does a better job.)",
 		fmarcy = "Hard to dual wield, but sure...",
+        ceroba = "Heavy but worth it.",
     }
 
 

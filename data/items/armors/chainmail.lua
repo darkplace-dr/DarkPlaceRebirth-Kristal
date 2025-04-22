@@ -53,6 +53,7 @@ function item:init()
         noel = "I'll take my chances.",
         ["jamm+marcy"] = "Marcy, we don't respond to these.",
 		fmarcy = "Not a good idea to respond.",
+        ceroba = "So is this a mail or an armor?",
     }
 end
 

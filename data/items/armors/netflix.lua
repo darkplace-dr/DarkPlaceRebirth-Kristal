@@ -55,6 +55,7 @@ function item:init()
 		},
         noel = "I can equip this?",
 		fmarcy = "This was discontinued...",
+        ceroba = "What IS this exactly?",
     }
 end
 

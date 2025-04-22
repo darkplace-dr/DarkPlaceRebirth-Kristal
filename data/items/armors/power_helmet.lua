@@ -56,6 +56,7 @@ function item:init()
 		jamm = "Always wanted to play Football. No, not Soccer.",
         noel = "Better safe then sorry?",
 		fmarcy = "Can't believe I'm actually wearing one...",
+        ceroba = "It's pressing against my ears...",
     }
 end
 

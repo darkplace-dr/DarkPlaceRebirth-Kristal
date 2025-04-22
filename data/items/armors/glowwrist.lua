@@ -55,6 +55,7 @@ function item:init()
         ["jamm+marcy"] = "Here, Marcy, let me... Oh, you got it?",
         noel = "Guess I'm a tree now.",
 		fmarcy = "What, are you trying to attract attention?",
+        ceroba = "The light is almost hypnotising...",
     }
 end
 

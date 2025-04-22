@@ -62,6 +62,7 @@ function item:init()
 			fmarcy = "...Don't say it, dad.",
 			jamm = "What? What was I going to say?"
 		},
+        ceroba = "Is somebody coming at us?",
     }
 end
 

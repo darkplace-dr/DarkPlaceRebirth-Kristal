@@ -62,6 +62,7 @@ function item:init()
 		jamm = "Wait. I'm *not* supposed to eat it? Okay then.",
         noel = "I wear the banana???",
 		fmarcy = "...I don't get it.",
+        ceroba = "Do I just... Hold it?",
     }
 end
 

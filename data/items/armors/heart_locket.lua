@@ -50,14 +50,14 @@ function item:init()
         },
         mario = "Bleh!",
         brenda = "Oh god why is it beating.",
-        ceroba = "Reminds me of Kanako...",
+        ceroba = "(Are those... Asgore's kids?)",
         noel = "oh... you found it...",
         jamm = "It's just like...",
         ["jamm+marcy"] = "Just like yours, Marcy...",
 		fmarcy = "It's just like mom's...",
     }
 
-    self.light_item = "ut_armors/heart_locket"
+    self.light_item = "undertale/heart_locket"
 end
 
 return item

@@ -218,7 +218,7 @@ function Encounter:addEnemy(enemy, x, y, ...)
 end
 
 --- *(Override)* Called to receive the encounter text to be displayed each turn. (Not called on turn one, [`text`](lua://Encounter.text) is used instead.) \
---- By default, gets an encounter text from a random enemy, falling back on the encounter's [encounter `text`](lua://Encounter.text) if none have encounter text.
+--- *By default, gets an encounter text from a random enemy, falling back on the encounter's [encounter `text`](lua://Encounter.text) if none have encounter text.*
 ---@return string
 function Encounter:getEncounterText()
     local enemies = Game.battle:getActiveEnemies()
@@ -237,7 +237,7 @@ function Encounter:getEncounterText()
 end
 
 --- *(Override)* Retrieves the waves to be used for the next defending phase. \
---- By default, iterates through all active enemies and selects one wave each using [`EnemyBattler:selectWave()`](lua://EnemyBattler.selectWave)
+--- *By default, iterates through all active enemies and selects one wave each using [`EnemyBattler:selectWave()`](lua://EnemyBattler.selectWave)*
 ---@return Wave[]
 function Encounter:getNextWaves()
     local waves = {}
@@ -320,7 +320,7 @@ function Encounter:onWavesDone()
 end
 
 --- *(Override)* Creates the soul being used this battle (Called at the start of the first wave)
---- By default, returns the regular (red) soul.
+--- *By default, returns the regular (red) soul.*
 ---@param x         number  The x-coordinate the soul should spawn at.
 ---@param y         number  The y-coordinate the soul should spawn at.
 ---@param color?    table   A custom color for the soul, that should override its default.

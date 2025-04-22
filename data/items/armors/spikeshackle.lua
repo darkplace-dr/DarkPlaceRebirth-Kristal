@@ -55,6 +55,7 @@ function item:init()
         jamm = "Seems like a torture device.",
         noel = "Good job using debug cheater.",
 		fmarcy = "...Uhhhhhhh, no.",
+        ceroba = "Hopefully it won't tear my clothes...",
     }
 end
 

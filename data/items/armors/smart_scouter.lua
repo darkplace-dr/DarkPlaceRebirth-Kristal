@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         susie = false,
 	    ostarwalker = false,
+        ceroba = false,
     }
 
     -- Character reactions
@@ -58,6 +59,7 @@ function item:init()
 		ostarwalker = "Doesn't    fits",
 		jamm = "So are they binoculers or something?",
 		fmarcy = "...What idiot designed this?",
+        ceroba = "Technology and I don't exactly mix well.",
     }
 end
 

@@ -6,7 +6,7 @@
 local PaletteFX, super = Class(FXBase)
 
 -- Should always be the same as the value in palette.glsl
-PaletteFX.MAX_PALETTE_ENTRIES = 16
+PaletteFX.MAX_PALETTE_ENTRIES = 32
 
 ---@param imagedata love.ImageData|string|Actor
 ---@param line integer
@@ -15,10 +15,34 @@ function PaletteFX:init(imagedata, line, transformed, priority)
     super.init(self, priority or 0)
 
     self.shader = Assets.getShader("palette")
+    self:setPalette(imagedata, line)
+end
 
+---@param imagedata love.ImageData|string|Actor
+---@param line integer
+---@overload fun(self:PaletteFX, base_pal: number[][], live_pal:number[][], transformed, priority)
+function PaletteFX:setPalette(imagedata, line)
     if isClass(imagedata) and imagedata.includes and imagedata:includes(Actor) then
         ---@cast imagedata Actor
-        imagedata = imagedata:getSpritePath().. "/palette"
+        local actor = imagedata
+
+        -- DPR-specific spaghetti. This is safe to remove.
+        if actor.getShinyID and Game:getFlag("SHINY",{})[actor:getShinyID()] then
+            local shiny_imagedata = Assets.getTextureData(actor:getSpritePath().."/shiny_palette")
+            if shiny_imagedata and shiny_imagedata:getHeight() > (line+1) then
+                self.base_pal = {}
+                self.live_pal = {}
+                local r,g,b,a
+                for x = 1, shiny_imagedata:getWidth() do
+                    r,g,b,a = shiny_imagedata:getPixel(x - 1, 0)
+                    table.insert(self.base_pal, {r,g,b,a})
+                    r,g,b,a = shiny_imagedata:getPixel(x - 1, line+1)
+                    table.insert(self.live_pal, {r,g,b,a})
+                end
+            end
+        end
+
+        imagedata = actor:getSpritePath().. "/palette"
     end
     local path
     if type(imagedata) == "string" then
@@ -45,7 +69,7 @@ function PaletteFX:init(imagedata, line, transformed, priority)
         else
             Kristal.Console:warn("Palette image "..(path and (path.." ") or "<unknown>") .. " doesn't have enough entries (expected at least "..line..", got "..(imagedata:getHeight()-1)..")")
         end
-    else
+    elseif type(imagedata) == "table" and type(line) == "table" then
         ---@cast imagedata -love.ImageData
         ---@cast imagedata -(string|Actor)
         ---@cast line -integer
