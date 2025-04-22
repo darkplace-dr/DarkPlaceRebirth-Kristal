@@ -534,6 +534,9 @@ function Battle:onStateChange(old,new)
         end
     elseif new == "VICTORY" then
         self.current_selecting = 0
+		
+		Game:getPartyMember("susie").rage = false
+		Game:getPartyMember("susie").rage_counter = 0
 
         if self.tension_bar then
             self.tension_bar:hide()

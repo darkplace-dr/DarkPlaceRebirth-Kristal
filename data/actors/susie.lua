@@ -117,6 +117,17 @@ function actor:init(style)
         ["battle/rude_buster"]  = {"battle_eyes/rudebuster", 1/15, false, next="battle/idle"},
     }
 
+    -- Alternate animations to use for Susie with eyes
+    self.animations_rage = {
+        ["battle/idle"]         = {"battle_enraged/idle", 0.2, true},
+
+        ["battle/attack"]       = {"battle_enraged/attack", 1/15, false},
+
+        ["battle/attack_ready"] = {"battle_enraged/attackready", 0.2, true},
+
+        ["battle/hurt"]         = {"battle_enraged/hurt", 1/15, false, temp=true, duration=0.5},
+    }
+
     if susie_style == 1 then
         self.animations["battle/transition"] = {"bangs_wall_right", 0, true}
     end
@@ -214,6 +225,12 @@ function actor:init(style)
 
         ["battle_eyes/rudebuster"] = {-44, -33},
 
+        -- Battle offsets (enraged)
+        ["battle_enraged/idle"] = {-22, -1},
+        ["battle_enraged/attack"] = {-26, -25},
+        ["battle_enraged/attackready"] = {-26, -25},
+        ["battle_enraged/hurt"] = {-22, -1},
+
         -- Cutscene offsets
         ["pose"] = {-1, -1},
 
@@ -280,7 +297,9 @@ end
 
 function actor:getAnimation(anim)
     -- If the weird route flag is set and an alt animation is defined, use it instead
-    if Game:getPartyMember("susie"):getFlag("eyes", false) and self.animations_alt[anim] ~= nil then
+	if Game:getPartyMember("susie").rage and self.animations_rage[anim] ~= nil then
+		return self.animations_rage[anim] or nil
+    elseif Game:getPartyMember("susie"):getFlag("eyes", false) and self.animations_alt[anim] ~= nil then
         return self.animations_alt[anim] or nil
     else
         return super.getAnimation(self, anim)
