@@ -46,7 +46,6 @@ function item:init()
     self.can_equip = {
 		jamm = false,
         noel = false,
-		fmarcy = false,
         ceroba = false,
     }
 
@@ -60,7 +59,6 @@ function item:init()
         jamm = "It won't fit...!",
         ["jamm+marcy"] = "It won't fit either of us...!",
         noel = "I am not a circus.",
-		fmarcy = "It'd get in the way of mine...",
         ceroba = "I have my own.", -- at least I think???
     }
 end

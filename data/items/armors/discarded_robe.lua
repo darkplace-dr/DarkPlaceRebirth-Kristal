@@ -55,7 +55,6 @@ function item:init()
         brenda = "I look good in this!",
         jamm = "Oops, put it on backwards! Let me just... There we go!",
         noel = "Smells like cats!!! :D",
-		fmarcy = "I mean, I'm a physical attacker, but...",
         ceroba = "Thanks, I have my own.",
     }
 end

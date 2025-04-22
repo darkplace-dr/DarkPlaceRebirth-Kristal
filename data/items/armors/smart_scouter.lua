@@ -58,7 +58,6 @@ function item:init()
 		dess = "IT'S OVER 9000!",
 		ostarwalker = "Doesn't    fits",
 		jamm = "So are they binoculers or something?",
-		fmarcy = "...What idiot designed this?",
         ceroba = "Technology and I don't exactly mix well.",
     }
 end

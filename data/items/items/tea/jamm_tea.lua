@@ -79,10 +79,6 @@ function item:init()
             ceroba = "Good coffee.",
 			jamm = "(Coffee?)",
 		},
-		fmarcy = {
-			fmarcy = "Exactly how I thought it'd taste...",
-			Jamm = "That could literally mean anything, Marcy."
-		}
     }
 end
 

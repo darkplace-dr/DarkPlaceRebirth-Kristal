@@ -31,7 +31,6 @@ function item:init()
         ["noelle"] = placeholder,
         ["dess"] = placeholder,
         ["jamm"] = 60,
-		["fmarcy"] = 60,
         ["mario"] = placeholder,
         ["pauling"] = 10,
         ["ceroba"] = 20,
@@ -66,7 +65,6 @@ function item:init()
 			jamm = "It tastes like... eggs? Neat!",
 		},
         ceroba = "I can barely taste anything...",
-		fmarcy = "Tastes like metal...",
     }
 end
 

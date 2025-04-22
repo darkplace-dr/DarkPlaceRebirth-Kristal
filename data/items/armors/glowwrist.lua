@@ -41,9 +41,7 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {
-		fmarcy = false,
-	}
+    self.can_equip = {}
 
     -- Character reactions
     self.reactions = {
@@ -54,7 +52,6 @@ function item:init()
         jamm = "I think Marcy would like this...",
         ["jamm+marcy"] = "Here, Marcy, let me... Oh, you got it?",
         noel = "Guess I'm a tree now.",
-		fmarcy = "What, are you trying to attract attention?",
         ceroba = "The light is almost hypnotising...",
     }
 end

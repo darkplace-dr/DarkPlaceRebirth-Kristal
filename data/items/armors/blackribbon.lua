@@ -30,8 +30,7 @@ function item:init()
 
     self.can_equip = {
         susie = false,
-        brenda = false,
-		fmarcy = false
+        brenda = false
     }
 
     -- Character reactions
@@ -43,7 +42,6 @@ function item:init()
         brenda = "Black isn't really my style.",
         noel = "Uwa~ True Emo~",
 		jamm = "Gotta support goth culture.",
-		fmarcy = "...No. Definitely not.",
         ceroba = "Not as good as mine."
     }
 end

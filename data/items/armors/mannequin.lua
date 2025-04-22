@@ -51,7 +51,6 @@ function item:init()
         dess = "300 buckarinos down the drain...",
         jamm = "How are we even carrying this?",
         noel = "You fucking idiot.",
-		fmarcy = "...what?",
         ceroba = "I.. Um... No.",
     }
 end

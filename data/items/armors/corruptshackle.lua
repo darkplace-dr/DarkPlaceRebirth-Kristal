@@ -57,7 +57,6 @@ function item:init()
         brenda = "Jeez it's hard to move my head...",
         jamm = "No thanks. Not after last time.",
         noel = "Now I can be an edgy bitch.",
-		fmarcy = "...Eh, worth a shot.",
         ceroba = "I'd rather not."
     }
 end

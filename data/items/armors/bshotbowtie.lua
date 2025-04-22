@@ -53,7 +53,6 @@ function item:init()
         jamm = "So, how do I look?",
         noel = "What brand is this?",
         ["jamm+marcy"] = "So, how do I look, Marcy? // It looks great!",
-		fmarcy = "At least I can look nice at the end.",
         ceroba = "Looking official."
     }
 end

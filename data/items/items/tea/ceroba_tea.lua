@@ -33,7 +33,6 @@ function item:init()
 		["ceroba"] = 0,
         ["brenda"] = 200,
 		["jamm"] = 70,
-		["fmarcy"] = 50,
     }
 
     -- Default shop price (sell price is halved)
@@ -93,7 +92,6 @@ function item:init()
 		jamm = "I get the taste...",
 		ceroba = "What did you mean by that...?"
 	},
-	fmarcy = "...I see...",
     }
 end
 

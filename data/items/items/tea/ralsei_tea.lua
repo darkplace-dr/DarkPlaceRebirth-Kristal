@@ -68,7 +68,6 @@ function item:init()
         ralsei = "Um... isn't this water?",
         noelle = "There's nothing in here!",
         jamm = "Tastes like... I don't know...",
-		fmarcy = "It's empty...",
         dess = "tastes like shit",
         ceroba = "It's just milk."
     }

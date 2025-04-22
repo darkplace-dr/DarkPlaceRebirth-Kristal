@@ -47,7 +47,6 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "(I don't think this is meant for me)",
-		fmarcy = "It may have meant something in your time, but...",
         ceroba = "... so why only after battles?",
     }
 end
