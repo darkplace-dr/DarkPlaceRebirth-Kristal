@@ -55,7 +55,7 @@ function item:init()
 		dess = "za warudo",
         noel = "I'm immune to chronomancy.",
         jamm = "Speed. I am speed.",
-        ceroba = "(Does this thing manipulates time???)",
+        ceroba = "(Does this thing manipulates time???)"
     }
 end
 

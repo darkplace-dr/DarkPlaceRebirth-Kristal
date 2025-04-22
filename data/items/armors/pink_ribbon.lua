@@ -46,7 +46,8 @@ function item:init()
     self.can_equip = {
         susie = false,
         dess = false,
-        ceroba = false
+        ceroba = false,
+        dess = false
     }
 
     -- Character reactions

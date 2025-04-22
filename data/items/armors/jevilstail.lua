@@ -44,7 +44,7 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-	    jamm = false,
+		jamm = false,
         noel = false,
         ceroba = false,
     }
