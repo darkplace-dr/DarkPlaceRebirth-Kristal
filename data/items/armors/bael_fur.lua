@@ -52,6 +52,7 @@ function item:init()
         ralsei = "I never thought to use this as armor!",
         dess = "Yo you guys killed a giant spider without me?",
         ceroba = "I'm not comfortable with that...",
+        jamm = "Anything is armor, I guess...",
     }
 end
 

@@ -32,6 +32,7 @@ function item:init()
 		["dess"] = 90,
 		["ceroba"] = 0,
         ["brenda"] = 200,
+		["jamm"] = 70,
     }
 
     -- Default shop price (sell price is halved)
@@ -87,6 +88,10 @@ function item:init()
         susie = "Dude, you look like a tomato, haha!",
         noel = "I thought cantalopes were GREEN, not RED."
     },
+	jamm = {
+		jamm = "I get the taste...",
+		ceroba = "What did you mean by that...?"
+	},
     }
 end
 
