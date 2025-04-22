@@ -62,6 +62,7 @@ function item:init()
         ["jamm+marcy"] = "I'll... I'll take this, Marcy.",
 		mario = "Mario's got to piss.",
         noel = "No.",
+		fmarcy = "If you're sure, dad...",
     }
 end
 

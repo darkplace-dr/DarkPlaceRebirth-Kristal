@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         --noelle = false,
         noel = false,
+		fmarcy = false,
     }
 
     -- Character reactions
@@ -56,6 +57,7 @@ function item:init()
 		jamm = "Pizza, pasta, put it in my box! Deliver it to my house and put it on my--",
         ["jamm+marcy"] = "Hold on tight, Marcy!",
         noel = "Too much power for one man. Maybe enough power for two man. Defiently too much power for one man.",
+		fmarcy = "...I already have a job to do.",
     }
 end
 

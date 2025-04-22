@@ -47,6 +47,7 @@ function item:init()
         dess = false,
         jamm = false,
         noel = false,
+		fmarcy = false,
     }
 
     -- Character reactions
@@ -57,6 +58,7 @@ function item:init()
         dess = "aint no WAY you stole from my sister bro",
         jamm = "Nah, I got my own. It's a Halofit!",
         noel = "I already have a pocket watch...",
+		fmarcy = "Time is irrelevant.",
     }
 end
 

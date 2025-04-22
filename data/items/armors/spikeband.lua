@@ -50,8 +50,12 @@ function item:init()
         ralsei = "Um, do I... look tough?",
         noelle = "(Maybe Susie would like this look?)",
         dess = "cool now im just like susie deltarune frfr",
-        jamm = "Huh, sharp. Better keep it away from Marcy.",
+        jamm = {
+			jamm = "Huh, sharp. Better keep it away from Marcy.",
+			fmarcy = "I'm right here. Oh, you meant... Okay."
+		},
         noel = "I feel like punching things now.",
+		fmarcy = "...Sharp. Maybe it'll help.",
     }
 end
 

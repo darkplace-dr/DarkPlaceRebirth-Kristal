@@ -42,7 +42,9 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+		fmarcy = false,
+	}
 
     -- Character reactions
     self.reactions = {
@@ -52,6 +54,7 @@ function item:init()
         dess = "ermmm unused item much?",
         jamm = "Seems like a torture device.",
         noel = "Good job using debug cheater.",
+		fmarcy = "...Uhhhhhhh, no.",
     }
 end
 

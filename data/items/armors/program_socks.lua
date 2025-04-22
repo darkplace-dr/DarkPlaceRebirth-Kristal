@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
 		susie = false,
 		dess = false,
+		fmarcy = false,
 	}
 
     -- Character reactions
@@ -56,6 +57,7 @@ function item:init()
         brenda = "D-do I look cute?",
 		jamm = "For (i = 0, i < 2, i++), equip socks.",
         noel = "*wears like gloves* Same stats...",
+		fmarcy = "...Are you implying something?",
     }
 end
 

@@ -33,6 +33,7 @@ function item:init()
 
         ["dess"] = 75,
         ["jamm"] = 15,
+		["fmarcy"] = 0,
         ["mario"] = placeholder,
         ["pauling"] = placeholder,
 		["brenda"] = 20,
@@ -156,6 +157,10 @@ function item:init()
 	    brenda = "Not expired. Trust me...",
 	    susie = "Ugh, what???",
 	    dess = "It isn't expired lmao",
+	},
+	fmarcy = {
+		fmarcy = "Tastes like rubber cement...",
+		jamm = "Now how do you know what that's like???"
 	},
     }
 end

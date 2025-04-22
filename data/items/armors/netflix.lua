@@ -49,8 +49,12 @@ function item:init()
         ralsei = "Is it... Free?",
 		dess = "unuseeeeeeed",
         iphone = "I thought it was to clean it.",
-		jamm = "Now all I need is the chill.",
+		jamm = {
+			jamm = "Now all I need is the chill.",
+			fmarcy = "What???"
+		},
         noel = "I can equip this?",
+		fmarcy = "This was discontinued...",
     }
 end
 

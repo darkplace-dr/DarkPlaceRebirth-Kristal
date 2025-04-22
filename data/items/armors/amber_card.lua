@@ -53,6 +53,7 @@ function item:init()
         brenda = "It stained my clothes!",
         mario = "Tastes like glue!",
         noel = "Seam sells these ... right?",
+		fmarcy = "I mean, it doesn't seem very...",
     }
 end
 

@@ -53,6 +53,7 @@ function item:init()
         jamm = "Relatable.",
         ["jamm+marcy"] = "Relatable. // What do you mean, papa?",
         noel = "Am I being detained?",
+		fmarcy = "...Sometimes, it feels like...",
     }
 end
 

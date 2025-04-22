@@ -44,8 +44,9 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-	jamm = false,
+		jamm = false,
         noel = false,
+		fmarcy = false,
     }
 
 
@@ -58,6 +59,7 @@ function item:init()
         jamm = "It won't fit...!",
         ["jamm+marcy"] = "It won't fit either of us...!",
         noel = "I am not a circus.",
+		fmarcy = "It'd get in the way of mine...",
     }
 end
 

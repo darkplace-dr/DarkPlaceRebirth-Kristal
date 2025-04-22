@@ -55,6 +55,7 @@ function item:init()
 		dess = "za warudo",
         noel = "I'm immune to chronomancy.",
         jamm = "Speed. I am speed.",
+		fmarcy = "...For the glory of my realm.",
     }
 end
 

@@ -51,6 +51,7 @@ function item:init()
         dess = "chaching",
         jamm = "(Did they max it out...?)",
         noel = "How do I use one of these?",
+		fmarcy = "Can't believe I'm seeing another one of these...",
     }
 end
 

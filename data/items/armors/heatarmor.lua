@@ -41,6 +41,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noel = false,
+		fmarcy = false,
     }
 
     -- Character reactions
@@ -52,7 +53,8 @@ function item:init()
 			jamm = "Eh."
 		},
         noel = "A heated blanket would do a better job.",
-        dess = "i remember you're firegraves"
+        dess = "i remember you're firegraves",
+		fmarcy = "No chance of frostbite.",
     }
 end
 

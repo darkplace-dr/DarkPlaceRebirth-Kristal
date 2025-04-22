@@ -45,7 +45,9 @@ function item:init()
     self.thorns_damage_proportion = 0.4
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+		fmarcy = false
+	}
 
     -- Character reactions
     self.reactions = {
@@ -55,7 +57,8 @@ function item:init()
         dess = "wouldn't it be funny if i conquered the universe with these?",
         brenda = "Thankfully the crown isn't included.",
         noel = "Cool anime shit.",
-		jamm = "So is this like an elytra, or...?"
+		jamm = "So is this like an elytra, or...?",
+		fmarcy = "...Metal and heat don't mix.",
     }
 end
 
