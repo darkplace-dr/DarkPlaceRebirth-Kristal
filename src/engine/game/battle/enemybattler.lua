@@ -926,6 +926,12 @@ function EnemyBattler:defeat(reason, violent)
             Game.battle.killed = true
             for i, battler in ipairs(Game.battle.party) do
                 battler.chara.kills = battler.chara.kills + 1
+                if battler.chara.name == "Noel" then
+                    local newData = {
+                        Kills = battler.chara.kills
+                    }    
+                    Noel:saveNoel(newData)
+                end
             end
             if self.done_state == "FROZEN" then
                 Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience

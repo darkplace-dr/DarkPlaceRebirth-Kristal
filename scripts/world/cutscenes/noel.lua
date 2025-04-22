@@ -3,8 +3,13 @@ return {
     meet = function(cutscene)
 --Game.world.camera:setZoom(2.25)
         if not Noel:loadNoel() then
-            cutscene:text("* Gonna make a char file real quick.", "bruh", "noel")
-            cutscene:text("* This is just placeholder text okay?", "bruh", "noel")
+            if Game:isDessMode() then
+
+
+            else
+                cutscene:text("* Gonna make a char file real quick.", "bruh", "noel")
+                cutscene:text("* This is just placeholder text okay?", "bruh", "noel")
+            end
 
 
             local data = {
@@ -24,7 +29,7 @@ return {
                 },
                 Kills = 0,
                 SaveID = 0,
-                version = 0.01,
+                version = 0.015,
                 Map = "main_hub",
                 Mod = "dpr_main",
                 Health = 900,
@@ -35,8 +40,17 @@ return {
             
             Noel:saveNoel(data)
             Game:setFlag("noel_SaveID", 0)
-            cutscene:text("* Okay I'm done.", "bruh", "noel")
+            if Game:isDessMode() then
+                cutscene:text("* Okay I'm done.", "d_neutral_1", "noel")
+            else
+                cutscene:text("* Okay I'm done.", "bruh", "noel")
+            end
             local noel = cutscene:getCharacter("noel")
+            if Game:isDessMode() then
+                Noel:setFlag("identity_crisis", true)
+                noel.actor:init()
+                noel:resetSprite()
+            end
             noel:convertToFollower()
             cutscene:attachFollowers()
             Game:addPartyMember("noel")

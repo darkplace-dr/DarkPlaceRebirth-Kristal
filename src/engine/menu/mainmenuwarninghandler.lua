@@ -29,7 +29,7 @@ function MainMenuWarningHandler:init(menu)
     local noel_data = Noel:loadNoel()
     local noel_reset = false
 
-    if noel_data and noel_data.version ~= 0.01 then
+    if noel_data and noel_data.version ~= 0.015 then
         love.filesystem.remove("saves/null.char")
         noel_reset = true
     end

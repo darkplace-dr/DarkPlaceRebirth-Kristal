@@ -4,6 +4,7 @@ local desslmao = {
         Kristal.callEvent(KRISTAL_EVENT.onDPDessTalk)
 		local dess = cutscene:getCharacter("dess")
 		local susie = cutscene:getCharacter("susie")
+		local osw = cutscene:getCharacter("ostarwalker")
 
 		local noel = cutscene:getCharacter("noel")
 		local data = Noel:loadNoel()
@@ -17,6 +18,11 @@ local desslmao = {
 		end
 		cutscene:setSpeaker("dess")
 		cutscene:textTagged("* its me,[wait:5] dess,[wait:5] from hit kristal mod dark place", "heckyeah", "dess")
+
+		if osw then
+		    cutscene:textTagged("* And I[wait:10] am\n\n              [wait:10][color:yellow]starwalker[color:reset]", nil, "ostarwalker")
+		end
+
         if susie then
             cutscene:setSpeaker("susie")
 			cutscene:textTagged("[speed:0.5]* ...", "neutral_side", "susie")
@@ -24,9 +30,9 @@ local desslmao = {
 		elseif cutscene:getCharacter("hero") then
 			cutscene:setSpeaker("hero")
             cutscene:textTagged("* Uh,[wait:5] am I supposed to know you?", "really")
-		elseif noel then -- make sure this is always next to last
+		elseif noel then -- make sure this character is always next to last
 				cutscene:showNametag("Noel")
-			if data.met_dess then
+			if Noel:getFlag("met_dess") then
 				cutscene:text("* Nice to see you again?", "bruh", "noel")
 				noel_remembered_dess = true
 			else
@@ -53,7 +59,7 @@ local desslmao = {
 						end
 					}
 				})
-				Noel:saveNoel({met_dess = {met = true}})
+				Noel:setFlag("met_dess", true) 
 				noel_not_remembered_dess = true
 			end
 		else
@@ -69,6 +75,15 @@ local desslmao = {
 			cutscene:textTagged("* nah man that was totally you", "wink", "dess")
 		else
 			cutscene:textTagged("* aw c'mon don't tell me you guys forgot about me", "neutral", "dess")
+
+			if osw then
+				cutscene:textTagged("*      [wait:20][color:yellow]no[color:reset]", nil, "ostarwalker")
+				cutscene:textTagged("* no as in you didnt forget or no as in you did", "neutral_b", "dess")
+				cutscene:textTagged("*      [wait:20][color:yellow]yes[color:reset]", nil, "ostarwalker")
+				cutscene:textTagged("* aight", "neutral", "dess")
+
+
+			end
 		end
 
 		cutscene:textTagged("* I've been training in the hyperbolic time chamber for 20 years", "condescending", "dess")
@@ -80,7 +95,7 @@ local desslmao = {
 		if noel and data.met_dess and data.met_dess.understanding then
 			cutscene:showNametag("Noel")
 			cutscene:text("* Yeah, that's basically what happened.", "bruh", "noel")
-		elseif noel and data.met_dess then
+		elseif noel and Noel:getFlag("met_dess") and not noel_not_remembered_dess then
 			cutscene:showNametag("Noel")
 			cutscene:text("* Stop using keywords, you're gonna confuse people.[func:tag]", "bruh", "noel", 
 			{
@@ -94,7 +109,6 @@ local desslmao = {
 			cutscene:showNametag("Noel")
 			cutscene:text("* You don't care at all about keeping a low profile do you?", "bruh", "noel")
 			cutscene:text("* Well,[wait:5] neither do I\n[wait:10][face:bruh]but that's besides the point.", "oh", "noel")
-			Noel:saveNoel({met_dess = {met = true}})
 		end
 
 		if susie then
@@ -120,10 +134,12 @@ local desslmao = {
 		Game.world.music:stop()
 		local fan = Music("fanfare", 1, 0.9, false)
 
-		local leader = cutscene:getCharacter(Game.party[1].id)
-
 		cutscene:detachFollowers()
-		leader:slideTo(leader.x-50, leader.y, 2, "out-cubic")
+
+		for i, member in ipairs(Game.party) do
+			local char = cutscene:getCharacter(member.id)
+			char:slideTo(char.x - (40 + (i*10)), char.y, 2, "out-cubic")
+		end		
 
 		cutscene:walkTo("dess", dess.x - 50, dess.y + 10, 11, "left")
 		cutscene:setSpeaker()
@@ -162,7 +178,7 @@ local desslmao = {
 			cutscene:textTagged("* awesome sauce", "challenging", "dess")
 		elseif cutscene:getCharacter("hero") then
 			cutscene:setSpeaker("hero")
-            cutscene:textTagged("* Wait what.")
+            cutscene:textTagged("* [speed:0.25]...[wait:10][speed:1] [face:neutral_closed_b]Wait what?", "neutral_closed")
 		end
 		cutscene:hideNametag()
 		cutscene:wait(cutscene:fadeOut(.25))
@@ -170,6 +186,14 @@ local desslmao = {
 
 		-- Wooo party setup time
 		Game:addPartyMember("dess", 1)
+
+		local over_capacity = " "
+
+		if Game.party[4] then
+			over_capacity = Game.party[4].name 
+		end
+
+
         if #Game.party == 4 then
 			Game:addFollower(Game.party[4].id)
 			Game:removePartyMember(Game.party[4].id)
@@ -188,7 +212,6 @@ local desslmao = {
 		cutscene:walkTo(Game.world.player, Game.world.player.x-200, Game.world.player.y, 2)
 		cutscene:wait(2.2)
 		cutscene:wait(cutscene:fadeIn(0.25))
-
 		if fullparty then
 			--[[if susie then
 				-- I'll write dialogue for this later
@@ -207,6 +230,46 @@ local desslmao = {
 		else
 			cutscene:setSpeaker("dess")
 			cutscene:textTagged("* ok lets go", "heckyeah", "dess")
+		end
+
+
+		if over_capacity == "Starwalker" then
+			cutscene:textTagged("* This is\n\n     [wait:20][color:yellow]bullshit[color:reset]", nil, "ostarwalker")
+		elseif over_capacity == "Susie" then
+
+			if Game.party[3].name == "Berdly" then
+			    cutscene:textTagged("* Why the hell do I habe to be out back!?", "neutral", "susie")
+				cutscene:textTagged("* Ah, fret not my", "neutral", "berdly")
+
+
+
+			else
+				cutscene:textTagged("* Yeah, like I'd do that.", "neutral", "susie")
+				cutscene:textTagged("* Switch spots with me person in front of me.", "neutral", "susie")
+
+
+
+				local susie_id = Game.world.followers[3].actor.id
+
+				local susie = Game.world.followers[3]
+				local character_swap = Game.world.followers[2]
+	
+	
+				Game:addPartyMember(susie_id)
+				Game:removePartyMember(Game.party[3])
+	
+				susie:convertToFollower(2)
+				character_swap:convertToFollower(3)
+	
+	
+				cutscene:interpolateFollowers()
+				cutscene:wait(0.5)
+			end
+
+		elseif over_capacity == "Noel" then
+			cutscene:setSpeaker("Noels")
+			cutscene:text("* Guess I'm sitting this one out.", "bruh", "noel")
+			cutscene:text("* Seems easier than having to do literally anything productive with my meaningless life.", "bruh", "noel")
 		end
 		cutscene:hideNametag()
 
@@ -296,7 +359,7 @@ local desslmao = {
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* Alright...[wait:10] let's finally get outta here.", "annoyed_down", "susie")
 		elseif Noel:dessParty() then
-			if Noel:loadNoel().knows_mimic then
+			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("* This is it Dess...[wait:5] The mimic boss...", "bruh", "noel")
 				cutscene:textTagged("* [speed:0.1]...[wait:10] [speed:1][face:eyebrow]the what?", "neutral", "dess")
 			else
@@ -326,7 +389,7 @@ local desslmao = {
             cutscene:setSpeaker("dess")
             cutscene:textTagged("* That's normal, all the other ones shake if you hit them", "neutral", "dess")
 		elseif Noel:dessParty() then
-			if Noel:loadNoel().knows_mimic then
+			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("* The mimic?[wait:5] The boss that changes shape and complains about the meta.", "bruh", "noel")
 				cutscene:textTagged("* Do you have the stupid?", "genuine_b", "dess")
 				cutscene:textTagged("* That's just a normal flying thingy.", "kind", "dess")
@@ -346,7 +409,7 @@ local desslmao = {
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* But...[wait:10] we didn't hit it!", "shock_down", "susie")
 		elseif Noel:dessParty() then
-			if Noel:loadNoel().knows_mimic then
+			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("* I think I know what I'm talking about.[wait:5] Ya'see[wait:5] I've played these games before.", "neutral", "noel")
 				cutscene:textTagged("*", "mspaint", "dess")
 			else
@@ -363,7 +426,7 @@ local desslmao = {
         if susie then
             cutscene:textTagged("* Yo wait you're right!", "wtf_b")
 		elseif Noel:dessParty() then
-			if Noel:loadNoel().knows_mimic then
+			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("*", "mspaint", "dess")
 				cutscene:textTagged("* Are-[wait:5] Are you okay?", "...", "noel")
 				cutscene:textTagged("*", "mspaint", "dess")
@@ -431,7 +494,7 @@ local desslmao = {
         end
 
 		if Noel:dessParty() then
-			if Noel:loadNoel().knows_mimic then
+			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("* Your whining is annoying please shut the fuck.[wait:5]  ", "...", "noel", {auto = true})
 				cutscene:textTagged("[instant]* Your whining is annoying please shut the up.", "...", "noel")
 			else
@@ -520,7 +583,7 @@ local desslmao = {
 
 
 			if Noel:dessParty() then
-				if Noel:loadNoel().knows_super_dess then
+				if Noel:getFlag("knows_super_dess") then
 				else
 					cutscene:textTagged("* ...", "bruh", "noel")
 					cutscene:textTagged("* ...", "angry", "dess_super")
@@ -531,6 +594,7 @@ local desslmao = {
 					cutscene:textTagged("* Dess...[wait:10] You have done something you were never meant to do Dess...", "huh", "noel")
 					cutscene:textTagged("* I only have one thing to say to you...", "...", "noel")
 					cutscene:textTagged("*[speed:0.1] ... [speed:1.5][face:yay]THAT ACTUALLY WAS REALLY FUCKING AWESOME HOLY SHIT!!!", "...", "noel")
+					Noel:setFlag("knows_super_dess", true)
 				end
 			else
 				cutscene:textTagged("* ...", "angry", "dess_super")
@@ -563,7 +627,7 @@ local desslmao = {
 			cutscene:textTagged("* oh well", "neutral_b", "dess")
 
 			if Noel:dessParty() then
-				if Noel:loadNoel().knows_super_dess then
+				if Noel:getFlag("knows_super_dess") then
 				else
 					cutscene:textTagged("* No,[wait:5] try doing it agian![wait:5] DO IT DO IT DO IT!", "neutral", "noel")
 					cutscene:textTagged("* Okay here we go.", "calm_b", "dess")
@@ -593,7 +657,7 @@ local desslmao = {
 
 			end
 			if noel_party then
-				Noel:saveNoel({knows_mimic = true})
+				Noel:setFlag("knows_mimic", true)
 			end
 		else
 			cutscene:textTagged("* Happy new year,[wait:6] 1998!", whodis)

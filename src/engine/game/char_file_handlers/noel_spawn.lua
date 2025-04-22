@@ -35,8 +35,7 @@ function Noel:test()
 end
 
 function Noel:isDess()
-    local cond = Noel:loadNoel()
-    if Game:isDessMode() and cond and cond.can_be_dess then
+    if ((Game:isDessMode() and Noel:getFlag("can_be_dess")) or Noel:getFlag("identity_crisis")) then
         return true
     else
         return false
@@ -85,7 +84,7 @@ local place_holder = function(cutscene, event)
                         cutscene:text("[instant]* I meant that reality[stopinstant] probably wouldn't allow it.", "bruh", "noel")
 
                         cutscene:text("* Sounds like a skill issue to me, but you do you", "condescending", "dess")
-                        Noel:saveNoel({understand = {dessmode = true}})
+                        Noel:setFlag("understand_dessmode")
                     else
                         cutscene:text("*", "smug", "dess")
                         cutscene:text("* [speed:0.1]...", "bruh", "noel")
@@ -110,13 +109,12 @@ local place_holder = function(cutscene, event)
         if math.random(1, 10) == 9 then
             cutscene:doki_text("* May I join the party?", "noel", {name = "Noel"})
        else
-            --cutscene:text("* May I join the party?", "bruh", "noel")
        end
         local choicer
         if Game:isDessMode() then
             cutscene:text("* nah this is dess mode[font:main_mono,16]TM[font:reset] so it's only me", "condescending", "dess")
             choicer = 0 --to avoid all choicer dialouge
-            if save.understand and save.understand.dessmode then
+            if Noel:getFlag("understand_dessmode") then
             else
                 if save.met_dess and save.met_dess.met then
                     cutscene:text("* Uhm,[wait:10][face:...] what???", "oh", "noel")
@@ -193,18 +191,18 @@ local dess_mode = function(cutscene, event)
 
         Game.world.music:resume()
 
-        Noel:saveNoel({can_be_dess = true})
+        Noel:setFlag("can_be_dess")
 
         local noel = cutscene:getCharacter("noel")
         noel.actor:init()
         noel:resetSprite()
 
-        cutscene:text("* Okay[wait:5] this should still count as being a Dess only party I think.", "bruh", "noel")
+        cutscene:text("* Okay[wait:5] this should still count as being a Dess only party I think.", "d_neutral_1", "noel")
 
         cutscene:text("* ...", "mspaint", "dess")
         cutscene:text("* Normally I wouldn't be cool with people copying me,[wait:5] [face:condescending]but in the spirit of this being [face:swag]Dess Mode[face:thisremindsmeofthetimeiwasindarkplace][font:main_mono,16]TM[font:reset] [face:calm_b]I'll allow it.", "angry", "dess")
 
-        cutscene:text("* Okay.", "bruh", "noel")
+        cutscene:text("* Okay.", "d_neutral_2", "noel")
 
         Game.world.music:pause()
         local fan = Music("fanfare", 1, 0.9, false)
@@ -229,7 +227,7 @@ local dess_mode = function(cutscene, event)
         local choicer = cutscene:choicer({"Yes", "No"})
 
         if choicer == 1 then
-            cutscene:text("* Cool beans.", "bruh", "noel")
+            cutscene:text("* Swag Bacon.", "d_neutral_2", "noel")
             local noel = cutscene:getCharacter("noel")
             noel:convertToFollower()
             cutscene:attachFollowers()
@@ -237,7 +235,7 @@ local dess_mode = function(cutscene, event)
             Game:addPartyMember("noel")
             Game:getPartyMember("noel"):setActor("noel")
         elseif choicer == 2 then
-            cutscene:text("* Alright.", "bruh", "noel")
+            cutscene:text("* Oll'Korrect.", "d_neutral_1", "noel")
         end
     end
 end
@@ -295,7 +293,7 @@ function Noel:spawnNoel(x, y, data)
     if Game:hasPartyMember("noel") then
         Noel:checkNoel()
     else
-        if Game:isDessMode() and save.understand and save.understand.dessmode then
+        if Game:isDessMode() and Noel:getFlag("understand_dessmode") then
             
             Game.world:spawnNPC("noel", x, y, {cutscene = dess_mode})   
         elseif data then
