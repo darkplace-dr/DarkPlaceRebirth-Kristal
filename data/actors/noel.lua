@@ -88,7 +88,7 @@ function actor:init()
 
     self.portrait_path = "face/noel"
 
-    self.portrait_offset = {-22, -30}
+    self.portrait_offset = {-22, -24}
 
     self.can_blush = false
 

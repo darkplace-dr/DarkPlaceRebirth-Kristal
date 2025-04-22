@@ -154,7 +154,7 @@ function character:getName()
     local save = Noel:loadNoel()
     if Noel:isDess() then
         local meth = math.random(1, 15)
-        if meth == 1 then
+        if meth == 9 then
             return "dess"
         else
             return "Noel"
@@ -165,6 +165,14 @@ function character:getName()
 end
 
 function character:onLightLevelUp(level) end --do not remove this or noel will not work in light battles 
+
+function character:getLevel()
+    return -1
+end
+
+function character:getLOVE()
+    return -1
+end
 
 function character:PainStat(y)
     local i = y
@@ -203,11 +211,12 @@ end
 
 
 function character:getGameOverMessage(main)
-    local save = Game:loadNoel()
-    assert(save)
+    --local save = Game:loadNoel()
+    ---assert(save)
     return {
         "oh...[wait:5]\nYou died...",
-        save.Player_Name.."...\n[wait:10]It's your call."
+        Game.save_name.."...\n[wait:10]It's your call.",
+        "Will you load your last save?"
     }
 end
 
