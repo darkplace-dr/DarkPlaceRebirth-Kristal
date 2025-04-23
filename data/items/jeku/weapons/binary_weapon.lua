@@ -63,7 +63,8 @@ function item:init()
         dess = "LMAO wtf is that?",
         brenda = "Does it say something?",
         noel = "no...",
-		jamm = "What did you say about Ania!?"
+		jamm = "What did you say about Ania!?",
+        ceroba = "Those are just numbers..."
     }
 end
 
