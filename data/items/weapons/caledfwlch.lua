@@ -53,7 +53,8 @@ function item:init()
         noelle = "Reminds me of spelling bees...",
 		dess = "what to heck",
         brenda = "I hate Welsh.",
-		jamm = "Cald.. Cael... Caledfa... No thanks."
+		jamm = "Cald.. Cael... Caledfa... No thanks.",
+        ceroba = "I won't even try."
     }
 end
 

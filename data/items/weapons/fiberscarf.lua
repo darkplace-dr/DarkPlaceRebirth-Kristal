@@ -53,6 +53,7 @@ function item:init()
         noelle = "Sure, I'll... huh? It's a weapon?",
 		dess = "i dont have a reaction to EVERYTHING dipshit",
         jamm = "Too soft... Too... zzz...",
+        ceroba = "Comfortable... But I won't fight with it."
     }
 end
 

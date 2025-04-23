@@ -54,7 +54,8 @@ function item:init()
         noelle = "I think I have one of these at home.",
 		dess = "so retro",
         brenda = "Let's-a go!",
-		jamm = "Never thought I'd see one of these again..."
+		jamm = "Never thought I'd see one of these again...",
+        ceroba = "It's looking quite familiar..."
     }
 end
 

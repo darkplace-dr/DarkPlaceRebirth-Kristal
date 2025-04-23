@@ -54,10 +54,11 @@ function item:init()
         noelle = "... ... ...",
         brenda = "This was NOT worth it.",
 		dess = "what are we waiting for",
-	jamm = "What? I'm not a patient guy.",
+	    jamm = "What? I'm not a patient guy.",
         noel = "#worth it",
+        ceroba = "Patience is important."
     }
-	
+
 end
 
 function item:convertToLightEquip(chara)

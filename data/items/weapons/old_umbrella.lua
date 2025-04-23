@@ -51,7 +51,11 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "What the FUCK?! Where did you get ANOTHER ONE?!",
-        jamm = "I can take the rain."
+        jamm = "I can take the rain.",
+        ceroba = {
+            ceroba = "This is anything but a weapon.",
+            noel = "(Uh huh.)"
+        }
     }
 end
 

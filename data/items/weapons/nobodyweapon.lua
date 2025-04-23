@@ -30,6 +30,7 @@ function item:init()
 
     self.reactions = {
         noel = "Concerning...",
+        ceroba = "Looks... Powerful."
     }
 end
 

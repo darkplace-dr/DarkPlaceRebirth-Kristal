@@ -53,6 +53,7 @@ function item:init()
         noelle = "(Too dangerous...)",
         brenda = "Shot over a game of cards...",
 		jamm = "Why, Hornet...?",
+        ceroba = "We don't have license for that, right?"
     }
 end
 

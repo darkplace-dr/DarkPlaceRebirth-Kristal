@@ -52,6 +52,7 @@ function item:init()
         noelle = "(It's kinda cool...)",
         jamm = "Not really my style...",
 		dess = "HALLOWEEN IS BETTER FUCK CHRISTMAS",
+        ceroba = "Could be a nice Halloween decoration."
     }
 end
 

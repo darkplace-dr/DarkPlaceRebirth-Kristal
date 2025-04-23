@@ -55,7 +55,8 @@ function item:init()
         kris = "...",
         ralsei = "I don't feel just like John Wick!",
         berdly = "Ha, I feel just like John Wick!",
-        mario = "Mama Mia! I feel just like John Wick!"
+        mario = "Mama Mia! I feel just like John Wick!",
+        ceroba = "(Who is John Wick???)"
     }
 end
 

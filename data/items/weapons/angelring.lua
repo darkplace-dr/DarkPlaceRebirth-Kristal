@@ -69,6 +69,7 @@ function item:init()
         noelle = "It's beautiful...!",
         kangel = "It goes with my outfit!",
 		jamm = "I'm... Already taken...",
+        ceroba = "I'm nowhere close to an angel..."
     }
 end
 

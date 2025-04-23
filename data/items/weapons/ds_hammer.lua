@@ -53,7 +53,8 @@ function item:init()
 		},
         noel = "wow... nintendo go supermario nintendo bes company go ninwahooo- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         jamm = "So, uh... How do I hold it?",
-		dess = "check my custom emblem"
+		dess = "check my custom emblem",
+        ceroba = "Aren't the screens gonna break??"
     }
 end
 

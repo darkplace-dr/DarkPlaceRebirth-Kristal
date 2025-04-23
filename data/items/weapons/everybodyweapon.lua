@@ -52,7 +52,8 @@ function item:init()
         noelle = "Wh... what is this?",
 		dess = "boringggg but ok",
         noel = "Nice try...",
-        jamm = "Now how do I use this..."
+        jamm = "Now how do I use this...",
+        ceroba = "I suppose I can use that..."
     }
 end
 

@@ -51,6 +51,7 @@ function item:init()
         ["jamm+marcy"] = "Huh? Yuri Nator? ...Oh. Clever, Marcy.",
         noel = "SnIperMonkeyP",
 		dess = "play undertale 2 revenge of the robots",
+        ceroba = "Somehow reminds me of justice."
     }
 end
 

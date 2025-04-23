@@ -54,7 +54,8 @@ function item:init()
         brenda = "Uh... Abracadabra?",
 		jamm = "I'm not really a wizard.",
         noel = "",
-        nell = "Ah, my first wand..."
+        ceroba = "I don't need that to do magic.",
+        nell = "Okay...?"
     }
 end
 

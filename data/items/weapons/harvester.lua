@@ -51,6 +51,7 @@ function item:init()
     self.reactions = {
         susie = "Hey! It grows corn!",
         suzy = "Chomp! Ow, it's sharp!",
+        ceroba = "I'm... Not a farmer."
     }
 end
 

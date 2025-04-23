@@ -41,6 +41,7 @@ function item:init()
         brenda = "Ew, Swiss cheese? Really?",
 	    jamm = "A lot of holes... You sure it's effective?",
         noel = "",
+        ceroba = "This... Doesn't look efficient to use."
     }
 end
 

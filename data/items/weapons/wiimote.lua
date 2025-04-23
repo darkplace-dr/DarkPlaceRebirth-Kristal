@@ -67,6 +67,7 @@ function item:init()
 			noel = "It's not like it's a weapon or anything."
 		},
 	    noel = "... It's like the ads now...",
+        ceroba = "Doesn't this need a console?"
 	}
 end
 

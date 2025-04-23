@@ -52,7 +52,8 @@ function item:init()
         noelle = "It's so bright it hurts my eyes!",
 		dess = "no",
         brenda = "Die monster, you don't belong in this world!",
-		jamm = "A light weapon? In a dark world? Sketchy..."
+		jamm = "A light weapon? In a dark world? Sketchy...",
+        ceroba = "I wonder how it got this glow..."
     }
 end
 

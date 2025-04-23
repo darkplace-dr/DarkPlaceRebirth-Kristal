@@ -53,6 +53,7 @@ function item:init()
         noelle = "...",
         jamm = "It's cold...",
 		dess = "you aborted snowgrave for this dialogue?",
+        ceroba = "It's like touching the ice..."
     }
 end
 

@@ -52,6 +52,7 @@ function item:init()
         noelle = "I-is that a gun!?",
         jamm = "Can't even aim a gun.",
 		dess = "if only game programming would allow it",
+        ceroba = "Guns are... Not my type."
     }
 end
 

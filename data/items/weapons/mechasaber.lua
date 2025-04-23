@@ -52,6 +52,7 @@ function item:init()
         noelle = "*chk* A-AHH! Scared myself...",
         jamm = "Mmm. Might accidentally extend it.",
 		dess = "starwars movies for free 2024",
+        ceroba = "Huh. Just like a pen."
     }
 end
 

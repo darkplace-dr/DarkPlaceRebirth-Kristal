@@ -52,6 +52,7 @@ function item:init()
         noelle = "Ouch! ... kind of nice",
         jamm = "Like a rose's thorn...",
 		dess = "who ever uses this",
+        ceroba = "Uncomfortable."
     }
 end
 

@@ -51,7 +51,8 @@ function item:init()
         susie = "Too noisy.",
         ralsei = "It's a little heavy...",
         noelle = "I prefer jingle bells...",
-        ostarwalker = "The original                   bell"
+        ostarwalker = "The original                   bell",
+        ceroba = "Hits with a jingle?"
     }
 end
 

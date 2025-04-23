@@ -53,6 +53,7 @@ function item:init()
         noelle = "(It's like Santa's beard?)",
         jamm = "Don't even think about it.",
 		dess = "who ever uses these",
+        ceroba = "REALLY uncomfortable."
     }
 
 end
