@@ -142,6 +142,7 @@ function character:onTurnStart(battler)
 		self.rage_counter = self.rage_counter - 1
 		if self.rage_counter == 0 then
 			self.rage = false
+			battler:setAnimation("battle/idle")
 		end
 	end
 	if self.rage then	-- TODO: 5% chance to attack a party member instead
