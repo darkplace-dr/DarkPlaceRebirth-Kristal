@@ -56,7 +56,8 @@ function item:init()
         noelle = "Is this supposed to replace your arm?",
 		dess = "pokemon is better tbh",
         brenda = "It's fightin' time!",
-		jamm = "Three times what I'm used to..."
+		jamm = "Three times what I'm used to...",
+        ceroba = "That's some HEAVY firearm..."
     }
 end
 

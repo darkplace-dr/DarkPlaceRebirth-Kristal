@@ -54,7 +54,8 @@ function item:init()
 		noelle = "How is this Christmas-themed??",
         brenda = "It sure is green.",
 		jamm = "I know I like green, but...",
-                noel = [[I WILL RULE "BASEBALL" ENGLAND!!!]],
+        noel = [[I WILL RULE "BASEBALL" ENGLAND!!!]],
+        ceroba = "Only for the worthy one, huh?"
     }
 end
 

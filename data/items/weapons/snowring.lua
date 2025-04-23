@@ -52,6 +52,7 @@ function item:init()
         noelle = "(Thank goodness...)",
         jamm = "It's pretty cold, huh...",
 		dess = "snowgrave route heheheheh",
+        ceroba = "I'm a widow, but I'm not free to take."
     }
 end
 

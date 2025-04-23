@@ -53,6 +53,7 @@ function item:init()
         noelle = "(Feels like guitar strings...)",
         jamm = "It feels weird...",
 		dess = "smth smth dess guitar",
+        ceroba = "String scarf? No thanks."
     }
 end
 

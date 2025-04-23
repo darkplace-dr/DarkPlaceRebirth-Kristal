@@ -52,7 +52,8 @@ function item:init()
         ralsei = "It's too, um, evil.",
         noelle = "...? It smiled at me?",
 		dess = "chaos chaos ect ect",
-        jamm = "Hey, I'm not a farmer!"
+        jamm = "Hey, I'm not a farmer!",
+        ceroba = "Is it... Alive?"
     }
 end
 

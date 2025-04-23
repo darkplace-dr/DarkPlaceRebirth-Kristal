@@ -49,7 +49,8 @@ function item:init()
     self.reactions = {
         ddelta = "i should probably get a new one",
 		dess = "made too many meth jokes already",
-        jamm = "How do I even use this?"
+        jamm = "How do I even use this?",
+        ceroba = "You want me to hit with a CRYSTAL?"
     }
 end
 

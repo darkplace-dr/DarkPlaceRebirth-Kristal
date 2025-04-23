@@ -59,6 +59,7 @@ function item:init()
 	    kris = {
             noel = "Sure, give it to the possesed kid...",
         },
+        ceroba = "Looks like something ancient..."
     }
 end
 

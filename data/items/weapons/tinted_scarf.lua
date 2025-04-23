@@ -55,6 +55,7 @@ function item:init()
         noelle = "Huh? N-No, I'm not cold.",
 		jamm = "Missed a spot. Yeah, right there.",
         noel = "*thumbs up*",
+        ceroba = "Painted quite... Badly."
     }
 end
 

@@ -51,8 +51,8 @@ function item:init()
         ralsei = "I'll protect everyone!",
         noelle = "S-stop covering me with it!",
 		dess = "who am i the queen of england",
-        jamm = "I can't even heal us."
-
+        jamm = "I can't even heal us.",
+        ceroba = "It's... Really comfortable."
     }
 end
 

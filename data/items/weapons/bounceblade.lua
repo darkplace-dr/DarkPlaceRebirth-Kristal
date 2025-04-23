@@ -52,7 +52,8 @@ function item:init()
         ralsei = "Soft and squishy!",
         noelle = "S-stop thwacking me!",
 		dess = "im gonna poke holes in it",
-        jamm = "So is this like... a practice sword?"
+        jamm = "So is this like... a practice sword?",
+        ceroba = "Isn't it gonna bounce off the enemies?"
     }
 end
 

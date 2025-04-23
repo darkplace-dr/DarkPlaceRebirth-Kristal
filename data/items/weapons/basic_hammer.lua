@@ -50,6 +50,7 @@ function item:init()
         mario = "Ooh, a mallet!",
         noel = "(Why is it wooden???)",
 		dess = "this shit aint lucky",
+        ceroba = "What is this, a toy?"
     }
 end
 

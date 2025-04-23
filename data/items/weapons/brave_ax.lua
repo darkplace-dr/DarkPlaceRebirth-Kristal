@@ -51,7 +51,8 @@ function item:init()
         ralsei = "It's a bit too heavy...",
         noelle = "(W-wow, what presence...)",
 		dess = "ffs no",
-        jamm = "Too shiny. Don't want to dirty it."
+        jamm = "Too shiny. Don't want to dirty it.",
+        ceroba = "Good fit for a hero. But not me."
     }
 end
 

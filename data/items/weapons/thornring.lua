@@ -52,6 +52,7 @@ function item:init()
         ralsei = "...",
         jamm = "And I thought Ragger2 was bad...",
 		dess = "KILL!!!!!!!!!!!!!!!!!!!!!",
+        ceroba = "(Looks painful to wear...)"
     }
 end
 
