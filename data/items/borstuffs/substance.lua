@@ -46,6 +46,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noel = false,
+        ceroba = false
     }
 
     -- Character reactions (key = party member id)
@@ -62,6 +63,7 @@ function item:init()
         ["jamm+marcy"] = "I'll... I'll take this, Marcy.",
 		mario = "Mario's got to piss.",
         noel = "No.",
+        ceroba = "Who the fuck do you think I am!?"
     }
 end
 
