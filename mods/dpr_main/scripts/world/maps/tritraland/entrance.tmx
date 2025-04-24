@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="233">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="237">
  <editorsettings>
   <export target="entrance.lua" format="lua"/>
  </editorsettings>
@@ -379,7 +379,7 @@
   <object id="26" name="forcefield" x="1600" y="1480" width="120" height="40"/>
   <object id="27" name="forcefield" x="1440" y="1680" width="120" height="40"/>
   <object id="28" name="forcefield" x="1760" y="1680" width="120" height="40"/>
-  <object id="47" name="npc" x="1360" y="1720">
+  <object id="47" name="npc" x="1380" y="1720">
    <properties>
     <property name="actor" value="notsuki"/>
     <property name="cutscene" value="notsuki.script"/>
@@ -459,7 +459,7 @@
    </properties>
    <point/>
   </object>
-  <object id="120" name="npc" x="520" y="320" width="40" height="40">
+  <object id="120" name="npc" x="600" y="320" width="40" height="40">
    <properties>
     <property name="actor" value="machine"/>
     <property name="cutscene" value="machine.d"/>
@@ -583,6 +583,12 @@
    <properties>
     <property name="flagcheck" value="something_defeated"/>
     <property name="item" value="first_aid"/>
+   </properties>
+  </object>
+  <object id="236" name="npc" x="520" y="320" width="40" height="40">
+   <properties>
+    <property name="actor" value="buni"/>
+    <property name="cutscene" value="buni.d"/>
    </properties>
   </object>
  </objectgroup>

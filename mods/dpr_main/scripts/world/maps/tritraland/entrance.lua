@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 233,
+  nextobjectid = 237,
   properties = {
     ["music"] = "TRITRALAND",
     ["name"] = "Tritra Land"
@@ -1348,7 +1348,7 @@ return {
           name = "npc",
           type = "",
           shape = "point",
-          x = 1360,
+          x = 1380,
           y = 1720,
           width = 0,
           height = 0,
@@ -1600,7 +1600,7 @@ return {
           name = "npc",
           type = "",
           shape = "rectangle",
-          x = 520,
+          x = 600,
           y = 320,
           width = 40,
           height = 40,
@@ -2559,6 +2559,22 @@ return {
           properties = {
             ["flagcheck"] = "something_defeated",
             ["item"] = "first_aid"
+          }
+        },
+        {
+          id = 236,
+          name = "npc",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 320,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "buni",
+            ["cutscene"] = "buni.d"
           }
         }
       }
