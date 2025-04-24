@@ -52,11 +52,13 @@ function ElevatorDoor:init(data)
 end
 
 function ElevatorDoor:onInteract()
-    self.solid = not self.solid
-    if not self.solid then
-        self:open()
-    elseif self.solid then
-        self:close()
+    if Game:getFlag("hasPushedSans") == true then
+        self.solid = not self.solid
+        if not self.solid then
+            self:open()
+        elseif self.solid then
+            self:close()
+        end
     end
 end
 
