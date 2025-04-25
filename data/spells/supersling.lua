@@ -27,6 +27,10 @@ function spell:getCastMessage(user, target)
     return "* "..user.chara:getName().." used "..self:getCastName().."!"
 end
 
+function spell:getLightCastMessage(user, target)
+    return "* "..user.chara:getName().." used "..self:getCastName().."!"
+end
+
 function spell:onCast(user, target)
 	local damage = math.floor((user.chara:getStat("attack") * 15))
 
@@ -54,6 +58,35 @@ function spell:onCast(user, target)
 		user.parent:addChild(cutAnim)
 		user.parent:addChild(afterimage1)
 		user.parent:addChild(afterimage2)
+	end
+
+	Game.battle.timer:after(0.1/2, function()
+		generateSlash(1)
+		local mult = 1
+		if target.health == target.max_health then
+			mult = 0.5
+		end
+		target:heal(damage)
+		if target:canService(self.id) then
+			target:addMercy(math.ceil(target.service_mercy*1.3*mult))
+		end
+		target:onService(self.id)
+	end)
+end
+
+function spell:onLightCast(user, target)
+	local damage = math.floor((user.chara:getStat("attack") * 3))
+
+	local function generateSlash(scale_x)
+		local cutAnim = Sprite("effects/attack/sling")
+		Assets.playSound("scytheburst")
+		Assets.playSound("criticalswing", 1.2, 1.3)
+		cutAnim:setOrigin(0.5, 0.5)
+		cutAnim:setScale(2.5 * scale_x, 2.5)
+		cutAnim:setPosition(target:getRelativePos(target.width/2, target.height/2))
+		cutAnim.layer = target.layer + 0.01
+		cutAnim:play(1/15, false, function(s) s:remove() end)
+		Game.battle:addChild(cutAnim)
 	end
 
 	Game.battle.timer:after(0.1/2, function()

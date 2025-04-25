@@ -1,8 +1,8 @@
----@class RudeBusterBeam : Sprite
----@overload fun(...) : RudeBusterBeam
-local RudeBusterBeam, super = Class(Sprite)
+---@class WavedashBeam : Sprite
+---@overload fun(...) : WavedashBeam
+local WavedashBeam, super = Class(Sprite)
 
-function RudeBusterBeam:init(red, x, y, tx, ty, after)
+function WavedashBeam:init(red, x, y, tx, ty, after)
     super.init(self, red and "effects/wavedash/arrow_s" or "effects/wavedash/arrow_s", x, y)
 
     self:setOrigin(0.5, 0.5)
@@ -27,7 +27,7 @@ function RudeBusterBeam:init(red, x, y, tx, ty, after)
     self.after_func = after
 end
 
-function RudeBusterBeam:update()
+function WavedashBeam:update()
     self.alpha = Utils.approach(self.alpha, 1, 0.25 * DTMULT)
 
     local dir = Utils.angle(self.x, self.y, self.target_x, self.target_y)
@@ -71,4 +71,4 @@ function RudeBusterBeam:update()
     super.update(self)
 end
 
-return RudeBusterBeam
+return WavedashBeam

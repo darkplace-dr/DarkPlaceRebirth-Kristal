@@ -50,7 +50,11 @@ function spell:onCast(user, target)
                 z_parent:addChild(z)
             end, 8)
         else
-            target:statusMessage("msg", "half-cify")
+            if Game:isLight() then
+                target:lightStatusMessage("text", "+50%", {0, 178/255, 1, 1})
+            else
+                target:statusMessage("msg", "half-cify")
+            end
             Assets.playSound("spell_pacify", 1, 2)
             target.half_pacify = true
         end

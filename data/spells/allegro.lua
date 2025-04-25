@@ -27,6 +27,10 @@ function spell:getCastMessage(user, target)
     return "* "..user.chara:getName().." swings with extreme speed and accuracy and hits "..self:getCastName().." three times!"
 end
 
+function spell:getLightCastMessage(user, target)
+    return "* "..user.chara:getName().." swings with extreme speed and accuracy and hits "..self:getCastName().." three times!"
+end
+
 function spell:onCast(user, target)
     local damage = math.ceil(target.health/15)
     local orig_pos_x, orig_pos_y = user.x, user.y
@@ -64,6 +68,27 @@ function spell:onCast(user, target)
         user:slideTo(orig_pos_x, orig_pos_y, 0.5)
     end)
     Game.battle.timer:after(4, function()
+        Game.battle:finishActionBy(user)
+    end)
+
+    return false
+end
+
+function spell:onLightCast(user, target)
+    local damage = math.ceil(target.health/15)
+    Game.battle.timer:after(0.5, function()
+        Assets.playSound("scytheburst")
+        target:hurt(damage, user)
+    end)
+    Game.battle.timer:after(1, function()
+        Assets.playSound("scytheburst")
+        target:hurt(damage, user)
+    end)
+    Game.battle.timer:after(1.5, function()
+        Assets.playSound("scytheburst")
+        target:hurt(damage, user)
+    end)
+    Game.battle.timer:after(2, function()
         Game.battle:finishActionBy(user)
     end)
 

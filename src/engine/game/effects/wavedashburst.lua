@@ -1,8 +1,8 @@
----@class RudeBusterBurst : Sprite
----@overload fun(...) : RudeBusterBurst
-local RudeBusterBurst, super = Class(Sprite)
+---@class WavedashBurst : Sprite
+---@overload fun(...) : WavedashBurst
+local WavedashBurst, super = Class(Sprite)
 
-function RudeBusterBurst:init(red, x, y, angle, slow)
+function WavedashBurst:init(red, x, y, angle, slow)
     super.init(self, red and "effects/wavedash/arrow_s" or "effects/wavedash/arrow_s", x, y)
 
     self:setOrigin(0.5, 0.5)
@@ -18,7 +18,7 @@ function RudeBusterBurst:init(red, x, y, angle, slow)
     self.slow = slow
 end
 
-function RudeBusterBurst:update()
+function WavedashBurst:update()
     local slow_down = self.slow and 0.8 or 0.75
 
     self.physics.speed = self.physics.speed * (slow_down ^ DTMULT)
@@ -27,4 +27,4 @@ function RudeBusterBurst:update()
     super.update(self)
 end
 
-return RudeBusterBurst
+return WavedashBurst

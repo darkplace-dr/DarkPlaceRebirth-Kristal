@@ -29,6 +29,10 @@ function spell:getCastMessage(user, target)
     return "* "..user.chara:getName().." used "..self:getCastName().."!"
 end
 
+function spell:getLightCastMessage(user, target)
+    return "* "..user.chara:getName().." used "..self:getCastName().."!"
+end
+
 function spell:onCast(user, target)
     local buster_finished = false
     local anim_finished = false
@@ -50,9 +54,8 @@ function spell:onCast(user, target)
         local x, y = user:getRelativePos(user.width, user.height/2 - 10, Game.battle)
         local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
         local blast = WavedashBeam(false, x, y, tx, ty, function(pressed)
-            local damage = math.ceil((user.chara:getStat("magic") * 4) + (user.chara:getStat("attack") * 9) - (target.defense * 3))
+            local damage = self:getDamage(user, target, pressed)
             if pressed then
-                damage = damage + 30
                 Assets.playSound("scytheburst")
             end
             target:flash()
@@ -66,6 +69,42 @@ function spell:onCast(user, target)
         Game.battle:addChild(blast)
     end)
     return false
+end
+
+function spell:onLightCast(user, target)
+    user.delay_turn_end = true
+    Game.battle.timer:after(15/30, function()
+        Assets.playSound("halberd_flash")
+        local x, y = (SCREEN_WIDTH/2), SCREEN_HEIGHT
+        local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
+        local blast = WavedashBeam(false, x, y, tx, ty, function(pressed)
+            local damage = self:getDamage(user, target, pressed)
+            if pressed then
+                Assets.playSound("scytheburst")
+            end
+            target:hurt(damage, user)
+            Game.battle:finishAction()
+        end)
+        blast.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
+        Game.battle:addChild(blast)
+    end)
+    return false
+end
+
+function spell:getDamage(user, target, pressed)
+    if Game:isLight() then
+        local damage = math.ceil((user.chara:getStat("magic") * 2) + (user.chara:getStat("attack") * 4) - (target.defense * 3))
+        if pressed then
+            damage = damage + 20
+        end
+        return damage
+    else
+        local damage = math.ceil((user.chara:getStat("magic") * 4) + (user.chara:getStat("attack") * 9) - (target.defense * 3))
+        if pressed then
+            damage = damage + 30
+        end
+        return damage
+    end
 end
 
 function spell:hasWorldUsage(chara)
