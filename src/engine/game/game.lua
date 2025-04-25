@@ -162,6 +162,10 @@ end
 
 function Game:loadHooks()
     if MagicalGlassLib then
+        Utils.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
+            orig(self)
+            self.service_mercy = 20
+        end)
         Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
             if Game:getFlag("marcy_joined") then
                 self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
@@ -174,6 +178,8 @@ function Game:loadHooks()
                 self.acts[#self.acts].color = {0, 1, 1}
             end
         end)
+        Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
+        Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
     end
 end
 
