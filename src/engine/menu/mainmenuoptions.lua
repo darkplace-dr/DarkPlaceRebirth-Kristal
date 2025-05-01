@@ -708,6 +708,9 @@ function MainMenuOptions:initializeOptions()
         self:remove_noel_char()
         self.menu:pushState("plugins")
     end)
+
+    self:registerConfigOption("gameplay", "Discriptive Loading", "dLoad")
+
 end
 
 -------------------------------------------------------------------------------
