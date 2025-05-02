@@ -1643,5 +1643,14 @@ local hub = {
             cutscene:textTagged("* Such are the pros of being illiterate", "condescending", "dess")
         end
     end,
+    poem_plate = function(cutscene, event)
+        if Game:getFlag("poem_plate") then
+        else
+            cutscene:text("* (There appears to be something behind this banner...)")
+            Assets.playSound("item")
+            cutscene:text("* (You obtained the [color:yellow]Poem Plate[color:white].)")
+            cutscene:text("* (The [color:yellow]Poem Plate[color:white] was added to your [color:yellow]ITEMs[color:white].)")
+        end
+    end,
 }
 return hub

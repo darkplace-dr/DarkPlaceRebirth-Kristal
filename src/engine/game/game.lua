@@ -616,6 +616,24 @@ function Game:load(data, index, fade)
     end
 
     Kristal.callEvent(KRISTAL_EVENT.postLoad)
+
+
+    --Code stolen from Simbel's depths dlc
+    if Kristal.Config["dLoad"] == true then
+		local text = Text("FILE " ..Game.save_id.. " LOADED")
+		text:setParallax(0)
+		text:setScreenPos(3, 3)
+		text:setLayer(WORLD_LAYERS["top"])
+		text.alpha = 5
+		text:setGraphics({
+			fade_to = 0,
+			fade = 0.1,
+			fade_callback = function(self) self:remove() end
+		})
+		Game.world:addChild(text)
+    end
+
+
 end
 
 ---@param light? boolean

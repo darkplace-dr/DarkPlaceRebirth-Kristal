@@ -1705,7 +1705,8 @@ function Kristal.loadConfig()
         defaultName = "",
         skipNameEntry = false,
         verboseLoader = false,
-        ["plugins/enabled_plugins"] = {}
+        ["plugins/enabled_plugins"] = {},
+        dLoad = true
     }
     if love.filesystem.getInfo("settings.json") then
         Utils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
