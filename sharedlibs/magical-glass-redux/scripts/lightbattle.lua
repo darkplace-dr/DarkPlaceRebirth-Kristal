@@ -149,6 +149,10 @@ function LightBattle:init()
     self:addChild(self.darkify_fader)
     
     self.multi_mode = Kristal.getLibConfig("magical-glass", "multi_always_on") or #self.party > 1
+	
+    -- Base pitch for the music to return to when not using timeslow.
+    -- This must be changed along with music.pitch in order to correctly change the music's pitch.
+    self.music.basepitch = self.music.pitch
 end
 
 function LightBattle:isPagerMenu()
@@ -1335,6 +1339,10 @@ function LightBattle:onStateChange(old,new)
     end
 
     self.encounter:onStateChange(old,new)
+	
+    if old == "INTRO" then
+        self.music.basepitch = self.music.pitch
+    end
 end
 
 function LightBattle:nextTurn()
