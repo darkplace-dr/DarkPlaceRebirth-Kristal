@@ -158,7 +158,7 @@ function MainMenuOptions:update()
 end
 
 function MainMenuOptions:draw()
-    local offset = math.sin(self.dog_balloon_siner * 0.25) * 15
+    local offset = math.sin(self.dog_balloon_siner * 0.1) * 15
 
     if self.retro then
         Draw.setColor(0.36, 0.58, 0.99, 1)
