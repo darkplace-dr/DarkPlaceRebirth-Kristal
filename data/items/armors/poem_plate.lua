@@ -20,13 +20,16 @@ function item:init()
     }
     self.bonus_name = nil
     self.bonus_icon = nil
-    self.can_equip = {}
+    self.can_equip = {
+        noel = false,
+    }
     self.reactions = {
         susie = "", -- I was out of imagination -N
         ralsei = "",
         noelle = "",
         dess = "",
         ceroba = "I feel... Weird.",
+        noel = "Just no",
     }
 end
 
