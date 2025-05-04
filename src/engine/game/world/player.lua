@@ -17,7 +17,11 @@ function Player:init(chara, x, y)
 
     self.force_run = false
     self.force_walk = false
+
     self.run_timer = 0
+    if Game.run_timer_hold then
+        self.run_timer = Game.run_timer_hold
+    end
     self.run_timer_grace = 0
 
     self.auto_moving = false
@@ -314,6 +318,7 @@ function Player:handleMovement()
             self.run_timer_grace = self.run_timer_grace + DTMULT
         end
     end
+    Game.run_timer_hold = self.run_timer
 end
 
 function Player:updateWalk()

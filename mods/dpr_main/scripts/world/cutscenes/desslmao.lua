@@ -299,7 +299,7 @@ local desslmao = {
 			if Game:getFlag("gotDess") then
 				cutscene:setSpeaker("dess")
 				cutscene:textTagged("* Hey I can do a crazy impression watch this", "condescending", "dess")
-				cutscene:textTagged("* Look at meeee I'm FRISK from UNDERTALE lmao", "calm", "dess")
+				cutscene:textTagged("* Look at meeee I'm FRISK from [font:monster_friend]undeRtale [font:main]lmao", "calm", "dess")
 	
 				if cutscene:getCharacter("noel") then
 					cutscene:showNametag("Noel")

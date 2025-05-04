@@ -1644,12 +1644,14 @@ local hub = {
         end
     end,
     poem_plate = function(cutscene, event)
-        if Game:getFlag("poem_plate") then
+        if event:getFlag("poem_plate") then
         else
+            Game.inventory:addItem("poem_plate")
             cutscene:text("* (There appears to be something behind this banner...)")
             Assets.playSound("item")
             cutscene:text("* (You obtained the [color:yellow]Poem Plate[color:white].)")
             cutscene:text("* (The [color:yellow]Poem Plate[color:white] was added to your [color:yellow]ITEMs[color:white].)")
+            event:setFlag("poem_plate", true)
         end
     end,
 }
