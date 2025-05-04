@@ -22,7 +22,8 @@ GITHUB_REPOS = {
 	},
 	AcousticJammYT={
 		"dpr_jamm_dlc",
-		"DPR_Dark_Pit"
+		"DPR_Dark_Pit",
+		"dlc_future"
 	},
 	polypoyo={
 		"dlc_test"
