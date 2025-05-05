@@ -72,5 +72,26 @@ local tutorialmaster = {
         end
         master:setAnimation({ "idle" })
     end,
+    susie = function(cutscene, master)
+        cutscene:setTextboxTop(true)
+        master:setAnimation({ "bop" })
+        cutscene:text("* I'm Susie Master.\n[wait:5]* Ask me about SUSIE's.")
+        local choices = { "1", "2", "3" }
+        table.insert(choices, "Bye")
+        local c = cutscene:choicer(choices)
+        if c == 1 then
+            master:setAnimation({ "shocked" })
+            cutscene:text("* BING BING BING ONE.")
+        elseif c == 2 then
+            master:setAnimation({ "shocked" })
+            cutscene:text("* BING BING BING TWO.")
+        elseif c == 3 then
+            master:setAnimation({ "shocked" })
+            cutscene:text("* BING BING BING THREE.")
+        elseif c == 4 then
+            cutscene:text("* Later,[wait:5] kid.")
+        end
+        master:setAnimation({ "idle" })
+    end,
 }
 return tutorialmaster
