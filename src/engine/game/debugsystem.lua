@@ -1182,6 +1182,11 @@ function DebugSystem:onKeyPressed(key, is_repeat)
             end
             return
         end
+        if key == "pageup" then
+            self.faces_y = self.faces_y + 512
+        elseif key == "pagedown" then
+            self.faces_y = self.faces_y - 512
+        end
     elseif self.state == "FLAGS" then
         if not Game.flags then
             self:setState("MENU")
