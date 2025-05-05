@@ -6,13 +6,17 @@ function actor:pickRandomDigit()
     return number:sub(index, index)
 end
 
+local function h(hex)
+    return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
+end
+
 function actor:onSpriteInit(sprite)
     sprite:addFX(OutlineFX())
     sprite:getFX(OutlineFX):setColor(1, 1, 1)
     --print(sprite.sprite_options[1])
     self.b_tog = math.random(10)
 
-    if self.b_tog == 9 then
+    if self.b_tog == 9 and Noel:isDess() == false then
 
         self.next_time = (os.date("%S") + self:pickRandomDigit())
 
@@ -28,6 +32,18 @@ function actor:onSpriteInit(sprite)
         function self:onBattleDraw(chara)
         end
     end
+
+    if Game:getPartyMember("noel").kills >= 100 then
+    sprite:addFX(PaletteFX({
+        h '#585858',
+        h '#272727',
+    }, {
+        h '#a6504d',
+        h '#6a2020',
+    }))
+    end
+
+
 end
 
 --Up and down didnt look nice enough
