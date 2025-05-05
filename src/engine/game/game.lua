@@ -575,6 +575,8 @@ function Game:load(data, index, fade)
             end
         end
     end
+
+    local swapped_dlc = Game:getFlag("is_swapping_mods", false)
     -- Make sure it only comes back when you load a file, not when switching between DLCs
     if not Game:getFlag("is_swapping_mods", false) and Game:getFlag("oddstone_tossed", false) then
         -- If you threw away the Odd Stone, bring it back
@@ -588,7 +590,7 @@ function Game:load(data, index, fade)
     Game:setFlag("is_swapping_mods", false)
     -- END SAVE FILE VARIABLES --
 
-    Kristal.callEvent(KRISTAL_EVENT.load, data, self.is_new_file, index)
+    Kristal.callEvent(KRISTAL_EVENT.load, data, self.is_new_file, index, swapped_dlc)
 
     -- Load the map if we have one
     if map then
@@ -615,7 +617,7 @@ function Game:load(data, index, fade)
         self:encounter(self:getBossRef(self.bossrush_encounters[1]).encounter)
     end
 
-    Kristal.callEvent(KRISTAL_EVENT.postLoad)
+    Kristal.callEvent(KRISTAL_EVENT.postLoad, swapped_dlc)
 
 
     --Code stolen from Simbel's depths dlc
