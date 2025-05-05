@@ -16,3 +16,6 @@ open.bat
 # Ignore aseprite files
 *.ase
 *.aseprite
+
+# desktop.ini files
+*.ini
