@@ -1,7 +1,7 @@
 local BandeeSpearThrow, super = Class(Wave)
 
 function BandeeSpearThrow:init()
-    super:init(self)
+    super.init(self)
     self.time = 5
 	self.intensity = 11
 end
@@ -54,7 +54,7 @@ end
 function BandeeSpearThrow:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return BandeeSpearThrow

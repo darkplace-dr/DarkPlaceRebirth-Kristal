@@ -1,7 +1,7 @@
 local book, super = Class(ReadableBook)
 
 function book:init()
-    super:init(self)
+    super.init(self)
 
     self.id     = "captain_journal"
     self.title  = "Captain's Log"

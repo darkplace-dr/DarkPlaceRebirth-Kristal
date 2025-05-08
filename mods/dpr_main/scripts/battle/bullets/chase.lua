@@ -2,7 +2,7 @@ local froggitbullet_1, super = Class(Bullet)
 
 function froggitbullet_1:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super:init(self, x, y, "battle/bullets/smallbullet")
+    super.init(self, x, y, "battle/bullets/smallbullet")
     self.sprite:play(0.2, true)
     self:setScale(4)
     self.color = {1,1,0}
@@ -52,7 +52,7 @@ function froggitbullet_1:update()
         local beam1 = self.wave:spawnBullet("smallbullet", x, y, math.rad(0) + self.rotation + math.rad(45), 18)
         local beam1 = self.wave:spawnBullet("smallbullet", x, y, math.rad(0) + self.rotation - math.rad(45), 18)
     end
-    super:update(self)
+    super.update(self)
 end
 
 return froggitbullet_1

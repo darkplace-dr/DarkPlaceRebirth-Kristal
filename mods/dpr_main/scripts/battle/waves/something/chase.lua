@@ -1,7 +1,7 @@
 local chase, super = Class(Wave)
 
 function chase:init()
-    super:init(self)
+    super.init(self)
     self:setArenaSize(284, 213)
 end
 
@@ -56,7 +56,7 @@ end
 function chase:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return chase

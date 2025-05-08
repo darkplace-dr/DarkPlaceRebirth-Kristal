@@ -2,7 +2,7 @@ local SpearStab, super = Class(Bullet)
 
 function SpearStab:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super:init(self, x, y, "battle/bullets/speardee")
+    super.init(self, x, y, "battle/bullets/speardee")
 
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
     self.physics.direction = dir
@@ -18,7 +18,7 @@ function SpearStab:update()
 		self.rotation = self.physics.direction - math.rad(180)
 	end
 
-    super:update(self)
+    super.update(self)
 end
 
 return SpearStab

@@ -1,7 +1,7 @@
 local DiamondsAim, super = Class(Wave)
 
 function DiamondsAim:init()
-	super:init(self)
+	super.init(self)
 	self.siner = 0
 	self:setArenaSize(72, 150)
 end
@@ -76,7 +76,7 @@ function DiamondsAim:update()
     -- Move the arena
     Game.battle.arena:setPosition(self.arena_start_x + offset, self.arena_start_y)
 
-    super:update(self)
+    super.update(self)
 end
 
 return DiamondsAim

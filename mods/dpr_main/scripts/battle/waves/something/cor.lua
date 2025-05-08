@@ -1,7 +1,7 @@
 local MovingArena, super = Class(Wave)
 
 function MovingArena:init()
-    super:init(self)
+    super.init(self)
 
     -- Initialize timer
     self.siner = 0
@@ -35,7 +35,7 @@ function MovingArena:update()
     -- Move the arena
     Game.battle.arena:setPosition(self.arena_start_x + offset, self.arena_start_y)
 
-    super:update(self)
+    super.update(self)
 end
 
 return MovingArena

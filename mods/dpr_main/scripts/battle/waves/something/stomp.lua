@@ -1,7 +1,7 @@
 local Stomp, super = Class(Wave)
 
 function Stomp:init()
-    super:init(self)
+    super.init(self)
     --self.time = 7
 	self:setArenaSize(192, 24)
 	--self:setSoulOffset(x, 63)
@@ -30,7 +30,7 @@ end
 function Stomp:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return Stomp

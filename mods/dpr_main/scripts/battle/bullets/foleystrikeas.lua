@@ -3,7 +3,7 @@ local GreatBeam, super = Class(Bullet)
 function GreatBeam:init(x, y, dir, speed)
     -- Last argument = sprite path
 	self:setScale(8)
-    super:init(self, x, y, "battle/bullets/fire")
+    super.init(self, x, y, "battle/bullets/fire")
 	self.color = {1,1,0}
 
 
@@ -24,7 +24,7 @@ function GreatBeam:update()
 		self:remove()
 	end
 
-    super:update(self)
+    super.update(self)
 end
 
 return GreatBeam

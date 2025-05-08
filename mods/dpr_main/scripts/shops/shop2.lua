@@ -1,7 +1,7 @@
 local TestShop, super = Class(Shop,  "shop2")
 
 function TestShop:init()
-    super:init(self)
+    super.init(self)
 
     self.encounter_text = "* Welcome to the shop of the beach!"
     self.shop_text = "* Take your time..."

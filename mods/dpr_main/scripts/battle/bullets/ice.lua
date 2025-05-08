@@ -2,7 +2,7 @@ local froggitbullet_1, super = Class(Bullet)
 
 function froggitbullet_1:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super:init(self, x, y, "battle/bullets/snowflake")
+    super.init(self, x, y, "battle/bullets/snowflake")
     self.sprite:play(0.2, true)
     self:setScale(1)
     self.color = {0.9, 0.5, 0.9}
@@ -28,7 +28,7 @@ function froggitbullet_1:update()
         --self.m2 = 0
         --self.m3 = 0
     end
-    super:update(self)
+    super.update(self)
 end
 
 return froggitbullet_1

@@ -1,7 +1,7 @@
 local HammerSwing, super = Class(Wave)
 
 function HammerSwing:init()
-    super:init(self)
+    super.init(self)
 	self:setArenaSize(110, 440)
     self:setArenaOffset(0, 70)
 end
@@ -56,7 +56,7 @@ end
 function HammerSwing:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return HammerSwing
