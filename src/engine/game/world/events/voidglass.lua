@@ -14,8 +14,8 @@
 ---@overload fun(...) : VoidGlass
 local VoidGlass, super = Class(MagicGlass)
 
-function VoidGlass:init(x, y, w, h, isBroken)
-    super.init(self, x, y, w, h)
+function VoidGlass:init(x, y, rect, isBroken)
+    super.init(self, x, y, rect)
 
     self.texture = Assets.getTexture(isBroken and "world/events/void_glass_broken" or "world/events/void_glass")
 

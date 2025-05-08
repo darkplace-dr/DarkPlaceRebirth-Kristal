@@ -3,7 +3,7 @@
 local you_plush, super = Class(Event, "plush")
 
 function you_plush:init(data)
-    super.init(self, data.x, data.y, data.w, data.h)
+    super.init(self, data.x, data.y, {data.w, data.h})
 
     local properties = data.properties or {}
 
