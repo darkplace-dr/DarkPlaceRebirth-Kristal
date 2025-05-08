@@ -1,7 +1,7 @@
 local Basic, super = Class(Wave)
 
 function Basic:init()
-	super:init(self)
+	super.init(self)
 	self:setArenaSize(284, 213)
 	--self.time = 7
 end
@@ -28,7 +28,7 @@ function Basic:onStart()
 end
 
 function Basic:update()
-    super:update(self)
+    super.update(self)
 end
 
 return Basic

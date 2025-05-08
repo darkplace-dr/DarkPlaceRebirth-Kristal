@@ -1,7 +1,7 @@
 local BugBlack, super = Class(Bullet)
 
 function BugBlack:init(x, y)
-    super:init(self, x, y, "battle/bullets/smallbullet")
+    super.init(self, x, y, "battle/bullets/smallbullet")
 	
 	self.alpha = 0
 	self:fadeTo(1, 0.1)
@@ -18,7 +18,7 @@ function BugBlack:update(dt)
 	if self.targeting then
 		self.rotation = Utils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
 	end
-	super:update(self, dt)
+	super.update(self, dt)
 end
 
 return BugBlack

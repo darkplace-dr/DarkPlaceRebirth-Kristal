@@ -3,7 +3,7 @@ local froggitbullet_1, super = Class(Bullet)
 function froggitbullet_1:init(x, y, dir, speed)
     -- Last argument = sprite path
     self:setScale(2)
-    super:init(self, x, y, "battle/bullets/dddstar")
+    super.init(self, x, y, "battle/bullets/dddstar")
 	self.timer = 80
     self.color = {0.9, 0.5, 0.9}
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
@@ -19,7 +19,7 @@ function froggitbullet_1:update()
         self.timer = 160
 		self.physics.direction = Utils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
 	end
-    super:update(self)
+    super.update(self)
 end
 
 return froggitbullet_1

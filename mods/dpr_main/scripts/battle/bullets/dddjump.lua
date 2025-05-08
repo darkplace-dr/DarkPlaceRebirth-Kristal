@@ -2,7 +2,7 @@ local Rocky, super = Class(Bullet)
 
 function Rocky:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super:init(self, x, y, "battle/bullets/starblock")
+    super.init(self, x, y, "battle/bullets/starblock")
 	self.destroy_on_hit = false
 
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
@@ -31,7 +31,7 @@ function Rocky:update()
 		self.rising = false
 	end
 
-    super:update(self)
+    super.update(self)
 end
 
 return Rocky

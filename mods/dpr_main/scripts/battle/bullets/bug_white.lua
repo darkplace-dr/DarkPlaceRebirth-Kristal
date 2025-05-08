@@ -1,7 +1,7 @@
 local BugWhite, super = Class(Bullet)
 
 function BugWhite:init(x, y, dir)
-    super:init(self, x, y, "battle/bullets/smallbullet")
+    super.init(self, x, y, "battle/bullets/smallbullet")
 
 	self:setScale(2, 2)
     self.rotation = dir

@@ -1,11 +1,11 @@
 local library_computer, super = Class(Map)
 
 function library_computer:load()
-  super:load(self)
+  super.load(self)
 end
 
 function library_computer:init(world, data)
-  super:init(self, world, data)
+  super.init(self, world, data)
   if Game:getFlag("POST_SNOWGRAVE") or Game:getFlag("hometown_digisetup") then
     self.music = nil
   end

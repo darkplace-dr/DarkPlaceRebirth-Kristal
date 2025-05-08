@@ -15,7 +15,7 @@ end
 function froggit_1:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return froggit_1

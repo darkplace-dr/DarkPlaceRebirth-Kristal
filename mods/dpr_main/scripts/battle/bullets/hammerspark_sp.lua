@@ -2,7 +2,7 @@ local HammerSpark, super = Class(Bullet)
 
 function HammerSpark:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super:init(self, x, y, "battle/bullets/dddstar")
+    super.init(self, x, y, "battle/bullets/dddstar")
 
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
     self.physics.direction = dir
@@ -25,7 +25,7 @@ function HammerSpark:update()
 		self:remove()
 	end
 
-    super:update(self)
+    super.update(self)
 end
 
 return HammerSpark

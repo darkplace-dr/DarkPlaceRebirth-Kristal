@@ -1,7 +1,7 @@
 local Clock10, super = Class(Event)
 
 function Clock10:init(data)
-    super:init(self, data.center_x, data.center_y, {data.width, data.height})
+    super.init(self, data.center_x, data.center_y, {data.width, data.height})
 
     self:setOrigin(0.5, 0.5)
     self:setSprite("clockoff")
@@ -18,7 +18,7 @@ function Clock10:onInteract()
 end
   
 function Clock10:update()
-    super:update(self)
+    super.update(self)
     if self.timer > 0 then -- only subtract from the timer if it's currently active
         self.timer = self.timer - DT -- subtract time from the timer
         if self.timer <= 0 then -- the timer reached 0 this frame

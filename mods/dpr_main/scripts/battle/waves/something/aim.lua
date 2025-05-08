@@ -1,7 +1,7 @@
 local Aiming, super = Class(Wave)
 
 function Aiming:init()
-    super:init(self)
+    super.init(self)
     self:setArenaSize(20, 50)
     --self.time = 4
 end
@@ -30,7 +30,7 @@ end
 function Aiming:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return Aiming

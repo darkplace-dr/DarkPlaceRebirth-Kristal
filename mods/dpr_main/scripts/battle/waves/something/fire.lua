@@ -1,7 +1,7 @@
 local WarnedFire, super = Class(Wave)
 
 function WarnedFire:init()
-	super:init(self)
+	super.init(self)
 	self:setArenaSize(284, 284)
 end
 
@@ -126,7 +126,7 @@ end
 function WarnedFire:update()
     -- Code here gets called every frame
 
-    super:update(self)
+    super.update(self)
 end
 
 return WarnedFire
