@@ -1130,13 +1130,15 @@ function Game:getSoulFacing()
     return "up"
 end
 
----@return PartyMember
+---@return PartyMember?
 function Game:getActLeader()
     for _,party in ipairs(self.party) do
         if party:hasAct() then
             return party
         end
     end
+
+    return nil
 end
 
 ---@param chara  string|Follower

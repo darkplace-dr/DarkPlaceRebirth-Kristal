@@ -2631,6 +2631,8 @@ function Battle:update()
                 self:setState("DIALOGUEEND")
             end
         end
+    elseif self.state == "SHORTACTTEXT" then
+        self:updateShortActText()
     end
 
     if self.state ~= "TRANSITIONOUT" then
@@ -2889,6 +2891,27 @@ function Battle:updateWaves()
     end
 end
 
+function Battle:updateShortActText()
+    if Input.pressed("confirm") or Input.down("menu") then
+        if (not self.battle_ui.short_act_text_1:isTyping()) and
+           (not self.battle_ui.short_act_text_2:isTyping()) and
+           (not self.battle_ui.short_act_text_3:isTyping()) then
+            self.battle_ui.short_act_text_1:setText("")
+            self.battle_ui.short_act_text_2:setText("")
+            self.battle_ui.short_act_text_3:setText("")
+            for _,iaction in ipairs(self.short_actions) do
+                self:finishAction(iaction)
+            end
+            self.short_actions = {}
+            self:setState("ACTIONS", "SHORTACTTEXT")
+        end
+    end
+end
+
+---@param string    string
+---@param x         number
+---@param y         number
+---@param color?    table
 function Battle:debugPrintOutline(string, x, y, color)
     color = color or {love.graphics.getColor()}
     Draw.setColor(0, 0, 0, 1)
@@ -3081,6 +3104,17 @@ function Battle:getActiveParty()
     return Utils.filter(self.party, function(party) return not party.is_down end)
 end
 
+--- Resets the enemies index table, closing all gaps in the enemy select menu
+---@param reset_xact? boolean         Whether to also reset the XACT position
+function Battle:resetEnemiesIndex(reset_xact)
+    self.enemies_index = Utils.copy(self.enemies, true)
+    if reset_xact ~= false then
+        self.battle_ui:resetXACTPosition()
+    end
+end
+
+---@param id string
+---@return EnemyBattler
 function Battle:parseEnemyIdentifier(id)
     local args = Utils.split(id, ":")
     local enemies = Utils.filter(self.enemies, function(enemy) return enemy.id == args[1] end)
@@ -3436,20 +3470,7 @@ function Battle:onKeyPressed(key)
     elseif self.state == "BATTLETEXT" then
         -- Nothing here
     elseif self.state == "SHORTACTTEXT" then
-        if Input.isConfirm(key) then
-            if (not self.battle_ui.short_act_text_1:isTyping()) and
-               (not self.battle_ui.short_act_text_2:isTyping()) and
-               (not self.battle_ui.short_act_text_3:isTyping()) then
-                self.battle_ui.short_act_text_1:setText("")
-                self.battle_ui.short_act_text_2:setText("")
-                self.battle_ui.short_act_text_3:setText("")
-                for _,iaction in ipairs(self.short_actions) do
-                    self:finishAction(iaction)
-                end
-                self.short_actions = {}
-                self:setState("ACTIONS", "SHORTACTTEXT")
-            end
-        end
+        -- Nothing here
     elseif self.state == "ENEMYDIALOGUE" then
         -- Nothing here
     elseif self.state == "ACTIONSELECT" then
@@ -3461,6 +3482,7 @@ end
 
 function Battle:handleActionSelectInput(key)
     local actbox = self.battle_ui.action_boxes[self.current_selecting]
+    local old_selected_button = actbox.selected_button
 
     if Input.isConfirm(key) then
         actbox:select()
@@ -3480,12 +3502,8 @@ function Battle:handleActionSelectInput(key)
         return
     elseif Input.is("left", key) then
         actbox.selected_button = actbox.selected_button - 1
-        self.ui_move:stop()
-        self.ui_move:play()
     elseif Input.is("right", key) then
         actbox.selected_button = actbox.selected_button + 1
-        self.ui_move:stop()
-        self.ui_move:play()
     end
 
     if actbox.selected_button < 1 then
@@ -3494,6 +3512,11 @@ function Battle:handleActionSelectInput(key)
 
     if actbox.selected_button > #actbox.buttons then
         actbox.selected_button = 1
+    end
+    
+    if old_selected_button ~= actbox.selected_button then
+        self.ui_move:stop()
+        self.ui_move:play()
     end
 end
 
