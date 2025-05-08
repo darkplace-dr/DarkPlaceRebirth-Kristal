@@ -1,7 +1,7 @@
 local Clock10, super = Class(Event)
 
 function Clock10:init(data)
-    super:init(self, data.center_x, data.center_y, data.width, data.height)
+    super:init(self, data.center_x, data.center_y, {data.width, data.height})
 
     self:setOrigin(0.5, 0.5)
     self:setSprite("clockoff")

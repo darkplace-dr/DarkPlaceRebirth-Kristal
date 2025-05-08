@@ -18,6 +18,9 @@ function LightMenu:init()
 
     self.current_selecting = Game.world.current_selecting or 1
 
+    -- Make sure that we're not selecting a menu that doesn't exist...
+    self.current_selecting = Utils.clamp(self.current_selecting, 1, self:getMaxSelecting())
+
     self.item_selected = 1
 
     -- States: MAIN, ITEMMENU, ITEMUSAGE
@@ -51,6 +54,10 @@ function LightMenu:init()
     self.storage = "items"
 end
 
+function LightMenu:getMaxSelecting()
+    return Game:getFlag("has_cell_phone", false) and 4 or 3
+end
+
 function LightMenu:onAddToStage(stage)
     self.ui_move:stop()
     self.ui_move:play()
@@ -80,11 +87,7 @@ function LightMenu:onKeyPressed(key)
         local old_selected = self.current_selecting
         if Input.is("up", key)    then self.current_selecting = self.current_selecting - 1 end
         if Input.is("down", key) then self.current_selecting = self.current_selecting + 1 end
-        local max_selecting = 3
-        if Game:getFlag("has_cell_phone") then
-            max_selecting = 4
-        end
-        self.current_selecting = Utils.clamp(self.current_selecting, 1, max_selecting)
+        self.current_selecting = Utils.clamp(self.current_selecting, 1, self:getMaxSelecting())
         if old_selected ~= self.current_selecting then
             self.ui_move:stop()
             self.ui_move:play()

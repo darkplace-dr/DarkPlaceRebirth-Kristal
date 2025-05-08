@@ -1,6 +1,6 @@
 local NewYearCountDown, super = Class(Event)
 function NewYearCountDown:init(x, y)
-    super.init(self, x or 80, y or 100, 60*2, 46*2)
+    super.init(self, x or 80, y or 100, {60*2, 46*2})
 
     self.board = Sprite("world/events/new_years_board")
     self.board:play(0.2, true)

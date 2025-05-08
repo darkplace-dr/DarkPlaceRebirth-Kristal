@@ -1,7 +1,7 @@
 local ElevatorButtons, super = Class(Event)
 
 function ElevatorButtons:init(data)
-    super.init(self, data.x, data.y, data.width, data.height)
+    super.init(self, data.x, data.y, {data.width, data.height})
 end
 
 function ElevatorButtons:postLoad()
