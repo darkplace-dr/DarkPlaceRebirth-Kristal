@@ -1,0 +1,12 @@
+{
+    "id": "status_core",
+    "version": "1.0.0",
+    "engineVersion": "0.10.0",
+	"authors": [
+		"AcousticJamm"
+	],
+	"config": {
+		// If true, it will color the status effect icon's colors to the party member that has them.
+		"match_color": true
+	},
+}
