@@ -4,8 +4,8 @@ return function(cutscene)
     local ceroba = cutscene:getCharacter("ceroba")
     if Game.world.map.id == "light/hometown/town_school" then
         if ceroba then
-            cutscene:text("* Why is there only one parking place?", "notsure", ceroba)
-            cutscene:text("* Do you have only one car in town?", "notsure_alt", ceroba)
+            cutscene:text("* Why is there only one parking place?", "unsure", ceroba)
+            cutscene:text("* Do you have only one car in town?", "unsure_alt", ceroba)
             if noelle then
                 cutscene:text("* Oh![wait:10] It's actually because...", "smile", noelle)
                 cutscene:text("* ...", "confused", noelle)
@@ -57,7 +57,7 @@ return function(cutscene)
         end
     elseif Game.world.map.id == "light/hometown/school/unused_class" then
         if ceroba then
-            cutscene:text("* This classroom is...[wait:10] [face:notsure_alt]Quite empty.", "notsure", ceroba)
+            cutscene:text("* This classroom is...[wait:10] [face:unsure_alt]Quite empty.", "unsure", ceroba)
             cutscene:text("* It must be unused then...", "closed_eyes", ceroba)
         else
             cutscene:text("* Your voice echoes aimlessly.")

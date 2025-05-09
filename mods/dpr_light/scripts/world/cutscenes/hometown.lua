@@ -257,6 +257,7 @@ return {
                 "berdly",
                 "brenda",
                 "jamm",
+                "ceroba",
                 "noel"
             }
             local leader_id = Mod:getLeader().id
@@ -898,7 +899,7 @@ return {
         cutscene:text("* If anything,[wait:5] it's gonna be a surprise party!", "smile", "susie")
         cutscene:text("* Man I hope there's lots of cake,[wait:5] ice cream,[wait:5]\nham sandwiches...", "sincere_smile", "susie")
         cutscene:showNametag("Ceroba")
-        cutscene:text("* ...[wait:10]\n[face:notsure_alt]* You're drooling.", "wat", "ceroba")
+        cutscene:text("* ...[wait:10]\n[face:unsure_alt]* You're drooling.", "wat", "ceroba")
         cutscene:showNametag("Susie")
         cutscene:text("* Oh,[wait:5] oops.", "shock_down", "susie")
         cutscene:text("* Besides,[wait:5] even if it IS a trap...", "closed_grin", "susie")
