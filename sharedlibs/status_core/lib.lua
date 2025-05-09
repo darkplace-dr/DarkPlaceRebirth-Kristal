@@ -110,6 +110,127 @@ function Lib:init()
 		end
         orig(self)
     end)
+	if Mod.libs["magical-glass"] and Kristal.getLibConfig("status_core", "magical-glass") then
+		print("[Status CORE] Magical Glass detected and changes allowed.")
+		if LightPartyBattler then
+			Utils.hook(LightPartyBattler, "init", function(orig, self, ...)
+				orig(self, ...)
+				
+				self.statuses = {}	-- status_id: {statcon: status, turn_count: number of turns}
+			end)
+			Utils.hook(LightPartyBattler, "inflictStatus", function(orig, self, status, turns)
+				if self.statuses[status] then
+					self.statuses[status].turn_count = math.max(
+						self.statuses[status].turn_count,
+						(
+							turns or self.statuses[status].statcon.default_turns
+						)
+					)
+				else
+					local effect = Lib:createStatus(status)
+					self.statuses[status] = {statcon = effect, turn_count = (turns or effect.default_turns)}
+					self.statuses[status].statcon:onStatus(self)
+				end
+			end)
+			Utils.hook(LightPartyBattler, "cureStatus", function(orig, self, status)
+				if self.statuses[status] then
+					self.statuses[status].statcon:onCure(self)
+					self.statuses[status] = nil
+				end
+			end)
+			Utils.hook(LightPartyBattler, "update", function(orig, self)
+				orig(self)
+				for id, status in pairs(self.statuses) do
+					status.statcon:onUpdate(self)
+				end
+			end)
+			Utils.hook(LightPartyBattler, "hurt", function(orig, self, amount, exact, color, options)
+				for id, status in pairs(self.statuses) do
+					amount = status.statcon:onHurt(self, amount) or amount
+				end
+				if amount > 0 then
+					orig(self, amount, exact, color, options)
+				end
+			end)
+		end
+		
+		if LightBattle then
+			Utils.hook(LightBattle, "nextTurn", function(orig, self)
+				orig(self)
+				
+				for _, battler in ipairs(Game.battle.party) do
+					for id, status in pairs(battler.statuses) do
+						status.turn_count = status.turn_count - 1
+						
+						if status.turn_count == 0 then
+							battler.statuses[id].statcon:onCure(battler)
+							battler.statuses[id] = nil
+						else
+							battler.statuses[id].statcon:onTurnStart(battler)
+						end
+					end
+				end
+			end)
+			Utils.hook(LightBattle, "onStateChange", function(orig, self, old, new)
+				orig(self, old, new)
+				
+				if new == "ACTIONSDONE" then
+					for _, battler in ipairs(Game.battle.party) do
+						for id, status in pairs(battler.statuses) do
+							status.statcon:onActionsEnd(battler)
+						end
+					end
+				elseif new == "DEFENDINGBEGIN" then
+					for _, battler in ipairs(Game.battle.party) do
+						for id, status in pairs(battler.statuses) do
+							status.statcon:onDefenseStart(battler)
+						end
+					end
+				end
+			end)
+			Utils.hook(LightBattle, "init", function(orig, self, ...)
+				orig(self, ...)
+				local sv = StatusView()
+				sv:setLayer(BATTLE_LAYERS["top"])
+				self:addChild(sv)
+			end)
+			Utils.hook(LightBattle, "draw", function(orig, self)
+				orig(self)
+				
+				for i, battler in ipairs(self.party) do
+					Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
+					local head_icon = Assets.getTexture(battler.chara.head_icons + "/head")
+					love.graphics.draw(head_icon, 600, (i * 28) - 20)
+					
+					x = 566
+					love.graphics.setFont(Assets.getFont("smallnumbers"))
+					for k, status in pairs(battler.statuses) do
+						Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
+						if Kristal.getLibConfig("status_core", "match_color") then
+							Draw.setColor(battler.chara.color)
+						end
+						love.graphics.draw(Assets.getTexture(status.statcon.icon), x + 4, (i * 28) - 16)
+						
+						local width = Assets.getFont("smallnumbers"):getWidth(status.turn_count)
+						Draw.setColor(0, 0, 0, (1 - self.fader.alpha))
+						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 4)
+						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 3)
+						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 5)
+						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 3)
+						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 4)
+						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 3)
+						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 5)
+						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 5)
+						Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
+						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 4)
+						
+						x = x - 24
+					end
+					
+				end
+			end)
+		end
+	end
 end
 
 function Lib:onRegistered()
