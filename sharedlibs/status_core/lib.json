@@ -5,8 +5,14 @@
 	"authors": [
 		"AcousticJamm"
 	],
+	"optionalDependencies": [
+		"magical-glass"
+	],
 	"config": {
 		// If true, it will color the status effect icon's colors to the party member that has them.
-		"match_color": true
+		"match_color": true,
+		
+		// Library dependencies stuff
+		"magical-glass": true
 	},
 }
