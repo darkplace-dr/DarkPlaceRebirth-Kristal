@@ -1075,7 +1075,7 @@ local cliffside = {
     end,
 
     warp_bin = function (cutscene, event)
-        if Game:getFlag("tutor_free_crystal") then
+        if Game:getFlag("susie_freed") then
             cutscene:text("* Bin tutorial goes here. Don't forget.")
             Game.world:mapTransition("main_outdoors/tower_outside")
         else
