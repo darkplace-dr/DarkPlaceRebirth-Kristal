@@ -543,6 +543,7 @@ local cliffside = {
                     susie:convertToFollower()
                     Game:addPartyMember("suzy")
                     Game:unlockPartyMember("suzy")
+                    cutscene:attachCamera()
                     cutscene:wait(cutscene:attachFollowers())
                 else
                     susie.x = Game.world.player.x
@@ -790,6 +791,7 @@ local cliffside = {
                     Game:setFlag("cliffside_susie", true)
                     Game:addPartyMember("susie")
                     Game:unlockPartyMember("susie")
+                    cutscene:attachCamera()
                     cutscene:wait(cutscene:attachFollowers())
                     cutscene:interpolateFollowers()
                     
