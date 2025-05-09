@@ -26,7 +26,7 @@ function map:onEnter()
 
     self.textobjjj:addFX(OutlineFX(COLORS.black))
 
-    if Game:getFlag("tutor_free_crystal") then
+    --[[if Game:getFlag("tutor_free_crystal") then
     else
         if (Game:getFlag("FUN") % 2 == 0) then -- suzy gets all even fun values
     	    local suzy = Game.world:spawnNPC("suzy_lw", 300, 180)
@@ -41,7 +41,7 @@ function map:onEnter()
 	    susie.sprite:addFX(ColorMaskFX({1, 1, 1}))
 
         end
-    end
+    end]]
 
     --local dragon = Game.world:spawnNPC("", 300, 180)
 end

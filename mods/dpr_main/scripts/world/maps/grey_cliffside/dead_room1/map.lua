@@ -1,5 +1,9 @@
 local map, super = Class(Map)
 
+function map:onEnter()
+    super.onEnter(self)
+end
+
 function map:onExit()
     super.onExit(self)
 

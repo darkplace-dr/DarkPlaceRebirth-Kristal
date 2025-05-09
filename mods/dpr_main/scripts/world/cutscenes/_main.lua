@@ -90,7 +90,9 @@ return {
                                 Game.world:startCutscene("_main.snowgraveskip")
                             end)
                         else]]
-                            Game.world:loadMap("grey_cliffside/dead_room1_start", "spawn", "down")
+                            Game.tutorial = true
+                            Game.world:loadMap("grey_cliffside/cliffside_start", nil, "down")
+                            Game.world:startCutscene("cliffside.intro")
                         --end
                     end)
                     cutscene:endCutscene()
@@ -455,9 +457,10 @@ return {
     
             cutscene:after(function()
                 Game:setGlobalFlag("Intro_seen", true)
-                Game.world:loadMap("grey_cliffside/dead_room1_start", "spawn", "down")
+                Game.tutorial = true
+                Game.world:mapTransition("grey_cliffside/cliffside_start", nil, "down")
+                Game.world:startCutscene("cliffside.intro")
             end)
-
         end
     end,
 }

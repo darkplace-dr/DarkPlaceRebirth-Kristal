@@ -280,11 +280,11 @@ local hub = {
                 end
 
                 malius:setAnimation("hit")
-                cutscene:wait(9/15)
                 Assets.playSound("squeaky")
+                cutscene:wait(9/15)
                 malius:setAnimation("hit")
-                cutscene:wait(9/15)
                 Assets.playSound("squeaky")
+                cutscene:wait(9/15)
                 
                 char:resetSprite()
 

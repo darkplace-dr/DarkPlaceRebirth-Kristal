@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 13,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 49,
+  nextlayerid = 8,
+  nextobjectid = 51,
   properties = {
     ["name"] = "Test Map - Room 1"
   },
@@ -121,11 +121,11 @@ return {
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 249, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 264, 0, 294, 295, 366, 367, 368, 0, 253, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 299, 300, 371, 372, 373, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 304, 305, 376, 0, 378, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 381, 0, 383, 0, 0, 0, 268, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 304, 382, 305, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 264, 0, 294, 295, 0, 0, 0, 0, 253, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 299, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 304, 305, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 268, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -137,10 +137,44 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 7,
+      name = "objects_crystal",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 50,
+          name = "neocrystal",
+          class = "",
+          shape = "rectangle",
+          x = 244,
+          y = 91,
+          width = 112,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["char"] = "suzy",
+            ["char_spr"] = "walk/down",
+            ["char_type"] = "light",
+            ["flag"] = "suzy_freed"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 3,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 0.5,
       offsetx = 0,
       offsety = 0,
@@ -151,7 +185,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 120,
@@ -164,7 +198,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 400,
@@ -177,7 +211,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 440,
@@ -190,7 +224,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 440,
@@ -203,7 +237,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 400,
@@ -216,7 +250,7 @@ return {
         {
           id = 38,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 560,
           y = 360,
@@ -234,7 +268,7 @@ return {
         {
           id = 39,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 40,
           y = 360,
@@ -252,7 +286,7 @@ return {
         {
           id = 40,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 160,
           y = 440,
@@ -270,7 +304,7 @@ return {
         {
           id = 41,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 440,
           y = 400,
@@ -288,7 +322,7 @@ return {
         {
           id = 43,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 480,
           y = 160,
@@ -307,7 +341,7 @@ return {
         {
           id = 44,
           name = "",
-          type = "",
+          class = "",
           shape = "polygon",
           x = 120,
           y = 160,
@@ -340,25 +374,9 @@ return {
       properties = {},
       objects = {
         {
-          id = 45,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 240,
-          y = 120,
-          width = 120,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.free_dragon",
-            ["solid"] = true
-          }
-        },
-        {
           id = 47,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 500,
@@ -390,7 +408,7 @@ return {
         {
           id = 20,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 300,
           y = 290,
@@ -403,7 +421,7 @@ return {
         {
           id = 48,
           name = "entry",
-          type = "",
+          class = "",
           shape = "point",
           x = 300,
           y = 480,
