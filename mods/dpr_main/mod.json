@@ -147,6 +147,9 @@
     // Whether the mod is hidden from the mod selection.
     "hidden": false,
 
+    // Make the file selection screen show even when there aren't any existing saves.
+    "useSaves": true,
+
     // Whether the game window's title should be set to the mod's name, and the icon to the image
     // in the file `window_icon.png`.
     // When your mod is configured as the engine's target mod, it's automatically done unless if

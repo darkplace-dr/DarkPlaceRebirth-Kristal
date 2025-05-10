@@ -90,7 +90,9 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
             elseif self.menu.selected_mod["useSaves"] or self.menu.selected_mod["useSaves"] == nil and (not self.menu.selected_mod["encounter"] or self.has_target_saves) then
                 self.menu:setState("FILESELECT")
             else
-                self.menu:setState("FILESELECT")
+                if not Kristal.loadMod(TARGET_MOD, 1) then
+                    error("Failed to load mod: " .. TARGET_MOD)
+                end
             end
 
         elseif option == "dlc" then
