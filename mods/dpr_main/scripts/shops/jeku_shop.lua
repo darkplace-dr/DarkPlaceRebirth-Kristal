@@ -9,6 +9,7 @@ Mod.jeku_memory = {
     meet_jeku = nil,
     meet_jeku_empty = nil,
     met_noel = false,
+    removed_attrib = false,
 
     -- Related to Dark Place Legacy
     remember_legacy = nil,
@@ -29,38 +30,17 @@ Mod.jeku_memory = {
     has_fought = false
 }
 
---[[Mod.jeku_memory = {}
-setmetatable(Mod.jeku_memory, {
-    __index = memory,
-    __newindex = function(t, k, v)
-        if getfenv(2) == Kristal.Console.env then
-            error("What do you think you're doing?")
-        else
-            memory[k] = v
-        end
-    end,
-})
-o_ipairs = ipairs
-function ipairs(t)
-    if t == Mod.jeku_memory then
-        return o_ipairs(memory)
-    end
-    return o_ipairs(t)
-end]]
-
 local function saveJekuMemory()
     if Mod == nil then
         Kristal.Console:warn("Jeku's memory was not saved!! Mod was nil!")
     else
-        if love.filesystem.getInfo(memfile) and love.system.getOS() == "Windows" then -- So turns out LOVE can't modify hidden files. That's annoying.
+        if love.filesystem.getInfo(memfile) and love.system.getOS() == "Windows" and not Mod.jeku_memory["removed_attrib"] then -- If Jeku's memory file is hidden on Windows, unhide it once and for all
+            Mod.jeku_memory["removed_attrib"] = true
             os.execute("attrib -h "..love.filesystem.getSaveDirectory().."/"..memfile)
         end
 
         local ok, err = love.filesystem.write(memfile, JSON.encode(Mod.jeku_memory))
 
-        if love.system.getOS() == "Windows" then
-            os.execute("attrib +h "..love.filesystem.getSaveDirectory().."/"..memfile)
-        end
         if not ok then
             print("Writing error: "..err)
         end
@@ -113,6 +93,7 @@ if Mod.jeku_memory["remember_legacy"] and (Mod.jeku_memory["first_meet_legacy"] 
                 -- But I already made all of this so fuck it we ball
                 if k:find("shop#jeku_shop") or k == "meet_jeku" then
                     Mod.jeku_memory["first_meet_legacy"] = true
+                    break
                 end
             end
 
