@@ -24,6 +24,8 @@ function actor:init()
     self.can_blush = false
 
     self.animations = {
+        ["slide"]               = {"slide", 4/30, true},
+
         ["battle/idle"]         = {"battle/idle", 0.2, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
@@ -55,12 +57,14 @@ function actor:init()
         ["walk/down"] = {1, 2},
         ["walk/right"] = {-2, 0},
         ["walk/left"] = {3, 0},
-        ["walk/up"] = {0, 2},
+        ["walk/up"] = {0, 1},
 
         ["run/down"] = {0, 2},
         ["run/right"] = {-13, -5},
         ["run/left"] = {-8, -5},
         ["run/up"] = {0, 2},
+
+        ["slide"] = {-1, 1},
 
         -- Battle offsets
         ["battle/idle"] = {-6, -6},
@@ -91,6 +95,10 @@ function actor:init()
     }
 
     --self.taunt_sprites = {"super_move", "the_roba"}
+
+    self.shiny_id = "ceroba"
+
+    self.menu_anim = "cool"
 end
 
 function actor:onWorldDraw(chara)
