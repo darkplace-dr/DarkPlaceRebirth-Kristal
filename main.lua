@@ -202,6 +202,9 @@ BallJumpSCoin = require("src.engine.game.minigames.balljump.balljumpscoin")
 BallJumpSpikeF = require("src.engine.game.minigames.balljump.balljumpspikef")
 BallJumpSpiny = require("src.engine.game.minigames.balljump.balljumpspiny")
 
+RareCats = require("src.engine.game.minigames.rarecats.rarecats")
+RareCatsEntity = require("src.engine.game.minigames.rarecats.rarecatsentity")
+
 SaveMenu = require("src.engine.game.world.ui.savemenu")
 SimpleSaveMenu = require("src.engine.game.world.ui.simplesavemenu")
 LightSaveMenu = require("src.engine.game.world.ui.lightsavemenu")
