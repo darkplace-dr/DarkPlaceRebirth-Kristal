@@ -57,7 +57,7 @@ function actor:init()
         ["walk/down"] = {1, 2},
         ["walk/right"] = {-2, 0},
         ["walk/left"] = {3, 0},
-        ["walk/up"] = {0, 2},
+        ["walk/up"] = {0, 1},
 
         ["run/down"] = {0, 2},
         ["run/right"] = {-13, -5},
@@ -93,6 +93,8 @@ function actor:init()
     }
 
     self.taunt_sprites = {"super_move", "the_roba"}
+
+    self.shiny_id = "ceroba"
 end
 
 function actor:onWorldDraw(chara)
