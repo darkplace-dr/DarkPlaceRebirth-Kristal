@@ -322,6 +322,8 @@ ConcentrateBG = require("src.engine.game.battle.bg.concentratebg")
 Shop = require("src.engine.game.shop")
 Shopkeeper = require("src.engine.game.shop.shopkeeper")
 
+Disconnection = require("src.engine.game.disconnection")
+
 Border = require("src.engine.border")
 ImageBorder = require("src.engine.imageborder")
 
