@@ -15,7 +15,7 @@ function Console:init()
 
     self.history = {}
 
-    self:push("Welcome to [color:cyan]KRISTAL[color:reset]! This is the debug console.")
+    self:push("Welcome to [color:2C00AE]DARK PLACE[color:reset]! This is the debug console.")
     self:push("You can enter Lua here to be ran! Use [color:gray]clear()[color:reset] to clear the console.")
     self:push("")
 
