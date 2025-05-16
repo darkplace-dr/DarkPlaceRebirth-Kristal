@@ -13,10 +13,10 @@ function item:init()
     self.light = true
 
     -- Item description text (unused by light items outside of debug menu)
-    self.description = "Made from high quality materials."
+    self.description = "A big, red ribbon with a yellow bell.\nMade from high quality rope materials."
 
     -- Light world check text
-    self.check = "Armor 7 DF\n* Made from high quality\nmaterials."
+    self.check = {"Armor 7 DF\n* A big,[wait:5] red ribbon with a\nyellow bell.", "* Made from high quality rope materials."}
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"

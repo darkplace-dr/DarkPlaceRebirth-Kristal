@@ -18,10 +18,10 @@ function item:init()
     self.can_sell = true
 
     -- Item description text (unused by light items outside of debug menu)
-    self.description = "Belongs to Ceroba Ketsukane."
+    self.description = "A powerful staff with a yellow bell and a red ribbon."
 
     -- Light world check text
-    self.check = "Weapon\nAT 1 MG 2\n* Belongs to Ceroba Ketsukane."
+    self.check = {"Weapon\nAT 1 MG 2", "* A powerful staff with a yellow bell and a red ribbon."}
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"

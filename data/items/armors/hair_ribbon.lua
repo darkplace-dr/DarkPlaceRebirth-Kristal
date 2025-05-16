@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Medium sized hair ribbon.\nIncreases tension gained by 20%."
+    self.description = "Big sized beige rope ribbon with a white bell.\nIncreases tension gained by 20%."
 
     -- Default shop price (sell price is halved)
     self.price = 400
