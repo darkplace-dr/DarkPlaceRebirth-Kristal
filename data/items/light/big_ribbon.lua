@@ -12,6 +12,8 @@ function item:init()
     -- Whether this item is for the light world
     self.light = true
 
+    self.price = 200
+
     -- Item description text (unused by light items outside of debug menu)
     self.description = "A big, red ribbon with a yellow bell.\nMade from high quality rope materials."
 
