@@ -35,7 +35,7 @@ function StatusView:draw()
 		love.graphics.setFont(self.statfont)
 		for _, status in pairs(Game.battle.party[Game.battle.current_selecting].statuses) do
 			local width, wrappedtext = self.statfont:getWrap( string.upper(status.statcon.name) .. " - " .. status.statcon.desc, 433 )
-			love.graphics.printf(wrappedtext, 24, y + 40, 433, "center")
+			love.graphics.printf(wrappedtext, 24, y + 40, 433)
 			love.graphics.draw(Assets.getTexture(status.statcon.icon), 0, y + 40)
 			
 			y = y + 6 + math.max((#wrappedtext*16) + 8, 24)

@@ -8,7 +8,7 @@ function Lib:init()
 		
 		self.statuses = {}	-- status_id: {statcon: status, turn_count: number of turns}
     end)
-    Utils.hook(PartyBattler, "inflictStatus", function(orig, self, status, turns)
+    Utils.hook(PartyBattler, "inflictStatus", function(orig, self, status, turns, ...)
 		if self.statuses[status] then
 			self.statuses[status].turn_count = math.max(
 				self.statuses[status].turn_count,
@@ -17,7 +17,7 @@ function Lib:init()
 				)
 			)
 		else
-			local effect = Lib:createStatus(status)
+			local effect = Lib:createStatus(status, ...)
 			self.statuses[status] = {statcon = effect, turn_count = (turns or effect.default_turns)}
 			self.statuses[status].statcon:onStatus(self)
 		end
@@ -41,6 +41,16 @@ function Lib:init()
 		if amount > 0 then
 			orig(self, amount, exact, color, options)
 		end
+		for _,battler in ipairs(Game.battle.party) do
+			if battler ~= self then
+				for id, status in pairs(battler.statuses) do
+					status.statcon:onOtherHurt(battler, self, amount)
+				end
+			end
+		end
+    end)
+    Utils.hook(PartyBattler, "hasStatus", function(orig, self, status)
+		return (self.statuses[status] ~= nil)
     end)
     
     Utils.hook(Battle, "nextTurn", function(orig, self)
@@ -82,7 +92,19 @@ function Lib:init()
 		sv:setLayer(BATTLE_LAYERS["top"])
 		self:addChild(sv)
     end)
-    
+
+	Utils.hook(PartyMember, "getStat", function (orig, pm, name, default, light)
+        local value = orig(pm, name, default, light)
+        if Game.battle then
+            local battler = Game.battle:getPartyBattler(pm.id)
+            for id, status in pairs(battler.statuses) do
+                ---@cast status {statcon:StatusCondition}
+                value = status.statcon:applyStatModifier(name, value)
+            end
+        end
+        return value
+    end)
+
     Utils.hook(ActionBoxDisplay, "draw", function(orig, self)
 		local i = 0
 		love.graphics.setFont(Assets.getFont("smallnumbers"))
@@ -106,6 +128,20 @@ function Lib:init()
 			Draw.setColor(1, 1, 1, 1)
 			love.graphics.print(status.turn_count, (i * 24) + 26 - width, -12)
 			
+			if status.statcon.amplifier and status.statcon.amplifier >= 1 then
+				Draw.setColor(0, 0, 0, 1)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -28)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -27)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -29)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -27)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -28)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -27)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -29)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -29)
+				Draw.setColor(1, 1, 1, 1)
+				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -28)
+			end
+			
 			i = i + 1
 		end
         orig(self)
@@ -118,7 +154,7 @@ function Lib:init()
 				
 				self.statuses = {}	-- status_id: {statcon: status, turn_count: number of turns}
 			end)
-			Utils.hook(LightPartyBattler, "inflictStatus", function(orig, self, status, turns)
+			Utils.hook(LightPartyBattler, "inflictStatus", function(orig, self, status, turns, ...)
 				if self.statuses[status] then
 					self.statuses[status].turn_count = math.max(
 						self.statuses[status].turn_count,
@@ -127,7 +163,7 @@ function Lib:init()
 						)
 					)
 				else
-					local effect = Lib:createStatus(status)
+					local effect = Lib:createStatus(status, ...)
 					self.statuses[status] = {statcon = effect, turn_count = (turns or effect.default_turns)}
 					self.statuses[status].statcon:onStatus(self)
 				end
@@ -151,6 +187,16 @@ function Lib:init()
 				if amount > 0 then
 					orig(self, amount, exact, color, options)
 				end
+				for _,battler in ipairs(Game.battle.party) do
+					if battler ~= self then
+						for id, status in pairs(battler.statuses) do
+							status.statcon:onOtherHurt(battler, self, amount)
+						end
+					end
+				end
+			end)
+			Utils.hook(LightPartyBattler, "hasStatus", function(orig, self, status)
+				return (self.statuses[status] ~= nil)
 			end)
 		end
 		
@@ -223,6 +269,20 @@ function Lib:init()
 						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 5)
 						Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
 						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 4)
+						
+						if status.statcon.amplifier and status.statcon.amplifier >= 1 then
+							Draw.setColor(0, 0, 0, 1)
+							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 20)
+							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 19)
+							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 21)
+							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 19)
+							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 20)
+							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 19)
+							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 21)
+							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 21)
+							Draw.setColor(1, 1, 1, 1)
+							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 20)
+						end
 						
 						x = x - 24
 					end
