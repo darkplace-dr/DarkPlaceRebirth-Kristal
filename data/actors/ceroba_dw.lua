@@ -104,12 +104,17 @@ end
 function actor:onWorldDraw(chara)
     local player = Game.world.player
 
-    if player.run_timer > 0 and self.default == "walk" then
-        self.default = "run"
-        chara:resetSprite()
-    elseif self.default == "run" and player.run_timer == 0 then
+    if Game.world.cutscene then
         self.default = "walk"
         chara:resetSprite()
+    else
+        if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
+            self.default = "run"
+            chara:resetSprite()
+        elseif self.default == "run" and player.run_timer == 0 then
+            self.default = "walk"
+            chara:resetSprite()
+        end
     end
 
 end
