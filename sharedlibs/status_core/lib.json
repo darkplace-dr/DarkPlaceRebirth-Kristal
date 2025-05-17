@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "engineVersion": "0.10.0",
 	"authors": [
-		"AcousticJamm"
+		"AcousticJamm",
+		"HyperBoid"
 	],
 	"optionalDependencies": [
 		"magical-glass"

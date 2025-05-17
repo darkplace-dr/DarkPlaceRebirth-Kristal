@@ -22,6 +22,9 @@ function StatusCondition:init()
 	-- Default turn counter.
 	self.default_turns = 3
 	
+	-- Default amplifier. If greater than zero, will display.
+	self.amplifier = 0
+	
 	-- The icon of the effect.
 	self.icon = "ui/status/burn"
 end
@@ -42,9 +45,17 @@ function StatusCondition:onActionsEnd(battler) end
 function StatusCondition:onDefenseStart(battler) end
 
 -- *(Override)* Called when the battler gets damaged.
+---@return number new_amount -- The new attack damage
 function StatusCondition:onHurt(battler, amount) return amount end
+
+-- *(Override)* Called when other battlers gets damaged.
+function StatusCondition:onOtherHurt(battler, other, amount) end
 
 -- *(Override)* Called when the status effect is cured.
 function StatusCondition:onCure(battler) end
+
+-- *(Override)* Called when a stat is gotten from a PartyMember.
+---@return number new_value -- The new value of the stat
+function StatusCondition:applyStatModifier(stat, value) return value end
 
 return StatusCondition
