@@ -173,4 +173,11 @@ function character:getMinimemberID()
     return super.getMinimemberID(self)
 end
 
+function character:getGameOverMessage(main)
+    return {
+        "Hey, I believe we\ncan do this.",
+        main:getName()..",[wait:5]\nlet's try again!"
+    }
+end
+
 return character
