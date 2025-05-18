@@ -74,6 +74,11 @@ function actor:init()
         ["walk/right"] = {0, 0},
         ["walk/up"] = {0, 0},
         ["walk/down"] = {0, 0},
+		
+        ["walk_serious/left"] = {0, 0},
+        ["walk_serious/right"] = {0, 0},
+        ["walk_serious/up"] = {0, 0},
+        ["walk_serious/down"] = {0, 0},
 
         ["slide"] = {0, 0},
 
@@ -112,6 +117,11 @@ function actor:init()
         ["walk/up"] = "walk_shadowed/down",
         ["walk/left"] = "walk_shadowed/left",
         ["walk/right"] = "walk_shadowed/right",
+		
+        ["walk_serious/down"] = "walk_shadowed/up",
+        ["walk_serious/up"] = "walk_shadowed/down",
+        ["walk_serious/left"] = "walk_shadowed/left",
+        ["walk_serious/right"] = "walk_shadowed/right",
     }
 
     self.taunt_sprites = {"box", "bs_win", "maid", "bt"}
