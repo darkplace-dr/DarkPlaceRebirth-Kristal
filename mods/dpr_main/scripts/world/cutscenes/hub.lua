@@ -828,6 +828,341 @@ local hub = {
         end
     end,
 
+    sans_under_attack = function(cutscene, event, chara)
+        if chara.sprite.facing == "up" then
+            local sans = Game.world:getCharacter("sans")
+            if not sans then event:remove() cutscene:endCutscene() return end
+            --TODO: The cutscene if Susie is not in the party
+            if not cutscene:getCharacter("susie") then event:remove() cutscene:endCutscene() return end
+            Game.world.music:fade(0, 1, function() Game.world.music:stop() end)
+            sans.x = 462
+			
+            local metalsonic_plush = Game.world:getEvent(82)
+            local save = Game.world:getEvent(48)
+            metalsonic_plush.visible = false
+            save.visible = false
+
+            local shadowguy1 = Game.world:spawnNPC("shadowguy", sans.x - 143, sans.y + 40)
+            shadowguy1.flip_x = true
+            local shadowguy2 = Game.world:spawnNPC("shadowguy", sans.x + 90, sans.y + 40)
+            shadowguy1.sprite:stop(false)
+            shadowguy2.sprite:stop(false)
+            Game.world:addChild(shadowguy1)
+            Game.world:addChild(shadowguy2)
+
+            cutscene:textTagged("* Listen closely, ya little skelepunk.", nil, shadowguy1, { nametag = "???" })
+
+            cutscene:wait(cutscene:panTo(sans))
+
+            cutscene:setTextboxTop(false)
+            shadowguy2.sprite:stop(false)
+            shadowguy1:play(1/4)
+            cutscene:textTagged("* We only gave ya one job: preventing folks from enterin' that elevator.", nil, shadowguy1, { nametag = "Shadowguy 1" })
+            cutscene:textTagged("* And ya didn't even do it properly??", nil, shadowguy1, { nametag = "Shadowguy 1" })
+            shadowguy1.sprite:stop(false)
+            sans:setFacing("left")
+            cutscene:textTagged("* well it's working now,[wait:5] isn't it?", "look_left", "sans")
+            sans:setFacing("right")
+            shadowguy2:play(1/4)
+            cutscene:textTagged("* Don't play dumb with us,[wait:5] skeleman.", nil, shadowguy2, { nametag = "Shadowguy 2" })
+            cutscene:textTagged("* The BOSS ain't happy with what he heard.[wait:5] So ya gonna come with us right now or else-", nil, shadowguy2, { nametag = "Shadowguy 2" })
+            shadowguy2.sprite:stop(false)
+
+            --TODO: Make the party members walk along the stairways of the map, instead of walking on air.
+            cutscene:detachFollowers()
+            local moved_player = cutscene:walkTo(chara, 400, 260, 2)
+            local move_party = {}
+            local nb_followers = #Game.world.followers
+            for i,follower in ipairs(Game.world.followers) do
+                if i == 1 then
+                    table.insert(move_party, cutscene:walkTo(follower, 520, 260, 2))
+                elseif i == 2 then
+                    if nb_followers == 3 then
+                        table.insert(move_party, cutscene:walkTo(follower, 400, 330, 2))
+                    else
+                        table.insert(move_party, cutscene:walkTo(follower, 300, 330, 2))
+                    end
+                elseif i == 3 then
+                    table.insert(move_party, cutscene:walkTo(follower, 520, 330, 2))
+                end
+            end
+
+            sans:setFacing("down")
+            cutscene:textTagged("* HEY!", "angry", "susie")
+
+            cutscene:wait(function()
+                local moved_followers = true
+
+                for k,func in pairs(move_party) do
+                    if not func() then
+                        moved_followers = false
+                        break
+                    end
+                end
+
+                return moved_player() and moved_followers
+            end)
+
+            cutscene:setTextboxTop(false)
+            shadowguy1:play(1/4)
+            cutscene:text("* What do ya want, kids?", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+            shadowguy1.sprite:stop(false)
+            shadowguy2:play(1/4)
+            cutscene:text("* It's adult talkin' here, so \nget lost.", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+            shadowguy2.sprite:stop(false)
+            cutscene:text("* Threats over an elevator don't sound very \"adult\" to me.", "annoyed", "susie")
+            cutscene:text("* So how about YOU get lost instead?", "teeth_smile", "susie")
+            shadowguy2:play(1/4)
+            cutscene:text("* So ya think y'all are tough 'cause you can show your teeths, girl?", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+            shadowguy2.sprite:stop(false)
+            shadowguy1:play(1/4)
+            cutscene:text("* Fine by us. You walked right into that one anyway!", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+            shadowguy1.sprite:stop(false)
+            cutscene:hideNametag()
+
+
+            cutscene:startEncounter("shadowguy", nil, {shadowguy1, shadowguy2})
+            shadowguy1.visible = true --No idea why it gets hidden
+
+
+            if Game:getFlag("shadowguy_violence", false) then
+                if Game:getFlag("shadowguy_special_end", nil) == "FROZEN" then
+                    local susie = cutscene:getCharacter("susie")
+                    susie:setSprite("shock")
+                    susie:setFacing("down")
+                    susie:shake()
+                    cutscene:wait(1)
+
+                    if cutscene:getCharacter("hero") then
+                        cutscene:textTagged("* ...", "shocked", "hero")
+                    end
+                    cutscene:textTagged("* Uhhhh...", "shock_nervous", "susie")
+                    if cutscene:getCharacter("dess") then
+                        cutscene:textTagged("* ", "wtf", "dess")
+                        cutscene:textTagged("* Holy shit", "wtf", "dess")
+                    end
+                    susie:setSprite("walk")
+                    susie:setFacing("up")
+                    cutscene:textTagged("* wow kids. that's some powerful magic you got there.", "look_left", "sans")
+                    cutscene:textTagged("* you should totally NOT use it on random folks, y'know?", "wink", "sans")
+                    cutscene:textTagged("* I, uh... I guess so, yeah.", "sus_nervous", "susie")
+                    cutscene:textTagged("* ("..Game.world.player.actor.name:upper()..", WHAT THE HELL WAS THAT???)", "teeth", "susie")
+                    cutscene:textTagged("* i think you guys should go before someone else see this.", "neutral", "sans")
+                    cutscene:textTagged("* wouldn't want to get in trouble, right?", "look_left", "sans")
+                    cutscene:textTagged("* You're, uh.. Okay with what just happened?", "sus_nervous", "susie")
+                    cutscene:textTagged("* let's just say that as long as you've learn your lesson and don't do it again..", "eyes_closed", "sans")
+                    cutscene:textTagged("* i'll keep my eyes closed.", "wink", "sans")
+                    cutscene:textTagged("* Okay... Cool... I guess.", "sus_nervous", "susie")
+                    cutscene:textTagged("* Let's go, then.", "nervous", "susie")
+                elseif Game:getFlag("shadowguy_special_end", nil) == "KILLED" then
+                    cutscene:wait(1)
+
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* ...", "sad_frown", "susie")
+                    if cutscene:getCharacter("hero") then
+                        cutscene:textTagged("* ...", "shade", "hero")
+                    end
+                    if cutscene:getCharacter("dess") then
+                        cutscene:textTagged("* ...", "wtf", "dess")
+                    end
+                    cutscene:textTagged("* ...", "look_left", "sans")
+                    cutscene:textTagged("* ("..Game.world.player.actor.name:upper()..", WHAT THE HELL???)", "teeth", "susie")
+                    cutscene:textTagged("* So, uh...", "sus_nervous", "susie")
+                    cutscene:textTagged("* did your parents never tell you that killing was bad?", "wink", "sans")
+                    cutscene:textTagged("* Well...", "shy_down", "susie")
+                    if cutscene:getCharacter("dess") then
+                        cutscene:textTagged("* We did it for the vine.[react:1]", "wink", "dess", {reactions={
+                            {"(BE SERIOUS!!)", "right", "bottommid", "teeth", "susie"}
+                        }})
+                    end
+                    cutscene:textTagged("* eh,[wait:5] don't sweat too much about it.", "look_left", "sans")
+                    cutscene:textTagged("* as long as you've learn not to do it again, it's fine.", "neutral", "sans")
+                    cutscene:textTagged("* Are you... For real?", "nervous", "susie")
+                    cutscene:textTagged("* as real as can be.", "joking", "sans")
+                    cutscene:textTagged("* ...", "nervous_side", "susie")
+                    cutscene:textTagged("* Then I guess we'll just go then.", "smirk", "susie")
+                    cutscene:textTagged("* Go and do some good deeds... Yeah...", "nervous", "susie")
+                    cutscene:textTagged("* alright, later kids.", "wink", "sans")
+                else
+                    shadowguy1:play(1/4)
+                    shadowguy2.sprite:stop(false)
+                    cutscene:textTagged("* W-[wait:2]Wow wow! Come on, kids! We don't have to get to such extremes, ya know..?", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                    shadowguy2:play(1/4)
+                    shadowguy1.sprite:stop(false)
+                    cutscene:textTagged("* Yeah, let's all have a nice discussion, adults to teens..!", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+                    shadowguy2.sprite:stop(false)
+                    cutscene:textTagged("* Scram.[wait:10] Now.", "bangs_teeth", "susie")
+                    shadowguy1:play(1/4)
+                    shadowguy2:play(1/4)
+                    cutscene:textTagged("* Y-[wait:2]Yes m'am!", nil, shadowguy1, { nametag = "Shadowguys 1 & 2" } )
+
+                    cutscene:slideTo(shadowguy2, sans.x + 110, shadowguy2.y)
+
+                    cutscene:wait(cutscene:slideTo(shadowguy1, sans.x - 163, shadowguy1.y))
+
+                    Game.world.timer:after(0.5, function()
+                        for _, member in ipairs(Game.party) do
+                            cutscene:look(cutscene:getCharacter(member.id), "down")
+                        end
+                    end)
+
+                    cutscene:slideTo(shadowguy2, shadowguy2.x, 355)
+                    cutscene:wait(cutscene:slideTo(shadowguy1, shadowguy1.x, 355))
+				
+                    cutscene:slideTo(shadowguy1, shadowguy1.x - 80, shadowguy1.y)
+                    cutscene:wait(cutscene:slideTo(shadowguy2, shadowguy2.x + 80, shadowguy2.y))
+				
+                    cutscene:slideTo(shadowguy2, shadowguy2.x, 600)
+                    cutscene:wait(cutscene:slideTo(shadowguy1, shadowguy1.x, 600))
+
+                    cutscene:wait(1)
+
+                    cutscene:textTagged("* welp...[wait:5] that was something.", "look_left", "sans")
+                    cutscene:textTagged("* Yeah uh...[wait:5]\n* Maybe we went a bit overboard.", "neutral", "susie")
+                    cutscene:textTagged("* hey,[wait:5] don't beat yourself over it too much.", "neutral", "sans")
+                    cutscene:textTagged("* it's not like they're dead or something.", "wink", "sans")
+                    cutscene:textTagged("* ...Sure...", "suspicious", "susie")
+                    cutscene:textTagged("* But anyway,[wait:2] I think we'll just go.", "nervous", "susie")
+                    cutscene:textTagged("* Cool to talk to you and save your ass,[wait:2] I guess??", "nervous_side", "susie")
+                    cutscene:textTagged("* anytime, kid.", "wink", "sans")
+                end
+            else
+                shadowguy1:play(1/4)
+                cutscene:textTagged("* Hey kids! You're pretty cool actually!", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                local nb_to_text = {"", " two", " three", " four"}
+                cutscene:textTagged("* The boss would love to hear from folks like you"..nb_to_text[#Game.party].."!", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                shadowguy2:play(1/4)
+                shadowguy1.sprite:stop(false)
+                cutscene:textTagged("* Whaddya say?[wait:2]\n* You could go on the big screen in no time!", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+                shadowguy2.sprite:stop(false)
+                cutscene:textTagged("* Yeah uh,[wait:5] how about you just get lost like we said before the battle?", "annoyed", "susie")
+                cutscene:textTagged("* And also leave that guy alone.", "neutral_side", "susie")
+                if cutscene:getCharacter("dess") then
+                    cutscene:textTagged("* But Susie imagine all the fame and money that could come with it", "genuine_b", "dess")
+                    cutscene:textTagged("* That's...[wait:5] not something that interest me.", "nervous", "susie")
+                    cutscene:textTagged("* Less for you more for me I guess.", "condescending", "dess")
+                    cutscene:textTagged("* Where could I star in?", "genuine", "dess")
+                    shadowguy1:play(1/4)
+                    cutscene:textTagged("* Hmm... That dumb look on ya face..", shadowguy1, { nametag = "Shadowguy 1" } )
+                    cutscene:textTagged("* What's 9+10?", shadowguy1, { nametag = "Shadowguy 1" } )
+                    shadowguy1.sprite:stop(false)
+                    cutscene:textTagged("* 21 yuh", "wink", "dess")
+                    cutscene:textTagged("* ...", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                    cutscene:textTagged("* ...", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+                    shadowguy2:play(1/4)
+                    shadowguy1:play(1/4)
+                    cutscene:textTagged("* Perfect for reality shows.", nil, shadowguy1, { nametag = "Shadowguys 1 & 2" } )
+                    shadowguy1.sprite:stop(false)
+                end
+                shadowguy2:play(1/4)
+                cutscene:textTagged("* Okay,[wait:5] here's what we gonna do.", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+                cutscene:textTagged("* We're gonna leave your lil' skelefriend here be...", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+				
+                local leader_surnames = {
+                    hero = "human",
+                    kris = "blue person",
+                    susie = "purple dino",
+                    noelle = "nice deer",
+                    berdly = "twitter bird",
+                    dess = "dumb deer",
+                    brenda = "gunslingin' gal",
+                    dumbie = "dummy",
+                    bor = "ball",
+                    osw = "unoriginal",
+                    jamm = "thunder guy"
+                }
+                cutscene:textTagged("* But you,[wait:5] the "..(leader_surnames[Game.world.player.actor.id] or "leader")..",[wait:5] take our number!", nil, shadowguy2, { nametag = "Shadowguy 2" } )
+
+                local leader = cutscene:getCharacter(Game.world.player.actor.id)
+                local x, y = shadowguy2:getPosition()
+                cutscene:wait(cutscene:slideTo(shadowguy2, leader.x + shadowguy2.width/2, leader.y - 20))
+                Assets.playSound("item")
+                cutscene:text("* (You've got the Shadowguys' number!)")
+                cutscene:text("* ...despite the fact that you can't make calls in the Dark World.)")
+                cutscene:wait(cutscene:slideTo(shadowguy2, x, y))
+                shadowguy1:play(1/4)
+                shadowguy2.sprite:stop(false)
+                cutscene:textTagged("* If you ever feel like becoming superstars, we'll always be one call ahead!", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                cutscene:textTagged("* Later![wait:5] The showbiz doesn't wait!", nil, shadowguy1, { nametag = "Shadowguy 1" } )
+                shadowguy1.sprite:stop(false)
+                cutscene:hideNametag()
+
+                cutscene:slideTo(shadowguy2, sans.x + 110, shadowguy2.y)
+
+                cutscene:wait(cutscene:slideTo(shadowguy1, sans.x - 163, shadowguy1.y))
+
+                Game.world.timer:after(0.5, function()
+                    for _, member in ipairs(Game.party) do
+                        cutscene:look(cutscene:getCharacter(member.id), "down")
+                    end
+                end)
+
+                cutscene:slideTo(shadowguy2, shadowguy2.x, 355)
+                cutscene:wait(cutscene:slideTo(shadowguy1, shadowguy1.x, 355))
+				
+                cutscene:slideTo(shadowguy1, shadowguy1.x - 80, shadowguy1.y)
+                cutscene:wait(cutscene:slideTo(shadowguy2, shadowguy2.x + 80, shadowguy2.y))
+				
+                cutscene:slideTo(shadowguy2, shadowguy2.x, 600)
+                cutscene:wait(cutscene:slideTo(shadowguy1, shadowguy1.x, 600))
+
+                cutscene:wait(1)
+
+                for _, member in ipairs(Game.party) do
+                    cutscene:look(cutscene:getCharacter(member.id), "up")
+                end
+
+                cutscene:textTagged("* welp.[wait:2]\n* that was something.", "neutral", "sans")
+                cutscene:textTagged("* thanks kids.[wait:5]\n* i own you one.", "wink", "sans")
+                cutscene:textTagged("* Yeah uh...[wait:5]\n* No problem,[wait:2] I guess.", "neutral", "susie")
+                cutscene:textTagged("* and i know exactly what you kids want.", "neutral", "sans")
+                cutscene:textTagged("* ...?", "nervous_side", "susie")
+                cutscene:textTagged("* you're free to use the elevator whenever you like.[wait:5] isn't that cool?", "joking", "sans")
+                cutscene:textTagged("* Didn't we already have access to it?", "sus_nervous", "susie")
+                cutscene:textTagged("* yeah,[wait:2] but now it's official access.", "wink", "sans")
+                cutscene:textTagged("* ...Sure...", "suspicious", "susie")
+                cutscene:textTagged("* But anyway,[wait:2] I think we'll just go.", "nervous", "susie")
+                cutscene:textTagged("* Cool to talk to you and save your ass,[wait:2] I guess??", "nervous_side", "susie")
+                cutscene:textTagged("* anytime, kid.", "wink", "sans")
+            end
+
+            cutscene:getCharacter(Game.world.player.actor.id):setFacing("down")
+            cutscene:wait(cutscene:walkTo(Game.world.player.actor.id, sans.x, Game.world.player.y, 1))
+            cutscene:wait(cutscene:alignFollowers())
+            cutscene:wait(cutscene:attachFollowers())
+            cutscene:attachCameraImmediate()
+            shadowguy1:remove()
+            shadowguy2:remove()
+            -- Don't ask me why, I don't know either
+            shadowguy1.sprite:remove()
+            shadowguy2.sprite:remove()
+
+            cutscene:wait(0.5)
+
+            cutscene:fadeOut(0)
+            Assets.playSound("noise")
+            cutscene:wait(0.5)
+            cutscene:getCharacter("sans"):remove()
+            metalsonic_plush.visible = true
+            save.visible = true
+            Assets.playSound("noise")
+            cutscene:fadeIn(0)
+
+            cutscene:wait(0.5)
+
+            if Game:getFlag("shadowguy_special_end", nil) ~= nil then
+                local sfx = Assets.playSound("ominous")
+                cutscene:wait(function()
+                    return not sfx:isPlaying()
+                end)
+            end
+
+            Game.world.music:play(nil, 1)
+            event:remove()
+            event:setFlag("dont_load", true)
+        end
+    end,
+
     wah = function(cutscene, event)
         if event.interact_count == 1 then
             -- The 1st WAH!

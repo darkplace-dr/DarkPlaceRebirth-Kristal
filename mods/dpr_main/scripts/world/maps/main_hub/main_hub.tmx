@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="88">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="89">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -289,6 +289,13 @@
   </object>
   <object id="87" name="nazrin" x="220" y="540">
    <point/>
+  </object>
+  <object id="88" name="script" x="200" y="520" width="520" height="40">
+   <properties>
+    <property name="cond" value="Game:getFlag(&quot;FUN&quot;, 0) &gt; 40 and Game:getFlag(&quot;FUN&quot;, 0) &lt; 50 and Game:getFlag(&quot;hasPushedSans&quot;)"/>
+    <property name="cutscene" value="hub.sans_under_attack"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="4" name="markers">
