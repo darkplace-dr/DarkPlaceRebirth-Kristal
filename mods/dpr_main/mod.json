@@ -78,6 +78,8 @@
 		"RICK": "[style:GONER][spacing:3.2]GET RICKROLLED, \nCHUCKLENUTS.",
 		"ASRIEL": "", //No message cause it covers up the text in the video lol.
 		"DECEMBER": "[style:none][spacing:0]OH MY GOD! DECEMBER! DECEMBER! DECEMBER! DECEM",
+		"YES": "[style:GONER][spacing:3.2]NO",
+		"NO": "[style:GONER][spacing:3.2]YES",
 	
 		// Challenges
 		// FIXME: Should we use the GONER style on these lower-case messages?
@@ -99,6 +101,7 @@
 		"SPAMTON",
 		"MORSHU",
 		"NOEL",
+		"YES",
 		"CEROBA"
 	],
 	// Names that crash the game.
