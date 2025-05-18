@@ -37,7 +37,7 @@ function actor:init()
     -- Path to this actor's portrait for dialogue (optional)
     self.portrait_path = "face/sans"
     -- Offset position for this actor's portrait (optional)
-    self.portrait_offset = {-8, 0}
+    self.portrait_offset = {-3, 0}
 
     -- Whether this actor as a follower will blush when close to the player
     self.can_blush = false
