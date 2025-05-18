@@ -1643,6 +1643,57 @@ local hub = {
             cutscene:textTagged("* Such are the pros of being illiterate", "condescending", "dess")
         end
     end,
+
+    diagonal_mario = function(cutscene, event)
+        local susie = cutscene:getCharacter("susie")
+        local diagonal_mario = cutscene:getCharacter("diagonal_mario")
+        cutscene:setTextboxTop(true)
+        cutscene:textTagged("* Cease and desist,[wait:5] you fucking idiot", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A."})
+        if cutscene:getCharacter("susie") then
+            cutscene:textTagged("* Yeah?[wait:5]\n* Or what?", "annoyed", "susie")
+            cutscene:textTagged("* DMCA", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A."})
+            if Game.party[2].id == "noel" then
+			    cutscene:showNametag("Noel")
+                cutscene:text("[speed:2]* SURPRISE ATTACK GORDON!!!", "loud", "noel", { auto = true })
+                diagonal_mario:explode()
+            else
+                cutscene:text("* Well,[wait:5] shi--", "shock", "susie", { auto = true })
+                Game:removePartyMember("susie")
+                susie:remove()
+                Game:setFlag("susie_party", false)
+            end
+        elseif Game:isDessMode() then
+            Game.world.music:pause()
+            Assets.playSound("no_fuck_off")
+            cutscene:textTagged("[noskip][voice:nil]* no,[wait:2.5] fuck off[wait:7.5]", "dess.exe", "dess", {auto = true})
+
+            local beam_of_death = Rectangle(diagonal_mario.x, 0, 1, diagonal_mario.y)
+            beam_of_death = Rectangle(diagonal_mario.x, 0, 1, diagonal_mario.y)
+            beam_of_death.layer = diagonal_mario.layer - 0.1
+            beam_of_death:setColor(1, 1, 1, 1)
+            beam_of_death:setOrigin(0.5, 0)
+			Game.world:addChild(beam_of_death)
+            Game.world.timer:tween(0.1, beam_of_death, { scale_x = 60})
+			
+            Game.world.timer:tween(0.25, diagonal_mario, { color = {0, 0, 0} })
+			
+            diagonal_mario:setScaleOrigin(0.5, 1)
+            Game.world.timer:tween(1, diagonal_mario, { scale_x = 4, scale_y = 0 })
+			
+            cutscene:wait(2)
+            Game.world.timer:tween(0.1, beam_of_death, { scale_x = 0})
+            cutscene:wait(0.1)
+            diagonal_mario:remove()
+            beam_of_death:remove()
+			
+            cutscene:wait(2)
+            cutscene:textTagged("* no copyright law in the universe can stop me", "condescending", "dess")
+            Game:setFlag("diagonalMarioKilled", true)
+
+            Game.world.music:resume()
+        end
+    end,
+
     poem_plate = function(cutscene, event)
         if event:getFlag("poem_plate") then
         else

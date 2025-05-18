@@ -335,8 +335,18 @@ end
 
 function Shadowguy:onDefeat()
     super.onDefeat(self)
+	
+    local random_scream = love.math.random(1, 100)
 
-    Assets.playSound("shadowguy_scream")
+    if random_scream > 3 and random_scream <= 12 then
+        Assets.playSound("wilhelm", 0.8)
+    elseif random_scream > 1 and random_scream <= 3 then
+        Assets.playSound("tom_scream")
+    elseif random_scream == 1 then
+        Assets.playSound("go_alert2")
+    else
+        Assets.playSound("shadowguy_scream")
+    end
 end
 
 return Shadowguy

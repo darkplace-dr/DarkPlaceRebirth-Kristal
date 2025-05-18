@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 29,
+  nextobjectid = 30,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -82,7 +82,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 128,
           y = 256,
@@ -112,7 +112,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 200,
@@ -125,7 +125,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 160,
@@ -138,7 +138,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 160,
@@ -151,7 +151,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 120,
@@ -164,7 +164,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -177,7 +177,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 440,
@@ -190,7 +190,7 @@ return {
         {
           id = 19,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 480,
@@ -203,7 +203,7 @@ return {
         {
           id = 20,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 440,
@@ -216,7 +216,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 360,
@@ -229,7 +229,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 130,
           y = 148,
@@ -258,7 +258,7 @@ return {
         {
           id = 1,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 240,
@@ -274,7 +274,7 @@ return {
         {
           id = 22,
           name = "npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 440,
           y = 240,
@@ -290,7 +290,7 @@ return {
         {
           id = 27,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 133.333,
           y = 174,
@@ -305,7 +305,7 @@ return {
         {
           id = 28,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 289.333,
           y = 174,
@@ -316,6 +316,23 @@ return {
           properties = {
             ["text1"] = "* It's one of those air conditioners from motels that overheat for some reaon.",
             ["text2"] = "* What?[wait:10] Did you think it was a window?"
+          }
+        },
+        {
+          id = 29,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 80,
+          y = 430,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "diagonal_mario",
+            ["cond"] = "not Game:getFlag(\"diagonalMarioKilled\")",
+            ["cutscene"] = "hub.diagonal_mario"
           }
         }
       }
@@ -337,7 +354,7 @@ return {
         {
           id = 9,
           name = "entry",
-          type = "",
+          class = "",
           shape = "point",
           x = 600,
           y = 320,
@@ -350,7 +367,7 @@ return {
         {
           id = 10,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 280,
           y = 360,
