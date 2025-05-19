@@ -781,7 +781,7 @@ local hub = {
                 cutscene:wait(3)
                 music_cut:stop()
 
-                local elevator = Game.stage.objects[12]
+                local elevator = Game.world:getEvent(65)
                 elevator:open()
                 cutscene:wait(0.01)
                 sans.x = 462
