@@ -10,8 +10,9 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 44,
+  nextobjectid = 46,
   properties = {
+    ["border"] = "city",
     ["music"] = "deltarune/cybercity"
   },
   tilesets = {
@@ -388,81 +389,6 @@ return {
           }
         },
         {
-          id = 26,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 320,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 27,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 280,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 28,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 240,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 29,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 200,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 30,
-          name = "dogconegroup",
-          class = "",
-          shape = "rectangle",
-          x = 0,
-          y = 160,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
           id = 36,
           name = "transition",
           class = "",
@@ -535,6 +461,22 @@ return {
             ["group"] = 1,
             ["type"] = 1
           }
+        },
+        {
+          id = 44,
+          name = "transition",
+          class = "",
+          shape = "rectangle",
+          x = -40,
+          y = 160,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/fireworks",
+            ["marker"] = "right"
+          }
         }
       }
     },
@@ -584,6 +526,19 @@ return {
           class = "",
           shape = "point",
           x = 1240,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "left",
+          class = "",
+          shape = "point",
+          x = 40,
           y = 280,
           width = 0,
           height = 0,

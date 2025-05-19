@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,10 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 25,
+  nextobjectid = 33,
   properties = {
     ["border"] = "city",
-    ["music"] = ""
+    ["music"] = "deltarune/cybercity"
   },
   tilesets = {
     {
@@ -145,7 +145,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -158,7 +158,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 220,
@@ -171,7 +171,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 240,
@@ -184,7 +184,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 200,
@@ -197,7 +197,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 480,
@@ -210,7 +210,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2800,
           y = 240,
@@ -223,7 +223,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2840,
           y = 220,
@@ -236,7 +236,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2920,
           y = 240,
@@ -249,7 +249,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2600,
           y = 460,
@@ -262,7 +262,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2240,
           y = 460,
@@ -275,7 +275,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2280,
           y = 440,
@@ -288,7 +288,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 760,
           y = 460,
@@ -301,7 +301,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 440,
@@ -314,7 +314,7 @@ return {
         {
           id = 20,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 460,
@@ -327,7 +327,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1360,
           y = 240,
@@ -340,7 +340,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1400,
           y = 240,
@@ -353,7 +353,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1440,
           y = 240,
@@ -377,9 +377,100 @@ return {
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      tintcolor = { 255, 0, 255 },
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 25,
+          name = "transition",
+          class = "",
+          shape = "rectangle",
+          x = 3200,
+          y = 280,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/street_1",
+            ["marker"] = "left"
+          }
+        },
+        {
+          id = 27,
+          name = "dogconegroup",
+          class = "",
+          shape = "rectangle",
+          x = 0,
+          y = 440,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        },
+        {
+          id = 28,
+          name = "dogconegroup",
+          class = "",
+          shape = "rectangle",
+          x = 0,
+          y = 400,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        },
+        {
+          id = 29,
+          name = "dogconegroup",
+          class = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        },
+        {
+          id = 30,
+          name = "dogconegroup",
+          class = "",
+          shape = "rectangle",
+          x = 0,
+          y = 320,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        },
+        {
+          id = 31,
+          name = "dogconegroup",
+          class = "",
+          shape = "rectangle",
+          x = 0,
+          y = 280,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -398,9 +489,35 @@ return {
         {
           id = 6,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
-          x = 120,
+          x = 3000,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "right",
+          class = "",
+          shape = "point",
+          x = 3160,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "left",
+          class = "",
+          shape = "point",
+          x = 80,
           y = 400,
           width = 0,
           height = 0,

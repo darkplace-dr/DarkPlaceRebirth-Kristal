@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="44">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="46">
  <editorsettings>
   <export target="street_1.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="border" value="city"/>
   <property name="music" value="deltarune/cybercity"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/dw_city_street.tsx"/>
@@ -92,31 +93,6 @@
     <property name="type" type="int" value="0"/>
    </properties>
   </object>
-  <object id="26" name="dogconegroup" x="0" y="320" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="27" name="dogconegroup" x="0" y="280" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="28" name="dogconegroup" x="0" y="240" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="29" name="dogconegroup" x="0" y="200" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="30" name="dogconegroup" x="0" y="160" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="36" name="transition" x="1280" y="160" width="40" height="200">
    <properties>
     <property name="map" value="floorcyber/dog_highway"/>
@@ -137,6 +113,12 @@
     <property name="type" type="int" value="1"/>
    </properties>
   </object>
+  <object id="44" name="transition" x="-40" y="160" width="40" height="200">
+   <properties>
+    <property name="map" value="floorcyber/fireworks"/>
+    <property name="marker" value="right"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="6" name="markers">
   <object id="9" name="elevator" x="620" y="180">
@@ -146,6 +128,9 @@
    <point/>
   </object>
   <object id="37" name="west" x="1240" y="280">
+   <point/>
+  </object>
+  <object id="45" name="left" x="40" y="280">
    <point/>
   </object>
  </objectgroup>

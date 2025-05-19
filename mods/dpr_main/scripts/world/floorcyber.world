@@ -1,0 +1,48 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floorcyber/street_1.tmx",
+            "height": 480,
+            "width": 1280,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floorcyber/pre_elevator.tmx",
+            "height": 640,
+            "width": 640,
+            "x": 320,
+            "y": -680
+        },
+        {
+            "fileName": "maps/floorcyber/dog_highway.tmx",
+            "height": 1160,
+            "width": 1160,
+            "x": 1360,
+            "y": -280
+        },
+        {
+            "fileName": "maps/floorcyber/fireworks/fireworks.tmx",
+            "height": 480,
+            "width": 3200,
+            "x": -3280,
+            "y": -120
+        },
+        {
+            "fileName": "maps/floorcyber/sideways_cars_1.tmx",
+            "height": 680,
+            "width": 800,
+            "x": -1880,
+            "y": -1560
+        },
+        {
+            "fileName": "maps/floorcyber/numbers_station.tmx",
+            "height": 800,
+            "width": 640,
+            "x": -2680,
+            "y": -1600
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}
