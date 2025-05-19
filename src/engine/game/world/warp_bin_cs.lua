@@ -41,7 +41,10 @@ return function(cutscene, event)
             event.foolproof_counter = event.foolproof_counter + 1
             if event.foolproof_counter == 10 then
                 cutscene:text("* For some reason,[wait:5] the lid opened...")
-                action = { result = "backrooms/gramophone" }
+                cutscene:text("* All you see inside is an unfinished void...")
+                cutscene:text("* Check back later, perhaps?[wait:5]\n* But why would you?")
+				return
+                -- action = { result = "backrooms/gramophone" }
             else
                 cutscene:text("* That doesn't seem to work.")
                 if event.foolproof_counter >= 3 and event.foolproof_counter < 10 then
