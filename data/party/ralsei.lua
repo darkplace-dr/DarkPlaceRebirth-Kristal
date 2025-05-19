@@ -95,6 +95,8 @@ function character:init()
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {0.5, 1, 0.5}
 
+    self.icon_color = {181/255, 230/255, 29/255}
+	
     -- Head icon in the equip / power menu
     if ralsei_style == 1 then
         self.menu_icon = "party/ralsei/head_ch1"
