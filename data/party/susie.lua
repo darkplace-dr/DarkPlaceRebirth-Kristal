@@ -19,6 +19,8 @@ function character:init()
     -- Default title / class (saved to the save file)
     self.title = "Dark Knight\nDoes damage using\ndark energy."
 
+	self.icon_color = {234/255, 121/255, 200/255}
+	
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 1
     -- The color of this character's soul (optional, defaults to red)

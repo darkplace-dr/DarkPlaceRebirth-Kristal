@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,7 +12,7 @@ return {
   nextlayerid = 6,
   nextobjectid = 8,
   properties = {
-    ["border"] = "simple",
+    ["border"] = "stars",
     ["music"] = "checkpoint"
   },
   tilesets = {
@@ -123,7 +123,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 640,
@@ -136,7 +136,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -149,7 +149,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 160,
@@ -162,7 +162,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 920,
           y = 200,
@@ -191,7 +191,7 @@ return {
         {
           id = 5,
           name = "warpbin",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 240,
@@ -204,7 +204,7 @@ return {
         {
           id = 6,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 240,
@@ -239,7 +239,7 @@ return {
         {
           id = 7,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 140,
           y = 320,
