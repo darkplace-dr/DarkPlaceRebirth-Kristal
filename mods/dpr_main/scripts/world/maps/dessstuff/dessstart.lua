@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,7 +12,7 @@ return {
   nextlayerid = 7,
   nextobjectid = 56,
   properties = {
-    ["border"] = "omori/whitespace'",
+    ["border"] = "white",
     ["music"] = "gimmieyourwalletmiss",
     ["name"] = "Dess - THE BEGINNING"
   },
