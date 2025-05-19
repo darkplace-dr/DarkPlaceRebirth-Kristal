@@ -1151,6 +1151,10 @@ function Registry.iterScripts(base_path, exclude_folder)
 
     parse(base_path, self.base_scripts)
     if Mod then
+        for _, mod in ipairs(Kristal.Mods.list) do
+            Kristal.Mods.getAndLoadMod(mod.id)
+            parse("sharedscripts/"..base_path, mod.script_chunks)
+        end
         for _,library in Kristal.iterLibraries() do
             parse("scripts/"..base_path, library.info.script_chunks)
         end
