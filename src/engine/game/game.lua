@@ -137,6 +137,53 @@ function Game:enter(previous_state, save_id, save_name, fade)
 			self:rollShiny(v)
 		end
 	end
+	
+	if not self:getFlag("PROMISES") then
+		self:setFlag("PROMISES", {})
+	end
+end
+
+function Game:addEventTime(time_added)
+	for k,v in pairs(self:getFlag("PROMISES", {})) do
+		self:getFlag("PROMISES")[k] = self:getFlag("PROMISES")[k] - time_added
+	end
+	self:checkPromises()
+end
+
+function Game:addPromise(promise, event_time)
+	self:getFlag("PROMISES")[promise] = event_time
+end
+
+function Game:checkPromises()
+	-- Step 1: Convert to sortable array of {key, value}
+	local sorted = {}
+	for k, v in pairs(self:getFlag("PROMISES")) do
+		table.insert(sorted, {key = k, value = v})
+	end
+
+	-- Step 2: Sort by value (ascending)
+	table.sort(sorted, function(a, b)
+		return a.value < b.value
+	end)
+
+	local promises_to_fulfill = {}
+	-- Step 3: Loop through sorted array
+	for i, pair in ipairs(sorted) do
+		if pair.value <= 0 then
+			table.insert(promises_to_fulfill, pair.key)
+		end
+	end
+	
+	local nextPromise
+	function nextPromise()
+		local cutscene_id = table.remove(promises_to_fulfill, 1)
+		if not cutscene_id then return end
+		self:getFlag("PROMISES")[cutscene_id] = nil
+		local cutscene = Game.world:startCutscene("promises." .. cutscene_id)
+		cutscene:after(nextPromise)
+	end
+	
+	nextPromise()
 end
 
 function Game:rollShiny(id, force)

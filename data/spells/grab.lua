@@ -7,7 +7,7 @@ function spell:init()
     self.name = "Grab"
 
     -- Battle description
-    self.effect = "Flame"
+    self.effect = "Stun"
     -- Menu description
     self.description = "Attempt to slow down an enemy, making them lose their turn."
     -- Check description
@@ -32,14 +32,14 @@ function spell:getCastMessage(user, target)
 	
 	self.success = love.math.random(1,100)
 	
-	if self.success > 50 then
+	if self.success > 75 then
 		return "* "..user.chara:getName().." used "..self:getCastName().."!\n* It worked!\n* " .. target.name .. "'s turn is skipped."
 	end
     return "* "..user.chara:getName().." used "..self:getCastName().."!\n* " .. target.name .. " resisted!"
 end
 
 function spell:onCast(user, target)
-	if self.success > 50 and not target.boss then
+	if self.success > 75 and not target.boss then
 		target.wii_grab = true
 	end
 end
