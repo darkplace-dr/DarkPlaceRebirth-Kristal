@@ -33,5 +33,55 @@ local cyber = {
             end
         end
     end,
+    checks_quest = function(cutscene, event)
+        local hacker = cutscene:getCharacter("hacker")
+        local hackerSidequest = Game:getFlag("hackerSidequest", 0)
+        local hackerCheckmarks = Game:getFlag("hackerCheckmarks", 0)
+		-- placeholder dialog
+		if hackerSidequest == 2 then
+			cutscene:showNametag("Hacker")
+			cutscene:text("* I just wanted to make a cool demoscene for you.")
+			cutscene:text("* Now that I finished this I can show up all sorts of places.")
+			cutscene:hideNametag()
+		else
+			if hackerCheckmarks < 3 then
+				if hackerSidequest == 0 then
+					cutscene:showNametag("Hacker")
+					cutscene:text("* I'm the Hacker. I'm going after the blue checksmarks once more.")
+					cutscene:text("* Find 3 in this floor ahead,[wait:5] and I'll join your [City].")
+					cutscene:text("* You just look like the kind of folks who have a [Cool City].")
+					cutscene:hideNametag()
+
+					Game:setFlag("hackerSidequest", 1)
+					Game:setFlag("hackerCheckmarks", 0)
+					Game:getQuest("checks_quest"):unlock()
+				else
+					cutscene:showNametag("Hacker")
+					cutscene:text("* According to cyber,[wait:5] you found "..hackerCheckmarks.." blue checksmarks out of 3.")
+					if hackerCheckmarks == 0 then
+						cutscene:text("* 0,[wait:5] not bad for a beginner. Your \"Checks Quest 2\" is only beginning.")
+					end
+					if hackerCheckmarks == 1 then
+						cutscene:text("* 1,[wait:5] the biggest prime number. Your \"Checks Quest 2\" is just started.")
+					end
+					if hackerCheckmarks == 2 then
+						cutscene:text("* 2. Not bad for amateurs but you need to learn what the number \"3\" is.")
+					end
+					cutscene:hideNametag()
+				end
+			else
+				cutscene:showNametag("Hacker")
+				if hackerSidequest == 0 then
+					cutscene:text("* Wow,[wait:5] I'm the Hacker and you found all 3 checkmarks!")
+				else
+					cutscene:text("* You found 3 checkmarks?![wait:5] Elite...[wait:5] I will now live in your city.")
+				end
+				cutscene:text("* Maybe our cyber paths will cyber cross once more in the near future.")
+				cutscene:text("* In the meantime,[wait:5] let me show you the power of the blue checkmarks...")
+				cutscene:hideNametag()
+				Game:setFlag("hackerSidequest", 2)
+			end
+		end
+    end,
 }
 return cyber
