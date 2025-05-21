@@ -875,10 +875,10 @@ function PartyMember:convertToLight()
     end
 
     if not self.equipped.weapon then
-        self.equipped.weapon = Registry.createItem(self.lw_weapon_default)
+        self.equipped.weapon = Registry.createItem(self.lw_weapon_default or "light/_nothing_weapon")
     end
     if not self.equipped.armor[1] then
-        self.equipped.armor[1] = Registry.createItem(self.lw_armor_default)
+        self.equipped.armor[1] = Registry.createItem(self.lw_armor_default or "light/_nothing_armor")
     end
 
     self.equipped.weapon.dark_item = last_weapon
