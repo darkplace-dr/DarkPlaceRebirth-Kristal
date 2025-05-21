@@ -36,6 +36,7 @@ function character:init()
 
     self:addSpell("supersling")
     self:addSpell("darksling")
+    self:addSpell("numbshot")
 
     self.health = 120
 
