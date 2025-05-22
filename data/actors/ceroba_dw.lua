@@ -5,12 +5,12 @@ function actor:init()
 
     self.name = "Ceroba"
 
-    self.width = 26
-    self.height = 54
+    self.width = 25
+    self.height = 52
 
-    self.hitbox = {4, 42, 19, 13}
+    self.hitbox = {3, 38, 19, 14}
 
-    self.soul_offset = {13.5, 28}
+    self.soul_offset = {12.5, 28}
 
     self.color = {1, 1, 0}
 
@@ -22,6 +22,13 @@ function actor:init()
     self.portrait_offset = {-18, -10}
 
     self.can_blush = false
+
+    self.talk_sprites = {
+        ["talk/down"] = 0.2,
+        ["talk/right"] = 0.2,
+        ["talk/left"] = 0.2,
+        ["talk/up"] = 0.2
+    }
 
     self.animations = {
         ["slide"]               = {"slide", 4/30, true},
@@ -54,15 +61,20 @@ function actor:init()
 
     self.offsets = {
         -- Movement offsets
-        ["walk/down"] = {1, 2},
-        ["walk/right"] = {-2, 0},
-        ["walk/left"] = {3, 0},
-        ["walk/up"] = {0, 1},
+        ["talk/down"] = {0, 0},
+        ["talk/right"] = {-2, -1},
+        ["talk/left"] = {2, -1},
+        ["talk/up"] = {0, 0},
 
-        ["run/down"] = {0, 2},
-        ["run/right"] = {-13, -5},
-        ["run/left"] = {-8, -5},
-        ["run/up"] = {0, 2},
+        ["walk/down"] = {0, 0},
+        ["walk/right"] = {-2, -2},
+        ["walk/left"] = {1, -2},
+        ["walk/up"] = {-1, -1},
+
+        ["run/down"] = {-1, 2},
+        ["run/right"] = {-14, -7},
+        ["run/left"] = {-9, -7},
+        ["run/up"] = {-1, 2},
 
         ["slide"] = {-1, 1},
 
@@ -104,10 +116,12 @@ end
 function actor:onWorldDraw(chara)
     local player = Game.world.player
 
-    if Game.world.cutscene then
+    if Game.world.cutscene and not self.cut then
         self.default = "walk"
         chara:resetSprite()
-    else
+        self.cut = true
+    elseif not Game.world.cutscene then
+        if self.cut then self.cut = nil end
         if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
             self.default = "run"
             chara:resetSprite()
