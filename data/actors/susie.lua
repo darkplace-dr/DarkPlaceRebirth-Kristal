@@ -54,6 +54,7 @@ function actor:init(style)
 
         -- Battle animations
         ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle_serious"] = {"battle/idle_serious", 0.2, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
@@ -92,6 +93,7 @@ function actor:init(style)
     -- Alternate animations to use for Susie with eyes
     self.animations_alt = {
         ["battle/idle"]         = {"battle_eyes/idle", 0.2, true},
+        ["battle/idle_serious"] = {"battle_eyes/idle_serious", 0.2, true},
 
         ["battle/attack"]       = {"battle_eyes/attack", 1/15, false},
         ["battle/act"]          = {"battle_eyes/act", 1/15, false},
@@ -185,6 +187,7 @@ function actor:init(style)
 
         -- Battle offsets
         ["battle/idle"] = {-22, -1},
+        ["battle/idle_serious"] = {-22, -1},
 
         ["battle/attack"] = {-26, -25},
         ["battle/attackready"] = {-26, -25},
@@ -206,6 +209,7 @@ function actor:init(style)
 
         -- Battle offsets (eyes)
         ["battle_eyes/idle"] = {-22, -1},
+        ["battle_eyes/idle_serious"] = {-22, -1},
 
         ["battle_eyes/attack"] = {-26, -25},
         ["battle_eyes/attackready"] = {-26, -25},
