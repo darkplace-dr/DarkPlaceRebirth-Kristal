@@ -23,4 +23,16 @@ return {
     defense = 2,
     flag = "mimic_defeated"
   },
+  {
+    name = "Omega Spamton",
+    encounter = "omegaspamtonbossfight",
+    difficulty = {true, true, true, true, true},
+    preview = "omegaspamton",
+    description = "A giant replication of the infamous salesman's NEO form. Keep downgrading him to have a better advantage!",
+    locked_description = "Complete the GamerTime section to unlock this fight!",
+    health = 15000,
+    attack = 180,
+    defense = 200,
+    flag = "omegaspamton_defeated"
+  },
 }
