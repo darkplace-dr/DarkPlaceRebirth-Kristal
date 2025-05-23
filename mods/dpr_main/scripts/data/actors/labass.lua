@@ -1,28 +1,28 @@
-local actor, super = Class(Actor, "bobberry")
+local actor, super = Class(Actor, "labass")
 
 function actor:init()
     super.init(self)
 
     -- Display name (optional)
-    self.name = "Bobberry"
+    self.name = "Lab Assistant"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 32
-    self.height = 64
+    self.width = 23
+    self.height = 39
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {0, 48, 32, 16}
+    self.hitbox = {2, 24, 19, 10}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
-    self.color = {1, 0, 0}
+    self.color = {1, 1, 0}
 
     -- Whether this actor flips horizontally (optional, values are "right" or "left", indicating the flip direction)
-    self.flip = "right"
+    self.flip = nil
 
     -- Path to this actor's sprites (defaults to "")
-    self.path = "battle/enemies/bobberry"
+    self.path = "world/npcs/labass"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "idle"
+    self.default = ""
 
     -- Sound to play when this actor speaks (optional)
     self.voice = nil
@@ -35,26 +35,15 @@ function actor:init()
     self.can_blush = false
 
     -- Table of talk sprites and their talk speeds (default 0.25)
-    self.talk_sprites = {}
+    self.talk_sprites = {
+        [""] = 0.2
+    }
 
     -- Table of sprite animations
-    self.animations = {
-        -- Looping animation with 0.25 seconds between each frame
-        -- (even though there's only 1 idle frame)
-        ["idle"] = {"idle", 1, true},
-		["hurt"] = {"hurt", 1, true},
-		["spared"] = {"spared", 1, true},
-		["bob"] = {"bob", 1, true},
-    }
+    self.animations = {}
 
     -- Table of sprite offsets (indexed by sprite name)
-    self.offsets = {
-        -- Since the width and height is the idle sprite size, the offset is 0,0
-        ["idle"] = {0, 0},
-		["hurt"] = {0, 0},
-		["spared"] = {0, 0},
-		["bob"] = {0, 0},
-    }
+    self.offsets = {}
 end
 
 return actor

@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -992,7 +992,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "gamertimeforest",
+            ["map"] = "gamertime/forest",
             ["marker"] = "warp1"
           }
         }
