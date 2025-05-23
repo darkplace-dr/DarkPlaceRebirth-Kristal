@@ -20,7 +20,7 @@ return {
             cutscene:text("* The gaming stations don't seem to be working.")
         else
             cutscene:text("* It looks like there's two gaming stations here.")
-            if cutscene:getCharacter("susie") and not cutscene:getCharacter("brenda") then
+            if cutscene:getCharacter("susie") and not cutscene:getCharacter("hero") then
                 cutscene:showNametag("Susie")
                 cutscene:text("* Huh,[wait:5] looks like some sort of two-player game?", "surprise", "susie")
                 cutscene:text("* Heh.[wait:5] I'd say I'm pretty good at video games,[wait:5] so...", "smile", "susie")
@@ -35,10 +35,10 @@ return {
 				if Game:getFlag("marcy_joined") and cutscene:getCharacter("jamm") then
 					cutscene:showNametag("Marcy")
 					cutscene:text("* Can Marcy play,[wait:5] papa?", "neutral", "marcy")
-					
+
 					cutscene:showNametag("Jamm")
 					cutscene:text("* How about we wait until you can reach the controls?", "wink", "jamm")
-					
+
                     cutscene:showNametag("Susie")
                     cutscene:text("* Anyone else?", "annoyed", "susie")
 				end
@@ -49,34 +49,35 @@ return {
                 cutscene:text("* Damn,[wait:5] alright then.", "shy_down", "susie")
                 cutscene:hideNametag()
                 cutscene:text("* Looks like you need someone else in your party.")
-            elseif not cutscene:getCharacter("susie") and cutscene:getCharacter("brenda") then
-                cutscene:showNametag("Brenda")
-                cutscene:text("* Oh shoot,[wait:5] I think I've seen one of these things before.", "shock", "brenda")
-                cutscene:text("* So basically,[wait:5] I think this is a two-player game.", "happy", "brenda")
-                cutscene:text("* Any of you guys wanna play it with me?", "happy_side", "brenda")
+            elseif not cutscene:getCharacter("susie") and cutscene:getCharacter("hero") then
+                cutscene:showNametag("Hero")
+                cutscene:text("* This thing looks like some kind of game console...", "neutral_closed", "hero")
+                cutscene:text("* Hm,[wait:5] I can only guess,[wait:5] but...", "suspicious", "hero")
+                cutscene:text("* It seems like 2 players are needed here.", "neutral_closed_b", "hero")
+                cutscene:text("* Any of you guys wanna play it with me?", "happy", "hero")
                 if cutscene:getCharacter("dess") then
                     cutscene:showNametag("Dess")
                     cutscene:text("* ooo ooo me pick me I wanna play", "heckyeah", "dess")
-                    cutscene:showNametag("Brenda")
-                    cutscene:text("* ... Not including you,[wait:5] Dess.", "dissapointed", "brenda")
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* ... Not including you,[wait:5] Dess.", "suspicious", "hero")
                     cutscene:showNametag("Dess")
                     cutscene:text("* This is literally George Orwell's 1984", "angry", "dess")
                 end
 				if Game:getFlag("marcy_joined") and cutscene:getCharacter("jamm") then
 					cutscene:showNametag("Marcy")
 					cutscene:text("* Can Marcy play,[wait:5] papa?", "neutral", "marcy")
-					
+
 					cutscene:showNametag("Jamm")
 					cutscene:text("* How about we wait until you can reach the controls?", "wink", "jamm")
 				end
                 cutscene:hideNametag()
                 cutscene:wait(2)
-                cutscene:showNametag("Brenda")
-                cutscene:text("* ... Wow okay,[wait:5] so none of you guys?", "suspicious", "brenda")
-                cutscene:text("* Can't believe I'm the only person into video games here.", "frown", "brenda")
+                cutscene:showNametag("Hero")
+                cutscene:text("* ... So nobody?", "neutral_closed_b", "hero")
+                cutscene:text("* Maybe some other time then.", "pout", "hero")
                 cutscene:hideNametag()
                 cutscene:text("* Looks like you need someone else in your party.")
-            elseif cutscene:getCharacter("susie") and cutscene:getCharacter("brenda") then
+            elseif cutscene:getCharacter("susie") and cutscene:getCharacter("hero") then
                 local x,y = event:getRelativePos()
                 cutscene:detachCamera()
                 cutscene:detachFollowers()
@@ -92,29 +93,30 @@ return {
                 end
                 cutscene:panTo(x, y + 50)
                 cutscene:wait(1)
-                cutscene:showNametag("Brenda")
-                cutscene:text("* Oh shoot,[wait:5] I think I've seen one of these things before.", "shock", "brenda")
-                cutscene:showNametag("Susie")
-                cutscene:text("* You have?", "surprise_smile", "susie")
-                cutscene:showNametag("Brenda")
-                cutscene:text("* Yeah,[wait:5] I'm pretty sure this is some two-player game.", "happy", "brenda")
+                cutscene:showNametag("Hero")
+                cutscene:text("* This thing looks like some kind of game console...", "neutral_closed", "hero")
+                cutscene:text("* And guessing by the look of it...", "suspicious", "hero")
+                cutscene:text("* I think it's a two-player game!", "neutral_closed_b", "hero")
                 cutscene:showNametag("Susie")
                 cutscene:text("* Really?", "surprise_smile", "susie")
-                cutscene:text("* Hey,[wait:5] wanna see who's better at this game?", "smile", "susie")
-                cutscene:showNametag("Brenda")
-                cutscene:text("* Yeah,[wait:5] sure!", "grin", "brenda")
+                cutscene:text("* Hey,[wait:5] wanna play it and see who's better at it?", "smile", "susie")
+                cutscene:showNametag("Hero")
+                cutscene:text("* Do you even need to ask?", "smug", "hero")
                 cutscene:hideNametag()
-                cutscene:walkTo("susie", x + 50, y + 80, 0.75, "up")
-                cutscene:walkTo("brenda", x + 110, y + 80, 0.75, "up")
+                cutscene:walkTo("hero", x + 50, y + 80, 0.75, "up")
+                cutscene:walkTo("susie", x + 110, y + 80, 0.75, "up")
                 cutscene:wait(1)
                 cutscene:showNametag("Susie")
                 cutscene:text("* So,[wait:5] you ready?", "smile", "susie")
-                cutscene:showNametag("Brenda")
-                cutscene:text("* Yup!", "happy_b", "brenda")
-                cutscene:text("* Alright,[wait:5] let's get started!", "happy", "brenda")
-                Game:getPartyMember("brenda"):addOpinion("susie", 15)
-                Game:getPartyMember("susie"):addOpinion("brenda", 15)
+                cutscene:showNametag("Hero")
+                cutscene:text("* Yup!", "happy", "hero")
+                cutscene:text("* Alright,[wait:5] let's get started!", "neutral_smile", "hero")
+                --Game:getPartyMember("hero"):addOpinion("susie", 15)
+                --Game:getPartyMember("susie"):addOpinion("hero", 15)
                 cutscene:hideNametag()
+                Assets.playSound("shadowpendant")
+                cutscene:fadeOut(0.5, {color = {1, 1, 1}})
+                cutscene:wait(1.5)
                 for k,chara in ipairs(Game.party) do
 					Game:setFlag(chara.id .. "_party", false)
                     if chara.id == "noel" then
@@ -122,11 +124,11 @@ return {
                     end
 				end
 				Game.party = {}
+                Game:addPartyMember("hero")
 				Game:addPartyMember("susie")
-				Game:addPartyMember("brenda")
+                Game:setFlag("hero_party", true)
 				Game:setFlag("susie_party", true)
-				Game:setFlag("brenda_party", true)
-                Game.world:mapTransition("gamertimemain", "spawn", "down")
+                Game.world:mapTransition("gamertime/mainarea", "spawn", "down")
             else
                 cutscene:text("* Unfortunatly,[wait:5] none of your party seems interested in playing it.")
                 if cutscene:getCharacter("dess") then
@@ -143,10 +145,58 @@ return {
                 cutscene:hideNametag()
             end
         end
-        
     end,
 
     start = function(cutscene, event)
+        local susie = cutscene:getCharacter("susie")
+        local hero = cutscene:getCharacter("hero")
+        cutscene:detachFollowers()
+        susie:setPosition(hero.x - 80, hero.y)
+        cutscene:fadeIn(0.5, {color = {1, 1, 1}})
+        cutscene:wait(1.5)
+        susie:setFacing("right")
+        hero:setFacing("left")
+        cutscene:showNametag("Susie")
+        cutscene:text("* Nice,[wait:5] we're in!", "smile", "susie")
+        cutscene:text("* Wait a second...", "suspicious", "susie")
+        cutscene:hideNametag()
+        hero:setFacing("down")
+        cutscene:wait(cutscene:walkTo(susie, susie.x, susie.y + 80, 0.8, "down"))
+        cutscene:wait(0.5)
+        susie:setFacing("left")
+        cutscene:wait(0.5)
+        susie:setFacing("right")
+        cutscene:wait(0.5)
+        susie:setFacing("up")
+        cutscene:wait(0.5)
+        susie:setFacing("down")
+        cutscene:wait(1)
+        cutscene:showNametag("Susie")
+        cutscene:text("* This kinda looks like the Hometown...", "sus_nervous", "susie")
+        cutscene:text("* But at the same time,[wait:5] it's not.", "suspicious", "susie")
+        cutscene:hideNametag()
+        cutscene:wait(1)
+        cutscene:wait(cutscene:walkTo(susie, susie.x, susie.y - 80, 0.8, "right"))
+        hero:setFacing("left")
+        cutscene:wait(1)
+        susie:setSprite("turn_around")
+        Assets.playSound("whip_hard")
+        cutscene:wait(1)
+        cutscene:showNametag("Susie")
+        cutscene:text("* GOD DAMN IT HERO WHERE THE HELL ARE WE", "teeth_b", "susie")
+        susie:resetSprite()
+        susie:setFacing("right")
+        cutscene:showNametag("Hero")
+        cutscene:text("* No idea.", "neutral_closed", "hero")
+        cutscene:text("* Why don't we go and find out?", "smug", "hero")
+        cutscene:showNametag("Susie")
+        cutscene:text("* Exactly what I thought.", "smile", "susie")
+        cutscene:text("* Let's go!", "sincere_smile", "susie")
+        cutscene:hideNametag()
+        hero:setFacing("down")
+        cutscene:alignFollowers()
+        cutscene:attachFollowers()
+        cutscene:wait(1)
     end,
 
     berdly = function(cutscene, event)
@@ -155,10 +205,15 @@ return {
         local y = event.y + event.height/2
         local berdly = cutscene:getCharacter("berdly")
 	    local dess = cutscene:getCharacter("dess")
+        local hero = cutscene:getCharacter("hero")
+        local susie = cutscene:getCharacter("susie")
         Game.world.music:fade(0, 1)
         if berdly then
             if Game:isDessMode() then
                 cutscene:walkTo(dess, x, y + 120, 1, "up")
+            else
+                cutscene:walkTo(hero, x - 20, y + 120, 1, "up")
+                cutscene:walkTo(susie, x + 20, y + 120, 1, "up")
             end
             cutscene:showNametag("Berdly")
             cutscene:text("* Open up you stupid door!", "angry_b", "berdly")
@@ -166,17 +221,17 @@ return {
             cutscene:walkTo(berdly, x, y + 40, 0.75, "up", true)
             cutscene:wait(1)
             cutscene:wait(cutscene:walkTo(berdly, x, y + 60, 0.5, "up", true))
-            cutscene:wait(cutscene:walkTo(berdly, x, y + 20, 0.2))
+            cutscene:wait(cutscene:walkTo(berdly, x, y, 0.2))
             Assets.playSound("impact")
             berdly:shake(4)
 	        cutscene:wait(0.5)
 	        cutscene:wait(cutscene:walkTo(berdly, x, y + 60, 0.5, "up", true))
-            cutscene:wait(cutscene:walkTo(berdly, x, y + 20, 0.2))
+            cutscene:wait(cutscene:walkTo(berdly, x, y, 0.2))
             Assets.playSound("impact")
             berdly:shake(4)
 	        cutscene:wait(0.5)
 	        cutscene:wait(cutscene:walkTo(berdly, x, y + 60, 0.5, "up", true))
-            cutscene:wait(cutscene:walkTo(berdly, x, y + 20, 0.2))
+            cutscene:wait(cutscene:walkTo(berdly, x, y, 0.2))
             Assets.playSound("impact")
             berdly:shake(4)
 	        cutscene:wait(2)
@@ -256,6 +311,12 @@ return {
                 dess_party:increaseStat("defense", 1)
                 dess_party:increaseStat("magic", 1)
                 cutscene:text("* (Dess became stronger!)")
+            else
+                Game:addPartyMember("berdly")
+                berdly:convertToFollower()
+                cutscene:alignFollowers()
+                cutscene:attachFollowers()
+                cutscene:wait(1)
             end
             Game:setFlag("gamer_berdly", true)
         end
@@ -320,10 +381,7 @@ return {
                 cutscene:text("* This part is VERY WIP (as you can tell from Spamton not having any unique attacks)")
                 cutscene:text("* Uhh I'll finish up the rest of this segment another time")
                 cutscene:text("* -BrendaK7200")
-                Game.world:mapTransition("gamertimeentrance", "exit", "down")
-                local susie_party = Game:getPartyMember("susie")
-                susie_party.has_act = false
-                Game:setFlag("susie_canact", false)
+                Game.world:mapTransition("gamertime/entrance", "exit", "down")
                 if cutscene:getCharacter("berdly") then
                     Kristal.callEvent("setDesc", "berdlymissing", "Berdly has been saved! Unfortunatly the gaming stations used to access him seem to not be working anymore, so returning to that place seems to be impossible, at least for now.")
                     Kristal.callEvent("completeQuest", "berdlymissing")
@@ -341,8 +399,8 @@ return {
         cutscene:showNametag("Susie")
         cutscene:text("* Why the hell can't we go through here?", "angry", "susie")
         cutscene:text("* THERE'S CLEARLY A GAP HERE!!!", "teeth_b", "susie")
-        cutscene:showNametag("Brenda")
-        cutscene:text("* Dude,[wait:5] this collision is ass!", "grin", "brenda")
+        cutscene:showNametag("Hero")
+        cutscene:text("* Dude,[wait:5] this collision is ass.", "annoyed", "hero")
         cutscene:hideNametag()
     end,
 
@@ -363,8 +421,8 @@ return {
     wasteoftime = function(cutscene, event)
         cutscene:showNametag("Susie")
         cutscene:text("* Well,[wait:5] this has been a complete waste of time.", "annoyed", "susie")
-        cutscene:showNametag("Brenda")
-        cutscene:text("* There's gotta be a way to that chest...", "neutral_side", "brenda")
+        cutscene:showNametag("Hero")
+        cutscene:text("* There's gotta be a way to that chest...", "neutral_side", "hero")
         cutscene:hideNametag()
     end,
 
@@ -374,16 +432,16 @@ return {
             cutscene:text("* Ah,[wait:5] clipping out of bounds.", "look_up", "berdly")
             cutscene:text("* The skeleton key for gamers.", "laugh", "berdly")
         end
-        cutscene:showNametag("Brenda")
-        cutscene:text("* Hah,[wait:5] knew there was a way to that chest!", "happy_b", "brenda")
+        cutscene:showNametag("Hero")
+        cutscene:text("* Heh,[wait:5] knew there was a way to that chest!", "happy", "hero")
         cutscene:showNametag("Susie")
         cutscene:text("* You do realize we have to walk all the way back,[wait:5] right?", "suspicious", "susie")
         if cutscene:getCharacter("berdly") then
             cutscene:showNametag("Berdly")
             cutscene:text("* ... Oh...", "worried_smile", "berdly")
         end
-        cutscene:showNametag("Brenda")
-        cutscene:text("* God damnit...", "miffed", "brenda")
+        cutscene:showNametag("Hero")
+        cutscene:text("* God damnit...", "annoyed", "hero")
         cutscene:hideNametag()
     end,
 
@@ -397,17 +455,17 @@ return {
             cutscene:text("* Well Susan,[wait:4] it's simple.", "smirk", "berdly")
             cutscene:text("* Process of elimination.", "smile", "berdly")
             cutscene:text("* This is the only place we haven't explored yet.", "smirk", "berdly")
-            cutscene:showNametag("Brenda")
-            cutscene:text("* That...", "neutral_side", "brenda")
-            cutscene:text("* Actually makes sense????", "shock", "brenda")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Well...", "neutral_closed", "hero")
+            cutscene:text("* That actually makes sense...", "neutral_closed_b", "hero")
             cutscene:showNametag("Susie")
-            cutscene:text("* Yeah,[wait:5] honestly I'm impressed.", "neutral_side", "susie")
+            cutscene:text("* Yeah,[wait:5] honestly I'm impressed by that.", "neutral_side", "susie")
             cutscene:showNametag("Berdly")
             cutscene:text("* Oh stop,[wait:5] you're going to make me blush,[wait:5] Susan", "godly", "berdly")
             cutscene:hideNametag()
         else
-            cutscene:showNametag("Brenda")
-            cutscene:text("* Oh hey,[wait:5] there might be bombs in there.", "happy_side", "brenda")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Oh hey,[wait:5] there might be bombs in there.", "neutral_closed", "hero")
             cutscene:showNametag("Susie")
             cutscene:text("* Well then,[wait:5] let's check it out.", "small_smile", "susie")
             cutscene:hideNametag()
