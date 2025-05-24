@@ -6,7 +6,7 @@ function spell:init()
     -- Display name
     self.name = "Rage"
     -- Name displayed when cast (optional)
-    self.cast_name = nil
+    self.cast_name = "RAGE"
 
     -- Battle description
     self.effect = "Enrage\nself"
