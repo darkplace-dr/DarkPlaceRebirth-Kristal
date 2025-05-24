@@ -57,12 +57,14 @@ function actor:init(style)
         ["battle/idle_serious"] = {"battle/idle_serious", 0.2, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
+        ["battle/attack_serious"] = {"battle/attack_serious", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
         ["battle/spell"]        = {"battle/spell", 1/15, false, next="battle/idle"},
         ["battle/item"]         = {"battle/item", 1/12, false, next="battle/idle"},
         ["battle/spare"]        = {"battle/act", 1/15, false, next="battle/idle"},
 
         ["battle/attack_ready"] = {"battle/attackready", 0.2, true},
+        ["battle/attack_ready_serious"] = {"battle/attackready_serious", 0.2, true},
         ["battle/act_ready"]    = {"battle/actready", 0.2, true},
         ["battle/spell_ready"]  = {"battle/spellready", 0.2, true},
         ["battle/item_ready"]   = {"battle/itemready", 0.2, true},
@@ -96,12 +98,14 @@ function actor:init(style)
         ["battle/idle_serious"] = {"battle_eyes/idle_serious", 0.2, true},
 
         ["battle/attack"]       = {"battle_eyes/attack", 1/15, false},
+        ["battle/attack_serious"] = {"battle_eyes/attack_serious", 1/15, false},
         ["battle/act"]          = {"battle_eyes/act", 1/15, false},
         ["battle/spell"]        = {"battle_eyes/spell", 1/15, false, next="battle/idle"},
         ["battle/item"]         = {"battle_eyes/item", 1/12, false, next="battle/idle"},
         ["battle/spare"]        = {"battle_eyes/act", 1/15, false, next="battle/idle"},
 
         ["battle/attack_ready"] = {"battle_eyes/attackready", 0.2, true},
+        ["battle/attack_ready_serious"] = {"battle_eyes/attackready_serious", 0.2, true},
         ["battle/act_ready"]    = {"battle_eyes/actready", 0.2, true},
         ["battle/spell_ready"]  = {"battle_eyes/spellready", 0.2, true},
         ["battle/item_ready"]   = {"battle_eyes/itemready", 0.2, true},
@@ -190,7 +194,9 @@ function actor:init(style)
         ["battle/idle_serious"] = {-22, -1},
 
         ["battle/attack"] = {-26, -25},
+        ["battle/attack_serious"] = {-26, -25},
         ["battle/attackready"] = {-26, -25},
+        ["battle/attackready_serious"] = {-26, -25},
         ["battle/act"] = {-24, -25},
         ["battle/actend"] = {-24, -25},
         ["battle/actready"] = {-24, -25},
@@ -212,7 +218,9 @@ function actor:init(style)
         ["battle_eyes/idle_serious"] = {-22, -1},
 
         ["battle_eyes/attack"] = {-26, -25},
+        ["battle_eyes/attack_serious"] = {-26, -25},
         ["battle_eyes/attackready"] = {-26, -25},
+        ["battle_eyes/attackready_serious"] = {-26, -25},
         ["battle_eyes/act"] = {-24, -25},
         ["battle_eyes/actend"] = {-24, -25},
         ["battle_eyes/actready"] = {-24, -25},
