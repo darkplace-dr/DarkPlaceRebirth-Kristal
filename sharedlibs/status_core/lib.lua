@@ -2,6 +2,13 @@ local Lib = {}
 
 function Lib:init()
     print("Loaded Status CORE " .. self.info.version .. "!")
+	
+	Utils.hook(Utils, "dump", function(orig, o)
+		if type(o) == "table" and isClass(o) and o.__tostring then
+			return tostring(o)
+		end
+		return orig(o)
+	end)
     
     Utils.hook(PartyBattler, "init", function(orig, self, ...)
         orig(self, ...)
@@ -88,9 +95,11 @@ function Lib:init()
     end)
     Utils.hook(Battle, "init", function(orig, self, ...)
         orig(self, ...)
-		local sv = StatusView()
-		sv:setLayer(BATTLE_LAYERS["top"])
-		self:addChild(sv)
+		if Kristal.getLibConfig("status_core", "status_menu") then
+			local sv = StatusView()
+			sv:setLayer(BATTLE_LAYERS["top"])
+			self:addChild(sv)
+		end
     end)
 
 	Utils.hook(PartyMember, "getStat", function (orig, pm, name, default, light)
@@ -109,40 +118,42 @@ function Lib:init()
 		local i = 0
 		love.graphics.setFont(Assets.getFont("smallnumbers"))
 		for k, status in pairs(self.actbox.battler.statuses) do
-			Draw.setColor(1, 1, 1, 1)
-			if Kristal.getLibConfig("status_core", "match_color") then
-				Draw.setColor(self.actbox.battler.chara.color)
-			end
-			love.graphics.draw(Assets.getTexture(status.statcon.icon), (i * 24) + 4, -24)
-			
-			local width = Assets.getFont("smallnumbers"):getWidth(status.turn_count)
-			Draw.setColor(0, 0, 0, 1)
-			love.graphics.print(status.turn_count, (i * 24) + 25 - width, -12)
-			love.graphics.print(status.turn_count, (i * 24) + 25 - width, -11)
-			love.graphics.print(status.turn_count, (i * 24) + 25 - width, -13)
-			love.graphics.print(status.turn_count, (i * 24) + 26 - width, -11)
-			love.graphics.print(status.turn_count, (i * 24) + 27 - width, -12)
-			love.graphics.print(status.turn_count, (i * 24) + 27 - width, -11)
-			love.graphics.print(status.turn_count, (i * 24) + 27 - width, -13)
-			love.graphics.print(status.turn_count, (i * 24) + 26 - width, -13)
-			Draw.setColor(1, 1, 1, 1)
-			love.graphics.print(status.turn_count, (i * 24) + 26 - width, -12)
-			
-			if status.statcon.amplifier and status.statcon.amplifier >= 1 then
-				Draw.setColor(0, 0, 0, 1)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -28)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -27)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -29)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -27)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -28)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -27)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -29)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -29)
+			if not status.statcon.hidden then
 				Draw.setColor(1, 1, 1, 1)
-				love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -28)
-			end
+				if Kristal.getLibConfig("status_core", "match_color") then
+					Draw.setColor(self.actbox.battler.chara.color)
+				end
+				love.graphics.draw(Assets.getTexture(status.statcon.icon), (i * 24) + 4, -24)
+				
+				local width = Assets.getFont("smallnumbers"):getWidth(status.turn_count)
+				Draw.setColor(0, 0, 0, 1)
+				love.graphics.print(status.turn_count, (i * 24) + 25 - width, -12)
+				love.graphics.print(status.turn_count, (i * 24) + 25 - width, -11)
+				love.graphics.print(status.turn_count, (i * 24) + 25 - width, -13)
+				love.graphics.print(status.turn_count, (i * 24) + 26 - width, -11)
+				love.graphics.print(status.turn_count, (i * 24) + 27 - width, -12)
+				love.graphics.print(status.turn_count, (i * 24) + 27 - width, -11)
+				love.graphics.print(status.turn_count, (i * 24) + 27 - width, -13)
+				love.graphics.print(status.turn_count, (i * 24) + 26 - width, -13)
+				Draw.setColor(1, 1, 1, 1)
+				love.graphics.print(status.turn_count, (i * 24) + 26 - width, -12)
+				
+				if status.statcon.amplifier and status.statcon.amplifier >= 1 then
+					Draw.setColor(0, 0, 0, 1)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -28)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -27)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 3, -29)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -27)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -28)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -27)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 5, -29)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -29)
+					Draw.setColor(1, 1, 1, 1)
+					love.graphics.print(status.statcon.amplifier, (i * 24) + 4, -28)
+				end
 			
-			i = i + 1
+				i = i + 1
+			end
 		end
         orig(self)
     end)
@@ -236,9 +247,11 @@ function Lib:init()
 			end)
 			Utils.hook(LightBattle, "init", function(orig, self, ...)
 				orig(self, ...)
-				local sv = StatusView()
-				sv:setLayer(BATTLE_LAYERS["top"])
-				self:addChild(sv)
+				if Kristal.getLibConfig("status_core", "status_menu") then
+					local sv = StatusView()
+					sv:setLayer(BATTLE_LAYERS["top"])
+					self:addChild(sv)
+				end
 			end)
 			Utils.hook(LightBattle, "draw", function(orig, self)
 				orig(self)
@@ -251,40 +264,42 @@ function Lib:init()
 					x = 566
 					love.graphics.setFont(Assets.getFont("smallnumbers"))
 					for k, status in pairs(battler.statuses) do
-						Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
-						if Kristal.getLibConfig("status_core", "match_color") then
-							Draw.setColor(battler.chara.color)
+						if not status.statcon.hidden then
+							Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
+							if Kristal.getLibConfig("status_core", "match_color") then
+								Draw.setColor(battler.chara.color)
+							end
+							love.graphics.draw(Assets.getTexture(status.statcon.icon), x + 4, (i * 28) - 16)
+							
+							local width = Assets.getFont("smallnumbers"):getWidth(status.turn_count)
+							Draw.setColor(0, 0, 0, (1 - self.fader.alpha))
+							love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 4)
+							love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 3)
+							love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 5)
+							love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 3)
+							love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 4)
+							love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 3)
+							love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 5)
+							love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 5)
+							Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
+							love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 4)
+							
+							if status.statcon.amplifier and status.statcon.amplifier >= 1 then
+								Draw.setColor(0, 0, 0, 1)
+								love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 20)
+								love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 19)
+								love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 21)
+								love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 19)
+								love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 20)
+								love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 19)
+								love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 21)
+								love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 21)
+								Draw.setColor(1, 1, 1, 1)
+								love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 20)
+							end
+							
+							x = x - 24
 						end
-						love.graphics.draw(Assets.getTexture(status.statcon.icon), x + 4, (i * 28) - 16)
-						
-						local width = Assets.getFont("smallnumbers"):getWidth(status.turn_count)
-						Draw.setColor(0, 0, 0, (1 - self.fader.alpha))
-						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 4)
-						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 3)
-						love.graphics.print(status.turn_count, x + 25 - width, (i * 28) - 5)
-						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 3)
-						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 4)
-						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 3)
-						love.graphics.print(status.turn_count, x + 27 - width, (i * 28) - 5)
-						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 5)
-						Draw.setColor(1, 1, 1, (1 - self.fader.alpha))
-						love.graphics.print(status.turn_count, x + 26 - width, (i * 28) - 4)
-						
-						if status.statcon.amplifier and status.statcon.amplifier >= 1 then
-							Draw.setColor(0, 0, 0, 1)
-							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 20)
-							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 19)
-							love.graphics.print(status.statcon.amplifier, x + 3, (i * 28) - 21)
-							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 19)
-							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 20)
-							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 19)
-							love.graphics.print(status.statcon.amplifier, x + 5, (i * 28) - 21)
-							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 21)
-							Draw.setColor(1, 1, 1, 1)
-							love.graphics.print(status.statcon.amplifier, x + 4, (i * 28) - 20)
-						end
-						
-						x = x - 24
 					end
 					
 				end

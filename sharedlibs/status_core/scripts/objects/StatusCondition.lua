@@ -27,6 +27,9 @@ function StatusCondition:init()
 	
 	-- The icon of the effect.
 	self.icon = "ui/status/burn"
+	
+	-- Does the status effect hide itself from the status overlay and StatusView menu?
+	self.hidden = false
 end
 
 -- *(Override)* Called when the status effect is applied.
@@ -57,5 +60,12 @@ function StatusCondition:onCure(battler) end
 -- *(Override)* Called when a stat is gotten from a PartyMember.
 ---@return number new_value -- The new value of the stat
 function StatusCondition:applyStatModifier(stat, value) return value end
+
+function StatusCondition:__tostring()
+	if self.amplifier > 0 then
+		return "StatusCondition(" .. self.id .. ", amp " .. tostring(self.amplifier) .. ")"
+	end
+	return "StatusCondition(" .. self.id .. ")"
+end
 
 return StatusCondition
