@@ -41,7 +41,7 @@ function OmegaSpamton:init()
     }
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
-    self.check = "AT "..self.attack.." DF "..self.defense.."\n* Final boss (Not of Dark Place)."
+    self.check = "AT "..self.attack.." DF "..self.defense.."\n* Final boss...[wait:10] of Kris and Susie Gamer Time,[wait:5] that is."
 
     -- Text randomly displayed at the bottom of the screen each turn
     self.text = {
