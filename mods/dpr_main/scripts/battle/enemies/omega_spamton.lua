@@ -55,6 +55,8 @@ function OmegaSpamton:init()
 
     -- Register act called "Smile"
     self:registerAct("Downgrade", "Lower\nstats.", nil, 25)
+
+    self.xaction_flag = false
 end
 
 function OmegaSpamton:onAct(battler, name)
@@ -70,11 +72,18 @@ function OmegaSpamton:onAct(battler, name)
         local attackLowered = self.attack > 10
         self.attack = math.max(10, self.attack - 15)
 		self.defense = self.defense - 30
-		self.check = "AT "..self.attack.." DF "..self.defense.."\n* Final boss...[wait:10] of the GamerTimer section,[wait:5] that is."
+		self.check = "AT "..self.attack.." DF "..self.defense.."\n* Final boss...[wait:10] of Kris and Susie Gamer Time,[wait:5] that is."
         return {
             attackLowered and "* Spamton was downgraded![wait:5]\n* -15 attack & -30 defense!"
             or "* Spamton was downgraded![wait:5]\n* -30 defense![wait:5]\nAttack can't go any lower.",
         }
+    elseif name == "X-Downgrade" then
+        Assets.playSound("laz_c")
+		
+        -- Act text (since it's a list, multiple textboxes)
+		self.defense = self.defense - 100
+		self.check = "AT "..self.attack.." DF "..self.defense.."\n* Final boss...[wait:10] of the GamerTimer section,[wait:5] that is."
+        return "* Spamton was greatly downgraded![wait:5]\n* -100 defense!"
     elseif name == "Standard" then --X-Action
         -- Give the enemy 50% mercy
         self:addMercy(1)

@@ -17,7 +17,7 @@ function actor:init()
     self.path    = "battle/enemies/omegaspamton"
     self.default = "static"
 
-    self.voice           = nil
+    self.voice           = "spam_omega"
     self.portrait_path   = nil
     self.portrait_offset = nil
 
