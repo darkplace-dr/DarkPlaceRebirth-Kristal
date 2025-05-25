@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   name = "apartment_doors",
   class = "",
   tilewidth = 120,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 3,
+  tilecount = 4,
   tiles = {
     {
       id = 0,
@@ -40,6 +40,12 @@ return {
     {
       id = 2,
       image = "../../../assets/sprites/world/apartment_doors/nell.png",
+      width = 120,
+      height = 160
+    },
+    {
+      id = 3,
+      image = "../../../assets/sprites/world/apartment_doors/ddelta.png",
       width = 120,
       height = 160
     }

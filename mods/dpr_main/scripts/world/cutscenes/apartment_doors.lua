@@ -4,6 +4,12 @@ return {
     cutscene:text("* The sign reads \"This apartment belongs to Luthane Jamm and Marcy Jamm.\"")
     -- To write
   end,
+  
+  ddelta = function(cutscene, event)
+    cutscene:text("* It's a door.")
+    cutscene:text("* The sign reads \"This\napartment belongs to Diamond Deltahedron.\"")
+    -- To write
+  end,
 
   brenda = function(cutscene, event)
     cutscene:text("* It's a door.")
