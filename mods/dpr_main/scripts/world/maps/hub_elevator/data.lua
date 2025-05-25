@@ -174,7 +174,7 @@ return {
             ["length_4"] = 40,
             ["length_5"] = 40,
             ["length_6"] = 40,
-            ["length_7"] = "40",
+            ["length_7"] = 40,
             ["mod_1"] = "dpr_pit_dlc",
             ["name_1"] = "The Dark Pit",
             ["name_2"] = "Floor 1",
