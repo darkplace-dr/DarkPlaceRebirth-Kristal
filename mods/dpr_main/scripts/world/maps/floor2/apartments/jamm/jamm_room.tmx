@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="9">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="16">
+ <editorsettings>
+  <export target="jamm_room.lua" format="lua"/>
+ </editorsettings>
  <layer id="1" name="Tile Layer 1" width="16" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -19,8 +22,34 @@
  <imagelayer id="2" name="Image Layer 1">
   <image source="../../../../../../assets/sprites/world/maps/apartments/jamm_room.png" width="640" height="480"/>
  </imagelayer>
- <objectgroup id="3" name="markers"/>
- <objectgroup id="4" name="objects"/>
+ <objectgroup id="3" name="markers">
+  <object id="10" name="entry" x="230" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="objects">
+  <object id="9" name="transition" x="190" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/apartments/jamm/jamm_apartment"/>
+    <property name="marker" value="jamm"/>
+   </properties>
+  </object>
+  <object id="11" name="interactable" x="424" y="234" width="74" height="28">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.jamm_closet"/>
+   </properties>
+  </object>
+  <object id="12" name="interactable" x="264" y="200" width="94" height="28">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.jamm_desk"/>
+   </properties>
+  </object>
+  <object id="15" name="interactable" x="120" y="228" width="138" height="90">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.jamm_bed"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="5" name="collision">
   <object id="1" x="0" y="0" width="120" height="480"/>
   <object id="2" x="120" y="400" width="70" height="80"/>

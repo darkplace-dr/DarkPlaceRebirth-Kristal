@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 27,
+  nextobjectid = 38,
   properties = {},
   tilesets = {},
   layers = {
@@ -234,6 +234,143 @@ return {
           properties = {
             ["cutscene"] = "apartments/jamm.breaker_box"
           }
+        },
+        {
+          id = 31,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 700,
+          width = 40,
+          height = 60,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.stove"
+          }
+        },
+        {
+          id = 32,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 772,
+          y = 190,
+          width = 26,
+          height = 78,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.tv"
+          }
+        },
+        {
+          id = 33,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 482,
+          y = 168,
+          width = 30,
+          height = 126,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.couch"
+          }
+        },
+        {
+          id = 27,
+          name = "interectable",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 800,
+          width = 60,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* It's a sink.[wait:10]\n* There's nothing special about it."
+          }
+        },
+        {
+          id = 34,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 600,
+          width = 38,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* On the fridge,[wait:5] you see pictures of Jamm and Marcy with other people you don't know."
+          }
+        },
+        {
+          id = 35,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 440,
+          width = 80,
+          height = 18,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.bathroom"
+          }
+        },
+        {
+          id = 36,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 440,
+          width = 80,
+          height = 18,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.closet"
+          }
+        },
+        {
+          id = 37,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 372,
+          y = 316,
+          width = 66,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/apartments/jamm/marcy_room",
+            ["marker"] = "entry"
+          }
+        },
+        {
+          id = 30,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 316,
+          width = 66,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/apartments/jamm/jamm_room",
+            ["marker"] = "entry"
+          }
         }
       }
     },
@@ -243,7 +380,7 @@ return {
       id = 7,
       name = "collision",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -445,7 +582,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "apartments_left",
+            ["map"] = "floor2/apartments_left",
             ["marker"] = "entry_jamm"
           }
         }

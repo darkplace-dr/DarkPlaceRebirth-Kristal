@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 9,
+  nextobjectid = 16,
   properties = {},
   tilesets = {},
   layers = {
@@ -75,7 +75,21 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 10,
+          name = "entry",
+          type = "",
+          shape = "point",
+          x = 230,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -90,7 +104,69 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 9,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 190,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/apartments/jamm/jamm_apartment",
+            ["marker"] = "jamm"
+          }
+        },
+        {
+          id = 11,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 424,
+          y = 234,
+          width = 74,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.jamm_closet"
+          }
+        },
+        {
+          id = 12,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 264,
+          y = 200,
+          width = 94,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.jamm_desk"
+          }
+        },
+        {
+          id = 15,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 228,
+          width = 138,
+          height = 90,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.jamm_bed"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
