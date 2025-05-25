@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="21" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="21" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="27">
+ <editorsettings>
+  <export target="jamm_apartment.lua" format="lua"/>
+ </editorsettings>
  <layer id="1" name="Tile Layer 1" width="21" height="22">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -29,9 +32,54 @@
  <imagelayer id="5" name="Image Layer 1">
   <image source="../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png" width="840" height="920"/>
  </imagelayer>
- <objectgroup id="4" name="markers"/>
- <objectgroup id="6" name="objects"/>
- <objectgroup id="7" name="collision">
+ <objectgroup id="4" name="markers">
+  <object id="17" name="entry" x="760" y="820">
+   <point/>
+  </object>
+  <object id="18" name="marcy" x="406" y="392">
+   <point/>
+  </object>
+  <object id="19" name="jamm" x="114" y="392">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="objects">
+  <object id="20" name="interactable" x="80" y="320" width="66" height="40">
+   <properties>
+    <property name="flagcheck" value="!jamm_door_unlocked"/>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text1" value="* The door is locked."/>
+   </properties>
+  </object>
+  <object id="21" name="interactable" x="544" y="120" width="50" height="40">
+   <properties>
+    <property name="text1" value="* It's a silky,[wait:5] white curtain."/>
+    <property name="text2" value="* For some reason,[wait:5] you feel like you want to touch it..."/>
+   </properties>
+  </object>
+  <object id="22" name="interactable" x="696" y="120" width="50" height="40">
+   <properties>
+    <property name="text1" value="* It's a silky,[wait:5] white curtain."/>
+    <property name="text2" value="* For some reason,[wait:5] you feel like you want to touch it..."/>
+   </properties>
+  </object>
+  <object id="23" name="interactable" x="749" y="120" width="44" height="40">
+   <properties>
+    <property name="text1" value="* On the decoration is written &quot;JAMM FAMILY - ESTABLISHED 2002&quot;"/>
+   </properties>
+  </object>
+  <object id="24" name="interactable" x="594" y="120" width="102" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.balcony_door"/>
+   </properties>
+  </object>
+  <object id="26" name="interactable" x="244" y="320" width="48" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.breaker_box"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="collision" visible="0">
   <object id="1" x="0" y="0" width="480" height="240"/>
   <object id="2" x="438" y="240" width="42" height="120"/>
   <object id="3" x="146" y="240" width="226" height="120"/>
@@ -46,9 +94,10 @@
   <object id="12" x="800" y="160" width="40" height="760"/>
   <object id="13" x="480" y="160" width="32" height="134"/>
   <object id="14" x="772" y="174" width="28" height="94"/>
-  <object id="15" name="jamm_door_locked" x="80" y="320" width="80" height="40">
+  <object id="16" name="transition" x="720" y="870" width="80" height="10">
    <properties>
-    <property name="flagcheck" value="!jamm_door_unlocked"/>
+    <property name="map" value="apartments_left"/>
+    <property name="marker" value="entry_jamm"/>
    </properties>
   </object>
  </objectgroup>

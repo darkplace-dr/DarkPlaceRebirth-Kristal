@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 16,
+  nextobjectid = 27,
   properties = {},
   tilesets = {},
   layers = {
@@ -85,7 +85,47 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 17,
+          name = "entry",
+          type = "",
+          shape = "point",
+          x = 760,
+          y = 820,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "marcy",
+          type = "",
+          shape = "point",
+          x = 406,
+          y = 392,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 19,
+          name = "jamm",
+          type = "",
+          shape = "point",
+          x = 114,
+          y = 392,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -100,7 +140,102 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 20,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 320,
+          width = 66,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "!jamm_door_unlocked",
+            ["solid"] = true,
+            ["text1"] = "* The door is locked."
+          }
+        },
+        {
+          id = 21,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 120,
+          width = 50,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* It's a silky,[wait:5] white curtain.",
+            ["text2"] = "* For some reason,[wait:5] you feel like you want to touch it..."
+          }
+        },
+        {
+          id = 22,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 696,
+          y = 120,
+          width = 50,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* It's a silky,[wait:5] white curtain.",
+            ["text2"] = "* For some reason,[wait:5] you feel like you want to touch it..."
+          }
+        },
+        {
+          id = 23,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 749,
+          y = 120,
+          width = 44,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* On the decoration is written \"JAMM FAMILY - ESTABLISHED 2002\""
+          }
+        },
+        {
+          id = 24,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 594,
+          y = 120,
+          width = 102,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.balcony_door"
+          }
+        },
+        {
+          id = 26,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 244,
+          y = 320,
+          width = 48,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.breaker_box"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -108,7 +243,7 @@ return {
       id = 7,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -299,18 +434,19 @@ return {
           properties = {}
         },
         {
-          id = 15,
-          name = "jamm_door_locked",
+          id = 16,
+          name = "transition",
           type = "",
           shape = "rectangle",
-          x = 80,
-          y = 320,
+          x = 720,
+          y = 870,
           width = 80,
-          height = 40,
+          height = 10,
           rotation = 0,
           visible = true,
           properties = {
-            ["flagcheck"] = "!jamm_door_unlocked"
+            ["map"] = "apartments_left",
+            ["marker"] = "entry_jamm"
           }
         }
       }
