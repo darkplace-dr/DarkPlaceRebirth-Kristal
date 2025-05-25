@@ -130,17 +130,6 @@ function Game:enter(previous_state, save_id, save_name, fade)
             instance = 0
         })
     end
-	
-	if not self:getFlag("SHINY") then
-		self:setFlag("SHINY", {})
-		for k,v in ipairs(Game:getFlag("unlockedPartyMembers", {})) do
-			self:rollShiny(v)
-		end
-	end
-	
-	if not self:getFlag("PROMISES") then
-		self:setFlag("PROMISES", {})
-	end
 end
 
 function Game:addEventTime(time_added)
@@ -681,8 +670,17 @@ function Game:load(data, index, fade)
 		})
 		Game.world:addChild(text)
     end
-
-
+	
+	if not self:getFlag("SHINY") then
+		self:setFlag("SHINY", {})
+		for k,v in ipairs(Game:getFlag("unlockedPartyMembers", {})) do
+			self:rollShiny(v)
+		end
+	end
+	
+	if not self:getFlag("PROMISES") then
+		self:setFlag("PROMISES", {})
+	end
 end
 
 ---@param light? boolean
