@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -33,7 +33,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 240,
@@ -46,7 +46,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 201,
           y = 200,
@@ -59,7 +59,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 240,
@@ -72,7 +72,7 @@ return {
         {
           id = 25,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 360,
@@ -85,7 +85,7 @@ return {
         {
           id = 26,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -114,7 +114,7 @@ return {
         {
           id = 6,
           name = "elevatorbuttons",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 200,
@@ -127,7 +127,7 @@ return {
         {
           id = 7,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -144,7 +144,7 @@ return {
         {
           id = 29,
           name = "elevator",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -155,30 +155,34 @@ return {
           properties = {
             ["color_1"] = "#ff321fc3",
             ["color_2"] = "#ff4429ff",
-            ["color_3"] = "#ff2368b8",
-            ["color_4"] = "#ff373887",
-            ["color_5"] = "#ff4429ff",
-            ["color_6"] = "#ffffff00",
+            ["color_3"] = "#ff97caf7",
+            ["color_4"] = "#ff2368b8",
+            ["color_5"] = "#ff373887",
+            ["color_6"] = "#ff4429ff",
+            ["color_7"] = "#ffffff00",
             ["cutscene_5"] = "broken_elevator",
             ["dest_1"] = "pre_pit",
             ["dest_2"] = "main_hub",
-            ["dest_3"] = "floorcyber/pre_elevator",
-            ["dest_4"] = "seal_room/seal_room_1",
-            ["dest_5"] = "nothing",
-            ["dest_6"] = "tritraland/entrance",
+            ["dest_3"] = "floor2/main_1",
+            ["dest_4"] = "floorcyber/pre_elevator",
+            ["dest_5"] = "seal_room/seal_room_1",
+            ["dest_6"] = "nothing",
+            ["dest_7"] = "tritraland/entrance",
             ["length_1"] = 140,
             ["length_2"] = 40,
             ["length_3"] = 40,
             ["length_4"] = 40,
             ["length_5"] = 40,
             ["length_6"] = 40,
+            ["length_7"] = "40",
             ["mod_1"] = "dpr_pit_dlc",
             ["name_1"] = "The Dark Pit",
             ["name_2"] = "Floor 1",
-            ["name_3"] = "Cyber Floor",
-            ["name_4"] = "Room",
-            ["name_5"] = "Nowhere",
-            ["name_6"] = "TritraLand"
+            ["name_3"] = "Floor 2",
+            ["name_4"] = "Cyber Floor",
+            ["name_5"] = "Room",
+            ["name_6"] = "Nowhere",
+            ["name_7"] = "TritraLand"
           }
         }
       }
@@ -200,7 +204,7 @@ return {
         {
           id = 5,
           name = "entry",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 440,
@@ -213,7 +217,7 @@ return {
         {
           id = 32,
           name = "buttons",
-          type = "",
+          class = "",
           shape = "point",
           x = 380,
           y = 260,
@@ -226,7 +230,7 @@ return {
         {
           id = 33,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 320,
@@ -239,7 +243,7 @@ return {
         {
           id = 34,
           name = "entry_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 260,

@@ -12,7 +12,7 @@ function Starwalker:init()
 
     self.max_health = 6000
     self.health = 6000
-    self.attack = 12
+    self.attack = 8
     self.defense = 2
     self.money = 420
     self.experience = --[[Mod:isInRematchMode() and 0 or]] 420

@@ -3,6 +3,9 @@
 
 function Mod:init()
     print("Loaded "..self.info.name.."!")
+	
+    self.voice_timer = 0
+    
     self.border_shaders = {}
 
     self:setMusicPitches()
@@ -171,6 +174,10 @@ function Mod:postLoad()
 	Game:rollShiny("hero")
 end
 
+function Mod:preUpdate()
+    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+end
+
 function Mod:addGlobalEXP(exp)
     Game:setFlag("library_experience", Utils.clamp(Game:getFlag("library_experience", 0) + exp, 0, 99999))
 
@@ -248,6 +255,13 @@ end
 function Mod:onTextSound(voice, node, text)
     if voice == "noel" and Game.shop then
         Assets.playSound("voice/noel/"..string.lower(node.character), 1, 1)
+        return true
+    end
+    if voice == "rx1" then
+        if self.voice_timer == 0 then
+            local snd = Assets.playSound(Utils.pick{"voice/rx1", "voice/rx2", "voice/rx3"})
+            self.voice_timer = 2
+        end
         return true
     end
 end

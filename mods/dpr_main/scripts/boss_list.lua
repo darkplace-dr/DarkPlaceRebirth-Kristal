@@ -7,7 +7,7 @@ return {
     description = "Starwalker has been pissed off for the last time and is ready to show his true power!",
     locked_description = "Talk to Starwalker 10 times to unlock this fight!",
     health = 6000,
-    attack = 12,
+    attack = 8,
     defense = 2,
     flag = "starwalker_defeated"
   },
