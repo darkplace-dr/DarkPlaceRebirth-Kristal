@@ -447,7 +447,7 @@ return {
           gid = 539,
           visible = true,
           properties = {
-            ["cond"] = "Game:hasDLC(\"dlc_trials\")"
+            ["dlc"] = "dlc_trials"
           }
         },
         {
@@ -462,7 +462,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cond"] = "Game:hasDLC(\"dlc_trials\") and Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")",
+            ["dlc"] = "dlc_trials",
+            ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")",
             ["cutscene"] = "thevoid.altar1",
             ["solid"] = true
           }
@@ -479,7 +480,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cond"] = "Game:hasDLC(\"dlc_trials\") and (not Game:hasPartyMember(\"hero\") or not Game:hasPartyMember(\"susie\") or not Game:hasPartyMember(\"noel\"))",
+            ["dlc"] = "dlc_trials",
+            ["cond"] = "(not Game:hasPartyMember(\"hero\") or not Game:hasPartyMember(\"susie\") or not Game:hasPartyMember(\"noel\"))",
             ["cutscene"] = "thevoid.altar1",
             ["solid"] = true
           }
@@ -607,7 +609,8 @@ return {
           gid = 542,
           visible = true,
           properties = {
-            ["cond"] = "Game:hasDLC(\"dlc_trials\") and Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")"
+            ["dlc"] = "dlc_trials",
+            ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")"
           }
         }
       }

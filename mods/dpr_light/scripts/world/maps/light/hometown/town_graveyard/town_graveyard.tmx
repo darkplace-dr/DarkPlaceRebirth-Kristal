@@ -159,7 +159,7 @@
   <object id="21" name="npc" x="80" y="350">
    <properties>
     <property name="actor" value="brenda_lw"/>
-    <property name="cond" value="Game:hasDLC(&quot;dlc_forest&quot;)"/>
+    <property name="dlc" value="dlc_forest"/>
     <property name="cutscene" value="hometown.brenda"/>
     <property name="facing" value="left"/>
    </properties>

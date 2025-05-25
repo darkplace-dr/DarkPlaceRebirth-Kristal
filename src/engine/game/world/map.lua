@@ -641,6 +641,22 @@ function Map:loadObjects(layer, depth, layer_type)
                 else
                     skip_loading = not inverted
                 end
+            elseif v.properties["dlc"] then
+                local dlc_list = Utils.splitFast(v.properties["dlc"], ";")
+                for i,dlc_id in ipairs(dlc_list) do
+                    local inverted, id = Utils.startsWith(dlc_id:gsub(" ", ""), "!")
+
+                    result = Game:hasDLC(id)
+
+                    if inverted then
+                        result = not result
+                    end
+
+                    if not result then
+                        skip_loading = true
+                        break
+                    end
+                end
             end
 
             if not skip_loading then
