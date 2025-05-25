@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -19,8 +19,8 @@ return {
     {
       name = "floor2",
       firstgid = 1,
-      filename = "../../tilesets/floor2.tsx",
-      exportfilename = "../../tilesets/floor2.lua"
+      filename = "../../../tilesets/floor2.tsx",
+      exportfilename = "../../../tilesets/floor2.lua"
     }
   },
   layers = {
@@ -143,7 +143,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -156,7 +156,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 200,
@@ -169,7 +169,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -182,7 +182,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 240,
@@ -195,7 +195,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 360,
@@ -208,7 +208,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 360,
@@ -221,7 +221,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 440,
@@ -234,7 +234,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 440,
@@ -247,7 +247,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 320,
           y = 160,
@@ -268,7 +268,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 560,
           y = 160,
@@ -305,7 +305,7 @@ return {
         {
           id = 23,
           name = "elevatordoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 379,
           y = 143,
@@ -336,7 +336,7 @@ return {
         {
           id = 13,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 280,
@@ -349,7 +349,7 @@ return {
         {
           id = 14,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 880,
           y = 280,
@@ -365,7 +365,7 @@ return {
         {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 240,
@@ -381,7 +381,7 @@ return {
         {
           id = 16,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 240,
@@ -397,7 +397,7 @@ return {
         {
           id = 18,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 124,
@@ -413,7 +413,7 @@ return {
         {
           id = 22,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 420,
           y = 300,
@@ -426,7 +426,7 @@ return {
         {
           id = 30,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 560,
@@ -442,7 +442,7 @@ return {
         {
           id = 32,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 200,
@@ -457,7 +457,7 @@ return {
         {
           id = 33,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 600,
           y = 200,
@@ -472,7 +472,7 @@ return {
         {
           id = 34,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 280,
@@ -487,7 +487,7 @@ return {
         {
           id = 35,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 320,
@@ -518,7 +518,7 @@ return {
         {
           id = 19,
           name = "entry_elevator",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 240,
@@ -531,7 +531,7 @@ return {
         {
           id = 20,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 290,
@@ -544,7 +544,7 @@ return {
         {
           id = 24,
           name = "entry_wobblything_room",
-          class = "",
+          type = "",
           shape = "point",
           x = 840,
           y = 320,
@@ -557,7 +557,7 @@ return {
         {
           id = 25,
           name = "entry_lounge",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 320,
@@ -570,7 +570,7 @@ return {
         {
           id = 26,
           name = "entry_apartments_left",
-          class = "",
+          type = "",
           shape = "point",
           x = 140,
           y = 320,
@@ -583,7 +583,7 @@ return {
         {
           id = 27,
           name = "entry_apartments_right",
-          class = "",
+          type = "",
           shape = "point",
           x = 740,
           y = 320,
@@ -596,7 +596,7 @@ return {
         {
           id = 31,
           name = "entry_main_2",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 520,
