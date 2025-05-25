@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 60,
+  nextobjectid = 62,
   properties = {
     ["music"] = "mainhub"
   },
@@ -20,6 +20,12 @@ return {
       firstgid = 1,
       filename = "../../tilesets/floor2.tsx",
       exportfilename = "../../tilesets/floor2.lua"
+    },
+    {
+      name = "apartment_doors",
+      firstgid = 171,
+      filename = "../../tilesets/apartment_doors.tsx",
+      exportfilename = "../../tilesets/apartment_doors.lua"
     }
   },
   layers = {
@@ -240,7 +246,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 200,
@@ -253,7 +259,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 760,
@@ -266,7 +272,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 1120,
@@ -279,7 +285,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 1120,
@@ -292,7 +298,7 @@ return {
         {
           id = 30,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 600,
@@ -305,7 +311,7 @@ return {
         {
           id = 34,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 240,
@@ -318,7 +324,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1032,
           y = 600,
@@ -331,7 +337,7 @@ return {
         {
           id = 36,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1032,
           y = 960,
@@ -344,7 +350,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 960,
@@ -357,7 +363,7 @@ return {
         {
           id = 39,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 400,
@@ -370,7 +376,7 @@ return {
         {
           id = 45,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1160,
           y = 240,
@@ -383,7 +389,7 @@ return {
         {
           id = 52,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 760,
@@ -396,7 +402,7 @@ return {
         {
           id = 53,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 760,
@@ -409,7 +415,7 @@ return {
         {
           id = 57,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 760,
@@ -422,7 +428,7 @@ return {
         {
           id = 58,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 760,
@@ -451,7 +457,7 @@ return {
         {
           id = 46,
           name = "backroomsdoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 482,
           y = 864,
@@ -464,7 +470,7 @@ return {
         {
           id = 47,
           name = "queendoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 642,
           y = 806,
@@ -477,13 +483,27 @@ return {
         {
           id = 48,
           name = "lancerdoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 252,
           y = 810,
           width = 134,
           height = 182,
           rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 60,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 460,
+          y = 600,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 171,
           visible = true,
           properties = {}
         }
@@ -506,7 +526,7 @@ return {
         {
           id = 16,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1200,
@@ -522,7 +542,7 @@ return {
         {
           id = 49,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 274,
           y = 930,
@@ -538,7 +558,7 @@ return {
         {
           id = 50,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 274,
           y = 930,
@@ -554,7 +574,7 @@ return {
         {
           id = 59,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 944,
@@ -565,6 +585,21 @@ return {
           properties = {
             ["map"] = "floor2/queen",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 61,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 470,
+          y = 560,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.jamm"
           }
         }
       }
@@ -586,7 +621,7 @@ return {
         {
           id = 15,
           name = "entry_main_1",
-          class = "",
+          type = "",
           shape = "point",
           x = 900,
           y = 1160,
@@ -599,7 +634,7 @@ return {
         {
           id = 17,
           name = "entry_lancer",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 1000,
@@ -612,7 +647,7 @@ return {
         {
           id = 18,
           name = "entry_backrooms",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 1000,
@@ -625,7 +660,7 @@ return {
         {
           id = 19,
           name = "entry_queen",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 1000,
@@ -638,7 +673,7 @@ return {
         {
           id = 20,
           name = "entry_whitespace",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 1000,
@@ -651,7 +686,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 640,
@@ -664,7 +699,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 640,
@@ -677,7 +712,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 640,
@@ -690,7 +725,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 640,
@@ -703,7 +738,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 280,
@@ -716,7 +751,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 280,
@@ -729,7 +764,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 280,
@@ -742,7 +777,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 280,
@@ -755,7 +790,7 @@ return {
         {
           id = 29,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 620,
           y = 1080,
