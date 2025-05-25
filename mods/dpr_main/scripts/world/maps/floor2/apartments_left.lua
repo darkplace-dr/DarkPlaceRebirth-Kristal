@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -24,8 +24,7 @@ return {
     {
       name = "apartment_doors",
       firstgid = 171,
-      filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.lua"
+      filename = "../../tilesets/apartment_doors.tsx"
     }
   },
   layers = {
@@ -782,7 +781,7 @@ return {
         },
         {
           id = 24,
-          name = "",
+          name = "entry_brenda",
           type = "",
           shape = "point",
           x = 320,
@@ -834,7 +833,7 @@ return {
         },
         {
           id = 28,
-          name = "",
+          name = "entry_nell",
           type = "",
           shape = "point",
           x = 920,
