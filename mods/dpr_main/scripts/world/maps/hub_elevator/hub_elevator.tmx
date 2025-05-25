@@ -42,10 +42,10 @@
     <property name="length_1" type="int" value="140"/>
     <property name="length_2" type="int" value="40"/>
     <property name="length_3" type="int" value="40"/>
-    <property name="length_4" type="float" value="40"/>
-    <property name="length_5" type="float" value="40"/>
-    <property name="length_6" type="float" value="40"/>
-    <property name="length_7" value="40"/>
+    <property name="length_4" type="int" value="40"/>
+    <property name="length_5" type="int" value="40"/>
+    <property name="length_6" type="int" value="40"/>
+    <property name="length_7" type="int" value="40"/>
     <property name="mod_1" value="dpr_pit_dlc"/>
     <property name="name_1" value="The Dark Pit"/>
     <property name="name_2" value="Floor 1"/>
