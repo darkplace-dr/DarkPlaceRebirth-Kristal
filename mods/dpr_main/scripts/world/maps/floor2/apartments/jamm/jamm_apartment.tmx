@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="21" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
+ <layer id="1" name="Tile Layer 1" width="21" height="22">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <imagelayer id="5" name="Image Layer 1">
+  <image source="../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png" width="840" height="920"/>
+ </imagelayer>
+ <objectgroup id="4" name="markers"/>
+ <objectgroup id="6" name="objects"/>
+ <objectgroup id="7" name="collision">
+  <object id="1" x="0" y="0" width="480" height="240"/>
+  <object id="2" x="438" y="240" width="42" height="120"/>
+  <object id="3" x="146" y="240" width="226" height="120"/>
+  <object id="4" x="0" y="240" width="80" height="120"/>
+  <object id="5" x="0" y="360" width="40" height="80"/>
+  <object id="6" x="0" y="440" width="520" height="480"/>
+  <object id="7" x="520" y="800" width="160" height="120"/>
+  <object id="8" x="680" y="840" width="40" height="80"/>
+  <object id="9" x="720" y="880" width="80" height="40"/>
+  <object id="10" x="480" y="438" width="80" height="194"/>
+  <object id="11" x="480" y="0" width="360" height="160"/>
+  <object id="12" x="800" y="160" width="40" height="760"/>
+  <object id="13" x="480" y="160" width="32" height="134"/>
+  <object id="14" x="772" y="174" width="28" height="94"/>
+  <object id="15" name="jamm_door_locked" x="80" y="320" width="80" height="40">
+   <properties>
+    <property name="flagcheck" value="!jamm_door_unlocked"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
