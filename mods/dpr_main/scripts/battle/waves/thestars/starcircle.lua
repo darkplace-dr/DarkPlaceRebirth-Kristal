@@ -1,9 +1,11 @@
-local Aiming, super = Class(Wave)
+local StarCircle, super = Class(Wave)
 
-function Aiming:onStart()
+function StarCircle:onStart()
+    local ratio = self:getEnemyRatio()
+
     -- Every 1/8 seconds...
 	self.shootangle = 0
-    self.timer:every(1/32, function()
+    self.timer:every(1/32 * ratio, function()
         -- Get all enemies that selected this wave as their attack
         local attackers = self:getAttackers()
         -- Loop through all attackers
@@ -17,4 +19,13 @@ function Aiming:onStart()
     end)
 end
 
-return Aiming
+function StarCircle:getEnemyRatio()
+    local enemies = #Game.battle:getActiveEnemies()
+    if enemies <= 1 then
+        return 1.25
+    elseif enemies >= 2 then
+        return 2.5
+    end
+end
+
+return StarCircle

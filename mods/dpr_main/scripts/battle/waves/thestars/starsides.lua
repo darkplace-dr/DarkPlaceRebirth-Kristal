@@ -1,8 +1,10 @@
-local Basic, super = Class(Wave)
+local StarSides, super = Class(Wave)
 
-function Basic:onStart()
+function StarSides:onStart()
+    local ratio = self:getEnemyRatio()
+
     -- Every 1/5 seconds...
-    self.timer:every(1/5, function()
+    self.timer:every(1/5 * ratio, function()
         -- Get a random side
 		local x = 0
 		local direction = 180
@@ -20,4 +22,13 @@ function Basic:onStart()
     end)
 end
 
-return Basic
+function StarSides:getEnemyRatio()
+    local enemies = #Game.battle:getActiveEnemies()
+    if enemies <= 1 then
+        return 1
+    elseif enemies >= 2 then
+        return 1.6
+    end
+end
+
+return StarSides
