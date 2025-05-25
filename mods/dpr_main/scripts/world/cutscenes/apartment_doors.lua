@@ -25,4 +25,10 @@ return {
       cutscene:text("* It's locked.")
     end
   end,
+
+  nell = function(cutscene, event)
+    cutscene:text("* It's a blank door with a yellow soul emblem.")
+    cutscene:text("* You can't help but wonder who it might belong to.")
+    -- To write (in like a 1000 years when this gremlin's DLC will come out)
+  end,
 }

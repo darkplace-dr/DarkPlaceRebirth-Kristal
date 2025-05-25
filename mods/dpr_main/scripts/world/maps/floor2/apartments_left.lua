@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 64,
+  nextobjectid = 66,
   properties = {
     ["music"] = "mainhub"
   },
@@ -25,7 +25,7 @@ return {
       name = "apartment_doors",
       firstgid = 171,
       filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.tsx"
+      exportfilename = "../../tilesets/apartment_doors.lua"
     }
   },
   layers = {
@@ -520,6 +520,20 @@ return {
           gid = 172,
           visible = true,
           properties = {}
+        },
+        {
+          id = 64,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 860,
+          y = 240,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 173,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -614,6 +628,21 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.jamm"
+          }
+        },
+        {
+          id = 65,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 870,
+          y = 200,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.nell"
           }
         },
         {
