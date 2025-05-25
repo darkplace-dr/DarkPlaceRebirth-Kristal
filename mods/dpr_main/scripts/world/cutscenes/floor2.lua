@@ -240,4 +240,21 @@ return {
         cutscene:text("* So Unfortunately You Can't Play It Right Now Sorry", "sorry", "queen")
         cutscene:hideNametag()
     end,
+
+    spamgolor = function(cutscene, event)
+        cutscene:text("* It's a door.")
+        if not Game:getFlag("spamgolor_fight") then
+            cutscene:text("* There is a note attached:")
+            cutscene:text("[voice:spamgolor]* \"CURRENTLY OUT IN\n[[A room between...]]\"")
+            cutscene:text("[voice:spamgolor]* \"COME CHECK BACK\n[[Coming soon!]]\"")
+        else
+            cutscene:text("* It's unlocked,[wait:5] will you go inside?")
+            local choice = cutscene:choicer({"Yes", "No"})
+            if choice == 1 then
+                
+            else
+                cutscene:text("* You doorn't.")
+            end
+        end
+    end,
 }

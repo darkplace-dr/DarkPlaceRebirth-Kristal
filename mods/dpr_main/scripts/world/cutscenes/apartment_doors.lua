@@ -1,7 +1,28 @@
 return {
-	jamm = function(cutscene, event)
-        cutscene:text("* It's a door.")
-        cutscene:text("* The sign reads \"This apartment belongs to Luthane Jamm and Marcy Jamm.\"")
-		-- To write
-    end,
+  jamm = function(cutscene, event)
+    cutscene:text("* It's a door.")
+    cutscene:text("* The sign reads \"This apartment belongs to Luthane Jamm and Marcy Jamm.\"")
+    -- To write
+  end,
+
+  brenda = function(cutscene, event)
+    cutscene:text("* It's a door.")
+    cutscene:text("* The sign reads \"This apartment belongs to Brenda Kathiline.\"")
+    if Game:hasPartyMember("brenda") then
+      if not Game:getFlag("a_brenda_door") then
+        cutscene:showNametag("Brenda")
+        cutscene:text("* Oh wow,[wait:5] my own apartment?", "shocked", "brenda")
+        cutscene:text("* Wait hold on,[wait:5] I just got here,[wait:5] how the hell do I have my own personalized apartment?", "suspicious_b", "brenda")
+        cutscene:text("* Eh whatever,[wait:5] don't look a Giftrot in the mouth as they say.", "suspicious", "brenda")
+        cutscene:hideNametag()
+      end
+      if not Game:getFlag("a_brenda_key") then
+        cutscene:text("* Unfortunately,[wait:5] it's locked.")
+      else
+
+      end
+    else
+      cutscene:text("* It's locked.")
+    end
+  end,
 }

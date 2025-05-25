@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 41,
+  nextobjectid = 43,
   properties = {
     ["music"] = "mainhub"
   },
@@ -111,10 +111,10 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -240,7 +240,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 200,
@@ -253,7 +253,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 760,
@@ -266,7 +266,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 1120,
@@ -279,7 +279,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 1120,
@@ -292,7 +292,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 600,
@@ -305,7 +305,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 240,
@@ -318,7 +318,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1032,
           y = 600,
@@ -331,7 +331,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1032,
           y = 960,
@@ -344,7 +344,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 960,
@@ -357,7 +357,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 400,
@@ -370,7 +370,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1160,
           y = 240,
@@ -395,7 +395,23 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 41,
+          name = "sprite",
+          type = "",
+          shape = "rectangle",
+          x = 269,
+          y = 880,
+          width = 102,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["texture"] = "world/maps/floor2/door_spamgolor"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -414,7 +430,7 @@ return {
         {
           id = 12,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 1200,
@@ -425,6 +441,21 @@ return {
           properties = {
             ["map"] = "floor2/main_1",
             ["marker"] = "entry_apartments_right"
+          }
+        },
+        {
+          id = 42,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 269,
+          y = 944,
+          width = 102,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.spamgolor"
           }
         }
       }
@@ -446,7 +477,7 @@ return {
         {
           id = 27,
           name = "entry_main_1",
-          class = "",
+          type = "",
           shape = "point",
           x = 340,
           y = 1160,
@@ -459,7 +490,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 1000,
@@ -472,7 +503,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 1000,
@@ -485,7 +516,7 @@ return {
         {
           id = 30,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 1000,
@@ -498,7 +529,7 @@ return {
         {
           id = 31,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 1000,
@@ -511,7 +542,7 @@ return {
         {
           id = 32,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 640,
@@ -524,7 +555,7 @@ return {
         {
           id = 33,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 640,
@@ -537,7 +568,7 @@ return {
         {
           id = 34,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 640,
@@ -550,7 +581,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 640,
@@ -563,7 +594,7 @@ return {
         {
           id = 36,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 280,
@@ -576,7 +607,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 520,
           y = 280,
@@ -589,7 +620,7 @@ return {
         {
           id = 38,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 720,
           y = 280,
@@ -602,7 +633,7 @@ return {
         {
           id = 39,
           name = "",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 280,
@@ -615,7 +646,7 @@ return {
         {
           id = 40,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 620,
           y = 1080,

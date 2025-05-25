@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="62">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="64">
  <editorsettings>
   <export target="apartments_left.lua" format="lua"/>
  </editorsettings>
@@ -166,6 +166,7 @@
   <object id="47" name="queendoor" x="642" y="806" width="160" height="156"/>
   <object id="48" name="lancerdoor" x="252" y="810" width="134" height="182"/>
   <object id="60" gid="171" x="460" y="600" width="120" height="160"/>
+  <object id="63" gid="172" x="260" y="600" width="120" height="160"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="6" name="objects">
   <object id="16" name="transition" x="840" y="1200" width="120" height="40">
@@ -195,6 +196,11 @@
   <object id="61" name="interactable" x="470" y="560" width="100" height="40">
    <properties>
     <property name="cutscene" value="apartment_doors.jamm"/>
+   </properties>
+  </object>
+  <object id="62" name="interactable" x="270" y="560" width="100" height="40">
+   <properties>
+    <property name="cutscene" value="apartment_doors.brenda"/>
    </properties>
   </object>
  </objectgroup>

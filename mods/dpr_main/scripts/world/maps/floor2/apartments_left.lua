@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 62,
+  nextobjectid = 64,
   properties = {
     ["music"] = "mainhub"
   },
@@ -25,7 +25,7 @@ return {
       name = "apartment_doors",
       firstgid = 171,
       filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.lua"
+      exportfilename = "../../tilesets/apartment_doors.tsx"
     }
   },
   layers = {
@@ -506,6 +506,20 @@ return {
           gid = 171,
           visible = true,
           properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 260,
+          y = 600,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 172,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -600,6 +614,21 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.jamm"
+          }
+        },
+        {
+          id = 62,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 270,
+          y = 560,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.brenda"
           }
         }
       }

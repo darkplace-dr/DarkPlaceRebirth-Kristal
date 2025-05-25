@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="apartment_doors" tilewidth="60" tileheight="80" tilecount="1" columns="0">
+<tileset version="1.11" tiledversion="1.11.2" name="apartment_doors" tilewidth="120" tileheight="160" tilecount="2" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
-  <image source="../../../assets/sprites/world/apartment_doors/jamm.png" width="60" height="80"/>
+  <image source="../../../assets/sprites/world/apartment_doors/jamm.png" width="120" height="160"/>
+ </tile>
+ <tile id="1">
+  <image source="../../../assets/sprites/world/apartment_doors/brenda.png" width="120" height="160"/>
  </tile>
 </tileset>
