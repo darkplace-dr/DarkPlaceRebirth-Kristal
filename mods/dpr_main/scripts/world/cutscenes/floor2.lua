@@ -135,7 +135,6 @@ return {
 		
         cutscene:hideNametag()
 
-        else
         if cutscene:getCharacter("susie") then
             cutscene:showNametag("Susie")
             cutscene:text("* Uhh...[wait:3] that's acid. We'd die.", "nervous_side", "susie")
