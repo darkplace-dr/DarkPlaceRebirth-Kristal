@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 11,
+  nextobjectid = 17,
   properties = {},
   tilesets = {},
   layers = {
@@ -75,7 +75,21 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 11,
+          name = "entry",
+          type = "",
+          shape = "point",
+          x = 400,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -90,7 +104,84 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 12,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/apartments/jamm/jamm_apartment",
+            ["marker"] = "marcy"
+          }
+        },
+        {
+          id = 13,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 160,
+          width = 38,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* It's a drawing of Jamm,[wait:5] Marcy,[wait:5] and one who you can assume is Ania."
+          }
+        },
+        {
+          id = 14,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 416,
+          y = 228,
+          width = 94,
+          height = 90,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.marcy_bed"
+          }
+        },
+        {
+          id = 15,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 200,
+          width = 96,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.marcy_desk"
+          }
+        },
+        {
+          id = 16,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 132,
+          y = 234,
+          width = 74,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.marcy_closet"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -98,7 +189,7 @@ return {
       id = 8,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
