@@ -10,8 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 38,
-  properties = {},
+  nextobjectid = 45,
+  properties = {
+    ["music"] = "jamm_apartment"
+  },
   tilesets = {},
   layers = {
     {
@@ -119,6 +121,19 @@ return {
           shape = "point",
           x = 114,
           y = 392,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "camto",
+          type = "",
+          shape = "point",
+          x = 660,
+          y = 600,
           width = 0,
           height = 0,
           rotation = 0,
@@ -370,6 +385,37 @@ return {
           properties = {
             ["map"] = "floor2/apartments/jamm/jamm_room",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 38,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 680,
+          width = 280,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartments/jamm.introductions"
+          }
+        },
+        {
+          id = 39,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 660,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "jamm",
+            ["flagcheck"] = "jamm_waiting"
           }
         }
       }

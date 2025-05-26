@@ -2,7 +2,42 @@ return {
 	jamm = function(cutscene, event)
 		cutscene:text("* It's a door.")
 		cutscene:text("* The sign reads \"This apartment belongs to Luthane Jamm and Marcy Jamm.\"")
-		-- To write
+		if Game:getFlag("acj_quest_prog", 0) >= 2 then
+			if not Game:hasPartyMember("jamm") then
+				if Game:getFlag("jamm_waiting") then
+					cutscene:text("* Didn't Jamm say he'd wait for you here?")
+				end
+				cutscene:text("* Will you knock?")
+			else
+				cutscene:text("* Will you enter the apartment?")
+			end
+			
+			local choice = cutscene:choicer({"Yes", "No"})
+			
+			if choice == 1 then
+				if not Game:hasPartyMember("jamm") then
+					Assets.playSound("knock")
+					cutscene:text("* You knock on the door...")
+						
+					cutscene:showNametag("Jamm")
+					cutscene:text("[voice:jamm]* Oh,[wait:5] coming!")
+					cutscene:hideNametag()
+				else
+					cutscene:text("* Jamm pulls a key card out of his pocket and unlocks the door...")
+				end
+				
+				cutscene:wait(cutscene:fadeOut(0))
+				Assets.playSound("dooropen")
+				
+				cutscene:wait(1)
+				
+				Assets.playSound("doorclose")
+				cutscene:loadMap("floor2/apartments/jamm/jamm_apartment", "entry")
+				cutscene:wait(cutscene:fadeIn(0))
+			else
+				cutscene:text("* You decide not to.")
+			end
+		end
 	end,
   
 	ddelta = function(cutscene, event)

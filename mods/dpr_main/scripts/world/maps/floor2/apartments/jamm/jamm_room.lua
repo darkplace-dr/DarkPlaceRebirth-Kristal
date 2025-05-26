@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 6,
   nextobjectid = 16,
-  properties = {},
+  properties = {
+    ["music"] = "jamm_apartment"
+  },
   tilesets = {},
   layers = {
     {

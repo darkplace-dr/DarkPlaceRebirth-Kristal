@@ -18,6 +18,8 @@ function AcJQuest:getDescription()
 		return "You found Jamm in the forest. However, something seems off about him. Not only that, but the forest seems different than when you entered. Try to find your way out!"
 	elseif Game:getFlag("acj_quest_prog", 0) == 2 then
 		return "You found Jamm (for real this time) during your battle against Enzio. Jamm asked you to arrive to his apartment so he could properly thank you."
+	elseif Game:getFlag("acj_quest_prog", 0) == 3 then
+		return "Jamm is now a part of your team!"
 	end
 	return self.description
 end
