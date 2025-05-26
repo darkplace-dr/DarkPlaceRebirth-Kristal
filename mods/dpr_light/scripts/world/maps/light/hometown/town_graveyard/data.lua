@@ -525,7 +525,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "brenda_lw",
-            ["cond"] = "Game:hasDLC(\"dlc_forest\")",
+            ["dlc"] = "dlc_forest",
             ["cutscene"] = "hometown.brenda",
             ["facing"] = "left"
           }

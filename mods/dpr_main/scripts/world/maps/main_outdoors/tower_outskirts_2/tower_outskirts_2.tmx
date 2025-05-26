@@ -136,19 +136,21 @@
   </object>
   <object id="70" name="light_stand" gid="539" x="960" y="400" width="41" height="49">
    <properties>
-    <property name="cond" value="Game:hasDLC(&quot;dlc_trials&quot;)"/>
+    <property name="dlc" value="dlc_trials"/>
    </properties>
   </object>
   <object id="73" name="interactable" x="960" y="360" width="40" height="40">
    <properties>
-    <property name="cond" value="Game:hasDLC(&quot;dlc_trials&quot;) and Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
+    <property name="dlc" value="dlc_trials"/>
+    <property name="cond" value="Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
     <property name="cutscene" value="thevoid.altar1"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="77" name="interactable" x="960" y="360" width="40" height="40">
    <properties>
-    <property name="cond" value="Game:hasDLC(&quot;dlc_trials&quot;) and (not Game:hasPartyMember(&quot;hero&quot;) or not Game:hasPartyMember(&quot;susie&quot;) or not Game:hasPartyMember(&quot;noel&quot;))"/>
+    <property name="dlc" value="dlc_trials"/>
+    <property name="cond" value="(not Game:hasPartyMember(&quot;hero&quot;) or not Game:hasPartyMember(&quot;susie&quot;) or not Game:hasPartyMember(&quot;noel&quot;))"/>
     <property name="cutscene" value="thevoid.altar1"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
@@ -177,7 +179,8 @@
  <objectgroup color="#ff55ff" id="10" name="objects_back">
   <object id="67" gid="542" x="965" y="356.5" width="32" height="32">
    <properties>
-    <property name="cond" value="Game:hasDLC(&quot;dlc_trials&quot;) and Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
+    <property name="dlc" value="dlc_trials"/>
+    <property name="cond" value="Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
    </properties>
   </object>
  </objectgroup>
