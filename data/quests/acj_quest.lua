@@ -4,7 +4,7 @@ local AcJQuest, super = Class(Quest, "acj_quest")
 function AcJQuest:init()
     super.init(self)
     self.name = "AcousticFamily"
-    self.description = "AcousticJamm's daughter, Marcy, states that her father mentioned a \"TOMBSITE\" when leaving the room. Where could he have gone, and what does the TOMBSITE mean?"
+    self.description = "AcousticJamm's daughter, Marcy, states that her father mentioned a secret area in Deoxtest. Where could it be...?"
     self.progress = 0
     self.progress_max = 0
 end
