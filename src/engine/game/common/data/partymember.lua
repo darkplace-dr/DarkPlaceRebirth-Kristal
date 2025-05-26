@@ -280,6 +280,9 @@ function PartyMember:init()
 
     -- whether or not the next attack should be reflected
 	self.reflectNext = false
+	
+	-- did this character graduate high school?
+	self.graduate = false
 end
 
 -- Callbacks

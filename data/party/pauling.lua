@@ -94,6 +94,8 @@ function character:init()
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil
+	
+	self.graduate = true
 end
 
 function character:onLevelUp(level)

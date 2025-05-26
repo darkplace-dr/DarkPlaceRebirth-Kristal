@@ -91,6 +91,8 @@ function character:init()
 	self.flee_text = {
 		"[voice:jamm][facec:jamm/nervous]Nope! I'm out!"
 	}
+	
+	self.graduate = true
 end
 
 function character:getActor(light)
