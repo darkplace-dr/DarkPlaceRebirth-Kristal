@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 66,
+  nextobjectid = 68,
   properties = {
     ["music"] = "mainhub"
   },
@@ -24,8 +24,7 @@ return {
     {
       name = "apartment_doors",
       firstgid = 171,
-      filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.lua"
+      filename = "../../tilesets/apartment_doors.tsx"
     }
   },
   layers = {
@@ -534,6 +533,20 @@ return {
           gid = 173,
           visible = true,
           properties = {}
+        },
+        {
+          id = 66,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 860,
+          y = 600,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 174,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -659,6 +672,21 @@ return {
           properties = {
             ["cutscene"] = "apartment_doors.brenda"
           }
+        },
+        {
+          id = 67,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 870,
+          y = 560,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.ddelta"
+          }
         }
       }
     },
@@ -743,7 +771,7 @@ return {
         },
         {
           id = 21,
-          name = "",
+          name = "entry_ddelta",
           type = "",
           shape = "point",
           x = 920,
@@ -782,7 +810,7 @@ return {
         },
         {
           id = 24,
-          name = "",
+          name = "entry_brenda",
           type = "",
           shape = "point",
           x = 320,
@@ -834,7 +862,7 @@ return {
         },
         {
           id = 28,
-          name = "",
+          name = "entry_nell",
           type = "",
           shape = "point",
           x = 920,
