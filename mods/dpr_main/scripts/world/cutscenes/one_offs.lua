@@ -21,6 +21,7 @@ return {
 			cutscene:after(Game:swapIntoMod("dpr_jamm_dlc", true, "fwood/entry", "entrypoint"))
 		else
 			cutscene:text("* You travelen't.")
+			cutscene:wait(cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y + 20))
 		end
     end,
 }
