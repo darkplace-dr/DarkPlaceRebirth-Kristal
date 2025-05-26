@@ -21,7 +21,7 @@ return {
     composer = "Keiichi Suzuki, Hirokazu Tanaka",
     released = "1994",
     origin = "MOTHER 2/Earthbound",
-    album = "default"
+    album = "mother_2"
   },
   {
     name = "Our Castle Town",
@@ -36,6 +36,14 @@ return {
     file = "options_starry",
     composer = "J.A.R.U.",
     released = "2024",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
+  },
+  {
+    name = "Uwa!! So RETRO!",
+    file = "options_retro",
+    composer = "J.A.R.U.",
+    released = "2025",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text"
   },
@@ -142,6 +150,14 @@ return {
     released = "2022",
     origin = "Sonic Frontiers",
     album = "sonic_frontiers_stillness_and_motion"
+  },
+  {
+    name = "Cool Mixtape",
+    file = "deltarune/queen_car_radio",
+    composer = "Toby Fox",
+    released = "2021",
+    origin = "Deltarune",
+    album = "dr_ch2"
   },
   {
     name = "Green Room",
