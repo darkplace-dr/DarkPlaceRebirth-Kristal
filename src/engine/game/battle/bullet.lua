@@ -131,6 +131,13 @@ end
 
 function Bullet:breakSoulShield()
 	Assets.playSound("mirrorbreak")
+    local souleffect = Sprite("player/heart_dodge")
+    souleffect:setOrigin(0.5, 0.5)
+    souleffect.layer = Game.battle.soul.layer + 1
+    souleffect:setParent(Game.battle.soul)
+    souleffect.graphics.grow = 0.1
+    souleffect.alpha = 0.5
+    souleffect:fadeOutAndRemove(0.5)
     local shard_x_table = {-2, 0, 2, 8, 10, 12}
     local shard_y_table = {0, 3, 6}
     Game.battle.soul.shards = {}
