@@ -1679,10 +1679,8 @@ end
 
 function Game:unlockPartyMember(member)
     Kristal.callEvent(KRISTAL_EVENT.onDPUnlockPartyMember, member)
-    local currentUnlockedParty = Game:getFlag("_unlockedPartyMembers")
     if Game:getPartyMember(member) then
-        table.insert(currentUnlockedParty, member)
-        Game:setFlag("_unlockedPartyMembers", currentUnlockedParty)
+        table.insert(Game:getFlag("_unlockedPartyMembers"), member)
     else
         error("Could not find any existing party member with id \""..member.."\".")
     end
