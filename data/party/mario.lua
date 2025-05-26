@@ -116,6 +116,8 @@ function character:init()
         [49] = 123205,
         [50] = 132805,
     }
+	
+	self.graduate = true
 end
 
 function character:onLevelUp(level)

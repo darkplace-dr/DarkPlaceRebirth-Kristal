@@ -63,6 +63,8 @@ function character:init()
     self.menu_icon_offset = nil
 
     self.gameover_message = nil
+	
+	self.graduate = true
 end
 
 function character:onLevelUp(level)
