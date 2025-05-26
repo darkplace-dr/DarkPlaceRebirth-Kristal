@@ -10,7 +10,7 @@ function spell:init()
     self.description = "Summons a flower circle around the enemy,\nwhich." -- uhh can't find the proper words to finish it
 	self.check = {"Deals massive\ndamage to one enemy.", "* Depends on Magic."}
 
-    self.cost = 70
+    self.cost = 40
 
     self.target = "enemy"
 

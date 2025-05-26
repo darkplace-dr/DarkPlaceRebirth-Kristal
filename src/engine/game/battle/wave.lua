@@ -89,7 +89,7 @@ function Wave:init()
     if Game.battle:getPartyBattler("ceroba") then
         if not Game.battle.no_buff_loop then
             Game.battle.no_buff_loop = true
-            self.timer:after(0.05, function()
+            self.timer:after(1/30, function()
                 local diamond = Sprite("effects/spells/ceroba/diamond")
                 diamond:setOrigin(0.5, 0.5)
                 diamond:setColor(Game:getSoulColor())
@@ -98,10 +98,10 @@ function Wave:init()
                 Assets.playSound("trap")
                 diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.5) end)
                 diamond:setParent(Game.battle.soul)
-            end)
-            self.timer:after(0.5, function()
-                Assets.playSound("equip_armor")
-                Game:getSoulPartyMember().pp = 1
+                self.timer:after(0.46, function()
+                    Assets.playSound("equip_armor")
+                    Game:getSoulPartyMember().pp = 1
+                end)
             end)
         end
     end

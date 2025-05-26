@@ -10,7 +10,7 @@ function spell:init()
     self.description = "Raises a temporary diamond shield to\nprotect the SOUL."
     self.check = "Raises a temporary\ndiamond shield to protect the\nSOUL."
 
-    self.cost = 50
+    self.cost = 32
 
     self.target = "none"
 
@@ -47,6 +47,22 @@ function spell:onLightCast(user, target)
     else
         Game.battle.no_buff_loop = false
     end
+end
+
+function spell:hasWorldUsage(chara)
+    if Game:getSoulPartyMember().pp > 0 then
+        return false
+    else
+        return true
+    end
+end
+
+function spell:onWorldCast(chara)
+    Game:getSoulPartyMember().pp = 1
+    Assets.playSound("trap")
+    Game.world.timer:after(0.46, function()
+        Assets.playSound("equip_armor")
+    end)
 end
 
 return spell
