@@ -3,6 +3,9 @@
  <editorsettings>
   <export target="marcy_room.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="music" value="jamm_apartment"/>
+ </properties>
  <layer id="1" name="Tile Layer 1" width="16" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
