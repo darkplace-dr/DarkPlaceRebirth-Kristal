@@ -82,15 +82,16 @@ function BallDude:onAct(battler, name)
 			"* Ultimate double paddle!!\n* Go!!!!",
 		}
 
-    elseif name == "Standard" then --X-Action
-        -- Give the enemy 50% mercy
-        self:addMercy(20)
-        if battler.chara.id == "ralsei" then
-            -- R-Action text
-            return "* Ralsei asked to play Tennis with Ball dude."
-        elseif battler.chara.id == "susie" then
-            -- S-Action: start a cutscene (see scripts/battle/cutscenes/dummy.lua)
+    elseif name == "Standard" then
+        if battler.chara.id == "susie" then
+            self:addMercy(20)
             return "* Susie started hitting Ball Dude with a tennis racket repeatedly."
+        elseif battler.chara.id == "berdly" then
+            self:addMercy(20)
+            return "* Berdly tried to play tennis![wait:10]\n* (He failed miserably.)"
+        elseif battler.chara.id == "dess" then
+            self:addMercy(50)
+            return "* Dess uses her bat as a tennis racket."
         else
             -- Text for any other character (like Noelle)
             return "* "..battler.chara:getName().." straightened the\ndummy's hat."
