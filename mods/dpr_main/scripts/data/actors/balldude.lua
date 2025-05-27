@@ -17,7 +17,7 @@ function actor:init()
     self.color = {1, 0, 0}
 
     -- Whether this actor flips horizontally (optional, values are "right" or "left", indicating the flip direction)
-    self.flip = nil
+    self.flip = "right"
 
     -- Path to this actor's sprites (defaults to "")
     self.path = "battle/enemies/balldude"

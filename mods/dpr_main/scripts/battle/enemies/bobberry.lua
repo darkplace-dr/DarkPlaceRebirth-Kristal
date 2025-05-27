@@ -100,15 +100,16 @@ function Bobberry:onAct(battler, name)
 			end
 		end
 
-    elseif name == "Standard" then --X-Action
-        -- Give the enemy 50% mercy
-        self:addMercy(25)
-        if battler.chara.id == "brenda" then
-            -- R-Action text
-            return "* Brenda offered Bobberry some food.\n* Bobberry politely declined."
-        elseif battler.chara.id == "susie" then
-            -- S-Action: start a cutscene (see scripts/battle/cutscenes/dummy.lua)
+    elseif name == "Standard" then
+        if battler.chara.id == "susie" then
+            self:addMercy(25)
             return "* Susie shook a tree really hard and a bunch of berries came down."
+        elseif battler.chara.id == "berdly" then
+            self:addMercy(25)
+            return "* Berdly did original and in character for him!"
+        elseif battler.chara.id == "dess" then
+            self:addMercy(50)
+            return "* Dess swings her bat menacingly![wait:10]\n* "..self.name.." feels threatend."
         else
             -- Text for any other character (like Noelle)
             return "* "..battler.chara:getName().." straightened the\ndummy's hat."
