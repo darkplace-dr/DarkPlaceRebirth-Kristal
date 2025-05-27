@@ -140,5 +140,12 @@ local devroom = {
         Assets.stopAndPlaySound("pc_off", 0.5)
         cutscene:text(t_c.."* [The PC is off!]")
     end,
+    between1 = function(cutscene, event)
+        if love.math.random(1, 100) <= 5 then
+            Game.world:mapTransition("floor2/dev/rooms/in_between/in_between", "spawn")
+        else
+            Game.world:mapTransition("floor2/dev/main_1", "pre_elevator")
+        end
+    end,
 }
 return devroom

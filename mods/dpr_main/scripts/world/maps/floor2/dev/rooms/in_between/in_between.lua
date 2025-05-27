@@ -16,14 +16,14 @@ return {
     {
       name = "devroom_mono",
       firstgid = 1,
-      filename = "../../../../tilesets/devroom_mono.tsx",
-      exportfilename = "../../../../tilesets/devroom_mono.lua"
+      filename = "../../../../../tilesets/devroom_mono.tsx",
+      exportfilename = "../../../../../tilesets/devroom_mono.lua"
     },
     {
       name = "hoteldoors",
       firstgid = 145,
-      filename = "../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx",
-      exportfilename = "../../../../tilesets/floor2/dirty_secrets/hoteldoors.lua"
+      filename = "../../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx",
+      exportfilename = "../../../../../tilesets/floor2/dirty_secrets/hoteldoors.lua"
     }
   },
   layers = {
@@ -210,8 +210,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floor2/main_2",
-            ["marker"] = "entry_right"
+            ["map"] = "floor2/dev/pre_elevator",
+            ["marker"] = "main"
           }
         }
       }

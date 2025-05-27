@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="20">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="21">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -62,16 +62,16 @@
   </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="4" name="objects">
-  <object id="12" name="transition" x="640" y="320" width="40" height="80">
-   <properties>
-    <property name="map" value="floor2/dev/main_1"/>
-    <property name="marker" value="pre_elevator"/>
-   </properties>
-  </object>
   <object id="15" name="transition" x="280" y="140" width="80" height="40">
    <properties>
     <property name="map" value="floor2/dev/elevator"/>
     <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="20" name="script" x="640" y="320" width="40" height="120">
+   <properties>
+    <property name="cutscene" value="devroom.between1"/>
+    <property name="once" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
