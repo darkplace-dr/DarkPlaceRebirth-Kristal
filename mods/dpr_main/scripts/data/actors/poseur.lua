@@ -52,8 +52,4 @@ function actor:init()
     }
 end
 
-function actor:onSpriteInit(sprite)
-    sprite:setScale(0.5)
-end
-
 return actor
