@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 17,
+  nextobjectid = 18,
   properties = {
     ["music"] = "jamm_apartment"
   },
@@ -181,6 +181,22 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "apartments/jamm.marcy_closet"
+          }
+        },
+        {
+          id = 17,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 390,
+          y = 250,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "marcy",
+            ["cutscene"] = "apartments/jamm.marcy"
           }
         }
       }
