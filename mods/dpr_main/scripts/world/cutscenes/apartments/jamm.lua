@@ -225,7 +225,7 @@ return {
 	
 	balcony_door = function(cutscene, event)
 		cutscene:text("* The door to the balcony seems stuck.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* Yeah,[wait:5] sorry,[wait:5] I've been meaning to fix that...", "nervous", "jamm")
 			cutscene:hideNametag()
@@ -238,7 +238,7 @@ return {
 	
 	tv = function(cutscene, event)
 		cutscene:text("* It's a small flatscreen TV.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* It's a humble little thing,[wait:5] yeah...", "nervous", "jamm")
 			cutscene:text("* Money's been tight when I bought this thing,[wait:5] but Marcy seems to like it.", "side_smile", "jamm")
@@ -247,8 +247,8 @@ return {
 	end,
 	
 	couch = function(cutscene, event)
-		cutscene:text("* It's a small couch.\n* The cushons seem to be glued on.")
-		if cutscene:getCharacter("jamm") then
+		cutscene:text("* It's a small couch.[wait:10]\n* The cushons seem to be glued on.")
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...Long story.", "nervous", "jamm")
 			cutscene:hideNametag()
@@ -257,7 +257,7 @@ return {
 	
 	bathroom = function(cutscene, event)
 		cutscene:text("* The door is locked.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...Sorry,[wait:5] the bathroom is currently undergoing remodeling.", "neutral", "jamm")
 			cutscene:hideNametag()
@@ -266,7 +266,7 @@ return {
 	
 	closet = function(cutscene, event)
 		cutscene:text("* The door is locked.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...No,[wait:5] you are not going to see my closet,[wait:5] okay?", "stern", "jamm")
 			cutscene:hideNametag()
@@ -444,7 +444,7 @@ return {
 			end
 		elseif choice == 2 then
 			cutscene:showNametag("Marcy")
-			if Game:hasPartyMember(chara) then
+			if Game:hasPartyMember("jamm") then
 				cutscene:text("* Hi,[wait:5] papa!", "happy", "marcy")
 				if Game:getFlag("dungeonkiller") then
 					cutscene:text("* Papa,[wait:5] Marcy is worried about you.", "sad", "marcy")
