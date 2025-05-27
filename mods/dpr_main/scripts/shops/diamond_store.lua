@@ -61,6 +61,7 @@ self.talktext = ({
   self:registerItem("tension_plus", {stock = 4})
   self:registerItem("friend_buster", {stock = 1})
   self:registerItem("bp_plus", {stock = 1})
+  self:registerItem("tension_health", {stock = 1})
   
   self:registerTalk("Yourself")
 
