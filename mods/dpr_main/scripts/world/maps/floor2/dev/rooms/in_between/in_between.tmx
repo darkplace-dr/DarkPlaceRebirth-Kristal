@@ -3,8 +3,8 @@
  <editorsettings>
   <export target="in_between.lua" format="lua"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../../tilesets/devroom_mono.tsx"/>
- <tileset firstgid="145" source="../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx"/>
+ <tileset firstgid="1" source="../../../../../tilesets/devroom_mono.tsx"/>
+ <tileset firstgid="145" source="../../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx"/>
  <layer id="1" name="tiles" width="24" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -34,8 +34,8 @@
   <object id="12" gid="145" x="328" y="280" width="64" height="100"/>
   <object id="15" name="transition" x="-40" y="280" width="40" height="120">
    <properties>
-    <property name="map" value="floor2/main_2"/>
-    <property name="marker" value="entry_right"/>
+    <property name="map" value="floor2/dev/pre_elevator"/>
+    <property name="marker" value="main"/>
    </properties>
   </object>
  </objectgroup>

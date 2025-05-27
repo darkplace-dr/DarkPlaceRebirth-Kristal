@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {
     ["music"] = "dev"
   },
@@ -104,7 +104,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 400,
@@ -117,7 +117,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 240,
@@ -130,7 +130,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 160,
@@ -143,7 +143,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 240,
@@ -156,7 +156,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 400,
@@ -169,7 +169,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 440,
@@ -182,7 +182,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 520,
           y = 262,
@@ -201,7 +201,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 80,
           y = 160,
@@ -221,7 +221,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 160,
@@ -250,7 +250,7 @@ return {
         {
           id = 16,
           name = "elevatordoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 260,
           y = 160,
@@ -279,25 +279,9 @@ return {
       properties = {},
       objects = {
         {
-          id = 12,
-          name = "transition",
-          class = "",
-          shape = "rectangle",
-          x = 640,
-          y = 320,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "floor2/dev/main_1",
-            ["marker"] = "pre_elevator"
-          }
-        },
-        {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 140,
@@ -308,6 +292,22 @@ return {
           properties = {
             ["map"] = "floor2/dev/elevator",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 20,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 320,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "devroom.between1",
+            ["once"] = false
           }
         }
       }
@@ -329,7 +329,7 @@ return {
         {
           id = 13,
           name = "main",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 360,
@@ -342,7 +342,7 @@ return {
         {
           id = 18,
           name = "entry_elevator",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 240,
