@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="68">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="69">
  <editorsettings>
   <export target="apartments_left.lua" format="lua"/>
  </editorsettings>
@@ -214,6 +214,14 @@
    <properties>
     <property name="cutscene" value="apartment_doors.ddelta"/>
    </properties>
+  </object>
+  <object id="68" name="npc" x="520" y="626">
+   <properties>
+    <property name="actor" value="marcy"/>
+    <property name="cond" value="(Game:hasDLC(&quot;dpr_jamm_dlc&quot;)) and (Game:getFlag(&quot;acj_quest_prog&quot;, 0) &lt; 2)"/>
+    <property name="cutscene" value="apartments/jamm.helpme"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">

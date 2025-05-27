@@ -1,4 +1,45 @@
 return {
+	helpme = function(cutscene, event)
+		if not Game:getFlag("talked_to_marcy_originally") then
+			cutscene:showNametag("???")
+			cutscene:text("* What to do,[wait:5] what to do...", "sad", "marcy")
+			
+			if cutscene:getCharacter("hero") then
+				cutscene:showNametag("Hero")
+				cutscene:text("* Hey,[wait:5] are you okay?", "neutral_closed", "hero")
+				cutscene:showNametag("???")
+			end
+			
+			cutscene:text("* Oh![wait:10]\n* Hey,[wait:5] can you help please?", "sad", "marcy")
+			cutscene:showNametag("Marcy")
+			cutscene:text("* Marcy is trying to find her papa,[wait:5] Jamm,[wait:5] but can't find him.", "sad", "marcy")
+			cutscene:text("* Papa last said something about \"[color:yellow]Deoxtest[color:white]\", but...", "sad", "marcy")
+			cutscene:text("* Marcy has no idea where that is.", "sad", "marcy")
+			
+			if cutscene:getCharacter("susie") then
+				cutscene:showNametag("Susie")
+				cutscene:text("* Well,[wait:5] don't worry,[wait:5] we'll find him for you!", "sincere_smile", "susie")
+			elseif cutscene:getCharacter("hero") then
+				cutscene:showNametag("Hero")
+				cutscene:text("* We'll find him,[wait:5] alright?", "neutral_smile", "hero")
+			else
+				cutscene:hideNametag()
+				cutscene:text("* You tell Marcy you'll hind him.")
+			end
+			
+			cutscene:showNametag("Marcy")
+			cutscene:text("* Oh,[wait:5] thank you!", "smile", "marcy")
+			Game:setFlag("talked_to_marcy_originally", true)
+			Game:setFlag("acj_quest_prog", 0)
+			Game:getQuest("acj_quest"):unlock()
+		else
+			cutscene:showNametag("Marcy")
+			cutscene:text("* Papa mentioned something about \"[color:yellow]Deoxtest[color:white]\".", "sad", "marcy")
+			cutscene:text("* Marcy doesn't know where that is.", "sad", "marcy")
+		end
+		cutscene:hideNametag()
+	end,
+	
 	introductions = function(cutscene, event)
 		local jamm = cutscene:getCharacter("jamm")
 		
@@ -46,7 +87,7 @@ return {
 				cutscene:text("* But let's be real,[wait:5] Mario.[wait:10]\n* I didn't expect you.", "smug", "jamm")
 				cutscene:text("* Any luck finding Luigi yet?", "side_smile", "jamm")
 				cutscene:showNametag("Mario")
-				cutscene:text("* ...That's-a what Mario was supposed to be doing?", "default", "mario")
+				cutscene:text("* ...That's-a what Mario was supposed to be doing?", "main", "mario")
 				cutscene:showNametag("Jamm")
 				cutscene:text("* ...Why am I not surprised.", "stern", "jamm")
 			else
@@ -115,7 +156,7 @@ return {
 					cutscene:text("* I know who you are,[wait:5] Mario.", "side_smile", "jamm")
 					cutscene:text("* Any luck finding Luigi yet?", "side_smile", "jamm")
 					cutscene:showNametag("Mario")
-					cutscene:text("* ...That's-a what Mario was supposed to be doing?", "default", "mario")
+					cutscene:text("* ...That's-a what Mario was supposed to be doing?", "main", "mario")
 					cutscene:showNametag("Jamm")
 					cutscene:text("* ...Why am I not surprised.", "stern", "jamm")
 				else
@@ -184,7 +225,7 @@ return {
 	
 	balcony_door = function(cutscene, event)
 		cutscene:text("* The door to the balcony seems stuck.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* Yeah,[wait:5] sorry,[wait:5] I've been meaning to fix that...", "nervous", "jamm")
 			cutscene:hideNametag()
@@ -197,7 +238,7 @@ return {
 	
 	tv = function(cutscene, event)
 		cutscene:text("* It's a small flatscreen TV.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* It's a humble little thing,[wait:5] yeah...", "nervous", "jamm")
 			cutscene:text("* Money's been tight when I bought this thing,[wait:5] but Marcy seems to like it.", "side_smile", "jamm")
@@ -206,8 +247,8 @@ return {
 	end,
 	
 	couch = function(cutscene, event)
-		cutscene:text("* It's a small couch.\n* The cushons seem to be glued on.")
-		if cutscene:getCharacter("jamm") then
+		cutscene:text("* It's a small couch.[wait:10]\n* The cushons seem to be glued on.")
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...Long story.", "nervous", "jamm")
 			cutscene:hideNametag()
@@ -216,7 +257,7 @@ return {
 	
 	bathroom = function(cutscene, event)
 		cutscene:text("* The door is locked.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...Sorry,[wait:5] the bathroom is currently undergoing remodeling.", "neutral", "jamm")
 			cutscene:hideNametag()
@@ -225,7 +266,7 @@ return {
 	
 	closet = function(cutscene, event)
 		cutscene:text("* The door is locked.")
-		if cutscene:getCharacter("jamm") then
+		if Game:hasPartyMember("jamm") then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* ...No,[wait:5] you are not going to see my closet,[wait:5] okay?", "stern", "jamm")
 			cutscene:hideNametag()
@@ -260,7 +301,6 @@ return {
 			cutscene:text("* Oh,[wait:5] hey.", "neutral", "jamm")
 		else
 			cutscene:text("* Oh,[wait:5] hey,[wait:5] guys![wait:5] Nice seeing you again!", "smile", "jamm")
-			cutscene:text("* I've just been keeping my daughter company, is all.", "smile", "jamm")
 			cutscene:text("* Did you want to talk about something?", "smile", "jamm")
 		end
 		cutscene:hideNametag()
@@ -273,7 +313,10 @@ return {
 		end
 		
 		local choice = cutscene:choicer(list, {color=colors})
-		if choice == 1 then
+		if Game:getFlag("dungeonkiller") then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* ...", "shaded_neutral", "jamm")
+		elseif choice == 1 then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* You want to know about my wife?", "neutral", "jamm")
 			cutscene:text("* Ania was an amazing woman,[wait:5] that's for sure.", "smile", "jamm")
@@ -340,5 +383,126 @@ return {
 				Game:setFlag("jammHasTalkedAboutAlexa", true)
 			end
 		end
+	cutscene:hideNametag()
+    end,
+	
+	marcy = function(cutscene, event)
+		local susie = cutscene:getCharacter("susie")
+		local brenda = cutscene:getCharacter("brenda")
+		local dess = cutscene:getCharacter("dess")
+	
+		cutscene:showNametag("Marcy")
+        cutscene:text("[voice:marcy]* H-hello!", "happy", "marcy")
+        cutscene:text("[voice:marcy]* Marcy is happy that you decided to visit!", "smile", "marcy")
+        cutscene:text("[voice:marcy]* Papa is very busy, but he says Marcy can have friends over.", "smile", "marcy")
+		
+		local choice = cutscene:choicer({"You", "Father", "Locket", "Nothing"})
+		
+		if choice == 1 then
+			cutscene:showNametag("Marcy")
+			cutscene:text("* You want to know more about Marcy?", "confused", "marcy")
+			cutscene:text("* Well,[wait:5] Marcy doesn't have a lot to her.", "neutral", "marcy")
+			cutscene:text("* Marcy is still a simple child,[wait:5] as you can see.", "neutral", "marcy")
+			cutscene:text("* But.[wait:5].[wait:5]. Marcy has been to the light,[wait:5] but hasn't seen much of it.", "frown", "marcy")
+			if brenda then
+				cutscene:showNametag("Brenda")
+				cutscene:text("* Huh?[wait:5]\n* But I thought you were a lightner?", "shock", "brenda")
+			elseif susie then
+				cutscene:showNametag("Susie")
+				cutscene:text("* You don't look like a darkner.", "nervous", "susie")
+			end
+			if brenda or susie then
+				cutscene:showNametag("Marcy")
+				cutscene:text("* Papa and mama are both lightners,[wait:5] but...", "frown", "marcy")
+				cutscene:text("* But Marcy gets really sick in the light world.", "frown", "marcy")
+				cutscene:text("* Marcy doesn't know why.[wait:10] She just wants to see it.", "frown_open", "marcy")
+				if susie then
+					cutscene:showNametag("Susie")
+					cutscene:text("* ...", "shy_down", "susie")
+					cutscene:text("* .[wait:5].[wait:5].[wait:5]Hey.", "neutral", "susie")
+					cutscene:text("* I know that you'll see the light world someday.", "nervous_side", "susie")
+					cutscene:text("* We all have things we want to achieve,[wait:5] and...", "sincere", "susie")
+					cutscene:text("* Well,[wait:5] you just have to keep trying.", "sincere_smile", "susie")
+					if brenda then
+						cutscene:showNametag("Brenda")
+						cutscene:text("* Susie is right,[wait:5] Marcy.", "happy", "brenda")
+						cutscene:text("* Nothing good is worth waiting for.[wait:5] You have to make it happen.", "happy_b", "brenda")
+					end
+					cutscene:showNametag("Marcy")
+					cutscene:text("* Y-you really think Marcy can see the light world someday?", "surprised", "marcy")
+					cutscene:hideNametag()
+					cutscene:text("* You don't say it,[wait:5] but Marcy seems pretty weak.")
+					cutscene:showNametag("Marcy")
+					cutscene:text("* Oh,[wait:5] Marcy is stronger than she seems.", "disappointed", "marcy")
+					cutscene:showNametag("Susie")
+					cutscene:text("* (Who's she talking to?)", "nervous_side", "susie")
+					if brenda then
+						cutscene:showNametag("Brenda")
+						cutscene:text("* (I have no idea.)", "shock", "brenda")
+					end
+				end
+			end
+		elseif choice == 2 then
+			cutscene:showNametag("Marcy")
+			if Game:hasPartyMember("jamm") then
+				cutscene:text("* Hi,[wait:5] papa!", "happy", "marcy")
+				if Game:getFlag("dungeonkiller") then
+					cutscene:text("* Papa,[wait:5] Marcy is worried about you.", "sad", "marcy")
+					cutscene:text("* Are you doing alright,[wait:5] papa?", "sad", "marcy")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* I'm fine,[wait:5] Marcy.[wait:10]\n* Don't worry.", "shaded_neutral", "jamm")
+				else
+					cutscene:showNametag("Jamm")
+					cutscene:text("* Hi,[wait:5] Marcy![wait:10]\n* How's my little buddy doing?", "smile", "jamm")
+					cutscene:showNametag("Marcy")
+					cutscene:text("* Marcy is doing perfect,[wait:5] papa!", "happy", "marcy")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* That's great to hear!", "smile", "jamm")
+					cutscene:hideNametag()
+					if Game:getFlag("marcy_unlocked") then
+						cutscene:text("* (Take Marcy out with you?)")
+						if cutscene:choicer({"Yes", "No"}) == 1 then
+							Game.world:getCharacter("marcy"):remove()
+							local id = 0
+							for k,v in ipairs(Game.party) do
+								if v.id == "jamm" then
+									id = k
+								end
+							end
+							if id == 1 then
+								Game.world.player:setActor("jammarcy")
+							elseif id >= 0 then
+								Game.world.followers[id-1]:setActor("jammarcy")
+							end
+							Game:getPartyMember("jamm"):setActor("jammarcy")
+							Game:getPartyMember("jamm"):setLightActor("jammarcy_light")
+							Game:getPartyMember("jamm"):setDarkTransitionActor("jammarcy_dark_transition")
+							Game:getPartyMember("jamm").menu_icon = "party/jamm/withmarcy/head"
+							Game:getPartyMember("jamm").head_icons = "party/jamm/withmarcy/icon"
+							Game:getPartyMember("jamm").name_sprite = "party/jamm/withmarcy/name"
+							Game:getPartyMember("jamm"):increaseStat("attack", -8)
+							Game:getPartyMember("jamm"):increaseStat("defense", -5)
+							Game:getPartyMember("jamm").has_act = true
+							Game:setFlag("jamm_canact", true)
+							Game:setFlag("marcy_joined", true)
+						end
+					end
+				end
+			else
+				cutscene:text("* Thank you for finding papa!", "smile", "marcy")
+				if Game:getFlag("dungeonkiller") then
+					cutscene:text("* But...[wait:10]\n* Marcy sees papa is concerned...", "sad", "marcy")
+					cutscene:text("* Marcy is worried...[wait:10]\n* Did something happen to papa?", "sad", "marcy")
+				end
+			end
+		elseif choice == 3 then
+			cutscene:showNametag("Marcy")
+			cutscene:text("* Oh,[wait:5] this locket?", "confused", "marcy")
+			cutscene:text("* Mama gave Marcy this locket a while back.", "neutral", "marcy")
+			cutscene:text("* It's been a while since Marcy saw her,[wait:5] so.[wait:5].[wait:5].", "frown", "marcy")
+			cutscene:text("* So Marcy sometimes looks inside and sees mama's face.", "smile", "marcy")
+			cutscene:text("* Marcy wishes mama would come back.", "sad", "marcy")
+		end
+        cutscene:hideNametag()
     end,
 }

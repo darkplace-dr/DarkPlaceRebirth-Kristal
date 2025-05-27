@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 68,
+  nextobjectid = 69,
   properties = {
     ["music"] = "mainhub"
   },
@@ -686,6 +686,23 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.ddelta"
+          }
+        },
+        {
+          id = 68,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 626,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "marcy",
+            ["cond"] = "(Game:hasDLC(\"dpr_jamm_dlc\")) and (Game:getFlag(\"acj_quest_prog\", 0) < 2)",
+            ["cutscene"] = "apartments/jamm.helpme"
           }
         }
       }
