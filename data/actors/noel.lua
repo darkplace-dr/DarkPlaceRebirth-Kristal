@@ -43,6 +43,15 @@ function actor:onSpriteInit(sprite)
     }))
     end
 
+    if Noel:isDess() then
+        self.default = "dess_mode/walk"
+        
+        self.menu_anim = "dess_mode/walk/down_1"
+    else
+        self.default = "walk"
+        
+        self.menu_anim = "brella"
+    end
 
 end
 
@@ -72,6 +81,21 @@ function Actor:onWorldDraw(chara)
     elseif chara.rotation ~= 0 or chara.scale_y ~= 2 then
         chara.rotation = 0
         chara.scale_y = 2
+    end
+end
+-- this was another running thingy
+
+function Actor:onWorldDraw(chara)
+
+    local player = Game.world.player
+
+    if chara.is_follower and player.run_timer > 0 then
+        local sprite = chara.sprite.sprite_options[1]
+        if self.sprite_runs[sprite] then
+            chara.sprite.y = 2
+        else
+            chara.sprite.y = 0
+        end
     end
 end
 ]]
@@ -167,6 +191,17 @@ function actor:init()
         ["dess_mode/walk/right"] = "walk/right",
     }
 
+
+    self.sprite_runs = {
+        "walk/up_2",
+        "walk/up_4",
+        "walk/down_2",
+        "walk/down_4",
+        "walk/left_2",
+        "walk/left_4",
+        "walk/right_2",
+        "walk/right_4",
+    }
 
     self.sprite_rects = {
         brella = {

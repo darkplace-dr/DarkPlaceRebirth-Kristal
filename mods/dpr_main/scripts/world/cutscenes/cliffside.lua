@@ -213,6 +213,27 @@ local cliffside = {
     welcome = function (cutscene, event)
         cutscene:text("* Welcome to Cliffside![wait:10]\n* Watch your step!")
     end,
+    light = function (cutscene, event)
+        if Game.light == false then
+
+            for e,a in ipairs(Game.party) do
+                Game.world:getCharacter(a.actor.id):setActor(a.lw_actor.id)
+            end
+
+            Game.light = true
+        end
+    end,
+    dark = function (cutscene, event)
+
+        if Game.light == true then
+
+            for e,a in ipairs(Game.party) do
+                Game.world:getCharacter(a.lw_actor.id):setActor(a.actor.id)
+            end
+
+            Game.light = false
+        end
+    end,
     stranger = function (cutscene, event)
         cutscene:text("* [image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2][image:ui/replacement_char,0,0,2,2]")
         if not Game:getFlag("met_stranger") then
@@ -958,10 +979,14 @@ local cliffside = {
         local data = event.data
 
         local top = data.properties["top"]
+        Game.world.player.noclip = true
+        local ssss = Game.world.player.layer
 
         if Game.world.player.jumping then return end
 
         Game.world.player:setState("SLIDE")
+
+        Game.world.player.layer = 22
 
         Game.world.player.walk_speed = -12
         print(top)
@@ -977,7 +1002,19 @@ local cliffside = {
         Game.world.player:setState("WALK")
 
         Game.world.player.walk_speed = 4
+        Game.world.player.noclip = false
+        Game.world.player.layer = ssss
     end,
+    warp_0 = function (cutscene, event)
+        local data = event.data
+
+        local tox = data.properties["to_x"]
+        local toy = data.properties["to_y"]
+
+        Game.world.player.x, Game.world.player.y = tox, toy
+        Game.world.player:setFacing("down")
+    end,
+
 
     reverse_cliff_0 = function (cutscene, event)
         if Game.world.player.jumping then return end
@@ -987,6 +1024,7 @@ local cliffside = {
         local end_y = 80
         local p_y = Game.world.player.y
         local tiles = 12
+        if p_y < 750 then tiles = 15 end
         local length = tiles * 40
         local reverse_spot = p_y + length / 2
 

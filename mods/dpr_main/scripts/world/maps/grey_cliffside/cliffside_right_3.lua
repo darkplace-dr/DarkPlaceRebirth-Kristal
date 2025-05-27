@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 14,
+  nextobjectid = 15,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -172,6 +172,19 @@ return {
           y = 320,
           width = 520,
           height = 320,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 14,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 200,
+          width = 40,
+          height = 120,
           rotation = 0,
           visible = true,
           properties = {}
