@@ -175,6 +175,7 @@ return {
 		Game:unlockPartyMember("jamm")
 		cutscene:attachFollowers()
 		cutscene:wait(cutscene:attachCamera())
+		Game:getQuest("acj_quest"):setProgress(1)
 	end,
 	
 	breaker_box	= function(cutscene, event)
