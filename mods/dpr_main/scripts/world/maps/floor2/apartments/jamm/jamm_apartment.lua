@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 45,
+  nextobjectid = 46,
   properties = {
     ["music"] = "jamm_apartment"
   },
@@ -415,7 +415,25 @@ return {
           visible = true,
           properties = {
             ["actor"] = "jamm",
+            ["cutscene"] = "apartments/jamm.jamm",
             ["flagcheck"] = "jamm_waiting"
+          }
+        },
+        {
+          id = 45,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "jamm",
+            ["cutscene"] = "apartments/jamm.jamm",
+            ["flagcheck"] = "!jamm_waiting"
           }
         }
       }

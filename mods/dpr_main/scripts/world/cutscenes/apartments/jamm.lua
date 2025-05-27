@@ -248,4 +248,96 @@ return {
 	
 	jamm_closet = function(cutscene, event)
 	end,
+	
+	jamm = function(cutscene, event)
+		local susie = cutscene:getCharacter("susie")
+		local brenda = cutscene:getCharacter("brenda")
+		local dess = cutscene:getCharacter("dess")
+		
+		cutscene:showNametag("Jamm")
+		if Game:getFlag("dungeonkiller") then
+			cutscene:text("* Oh,[wait:5] hey.", "neutral", "jamm")
+		else
+			cutscene:text("* Oh,[wait:5] hey,[wait:5] guys![wait:5] Nice seeing you again!", "smile", "jamm")
+			cutscene:text("* I've just been keeping my daughter company, is all.", "smile", "jamm")
+			cutscene:text("* Did you want to talk about something?", "smile", "jamm")
+		end
+		cutscene:hideNametag()
+		
+		local list = {"Wife", "Marcy", Game:getFlag("latest_jamm_adventure", "Forest")}
+		local colors = {{1,1,1},{1,1,1},{1,1,1}}
+		if Game:getFlag("jaruHasTalkedAboutAlexa") and not Game:getFlag("jammHasTalkedAboutAlexa") then
+			list = {"Wife", "Marcy", Game:getFlag("latest_jamm_adventure", "Forest"), "Alexa"}
+			colors = {{1,1,1},{1,1,1},{1,1,1},{1,1,0}}
+		end
+		
+		local choice = cutscene:choicer(list, {color=colors})
+		if choice == 1 then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* You want to know about my wife?", "neutral", "jamm")
+			cutscene:text("* Ania was an amazing woman,[wait:5] that's for sure.", "smile", "jamm")
+			cutscene:text("* She was smart,[wait:5] helpful,[wait:5] caring...", "smile", "jamm")
+			cutscene:text("* And honestly, we knew each other since we were children.", "smile", "jamm")
+			cutscene:text("* Ania...[wait:5] was perfect.", "neutral", "jamm")
+			cutscene:text("* I told Marcy about her death,[wait:5] and she knows it well.", "shaded_neutral", "jamm")
+			cutscene:text("* She's just...[wait:5] still in denial.[wait:5] After all this time.", "shaded_neutral", "jamm")
+		elseif choice == 2 then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Marcy is a great child.[wait:5] I couldn't ask for better.", "smile", "jamm")
+			cutscene:text("* She's always been a curious child,[wait:5] and I love that.", "side_smile", "jamm")
+			cutscene:text("* Unfortunately,[wait:5] she can be a little slow...", "look_left", "jamm")
+			cutscene:text("* But that gives me all the more time to help,[wait:5] right?", "smile", "jamm")
+			cutscene:text("* Marcy also always wanted to see the light,[wait:5] but...", "smile", "jamm")
+			cutscene:text("* She has a condition that makes her ill when she's there.", "nervous", "jamm")
+			cutscene:text("* I...[wait:5] guess it doesn't help that she was born in the dark.", "nervous_left", "jamm")
+			cutscene:text("* Marcy hasn't given up hope,[wait:5] though,[wait:5] and I'm with her all the way!", "smug", "jamm")
+		elseif choice == 3 then
+			cutscene:showNametag("Jamm")
+			if Game:getFlag("latest_jamm_adventure", "Forest") == "Forest" then
+				cutscene:text("* So,[wait:5] the forest where you found me...", "neutral", "jamm")
+				cutscene:text("* It's actually a place I hold dear to me.", "side_smile", "jamm")
+				cutscene:text("* I've actually had so many memories there,[wait:5] honestly.", "smile", "jamm")
+				cutscene:text("* Playing there as a kid,[wait:5] meeting Ania,[wait:5] adventures...", "happy", "jamm")
+				cutscene:text("* And then there was...", "neutral", "jamm")
+				cutscene:text("* ...", "nervous_left", "jamm")
+				cutscene:text("* ...Let's not talk about that.", "nervous", "jamm")
+			end
+		else
+			if list[4] == "Alexa" then
+				cutscene:showNametag("Jamm")
+				cutscene:text("* Huh?[wait:5]\n* You want to know more about Alexa?", "neutral", "jamm")
+				cutscene:text("* Where she came from?[wait:5]\n* Yeah, I can tell you.", "neutral", "jamm")
+				cutscene:text("* It all started when I found this [color:yellow]time machine[color:white]...", "neutral", "jamm")
+				cutscene:text("* Actually,[wait:5] it was more like a time-and-place machine.", "neutral", "jamm")
+				cutscene:text("* I noticed there was already a destination set,[wait:5] so I pressed it.", "neutral", "jamm")
+				cutscene:text("* Yes,[wait:5] I know![wait:5] It was irresponsible!", "nervous", "jamm")
+				cutscene:text("* However,[wait:5] keep in mind this was before I married Ania,[wait:5] okay?", "nervous_left", "jamm")
+				cutscene:text("* A-anyways,[wait:5] I ended up on this world called \"Europa\".", "look_left", "jamm")
+				cutscene:text("* In this town called Frivatown,[wait:5] actually.", "neutral", "jamm")
+				cutscene:text("* Alexa was one of the first people I met while I was there.", "look_left", "jamm")
+				cutscene:text("* I stayed on Europa for a few days,[wait:5] trading stories and such...", "side_smile", "jamm")
+				cutscene:text("* I even went to the 158th Frivatown festival.", "smile", "jamm")
+				cutscene:text("* Alexa and a few of her friends became curious about the Dark...", "neutral", "jamm")
+				cutscene:text("* So,[wait:5] I brought them back. Let them do what they wanted to.", "side_smile", "jamm")
+				cutscene:showNametag("J.A.R.U.")
+				cutscene:text("* And so I gave Alexa that job,[wait:5] right?", "default", "shadowsalesman")
+				cutscene:showNametag("Jamm")
+				cutscene:text("* Well,[wait:5] yeah,[wait:5] it was right about that time.", "neutral", "jamm")
+				cutscene:text("* Let me guess;[wait:5] we butt dialed you?", "stern", "jamm")
+				cutscene:showNametag("J.A.R.U.")
+				cutscene:text("* Yeah,[wait:5] but your story does put things into perspective.", "eye_closed", "shadowsalesman")
+				cutscene:text("* However, let me ask;[wait:5] why are they still here?", "default", "shadowsalesman")
+				cutscene:text("* Why didn't you bring them back using your time machine?", "default", "shadowsalesman")
+				cutscene:showNametag("Jamm")
+				cutscene:text("* I intended to,[wait:5] J.A.R.U.", "nervous", "jamm")
+				cutscene:text("* However,[wait:5] the time machine broke when I used it the second time,[wait:5] so...", "neutral", "jamm")
+				cutscene:text("* They became stuck,[wait:5] you know?", "worried", "jamm")
+				cutscene:showNametag("J.A.R.U.")
+				cutscene:text("* Right,[wait:5] that makes sense.", "oh", "shadowsalesman")
+				cutscene:hideNametag()
+				cutscene:text("* (Click.)")
+				Game:setFlag("jammHasTalkedAboutAlexa", true)
+			end
+		end
+    end,
 }
