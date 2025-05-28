@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 46,
+  nextobjectid = 47,
   properties = {
     ["music"] = "jamm_apartment"
   },
@@ -297,7 +297,7 @@ return {
         },
         {
           id = 27,
-          name = "interectable",
+          name = "interactable",
           type = "",
           shape = "rectangle",
           x = 560,
@@ -435,6 +435,22 @@ return {
             ["cutscene"] = "apartments/jamm.jamm",
             ["flagcheck"] = "!jamm_waiting"
           }
+        },
+        {
+          id = 46,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 720,
+          y = 870,
+          width = 80,
+          height = 10,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/apartments_left",
+            ["marker"] = "entry_jamm"
+          }
         }
       }
     },
@@ -444,7 +460,7 @@ return {
       id = 7,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -633,22 +649,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 16,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 720,
-          y = 870,
-          width = 80,
-          height = 10,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "floor2/apartments_left",
-            ["marker"] = "entry_jamm"
-          }
         }
       }
     }
