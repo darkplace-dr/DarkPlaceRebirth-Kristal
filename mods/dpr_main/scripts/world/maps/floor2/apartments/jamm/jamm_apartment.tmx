@@ -153,7 +153,7 @@
    </properties>
    <point/>
   </object>
-  <object id="46" name="transition" x="720" y="870" width="80" height="10">
+  <object id="46" name="transition" x="720" y="860" width="80" height="20">
    <properties>
     <property name="map" value="floor2/apartments_left"/>
     <property name="marker" value="entry_jamm"/>
