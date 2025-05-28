@@ -423,6 +423,99 @@ local cliffside = {
         Game:getQuest("cliffsides_cat"):unlock()
     end,
 
+    fun_gus = function (cutscene, event)
+        local gus = cutscene:getCharacter("gus")
+
+        gus:setAnimation("idle")
+        cutscene:textTagged("* HEEEEY THERE,[wait:5] LIL' BUDDY!", nil, gus, { nametag = "???" })
+        cutscene:textTagged("* NAME'S GUS.\n[wait:5]* [color:yellow]fun[color:reset] GUS!", nil, gus)
+        cutscene:textTagged("* AND I'M 'ERE TO TELL YA 'BOUT HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE ON THIS 'ERE ADVENTURE!", nil, gus)
+        cutscene:textTagged("* ACCORDIN' TO MY \nSOURCES 'ERE...", nil, gus)
+		
+        local FUN = Game:getFlag("FUN")
+        cutscene:textTagged("* THE AMOUNT OF [color:yellow]fun[color:reset] YOU'LL HAVE WILL BE [color:yellow]"..FUN.."%[color:reset]!", nil, gus)
+        if FUN >= 0 and FUN <= 20 then
+            gus:setSprite("asleep")
+            cutscene:textTagged("* OOF... [wait:5]\n* PRETTY LOW PERCENTAGE THERE.", nil, gus)
+            gus:setAnimation("idle")
+            cutscene:textTagged("* BUT DON'TCHA WORRY!", nil, gus)
+            cutscene:textTagged("* I'M SURE YOU'LL STILL HAVE SUM [color:yellow]fun[color:reset] REGARDLESS,[wait:5] YA 'ERE?", nil, gus)
+        elseif FUN >= 21 and FUN <= 40 then
+            cutscene:textTagged("* AH!\n * PRETTY DECENT PERCENTAGE!", nil, gus)
+            cutscene:textTagged("* YOU MIGHT FIND QUITE A FEW VERY INTERESTING THINGS ALONG YER WAY!", nil, gus)
+        elseif FUN >= 41 and FUN <= 59 then
+            cutscene:textTagged("* ")
+        elseif FUN >= 60 and FUN <= 80 then
+            cutscene:textTagged("* GOOOLLLY!![wait:5]\n* THAT'S A LOTTA [color:yellow]fun[color:reset]!", nil, gus)
+            if FUN >= 60 and FUN <= 69 then
+                cutscene:textTagged("* SAY, CAN I TELL YA A SECRET?", nil, gus)
+                cutscene:textTagged("* NUMBERS IN THE SIXTIES ARE MY FAAAVORITES!", nil, gus)
+                cutscene:textTagged("* YOU WANNA KNOW WHY?", nil, gus)
+				
+                local darkness = Rectangle(0, 0, 640, 480)
+                darkness.layer = Game.world.player.layer - 0.1
+                darkness:setScale(1)
+                darkness:setColor(0, 0, 0)
+                darkness:setParallax(0, 0)
+                Game.world:addChild(darkness)
+			
+                Game.world.music:setPitch(0.25)
+                Assets.playSound("noise")
+                gus:setSprite("spooky")
+                cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* Because there's a chance you'll meet someone special that way.")
+
+                cutscene:wait(2)
+                darkness:remove()
+                Game.world.music:setPitch(1)
+                Assets.playSound("noise")
+                gus:setAnimation("idle")
+            end
+        elseif FUN >= 81 and FUN <= 100 then
+            cutscene:text("* HOLY SMOKES!!!", nil, gus)
+            cutscene:text("* YER [color:yellow]fun[color:reset] IS OFF THE CHARTS!!", nil, gus)
+            cutscene:text("* EXPECT SUM GREAT THINGS COMIN' YER WAY, BUDDY!!!\n* AH-HA!!!", nil, gus)
+        elseif FUN < 0 or FUN > 100 then
+            cutscene:textTagged("* WOOAAH NELLY![wait:5]\n* THAT RIGHT THERE IS A [shake:4]WACKY[shake:0] \nPERCENTAGE!!", nil, gus)
+            cutscene:textTagged("* ACCORDING TO MY SOURCES 'ERE THE AMOUNT RANGES FROM ONE TO A HUNDRED!", nil, gus)
+            cutscene:textTagged("* SO EITHER MY SOURCES 'ERE ARE INCORRECT...", nil, gus)
+
+            local darkness = Rectangle(0, 0, 640, 480)
+            darkness.layer = Game.world.player.layer - 0.1
+            darkness:setScale(1)
+            darkness:setColor(0, 0, 0)
+            darkness:setParallax(0, 0)
+            Game.world:addChild(darkness)
+
+            Game.world.music:setPitch(0.25)
+            Assets.playSound("noise")
+            gus:setSprite("spooky")
+            cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* ...or you're one of those good-for-nothin' hackers.")
+
+            cutscene:wait(2)
+            darkness:remove()
+            Game.world.music:setPitch(1)
+            Assets.playSound("noise")
+            gus:setAnimation("idle")
+			
+            cutscene:textTagged("* AH-HA!!!\n* WELL WHATEVER IT IS, I'M SURE IT'LL BE FIXED SOON!", nil, gus)
+            cutscene:textTagged("* AFTER THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
+        end
+		
+        cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
+        cutscene:textTagged("* CHECK BACK FOR HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE THE NEXT TIME!!", nil, gus)
+        cutscene:textTagged("* AH-HA!!!", nil, gus)
+
+        Assets.playSound("mysterygo")
+        gus:remove()
+		Game:setFlag("talkedToGus", true)
+		cutscene:wait(2)
+
+        if cutscene:getCharacter("hero") then
+            cutscene:textTagged("* ...", "shocked", "hero")
+            cutscene:textTagged("* (What the hell was all that about?!)", "suspicious", "hero")
+        end
+    end,
+
     --finalized susie cutscene
     break_crystal = function (cutscene, event)
         cutscene:text("* (A large crystal towers before you...)")

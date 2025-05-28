@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 36,
+  nextobjectid = 37,
   properties = {
     ["border"] = "cliffside",
     ["music"] = "demonic_little_grey_cliffs"
@@ -41,7 +41,7 @@ return {
         {
           id = 16,
           name = "cameratarget",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 480,
@@ -163,7 +163,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 840,
@@ -176,7 +176,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 680,
@@ -189,7 +189,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 640,
@@ -202,7 +202,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 640,
@@ -215,7 +215,7 @@ return {
         {
           id = 26,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 640,
@@ -228,7 +228,7 @@ return {
         {
           id = 27,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 0,
@@ -241,7 +241,7 @@ return {
         {
           id = 28,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 400,
@@ -254,7 +254,7 @@ return {
         {
           id = 29,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 320,
           y = 440,
@@ -267,7 +267,7 @@ return {
         {
           id = 30,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 520,
@@ -280,7 +280,7 @@ return {
         {
           id = 31,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 280,
@@ -293,7 +293,7 @@ return {
         {
           id = 32,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 240,
@@ -306,7 +306,7 @@ return {
         {
           id = 33,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 0,
@@ -335,7 +335,7 @@ return {
         {
           id = 4,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 680,
@@ -351,7 +351,7 @@ return {
         {
           id = 5,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 640,
@@ -366,7 +366,7 @@ return {
         {
           id = 10,
           name = "footstep",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 560,
@@ -379,7 +379,7 @@ return {
         {
           id = 35,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = -34,
@@ -390,6 +390,24 @@ return {
           properties = {
             ["map"] = "grey_cliffside/dead_room1",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 36,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 320,
+          y = 700,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "gus",
+            ["cond"] = "not Game:getFlag(\"talkedToGus\")",
+            ["cutscene"] = "cliffside.fun_gus",
+            ["sprite"] = "asleep"
           }
         }
       }
@@ -411,7 +429,7 @@ return {
         {
           id = 6,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 160,
           y = 760,
@@ -424,7 +442,7 @@ return {
         {
           id = 7,
           name = "entry",
-          type = "",
+          class = "",
           shape = "point",
           x = 600,
           y = 760,
@@ -437,7 +455,7 @@ return {
         {
           id = 17,
           name = "camtargy",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 800,
@@ -450,7 +468,7 @@ return {
         {
           id = 20,
           name = "camtargb",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 280,
@@ -463,7 +481,7 @@ return {
         {
           id = 34,
           name = "entry2",
-          type = "",
+          class = "",
           shape = "point",
           x = 140,
           y = 60,
