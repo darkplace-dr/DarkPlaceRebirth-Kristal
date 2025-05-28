@@ -94,7 +94,8 @@ function Mod:postInit(new_file)
         local random = love.math.random(1,100)
         Game:setFlag("FUN", random)
     end
-
+	
+	Game:setFlag("devDinerBorderState", nil)
     self:initializeImportantFlags(new_file)
 end
 
