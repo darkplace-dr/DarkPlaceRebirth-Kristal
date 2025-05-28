@@ -710,6 +710,7 @@ function MainMenuOptions:initializeOptions()
     end)
 
     self:registerConfigOption("gameplay", "Discriptive Loading", "dLoad")
+    self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
 
 end
 
