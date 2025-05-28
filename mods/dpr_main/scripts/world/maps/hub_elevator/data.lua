@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -183,8 +183,8 @@ return {
             ["name_2"] = "Floor 1",
             ["name_3"] = "Floor 2",
             ["name_4"] = "Cyber Floor",
-            ["name_5"] = "Room",
-            ["name_6"] = "Nowhere",
+            ["name_5"] = "Nowhere",
+            ["name_6"] = "Room",
             ["name_7"] = "TritraLand",
             ["name_8"] = "Deoxtest"
           }
