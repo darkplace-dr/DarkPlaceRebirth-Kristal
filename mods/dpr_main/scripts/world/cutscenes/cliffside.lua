@@ -783,7 +783,7 @@ local cliffside = {
                     cutscene:text("* Sorry for calling your name cliched,[wait:5] I guess.", "shock_nervous", "susie")
                     cutscene:showNametag("Hero")
                     cutscene:text("* ... Right.", "really", "hero")
-                    cutscene:text("* How'd you even wind up in trapped in that crystal?", "neutral_closed_b", "hero")
+                    cutscene:text("* How'd you even wind up trapped in that crystal?", "neutral_closed_b", "hero")
                     susie:resetSprite()
                     get_bus:fade(0, 1)
                     susie:setFacing("up")
@@ -956,9 +956,48 @@ local cliffside = {
         hero:shake(5)
         hero:resetSprite()
         cutscene:wait(1)
-        cutscene:startEncounter("pebblin_tutorial", true, {{"pebblin", pebblin}})
+        local encounter = cutscene:startEncounter("pebblin_tutorial", true, {{"pebblin", pebblin}})
+        local defeated_enemies = encounter:getDefeatedEnemies()
+        local done_state = defeated_enemies[1].done_state
+        -- TODO: Make the Pebblin & Cat spawning happen before the fade in so it doesn't look jank
+        local pebblin_killed = false
+        if done_state == "KILLED" then
+            pebblin_killed = true
+        end
+        if pebblin_killed == true then
+            Game:getPartyMember("hero"):addKarma(-1)
+        else
+            Game:getPartyMember("hero"):addKarma(1)
+        end
         pebblin:remove()
+        local cat = cutscene:getCharacter("cat")
+        if not cat then
+            Game.world:spawnNPC("cat", 340, 60)
+            cat = cutscene:getCharacter("cat")
+        end
         Game.world.music:fade(1, 0.5)
+        cutscene:wait(1)
+        cutscene:showNametag("Cat")
+        cutscene:text("* Well,[wait:5] that's certainly one way to skin a rock.", "neutral", cat)
+        hero:setFacing("up")
+        cutscene:text("* Hello,[wait:5] I was watching your battle.", "neutral", cat)
+        cutscene:text("* It seems I do not need to explain [color:yellow]BATTLES[color:reset] to you.", "neutral", cat)
+        cutscene:text("* But I shall explain a mechanic that the [color:#FF8800]kid in the striped shirt[color:reset] has.", "neutral", cat)
+        cutscene:text("* [color:red]KARMA[color:reset].", "neutral", cat)
+        cutscene:text("* If you do good actions,[wait:5] it will go up.", "neutral", cat)
+        cutscene:text("* Befriend people,[wait:5] recruit foes,[wait:5] solve problems.", "neutral", cat)
+        cutscene:text("* If you do bad actions,[wait:5] it will go down.", "neutral", cat)
+        cutscene:text("* Antagonize friends,[wait:5] slaughter your foes,[wait:5] hurt the innocent.", "neutral", cat)
+        cutscene:text("* Will you be a [color:green]PARAGON of VIRTUE[color:reset] or an [color:red]ANGEL of DEATH[color:reset]?", "neutral", cat)
+        cutscene:text("* Or perhaps you wish to [color:yellow]walk the middle path[color:reset]?", "neutral", cat)
+        cutscene:text("* The choice is yours.", "neutral", cat)
+        cutscene:text("* I'm not some kind of [color:yellow]judge[color:reset].[wait:10]\n* I am but a simple Cat.", "neutral", cat)
+        cutscene:text("* Take the cliff upwards,[wait:5] there's one last thing I need to explain.", "neutral", cat)
+        cutscene:hideNametag()
+        cutscene:wait(cutscene:walkTo(cat, cat.x, cat.y - 120, 2, "up"))
+        cat:remove()
+        Game:setFlag("cliffsidecat_2", true)
+        hero:setFacing("right")
     end,
 
     reverse_cliff_2 = function (cutscene, event)
@@ -1207,8 +1246,99 @@ local cliffside = {
 
     warp_bin = function (cutscene, event)
         if Game:getFlag("susie_freed") then
-            cutscene:text("* Bin tutorial goes here. Don't forget.")
-            Game.world:mapTransition("main_outdoors/tower_outside")
+            if not Game:getFlag("warpbin_tutorial") then
+                Game:setFlag("warpbin_tutorial", true)
+                cutscene:showNametag("Susie")
+                cutscene:text("* Hmm...[wait:10] Looks like some kind of dumpster...", "neutral", "susie")
+                cutscene:text("* Oh hey,[wait:5] there's a note on here.", "surprise", "susie")
+                cutscene:text("* But...[wait:5] it's in some weird font or something...", "suspicious", "susie")
+                cutscene:showNametag("Hero")
+                cutscene:text("* Here,[wait:5] let me read it.", "neutral_closed_b", "hero")
+                cutscene:hideNametag()
+                cutscene:text("* (The note is scratched up and hard to make out,[wait:5] but you could just barely make it out.)")
+                cutscene:text("* (Warp Bin...[wait:10] enter code...[wait:10] transport to destination...)")
+                cutscene:text("* (There also seems to be a list of codes as well,[wait:5] but all the codes are scratched out.)")
+                cutscene:text("* (Save for \"THETOWER\"...)")
+                cutscene:showNametag("Hero")
+                cutscene:text("* Alright,[wait:5] I think I know how to use this.", "happy", "hero")
+                cutscene:showNametag("Susie")
+                cutscene:text("* That's good cause you did not read that out loud at all.", "smile", "susie")
+                cutscene:text("* So I have no idea how to use this junk!", "sincere_smile", "susie")
+                cutscene:showNametag("Hero")
+                cutscene:text("* You...[wait:10] couldn't hear the narration?", "neutral_opened", "hero")
+                cutscene:showNametag("Susie")
+                cutscene:text("* What.", "shock", "susie")
+                cutscene:showNametag("Hero")
+                cutscene:text("* Nevermind.", "suspicious", "hero")
+                cutscene:hideNametag()
+            end
+    -- HUGE NOTE: THIS IS THE UGLIEST OF ALL BUTT UGLY HACKS
+    -- DO NOT DO WHAT I'M DOING, THIS SHOULD BE REPLACED WITH A SPECIAL EVENT INSTEAD OF DOING EVERYTHING IN THIS CUTSCENE
+    -- It is almost 1 AM for me so I can't be bothered to do it myself
+    --                                                                     - BrendaK7200
+    cutscene:text("* It's the warp bin.")
+    cutscene:text("* Would you like to warp?[wait:10]\n* You only need the code.")
+
+    if cutscene:choicer({"Sure", "Nope"}) == 2 then
+        return
+    end
+
+    local action_raw = cutscene:getUserText(8, "warpbin", nil, nil, {
+        ---@type fun(text:string,key:string,object:WarpBinInputMenu|GonerKeyboard)
+        key_callback = function (text, key, object, fade_rect)
+            -- Kristal.Console.log(text..key)
+            local code = Kristal:getBinCode(text..key)
+            if code and code.instant then
+                if object.__includes_all[GonerKeyboard] then
+                    object.callback(text..key)
+                else
+                    object:finish_cb(text..key)
+                end
+                fade_rect:remove()
+                object:remove()
+            end
+        end
+    })
+    if action_raw == "THETOWER" then
+        cutscene:wait(0.2)
+        Game.world.music:stop()
+        -- Hell naw is this the only way to stop all sounds?
+        for key,_ in pairs(Assets.sound_instances) do
+            Assets.stopSound(key, true)
+        end
+        cutscene:fadeOut(0)
+        cutscene:playSound("impact")
+
+        cutscene:wait(1)
+        cutscene:loadMap("main_outdoors/tower_outside")
+        cutscene:fadeIn(0.25)
+    else
+        if not Game:getFlag("warpbin_tutorial_wrongcount") then
+            Game:setFlag("warpbin_tutorial_wrongcount", 1)
+        else
+            Game:addFlag("warpbin_tutorial_wrongcount", 1)
+        end
+        cutscene:text("* (That code didn't seem to work...)")
+        if Game:getFlag("warpbin_tutorial_wrongcount") == 2 then
+            cutscene:showNametag("Susie")
+            cutscene:text("* ...", "shy", "susie")
+        elseif Game:getFlag("warpbin_tutorial_wrongcount") == 3 then
+            cutscene:showNametag("Susie")
+            cutscene:text("* You sure you actually read that note, dude?", "suspicious", "susie")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Yeah of course I did.", "pout", "hero")
+            cutscene:text("* I'm just uh...", "shocked", "hero")
+            cutscene:text("* Having troubles inputing the code,[wait:5] that's all!", "happy", "hero")
+            cutscene:showNametag("Susie")
+            cutscene:text("* ...[wait:5] Right...", "suspicious", "susie")
+        elseif Game:getFlag("warpbin_tutorial_wrongcount") == 4 then
+            cutscene:showNametag("Hero")
+            cutscene:text("* ("..Game.save_name..",[wait:5] could you actually put in the right code?)", "suspicious", "hero")
+        elseif Game:getFlag("warpbin_tutorial_wrongcount") >= 5 then
+            cutscene:text("* (You recalled that the only visible code was \"THETOWER\"...)")
+        end
+        cutscene:hideNametag()
+    end
         else
             cutscene:text("* Error: 2 or more lightners required to activate a broken bin.")
         end

@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 9,
   nextobjectid = 44,
-  properties = {},
+  properties = {
+    ["border"] = "tower_outside"
+  },
   tilesets = {
     {
       name = "blue_grass_lol",

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 11,
   nextobjectid = 80,
-  properties = {},
+  properties = {
+    ["border"] = "tower_outside"
+  },
   tilesets = {
     {
       name = "blue_grass_lol",
@@ -32,7 +34,7 @@ return {
     },
     {
       name = "hub_objects",
-      firstgid = 532,
+      firstgid = 552,
       filename = "../../../tilesets/hub_objects.tsx",
       exportfilename = "../../../tilesets/hub_objects.lua"
     }
@@ -444,7 +446,7 @@ return {
           width = 41,
           height = 49,
           rotation = 0,
-          gid = 539,
+          gid = 559,
           visible = true,
           properties = {
             ["dlc"] = "dlc_trials"
@@ -462,9 +464,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dlc"] = "dlc_trials",
             ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")",
             ["cutscene"] = "thevoid.altar1",
+            ["dlc"] = "dlc_trials",
             ["solid"] = true
           }
         },
@@ -480,9 +482,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dlc"] = "dlc_trials",
             ["cond"] = "(not Game:hasPartyMember(\"hero\") or not Game:hasPartyMember(\"susie\") or not Game:hasPartyMember(\"noel\"))",
             ["cutscene"] = "thevoid.altar1",
+            ["dlc"] = "dlc_trials",
             ["solid"] = true
           }
         }
@@ -606,11 +608,11 @@ return {
           width = 32,
           height = 32,
           rotation = 0,
-          gid = 542,
+          gid = 562,
           visible = true,
           properties = {
-            ["dlc"] = "dlc_trials",
-            ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")"
+            ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")",
+            ["dlc"] = "dlc_trials"
           }
         }
       }

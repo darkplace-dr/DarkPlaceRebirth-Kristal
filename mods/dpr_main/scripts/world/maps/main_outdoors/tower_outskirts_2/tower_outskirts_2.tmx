@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="80">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="34" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="80">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="border" value="tower_outside"/>
+ </properties>
  <tileset firstgid="1" source="../../../tilesets/blue_grass_lol.tsx"/>
  <tileset firstgid="209" source="../../../tilesets/main_area.tsx"/>
  <tileset firstgid="417" source="../../../tilesets/cliffs.tsx"/>
- <tileset firstgid="532" source="../../../tilesets/hub_objects.tsx"/>
+ <tileset firstgid="552" source="../../../tilesets/hub_objects.tsx"/>
  <layer id="1" name="Tile Layer 1" width="34" height="22">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,104,105,105,106,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -134,24 +137,24 @@
     <property name="marker" value="entry2"/>
    </properties>
   </object>
-  <object id="70" name="light_stand" gid="539" x="960" y="400" width="41" height="49">
+  <object id="70" name="light_stand" gid="559" x="960" y="400" width="41" height="49">
    <properties>
     <property name="dlc" value="dlc_trials"/>
    </properties>
   </object>
   <object id="73" name="interactable" x="960" y="360" width="40" height="40">
    <properties>
-    <property name="dlc" value="dlc_trials"/>
     <property name="cond" value="Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
     <property name="cutscene" value="thevoid.altar1"/>
+    <property name="dlc" value="dlc_trials"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="77" name="interactable" x="960" y="360" width="40" height="40">
    <properties>
-    <property name="dlc" value="dlc_trials"/>
     <property name="cond" value="(not Game:hasPartyMember(&quot;hero&quot;) or not Game:hasPartyMember(&quot;susie&quot;) or not Game:hasPartyMember(&quot;noel&quot;))"/>
     <property name="cutscene" value="thevoid.altar1"/>
+    <property name="dlc" value="dlc_trials"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
@@ -177,10 +180,10 @@
   </object>
  </objectgroup>
  <objectgroup color="#ff55ff" id="10" name="objects_back">
-  <object id="67" gid="542" x="965" y="356.5" width="32" height="32">
+  <object id="67" gid="562" x="965" y="356.5" width="32" height="32">
    <properties>
-    <property name="dlc" value="dlc_trials"/>
     <property name="cond" value="Game:hasPartyMember(&quot;hero&quot;) and Game:hasPartyMember(&quot;susie&quot;) and Game:hasPartyMember(&quot;noel&quot;)"/>
+    <property name="dlc" value="dlc_trials"/>
    </properties>
   </object>
  </objectgroup>

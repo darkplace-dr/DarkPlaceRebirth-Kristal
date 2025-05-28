@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 241,
+  nextobjectid = 244,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -570,6 +570,25 @@ return {
             ["launch_time"] = 1,
             ["make_steam"] = false,
             ["marker"] = { id = 80 },
+            ["sprite"] = "world/events/worse_vent"
+          }
+        },
+        {
+          id = 243,
+          name = "ventlauncher",
+          type = "",
+          shape = "rectangle",
+          x = 920,
+          y = 120,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["launch_sound"] = "jump",
+            ["launch_time"] = 1,
+            ["make_steam"] = false,
+            ["marker"] = { id = 28 },
             ["sprite"] = "world/events/worse_vent"
           }
         }
