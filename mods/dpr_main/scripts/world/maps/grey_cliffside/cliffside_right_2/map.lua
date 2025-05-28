@@ -21,7 +21,7 @@ function map:update()
             download.physics.speed_x = -1
             download.x = 144
         end
-    elseif Game:getFlag("met_cat", false) then
+    elseif Game:getFlag("badge_tutorial", false) then
         Game.world:spawnNPC("download", 50, 400)
         local download = Game.world:getCharacter("download")
             download.physics.speed_x = -1

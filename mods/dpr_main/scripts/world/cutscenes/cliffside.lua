@@ -498,7 +498,7 @@ local cliffside = {
             gus:setAnimation("idle")
 			
             cutscene:textTagged("* AH-HA!!!\n* WELL WHATEVER IT IS, I'M SURE IT'LL BE FIXED SOON!", nil, gus)
-            cutscene:textTagged("* AFTER THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
+            cutscene:textTagged("* AFTER ALL,[wait:5] THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
         end
 		
         cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
@@ -998,6 +998,178 @@ local cliffside = {
         cat:remove()
         Game:setFlag("cliffsidecat_2", true)
         hero:setFacing("right")
+    end,
+
+    reverse_cliff_1 = function (cutscene, event)
+
+
+        local data = event.data
+
+        local end_y = 80
+        local p_y = Game.world.player.y
+        local tiles = 12
+        local length = tiles * 40
+        local reverse_spot = p_y + length / 2
+
+        Assets.playSound("noise")
+
+        Game.world.player:setState("SLIDE")
+
+        cutscene:wait(function ()
+            if Game.world.player.walk_speed < -8 then
+                Assets.playSound("jump", 1, 0.5)
+                Game.world.player.physics.speed_y = -10
+                Game.world.player.physics.friction = -1.5
+                Game.world.player.walk_speed = -8
+
+                return true
+            else
+                Game.world.player.walk_speed = Game.world.player.walk_speed - DT * 8
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < p_y then
+                Game.world.player:setState("WALK")
+                Game.world.player:setSprite("walk/down_1")
+                Game.world.player.noclip = true
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < -20 then
+                local x = Game.world.player.x - data.x + 420
+                phys_speed = Game.world.player.physics.speed_y
+                Game.world:mapTransition("grey_cliffside/cliffside_right_4", x, 1040)
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.map.id == "grey_cliffside/cliffside_right_4" then
+                Game.world.player:setSprite("walk/down_1")
+                Game.world.player.noclip = true
+
+                Game.world.player.physics.speed_y = phys_speed
+                Game.world.player.physics.friction = -1.5
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y < 500 then
+                Game.world.player.physics.friction = 4
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.physics.speed_y == 0 then
+                Game.world.player.physics.friction = -1
+
+                Game.world.player.physics.speed_y = 1
+
+                return true
+            else
+                return false
+            end
+        end)
+
+        cutscene:wait(function ()
+            if Game.world.player.y > 260 then
+                return true
+            else
+                return false
+            end
+        end)
+
+        Game.world.player.noclip = false
+        Game.world.player.physics.friction = 0
+        Game.world.player.physics.speed_y = 0
+        Game.world.player:setFacing("down")
+        Game.world.player:resetSprite()
+        Game.world.player:shake(5)
+        Assets.playSound("dtrans_flip")
+        Game.world.player.walk_speed = 4
+    end,
+
+    badge_tutorial = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        hero:setFacing("up")
+        cutscene:wait(0.3)
+        cutscene:showNametag("Cat")
+        cutscene:text("* Hello again.", "neutral", "cat")
+        cutscene:text("* It is time to give you one last tutorial.", "neutral", "cat")
+        cutscene:text("* Inside this chest is what is called a [color:yellow]BADGE[color:reset].", "neutral", "cat")
+        cutscene:text("* Badges can be equipped to give you special effects.", "neutral", "cat")
+        cutscene:text("* However,[wait:5] they require [color:yellow]BP[color:reset] to use.", "neutral", "cat")
+        cutscene:text("* What does \"BP\" stand for?", "neutral", "cat")
+        cutscene:text("* ...", "neutral", "cat")
+        cutscene:text("* Boilet Paper.", "neutral", "cat")
+        cutscene:text("* You start out with only 3 BP.", "neutral", "cat")
+        cutscene:text("* However,[wait:5] there may be certain consumable items that raise your BP.", "neutral", "cat")
+        cutscene:text("* Now,[wait:5] open that chest,[wait:5] open your menu,[wait:5] and go to the badge menu.", "neutral", "cat")
+        cutscene:text("* Equip that badge and then come talk to me.", "neutral", "cat")
+        cutscene:hideNametag()
+    end,
+
+    force_badge_tutorial = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        cutscene:showNametag("Cat")
+        cutscene:text("* You cannot leave just yet.", "neutral", "cat")
+        cutscene:text("* I still need to see if you know how to equip badges.", "neutral", "cat")
+        cutscene:hideNametag()
+        hero:walkTo(hero.x, hero.y - 20, 0.5, "up")
+        cutscene:wait(0.5)
+    end,
+
+    cat_badge = function(cutscene, event)
+        cutscene:showNametag("Cat")
+        if not Game:getFlag("badge_tutorial") then
+            if Game:getBadgeEquipped("stellar_lens") >= 1 then
+                cutscene:text("* Very excelent.", "neutral", "cat")
+                cutscene:text("* It may seem like that badge may be useless right now...", "neutral", "cat")
+                cutscene:text("* But I forsee you potentially meeting someone...", "neutral", "cat")
+                cutscene:text("* ... who can cast STAR element spells.", "neutral", "cat")
+                cutscene:text("* Well,[wait:5] I have taught you everything you need to know.", "neutral", "cat")
+                cutscene:text("* Go back to where we first met.", "neutral", "cat")
+                cutscene:text("* I have a [color:yellow]friend[color:reset] who will show you the way forward.", "neutral", "cat")
+                cutscene:text("* Until we meet again.", "neutral", "cat")
+                cutscene:text("* ...", "neutral", "cat")
+                cutscene:text("* [color:yellow]Perchance[color:reset].", "neutral", "cat")
+                Game:setFlag("badge_tutorial", true)
+                Game:getQuest("cliffsides_cat"):setProgress(1)
+                cutscene:getEvent(11):remove()
+            else
+                cutscene:text("* You have not yet equipped the badge.", "neutral", "cat")
+                cutscene:text("* Press the menu button and navigate to your badge menu.", "neutral", "cat")
+                cutscene:text("* Then equip the badge,[wait:5] then talk to me.", "neutral", "cat")
+            end
+        else
+            local rnd = love.math.random(1, 3)
+            if rnd == 1 then
+                cutscene:text("* I have nothing left to teach you.", "neutral", "cat")
+            elseif rnd == 2 then
+                cutscene:text("* Don't you have anything better to do?", "neutral", "cat")
+            elseif rnd == 3 then
+                cutscene:text("* ...", "neutral", "cat")
+            end
+        end
+        cutscene:hideNametag()
     end,
 
     reverse_cliff_2 = function (cutscene, event)

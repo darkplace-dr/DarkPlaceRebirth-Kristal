@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,6 +12,7 @@ return {
   nextlayerid = 10,
   nextobjectid = 69,
   properties = {
+    ["border"] = "cliffside",
     ["music"] = "demonic_little_grey_cliffs",
     ["name"] = "Cliffside - Beginning"
   },

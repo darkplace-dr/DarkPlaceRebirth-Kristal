@@ -53,7 +53,8 @@ function spell:onCast(user, target)
 	end, 250)
 
 	Game.battle.timer:after(3, function(wait)
-		local damage = math.ceil((user.chara:getStat("magic") * 20) + 130 + (Utils.random(10) * 4))
+		local mult = 1 + (0.2 * Game:getBadgeEquipped("stellar_lens"))
+		local damage = math.ceil(((user.chara:getStat("magic") * 20) + 130 + (Utils.random(10) * 4)) * mult)
 		local i = 1
 
 		Game.battle.timer:every(0.1, function()

@@ -40,7 +40,8 @@ function spell:onCast(user, target)
 		Game.battle.starbasic.layer = BATTLE_LAYERS["above_battlers"]
 		Game.battle:addChild(Game.battle.starbasic)
 		Game.battle.starbasic:slideToSpeed(targetX, targetY, 20, function()
-			local damage = math.ceil((user.chara:getStat("magic") * 20) + 100 + (Utils.random(10) * 2))
+			local mult = 1 + (0.2 * Game:getBadgeEquipped("stellar_lens"))
+			local damage = math.ceil(((user.chara:getStat("magic") * 20) + 100 + (Utils.random(10) * 2)) * mult)
 			target:hurt(damage, user)
 
 			Assets.playSound("celestial_hit")
