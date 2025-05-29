@@ -37,8 +37,8 @@
     <property name="dest_2" value="main_hub"/>
     <property name="dest_3" value="floor2/main_1"/>
     <property name="dest_4" value="floorcyber/pre_elevator"/>
-    <property name="dest_5" value="seal_room/seal_room_1"/>
-    <property name="dest_6" value="nothing"/>
+    <property name="dest_5" value="nothing"/>
+    <property name="dest_6" value="seal_room/seal_room_1"/>
     <property name="dest_7" value="tritraland/entrance"/>
     <property name="dest_8" value="deoxtest"/>
     <property name="length_1" type="int" value="140"/>
