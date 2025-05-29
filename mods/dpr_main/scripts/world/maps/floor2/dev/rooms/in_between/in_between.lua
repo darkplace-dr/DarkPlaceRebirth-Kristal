@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 5,
   nextobjectid = 18,
-  properties = {},
+  properties = {
+    ["border"] = "dev_inbetween"
+  },
   tilesets = {
     {
       name = "devroom_mono",

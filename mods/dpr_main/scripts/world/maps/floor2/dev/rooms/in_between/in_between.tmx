@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
  <editorsettings>
   <export target="in_between.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="border" value="dev_inbetween"/>
+ </properties>
  <tileset firstgid="1" source="../../../../../tilesets/devroom_mono.tsx"/>
  <tileset firstgid="145" source="../../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx"/>
  <layer id="1" name="tiles" width="24" height="12">
