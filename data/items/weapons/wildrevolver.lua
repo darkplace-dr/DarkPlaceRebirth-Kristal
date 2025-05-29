@@ -56,7 +56,8 @@ function item:init()
         noelle = "I u-um, don't think I should have that.",
 		dess = "yee haw",
         brenda = "Time to enact some justice!",
-        ceroba = "(...Clover...)"
+        ceroba = "(...Clover...)",
+        noel = "(Pretty.)",
     }
 end
 

@@ -38,7 +38,8 @@ function item:init()
 		dess = "no way jose",
         brenda = "... No.",
         jamm = "*Kirby flashbacks*",
-        ceroba = "Quite a... Unique... Weapon."
+        ceroba = "Quite a... Unique... Weapon.",
+        noel = "Even nothing is something.",
     }
 end
 

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 16,
+  nextobjectid = 17,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -270,22 +270,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 12,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 160,
-          y = 480,
-          width = 122,
-          height = 34,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "grey_cliffside/dead_room1_start",
-            ["marker"] = "entry_2"
-          }
-        },
-        {
           id = 15,
           name = "interactable",
           type = "",
@@ -298,6 +282,22 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "cliffside.warp_bin"
+          }
+        },
+        {
+          id = 16,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 480,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "grey_cliffside/worse_vents",
+            ["marker"] = "re_entry"
           }
         }
       }

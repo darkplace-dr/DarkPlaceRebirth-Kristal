@@ -1948,6 +1948,7 @@ local hub = {
                     party_jingle:remove()
                 end
                 Game:setFlag("ostarwalker_party", true)
+                Game:unlockPartyMember("ostarwalker")
             end
             Game:setFlag("starwalker_defeated", true)
             cutscene:wait(cutscene:attachFollowers())

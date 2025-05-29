@@ -57,9 +57,9 @@ function item:init()
             brenda = "Uhh... lances aren't swords?",
         },
 	    kris = {
-            noel = "Sure, give it to the possesed kid...",
         },
-        ceroba = "Looks like something ancient..."
+        ceroba = "Looks like something ancient...",
+        noel = "Surely you joust?",
     }
 end
 

@@ -65,7 +65,7 @@ function item:init()
             dess = "lol",
         },
         brenda = "A ring... for a ring?",
-        noel = "Angel... no thanks...",
+        noel = "Angel...? No...",
         noelle = "It's beautiful...!",
         kangel = "It goes with my outfit!",
 		jamm = "I'm... Already taken...",

@@ -106,4 +106,14 @@ return {
         end
         cutscene:hideNametag()
     end,
+
+-- keep this at the bottom
+-- and type a face every time you edit this file
+-- :|
+-- :O
+    party = function(cutscene, event)
+        Game.world:openMenu(DarkCharacterMenu())
+
+        Game.world:closeMenu() 
+    end,
 }

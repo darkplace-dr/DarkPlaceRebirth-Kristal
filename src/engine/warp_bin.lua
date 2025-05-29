@@ -44,6 +44,12 @@ Kristal.warp_bin_codes = {
     ["GIMMICK"] = { result = "gimmick_test/gimmick_test1", mod = "dpr_main" },
     ["SLIDER"] = { result = "slider_start", mod = "dpr_main" },
     ["WIFIDOWN"] = { result = "googlefield", mod = "dpr_main" },
+    ["THETOWER"] = { result = "main_outdoors/tower_outside", mod = "dpr_main" },
+    ["DEVDINER"] = {
+        result = function(cutscene)
+            cutscene:text("* This isn't legacy you [shake:5]idiot[shake:1].")
+        end,
+    },
 }
 local gray_area_info = {
     result = function(cutscene)

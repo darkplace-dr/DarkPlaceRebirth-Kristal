@@ -54,7 +54,7 @@ function item:init()
         noelle = "That thing is scary!",
         dess = "ahh evil scary demon",
         brenda = "Somebody get me some holy water.",
-        noel = "(Don't eat it, Don't eat it, Don't eat it, Don't eat it, Don't eat it.)",
+        noel = "This is mockery.",
 		jamm = "Is this Nyarla's? No? Okay then.",
         ceroba = "That thing is EVIL."
     }

@@ -54,7 +54,7 @@ function item:init()
         brenda = "SMASH!",
 		jamm = "I... don't think this works.",
         ["jamm+marcy"] = "We'll get you a better one, Marcy.",
-        noel = "?.. This isn't meant to be here.",
+        noel = "Fracturing from Foolhardiness...",
         ceroba = "Never played baseball."
     }
 end

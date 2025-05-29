@@ -53,7 +53,8 @@ function item:init()
         noelle = "S-stop thwacking me!",
 		dess = "im gonna poke holes in it",
         jamm = "So is this like... a practice sword?",
-        ceroba = "Isn't it gonna bounce off the enemies?"
+        ceroba = "Isn't it gonna bounce off the enemies?",
+        noel = "Repulsing...",
     }
 end
 

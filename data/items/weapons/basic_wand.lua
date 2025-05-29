@@ -53,7 +53,7 @@ function item:init()
 		dess = "your a wizard, harry",
         brenda = "Uh... Abracadabra?",
 		jamm = "I'm not really a wizard.",
-        noel = "",
+        noel = "Glorified Toy...",
         ceroba = "I don't need that to do magic.",
         nell = "Okay...?"
     }

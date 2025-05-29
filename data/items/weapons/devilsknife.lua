@@ -53,7 +53,8 @@ function item:init()
         noelle = "...? It smiled at me?",
 		dess = "chaos chaos ect ect",
         jamm = "Hey, I'm not a farmer!",
-        ceroba = "Is it... Alive?"
+        ceroba = "Is it... Alive?",
+        noel = "Chaotic, Crazed, and... Cool...",
     }
 end
 
