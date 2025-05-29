@@ -53,7 +53,7 @@ function item:init()
 		dess = "this is a great idea",
         jamm = "Woah! Shakes a lot...",
         ceroba = "That is a BAD idea.",
-        noelle = "Energy Hog",
+        noel = "Energy Hog",
     }
 end
 
