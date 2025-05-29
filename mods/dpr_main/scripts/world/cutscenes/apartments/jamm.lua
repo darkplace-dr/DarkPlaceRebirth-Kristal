@@ -24,7 +24,7 @@ return {
 				cutscene:text("* We'll find him,[wait:5] alright?", "neutral_smile", "hero")
 			else
 				cutscene:hideNametag()
-				cutscene:text("* You tell Marcy you'll Find him.")
+				cutscene:text("* You tell Marcy you'll find him.")
 			end
 			
 			cutscene:showNametag("Marcy")
