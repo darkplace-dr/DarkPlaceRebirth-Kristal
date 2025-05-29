@@ -111,9 +111,10 @@ return {
 -- and type a face every time you edit this file
 -- :|
 -- :O
+-- :(
     party = function(cutscene, event)
-        Game.world:openMenu(DarkCharacterMenu())
-
-        Game.world:closeMenu() 
+        cutscene:after(function()
+           Game.world:openMenu(DarkCharacterMenu())
+        end)
     end,
 }
