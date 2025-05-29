@@ -24,7 +24,7 @@ return {
 				cutscene:text("* We'll find him,[wait:5] alright?", "neutral_smile", "hero")
 			else
 				cutscene:hideNametag()
-				cutscene:text("* You tell Marcy you'll hind him.")
+				cutscene:text("* You tell Marcy you'll Find him.")
 			end
 			
 			cutscene:showNametag("Marcy")
@@ -395,7 +395,7 @@ return {
         cutscene:text("[voice:marcy]* H-hello!", "happy", "marcy")
         cutscene:text("[voice:marcy]* Marcy is happy that you decided to visit!", "smile", "marcy")
         cutscene:text("[voice:marcy]* Papa is very busy, but he says Marcy can have friends over.", "smile", "marcy")
-		cutscene:hideNametags()
+		cutscene:hideNametag()
 		
 		local choice = cutscene:choicer({"You", "Father", "Locket", "Nothing"})
 		
