@@ -53,7 +53,7 @@ function item:init()
         noelle = "D-don't point it at me!",
 		dess = "ew i hate realism",
         brenda = "(I'm gonna regret this, aren't I?)",
-        noel = "An elephant had to die for this.",
+        noel = "Just another hot piece of metal.",
         ceroba = "I'm not good with firearms..."
     }
 end

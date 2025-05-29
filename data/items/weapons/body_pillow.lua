@@ -57,7 +57,8 @@ function item:init()
         brenda = "Why do we have this?",
 		jamm = "I am not THAT desperate...",
         ["jamm+marcy"] = "I am not THAT desperate...",
-        ceroba = "No."
+        ceroba = "No.",
+        noel = "Soft, Sad, and Ineffective."
     }
 end
 

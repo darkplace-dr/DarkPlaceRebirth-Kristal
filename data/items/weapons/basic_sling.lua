@@ -52,7 +52,7 @@ function item:init()
         noelle = "O-oh, you just... Ow, my eye!",
 		dess = "stardew sucks ass",
         jamm = "Ol' reliable.",
-        noel = "I will fickin break it...",
+        noel = "Crumbling, Pathetic, Embarrassing...",
         ceroba = "I thought only kids use these?"
     }
 end

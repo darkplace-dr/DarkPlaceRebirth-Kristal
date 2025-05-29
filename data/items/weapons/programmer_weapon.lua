@@ -57,7 +57,8 @@ function item:init()
 		dess = "id rather get someone else to do it for me",
         noelle = "Print??? Return??? What is this saying???",
 		jamm = "Oh, yeah. This is easy to read.",
-        ceroba = "Chujin would understand that. Not me."
+        ceroba = "Chujin would understand that. Not me.",
+        noel = "This weapon is DEV CHARACTER SPECIFIC",
     }
 end
 

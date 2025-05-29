@@ -54,7 +54,8 @@ function item:init()
 		dess = "what to heck",
         brenda = "I hate Welsh.",
 		jamm = "Cald.. Cael... Caledfa... No thanks.",
-        ceroba = "I won't even try."
+        ceroba = "I won't even try.",
+        noel = "Illegible...",
     }
 end
 

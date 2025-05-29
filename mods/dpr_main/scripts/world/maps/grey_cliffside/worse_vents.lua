@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 244,
+  nextobjectid = 246,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -692,7 +692,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 0,
-          y = 700,
+          y = 684,
           width = 120,
           height = 36,
           rotation = 0,
@@ -776,8 +776,8 @@ return {
           name = "script",
           type = "",
           shape = "rectangle",
-          x = 194.667,
-          y = 676.667,
+          x = 200,
+          y = 680,
           width = 120,
           height = 36,
           rotation = 0,
@@ -793,7 +793,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 1320,
-          y = 1106,
+          y = 1084,
           width = 120,
           height = 36,
           rotation = 0,
@@ -1045,7 +1045,7 @@ return {
         },
         {
           id = 221,
-          name = "",
+          name = "re_entry",
           type = "",
           shape = "point",
           x = 920,
@@ -2040,19 +2040,6 @@ return {
           properties = {}
         },
         {
-          id = 166,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1360,
-          y = 1080,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 167,
           name = "",
           type = "",
@@ -2633,6 +2620,32 @@ return {
           y = 720,
           width = 40,
           height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 244,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 680,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 245,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 680,
+          width = 40,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}

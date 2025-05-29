@@ -52,7 +52,8 @@ function item:init()
         ralsei = "You can do it!",
         noelle = "Now THIS is a tacky scarf! Faha!",
 		dess = ":)",
-        ceroba = "How lovely..."
+        ceroba = "How lovely...",
+        noel = "blatant lie",
     }
 end
 

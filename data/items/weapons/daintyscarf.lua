@@ -52,7 +52,8 @@ function item:init()
         noelle = "S-stop covering me with it!",
 		dess = "who am i the queen of england",
         jamm = "I can't even heal us.",
-        ceroba = "It's... Really comfortable."
+        ceroba = "It's... Really comfortable.",
+        noel = "... Maybe...",
     }
 end
 

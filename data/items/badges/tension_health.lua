@@ -20,9 +20,12 @@ end
 
 function badge:update(equipped)
     if equipped and Game.battle and Game.tension >= 1 then
-        Game.tension = Game.tension -1
-        local number = math.random(1, #Game.battle.party)
-        Game.battle.party[number].chara.health = math.min(Game.battle.party[number].chara.health + 1, Game.battle.party[number].chara.stats.health)
+        local state = Game.battle.state
+        if state == "DEFENDING" or state == "DEFENDINGBEGIN" or state == "ENEMYDIALOGUE" or state == "DEFENDINGEND" then
+            Game.tension = Game.tension -1
+            local number = math.random(1, #Game.battle.party)
+            Game.battle.party[number].chara.health = math.min(Game.battle.party[number].chara.health + 1, Game.battle.party[number].chara.stats.health)
+        end
     end
 end
 

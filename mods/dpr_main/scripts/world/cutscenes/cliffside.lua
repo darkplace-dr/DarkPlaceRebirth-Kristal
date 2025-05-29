@@ -1283,12 +1283,12 @@ local cliffside = {
         local data = event.data
 
         local top = data.properties["top"]
-        Game.world.player.noclip = true
         local ssss = Game.world.player.layer
 
         if Game.world.player.jumping then return end
 
         Game.world.player:setState("SLIDE")
+        Game.world.player.noclip = true
 
         Game.world.player.layer = 22
 

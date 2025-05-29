@@ -48,7 +48,8 @@ function item:init()
         noelle = "(Wh... why give this to me?)",
 		dess = "billy mays'd, eh?",
         jamm = "Fess up. Who got scammed?",
-        ceroba = "It's not even usable!"
+        ceroba = "It's not even usable!",
+        noel = "... broken and unwanted...",
     }
 end
 
