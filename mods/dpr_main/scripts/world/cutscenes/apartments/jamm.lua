@@ -274,11 +274,11 @@ return {
 	end,
 	
 	marcy_bed = function(cutscene, event)
-		cutscene:text("* Marcy's bed.\n* The mattress is very soft.")
+		cutscene:text("* Marcy's bed.[wait:10]\n* The mattress is very soft.")
 	end,
 	
 	marcy_desk = function(cutscene, event)
-		cutscene:text("* Marcy's bedside table.\n* She keeps it empty.")
+		cutscene:text("* Marcy's bedside table.[wait:10]\n* She keeps it empty.")
 	end,
 	
 	marcy_closet = function(cutscene, event)
@@ -286,12 +286,12 @@ return {
 	end,
 	
 	jamm_bed = function(cutscene, event)
-		cutscene:text("* Jamm's bed.\n* One side is clearly used more than the other.")
+		cutscene:text("* Jamm's bed.[wait:10]\n* One side is clearly used more than the other.")
 		cutscene:text("* On the corner is a lanyard for an air force.")
 	end,
 	
 	jamm_desk = function(cutscene, event)
-		cutscene:text("* Jamm's bedside table.\n* Contains a Framework laptop.")
+		cutscene:text("* Jamm's bedside table.[wait:10]\n* Contains a Framework laptop.")
 		cutscene:text("* Will you open the laptop?")
 		cutscene:choicer({"Open", "Do not"})
 		-- To be worked on. This is where I plan on starting Jamm Quest 2.
