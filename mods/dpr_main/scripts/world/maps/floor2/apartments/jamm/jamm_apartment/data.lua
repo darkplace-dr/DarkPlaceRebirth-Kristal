@@ -60,7 +60,7 @@ return {
     },
     {
       type = "imagelayer",
-      image = "../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png",
+      image = "../../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png",
       id = 5,
       name = "Image Layer 1",
       class = "",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="21" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="47">
  <editorsettings>
-  <export target="jamm_apartment.lua" format="lua"/>
+  <export target="../jamm_apartment.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="music" value="jamm_apartment"/>
@@ -33,7 +33,7 @@
 </data>
  </layer>
  <imagelayer id="5" name="Image Layer 1">
-  <image source="../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png" width="840" height="920"/>
+  <image source="../../../../../../../assets/sprites/world/maps/apartments/jamm_apartment.png" width="840" height="920"/>
  </imagelayer>
  <objectgroup id="4" name="markers">
   <object id="17" name="entry" x="760" y="820">
