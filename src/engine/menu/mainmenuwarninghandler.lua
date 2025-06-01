@@ -35,7 +35,11 @@ function MainMenuWarningHandler:init(menu)
     end
 
     if Kristal.Config["seenLegitWarning"] then
-        self.current_warning = Utils.pick(self.warnings)
+        if love.math.random(1, 100) <= 50 then
+            self.current_warning = Utils.pick(self.warnings)
+        else
+            self.current_warning = "This game is still under active development. Some bugs or crashes may appear during your playing experience."
+        end
         if noel_reset == true then
             Assets.playSound("ominous", 4, 0.5)
             self.current_warning = "Invalid null.char found!?!?\nnull.char has been [color:red][shake:0.55]deleted.\n\n\n\n\n\n\n\n\n[color:white]WARNING\nnan_spawn.lua is [color:red]missing!\n(IMPORTANT FILE)"
@@ -45,7 +49,7 @@ function MainMenuWarningHandler:init(menu)
             self.current_warning = ""
         end
     else
-        self.current_warning = "May contain swears/profanity"
+        self.current_warning = "This game is still under active development. Some bugs or crashes may appear during your playing experience."
         Kristal.Config["seenLegitWarning"] = true
     end
 
