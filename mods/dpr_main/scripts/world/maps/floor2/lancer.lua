@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 47,
+  nextobjectid = 61,
   properties = {
     ["music"] = "mainhub"
   },
@@ -66,7 +66,7 @@ return {
       id = 2,
       name = "collision",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -77,7 +77,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 320,
@@ -90,7 +90,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -103,7 +103,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 320,
@@ -116,7 +116,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 320,
@@ -129,7 +129,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 80,
@@ -142,7 +142,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 80,
@@ -155,7 +155,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 480,
           y = 80,
@@ -168,7 +168,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 120,
@@ -197,7 +197,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 210,
           y = 70,
@@ -211,7 +211,7 @@ return {
         {
           id = 30,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 180,
           y = 150,
@@ -225,7 +225,7 @@ return {
         {
           id = 31,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 220,
           y = 150,
@@ -239,7 +239,7 @@ return {
         {
           id = 32,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 260,
           y = 150,
@@ -253,7 +253,7 @@ return {
         {
           id = 33,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 180,
           y = 190,
@@ -267,7 +267,7 @@ return {
         {
           id = 34,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 220,
           y = 190,
@@ -281,7 +281,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 260,
           y = 190,
@@ -295,7 +295,7 @@ return {
         {
           id = 36,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 180,
           y = 230,
@@ -309,7 +309,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 220,
           y = 230,
@@ -323,7 +323,7 @@ return {
         {
           id = 38,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 260,
           y = 230,
@@ -337,7 +337,7 @@ return {
         {
           id = 39,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 270,
           y = 280,
@@ -351,7 +351,7 @@ return {
         {
           id = 40,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 190,
           y = 290,
@@ -365,7 +365,7 @@ return {
         {
           id = 41,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 410,
           y = 240,
@@ -379,7 +379,7 @@ return {
         {
           id = 42,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 390,
           y = 180,
@@ -393,7 +393,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 430,
           y = 180,
@@ -401,6 +401,20 @@ return {
           height = 40,
           rotation = 0,
           gid = 180,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 59,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 370,
+          y = 300,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          gid = 174,
           visible = true,
           properties = {}
         }
@@ -423,7 +437,7 @@ return {
         {
           id = 10,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 268.072,
           y = 475,
@@ -439,7 +453,7 @@ return {
         {
           id = 11,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 268.072,
           y = 475,
@@ -450,6 +464,164 @@ return {
           properties = {
             ["map"] = "floor2/apartments_left",
             ["marker"] = "entry_lancer"
+          }
+        },
+        {
+          id = 47,
+          name = "bluhpainting",
+          type = "",
+          shape = "rectangle",
+          x = 300,
+          y = 50,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 48,
+          name = "bluhpainting",
+          type = "",
+          shape = "rectangle",
+          x = 340,
+          y = 50,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "bluhpainting",
+          type = "",
+          shape = "rectangle",
+          x = 380,
+          y = 50,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "bluhpainting",
+          type = "",
+          shape = "rectangle",
+          x = 420,
+          y = 50,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 53,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 120,
+          width = 128,
+          height = 100,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a bikeless bed.)"
+          }
+        },
+        {
+          id = 54,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 190,
+          y = 260,
+          width = 30,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (You found 20 Rupys in the hole!)",
+            ["text2"] = "* (Unfortunately,[wait:5] that's not a useful currency here...)"
+          }
+        },
+        {
+          id = 55,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 270,
+          y = 250,
+          width = 30,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a hole made recreationally.)"
+          }
+        },
+        {
+          id = 56,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 210,
+          width = 30,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a hole.[wait:5] Presumably dug for fun.)"
+          }
+        },
+        {
+          id = 57,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 390,
+          y = 150,
+          width = 60,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.lancer_player"
+          }
+        },
+        {
+          id = 58,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 420,
+          y = 210,
+          width = 20,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's some kind of digging implement.)"
+          }
+        },
+        {
+          id = 60,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 370,
+          y = 270,
+          width = 30,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (There's salsa buried in the ground here.)"
           }
         }
       }
@@ -471,7 +643,7 @@ return {
         {
           id = 12,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,

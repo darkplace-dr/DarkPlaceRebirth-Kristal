@@ -241,6 +241,18 @@ return {
         cutscene:hideNametag()
     end,
 
+    lancer_player = function(cutscene, event)
+        cutscene:text("* (It's a music player.)[wait:5]\n* (Listen to the contents?)")
+        local choice = cutscene:choicer({"Listen", "Do Not"})
+        if choice == 1 then
+			Assets.playSound("splat")
+            cutscene:text("* (...)")
+            cutscene:text("* (It's full of cartoon splat noises.)")
+        else
+            cutscene:text("* (You did not listen.)")
+        end
+    end,
+
     spamgolor = function(cutscene, event)
         cutscene:text("* It's a door.")
         if not Game:getFlag("spamgolor_fight") then
