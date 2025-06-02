@@ -12,7 +12,7 @@ function actor:init()
 
     self.flip = "right"
 
-    self.path = "npcs/machine"
+    self.path = "world/npcs/machine"
     self.default = "off"
 
     self.animations = {
