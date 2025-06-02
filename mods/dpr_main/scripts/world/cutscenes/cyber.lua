@@ -26,8 +26,8 @@ local cyber = {
 			        Game.inventory:addItem("cell_phone")
                     cutscene:text("* (You got the Cell Phone.)")
                     cutscene:text("* (The Cell Phone was added to your KEY ITEMS.)")
+                    Game:setFlag("gotCellPhone", true)
                 end
-                Game:setFlag("gotCellPhone", true)
             else
                 cutscene:text("* (It's just a cardboard \ncutout.)")
             end
