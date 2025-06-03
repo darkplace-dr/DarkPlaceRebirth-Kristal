@@ -296,8 +296,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/worse_vents",
-            ["marker"] = "re_entry"
+            ["map"] = "grey_cliffside/first_chr_encounter",
+            ["marker"] = "left"
           }
         }
       }

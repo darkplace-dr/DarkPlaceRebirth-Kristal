@@ -4,7 +4,7 @@
 ---@overload fun(...) : GameOver
 local GameOver, super = Class(Object, "gameover")
 
-function GameOver:init(x, y, force_message)
+function GameOver:init(x, y, force_message, force_track)
     super.init(self, 0, 0)
 
     self.font = Assets.getFont("main")
@@ -38,6 +38,11 @@ function GameOver:init(x, y, force_message)
 	self.force_message = force_message
 
     self.is_nohit = Game:isSpecialMode "MERG"
+
+    if force_track then
+        self.force_track = force_track
+    end
+
 end
 
 function GameOver:onRemove(parent)
@@ -125,7 +130,12 @@ function GameOver:update()
         end
     end
     if (self.timer >= 150) and (self.current_stage == 4) then
-        self.music:play(Game:isLight() and "determination" or Game:getConfig("oldGameOver") and "AUDIO_DRONE" or "AUDIO_DEFEAT")
+
+        if self.force_track then
+            self.music:play(self.force_track)
+        else
+            self.music:play(Game:isLight() and "determination" or Game:getConfig("oldGameOver") and "AUDIO_DRONE" or "AUDIO_DEFEAT")
+        end
         if not Game:getConfig("oldGameOver") or Game:isLight() then
             if Game:isLight() then
                 self.text = Sprite("ui/gameover_ut", 111, 32)

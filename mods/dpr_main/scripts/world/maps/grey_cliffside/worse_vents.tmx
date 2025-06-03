@@ -306,8 +306,8 @@
   </object>
   <object id="64" name="transition" x="841" y="-40" width="159" height="40">
    <properties>
-    <property name="map" value="grey_cliffside/the_end"/>
-    <property name="marker" value="entry"/>
+    <property name="map" value="grey_cliffside/first_chr_encounter"/>
+    <property name="marker" value="right"/>
    </properties>
   </object>
   <object id="133" name="script" x="880" y="1080" width="120" height="36">

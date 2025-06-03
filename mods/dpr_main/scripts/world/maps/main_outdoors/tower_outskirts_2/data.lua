@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 80,
+  nextobjectid = 82,
   properties = {
     ["border"] = "tower_outside"
   },
@@ -487,6 +487,34 @@ return {
             ["dlc"] = "dlc_trials",
             ["solid"] = true
           }
+        },
+        {
+          id = 80,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 640,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          gid = 566,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 81,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 720,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          gid = 566,
+          visible = true,
+          properties = {}
         }
       }
     },

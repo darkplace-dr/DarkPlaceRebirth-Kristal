@@ -649,8 +649,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/the_end",
-            ["marker"] = "entry"
+            ["map"] = "grey_cliffside/first_chr_encounter",
+            ["marker"] = "right"
           }
         },
         {

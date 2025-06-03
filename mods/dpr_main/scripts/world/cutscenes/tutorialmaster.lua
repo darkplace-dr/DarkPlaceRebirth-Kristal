@@ -72,22 +72,24 @@ local tutorialmaster = {
         end
         master:setAnimation({ "idle" })
     end,
-    susie = function(cutscene, master)
-        cutscene:setTextboxTop(true)
+    susie = function(cutscene)
+        local master = cutscene:getCharacter("susie_master")
         master:setAnimation({ "bop" })
         cutscene:text("* I'm Susie Master.\n[wait:5]* Ask me about SUSIE's.")
-        local choices = { "1", "2", "3" }
+
+        local choices = {"Healing", "Attack", "Fact"}
         table.insert(choices, "Bye")
         local c = cutscene:choicer(choices)
         if c == 1 then
-            master:setAnimation({ "shocked" })
-            cutscene:text("* BING BING BING ONE.")
+            cutscene:text("* Susie puts all her POWER,[wait:5] in this one SPELL.")
+            cutscene:text("* This will send your TENSION,[wait:5] straight to HELL.")
+            cutscene:text("* Susie's ULTIMATE HEAL,[wait:5] is so RAD.")
+            cutscene:text("* Unfortunely it's also,[wait:5] very[wait:5] very[wait:5] BAD.")
         elseif c == 2 then
-            master:setAnimation({ "shocked" })
-            cutscene:text("* BING BING BING TWO.")
+            cutscene:text("* Susie's BUSTER, RUDE as may be...")
+            cutscene:text("* Will deal more damage, if you just press [Z]!")
         elseif c == 3 then
-            master:setAnimation({ "shocked" })
-            cutscene:text("* BING BING BING THREE.")
+            cutscene:text("* bing bing bing three")
         elseif c == 4 then
             cutscene:text("* Later,[wait:5] kid.")
         end
@@ -109,6 +111,26 @@ local tutorialmaster = {
         elseif c == 3 then
             master:setAnimation({ "shocked" })
             cutscene:text("* BING BING BING THREE.")
+        elseif c == 4 then
+            cutscene:text("* Later,[wait:5] kid.")
+        end
+        master:setAnimation({ "idle" })
+    end,
+    hero = function(cutscene, master)
+        cutscene:setTextboxTop(true)
+        master:setAnimation({ "bop" })
+        cutscene:text("* I'm Hero Master.\n[wait:5]* Ask me about HERO's.")
+        local choices = { "1", "2", "fact" }
+        table.insert(choices, "Bye")
+        local c = cutscene:choicer(choices)
+        if c == 1 then
+        elseif c == 2 then
+            master:setAnimation({ "shocked" })
+            cutscene:text("* BING BING BING TWO.")
+        elseif c == 3 then
+            cutscene:text("* Hero enjoys giving us GOLD.")
+            cutscene:text("* It makes them feel BIG, STRONG, and dare I say BOLD!")
+            cutscene:text("* ...", "happy", "hero")
         elseif c == 4 then
             cutscene:text("* Later,[wait:5] kid.")
         end

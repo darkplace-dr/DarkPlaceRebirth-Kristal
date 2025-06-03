@@ -1,10 +1,10 @@
-local item, super = Class(Item, "bael_fur")
+local item, super = Class(Item, "gold_card")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Bael Fur"
+    self.name = "Gold Card"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
@@ -14,12 +14,12 @@ function item:init()
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = "Defensive\nfur"
+    self.shop = ""
     -- Menu description
-    self.description = "Flame colored fur obtained from a giant spider, slightly increases defense."
+    self.description = "A golden charm that increases\ndropped money by 20%"
 
     -- Default shop price (sell price is halved)
-    self.price = 12
+    self.price = 800
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,28 +34,29 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = 1,
+        defense = 4,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = nil
-    self.bonus_icon = nil
+    self.bonus_name = "$ +20%"
+    self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {
-        ceroba = false
-    }
+    self.can_equip = {}
 
     -- Character reactions
     self.reactions = {
-        susie = "Now that's a cool shade of red!",
-        suzy = "Now that's a cool shade of orange!",
-        ralsei = "I never thought to use this as armor!",
-        dess = "Yo you guys killed a giant spider without me?",
-        ceroba = "I'm not comfortable with that...",
-        jamm = "Anything is armor, I guess...",
-        hero = "Fuzzy",
-        noel = "1 DEF won't help me.",
+        susie = "",
+        ralsei = "",
+        noelle = "",
+        dess = "man i love debt",
+        jamm = "",
+        noel = "",
+        ceroba = "",
     }
+end
+
+function item:applyMoneyBonus(gold)
+    return gold * 1.20
 end
 
 return item

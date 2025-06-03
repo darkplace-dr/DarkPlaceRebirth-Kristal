@@ -10,6 +10,22 @@ end
 
 function Nazrin:onInteract()
     Game.world:startCutscene(function(cutscene)
+
+    local items_list = {
+        {
+            result = "peanut",
+            item1 = "nut",
+            item2 = "nut"
+        },
+        {
+            result = "quadnut",
+            item1 = "peanut",
+            item2 = "peanut"
+        },
+    }
+    Kristal.callEvent("setItemsList", items_list)
+
+
         cutscene:text("* Pray to Nazrin to fuse your objects?")
         local opinion = cutscene:choicer({"Yes", "No"}) == 1
         if opinion then

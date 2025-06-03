@@ -59,7 +59,7 @@ local place_holder = function(cutscene, event)
 
     if not Game.party[2] then
         if party_one == "Dess" then --Oh didn't expect to see you here alone Dess, speaking of, where's the others?
-            if save.met_dess and save.met_dess.met then
+            if Noel:getFlag("met_dess") then
                 cutscene:text("* Oh didn't expect to see you here alone Dess,[wait:5] speaking of,[wait:5] why?", "bruh", "noel")
 
                 if Game:isDessMode() then
@@ -84,7 +84,7 @@ local place_holder = function(cutscene, event)
                         cutscene:text("[instant]* I meant that reality[stopinstant] probably wouldn't allow it.", "bruh", "noel")
 
                         cutscene:text("* Sounds like a skill issue to me, but you do you", "condescending", "dess")
-                        Noel:setFlag("understand_dessmode")
+                        Noel:setFlag("understand_dessmode", true)
                     else
                         cutscene:text("*", "smug", "dess")
                         cutscene:text("* [speed:0.1]...", "bruh", "noel")
@@ -108,8 +108,9 @@ local place_holder = function(cutscene, event)
     else
         if math.random(1, 10) == 9 then
             cutscene:doki_text("* May I join the party?", "noel", {name = "Noel"})
-       else
-       end
+        else
+            cutscene:text("* May I join the party?", "bruh", "noel")
+        end
         local choicer
         if Game:isDessMode() then
             cutscene:text("* nah this is dess mode[font:main_mono,16]TM[font:reset] so it's only me", "condescending", "dess")
@@ -148,7 +149,7 @@ local dess_mode = function(cutscene, event)
 
         cutscene:setTextboxTop(true)
 
-        cutscene:text("* Hello again Dess [wait:5]still in dess mo", "bruh", "noel", {auto = true})
+        cutscene:text("* Hello again Dess [wait:5]still in dess mode I see", "bruh", "noel", {auto = true})
 
         cutscene:text("* Join the party. I'm getting sick of waiting in lobby.", "doom_AURGHHHHHH", "dess")
 
@@ -191,7 +192,7 @@ local dess_mode = function(cutscene, event)
 
         Game.world.music:resume()
 
-        Noel:setFlag("can_be_dess")
+        Noel:setFlag("can_be_dess", true)
 
         local noel = cutscene:getCharacter("noel")
         noel.actor:init()
@@ -406,6 +407,15 @@ function Noel:delete()
 end
 
 function Noel:erase()
+end
+
+function Noel:kill()
+end
+
+function Noel:die()
+end
+
+function Noel:uninstall()
 end
 
 function Noel:getDebugOptions(context, thing)

@@ -463,4 +463,80 @@ return {
             end)
         end
     end,
+
+
+    ugh = function(cutscene)
+
+
+        --self.face_x = 18
+        --self.face_y = 6
+
+    local function falseText(str, y)
+
+    --34 for top
+    --189 for middle
+
+    local text_x = 2
+    local text_y = -4 
+
+    local width, height = 529, 103
+
+    local y = y or 344
+
+    local box = UIBox(56, y, width, height)
+    box.layer = WORLD_LAYERS["textbox"]
+    box.debug_select = false
+    box.parallax_x = 0
+    box.parallax_y = 0
+--    print(box:getBorder())
+
+    Game.world:addChild(box)
+
+    local text = DialogueText("" .. str, text_x, text_y, width, SCREEN_HEIGHT)
+    box:addChild(text)
+
+    return box
+    end
+
+   -- self.textbox = Textbox(56, 344, width, height)
+    --self.textbox.layer = WORLD_LAYERS["textbox"]
+    --self.world:addChild(self.textbox)
+    --self.textbox:setParallax(0, 0)
+
+        -- FIXME: actually use skippable
+        local function gonerText(str, advance, skippable)
+            text = DialogueText("" .. str, 160, 100, 640, 480,
+                { auto_size = true })
+            text.layer = WORLD_LAYERS["textbox"]
+            text.skip_speed = not skippable
+            text.parallax_x = 0
+            text.parallax_y = 0
+            Game.world:addChild(text)
+
+            if advance ~= false then
+                cutscene:wait(function() return not text:isTyping() end)
+                gonerTextFade(true)
+            end
+        end
+--[[
+        falseText("* Who is that?[wait:30]\n* Is that a new person?[wait:40]\n* Do we want to speak to them?", 34)
+        cutscene:wait(1)
+        falseText("* We don't know.[wait:20]\n* It may seem so.[wait:60]\n* We never speak to a stranger.", 189)
+        cutscene:wait(3)
+        falseText("* MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP")
+        cutscene:wait(1)
+]]
+
+        local text_a = falseText("* Who is that?[wait:30]\n* Is that a new person?[wait:40]\n* Do we want to speak to them?", 34)
+        cutscene:wait(1)
+        local text_b = falseText("* We don't know.[wait:20]\n* It may seem so.[wait:60]\n* We never speak to a stranger.", 189)
+        cutscene:wait(3)
+        local text_c = falseText("* MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP MAKE IT STOP")
+        cutscene:wait(5)
+        text_a:remove()
+        text_b:remove()
+        text_c:remove()
+
+    end,
+
 }
