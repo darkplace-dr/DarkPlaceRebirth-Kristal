@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.0",
   name = "hub_objects",
   class = "",
   tilewidth = 130,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 11,
+  tilecount = 12,
   tiles = {
     {
       id = 0,
@@ -140,6 +140,12 @@ return {
       image = "../../../assets/sprites/world/events/void_fragment_4.png",
       width = 32,
       height = 32
+    },
+    {
+      id = 14,
+      image = "../../../assets/sprites/world/events/blue_tree.png",
+      width = 60,
+      height = 60
     }
   }
 }

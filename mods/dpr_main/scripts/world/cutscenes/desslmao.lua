@@ -66,7 +66,6 @@ local desslmao = {
 			cutscene:textTagged("[speed:0.5]* ...", "heckyeah", "dess")
 			cutscene:textTagged("* hey why are you looking at me like that", "eyebrow", "dess")
         end
-
 		cutscene:setSpeaker("dess")
 		if noel_remembered_dess then
 			cutscene:textTagged("* ayyy finally someone remembers me", "condescending", "dess")
@@ -109,6 +108,7 @@ local desslmao = {
 			cutscene:showNametag("Noel")
 			cutscene:text("* You don't care at all about keeping a low profile do you?", "bruh", "noel")
 			cutscene:text("* Well,[wait:5] neither do I\n[wait:10][face:bruh]but that's besides the point.", "oh", "noel")
+				Noel:setFlag("met_dess", true)
 		end
 
 		if susie then

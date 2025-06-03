@@ -56,7 +56,8 @@ function item:init()
 		noelle = "Baseball is Dess' thing...",
         brenda = "I prefer the Bluejays.",
 		jamm = "DAYTON DRAGONS!",
-        ceroba = "Mets, mets... What is that?"
+        ceroba = "Mets, mets... What is that?",
+        noel = "ok",
     }
 end
 

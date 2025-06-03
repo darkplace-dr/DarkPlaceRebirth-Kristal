@@ -1,7 +1,7 @@
 return {
     ---@param cutscene WorldCutscene
     main = function(cutscene, map, partyleader)
-        if Game:isDessMode() then
+        if Game:isDessMode() or Game.world.player:getName() == "Dess" then
             cutscene:showNametag("Dess")
             if map == "hub_dess_house" then
                 cutscene:text("* this is where i'd put my house", "genuine", "dess")

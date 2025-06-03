@@ -232,6 +232,46 @@ local hub = {
 	
         local choice = cutscene:choicer({"Fix Item", "Fuse", "Fix Us", "Leave"})
         if choice == 2 then
+
+    local items_list = {
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "discarded_robe"
+        },
+        {
+            result = "dd_burger",
+            item1 = "darkburger",
+            item2 = "darkburger"
+        },
+        {
+            result = "silver_card",
+            item1 = "amber_card",
+            item2 = "amber_card"
+        },
+        {
+            result = "twinribbon",
+            item1 = "pink_ribbon",
+            item2 = "white_ribbon"
+        },
+        {
+            result = "spikeband",
+            item1 = "glowwrist",
+            item2 = "ironshackle"
+        },
+        {
+            result = "tensionbow",
+            item1 = "bshotbowtie",
+            item2 = "tensionbit"
+        },
+        {
+            result = "gold_card",
+            item1 = "silver_card",
+            item2 = "silver_card",
+        },
+    }
+    Kristal.callEvent("setItemsList", items_list)
+
             cutscene:after(function()
                 Game.world:openMenu(FuseMenu())
             end)	

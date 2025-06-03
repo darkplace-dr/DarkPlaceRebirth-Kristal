@@ -254,7 +254,8 @@ function character:save()
             Equipped = self:saveEquipment(),
             Spells = self:saveSpells(),
             Level = self.level,
-            Kills = self.kills
+            Kills = self.kills,
+            flags = save.flags or {}
         }    
 
         Noel:saveNoel(newData)

@@ -22,6 +22,7 @@ function SmallBullet:update()
             self.physics.speed_y = 0
             self:shake()
             Assets.stopAndPlaySound("wing", 1, 1)
+            self.y = 238
         end
     end
 
