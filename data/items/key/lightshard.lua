@@ -1,10 +1,10 @@
-local item, super = Class(Item, "shadowcrystal")
+local item, super = Class(Item, "lightshard")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "ShadowCrystal"
+    self.name = "LightShard"
     -- Name displayed when used in battle (optional)
     self.use_name = nil
 
