@@ -1,4 +1,8 @@
 return {
+    hero = function(cutscene, event)
+        cutscene:showNametag("Hero")
+        cutscene:text("* Hey.", "neutral", "hero")
+    end,
     susie = function(cutscene, event)
         cutscene:showNametag("Susie")
         if #Game.party >= 2 then
@@ -112,6 +116,7 @@ return {
 -- :|
 -- :O
 -- :(
+-- :)
     party = function(cutscene, event)
         cutscene:after(function()
            Game.world:openMenu(DarkCharacterMenu())

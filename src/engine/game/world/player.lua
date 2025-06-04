@@ -420,6 +420,18 @@ function Player:updateHistory()
 end
 
 function Player:update()
+
+    -- Holding run with the Pizza Toque equipped (or if the file name is "PEPPINO")
+    -- will cause a gradual increase in speed.
+    if Game:isTauntingAvaliable()
+        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry") then
+        if self.run_timer > 60 then
+            self.walk_speed = self.walk_speed + DT
+        elseif self.walk_speed > 4 then
+            self.walk_speed = 4
+        end
+    end
+
     if self.hurt_timer > 0 then
         self.hurt_timer = Utils.approach(self.hurt_timer, 0, DTMULT)
     end
@@ -461,10 +473,20 @@ function Player:update()
     outlinefx:setAlpha(self.battle_alpha)
 
     super.update(self)
-	
+
+    if Game:isTauntingAvaliable() then
+        if self.last_collided_x or self.last_collided_y then
+            if self.walk_speed >= 10 then
+                self.world.player:shake(4, 0)
+                Assets.playSound("wing")
+            end
+        end
+    end
+
     if self.invincible_colors then
         self:starman()
     end
+
 end
 
 function Player:starman()

@@ -1,10 +1,10 @@
-local item, super = Class(Item, "mousetoken")
+local item, super = Class(Item, "broken_leadmaker")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "MouseToken"
+    self.name = "BrknLedMakr"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
@@ -14,12 +14,12 @@ function item:init()
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = "Magic up. It\nlooks cool!"
+    self.shop = ""
     -- Menu description
-    self.description = "A golden coin with a once-powerful mousewizard engraved on it."
+    self.description = "A broken Lead Maker.\nUseless..."
 
     -- Default shop price (sell price is halved)
-    self.price = 120
+    self.price = 2
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,27 +34,24 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        magic = 2,
+        defense = 0.5,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = nil
-    self.bonus_icon = nil
+    self.bonus_name = "Worth"
+    self.bonus_icon = "ui/menu/icon/downb"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+	}
 
     -- Character reactions
     self.reactions = {
-        susie = "This guy's... familiar?",
-        ralsei = "Chu! Healing power UP!",
-        noelle = "... from the family entertainment center?",
-        dess = "ermmm possible chuck-e-cheese reference?",
-        jamm = "This brings back memories.",
-        ["jamm+marcy"] = "Marcy wants to go there! // Maybe soon, Marcy.",
-        noel = "Is this from a resturant?",
-        ceroba = "Isn't that just a normal coin?",
-        suzy = "Rest In Pepperonis",
+        suzy = "Look! It's my hard work!",
     }
+end
+
+function item:applyMoneyBonus(gold)
+    return gold * 1.5
 end
 
 return item
