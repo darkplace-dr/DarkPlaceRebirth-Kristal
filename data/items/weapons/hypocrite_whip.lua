@@ -58,7 +58,8 @@ function item:init()
         mario = "Mama Mia! I feel just like John Wick!",
         ceroba = "(Who is John Wick???)",
         dess = "I am John John Wick.",
-        noel = "WTF are these stats???",
+        noel = "That would be suicide",
+        susie = "Who the hell is John Wick?",
     }
 end
 

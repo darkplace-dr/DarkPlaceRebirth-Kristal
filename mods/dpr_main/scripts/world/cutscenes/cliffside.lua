@@ -444,7 +444,7 @@ local cliffside = {
             cutscene:textTagged("* AH!\n * PRETTY DECENT PERCENTAGE!", nil, gus)
             cutscene:textTagged("* YOU MIGHT FIND QUITE A FEW VERY INTERESTING THINGS ALONG YER WAY!", nil, gus)
         elseif FUN >= 41 and FUN <= 59 then
-            cutscene:textTagged("* ")
+            cutscene:textTagged("* ", nil, gus)
         elseif FUN >= 60 and FUN <= 80 then
             cutscene:textTagged("* GOOOLLLY!![wait:5]\n* THAT'S A LOTTA [color:yellow]fun[color:reset]!", nil, gus)
             if FUN >= 60 and FUN <= 69 then
@@ -575,7 +575,7 @@ local cliffside = {
                 local flash_part_grow_factor = 0.5
                 for i = 1, flash_part_total - 1 do
                     -- width is 1px for better scaling
-                    local part = Rectangle(SCREEN_WIDTH / 2, 0, 1, SCREEN_HEIGHT)
+                    local part = Rectangle((SCREEN_WIDTH / 2) - 20, 0, 1, SCREEN_HEIGHT)
                     part:setOrigin(0.5, 0)
                     part.layer = soul.layer - i
                     part:setColor(1, 1, 1, -(i / flash_part_total))

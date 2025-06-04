@@ -120,6 +120,21 @@ function character:getGameOverMessage(main)
     }
 end
 
+function character:setArmor(i, item)
+
+    local item = item
+
+    if type(item) == "string" then
+        item = Registry.createItem(item)
+    end
+
+    if item and item.id == "leadmaker" then
+        item = Registry.createItem("broken_leadmaker")
+    end
+
+    self.equipped.armor[i] = item
+end
+
 function character:canEquip(item, slot_type, slot_index)
     if item then
         return super.canEquip(self, item, slot_type, slot_index)
@@ -149,6 +164,7 @@ function character:getReaction(item, user)
     if not menu then return "" end
 
     local selected = menu.box.selected_slot
+
     if item or user.id ~= self.id then
         return super.getReaction(self, item, user)
     elseif selected == 1 then

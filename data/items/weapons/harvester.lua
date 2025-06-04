@@ -53,7 +53,8 @@ function item:init()
         suzy = "Chomp! Ow, it's sharp!",
         ceroba = "I'm... Not a farmer.",
         dess = "i hate stardew valley",
-        noel = "No thanks.",
+        noel = "Insufficent.",
+        hero = "This thing is BUSTED!",
     }
 end
 
