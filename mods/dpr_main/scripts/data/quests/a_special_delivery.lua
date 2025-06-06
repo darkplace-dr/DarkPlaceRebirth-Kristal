@@ -14,4 +14,11 @@ function MyQuest:init()
     self.progress_max = 0
 end
 
+function MyQuest:getDescription()
+	if self:isCompleted() then
+		return "You completed this quest. :D"
+	end
+	return self.description
+end
+
 return MyQuest

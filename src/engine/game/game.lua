@@ -1748,6 +1748,10 @@ function Game:isTauntingAvaliable()
     for _,party in ipairs(Game.party) do
         if party:checkArmor("pizza_toque") then return true end
     end
+
+    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
+    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
+
     return false
 end
 
