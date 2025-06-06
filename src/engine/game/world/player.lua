@@ -38,6 +38,10 @@ function Player:init(chara, x, y)
     self.moving_y = 0
     self.walk_speed = Game:isLight() and 6 or 4
 
+    if Game.walk_speed_hold then
+        self.walk_speed = Game.walk_speed_hold
+    end
+
     self.last_move_x = self.x
     self.last_move_y = self.y
 
@@ -486,6 +490,8 @@ function Player:update()
     if self.invincible_colors then
         self:starman()
     end
+
+    Game.walk_speed_hold = self.walk_speed
 
 end
 

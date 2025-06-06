@@ -211,6 +211,7 @@ function Diamond_Store:startTalk(talk)
                     Game.money = Game.money + Game.money/4
             end
             Game:setFlag("package_quest", 2)
+            Game:getQuest("a_special_delivery"):setProgress(1)
             self:registerTalkAfter("Yourself", 1)
 	elseif talk == "..." then
         self:startDialogue({
