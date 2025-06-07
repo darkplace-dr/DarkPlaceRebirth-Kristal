@@ -14,7 +14,7 @@ function Echo:init()
     self.description = "Echo a spell of one of your allies."
 
     -- TP cost
-    self.cost = 40
+    self.cost = 70
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "none"
