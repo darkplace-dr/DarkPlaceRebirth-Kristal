@@ -22,6 +22,7 @@ function character:init()
     self.has_xact = false
     self.xact_name = "H-Action"
     self:addSpell("half-cify")
+    self:addSpell("echo")	-- Nobody else should have this spell or it could break
 
     self.health = 90
 

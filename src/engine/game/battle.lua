@@ -179,6 +179,28 @@ function Battle:init()
     self.particle_interval = 0
     self.particle_tex = Assets.getTexture("player/heart_menu_outline")
     self.enable_particles = false
+	
+	for _,party1 in ipairs(Game.party) do
+		if party1:hasSpell("echo") then
+			local temp = {}
+			for _,party2 in ipairs(Game.party) do
+				if party1 ~= party2 then
+					for _,spell in ipairs(party2.spells) do
+						table.insert(temp, spell)
+					end
+				end
+			end
+			
+			for _,spell in ipairs(party1.spells) do
+				if spell.id == "echo" then
+					spell.spells = {}
+					for k,v in ipairs(temp) do
+						table.insert(spell.spells, v)
+					end
+				end
+			end
+		end
+	end
 end
 
 function Battle:createPartyBattlers()
@@ -2386,6 +2408,24 @@ function Battle:nextTurn()
     if self.current_selecting ~= 0 and self.state ~= "ACTIONSELECT" then
         self:setState("ACTIONSELECT")
     end
+	
+	for _,party in ipairs(Game.party) do
+		for _,spell in ipairs(party.spells) do
+			if spell.id == "echo" then
+				if #spell.spells > 0 then
+					spell.spell_int = spell.spell_int + 1
+					local selected_spell = spell.spell_int%#spell.spells
+					if selected_spell == 0 then
+						selected_spell = #spell.spells
+					end
+					spell.current_spell = spell.spells[selected_spell]
+					spell.effect = "Current:\n" .. spell.current_spell:getName()
+					spell.tags = spell.current_spell.tags
+					spell.target = spell.current_spell.target
+				end
+			end
+		end
+	end
 end
 
 function Battle:checkGameOver()
