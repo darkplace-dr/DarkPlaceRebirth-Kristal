@@ -30,7 +30,7 @@ function character:init()
         health = 90,
         attack = 14,
         defense = 3,
-        magic = 1
+        magic = 4
     }
     self.max_stats = {}
 
