@@ -22,7 +22,7 @@ function actor:init()
     -- Path to this actor's sprites (defaults to "")
     self.path = "world/npcs/marcy"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "walk"
+    self.default = "light"
 
     -- Sound to play when this actor speaks (optional)
     self.voice = "marcy"
@@ -36,14 +36,33 @@ function actor:init()
 	
 	self.offsets = {
         -- Movement offsets
-        ["walk/left"] = {0, 0},
-        ["walk/right"] = {0, 0},
-        ["walk/up"] = {0, 0},
-        ["walk/down"] = {0, 0},
+        ["light/left"] = {0, 0},
+        ["light/right"] = {0, 0},
+        ["light/up"] = {0, 0},
+        ["light/down"] = {0, 0},
+		
+        ["light_church/left"] = {0, 0},
+        ["light_church/right"] = {0, 0},
+        ["light_church/up"] = {0, 0},
+        ["light_church/down"] = {0, 0},
 
         ["criss_cross"] = {0, 8},
         ["criss_cross_right"] = {0, 8},
         ["criss_cross_down"] = {0, 8},
+
+        ["slide"] = {0, 0},
+    }
+
+    self.mirror_sprites = {
+        ["light/down"] = "light/up",
+        ["light/up"] = "light/down",
+        ["light/left"] = "light/left",
+        ["light/right"] = "light/right",
+		
+        ["light_church/down"] = "light_church/up",
+        ["light_church/up"] = "light_church/down",
+        ["light_church/left"] = "light_church/left",
+        ["light_church/right"] = "light_church/right",
     }
 	
 	self.shiny_id = "jamm"
