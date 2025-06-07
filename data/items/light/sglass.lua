@@ -21,7 +21,7 @@ function item:init()
 end
 
 function item:onWorldUse()
-    elseif not self:getFlag("used_lw_no_party") and #Game.party == 1 and #Game.temp_followers == 0 then
+    if not self:getFlag("used_lw_no_party") and #Game.party == 1 and #Game.temp_followers == 0 then
         self:setFlag("used_lw_no_party", true)
 
         Game.world:showText({
