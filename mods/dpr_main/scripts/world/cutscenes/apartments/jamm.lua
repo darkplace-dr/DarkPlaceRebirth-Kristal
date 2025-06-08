@@ -275,6 +275,58 @@ return {
 	
 	marcy_bed = function(cutscene, event)
 		cutscene:text("* Marcy's bed.[wait:10]\n* The mattress is very soft.")
+		if Game:hasPartyMember("jamm") and Game:getFlag("marcy_joined") then
+			cutscene:walkToSpeed(Game.world.player, "moveto_marcy", 4, "up", true)
+			cutscene:text("* (Put Marcy down?)")
+			if cutscene:choicer({"Yes", "No"}) == 1 then
+				local marcy = NPC("marcy", 548, 192, {cutscene="apartments/jamm.marcy"})
+				Game.world:spawnObject(marcy)
+				
+				local id = 0
+				for k,v in ipairs(Game.party) do
+					if v.id == "jamm" then
+						id = k
+					end
+				end
+
+				if id == 1 then
+					Game.world.player:setActor("jamm")
+				elseif id >= 0 then
+					Game.world.followers[id-1]:setActor("jamm")
+				end
+				Game:getPartyMember("jamm"):setActor("jamm")
+				Game:getPartyMember("jamm"):setLightActor("jamm_lw")
+				Game:getPartyMember("jamm"):setDarkTransitionActor("jamm_dark_transition")
+				Game:getPartyMember("jamm").menu_icon = "party/jamm/head"
+				Game:getPartyMember("jamm").head_icons = "party/jamm/icon"
+				Game:getPartyMember("jamm").name_sprite = "party/jamm/name"
+				Game:getPartyMember("jamm"):increaseStat("attack", 8)
+				Game:getPartyMember("jamm"):increaseStat("defense", 5)
+				Game:getPartyMember("jamm").has_act = false
+				Game:setFlag("jamm_canact", false)
+				Game:setFlag("marcy_joined", false)
+			end
+		else
+			local susie = cutscene:getCharacter("susie")
+		
+			cutscene:showNametag("Marcy")
+			cutscene:text("* Um.[wait:5].[wait:5].[wait:5] Excuse Marcy.[wait:5].[wait:5].", "neutral", "marcy")
+			cutscene:text("* But what are you doing with Marcy's bed?", "neutral", "marcy")
+			
+			if susie then
+				cutscene:showNametag("Susie")
+				cutscene:text("* We're raiding it for crumbs.", "smile", "susie")
+				
+				cutscene:showNametag("Marcy")
+				cutscene:text("* Wh-what!?", "surprised", "marcy")
+				
+				if Game:hasPartyMember("jamm") then
+					cutscene:showNametag("Jamm")
+					cutscene:text("Susie!", "determined", "jamm")
+				end
+			end
+			cutscene:hideNametag()
+		end
 	end,
 	
 	marcy_desk = function(cutscene, event)
@@ -355,6 +407,30 @@ return {
 				cutscene:text("* And then there was...", "neutral", "jamm")
 				cutscene:text("* ...", "nervous_left", "jamm")
 				cutscene:text("* ...Let's not talk about that.", "nervous", "jamm")
+				cutscene:text("* (Psst! If you take me on an adventure...)", "side_smile", "jamm")
+				cutscene:text("* (Check back with me here and I'll have something to say!)", "wink", "jamm")
+			elseif Game:getFlag("latest_jamm_adventure", "Forest") == "Dungeon" then
+				cutscene:text("* The dungeon,[wait:5] huh?\n[wait:10]* Hmm...", "neutral", "jamm")
+				cutscene:text("* Well,[wait:5] I'll be real about it.", "look_left", "jamm")
+				cutscene:text("* I know my wife built it for me and all,[wait:5] but...", "nervous_left", "jamm")
+				cutscene:text("* It wasn't really that fun,[wait:5] you know?", "nervous", "jamm")
+				cutscene:text("* I mean,[wait:5] I know she put a lot of effort into the thing...", "nervous", "jamm")
+				cutscene:text("* And I appreciate it,[wait:5] you know?", "side_smile", "jamm")
+				cutscene:text("* It's just that there really wasn't much in it.", "nervous_left", "jamm")
+				if Game:hasPartyMember("dess") then
+					cutscene:showNametag("Dess")
+					if Game:getFlag("shade_abomination_completed") then
+						cutscene:text("* what about that secret boss?", "neutral", "dess")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* Let's...[wait:10]\n* Not talk about that,[wait:5] okay?", "nervous", "jamm")
+					else
+						cutscene:text("* what about those trials?", "neutral", "dess")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* The trials were neat and all,[wait:5] honestly...", "neutral", "jamm")
+						cutscene:text("* But they just had so much potential,[wait:5] you know?", "look_left", "jamm")
+						cutscene:text("* They turned out disappointing.", "neutral", "jamm")
+					end
+				end
 			end
 		else
 			if list[4] == "Alexa" then
@@ -402,9 +478,13 @@ return {
 		local dess = cutscene:getCharacter("dess")
 	
 		cutscene:showNametag("Marcy")
-        cutscene:text("[voice:marcy]* H-hello!", "happy", "marcy")
-        cutscene:text("[voice:marcy]* Marcy is happy that you decided to visit!", "smile", "marcy")
-        cutscene:text("[voice:marcy]* Papa is very busy, but he says Marcy can have friends over.", "smile", "marcy")
+        cutscene:text("* H-hello!", "happy", "marcy")
+        cutscene:text("* Marcy is happy that you decided to visit!", "smile", "marcy")
+		
+		if not Game:getFlag("talked_to_marcy") then
+			Game:setFlag("talked_to_marcy", true)
+			cutscene:text("* Thank you for saving papa, by the way!", "smile", "marcy")
+		end
 		cutscene:hideNametag()
 		
 		local choice = cutscene:choicer({"You", "Father", "Locket", "Nothing"})
