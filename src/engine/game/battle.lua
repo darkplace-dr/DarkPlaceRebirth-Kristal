@@ -184,7 +184,7 @@ function Battle:init()
 		if party1:hasSpell("echo") then
 			local temp = {}
 			for _,party2 in ipairs(Game.party) do
-				if party1 ~= party2 then
+				if party1 ~= party2 and party2.id ~= "noel" then
 					for _,spell in ipairs(party2.spells) do
 						table.insert(temp, spell)
 					end
