@@ -37,6 +37,7 @@ function item:init()
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
         attack = 0,
+        magic = 1,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = "Determination"
