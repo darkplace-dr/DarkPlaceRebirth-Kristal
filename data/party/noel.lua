@@ -90,7 +90,6 @@ function character:init()
     self.attack_bar_color = {1, 1, 1}
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
     self.attack_box_color = {1, 1, 1}
-    -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {1, 1, 1}
 
     self.icon_color = {150/255, 150/255, 150/255}
@@ -125,6 +124,7 @@ function character:init()
         self.lw_health = save.Health
     else
         self:setWeapon("old_umbrella")
+        self:setArmor(1, "ironshackle")
     end
 
     self.kills = 0
