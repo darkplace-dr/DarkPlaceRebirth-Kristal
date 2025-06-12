@@ -162,9 +162,10 @@
     // Config values for the engine and any libraries you may have.
     // These config values can control chapter-specific features as well.
     "config": {
-			"seqwaves": {},
-			"kristal": {
-				"growStronger": false
-			}
+        "seqwaves": {},
+        "chapter4lib": {},
+        "kristal": {
+            "growStronger": false
+        }
     }
 }
