@@ -747,9 +747,6 @@ function TeevieQuiz:update()
 									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
 									self.button[6]:press()
 									self.dess_wrong_answer = "B"
-								elseif Game.party[3].id == "jamm" and Game:getFlag("marcy_joined") and love.math.random() <= 0.2 then
-									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
-									self.button[6]:press()
 								else
 									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
 									self.button[5]:press()
@@ -761,9 +758,6 @@ function TeevieQuiz:update()
 									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
 									self.button[5]:press()
 									self.dess_wrong_answer = "A"
-								elseif Game.party[3].id == "jamm" and Game:getFlag("marcy_joined") and love.math.random() <= 0.2 then
-									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
-									self.button[5]:press()
 								else
 									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
 									self.button[6]:press()
@@ -781,9 +775,6 @@ function TeevieQuiz:update()
 									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
 									self.button[4]:press()
 									self.dess_wrong_answer = "B"
-								elseif Game.party[2].id == "jamm" and Game:getFlag("marcy_joined") and love.math.random() <= 0.2 then
-									cutscene:wait(cutscene:walkTo(party3, self.button[4].x+20, party3.y, 6/30))
-									self.button[4]:press()
 								else
 									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
 									self.button[3]:press()
@@ -795,9 +786,6 @@ function TeevieQuiz:update()
 									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
 									self.button[3]:press()
 									self.dess_wrong_answer = "A"
-								elseif Game.party[2].id == "jamm" and Game:getFlag("marcy_joined") and love.math.random() <= 0.2 then
-									cutscene:wait(cutscene:walkTo(party3, self.button[3].x+20, party3.y, 6/30))
-									self.button[3]:press()
 								else
 									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
 									self.button[4]:press()
