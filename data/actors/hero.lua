@@ -138,8 +138,19 @@ function actor:init()
         ["t_pose"] = {-4, 0},
 
         ["wall_slam"] = {-1, 0},
+
+        --- Climbing offsets
+        ["climb/climb"] = {-0, 4},
+        ["climb/charge"] = {-0, 4},
+        ["climb/slip_left"] = {-0, 4},
+        ["climb/slip_right"] = {-0, 4},
+        ["climb/land_left"] = {-0, 4},
+        ["climb/land_right"] = {-0, 4},
+        ["climb/jump_up"] = {-0, 4},
+        ["climb/jump_left"] = {-0, 4},
+        ["climb/jump_right"] = {-0, 4},
     }
-	
+    
 	self.shiny_id = "hero"
 end
 
