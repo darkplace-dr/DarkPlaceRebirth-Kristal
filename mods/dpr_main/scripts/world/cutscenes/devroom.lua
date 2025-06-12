@@ -147,5 +147,112 @@ local devroom = {
             Game.world:mapTransition("floor2/dev/main_1", "pre_elevator")
         end
     end,
+    
+    arlee = function(cutscene, npc)
+        if npc.interact_count == 1 then
+        local arlee = cutscene:getCharacter('arlee')
+        cutscene:setSpeaker(arlee)
+        cutscene:showNametag("arlee")
+        cutscene:text("* its me arlee!")
+        cutscene:text("* arlee for you! arlee for everyone!")
+        cutscene:text("* arlee for the workers! arlee for the bums!")
+        cutscene:text("* arlee for the kids and the teens too!")
+        cutscene:text("* acquire an arlee on arleebuybuybuy.neocities.org!!!")
+        if cutscene:getCharacter('brenda') then
+            cutscene:setSpeaker("brenda")
+            cutscene:showNametag("Brenda")
+			cutscene:textTagged("*...[wait:5] What.", "shocked", "brenda")
+            cutscene:setSpeaker("arlee")
+            arlee:setAnimation({"tpose"})
+            cutscene:showNametag("arlee")
+			cutscene:textTagged("* wait the voices in my head are telling me smth")
+            Game.world.music:pause()
+            local ominous = Music("AUDIO_DRONE")
+            ominous:play()
+            cutscene:wait(5)
+            ominous:remove()
+            Game.world.music:resume()
+            arlee:setAnimation({"idle", 0.01, true})
+            cutscene:textTagged("* oops! guess we are out of stock!")
+            cutscene:textTagged("* come back other day!")
+            arlee:setAnimation({"idle", 0.045, true})
+            cutscene:hideNametag()
+		elseif cutscene:getCharacter("ddelta") then
+			cutscene:setSpeaker("ddelta")
+            cutscene:showNametag("DDelta")
+            cutscene:textTagged("* the world has never been the same since Mr. (Ant) Tenna", "helpme", "ddelta")
+            arlee:setAnimation({"tpose"})
+            cutscene:setSpeaker("arlee")
+            cutscene:showNametag("arlee")
+            Game.world.music:pause()
+            cutscene:textTagged("* tenna....")
+            arlee:setAnimation({"kick", 0.045, true})
+            Game.world.music:resume()
+            cutscene:textTagged("* tenna is a faker ok? you dont compare me to that fucker")
+            arlee:setAnimation({"idle", 0.045, true})
+            cutscene:hideNametag()
+		elseif cutscene:getCharacter("jamm") then -- make sure this character is always next to last
+            cutscene:setSpeaker("jamm")
+			cutscene:showNametag("jamm")
+            cutscene:textTagged("* Sorry,[wait:5] still paying student loans.", "nervous", "jamm")
+            cutscene:setSpeaker("arlee")
+			cutscene:showNametag("arlee")
+            arlee:setAnimation({"tpose", 0.045, true})
+            cutscene:textTagged("* Oh.")
+            arlee:setAnimation({"kick", 0.01, true})
+            cutscene:textTagged("* well youre losing! losing on the best oppurtunity of your life!")
+            arlee:setAnimation({"pose", 0.045, true})
+            cutscene:textTagged("* im too good to you anyway")
+            arlee:setAnimation({"idle", 0.045, true})
+            cutscene:hideNametag()
+        end
+        cutscene:hideNametag()
+    end
+    if npc.interact_count == 2 then
+        local arlee = cutscene:getCharacter('arlee')
+        cutscene:setSpeaker(arlee)
+        cutscene:showNametag("arlee")
+        arlee:setAnimation({"tpose", 0.045, true})
+        cutscene:text("* hey uh could do me a favor rq")
+        cutscene:text("* i like lost some parts of myself no big deal")
+        cutscene:text("* if you find any can you return it to me? it will be worth it i swear")
+        local choicer = cutscene:choicer({"Yes", "No"})
+        if choicer == 1 then
+           cutscene:text("* awesome! i will be at my evil lair come find me there once you have a star bit")
+           cutscene:hideNametag()
+           cutscene:slideTo(arlee, arlee.x, arlee.y - 600, 1)
+           arlee:setAnimation({"idle", 0.01, true})
+           cutscene:wait(4)
+           Game:getQuest("stargazer"):unlock()
+           Game:setFlag("arlee_quest", true)
+        else
+            cutscene:text("* Wrong choice.")
+            arlee:setAnimation({"idle", 0.045, true})
+            cutscene:hideNametag()
+        end
+    else
+        local arlee = cutscene:getCharacter('arlee')
+        cutscene:setSpeaker(arlee)
+        cutscene:showNametag("arlee")
+        arlee:setAnimation({"tpose", 0.045, true})
+        cutscene:text("* hey uh could do me a favor rq")
+        cutscene:text("* i like lost some parts of myself no big deal")
+        cutscene:text("* if you find any can you return it to me? it will be worth it i swear")
+        local choicer = cutscene:choicer({"Yes", "No"})
+        if choicer == 1 then
+           cutscene:text("* awesome! i will be at my evil lair come find me there once you have a star bit")
+           cutscene:hideNametag()
+           cutscene:slideTo(arlee, arlee.x, arlee.y - 600, 4)
+           arlee:setAnimation({"idle", 0.001, true})
+           cutscene:wait(4)
+           Game:getQuest("stargazer"):unlock()
+           Game:setFlag("arlee_quest", true)
+        else
+            cutscene:text("* Wrong choice.")
+            arlee:setAnimation({"idle", 0.045, true})
+            cutscene:hideNametag()
+        end
+    end
+    end,
 }
 return devroom

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="69">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="71">
  <editorsettings>
   <export target="apartments_left.lua" format="lua"/>
  </editorsettings>
@@ -55,10 +55,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,109,110,111,0,0,109,110,111,0,0,109,110,111,0,0,109,110,111,0,0,0,0,0,0,0,
-0,0,0,0,0,0,126,127,128,0,0,126,127,128,0,0,126,127,128,0,0,126,127,128,0,0,0,0,0,0,0,
-0,0,0,0,0,0,143,144,145,0,0,143,144,145,0,0,143,144,145,0,0,143,144,145,0,0,0,0,0,0,0,
-0,0,0,0,0,0,160,161,162,0,0,160,161,162,0,0,160,161,162,0,0,160,161,162,0,0,0,0,0,0,0,
+0,0,0,0,0,0,109,110,111,0,0,109,110,111,0,0,0,0,0,0,0,109,110,111,0,0,0,0,0,0,0,
+0,0,0,0,0,0,126,127,128,0,0,126,127,128,0,0,0,0,0,0,0,126,127,128,0,0,0,0,0,0,0,
+0,0,0,0,0,0,143,144,145,0,0,143,144,145,0,0,0,0,0,0,0,143,144,145,0,0,0,0,0,0,0,
+0,0,0,0,0,0,160,161,162,0,0,160,161,162,0,0,0,0,0,0,0,160,161,162,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -169,6 +169,7 @@
   <object id="63" gid="172" x="260" y="600" width="120" height="160"/>
   <object id="64" gid="173" x="860" y="240" width="120" height="160"/>
   <object id="66" gid="174" x="860" y="600" width="120" height="160"/>
+  <object id="69" gid="175" x="666" y="600" width="106" height="128"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="6" name="objects">
   <object id="16" name="transition" x="840" y="1200" width="120" height="40">
@@ -224,6 +225,15 @@
    </properties>
    <point/>
   </object>
+  <object id="70" name="transition" x="672" y="562" width="94" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floor2/apartments/arlee/arlee_room"/>
+    <property name="marker" value="spawn"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="15" name="entry_main_1" x="900" y="1160">
@@ -244,7 +254,7 @@
   <object id="21" name="entry_ddelta" x="920" y="640">
    <point/>
   </object>
-  <object id="22" x="720" y="640">
+  <object id="22" name="entry_arlee" x="720" y="640">
    <point/>
   </object>
   <object id="23" name="entry_jamm" x="520" y="640">
