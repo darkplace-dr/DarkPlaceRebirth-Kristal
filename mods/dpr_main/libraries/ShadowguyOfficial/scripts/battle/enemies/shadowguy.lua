@@ -85,9 +85,9 @@ function Shadowguy:onActStart(battler, name)
 	local endact = false
 	
 	local offsets = {
-		kris = {8, 12},
-		susie = {8, 6},
-		ralsei = {6, 0},
+		kris = {0, 0},
+		susie = {0, 3},
+		ralsei = {7, 0},
 	}
 	
 	local heart_offsets = {
@@ -128,8 +128,8 @@ function Shadowguy:onActStart(battler, name)
 		
 		setActSprite(ibattler, texture, x, y)
 		local offset = heart_offsets[ibattler.chara.id] or {27+34, 33+12}
-		ibattler.heart_point_x = ibattler.x+offset[1]
-		ibattler.heart_point_y = ibattler.y+offset[2]
+		ibattler.heart_point_x = ibattler.x-(ibattler.actor:getWidth()/2)*2+offset[1]
+		ibattler.heart_point_y = ibattler.y-(ibattler.actor:getHeight())*2+offset[2]
 	end
 		
 	Assets.playSound("boost")
