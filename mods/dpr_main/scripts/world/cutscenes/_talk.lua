@@ -51,6 +51,9 @@ return {
             elseif map == "warp_hub/hub" then
                 cutscene:text("* y'know I remember this place being a LOT bigger before", "neutral_b", "dess")
                 cutscene:text("* why is it just a tiny island now?", "eyebrow", "dess")
+            elseif map == "floortv/green_room" then
+                cutscene:text("* hey remember when folks thought Chapter 3 would look like this entirely?", "genuine", "dess")
+                cutscene:text("* heh.[wait:5] good times,[wait:5] good times.", "condescending", "dess")
             else
                 cutscene:text("* allan please add dialogue", "neutral", "dess")
             end
@@ -103,6 +106,12 @@ return {
                         hero:setFacing(heroFacing)
                     else
                     end
+                end
+            elseif map == "floortv/green_room" then
+                local susie = cutscene:getCharacter("susie")
+                if susie then
+                    cutscene:textTagged("* Huh.[wait:5]\n* Even Tenna's Green Room is in this place...", "suspicious", susie)
+                    cutscene:textTagged("* I don't recall there being a platter in the room though.", "sus_nervous", susie)
                 end
             elseif map == "field" then
                 cutscene:text("* (You give a moment of silence for those in need...)")
