@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="33">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="35">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -96,6 +96,11 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="34" name="interactable" x="144" y="160" width="72" height="120">
+   <properties>
+    <property name="cutscene" value="cyber.knock_door"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#aa00ff" id="3" name="markers">
   <object id="6" name="spawn" x="3000" y="400">
@@ -105,6 +110,9 @@
    <point/>
   </object>
   <object id="32" name="left" x="80" y="400">
+   <point/>
+  </object>
+  <object id="33" name="entry_numbers" x="180" y="310">
    <point/>
   </object>
  </objectgroup>

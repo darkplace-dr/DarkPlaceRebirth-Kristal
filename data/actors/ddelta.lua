@@ -138,7 +138,10 @@ function actor:init()
         ["t_pose"] = {-4, 0},
 
         ["wall_slam"] = {-1, 0},
+        ["eb_jump"] = {-8, 0},
     }
+	
+    self.menu_anim = "eb_jump"
 	
 	self.shiny_id = "ddelta"
 end

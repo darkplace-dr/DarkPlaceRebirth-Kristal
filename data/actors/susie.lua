@@ -306,6 +306,8 @@ function actor:init(style)
         ["ledge_smile_b"] = {-8, -3},
         ["ledge_punch_1"] = {-8, -3},
         ["ledge_punch_2"] = {-8, -3},
+        ["sneak/left"] = {-6, 5},
+        ["sneak/right"] = {-2, 5},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

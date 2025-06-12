@@ -33,7 +33,8 @@ function OmegaSpamton:init()
 
     -- List of possible wave ids, randomly picked each turn
     self.waves = {
-        "basic"
+        --"omegaspamton/biglaser"
+        "omegaspamton/popuptest"
     }
 
     -- Dialogue randomly displayed in the enemy's speech bubble

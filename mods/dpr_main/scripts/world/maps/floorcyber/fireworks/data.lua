@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 33,
+  nextobjectid = 35,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity"
@@ -145,7 +145,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -158,7 +158,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 220,
@@ -171,7 +171,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 240,
@@ -184,7 +184,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 200,
@@ -197,7 +197,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 480,
@@ -210,7 +210,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2800,
           y = 240,
@@ -223,7 +223,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2840,
           y = 220,
@@ -236,7 +236,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2920,
           y = 240,
@@ -249,7 +249,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2600,
           y = 460,
@@ -262,7 +262,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2240,
           y = 460,
@@ -275,7 +275,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2280,
           y = 440,
@@ -288,7 +288,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 460,
@@ -301,7 +301,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 440,
@@ -314,7 +314,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 460,
@@ -327,7 +327,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1360,
           y = 240,
@@ -340,7 +340,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1400,
           y = 240,
@@ -353,7 +353,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1440,
           y = 240,
@@ -382,7 +382,7 @@ return {
         {
           id = 25,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 3200,
           y = 280,
@@ -398,7 +398,7 @@ return {
         {
           id = 27,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 440,
@@ -413,7 +413,7 @@ return {
         {
           id = 28,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 400,
@@ -428,7 +428,7 @@ return {
         {
           id = 29,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 360,
@@ -443,7 +443,7 @@ return {
         {
           id = 30,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 320,
@@ -458,7 +458,7 @@ return {
         {
           id = 31,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 280,
@@ -468,6 +468,21 @@ return {
           visible = true,
           properties = {
             ["default_state"] = true
+          }
+        },
+        {
+          id = 34,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 144,
+          y = 160,
+          width = 72,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "cyber.knock_door"
           }
         }
       }
@@ -489,7 +504,7 @@ return {
         {
           id = 6,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 3000,
           y = 400,
@@ -502,7 +517,7 @@ return {
         {
           id = 26,
           name = "right",
-          class = "",
+          type = "",
           shape = "point",
           x = 3160,
           y = 400,
@@ -515,10 +530,23 @@ return {
         {
           id = 32,
           name = "left",
-          class = "",
+          type = "",
           shape = "point",
           x = 80,
           y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "entry_numbers",
+          type = "",
+          shape = "point",
+          x = 180,
+          y = 310,
           width = 0,
           height = 0,
           rotation = 0,

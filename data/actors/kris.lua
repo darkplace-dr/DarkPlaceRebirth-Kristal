@@ -135,6 +135,8 @@ function actor:init()
         ["sit"] = {-3, 0},
 
         ["t_pose"] = {-4, 0},
+        ["sneak/left"] = {-4, 3},
+        ["sneak/right"] = {-2, 3},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

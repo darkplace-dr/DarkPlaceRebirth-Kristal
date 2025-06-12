@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,7 +12,8 @@ return {
   nextlayerid = 9,
   nextobjectid = 44,
   properties = {
-    ["border"] = "tower_outside"
+    ["border"] = "tower_outside",
+    ["music"] = "mainhub_outside"
   },
   tilesets = {
     {

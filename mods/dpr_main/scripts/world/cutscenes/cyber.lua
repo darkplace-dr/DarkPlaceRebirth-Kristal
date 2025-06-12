@@ -4,6 +4,36 @@ local cyber = {
     -- This allows it to fetch us useful documentation that shows all of the available cutscene functions while writing our cutscenes!
 
     ---@param cutscene WorldCutscene
+    knock_door = function(cutscene, event)
+        local cityDoorKnocks = Game:getFlag("cityDoorKnocks", 0)
+        local cityDoorUnlocked = Game:getFlag("cityDoorUnlocked", false)
+		if cityDoorUnlocked then
+			Assets.playSound("dooropen")
+			local callback = function(map)
+				Assets.playSound("doorclose")
+			end
+			Game.world:mapTransition("floorcyber/numbers_station", "entry_up", "up", callback)
+		else
+			Assets.playSound("knock")
+			cutscene:text("* (Knock,[wait:5] knock,[wait:5] knock)")
+			if cityDoorKnocks >= 24 then
+				Game.world.music:fade(0, 1)
+				cutscene:wait(2)
+				cutscene:text("* ...")
+				cutscene:text("* You managed to unlock the door.")
+				Assets.playSound("dooropen")
+				local callback = function(map)
+					Assets.playSound("doorclose")
+				end
+				Game.world:mapTransition("floorcyber/numbers_station", "entry_up", "up", callback)
+				Game:setFlag("cityDoorUnlocked", true)
+			else
+				cutscene:text("* You found the only knockable door in the city.")
+				cutscene:text("* This here is my pride and joy...")
+				Game:setFlag("cityDoorKnocks", cityDoorKnocks+1)
+			end
+		end
+    end,
     kris_cutout = function(cutscene, event, chara)
         local fakeKris = cutscene:getCharacter("kris_cutout")
         local fakeKrisKnockedOver = Game:getFlag("fakeKrisKnockedOver", false)

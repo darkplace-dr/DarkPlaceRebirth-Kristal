@@ -94,6 +94,9 @@ function actor:init()
         ["battle/victory"] = {-14, -15},
 		
 		["sit"] = {4, -8},
+		
+        ["sneak/left"] = {0, -10},
+        ["sneak/right"] = {4, -10},
     }
 
     self.mirror_sprites = {

@@ -45,8 +45,8 @@ function GoogleDino:init()
     -- Text displayed at the bottom of the screen when the enemy has low health
     self.low_health_text = "* The servers are crashing."
 
-    self:registerAct("Reboot")
-    self:registerAct("X-Reboot", "", "all")
+    self:registerAct("Reboot", "10% Mercy\nAttacks\nget harder")
+    self:registerAct("X-Reboot", "20% Mercy\nAttacks\nget harder", "all")
 end
 
 function GoogleDino:onShortAct(battler, name)

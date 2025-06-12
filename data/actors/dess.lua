@@ -106,6 +106,8 @@ function actor:init()
         ["angreh"] = {-20, -10},
         ["oc"] = {-20, -10},
         ["paneton"] = {-20, -10},
+        ["sneak/left"] = {-5, 3},
+        ["sneak/right"] = {7, 3},
     }
 
     self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}
