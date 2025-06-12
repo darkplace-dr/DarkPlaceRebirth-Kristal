@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -625,7 +625,8 @@ return {
           visible = true,
           properties = {
             ["map"] = "floor2/queen",
-            ["marker"] = "entry"
+            ["marker"] = "entry",
+            ["sound"] = "queen/bitcrushlaugh"
           }
         },
         {

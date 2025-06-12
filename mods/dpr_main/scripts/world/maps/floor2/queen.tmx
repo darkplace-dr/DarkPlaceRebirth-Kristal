@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="17">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="17">
  <editorsettings>
   <export target="queen.lua" format="lua"/>
  </editorsettings>
@@ -39,6 +39,7 @@
    <properties>
     <property name="map" value="floor2/apartments_left"/>
     <property name="marker" value="entry_queen"/>
+    <property name="sound" value="queen/bitcrushlaugh_reverse"/>
    </properties>
   </object>
   <object id="13" name="npc" x="326" y="230">
