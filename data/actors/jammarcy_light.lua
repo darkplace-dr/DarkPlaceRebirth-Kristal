@@ -44,8 +44,13 @@ function actor:init()
         ["walk/right"] = {0, 0},
         ["walk/up"] = {0, 0},
         ["walk/down"] = {0, 0},
+		
+        ["walk_church/left"] = {0, 0},
+        ["walk_church/right"] = {0, 0},
+        ["walk_church/up"] = {0, 0},
+        ["walk_church/down"] = {0, 0},
 
-        ["slide"] = {0, -27},
+        ["slide"] = {0, 0},
     }
 
     self.mirror_sprites = {
@@ -53,6 +58,11 @@ function actor:init()
         ["walk/up"] = "walk/down",
         ["walk/left"] = "walk/left",
         ["walk/right"] = "walk/right",
+		
+        ["walk_church/down"] = "light_church/up",
+        ["walk_church/up"] = "light_church/down",
+        ["walk_church/left"] = "light_church/left",
+        ["walk_church/right"] = "light_church/right",
     }
 
     self.taunt_sprites = {"box", "bs_win", "maid", "pirate"}
