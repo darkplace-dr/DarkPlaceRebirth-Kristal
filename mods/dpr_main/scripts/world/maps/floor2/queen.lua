@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -72,7 +72,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 400,
@@ -85,7 +85,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -98,7 +98,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 40,
@@ -111,7 +111,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 120,
@@ -124,7 +124,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 320,
@@ -137,7 +137,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 40,
@@ -150,7 +150,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 40,
@@ -163,7 +163,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1160,
           y = 120,
@@ -192,7 +192,7 @@ return {
         {
           id = 12,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -202,13 +202,14 @@ return {
           visible = true,
           properties = {
             ["map"] = "floor2/apartments_left",
-            ["marker"] = "entry_queen"
+            ["marker"] = "entry_queen",
+            ["sound"] = "queen/bitcrushlaugh_reverse"
           }
         },
         {
           id = 13,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 326,
           y = 230,
@@ -224,7 +225,7 @@ return {
         {
           id = 15,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 174,
           y = 389,
@@ -242,7 +243,7 @@ return {
         {
           id = 16,
           name = "queen_arcade",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 920,
           y = 40,
@@ -271,7 +272,7 @@ return {
         {
           id = 10,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 280,
@@ -284,7 +285,7 @@ return {
         {
           id = 11,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,
