@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="9">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="9">
  <editorsettings>
   <export target="numbers_station.lua" format="lua"/>
  </editorsettings>
@@ -65,7 +65,12 @@
 * Someone looked up to by many as a loyal friend.</property>
    </properties>
   </object>
-  <object id="6" name="transition" x="160" y="780" width="320" height="40"/>
+  <object id="6" name="transition" x="160" y="780" width="320" height="40">
+   <properties>
+    <property name="map" value="floorcyber/fireworks"/>
+    <property name="marker" value="entry_numbers"/>
+   </properties>
+  </object>
   <object id="8" name="npc" x="320" y="200">
    <properties>
     <property name="actor" value="kris_cutout"/>

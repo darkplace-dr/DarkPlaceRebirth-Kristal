@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -123,7 +123,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -136,7 +136,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 0,
@@ -149,7 +149,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 480,
           y = 0,
@@ -178,7 +178,7 @@ return {
         {
           id = 4,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 364,
           y = 40,
@@ -193,7 +193,7 @@ return {
         {
           id = 6,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 780,
@@ -201,12 +201,15 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["map"] = "floorcyber/fireworks",
+            ["marker"] = "entry_numbers"
+          }
         },
         {
           id = 8,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 200,
@@ -238,7 +241,7 @@ return {
         {
           id = 5,
           name = "entry_up",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 720,
@@ -251,7 +254,7 @@ return {
         {
           id = 7,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 720,

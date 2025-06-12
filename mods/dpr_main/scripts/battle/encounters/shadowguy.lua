@@ -3,9 +3,9 @@ local Shadowguy, super = Class(Encounter)
 function Shadowguy:init()
     super.init(self)
 
-    self.text = "* Two Shadowguys blend into the battle!"
+    self.text = "* Shadowguys enter the scene!"
 
-    self.music = "battle"
+    self.music = "deltarune/rudebuster_boss"
     self.background = true
 
     self.shadows = {
@@ -14,12 +14,6 @@ function Shadowguy:init()
     }
 	
 	self.flee = false
-end
-
-function Shadowguy:onStateChange(old, new)
-    if old == "INTRO" then
-        Game.battle.music:setPitch(0.7)
-    end
 end
 
 function Shadowguy:onReturnToWorld(events)

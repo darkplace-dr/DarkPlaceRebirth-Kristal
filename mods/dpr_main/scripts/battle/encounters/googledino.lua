@@ -5,7 +5,7 @@ function GoogleDino:init()
 
     self.text = "* The no WiFi pastime begins."
 
-    self.music = "battle"
+    self.music = "deltarune/rudebuster_boss"
 
     self.background = true
 

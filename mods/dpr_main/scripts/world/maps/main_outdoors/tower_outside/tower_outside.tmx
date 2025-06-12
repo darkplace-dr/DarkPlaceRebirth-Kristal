@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="44">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="44">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="tower_outside"/>
+  <property name="music" value="mainhub_outside"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/blue_grass_lol.tsx"/>
  <tileset firstgid="209" source="../../../tilesets/main_area.tsx"/>

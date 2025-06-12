@@ -292,7 +292,9 @@ function actor:initChapter2()
         ["wave_down"] = {2, 1},
 
         ["splat"] = {-15, 21},
-        ["stool"] = {-11, 18}
+        ["stool"] = {-11, 18},
+        ["sneak/left"] = {-5, -3},
+        ["sneak/right"] = {7, -3},
     }
 
     self.menu_anim = "pose"

@@ -22,10 +22,12 @@ function Room1:onEnter()
 	self:getTileLayer("tiles2"):addFX(ColorMaskFX({0,0,0}, 0), "shadow")
 	self:getTileLayer("tiles3"):addFX(ColorMaskFX({0,0,0}, 0), "shadow")
 	self:getTileLayer("tiles4"):addFX(ColorMaskFX({0,0,0}, 0), "shadow")
+	self.can_kill = Game:getFlag("can_kill", false)
 end
 
 function Room1:update()
     super.update(self)
+	if self.can_kill then return end
 	self.fireworks_timer = self.fireworks_timer + DTMULT
 	if self.fireworks_timer >= 60 and Game.world.player.x >= 640 and Game.world.player.x <= 2560 then
 		local xpos = Game.world.player.x - 240 + Utils.random(480)
