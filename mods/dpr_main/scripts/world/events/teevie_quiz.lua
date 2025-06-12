@@ -735,66 +735,63 @@ function TeevieQuiz:update()
 				end
 				if self.answer ~= nil and not self.answered then
 					self.is_paused = true
+					
+					--This should really be simpler
 					Game.world:startCutscene(function(cutscene)
-						local party2 = nil
-						local party3 = nil
-						cutscene:wait(2/30)
-						if Game.party[3] then
-							party3 = cutscene:getCharacter(Game.party[3].id)
+
+						local function handlePartyAnswer(party, indexA, indexB, chara)
+
+							local quiz_ans
+							local quiz_ans_bad
+
 							if self.answer == "A" then
-								party3:setFacing("left")
-								if Game.party[3].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
-									self.button[6]:press()
+								party:setFacing("left")
+								quiz_ans = indexB
+								quiz_ans_bad = indexA
+							elseif self.answer == "B" then
+								party:setFacing("right")
+								quiz_ans = indexA
+								quiz_ans_bad = indexB
+							end
+							
+							if chara == "dess" and self.dess_answer_wrong then
+								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans_bad].x+20, party.y, 6/30))
+								self.button[quiz_ans_bad]:press()
+								if self.answer == "A" then
 									self.dess_wrong_answer = "B"
 								else
-									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
-									self.button[5]:press()
-								end
-								party3:setFacing("up")
-							elseif self.answer == "B" then
-								party3:setFacing("right")
-								if Game.party[3].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
-									self.button[5]:press()
 									self.dess_wrong_answer = "A"
-								else
-									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
-									self.button[6]:press()
 								end
-								party3:setFacing("up")
+							elseif chara == "noel" then -- work on later
+								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans_bad].x+20, party.y, 6/30))
+								self.button[quiz_ans_bad]:press()
+							else
+								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans].x+20, party.y, 6/30))
+								self.button[quiz_ans]:press()
 							end
+							party:setFacing("up")
+						end
+						
+						cutscene:wait(2/30)
+
+						if Game.party[3] then
+							local party3 = cutscene:getCharacter(Game.party[3].id)
+							handlePartyAnswer(party3, 6, 5, Game.party[3].id)
 							self.party3_select = true
 						end
+
 						cutscene:wait(4/30)
+
 						if Game.party[2] then
-							party2 = cutscene:getCharacter(Game.party[2].id)
-							if self.answer == "A" then
-								party2:setFacing("left")
-								if Game.party[2].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
-									self.button[4]:press()
-									self.dess_wrong_answer = "B"
-								else
-									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
-									self.button[3]:press()
-								end
-								party2:setFacing("up")
-							elseif self.answer == "B" then
-								party2:setFacing("right")
-								if Game.party[2].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
-									self.button[3]:press()
-									self.dess_wrong_answer = "A"
-								else
-									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
-									self.button[4]:press()
-								end
-								party2:setFacing("up")
-							end
+							local party2 = cutscene:getCharacter(Game.party[2].id)
+							handlePartyAnswer(party2, 4, 3, Game.party[2].id)
 							self.party2_select = true
 						end
 					end)
+
+
+
+
 					if self.answer == self.cur_correct_answer then
 						self.result = true
 					else
