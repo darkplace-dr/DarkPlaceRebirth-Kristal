@@ -38,6 +38,7 @@ if not HOTSWAPPING then
         end_funcs = {}
     }
 
+    -- Hotswaps Noel specifically. Why can't we just use hotswapper? I don't know! Ask SDM!
     function Kristal.reloadnoel()
         -- If you don't know what this is for, then don't touch it!!!
         
@@ -83,7 +84,7 @@ function Kristal.fetch(url, options)
 end
 
 function love.load(args)
-    Kristal.reloadnoel()
+    Kristal.reloadnoel() -- TODO: Fix (or at least document) whatever makes it so that this has to run twice.
     --[[
         Launch args:
             --wait: Pauses the load screen until a key is pressed
@@ -295,6 +296,7 @@ function love.load(args)
     -- start load thread
     Kristal.Loader.in_channel = love.thread.getChannel("load_in")
     Kristal.Loader.out_channel = love.thread.getChannel("load_out")
+    -- TODO: Make a function that only pushes the config that loadthread actually has a use for
     Kristal.Loader.in_channel:push({config = Kristal.Config})
 
     Kristal.Loader.thread = love.thread.newThread("src/engine/loadthread.lua")
@@ -1438,7 +1440,7 @@ Kristal.funny_titles = {
     "Thetaseal",
     "Undertale Yellow: The Roba Edition",
     "Power Star",
-    "Doki Doki Literature Club!"
+    "Doki Doki Literature Club!",
 }
 -- Sets a random title and icon to the game window.
 function Kristal.funnytitle(force_icon)
@@ -1666,12 +1668,6 @@ function Kristal.getSoulColor()
     if Kristal.getState() == Game then
         return Game:getSoulColor()
     end
-
-    local date = os.date("*t")
-    if date.month == 4 and date.day == 1 then
-        return unpack(COLORS.green)
-    end
-
     return unpack(COLORS.red)
 end
 
@@ -1697,7 +1693,7 @@ function Kristal.loadConfig()
         debug = true,
         fullscreen = false,
         simplifyVFX = false,
-		ardlc = false,
+        ardlc = false,
         autoRun = false,
         masterVolume = 0.6,
         favorites = {},
