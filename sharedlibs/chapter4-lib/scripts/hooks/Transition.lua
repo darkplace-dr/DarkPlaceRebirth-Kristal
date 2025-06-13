@@ -7,7 +7,7 @@ function Transition:init(x,y,shape,properties)
 end
 
 function Transition:onEnter(chara)
-    if chara.state_manager.state ~= "CLIMB" then
+    if chara.state ~= "CLIMB" then
         return super.onEnter(self, chara)
     end
 end
