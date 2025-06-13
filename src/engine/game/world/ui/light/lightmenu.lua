@@ -100,7 +100,7 @@ end
 
 function LightMenu:onButtonSelect(button)
     if button == 1 then
-        if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
+        if Game.inventory:getItemCount(self.storage, false) > 0 then
             self.state = "ITEMMENU"
             Input.clear("confirm")
             self.box = LightItemMenu()
@@ -162,7 +162,7 @@ end
 
 function LightMenu:realign()
     local _, player_y = Game.world.player:localToScreenPos()
-    self.top = false --player_y > 260
+    self.top = player_y > 260
 
     local offset = 0
     if self.top then
@@ -204,7 +204,7 @@ function LightMenu:draw()
     love.graphics.print("ITEM", 84, 188 + (36 * 0))
     Draw.setColor(PALETTE["world_text"])
     love.graphics.print("STAT", 84, 188 + (36 * 1))
-    if Game:getFlag("has_cell_phone") then
+    if Game:getFlag("has_cell_phone", false) then
         if #Game.world.calls > 0 then
             Draw.setColor(PALETTE["world_text"])
         else

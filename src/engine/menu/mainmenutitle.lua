@@ -25,7 +25,7 @@ function MainMenuTitle:init(menu)
 end
 
 function MainMenuTitle:update()
-    super.update(self)
+    -- Do nothing?
 end
 
 function MainMenuTitle:registerEvents()

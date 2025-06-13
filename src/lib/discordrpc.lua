@@ -23,16 +23,6 @@ for _, search_path in ipairs(search_paths) do
     end
 end
 
--- Apparently, that doesn't work for some reason like it did for the https module.
--- It's fine since Discord RPC isn't critical for Rebirth but it's a bit weird
-if not discordRPClib then
-    ok, discordRPClib = pcall(ffi.load, "lib/"..name)
-end
-
-if not discordRPClib then
-    ok, discordRPClib = pcall(ffi.load, love.filesystem.getSource().."/lib/"..name)
-end
-
 DISCORD_RPC_AVAILABLE = ok
 
 if not ok then

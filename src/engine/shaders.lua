@@ -106,7 +106,7 @@ Shaders["Mask"] = love.graphics.newShader[[
     }
  ]]
 
- Shaders["ColorGradient"] = love.graphics.newShader[[
+Shaders["ColorGradient"] = love.graphics.newShader[[
     #pragma language glsl3
 
     extern vec4 from;
@@ -119,6 +119,6 @@ Shaders["Mask"] = love.graphics.newShader[[
 
         return mix(from, to, y)*Texel(tex, texture_coords).a;
     }
- ]]
+]]
 
 return Shaders
