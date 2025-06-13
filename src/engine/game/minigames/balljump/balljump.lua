@@ -1,6 +1,6 @@
----@class BallJump : MinigameHandler
+---@class BallJump : Minigame
 ---@field levelScript? fun(self:BallJump, wait:fun(time:number))
-local BallJump, super = Class("MinigameHandler")
+local BallJump, super = Class("Minigame")
 
 function BallJump:init()
     super.init(self)
