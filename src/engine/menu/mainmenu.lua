@@ -52,8 +52,8 @@ function MainMenu:enter()
     self.default_name_screen = MainMenuDefaultName(self)
     self.controls = MainMenuControls(self)
     self.deadzone_config = MainMenuDeadzone(self)
-    self.dlc_handler = MainMenuDLCHandler(self)
-    self.warning_handler = MainMenuWarningHandler(self)
+    self.dlc_list = MainMenuDLC(self)
+    self.warning = MainMenuWarning(self)
     self.plugins = MainMenuPlugins(self)
 
     -- Register states
@@ -72,8 +72,8 @@ function MainMenu:enter()
     self.state_manager:addState("DEFAULTNAME", self.default_name_screen)
     self.state_manager:addState("CONTROLS", self.controls)
     self.state_manager:addState("DEADZONE", self.deadzone_config)
-    self.state_manager:addState("DLC", self.dlc_handler)
-    self.state_manager:addState("WARNING", self.warning_handler)
+    self.state_manager:addState("DLC", self.dlc_list)
+    self.state_manager:addState("WARNING", self.warning)
     self.state_manager:addState("plugins", self.plugins)
 
     for _, mod in ipairs(Kristal.Mods.getMods()) do

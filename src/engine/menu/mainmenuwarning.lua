@@ -1,12 +1,12 @@
----@class MainMenuWarningHandler : StateClass
+---@class MainMenuWarning : StateClass
 ---
 ---@field menu MainMenu
 ---@field container Object
 ---
----@overload fun(menu:MainMenu) : MainMenuWarningHandler
-local MainMenuWarningHandler, super = Class(StateClass)
+---@overload fun(menu:MainMenu) : MainMenuWarning
+local MainMenuWarning, super = Class(StateClass)
 
-function MainMenuWarningHandler:init(menu)
+function MainMenuWarning:init(menu)
     self.menu = menu
 
     self.list = nil
@@ -59,7 +59,7 @@ function MainMenuWarningHandler:init(menu)
     self.active = false
 end
 
-function MainMenuWarningHandler:registerEvents()
+function MainMenuWarning:registerEvents()
     self:registerEvent("enter", self.onEnter)
     self:registerEvent("leave", self.onLeave)
     self:registerEvent("keypressed", self.onKeyPressed)
@@ -67,7 +67,7 @@ function MainMenuWarningHandler:registerEvents()
     self:registerEvent("draw", self.draw)
 end
 
-function MainMenuWarningHandler:update()
+function MainMenuWarning:update()
     if self.animation_clock > 2 then
         self.menu:setState("TITLE")
         self.menu.title_screen:selectOption("play")
@@ -89,7 +89,7 @@ function MainMenuWarningHandler:update()
     end
 end
 
-function MainMenuWarningHandler:onEnter()
+function MainMenuWarning:onEnter()
     self.menu.music:pause()
 	self.active = true
     local options = {align = "center"}
@@ -107,14 +107,14 @@ function MainMenuWarningHandler:onEnter()
 	self.menu.heart_target_y = 270
 end
 
-function MainMenuWarningHandler:onLeave()
+function MainMenuWarning:onLeave()
     self.menu.music:play()
 	self.active = false
     self.container:remove()
     self.container = nil
 end
 
-function MainMenuWarningHandler:updateTexts()
+function MainMenuWarning:updateTexts()
     self.text_warn:setText("WARNING")
     self.text_contents:setText(self.current_warning)
 
@@ -125,7 +125,7 @@ function MainMenuWarningHandler:updateTexts()
     end
 end
 
-function MainMenuWarningHandler:onKeyPressed(key, is_repeat)
+function MainMenuWarning:onKeyPressed(key, is_repeat)
 
     if self.warning_state == "SUBNAUTICA" then --You have to wait through the whole thing :)
 
@@ -141,12 +141,12 @@ function MainMenuWarningHandler:onKeyPressed(key, is_repeat)
     end
 end
 
-function MainMenuWarningHandler:draw()
+function MainMenuWarning:draw()
     Draw.setColor(COLORS.black)
     Draw.rectangle("fill", 0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
 end
 
-function MainMenuWarningHandler:detecting_leviathans()
+function MainMenuWarning:detecting_leviathans()
         if self.subnautica then
             local foo = function (text) self.text_contents:setText(text) end
 
@@ -205,4 +205,4 @@ function MainMenuWarningHandler:detecting_leviathans()
 	end
 end
 
-return MainMenuWarningHandler
+return MainMenuWarning

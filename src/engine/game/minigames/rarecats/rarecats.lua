@@ -1,5 +1,5 @@
----@class RareCats : MinigameHandler
-local RareCats, super = Class("MinigameHandler")
+---@class RareCats : Minigame
+local RareCats, super = Class("Minigame")
 
 function RareCats:init()
     super.init(self)

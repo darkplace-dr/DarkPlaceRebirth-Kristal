@@ -31,7 +31,7 @@
 ---@field controllers table<string, Event|Object>
 ---@field shops table<string, Shop>
 ---@field borders table<string, Border>
----@field minigames table<string, MinigameHandler>
+---@field minigames table<string, Minigame>
 ---@field materials table<string, Material>
 ---@field shaders table<string, Shader>
 ---

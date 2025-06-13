@@ -1,13 +1,13 @@
----@class MainMenuDLCHandler : StateClass
+---@class MainMenuDLC : StateClass
 ---
 ---@field menu MainMenu
 ---
----@overload fun(menu:MainMenu) : MainMenuDLCHandler
-local MainMenuDLCHandler, super = Class(StateClass)
+---@overload fun(menu:MainMenu) : MainMenuDLC
+local MainMenuDLC, super = Class(StateClass)
 
 local extractor = require("src.lib.extractor")
 
-function MainMenuDLCHandler:init(menu)
+function MainMenuDLC:init(menu)
     self.menu = menu
 
     self.state_manager = StateManager("MAIN", self, true)
@@ -62,14 +62,14 @@ function MainMenuDLCHandler:init(menu)
 
     self.corners = {{0, 0}, {1, 0}, {1, 1}, {0, 1}}
 
-    self.box_mode = Kristal.Config["dlchandler_box_style"] or "menu" -- menu, ui
+    self.box_mode = Kristal.Config["dlc_box_style"] or "menu" -- menu, ui
 
     self.font = Assets.getFont("main", 16)
 
-    DLCHANDLER = self -- For easy access in the console
+    DLC = self -- For easy access in the console
 end
 
-function MainMenuDLCHandler:registerEvents()
+function MainMenuDLC:registerEvents()
     self:registerEvent("enter", self.onEnter)
     self:registerEvent("leave", self.onLeave)
     self:registerEvent("keypressed", self.onKeyPressed)
@@ -81,7 +81,7 @@ end
 --- Callbacks
 -----------------------------------------------
 
-function MainMenuDLCHandler:onEnter()
+function MainMenuDLC:onEnter()
 	print("onEnter")
 	self.active = true
 
@@ -108,7 +108,7 @@ function MainMenuDLCHandler:onEnter()
 	end
 end
 
-function MainMenuDLCHandler:onLeave()
+function MainMenuDLC:onLeave()
 	self.active = false
 
 	if self.list then
@@ -116,19 +116,19 @@ function MainMenuDLCHandler:onLeave()
         self.list.visible = false
     end
 
-    if self.box_mode ~= Kristal.Config["dlchandler_box_style"] then
-    	Kristal.Config["dlchandler_box_style"] = self.box_mode
+    if self.box_mode ~= Kristal.Config["dlc_box_style"] then
+    	Kristal.Config["dlc_box_style"] = self.box_mode
     	Kristal.saveConfig()
     end
 end
 
-function MainMenuDLCHandler:update()
+function MainMenuDLC:update()
 	self.state_manager:update()
 end
 
-function MainMenuDLCHandler:draw()
+function MainMenuDLC:draw()
 	Draw.setColor(COLORS.silver)
-    Draw.printShadow("( DLC HANDLER )", 0, 0, 2, "center", 640)
+    Draw.printShadow("( DLC  )", 0, 0, 2, "center", 640)
 
 	self.state_manager:draw()
 
@@ -136,7 +136,7 @@ function MainMenuDLCHandler:draw()
 	Draw.printShadow("Note: This thing is held together by hopes and dreams", 0, SCREEN_HEIGHT-16)
 end
 
-function MainMenuDLCHandler:onKeyPressed(key, is_repeat)
+function MainMenuDLC:onKeyPressed(key, is_repeat)
 	self.state_manager:call("keypressed", key, is_repeat)
 end
 
@@ -145,7 +145,7 @@ end
 -----------------------------------------------
 
 --- MAIN
-function MainMenuDLCHandler:onEnterMain()
+function MainMenuDLC:onEnterMain()
 	--print("Gello world...?")
 	if self.list then
         self.list.active = true
@@ -153,7 +153,7 @@ function MainMenuDLCHandler:onEnterMain()
     end
 end
 
-function MainMenuDLCHandler:onKeyPressedMain(key, is_repeat)
+function MainMenuDLC:onKeyPressedMain(key, is_repeat)
 	if Input.isConfirm(key) and not is_repeat then
     	local id = self.list:getSelectedId()
     	self:handleMod(id)
@@ -183,7 +183,7 @@ function MainMenuDLCHandler:onKeyPressedMain(key, is_repeat)
     end
 end
 
-function MainMenuDLCHandler:drawMain()
+function MainMenuDLC:drawMain()
 	local shader = Kristal.Shaders["ColorGradient"]
 
     -- modbutton.lua
@@ -319,14 +319,14 @@ function MainMenuDLCHandler:drawMain()
 end
 
 -- DOWNLOAD
-function MainMenuDLCHandler:onEnterDownload()
+function MainMenuDLC:onEnterDownload()
 	if self.list then
         self.list.active = false
         self.list.visible = false
     end
 end
 
-function MainMenuDLCHandler:updateDownload()
+function MainMenuDLC:updateDownload()
 	if not self.send_request then
 		if self.loading_queue_index > 0 then
 			self.send_request = true
@@ -384,7 +384,7 @@ function MainMenuDLCHandler:updateDownload()
 	end
 end
 
-function MainMenuDLCHandler:drawDownload()
+function MainMenuDLC:drawDownload()
 	Draw.setColor(COLORS.white)
 	Draw.printShadow("Downloading data... "..Utils.round(100-(self.loading_queue_index*100/#self.loading_list)).."%", 0, (SCREEN_HEIGHT/2)-15, 2, "center", 640)
 
@@ -401,28 +401,28 @@ function MainMenuDLCHandler:drawDownload()
 end
 
 --ERROR
-function MainMenuDLCHandler:onEnterError()
+function MainMenuDLC:onEnterError()
 	if self.list then
         self.list.active = false
         self.list.visible = false
     end
 end
 
-function MainMenuDLCHandler:onLeaveError()
+function MainMenuDLC:onLeaveError()
 	if self.list then
         self.list.active = true
         self.list.visible = true
     end
 end
 
-function MainMenuDLCHandler:onKeyPressedError(key, is_repeat)
+function MainMenuDLC:onKeyPressedError(key, is_repeat)
 	if Input.isConfirm(key) then
 		self.loading_errors = {}
 		self:setState("MAIN")
 	end
 end
 
-function MainMenuDLCHandler:drawError()
+function MainMenuDLC:drawError()
 	Draw.printShadow("The following DLCs encountered an error during download:", 0, 48, 2, "center", 640)
 
 	local y = 48*3
@@ -437,12 +437,12 @@ end
 ------------------------------------
 
 -- Is the DLC already installed or are we using bits of data downloaded from Github?
-function MainMenuDLCHandler:isModLocal(id)
+function MainMenuDLC:isModLocal(id)
 	return Kristal.Mods.getMod(id) ~= nil
 end
 
 -- Handles what to do with mod.json once downloaded
-function MainMenuDLCHandler:handleDataFile(body)
+function MainMenuDLC:handleDataFile(body)
 	local data = JSON.decode(body)
 	local content = JSON.decode(Utils.decodeBase64(data.content))
 	Kristal.Mods.dlc_data[content.id] = content
@@ -454,7 +454,7 @@ function MainMenuDLCHandler:handleDataFile(body)
 end
 
 -- Handles what to do with images files once downloaded
-function MainMenuDLCHandler:handleImageFile(body, filename, data)
+function MainMenuDLC:handleImageFile(body, filename, data)
 	local name = "cache/"..filename..".png"
 	if not data then
 		Kristal.Console:warn("No data given! Was the "..filename.." downloaded before the data?")
@@ -475,7 +475,7 @@ function MainMenuDLCHandler:handleImageFile(body, filename, data)
 	self.images[filename][data.id] = love.graphics.newImage(love.data.newByteData(body))
 end
 
-function MainMenuDLCHandler:handleError(owner, repo, message, response)
+function MainMenuDLC:handleError(owner, repo, message, response)
 	table.insert(self.loading_errors, {
 		owner=owner,
 		repo=repo,
@@ -484,7 +484,7 @@ function MainMenuDLCHandler:handleError(owner, repo, message, response)
 	})
 end
 
-function MainMenuDLCHandler:handleContentDownload(data, index)
+function MainMenuDLC:handleContentDownload(data, index)
 	local content = data.contents
 	local file = content[index]
 	local link = "https://api.github.com/repos/"..data.owner.."/"..data.repo.."/contents/"..file
@@ -516,7 +516,7 @@ function MainMenuDLCHandler:handleContentDownload(data, index)
 	end
 end
 
-function MainMenuDLCHandler:handleZipDownload(data)
+function MainMenuDLC:handleZipDownload(data)
 	local link = "https://api.github.com/repos/"..data.owner.."/"..data.repo.."/zipball"
 
 	local ok = Kristal.fetch(link, {
@@ -565,15 +565,15 @@ function MainMenuDLCHandler:handleZipDownload(data)
 	end
 end
 
-function MainMenuDLCHandler:setState(state, ...)
+function MainMenuDLC:setState(state, ...)
 	self.state_manager:setState(state, ...)
 end
 
-function MainMenuDLCHandler:getState()
+function MainMenuDLC:getState()
 	return self.state_manager.state
 end
 
-function MainMenuDLCHandler:checkForNewDLCs()
+function MainMenuDLC:checkForNewDLCs()
 
 	local function inGitList(owner, repo)
 		if not GITHUB_REPOS[owner] then return false end
@@ -599,7 +599,7 @@ function MainMenuDLCHandler:checkForNewDLCs()
 	return #new_dlcs>0, new_dlcs
 end
 
-function MainMenuDLCHandler:REALbuildDLCList()
+function MainMenuDLC:REALbuildDLCList()
 	local dlcs = {}
 	for id,mod in pairs(Kristal.Mods.dlc_data) do
 		if not mod.id then
@@ -647,7 +647,7 @@ function MainMenuDLCHandler:REALbuildDLCList()
 	end
 end
 
-function MainMenuDLCHandler:reloadMods(callback)
+function MainMenuDLC:reloadMods(callback)
     if MOD_LOADING then return end
     MOD_LOADING = true
 
@@ -669,7 +669,7 @@ function MainMenuDLCHandler:reloadMods(callback)
     end)
 end
 
-function MainMenuDLCHandler:buildDLCList(reset_cache)
+function MainMenuDLC:buildDLCList(reset_cache)
 	self.loading_list = {}
 
 	local url_list = GITHUB_REPOS
@@ -768,7 +768,7 @@ function MainMenuDLCHandler:buildDLCList(reset_cache)
 	)]]
 end
 
-function MainMenuDLCHandler:handleMod(id)
+function MainMenuDLC:handleMod(id)
 	print("Handle "..id)
 	local data = Kristal.Mods.dlc_data[id]
 	if not Kristal.Mods.getMod(id) then
@@ -802,4 +802,4 @@ function MainMenuDLCHandler:handleMod(id)
 	end
 end
 
-return MainMenuDLCHandler
+return MainMenuDLC
