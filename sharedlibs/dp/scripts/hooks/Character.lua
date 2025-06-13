@@ -6,6 +6,7 @@ function Character:getDebugOptions(context)
         context = Noel:getDebugOptions(context, self)
         return context
     end
+    return super.getDebugOptions(self, context)
 end
 
 function Character:getName()
