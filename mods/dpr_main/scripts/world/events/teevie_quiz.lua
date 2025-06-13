@@ -744,16 +744,16 @@ function TeevieQuiz:update()
 							local quiz_ans
 							local quiz_ans_bad
 
-							if self.answer == "A" then
+							if self.cur_correct_answer == "A" then
 								party:setFacing("left")
 								quiz_ans = indexB
 								quiz_ans_bad = indexA
-							elseif self.answer == "B" then
+							elseif self.cur_correct_answer == "B" then
 								party:setFacing("right")
 								quiz_ans = indexA
 								quiz_ans_bad = indexB
 							end
-							
+
 							if chara == "dess" and self.dess_answer_wrong then
 								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans_bad].x+20, party.y, 6/30))
 								self.button[quiz_ans_bad]:press()
@@ -762,9 +762,27 @@ function TeevieQuiz:update()
 								else
 									self.dess_wrong_answer = "A"
 								end
-							elseif chara == "noel" then -- work on later
-								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans_bad].x+20, party.y, 6/30))
-								self.button[quiz_ans_bad]:press()
+							elseif chara == "noel" then
+
+								local a, b = 5, 6
+								if Game.party[2].id == "noel" then
+									a, b = 3, 4
+								end
+
+								local noel_save = Noel:getFlag("teevie_quiz" ..self.cur_question_text)
+								local noel_table = {a, b}
+								local pick = b
+								if Noel:getFlag("teevie_quiz" ..self.cur_question_text) then
+									if noel_save == "A" then
+                                        pick = a
+										print(1234)
+									end
+								else
+									local pick = noel_table[math.random(1, 2)]
+									Noel:setFlag("teevie_quiz" ..self.cur_question_text, self.cur_correct_answer)
+								end
+								cutscene:wait(cutscene:walkTo(party, self.button[pick].x+20, party.y, 6/30))
+								self.button[pick]:press()
 							else
 								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans].x+20, party.y, 6/30))
 								self.button[quiz_ans]:press()
