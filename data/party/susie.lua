@@ -134,6 +134,8 @@ function character:init()
 	
 	self.rage = false
 	self.rage_counter = 0
+	
+	self.tv_name = "ASS"
 end
 
 function character:onTurnStart(battler)
