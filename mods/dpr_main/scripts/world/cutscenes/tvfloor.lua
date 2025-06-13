@@ -107,4 +107,133 @@ return {
 		end
 	end,
 
+	sneakattack_zapper = function(cutscene, light)
+		local heads = {}
+		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
+			if head.x > Game.world.camera.x - (SCREEN_WIDTH/2) + 50 and head.x < Game.world.camera.x + (SCREEN_WIDTH/2) - 50 then
+				table.insert(heads, head)
+			end
+		end
+		if #heads <= 0 then
+			if Game:getFlag("can_kill") then
+				cutscene:text("* (But nobody came.)")
+			else
+				cutscene:text("* (You somehow remained undetected.)")
+			end
+		else
+			local head = heads[love.math.random(1, #heads)]
+			local guy = cutscene:spawnNPC("zapper", head.x + 64, head.y + 98)
+			Assets.playSound("jump")
+			guy:setSprite("jump")
+			guy.physics.speed_y = -40
+			guy.physics.gravity = 2
+			guy.scale_x = -2
+			local desxloc = Game.world.player.x-Game.world.player.width/2 - 48
+			if head.x > Game.world.player.x-Game.world.player.width/2 + 17 then
+				desxloc = Game.world.player.x-Game.world.player.width/2 + 90
+				guy.scale_x = 2
+				guy.x = guy.x - 92
+			end
+			local recolor = guy:addFX(RecolorFX())
+			recolor.color = {0,0,0}
+			guy:play(2/30, false)
+			Game.world.timer:tween(8/30, recolor, {color = {1,1,1}}, "out-quad")
+			Game.world.timer:tween(0.6, guy, {x = desxloc}, "out-quad")
+			local groundpos = Game.world.player.y
+			head:remove()
+			cutscene:wait(function() return guy.y < groundpos end)
+			cutscene:wait(function() return guy.y >= groundpos end)
+			guy.y = groundpos
+			guy:setSprite("jump_idle_1")
+			Game.world.timer:after(4/30, function()
+				guy:setSprite("jump_idle_2")
+			end)
+			guy.physics.gravity = 0
+			guy.physics.speed_y = 0
+			guy.layer = Game.world.player.layer
+			Assets.playSound("wing")
+			cutscene:showNametag("Zapper")
+			cutscene:text("* What the -- you's ain't allowed in here!")
+			cutscene:hideNametag()
+			local change = TVTurnOff({map = Game.world.map.data.properties["punish_map"], marker = Game.world.map.data.properties["punish_marker"] or "entry_cage", facing = Game.world.map.data.properties["punish_facing"] or "down", marker = Game.world.map.data.properties["punish_flag"] or nil})
+			Game.world:addChild(change)
+		end
+	end,
+	sneakattack_shadowguy = function(cutscene, light)
+		local heads = {}
+		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
+			if head.x > Game.world.camera.x - (SCREEN_WIDTH/2) + 50 and head.x < Game.world.camera.x + (SCREEN_WIDTH/2) - 50 then
+				table.insert(heads, head)
+			end
+		end
+		local head_failsafe = false
+		if #heads <= 0 and Game:getFlag("can_kill") then
+			for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
+				table.insert(heads, head)
+			end
+			head_failsafe = true
+		end
+		if #heads <= 0 then
+			if Game:getFlag("can_kill") then
+				cutscene:text("* (But nobody came.)")
+			else			
+				cutscene:text("* (You somehow remained undetected.)")
+			end
+		else
+			local head = heads[love.math.random(1, #heads)]
+			local guy = cutscene:spawnNPC("shadowguy", head.x + 22, head.y + 28)
+			if head_failsafe then
+				Assets.playSound("fall")
+				guy.x = Game.world.player.x - 90
+				guy.y =	Game.world.camera.y-SCREEN_HEIGHT/2-100
+				guy.physics.gravity = 2
+				guy.scale_x = -2
+				if head.x > Game.world.player.x-Game.world.player.width/2 + 17 then
+					guy.x = Game.world.player.x + 90
+					guy.scale_x = 2
+				end
+			else
+				Assets.playSound("jump")
+				guy.physics.speed_y = -35
+				guy.physics.gravity = 2
+				guy.scale_x = -2
+				local desxloc = Game.world.player.x - 90
+				if head.x > Game.world.player.x-Game.world.player.width/2 + 17 then
+					desxloc = Game.world.player.x + 90
+					guy.scale_x = 2
+				end
+				local recolor = guy:addFX(RecolorFX())
+				recolor.color = {0,0,0}
+				Game.world.timer:tween(8/30, recolor, {color = {1,1,1}}, "out-quad")
+				Game.world.timer:tween(0.6, guy, {x = desxloc}, "out-quad")
+			end
+			local groundpos = Game.world.player.y
+			head.visible = false
+			cutscene:wait(function() return guy.y < groundpos end)
+			cutscene:wait(function() return guy.y >= groundpos end)
+			guy.y = groundpos
+			guy.physics.gravity = 0
+			guy.physics.speed_y = 0
+			guy.layer = Game.world.player.layer
+			Assets.playSound("wing")
+			cutscene:wait(0.5)
+			Assets.playSound("tensionhorn")
+			cutscene:wait(8/30)
+			local src = Assets.playSound("tensionhorn")
+			src:setPitch(1.1)
+			cutscene:wait(12/30)
+			--local enemy_target = self
+			Game:setFlag("sneaking_shadowmen_violence", false)
+			cutscene:startEncounter("shadowguy_sneaking", true, guy, {wait = true})
+			guy:remove()
+			cutscene:wait(1/30)
+			if Game:getFlag("can_kill") and Game:getFlag("sneaking_shadowmen_violence", false) then
+				head:setFlag("killed", true)
+			end
+			head:remove()
+		end
+		Game.world.timer:tween(1, light, {y = Game.world.camera.y-SCREEN_HEIGHT/2-300}, "in-back")
+		cutscene:wait(1)
+		light:remove()
+	end,
 }
