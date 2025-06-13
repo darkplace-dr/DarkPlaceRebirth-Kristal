@@ -62,13 +62,13 @@ end
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
         self:addMercy(30)
-        if battler.chara.id == "ralsei" then
-            return "* Ralsei danced!"
-        elseif battler.chara.id == "susie" then
-            return "* Susie danced!"
-        end
+        return "* " .. battler.chara:getName() .. " danced!"
     end
     return nil
+end
+
+function Shadowguy:isXActionShort(battler)
+    return true
 end
 
 function Shadowguy:onActStart(battler, name)
@@ -102,34 +102,11 @@ function Shadowguy:onActStart(battler, name)
         return selected_sprite, selected_offset[1], selected_offset[2]
     end
 	
-	local function setActSprite(self, sprite, ox, oy, speed, loop, after)
-		self:setCustomSprite(sprite, ox, oy, speed, loop, after)
-
-		local x = self.x - (self.actor:getWidth()/2 - ox) * 2
-		local y = self.y - (self.actor:getHeight() - oy) * 2
-		local flash = FlashFade(sprite, x, y)
-		flash:setOrigin(0, 0)
-		flash:setScale(self:getScale())
-		self.parent:addChild(flash)
-
-		local afterimage1 = AfterImage(self, 0.7)
-		local afterimage2 = AfterImage(self, 0.9)
-		afterimage1.physics.speed_x = 4
-		afterimage2.physics.speed_x = 2
-
-		afterimage2.layer = afterimage1.layer - 1
-
-		self:addChild(afterimage1)
-		self:addChild(afterimage2)
-	end
-	
-	for _,ibattler in ipairs(Game.battle.party) do
-		local texture, x, y = getSpriteAndOffset(ibattler.chara.id)
-		
-		setActSprite(ibattler, texture, x, y)
-		local offset = heart_offsets[ibattler.chara.id] or {27+34, 33+12}
-		ibattler.heart_point_x = ibattler.x-(ibattler.actor:getWidth()/2)*2+offset[1]
-		ibattler.heart_point_y = ibattler.y-(ibattler.actor:getHeight())*2+offset[2]
+	for _,battler in ipairs(Game.battle.party) do
+		battler:setActSprite(getSpriteAndOffset(battler.chara.id))
+		local offset = heart_offsets[battler.chara.id] or {27+34, 33+12}
+		battler.heart_point_x = battler.x-(battler.actor:getWidth()/2)*2+offset[1]
+		battler.heart_point_y = battler.y-(battler.actor:getHeight())*2+offset[2]
 	end
 		
 	Assets.playSound("boost")
@@ -234,8 +211,8 @@ function Shadowguy:onActStart(battler, name)
 			cursor.stopshooting = true
 		end
 		
-		for _,ibattler in ipairs(Game.battle.party) do
-			ibattler:resetSprite()
+		for _,battler in ipairs(Game.battle.party) do
+			battler:resetSprite()
 		end
 		
 		for k,enemy in ipairs(enemies) do

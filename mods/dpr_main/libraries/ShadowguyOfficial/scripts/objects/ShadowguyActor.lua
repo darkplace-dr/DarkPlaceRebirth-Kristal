@@ -4,11 +4,10 @@ function ShadowguyActor:init(actor)
     super.init(self, actor)
 	
 	local gun = Sprite("npcs/shadowguy/gun", -12, -2)
+	gun:setRotationOriginExact(34, 33)
 	gun:setFrame(1)
 	gun.visible = false
 	gun.layer = self.layer - 4
-	gun.rotation_origin_x = 0.5
-	gun.rotation_origin_y = 0.5
 	self.draw_children_below = self.layer
 	
 	self.gun = gun
@@ -51,9 +50,10 @@ end
 function ShadowguyActor:update()
 	super.update(self)
 	
-	self.gun.x = self.x + -12 + (math.cos(self.gun_rot - math.rad(180)) * self.gunshake)
-	self.gun.y = self.y + -2 + (math.sin(self.gun_rot - math.rad(180)) * self.gunshake)
+	
 	self.gun.rotation = self.gun_rot - math.rad(180)
+	self.gun.x = self.x + -12 + (math.cos(self.gun.rotation) * self.gunshake)
+	self.gun.y = self.y + -2 + (math.sin(self.gun.rotation) * self.gunshake)
 	if self.gunshake > 0 then
 		self.gunshake = 0
 	end

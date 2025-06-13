@@ -66,6 +66,7 @@ function TeevieSneakZone:onLoad()
 		self.footprints[i]:setLayer(self.layer)
 		Game.world:addChild(self.footprints[i])
 	end
+	Game:getFlag("sneaking_give_points", false)
 end
 
 function TeevieSneakZone:update()
@@ -98,6 +99,12 @@ function TeevieSneakZone:update()
 					
 			if Input.down("right") then self.facing = "right" end
 			if Input.down("left") then self.facing = "left" end
+			
+			if movex > 12 * DTMULT or movey > 12 * DTMULT and not Game:getFlag("sneaking_give_points", false) then
+				Game:setFlag("sneaking_give_points", true)
+			elseif movex <= 12 * DTMULT and movey <= 12 * DTMULT and Game:getFlag("sneaking_give_points", false) then
+				Game:setFlag("sneaking_give_points", false)
+			end
 		end
 		if self.facing ~= self.old_facing then
 			Game.world.player:setSprite("sneak/"..self.facing)
@@ -179,6 +186,7 @@ function TeevieSneakZone:onExit(chara)
 			follower.following = true
 		end
 		Game.world.player:interpolateFollowers()
+		Game:getFlag("sneaking_give_points", false)
 	end
 end
 
