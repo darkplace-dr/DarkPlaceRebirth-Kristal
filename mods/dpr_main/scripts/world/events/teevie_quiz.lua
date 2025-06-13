@@ -747,12 +747,10 @@ function TeevieQuiz:update()
 							local quiz_ans
 							local quiz_ans_bad
 
-							if self.cur_correct_answer == "A" then
-								party:setFacing("left")
+							if self.answer == "A" then
 								quiz_ans = indexB
 								quiz_ans_bad = indexA
-							elseif self.cur_correct_answer == "B" then
-								party:setFacing("right")
+							else
 								quiz_ans = indexA
 								quiz_ans_bad = indexB
 							end
