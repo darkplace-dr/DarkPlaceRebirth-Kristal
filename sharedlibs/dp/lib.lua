@@ -4,18 +4,9 @@ Registry.registerGlobal("DP", lib)
 DP = lib
 
 function lib:init()
-    if MagicalGlassLib then
-		Utils.hook(LightStatMenu, "draw", function(orig, self)
-			orig(self)
-			love.graphics.setFont(self.font)			
-			local party = Game.party[self.party_selecting]
-			if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
-				Draw.setColor({235/255, 235/255, 130/255})
-				love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
-			end
-			Draw.setColor(COLORS.white)
-		end)
-    end
+    self:loadHooks()
+    self:initTaunt()
+    self:initBattleTaunt()
 end
 
 function lib:onPause()
@@ -47,5 +38,265 @@ function lib:getSoulColor()
         return unpack(COLORS.green)
     end
 end
+
+function lib:postUpdate()
+    self:updateTaunt()
+    self:updateBattleTaunt()
+
+    if Game.save_name == "MERG" then
+        for _, party in ipairs(Game.party) do
+            if party.health > 1 then
+                party.health = 1
+            end
+            if party.stats.health ~= 1 then
+                party.stats.health = 1
+            end
+        end
+        if Game.battle then
+            Game.battle:targetAll()
+            for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+                enemy.current_target = "ALL"
+            end
+        end
+    end
+
+    for _, badge in ipairs(Game:getBadgeStorage()) do
+        badge:update(badge.equipped)
+    end
+
+    if Game.swap_into_mod then
+        Kristal.swapIntoMod(unpack(Game.swap_into_mod))
+        Game.swap_into_mod = nil
+    end
+end
+
+function lib:addEventTime(time_added)
+    for k,_ in pairs(Game:getFlag("PROMISES", {})) do
+        Game:getFlag("PROMISES")[k] = Game:getFlag("PROMISES")[k] - time_added
+    end
+    self:checkPromises()
+end
+
+function lib:addPromise(promise, event_time)
+    Game:getFlag("PROMISES")[promise] = event_time
+end
+
+function lib:checkPromises()
+    -- Step 1: Convert to sortable array of {key, value}
+    local sorted = {}
+    for k, v in pairs(Game:getFlag("PROMISES")) do
+        table.insert(sorted, {key = k, value = v})
+    end
+
+    -- Step 2: Sort by value (ascending)
+    table.sort(sorted, function(a, b)
+        return a.value < b.value
+    end)
+
+    local promises_to_fulfill = {}
+    -- Step 3: Loop through sorted array
+    for i, pair in ipairs(sorted) do
+        if pair.value <= 0 then
+            table.insert(promises_to_fulfill, pair.key)
+        end
+    end
+    
+    local nextPromise
+    function nextPromise()
+        local cutscene_id = table.remove(promises_to_fulfill, 1)
+        if not cutscene_id then return end
+        Game:getFlag("PROMISES")[cutscene_id] = nil
+        local cutscene = Game.world:startCutscene("promises." .. cutscene_id)
+        cutscene:after(nextPromise)
+    end
+    
+    nextPromise()
+end
+
+function lib:rollShiny(id, force)
+    if (not Game:getFlag("SHINY") or Game:getFlag("SHINY")[id] == nil) or force then
+        local roller = love.math.random(1, 100)
+        -- Kristal.Console:log(id .. ": " .. roller)
+        if not Game:getFlag("SHINY") then
+            Game:setFlag("SHINY", {})
+        end
+        if roller == 66 then
+            Game:getFlag("SHINY")[id] = true
+        else
+            Game:getFlag("SHINY")[id] = false
+        end
+    else
+        Kristal.Console:log("Tried to roll shiny for " .. id .. ", but they were already rolled.")
+    end
+end
+
+function lib:forceShiny(id, what)
+    Game:getFlag("SHINY")[id] = (what ~= false)
+end
+
+function lib:loadHooks()
+    if MagicalGlassLib then
+        Utils.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
+            orig(self)
+            self.service_mercy = 20
+        end)
+        Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            if Game:getFlag("marcy_joined") then
+                self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
+                self.acts[#self.acts].color = {0, 1, 1}
+            end
+        end)
+        Utils.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            if Game:getFlag("marcy_joined") then
+                self:registerActFor("jamm", name, description, party, tp, highlight, icons)
+                self.acts[#self.acts].color = {0, 1, 1}
+            end
+        end)
+        Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
+        Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
+
+        Utils.hook(LightStatMenu, "draw", function(orig, self)
+            orig(self)
+            love.graphics.setFont(self.font)			
+            local party = Game.party[self.party_selecting]
+            if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+                Draw.setColor({235/255, 235/255, 130/255})
+                love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
+            end
+            Draw.setColor(COLORS.white)
+        end)
+    end
+end
+
+
+--Overworld taunt
+function lib:initTaunt()
+    self.taunt_lock_movement = false
+    --[[
+    Utils.hook(Actor, "init", function(orig, self)
+        orig(self)
+        self.taunt_sprites = {}
+    end)
+    --]]
+    Utils.hook(Player, "isMovementEnabled",
+        ---@overload fun(orig:function, self:Player) : boolean
+        function(orig, self)
+            return orig(self)
+                and not Game.taunt_lock_movement
+        end
+    )
+
+end
+
+function lib:updateTaunt()
+    if not (OVERLAY_OPEN or TextInput.active)
+        and self:isTauntingAvaliable()
+        and Input.pressed("taunt", false)
+        and not self.taunt_lock_movement
+        and (self.state == "OVERWORLD" and self.world.state == "GAMEPLAY"
+            and not self.world:hasCutscene() and not self.lock_movement)
+    then
+        -- awesome workaround for run_anims
+        self.world.player:setState("WALK")
+        self.world.player.running = false
+        for _, follower in ipairs(self.world.followers) do
+            if follower:getTarget() == self.world.player and follower.state == "RUN" then
+                follower.state_manager:setState("WALK")
+                follower.running = false
+            end
+        end
+        self.world.player:resetFollowerHistory()
+        self.taunt_lock_movement = true
+
+        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+
+        for _,chara in ipairs(self.stage:getObjects(Character)) do
+            if not chara.actor or not chara.visible then goto continue end
+
+            -- workaround due to actors being loaded first by registry
+            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
+            if not sprites or #sprites <= 0 then goto continue end
+
+            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
+            shine:setOrigin(0.5, 0.5)
+            shine:setScale(1)
+            chara.layer = chara.layer + 0.1
+            shine.layer = chara.layer - 0.1
+            self.world:addChild(shine)
+
+            chara.sprite:set(Utils.pick(sprites))
+            shine:play(1/30, false, function()
+                shine:remove()
+                chara:resetSprite()
+                chara.layer = chara.layer - 0.1
+            end)
+
+            ::continue::
+        end
+
+        self.world.timer:after(1/3, function()
+            self.taunt_lock_movement = false
+        end)
+    end
+end
+
+--Battle taunt
+function lib:initBattleTaunt()
+    self.taunt_cooldown = 0
+    self.state_blacklist = {
+        "DEFENDINGBEGIN",
+        "DEFENDING", -- handled by the soul itself, so this is ignored
+        "DEFENDINGEND",
+        "ENEMYDIALOGUE",
+        "ATTACKING",
+        "ACTIONS",
+        "ACTIONSDONE",
+        "INTRO",
+        "TRANSITION",
+        "TRANSITIONOUT"
+    }
+end
+
+function lib:updateBattleTaunt()
+    if
+        Game:isTauntingAvaliable()
+        and Input.pressed("taunt", false)
+        and self.taunt_cooldown == 0
+        and (Game.state == "BATTLE" and not Game.battle:hasCutscene())
+        and not Utils.containsValue(Game.state_blacklist, Game.battle.state)
+        and not (OVERLAY_OPEN or TextInput.active)
+    then
+        self.taunt_cooldown = 2.1
+
+        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+
+        for _,chara in ipairs(Game.battle.party) do
+            if not chara.actor or chara.is_down then goto continue end
+
+            -- workaround due of actors being loaded first by registry
+            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
+            if not sprites or #sprites <= 0 then goto continue end
+
+            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
+            shine:setOrigin(0.5, 0.5)
+            shine:setScale(1)
+            shine.layer = chara.layer - 0.1
+            Game.battle:addChild(shine)
+
+            chara:toggleOverlay(true)
+            chara.overlay_sprite:setSprite(Utils.pick(sprites))
+            shine:play(1/30, false, function()
+                shine:remove()
+                chara:toggleOverlay(false)
+            end)
+
+            ::continue::
+        end
+
+    end
+
+    self.taunt_cooldown = Utils.approach(self.taunt_cooldown, 0, DT)
+end
+
 
 return lib
