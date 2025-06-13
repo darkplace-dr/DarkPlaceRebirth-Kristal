@@ -1260,6 +1260,11 @@ function Game:update()
     end
 
     Kristal.callEvent(KRISTAL_EVENT.postUpdate, DT)
+
+    if Game.swap_into_mod then
+        Kristal.swapIntoMod(unpack(Game.swap_into_mod))
+        Game.swap_into_mod = nil
+    end
 end
 
 ---@param key       string

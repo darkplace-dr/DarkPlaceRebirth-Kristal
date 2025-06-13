@@ -64,10 +64,6 @@ function lib:postUpdate()
         badge:update(badge.equipped)
     end
 
-    if Game.swap_into_mod then
-        Kristal.swapIntoMod(unpack(Game.swap_into_mod))
-        Game.swap_into_mod = nil
-    end
 end
 
 function lib:addEventTime(time_added)
