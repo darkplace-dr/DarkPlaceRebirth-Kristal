@@ -41,4 +41,11 @@ function lib:preDraw()
     Assets.getShader("palette"):send("debug",DEBUG_RENDER and ((RUNTIME/0.3)%1>.5))
 end
 
+function lib:getSoulColor()
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        return unpack(COLORS.green)
+    end
+end
+
 return lib
