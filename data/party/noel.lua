@@ -133,6 +133,8 @@ function character:init()
     self.default_opinion = 0
 
     self.pain_img = Assets.getTexture("ui/menu/icon/pain")
+	
+	self.tv_name = "NUL"
 end
 
 function character:getTitle()

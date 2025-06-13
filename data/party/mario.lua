@@ -118,6 +118,8 @@ function character:init()
     }
 	
 	self.graduate = true
+	
+	self.tv_name = "GAY"
 end
 
 function character:onLevelUp(level)
