@@ -333,6 +333,7 @@ end
 ---@param user_id       string  The id of the character using/equipping the item
 ---@param reactor_id    string  The id of the character to get a reaction for
 ---@return string?  reaction
+function Item:getReaction(user_id, reactor_id, miniparty)
     local reactions = self:getReactions()
     local miniparty_reactor
     if miniparty then
