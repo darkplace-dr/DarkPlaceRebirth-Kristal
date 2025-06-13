@@ -169,6 +169,17 @@ function lib:loadHooks()
 end
 
 
+function lib:isTauntingAvaliable()
+    if self.let_me_taunt then return true end
+    if Game:isSpecialMode("PEPPINO") then return true end
+
+    for _,party in ipairs(Game.party) do
+        if party:checkArmor("pizza_toque") then return true end
+    end
+
+    return false
+end
+
 --Overworld taunt
 function lib:initTaunt()
     self.taunt_lock_movement = false
@@ -181,8 +192,7 @@ function lib:initTaunt()
     Utils.hook(Player, "isMovementEnabled",
         ---@overload fun(orig:function, self:Player) : boolean
         function(orig, self)
-            return orig(self)
-                and not Game.taunt_lock_movement
+            return not self.taunt_lock_movement and orig(self)
         end
     )
 
@@ -193,24 +203,24 @@ function lib:updateTaunt()
         and self:isTauntingAvaliable()
         and Input.pressed("taunt", false)
         and not self.taunt_lock_movement
-        and (self.state == "OVERWORLD" and self.world.state == "GAMEPLAY"
-            and not self.world:hasCutscene() and not self.lock_movement)
+        and (Game.state == "OVERWORLD" and Game.world.state == "GAMEPLAY"
+            and not Game.world:hasCutscene() and not Game.lock_movement)
     then
         -- awesome workaround for run_anims
-        self.world.player:setState("WALK")
-        self.world.player.running = false
-        for _, follower in ipairs(self.world.followers) do
-            if follower:getTarget() == self.world.player and follower.state == "RUN" then
+        Game.world.player:setState("WALK")
+        Game.world.player.running = false
+        for _, follower in ipairs(Game.world.followers) do
+            if follower:getTarget() == Game.world.player and follower.state == "RUN" then
                 follower.state_manager:setState("WALK")
                 follower.running = false
             end
         end
-        self.world.player:resetFollowerHistory()
+        Game.world.player:resetFollowerHistory()
         self.taunt_lock_movement = true
 
         Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
 
-        for _,chara in ipairs(self.stage:getObjects(Character)) do
+        for _,chara in ipairs(Game.stage:getObjects(Character)) do
             if not chara.actor or not chara.visible then goto continue end
 
             -- workaround due to actors being loaded first by registry
@@ -222,7 +232,7 @@ function lib:updateTaunt()
             shine:setScale(1)
             chara.layer = chara.layer + 0.1
             shine.layer = chara.layer - 0.1
-            self.world:addChild(shine)
+            Game.world:addChild(shine)
 
             chara.sprite:set(Utils.pick(sprites))
             shine:play(1/30, false, function()
@@ -234,7 +244,7 @@ function lib:updateTaunt()
             ::continue::
         end
 
-        self.world.timer:after(1/3, function()
+        Game.world.timer:after(1/3, function()
             self.taunt_lock_movement = false
         end)
     end

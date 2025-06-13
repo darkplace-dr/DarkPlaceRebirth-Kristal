@@ -1368,14 +1368,9 @@ function Game:getBadgeEquipped(badge, ignore_light)
 end
 
 --- Taunt Mechanic
+---@deprecated
 function Game:isTauntingAvaliable()
-    if self.let_me_taunt then return true end
-    if self.save_name:upper() == "PEPPINO" then return true end
-
-    for _,party in ipairs(self.party) do
-        if party:checkArmor("pizza_toque") then return true end
-    end
-    return false
+    return DP:isTauntingAvaliable()
 end
 
 
@@ -1515,18 +1510,5 @@ function Game:isSpecialMode(name)
     return Game.save_name:upper() == name:upper()
 end
 
-function Game:isTauntingAvaliable()
-    if self.let_me_taunt then return true end
-    if Game.save_name:upper() == "PEPPINO" then return true end
-
-    for _,party in ipairs(Game.party) do
-        if party:checkArmor("pizza_toque") then return true end
-    end
-
-    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
-    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
-
-    return false
-end
 
 return Game
