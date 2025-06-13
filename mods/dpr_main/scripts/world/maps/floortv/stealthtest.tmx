@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="90">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="91">
  <editorsettings>
   <export target="stealthtest.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="teevie"/>
+  <property name="keepmusic" type="bool" value="true"/>
   <property name="punish_map" value="floortv/stealthtest"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/teevie_land_backstage.tsx"/>
@@ -221,6 +222,12 @@
    </properties>
   </object>
   <object id="31" name="transition" x="1280" y="240" width="40" height="80">
+   <properties>
+    <property name="map" value="floortv/pre_elevator"/>
+    <property name="market" value="entry_left"/>
+   </properties>
+  </object>
+  <object id="90" name="transition" x="-80" y="250" width="40" height="80">
    <properties>
     <property name="map" value="floortv/stealthtest"/>
    </properties>

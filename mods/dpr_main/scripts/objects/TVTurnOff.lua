@@ -45,6 +45,7 @@ function TVTurnOff:update()
 			Assets.playSound("tvturnoff2")
 			if self.type == 0 then
 				Game.world.music:pause()
+				Game.world.music:setVolume(0)
 			end
 			self.con = 2
 			self.subcon = 0
@@ -61,7 +62,10 @@ function TVTurnOff:update()
 				Game.world:loadMap(self.dest_map, self.dest_marker, self.dest_facing, nil)
 				Game.world.fader.alpha = 1
 				Game.world.fader:fadeIn()
-				Game.world.music:resume()
+				if Game.world.map.keep_music then
+					Game.world.music:resume()
+					Game.world.music:fade(1, 0.25)
+				end
 			end
 			self:remove()
 		end

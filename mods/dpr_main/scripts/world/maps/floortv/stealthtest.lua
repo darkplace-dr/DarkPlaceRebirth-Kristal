@@ -10,9 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 90,
+  nextobjectid = 91,
   properties = {
     ["border"] = "teevie",
+    ["keepmusic"] = true,
     ["punish_map"] = "floortv/stealthtest"
   },
   tilesets = {
@@ -676,6 +677,22 @@ return {
           shape = "rectangle",
           x = 1280,
           y = 240,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floortv/pre_elevator",
+            ["market"] = "entry_left"
+          }
+        },
+        {
+          id = 90,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -80,
+          y = 250,
           width = 40,
           height = 80,
           rotation = 0,
