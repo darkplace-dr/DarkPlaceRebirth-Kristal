@@ -3,10 +3,20 @@ local SharpshootHeart, super = Class(Object)
 function SharpshootHeart:init(x, y, cursor)
     super.init(self, x, y)
 	
+	self.layer = BATTLE_LAYERS["top"]
 	self:setOrigin(0.5, 0.5)
 	self.heart = Sprite("player/sharpshoot_heart", 0, 0)
 	self.heart:setScale(0.5, 0.5)
 	self:addChild(self.heart)
+	
+	self.heart_afterimages = {}
+	
+	for i = 0, 8 do
+		self.heart_afterimages[i+1] = Sprite("player/sharpshoot_heart", 0, 0)
+		self.heart_afterimages[i+1]:setScale(0.5, 0.5)
+		self.heart_afterimages[i+1].layer = self.layer - i-9
+		self:addChild(self.heart_afterimages[i+1])
+	end
 	
 	self:setHitbox(0, 0, 10, 10)
 
@@ -19,6 +29,11 @@ function SharpshootHeart:init(x, y, cursor)
 	
 	self.con = 0
 	self.savey = 0
+	self.timer = 0
+	self.prevx = self.x
+	self.prevy = self.y
+	self.prevprevx = self.prevx
+	self.prevprevy = self.prevy
 end
 
 function SharpshootHeart:update()
@@ -55,6 +70,18 @@ function SharpshootHeart:update()
 			end
 		end
 	end
+	for i = 0, 8 do
+		self.heart_afterimages[i+1].x = Utils.lerp((self.prevprevx-self.x)*(FPS/30), 0, i / 8)
+		self.heart_afterimages[i+1].y = Utils.lerp((self.prevprevy-self.y)*(FPS/30), 0, i / 8)
+		self.heart_afterimages[i+1].alpha = (0.1 + (i / 16)) * self.alpha
+	end
+	if self.timer >= 1 then
+		self.prevprevx = self.prevx
+		self.prevprevy = self.prevy
+	end
+	self.prevx = self.x
+	self.prevy = self.y
+	self.timer = self.timer + DTMULT
 end
 
 function SharpshootHeart:hitSomething()

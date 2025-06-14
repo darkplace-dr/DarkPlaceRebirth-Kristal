@@ -97,6 +97,8 @@ function character:init()
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil
+	
+	self.tv_name = "OSW"
 end
 
 function character:onLevelUp(level)

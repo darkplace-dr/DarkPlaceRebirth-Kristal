@@ -1,5 +1,5 @@
----@class AngryBirds : MinigameHandler
-local AngryBirds, super = Class("MinigameHandler")
+---@class AngryBirds : Minigame
+local AngryBirds, super = Class("Minigame")
 -- TO-DO: Add a LOT more stuff to this lmao.
 
 function AngryBirds:init()

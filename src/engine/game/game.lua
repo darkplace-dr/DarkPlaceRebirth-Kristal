@@ -91,12 +91,9 @@ function Game:enter(previous_state, save_id, save_name, fade)
     self.quick_save = nil
 
     Kristal.callEvent(KRISTAL_EVENT.init)
-    Game:loadHooks()
 
     self.lock_movement = false
 
-    self:initTaunt()
-    self:initBattleTaunt()
 
     fade = fade ~= false
     if type(save_id) == "table" then
@@ -126,97 +123,41 @@ function Game:enter(previous_state, save_id, save_name, fade)
             details = Kristal.callEvent(KRISTAL_EVENT.getPresenceDetails),
             largeImageKey = Kristal.callEvent(KRISTAL_EVENT.getPresenceImage) or "logo",
             largeImageText = "Kristal v" .. tostring(Kristal.Version),
-            startTimestamp = self.playtime and math.floor(os.time() - self.playtime) or 0,
+            startTimestamp = math.floor(os.time() - self.playtime),
             instance = 0
         })
     end
 end
 
-function Game:addEventTime(time_added)
-	for k,v in pairs(self:getFlag("PROMISES", {})) do
-		self:getFlag("PROMISES")[k] = self:getFlag("PROMISES")[k] - time_added
-	end
-	self:checkPromises()
+---@deprecated
+function Game:addEventTime(arg0)
+    return DP:addEventTime(arg0)
 end
 
-function Game:addPromise(promise, event_time)
-	self:getFlag("PROMISES")[promise] = event_time
+---@deprecated
+function Game:addPromise(arg0, arg1)
+	return DP:addPromise(arg0, arg1)
 end
 
+---@deprecated
 function Game:checkPromises()
-	-- Step 1: Convert to sortable array of {key, value}
-	local sorted = {}
-	for k, v in pairs(self:getFlag("PROMISES")) do
-		table.insert(sorted, {key = k, value = v})
-	end
-
-	-- Step 2: Sort by value (ascending)
-	table.sort(sorted, function(a, b)
-		return a.value < b.value
-	end)
-
-	local promises_to_fulfill = {}
-	-- Step 3: Loop through sorted array
-	for i, pair in ipairs(sorted) do
-		if pair.value <= 0 then
-			table.insert(promises_to_fulfill, pair.key)
-		end
-	end
-	
-	local nextPromise
-	function nextPromise()
-		local cutscene_id = table.remove(promises_to_fulfill, 1)
-		if not cutscene_id then return end
-		self:getFlag("PROMISES")[cutscene_id] = nil
-		local cutscene = Game.world:startCutscene("promises." .. cutscene_id)
-		cutscene:after(nextPromise)
-	end
-	
-	nextPromise()
+	return DP:checkPromises()
 end
 
-function Game:rollShiny(id, force)
-	if (not self:getFlag("SHINY") or self:getFlag("SHINY")[id] == nil) or force then
-		local roller = love.math.random(1, 100)
-		-- Kristal.Console:log(id .. ": " .. roller)
-		if not self:getFlag("SHINY") then
-			self:setFlag("SHINY", {})
-		end
-		if roller == 66 then
-			self:getFlag("SHINY")[id] = true
-		else
-			self:getFlag("SHINY")[id] = false
-		end
-	else
-		Kristal.Console:log("Tried to roll shiny for " .. id .. ", but they were already rolled.")
-	end
+---@deprecated
+function Game:rollShiny(arg0, arg1)
+	return DP:rollShiny(arg0, arg1)
 end
 
-function Game:forceShiny(id, what)
-	self:getFlag("SHINY")[id] = (what ~= false)
+---@deprecated
+function Game:forceShiny(arg0, arg1)
+	return DP:forceShiny(arg0, arg1)
 end
 
+
+---@deprecated
 function Game:loadHooks()
-    if MagicalGlassLib then
-        Utils.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
-            orig(self)
-            self.service_mercy = 20
-        end)
-        Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
-            if Game:getFlag("marcy_joined") then
-                self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
-                self.acts[#self.acts].color = {0, 1, 1}
-            end
-        end)
-        Utils.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
-            if Game:getFlag("marcy_joined") then
-                self:registerActFor("jamm", name, description, party, tp, highlight, icons)
-                self.acts[#self.acts].color = {0, 1, 1}
-            end
-        end)
-        Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
-        Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
-    end
+    return DP:loadHooks()
 end
 
 function Game:leave()
@@ -265,7 +206,7 @@ end
 ---@param deep_merge?   boolean
 ---@return any
 function Game:getConfig(key, merge, deep_merge)
-    local default_config = Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)]
+    local default_config = Utils.copy(Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)])
     for index, config in pairs(Kristal.ExtraConfigs) do
        default_config[index] = config
     end
@@ -626,7 +567,7 @@ function Game:load(data, index, fade)
     Game:setFlag("is_swapping_mods", false)
     -- END SAVE FILE VARIABLES --
 
-    Kristal.callEvent(KRISTAL_EVENT.load, data, self.is_new_file, index, swapped_dlc)
+    Kristal.callEvent(KRISTAL_EVENT.load, data, self.is_new_file, index)
 
     -- Load the map if we have one
     if map then
@@ -911,12 +852,7 @@ function Game:dogCheck(variant)
     if self.legend   then self.legend  :remove() end
     if self.dogcheck then self.dogcheck:remove() end
 
-    if variant then
-        self.dogcheck = DogCheck(variant)
-    else
-        self.dogcheck = DogCheck()
-    end
-    self.stage:addChild(self.dogcheck)
+    self.dogcheck = DogCheck(variant)
 end
 
 function Game:setPresenceState(details)
@@ -1325,33 +1261,9 @@ function Game:update()
 
     Kristal.callEvent(KRISTAL_EVENT.postUpdate, DT)
 
-    self:updateTaunt()
-    self:updateBattleTaunt()
-
-    if self.save_name == "MERG" then
-        for _, party in ipairs(self.party) do
-            if party.health > 1 then
-                party.health = 1
-            end
-            if party.stats.health ~= 1 then
-                party.stats.health = 1
-            end
-        end
-        if self.battle then
-            self.battle:targetAll()
-            for _,enemy in ipairs(self.battle:getActiveEnemies()) do
-                enemy.current_target = "ALL"
-            end
-        end
-    end
-
-    for _, badge in ipairs(self:getBadgeStorage()) do
-        badge:update(badge.equipped)
-    end
-
-    if self.swap_into_mod then
-        Kristal.swapIntoMod(unpack(self.swap_into_mod))
-        self.swap_into_mod = nil
+    if Game.swap_into_mod then
+        Kristal.swapIntoMod(unpack(Game.swap_into_mod))
+        Game.swap_into_mod = nil
     end
 end
 
@@ -1375,10 +1287,6 @@ function Game:onKeyPressed(key, is_repeat)
     elseif self.state == "OVERWORLD" then
         if self.world then
             self.world:onKeyPressed(key)
-        end
-	elseif self.state == "MINIGAME" then
-        if self.minigame then
-            self.minigame:onKeyPressed(key)
         end
     elseif self.state == "SHOP" then
         if self.shop then
@@ -1465,147 +1373,13 @@ function Game:getBadgeEquipped(badge, ignore_light)
 end
 
 --- Taunt Mechanic
+---@deprecated
 function Game:isTauntingAvaliable()
-    if self.let_me_taunt then return true end
-    if self.save_name:upper() == "PEPPINO" then return true end
-
-    for _,party in ipairs(self.party) do
-        if party:checkArmor("pizza_toque") then return true end
-    end
-    return false
-end
-
---Overworld taunt
-function Game:initTaunt()
-    self.taunt_lock_movement = false
-    --[[
-	Utils.hook(Actor, "init", function(orig, self)
-        orig(self)
-        self.taunt_sprites = {}
-    end)
-	--]]
-    Utils.hook(Player, "isMovementEnabled",
-        ---@overload fun(orig:function, self:Player) : boolean
-        function(orig, self)
-            return orig(self)
-                and not Game.taunt_lock_movement
-        end
-    )
-
-end
-
-function Game:updateTaunt()
-    if not (OVERLAY_OPEN or TextInput.active)
-        and self:isTauntingAvaliable()
-        and Input.pressed("taunt", false)
-        and not self.taunt_lock_movement
-        and (self.state == "OVERWORLD" and self.world.state == "GAMEPLAY"
-            and not self.world:hasCutscene() and not self.lock_movement)
-    then
-        -- awesome workaround for run_anims
-        self.world.player:setState("WALK")
-        self.world.player.running = false
-        for _, follower in ipairs(self.world.followers) do
-            if follower:getTarget() == self.world.player and follower.state == "RUN" then
-                follower.state_manager:setState("WALK")
-                follower.running = false
-            end
-        end
-        self.world.player:resetFollowerHistory()
-        self.taunt_lock_movement = true
-
-        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
-
-        for _,chara in ipairs(self.stage:getObjects(Character)) do
-            if not chara.actor or not chara.visible then goto continue end
-
-            -- workaround due to actors being loaded first by registry
-            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
-            if not sprites or #sprites <= 0 then goto continue end
-
-            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
-            shine:setOrigin(0.5, 0.5)
-            shine:setScale(1)
-			chara.layer = chara.layer + 0.1
-            shine.layer = chara.layer - 0.1
-            self.world:addChild(shine)
-
-            chara.sprite:set(Utils.pick(sprites))
-            shine:play(1/30, false, function()
-                shine:remove()
-                chara:resetSprite()
-			    chara.layer = chara.layer - 0.1
-            end)
-
-            ::continue::
-        end
-
-        self.world.timer:after(1/3, function()
-            self.taunt_lock_movement = false
-        end)
-    end
-end
-
---Battle taunt
-function Game:initBattleTaunt()
-    self.taunt_cooldown = 0
-    self.state_blacklist = {
-        "DEFENDINGBEGIN",
-        "DEFENDING", -- handled by the soul itself, so this is ignored
-        "DEFENDINGEND",
-        "ENEMYDIALOGUE",
-        "ATTACKING",
-        "ACTIONS",
-        "ACTIONSDONE",
-        "INTRO",
-        "TRANSITION",
-        "TRANSITIONOUT"
-    }
-end
-
-function Game:updateBattleTaunt()
-    if
-        self:isTauntingAvaliable()
-        and Input.pressed("taunt", false)
-        and self.taunt_cooldown == 0
-        and (Game.state == "BATTLE" and not Game.battle:hasCutscene())
-        and not Utils.containsValue(self.state_blacklist, Game.battle.state)
-        and not (OVERLAY_OPEN or TextInput.active)
-    then
-        self.taunt_cooldown = 2.1
-
-        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
-
-        for _,chara in ipairs(Game.battle.party) do
-            if not chara.actor or chara.is_down then goto continue end
-
-            -- workaround due of actors being loaded first by registry
-            local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
-            if not sprites or #sprites <= 0 then goto continue end
-
-            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
-            shine:setOrigin(0.5, 0.5)
-            shine:setScale(1)
-            shine.layer = chara.layer - 0.1
-            Game.battle:addChild(shine)
-
-            chara:toggleOverlay(true)
-            chara.overlay_sprite:setSprite(Utils.pick(sprites))
-            shine:play(1/30, false, function()
-                shine:remove()
-                chara:toggleOverlay(false)
-            end)
-
-            ::continue::
-        end
-
-    end
-
-    self.taunt_cooldown = Utils.approach(self.taunt_cooldown, 0, DT)
+    return DP:isTauntingAvaliable()
 end
 
 
---stuff for Noel the Noel-body
+-- TODO: Clean this up, remove unuseeeeeeed Noelstuff, move into libdp
 
 local save_dir = "saves"
 local n_save = "saves/null.char"
@@ -1741,18 +1515,5 @@ function Game:isSpecialMode(name)
     return Game.save_name:upper() == name:upper()
 end
 
-function Game:isTauntingAvaliable()
-    if self.let_me_taunt then return true end
-    if Game.save_name:upper() == "PEPPINO" then return true end
-
-    for _,party in ipairs(Game.party) do
-        if party:checkArmor("pizza_toque") then return true end
-    end
-
-    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
-    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
-
-    return false
-end
 
 return Game

@@ -84,7 +84,7 @@ function SharpshootCursor:update()
 		self.timer = self.timer + DTMULT
 		self.alpha = Utils.lerp(0, 1, self.timer/12)
 		self:setScale(Utils.lerp(self.scale_x, 1, self.timer/12),Utils.lerp(self.scale_y, 1, self.timer/12))
-		self.rotation = Utils.lerp(self.rotation, math.rad(394), 0.08)
+		self.rotation = Utils.lerp(self.rotation, math.rad(394), 0.08*DTMULT)
 		local xx = Utils.lerp(300, 0, self.timer/12)
 		self.x = Utils.lerp(self.xstart, self.xstart + 280 + xx, self.timer/12)
 		if self.timer >= 12 then
@@ -109,7 +109,6 @@ function SharpshootCursor:update()
                 Game.battle:addChild(effect)
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
-				heart.layer = BATTLE_LAYERS["top"]
 				Game.battle:addChild(heart)
 				self.ammo = self.ammo - 1
 			end
@@ -124,7 +123,6 @@ function SharpshootCursor:update()
                 Game.battle:addChild(effect)
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
-				heart.layer = BATTLE_LAYERS["top"]
 				Game.battle:addChild(heart)
 				self.ammo = self.ammo - 1
 			end
@@ -139,7 +137,6 @@ function SharpshootCursor:update()
                 Game.battle:addChild(effect)
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
-				heart.layer = BATTLE_LAYERS["top"]
 				Game.battle:addChild(heart)
 				self.ammo = self.ammo - 1
 			end

@@ -39,19 +39,6 @@ function Character:init(actor, x, y)
     self.alert_timer = 0
     self.alert_icon = nil
     self.alert_callback = nil
-
-    if self.actor.id == "noel" then
-        print("21")
-        function self:getDebugOptions(context)
-            --local context = context
-    --context:addMenuItem("Cropy", "Copy this object to paste it later", function()
-    --    Kristal.DebugSystem:copyObject(self)
-    --end)
-            local context = Noel:getDebugOptions(context, self)
-            return context
-        end
-
-    end
 end
 
 function Character:getDebugInfo()
@@ -62,15 +49,6 @@ function Character:getDebugInfo()
     end
     table.insert(info, "Noclip: " .. (self.noclip and "True" or "False"))
     return info
-end
-
--- TODO: pr these to upstream
--- if there's a merge conflict accept kristal (incoming change)
-function Character:getName()
-    return self.actor:getName()
-end
-function Character:getFont()
-    return self.actor:getFont()
 end
 
 function Character:onAdd(parent)

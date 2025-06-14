@@ -116,6 +116,8 @@ function character:init()
     self.gameover_message = { "You aren't done,\nbuddy.[wait:10] Give em'\nhell!" }
 	
 	self.frost_resist = true
+	
+	self.tv_name = "DESS"
 end
 
 function character:onArc()

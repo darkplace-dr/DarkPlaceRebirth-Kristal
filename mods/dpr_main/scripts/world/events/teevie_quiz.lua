@@ -82,6 +82,9 @@ function TeevieQuiz:init(data)
 	self.cur_answer_b = "???"
 	self.cur_correct_answer = nil
 	self.quizzed = false
+
+	-- Table to store spisific party member answers
+	self.party_answers = {}
 end
 
 function TeevieQuiz:onLoad()
@@ -735,66 +738,86 @@ function TeevieQuiz:update()
 				end
 				if self.answer ~= nil and not self.answered then
 					self.is_paused = true
+					
+					--Part that handles party member answers
 					Game.world:startCutscene(function(cutscene)
-						local party2 = nil
-						local party3 = nil
-						cutscene:wait(2/30)
-						if Game.party[3] then
-							party3 = cutscene:getCharacter(Game.party[3].id)
+
+						local function handlePartyAnswer(party, indexA, indexB, chara)
+
+							local quiz_ans
+							local quiz_ans_bad
+
 							if self.answer == "A" then
-								party3:setFacing("left")
-								if Game.party[3].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
-									self.button[6]:press()
-									self.dess_wrong_answer = "B"
-								else
-									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
-									self.button[5]:press()
-								end
-								party3:setFacing("up")
-							elseif self.answer == "B" then
-								party3:setFacing("right")
-								if Game.party[3].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party3, self.button[5].x+20, party3.y, 6/30))
-									self.button[5]:press()
-									self.dess_wrong_answer = "A"
-								else
-									cutscene:wait(cutscene:walkTo(party3, self.button[6].x+20, party3.y, 6/30))
-									self.button[6]:press()
-								end
-								party3:setFacing("up")
+								quiz_ans = indexB
+								quiz_ans_bad = indexA
+							else
+								quiz_ans = indexA
+								quiz_ans_bad = indexB
 							end
+
+							if chara == "dess" and self.dess_answer_wrong then
+								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans_bad].x+20, party.y, 6/30))
+								self.button[quiz_ans_bad]:press()
+								if self.answer == "A" then
+									self.dess_wrong_answer = "B"
+									self.party_answers[chara] = "B"
+								else
+									self.dess_wrong_answer = "A"
+									self.party_answers[chara] = "A"
+								end
+							elseif chara == "noel" then
+
+								local a, b = 5, 6
+								if Game.party[2].id == "noel" then
+									a, b = 3, 4
+								end
+
+								local noel_save = Noel:getFlag("teevie_quiz" ..self.cur_question_text)
+								local noel_table = {a, b}
+								local pick = b
+								self.party_answers[chara] = "B"
+								if Noel:getFlag("teevie_quiz" ..self.cur_question_text) then
+									if noel_save == "A" then
+                                        pick = a
+										self.party_answers[chara] = "A"
+									end
+								else
+									local meth = math.random(1, 2)
+									local pick = noel_table[meth]
+									self.party_answers[chara] = "A"
+									if meth == 2 then self.party_answers[chara] = "B" end
+									Noel:setFlag("teevie_quiz" ..self.cur_question_text, self.cur_correct_answer)
+								end
+								cutscene:wait(cutscene:walkTo(party, self.button[pick].x+20, party.y, 6/30))
+								self.button[pick]:press()
+							else
+								cutscene:wait(cutscene:walkTo(party, self.button[quiz_ans].x+20, party.y, 6/30))
+								self.button[quiz_ans]:press()
+								self.party_answers[chara] = self.answer
+							end
+							party:setFacing("up")
+						end
+						
+						cutscene:wait(2/30)
+
+						if Game.party[3] then
+							local party3 = cutscene:getCharacter(Game.party[3].id)
+							handlePartyAnswer(party3, 6, 5, Game.party[3].id)
 							self.party3_select = true
 						end
+
 						cutscene:wait(4/30)
+
 						if Game.party[2] then
-							party2 = cutscene:getCharacter(Game.party[2].id)
-							if self.answer == "A" then
-								party2:setFacing("left")
-								if Game.party[2].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
-									self.button[4]:press()
-									self.dess_wrong_answer = "B"
-								else
-									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
-									self.button[3]:press()
-								end
-								party2:setFacing("up")
-							elseif self.answer == "B" then
-								party2:setFacing("right")
-								if Game.party[2].id == "dess" and self.dess_answer_wrong then
-									cutscene:wait(cutscene:walkTo(party2, self.button[3].x+20, party2.y, 6/30))
-									self.button[3]:press()
-									self.dess_wrong_answer = "A"
-								else
-									cutscene:wait(cutscene:walkTo(party2, self.button[4].x+20, party2.y, 6/30))
-									self.button[4]:press()
-								end
-								party2:setFacing("up")
-							end
+							local party2 = cutscene:getCharacter(Game.party[2].id)
+							handlePartyAnswer(party2, 4, 3, Game.party[2].id)
 							self.party2_select = true
 						end
 					end)
+
+
+
+
 					if self.answer == self.cur_correct_answer then
 						self.result = true
 					else
@@ -1026,27 +1049,47 @@ function TeevieQuiz:draw()
 			Draw.draw(self.quiz_timer_sprite[1 + math.floor(28 - ((self.countdown_timer / self.max_time) * 28))], 210, 90, 0, 4, 4)
 			local answer_color = {1,1,1,1}
 			love.graphics.setFont(self.bigfont)
-			if self.answer == "A" then
+			if self.answer then
 				answer_color = {1,1,0,1}
 				
-				if self.party2_select and (self.dess_position ~= 2 and self.dess_answer_wrong ~= "A") then
+				if self.party2_select and self.party_answers then
+
 					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-					Draw.setColor(answer_color)
-					love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+					
+					if self.party_answers[Game.party[2].id] == "A" then
+						love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+						Draw.setColor(answer_color)
+						love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+					else
+						love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
+						Draw.setColor(answer_color)
+						love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
+					end
 				end
-				if self.party3_select and (self.dess_position ~= 3 and self.dess_answer_wrong ~= "A") then
+				if self.party3_select and self.party_answers then
+
 					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-					Draw.setColor(answer_color)
-					love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+
+					if self.party_answers[Game.party[3].id] == "A" then
+						love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+						Draw.setColor(answer_color)
+						love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
+					else
+						love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
+						love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
+						Draw.setColor(answer_color)
+						love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
+					end
 				end
 			end
-			if self.dess_wrong_answer == "A" then
+			--[[if self.dess_wrong_answer == "A" then
 				if Game.party[2].id == "dess" then
 					Draw.setColor(self.gameshowdblue)
 					love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
@@ -1062,7 +1105,7 @@ function TeevieQuiz:draw()
 					Draw.setColor({1,1,0,1})
 					love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
 				end
-			end
+			end]]
 			Draw.setColor(self.gameshowdblue)
 			love.graphics.print("A", 120-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 			love.graphics.print("A", 120-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
@@ -1080,27 +1123,8 @@ function TeevieQuiz:draw()
 			
 			love.graphics.setFont(self.bigfont)
 			answer_color = {1,1,1,1}
-			if self.answer == "B" then
-				answer_color = {1,1,0,1}
-				
-				if self.party2_select and (self.dess_position ~= 2 and self.dess_answer_wrong ~= "B") then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-					Draw.setColor(answer_color)
-					love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-				end
-				if self.party3_select and (self.dess_position ~= 3 and self.dess_answer_wrong ~= "B") then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-					Draw.setColor(answer_color)
-					love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-				end
-			end
-			if self.dess_wrong_answer == "B" then
+
+			--[[if self.dess_wrong_answer == "B" then
 				if Game.party[2].id == "dess" then
 					Draw.setColor(self.gameshowdblue)
 					love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
@@ -1116,7 +1140,7 @@ function TeevieQuiz:draw()
 					Draw.setColor({1,1,0,1})
 					love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
 				end
-			end
+			end]]
 			Draw.setColor(self.gameshowdblue)
 			love.graphics.print("B", 360-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 			love.graphics.print("B", 360-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 46,
+  nextobjectid = 49,
   properties = {
     ["border"] = "teevie",
     ["music"] = "deltarune/tv_world"
@@ -503,6 +503,22 @@ return {
             ["map"] = "floortv/quiztest",
             ["marker"] = "entry_left"
           }
+        },
+        {
+          id = 48,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = 240,
+          width = 40,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floortv/stealthtest",
+            ["marker"] = "spawn"
+          }
         }
       }
     },
@@ -539,6 +555,19 @@ return {
           type = "",
           shape = "point",
           x = 920,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 46,
+          name = "entry_left",
+          type = "",
+          shape = "point",
+          x = 80,
           y = 320,
           width = 0,
           height = 0,

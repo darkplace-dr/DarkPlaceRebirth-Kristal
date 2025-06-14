@@ -283,6 +283,9 @@ function PartyMember:init()
 	
 	-- did this character graduate high school?
 	self.graduate = false
+	
+	-- their TV name
+	self.tv_name = nil
 end
 
 -- Callbacks
@@ -395,6 +398,12 @@ function PartyMember:getHealth() return Game:isLight() and self.lw_health or sel
 function PartyMember:getSavedMHP() return self.saved_mhp end
 
 function PartyMember:getStarmanTheme() return "default" end
+
+function PartyMember:getTVName()
+	if self.tv_name then return self.tv_name end
+	local first_three = string.sub(self.name, 1, 3)
+	return string.upper(first_three)
+end
 
 ---@param light? boolean
 function PartyMember:getBaseStats(light)

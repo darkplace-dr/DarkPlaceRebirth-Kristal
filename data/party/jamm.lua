@@ -183,4 +183,9 @@ function character:getGameOverMessage(main)
     }
 end
 
+function character:getTVName()
+	if Game:getFlag("marcy_joined") then return "J+M" end
+	return "JAM"
+end
+
 return character

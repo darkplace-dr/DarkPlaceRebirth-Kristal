@@ -52,8 +52,8 @@ function MainMenu:enter()
     self.default_name_screen = MainMenuDefaultName(self)
     self.controls = MainMenuControls(self)
     self.deadzone_config = MainMenuDeadzone(self)
-    self.dlc_handler = MainMenuDLCHandler(self)
-    self.warning_handler = MainMenuWarningHandler(self)
+    self.dlc_list = MainMenuDLC(self)
+    self.warning = MainMenuWarning(self)
     self.plugins = MainMenuPlugins(self)
 
     -- Register states
@@ -72,8 +72,8 @@ function MainMenu:enter()
     self.state_manager:addState("DEFAULTNAME", self.default_name_screen)
     self.state_manager:addState("CONTROLS", self.controls)
     self.state_manager:addState("DEADZONE", self.deadzone_config)
-    self.state_manager:addState("DLC", self.dlc_handler)
-    self.state_manager:addState("WARNING", self.warning_handler)
+    self.state_manager:addState("DLC", self.dlc_list)
+    self.state_manager:addState("WARNING", self.warning)
     self.state_manager:addState("plugins", self.plugins)
 
     for _, mod in ipairs(Kristal.Mods.getMods()) do
@@ -156,6 +156,17 @@ function MainMenu:enter()
         startTimestamp = os.time(),
         instance = 1
     })
+
+    GitFinder:fetchLatestCommit(function(status, body, headers)
+        local current_commit = GitFinder:fetchCurrentCommit()
+        if current_commit ~= body then
+            self.ver_string = "v" .. tostring(Kristal.Version)
+            if trimmed_commit then
+                self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
+            end
+            self.ver_string = self.ver_string .. " (outdated!)"
+        end
+    end)
 end
 
 function MainMenu:leave()
@@ -465,12 +476,44 @@ function MainMenu:drawVersion()
         return
     end
 
-    local _,ver_string_wrap = self.small_font:getWrap(self.ver_string, SCREEN_WIDTH)
-    local ver_y = SCREEN_HEIGHT - #ver_string_wrap * self.small_font:getHeight()
+    local ver_y = SCREEN_HEIGHT - self.small_font:getHeight()
 
-    love.graphics.setFont(self.small_font)
-    Draw.setColor(1, 1, 1, 0.5)
-    love.graphics.print(self.ver_string, 4, ver_y)
+    if not TARGET_MOD then
+        local ver_string = self.ver_string
+        if self.state == "TITLE" and Kristal.Version.major == 0 then
+            ver_string = ver_string .. " (Unstable)"
+        end
+
+        love.graphics.setFont(self.small_font)
+        Draw.setColor(1, 1, 1, 0.5)
+        love.graphics.print(ver_string, 4, ver_y)
+
+        if self.selected_mod then
+            local compatible, mod_version = self.mod_list:checkCompatibility()
+            if not compatible then
+                Draw.setColor(1, 0.5, 0.5, 0.75)
+                local op = "/"
+                if Kristal.Version < mod_version then
+                    op = "<"
+                elseif Kristal.Version > mod_version then
+                    op = ">"
+                end
+                love.graphics.print(" " .. op .. " v" .. tostring(mod_version), 4 + self.small_font:getWidth(ver_string),
+                    ver_y)
+            end
+        end
+    else
+        local full_ver = "Kristal: " .. self.ver_string
+
+        if self.selected_mod.version then
+            ver_y = ver_y - self.small_font:getHeight()
+            full_ver = self.selected_mod.name .. ": " .. self.selected_mod.version .. "\n" .. full_ver
+        end
+
+        love.graphics.setFont(self.small_font)
+        Draw.setColor(1, 1, 1, 0.5)
+        love.graphics.print(full_ver, 4, ver_y)
+    end
 
     Draw.setColor(1, 1, 1)
     love.graphics.setFont(self.menu_font)

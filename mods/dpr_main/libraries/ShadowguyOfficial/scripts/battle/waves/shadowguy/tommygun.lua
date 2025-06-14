@@ -7,24 +7,9 @@ function ShadowguyTommyGun:init()
 	self.type = 0
     self.enemies = self:getAttackers()
 	self.sameattack = 0
-	if #Game.battle.enemies == 1 then
-		self.time = 90/30
-	end
 	if #self.enemies > 1 then
 		self.sameattack = #self.enemies-1
 	end
-	self.sameattacker = 0
-	if Utils.containsValue(self.enemies, Game.battle.enemies[3]) then
-		self.sameattacker = self.sameattack - 1
-	elseif Utils.containsValue(self.enemies, Game.battle.enemies[2]) then
-		for i,enemy in ipairs(Game.battle:getActiveEnemies()) do
-			local wave = enemy.selected_wave
-			if type(wave) == "table" and wave.id == self.id or wave == self.id then
-				self.sameattacker = i
-			end
-		end
-	end
-	self.dir = self.sameattacker
 	self.count = love.math.random(0, 4)
 	self.rep = 1
 	self.guntimer = 0
@@ -124,6 +109,7 @@ function ShadowguyTommyGun:onStart()
 							self.count = -10
 							actor.gun_rot = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(6) - math.rad(love.math.random(0,12))
 						end
+						x, y = gun:getRelativePos(9, 32, Game.battle)
 						local bullet = self:spawnBullet("shadowguy/tommygun_bullet", x, y)
 						bullet.physics.direction = actor.gun_rot
 						bullet.physics.speed = bullet_speed*1.5
