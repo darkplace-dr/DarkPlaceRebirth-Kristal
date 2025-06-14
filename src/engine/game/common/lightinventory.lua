@@ -26,10 +26,10 @@ function LightInventory:clear()
     super.clear(self)
 
     self.storages = {
-        ["items"] =     {id = "items", max = 8,  sorted = true, name = "INVENTORY", fallback = "box_a"},
+        ["items"] = {id = "items", max = 8,  sorted = true, name = "INVENTORY", fallback = "box_a"},
         ["key_items"] = {id = "key_items", max = 32,  sorted = true, name = "INVENTORY", fallback = nil},
-        ["box_a"] =     {id = "box_a", max = 10, sorted = true, name = "BOX",       fallback = "box_b"},
-        ["box_b"] =     {id = "box_b", max = 10, sorted = true, name = "BOX",       fallback = nil    },
+        ["box_a"] = {id = "box_a", max = 10, sorted = true, name = "BOX",       fallback = "box_b"},
+        ["box_b"] = {id = "box_b", max = 10, sorted = true, name = "BOX",       fallback = nil    },
     }
 
     Kristal.callEvent(KRISTAL_EVENT.createLightInventory, self)

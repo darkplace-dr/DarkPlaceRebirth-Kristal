@@ -1,37 +1,57 @@
---- An enemy that can chase the player and start encounters. \
---- ChaserEnemies are `Event`s and therefore can be added to a map by naming an object `enemy`. \
---- Several properties on ChaserEnemies can be configured. See the `Fields` section for properties that can be configured.
+--- An enemy found in the Overworld that can chase the player and start encounters. \
+--- `ChaserEnemy` is an `Event`* - naming an object `enemy` on an `objects` layer in a map creates this object. *(Does not inherit the `Event` class, inherits [`Character`](lua://Character.lua)) \
+--- See this object's Fields for the configurable properties on this object.
 ---
 ---@class ChaserEnemy : Character
 ---
----@field encounter     string  The encounter ID that will trigger when the player collides with the enemy.
----@field enemy         string  The actor ID to use for this enemy.
----@field group         string  An arbitrary ID that can be be used to group enemies together in a room. When one enemy in a group is defeated, all enemies in the group are defeated as well. 
+---@field encounter     string  *[Property `encounter`]* The encounter ID that will trigger when the player collides with the enemy.
+---@field enemy         string  *[Property `enemy`]* The actor ID to use for this enemy.
+---@field group         string  *[Property `group`]* An arbitrary ID that can be be used to group enemies together in a room. When one enemy in a group is defeated, all enemies in the group are defeated as well. 
 ---
----@field path          string  The name of a path shape in the current map that the enemy will follow.
----@field speed         number  The speed that the enemy will move along the path specified in `path`, if defined.
+---@field path          string  *[Property `path`]* The name of a path shape in the current map that the enemy will follow.
+---@field speed         number  *[Property `speed`]* The speed that the enemy will move along the path specified in `path`, if defined.
 ---
----@field progress      number  The initial progress of the enemy along their path, if defined, as a decimal value between 0 and 1.
+---@field progress      number  *[Property `progress`]* The initial progress of the enemy along their path, if defined, as a decimal value between 0 and 1.
 ---
----@field can_chase     boolean (Named `chase` in maps) Whether the enemy will chase after players it catches sight of. Defaults to `true`.
----@field chasing       boolean Whether the enemy is chasing the player when they enter the room. Defaults to `false`.
----@field chase_dist    number  (Named `chasedist` in maps) The distance, in pixels, that the enemy can see the player from. Defaults to `200`.
+---@field can_chase     boolean *[Property `chase`]* Whether the enemy will chase after players it catches sight of (Defaults to `true`)
+---@field chasing       boolean *[Property `chasing`]* Whether the enemy is chasing the player when they enter the room. (Defaults to `false`)
+---@field chase_dist    number  *[Property `chasedist`]* The distance, in pixels, that the enemy can see the player from (Defaults to `200`)
 ---
----@field chase_type    string  (Naamed `chasetype` in maps) The name of the chasetype to use. See CHASETYPE for available types.
----@field chase_speed   number  (Named `chasespeed` in maps) The speed the enemy will chase the player at, in pixels per frame at 30FPS. Defaults to `9`.
----@field chase_max     number  (Named `chasemax` in maps) The maximum speed the enemy will chase the player at, if `chase_accel` is set. Speed is uncapped if unset.
----@field chase_accel   number  (Named `chaseaccel` in maps) The acceleration of the enemy when chasing the player, in change of pixels per frame at 30FPS, or a multiplier of speed when in `multiplier` mode.
+---@field chase_type    string  *[Property `chasetype`]* The name of the chasetype to use. See [CHASETYPE](lua://CHASETYPE) for available types.
+---@field chase_speed   number  *[Property `chasespeed`]* The speed the enemy will chase the player at, in pixels per frame at 30FPS (Defaults to `9`)
+---@field chase_max     number  *[Property `chasemax`]* The maximum speed the enemy will chase the player at, if `chase_accel` is set (Speed is uncapped if unset)
+---@field chase_accel   number  *[Property `chaseaccel`]* The acceleration of the enemy when chasing the player, in change of pixels per frame at 30FPS, or a multiplier of speed when in `multiplier` mode.
 ---
----@field pace_type     string  (Named `pacetype` in maps) The type of pacing that the enemy will do while idling. See PACETYPE for available types. Defaults to nothing.
----@field pace_marker   table   (Named `marker` in maps) The name of a marker, or a list of markers (marker1, marker2, marker3, ...) that the enemy will pace between when `wander` pacing.
----@field pace_interval number  (Named `paceinterval` in maps) The interval between actions when `wander` pacing. Defaults to `24`
----@field pace_speed    number  (Named `pacespeed` in maps) The speed at which the enemy walks when `wander` pacing. Defaults to `2`.
----@field swing_divisor number  (Named `swingdiv` in maps) A divisor for the speed of the swing of this enemy when swing pacing (Higher number = slower). Defaults to `24`.
----@field swing_length  number  (Named `swinglength` in maps) The full length swing covered by this enemy when swing pacing. The enemy placement position is the center of the line. Defaults to `400`
+---@field pace_type     string  *[Property `pacetype`]* The type of pacing that the enemy will do while idling. See [PACETYPE](lua://PACETYPE) for available types.
+---@field pace_marker   table   *[Property list `marker`]* The name of a marker, or a list of markers that the enemy will pace between when `wander` pacing.
+---@field pace_interval number  *[Property `paceinterval`]* The interval between actions when `wander` pacing (Defaults to `24`)
+---@field pace_return   boolean *[Property `pacereturn`]* Whether the enemy should return to its spawn point between every point when its `pace_type` is set to `wander` or `randomwander`. (Defaults to `true`)
+---@field pace_speed    number  *[Property `pacespeed`]* The speed at which the enemy walks when `wander` pacing (Defaults to `2`)
+---@field swing_divisor number  *[Property `swingdiv`]* A divisor for the speed of the swing of this enemy when swing pacing (Higher number = slower) (Defaults to `24`)
+---@field swing_length  number  *[Property `swinglength`]* The full length swing covered by this enemy when swing pacing. The enemy placement position is the center of the line (Defaults to `400`)
 ---
----@field once          boolean Whether this enemy can only be encountered once (Will not respawn when the room reloads). Defaults to `false`.
+---@field once          boolean *[Property `once`]* Whether this enemy can only be encountered once (Will not respawn when the room reloads) (Defaults to `false`)
 ---
----@field aura          boolean Whether this enemy will have an aura around it as seen with enemies in Deltarune Chapter 2. Overrides the mod-wide config for enemy auras.
+---@field aura          boolean *[Property `aura`]* Whether this enemy will have an aura around it as seen with enemies in Deltarune Chapter 2. Overrides the mod-wide config for enemy auras.
+---
+---*[Property `actor`]* Actor to use for this enemy \
+---*[Property `sprite` or `animation`]* Default sprite/animation to set on this enemy
+---@field sprite        ActorSprite 
+---
+---@field chase_timer       number
+---@field pace_timer        number
+---@field chase_init_speed  number
+---@field spawn_x           number
+---@field spawn_y           number
+---@field pace_index        integer
+---@field wandering         boolean
+---@field return_to_spawn   boolean
+---@field noclip            boolean
+---@field enemy_collision   boolean
+---@field remove_on_encounter   boolean
+---@field encountered       boolean
+---@field visible           boolean
+---@field reverse_progress  boolean
 ---
 ---@overload fun(actor: string|Actor, x?: number, y?: number, properties?: table) : ChaserEnemy
 local ChaserEnemy, super = Class(Character, "enemy")
@@ -73,6 +93,7 @@ function ChaserEnemy:init(actor, x, y, properties)
     self.pace_type = properties["pacetype"]
     self.pace_marker = Utils.parsePropertyList("marker", properties)
     self.pace_interval = properties["paceinterval"] or 24
+    self.pace_return  = properties["pacereturn"] or true
     self.pace_speed = properties["pacespeed"] or 4
     self.swing_divisor = properties["swingdiv"] or 24
     self.swing_length = properties["swinglength"] or 400
@@ -124,36 +145,32 @@ end
 
 function ChaserEnemy:onCollide(player)
     if self:isActive() and player:includes(Player) then
-		if player.invincible_colors then
-			self:explode()
-		else
-			self.encountered = true
-			local encounter = self.encounter
-			if not encounter and Registry.getEnemy(self.enemy or self.actor.id) then
-				encounter = Encounter()
-				encounter:addEnemy(self.actor.id)
-			end
-			if encounter then
-				self.world.encountering_enemy = true
-				self.sprite:setAnimation("hurt")
-				self.sprite.aura = false
-				Game.lock_movement = true
-				self.world.timer:script(function(wait)
-					Assets.playSound("tensionhorn")
-					wait(8/30)
-					local src = Assets.playSound("tensionhorn")
-					src:setPitch(1.1)
-					wait(12/30)
-					self.world.encountering_enemy = false
-					Game.lock_movement = false
-					local enemy_target = self
-					if self.enemy then
-						enemy_target = {{self.enemy, self}}
-					end
-					Game:encounter(encounter, true, enemy_target, self)
-				end)
-			end
-		end
+        self.encountered = true
+        local encounter = self.encounter
+        if not encounter and Registry.getEnemy(self.enemy or self.actor.id) then
+            encounter = Encounter()
+            encounter:addEnemy(self.actor.id)
+        end
+        if encounter then
+            self.world.encountering_enemy = true
+            self.sprite:setAnimation("hurt")
+            self.sprite.aura = false
+            Game.lock_movement = true
+            self.world.timer:script(function(wait)
+                Assets.playSound("tensionhorn")
+                wait(8/30)
+                local src = Assets.playSound("tensionhorn")
+                src:setPitch(1.1)
+                wait(12/30)
+                self.world.encountering_enemy = false
+                Game.lock_movement = false
+                local enemy_target = self
+                if self.enemy then
+                    enemy_target = {{self.enemy, self}}
+                end
+                Game:encounter(encounter, true, enemy_target, self)
+            end)
+        end
     end
 end
 
@@ -298,6 +315,7 @@ function ChaserEnemy:update()
                             self:setAnimation("chasing")
                         end})
                         self:setAnimation("alerted")
+                        self:onAlerted()
                     end
                 end
                 Object.endCache()
@@ -310,7 +328,21 @@ function ChaserEnemy:update()
     super.update(self)
 end
 
---- Responsible for movement of the ChaserEnemy when it has been alterted of a player's presence. \
+--- *(Override)* Called whenever the enemy is alerted of the player's presence. \
+--- *By default, used to cancel any potentially active movement for standard pacetypes.*
+function ChaserEnemy:onAlerted()
+    if self.physics.move_target and self.physics.move_target.after then
+        self.physics.move_target:after()
+    end
+    self.physics.move_target = nil
+
+    if self.physics.move_path and self.physics.move_path.after then
+        self.physics.move_path:after()
+    end
+    self.physics.move_path = nil
+end
+
+--- *(Override)* Responsible for movement of the `ChaserEnemy` when it has been alerted of a player's presence. \
 --- This function can be hooked to add custom chase types.
 function ChaserEnemy:chaseMovement()
     if not self.world.player then
@@ -339,7 +371,7 @@ function ChaserEnemy:chaseMovement()
 
 end
 
---- Responsible for movement of the ChaserEnemy when idle. Only called if `pace_type` is set. \
+--- *(Override)* Responsible for movement of the `ChaserEnemy` when idle. Only called if `pace_type` is set. \
 --- This function can be hooked to add custom pace types.
 function ChaserEnemy:paceMovement()
     self.pace_timer = self.pace_timer + DTMULT
@@ -350,7 +382,9 @@ function ChaserEnemy:paceMovement()
         
         if not self.return_to_spawn then
             self.wandering = true
-            self.return_to_spawn = true
+            if self.pace_return or self.pace_index == #self.pace_marker then
+                self.return_to_spawn = true
+            end
             self:walkToSpeed(self.pace_marker[self.pace_index], self.pace_speed, nil, false, function() self.pace_timer = 0; self.wandering = false end)
             self.pace_index = Utils.clampWrap(self.pace_index + 1, 1, #self.pace_marker)
             return
@@ -365,7 +399,9 @@ function ChaserEnemy:paceMovement()
 
         if not self.return_to_spawn then
             self.wandering = true
-            self.return_to_spawn = true
+            if self.pace_return then
+                self.return_to_spawn = true
+            end
             self:walkToSpeed(Utils.pick(self.pace_marker), self.pace_speed, nil, false, function() self.pace_timer = 0; self.wandering = false end)
             return
         end
@@ -380,19 +416,6 @@ function ChaserEnemy:paceMovement()
         local x = Utils.wave(self.pace_timer / self.swing_divisor, self.spawn_x - (self.swing_length / 2), self.spawn_x + (self.swing_length / 2))
         self:moveTo(x, self.y)
     end
-end
-
-function ChaserEnemy:getBackFace()
-	local player = Game.world.player
-	if player.facing == "right" then
-		return "left"
-	elseif player.facing == "left" then
-		return "right"
-	elseif player.facing == "up" then
-		return "down"
-	elseif player.facing == "down" then
-		return "up"
-	end
 end
 
 return ChaserEnemy
