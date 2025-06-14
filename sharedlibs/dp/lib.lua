@@ -20,6 +20,9 @@ function lib:onRegistered()
     end
 end
 
+---@generic T
+---@param id CodeBlock.`T`
+---@return T
 function lib:createCodeblock(id, data)
     local block = self.codeblocks[id]()
     if data then

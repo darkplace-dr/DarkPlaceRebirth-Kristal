@@ -1100,6 +1100,7 @@ function Battle:processCharacterActions()
 
     -- Always process SKIP actions at the end
     table.insert(order, "SKIP")
+    table.insert(order, "DECIDE")
 
     for _,action_group in ipairs(order) do
         if self:processActionGroup(action_group) then
@@ -1399,6 +1400,13 @@ function Battle:processAction(action)
 
     elseif action.action == "SKIP" then
         return true
+    elseif action.action == "DECIDE" then
+        local res = battler.chara:doBattleDescision(battler)
+        if res == true then
+            return true
+        else
+            -- TODO: Fix this case
+        end
 
     elseif action.action == "SPELL" then
         self.battle_ui:clearEncounterText()
