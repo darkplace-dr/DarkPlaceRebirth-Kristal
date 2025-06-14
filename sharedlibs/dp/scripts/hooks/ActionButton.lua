@@ -30,7 +30,7 @@ function ActionButton:select()
             })
         end
         if Game.inventory:hasItem("oddstone") then
-            local item = Registry.createItem("oddstone")
+            local item = Game.inventory:getItemByID("oddstone")
             Game.battle:addMenuItem({
                 ["name"] = item:getName(),
                 ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
