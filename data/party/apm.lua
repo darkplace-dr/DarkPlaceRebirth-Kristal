@@ -136,7 +136,7 @@ function character:runProgramming()
         local scope = {}
         self.programming:run(scope)
     end)
-    return coroutine.resume(rt)
+    return rt, coroutine.resume(rt)
 end
 
 function character:onTurnStart(battler)
@@ -145,15 +145,20 @@ end
 
 ---@param battler PartyBattler
 function character:doBattleDescision(battler)
-    local ok, action, target, data, extra = self:runProgramming()
-    -- TODO: Ideally, not have this dialogue.
-    Game.battle:setActText("[noskip][wait:1][next]")
+    local rt, ok, action = self:runProgramming()
+    if ok then
+        -- TODO: Ideally, not have this dialogue.
+        Game.battle:setActText("[noskip][wait:1][next]")
+    else
+        
+        Game.battle:setActText(tostring(action))
+    end
     Game.battle.timer:after(0, function ()
         if not ok then
             battler:explode(nil,nil, true)
             Game.battle:pushAction("SKIP", nil, nil, Game.battle:getPartyIndex(battler.chara.id))
         elseif action then
-            Game.battle:pushAction(action, target, data, Game.battle:getPartyIndex(battler.chara.id), extra)
+            Game.battle:pushAction(action[1], action[2], action[3], Game.battle:getPartyIndex(battler.chara.id), action[4])
         else
             Game.battle:pushAction("SKIP", nil, nil, Game.battle:getPartyIndex(battler.chara.id))
         end
