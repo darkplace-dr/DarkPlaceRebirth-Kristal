@@ -191,7 +191,7 @@ local devroom = {
             cutscene:textTagged("* tenna is a faker ok? you dont compare me to that fucker")
             arlee:setAnimation({"idle", 0.045, true})
             cutscene:hideNametag()
-		elseif cutscene:getCharacter("jamm") then -- make sure this character is always next to last
+		elseif cutscene:getCharacter("jamm") then
             cutscene:setSpeaker("jamm")
 			cutscene:showNametag("jamm")
             cutscene:textTagged("* Sorry,[wait:5] still paying student loans.", "nervous", "jamm")

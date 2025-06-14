@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 93,
+  nextobjectid = 95,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -680,22 +680,6 @@ return {
           }
         },
         {
-          id = 29,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = -40,
-          y = 920,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "hub_fuseroom",
-            ["marker"] = "entry"
-          }
-        },
-        {
           id = 30,
           name = "transition",
           type = "",
@@ -972,6 +956,22 @@ return {
           properties = {
             ["cond"] = "Game:getFlag(\"FUN\", 0) > 40 and Game:getFlag(\"FUN\", 0) < 50 and Game:getFlag(\"hasPushedSans\")",
             ["cutscene"] = "hub.sans_under_attack",
+            ["once"] = false
+          }
+        },
+        {
+          id = 94,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = 920,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hub.transitionS",
             ["once"] = false
           }
         }

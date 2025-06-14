@@ -1287,6 +1287,22 @@ local hub = {
         end
     end,
 
+    transitionS = function(cutscene, event)
+        if love.math.random(1, 1000) <= 5 then
+            cutscene:mapTransition("satan", "spawn")
+            -- default wait func waits for the fade animation to end. movement should be allowed slightly before that
+            cutscene:wait(function () return Game.world.map.id == "satan" end)
+            local timeout = .5
+            cutscene:during(function () timeout = timeout - DT end)
+            -- prevent player from accidentally exiting the room
+            cutscene:wait(function ()
+                return Input.up("left") or (timeout <= 0)
+            end)
+        else
+            cutscene:mapTransition("hub_fuseroom", "entry")
+        end
+    end,
+
     warp_bin_note = function(cutscene, event)
         local dess = cutscene:getCharacter("dess")
 	
