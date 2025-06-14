@@ -70,9 +70,6 @@ function Actor:init()
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {}
-
-    -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
-    self.taunt_sprites = {}
 end
 
 -- Callbacks
@@ -150,8 +147,6 @@ function Actor:getPortraitPath() return self.portrait_path end
 function Actor:getPortraitOffset() return unpack(self.portrait_offset or {0, 0}) end
 function Actor:getMiniface() return self.miniface end
 function Actor:getMinifaceOffset() return unpack(self.miniface_offset or {0, 0}) end
-
-function Actor:getShinyID() return self.shiny_id or self.id end
 
 function Actor:getFlipDirection(sprite) return self.flip or self.flip_sprites[sprite] end
 

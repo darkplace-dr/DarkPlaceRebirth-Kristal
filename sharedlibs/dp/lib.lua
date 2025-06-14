@@ -304,5 +304,25 @@ function lib:updateBattleTaunt()
     self.taunt_cooldown = Utils.approach(self.taunt_cooldown, 0, DT)
 end
 
+---@param world World
+---@param name string
+---@param data table
+function lib:loadObject(world, name, data)
+    if false then
+    elseif name:lower() == "voidglass" then
+        return VoidGlass(data.x, data.y, rect_data, data.properties["broken"])
+    elseif name:lower() == "warpbin" then
+        return WarpBin(data)
+    elseif name:lower() == "superstar" then
+        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
+    elseif name:lower() == "sprite" then
+        local sprite = Sprite(data.properties["texture"], data.x, data.y)
+        sprite:play(data.properties["speed"], true)
+        sprite:setScale(data.properties["scalex"] or 2, data.properties["scaley"] or 2)
+        sprite:setOrigin(data.properties["originx"] or 0, data.properties["originy"] or 0)
+        return sprite
+    end
+end
+
 
 return lib

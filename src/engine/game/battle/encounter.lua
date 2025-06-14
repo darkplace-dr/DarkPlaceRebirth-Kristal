@@ -46,14 +46,6 @@ function Encounter:init()
 
     -- A copy of Battle.defeated_enemies, used to determine how an enemy has been defeated.
     self.defeated_enemies = nil
-
-    -- Can the player flee the battle?
-	self.flee = true
-	-- Chance out of 100 that the player can flee this battle (x/100)
-	self.flee_chance = 60
-
-    -- Prevents the Dojo background from being added on Boss Rushes and Boss Refights
-    self.no_dojo_bg = false
 end
 
 -- Callbacks
@@ -245,14 +237,10 @@ function Encounter:getNextWaves()
     local waves = {}
     for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
         local wave = enemy:selectWave()
-		if Mod.back_attack and enemy.back_attack then
-			wave = enemy.back_attack
-		end
         if wave then
             table.insert(waves, wave)
         end
     end
-	Mod.back_attack = false
     return waves
 end
 
@@ -287,9 +275,6 @@ end
 function Encounter:getSoulColor()
     return Game:getSoulColor()
 end
-
----@return string
-function Encounter:getSoulFacing() end
 
 --- *(Override)* Gets the position that the soul will appear at when starting waves.
 ---@return integer x
@@ -326,15 +311,9 @@ end
 ---@param x         number  The x-coordinate the soul should spawn at.
 ---@param y         number  The y-coordinate the soul should spawn at.
 ---@param color?    table   A custom color for the soul, that should override its default.
----@return BlueSoul
 ---@return Soul
 function Encounter:createSoul(x, y, color)
-    local player = Game.party[1]
-    if Game:isSpecialMode "BLUE" then
-        return BlueSoul(x, y, color)
-    else
-        return Soul(x, y, color)
-    end
+    return Soul(x, y, color)
 end
 
 ---@return boolean

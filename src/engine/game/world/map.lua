@@ -96,22 +96,10 @@ function Map:load()
     end
 end
 
-function Map:onEnter()
-    Noel:checkNoel()
-end
-
+function Map:onEnter() end
 function Map:onExit() end
 
-function Map:onFootstep(char, num)
-	local date = os.date("*t")
-	if date.month == 3 and date.day == 14 and not Game:getFlag("disable_spongestep") then
-		if num == 1 then
-            Assets.playSound("spongestep_1")
-        elseif num == 2 then
-            Assets.playSound("spongestep_2")
-        end
-	end
-end
+function Map:onFootstep(char, num) end
 
 function Map:onGameOver() end
 
@@ -211,9 +199,9 @@ function Map:getEvent(id)
     end
 end
 
---- Gets a list of all instances of one type of event in the current map.
----@param name string The text id of the event to search for.
----@return table events A table containing every instance of the event in the current map.
+--- Gets a list of all instances of one type of event in the current maps
+---@param name? string The text id of the event to search for, fetches every event if `nil`
+---@return Event[] events A table containing every instance of the event in the current map
 function Map:getEvents(name)
     if name then
         return self.events_by_name[name] or {}
@@ -641,22 +629,6 @@ function Map:loadObjects(layer, depth, layer_type)
                 else
                     skip_loading = not inverted
                 end
-            elseif v.properties["dlc"] then
-                local dlc_list = Utils.splitFast(v.properties["dlc"], ";")
-                for i,dlc_id in ipairs(dlc_list) do
-                    local inverted, id = Utils.startsWith(dlc_id:gsub(" ", ""), "!")
-
-                    result = Game:hasDLC(id)
-
-                    if inverted then
-                        result = not result
-                    end
-
-                    if not result then
-                        skip_loading = true
-                        break
-                    end
-                end
             end
 
             if not skip_loading then
@@ -780,25 +752,18 @@ function Map:loadObject(name, data)
         return TileButton(data.x, data.y, rect_data, data.properties)
     elseif name:lower() == "magicglass" then
         return MagicGlass(data.x, data.y, rect_data)
-    elseif name:lower() == "voidglass" then
-        return VoidGlass(data.x, data.y, rect_data, data.properties["broken"])
     elseif name:lower() == "warpdoor" then
         return WarpDoor(data.x, data.y, data.properties)
-    elseif name:lower() == "warpbin" then
-        return WarpBin(data)
     elseif name:lower() == "darkfountain" then
         return DarkFountain(data.x, data.y)
     elseif name:lower() == "fountainfloor" then
         return FountainFloor(data.x, data.y, rect_data)
     elseif name:lower() == "quicksave" then
         return QuicksaveEvent(data.x, data.y, shape_data, data.properties["marker"])
-    elseif name:lower() == "superstar" then
-        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
     elseif name:lower() == "sprite" then
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)
         sprite:setScale(data.properties["scalex"] or 2, data.properties["scaley"] or 2)
-        sprite:setOrigin(data.properties["originx"] or 0, data.properties["originy"] or 0)
         return sprite
     end
     if data.gid then

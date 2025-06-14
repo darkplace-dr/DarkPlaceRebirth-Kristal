@@ -58,16 +58,6 @@ function PartyBattler:init(chara, x, y)
     self:addChild(self.target_sprite)
 
     self.targeted = false
-
-    self.shield = 0
-	
-	self.guard_chance = 0 -- out of 100
-    for _,equipment in ipairs(self.chara:getEquipment()) do
-        self.guard_chance = self.guard_chance + (equipment.bonuses.guard_chance or 0)
-    end
-	self.guard_mult = self.chara.guard_mult or 0.8
-	
-	self.super_flash = 0
 end
 
 --- *(Override)*
@@ -144,35 +134,6 @@ end
 function PartyBattler:hurt(amount, exact, color, options)
     options = options or {}
 
-    if self.chara.reflectNext then
-        -- ok, remove the reflect thingy
-        self.chara.reflectNext = false
-        -- calculate the amount
-        amount = self:calculateDamage(amount)
-        -- pick a random one
-        -- I would do the attacker but like god am I lazy and I hate the process for this mechanic so much for some reason
-        -- like a disproportionate amount
-        -- so im picking a random one instead of any other bullshit
-        local attackedEnemy = Utils.pick(Game.battle.enemies)
-        -- if the damage is over the character's max HP, set it to that
-        if amount > self.chara:getHealth() then
-            amount = self.chara:getHealth()
-        end
-        -- also, the damage can never kill the enemy outright (for da pacifists)
-        --   ...and also kinda so cheese isn't as possible
-        if amount >= attackedEnemy.health then
-            amount = attackedEnemy.health-1
-        end
-        -- hurt em'
-        attackedEnemy:hurt(amount, self)
-        return
-    end
-
-    if love.math.random(1,100) < self.guard_chance then
-		self:statusMessage("msg", "guard")
-		amount = math.ceil(amount * self.guard_mult)
-	end
-
     if not options["all"] then
         Assets.playSound("hurt")
         if not exact then
@@ -185,19 +146,7 @@ function PartyBattler:hurt(amount, exact, color, options)
             amount = math.ceil((amount * self:getElementReduction(element)))
         end
 
-        if self.chara.id == "noel" then
-            self:noel_damage(amount)
-        elseif self.chara.equipped["weapon"].last_stand then
-            if (self.chara:getHealth() - amount) <= 0 and not self.last_stood then
-                local neardeath = self.chara:getHealth() - 1
-                self:removeHealth(neardeath)
-                self.last_stood = true
-            else
-                self:removeHealth(amount)
-            end
-        else
-            self:removeHealth(amount)
-        end
+        self:removeHealth(amount)
     else
         -- We're targeting everyone.
         if not exact then
@@ -210,152 +159,54 @@ function PartyBattler:hurt(amount, exact, color, options)
                 amount = math.ceil((3 * amount) / 4) -- Slightly different than the above
             end
         end
-
-        if self.chara.id == "noel" then
-            self:noel_damage(amount) -- Use a seprate function for a secret character that nobody will ever find on a regular playthrough.
-        else
-            self:removeHealthBroken(amount) -- Use a separate function for cleanliness
-        end
+        
+        self:removeHealthBroken(amount) -- Use a separate function for cleanliness
     end
 
     if (self.chara:getHealth() <= 0) then
         self:statusMessage("msg", "down", color, true)
     else
-        if self.chara.id == "noel" then
-        -- Logic is done in noel's damage function         
-        else
-            self:statusMessage("damage", amount, color, true)
-        end
+        self:statusMessage("damage", amount, color, true)
     end
 
     self.hurt_timer = 0
     Game.battle:shakeCamera(4)
 
-    self:doOverlay()
-end
-
-function PartyBattler:doOverlay()
-	if (not self.defending) and (not self.is_down) then
-		self.sleeping = false
-		self.hurting = true
-		self:toggleOverlay(true)
-		self.overlay_sprite:setAnimation("battle/hurt", function()
-			if self.hurting then
-				self.hurting = false
-				self:toggleOverlay(false)
-			end
-			
-			if (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) and self.chara.actor:getAnimation("battle/low_health") then
-				self:setAnimation("battle/low_health")
-			end
-		end)
-		if not self.overlay_sprite.anim_frames then -- backup if the ID doesn't animate, so it doesn't get stuck with the hurt animation
-			Game.battle.timer:after(0.5, function()
-				if self.hurting then
-					self.hurting = false
-					self:toggleOverlay(false)
-				end
-			end)
-		end
-	end
-end
-
-function PartyBattler:mhp_hurt(amount, exact, color, options)
-    options = options or {}
-
-    if love.math.random(1,100) < self.guard_chance then
-		self:statusMessage("msg", "guard")
-		amount = math.ceil(amount * self.guard_mult)
-	end
-
-    if not options["all"] then
-        Assets.playSound("hurt")
-        if not exact then
-            amount = self:calculateDamage(amount)
-            if self.defending then
-                amount = math.ceil((2 * amount) / 3)
+    if (not self.defending) and (not self.is_down) then
+        self.sleeping = false
+        self.hurting = true
+        self:toggleOverlay(true)
+        self.overlay_sprite:setAnimation("battle/hurt", function()
+            if self.hurting then
+                self.hurting = false
+                self:toggleOverlay(false)
             end
-            -- we don't have elements right now
-            local element = 0
-            amount = math.ceil((amount * self:getElementReduction(element)))
-        end
-
-        if self.chara.id == "noel" then
-            self:noel_damage(amount) -- lore reasons
-        else
-            self:removeMaxHealth(amount)
-        end
-    else
-        -- We're targeting everyone.
-        if not exact then
-            amount = self:calculateDamage(amount)
-            -- we don't have elements right now
-            local element = 0
-            amount = math.ceil((amount * self:getElementReduction(element)))
-
-            if self.defending then
-                amount = math.ceil((3 * amount) / 4) -- Slightly different than the above
-            end
-        end
-
-        if self.chara.id == "noel" then
-            self:noel_damage(amount)
-        else
-            self:removeMaxHealth(amount) -- Use a separate function for cleanliness
+        end)
+        if not self.overlay_sprite.anim_frames then -- backup if the ID doesn't animate, so it doesn't get stuck with the hurt animation
+            Game.battle.timer:after(0.5, function()
+                if self.hurting then
+                    self.hurting = false
+                    self:toggleOverlay(false)
+                end
+            end)
         end
     end
-
-    if (self.chara:getHealth() <= 0) then
-        self:statusMessage("msg", "fallen", color, true)
-    else
-        if self.chara.id == "noel" then
-        -- Logic is done in noel's damage function         
-        else
-            self:statusMessage("deadly", amount, color, true)
-        end
-    end
-
-    self.hurt_timer = 0
-    Game.battle:shakeCamera(4)
-
-    self:doOverlay()
 end
-
 
 --- Removes health from the character and sets their downed HP value if necessary
 ---@param amount number
-function PartyBattler:removeHealth(amount, pierce)
-	if not Game.battle.superpower then
-		if (self.chara:getHealth() <= 0) then
-			amount = Utils.round(amount / 4)
-			if not pierce then
-				if self.shield < amount then
-					amount = amount - self.shield
-					self.shield = 0
-				else
-					self.shield = self.shield - amount
-					amount = 0
-				end
-			end
-			self.chara:setHealth(self.chara:getHealth() - amount)
-		else
-			if not pierce then
-				if self.shield < amount then
-					amount = amount - self.shield
-					self.shield = 0
-				else
-					self.shield = self.shield - amount
-					amount = 0
-				end
-			end
-			self.chara:setHealth(self.chara:getHealth() - amount)
-			if (self.chara:getHealth() <= 0) then
-				amount = math.abs((self.chara:getHealth() - (self.chara:getStat("health") / 2)))
-				self.chara:setHealth(Utils.round(((-self.chara:getStat("health")) / 2)))
-			end
-		end
-		self:checkHealth()
-	end
+function PartyBattler:removeHealth(amount)
+    if (self.chara:getHealth() <= 0) then
+        amount = Utils.round(amount / 4)
+        self.chara:setHealth(self.chara:getHealth() - amount)
+    else
+        self.chara:setHealth(self.chara:getHealth() - amount)
+        if (self.chara:getHealth() <= 0) then
+            amount = math.abs((self.chara:getHealth() - (self.chara:getStat("health") / 2)))
+            self.chara:setHealth(Utils.round(((-self.chara:getStat("health")) / 2)))
+        end
+    end
+    self:checkHealth()
 end
 
 --- A variant of [`PartyBattler:removeHealth()`](lua://PartyBattler.removeHealth) that uses Kris' (or the first party member)'s HP for downed hp values (used for deltarune accuracy)
@@ -435,18 +286,6 @@ function PartyBattler:revive()
     self:toggleOverlay(false)
 end
 
-function PartyBattler:restoreMaxHealth(health)
-    Assets.stopAndPlaySound("power")
-
-    self.chara:restoreMaxHealth(health)
-    self:checkHealth()
-    self:flash()
-
-    self:statusMessage("msg", "revive")
-
-    self:sparkle(unpack(sparkle_color or {}))
-end
-
 --- Makes the battler flash once.
 ---@param sprite    Sprite? An optional sprite to use for the flash instead of the battler's default sprite.
 ---@param offset_x? number
@@ -462,10 +301,6 @@ end
 ---@param sparkle_color?    table   The color of the heal sparkles (defaults to the standard green)
 ---@param show_up?          boolean Whether the "UP" status message should show if the battler is revived by the heal
 function PartyBattler:heal(amount, sparkle_color, show_up)
-    if self.chara:getStat("health") <= 0 then
-        self:statusMessage("msg", "miss")
-        return
-    end
     Assets.stopAndPlaySound("power")
 
     amount = math.floor(amount)
@@ -532,9 +367,7 @@ end
 --- Gets the icon that should display in the Battler's head slot on their action box
 ---@return string texture
 function PartyBattler:getHeadIcon()
-    if self.is_down then
-        return "head_down"
-    elseif self.sleeping then
+    if self.sleeping then
         return "sleep"
     elseif self.defending then
         return "defend"
@@ -542,8 +375,6 @@ function PartyBattler:getHeadIcon()
         return self.action.icon
     elseif self.hurting then
         return "head_hurt"
-	elseif (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) then
-		return "head_low"
     else
         return "head"
     end
@@ -648,14 +479,6 @@ function PartyBattler:update()
     self.darken_fx.color = {1 - (self.darken_timer / 30), 1 - (self.darken_timer / 30), 1 - (self.darken_timer / 30)}
 
     super.update(self)
-	
-	if Game.battle.superpower then
-		if (self.super_flash - (DT * 30))%30 > self.super_flash%30 then
-			self:sparkle(unpack({1, 1, 1}))
-		end
-		
-		self.super_flash = self.super_flash + DT * 30
-	end
 end
 
 function PartyBattler:draw()
