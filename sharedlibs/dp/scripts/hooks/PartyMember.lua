@@ -63,6 +63,9 @@ function PartyMember:init()
 
     -- their TV name
     self.tv_name = nil
+
+    -- Whether or not this party member can be the leader.
+    self.can_lead = true
 end
 
 function PartyMember:getSavedMHP() return self.saved_mhp end
@@ -92,7 +95,7 @@ function PartyMember:onArc() end
 
 
 
-function PartyMember:getSoulFacing() return self.soul_facing end
+function PartyMember:getSoulFacing() return self.soul_facing or "down" end
 
 function PartyMember:drawEquipStat(menu) end
 
@@ -649,13 +652,17 @@ end
 -- this is kind of lazy tbh but like sue me
 --   -char
 function PartyMember:completeArc()
-	self:setFlag("arc", true)
-	for i,v in pairs(self.stats) do
-		if self.arcBonusStats and self.arcBonusStats[i] then
-			self:increaseStat(i, self.arcBonusStats[i])
-		end
-	end
-	self:onArc()
+    self:setFlag("arc", true)
+    for i,v in pairs(self.stats) do
+        if self.arcBonusStats and self.arcBonusStats[i] then
+            self:increaseStat(i, self.arcBonusStats[i])
+        end
+    end
+    self:onArc()
+end
+
+function PartyMember:canLead()
+    return self.can_lead
 end
 
 return PartyMember

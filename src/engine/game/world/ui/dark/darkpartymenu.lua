@@ -220,6 +220,7 @@ function DarkPartyMenu:update()
 		elseif Input.pressed("confirm") then
 			local selectable = true
 			if self.selected.char then
+				selectable = self.slot_selected ~= 1 or self.selected.char:canLead()
 				for i, v in ipairs(Game.party) do
 					if v.id == self.selected.char.id then
 						selectable = false
