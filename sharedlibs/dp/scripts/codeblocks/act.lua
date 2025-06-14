@@ -1,0 +1,24 @@
+---@class CodeBlock.act : CodeBlock
+local block, super = Class(CodeBlock, "act")
+
+function block:init()
+    super.init(self)
+    self.target = DP:createCodeblock("literal")
+    self.target.value = 1
+end
+
+function block:run(scope)
+    return {"ACT", assert(Game.battle.enemies[self.target:run(scope)]), nil, {name = "Standard"}}
+end
+
+function block:onSave(data)
+    data.target = self.target and self.target:save() or nil
+end
+
+function block:onLoad(data)
+    if data.target then
+        self.target = DP:createCodeblock(data.target.id, data.target)
+    end
+end
+
+return block
