@@ -56,6 +56,7 @@ function ActionButton:select()
         if #Game.battle.menu_items > 0 then
             Game.battle:setState("MENUSELECT", "ITEM")
         end
+    elseif self.type == "spare" then
         local battle_leader = 1
         if self.battler == Game.battle.party[battle_leader] then
             Game.battle:clearMenuItems()
