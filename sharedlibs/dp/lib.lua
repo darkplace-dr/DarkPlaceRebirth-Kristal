@@ -9,6 +9,25 @@ function lib:init()
     self:initBattleTaunt()
 end
 
+function lib:onRegistered()
+    ---@type table<string, CodeBlock>
+    self.codeblocks = {}
+
+    for _,path,block in Registry.iterScripts("codeblocks", true) do
+        assert(block ~= nil, '"codeblocks/'..path..'.lua" does not return value')
+        block.id = block.id or path
+        self.codeblocks[block.id] = block
+    end
+end
+
+function lib:createCodeblock(id, data)
+    local block = self.codeblocks[id]()
+    if data then
+        block:load(data)
+    end
+    return block
+end
+
 function lib:onPause()
     if Game.tutorial then
         PauseLib.paused = false

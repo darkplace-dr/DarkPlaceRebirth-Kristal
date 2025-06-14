@@ -1,3 +1,4 @@
+---@class PartyMember.apm : PartyMember
 local character, super = Class(PartyMember, "apm")
 
 function character:init()
@@ -93,10 +94,34 @@ function character:init()
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil
-	
-	self.tv_name = "APM"
-	
-	self.can_lead = false
+    
+    self.tv_name = "APM"
+    
+    self.can_lead = false
+
+    ---@type CodeBlock
+    self.programming = CodeBlock()
+    local literal = DP:createCodeblock("literal")
+    literal.value = "SKIP"
+    self.programming:addBlock("return").expr = literal
+end
+
+
+function character:onSave(data)
+    super.onSave(self, data)
+    data.programming = self.programming:save()
+end
+
+function character:onLoad(data)
+    super.onLoad(self, data)
+    self.programming = CodeBlock()
+    if data.programming then
+        self.programming:load(data.programming)
+    else
+        local literal = DP:createCodeblock("literal")
+        literal.value = "SKIP"
+        self.programming:addBlock("return").expr = literal
+    end
 end
 
 function character:onLevelUp(level)
@@ -106,16 +131,25 @@ function character:onLevelUp(level)
     end
 end
 
-function character:hasProgramming()
-	return false
+function character:runProgramming()
+    local rt = coroutine.create(function ()
+        local scope = {}
+        self.programming:run(scope)
+    end)
+    return coroutine.resume(rt)
 end
 
+---@param battler PartyBattler
 function character:onTurnStart(battler)
-	if self:hasProgramming() then
-		
-	else
-		Game.battle:pushForcedAction(battler, "SKIP")
-	end
+    local ok, action, target, data, extra = self:runProgramming()
+    if not ok then
+        battler:explode(nil,nil, true)
+        Game.battle:pushForcedAction(battler, "SKIP")
+    elseif action then
+        Game.battle:pushForcedAction(battler, action, target, data, extra)
+    else
+        Game.battle:pushForcedAction(battler, "SKIP")
+    end
 end
 
 return character
