@@ -40,10 +40,6 @@ function Interactable:init(x, y, shape, properties)
 
     self.once = properties["once"] or false
 
-    if properties["texture"] then
-        self:setSprite(properties["texture"])
-    end
-
     self.interact_count = 0
 end
 
