@@ -114,10 +114,12 @@ function character:init()
 
     -- Message shown on gameover (optional)
     self.gameover_message = { "You aren't done,\nbuddy.[wait:10] Give em'\nhell!" }
-	
-	self.frost_resist = true
-	
-	self.tv_name = "DESS"
+
+    self.frost_resist = true
+
+    self.tv_name = "DESS"
+
+    self.can_lead = true
 end
 
 function character:onArc()

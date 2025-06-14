@@ -67,8 +67,10 @@ function character:init()
     self.flags = {
         ["karma"] = 0
     }
-	
-	self.tv_name = "HRO"
+
+    self.tv_name = "HRO"
+
+    self.can_lead = true
 end
 
 function character:onLevelUp(level)
