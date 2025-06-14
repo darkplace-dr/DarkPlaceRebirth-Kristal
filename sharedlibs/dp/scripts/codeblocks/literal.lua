@@ -3,6 +3,7 @@ local block, super = Class(CodeBlock, "literal")
 
 function block:init()
     super.init(self)
+    ---@type boolean|string|number
     self.value = "SKIP"
 end
 
