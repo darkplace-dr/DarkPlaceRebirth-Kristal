@@ -139,17 +139,25 @@ function character:runProgramming()
     return coroutine.resume(rt)
 end
 
----@param battler PartyBattler
 function character:onTurnStart(battler)
+    Game.battle:pushForcedAction(battler, "DECIDE")
+end
+
+---@param battler PartyBattler
+function character:doBattleDescision(battler)
     local ok, action, target, data, extra = self:runProgramming()
-    if not ok then
-        battler:explode(nil,nil, true)
-        Game.battle:pushForcedAction(battler, "SKIP")
-    elseif action then
-        Game.battle:pushForcedAction(battler, action, target, data, extra)
-    else
-        Game.battle:pushForcedAction(battler, "SKIP")
-    end
+    -- TODO: Ideally, not have this dialogue.
+    Game.battle:setActText("[noskip][wait:1][next]")
+    Game.battle.timer:after(0, function ()
+        if not ok then
+            battler:explode(nil,nil, true)
+            Game.battle:pushAction("SKIP", nil, nil, Game.battle:getPartyIndex(battler.chara.id))
+        elseif action then
+            Game.battle:pushAction(action, target, data, Game.battle:getPartyIndex(battler.chara.id), extra)
+        else
+            Game.battle:pushAction("SKIP", nil, nil, Game.battle:getPartyIndex(battler.chara.id))
+        end
+    end)
 end
 
 return character

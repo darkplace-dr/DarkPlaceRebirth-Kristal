@@ -665,4 +665,8 @@ function PartyMember:canLead()
     return self.can_lead
 end
 
+function PartyMember:doBattleDescision(battler)
+    return true
+end
+
 return PartyMember
