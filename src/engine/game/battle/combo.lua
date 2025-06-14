@@ -46,6 +46,7 @@ function Combo:onCast(target)
 	Game.battle:startActCutscene(function(cutscene)
 		self:doCutscene(cutscene, target)
 	end)
+    -- TODO: Why aren't we returning false here?
 end
 
 function Combo:onStart(user, target)
@@ -56,6 +57,8 @@ function Combo:onStart(user, target)
     end
 end
 
+---@param cutscene BattleCutscene
+---@param target EnemyBattler|EnemyBattler[]
 function Combo:doCutscene(cutscene, target) end
 
 function Combo:onSelect(user, target) end
