@@ -138,12 +138,6 @@ function EnemyBattler:init(actor, use_overlay)
     self.defeated = false
 
     self.current_target = "ANY"
-
-    self.tiredness = 0
-	
-	self.service_mercy = 20
-
-    self.killable = false
 end
 
 ---@param bool boolean
@@ -300,20 +294,6 @@ function EnemyBattler:removeAct(name)
     end
 end
 
-function EnemyBattler:registerMarcyAct(name, description, party, tp, highlight, icons)
-	if Game:getFlag("marcy_joined") then
-		self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
-		self.acts[#self.acts].color = {0, 1, 1}
-	end
-end
-
-function EnemyBattler:registerShortMarcyAct(name, description, party, tp, highlight, icons)
-	if Game:getFlag("marcy_joined") then
-		self:registerActFor("jamm", name, description, party, tp, highlight, icons)
-		self.acts[#self.acts].color = {0, 1, 1}
-	end
-end
-
 --- Non-violently defeats the enemy and removes them from battle (if [`exit_on_defeat`](lua://EnemyBattler.exit_on_defeat) is `true`)
 ---@param pacify?   boolean Whether the enemy was defeated by pacifying them rather than sparing them (defaults to `false`)
 function EnemyBattler:spare(pacify)
@@ -350,7 +330,7 @@ function EnemyBattler:spare(pacify)
             self:remove()
         end)
     end
-
+    -- TODO: In Kristal, the defeat() call is part of the condition above. Make this consistent.
     self:defeat(pacify and "PACIFIED" or "SPARED", false)
     self:onSpared()
 end
@@ -441,6 +421,7 @@ function EnemyBattler:addMercy(amount)
                 local src = Assets.playSound("mercyadd", 0.8)
                 src:setPitch(pitch)
             end
+
             self:statusMessage("mercy", amount)
         end
     end
@@ -450,27 +431,12 @@ end
 --- *By default, responsible for sparing the enemy or increasing their mercy points by [`spare_points`](lua://EnemyBattler.spare_points)*
 ---@param battler PartyBattler
 ---@return boolean success  Whether the mercy resulted in a spare
-function EnemyBattler:onMercy(battler, spare_all)
+function EnemyBattler:onMercy(battler)
     if self:canSpare() then
         self:spare()
         return true
     else
-        if spare_all then
-            local alive = 0
-			for _,battler in ipairs(Game.battle.party) do
-                if not battler.is_down then
-                    alive = alive + 1
-                end
-            end
-            local mercy_points = Utils.round(self.spare_points * alive/#Game.battle:getActiveEnemies())
-            self:addMercy(math.min(mercy_points,100))
-            -- if mercy_points > 100 and self:canSpare() then
-                -- self:spare()
-            -- end
-            -- return true
-        else
-            self:addMercy(self.spare_points)
-        end
+        self:addMercy(self.spare_points)
         return false
     end
 end
@@ -623,11 +589,6 @@ function EnemyBattler:onShortAct(battler, name) end
 function EnemyBattler:onTurnStart() end
 --- *(Override)* Called at the end of every turn in battle
 function EnemyBattler:onTurnEnd() end
-
---- *(Override)* Called when a service spell is used
-function EnemyBattler:onService(spell) end
---- *(Override)* Called when a service spell is used
-function EnemyBattler:canService(spell) return true end
 
 --- Retrieves the data of an act on this enemy by its `name`
 ---@param name string
@@ -957,6 +918,7 @@ function EnemyBattler:defeat(reason, violent)
     end
     
     Game.battle.money = Game.battle.money + self.money
+    Game.battle.xp = Game.battle.xp + self.experience
 
     Game.battle:removeEnemy(self, true)
 end
@@ -1034,42 +996,6 @@ end
 ---@return number new_value
 function EnemyBattler:addFlag(flag, amount)
     return Game:addFlag("enemy#"..self.id..":"..flag, amount)
-end
-
-function EnemyBattler:addTired(amount)
-    if self.tiredness >= 100 then
-        -- We're already at full tiredness; do nothing.
-        return
-    end
-
-    self.tiredness = self.tiredness + amount
-    if self.tiredness < 0 then
-        self.tiredness = 0
-    end
-
-    if self.tiredness >= 100 then
-        self.tiredness = 100
-		self:setTired(true)
-	else
-		self:setTired(false)
-    end
-
-    if Game:getConfig("mercyMessages") then
-        if amount > 0 then
-            local pitch = 0.8
-            if amount < 99 then pitch = 1 end
-            if amount <= 50 then pitch = 1.2 end
-            if amount <= 25 then pitch = 1.4 end
-
-            local src = Assets.playSound("mercyadd", 0.8)
-            src:setPitch(pitch)
-        end
-		self:statusMessage("tired", amount)
-    end
-end
-
-function EnemyBattler:canSleep()
-    return self.tiredness >= 100
 end
 
 return EnemyBattler
