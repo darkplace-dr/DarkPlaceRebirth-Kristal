@@ -33,10 +33,10 @@ function ActionBox:init(x, y, index, battler)
     if battler.chara:getNameSprite() then
         self.name_sprite = Sprite(battler.chara:getNameSprite(), 51 + self.name_offset_x, 14 + self.name_offset_y)
         self.box:addChild(self.name_sprite)
-		
-		if Game:getFlag("SHINY", {})[battler.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
-			self.name_sprite:addFX(GradientFX(COLORS.white, {235/255, 235/255, 130/255}, 1, math.pi/2))
-		end
+        
+        if Game:getFlag("SHINY", {})[battler.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+            self.name_sprite:addFX(GradientFX(COLORS.white, {235/255, 235/255, 130/255}, 1, math.pi/2))
+        end
     end
 
     self.hp_sprite = Sprite("ui/hp", 109, 22)
@@ -68,12 +68,16 @@ function ActionBox:createButtons()
 		if not self.battler.chara:hasSpells() then Utils.removeFromTable(btn_types, "magic") end
 	end
 
-    for lib_id,_ in pairs(Mod.libs) do
+    for lib_id,_ in Kristal.iterLibraries() do
         btn_types = Kristal.libCall(lib_id, "getActionButtons", self.battler, btn_types) or btn_types
     end
     btn_types = Kristal.modCall("getActionButtons", self.battler, btn_types) or btn_types
 
     local start_x = (213 / 2) - ((#btn_types-1) * 35 / 2) - 1
+
+    if (#btn_types <= 5) and Game:getConfig("oldUIPositions") then
+        start_x = start_x - 5.5
+    end
 
     if (#btn_types <= 6) and Game:getConfig("oldUIPositions") then
         start_x = 30
@@ -85,7 +89,7 @@ function ActionBox:createButtons()
             button.actbox = self
             table.insert(self.buttons, button)
             self:addChild(button)
-        else
+        elseif type(btn) ~= "boolean" then -- nothing if a boolean value, used to create an empty space
             btn:setPosition(math.floor(start_x + ((i - 1) * 35)) + 0.5, 21)
             btn.battler = self.battler
             btn.actbox = self
