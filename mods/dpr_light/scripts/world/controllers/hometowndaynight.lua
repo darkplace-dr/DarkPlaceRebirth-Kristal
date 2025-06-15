@@ -74,5 +74,15 @@ function HometownDayNight:onLoad()
 		end
 	end
 end
+function HometownDayNight:postLoad()
+    super.postLoad(self)
+	if Game:getFlag("hometown_time", "day") == "night" then
+        for index, value in ipairs(Game.world.stage:getObjects(Sprite)) do
+			if value.no_palette then
+				value:removeFX("daynight_added")
+			end
+		end
+	end
+end
 
 return HometownDayNight
