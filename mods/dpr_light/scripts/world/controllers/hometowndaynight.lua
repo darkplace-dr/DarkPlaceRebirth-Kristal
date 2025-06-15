@@ -11,7 +11,7 @@ function HometownDayNight:init(data,...)
 		local class_lists = {
 			map_objects = {TileLayer, TileObject, Sprite},
 		}
-		class_lists.default = class_lists.map_objects
+		class_lists.default = {World}
 		self.classes = class_lists[data.properties.class_set or "default"]
 		self.palette = "world/town_palette"
 		self.shaded = {}
