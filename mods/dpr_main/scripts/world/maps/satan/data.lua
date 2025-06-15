@@ -11,27 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 6,
   nextobjectid = 17,
-  properties = {
-    ["music"] = "hell"
-  },
+  properties = {},
   tilesets = {},
   layers = {
-    {
-      type = "imagelayer",
-      image = "../../../../assets/sprites/world/maps/satan/satan_1.png",
-      id = 3,
-      name = "satan",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 50,
-      offsety = 40,
-      parallaxx = 1,
-      parallaxy = 1,
-      repeatx = false,
-      repeaty = false,
-      properties = {}
-    },
     {
       type = "objectgroup",
       draworder = "topdown",

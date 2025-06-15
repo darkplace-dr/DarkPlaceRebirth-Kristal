@@ -299,7 +299,7 @@ local cliffside = {
         --cutscene:text("* Oh okay.")
         local cat = cutscene:getCharacter("cat")
         if not cat then
-            Game.world:spawnNPC("cat", 460, 160)
+            Game.world:spawnNPC("cat", 460, 120)
         end
 
         local player = Game.world.player
@@ -918,6 +918,30 @@ local cliffside = {
         else
             cutscene:text("* You decide to not free them for now...")
         end
+    end,
+
+    forget = function (cutscene, event)
+        cutscene:text("* You feel like you are forgetting something.")
+        local hero = cutscene:getCharacter("hero")
+        cutscene:walkTo(hero, hero.x+40, hero.y, 0.5, "right")
+    end,
+
+    cat_claws = function(cutscene, event)
+        cutscene:showNametag("Cat")
+        if not Game:getFlag("claimb_claws") == false then
+                cutscene:text("* Very excelent.", "neutral", "cat")
+                cutscene:getEvent(20):remove()
+                Game:setFlag("claws_tutorial", true)
+            else
+                cutscene:text("* Hello again, i am just here as a placeholder.", "neutral", "cat")
+                cutscene:text("* If the upper Gods know a better way do this, please do it.", "neutral", "cat")
+                cutscene:text("* Once you get the claws talk to me.", "neutral", "cat")
+            end
+        cutscene:hideNametag()
+    end,
+
+    claimbflag = function (cutscene, event)
+        Game:setFlag("claimb_claws", true)
     end,
 
     cat_1 = function(cutscene, event)
