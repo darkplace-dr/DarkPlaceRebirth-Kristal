@@ -26,10 +26,33 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
     ]])
 
     self.siner = 0
+	self.rain_mode = false
+	self.timer = 0
 end
 
 function BeachWater:update()
     super.update(self)
+	
+	if Game.stage:hasWeather("rain") and self.rain_mode == false then
+		self.sprite:setSprite("world/maps/hometown/beachwater_rain")
+		self.rain_mode = true
+	elseif not Game.stage:hasWeather("rain") and self.rain_mode == true then
+		self.sprite:setSprite("world/maps/hometown/beachwater")
+		self.rain_mode = false
+	end
+	if self.rain_mode then
+		self.timer = self.timer - DTMULT
+		if self.timer < 0 then
+			self.timer = 2
+            local splash = Sprite("effects/rain_splash")
+            splash:setOrigin(0.5, 0.5)
+            splash:setScale(2, 2)
+            splash:setPosition(self.x + Utils.random(384) + 20, self.y + Utils.random(440) + 20)
+			splash.layer = self.layer - 0.01
+            splash:play(1/15, false, function(s) s:remove() end)
+            Game.world:addChild(splash)
+		end
+	end
 end
 
 function BeachWater:draw()

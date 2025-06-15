@@ -8,7 +8,7 @@ function WeatherHandler:init(typer, sfx, child, intensity, overlay)
     self.type = typer
     self:setLayer(WORLD_LAYERS["below_ui"])
 
-    self.raintimer = 0
+    self.raintimer = -1
     self.raintimerthres = 0
     self.rainnumber = ""
     self.raintimerreset = true
@@ -30,112 +30,152 @@ function WeatherHandler:init(typer, sfx, child, intensity, overlay)
     self.dustnumber = ""
     self.dusttimerreset = true
 
+	self.weathertimer = 0
+	self.wrap_up = false
+	self.rainsplash = false
+	self.genspeed = 2
+	self.gen = 0
+	self.dropwait = 30
+	self.droptimer = 0
+	self.dropcount = 0
+	self.max_particles = 120
+
     self.sfx = sfx
 
     self.addto = child or Game.stage:getWeatherParent()
     --if type(self.type) == "table" then self.both = true end
     self.weathersounds = Music()
-    if self.type == "thunder" then
-       if self.sfx then self.weathersounds:play("heavy_rain", 2, 1) end
-    end
-    if self.type == "rain" then if self.sfx then self.weathersounds:play("light_rain", 2, 1) end end
+    self.weathersounds_indoor = Music()
+    if self.type == "rain" or self.type == "rain_prewarmed" or self.type == "thunder" then
+		if self.sfx then
+			self.weathersounds:play("raining", 0, 1)
+			self.weathersounds_indoor:play("raining_in_church2", 0, 1)
+		end
+	end
     
     self.intensity = intensity or 1
 
     self.pause = false
 
     self.haveoverlay = overlay
-    if self.haveoverlay and not self.skip then self:postInit() end
+    self:postInit()
+	
+	self.prewarm = true
+	self.cam_x = 0
+	self.cam_y = 0
+	self.inside = false
+	self.faded_in = false
+	self.stop_gen = false
 end
 
-function WeatherHandler:postInit() self:addOverlay() end
+function WeatherHandler:postInit()
+	if self.haveoverlay and not self.skip then
+		self:addOverlay()
+	end
+	if self.prewarm or self.type == "rain_prewarmed" then
+		self.prewarm = true
+		self.weathertimer = 120
+		self.rainsplash = true
+		if self.sfx and not self.skip then
+			self.weathersounds:setVolume(0.5)
+		end
+		if self.type == "rain_prewarmed" then
+			self.type = "rain"
+		end
+	end
+end
 
 function WeatherHandler:update()
     super.update(self)
     --[[if #Game.stage.overlay > 0 then for i, o in ipairs(Game.stage.overlay) do
         print(o.type, (o.handler.addto == Game.world and "World" or "Battle"))
     end end]]
+	if self.wrap_up then
+		self.weathertimer = self.weathertimer - DTMULT
+		if self.weathertimer < 0 then
+			for i, o in ipairs(Game.stage.overlay) do
+				if o.type == self.type then
+					o:remove()
+				end
+            end
+			self:remove()
+		end
+		if self.weathertimer < 100 then
+			self.stop_gen = true
+		end
+	else
+		self.weathertimer = self.weathertimer + DTMULT
+		if self.weathertimer >= 120 then
+			self.weathertimer = 120
+		end
+		if self.weathertimer >= 10 and not self.faded_in then
+			self.weathersounds:fade(0.5, 110/30)
+			self.faded_in = true
+		end
+	end
+    if not self.pause and not self.stop_gen then
+        if self.type == "rain" or self.type == "rain_prewarmed" or self.type == "thunder" or self.type == "cd" then
+			if self.weathertimer < 120 and not self.wrap_up then
+				self.gen = math.floor(Utils.lerp(self.genspeed - 20, self.genspeed, self.weathertimer/120))
+			else
+				self.gen = self.genspeed
+			end
+			if self.weathertimer >= 100 then
+				self.rainsplash = true
+			end
+			if self.weathertimer < 120 then
+				self.droptimer = self.droptimer + 1
+				if self.droptimer >= self.dropwait then
+					self.droptimer = 0
+					self.dropwait = math.max(self.dropwait * 0.75, 2)
+				end
+			end
+			self.dropcount = #Game.stage:getObjects(RainPiece)
+			if self.raintimer >= 0 and self.dropcount < self.max_particles then
 
-    if not self.pause then
-        if self.type == "rain" or self.type == "thunder" or self.type == "cd" then
-            if self.raintimerreset then
-                self.raintimerreset = false
-                self.raintimerthres = math.random(1, 6)
-            elseif self.raintimer >= self.raintimerthres then
+				if not self.prewarm then
+					local ydiff = math.abs(self.cam_y - Game.world.camera.y)
+					if self.dropcount < self.genspeed * 25 then
+						self.gen = self.gen + ydiff
+					elseif self.dropcount > self.genspeed * 30 then
+						self.gen = self.gen - ydiff
+					end
+				end
 
-                local amount = self.intensity
+                local amount = math.max(self.gen, 1)
                 if self.type == "thunder" then amount = amount + 1 end
+
+				if self.prewarm then
+					amount = amount * 25
+				end
 
                 local speedmult = self.intensity
                 if self.type == "thunder" then speedmult = speedmult + 1 end
 
-                for i = amount, 1, -1 do
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
+                for i = 1, amount do
+                    self.raintimer = self.gen
+                    local number = "rain_"..tostring(love.math.random(1, 10))
                     if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH * 0, SCREEN_WIDTH/4)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
+					local x, y
+					if self.prewarm then
+						x = love.math.random(0,720) - 64
+						y = love.math.random(-SCREEN_HEIGHT*1.5-76, -76+556)
+					else
+						local side_random = love.math.random(0,720) - 64
+						local foff = math.random(0,10 * (speedmult*20))
+						x = side_random + (foff * (speedmult*10))
+						y = -(foff * (speedmult*20))
+					end
+					local worldx, worldy = self:getRelativePos(x, y, self.addto)
+					local rain = RainPiece(number, worldx, worldy, (speedmult * 2) * 10, self)
 
-                    self.addto:addChild(rain)
-
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
-                    if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH * 0.25, SCREEN_WIDTH * 0.5)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
-
-                    self.addto:addChild(rain)
-
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
-                    if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH * 0.5, SCREEN_WIDTH * 0.75)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
-
-                    self.addto:addChild(rain)
-
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
-                    if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH * 0.75, SCREEN_WIDTH)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
-
-                    self.addto:addChild(rain)
-
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
-                    if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH, SCREEN_WIDTH * 1.25)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
-
-                    self.addto:addChild(rain)
-
-                    self.raintimer = 0
-                    self.raintimerreset = true
-                    local number = Utils.pick({"three", "five", "six", "nine", "nine_alt"})
-                    if self.type == "cd" then number = Utils.pick({"cat", "dog"}) end
-                    local x = math.random(SCREEN_WIDTH * 1.25, SCREEN_WIDTH * 1.5)
-                    local y = math.random(0, 40)
-                    local worldx, worldy = self:getRelativePos(x, 0 - y, self.addto)
-                    local rain = RainPiece(number, worldx, worldy, 20 * speedmult, self)
                     self.addto:addChild(rain)
                 end
-
+				self.dropcount = self.dropcount + amount
+				
+				self.prewarm = false
+				
+				self.timer = self.gen
             end
             self.raintimer = self.raintimer + 1 * DTMULT
             --print(self.raintimer, self.raintimerthres)
@@ -289,6 +329,8 @@ function WeatherHandler:update()
         end
         if number == 0 then self:addOverlay() end
     end
+	
+	self.cam_y = Game.world.camera.y
 end 
 
 function WeatherHandler:onRemove()

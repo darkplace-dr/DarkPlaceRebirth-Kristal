@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 32,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 23,
-  nextobjectid = 52,
+  nextlayerid = 26,
+  nextobjectid = 56,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -665,6 +665,38 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 24,
+      name = "objects_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 54,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 656,
+          width = 312,
+          height = 656,
+          rotation = 0,
+          gid = 353,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 9,
       name = "objects",
       class = "",
@@ -778,6 +810,19 @@ return {
             ["flagcheck"] = "!digi_complete",
             ["once"] = false
           }
+        },
+        {
+          id = 52,
+          name = "dryzone",
+          type = "",
+          shape = "rectangle",
+          x = 988,
+          y = 200,
+          width = 360,
+          height = 139,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -944,6 +989,67 @@ return {
           parallaxy = 1,
           repeatx = false,
           repeaty = false,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 25,
+      name = "objects_above_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 55,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 656,
+          width = 312,
+          height = 656,
+          rotation = 0,
+          gid = 355,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 23,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 53,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
           properties = {}
         }
       }

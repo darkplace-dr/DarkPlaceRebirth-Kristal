@@ -10,17 +10,20 @@ function RainPiece:init(number, x, y, speed, handler)
     elseif handler.addto == Game.battle then
         self:setLayer(BATTLE_LAYERS["below_ui"] - 1)
     end
-    self.alpha = 0.5
+    self.alpha = 1
 
     self.rainsprite = Sprite("world/rain/"..number)
+	self.rainsprite:setOrigin(1,1)
     self.rainsprite:setScale(2)
-    self.rainsprite.inherit_color = true
-    self:setPosition(self.x, self.y - (self.rainsprite.height * 2))
+    self.rainsprite.color = Utils.mergeColor(COLORS["white"], COLORS["black"], 0.8)
+    self:setPosition(self.x, self.y)
     --self:addChild(self.rainsprite)
     self.initx, self.inity = self.x, self.y
 
     self.addto = handler.addto
     self.handler = handler
+	self.minx = 0
+	self.maxx = SCREEN_WIDTH
 end
 
 function RainPiece:update()
@@ -55,13 +58,22 @@ function RainPiece:update()
     local y2 = Game.world.camera.y + (SCREEN_HEIGHT/2)
     local x2 = Game.world.camera.x - (SCREEN_WIDTH/2)
 
-    if self.y > y2 then self:remove() end
-    --if self.x < x2 then self:remove() end
+    if self.y > y2 then
+		self:remove()
+	end
+	if self.speed > 0 then
+		self.minx = 0
+		self.maxx = SCREEN_WIDTH+40
+	elseif self.speed < 0 then
+		self.minx = -40
+		self.maxx = SCREEN_WIDTH
+	end
 
-    if self.y - self.inity > (Game.world.map.height * Game.world.map.tile_height) + 120 then
-        Utils.approach(self.rainsprite.alpha, 0, DTMULT)
-        if self.alpha < 1 then self:remove() end
-    end
+	if self.x >= Game.world.camera.x + (SCREEN_WIDTH/2) + self.maxx then
+		self.x = self.x - SCREEN_WIDTH + 40
+	elseif self.x <= Game.world.camera.x - (SCREEN_WIDTH/2) + self.minx then
+		self.x = self.x + SCREEN_WIDTH + 40
+	end
 end
 
 function RainPiece:draw()
@@ -76,13 +88,15 @@ function RainPiece:draw()
 ]]
 
     --Draw.setColor(208/255, 199/255, 1, 131/255)
-    Draw.setColor(1, 1, 1, 0)
+    Draw.setColor(1, 1, 1, 1)
 
     --love.graphics.setShader(premult_shader)
+    Draw.setColor(self.color)
     love.graphics.setBlendMode("add")
     --self.rainsprite.width, self.rainsprite.height = 2, 2
-    self.rainsprite:drawAlpha(0.4)
+    self.rainsprite:drawAlpha(1)
     love.graphics.setBlendMode("alpha")
+    Draw.setColor(1, 1, 1, 0)
     --love.graphics.setShader()
 end
 

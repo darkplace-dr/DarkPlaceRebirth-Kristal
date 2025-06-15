@@ -1,7 +1,7 @@
 local greyarea, super = Class(Map)
 
 function greyarea:onEnter()
-    Game.stage:setWeather("rain", false, true)
+    Game.stage:setWeather("rain_prewarmed", false, true)
 
 
     if not Game:getFlag("greyarea_exit_to") then
@@ -31,7 +31,7 @@ function greyarea:onEnter()
 end
 
 function greyarea:onExit()
-    Game.stage:resetWeather()
+    Game.stage:resetWeather(true)
 end
 
 function greyarea:update()

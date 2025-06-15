@@ -15,7 +15,7 @@ function WeatherOverlay:init(type, handler)
 
     self.paused = false
     if self.handler.pause then self.paused = true self.pause = true end
-
+	
     if self.type == "hot" or self.type == "volcanic" then
 
         self.wave_shader = love.graphics.newShader([[
@@ -65,8 +65,19 @@ function WeatherOverlay:init(type, handler)
 
         if not self.paused then self:addFX(self.wave_fx, "wave_fx") end
     end
+	
+	self.wrap_up = false
 end
 
+function WeatherOverlay:update()
+    super.update(self)
+    --[[if #Game.stage.overlay > 0 then for i, o in ipairs(Game.stage.overlay) do
+        print(o.type, (o.handler.addto == Game.world and "World" or "Battle"))
+    end end]]
+	if self.handler then
+		self.weathertimer = self.handler.weathertimer
+	end
+end
 function WeatherOverlay:draw()
     super.draw(self)
     local dark = 20
@@ -106,9 +117,18 @@ function WeatherOverlay:draw()
     --if not Game.battle or (Game.battle and Game.battle.state ~= "TRANSITIONOUT") then
         if not self.paused then
 
-            if self.type == "rain" or self.type == "overcast" then
-                Draw.setColor((99 - dark)/255, (126 - dark)/255, (135 - dark)/255, 55/255)
+            if self.type == "rain" or self.type == "rain_prewarmed" or self.type == "overcast" then
+				local str = 0
+				if self.handler then
+					str = self.handler.weathertimer / 120
+				end
+				love.graphics.setBlendMode("screen")
+				Draw.setColor(Utils.mergeColor(COLORS["black"], COLORS["orange"], 0.3 * str), 0)
                 love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+				love.graphics.setBlendMode("add")
+                Draw.setColor(Utils.mergeColor(COLORS["black"], COLORS["white"], 0.1 * str))
+                love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+				love.graphics.setBlendMode("alpha")
             elseif self.type == "thunder" or self.type == "dark_overcast" then
                 Draw.setColor((99 - darker)/255, (99 - darker)/255, (110 - darker)/255, 150/255)
                 love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)

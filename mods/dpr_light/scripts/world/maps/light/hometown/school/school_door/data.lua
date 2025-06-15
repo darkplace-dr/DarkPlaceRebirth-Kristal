@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 25,
+  nextlayerid = 8,
+  nextobjectid = 26,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -105,7 +105,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 320,
@@ -118,7 +118,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 240,
@@ -131,7 +131,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 200,
@@ -144,7 +144,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1080,
           y = 200,
@@ -157,7 +157,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 240,
@@ -170,7 +170,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 320,
@@ -183,7 +183,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 360,
@@ -196,7 +196,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 360,
@@ -225,7 +225,7 @@ return {
         {
           id = 18,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 480,
@@ -242,7 +242,7 @@ return {
         {
           id = 19,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 198,
@@ -257,7 +257,7 @@ return {
         {
           id = 21,
           name = "darkdoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 576,
           y = 120,
@@ -270,7 +270,7 @@ return {
         {
           id = 22,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1000,
           y = 198,
@@ -290,7 +290,7 @@ return {
         {
           id = 24,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -321,7 +321,7 @@ return {
         {
           id = 10,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 620,
           y = 440,
@@ -334,10 +334,57 @@ return {
         {
           id = 23,
           name = "entryunused",
-          class = "",
+          type = "",
           shape = "point",
           x = 1040,
           y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../../../assets/sprites/world/maps/hometown/school/doorarea_sunset.png",
+      id = 6,
+      name = "sunset",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {
+        ["cond"] = "Game:getFlag(\"hometown_time\", \"day\") == \"sunset\""
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 25,
+          name = "schoolsunset",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
           width = 0,
           height = 0,
           rotation = 0,

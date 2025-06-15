@@ -4,7 +4,7 @@ function WeatherLib:init()
 
     WeatherRegistry.init()
 
-    Utils.hook(Stage, "setWeather", function(orig, self, typer, keep, sfx, addto)
+    Utils.hook(Stage, "setWeather", function(orig, self, typer, keep, sfx, addto, force)
         orig(self)
         --print(Game.world.player)
         local weather_type = {}
@@ -13,6 +13,7 @@ function WeatherLib:init()
         local nuh_uh = false
         local possible_types_a = {
             "rain",
+            "rain_prewarmed",
             "thunder",
             "snow",
             "wind",
@@ -77,7 +78,7 @@ function WeatherLib:init()
             --if Game.stage.weathersounds then self.weathersounds:stop() end
             Game.stage.weather_type = nil
             Game.stage.keep_weather = nil
-            if Game.stage.overlay then 
+            if Game.stage.overlay and force then 
                 if Game.stage.weather then
                     for i, o in ipairs(Game.stage.overlay) do
                         o[2]:remove()
@@ -87,7 +88,14 @@ function WeatherLib:init()
             Game.stage.overlay = {}
             if Game.stage.weather then
                 for i, weather in ipairs(Game.stage.weather) do
-                    weather:remove()
+					if force then
+						weather:remove()
+					else
+						weather.wrap_up = true
+						if weather.weathersounds then
+							weather.weathersounds:fade(0, 28/30)
+						end
+					end
                 end
             end
             Game.stage.weather = {}
@@ -111,19 +119,26 @@ function WeatherLib:init()
             --if Game.stage.weathersounds then self.weathersounds:stop() end
             Game.stage.weather_type = nil
             Game.stage.keep_weather = nil
-            if Game.stage.overlay then 
+            if Game.stage.weather then
+                for i, weather in ipairs(Game.stage.weather) do	
+					if force then
+						weather:remove()
+					else
+						weather.wrap_up = true
+						if weather.weathersounds then
+							weather.weathersounds:fade(0, 28/30)
+						end
+					end
+                end
+            end
+            self.weather = {}
+            if Game.stage.overlay and force then 
                 if Game.stage.weather then
                     for i, o in ipairs(Game.stage.overlay) do
                         o[2]:remove()
                     end
                 end
             end
-            if Game.stage.weather then
-                for i, weather in ipairs(Game.stage.weather) do
-                    weather:remove()
-                end
-            end
-            self.weather = {}
             Game.stage.overlay = {}
 
             if keep then
@@ -135,6 +150,7 @@ function WeatherLib:init()
                 local w
                 local possible_types_again = {
                     "rain",
+                    "rain_prewarmed",
                     "thunder",
                     "snow",
                     "wind",
@@ -149,6 +165,9 @@ function WeatherLib:init()
                 }
                 if Utils.containsValue(possible_types_again, typ[1]) then
                     w = Game.stage:addChild(WeatherHandler(typ[1], sfx, addto, typ[2], haveoverlay))
+					if typ[1] ~= "rain_prewarmed" then
+						w.prewarm = false
+					end
                     --print("A", typ[1])
                 else
                     local b = WeatherRegistry.createWeatherData(typ[1], sfx, addto, typ[2], haveoverlay)
@@ -201,8 +220,8 @@ function WeatherLib:init()
         return false
     end)
 
-    Utils.hook(Stage, "resetWeather", function(orig, self)
-        self:setWeather()
+    Utils.hook(Stage, "resetWeather", function(orig, self, force)
+        self:setWeather(nil, nil, nil, nil, force)
     end)
 
     Utils.hook(Stage, "pauseWeather", function(orig, self, reason)
@@ -217,8 +236,11 @@ function WeatherLib:init()
             if Game.stage.weather then
                 for i, weather in ipairs(Game.stage.weather) do
                     weather.pause = true
-                    weather.weathersounds.volume = weather.weathersounds.volume / 4
-                    weather.weathersounds.pitch = weather.weathersounds.pitch - 0.09
+					if reason == "inside" then
+						weather.inside = true
+						weather.weathersounds:fade(0, 28/30)
+						weather.weathersounds_indoor:fade(0.75, 28/30)
+					end
                 end
             end
 
@@ -241,8 +263,11 @@ function WeatherLib:init()
             if Game.stage.weather then
                 for i, weather in ipairs(Game.stage.weather) do
                     weather.pause = false
-                    weather.weathersounds.volume = weather.weathersounds.volume * 4
-                    weather.weathersounds.pitch = weather.weathersounds.pitch + 0.09
+					if weather.inside then
+						weather.weathersounds:fade(0.5, 28/30)
+						weather.weathersounds_indoor:fade(0, 28/30)
+					end
+					weather.inside = false
                 end
             end
         end
@@ -352,6 +377,16 @@ function WeatherLib:init()
 
         Game.stage.overlay = {}
         if Game.stage.keep_weather then
+			for _, drops in ipairs(Game.stage:getObjects(RainPiece)) do
+				drops:remove()
+			end
+			for i, weather in ipairs(Game.stage.weather) do
+				weather.prewarm = true
+				local oldskip = weather.skip
+				weather.skip = true
+                weather:postInit()
+				weather.skip = oldskip
+			end
             if self.map.inside or self.map.data.properties["inside"] then
                 Game.stage:pauseWeather("inside")
             else
@@ -488,6 +523,26 @@ function WeatherLib:postInit()
     --print(weather, " (this is the weather)")
     if weather and weather[1] then
         Game.stage:setWeather(weather[1], weather[2], weather[3], Game.stage:getWeatherParent())
+    end
+end
+
+function WeatherLib:onFootstep(chara, num)
+    if chara:includes(Player) then
+        for i, w in ipairs(Game.stage.weather) do
+			local make_steps = true
+			for _,dryzone in ipairs(Game.world.map:getEvents("dryzone")) do
+				if Game.world.player:collidesWith(dryzone.collider) then
+					make_steps = false
+				end
+			end
+			if w.rainsplash and not Game.world.map.inside and not Game.world.map.data.properties["inside"] and make_steps then
+				if num == 1 then
+					Assets.playSound("stepsplash1")
+				elseif num == 2 then				
+					Assets.playSound("stepsplash2")
+				end
+			end
+        end
     end
 end
 

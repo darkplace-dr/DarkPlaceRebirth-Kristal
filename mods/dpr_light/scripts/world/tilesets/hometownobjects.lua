@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   name = "hometownobjects",
   class = "",
   tilewidth = 830,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 64,
+  tilecount = 76,
   tiles = {
     {
       id = 1,
@@ -218,6 +218,12 @@ return {
       height = 60
     },
     {
+      id = 78,
+      image = "../../../assets/sprites/tilesets/objects/azzy_pc_dark.png",
+      width = 106,
+      height = 64
+    },
+    {
       id = 34,
       image = "../../../assets/sprites/tilesets/objects/kris_bedsheet.png",
       width = 92,
@@ -284,6 +290,12 @@ return {
       height = 190
     },
     {
+      id = 70,
+      image = "../../../assets/sprites/world/maps/hometown/brathouse_night.png",
+      width = 179,
+      height = 95
+    },
+    {
       id = 45,
       image = "../../../assets/sprites/world/maps/hometown/cathouse.png",
       width = 472,
@@ -294,6 +306,18 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/church.png",
       width = 312,
       height = 656
+    },
+    {
+      id = 66,
+      image = "../../../assets/sprites/world/maps/hometown/church_night.png",
+      width = 156,
+      height = 328
+    },
+    {
+      id = 68,
+      image = "../../../assets/sprites/world/maps/hometown/church_nightup.png",
+      width = 156,
+      height = 328
     },
     {
       id = 47,
@@ -408,6 +432,54 @@ return {
       image = "../../../assets/sprites/tilesets/objects/sans_counter.png",
       width = 114,
       height = 49
+    },
+    {
+      id = 69,
+      image = "../../../assets/sprites/world/maps/hometown/krishouse_window_night.png",
+      width = 13,
+      height = 15
+    },
+    {
+      id = 71,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/door_frame.png",
+      width = 67,
+      height = 144
+    },
+    {
+      id = 72,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/tv_cover.png",
+      width = 56,
+      height = 70
+    },
+    {
+      id = 73,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 74,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 75,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 76,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 77,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png",
+      width = 320,
+      height = 240
     }
   }
 }

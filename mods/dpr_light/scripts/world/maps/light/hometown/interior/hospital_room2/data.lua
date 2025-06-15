@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -13,6 +13,7 @@ return {
   nextobjectid = 16,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "hometown"
   },
@@ -51,7 +52,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 400,
@@ -64,7 +65,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 80,
@@ -77,7 +78,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 120,
@@ -90,7 +91,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -103,7 +104,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 400,
@@ -116,7 +117,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 120,
@@ -129,7 +130,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 180,
@@ -158,7 +159,7 @@ return {
         {
           id = 8,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 326,
@@ -174,7 +175,7 @@ return {
         {
           id = 9,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 480,
           y = 326,
@@ -191,7 +192,7 @@ return {
         {
           id = 10,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 428,
           y = 220,
@@ -207,7 +208,7 @@ return {
         {
           id = 11,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 244,
           y = 198,
@@ -224,7 +225,7 @@ return {
         {
           id = 13,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 180,
@@ -240,7 +241,7 @@ return {
         {
           id = 14,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -276,7 +277,7 @@ return {
         {
           id = 15,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,
