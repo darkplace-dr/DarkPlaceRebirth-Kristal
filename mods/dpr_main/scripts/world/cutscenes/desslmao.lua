@@ -808,7 +808,7 @@ local desslmao = {
 				cutscene:textTagged("* damn that's not what you said last time", "eyebrow", "dess")
 				if jamm then
 					cutscene:setSpeaker("jamm")
-					cutscene:textTagged("* What are you saying???[wait:10]\n* Are you okay in the head???", "suspicious", "Jamm")
+					cutscene:textTagged("* What are you saying???[wait:10]\n* Are you okay in the head???", "suspicious", "jamm")
 				else
 					cutscene:setSpeaker("susie")
 					cutscene:textTagged("* Why do you keep acting like I'm supposed to know you?", "suspicious", "susie")
