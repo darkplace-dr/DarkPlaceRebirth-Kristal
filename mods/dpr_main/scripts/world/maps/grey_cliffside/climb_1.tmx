@@ -207,7 +207,7 @@
   </object>
   <object id="25" name="transition" x="200" y="-40" width="280" height="40">
    <properties>
-    <property name="map" value="grey_cliffside/grey_cliffside/first_chr_encounter"/>
+    <property name="map" value="grey_cliffside/first_chr_encounter"/>
     <property name="marker" value="right"/>
    </properties>
   </object>

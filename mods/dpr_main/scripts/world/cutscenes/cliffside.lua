@@ -911,6 +911,9 @@ local cliffside = {
                     
                     Game.world.music:play("demonic_little_grey_cliffs", 1, 1)
                 end
+                if Game:getFlag("claimb_claws", true) then
+                    Game:setFlag("claimb_susie", true)
+                end
                 Game:setFlag(crystal.flag, true)
             else
                 --cutscene:text("* You can't break a seal from the side you[color:yellow][wait:5] dummy[color:reset]!")
@@ -924,6 +927,12 @@ local cliffside = {
         cutscene:text("* You feel like you are forgetting something.")
         local hero = cutscene:getCharacter("hero")
         cutscene:walkTo(hero, hero.x+40, hero.y, 0.5, "right")
+    end,
+
+    forgetb = function (cutscene, event)
+        cutscene:text("* You feel like you are forgetting something.")
+        local hero = cutscene:getCharacter("hero")
+        cutscene:walkTo(hero, hero.x, hero.y-40, 0.5, "right")
     end,
 
     cat_claws = function(cutscene, event)

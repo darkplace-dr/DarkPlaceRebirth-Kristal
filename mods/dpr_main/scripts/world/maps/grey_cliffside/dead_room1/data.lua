@@ -737,7 +737,7 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "cliffside.forget",
-            ["flagcheck"] = "!claimb_claws",
+            ["flagcheck"] = "!claimb_susie",
             ["once"] = false
           }
         }

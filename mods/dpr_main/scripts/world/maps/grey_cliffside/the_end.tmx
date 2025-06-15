@@ -58,7 +58,7 @@
   </object>
   <object id="16" name="transition" x="280" y="480" width="120" height="40">
    <properties>
-    <property name="map" value="grey_cliffside/climb_1"/>
+    <property name="map" value="grey_cliffside/first_chr_encounter"/>
     <property name="marker" value="left"/>
    </properties>
   </object>
