@@ -36,6 +36,7 @@ function HometownDayNight:onMapDone()
     end
     for _, class in ipairs(self.classes) do
         for index, value in ipairs(Game.world.stage:getObjects(class)) do
+			if Game.world.map.image_layers["overlay"] == value then return end
             value:addFX(BGPaletteFX(self.palette, self.night), "daynight_added")
             table.insert(self.shaded, value)
         end
