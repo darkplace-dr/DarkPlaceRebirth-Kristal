@@ -229,7 +229,7 @@ function Mod:onMapMusic(map, music)
         elseif Game:isDessMode() then
             return "gimmieyourwalletmiss"
         else
-            return "greenroom"
+            return "deltarune/greenroom_detune"
         end
     end
 

@@ -160,14 +160,6 @@ return {
     album = "dr_ch2"
   },
   {
-    name = "Green Room",
-    file = "greenroom",
-    composer = "Toby Fox",
-    released = "2022",
-    origin = "deltarune.com",
-    album = "deltarunedotcom"
-  },
-  {
     name = "WELCOME TO THE CITY",
     file = "deltarune/cybercity",
     composer = "Toby Fox",
@@ -182,6 +174,46 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2"
+  },
+  {
+    name = "And Now For Today's Sponsors...!",
+    file = "deltarune/baci_perugina",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Ruder Buster",
+    file = "deltarune/rudebuster_boss",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Welcome to the Green Room",
+    file = "deltarune/greenroom_detune",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Vapor Buster",
+    file = "deltarune/battle_vapor",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "TV WORLD",
+    file = "deltarune/tv_world",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
   },
   {
     name = "THE HOLY",
