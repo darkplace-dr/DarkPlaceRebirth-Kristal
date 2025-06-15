@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 26,
-  nextobjectid = 56,
+  nextobjectid = 59,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -372,10 +372,36 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
+          x = 634,
+          y = 380,
+          width = 96,
+          height = 276,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "rectangle",
           x = 460,
           y = 380,
-          width = 270,
+          width = 98,
           height = 276,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 558,
+          y = 380,
+          width = 76,
+          height = 180,
           rotation = 0,
           visible = true,
           properties = {}
@@ -780,18 +806,21 @@ return {
         },
         {
           id = 43,
-          name = "interactable",
+          name = "transition",
           type = "",
           shape = "rectangle",
-          x = 558,
-          y = 590,
-          width = 76,
-          height = 66,
+          x = 560,
+          y = 560,
+          width = 80,
+          height = 80,
           rotation = 0,
           visible = true,
           properties = {
-            ["text1"] = "* (It's locked...)",
-            ["text2"] = "* (...[wait:5] the town it's pretty empty today.)"
+            ["exit_sound"] = "doorclose",
+            ["facing"] = "up",
+            ["map"] = "light/hometown/church/entrance",
+            ["marker"] = "south",
+            ["sound"] = "dooropen"
           }
         },
         {
@@ -891,6 +920,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 56,
+          name = "entrychurch",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 700,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -951,7 +993,7 @@ return {
       id = 17,
       name = "up",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
