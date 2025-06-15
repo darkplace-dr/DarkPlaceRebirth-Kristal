@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="90" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="46" nextobjectid="75">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="90" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="48" nextobjectid="80">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -321,6 +321,13 @@
    <polygon points="0,0 -40,40 0,40"/>
   </object>
  </objectgroup>
+ <objectgroup id="47" name="objects_night">
+  <object id="77" gid="357" x="1600" y="190" width="358" height="190">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#ff00ff" id="25" name="objects">
   <object id="29" name="interactable" x="1360" y="94" width="80" height="38">
    <properties>
@@ -347,6 +354,13 @@
    <properties>
     <property name="facing" value="up"/>
     <property name="map" value="light/hometown/krisyard"/>
+    <property name="marker" value="spawn"/>
+   </properties>
+  </object>
+  <object id="79" name="transition" x="-28" y="200" width="40" height="200">
+   <properties>
+    <property name="facing" value="left"/>
+    <property name="map" value="light/hometown/town_noellehouse"/>
     <property name="marker" value="spawn"/>
    </properties>
   </object>
@@ -415,6 +429,7 @@
     <property name="text2" value="* (The floor of the front seat is littered with old papers and country CDs...)"/>
    </properties>
   </object>
+  <object id="75" name="dryzone" x="2088" y="170" width="78" height="50"/>
  </objectgroup>
  <group id="40" name="houses">
   <imagelayer id="41" name="house1" offsetx="842" offsety="388">
@@ -443,6 +458,9 @@
   <object id="46" name="entryflower" x="2540" y="280">
    <point/>
   </object>
+  <object id="78" name="entrywest" x="40" y="340">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="15" name="tree4" width="90" height="12">
   <data encoding="csv">
@@ -460,4 +478,9 @@
 150,151,152,151,152,151,152,151,152,151,152,151,152,151,192,141,141,140,141,142,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,139,140,141,140,141,140,141,140,141,190,151,150,151,150,151,150,151,150,151,150,151,150,151,150,151,150,151,152
 </data>
  </layer>
+ <objectgroup color="#00aa00" id="46" name="controllers">
+  <object id="76" name="hometowndaynight" x="0" y="-20">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

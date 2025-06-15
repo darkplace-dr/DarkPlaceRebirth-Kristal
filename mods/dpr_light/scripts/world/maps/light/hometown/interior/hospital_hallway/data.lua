@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -13,6 +13,7 @@ return {
   nextobjectid = 22,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "hometown"
   },
@@ -51,7 +52,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 160,
@@ -64,7 +65,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 160,
@@ -77,7 +78,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 480,
           y = 160,
@@ -90,7 +91,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 160,
@@ -103,7 +104,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 402,
           y = 298,
@@ -116,7 +117,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 362,
           y = 298,
@@ -129,7 +130,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 242,
           y = 298,
@@ -142,7 +143,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 298,
@@ -155,7 +156,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 160,
@@ -184,7 +185,7 @@ return {
         {
           id = 14,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 158,
           y = 160,
@@ -204,7 +205,7 @@ return {
         {
           id = 16,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 398,
           y = 160,
@@ -224,7 +225,7 @@ return {
         {
           id = 17,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 282,
           y = 360,
@@ -244,7 +245,7 @@ return {
         {
           id = 21,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 160,
@@ -275,7 +276,7 @@ return {
         {
           id = 18,
           name = "entryrudy",
-          class = "",
+          type = "",
           shape = "point",
           x = 200,
           y = 240,
@@ -288,7 +289,7 @@ return {
         {
           id = 19,
           name = "entryroom2",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 240,
@@ -301,7 +302,7 @@ return {
         {
           id = 20,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 320,

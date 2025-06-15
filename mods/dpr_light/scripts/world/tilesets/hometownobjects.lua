@@ -1,10 +1,10 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   name = "hometownobjects",
   class = "",
-  tilewidth = 830,
+  tilewidth = 1128,
   tileheight = 656,
   spacing = 0,
   margin = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 64,
+  tilecount = 119,
   tiles = {
     {
       id = 1,
@@ -218,6 +218,12 @@ return {
       height = 60
     },
     {
+      id = 78,
+      image = "../../../assets/sprites/tilesets/objects/azzy_pc_dark.png",
+      width = 106,
+      height = 64
+    },
+    {
       id = 34,
       image = "../../../assets/sprites/tilesets/objects/kris_bedsheet.png",
       width = 92,
@@ -284,6 +290,12 @@ return {
       height = 190
     },
     {
+      id = 70,
+      image = "../../../assets/sprites/world/maps/hometown/brathouse_night.png",
+      width = 179,
+      height = 95
+    },
+    {
       id = 45,
       image = "../../../assets/sprites/world/maps/hometown/cathouse.png",
       width = 472,
@@ -294,6 +306,18 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/church.png",
       width = 312,
       height = 656
+    },
+    {
+      id = 66,
+      image = "../../../assets/sprites/world/maps/hometown/church_night.png",
+      width = 156,
+      height = 328
+    },
+    {
+      id = 68,
+      image = "../../../assets/sprites/world/maps/hometown/church_nightup.png",
+      width = 156,
+      height = 328
     },
     {
       id = 47,
@@ -408,6 +432,312 @@ return {
       image = "../../../assets/sprites/tilesets/objects/sans_counter.png",
       width = 114,
       height = 49
+    },
+    {
+      id = 69,
+      image = "../../../assets/sprites/world/maps/hometown/krishouse_window_night.png",
+      width = 13,
+      height = 15
+    },
+    {
+      id = 71,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/door_frame.png",
+      width = 67,
+      height = 144
+    },
+    {
+      id = 72,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/tv_cover.png",
+      width = 56,
+      height = 70
+    },
+    {
+      id = 73,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 74,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 75,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 76,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 77,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png",
+      width = 320,
+      height = 240
+    },
+    {
+      id = 79,
+      image = "../../../assets/sprites/tilesets/objects/bathroom_shower_curtain.png",
+      width = 94,
+      height = 240
+    },
+    {
+      id = 80,
+      image = "../../../assets/sprites/tilesets/objects/bathroom_shower_head.png",
+      width = 26,
+      height = 80
+    },
+    {
+      id = 81,
+      image = "../../../assets/sprites/tilesets/objects/bathroom_toilet.png",
+      width = 214,
+      height = 186
+    },
+    {
+      id = 82,
+      image = "../../../assets/sprites/tilesets/objects/bathroom_trashcan.png",
+      width = 36,
+      height = 48
+    },
+    {
+      id = 83,
+      image = "../../../assets/sprites/tilesets/objects/bush_01.png",
+      width = 80,
+      height = 48
+    },
+    {
+      id = 84,
+      image = "../../../assets/sprites/tilesets/objects/bush_02.png",
+      width = 74,
+      height = 50
+    },
+    {
+      id = 85,
+      image = "../../../assets/sprites/tilesets/objects/bush_03.png",
+      width = 48,
+      height = 42
+    },
+    {
+      id = 86,
+      image = "../../../assets/sprites/tilesets/objects/cabinet.png",
+      width = 62,
+      height = 126
+    },
+    {
+      id = 87,
+      image = "../../../assets/sprites/tilesets/objects/candle.png",
+      width = 30,
+      height = 78
+    },
+    {
+      id = 88,
+      image = "../../../assets/sprites/tilesets/objects/candles.png",
+      width = 106,
+      height = 74
+    },
+    {
+      id = 118,
+      image = "../../../assets/sprites/tilesets/objects/church_table.png",
+      width = 276,
+      height = 100
+    },
+    {
+      id = 119,
+      image = "../../../assets/sprites/tilesets/objects/church_table_bottom.png",
+      width = 118,
+      height = 60
+    },
+    {
+      id = 120,
+      image = "../../../assets/sprites/tilesets/objects/church_table_right.png",
+      width = 42,
+      height = 132
+    },
+    {
+      id = 89,
+      image = "../../../assets/sprites/tilesets/objects/desk.png",
+      width = 142,
+      height = 124
+    },
+    {
+      id = 90,
+      image = "../../../assets/sprites/tilesets/objects/dess_bed.png",
+      width = 160,
+      height = 182
+    },
+    {
+      id = 91,
+      image = "../../../assets/sprites/tilesets/objects/dess_boombox.png",
+      width = 116,
+      height = 64
+    },
+    {
+      id = 92,
+      image = "../../../assets/sprites/tilesets/objects/dess_box.png",
+      width = 58,
+      height = 50
+    },
+    {
+      id = 93,
+      image = "../../../assets/sprites/tilesets/objects/dess_computer.png",
+      width = 156,
+      height = 92
+    },
+    {
+      id = 94,
+      image = "../../../assets/sprites/tilesets/objects/dess_stuff.png",
+      width = 48,
+      height = 136
+    },
+    {
+      id = 95,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_chairs.png",
+      width = 200,
+      height = 46
+    },
+    {
+      id = 96,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_counter_left.png",
+      width = 80,
+      height = 76
+    },
+    {
+      id = 97,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_counter_right.png",
+      width = 240,
+      height = 78
+    },
+    {
+      id = 98,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_piano.png",
+      width = 178,
+      height = 190
+    },
+    {
+      id = 99,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_piano_seat.png",
+      width = 92,
+      height = 38
+    },
+    {
+      id = 100,
+      image = "../../../assets/sprites/tilesets/objects/kitchen_tree.png",
+      width = 180,
+      height = 268
+    },
+    {
+      id = 101,
+      image = "../../../assets/sprites/tilesets/objects/lantern.png",
+      width = 42,
+      height = 106
+    },
+    {
+      id = 102,
+      image = "../../../assets/sprites/tilesets/objects/noelle_chair.png",
+      width = 42,
+      height = 74
+    },
+    {
+      id = 103,
+      image = "../../../assets/sprites/tilesets/objects/noelle_computer.png",
+      width = 92,
+      height = 54
+    },
+    {
+      id = 104,
+      image = "../../../assets/sprites/tilesets/objects/noelle_mini_tree.png",
+      width = 44,
+      height = 66
+    },
+    {
+      id = 105,
+      image = "../../../assets/sprites/tilesets/objects/noelle_tv.png",
+      width = 230,
+      height = 68
+    },
+    {
+      id = 106,
+      image = "../../../assets/sprites/tilesets/objects/noelle_wardrobe.png",
+      width = 74,
+      height = 124
+    },
+    {
+      id = 107,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_couch_big.png",
+      width = 292,
+      height = 112
+    },
+    {
+      id = 108,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_couch_small_left.png",
+      width = 84,
+      height = 102
+    },
+    {
+      id = 109,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_couch_small_right.png",
+      width = 84,
+      height = 102
+    },
+    {
+      id = 110,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_plants.png",
+      width = 290,
+      height = 38
+    },
+    {
+      id = 111,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_table.png",
+      width = 160,
+      height = 110
+    },
+    {
+      id = 112,
+      image = "../../../assets/sprites/tilesets/objects/pew.png",
+      width = 200,
+      height = 68
+    },
+    {
+      id = 113,
+      image = "../../../assets/sprites/tilesets/objects/piano.png",
+      width = 48,
+      height = 146
+    },
+    {
+      id = 114,
+      image = "../../../assets/sprites/tilesets/objects/podium.png",
+      width = 80,
+      height = 96
+    },
+    {
+      id = 115,
+      image = "../../../assets/sprites/tilesets/objects/tree.png",
+      width = 172,
+      height = 202
+    },
+    {
+      id = 116,
+      image = "../../../assets/sprites/tilesets/objects/vent_closed_bathroom.png",
+      width = 56,
+      height = 34
+    },
+    {
+      id = 117,
+      image = "../../../assets/sprites/tilesets/objects/vent_closed_dess.png",
+      width = 56,
+      height = 32
+    },
+    {
+      id = 121,
+      image = "../../../assets/sprites/world/maps/hometown/noellehouse.png",
+      width = 1128,
+      height = 470
     }
   }
 }

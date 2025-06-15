@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="29" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="19" nextobjectid="17">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="29" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="18">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -233,4 +233,9 @@
 150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,150,151,152,0,0,0
 </data>
  </layer>
+ <objectgroup color="#00aa00" id="19" name="controllers">
+  <object id="17" name="hometowndaynight" x="0" y="-20">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,10 +9,11 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 21,
+  nextlayerid = 9,
+  nextobjectid = 27,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "deltarune/home"
   },
@@ -44,6 +45,38 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 6,
+      name = "objects_room_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 21,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 480,
+          width = 640,
+          height = 480,
+          rotation = 0,
+          gid = 78,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 3,
       name = "collision",
       class = "",
@@ -58,7 +91,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 400,
@@ -71,7 +104,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 250,
           y = 440,
@@ -84,7 +117,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 80,
@@ -97,7 +130,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 40,
@@ -110,7 +143,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 40,
@@ -123,7 +156,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 370,
           y = 400,
@@ -136,7 +169,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 370,
           y = 440,
@@ -152,7 +185,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -165,7 +198,7 @@ return {
         {
           id = 8,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 190,
           y = 200,
@@ -181,7 +214,7 @@ return {
         {
           id = 9,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 378,
           y = 200,
@@ -197,7 +230,7 @@ return {
         {
           id = 10,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 272,
           y = 160,
@@ -215,7 +248,7 @@ return {
         {
           id = 11,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 196,
@@ -231,7 +264,7 @@ return {
         {
           id = 12,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 466,
           y = 200,
@@ -242,13 +275,13 @@ return {
           properties = {
             ["solid"] = true,
             ["text1"] = "* Underneath the bed is an old cartridge of \"Cat Petters RPG\".",
-            ["text2"] = "* \"catti `& catty\" can be seen faintly written on it in worn gel pen."
+            ["text2"] = "* \"catti & catty\" can be seen faintly written on it in worn gel pen."
           }
         },
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 470,
           y = 390,
@@ -264,7 +297,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 466,
           y = 274,
@@ -273,14 +306,16 @@ return {
           rotation = 0,
           gid = 35,
           visible = true,
-          properties = {}
+          properties = {
+            ["night"] = 3
+          }
         },
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 84,
+          x = 86,
           y = 400,
           width = 106,
           height = 64,
@@ -292,9 +327,9 @@ return {
         {
           id = 16,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 88,
+          x = 90,
           y = 366,
           width = 92,
           height = 34,
@@ -311,7 +346,7 @@ return {
         {
           id = 17,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 486,
           y = 354,
@@ -327,7 +362,7 @@ return {
         {
           id = 18,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 532,
           y = 322,
@@ -342,7 +377,7 @@ return {
         {
           id = 20,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 290,
           y = 480,
@@ -354,6 +389,54 @@ return {
             ["facing"] = "down",
             ["map"] = "light/hometown/torielhouse/toriel_hallway",
             ["marker"] = "spawn"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 470,
+          y = 390,
+          width = 74,
+          height = 60,
+          rotation = 0,
+          gid = 33,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 86,
+          y = 400,
+          width = 106,
+          height = 64,
+          rotation = 0,
+          gid = 79,
+          visible = true,
+          properties = {
+            ["night"] = 1
           }
         }
       }
@@ -375,10 +458,39 @@ return {
         {
           id = 19,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 330,
           y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 26,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
           width = 0,
           height = 0,
           rotation = 0,

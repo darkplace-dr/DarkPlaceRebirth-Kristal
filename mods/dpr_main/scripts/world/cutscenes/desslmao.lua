@@ -4,6 +4,7 @@ local desslmao = {
         Kristal.callEvent(KRISTAL_EVENT.onDPDessTalk)
 		local dess = cutscene:getCharacter("dess")
 		local susie = cutscene:getCharacter("susie")
+		local jamm = cutscene:getCharacter("jamm")
 		local osw = cutscene:getCharacter("ostarwalker")
 
 		local noel = cutscene:getCharacter("noel")
@@ -74,15 +75,29 @@ local desslmao = {
 			cutscene:textTagged("* nah man that was totally you", "wink", "dess")
 		else
 			cutscene:textTagged("* aw c'mon don't tell me you guys forgot about me", "neutral", "dess")
-
+			
 			if osw then
 				cutscene:textTagged("*      [wait:20][color:yellow]no[color:reset]", nil, "ostarwalker")
 				cutscene:textTagged("* no as in you didnt forget or no as in you did", "neutral_b", "dess")
 				cutscene:textTagged("*      [wait:20][color:yellow]yes[color:reset]", nil, "ostarwalker")
 				cutscene:textTagged("* aight", "neutral", "dess")
-
-
+				
 			end
+		end
+		
+        if jamm then
+			cutscene:showNametag("Dess")
+			cutscene:text("* you at least remember me, right, jammy?", "wink", "dess")
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Yeah,[wait:5] I remember you...[react:1]", "stern", "jamm", {reactions={
+				{"Unfortunately...", 352, 61, "stern", "jamm"}
+			}})
+			cutscene:showNametag("Dess")
+			cutscene:text("* so you remember the adventures we had before?", "wink", "dess")
+			cutscene:showNametag("Jamm")
+			cutscene:text("* I have no idea what you're talking about...", "nervous_left", "jamm")
+			cutscene:showNametag("Dess")
+			cutscene:text("* quit joking around lmao", "smug", "dess")
 		end
 
 		cutscene:textTagged("* I've been training in the hyperbolic time chamber for 20 years", "condescending", "dess")
@@ -190,7 +205,7 @@ local desslmao = {
 		local over_capacity = " "
 
 		if Game.party[4] then
-			over_capacity = Game.party[4].name 
+			over_capacity = Game.party[4].id 
 		end
 
 
@@ -233,43 +248,45 @@ local desslmao = {
 		end
 
 
-		if over_capacity == "Starwalker" then
+		if over_capacity == "ostarwalker" then
 			cutscene:textTagged("* This is\n\n     [wait:20][color:yellow]bullshit[color:reset]", nil, "ostarwalker")
-		elseif over_capacity == "Susie" then
-
+		elseif over_capacity == "susie" then
 			if Game.party[3].name == "Berdly" then
-			    cutscene:textTagged("* Why the hell do I habe to be out back!?", "neutral", "susie")
+			    cutscene:textTagged("* Why the hell do I have to be out back!?", "neutral", "susie")
 				cutscene:textTagged("* Ah, fret not my", "neutral", "berdly")
-
-
-
 			else
 				cutscene:textTagged("* Yeah, like I'd do that.", "neutral", "susie")
 				cutscene:textTagged("* Switch spots with me person in front of me.", "neutral", "susie")
 
+				if Game.party[3].id == "jamm" then
+					cutscene:showNametag("Jamm")
+					cutscene:text("* No cutsies,[wait:5] Susie.", "stern", "jamm")
+					cutscene:showNametag("Susie")
+					cutscene:text("* Oh,[wait:5] come on!", "teeth", "susie")
+				else
+					local susie_id = Game.world.followers[3].actor.id
 
-
-				local susie_id = Game.world.followers[3].actor.id
-
-				local susie = Game.world.followers[3]
-				local character_swap = Game.world.followers[2]
-	
-	
-				Game:addPartyMember(susie_id)
-				Game:removePartyMember(Game.party[3])
-	
-				susie:convertToFollower(2)
-				character_swap:convertToFollower(3)
-	
-	
-				cutscene:interpolateFollowers()
-				cutscene:wait(0.5)
+					local susie = Game.world.followers[3]
+					local character_swap = Game.world.followers[2]
+		
+					Game:addPartyMember(susie_id)
+					Game:removePartyMember(Game.party[3])
+		
+					susie:convertToFollower(2)
+					character_swap:convertToFollower(3)
+		
+					cutscene:interpolateFollowers()
+					cutscene:wait(0.5)
+				end
 			end
 
-		elseif over_capacity == "Noel" then
+		elseif over_capacity == "noel" then
 			cutscene:setSpeaker("Noels")
 			cutscene:text("* Guess I'm sitting this one out.", "bruh", "noel")
 			cutscene:text("* Seems easier than having to do literally anything productive with my meaningless life.", "bruh", "noel")
+		elseif over_capacity == "jamm" then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* (Guess I could do with a break for now anyways...)", "nervous_left", "jamm")
 		end
 		cutscene:hideNametag()
 
@@ -317,6 +334,9 @@ local desslmao = {
 					cutscene:setSpeaker("susie")
 					cutscene:textTagged("[speed:0.5]* ...", "nervous_side", "susie")
 					cutscene:textTagged("* (Who the hell is THAT?)", "nervous", "susie")
+				elseif cutscene:getCharacter("jamm") then
+					cutscene:showNametag("Jamm")
+					cutscene:text("* (Is that racist? Is Dess being racist?)", "stern", "jamm")
 				end
 				cutscene:hideNametag()
 				Game:setFlag("dessThingy", true)
@@ -338,6 +358,7 @@ local desslmao = {
 		local whodis = {nametag = "???"}
 
 		local susie = cutscene:getCharacter("susie")
+		local jamm = cutscene:getCharacter("jamm")
 		local leader = Game.world.player
 
 		local noel_party = Game:hasPartyMember("noel")
@@ -371,6 +392,9 @@ local desslmao = {
 				cutscene:textTagged("* Yuh uh.", "bruh", "noel")
 				cutscene:textTagged("* Ttfym yuh uh???", "angry", "dess")
 			end
+		elseif jamm then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Jeez,[wait:5] finally,[wait:5] the last one...", "stern", "jamm")
         else
             cutscene:setSpeaker("dess")
             cutscene:textTagged("* This area is very well designed i'm so glad i have it all to myself", "condescending", "dess")
@@ -397,10 +421,16 @@ local desslmao = {
 				cutscene:textTagged("* Man that was a long pause...[wait:10][face:...] Wait did that thing just move?", "huh", "noel")
 				cutscene:textTagged("* sopt ignoring my question", "angry", "dess")
 			end
+		elseif jamm then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Hold on...[wait:10]\n* Is something happening?", "suspicious", "jamm")
+			cutscene:showNametag("Dess")
+            cutscene:text("* wdym all the other ones shake if you hit them", "neutral", "dess")
 		else
             cutscene:setSpeaker("dess")
             cutscene:textTagged("* ...", "kind", "dess")
         end
+		cutscene:hideNametag()
 
 		boss:shake(8, 0)
 		Assets.stopAndPlaySound("wing")
@@ -408,6 +438,9 @@ local desslmao = {
         if susie then
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* But...[wait:10] we didn't hit it!", "shock_down", "susie")
+		elseif jamm then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Pretty sure we didn't touch this one yet...", "nervous_left", "jamm")
 		elseif Noel:dessParty() then
 			if Noel:getFlag("knows_mimic") then
 				cutscene:textTagged("* I think I know what I'm talking about.[wait:5] Ya'see[wait:5] I've played these games before.", "neutral", "noel")
@@ -418,12 +451,13 @@ local desslmao = {
 		else
             cutscene:textTagged("* ...", "neutral", "dess")
         end
+		cutscene:hideNametag()
 
 		boss:shake(16, 0)
 		Assets.stopAndPlaySound("wing")
 
 		cutscene:setSpeaker("dess")
-        if susie then
+        if susie or jamm then
             cutscene:textTagged("* Yo wait you're right!", "wtf_b")
 		elseif Noel:dessParty() then
 			if Noel:getFlag("knows_mimic") then
@@ -476,10 +510,14 @@ local desslmao = {
 		
 		if Noel:dessParty() then
 			cutscene:textTagged("* Are you sure?[wait:5][face:calm] Cuz I cant see you", "condescending", "dess")
+		elseif jamm then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* I have never seen you before in my life.", "nervous_left", "jamm")
 		else
 			cutscene:setSpeaker("dess")
 			cutscene:textTagged("* yea and?", "neutral", "dess")
 		end
+		cutscene:hideNametag()
 
 		
 		
@@ -492,6 +530,12 @@ local desslmao = {
             cutscene:setSpeaker("susie")
             cutscene:textTagged("* ...???", "shy", "susie")
         end
+		
+		if jamm then
+			cutscene:showNametag("Jamm")
+			cutscene:text("* Is...[wait:10] there something wrong with that?", "nervous_left", "jamm")
+		end
+		cutscene:hideNametag()
 
 		if Noel:dessParty() then
 			if Noel:getFlag("knows_mimic") then
@@ -762,17 +806,29 @@ local desslmao = {
 				cutscene:textTagged("* What the hell is a 7-11?", "nervous_side", "susie")
 				cutscene:setSpeaker("dess")
 				cutscene:textTagged("* damn that's not what you said last time", "eyebrow", "dess")
-				cutscene:setSpeaker("susie")
-				cutscene:textTagged("* Why do you keep acting like I'm supposed to know you?", "suspicious", "susie")
+				if jamm then
+					cutscene:setSpeaker("jamm")
+					cutscene:textTagged("* What are you saying???[wait:10]\n* Are you okay in the head???", "suspicious", "jamm")
+				else
+					cutscene:setSpeaker("susie")
+					cutscene:textTagged("* Why do you keep acting like I'm supposed to know you?", "suspicious", "susie")
+					cutscene:setSpeaker("dess")
+					cutscene:textTagged("* uhhh because you are?", "condescending", "dess")
+				end
 				cutscene:setSpeaker("dess")
-				cutscene:textTagged("* uhhh because you are?", "condescending", "dess")
 				cutscene:textTagged("* damn this really IS a reboot", "neutral_b", "dess")
 				cutscene:textTagged("* ok tell you what,[wait:5] I'll give the leader spot back", "genuine_b", "dess")
 				cutscene:textTagged("* IF and only IF", "calm_b", "dess")
 				cutscene:textTagged("* you promise to by me a Mug:tm: Root Beer when this is all over", "condescending", "dess")
 				cutscene:setSpeaker("susie")
 				cutscene:textTagged("* ...[wait:10] Fine.", "suspicious", "susie")
-				cutscene:textTagged("* You are the single weirdest person I've ever met.", "annoyed", "susie")
+				if jamm then
+					cutscene:textTagged("* You are the single weirdest person I've ever met.[react:1]", "annoyed", "susie", {reactions={
+						{"Tell me\nabout it...", 352, 61, "stern", "jamm"}
+					}})
+				else
+					cutscene:textTagged("* You are the single weirdest person I've ever met.", "annoyed", "susie")
+				end
 				cutscene:setSpeaker("dess")
 				cutscene:textTagged("* i'll take that as a compliment", "heckyeah", "dess")
 			else

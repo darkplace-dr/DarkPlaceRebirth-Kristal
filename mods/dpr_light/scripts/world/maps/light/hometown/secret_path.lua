@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 32,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 12,
-  nextobjectid = 20,
+  nextlayerid = 13,
+  nextobjectid = 21,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -302,7 +302,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 0,
@@ -315,7 +315,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 480,
@@ -328,7 +328,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 680,
@@ -341,7 +341,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 920,
@@ -354,7 +354,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 1080,
@@ -367,7 +367,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 760,
@@ -380,7 +380,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 1000,
@@ -393,7 +393,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 0,
@@ -406,7 +406,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 400,
@@ -419,7 +419,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 840,
@@ -448,7 +448,7 @@ return {
         {
           id = 12,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 1260,
@@ -465,7 +465,7 @@ return {
         {
           id = 13,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = -20,
@@ -498,7 +498,7 @@ return {
         {
           id = 14,
           name = "entry_up",
-          class = "",
+          type = "",
           shape = "point",
           x = 360,
           y = 80,
@@ -511,7 +511,7 @@ return {
         {
           id = 15,
           name = "entry_left",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 880,
@@ -524,7 +524,7 @@ return {
         {
           id = 16,
           name = "entry_down",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 1240,
@@ -537,7 +537,7 @@ return {
         {
           id = 17,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 240,
           y = 880,
@@ -616,6 +616,35 @@ return {
       repeatx = false,
       repeaty = true,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 20,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }

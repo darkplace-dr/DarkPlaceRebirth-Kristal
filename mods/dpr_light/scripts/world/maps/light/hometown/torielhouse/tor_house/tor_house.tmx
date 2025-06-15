@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="35" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="38">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="35" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="53">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="deltarune/home"/>
  </properties>
@@ -12,6 +13,16 @@
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/torielhouse/living_room.png" width="1414" height="480"/>
  </imagelayer>
+ <objectgroup id="7" name="objects_night_below" visible="0">
+  <object id="49" gid="72" x="1222" y="400" width="134" height="288">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="objects_below">
+  <object id="51" gid="73" x="944" y="310" width="112" height="140"/>
+ </objectgroup>
  <objectgroup color="#5500ff" id="3" name="collision">
   <object id="1" x="342" y="80" width="44" height="236"/>
   <object id="2" x="386" y="276" width="42" height="40"/>
@@ -45,7 +56,7 @@
   <object id="28" x="418" y="384" width="308" height="16"/>
   <object id="29" x="854" y="382" width="282" height="18"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="4" name="objects">
+ <objectgroup color="#ff00ff" id="4" name="objects_party">
   <object id="17" name="transition" x="166" y="342" width="40" height="40">
    <properties>
     <property name="exit_delay" type="float" value="0.3"/>
@@ -105,7 +116,7 @@
   <object id="26" name="interactable" x="948" y="258" width="94" height="46">
    <properties>
     <property name="solid" type="bool" value="true"/>
-    <property name="text" value="* (The Tv is broken.)"/>
+    <property name="text" value="* (You can feel a pressure gradient from the absence of entertainment.)"/>
    </properties>
   </object>
   <object id="27" gid="38" x="370" y="400" width="830" height="94"/>
@@ -128,6 +139,26 @@
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="39" gid="74" x="886" y="196" width="230" height="60"/>
+  <object id="40" gid="77" x="474" y="158" width="52" height="50"/>
+  <object id="41" gid="77" x="630" y="158" width="52" height="50"/>
+ </objectgroup>
+ <objectgroup id="6" name="objects_night" visible="0">
+  <object id="43" gid="75" x="886" y="196" width="230" height="60">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="44" gid="76" x="474" y="158" width="52" height="50">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="45" gid="76" x="630" y="158" width="52" height="50">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="33" name="entrybathroom" x="246" y="366">
@@ -137,6 +168,11 @@
    <point/>
   </object>
   <object id="35" name="entryeast" x="1158" y="346">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="9" name="controllers">
+  <object id="52" name="hometowndaynight" x="0" y="0">
    <point/>
   </object>
  </objectgroup>

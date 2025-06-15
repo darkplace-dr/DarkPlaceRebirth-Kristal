@@ -112,7 +112,7 @@ function SharpshootCursor:update()
 				Game.battle:addChild(heart)
 				self.ammo = self.ammo - 1
 			end
-			if Game.party[2]:getHealth() > 0 then
+			if (#Game.party == 2 or #Game.party == 3) and Game.party[2]:getHealth() > 0 then
 				local x, y = Game.battle.party[2].heart_point_x, Game.battle.party[2].heart_point_y
                 local effect = Sprite("effects/attack/slap_n")
                 effect:setOrigin(0.5, 0.5)
@@ -126,7 +126,7 @@ function SharpshootCursor:update()
 				Game.battle:addChild(heart)
 				self.ammo = self.ammo - 1
 			end
-			if Game.party[3]:getHealth() > 0 then
+			if #Game.party == 3 and Game.party[3]:getHealth() > 0 then
 				local x, y = Game.battle.party[3].heart_point_x, Game.battle.party[3].heart_point_y
                 local effect = Sprite("effects/attack/slap_n")
                 effect:setOrigin(0.5, 0.5)

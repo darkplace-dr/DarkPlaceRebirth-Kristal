@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 46,
-  nextobjectid = 75,
+  nextlayerid = 48,
+  nextobjectid = 80,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -637,7 +637,7 @@ return {
         {
           id = 61,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 190,
@@ -651,7 +651,7 @@ return {
         {
           id = 62,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 990,
           y = 218,
@@ -665,7 +665,7 @@ return {
         {
           id = 63,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2092,
           y = 224,
@@ -679,7 +679,7 @@ return {
         {
           id = 64,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2440,
           y = 240,
@@ -693,7 +693,7 @@ return {
         {
           id = 65,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 336,
           y = 450,
@@ -707,7 +707,7 @@ return {
         {
           id = 66,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2883,
           y = 198,
@@ -737,7 +737,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = -20,
@@ -750,7 +750,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1474,
           y = -20,
@@ -763,7 +763,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1964,
           y = 0,
@@ -776,7 +776,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2074,
           y = 0,
@@ -789,7 +789,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2320,
           y = 0,
@@ -802,7 +802,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2434,
           y = 0,
@@ -815,7 +815,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 400,
@@ -828,7 +828,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1440,
           y = 440,
@@ -841,7 +841,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 440,
@@ -854,7 +854,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 990,
           y = 0,
@@ -867,7 +867,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1338,
           y = 0,
@@ -880,7 +880,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 0,
@@ -893,7 +893,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2166,
           y = 170,
@@ -906,7 +906,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 3040,
           y = 0,
@@ -919,7 +919,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2444,
           y = 80,
@@ -932,7 +932,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 360,
           y = 460,
@@ -950,7 +950,7 @@ return {
         {
           id = 34,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 3000,
           y = 400,
@@ -963,7 +963,7 @@ return {
         {
           id = 42,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2566,
           y = 80,
@@ -976,7 +976,7 @@ return {
         {
           id = 74,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 3000,
           y = 400,
@@ -990,6 +990,38 @@ return {
             { x = 0, y = 40 }
           },
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 47,
+      name = "objects_night",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 77,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1600,
+          y = 190,
+          width = 358,
+          height = 190,
+          rotation = 0,
+          gid = 357,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
         }
       }
     },
@@ -1010,7 +1042,7 @@ return {
         {
           id = 29,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1360,
           y = 94,
@@ -1027,7 +1059,7 @@ return {
         {
           id = 32,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1240,
           y = 480,
@@ -1044,7 +1076,7 @@ return {
         {
           id = 33,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 3600,
           y = 200,
@@ -1061,7 +1093,7 @@ return {
         {
           id = 35,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = -40,
@@ -1076,9 +1108,26 @@ return {
           }
         },
         {
+          id = 79,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -28,
+          y = 200,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["facing"] = "left",
+            ["map"] = "light/hometown/town_noellehouse",
+            ["marker"] = "spawn"
+          }
+        },
+        {
           id = 36,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1656,
           y = 152,
@@ -1093,7 +1142,7 @@ return {
         {
           id = 37,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 200,
@@ -1108,7 +1157,7 @@ return {
         {
           id = 38,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1042,
           y = 106,
@@ -1125,7 +1174,7 @@ return {
         {
           id = 39,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1160,
           y = 146,
@@ -1141,7 +1190,7 @@ return {
         {
           id = 40,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1838,
           y = 150,
@@ -1157,7 +1206,7 @@ return {
         {
           id = 41,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2204,
           y = 148,
@@ -1173,7 +1222,7 @@ return {
         {
           id = 43,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2508,
           y = 204,
@@ -1193,7 +1242,7 @@ return {
         {
           id = 44,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 200,
@@ -1208,7 +1257,7 @@ return {
         {
           id = 45,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 200,
@@ -1223,7 +1272,7 @@ return {
         {
           id = 73,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2883,
           y = 88,
@@ -1236,6 +1285,19 @@ return {
             ["text1"] = "* (It's your dad's truck.)",
             ["text2"] = "* (The floor of the front seat is littered with old papers and country CDs...)"
           }
+        },
+        {
+          id = 75,
+          name = "dryzone",
+          type = "",
+          shape = "rectangle",
+          x = 2088,
+          y = 170,
+          width = 78,
+          height = 50,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -1335,7 +1397,7 @@ return {
         {
           id = 21,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 860,
           y = 40,
@@ -1348,7 +1410,7 @@ return {
         {
           id = 31,
           name = "entryeast",
-          class = "",
+          type = "",
           shape = "point",
           x = 3560,
           y = 280,
@@ -1361,7 +1423,7 @@ return {
         {
           id = 30,
           name = "entrysouth",
-          class = "",
+          type = "",
           shape = "point",
           x = 1340,
           y = 440,
@@ -1374,10 +1436,23 @@ return {
         {
           id = 46,
           name = "entryflower",
-          class = "",
+          type = "",
           shape = "point",
           x = 2540,
           y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 78,
+          name = "entrywest",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 340,
           width = 0,
           height = 0,
           rotation = 0,
@@ -1416,6 +1491,35 @@ return {
         140, 141, 140, 141, 140, 141, 140, 141, 140, 141, 140, 141, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 138, 139, 140, 139, 139, 140, 141, 141, 140, 141, 141, 140, 141, 141, 140, 141,
         151, 150, 151, 150, 151, 150, 151, 150, 151, 152, 151, 152, 192, 141, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 138, 139, 139, 190, 151, 150, 151, 152, 151, 152, 151, 152, 151, 152, 151, 152, 151, 150, 151,
         150, 151, 152, 151, 152, 151, 152, 151, 152, 151, 152, 151, 152, 151, 192, 141, 141, 140, 141, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 138, 139, 140, 141, 140, 141, 140, 141, 140, 141, 190, 151, 150, 151, 150, 151, 150, 151, 150, 151, 150, 151, 150, 151, 150, 151, 150, 151, 152
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 46,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 76,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = -20,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="35">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="36">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -94,6 +94,17 @@
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
   <object id="27" name="spawn" x="136" y="176">
+   <point/>
+  </object>
+ </objectgroup>
+ <imagelayer id="6" name="sunset">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/school/toriel_class_sunset.png" width="640" height="480"/>
+  <properties>
+   <property name="cond" value="Game:getFlag(&quot;hometown_time&quot;, &quot;day&quot;) == &quot;sunset&quot;"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#00aa00" id="7" name="controllers">
+  <object id="35" name="schoolsunset" x="0" y="0">
    <point/>
   </object>
  </objectgroup>
