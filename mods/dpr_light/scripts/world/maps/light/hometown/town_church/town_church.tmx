@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="32" tilewidth="40" tileheight="40" infinite="0" nextlayerid="26" nextobjectid="56">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="38" height="32" tilewidth="40" tileheight="40" infinite="0" nextlayerid="26" nextobjectid="59">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -201,7 +201,9 @@
   </imagelayer>
  </group>
  <objectgroup color="#5500ff" id="8" name="collision">
-  <object id="2" x="460" y="380" width="270" height="276"/>
+  <object id="2" x="634" y="380" width="96" height="276"/>
+  <object id="57" x="460" y="380" width="98" height="276"/>
+  <object id="58" x="558" y="380" width="76" height="180"/>
   <object id="3" x="0" y="0" width="440" height="680"/>
   <object id="4" x="440" y="0" width="280" height="320"/>
   <object id="15" x="994" y="920" width="486" height="360"/>
@@ -269,10 +271,13 @@
     <property name="sound" value="escaped"/>
    </properties>
   </object>
-  <object id="43" name="interactable" x="558" y="590" width="76" height="66">
+  <object id="43" name="transition" x="560" y="560" width="80" height="80">
    <properties>
-    <property name="text1" value="* (It's locked...)"/>
-    <property name="text2" value="* (...[wait:5] the town it's pretty empty today.)"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="up"/>
+    <property name="map" value="light/hometown/church/entrance"/>
+    <property name="marker" value="south"/>
+    <property name="sound" value="dooropen"/>
    </properties>
   </object>
   <object id="51" name="script" x="360" y="680" width="40" height="200">
@@ -295,6 +300,9 @@
    <point/>
   </object>
   <object id="40" name="entryhall" x="1166" y="280">
+   <point/>
+  </object>
+  <object id="56" name="entrychurch" x="600" y="700">
    <point/>
   </object>
  </objectgroup>
@@ -334,7 +342,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,0,0,0,0,149,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group id="17" name="up">
+ <group id="17" name="up" visible="0">
   <imagelayer id="18" name="churchup" offsetx="440" offsety="0">
    <image source="../../../../../../assets/sprites/world/maps/hometown/churchup.png" width="312" height="656"/>
   </imagelayer>

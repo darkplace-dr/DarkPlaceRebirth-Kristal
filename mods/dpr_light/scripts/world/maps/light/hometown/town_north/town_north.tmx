@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="48" nextobjectid="78">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="90" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="48" nextobjectid="80">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -357,6 +357,13 @@
     <property name="marker" value="spawn"/>
    </properties>
   </object>
+  <object id="79" name="transition" x="-28" y="200" width="40" height="200">
+   <properties>
+    <property name="facing" value="left"/>
+    <property name="map" value="light/hometown/town_noellehouse"/>
+    <property name="marker" value="spawn"/>
+   </properties>
+  </object>
   <object id="36" name="interactable" x="1656" y="152" width="132" height="38">
    <properties>
     <property name="text" value="* (There's some kind of scratching and hissing from inside.)"/>
@@ -449,6 +456,9 @@
    <point/>
   </object>
   <object id="46" name="entryflower" x="2540" y="280">
+   <point/>
+  </object>
+  <object id="78" name="entrywest" x="40" y="340">
    <point/>
   </object>
  </objectgroup>
