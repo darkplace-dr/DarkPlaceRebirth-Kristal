@@ -22,7 +22,17 @@ function HometownDayNight:init(data,...)
 			self.overlay.alpha = 0.6
 			self.overlay:setLayer(WORLD_LAYERS["above_events"])
 			self.overlay:setParallax(0)
-			Game.world:addChild(self.overlay)
+			self.overlay:addFX(MaskFX(function()
+				return Game.world.menu
+			end), "menu_mask").inverted = true
+			self.overlay:addFX(MaskFX(function()
+				if Game.world:isTextboxOpen() then
+					return Game.world.cutscene.textbox
+				else
+					return nil
+				end
+			end), "textbox_mask").inverted = true
+			Game.stage:addChild(self.overlay)
 		end
 	end
 end
@@ -71,9 +81,9 @@ function HometownDayNight:onRemove(parent)
 				value:removeFX("daynight_added")
 			end
 		end
-		if self.overlay then
-			self.overlay:remove()
-		end
+	end
+	if self.overlay then
+		self.overlay:remove()
 	end
 end
 
