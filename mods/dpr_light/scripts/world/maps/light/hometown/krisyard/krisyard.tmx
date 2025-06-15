@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="21" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="28">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="21" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="31">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -106,11 +106,6 @@
   <object id="16" x="418" y="240" width="40" height="108"/>
  </objectgroup>
  <objectgroup id="12" name="objects_light_night">
-  <object id="24" gid="356" x="150" y="266" width="26" height="30">
-   <properties>
-    <property name="night" type="int" value="2"/>
-   </properties>
-  </object>
   <object id="25" gid="356" x="150" y="336" width="26" height="30">
    <properties>
     <property name="night" type="int" value="2"/>
@@ -192,6 +187,13 @@
  <imagelayer id="10" name="houseover" offsetx="80" offsety="40">
   <image source="../../../../../../assets/sprites/world/maps/hometown/krishouseover.png" width="390" height="380"/>
  </imagelayer>
+ <objectgroup id="13" name="objects_light_above_night">
+  <object id="30" gid="356" x="150" y="266" width="26" height="30">
+   <properties>
+    <property name="night" type="int" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#00aa00" id="11" name="controllers">
   <object id="23" name="hometowndaynight" x="0" y="0">
    <point/>
