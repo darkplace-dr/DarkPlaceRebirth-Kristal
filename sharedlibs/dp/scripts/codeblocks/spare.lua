@@ -8,7 +8,7 @@ function block:init()
 end
 
 function block:run(scope)
-    return {"SPARE", assert(Game.battle.enemies[self.target:run(scope)]), nil, {}}
+    return {"SPARE", assert(Game.battle.enemies[self.target:run(scope)], "Enemy " .. self.target.value .. " not found."), nil, {}}
 end
 
 function block:onSave(data)
