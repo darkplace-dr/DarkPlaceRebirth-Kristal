@@ -6,7 +6,7 @@
 local BGPaletteFX, super = Class(FXBase)
 
 -- Should always be the same as the value in palette.glsl
-BGPaletteFX.MAX_PALETTE_ENTRIES = 256
+BGPaletteFX.MAX_PALETTE_ENTRIES = 384
 
 ---@param imagedata love.ImageData|string|Actor
 ---@param line integer

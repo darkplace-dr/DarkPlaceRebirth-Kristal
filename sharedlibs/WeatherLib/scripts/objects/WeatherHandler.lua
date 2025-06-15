@@ -159,7 +159,7 @@ function WeatherHandler:update()
 					local x, y
 					if self.prewarm then
 						x = love.math.random(0,720) - 64
-						y = love.math.random(-SCREEN_HEIGHT-76, -76+556)
+						y = love.math.random(-SCREEN_HEIGHT*1.5-76, -76+556)
 					else
 						local side_random = love.math.random(0,720) - 64
 						local foff = math.random(0,10 * (speedmult*20))

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="30" nextobjectid="60">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="31" nextobjectid="62">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -271,4 +271,9 @@
    <image source="../../../../../../assets/sprites/world/maps/hometown/apartment.png" width="280" height="372"/>
   </imagelayer>
  </group>
+ <objectgroup color="#00aa00" id="30" name="controllers">
+  <object id="60" name="hometowndaynight" x="0" y="0">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

@@ -1,5 +1,5 @@
 // Should always be the same as the value in src/engine/drawfx/palettefx.lua
-#define MAX_PALETTE_ENTRIES 256
+#define MAX_PALETTE_ENTRIES 384
 uniform vec4 base_palette[MAX_PALETTE_ENTRIES];
 uniform vec4 live_palette[MAX_PALETTE_ENTRIES];
 uniform bool debug;

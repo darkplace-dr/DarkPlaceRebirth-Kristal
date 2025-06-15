@@ -5,6 +5,21 @@ end
 
 function Mod:onMapMusic(map, music)
 	if music == "hometown" then
-		return "deltarune/town_day"
+		if Game:getFlag("hometown_time", "day") == "day" then
+			return "deltarune/town_day"
+		elseif Game:getFlag("hometown_time", "day") == "sunset" then
+			return "deltarune/town"
+		elseif Game:getFlag("hometown_time", "day") == "night" then
+			return "deltarune/night_ambience"
+		end
+	end
+	if music == "deltarune/mus_birdnoise" and Game:getFlag("hometown_time", "day") == "night" then
+		return "deltarune/night_ambience"
+	end
+end
+
+function Mod:onMapBorder(map, border)
+	if border == "leaves" and Game:getFlag("hometown_time", "day") == "night" then
+		return "leaves_night"
 	end
 end

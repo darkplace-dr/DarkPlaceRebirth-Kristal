@@ -529,7 +529,13 @@ end
 function WeatherLib:onFootstep(chara, num)
     if chara:includes(Player) then
         for i, w in ipairs(Game.stage.weather) do
-			if w.rainsplash and not Game.world.map.inside and not Game.world.map.data.properties["inside"]  then
+			local make_steps = true
+			for _,dryzone in ipairs(Game.world.map:getEvents("dryzone")) do
+				if Game.world.player:collidesWith(dryzone.collider) then
+					make_steps = false
+				end
+			end
+			if w.rainsplash and not Game.world.map.inside and not Game.world.map.data.properties["inside"] and make_steps then
 				if num == 1 then
 					Assets.playSound("stepsplash1")
 				elseif num == 2 then				
