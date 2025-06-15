@@ -14,7 +14,8 @@ BGPaletteFX.MAX_PALETTE_ENTRIES = 384
 function BGPaletteFX:init(imagedata, line, transformed, priority)
     super.init(self, priority or 0)
 
-    self.shader = Assets.getShader("bg_palette")
+    -- It's important that we use newShader instead of getShader if we want to be able to have multiple BGPaletteFXs active.
+    self.shader = Assets.newShader("bg_palette")
     self:setPalette(imagedata, line)
 end
 
@@ -62,6 +63,8 @@ function BGPaletteFX:setPalette(imagedata, line)
             table.insert(self.live_pal, self.live_pal[1])
         end
     end
+    self.shader:send("base_palette", unpack(self.base_pal))
+    self.shader:send("live_palette", unpack(self.live_pal))
 end
 
 function BGPaletteFX:isActive()
@@ -71,8 +74,6 @@ end
 function BGPaletteFX:draw(texture)
     local last_shader = love.graphics.getShader()
     love.graphics.setShader(self.shader)
-	self.shader:send("base_palette", unpack(self.base_pal))
-	self.shader:send("live_palette", unpack(self.live_pal))
     Draw.drawCanvas(texture)
     love.graphics.setShader(last_shader)
 end
