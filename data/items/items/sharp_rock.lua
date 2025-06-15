@@ -46,7 +46,7 @@ function item:init()
 end
 
 function item:onBattleSelect(user, target)
-    Game.timer:after(1, function()
+    Game.battle.timer:after(1, function()
         local value = self.hurt_values[user.id] or 60
         target:hurt(value)
     end)
