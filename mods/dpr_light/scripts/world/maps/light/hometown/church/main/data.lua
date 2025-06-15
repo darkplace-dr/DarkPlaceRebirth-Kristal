@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,7 +9,7 @@ return {
   height = 31,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
+  nextlayerid = 8,
   nextobjectid = 75,
   properties = {
     ["border"] = "leaves",
@@ -1089,6 +1089,22 @@ return {
           properties = {}
         }
       }
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../../../assets/sprites/world/maps/hometown/church/main_light.png",
+      id = 7,
+      name = "light",
+      class = "",
+      visible = true,
+      opacity = 0.1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
     }
   }
 }
