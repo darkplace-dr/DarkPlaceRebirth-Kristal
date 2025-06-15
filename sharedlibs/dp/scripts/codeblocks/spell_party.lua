@@ -1,25 +1,25 @@
----@class CodeBlock.item_party : CodeBlock
-local block, super = Class(CodeBlock, "item_party")
+---@class CodeBlock.spell_party : CodeBlock
+local block, super = Class(CodeBlock, "spell_party")
 
 function block:init()
     super.init(self)
     self.target = DP:createCodeblock("literal")
     self.target.value = 1
-    self.item = DP:createCodeblock("literal")
-    self.item.value = 1
+    self.spell = DP:createCodeblock("literal")
+    self.spell.value = 1
 end
 
 function block:run(scope)
     local target_n = self.target:run(scope)
     local target = assert(Game.battle.party[target_n], "Party battler " .. target_n .. " not found.")
-    local item_n = self.item:run(scope)
-    local item = assert(Game.inventory:getItem("items",item_n), "Item " .. item_n .. " not found.")
-    assert(item.usable_in == "all" or item.usable_in == "battle", "Item " .. item_n .. " unable to be used in battle.")
-    assert(item.target == "ally" or item.target == "party", "Item " .. item_n .. " unable to be used on party.")
-	if item.target == "party" then
+    local spell_n = self.spell:run(scope)
+    local spell = assert(Game:getPartyMember("apm"):getSpells()[spell_n], "Spell " .. spell_n .. " not found.")
+    assert(Game.tension >= spell:getTPCost(Game:getPartyMember("apm")), "Not enough tension to cast spell " .. spell_n .. ".")
+    assert(spell.target == "ally" or spell.target == "party", "Spell " .. spell_n .. " unable to be used on party.")
+	if spell.target == "party" then
 		target = Game.battle.party
 	end
-    return {"ITEM", target, {data = item}, nil}
+    return {"SPELL", target, {data = spell, tp = spell:getTPCost(Game:getPartyMember("apm"))}, nil}
 end
 
 function block:onSave(data)
