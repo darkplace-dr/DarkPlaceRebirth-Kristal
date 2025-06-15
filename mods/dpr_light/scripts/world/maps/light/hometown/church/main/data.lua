@@ -15,7 +15,7 @@ return {
     ["border"] = "leaves",
     ["inside"] = true,
     ["light"] = true,
-    ["music"] = "deltarune/church_lw"
+    ["music"] = "church"
   },
   tilesets = {
     {
