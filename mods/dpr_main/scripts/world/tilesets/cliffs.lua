@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   name = "cliffs",
@@ -8,10 +8,10 @@ return {
   tileheight = 20,
   spacing = 0,
   margin = 0,
-  columns = 5,
+  columns = 9,
   image = "../../../assets/sprites/tilesets/cliffs.png",
-  imagewidth = 100,
-  imageheight = 540,
+  imagewidth = 180,
+  imageheight = 140,
   objectalignment = "unspecified",
   tilerendersize = "grid",
   fillmode = "stretch",
@@ -26,6 +26,6 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 135,
+  tilecount = 63,
   tiles = {}
 }
