@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 21,
+  nextlayerid = 9,
+  nextobjectid = 27,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -41,6 +41,38 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_room_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 21,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 480,
+          width = 640,
+          height = 480,
+          rotation = 0,
+          gid = 78,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -243,7 +275,7 @@ return {
           properties = {
             ["solid"] = true,
             ["text1"] = "* Underneath the bed is an old cartridge of \"Cat Petters RPG\".",
-            ["text2"] = "* \"catti `& catty\" can be seen faintly written on it in worn gel pen."
+            ["text2"] = "* \"catti & catty\" can be seen faintly written on it in worn gel pen."
           }
         },
         {
@@ -274,14 +306,16 @@ return {
           rotation = 0,
           gid = 35,
           visible = true,
-          properties = {}
+          properties = {
+            ["night"] = 3
+          }
         },
         {
           id = 15,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 84,
+          x = 86,
           y = 400,
           width = 106,
           height = 64,
@@ -295,7 +329,7 @@ return {
           name = "interactable",
           type = "",
           shape = "rectangle",
-          x = 88,
+          x = 90,
           y = 366,
           width = 92,
           height = 34,
@@ -362,6 +396,54 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 7,
+      name = "objects_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 470,
+          y = 390,
+          width = 74,
+          height = 60,
+          rotation = 0,
+          gid = 33,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 86,
+          y = 400,
+          width = 106,
+          height = 64,
+          rotation = 0,
+          gid = 79,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 5,
       name = "markers",
       class = "",
@@ -380,6 +462,35 @@ return {
           shape = "point",
           x = 330,
           y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 26,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
           width = 0,
           height = 0,
           rotation = 0,

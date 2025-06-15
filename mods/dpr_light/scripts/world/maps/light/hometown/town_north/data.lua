@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 47,
-  nextobjectid = 77,
+  nextlayerid = 48,
+  nextobjectid = 78,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -990,6 +990,38 @@ return {
             { x = 0, y = 40 }
           },
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 47,
+      name = "objects_night",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 77,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1600,
+          y = 190,
+          width = 358,
+          height = 190,
+          rotation = 0,
+          gid = 357,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
         }
       }
     },

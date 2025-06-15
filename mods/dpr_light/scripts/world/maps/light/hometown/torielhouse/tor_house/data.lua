@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 38,
+  nextlayerid = 10,
+  nextobjectid = 53,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -41,6 +41,68 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects_night_below",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 49,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1222,
+          y = 400,
+          width = 134,
+          height = 288,
+          rotation = 0,
+          gid = 72,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "objects_below",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 51,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 944,
+          y = 310,
+          width = 112,
+          height = 140,
+          rotation = 0,
+          gid = 73,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -554,6 +616,112 @@ return {
             ["cutscene"] = "tor_home.chairiel",
             ["solid"] = true
           }
+        },
+        {
+          id = 39,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
+          rotation = 0,
+          gid = 74,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          gid = 77,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          gid = 77,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 43,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
+          rotation = 0,
+          gid = 75,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 44,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          gid = 76,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 45,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          gid = 76,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
         }
       }
     },
@@ -604,6 +772,35 @@ return {
           shape = "point",
           x = 1158,
           y = 346,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 52,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
           width = 0,
           height = 0,
           rotation = 0,

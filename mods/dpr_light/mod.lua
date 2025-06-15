@@ -23,3 +23,11 @@ function Mod:onMapBorder(map, border)
 		return "leaves_night"
 	end
 end
+
+function Mod:loadObject(world, name, data)
+    if data.gid then
+		local tobj = world.map:createTileObject(data)
+		tobj.night_mode = data.properties["night"] or nil
+		return tobj
+    end
+end

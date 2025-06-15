@@ -9,8 +9,8 @@ return {
   height = 21,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 12,
-  nextobjectid = 24,
+  nextlayerid = 13,
+  nextobjectid = 28,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -22,6 +22,12 @@ return {
       firstgid = 1,
       filename = "../../../../tilesets/hometown.tsx",
       exportfilename = "../../../../tilesets/hometown.lua"
+    },
+    {
+      name = "hometownobjects",
+      firstgid = 287,
+      filename = "../../../../tilesets/hometownobjects.tsx",
+      exportfilename = "../../../../tilesets/hometownobjects.lua"
     }
   },
   layers = {
@@ -547,6 +553,86 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "objects_light_night",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 150,
+          y = 266,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 150,
+          y = 336,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 250,
+          y = 342,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 398,
+          y = 342,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        }
+      }
     },
     {
       type = "objectgroup",

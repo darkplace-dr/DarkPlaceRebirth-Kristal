@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.0" name="hometownobjects" tilewidth="830" tileheight="656" tilecount="64" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="830" tileheight="656" tilecount="76" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -100,6 +100,9 @@
  <tile id="33">
   <image width="74" height="60" source="../../../assets/sprites/tilesets/objects/s_cageopen.png"/>
  </tile>
+ <tile id="78">
+  <image width="106" height="64" source="../../../assets/sprites/tilesets/objects/azzy_pc_dark.png"/>
+ </tile>
  <tile id="34">
   <image width="92" height="76" source="../../../assets/sprites/tilesets/objects/kris_bedsheet.png"/>
  </tile>
@@ -133,11 +136,20 @@
  <tile id="44">
   <image width="358" height="190" source="../../../assets/sprites/world/maps/hometown/brathouse.png"/>
  </tile>
+ <tile id="70">
+  <image width="179" height="95" source="../../../assets/sprites/world/maps/hometown/brathouse_night.png"/>
+ </tile>
  <tile id="45">
   <image width="472" height="218" source="../../../assets/sprites/world/maps/hometown/cathouse.png"/>
  </tile>
  <tile id="46">
   <image width="312" height="656" source="../../../assets/sprites/world/maps/hometown/church.png"/>
+ </tile>
+ <tile id="66">
+  <image width="156" height="328" source="../../../assets/sprites/world/maps/hometown/church_night.png"/>
+ </tile>
+ <tile id="68">
+  <image width="156" height="328" source="../../../assets/sprites/world/maps/hometown/church_nightup.png"/>
  </tile>
  <tile id="47">
   <image width="434" height="316" source="../../../assets/sprites/world/maps/hometown/flowking.png"/>
@@ -195,5 +207,29 @@
  </tile>
  <tile id="65">
   <image width="114" height="49" source="../../../assets/sprites/tilesets/objects/sans_counter.png"/>
+ </tile>
+ <tile id="69">
+  <image width="13" height="15" source="../../../assets/sprites/world/maps/hometown/krishouse_window_night.png"/>
+ </tile>
+ <tile id="71">
+  <image width="67" height="144" source="../../../assets/sprites/world/maps/hometown/torielhouse/door_frame.png"/>
+ </tile>
+ <tile id="72">
+  <image width="56" height="70" source="../../../assets/sprites/world/maps/hometown/torielhouse/tv_cover.png"/>
+ </tile>
+ <tile id="73">
+  <image width="115" height="30" source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_big.png"/>
+ </tile>
+ <tile id="74">
+  <image width="115" height="30" source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_big.png"/>
+ </tile>
+ <tile id="75">
+  <image width="26" height="25" source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_dark_small.png"/>
+ </tile>
+ <tile id="76">
+  <image width="26" height="25" source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_small.png"/>
+ </tile>
+ <tile id="77">
+  <image width="320" height="240" source="../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png"/>
  </tile>
 </tileset>
