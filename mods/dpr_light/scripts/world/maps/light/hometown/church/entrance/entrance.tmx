@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="28">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="29">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="leaves"/>
+  <property name="church" type="bool" value="true"/>
   <property name="inside" type="bool" value="true"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="church"/>
@@ -109,4 +110,9 @@
  <imagelayer id="9" name="planks">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/church/entrance_planks.png" width="1280" height="480"/>
  </imagelayer>
+ <objectgroup id="10" name="controllers">
+  <object id="28" name="hometowndaynight" x="0" y="0">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
