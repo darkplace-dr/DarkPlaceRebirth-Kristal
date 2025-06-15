@@ -7,7 +7,7 @@
   <property name="border" value="leaves"/>
   <property name="inside" type="bool" value="true"/>
   <property name="light" type="bool" value="true"/>
-  <property name="music" value="deltarune/church_lw"/>
+  <property name="music" value="church"/>
  </properties>
  <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
  <imagelayer id="2" name="bg">
