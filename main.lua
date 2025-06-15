@@ -116,6 +116,7 @@ GradientFX = require("src.engine.drawfx.gradientfx")
 ScissorFX = require("src.engine.drawfx.scissorfx")
 VHSFilterFX = require("src.engine.drawfx.vhsfilterfx")
 PaletteFX = require("src.engine.drawfx.palettefx")
+BGPaletteFX = require("src.engine.drawfx.bgpalettefx")
 
 Collider = require("src.engine.colliders.collider")
 ColliderGroup = require("src.engine.colliders.collidergroup")
@@ -201,6 +202,13 @@ BallJumpPlayer = require("src.engine.game.minigames.balljump.balljumpplayer")
 BallJumpSCoin = require("src.engine.game.minigames.balljump.balljumpscoin")
 BallJumpSpikeF = require("src.engine.game.minigames.balljump.balljumpspikef")
 BallJumpSpiny = require("src.engine.game.minigames.balljump.balljumpspiny")
+
+--[[PunchOut = require("src.engine.game.minigames.punchout.punchout")
+PunchOutHero = require("src.engine.game.minigames.punchout.punchouthero")
+PunchOutQueen = require("src.engine.game.minigames.punchout.punchoutqueen")
+PunchOutHitbox = require("src.engine.game.minigames.punchout.punchouthitbox")
+PunchOutWheel = require("src.engine.game.minigames.punchout.punchoutwheel")
+PunchOutBaseball = require("src.engine.game.minigames.punchout.punchoutbaseball")]]
 
 RareCats = require("src.engine.game.minigames.rarecats.rarecats")
 RareCatsEntity = require("src.engine.game.minigames.rarecats.rarecatsentity")
