@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 48,
-  nextobjectid = 78,
+  nextobjectid = 80,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -1108,6 +1108,23 @@ return {
           }
         },
         {
+          id = 79,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -28,
+          y = 200,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["facing"] = "left",
+            ["map"] = "light/hometown/town_noellehouse",
+            ["marker"] = "spawn"
+          }
+        },
+        {
           id = 36,
           name = "interactable",
           type = "",
@@ -1423,6 +1440,19 @@ return {
           shape = "point",
           x = 2540,
           y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 78,
+          name = "entrywest",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 340,
           width = 0,
           height = 0,
           rotation = 0,

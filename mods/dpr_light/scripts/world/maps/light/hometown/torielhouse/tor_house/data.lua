@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -381,7 +381,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -539,7 +539,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text"] = "* (The Tv is broken.)"
+            ["text"] = "* (You can feel a pressure gradient from the absence of entertainment.)"
           }
         },
         {

@@ -1,6 +1,15 @@
+function Mod:init()
+    self:setMusicVolumes()
+end
+
 function Mod:postInit(newfile)
     print("Loaded "..self.info.name.."!")
 	Game:rollShiny("brenda")
+end
+
+function Mod:setMusicVolumes()
+    MUSIC_VOLUMES["deltarune/noelle_house_wip"] = 0.9
+    MUSIC_VOLUMES["deltarune/noelle_distant"] = 0.8
 end
 
 function Mod:onMapMusic(map, music)
