@@ -1,9 +1,10 @@
 {
     "id": "weatherlib",
     "authors": [
-        "crocokuo"
+        "crocokuo",
+		"Diamond Deltahedron (accuracy)"
     ],
-    "version": "v1.0.0-darkplace",
+    "version": "v1.0.0-darkplacerebirth",
     "engineVer": "v0.9.0-dev",
     "default": true,
 

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -13,6 +13,7 @@ return {
   nextobjectid = 14,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "deltarune/home"
   },
@@ -51,7 +52,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 92,
           y = 342,
@@ -64,7 +65,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 534,
           y = 120,
@@ -77,7 +78,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 52,
           y = 120,
@@ -90,7 +91,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 144,
           y = 250,
@@ -103,7 +104,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 336,
           y = 224,
@@ -116,7 +117,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 144,
           y = 292,
@@ -134,7 +135,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 550,
           y = 360,
@@ -152,7 +153,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 472,
           y = 282,
@@ -186,7 +187,7 @@ return {
         {
           id = 9,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 472,
           y = 280,
@@ -206,7 +207,7 @@ return {
         {
           id = 10,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 250,
@@ -222,7 +223,7 @@ return {
         {
           id = 11,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 340,
           y = 240,
@@ -237,7 +238,7 @@ return {
         {
           id = 12,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 388,
           y = 240,
@@ -270,7 +271,7 @@ return {
         {
           id = 13,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 436,
           y = 302,
