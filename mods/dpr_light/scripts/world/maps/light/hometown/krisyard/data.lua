@@ -363,6 +363,86 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 12,
+      name = "objects_light_night",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 150,
+          y = 266,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 150,
+          y = 336,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 250,
+          y = 342,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 398,
+          y = 342,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          gid = 356,
+          visible = true,
+          properties = {
+            ["night"] = 2
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 7,
       name = "objects",
       class = "",
@@ -553,86 +633,6 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 12,
-      name = "objects_light_night",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 24,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 150,
-          y = 266,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        },
-        {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 150,
-          y = 336,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        },
-        {
-          id = 26,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 250,
-          y = 342,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        },
-        {
-          id = 27,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 398,
-          y = 342,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        }
-      }
     },
     {
       type = "objectgroup",
