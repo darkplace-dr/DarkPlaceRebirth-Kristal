@@ -346,5 +346,11 @@ function lib:loadObject(world, name, data)
     end
 end
 
+function lib:onKeyPressed(key)
+    if Game.state == "MINIGAME" then
+        Game.minigame:onKeyPressed(key)
+        return true
+    end
+end
 
 return lib
