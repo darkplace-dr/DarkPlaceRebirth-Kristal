@@ -143,7 +143,7 @@
   <object id="65" name="script" x="0" y="720" width="40" height="216">
    <properties>
     <property name="cutscene" value="cliffside.forget"/>
-    <property name="flagcheck" value="!claimb_claws"/>
+    <property name="flagcheck" value="!claimb_susie"/>
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>

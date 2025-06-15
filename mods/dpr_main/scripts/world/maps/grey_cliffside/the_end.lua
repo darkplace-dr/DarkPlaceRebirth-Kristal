@@ -256,7 +256,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/climb_1",
+            ["map"] = "grey_cliffside/first_chr_encounter",
             ["marker"] = "left"
           }
         },

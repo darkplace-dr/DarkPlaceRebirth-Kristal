@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 23,
+  nextobjectid = 24,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -157,33 +157,7 @@ return {
           x = 200,
           y = 416,
           width = 80,
-          height = 24,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 4,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 240,
-          y = 440,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 5,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 360,
-          y = 440,
-          width = 40,
-          height = 40,
+          height = 64,
           rotation = 0,
           visible = true,
           properties = {}
@@ -215,14 +189,14 @@ return {
           properties = {}
         },
         {
-          id = 9,
+          id = 23,
           name = "",
           type = "",
           shape = "rectangle",
           x = 360,
           y = 416,
           width = 80,
-          height = 24,
+          height = 64,
           rotation = 0,
           visible = true,
           properties = {}
@@ -341,7 +315,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "cliffside.forget",
+            ["cutscene"] = "cliffside.forgetb",
             ["flagcheck"] = "!claimb_claws",
             ["once"] = false
           }
