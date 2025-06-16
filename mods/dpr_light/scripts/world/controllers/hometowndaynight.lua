@@ -42,8 +42,26 @@ function HometownDayNight:init(data,...)
             Game.world:addChild(self.callback)
             ---@type love.Shader
             self.shader = BGPaletteFX(self.palette, self.night).shader
+			if Game.world.map.image_layers["overlay"] then
+				Game.world.map.image_layers["overlay"].color = Utils.mergeColor(COLORS["black"], COLORS["navy"], 0.5)
+				Game.world.map.image_layers["overlay"]:addChild(self.callback)
+				Game.world:addChild(Game.world.map.image_layers["overlay"])
+			end
         end
     end
+	if Game:getFlag("hometown_time", "day") == "night" then
+		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+			if value.night_mode == 3 then
+				value:remove()
+			end
+		end
+	else
+        for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+			if value.night_mode then
+				value:remove()
+			end
+		end
+	end
 end
 
 function HometownDayNight:postLoad()
@@ -51,7 +69,6 @@ function HometownDayNight:postLoad()
     self:setLayer(-10000)
     self.done = true
 end
-
 -- what
 function HometownDayNight:onAddSibling(obj) end
 
