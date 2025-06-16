@@ -9,11 +9,9 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 19,
-  properties = {
-    ["music"] = "demonic_little_grey_cliffs"
-  },
+  nextlayerid = 6,
+  nextobjectid = 15,
+  properties = {},
   tilesets = {
     {
       name = "cliffs",
@@ -30,27 +28,12 @@ return {
   },
   layers = {
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 2,
-      name = "objects_bg",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {}
-    },
-    {
       type = "tilelayer",
       x = 0,
       y = 0,
       width = 16,
       height = 12,
-      id = 6,
+      id = 5,
       name = "Tile Layer 2",
       class = "",
       visible = true,
@@ -64,16 +47,16 @@ return {
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0, 0,
+        36, 36, 0, 0, 0, 36, 0, 0, 0, 0, 36, 36, 36, 36, 0, 0
       }
     },
     {
@@ -94,24 +77,24 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 33, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 41, 42, 0,
-        4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 50, 51, 0,
-        13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        22, 23, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        31, 32, 33, 0, 0, 4, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0,
-        40, 41, 42, 0, 0, 13, 7, 14, 16, 17, 15, 0, 0, 0, 0, 0,
-        49, 50, 51, 0, 0, 13, 17, 8, 14, 14, 15, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 13, 14, 16, 14, 7, 15, 0, 0, 4, 5, 6,
-        0, 0, 0, 0, 0, 13, 7, 14, 8, 17, 15, 0, 0, 13, 14, 15,
-        0, 0, 0, 0, 0, 22, 23, 26, 25, 23, 24, 0, 0, 22, 23, 24,
-        0, 0, 0, 0, 0, 40, 41, 13, 15, 41, 42, 0, 0, 31, 32, 33
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23, 24, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 33, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 41, 42, 0, 0,
+        5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 50, 51, 0, 0,
+        14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        23, 24, 0, 0, 0, 4, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0,
+        32, 33, 0, 0, 0, 13, 16, 14, 14, 17, 15, 0, 0, 0, 0, 0,
+        41, 42, 0, 0, 0, 13, 16, 14, 14, 8, 15, 0, 0, 4, 5, 6,
+        50, 51, 0, 0, 0, 13, 14, 16, 14, 17, 15, 0, 0, 13, 14, 15,
+        0, 0, 0, 0, 0, 13, 8, 14, 14, 16, 15, 0, 0, 22, 23, 24,
+        0, 0, 0, 0, 0, 22, 23, 26, 25, 23, 24, 0, 0, 31, 32, 33,
+        0, 0, 0, 0, 0, 49, 50, 13, 15, 50, 51, 0, 0, 40, 41, 42
       }
     },
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 3,
+      id = 2,
       name = "collision",
       class = "",
       visible = true,
@@ -127,10 +110,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 200,
-          y = 160,
-          width = 240,
-          height = 40,
+          x = 160,
+          y = 200,
+          width = 40,
+          height = 240,
           rotation = 0,
           visible = true,
           properties = {}
@@ -141,9 +124,9 @@ return {
           type = "",
           shape = "rectangle",
           x = 160,
-          y = 200,
-          width = 40,
-          height = 216,
+          y = 440,
+          width = 120,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -153,10 +136,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 200,
-          y = 416,
-          width = 80,
-          height = 64,
+          x = 360,
+          y = 440,
+          width = 120,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -166,10 +149,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 360,
-          y = 416,
-          width = 80,
-          height = 64,
+          x = 440,
+          y = 200,
+          width = 40,
+          height = 240,
           rotation = 0,
           visible = true,
           properties = {}
@@ -179,11 +162,39 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 440,
-          y = 200,
-          width = 40,
-          height = 216,
+          x = 160,
+          y = 160,
+          width = 320,
+          height = 40,
           rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -80,
+          y = 200,
+          width = 180,
+          height = 168,
+          rotation = 0,
+          gid = 65,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 360,
+          width = 180,
+          height = 168,
+          rotation = 0,
+          gid = 65,
           visible = true,
           properties = {}
         }
@@ -192,7 +203,7 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 4,
+      id = 3,
       name = "objects",
       class = "",
       visible = true,
@@ -205,35 +216,6 @@ return {
       objects = {
         {
           id = 7,
-          name = "glitch_bg",
-          type = "",
-          shape = "rectangle",
-          x = 40,
-          y = 40,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 8,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 280,
-          y = 480,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "grey_cliffside/cave_2b",
-            ["marker"] = "entry"
-          }
-        },
-        {
-          id = 9,
           name = "chest",
           type = "",
           shape = "point",
@@ -244,7 +226,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["item"] = "stellar_lens"
+            ["item"] = "claimbclaws"
           }
         },
         {
@@ -259,78 +241,31 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "cat",
-            ["cutscene"] = "cliffside.cat_badge",
-            ["flagcheck"] = "!badge_tutorial"
+            ["actor"] = "cat"
           }
         },
         {
           id = 11,
-          name = "script",
+          name = "transition",
           type = "",
           shape = "rectangle",
           x = 280,
-          y = 470,
+          y = 480,
           width = 80,
-          height = 10,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "cliffside.force_badge_tutorial",
-            ["flagcheck"] = "!badge_tutorial",
-            ["once"] = false
-          }
-        },
-        {
-          id = 12,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 300,
-          y = 420,
-          width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "cliffside.badge_tutorial",
-            ["once"] = true
+            ["map"] = "grey_cliffside/cave_3b",
+            ["marker"] = "entry"
           }
-        },
-        {
-          id = 17,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 520,
-          y = 400,
-          width = 180,
-          height = 168,
-          rotation = 0,
-          gid = 65,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 18,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 40,
-          y = 160,
-          width = 70,
-          height = 136,
-          rotation = 0,
-          gid = 64,
-          visible = true,
-          properties = {}
         }
       }
     },
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 5,
+      id = 4,
       name = "markers",
       class = "",
       visible = true,
