@@ -44,10 +44,14 @@
   </object>
   <object id="10" name="interactable" x="272" y="160" width="106" height="40">
    <properties>
+    <property name="nighttext1" value="* (It's a quiet night outside.)"/>
+    <property name="nighttext2" value="* (...)"/>
+    <property name="nighttext3">* (... It's late,[wait:5] you should go to bed.)[wait:5]
+* (But not here.)</property>
     <property name="solid" type="bool" value="true"/>
     <property name="text1" value="* (It's a beautiful day outside.)"/>
     <property name="text2" value="* (...)"/>
-    <property name="text3" value="* (Human, i remember you're [color:red]GENOCIDES[color:reset].)"/>
+    <property name="text3" value="* (You felt a strange feeling of judgement.)"/>
    </properties>
   </object>
   <object id="11" name="interactable" x="80" y="196" width="100" height="120">

@@ -239,10 +239,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["nighttext1"] = "* (It's a quiet night outside.)",
+            ["nighttext2"] = "* (...)",
+            ["nighttext3"] = "* (... It's late,[wait:5] you should go to bed.)[wait:5]\n* (But not here.)",
             ["solid"] = true,
             ["text1"] = "* (It's a beautiful day outside.)",
             ["text2"] = "* (...)",
-            ["text3"] = "* (Human, i remember you're [color:red]GENOCIDES[color:reset].)"
+            ["text3"] = "* (You felt a strange feeling of judgement.)"
           }
         },
         {
