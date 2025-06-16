@@ -3,6 +3,12 @@
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="music" value="hell"/>
+ </properties>
+ <imagelayer id="3" name="satan" offsetx="50" offsety="40">
+  <image source="../../../../assets/sprites/world/maps/satan/satan_1.png" width="530" height="368"/>
+ </imagelayer>
  <objectgroup id="4" name="collision">
   <object id="6" x="0" y="0" width="2160" height="200"/>
   <object id="7" x="-40" y="0" width="40" height="480"/>

@@ -34,13 +34,6 @@
             "width": 640,
             "x": 1880,
             "y": -680
-        },
-        {
-            "fileName": "maps/grey_cliffside/cliffside_right_2/cliffside_right_2.tmx",
-            "height": 1400,
-            "width": 1200,
-            "x": 2080,
-            "y": 760
         }
     ],
     "onlyShowAdjacentMaps": false,
