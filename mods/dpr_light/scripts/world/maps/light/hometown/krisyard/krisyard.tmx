@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="21" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="31">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="21" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="54">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -85,6 +85,27 @@
 151,150,151,150,150,153,0,0,0,0,0,149,150,151,150,151
 </data>
  </layer>
+ <objectgroup id="14" name="objects_grass">
+  <object id="31" gid="69" x="454" y="410" width="40" height="40"/>
+  <object id="32" gid="68" x="414" y="410" width="40" height="40"/>
+  <object id="34" gid="68" x="374" y="410" width="40" height="40"/>
+  <object id="35" gid="68" x="336" y="410" width="40" height="40"/>
+  <object id="36" gid="68" x="296" y="410" width="40" height="40"/>
+  <object id="37" gid="68" x="256" y="410" width="40" height="40"/>
+  <object id="38" gid="68" x="216" y="410" width="40" height="40"/>
+  <object id="39" gid="68" x="176" y="396" width="40" height="40"/>
+  <object id="40" gid="68" x="136" y="396" width="40" height="40"/>
+  <object id="41" gid="68" x="96" y="396" width="40" height="40"/>
+  <object id="42" gid="67" x="56" y="396" width="40" height="40"/>
+  <object id="43" gid="69" x="458" y="388" width="40" height="40"/>
+  <object id="45" gid="69" x="458" y="350" width="40" height="40"/>
+  <object id="46" gid="69" x="458" y="310" width="40" height="40"/>
+  <object id="47" gid="69" x="456" y="276" width="40" height="40"/>
+  <object id="48" gid="67" x="52" y="368" width="40" height="40"/>
+  <object id="50" gid="67" x="52" y="338" width="40" height="40"/>
+  <object id="51" gid="67" x="52" y="316" width="40" height="40"/>
+  <object id="53" gid="67" x="52" y="276" width="40" height="40"/>
+ </objectgroup>
  <imagelayer id="9" name="house" offsetx="80" offsety="40">
   <image source="../../../../../../assets/sprites/world/maps/hometown/krishouse.png" width="390" height="380"/>
  </imagelayer>

@@ -27,7 +27,8 @@ function EbottBGClouds:init(data)
 			star.siner = Utils.random(360)
 			star.y_start = star.y
 			star:setParallax(1, 0.9)
-			self:addChild(star)
+			star.night_mode = 2
+			Game.world:addChild(star)
 			table.insert(self.stars, star)
 		end
 	else
@@ -60,7 +61,7 @@ function EbottBGClouds:draw()
 	if self.stars then
 		for _, star in ipairs(self.stars) do
 			star.siner = star.siner + DTMULT
-			star.alpha = 0.9 + math.sin(star.siner/16) * 0.1
+			star.color = Utils.mergeColor(COLORS["white"], Game.world.map.bg_color, 0.8 + math.sin(star.siner/16) * 0.1)
 		end
 	end
     super.draw(self)

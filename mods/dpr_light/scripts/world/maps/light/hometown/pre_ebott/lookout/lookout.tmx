@@ -162,7 +162,7 @@
 </data>
  </layer>
  <objectgroup color="#00aa00" id="10" name="controllers">
-  <object id="14" name="hometowndaynight" x="40" y="0">
+  <object id="14" name="hometowndaynight" x="0" y="0">
    <point/>
   </object>
  </objectgroup>
