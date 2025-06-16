@@ -2040,10 +2040,10 @@ local hub = {
         local susie = cutscene:getCharacter("susie")
         local diagonal_mario = cutscene:getCharacter("diagonal_mario")
         cutscene:setTextboxTop(true)
-        cutscene:textTagged("* Cease and desist,[wait:5] you fucking idiot", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A."})
+        cutscene:textTagged("* Cease and desist,[wait:5] you fucking idiot", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A. (Advanced)"})
         if cutscene:getCharacter("susie") then
             cutscene:textTagged("* Yeah?[wait:5]\n* Or what?", "annoyed", "susie")
-            cutscene:textTagged("* DMCA", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A."})
+            cutscene:textTagged("* DMCA", nil, "diagonal_mario", { nametag = "Diagonal Mario of C.A. (Advanced)"})
             if Game.party[2].id == "noel" then
 			    cutscene:showNametag("Noel")
                 cutscene:text("[speed:2]* SURPRISE ATTACK GORDON!!!", "loud", "noel", { auto = true })
