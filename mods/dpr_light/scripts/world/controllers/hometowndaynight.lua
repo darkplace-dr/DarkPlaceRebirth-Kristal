@@ -51,7 +51,7 @@ function HometownDayNight:init(data,...)
     end
 	if Game:getFlag("hometown_time", "day") == "night" then
 		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
-			if value.night_mode == 3 then
+			if value.day_mode then
 				value:remove()
 			end
 		end
