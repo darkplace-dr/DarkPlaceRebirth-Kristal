@@ -8,7 +8,7 @@
   <property name="music" value="demonic_little_grey_cliffs"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/cliffs.tsx"/>
- <tileset firstgid="90" source="../../../tilesets/cliffs_objs.tsx"/>
+ <tileset firstgid="64" source="../../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="6" name="objects_bg"/>
  <layer id="9" name="black" width="16" height="24">
   <data encoding="csv">
@@ -102,7 +102,7 @@
   <object id="45" x="142" y="680" width="30" height="40"/>
   <object id="46" x="360" y="864" width="80" height="16"/>
   <object id="47" x="560" y="680" width="80" height="40"/>
-  <object id="49" x="440" y="280" width="120" height="40"/>
+  <object id="49" x="480" y="280" width="80" height="40"/>
   <object id="50" x="40" y="680" width="40" height="200"/>
   <object id="51" x="40" y="880" width="600" height="40"/>
   <object id="52" x="40" y="640" width="520" height="40"/>
@@ -125,7 +125,7 @@
    </properties>
   </object>
   <object id="10" name="footstep" x="240" y="560" width="40" height="40"/>
-  <object id="35" name="transition" x="80" y="-34" width="122" height="34">
+  <object id="35" name="transition" x="80" y="-40" width="120" height="40">
    <properties>
     <property name="map" value="grey_cliffside/dead_room1"/>
     <property name="marker" value="entry"/>
@@ -140,10 +140,10 @@
    </properties>
    <point/>
   </object>
-  <object id="39" gid="91" x="520" y="720" width="180" height="168"/>
-  <object id="40" gid="91" x="320" y="880" width="180" height="168"/>
-  <object id="42" gid="90" x="138" y="720" width="70" height="136"/>
-  <object id="48" gid="91" x="440" y="320" width="120" height="150"/>
+  <object id="39" gid="65" x="520" y="720" width="180" height="168"/>
+  <object id="40" gid="65" x="320" y="880" width="180" height="168"/>
+  <object id="42" gid="64" x="138" y="720" width="70" height="136"/>
+  <object id="48" gid="65" x="440" y="320" width="180" height="168"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="5" name="markers">
   <object id="6" name="spawn" x="160" y="760">

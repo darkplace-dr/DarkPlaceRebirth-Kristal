@@ -392,9 +392,9 @@ return {
           type = "",
           shape = "rectangle",
           x = 320,
-          y = 200,
+          y = 240,
           width = 40,
-          height = 360,
+          height = 320,
           rotation = 0,
           visible = true,
           properties = {}

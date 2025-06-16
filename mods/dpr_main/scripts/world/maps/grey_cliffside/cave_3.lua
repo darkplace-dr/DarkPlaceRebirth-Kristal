@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 15,
+  nextlayerid = 7,
+  nextobjectid = 20,
   properties = {},
   tilesets = {
     {
@@ -27,6 +27,35 @@ return {
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_bg",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 19,
+          name = "glitch_bg",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 40,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -241,7 +270,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "cat"
+            ["actor"] = "cat",
+            ["cutscene"] = "cliffside.cat_claimb_done",
+            ["flagcheck"] = "!claimb_cat"
           }
         },
         {
@@ -259,6 +290,50 @@ return {
             ["map"] = "grey_cliffside/cave_3b",
             ["marker"] = "entry"
           }
+        },
+        {
+          id = 15,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 300,
+          y = 420,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "cliffside.claimb_cat",
+            ["once"] = true
+          }
+        },
+        {
+          id = 16,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 460,
+          width = 80,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "cliffside.force_claimb"
+          }
+        },
+        {
+          id = 18,
+          name = "footstep",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 40,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

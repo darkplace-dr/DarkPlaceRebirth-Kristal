@@ -487,7 +487,7 @@ return {
           visible = true,
           properties = {
             ["map"] = "grey_cliffside/cliffside_pcv",
-            ["marker"] = "entry_right"
+            ["marker"] = "entry_2"
           }
         },
         {

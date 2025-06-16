@@ -150,7 +150,7 @@
   <object id="26" name="transition" x="320" y="1200" width="80" height="40">
    <properties>
     <property name="map" value="grey_cliffside/cliffside_pcv"/>
-    <property name="marker" value="entry_right"/>
+    <property name="marker" value="entry_2"/>
    </properties>
   </object>
   <object id="28" name="footstep" x="680" y="920" width="40" height="40"/>

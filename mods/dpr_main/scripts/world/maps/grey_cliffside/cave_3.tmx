@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="15">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="20">
  <editorsettings>
   <export target="cave_3.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <tileset firstgid="64" source="../../tilesets/cliffs_objs.tsx"/>
+ <objectgroup id="6" name="objects_bg">
+  <object id="19" name="glitch_bg" x="240" y="40" width="40" height="40"/>
+ </objectgroup>
  <layer id="5" name="Tile Layer 2" width="16" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -56,6 +59,8 @@
   <object id="10" name="npc" x="400" y="240">
    <properties>
     <property name="actor" value="cat"/>
+    <property name="cutscene" value="cliffside.cat_claimb_done"/>
+    <property name="flagcheck" value="!claimb_cat"/>
    </properties>
    <point/>
   </object>
@@ -65,6 +70,18 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
+  <object id="15" name="script" x="300" y="420" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="cliffside.claimb_cat"/>
+    <property name="once" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="16" name="script" x="280" y="460" width="80" height="20">
+   <properties>
+    <property name="cutscene" value="cliffside.force_claimb"/>
+   </properties>
+  </object>
+  <object id="18" name="footstep" x="360" y="40" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#55aaff" id="4" name="markers">
   <object id="13" name="entry" x="320" y="440">

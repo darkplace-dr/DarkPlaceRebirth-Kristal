@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 14,
+  nextlayerid = 7,
+  nextobjectid = 20,
   properties = {},
   tilesets = {
     {
@@ -27,6 +27,35 @@ return {
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_bg",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 19,
+          name = "glitch_bg",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 120,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -85,8 +114,8 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 36, 36, 36, 42, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 36, 36, 36, 51, 0, 0,
         5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6,
-        16, 0, 0, 8, 0, 7, 0, 0, 0, 8, 0, 0, 0, 17, 0, 7, 15,
-        0, 7, 0, 0, 17, 0, 0, 16, 0, 0, 17, 0, 7, 0, 0, 8, 15,
+        16, 14, 14, 8, 14, 7, 14, 14, 14, 8, 14, 14, 14, 17, 14, 7, 15,
+        14, 7, 14, 14, 17, 14, 14, 16, 14, 14, 17, 14, 7, 14, 14, 8, 15,
         23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24,
         50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 51
       }
@@ -218,6 +247,19 @@ return {
             ["map"] = "grey_cliffside/dead_room1",
             ["marker"] = "entry_3"
           }
+        },
+        {
+          id = 18,
+          name = "footstep",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 120,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

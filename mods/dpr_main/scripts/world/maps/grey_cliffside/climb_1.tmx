@@ -187,7 +187,7 @@
     <property name="up" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="9" name="climbarea" x="320" y="200" width="40" height="360"/>
+  <object id="9" name="climbarea" x="320" y="240" width="40" height="320"/>
   <object id="10" name="climbarea" x="320" y="640" width="40" height="80"/>
   <object id="11" name="climbarea" x="400" y="680" width="40" height="40"/>
   <object id="12" name="climbarea" x="400" y="800" width="40" height="40"/>
