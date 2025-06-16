@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 68,
+  nextobjectid = 72,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -301,58 +301,6 @@ return {
           properties = {}
         },
         {
-          id = 10,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 800,
-          width = 200,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 11,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 360,
-          y = 936,
-          width = 200,
-          height = 24,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 12,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 840,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 13,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 936,
-          width = 240,
-          height = 24,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 14,
           name = "",
           type = "",
@@ -548,14 +496,53 @@ return {
           properties = {}
         },
         {
-          id = 67,
+          id = 68,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 840,
+          width = 160,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 69,
           name = "",
           type = "",
           shape = "rectangle",
           x = 760,
           y = 680,
           width = 40,
-          height = 120,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 70,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 960,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 71,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 960,
+          width = 240,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -721,7 +708,7 @@ return {
           visible = true,
           properties = {
             ["map"] = "grey_cliffside/cliffside_pcv",
-            ["marker"] = "entry_left"
+            ["marker"] = "entry"
           }
         },
         {
@@ -736,8 +723,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "cliffside.forget",
-            ["flagcheck"] = "!claimb_susie",
+            ["cutscene"] = "cliffside.force_suscla",
+            ["flagcheck"] = "!suscla",
             ["once"] = false
           }
         }

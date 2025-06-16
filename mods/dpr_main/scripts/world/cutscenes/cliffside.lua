@@ -911,8 +911,9 @@ local cliffside = {
                     
                     Game.world.music:play("demonic_little_grey_cliffs", 1, 1)
                 end
-                if Game:getFlag("claimb_claws", true) then
-                    Game:setFlag("claimb_susie", true)
+                if Game:getFlag("claimb_cat") == true then
+                    Game:setFlag("suscla", true)
+                    cutscene:getEvent(65):remove()
                 end
                 Game:setFlag(crystal.flag, true)
             else
@@ -1128,6 +1129,51 @@ local cliffside = {
         cutscene:text("* Now,[wait:5] open that chest,[wait:5] open your menu,[wait:5] and go to the badge menu.", "neutral", "cat")
         cutscene:text("* Equip that badge and then come talk to me.", "neutral", "cat")
         cutscene:hideNametag()
+    end,
+
+    claimb_cat = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        hero:setFacing("up")
+        cutscene:wait(0.3)
+        cutscene:showNametag("Cat")
+        cutscene:text("* Hello again.", "neutral", "cat")
+        cutscene:text("* Inside this chest are the [color:yellow]ClaimbClaws[color:reset].", "neutral", "cat")
+        cutscene:text("* They will allow you to climb obvious walls.", "neutral", "cat")
+        cutscene:text("* Collect it and then come talk to me.", "neutral", "cat")
+        cutscene:hideNametag()
+    end,
+
+    force_claimb = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        cutscene:showNametag("Cat")
+        cutscene:text("* You cannot leave just yet.", "neutral", "cat")
+        cutscene:hideNametag()
+        hero:walkTo(hero.x, hero.y - 20, 0.5, "up")
+        cutscene:wait(0.5)
+    end,
+    
+    cat_claimb_done = function(cutscene, event)
+        cutscene:showNametag("Cat")
+            if Game.inventory:hasItem("claimbclaws") then
+                cutscene:text("* Very excelent.", "neutral", "cat")
+                cutscene:text("* You can now proceed.", "neutral", "cat")
+                Game:setFlag("claimb_cat", true)
+                if Game:getFlag("susie_freed") == true then
+                    Game:setFlag("suscla", true)
+                end
+                cutscene:getEvent(16):remove()
+            else
+                cutscene:text("* You have not yet collected the item.", "neutral", "cat")
+            end
+        cutscene:hideNametag()
+    end,
+
+    force_suscla = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        cutscene:text("* You cannot leave just yet.")
+        cutscene:hideNametag()
+        hero:walkTo(hero.x + 20, hero.y, 0.5, "right")
+        cutscene:wait(0.5)
     end,
 
     force_badge_tutorial = function(cutscene, event)

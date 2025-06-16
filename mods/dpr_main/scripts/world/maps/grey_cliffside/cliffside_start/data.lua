@@ -24,7 +24,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 90,
+      firstgid = 64,
       filename = "../../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../../tilesets/cliffs_objs.lua"
     }
@@ -287,9 +287,9 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 440,
+          x = 480,
           y = 280,
-          width = 120,
+          width = 80,
           height = 40,
           rotation = 0,
           visible = true,
@@ -452,9 +452,9 @@ return {
           type = "",
           shape = "rectangle",
           x = 80,
-          y = -34,
-          width = 122,
-          height = 34,
+          y = -40,
+          width = 120,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {
@@ -490,7 +490,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         },
@@ -504,7 +504,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         },
@@ -518,7 +518,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 90,
+          gid = 64,
           visible = true,
           properties = {}
         },
@@ -529,10 +529,10 @@ return {
           shape = "rectangle",
           x = 440,
           y = 320,
-          width = 120,
-          height = 150,
+          width = 180,
+          height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         }

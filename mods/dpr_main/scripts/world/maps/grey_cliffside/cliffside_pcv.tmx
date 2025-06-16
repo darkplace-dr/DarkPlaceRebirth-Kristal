@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="14">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="20">
  <editorsettings>
   <export target="cliffside_pcv.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <tileset firstgid="64" source="../../tilesets/cliffs_objs.tsx"/>
+ <objectgroup id="6" name="objects_bg">
+  <object id="19" name="glitch_bg" x="320" y="120" width="40" height="40"/>
+ </objectgroup>
  <layer id="2" name="Tile Layer 2" width="17" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -31,8 +34,8 @@
 0,0,0,0,0,0,0,0,0,0,40,36,36,36,42,0,0,
 0,0,0,0,0,0,0,0,0,0,49,36,36,36,51,0,0,
 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,
-16,0,0,8,0,7,0,0,0,8,0,0,0,17,0,7,15,
-0,7,0,0,17,0,0,16,0,0,17,0,7,0,0,8,15,
+16,14,14,8,14,7,14,14,14,8,14,14,14,17,14,7,15,
+14,7,14,14,17,14,14,16,14,14,17,14,7,14,14,8,15,
 23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,24,
 50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,51
 </data>
@@ -57,6 +60,7 @@
     <property name="marker" value="entry_3"/>
    </properties>
   </object>
+  <object id="18" name="footstep" x="240" y="120" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#55aaff" id="5" name="markers">
   <object id="11" name="entry_2" x="500" y="320">
