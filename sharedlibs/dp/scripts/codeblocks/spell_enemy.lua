@@ -7,6 +7,7 @@ function block:init()
     self.target.value = 1
     self.spell = DP:createCodeblock("literal")
     self.spell.value = 1
+    self.text = "Use spell #[expr:item] on enemy #[expr:target]"
 end
 
 function block:run(scope)

@@ -3,6 +3,7 @@ local block, super = Class(CodeBlock, "run_lua")
 
 function block:init()
     super.init(self)
+    self.text = "Unsafely run Lua: [literal:sourcecode,string]"
     self.sourcecode = "Game.battle:explode(nil, nil, true)"
 end
 

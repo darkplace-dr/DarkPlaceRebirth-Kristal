@@ -6,6 +6,8 @@ function CodeBlock:init()
     super.init(self)
     ---@type CodeBlock[]
     self.children = {}
+    self.has_children = getmetatable(self) == CodeBlock
+    self.text = "Do"
 end
 
 ---@return any?
