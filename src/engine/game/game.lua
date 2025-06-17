@@ -622,6 +622,10 @@ function Game:load(data, index, fade)
 	if not self:getFlag("PROMISES") then
 		self:setFlag("PROMISES", {})
 	end
+	
+	if not self:getFlag("unlocked_codeblocks") then
+		self:setFlag("unlocked_codeblocks", {})
+	end
 end
 
 ---@param light? boolean
