@@ -6,7 +6,7 @@ function ShadowguyGunBullet:init(x, y)
 	self:setHitbox(8, 16, 14, 1)
     self:setSprite("bullets/shadowguy/tommygun_bullet")
 	self:setScale(1)
-	self:setRotationOrigin(0.5)
+	self:setOriginExact(16, 14)
 	
 	self._destroy = false
 end
