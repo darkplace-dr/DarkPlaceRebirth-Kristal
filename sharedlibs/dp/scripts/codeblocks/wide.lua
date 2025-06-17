@@ -8,13 +8,7 @@ function block:init()
 end
 
 function block:run(scope)
-	local battler
-	for k,v in pairs(Game.battle.party) do
-		if v.chara.id == "apm" then
-			battler = v
-			break
-		end
-	end
+	local battler = Game.battle:getPartyBattler("apm")
 	battler:setScale(battler.scale_x + 0.05, battler.scale_y)
     return {"SKIP", nil, nil, nil}
 end
