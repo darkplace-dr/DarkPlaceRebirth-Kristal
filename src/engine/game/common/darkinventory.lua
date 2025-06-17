@@ -13,7 +13,6 @@ function DarkInventory:init()
         ["weapon"] = "weapons",
         ["armor"]  = "armors",
         ["badge"]  = "badges",
-        ["code"]   = "codeblocks",
     }
 
     self.storage_enabled = Game:getConfig("enableStorage")
@@ -33,7 +32,6 @@ function DarkInventory:clear()
         ["armors"]    	= {id = "armors",    	max = Game.default_equip_slots, sorted = false, name = "ARMORs",      	fallback = nil      },
         ["storage"]   	= {id = "storage",   	max = 24,                       sorted = false, name = "STORAGE",     	fallback = nil      },
         ["badges"] 		= {id = "badges", 		max = 48, 						sorted = true, 	name = "BADGEs", 		fallback = nil		},
-        ["codeblocks"] 	= {id = "codeblocks", 	max = 9999, 					sorted = true, 	name = "CODE BLOCKs", 	fallback = nil		},
     }
 
     Kristal.callEvent(KRISTAL_EVENT.createDarkInventory, self)
