@@ -28,7 +28,7 @@ function ShadowguyTommyGun:update()
 		self.guntimer = self.guntimer + DTMULT
 		if self.guntimer < 14 then
 			for _, enemy in ipairs(self.enemies) do
-				enemy.x = Utils.lerp(enemy.x, Game.battle.arena.right + 122, 0.16*DTMULT)
+				enemy.x = Utils.lerp(enemy.x, Game.battle.arena.right + 122 + 62 + 22, 0.16*DTMULT)
 			end
 		else
 			self.guntimer = 12
@@ -98,7 +98,7 @@ function ShadowguyTommyGun:onStart()
 						self.rep = 5
 					end
 					while self.rep > 0 do
-						local x, y = gun:getRelativePos(9, 32, Game.battle)
+						local x, y = enemy.x - enemy.sprite.texture:getWidth() + 6 + (math.cos(actor.gun_rot) * actor.gunshake), enemy.y - 58*2 + 63 + (math.sin(actor.gun_rot) * actor.gunshake)
 						actor.gun_rot = Utils.angle(x, y, Game.battle.arena.x, Game.battle.arena.y) - math.rad(30) + math.rad(love.math.random(0,60))
 						if self.type == 1 then
 							actor.gun_rot = math.rad(120 - love.math.random(0,90))
@@ -109,10 +109,11 @@ function ShadowguyTommyGun:onStart()
 							self.count = -10
 							actor.gun_rot = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(6) - math.rad(love.math.random(0,12))
 						end
-						x, y = gun:getRelativePos(9, 32, Game.battle)
+						local x, y = enemy.x - enemy.sprite.texture:getWidth() + 6 + (math.cos(actor.gun_rot) * 60), enemy.y - 58*2 + 64 + (math.sin(actor.gun_rot) * 60)
+						--x, y = gun:getRelativePos(9, 32, Game.battle)
 						local bullet = self:spawnBullet("shadowguy/tommygun_bullet", x, y)
 						bullet.physics.direction = actor.gun_rot
-						bullet.physics.speed = bullet_speed*1.5
+						bullet.physics.speed = bullet_speed
 						bullet.rotation = actor.gun_rot
 						self.rep = self.rep - 1
 					end

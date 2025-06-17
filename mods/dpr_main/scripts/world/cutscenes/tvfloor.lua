@@ -111,7 +111,9 @@ return {
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
 			if head.x > Game.world.camera.x - (SCREEN_WIDTH/2) + 50 and head.x < Game.world.camera.x + (SCREEN_WIDTH/2) - 50 then
-				table.insert(heads, head)
+				if head.type == "zapper" then
+					table.insert(heads, head)
+				end
 			end
 		end
 		if #heads <= 0 then
@@ -155,7 +157,7 @@ return {
 			cutscene:showNametag("Zapper")
 			cutscene:text("* What the -- you's ain't allowed in here!")
 			cutscene:hideNametag()
-			local change = TVTurnOff({map = Game.world.map.data.properties["punish_map"], marker = Game.world.map.data.properties["punish_marker"] or "entry_cage", facing = Game.world.map.data.properties["punish_facing"] or "down", marker = Game.world.map.data.properties["punish_flag"] or nil})
+			local change = TVTurnOff({map = Game.world.map.data.properties["punish_map"], marker = Game.world.map.data.properties["punish_marker"] or "entry_cage", facing = Game.world.map.data.properties["punish_facing"] or "down", flag = Game.world.map.data.properties["punish_flag"] or nil})
 			Game.world:addChild(change)
 		end
 	end,
@@ -163,13 +165,17 @@ return {
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
 			if head.x > Game.world.camera.x - (SCREEN_WIDTH/2) + 50 and head.x < Game.world.camera.x + (SCREEN_WIDTH/2) - 50 then
-				table.insert(heads, head)
+				if head.type == "shadowguy" then
+					table.insert(heads, head)
+				end
 			end
 		end
 		local head_failsafe = false
 		if #heads <= 0 and Game:getFlag("can_kill") then
 			for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
-				table.insert(heads, head)
+				if head.type == "shadowguy" then
+					table.insert(heads, head)
+				end
 			end
 			head_failsafe = true
 		end

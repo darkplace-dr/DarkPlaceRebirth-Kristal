@@ -3,8 +3,8 @@ local ShadowguyActor, super = Class(ActorSprite)
 function ShadowguyActor:init(actor)
     super.init(self, actor)
 	
-	local gun = Sprite("npcs/shadowguy/gun", -12, -2)
-	gun:setRotationOriginExact(34, 33)
+	local gun = Sprite("npcs/shadowguy/gun", 6, 63)
+	gun:setOriginExact(34, 33)
 	gun:setFrame(1)
 	gun.visible = false
 	gun.layer = self.layer - 4
@@ -19,7 +19,6 @@ function ShadowguyActor:init(actor)
 	socks:setScale(2)
 	socks:setHitbox(7, 49, 32, 9)
 	socks.visible = false
-	-- socks.layer = self.layer + 4
 	socks.rotation_origin_x = 0.5
 	socks.rotation_origin_y = 0.5
 	
@@ -36,28 +35,18 @@ function ShadowguyActor:init(actor)
 		end
 	end)
 	
-	-- socks:play(1, true)
-	-- Utils.hook(socks, "draw", function(orig, obj)
-	
-		-- orig(obj)
-	-- end)
-	
 	self.socks = socks
-	
-	-- self:addChild(socks)
 end
 
 function ShadowguyActor:update()
 	super.update(self)
 	
-	
-	self.gun.rotation = self.gun_rot - math.rad(180)
-	self.gun.x = self.x + -12 + (math.cos(self.gun.rotation) * self.gunshake)
-	self.gun.y = self.y + -2 + (math.sin(self.gun.rotation) * self.gunshake)
-	if self.gunshake > 0 then
-		self.gunshake = 0
-	end
-	-- self.socks.anim_routine = self.anim_routine
+	local x = self.texture:getWidth()/2-6
+	local y = 63/2
+
+	self.gun.rotation = self.gun_rot + math.rad(180)
+	self.gun.x = x + (math.cos(self.gun_rot) * self.gunshake)
+	self.gun.y = y + (math.sin(self.gun_rot) * self.gunshake)
 end
 
 return ShadowguyActor
