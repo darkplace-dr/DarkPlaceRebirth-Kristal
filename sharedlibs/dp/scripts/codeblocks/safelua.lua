@@ -1,6 +1,11 @@
 ---@class CodeBlock.safelua : CodeBlock.run_lua
 local block, super = Class("run_lua")
 
+function block:init()
+    super.init(self)
+    self.text = "Lua: [literal:sourcecode,string]"
+end
+
 function block:createEnv(scope)
     local function protected(t)
         if type(t) ~= "table" then return t end

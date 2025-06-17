@@ -5,6 +5,7 @@ function block:init()
     super.init(self)
     self.target = DP:createCodeblock("literal")
     self.target.value = 1
+    self.text = "X-ACT on enemy #[expr:target]"
 end
 
 function block:run(scope)

@@ -5,6 +5,7 @@ function block:init()
     super.init(self)
     ---@type boolean|string|number
     self.value = "SKIP"
+    self.text = "[literal:value,any]"
 end
 
 function block:run(scope)

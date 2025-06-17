@@ -7,6 +7,7 @@ function block:init()
     self.target.value = 1
     self.item = DP:createCodeblock("literal")
     self.item.value = 1
+    self.text = "Use item #[expr:item] on party member #[expr:target]"
 end
 
 function block:run(scope)

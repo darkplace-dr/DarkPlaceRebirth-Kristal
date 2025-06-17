@@ -5,6 +5,8 @@ function block:init()
     super.init(self)
     ---@type CodeBlock
     self.expr = nil
+    self.text = "Return [expr:expr]"
+    self.description = "Returns the result of an expression. When used at the top-level (outside of a custom function), runs a battle action."
 end
 
 function block:run(scope)
