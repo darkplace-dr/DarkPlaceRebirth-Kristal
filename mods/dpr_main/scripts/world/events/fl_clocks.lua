@@ -10,6 +10,11 @@ function fl_Clock:init(data)
     self.siner = 0
     self.x = data.x
     self.y = data.y
+
+    local properties = data and data.properties or {}
+    if properties.flip == true then
+        self:setScale(-1)
+    end
 end
 
 function fl_Clock:update()
