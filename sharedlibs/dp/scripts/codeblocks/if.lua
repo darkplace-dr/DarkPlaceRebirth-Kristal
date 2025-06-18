@@ -3,8 +3,10 @@ local block, super = Class(CodeBlock, "if")
 
 function block:init()
     super.init(self)
+    self.has_children = true
     self.expr = DP:createCodeblock("literal")
     self.expr.value = true
+    self.text = "If [expr:expr] then"
 end
 
 function block:run(scope)

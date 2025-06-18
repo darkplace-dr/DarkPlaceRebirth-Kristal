@@ -9,6 +9,7 @@ function block:init()
     self.expr2.value = "Game.battle.enemies[1].max_health"
     self.op = DP:createCodeblock("literal")
     self.op.value = "<"
+    self.text = "[expr:expr1] [expr:op] [expr:expr2]"
 end
 
 function block:run(scope)
