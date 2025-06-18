@@ -54,6 +54,12 @@ function CylinderTower:init(map, depth)
             depth = 1,
         }
     }
+
+    local w = (self.map.width*self.map.tile_width/(math.pi*2))
+    w = w - 10
+    local rect = (Rectangle(-w,0,w*2,self.map.world.height))
+    rect:setLayer(-100)
+    self:addChild(rect)
 end
 
 function CylinderTower:postLoad()
@@ -88,12 +94,6 @@ function CylinderTower:drawReticle()
         love.graphics.translate(self.world.width,0)
     end
     love.graphics.pop()
-
-    local w = (self.map.width*self.map.tile_width/(math.pi*2))
-    w = w - 10
-    local rect = (Rectangle(-w,0,w*2,self.map.world.height))
-    rect:setLayer(-100)
-    self:addChild(rect)
 end
 
 function CylinderTower:getFocusedX()

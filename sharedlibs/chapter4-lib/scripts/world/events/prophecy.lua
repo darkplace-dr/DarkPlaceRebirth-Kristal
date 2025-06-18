@@ -23,7 +23,6 @@ end
 
 function event:setSprite(texture)
     if self.sprite then self.sprite:remove() end
-    if self.sprite then self.sprite:remove() end
     if not texture then return end
     self.sprite = Sprite(texture)
     self.sprite:setOrigin(0.5,1)
