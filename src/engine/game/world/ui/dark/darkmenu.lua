@@ -161,20 +161,22 @@ function DarkMenu:addButtons()
     })
 
     -- APM
-    self:addButton({
-        ["state"]          = "APMMENU",
-        ["sprite"]         = Assets.getTexture("ui/menu/btn/apm"),
-        ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/apm_h"),
-        ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/apm"),
-        ["callback"]       = function()
-            self.box = DarkAPMMenu()
-            self.box.layer = -1
-            self:addChild(self.box)
+	if Game:hasPartyMEmber("apm") then
+		self:addButton({
+			["state"]          = "APMMENU",
+			["sprite"]         = Assets.getTexture("ui/menu/btn/apm"),
+			["hovered_sprite"] = Assets.getTexture("ui/menu/btn/apm_h"),
+			["desc_sprite"]    = Assets.getTexture("ui/menu/desc/apm"),
+			["callback"]       = function()
+				self.box = DarkAPMMenu()
+				self.box.layer = -1
+				self:addChild(self.box)
 
-            self.ui_select:stop()
-            self.ui_select:play()
-        end
-    })
+				self.ui_select:stop()
+				self.ui_select:play()
+			end
+		})
+	end
 
     -- CONFIG
     self:addButton({
