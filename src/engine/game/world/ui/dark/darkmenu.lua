@@ -161,7 +161,7 @@ function DarkMenu:addButtons()
     })
 
     -- APM
-	if Game:hasPartyMEmber("apm") then
+	if Game:hasPartyMember("apm") then
 		self:addButton({
 			["state"]          = "APMMENU",
 			["sprite"]         = Assets.getTexture("ui/menu/btn/apm"),
