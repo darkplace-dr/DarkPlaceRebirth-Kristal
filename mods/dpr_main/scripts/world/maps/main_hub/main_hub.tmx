@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="95">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="96">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -294,6 +294,12 @@
   <object id="94" name="script" x="-40" y="920" width="40" height="80">
    <properties>
     <property name="cutscene" value="hub.transitionS"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="95" name="script" x="440" y="680" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="hub.elevatortest"/>
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
