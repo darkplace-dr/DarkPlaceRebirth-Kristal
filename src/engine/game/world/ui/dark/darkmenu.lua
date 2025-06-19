@@ -161,6 +161,22 @@ function DarkMenu:addButtons()
         end
     })
 
+    -- APM
+    self:addButton({
+        ["state"]          = "APMMENU",
+        ["sprite"]         = Assets.getTexture("ui/menu/btn/apm"),
+        ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/apm_h"),
+        ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/apm"),
+        ["callback"]       = function()
+            self.box = DarkAPMMenu()
+            self.box.layer = -1
+            self:addChild(self.box)
+
+            self.ui_select:stop()
+            self.ui_select:play()
+        end
+    })
+
     -- CONFIG
     self:addButton({
         ["state"]          = "CONFIGMENU",
