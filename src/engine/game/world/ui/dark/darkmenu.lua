@@ -54,7 +54,6 @@ function DarkMenu:init()
     self.buttons = {}
     self:addButtons()
     self.buttons = Kristal.callEvent(KRISTAL_EVENT.getDarkMenuButtons, self.buttons, self) or self.buttons
-    assert(#self.buttons <= 5, "5-button limit exceeded.")
 
     self.box = nil
     self.box_offset_x = 0
