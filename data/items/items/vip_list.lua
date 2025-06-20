@@ -65,6 +65,7 @@ function item:getSellPrice()
 			price = price + 100
 		end
 	end
+	return price
 end
 
 return item
