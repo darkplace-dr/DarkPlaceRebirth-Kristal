@@ -974,22 +974,6 @@ return {
             ["cutscene"] = "hub.transitionS",
             ["once"] = false
           }
-        },
-        {
-          id = 95,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 440,
-          y = 680,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "hub.elevatortest",
-            ["once"] = false
-          }
         }
       }
     },

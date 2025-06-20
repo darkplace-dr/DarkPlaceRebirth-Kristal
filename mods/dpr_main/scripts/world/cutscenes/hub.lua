@@ -2097,51 +2097,5 @@ local hub = {
             event:setFlag("poem_plate", true)
         end
     end,
-
-    elevatortest = function(cutscene, map, partyleader)
-
-        local texts = {}
-        local function genBigText(text, x, y, scale, goner, wait_time)
-            scale = scale or 2
-            wait_time = wait_time or 0.2
-
-            local text_o = Game.world:spawnObject(Text(text, x, y, 300, 500, { style = goner and "GONER" or "dark" }))
-            text_o:setScale(scale)
-            text_o.parallax_x = 0
-            text_o.parallax_y = 0
-            if goner then
-                text_o.alpha = 1
-            end
-            table.insert(texts, text_o)
-
-            cutscene:wait(wait_time)
-
-            return text_o
-        end
-        
-        local function removeBigText()
-            for _, v in ipairs(texts) do
-                v:remove()
-            end
-        end
-
-        local function flashingLight()
-            local flash = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-            flash.layer = 100
-            flash.color = { 1, 0, 0 }
-            flash.alpha = 0.50
-            flash.parallax_x = 0
-            flash.parallax_y = 0
-            Game.world:addChild(flash)
-
-            Game.world.timer:every(1, function()
-                Game.world.timer:tween(0.5, flash, { alpha = 0 }, "linear")
-                Game.world.timer:tween(0.5, flash, { alpha = 0.50 }, "linear")
-            end)
-        end
-        
-        flashingLight()
-        cutscene:wait(5)
-    end,
 }
 return hub

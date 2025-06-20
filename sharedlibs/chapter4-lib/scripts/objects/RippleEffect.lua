@@ -1,22 +1,18 @@
 ---@class RippleEffect: Object
+---@overload fun(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve): RippleEffect
 local RippleEffect, super = Class(Object)
 
 ---@return self
-function RippleEffect:MakeRipple(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    arg2 = arg2 or 60
-    arg3 = arg3 or 16159050
-    arg4 = arg4 or 160
-    arg5 = arg5 or 1
-    arg6 = arg6 or 15
-    arg7 = arg7 or 1999000
-    arg8 = arg8 or 0
-    arg9 = arg9 or 0
-    arg10 = arg10 or 0.1
-    arg3 = Utils.hexToRgb("#"..Utils.sub(string.format("%08X",arg3), 3,8))
-    arg3[1], arg3[3] = arg3[3], arg3[1]
-
-    local obj = self(arg0, arg1, arg4, arg5, arg6, arg3, arg8, arg9, arg10, arg2, arg11)
-    obj.layer = arg7 and -arg7 or obj.layer
+-- Helper function for porting from Deltarune GML code. Please only use as a placeholder.
+function RippleEffect:MakeRipple(x, y, life, color, radmax, radstart, thickness, depth, hsp, vsp, fric, curve)
+    depth = depth or 1999000
+    color = color or 16159050
+    if type(color) == "number" then
+        color = Utils.hexToRgb("#"..Utils.sub(string.format("%08X",color), 3,8))
+        color[1], color[3] = color[3], color[1]
+    end
+    local obj = self(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve)
+    obj.layer = depth and -depth or obj.layer
     Game.world:addChild(obj)
     return obj
 end
@@ -27,11 +23,18 @@ function RippleEffect:applySpeedFrom(obj, scale)
     self.physics.speed_y = ((obj.y - obj.last_y)/DTMULT)*scale
 end
 
-function RippleEffect:init(x, y, radmax, radstart, thickness, color, hsp, vsp, fric, life, curve)
+function RippleEffect:init(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve)
     local obj
+    life = life or 60
+    radmax = radmax or 160
+    radstart = radstart or 1
+    thickness = thickness or 15
+    hsp = hsp or 0
+    vsp = vsp or 0
+    fric = fric or 0.1
     if type(x) == "table" then
         obj = x
-        x, y, radmax, radstart, thickness, color, hsp, vsp, fric, life, curve = x.x, x.y, y, radmax, radstart, thickness, color, hsp, vsp, fric, life, curve
+        x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve = x.x, x.y, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve
     end
     super.init(self, x, y)
     if obj then

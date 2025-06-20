@@ -10,10 +10,10 @@ end
 function event:onEnter(player)
     if not player.is_player then return end
     Assets.playSound("churchbell_short")
-    RippleEffect:MakeRipple(self.x, self.y, 50, 65535, 460, 1, 10, 1999980);
-    RippleEffect:MakeRipple(self.x, self.y, 50, 65535, 380, 1, 10, 1999980);
-    RippleEffect:MakeRipple(self.x, self.y, 50, 65535, 320, 1, 10, 1999980);
-    RippleEffect:MakeRipple(self.x, self.y, 50, 65535, 240, 1, 10, 1999980);
+    self.world:addChild(RippleEffect(player.x, player.y, 50, 460, 10, {1, 1, 0}, 0, 0, 1));
+    self.world:addChild(RippleEffect(player.x, player.y, 50, 380, 10, {1, 1, 0}, 0, 0, 1));
+    self.world:addChild(RippleEffect(player.x, player.y, 50, 320, 10, {1, 1, 0}, 0, 0, 1));
+    self.world:addChild(RippleEffect(player.x, player.y, 50, 240, 10, {1, 1, 0}, 0, 0, 1));
 end
 
 return event
