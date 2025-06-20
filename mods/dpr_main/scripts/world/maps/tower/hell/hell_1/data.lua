@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 16,
+  nextobjectid = 18,
   properties = {
     ["music"] = "fun"
   },
@@ -209,6 +209,22 @@ return {
           properties = {
             ["cutscene"] = "tower_outside.start"
           }
+        },
+        {
+          id = 16,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 200,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_2",
+            ["marker"] = "entry_left"
+          }
         }
       }
     },
@@ -232,6 +248,19 @@ return {
           type = "",
           shape = "point",
           x = 300,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "entry",
+          type = "",
+          shape = "point",
+          x = 600,
           y = 240,
           width = 0,
           height = 0,

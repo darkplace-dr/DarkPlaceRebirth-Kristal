@@ -138,6 +138,7 @@ return function(cutscene)
         Assets.playSound("closet_impact")
         Game:removePartyMember("susie")
         cutscene:wait(4)
+        Game:setFlag("Heaven_Fall", true)
         cutscene:mapTransition("tower/hell/hell_1", "spawn")
 
     end
