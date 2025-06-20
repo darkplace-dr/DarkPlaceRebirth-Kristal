@@ -85,6 +85,13 @@ function TeevieQuiz:init(data)
 
 	-- Table to store spisific party member answers
 	self.party_answers = {}
+	self.all_party_answers = {}
+	for i = 1, self.quiz_max do
+		self.all_party_answers[i] = {}
+		for j = 1, #Game.party do
+			self.all_party_answers[i][Game.party[j].id] = false
+		end
+	end
 end
 
 function TeevieQuiz:onLoad()
@@ -230,8 +237,6 @@ function TeevieQuiz:showResults()
 				end
 				self.party2_select = false
 				self.party3_select = false
-				Assets.stopSound("tv_static")
-				self.mode = 0
 				Game.world.timer:tween(15/30, self.overlay, {alpha = 0}, "linear")
 				Game.world.timer:after(15/30, function()
 					self.overlay:remove()
@@ -277,6 +282,8 @@ function TeevieQuiz:showResults()
 					cutscene:jumpTo(party3, self.x + 167+20, self.y + self.height + 70, 20, 15/30, "jump_ball", "walk/up")
 				end
 				cutscene:wait(20/30)
+				Assets.stopSound("tv_static")
+				self.mode = 0
 				cutscene:attachCamera(15/30)
 				cutscene:wait(15/30)
 				cutscene:interpolateFollowers()
@@ -288,13 +295,10 @@ function TeevieQuiz:showResults()
 				if party3 then
 					party3:setFacing("right")
 				end
-				cutscene:showNametag("Susie")
-				cutscene:text("* Dess,[wait:5] why the HELL are you picking the wrong answers!?", "teeth_b", "susie")
-				cutscene:showNametag("Dess")
-				cutscene:text("* teehee", "teehee", "dess")
-				cutscene:showNametag("Susie")
-				cutscene:text("* ...", "annoyed", "susie")
-				cutscene:hideNametag()
+				cutscene:endCutscene()
+				Game.world.timer:after(1/30, function()
+					Game.world:startCutscene("tvfloor.after_quiz", self.all_party_answers)
+				end)
 			else
 				self:hideStatic()
 				self.is_paused = false
@@ -343,8 +347,6 @@ function TeevieQuiz:showResults()
 					end
 					self.party2_select = false
 					self.party3_select = false
-					Assets.stopSound("tv_static")
-					self.mode = 0
 					Game.world.timer:tween(15/30, self.overlay, {alpha = 0}, "linear")
 					Game.world.timer:after(15/30, function()
 						self.overlay:remove()
@@ -390,6 +392,8 @@ function TeevieQuiz:showResults()
 						cutscene:jumpTo(party3, self.x + 167+20, self.y + self.height + 70, 20, 15/30, "jump_ball", "walk/up")
 					end
 					cutscene:wait(20/30)
+					Assets.stopSound("tv_static")
+					self.mode = 0
 					cutscene:attachCamera(15/30)
 					cutscene:wait(15/30)
 					cutscene:interpolateFollowers()
@@ -401,6 +405,10 @@ function TeevieQuiz:showResults()
 					if party3 then
 						party3:setFacing("right")
 					end
+					cutscene:endCutscene()
+					Game.world.timer:after(1/30, function()
+						Game.world:startCutscene("tvfloor.after_quiz", self.all_party_answers)
+					end)
 				else
 					self:showStatic()
 					cutscene:wait(15/30)
@@ -458,8 +466,6 @@ function TeevieQuiz:showResults()
 					end
 					self.party2_select = false
 					self.party3_select = false
-					Assets.stopSound("tv_static")
-					self.mode = 0
 					Game.world.timer:tween(15/30, self.overlay, {alpha = 0}, "linear")
 					Game.world.timer:after(15/30, function()
 						self.overlay:remove()
@@ -505,6 +511,8 @@ function TeevieQuiz:showResults()
 						cutscene:jumpTo(party3, self.x + 167+20, self.y + self.height + 70, 20, 15/30, "jump_ball", "walk/up")
 					end
 					cutscene:wait(20/30)
+					Assets.stopSound("tv_static")
+					self.mode = 0
 					cutscene:attachCamera(15/30)
 					cutscene:wait(15/30)
 					cutscene:interpolateFollowers()
@@ -795,6 +803,13 @@ function TeevieQuiz:update()
 								self.button[quiz_ans]:press()
 								self.party_answers[chara] = self.answer
 							end
+							if chara then
+								if self.party_answers[chara] == self.cur_correct_answer then
+									self.all_party_answers[self.quiz_question][chara] = true
+								else
+									self.all_party_answers[self.quiz_question][chara] = false
+								end
+							end
 							party:setFacing("up")
 						end
 						
@@ -806,7 +821,7 @@ function TeevieQuiz:update()
 							self.party3_select = true
 						end
 
-						cutscene:wait(4/30)
+						cutscene:wait(2/30)
 
 						if Game.party[2] then
 							local party2 = cutscene:getCharacter(Game.party[2].id)
@@ -1049,9 +1064,10 @@ function TeevieQuiz:draw()
 			Draw.draw(self.quiz_timer_sprite[1 + math.floor(28 - ((self.countdown_timer / self.max_time) * 28))], 210, 90, 0, 4, 4)
 			local answer_color = {1,1,1,1}
 			love.graphics.setFont(self.bigfont)
-			if self.answer then
+			if self.answer == "A" then
 				answer_color = {1,1,0,1}
-				
+			end
+			if self.answer then
 				if self.party2_select and self.party_answers then
 
 					Draw.setColor(self.gameshowdblue)
@@ -1060,13 +1076,13 @@ function TeevieQuiz:draw()
 						love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-						Draw.setColor(answer_color)
+						Draw.setColor({1,1,0,1})
 						love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
 					else
 						love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-						Draw.setColor(answer_color)
+						Draw.setColor({1,1,0,1})
 						love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
 					end
 				end
@@ -1078,34 +1094,17 @@ function TeevieQuiz:draw()
 						love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-						Draw.setColor(answer_color)
+						Draw.setColor({1,1,0,1})
 						love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
 					else
 						love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 						love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-						Draw.setColor(answer_color)
+						Draw.setColor({1,1,0,1})
 						love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
 					end
 				end
 			end
-			--[[if self.dess_wrong_answer == "A" then
-				if Game.party[2].id == "dess" then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 150-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-					Draw.setColor({1,1,0,1})
-					love.graphics.print("A", 150-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-				elseif Game.party[3].id == "dess" then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("A", 90-6 + 2-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-					Draw.setColor({1,1,0,1})
-					love.graphics.print("A", 90-6-self.bigfont:getWidth("A")/2, 90, 0, 2, 2)
-				end
-			end]]
 			Draw.setColor(self.gameshowdblue)
 			love.graphics.print("A", 120-6-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
 			love.graphics.print("A", 120-6 + 2-self.bigfont:getWidth("A")/2, 90 + 2, 0, 2, 2)
@@ -1123,24 +1122,9 @@ function TeevieQuiz:draw()
 			
 			love.graphics.setFont(self.bigfont)
 			answer_color = {1,1,1,1}
-
-			--[[if self.dess_wrong_answer == "B" then
-				if Game.party[2].id == "dess" then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 390-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-					Draw.setColor({1,1,0,1})
-					love.graphics.print("B", 390-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-				elseif Game.party[3].id == "dess" then
-					Draw.setColor(self.gameshowdblue)
-					love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
-					love.graphics.print("B", 330-6 + 2-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-					Draw.setColor({1,1,0,1})
-					love.graphics.print("B", 330-6-self.bigfont:getWidth("B")/2, 90, 0, 2, 2)
-				end
-			end]]
+			if self.answer == "B" then
+				answer_color = {1,1,0,1}
+			end
 			Draw.setColor(self.gameshowdblue)
 			love.graphics.print("B", 360-6-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)
 			love.graphics.print("B", 360-6 + 2-self.bigfont:getWidth("B")/2, 90 + 2, 0, 2, 2)

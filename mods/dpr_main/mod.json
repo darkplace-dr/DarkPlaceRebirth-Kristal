@@ -165,7 +165,10 @@
         "seqwaves": {},
         "chapter4lib": {},
         "kristal": {
-            "growStronger": false
-        }
+            "growStronger": false,
+			"pacifyGlow": true,
+			"tiredMessages": true,
+			"awakeMessages": true,
+		},
     }
 }

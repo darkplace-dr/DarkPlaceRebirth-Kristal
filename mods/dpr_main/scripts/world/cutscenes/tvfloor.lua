@@ -106,7 +106,37 @@ return {
 			end
 		end
 	end,
-
+	
+	after_quiz = function(cutscene, answers)
+		if Game:getFlag("after_quiz_done", false) then
+			return
+		end
+		local answers = answers or {}
+		local correct = 0
+		if Game:hasPartyMember("susie") and Game:hasPartyMember("dess") then
+			for i = 1, #answers do
+				if answers[i]["dess"] == true then
+					correct = correct + 1
+				end
+			end
+			if correct == 0 then
+				cutscene:textTagged("* Dess,[wait:5] why the HELL are you picking the wrong answers!?", "teeth", "susie")
+				cutscene:textTagged("* teehee", "teehee", "dess")
+				cutscene:textTagged("* ...", "annoyed", "susie")
+			elseif correct == #answers then
+				cutscene:textTagged("* MAN you guys suck at this quiz", "condescending", "dess")
+				cutscene:textTagged("* Your strategy is literally just picking the opposite answer.", "neutral", "susie")
+				cutscene:textTagged("* okay but I got them right didn't I", "smug", "dess")
+				cutscene:textTagged("* THAT WAS JUST DUMB LUCK!!!", "teeth_b", "susie")
+			else
+				cutscene:textTagged("* (... Is Dess picking the opposite answers on purpose?)[react:1]", "suspicious", "susie", {reactions={
+				{"yup", "right", "bottom", "wink", "dess"}}})
+			end
+		end
+		cutscene:hideNametag()
+		Game:setFlag("after_quiz_done", true)
+	end,
+	
 	sneakattack_zapper = function(cutscene, light)
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
@@ -161,6 +191,7 @@ return {
 			Game.world:addChild(change)
 		end
 	end,
+	
 	sneakattack_shadowguy = function(cutscene, light)
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do

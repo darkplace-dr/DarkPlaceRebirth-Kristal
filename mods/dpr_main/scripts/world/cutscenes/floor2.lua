@@ -240,7 +240,13 @@ return {
         cutscene:text("* So Unfortunately You Can't Play It Right Now Sorry", "sorry", "queen")
         cutscene:hideNametag()
     end,
-
+	
+    queen_shadowguys = function(cutscene, event)
+        Assets.playSound("carhonk")
+        cutscene:text("* (Looks like a touring band.)")
+        cutscene:text("* (...[wait:5] They only do the touring part though.)")
+    end,
+	
     lancer_player = function(cutscene, event)
         cutscene:text("* (It's a music player.)[wait:5]\n* (Listen to the contents?)")
         local choice = cutscene:choicer({"Listen", "Do Not"})

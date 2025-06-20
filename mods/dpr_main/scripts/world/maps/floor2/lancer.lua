@@ -530,7 +530,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* (It's a bikeless bed.)"
+            ["text"] = "* (A bouncy bed for a bouncy boy.)"
           }
         },
         {
