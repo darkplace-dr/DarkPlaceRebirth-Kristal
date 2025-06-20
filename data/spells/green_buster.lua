@@ -4,14 +4,14 @@ function spell:init()
     super.init(self)
 
     -- Display name
-    self.name = "Green Buster"
+    self.name = "Old Buster"
     -- Name displayed when cast (optional)
     self.cast_name = nil
 
     -- Battle description
-    self.effect = "Green\ndamage"
+    self.effect = "Old\ndamage"
     -- Menu description
-    self.description = "Deals moderate Green-elemental damage to\none foe. Depends on Attack & Magic."
+    self.description = "Deals moderate Old-elemental damage to\none foe. Depends on Attack & Magic."
 
     -- TP cost
     self.cost = 50
@@ -20,7 +20,7 @@ function spell:init()
     self.target = "enemy"
 
     -- Tags that apply to this spell
-    self.tags = {"damage"}
+    self.tags = {"old", "damage"}
 end
 
 function spell:getCastMessage(user, target)
