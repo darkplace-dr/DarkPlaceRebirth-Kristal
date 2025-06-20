@@ -857,6 +857,7 @@ function Game:dogCheck(variant)
     if self.dogcheck then self.dogcheck:remove() end
 
     self.dogcheck = DogCheck(variant)
+    self.stage:addChild(self.dogcheck)
 end
 
 function Game:setPresenceState(details)

@@ -90,7 +90,7 @@ function DogCheck:start()
     if not self.variant then
         local month = os.date("*t").month
         local day = os.date("*t").day
-        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "montypython", "house"}
+        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "chapter3", "chapter4", "montypython", "house"}
         if month >= 3 and month <= 5 then
             table.insert(variant_choices, "spring")
         elseif month >= 6 and month <= 8 then
@@ -152,6 +152,12 @@ function DogCheck:start()
         createDog("misc/dog_sleep", 0.8, -960, -580)
         playSong(song_path.."alarm_titlescreen", 1, 1)
         self.timer:script(function(...) self:chapter2Script(...) end)
+    elseif self.variant == "chapter3" then
+        createDog(cust_sprites_base.."/dog_board", 0.2, 0, 0, 8)
+        playSong(song_path.."ch3_board3")
+    elseif self.variant == "chapter4" then -- WIP. sleeping dog sprite is a placeholder until we have the actual dog prophecy object ready lol
+        createDog("misc/dog_sleep", 0.8)
+        playSong(song_path.."annoying_prophecy")
     elseif self.variant == "montypython" then
         playSong(song_path.."intermission")
     elseif self.variant == "house" then
