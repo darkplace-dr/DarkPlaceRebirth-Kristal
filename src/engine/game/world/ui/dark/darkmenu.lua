@@ -178,6 +178,24 @@ function DarkMenu:addButtons()
 		})
 	end
 
+    -- BADGES
+    if #Game.inventory:getStorage("badges") > 0 then
+        self:addButton({
+            ["state"]          = "BADGEMENU",
+            ["sprite"]         = Assets.getTexture("ui/menu/btn/badge"),
+            ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/badge_h"),
+            ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/badge"),
+            ["callback"]       = function()
+                self.box = DarkBadgeMenu()
+                self.box.layer = -1
+                self:addChild(self.box)
+
+                self.ui_select:stop()
+                self.ui_select:play()
+            end
+        })
+    end
+
     -- CONFIG
     self:addButton({
         ["state"]          = "CONFIGMENU",
