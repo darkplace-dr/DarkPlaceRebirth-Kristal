@@ -20,16 +20,6 @@ function item:init()
     -- Menu description
     self.description = "A shiny piece of something bigger.\nIts value increases for each quest completed."
 
-    local completed_quests = 0
-    if Game and Game.quests_data then
-        for id,quest in pairs(Game.quests_data) do
-            if quest:isCompleted() then
-                completed_quests = completed_quests + 1
-            end
-        end
-    end
-    -- Default shop price (sell price is halved)
-    self.price = 100 + (completed_quests * 150)
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -62,6 +52,18 @@ end
 function item:onBattleSelect(user, target)
     -- Do not consume (it will taste bad)
     return false
+end
+
+function item:getPrice()
+    local completed_quests = 0
+    if Game and Game.quests_data then
+        for id,quest in pairs(Game.quests_data) do
+            if quest:isCompleted() then
+                completed_quests = completed_quests + 1
+            end
+        end
+    end
+    return 100 + (completed_quests * 150)
 end
 
 function item:getBattleText(user, target)
