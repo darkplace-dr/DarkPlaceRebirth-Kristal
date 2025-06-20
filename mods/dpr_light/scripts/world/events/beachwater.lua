@@ -28,16 +28,27 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
     self.siner = 0
 	self.rain_mode = false
 	self.timer = 0
+	
+	self.rain_sprite = BeachWaterRainOverlay(self.x, self.y)
+    Game.world:addChild(self.rain_sprite)
+end
+
+function BeachWater:onLoad()
+	super.onLoad(self)
+
+	self.rain_sprite.layer = self.layer + 0.02
 end
 
 function BeachWater:update()
     super.update(self)
 	
+    self.siner = self.siner + DT
+	self.rain_sprite.siner = self.siner
 	if Game.stage:hasWeather("rain") and self.rain_mode == false then
-		self.sprite:setSprite("world/maps/hometown/beachwater_rain")
+		self.rain_sprite.visible = true
 		self.rain_mode = true
 	elseif not Game.stage:hasWeather("rain") and self.rain_mode == true then
-		self.sprite:setSprite("world/maps/hometown/beachwater")
+		self.rain_sprite.visible = false
 		self.rain_mode = false
 	end
 	if self.rain_mode then
@@ -48,7 +59,7 @@ function BeachWater:update()
             splash:setOrigin(0.5, 0.5)
             splash:setScale(2, 2)
             splash:setPosition(self.x + Utils.random(384) + 20, self.y + Utils.random(440) + 20)
-			splash.layer = self.layer - 0.01
+			splash.layer = self.layer + 0.01
             splash:play(1/15, false, function(s) s:remove() end)
             Game.world:addChild(splash)
 		end
@@ -57,7 +68,6 @@ end
 
 function BeachWater:draw()
     love.graphics.setShader(self.shader)
-    self.siner = self.siner + DT   
 
     self.shader:send("time", self.siner)
     self.shader:send("texture_dim", {240, 280})

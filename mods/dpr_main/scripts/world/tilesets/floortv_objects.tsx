@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="19" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="23" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -60,5 +60,17 @@
  </tile>
  <tile id="20">
   <image width="38" height="52" source="../../../assets/sprites/world/maps/tvland/green_room_door_early.png"/>
+ </tile>
+ <tile id="21">
+  <image width="92" height="74" source="../../../assets/sprites/world/maps/tvland/green_room_door_double.png"/>
+ </tile>
+ <tile id="22">
+  <image width="92" height="74" source="../../../assets/sprites/world/maps/tvland/green_room_door_double_transparent.png"/>
+ </tile>
+ <tile id="24">
+  <image width="63" height="78" source="../../../assets/sprites/world/maps/tvland/b3bs_door.png"/>
+ </tile>
+ <tile id="23">
+  <image width="47" height="66" source="../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png"/>
  </tile>
 </tileset>

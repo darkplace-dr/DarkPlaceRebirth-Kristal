@@ -19,7 +19,7 @@ function RainBallBullet:init(x, y, special)
 	self.bullets = {}
 	self.regrazetimer = 0
 	self.collider = CircleCollider(self, 20, 20, 16)
-	self.bullet_collider = Hitbox(self, 0, 0, 40, 40)
+	self.bullet_collider = CircleCollider(self, 20, 20, 20)
 end
 
 function RainBallBullet:update()

@@ -7,9 +7,9 @@ function spell:init()
 
     self.cast_name = nil
 
-    self.effect = "Spare\nTIRED foe"
+    self.effect = "50%\nSpare\nTIRED foe"
 
-    self.description = "SPARE a tired enemy by putting them to sleep."
+    self.description = "SPARE a tired enemy by putting them to sleep.\nOnly effective when used twice on the enemy."
 
     self.cost = 0
 

@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 19,
+  tilecount = 23,
   tiles = {
     {
       id = 0,
@@ -138,6 +138,30 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/green_room_door_early.png",
       width = 38,
       height = 52
+    },
+    {
+      id = 21,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_double.png",
+      width = 92,
+      height = 74
+    },
+    {
+      id = 22,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_double_transparent.png",
+      width = 92,
+      height = 74
+    },
+    {
+      id = 24,
+      image = "../../../assets/sprites/world/maps/tvland/b3bs_door.png",
+      width = 63,
+      height = 78
+    },
+    {
+      id = 23,
+      image = "../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png",
+      width = 47,
+      height = 66
     }
   }
 }

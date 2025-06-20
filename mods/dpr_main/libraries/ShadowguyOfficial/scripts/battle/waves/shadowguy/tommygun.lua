@@ -28,7 +28,7 @@ function ShadowguyTommyGun:update()
 		self.guntimer = self.guntimer + DTMULT
 		if self.guntimer < 14 then
 			for _, enemy in ipairs(self.enemies) do
-				enemy.x = Utils.lerp(enemy.x, Game.battle.arena.right + 122 + 62 + 22, 0.16*DTMULT)
+				enemy.x = Utils.lerp(enemy.x, Game.battle.arena.right + 122 + 62, 0.16*DTMULT)
 			end
 		else
 			self.guntimer = 12

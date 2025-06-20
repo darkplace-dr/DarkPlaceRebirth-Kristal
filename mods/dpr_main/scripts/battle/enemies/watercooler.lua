@@ -130,25 +130,26 @@ function Watercooler:onAct(battler, name)
 		self:onCheck(battler)
 		return "* You CHECKed the watercooler...\n* The water was confirmed to be [color:blue]cool[color:white]."
     elseif name == "BegForMercy" then
-		if Game:getFlag("watercooler_mercy_begs", 0) == 0 then
+		Game:setFlag("watercooler_mercy_begs", Game:getFlag("watercooler_mercy_begs", 0) + 1)
+		if Game:getFlag("watercooler_mercy_begs", 0) == 1 then
 			self:registerAct("ActCool", "", "all")
 			self:registerAct("Flirt")
 			return {
 				"* You begged for mercy...\n* ... but the watercooler showed none.",
 				"* You thought of some better, different ACTs to try next, instead."
 			}
-		elseif Game:getFlag("watercooler_mercy_begs", 0) == 1 then
+		elseif Game:getFlag("watercooler_mercy_begs", 0) == 2 then
 			return {
 				"* You begged for mercy...\n* ... but the watercooler showed none.",
 				"* This is probably because your NAME isn't YELLOW."
 			}
-		elseif Game:getFlag("watercooler_mercy_begs", 0) >= 2 then
+		elseif Game:getFlag("watercooler_mercy_begs", 0) >= 3 then
 			return "* You begged for mercy...\n* This doesn't do anything."
 		end
-		Game:setFlag("watercooler_mercy_begs", Game:getFlag("watercooler_mercy_begs", 0) + 1)
 	elseif name == "ActCool" then
 		Game.battle:startActCutscene("watercooler", "actcool")
     elseif name == "Flirt" then
+		Game:setFlag("watercooler_flirted", true)
 		Game.battle:startActCutscene("watercooler", "flirt")
     end
 
