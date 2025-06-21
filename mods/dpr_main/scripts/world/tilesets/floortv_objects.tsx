@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="23" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="24" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -72,5 +72,8 @@
  </tile>
  <tile id="23">
   <image width="47" height="66" source="../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png"/>
+ </tile>
+ <tile id="25">
+  <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png"/>
  </tile>
 </tileset>

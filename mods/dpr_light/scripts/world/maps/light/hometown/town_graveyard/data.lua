@@ -410,6 +410,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["nighttext"] = "* (It's a gravestone. It's kind of hard to read in the dark.)",
             ["solid"] = true,
             ["text"] = "* SHYRA\n[wait:5]* A KARAOKE MICROPHONE FOR A BRAVE SINGER"
           }
@@ -426,6 +427,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["nighttext"] = "* (It's a gravestone. It's kind of hard to read in the dark.)",
             ["solid"] = true,
             ["text"] = "* MUTTLER\n[wait:5]* A BIG BONE FOR THE LEADER OF THE PACK"
           }
@@ -442,6 +444,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["nighttext"] = "* (It's a gravestone. It's kind of hard to read in the dark.)",
             ["solid"] = true,
             ["text"] = "* CRYSTAL\n[wait:5]* A SNOWY GEMSTONE FOR A PROUD MOTHER"
           }

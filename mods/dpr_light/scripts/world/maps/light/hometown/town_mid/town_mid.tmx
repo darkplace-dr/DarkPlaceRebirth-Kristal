@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="31" nextobjectid="62">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="32" nextobjectid="70">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -224,6 +224,29 @@
    <properties>
     <property name="text1" value="* (It's locked...)"/>
     <property name="text2" value="* (...[wait:5] the town it's pretty empty today.)"/>
+   </properties>
+  </object>
+  <object id="64" gid="409" x="1920" y="178" width="230" height="92">
+   <properties>
+    <property name="rain" type="int" value="0"/>
+    <property name="sunrise" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="68" gid="410" x="1930" y="170" width="210" height="76">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="rain" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="31" name="objects_above">
+  <object id="67" name="sprite" x="2008" y="118" width="54" height="28">
+   <properties>
+    <property name="cond" value="Game:getFlag(&quot;hometown_time&quot;, &quot;day&quot;) == &quot;day&quot; and not Game.stage:hasWeather(&quot;rain&quot;)"/>
+    <property name="scalex" type="float" value="2"/>
+    <property name="scaley" type="float" value="2"/>
+    <property name="speed" type="float" value="0.5"/>
+    <property name="texture" value="world/maps/hometown/store_sign_open"/>
    </properties>
   </object>
  </objectgroup>

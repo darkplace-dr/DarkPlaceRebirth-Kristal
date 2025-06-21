@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   name = "hometownobjects",
   class = "",
   tilewidth = 1128,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 119,
+  tilecount = 139,
   tiles = {
     {
       id = 1,
@@ -404,6 +404,18 @@ return {
       height = 334
     },
     {
+      id = 122,
+      image = "../../../assets/sprites/world/maps/hometown/store_windows_open.png",
+      width = 115,
+      height = 46
+    },
+    {
+      id = 123,
+      image = "../../../assets/sprites/world/maps/hometown/store_closed_lights.png",
+      width = 105,
+      height = 38
+    },
+    {
       id = 61,
       image = "../../../assets/sprites/world/maps/hometown/school.png",
       width = 686,
@@ -692,6 +704,12 @@ return {
       height = 38
     },
     {
+      id = 130,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_table2.png",
+      width = 86,
+      height = 52
+    },
+    {
       id = 111,
       image = "../../../assets/sprites/tilesets/objects/noellehouse_table.png",
       width = 160,
@@ -734,10 +752,112 @@ return {
       height = 32
     },
     {
+      id = 125,
+      image = "../../../assets/sprites/tilesets/objects/vent_closed.png",
+      width = 56,
+      height = 32
+    },
+    {
+      id = 126,
+      image = "../../../assets/sprites/tilesets/objects/vent_open.png",
+      width = 56,
+      height = 32
+    },
+    {
+      id = 135,
+      image = "../../../assets/sprites/tilesets/objects/vent_closed_cover_broken.png",
+      width = 56,
+      height = 32
+    },
+    {
       id = 121,
       image = "../../../assets/sprites/world/maps/hometown/noellehouse.png",
       width = 1128,
       height = 470
+    },
+    {
+      id = 124,
+      image = "../../../assets/sprites/tilesets/objects/bell.png",
+      width = 14,
+      height = 14
+    },
+    {
+      id = 127,
+      image = "../../../assets/sprites/tilesets/objects/pillow_pile.png",
+      width = 74,
+      height = 70
+    },
+    {
+      id = 128,
+      image = "../../../assets/sprites/tilesets/objects/thermostat.png",
+      width = 56,
+      height = 30
+    },
+    {
+      id = 129,
+      image = "../../../assets/sprites/tilesets/objects/snowflake_sculpture.png",
+      width = 108,
+      height = 108
+    },
+    {
+      id = 131,
+      image = "../../../assets/sprites/tilesets/objects/snowflakes_a.png",
+      width = 22,
+      height = 60
+    },
+    {
+      id = 132,
+      image = "../../../assets/sprites/tilesets/objects/snowflakes_b.png",
+      width = 14,
+      height = 34
+    },
+    {
+      id = 133,
+      image = "../../../assets/sprites/tilesets/objects/snowflakes_c.png",
+      width = 22,
+      height = 40
+    },
+    {
+      id = 134,
+      image = "../../../assets/sprites/tilesets/objects/snowflakes_d.png",
+      width = 14,
+      height = 20
+    },
+    {
+      id = 136,
+      image = "../../../assets/sprites/tilesets/objects/present.png",
+      width = 40,
+      height = 40
+    },
+    {
+      id = 137,
+      image = "../../../assets/sprites/tilesets/objects/present_large.png",
+      width = 64,
+      height = 60
+    },
+    {
+      id = 138,
+      image = "../../../assets/sprites/tilesets/objects/present_no_lid.png",
+      width = 38,
+      height = 34
+    },
+    {
+      id = 139,
+      image = "../../../assets/sprites/tilesets/objects/present_small.png",
+      width = 34,
+      height = 32
+    },
+    {
+      id = 140,
+      image = "../../../assets/sprites/tilesets/objects/present_tall.png",
+      width = 40,
+      height = 54
+    },
+    {
+      id = 141,
+      image = "../../../assets/sprites/tilesets/objects/present_wide.png",
+      width = 48,
+      height = 36
     }
   }
 }

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 86,
+  nextobjectid = 89,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
@@ -300,7 +300,7 @@ return {
           shape = "rectangle",
           x = 1001,
           y = 160,
-          width = 72,
+          width = 76,
           height = 104,
           rotation = 0,
           gid = 390,
@@ -473,7 +473,7 @@ return {
           shape = "rectangle",
           x = 1001,
           y = 120,
-          width = 72,
+          width = 76,
           height = 40,
           rotation = 0,
           visible = true,
@@ -509,6 +509,22 @@ return {
           visible = true,
           properties = {
             ["text"] = "* (Doesn't seem like anyone's here...)"
+          }
+        },
+        {
+          id = 88,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 60,
+          y = 180,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floortv/legacy_corridors",
+            ["marker"] = "entry_greenroom"
           }
         }
       }
@@ -805,7 +821,21 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 86,
+          name = "entry_left",
+          type = "",
+          shape = "point",
+          x = 140,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }

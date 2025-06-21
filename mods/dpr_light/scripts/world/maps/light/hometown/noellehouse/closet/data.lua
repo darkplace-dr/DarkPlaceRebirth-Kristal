@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,15 +9,22 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 9,
+  nextlayerid = 9,
+  nextobjectid = 42,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
     ["light"] = true,
     ["music"] = "none"
   },
-  tilesets = {},
+  tilesets = {
+    {
+      name = "hometownobjects",
+      firstgid = 1,
+      filename = "../../../../../tilesets/hometownobjects.tsx",
+      exportfilename = "../../../../../tilesets/hometownobjects.lua"
+    }
+  },
   layers = {
     {
       type = "imagelayer",
@@ -34,6 +41,166 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_vent",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 9,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 292,
+          y = 244,
+          width = 56,
+          height = 32,
+          rotation = 0,
+          gid = 127,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects_brokenvent",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 268,
+          y = 216,
+          width = 56,
+          height = 32,
+          rotation = 90,
+          gid = 136,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 286,
+          y = 288,
+          width = 64,
+          height = 60,
+          rotation = 0,
+          gid = 138,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 19,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 356,
+          y = 328,
+          width = 40,
+          height = 54,
+          rotation = 0,
+          gid = 141,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 21,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 336,
+          y = 366,
+          width = 48,
+          height = 36,
+          rotation = 0,
+          gid = 142,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 22,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 366,
+          y = 382,
+          width = 34,
+          height = 32,
+          rotation = 0,
+          gid = 140,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 252,
+          y = 364,
+          width = 38,
+          height = 34,
+          rotation = 0,
+          gid = 139,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 390,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          gid = 137,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -113,41 +280,84 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 4,
-      name = "objects",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
+        },
         {
-          id = 7,
-          name = "transition",
+          id = 27,
+          name = "",
           type = "",
           shape = "rectangle",
-          x = 280,
-          y = 470,
-          width = 80,
-          height = 40,
+          x = 240,
+          y = 364,
+          width = 38,
+          height = 24,
           rotation = 0,
           visible = true,
-          properties = {
-            ["exit_sound"] = "doorclose",
-            ["facing"] = "down",
-            ["map"] = "light/hometown/noellehouse/main",
-            ["marker"] = "entrycloset",
-            ["sound"] = "dooropen"
-          }
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 252,
+          y = 340,
+          width = 38,
+          height = 24,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 336,
+          y = 342,
+          width = 48,
+          height = 24,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 286,
+          y = 240,
+          width = 64,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 366,
+          y = 362,
+          width = 34,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 356,
+          y = 286,
+          width = 40,
+          height = 43,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -177,6 +387,25 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 41,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["exit_sound"] = "doorclose",
+            ["facing"] = "down",
+            ["map"] = "light/hometown/noellehouse/main",
+            ["marker"] = "entrycloset",
+            ["sound"] = "dooropen"
+          }
         }
       }
     }

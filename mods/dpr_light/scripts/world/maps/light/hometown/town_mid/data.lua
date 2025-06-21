@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 31,
-  nextobjectid = 62,
+  nextlayerid = 32,
+  nextobjectid = 70,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -858,6 +858,75 @@ return {
           properties = {
             ["text1"] = "* (It's locked...)",
             ["text2"] = "* (...[wait:5] the town it's pretty empty today.)"
+          }
+        },
+        {
+          id = 64,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1920,
+          y = 178,
+          width = 230,
+          height = 92,
+          rotation = 0,
+          gid = 409,
+          visible = true,
+          properties = {
+            ["rain"] = 0,
+            ["sunrise"] = 1
+          }
+        },
+        {
+          id = 68,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1930,
+          y = 170,
+          width = 210,
+          height = 76,
+          rotation = 0,
+          gid = 410,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["rain"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 31,
+      name = "objects_above",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 67,
+          name = "sprite",
+          type = "",
+          shape = "rectangle",
+          x = 2008,
+          y = 118,
+          width = 54,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cond"] = "Game:getFlag(\"hometown_time\", \"day\") == \"day\" and not Game.stage:hasWeather(\"rain\")",
+            ["scalex"] = 2,
+            ["scaley"] = 2,
+            ["speed"] = 0.5,
+            ["texture"] = "world/maps/hometown/store_sign_open"
           }
         }
       }
