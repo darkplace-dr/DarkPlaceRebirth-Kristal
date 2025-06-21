@@ -228,8 +228,8 @@
   </object>
   <object id="64" gid="409" x="1920" y="178" width="230" height="92">
    <properties>
+    <property name="day" type="int" value="1"/>
     <property name="rain" type="int" value="0"/>
-    <property name="sunrise" type="int" value="1"/>
    </properties>
   </object>
   <object id="68" gid="410" x="1930" y="170" width="210" height="76">

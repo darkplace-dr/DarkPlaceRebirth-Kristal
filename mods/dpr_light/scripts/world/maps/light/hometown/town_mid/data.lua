@@ -873,8 +873,8 @@ return {
           gid = 409,
           visible = true,
           properties = {
-            ["rain"] = 0,
-            ["sunrise"] = 1
+            ["day"] = 1,
+            ["rain"] = 0
           }
         },
         {

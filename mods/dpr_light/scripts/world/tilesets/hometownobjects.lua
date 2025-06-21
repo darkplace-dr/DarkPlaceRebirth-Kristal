@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 149,
+  tilecount = 150,
   tiles = {
     {
       id = 1,
@@ -766,6 +766,12 @@ return {
     {
       id = 135,
       image = "../../../assets/sprites/tilesets/objects/vent_closed_cover_broken.png",
+      width = 56,
+      height = 32
+    },
+    {
+      id = 152,
+      image = "../../../assets/sprites/tilesets/objects/vent_closed_noelle.png",
       width = 56,
       height = 32
     },

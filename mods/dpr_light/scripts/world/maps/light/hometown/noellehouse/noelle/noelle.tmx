@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="32">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="33">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -22,6 +22,7 @@
   <object id="27" gid="134" x="414" y="160" width="22" height="40"/>
   <object id="30" gid="133" x="436" y="154" width="14" height="34"/>
   <object id="31" gid="132" x="458" y="180" width="22" height="60"/>
+  <object id="32" gid="153" x="490" y="156" width="56" height="32"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="3" name="collision">
   <object id="1" x="120" y="200" width="440" height="40"/>

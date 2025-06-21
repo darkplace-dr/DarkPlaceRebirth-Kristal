@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="149" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="150" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -375,6 +375,9 @@
  </tile>
  <tile id="135">
   <image width="56" height="32" source="../../../assets/sprites/tilesets/objects/vent_closed_cover_broken.png"/>
+ </tile>
+ <tile id="152">
+  <image width="56" height="32" source="../../../assets/sprites/tilesets/objects/vent_closed_noelle.png"/>
  </tile>
  <tile id="121">
   <image width="1128" height="470" source="../../../assets/sprites/world/maps/hometown/noellehouse.png"/>
