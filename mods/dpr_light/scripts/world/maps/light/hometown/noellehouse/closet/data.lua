@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 42,
+  nextobjectid = 45,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -199,6 +199,25 @@ return {
           gid = 137,
           visible = true,
           properties = {}
+        },
+        {
+          id = 44,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["exit_sound"] = "doorclose",
+            ["facing"] = "down",
+            ["map"] = "light/hometown/noellehouse/main",
+            ["marker"] = "entrycloset",
+            ["sound"] = "dooropen"
+          }
         }
       }
     },
@@ -387,25 +406,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 41,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 280,
-          y = 480,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["exit_sound"] = "doorclose",
-            ["facing"] = "down",
-            ["map"] = "light/hometown/noellehouse/main",
-            ["marker"] = "entrycloset",
-            ["sound"] = "dooropen"
-          }
         }
       }
     }

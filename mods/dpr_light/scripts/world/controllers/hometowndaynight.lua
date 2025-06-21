@@ -45,6 +45,7 @@ function HometownDayNight:postLoad()
             self.shader = BGPaletteFX(self.palette, self.night).shader
             if Game.world.map.image_layers["overlay"] then
                 Game.world.map.image_layers["overlay"].color = Utils.mergeColor(COLORS["black"], COLORS["navy"], 0.5)
+				self.callback:setParent(Game.world.map.image_layers["overlay"])
                 Game.world:addChild(Game.world.map.image_layers["overlay"])
             end
         end
