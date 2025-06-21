@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -69,6 +69,9 @@
  </objectgroup>
  <objectgroup id="7" name="controllers">
   <object id="15" name="hometowndaynight" x="0" y="0">
+   <properties>
+    <property name="palette" value="world/church_palette"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

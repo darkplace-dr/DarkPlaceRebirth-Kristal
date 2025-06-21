@@ -1,5 +1,5 @@
----@class Rectangle : Object
----@overload fun(...) : Rectangle
+---@class HometownNightOverlay : Object
+---@overload fun(...) : HometownNightOverlay
 local HometownNightOverlay, super = Class(Object)
 
 function HometownNightOverlay:init(x, y, width, height)
