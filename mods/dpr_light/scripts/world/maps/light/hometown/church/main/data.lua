@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 31,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 75,
+  nextlayerid = 11,
+  nextobjectid = 129,
   properties = {
     ["border"] = "leaves",
     ["church"] = true,
@@ -42,6 +42,38 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "objects_room_night",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 75,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 1240,
+          width = 1758,
+          height = 1240,
+          rotation = 0,
+          gid = 143,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -692,314 +724,6 @@ return {
           }
         },
         {
-          id = 21,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 960,
-          y = 400,
-          width = 80,
-          height = 96,
-          rotation = 0,
-          gid = 115,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 22,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 702,
-          y = 1058,
-          width = 276,
-          height = 100,
-          rotation = 0,
-          gid = 119,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 23,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 846,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 28,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 566,
-          y = 846,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 29,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 566,
-          y = 764,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 30,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 566,
-          y = 682,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 31,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 566,
-          y = 600,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 32,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 566,
-          y = 518,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 24,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 764,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 682,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 26,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 600,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 27,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 518,
-          width = 30,
-          height = 78,
-          rotation = 0,
-          gid = 88,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 33,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 840,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 34,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 760,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 35,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 680,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 36,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 600,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 37,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 520,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 38,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 880,
-          y = 520,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 39,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 880,
-          y = 600,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 40,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 880,
-          y = 680,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 41,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 880,
-          y = 760,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 42,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 880,
-          y = 840,
-          width = 200,
-          height = 68,
-          rotation = 0,
-          gid = 113,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 72,
           name = "interactable",
           type = "",
@@ -1028,6 +752,710 @@ return {
           properties = {
             ["cutscene"] = "church.organ",
             ["solid"] = true
+          }
+        },
+        {
+          id = 21,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 960,
+          y = 400,
+          width = 80,
+          height = 96,
+          rotation = 0,
+          gid = 115,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 22,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 702,
+          y = 1058,
+          width = 276,
+          height = 100,
+          rotation = 0,
+          gid = 119,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 846,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 846,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 764,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 682,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 31,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 600,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 32,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 518,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 764,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 682,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 600,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 518,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 88,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 33,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 840,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 34,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 760,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 35,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 680,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 36,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 600,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 520,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 38,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 520,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 39,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 600,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 40,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 680,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 41,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 760,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 42,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 840,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 113,
+          visible = true,
+          properties = {
+            ["day"] = 1
+          }
+        },
+        {
+          id = 98,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 702,
+          y = 1058,
+          width = 276,
+          height = 100,
+          rotation = 0,
+          gid = 144,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 103,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 842,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 147,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 104,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 760,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 148,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 105,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 682,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 147,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 107,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 600,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 150,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 108,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 522,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 149,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 109,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 520,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 151,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 112,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 600,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 148,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 113,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 680,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 148,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 114,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 760,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 148,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 115,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 840,
+          width = 200,
+          height = 68,
+          rotation = 0,
+          gid = 148,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 118,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 518,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 119,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 600,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 120,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 682,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 121,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 764,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 122,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 566,
+          y = 846,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 123,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 846,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 124,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 764,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 125,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 682,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 126,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 600,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 145,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 127,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1088,
+          y = 518,
+          width = 30,
+          height = 78,
+          rotation = 0,
+          gid = 152,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 128,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 960,
+          y = 400,
+          width = 80,
+          height = 96,
+          rotation = 0,
+          gid = 146,
+          visible = true,
+          properties = {
+            ["night"] = 1
           }
         }
       }
@@ -1086,7 +1514,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["palette"] = "world/church_palette"
+          }
         }
       }
     },

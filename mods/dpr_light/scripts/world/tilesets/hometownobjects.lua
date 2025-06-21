@@ -4,8 +4,8 @@ return {
   tiledversion = "1.10.2",
   name = "hometownobjects",
   class = "",
-  tilewidth = 1128,
-  tileheight = 656,
+  tilewidth = 1758,
+  tileheight = 1240,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 139,
+  tilecount = 149,
   tiles = {
     {
       id = 1,
@@ -858,6 +858,66 @@ return {
       image = "../../../assets/sprites/tilesets/objects/present_wide.png",
       width = 48,
       height = 36
+    },
+    {
+      id = 142,
+      image = "../../../assets/sprites/world/maps/hometown/church/main_night.png",
+      width = 1758,
+      height = 1240
+    },
+    {
+      id = 143,
+      image = "../../../assets/sprites/tilesets/objects/church_table_night.png",
+      width = 276,
+      height = 100
+    },
+    {
+      id = 144,
+      image = "../../../assets/sprites/tilesets/objects/candle_night_1.png",
+      width = 30,
+      height = 78
+    },
+    {
+      id = 151,
+      image = "../../../assets/sprites/tilesets/objects/candle_night_2.png",
+      width = 30,
+      height = 78
+    },
+    {
+      id = 145,
+      image = "../../../assets/sprites/tilesets/objects/podium_night.png",
+      width = 80,
+      height = 96
+    },
+    {
+      id = 146,
+      image = "../../../assets/sprites/tilesets/objects/pew_night_1.png",
+      width = 200,
+      height = 68
+    },
+    {
+      id = 147,
+      image = "../../../assets/sprites/tilesets/objects/pew_night_2.png",
+      width = 200,
+      height = 68
+    },
+    {
+      id = 148,
+      image = "../../../assets/sprites/tilesets/objects/pew_night_3.png",
+      width = 200,
+      height = 68
+    },
+    {
+      id = 149,
+      image = "../../../assets/sprites/tilesets/objects/pew_night_4.png",
+      width = 200,
+      height = 68
+    },
+    {
+      id = 150,
+      image = "../../../assets/sprites/tilesets/objects/pew_night_5.png",
+      width = 200,
+      height = 68
     }
   }
 }
