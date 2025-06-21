@@ -43,6 +43,9 @@ function GreenRoomWall:onLoad()
 		self.vines:setScale(2,2)
 		self.vines.wrap_texture_x = true
 		self.vines:setLayer(self.layer + 0.01)
+		if Game.world:parseLayer("objects_belowvines") then
+			self.vines:setLayer(Game.world:parseLayer("objects_belowvines") + 0.01)
+		end
 		self.vines:addFX(ScissorFX(0, 0, self.width, self.height))
 		Game.world:addChild(self.vines)
 	end
@@ -65,6 +68,9 @@ function GreenRoomWall:onLoad()
 			shine:play(1/2.4)
 			shine:setFrame(starting_index)
 			shine:setLayer(self.layer + 0.02)
+			if Game.world:parseLayer("objects_belowvines") then
+				shine:setLayer(Game.world:parseLayer("objects_belowvines") + 0.02)
+			end
 			Game.world:addChild(shine)
 		end
 		max_amount = self.width / 80
@@ -85,6 +91,9 @@ function GreenRoomWall:onLoad()
 			shine:play(1/2.4)
 			shine:setFrame(starting_index)
 			shine:setLayer(self.layer + 0.02)
+			if Game.world:parseLayer("objects_belowvines") then
+				shine:setLayer(Game.world:parseLayer("objects_belowvines") + 0.02)
+			end
 			Game.world:addChild(shine)
 		end
 	end

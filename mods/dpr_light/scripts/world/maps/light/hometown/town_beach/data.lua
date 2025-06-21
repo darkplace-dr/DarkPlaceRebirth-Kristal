@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 13,
+  nextlayerid = 16,
+  nextobjectid = 15,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -239,7 +239,7 @@ return {
         },
         {
           id = 10,
-          name = "",
+          name = "beachtable",
           type = "",
           shape = "rectangle",
           x = 320,
@@ -248,19 +248,6 @@ return {
           height = 90,
           rotation = 0,
           gid = 329,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 11,
-          name = "beachwater",
-          type = "",
-          shape = "rectangle",
-          x = 808,
-          y = 0,
-          width = 400,
-          height = 480,
-          rotation = 0,
           visible = true,
           properties = {}
         }
@@ -301,7 +288,7 @@ return {
       y = 0,
       width = 30,
       height = 12,
-      id = 6,
+      id = 11,
       name = "treeup",
       class = "",
       visible = true,
@@ -322,9 +309,38 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 141, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 140, 139, 142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 15,
+      name = "objects_beachwater",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 14,
+          name = "beachwater",
+          type = "",
+          shape = "rectangle",
+          x = 810,
+          y = 0,
+          width = 400,
+          height = 480,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     },
     {
@@ -342,7 +358,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 12,
+          id = 13,
           name = "hometowndaynight",
           type = "",
           shape = "point",

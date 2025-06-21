@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 23,
+  tilecount = 24,
   tiles = {
     {
       id = 0,
@@ -162,6 +162,12 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png",
       width = 47,
       height = 66
+    },
+    {
+      id = 25,
+      image = "../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png",
+      width = 37,
+      height = 37
     }
   }
 }

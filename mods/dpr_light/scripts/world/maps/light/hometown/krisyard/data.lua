@@ -657,22 +657,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 150,
-          y = 336,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        },
-        {
           id = 26,
           name = "",
           type = "",
@@ -913,24 +897,7 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 30,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 150,
-          y = 266,
-          width = 26,
-          height = 30,
-          rotation = 0,
-          gid = 356,
-          visible = true,
-          properties = {
-            ["night"] = 2
-          }
-        }
-      }
+      objects = {}
     },
     {
       type = "objectgroup",

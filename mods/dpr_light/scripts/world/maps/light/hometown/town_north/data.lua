@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 48,
-  nextobjectid = 80,
+  nextobjectid = 100,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -691,20 +691,6 @@ return {
           properties = {}
         },
         {
-          id = 65,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 336,
-          y = 450,
-          width = 134,
-          height = 344,
-          rotation = 0,
-          gid = 335,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 66,
           name = "",
           type = "",
@@ -715,6 +701,19 @@ return {
           height = 110,
           rotation = 0,
           gid = 351,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 82,
+          name = "noellegate",
+          type = "",
+          shape = "rectangle",
+          x = 336,
+          y = 106,
+          width = 134,
+          height = 344,
+          rotation = 0,
           visible = true,
           properties = {}
         }
@@ -930,24 +929,6 @@ return {
           properties = {}
         },
         {
-          id = 27,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 360,
-          y = 460,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 17.7656, y = -19.9922 },
-            { x = 113.818, y = -240 },
-            { x = 0, y = -240 }
-          },
-          properties = {}
-        },
-        {
           id = 34,
           name = "",
           type = "",
@@ -988,6 +969,42 @@ return {
             { x = 0, y = 0 },
             { x = -40, y = 40 },
             { x = 0, y = 40 }
+          },
+          properties = {}
+        },
+        {
+          id = 95,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 360,
+          y = 460,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 17.7656, y = -19.9922 },
+            { x = 113.818, y = -240 },
+            { x = 0, y = -240 }
+          },
+          properties = {}
+        },
+        {
+          id = 99,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 507,
+          y = 220,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -40, y = 100 },
+            { x = -40, y = 0 }
           },
           properties = {}
         }
@@ -1519,6 +1536,43 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 80,
+          name = "toggle",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "noelle_gate_open",
+            ["inverted"] = true,
+            ["target1"] = { id = 37 },
+            ["target2"] = { id = 45 },
+            ["target3"] = { id = 44 },
+            ["target4"] = { id = 95 }
+          }
+        },
+        {
+          id = 96,
+          name = "toggle",
+          type = "",
+          shape = "point",
+          x = 360,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "noelle_gate_open",
+            ["inverted"] = false,
+            ["target"] = { id = 99 }
+          }
         }
       }
     }

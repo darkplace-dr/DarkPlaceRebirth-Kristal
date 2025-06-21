@@ -113,6 +113,7 @@
  <objectgroup color="#ff00ff" id="9" name="objects">
   <object id="9" name="interactable" x="614" y="132" width="54" height="40">
    <properties>
+    <property name="nighttext" value="* (It's a gravestone. It's kind of hard to read in the dark.)"/>
     <property name="solid" type="bool" value="true"/>
     <property name="text">* SHYRA
 [wait:5]* A KARAOKE MICROPHONE FOR A BRAVE SINGER</property>
@@ -120,6 +121,7 @@
   </object>
   <object id="10" name="interactable" x="488" y="132" width="62" height="40">
    <properties>
+    <property name="nighttext" value="* (It's a gravestone. It's kind of hard to read in the dark.)"/>
     <property name="solid" type="bool" value="true"/>
     <property name="text">* MUTTLER
 [wait:5]* A BIG BONE FOR THE LEADER OF THE PACK</property>
@@ -127,6 +129,7 @@
   </object>
   <object id="11" name="interactable" x="322" y="132" width="66" height="40">
    <properties>
+    <property name="nighttext" value="* (It's a gravestone. It's kind of hard to read in the dark.)"/>
     <property name="solid" type="bool" value="true"/>
     <property name="text">* CRYSTAL
 [wait:5]* A SNOWY GEMSTONE FOR A PROUD MOTHER</property>

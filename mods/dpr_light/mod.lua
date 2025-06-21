@@ -47,6 +47,9 @@ function Mod:loadObject(world, name, data)
 		local tobj = world.map:createTileObject(data)
 		tobj.day_mode = data.properties["day"] or nil
 		tobj.night_mode = data.properties["night"] or nil
+		tobj.sunset_mode = data.properties["sunset"] or nil
+		tobj.sunrise_mode = data.properties["sunrise"] or nil
+		tobj.rain_mode = data.properties["rain"] or nil
 		return tobj
     end
 end

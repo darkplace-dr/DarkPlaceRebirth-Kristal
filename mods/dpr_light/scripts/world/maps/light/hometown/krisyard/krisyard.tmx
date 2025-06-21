@@ -127,11 +127,6 @@
   <object id="16" x="418" y="240" width="40" height="108"/>
  </objectgroup>
  <objectgroup id="12" name="objects_light_night">
-  <object id="25" gid="356" x="150" y="336" width="26" height="30">
-   <properties>
-    <property name="night" type="int" value="2"/>
-   </properties>
-  </object>
   <object id="26" gid="356" x="250" y="342" width="26" height="30">
    <properties>
     <property name="night" type="int" value="2"/>
@@ -208,13 +203,7 @@
  <imagelayer id="10" name="houseover" offsetx="80" offsety="40">
   <image source="../../../../../../assets/sprites/world/maps/hometown/krishouseover.png" width="390" height="380"/>
  </imagelayer>
- <objectgroup id="13" name="objects_light_above_night">
-  <object id="30" gid="356" x="150" y="266" width="26" height="30">
-   <properties>
-    <property name="night" type="int" value="2"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="13" name="objects_light_above_night"/>
  <objectgroup color="#00aa00" id="11" name="controllers">
   <object id="23" name="hometowndaynight" x="0" y="0">
    <point/>
