@@ -2,6 +2,24 @@ return {
 
     meet = function(cutscene)
 --Game.world.camera:setZoom(2.25)
+
+
+    local index = love.window.showMessageBox("???", "* Once you let me in, I will never leave.\n\n* Understood?", {"No", "Yes", escapebutton = 3}, "warning")
+
+
+    local name = Game.save_name
+
+    if index == 1 then return end
+
+    if index == 3 then
+
+
+        love.window.showMessageBox("???", "* Rude.", {"OK", escapebutton = 3}, "info")
+
+
+        return
+    end
+
         if not Noel:loadNoel() then
             if Game:isDessMode() then
 
@@ -19,17 +37,24 @@ return {
                     weapon = {
                         flags = {},
                         id = "old_umbrella"
+                    },
+                    armor = {
+                        [1] = {
+                        flags = {},
+                        id = "ironshackle"
+                        }
                     }
                 },
                 Spells = {
                     "spare_smack",
                     "soul_send",
                     "quick_heal",
-                    "life_steal"
+                    "life_steal",
+                    "sirens_serenade"
                 },
                 Kills = 0,
                 SaveID = 0,
-                version = 0.015,
+                version = 0.016,
                 Map = "main_hub",
                 Mod = "dpr_main",
                 Health = 900,
@@ -53,7 +78,8 @@ return {
             end
             noel:convertToFollower()
             cutscene:attachFollowers()
-            Game:addPartyMember("noel")
+            local n = Game:addPartyMember("noel")
+            n:load({})
         end
     end
 }

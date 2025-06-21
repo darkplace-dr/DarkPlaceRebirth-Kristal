@@ -41,6 +41,7 @@ function character:init()
     self:addSpell("quick_heal")
     self:addSpell("life_steal")
 
+    self:addSpell("sirens_serenade") --Dont expect this spell to be perminant
 
     -- Current health (saved to the save file)
     self.health = 890

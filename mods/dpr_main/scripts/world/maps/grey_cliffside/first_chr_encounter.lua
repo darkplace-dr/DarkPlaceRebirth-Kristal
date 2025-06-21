@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -24,7 +24,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 90,
+      firstgid = 64,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -118,77 +118,9 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 50, 51, 0, 0, 0, 0,
         5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 0,
         14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 0,
-        23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 26, 25, 24, 0,
-        41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 13, 15, 42, 0,
-        50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 13, 15, 51, 0
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 2,
-      name = "collision",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 5,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 240,
-          width = 640,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 400,
-          width = 520,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 26,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 640,
-          y = 280,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 27,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 600,
-          y = 400,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
+        32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 33, 26, 25, 31, 4,
+        41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 42, 13, 15, 40, 22,
+        50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 51, 13, 15, 49, 50
       }
     },
     {
@@ -277,7 +209,7 @@ return {
           x = 200,
           y = 280,
           width = 120,
-          height = 120,
+          height = 80,
           rotation = 0,
           visible = true,
           properties = {}
@@ -319,8 +251,8 @@ return {
           name = "savepoint",
           type = "",
           shape = "rectangle",
-          x = 540,
-          y = 270,
+          x = 400,
+          y = 280,
           width = 40,
           height = 40,
           rotation = 0,
@@ -346,13 +278,13 @@ return {
           type = "",
           shape = "rectangle",
           x = 440,
-          y = 240,
+          y = 200,
           width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["text1"] = "* CAREFUL! .chr's ahead!"
+            ["text1"] = "* Wait,[wait:5] then go."
           }
         },
         {
@@ -365,7 +297,75 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 2,
+      name = "collision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 5,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 240,
+          width = 640,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 520,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 360,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 280,
+          width = 40,
+          height = 80,
+          rotation = 0,
           visible = true,
           properties = {}
         }
@@ -391,7 +391,7 @@ return {
           type = "",
           shape = "point",
           x = 40,
-          y = 360,
+          y = 320,
           width = 0,
           height = 0,
           rotation = 0,
@@ -417,7 +417,7 @@ return {
           type = "",
           shape = "point",
           x = 560,
-          y = 360,
+          y = 332.667,
           width = 0,
           height = 0,
           rotation = 0,

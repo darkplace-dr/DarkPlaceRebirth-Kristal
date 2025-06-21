@@ -11,8 +11,7 @@ local function h(hex)
 end
 
 function actor:onSpriteInit(sprite)
-    sprite:addFX(OutlineFX())
-    sprite:getFX(OutlineFX):setColor(1, 1, 1)
+    sprite:addFX(OutlineFX({1, 1, 1}))
     --print(sprite.sprite_options[1])
     self.b_tog = math.random(10)
 
