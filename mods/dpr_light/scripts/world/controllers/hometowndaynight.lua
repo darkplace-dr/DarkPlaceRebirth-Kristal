@@ -24,9 +24,13 @@ function HometownDayNight:postLoad()
         end
         if Game:getFlag("hometown_time", "day") == "night" then
             self.overlay = HometownNightOverlay(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-            self.overlay.color = Utils.mergeColor(COLORS["black"], COLORS["navy"], 0.5)
-            -- TODO: 0.38 doesn't seem... /quite/ accurate? I mean, it's good enough for most people, but come on, we're Kristal developers! Go datamine the game!
-            self.overlay.alpha = self.inside and 0.38 or 0.6
+			if self.church and self.world.map.id ~= "light/hometown/church/main" then
+				self.overlay.color = Utils.hexToRgb("#00042B")
+				self.overlay.alpha = 0.5
+			else
+				self.overlay.color = Utils.mergeColor(COLORS["black"], COLORS["navy"], 0.5)
+				self.overlay.alpha = self.inside and 0.4 or 0.6
+			end
             self.overlay:setLayer(WORLD_LAYERS["below_ui"])
             self.overlay:setParallax(0)
             Game.world:addChild(self.overlay)

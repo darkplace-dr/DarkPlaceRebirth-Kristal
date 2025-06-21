@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1128" tileheight="656" tilecount="139" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="149" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -420,5 +420,35 @@
  </tile>
  <tile id="141">
   <image width="48" height="36" source="../../../assets/sprites/tilesets/objects/present_wide.png"/>
+ </tile>
+ <tile id="142">
+  <image width="1758" height="1240" source="../../../assets/sprites/world/maps/hometown/church/main_night.png"/>
+ </tile>
+ <tile id="143">
+  <image width="276" height="100" source="../../../assets/sprites/tilesets/objects/church_table_night.png"/>
+ </tile>
+ <tile id="144">
+  <image width="30" height="78" source="../../../assets/sprites/tilesets/objects/candle_night_1.png"/>
+ </tile>
+ <tile id="151">
+  <image width="30" height="78" source="../../../assets/sprites/tilesets/objects/candle_night_2.png"/>
+ </tile>
+ <tile id="145">
+  <image width="80" height="96" source="../../../assets/sprites/tilesets/objects/podium_night.png"/>
+ </tile>
+ <tile id="146">
+  <image width="200" height="68" source="../../../assets/sprites/tilesets/objects/pew_night_1.png"/>
+ </tile>
+ <tile id="147">
+  <image width="200" height="68" source="../../../assets/sprites/tilesets/objects/pew_night_2.png"/>
+ </tile>
+ <tile id="148">
+  <image width="200" height="68" source="../../../assets/sprites/tilesets/objects/pew_night_3.png"/>
+ </tile>
+ <tile id="149">
+  <image width="200" height="68" source="../../../assets/sprites/tilesets/objects/pew_night_4.png"/>
+ </tile>
+ <tile id="150">
+  <image width="200" height="68" source="../../../assets/sprites/tilesets/objects/pew_night_5.png"/>
  </tile>
 </tileset>
