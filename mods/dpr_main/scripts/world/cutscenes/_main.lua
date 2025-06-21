@@ -315,6 +315,7 @@ return {
                 local offset_x, offset_y = math.sin(siner / 24) * 2, math.sin(siner / 30) * 2
                 hero_sprite.x = chara_x[1] + offset_x * 6
                 hero_sprite.y = chara_y[1] + offset_y * 6
+                hero_sprite.rotation = -(offset_x/48)
             end)
     
             gonerText("THIS[wait:40]\nIS YOUR VESSEL.[wait:20]")

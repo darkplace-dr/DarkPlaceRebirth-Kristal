@@ -294,11 +294,16 @@ function DarkPartyMenu:iconSelect(number, playsound)
 
 	if self.selected.char then
 		local party = self.selected.char
-		self.selected_sprite = Sprite(party.actor.path .. "/" .. party.actor.default .. "/down")
 
-		local x = self.bg.x + 55
+
+                local sprite = NPC(party:getActor().id)
+                sprite.world = Game.world
+                sprite:setFacing("down")
+		self.selected_sprite = sprite
+
+		local x = 154
 		self.selected_sprite:setOrigin(0.5, 0.5)
-		local y = self.bg.y + 50
+		local y = 154
 	
 		self.selected_sprite:setScale(2)
 		self.selected_sprite.x = x
@@ -307,12 +312,7 @@ function DarkPartyMenu:iconSelect(number, playsound)
 		self:addChild(self.selected_sprite)
 
 		if party.actor.menu_anim then
-			self.selected_sprite:setSprite(party.actor.path .. "/" .. party.actor.menu_anim)
-		end
-
-		if party.id == "noel" then
-			self.selected_sprite:addFX(OutlineFX(), "line")
-			self.selected_sprite:getFX("line"):setColor(1, 1, 1)
+			self.selected_sprite:setSprite(party.actor.menu_anim)
 		end
 	end
 end

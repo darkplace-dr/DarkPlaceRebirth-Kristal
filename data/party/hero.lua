@@ -120,10 +120,13 @@ function character:getActor(light)
     if light == nil then
         light = Game.light
     end
+    local map = Game.world.map
+    if map.data and map.data.properties.blue_skies then
+        return "hero_sfb"
+    end
+
     if light then
         return self.lw_actor or self.actor
-    elseif Game.world.map.data.properties.blue_skies then
-        return "hero_sfb"
     else
         return self.actor
     end

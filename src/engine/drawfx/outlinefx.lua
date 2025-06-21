@@ -28,6 +28,7 @@ function OutlineFX:isActive()
 end
 
 function OutlineFX:draw(texture)
+
     local last_shader = love.graphics.getShader()
 
     local object = self.parent
@@ -75,8 +76,14 @@ function OutlineFX:draw(texture)
         love.graphics.setStencilTest()
     end
 
-    Draw.popCanvas()
+    if object.actor and object.actor.id == "noel" and not object.moved then
+        local x, y = object:getScreenPos()
 
+        love.graphics.rectangle("fill", x + 18, y + 18, 26, 10)
+        --love.graphics.draw(texture, 15 + x/2, 56 + y*1.5, 0, 0.5, -0.5)
+    end
+
+    Draw.popCanvas()
 
     Draw.setColor(1, 1, 1, self.color[4])
     Draw.drawCanvas(outline)
@@ -87,6 +94,7 @@ function OutlineFX:draw(texture)
         love.graphics.setShader(last_shader)
         Draw.drawCanvas(texture)
     end
+
 end
 
 return OutlineFX

@@ -75,10 +75,15 @@ function DarkCharacterMenu:partySprites()
 	self.sprites = {}
 
 	for i, party in ipairs(Game.party) do
-		local sprite = Sprite(party.actor.path .. "/" .. party.actor.default .. "/down")
+		--local sprite = Sprite(party.actor.path .. "/" .. party.actor.default .. "/down")
+
+
+                local sprite = NPC(party:getActor().id)
+                sprite.world = Game.world
+                sprite:setFacing("down")
 
 		local x = self.bg.x + 100 + (i - 1) * 100 
-		sprite:setOrigin(0.5, 0.5)
+		--sprite:setOrigin(0.5, 0.5)
 		local y = self.bg.y + 100
 	
 		sprite:setScale(2)
@@ -92,13 +97,10 @@ function DarkCharacterMenu:partySprites()
 		self:addChild(sprite)
 
         if party.actor.menu_anim then
-			sprite:setSprite(party.actor.path .. "/" .. party.actor.menu_anim)
+			sprite:setSprite(party.actor.menu_anim)
 		end
 
-		if party.id == "noel" then
-			sprite:addFX(OutlineFX(), "line")
-			sprite:getFX("line"):setColor(1, 1, 1)
-		end
+
 
 	end
 end
