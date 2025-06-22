@@ -67,6 +67,11 @@ function actor:init()
         ["walk_bangs/up"] = "walk_bangs/down",
         ["walk_bangs/left"] = "walk_bangs/left",
         ["walk_bangs/right"] = "walk_bangs/right",
+
+        ["walk_unhappy/down"] = "walk_unhappy/up",
+        ["walk_unhappy/up"] = "walk_unhappy/down",
+        ["walk_unhappy/left"] = "walk_unhappy/left",
+        ["walk_unhappy/right"] = "walk_unhappy/right",
     }
 
     -- Table of sprite offsets (indexed by sprite name)

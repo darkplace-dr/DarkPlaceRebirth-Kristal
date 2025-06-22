@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 16,
+  nextlayerid = 7,
+  nextobjectid = 17,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -19,6 +19,22 @@ return {
   },
   tilesets = {},
   layers = {
+    {
+      type = "imagelayer",
+      image = "../../../../../../../assets/sprites/world/maps/hometown/interior/hospitalroom2_berdly_sideb.png",
+      id = 6,
+      name = "roomalt",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
     {
       type = "imagelayer",
       image = "../../../../../../../assets/sprites/world/maps/hometown/interior/hospitalroom2.png",
@@ -201,8 +217,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (It's an empty bed)"
+            ["cutscene"] = "hometown.hospitalroom2bed",
+            ["solid"] = true
           }
         },
         {
@@ -236,6 +252,23 @@ return {
           properties = {
             ["text1"] = "* (It's a classic 1-to-10 pain scale,[wait:5] using ICE-E as a model.)",
             ["text2"] = "* (At 0 pain,[wait:5] he's happy.)\n[wait:5](At 10 pain,[wait:5] he's happy and sweating.)"
+          }
+        },
+        {
+          id = 16,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 356,
+          y = 220,
+          width = 52,
+          height = 36,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "POST_SNOWGRAVE",
+            ["solid"] = true,
+            ["text"] = "* (The space heater is running.)"
           }
         },
         {
