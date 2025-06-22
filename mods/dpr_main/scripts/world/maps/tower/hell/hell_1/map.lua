@@ -3,11 +3,15 @@ local map, super = Class(Map, "hell_1")
 
 function map:init(world, data)
     super.init(self, world, data)
-    
 end
 
 function map:onEnter()
     self.world.color = COLORS.black
+    for _, a in ipairs(Game.party) do
+        local actr = a:getActor()
+        if actr.id == "noel" then return end
+        Game.world:getCharacter(actr.id).sprite:addFX(OutlineFX(actr.color))
+    end
 end
 
 function map:onExit()

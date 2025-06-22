@@ -8,10 +8,10 @@ return {
   tileheight = 20,
   spacing = 0,
   margin = 0,
-  columns = 8,
+  columns = 7,
   image = "../../../assets/sprites/tilesets/hell.png",
-  imagewidth = 160,
-  imageheight = 100,
+  imagewidth = 140,
+  imageheight = 220,
   objectalignment = "unspecified",
   tilerendersize = "grid",
   fillmode = "stretch",
@@ -26,6 +26,6 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 40,
+  tilecount = 77,
   tiles = {}
 }
