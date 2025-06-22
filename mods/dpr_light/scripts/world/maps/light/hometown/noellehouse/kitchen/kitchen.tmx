@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="13" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="34">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="13" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -56,6 +56,37 @@
   <object id="16" gid="99" x="1112" y="410" width="178" height="190"/>
   <object id="17" gid="101" x="1044" y="328" width="180" height="268"/>
   <object id="33" gid="126" x="176" y="106" width="56" height="32"/>
+  <object id="34" name="interactable" x="218" y="150" width="40" height="66">
+   <properties>
+    <property name="text">* (The fridge is packed with festive foods.)
+* (...[wait:5] and a jar of pickles.)</property>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="292" y="176" width="50" height="40">
+   <properties>
+    <property name="text" value="* (The sink is sparkling clean.)"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="366" y="176" width="64" height="40">
+   <properties>
+    <property name="text" value="* (New stovetop,[wait:5] ancient katana.)"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="442" y="168" width="40" height="48">
+   <properties>
+    <property name="text" value="* (In the cupboard are...[wait:5] cutters for gingerbread monsters.)"/>
+   </properties>
+  </object>
+  <object id="38" name="interactable" x="1074" y="206" width="40" height="84">
+   <properties>
+    <property name="text" value="* (It's a highly climbable looking tree.)"/>
+   </properties>
+  </object>
+  <object id="39" name="interactable" x="1124" y="336" width="40" height="42">
+   <properties>
+    <property name="text" value="* (It's a piano.)"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
   <object id="9" name="entry" x="278" y="496">
