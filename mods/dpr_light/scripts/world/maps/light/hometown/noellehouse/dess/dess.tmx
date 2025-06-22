@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="30">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="38">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -49,6 +49,48 @@
   <object id="29" name="dess_guitar" x="400" y="184" width="36" height="68">
    <properties>
     <property name="flagcheck" value="!dess_guitar_stolen"/>
+   </properties>
+  </object>
+  <object id="30" name="interactable" x="66" y="228" width="124" height="40">
+   <properties>
+    <property name="text1" value="* (It's Dess's bed. Underneath are army rations,[wait:5] guitar picks,[wait:5] paintball gear,[wait:5] ice skates...)"/>
+    <property name="text2" value="* (...[wait:5] and a badly traced drawing of a dragon.)"/>
+   </properties>
+  </object>
+  <object id="31" name="interactable" x="344" y="404" width="94" height="28">
+   <properties>
+    <property name="text" value="* (It's a CD player. Underneath are tons of punk rock CDs...[wait:5] and one still-sealed ska CD.)"/>
+   </properties>
+  </object>
+  <object id="32" name="interactable" x="102" y="402" width="76" height="34">
+   <properties>
+    <property name="text" value="* (It's a computer. The monitor is unplugged.)"/>
+   </properties>
+  </object>
+  <object id="33" name="interactable" x="48" y="358" width="36" height="72">
+   <properties>
+    <property name="cutscene" value="noellehouse.dess_shelf"/>
+   </properties>
+  </object>
+  <object id="34" name="interactable" x="496" y="278" width="26" height="30">
+   <properties>
+    <property name="text" value="* Rollerblades,[wait:5] wiffle bat. Looking at these things make your head hurt."/>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="228" y="176" width="156" height="50">
+   <properties>
+    <property name="text" value="* (It's an excessively large walk-in closet.)"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="466" y="410" width="42" height="28">
+   <properties>
+    <property name="cutscene" value="noellehouse.dess_box"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="486" y="332" width="26" height="30">
+   <properties>
+    <property name="text1" value="* A violin,[wait:5] a flute,[wait:5] a microphone..."/>
+    <property name="text2" value="* They all look very expensive,[wait:5] and very dented."/>
    </properties>
   </object>
  </objectgroup>
