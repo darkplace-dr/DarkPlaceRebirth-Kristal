@@ -7,10 +7,6 @@ local GRID_HEIGHT = 176
 function test_map:onEnter()
     super.onEnter(self)
 
-
-    Game.world:openMenu(room_board())
-    Game.world:closeMenu()
-
     Game.world.camera.keep_in_bounds = false
     Game.world.camera.state = "STATIC"
     Game.world.camera.x = 0
@@ -18,6 +14,12 @@ function test_map:onEnter()
 
     self.speedy = 8
     self.speedx = 8
+end
+
+function test_map:onExit()
+    super.onExit(self)
+
+    Game.world.camera.keep_in_bounds = true
 end
 
 function test_map:update()

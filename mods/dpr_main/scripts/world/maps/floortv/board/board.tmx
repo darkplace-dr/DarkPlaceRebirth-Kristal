@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="15">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tilesets/tv_floor/board.tsx"/>
+ <objectgroup id="2" name="objects_bg" locked="1">
+  <object id="1" gid="13" x="0" y="480" width="640" height="480"/>
+ </objectgroup>
+ <layer id="1" name="Tile Layer 1" width="16" height="12" opacity="0.98">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="5" name="collision">
+  <object id="6" x="0" y="320" width="640" height="40"/>
+  <object id="7" x="0" y="440" width="640" height="40"/>
+  <object id="11" x="-40" y="320" width="40" height="160"/>
+ </objectgroup>
+ <objectgroup id="4" name="objects">
+  <object id="2" gid="12" x="96" y="324" width="436" height="324"/>
+  <object id="9" gid="8" x="270" y="356" width="100" height="34"/>
+  <object id="14" name="interactable" x="280" y="320" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="sword.play"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="markers">
+  <object id="12" name="spawn" x="600" y="400">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="objects_top">
+  <object id="3" gid="9" x="0" y="552" width="638" height="100"/>
+  <object id="5" gid="11" x="128" y="474" width="270" height="36"/>
+ </objectgroup>
+</map>
