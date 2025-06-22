@@ -314,6 +314,8 @@ function actor:init(style)
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
 
     self.menu_anim = "pose"
+	
+	self.shiny_id = "susie"
 end
 
 function actor:getAnimation(anim)
