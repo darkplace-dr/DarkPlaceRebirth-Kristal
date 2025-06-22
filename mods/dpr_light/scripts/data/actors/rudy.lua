@@ -14,7 +14,7 @@ function actor:init()
 
     self.flip = nil
 
-    self.path = "world/npcs/alphys"
+    self.path = "world/npcs/rudy"
     self.default = "d"
 
     self.voice = "rudy"
