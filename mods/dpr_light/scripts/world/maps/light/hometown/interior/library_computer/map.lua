@@ -6,7 +6,7 @@ end
 
 function library_computer:init(world, data)
   super.init(self, world, data)
-  if Game:getFlag("POST_SNOWGRAVE") or Game:getFlag("hometown_digisetup") then
+  if Game:getFlag("hometown_digisetup") then
     self.music = nil
   end
 end

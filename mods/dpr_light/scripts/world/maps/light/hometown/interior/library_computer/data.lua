@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -348,55 +348,6 @@ return {
           visible = true,
           properties = {
             ["NOTE"] = "Moving this out of the way until we can find a better way to do this table"
-          }
-        },
-        {
-          id = 37,
-          name = "berdly_desk",
-          type = "",
-          shape = "point",
-          x = 357,
-          y = 208,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["flagcheck"] = "POST_SNOWGRAVE"
-          }
-        },
-        {
-          id = 38,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 332,
-          y = 166,
-          width = 50,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["flagcheck"] = "POST_SNOWGRAVE",
-            ["solid"] = true,
-            ["text"] = "* (He doesn't seem to be awake.)"
-          }
-        },
-        {
-          id = 39,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 280,
-          y = 400,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "hometown.berdly",
-            ["flagcheck"] = "POST_SNOWGRAVE",
-            ["once"] = true
           }
         },
         {

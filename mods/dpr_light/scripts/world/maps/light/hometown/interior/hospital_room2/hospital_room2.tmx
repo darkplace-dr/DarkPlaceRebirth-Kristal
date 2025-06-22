@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="16">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="17">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,9 @@
   <property name="light" type="bool" value="true"/>
   <property name="music" value="hometown"/>
  </properties>
+ <imagelayer id="6" name="roomalt">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/interior/hospitalroom2_berdly_sideb.png" width="640" height="480"/>
+ </imagelayer>
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/interior/hospitalroom2.png" width="640" height="480"/>
  </imagelayer>
@@ -37,8 +40,8 @@
   </object>
   <object id="10" name="interactable" x="428" y="220" width="82" height="100">
    <properties>
+    <property name="cutscene" value="hometown.hospitalroom2bed"/>
     <property name="solid" type="bool" value="true"/>
-    <property name="text" value="* (It's an empty bed)"/>
    </properties>
   </object>
   <object id="11" name="interactable" x="244" y="198" width="54" height="40">
@@ -53,6 +56,13 @@
     <property name="text1" value="* (It's a classic 1-to-10 pain scale,[wait:5] using ICE-E as a model.)"/>
     <property name="text2">* (At 0 pain,[wait:5] he's happy.)
 [wait:5](At 10 pain,[wait:5] he's happy and sweating.)</property>
+   </properties>
+  </object>
+  <object id="16" name="interactable" x="356" y="220" width="52" height="36">
+   <properties>
+    <property name="flagcheck" value="POST_SNOWGRAVE"/>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text" value="* (The space heater is running.)"/>
    </properties>
   </object>
   <object id="14" name="transition" x="280" y="480" width="80" height="40">
