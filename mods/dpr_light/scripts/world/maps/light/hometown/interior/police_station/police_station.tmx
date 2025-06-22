@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="26">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="29">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -13,7 +13,7 @@
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/interior/police.png" width="640" height="480"/>
  </imagelayer>
- <objectgroup color="#5500ff" id="3" name="collision">
+ <objectgroup color="#0000ff" id="3" name="collision">
   <object id="1" x="356" y="112" width="164" height="40"/>
   <object id="2" x="520" y="28" width="40" height="372"/>
   <object id="3" x="120" y="28" width="400" height="40"/>
@@ -28,7 +28,7 @@
   <object id="13" x="360" y="360" width="160" height="40"/>
   <object id="14" x="460" y="264" width="60" height="96"/>
   <object id="20" x="258" y="256" width="138" height="72"/>
-  <object id="23" x="358" y="166" width="162" height="40"/>
+  <object id="23" x="358" y="192" width="162" height="14"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="15" gid="13" x="354" y="206" width="166" height="138"/>
@@ -47,8 +47,38 @@
     <property name="text" value="* (Well-cared-for flowers.)"/>
    </properties>
   </object>
+  <object id="26" name="npc" x="201" y="240">
+   <properties>
+    <property name="actor" value="napstablook"/>
+    <property name="cutscene" value="hometown.blook"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="27" name="interactable" x="239" y="89" width="85" height="80">
+   <properties>
+    <property name="text1" value="* (You skimmed a news article about Undyne.)"/>
+    <property name="text2" value="* New Police Chief Undyne's Explosive Debut"/>
+    <property name="text3" value="* ...passionate young rookie... becomes the new police chief..."/>
+    <property name="text4">* Though energetic, it may be 
+hard to live up to the 
+legacy...</property>
+    <property name="text5" value="* ... after Asgore Dreemurr was removed from the force..."/>
+    <property name="text6">* (... there's no need to read 
+any more.)</property>
+   </properties>
+  </object>
+  <object id="28" name="interactable" x="123" y="267" width="80" height="80">
+   <properties>
+    <property name="text1">* (Photos of Chief Undyne and 
+Deputy Napstablook.)</property>
+    <property name="text2">* (Undyne is rescuing all of 
+Catti's family from a tree.)</property>
+    <property name="text3">* (... Napstablook is also stuck
+in the tree somehow.)</property>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#ff00ff" id="5" name="markers">
+ <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="25" name="spawn" x="320" y="440">
    <point/>
   </object>
