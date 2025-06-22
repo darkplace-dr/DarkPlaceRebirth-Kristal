@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="22" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="15">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="22" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="17">
  <editorsettings>
   <export target="hell_1.lua" format="lua"/>
  </editorsettings>
@@ -25,7 +25,7 @@
  <imagelayer id="3" name="gradient" offsetx="0" offsety="350" repeatx="1">
   <image source="../../../../../assets/sprites/world/bg/gradient.png" width="40" height="376"/>
  </imagelayer>
- <objectgroup id="13" name="objects_clock" offsetx="0" offsety="16">
+ <objectgroup color="#ff007f" id="13" name="objects_clock" offsetx="0" offsety="16">
   <object id="9" name="fl_clocks" x="120" y="440" width="40" height="40">
    <properties>
     <property name="flip" type="bool" value="true"/>
@@ -76,11 +76,11 @@
   <object id="3" x="280" y="440" width="360" height="120"/>
   <object id="4" x="640" y="400" width="240" height="40"/>
   <object id="5" x="720" y="520" width="160" height="120"/>
-  <object id="6" x="280" y="640" width="440" height="160"/>
-  <object id="7" x="0" y="600" width="160" height="200"/>
+  <object id="15" x="0" y="600" width="160" height="280"/>
+  <object id="16" x="280" y="640" width="440" height="240"/>
  </objectgroup>
- <objectgroup id="10" name="objects"/>
- <objectgroup id="12" name="markers">
+ <objectgroup color="#ff007f" id="10" name="objects"/>
+ <objectgroup color="#ff00ff" id="12" name="markers">
   <object id="8" name="spawn" x="40" y="560">
    <point/>
   </object>

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 95,
+  nextobjectid = 96,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",

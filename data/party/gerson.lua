@@ -34,7 +34,7 @@ function character:init()
     self.xact_name = "G-Action"
 
     -- Spells
-    self:addSpell("rude_buster")
+    self:addSpell("green_buster")
 
     -- Current health (saved to the save file)
     if Game.chapter == 1 then
@@ -73,7 +73,7 @@ function character:init()
     -- Character color (for action box outline and hp bar)
     self.color = {101/255, 170/255, 38/255}
     -- Damage color (for the number when attacking enemies) (defaults to the main color)
-    self.dmg_color = {101/255, 170/255, 38/255}
+    self.dmg_color = {0, 122/255, 0}
     -- Attack bar color (for the target bar used in attack mode) (defaults to the main color)
     self.attack_bar_color = {101/255, 170/255, 38/255}
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
