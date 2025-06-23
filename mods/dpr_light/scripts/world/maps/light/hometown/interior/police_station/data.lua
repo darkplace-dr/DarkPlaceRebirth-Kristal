@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 26,
+  nextobjectid = 29,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -59,7 +59,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 356,
           y = 112,
@@ -72,7 +72,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 28,
@@ -85,7 +85,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 28,
@@ -98,7 +98,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -111,7 +111,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 440,
@@ -124,7 +124,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 400,
@@ -137,7 +137,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 28,
@@ -150,7 +150,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 440,
@@ -163,7 +163,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 246,
@@ -176,7 +176,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 152,
@@ -189,7 +189,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 152,
@@ -202,7 +202,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -215,7 +215,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 460,
           y = 264,
@@ -228,7 +228,7 @@ return {
         {
           id = 20,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 258,
           y = 256,
@@ -241,12 +241,12 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 358,
-          y = 166,
+          y = 192,
           width = 162,
-          height = 40,
+          height = 14,
           rotation = 0,
           visible = true,
           properties = {}
@@ -270,7 +270,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 354,
           y = 206,
@@ -284,7 +284,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 242,
           y = 330,
@@ -298,7 +298,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 150,
           y = 168,
@@ -312,7 +312,7 @@ return {
         {
           id = 24,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -329,7 +329,7 @@ return {
         {
           id = 9,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 360,
@@ -340,6 +340,59 @@ return {
           properties = {
             ["solid"] = true,
             ["text"] = "* (Well-cared-for flowers.)"
+          }
+        },
+        {
+          id = 26,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 201,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "napstablook",
+            ["cutscene"] = "hometown.blook"
+          }
+        },
+        {
+          id = 27,
+          name = "interactable",
+          class = "",
+          shape = "rectangle",
+          x = 239,
+          y = 89,
+          width = 85,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (You skimmed a news article about Undyne.)",
+            ["text2"] = "* New Police Chief Undyne's Explosive Debut",
+            ["text3"] = "* ...passionate young rookie... becomes the new police chief...",
+            ["text4"] = "* Though energetic, it may be \nhard to live up to the \nlegacy...",
+            ["text5"] = "* ... after Asgore Dreemurr was removed from the force...",
+            ["text6"] = "* (... there's no need to read \nany more.)"
+          }
+        },
+        {
+          id = 28,
+          name = "interactable",
+          class = "",
+          shape = "rectangle",
+          x = 123,
+          y = 267,
+          width = 80,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (Photos of Chief Undyne and \nDeputy Napstablook.)",
+            ["text2"] = "* (Undyne is rescuing all of \nCatti's family from a tree.)",
+            ["text3"] = "* (... Napstablook is also stuck\nin the tree somehow.)"
           }
         }
       }
@@ -361,7 +414,7 @@ return {
         {
           id = 25,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 440,

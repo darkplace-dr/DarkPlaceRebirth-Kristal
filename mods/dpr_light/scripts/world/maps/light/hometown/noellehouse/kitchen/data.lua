@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 34,
+  nextobjectid = 40,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -488,6 +488,96 @@ return {
           gid = 126,
           visible = true,
           properties = {}
+        },
+        {
+          id = 34,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 218,
+          y = 150,
+          width = 40,
+          height = 66,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (The fridge is packed with festive foods.)\n* (...[wait:5] and a jar of pickles.)"
+          }
+        },
+        {
+          id = 35,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 292,
+          y = 176,
+          width = 50,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (The sink is sparkling clean.)"
+          }
+        },
+        {
+          id = 36,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 366,
+          y = 176,
+          width = 64,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (New stovetop,[wait:5] ancient katana.)"
+          }
+        },
+        {
+          id = 37,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 442,
+          y = 168,
+          width = 40,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (In the cupboard are...[wait:5] cutters for gingerbread monsters.)"
+          }
+        },
+        {
+          id = 38,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1074,
+          y = 206,
+          width = 40,
+          height = 84,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a highly climbable looking tree.)"
+          }
+        },
+        {
+          id = 39,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1124,
+          y = 336,
+          width = 40,
+          height = 42,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a piano.)"
+          }
         }
       }
     },

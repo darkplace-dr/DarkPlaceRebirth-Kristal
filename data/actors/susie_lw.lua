@@ -120,6 +120,8 @@ function actor:init()
         ["away_scratch"] = {-2, -2},
 
     }
+	
+	self.shiny_id = "susie"
 end
 
 return actor
