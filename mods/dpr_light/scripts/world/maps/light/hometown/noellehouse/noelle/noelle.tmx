@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="33">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="41">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -56,6 +56,41 @@
   <object id="11" gid="105" x="514" y="324" width="44" height="66"/>
   <object id="12" gid="106" x="198" y="440" width="230" height="68"/>
   <object id="13" gid="104" x="90" y="440" width="92" height="54"/>
+  <object id="33" name="interactable" x="96" y="254" width="104" height="77">
+   <properties>
+    <property name="text" value="* (It's Noelle's bed. There's ample space to hide underneath.)"/>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="102" y="414" width="68" height="20">
+   <properties>
+    <property name="cutscene" value="noellehouse.noelle_computer"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="232" y="386" width="100" height="40">
+   <properties>
+    <property name="text" value="* (It's a state of the art high-definition TV with old game consoles under it.)"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="244" y="210" width="218" height="54">
+   <properties>
+    <property name="text" value="* (It's a couch,[wait:5] for watching the TV.)"/>
+   </properties>
+  </object>
+  <object id="38" name="interactable" x="354" y="390" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="noellehouse.noelle_plant"/>
+   </properties>
+  </object>
+  <object id="39" name="interactable" x="515" y="312" width="40" height="94">
+   <properties>
+    <property name="text" value="* (It's Noelle's homework desk.)"/>
+   </properties>
+  </object>
+  <object id="40" name="interactable" x="492" y="224" width="52" height="38">
+   <properties>
+    <property name="text" value="* (A clothes wardrobe. A pair of small angel wings are inside...[wait:5] worn out and tattered.)"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
   <object id="7" name="spawn" x="474" y="450">

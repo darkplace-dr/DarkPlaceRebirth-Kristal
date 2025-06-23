@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 112,
+  nextobjectid = 120,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -619,20 +619,6 @@ return {
           width = 62,
           height = 18,
           rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 84,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 866,
-          y = 952,
-          width = 56,
-          height = 30,
-          rotation = 0,
-          gid = 129,
           visible = true,
           properties = {}
         }
@@ -1250,6 +1236,20 @@ return {
           gid = 125,
           visible = true,
           properties = {}
+        },
+        {
+          id = 84,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 866,
+          y = 952,
+          width = 56,
+          height = 30,
+          rotation = 0,
+          gid = 129,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -1266,7 +1266,113 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 112,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 756,
+          y = 636,
+          width = 50,
+          height = 56,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's Noelle's absurdly dangerous ninja weapon collection.)"
+          }
+        },
+        {
+          id = 114,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1034,
+          y = 254,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a heart or human-soul shaped pillow,[wait:5] depending on your opinion.)"
+          }
+        },
+        {
+          id = 115,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 870,
+          y = 962,
+          width = 52,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a thermostat. The only option is cold.)"
+          }
+        },
+        {
+          id = 116,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 406,
+          y = 942,
+          width = 68,
+          height = 52,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a fridge containing lots of greens and bottled water.)"
+          }
+        },
+        {
+          id = 117,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 906,
+          y = 1168,
+          width = 94,
+          height = 66,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (Just an empty table.)"
+          }
+        },
+        {
+          id = 118,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 202,
+          y = 998,
+          width = 32,
+          height = 60,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (The house's back door.)[wait:5]\n* (Somehow,[wait:5] it's locked.)"
+          }
+        },
+        {
+          id = 119,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1156,
+          y = 648,
+          width = 54,
+          height = 54,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a tree that would potentially fall down if you climbed it.)"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",

@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 30,
+  nextobjectid = 38,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -373,6 +373,128 @@ return {
           visible = true,
           properties = {
             ["flagcheck"] = "!dess_guitar_stolen"
+          }
+        },
+        {
+          id = 30,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 66,
+          y = 228,
+          width = 124,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (It's Dess's bed. Underneath are army rations,[wait:5] guitar picks,[wait:5] paintball gear,[wait:5] ice skates...)",
+            ["text2"] = "* (...[wait:5] and a badly traced drawing of a dragon.)"
+          }
+        },
+        {
+          id = 31,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 344,
+          y = 404,
+          width = 94,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a CD player. Underneath are tons of punk rock CDs...[wait:5] and one still-sealed ska CD.)"
+          }
+        },
+        {
+          id = 32,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 102,
+          y = 402,
+          width = 76,
+          height = 34,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a computer. The monitor is unplugged.)"
+          }
+        },
+        {
+          id = 33,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 48,
+          y = 358,
+          width = 36,
+          height = 72,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "noellehouse.dess_shelf"
+          }
+        },
+        {
+          id = 34,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 496,
+          y = 278,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* Rollerblades,[wait:5] wiffle bat. Looking at these things make your head hurt."
+          }
+        },
+        {
+          id = 35,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 228,
+          y = 176,
+          width = 156,
+          height = 50,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's an excessively large walk-in closet.)"
+          }
+        },
+        {
+          id = 36,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 466,
+          y = 410,
+          width = 42,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "noellehouse.dess_box"
+          }
+        },
+        {
+          id = 37,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 486,
+          y = 332,
+          width = 26,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* A violin,[wait:5] a flute,[wait:5] a microphone...",
+            ["text2"] = "* They all look very expensive,[wait:5] and very dented."
           }
         }
       }
