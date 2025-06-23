@@ -18,7 +18,6 @@ local cliffside = {
         Kristal.hideBorder(0)
         cutscene:wait(function ()
             if Game.world.map.id == [[grey_cliffside/cliffside_start]] then -- why is this using brackets instead of quotation marks lol. - J.A.R.U.
-                                                                            -- quotation marks werent working for some reason. - SadDiamondMan
                 return true
             else
                 return false
