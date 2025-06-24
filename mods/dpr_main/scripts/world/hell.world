@@ -1,0 +1,69 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/tower/hell/hell_6.tmx",
+            "height": 800,
+            "width": 680,
+            "x": 1000,
+            "y": -2120
+        },
+        {
+            "fileName": "maps/tower/hell/hell_1/hell_1.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -4160,
+            "y": 240
+        },
+        {
+            "fileName": "maps/tower/hell/hell_2/hell_2.tmx",
+            "height": 480,
+            "width": 1000,
+            "x": -3440,
+            "y": 240
+        },
+        {
+            "fileName": "maps/tower/hell/hell_3/hell_3.tmx",
+            "height": 1280,
+            "width": 2560,
+            "x": -2360,
+            "y": -680
+        },
+        {
+            "fileName": "maps/tower/hell/hell_3b/hell_3b.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -2080,
+            "y": 680
+        },
+        {
+            "fileName": "maps/tower/hell/hell_3c/hell_3c.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -2560,
+            "y": -1240
+        },
+        {
+            "fileName": "maps/tower/hell/hell_4/hell_4.tmx",
+            "height": 560,
+            "width": 640,
+            "x": 280,
+            "y": -200
+        },
+        {
+            "fileName": "maps/tower/hell/hell_5.tmx",
+            "height": 1520,
+            "width": 680,
+            "x": 1000,
+            "y": -1240
+        },
+        {
+            "fileName": "maps/tower/hell/hell_egg/hell_egg.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -3200,
+            "y": -1240
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

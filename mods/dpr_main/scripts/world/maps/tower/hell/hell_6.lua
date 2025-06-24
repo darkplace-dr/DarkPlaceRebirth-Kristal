@@ -1,0 +1,320 @@
+return {
+  version = "1.10",
+  luaversion = "5.1",
+  tiledversion = "1.11.0",
+  class = "",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 17,
+  height = 20,
+  tilewidth = 40,
+  tileheight = 40,
+  nextlayerid = 6,
+  nextobjectid = 16,
+  properties = {},
+  tilesets = {
+    {
+      name = "hell",
+      firstgid = 1,
+      filename = "../../../tilesets/hell.tsx",
+      exportfilename = "../../../tilesets/hell.lua"
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 17,
+      height = 20,
+      id = 1,
+      name = "Tile Layer 1",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 4, 0, 0, 0, 0, 0, 0,
+        3, 3, 3, 3, 3, 3, 13, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
+        17, 17, 17, 17, 17, 17, 6, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
+        23, 24, 23, 24, 23, 24, 9, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
+        30, 31, 30, 31, 30, 31, 16, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0,
+        30, 31, 30, 31, 30, 31, 22, 25, 22, 25, 22, 0, 0, 0, 0, 0, 0,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 3,
+      name = "collision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 440,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 2,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 400,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 440,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 560,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 5,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 600,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 640,
+          width = 240,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 15,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 720,
+          width = 200,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 4,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 7,
+          name = "climbarea",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 680,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "climbarea",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 680,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "climbarea",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 680,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 10,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 800,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_5",
+            ["marker"] = "entry_2"
+          }
+        },
+        {
+          id = 11,
+          name = "climbentry",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 640,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["area"] = { id = 7 },
+            ["up"] = true
+          }
+        },
+        {
+          id = 12,
+          name = "climbentry",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 640,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["area"] = { id = 8 },
+            ["up"] = true
+          }
+        },
+        {
+          id = 13,
+          name = "climbentry",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 640,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["area"] = { id = 9 },
+            ["up"] = true
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 5,
+      name = "markers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 14,
+          name = "entry",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 800,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
+}
