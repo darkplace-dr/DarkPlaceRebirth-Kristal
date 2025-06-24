@@ -1486,14 +1486,32 @@ end
 
 --- Checks if you have a certain DLC installed and returns true if you do. Returns false otherwise
 ---@param dlc string -- the DLC ID to check for
-function Game:hasDLC(dlc)
+---@param recheck bool -- to make sure if the DLC is actually still in the directory
+function Game:hasDLC(dlc, recheck)
+	-- Step 1. The original check with slight recoding.
+	-- Gotta make sure it's registered in the system.
+	local has_dlc = false
     local dlcs = Utils.filter(Kristal.Mods.getMods(), function(mod) return not mod.hidden end)
     for i, v in ipairs(dlcs) do
         if v.id == dlc then
-            return true
+            has_dlc = true
         end
     end
-    return false
+	if has_dlc then
+		if (recheck ~= false) then
+			-- Step 2. Check to see if the directory actually still exists.
+			local info = love.filesystem.getInfo(Kristal.Mods.getMod(dlc).path)
+
+			if info and info.type == "directory" then
+				return true
+			else
+				return false
+			end
+		else
+			return true
+		end
+	end
+	return false
 end
 
 function Game:isDessMode()
