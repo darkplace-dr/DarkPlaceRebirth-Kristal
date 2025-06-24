@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="19">
+ <editorsettings>
+  <export target="../hell_2b/data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../../tilesets/hell.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="160" y="0" width="120" height="120"/>
+  <object id="2" x="360" y="0" width="120" height="120"/>
+  <object id="3" x="480" y="120" width="40" height="280"/>
+  <object id="13" x="120" y="120" width="40" height="280"/>
+  <object id="14" x="160" y="400" width="320" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="4" name="objects">
+  <object id="17" name="chest" x="320" y="280">
+   <properties>
+    <property name="item" value="glitch_burg"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="18" name="transition" x="280" y="-40" width="80" height="40">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry_5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55ff7f" id="5" name="markers">
+  <object id="16" name="entry" x="320" y="40">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
