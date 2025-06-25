@@ -9,8 +9,8 @@ return {
   height = 20,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
-  nextobjectid = 16,
+  nextlayerid = 13,
+  nextobjectid = 19,
   properties = {},
   tilesets = {
     {
@@ -21,6 +21,131 @@ return {
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "objects_bg",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 16,
+          name = "goner_bg",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 0,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/temple_back.png",
+      id = 11,
+      name = "temple_b",
+      class = "",
+      visible = true,
+      opacity = 0.5,
+      offsetx = -60,
+      offsety = 230,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = true,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/field.png",
+      id = 10,
+      name = "field",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 260,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = true,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/temple_middle.png",
+      id = 9,
+      name = "temple_m",
+      class = "",
+      visible = true,
+      opacity = 0.8,
+      offsetx = -130,
+      offsety = 180,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/temple_front.png",
+      id = 8,
+      name = "temple_f",
+      class = "",
+      visible = true,
+      opacity = 0.8,
+      offsetx = 600,
+      offsety = 160,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/tower.png",
+      id = 7,
+      name = "tower",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 170,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../assets/sprites/world/bg/gradient.png",
+      id = 6,
+      name = "gradient",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 360,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = true,
+      repeaty = false,
+      properties = {}
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -52,13 +177,13 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 4, 0, 0, 0, 0, 0, 0,
         3, 3, 3, 3, 3, 3, 13, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
-        17, 17, 17, 17, 17, 17, 6, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
-        23, 24, 23, 24, 23, 24, 9, 10, 10, 10, 11, 0, 0, 0, 0, 0, 0,
-        30, 31, 30, 31, 30, 31, 16, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0,
-        30, 31, 30, 31, 30, 31, 22, 25, 22, 25, 22, 0, 0, 0, 0, 0, 0,
-        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0,
-        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0,
-        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 0, 0, 0, 0, 0, 0
+        17, 17, 17, 17, 17, 17, 6, 10, 10, 10, 11, 32, 32, 32, 32, 32, 32,
+        23, 24, 23, 24, 23, 24, 9, 10, 10, 10, 11, 32, 32, 32, 32, 32, 32,
+        30, 31, 30, 31, 30, 31, 16, 17, 17, 17, 18, 32, 32, 32, 32, 32, 32,
+        30, 31, 30, 31, 30, 31, 22, 25, 22, 25, 22, 32, 32, 32, 32, 32, 32,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 32, 32, 32, 32, 32, 32,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 32, 32, 32, 32, 32, 32,
+        30, 31, 30, 31, 30, 31, 29, 32, 29, 32, 29, 32, 32, 32, 32, 32, 32
       }
     },
     {
@@ -283,6 +408,21 @@ return {
           properties = {
             ["area"] = { id = 9 },
             ["up"] = true
+          }
+        },
+        {
+          id = 18,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 400,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "egg"
           }
         }
       }

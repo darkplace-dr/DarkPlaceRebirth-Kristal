@@ -19,7 +19,7 @@ function actor:init()
     -- Path to this actor's sprites (defaults to "")
     self.path = "world/npcs/tenna"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "dance_cabbage"
+    self.default = "hooray"
 
     -- Sound to play when this actor speaks (optional)
     self.voice = nil
@@ -136,7 +136,7 @@ function actor:resetMesh(sprite)
 end
 
 function actor:setPreset(preset)
-	local preset = preset or 0
+	local preset = 26
 	
 	self.drawtype = 0
 	if preset == 0 then -- disable wobbling

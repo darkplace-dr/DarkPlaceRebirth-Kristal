@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 29,
+  nextobjectid = 30,
   properties = {},
   tilesets = {
     {
@@ -333,6 +333,21 @@ return {
             ["map"] = "tower/hell/hell_6",
             ["marker"] = "entry"
           }
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "text",
+          x = 223.833,
+          y = 1273.17,
+          width = 83,
+          height = 19,
+          rotation = 0,
+          visible = true,
+          text = "Hello World",
+          wrap = true,
+          properties = {}
         }
       }
     },
