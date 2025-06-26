@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="16">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="19">
  <editorsettings>
   <export target="hell_6.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" source="../../../tilesets/hell.tsx"/>
+ <objectgroup id="12" name="objects_bg">
+  <object id="16" name="goner_bg" x="0" y="0" width="40" height="40"/>
+ </objectgroup>
+ <imagelayer id="11" name="temple_b" opacity="0.5" offsetx="-60" offsety="230" repeatx="1">
+  <image source="../../../../../assets/sprites/world/bg/temple_back.png" width="800" height="212"/>
+ </imagelayer>
+ <imagelayer id="10" name="field" offsetx="0" offsety="260" repeatx="1">
+  <image source="../../../../../assets/sprites/world/bg/field.png" width="680" height="224"/>
+ </imagelayer>
+ <imagelayer id="9" name="temple_m" opacity="0.8" offsetx="-130" offsety="180">
+  <image source="../../../../../assets/sprites/world/bg/temple_middle.png" width="260" height="300"/>
+ </imagelayer>
+ <imagelayer id="8" name="temple_f" opacity="0.8" offsetx="600" offsety="160">
+  <image source="../../../../../assets/sprites/world/bg/temple_front.png" width="308" height="344"/>
+ </imagelayer>
+ <imagelayer id="7" name="tower" offsetx="170" offsety="0">
+  <image source="../../../../../assets/sprites/world/bg/tower.png" width="418" height="480"/>
+ </imagelayer>
+ <imagelayer id="6" name="gradient" offsetx="0" offsety="360" repeatx="1">
+  <image source="../../../../../assets/sprites/world/bg/gradient.png" width="40" height="376"/>
+ </imagelayer>
  <layer id="1" name="Tile Layer 1" width="17" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -19,13 +40,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,2,3,3,3,4,0,0,0,0,0,0,
 3,3,3,3,3,3,13,10,10,10,11,0,0,0,0,0,0,
-17,17,17,17,17,17,6,10,10,10,11,0,0,0,0,0,0,
-23,24,23,24,23,24,9,10,10,10,11,0,0,0,0,0,0,
-30,31,30,31,30,31,16,17,17,17,18,0,0,0,0,0,0,
-30,31,30,31,30,31,22,25,22,25,22,0,0,0,0,0,0,
-30,31,30,31,30,31,29,32,29,32,29,0,0,0,0,0,0,
-30,31,30,31,30,31,29,32,29,32,29,0,0,0,0,0,0,
-30,31,30,31,30,31,29,32,29,32,29,0,0,0,0,0,0
+17,17,17,17,17,17,6,10,10,10,11,32,32,32,32,32,32,
+23,24,23,24,23,24,9,10,10,10,11,32,32,32,32,32,32,
+30,31,30,31,30,31,16,17,17,17,18,32,32,32,32,32,32,
+30,31,30,31,30,31,22,25,22,25,22,32,32,32,32,32,32,
+30,31,30,31,30,31,29,32,29,32,29,32,32,32,32,32,32,
+30,31,30,31,30,31,29,32,29,32,29,32,32,32,32,32,32,
+30,31,30,31,30,31,29,32,29,32,29,32,32,32,32,32,32
 </data>
  </layer>
  <objectgroup color="#5500ff" id="3" name="collision">
@@ -64,6 +85,12 @@
     <property name="area" type="object" value="9"/>
     <property name="up" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="18" name="npc" x="400" y="480">
+   <properties>
+    <property name="actor" value="egg"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#55ff7f" id="5" name="markers">
