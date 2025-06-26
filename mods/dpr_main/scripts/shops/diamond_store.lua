@@ -206,7 +206,7 @@ function Diamond_Store:startTalk(talk)
         })
             Game.inventory:removeItem("diamond_package")
             if Game.money < 2000 then
-                Game.money = 500
+                Game.money = Game.money + 500
             else
                 Game.money = Game.money + Game.money/4
             end
