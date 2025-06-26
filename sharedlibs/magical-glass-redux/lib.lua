@@ -3462,7 +3462,7 @@ function lib:init()
         orig(self)
     end)
 
-    Utils.hook(LightSaveMenu, "draw", function(orig, self)
+    --[[Utils.hook(LightSaveMenu, "draw", function(orig, self) -- Commenting this out for now
         love.graphics.setFont(self.font)
 
         if self.state == "SAVED" then
@@ -3502,7 +3502,7 @@ function lib:init()
         Draw.setColor(1, 1, 1)
     
         Object.draw(self)
-    end)
+    end)]]
     
     Utils.hook(Spell, "init", function(orig, self)
         orig(self)
