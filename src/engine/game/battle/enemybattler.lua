@@ -921,6 +921,9 @@ function EnemyBattler:defeat(reason, violent)
             else
                 Game.battle.xp = Game.battle.xp + self.experience
             end
+            if Game:hasPartyMember("hero") then
+                Game:getPartyMember("hero"):addKarma(-1)
+            end
         end
     elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
         Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
@@ -936,6 +939,9 @@ function EnemyBattler:defeat(reason, violent)
         end
         if self:getRecruitStatus() >= Game:getRecruit(self.id):getRecruitAmount() then
             self:setRecruitStatus(true)
+            if Game:hasPartyMember("hero") then
+                Game:getPartyMember("hero"):addKarma(1)
+            end
         end
     end
     
