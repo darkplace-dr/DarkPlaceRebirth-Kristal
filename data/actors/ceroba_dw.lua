@@ -57,6 +57,8 @@ function actor:init()
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+
+        ["guard"]               = {"guard", 1/10, false},
     }
 
     self.offsets = {
@@ -104,6 +106,7 @@ function actor:init()
         ["fall"] = {0, 0},
         ["super_move"] = {-24, 0},
         ["the_roba"] = {0, 0},
+        ["guard"] = {-17, -11},
     }
 
     --self.taunt_sprites = {"super_move", "the_roba"}
