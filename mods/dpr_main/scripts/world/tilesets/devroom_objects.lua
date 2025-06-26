@@ -1,11 +1,11 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   name = "devroom_objects",
   class = "",
   tilewidth = 50,
-  tileheight = 35,
+  tileheight = 52,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 3,
+  tilecount = 4,
   tiles = {
     {
       id = 0,
@@ -42,6 +42,12 @@ return {
       image = "../../../assets/sprites/world/maps/devroom/coffee_table.png",
       width = 40,
       height = 30
+    },
+    {
+      id = 3,
+      image = "../../../assets/sprites/world/maps/devroom/closet_mono.png",
+      width = 31,
+      height = 52
     }
   }
 }
