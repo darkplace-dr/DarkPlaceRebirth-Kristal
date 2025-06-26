@@ -3,6 +3,12 @@ local Map, super = Utils.hookScript(Map)
 
 function Map:onEnter()
     Noel:checkNoel()
+
+	local can_kill = Game:getFlag("can_kill", false)	
+    if Game.world.map.id:find("floortv/") and can_kill == true then
+        self.tv_snow = Game.world:spawnObject(TVSnow())
+        self.tv_snow.overlay = true
+    end
 end
 
 function Map:onFootstep(char, num)
