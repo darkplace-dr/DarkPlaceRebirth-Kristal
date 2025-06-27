@@ -71,6 +71,8 @@
 		"PIZZAROLD": "[spacing:3.2]WELCOME BACK\n\n\n       :D",
 		"GRU": "[spacing:3.2]Is that the MINIONS guy?",
 		"DRU": "[spacing:3.2]Is that the MINIONS guy's brother or something?",
+		"GEN": "You know what would be cool?",
+		"GENHANDLE": "[metal desk fan noises]",
 		// Extra visual bit is handled by preview.lua
 		"SWELLOW": "[style:GONER][spacing:3.2]AWW THE SCRUNKLY.\nTHE GOOBER. A\nSWELL FELLOW. A\nLITTLE FELLA.",
 		"PAUL": "[style:none][spacing:0]KAAAAAAAAA!\nPaul is the favorite\nof all!",
