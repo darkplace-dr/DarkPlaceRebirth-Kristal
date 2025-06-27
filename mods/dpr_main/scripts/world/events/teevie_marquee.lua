@@ -13,7 +13,7 @@ function TeevieMarquee:init(data)
 	self.font = Assets.getFont("marquee")
 	self.deactivated = false
 	local can_kill = Game:getFlag("can_kill", false)
-	if can_kill then
+    if Game.world.map.id:find("floortv/") and can_kill == true then
 		self.deactivated = true
 	end
 end
