@@ -100,7 +100,7 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="23" gid="2147483818" x="160" y="280" width="80" height="159"/>
+  <object id="23" gid="2147483818" x="160" y="280" width="80" height="160"/>
   <object id="24" gid="170" x="720" y="280" width="80" height="160"/>
   <object id="37" name="teevie_marquee" x="420" y="20" width="120" height="14">
    <properties>

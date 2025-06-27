@@ -21,6 +21,13 @@ function TeevieFloorLight:init(data)
 		self.timer = 1
 	end
 	self.paused = false
+	self.dont_unpause = false
+	local can_kill = Game:getFlag("can_kill", false)
+	if can_kill then
+		self.paused = true
+		self.dont_unpause = true
+		self.light.alpha = 0
+	end
 end
 
 function TeevieFloorLight:onLoad()
@@ -30,6 +37,7 @@ function TeevieFloorLight:onLoad()
 end
 
 function TeevieFloorLight:pause()
+	if self.dont_unpause then return end
 	self.paused = true
 	Game.world.timer:after(1/30, function()
 		Game.world.timer:tween(15/30, self.light, {alpha = 0}, "out-cubic")
@@ -37,6 +45,7 @@ function TeevieFloorLight:pause()
 end
 
 function TeevieFloorLight:unpause()
+	if self.dont_unpause then return end
 	self.paused = false
 	self.timer = 1
 end

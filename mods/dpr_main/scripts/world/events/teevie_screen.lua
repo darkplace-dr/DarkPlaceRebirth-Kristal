@@ -7,7 +7,7 @@ function TeevieScreen:init(data)
 	self.sprite:setScale(1,1)
 	self.face = Sprite("world/events/teevie_screen/face", 40, 48)
 	self.face.scale_y = 0
-	self.face:setOriginExact(22, 9)
+	self.face:setOrigin(0.5)
 	self.face:setLayer(self.layer + 0.01)
 	self:addChild(self.face)
 	self.frame = Sprite("world/events/teevie_screen/frame", 0, 0)
@@ -15,10 +15,15 @@ function TeevieScreen:init(data)
 	self:addChild(self.frame)
 
     self.turned_on = false
+	self.can_turn_on = true
+	local can_kill = Game:getFlag("can_kill", false)
+	if can_kill then
+		self.can_turn_on = false
+	end
 end
 
 function TeevieScreen:turnOn()
-	if not self.turned_on then
+	if not self.turned_on and self.can_turn_on then
 		Assets.playSound("dtrans_square", 0.5, 3)
 		Game.world.timer:tween(24/30, self.face, {scale_y = 1}, "out-elastic")
 		self.turned_on = true
@@ -26,7 +31,7 @@ function TeevieScreen:turnOn()
 end
 
 function TeevieScreen:update()
-    if not self.turned_on and Game.world and Game.world.player then
+    if not self.turned_on and Game.world and Game.world.player and self.can_turn_on then
         local player = Game.world.player
 
 		if player.x > self.x - 10 and player.x < self.x + 50 and player.y >= self.y + 20 then
