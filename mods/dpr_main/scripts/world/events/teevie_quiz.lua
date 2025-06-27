@@ -28,6 +28,7 @@ function TeevieQuiz:init(data)
 	self.tv_columns = math.ceil(self.width / 80)
 	self.tv_rows = math.ceil(self.height / 80)
 	self.tv_screens = {}
+	local can_kill = Game:getFlag("can_kill", false)
 	for i = 1, self.tv_columns do
 		self.tv_screens[i] = {}
 		for j = 1, self.tv_rows do
@@ -35,6 +36,9 @@ function TeevieQuiz:init(data)
 			local jj = j - 1
 			table.insert(self.tv_screens[i], {x = ii*80, y = jj*80, sprite = nil, timer = 0, frame = 1, con = 0, color = COLORS["white"], index = i})
 			self:setScreen(self.tv_screens[i][j])
+			if can_kill then
+				self:setOff(self.tv_screens[i][j])
+			end
 		end
 	end
 	
@@ -82,6 +86,13 @@ function TeevieQuiz:init(data)
 	self.cur_answer_b = "???"
 	self.cur_correct_answer = nil
 	self.quizzed = false
+	if can_kill then
+		self:setFlag("solved", true)
+		if self.flag then
+			Game:setFlag(self.flag, true)
+		end
+		self.quizzed = true
+	end
 
 	-- Table to store spisific party member answers
 	self.party_answers = {}
@@ -165,6 +176,16 @@ function TeevieQuiz:setScreen(screen)
 		screen.color = {110/255, 129/255, 161/255}
 		screen.con = 2
 	end
+end
+
+function TeevieQuiz:setOff(screen)
+	screen.timer = 0
+	screen.frame = 1
+	screen.sprite = "off"
+	screen.con = 6
+	screen.broken = true
+	screen.color = COLORS["black"]
+    super.update(self)
 end
 
 function TeevieQuiz:setStatic(screen)
@@ -584,6 +605,22 @@ function TeevieQuiz:update()
 				if screen.timer >= 120 then
 					self:setStatic(screen)
 				end
+			elseif screen.con == 4 then
+				if math.abs(screen.timer) >= 2 then
+					screen.frame = 2
+				end
+				if math.abs(screen.timer) >= 4 then
+					screen.frame = 3
+				end
+			elseif screen.con == 5 then
+				if math.abs(screen.timer) % 1 == 0 then
+					screen.frame = screen.frame + 1
+				end
+				if screen.timer >= 120 and screen.nostatic == false then
+					self:setStatic(screen)
+				end
+			elseif screen.con == 6 then
+				-- nothing
 			end
 		end
 	end
@@ -978,7 +1015,11 @@ function TeevieQuiz:draw()
 				if self.drawborders == true then frames = self.base_texture end
 				Draw.setColor(1,1,1,1)
 				Draw.draw(frames[5], screen.x, screen.y, 0, 2, 2)
-				Draw.setColor(Utils.mergeColor(self.base_color, screen.color, 0.6 + (math.sin((self.timer / 4) + screen.x + screen.y) * 0.1)))
+				if screen.con == 4 or screen.con == 6 then
+					Draw.setColor(Utils.mergeColor(self.base_color, COLORS["black"], 0.5))
+				else
+					Draw.setColor(Utils.mergeColor(self.base_color, screen.color, 0.6 + (math.sin((self.timer / 4) + screen.x + screen.y) * 0.1)))
+				end
 				Draw.draw(frames[2], screen.x, screen.y, 0, 2, 2)
 				Draw.setColor(Utils.mergeColor(self.base_color, COLORS["black"], 0.5))
 				Draw.draw(frames[3], screen.x, screen.y, 0, 2, 2)

@@ -32,12 +32,14 @@
  <objectgroup id="3" name="objects_below">
   <object id="2" name="greenroom_wall" x="80" y="40" width="640" height="120">
    <properties>
+    <property name="fromamt" type="int" value="0"/>
     <property name="shines" type="bool" value="false"/>
     <property name="vines" type="bool" value="false"/>
    </properties>
   </object>
   <object id="39" name="greenroom_wall" x="720" y="40" width="640" height="120">
    <properties>
+    <property name="fromamt" type="int" value="0"/>
     <property name="shines" type="bool" value="false"/>
     <property name="vines" type="bool" value="false"/>
    </properties>

@@ -453,7 +453,7 @@ return {
           x = 160,
           y = 280,
           width = 80,
-          height = 159,
+          height = 160,
           rotation = 0,
           gid = 2147483818,
           visible = true,

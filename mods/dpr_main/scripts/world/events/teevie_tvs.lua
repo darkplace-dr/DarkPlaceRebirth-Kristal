@@ -10,6 +10,7 @@ function TeevieTVs:init(data)
 	
 	self.drawborders = properties["borders"] ~= false
 	
+	local can_kill = Game:getFlag("can_kill", false)
 	self.tv_columns = math.ceil(self.width / 80)
 	self.tv_rows = math.ceil(self.height / 80)
 	self.tv_screens = {}
@@ -20,6 +21,9 @@ function TeevieTVs:init(data)
 			local jj = j - 1
 			table.insert(self.tv_screens[i], {x = ii*80, y = jj*80, sprite = nil, timer = 0, frame = 1, con = 0, color = COLORS["white"], broken = false, nostatic = false})
 			self:setScreen(self.tv_screens[i][j])
+			if can_kill then
+				self:setOff(self.tv_screens[i][j])
+			end
 		end
 	end
 	
@@ -91,6 +95,16 @@ function TeevieTVs:setBroken(screen)
     super.update(self)
 end
 
+function TeevieTVs:setOff(screen)
+	screen.timer = 0
+	screen.frame = 1
+	screen.sprite = "off"
+	screen.con = 6
+	screen.broken = true
+	screen.color = COLORS["black"]
+    super.update(self)
+end
+
 function TeevieTVs:update()
 	self.timer = self.timer + DTMULT
 	for i = 1, self.tv_columns do
@@ -140,6 +154,8 @@ function TeevieTVs:update()
 				if screen.timer >= 120 and screen.nostatic == false then
 					self:setStatic(screen)
 				end
+			elseif screen.con == 6 then
+				-- nothing
 			end
 		end
 	end
@@ -236,7 +252,7 @@ function TeevieTVs:draw()
 			if self.drawborders == true then frames = self.base_texture end
 			Draw.setColor(1,1,1,1)
 			Draw.draw(frames[5], screen.x, screen.y, 0, 2, 2)
-			if screen.con == 4 then
+			if screen.con == 4 or screen.con == 6 then
 				Draw.setColor(Utils.mergeColor(self.base_color, COLORS["black"], 0.5))
 			else
 				Draw.setColor(Utils.mergeColor(self.base_color, screen.color, 0.6 + (math.sin((self.timer / 4) + screen.x + screen.y) * 0.1)))
