@@ -1,0 +1,41 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floortv/legacy_corridors.tmx",
+            "height": 1200,
+            "width": 960,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floortv/green_room/green_room.tmx",
+            "height": 480,
+            "width": 1440,
+            "x": 960,
+            "y": 880
+        },
+        {
+            "fileName": "maps/floortv/tenna_room/tenna_room.tmx",
+            "height": 960,
+            "width": 1640,
+            "x": 2400,
+            "y": 600
+        },
+        {
+            "fileName": "maps/floortv/pre_elevator/pre_elevator.tmx",
+            "height": 480,
+            "width": 960,
+            "x": -3920,
+            "y": -840
+        },
+        {
+            "fileName": "maps/floortv/quiztest.tmx",
+            "height": 640,
+            "width": 2800,
+            "x": -2840,
+            "y": -880
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}
