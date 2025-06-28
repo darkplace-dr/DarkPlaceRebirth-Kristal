@@ -5,7 +5,6 @@ function BerdlyQuest:init()
     super.init(self)
     self.name = "Missing Berd"
     self.description = "Susie mentioned Berdly not being with her when she entered the Dark World. Go search for clues on his wherabouts."
-    self.progress = 0
     self.progress_max = 2
 end
 

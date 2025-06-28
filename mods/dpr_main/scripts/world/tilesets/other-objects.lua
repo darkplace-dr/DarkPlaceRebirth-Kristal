@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   name = "other-objects",
   class = "",
   tilewidth = 57,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 3,
+  tilecount = 4,
   tiles = {
     {
       id = 0,
@@ -42,6 +42,12 @@ return {
       image = "../../../assets/sprites/world/events/sansstation.png",
       width = 57,
       height = 70
+    },
+    {
+      id = 3,
+      image = "../../../assets/sprites/world/events/sign_8bit.png",
+      width = 16,
+      height = 16
     }
   }
 }

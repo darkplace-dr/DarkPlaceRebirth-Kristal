@@ -114,7 +114,7 @@ function DogCheck:start()
         playSong(song_path.."dance_of_dog", 0.95, 1.05)
     elseif self.variant == "sleep" then
         createDog("misc/dog_sleep", 0.8)
-        local song_here = Utils.pick({song_path.."dogcheck", song_path.."results", song_path.."sigh_of_dog", song_path.."dogcheck_anniversary"})
+        local song_here = Utils.pick({song_path.."dogcheck", "deltarune/tv_results_screen", song_path.."sigh_of_dog", song_path.."dogcheck_anniversary"})
         local song_is_sog = song_here == song_path.."sigh_of_dog"
 
         if song_here == song_path.."dogcheck" then

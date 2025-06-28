@@ -964,13 +964,7 @@ local cliffside = {
         local defeated_enemies = encounter:getDefeatedEnemies()
         local done_state = defeated_enemies[1].done_state
         -- TODO: Make the Pebblin & Cat spawning happen before the fade in so it doesn't look jank
-        local pebblin_killed = false
-        if done_state == "KILLED" then
-            pebblin_killed = true
-        end
-        if pebblin_killed == true then
-            Game:getPartyMember("hero"):addKarma(-1)
-        else
+        if done_state ~= "KILLED" then
             Game:getPartyMember("hero"):addKarma(1)
         end
         pebblin:remove()
@@ -989,7 +983,7 @@ local cliffside = {
         cutscene:text("* But I shall explain a mechanic that the [color:#FF8800]kid in the striped shirt[color:reset] has.", "neutral", cat)
         cutscene:text("* [color:red]KARMA[color:reset].", "neutral", cat)
         cutscene:text("* If you do good actions,[wait:5] it will go up.", "neutral", cat)
-        cutscene:text("* Befriend people,[wait:5] recruit foes,[wait:5] solve problems.", "neutral", cat)
+        cutscene:text("* Befriend people,[wait:5]\nrecruit foes,[wait:5]\nsolve problems.", "neutral", cat)
         cutscene:text("* If you do bad actions,[wait:5] it will go down.", "neutral", cat)
         cutscene:text("* Antagonize friends,[wait:5] slaughter your foes,[wait:5] hurt the innocent.", "neutral", cat)
         cutscene:text("* Will you be a [color:green]PARAGON of VIRTUE[color:reset] or an [color:red]ANGEL of DEATH[color:reset]?", "neutral", cat)

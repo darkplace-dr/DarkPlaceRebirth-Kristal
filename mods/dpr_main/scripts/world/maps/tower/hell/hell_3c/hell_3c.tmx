@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="17">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../../tilesets/hell.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,0,0,0,0,0,0,0,0,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="2" name="collision">
+  <object id="9" x="160" y="360" width="120" height="120"/>
+  <object id="10" x="120" y="120" width="40" height="240"/>
+  <object id="11" x="160" y="80" width="320" height="40"/>
+  <object id="12" x="480" y="120" width="40" height="240"/>
+  <object id="13" x="360" y="360" width="120" height="120"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="3" name="objects">
+  <object id="7" name="npc" x="440" y="160">
+   <properties>
+    <property name="actor" value="neighron"/>
+    <property name="text1">* Gllrb.[wait:5]
+* (Good morning human,[wait:5] glad to hear you're fine.)</property>
+    <property name="text2">* Glurgg.[wait:5]
+* (Ignore me,[wait:5] i'm just here for the quietness.)</property>
+   </properties>
+   <point/>
+  </object>
+  <object id="8" name="chest" x="320" y="200">
+   <properties>
+    <property name="item" value="glitch_burg"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry_4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55ff7f" id="4" name="markers">
+  <object id="15" name="entry" x="320" y="440">
+   <point/>
+  </object>
+  <object id="16" name="spawn" x="320" y="280">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

@@ -22,6 +22,11 @@ function FunnyStanchion:init(data)
 	
 	self.stanchion_frame = {}
     self:updateSize()
+	self.animate_stanchions = true
+	local can_kill = Game:getFlag("can_kill", false)
+	if can_kill then
+		self.animate_stanchions = false
+	end
 end
 
 function FunnyStanchion:updateSize()
@@ -40,7 +45,7 @@ function FunnyStanchion:updateSize()
 end
 
 function FunnyStanchion:update()
-    if self.world and self.world.player then
+    if self.world and self.world.player and self.animate_stanchions then
         local player = self.world.player
 
         local dist_x, dist_y = 0, 0

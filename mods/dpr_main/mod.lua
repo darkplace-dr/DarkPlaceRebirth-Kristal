@@ -238,6 +238,10 @@ function Mod:onMapMusic(map, music)
     if music == "deltarune/cybercity" and can_kill == true then
         return "deltarune/cybercity_alt"
     end
+    --TV World music
+    if map.id:find("floortv/") and can_kill == true then
+        return {"deltarune/tv_results_screen", 1, 0.4}
+    end
 end
 
 ---@param file DeltaruneSave

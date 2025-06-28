@@ -205,10 +205,10 @@ function Diamond_Store:startTalk(talk)
             "* I'll put some money in your pockets for your troubles.",
         })
             Game.inventory:removeItem("diamond_package")
-            if Game.money == 0 then
-                    Game.money = 500
-                else 
-                    Game.money = Game.money + Game.money/4
+            if Game.money < 2000 then
+                Game.money = Game.money + 500
+            else
+                Game.money = Game.money + Game.money/4
             end
             Game:setFlag("package_quest", 2)
             Game:getQuest("a_special_delivery"):setProgress(1)

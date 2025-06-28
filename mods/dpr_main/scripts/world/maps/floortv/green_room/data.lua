@@ -117,6 +117,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["fromamt"] = 0,
             ["shines"] = false,
             ["vines"] = false
           }
@@ -133,6 +134,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["fromamt"] = 0,
             ["shines"] = false,
             ["vines"] = false
           }

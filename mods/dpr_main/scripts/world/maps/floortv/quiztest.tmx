@@ -222,12 +222,12 @@ CALLED?</property>
     <property name="dir" value="back"/>
    </properties>
   </object>
-  <object id="48" gid="2147483818" x="200" y="300" width="80" height="159"/>
+  <object id="48" gid="2147483818" x="200" y="300" width="80" height="160"/>
   <object id="49" gid="170" x="640" y="300" width="80" height="160"/>
   <object id="50" gid="170" x="0" y="300" width="80" height="160"/>
-  <object id="51" gid="2147483818" x="1920" y="300" width="80" height="159"/>
+  <object id="51" gid="2147483818" x="1920" y="300" width="80" height="160"/>
   <object id="52" name="teevie_cameras" x="1960" y="200" width="600" height="80"/>
-  <object id="63" gid="2147483818" x="2720" y="320" width="80" height="159"/>
+  <object id="63" gid="2147483818" x="2720" y="320" width="80" height="160"/>
   <object id="64" gid="170" x="2520" y="320" width="80" height="160"/>
   <object id="67" name="transition" x="-40" y="280" width="40" height="120">
    <properties>

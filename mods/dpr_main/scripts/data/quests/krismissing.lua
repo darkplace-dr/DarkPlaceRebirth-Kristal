@@ -5,7 +5,6 @@ function KrisQuest:init()
     super.init(self)
     self.name = "Where's Kris"
     self.description = "Susie mentioned Kris not being with her when she entered the Dark World. Go search for clues on their wherabouts."
-    self.progress = 0
     self.progress_max = 2
 end
 

@@ -5,7 +5,6 @@ function NoelleQuest:init()
     super.init(self)
     self.name = "Lost Girl"
     self.description = "Susie mentioned Noelle not being with her when she entered the Dark World. Go search for clues on her wherabouts."
-    self.progress = 0
     self.progress_max = 2
 end
 

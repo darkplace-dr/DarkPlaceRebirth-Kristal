@@ -605,6 +605,12 @@ function Battle:onStateChange(old,new)
         --     self.money = 0
         -- end
 
+        if self.killed == false then
+            self.xp = 0
+        else
+            self.xp = self.xp/2
+        end
+
         Game.money = Game.money + self.money
         Game.xp = Game.xp + self.xp
 

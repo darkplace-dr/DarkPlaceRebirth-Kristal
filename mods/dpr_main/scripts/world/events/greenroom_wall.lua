@@ -9,11 +9,17 @@ function GreenRoomWall:init(data)
 	
 	local properties = data.properties or {}
 	
+	self.from_amt = properties["fromamt"] or 0.4
 	self.spawn_vines = properties["vines"] ~= false
 	self.spawn_shines = properties["shines"] ~= false
 	self.bg_speed = -88
 	self.bg_speed_y = 1
 	self.tile_speed = 1
+	local can_kill = Game:getFlag("can_kill", false)	
+    if Game.world.map.id:find("floortv/") and can_kill == true then
+		self.tile_speed = 0.4
+		self.spawn_shines = false
+	end
 	
 	if not Game.world.map.star_canvas then
 		Game.world.map.star_canvas = love.graphics.newCanvas(1720 * 0.5, 488 * 0.5)
@@ -131,7 +137,7 @@ function GreenRoomWall:draw()
 		love.graphics.setStencilTest("greater", 0)
 		Draw.setColor(1,1,1,1)
 		love.graphics.setShader(shader)
-		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, 0.4))
+		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt))
 		shader:sendColor("to", {140/255, 180/255, 151/255})
 		Draw.draw(Assets.getTexture("bubbles/fill"), 0, 0, 0, self.width, self.height-10)
 		love.graphics.stencil(function()
@@ -146,7 +152,7 @@ function GreenRoomWall:draw()
 		love.graphics.setStencilTest("greater", 0)
 		Draw.setColor(1,1,1,0.25)
 		love.graphics.setShader(shader)
-		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, 0.4))
+		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt))
 		shader:sendColor("to", {140/255, 180/255, 151/255})
 		Draw.draw(Assets.getTexture("bubbles/fill"), 0, 0, 0, self.width, self.height-10)
 		love.graphics.setStencilTest()

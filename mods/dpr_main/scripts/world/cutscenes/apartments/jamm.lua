@@ -16,7 +16,10 @@ return {
 			cutscene:text("* Papa last said something about \"[color:yellow]Deoxtest[color:white]\", but...", "sad", "marcy")
 			cutscene:text("* Marcy has no idea where that is.", "sad", "marcy")
 			
-			if cutscene:getCharacter("susie") then
+			if Game:isDessMode() then
+				cutscene:showNametag("Dess")
+				cutscene:text("* ughhhhhhhhhhhhhhhh\nhhhhhhhhhhhhhh [face:neutral_b]fine", "annoyed", "dess")
+			elseif cutscene:getCharacter("susie") then
 				cutscene:showNametag("Susie")
 				cutscene:text("* Well,[wait:5] don't worry,[wait:5] we'll find him for you!", "sincere_smile", "susie")
 			elseif cutscene:getCharacter("hero") then
