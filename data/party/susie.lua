@@ -238,6 +238,10 @@ function character:onAttackHit(enemy, damage)
         Assets.playSound("impact", 0.8)
         Game.battle:shakeCamera(4)
     end
+	
+	if self:getWeapon().id == "decayaxe" then
+		self:addStatBuff("attack", -2)
+	end
 end
 
 function character:onLevelUp(level)
