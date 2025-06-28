@@ -1,17 +1,17 @@
-local actor, super = Class(Actor, "neighron")
+local actor, super = Class(Actor, "handy")
 
 function actor:init()
     super.init(self)
 
     -- Display name (optional)
-    self.name = "Neighron"
+    self.name = "handy"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 54
-    self.height = 72
+    self.width = 59
+    self.height = 83
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {16, 54, 32, 18}
+    self.hitbox = {0, 50, 59, 33}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {1, 0, 0}
@@ -20,9 +20,9 @@ function actor:init()
     self.flip = nil
 
     -- Path to this actor's sprites (defaults to "")
-    self.path = "battle/enemies/neighron"
+    self.path = "world/npcs/handy"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "idle"
+    self.default = ""
 
     -- Sound to play when this actor speaks (optional)
     self.voice = nil
@@ -35,20 +35,29 @@ function actor:init()
     self.can_blush = false
 
     -- Table of talk sprites and their talk speeds (default 0.25)
-    self.talk_sprites = {}
+    self.talk_sprites = {
+        [""] = 0.2
+    }
 
     -- Table of sprite animations
-    self.animations = {
-        -- Looping animation with 0.25 seconds between each frame
-        -- (even though there's only 1 idle frame)
-        ["idle"] = {"idle", 0.25, true},
-    }
+    self.animations = {}
 
     -- Table of sprite offsets (indexed by sprite name)
-    self.offsets = {
-        -- Since the width and height is the idle sprite size, the offset is 0,0
-        ["idle"] = {0, 0},
-    }
+    self.offsets = {}
+end
+
+function actor:onWorldUpdate(chara)
+	if chara.dance then
+        if chara.dance_anim_timer == nil then
+            chara.dance_anim_timer = 0
+        end
+        -- Animate
+        chara.sprite.x = math.sin(chara.dance_anim_timer * 12) * 4
+        chara.dance_anim_timer = chara.dance_anim_timer + DT
+    elseif chara.dance_anim_timer ~= nil then
+	    chara.sprite.x = 0
+        chara.dance_anim_timer = nil
+	end
 end
 
 return actor

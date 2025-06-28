@@ -233,6 +233,18 @@ return {
         
     end,
 
+    pre_knight_corner = function (cutscene, event)
+        local susie = cutscene:getCharacter("susie")
+        if Game:getFlag("knight_corner", false) then
+            if cutscene:getCharacter(susie) then
+                cutscene:text("* (It's a door.)")
+                cutscene:text("* That's the uh, mayor's office.", "sus_nervous", susie)
+                cutscene:text("* If we got in we would be in big trouble.", "nervous_side", susie)
+                cutscene:text("* Not like i care, let's go.", "teeth_smile", susie)
+            end
+        end
+    end,
+
     hospitaltoy = function(cutscene, event)
 
         cutscene:text("* (It's a toy with beads on a track.)")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="38" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="30">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="38" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="35">
  <editorsettings>
   <export target="hell_5.lua" format="lua"/>
  </editorsettings>
@@ -100,6 +100,18 @@
   <object id="29" x="223.833" y="1273.17" width="83" height="19">
    <text wrap="1">Hello World</text>
   </object>
+  <object id="30" name="transition" x="240" y="-40" width="40" height="40">
+   <properties>
+    <property name="map" value="tower/hell/hell_6"/>
+    <property name="marker" value="entry_2"/>
+   </properties>
+  </object>
+  <object id="31" name="transition" x="400" y="-40" width="40" height="40">
+   <properties>
+    <property name="map" value="tower/hell/hell_6"/>
+    <property name="marker" value="entry_3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#55aaff" id="6" name="controllers">
   <object id="10" name="darkness" x="80" y="1040">
@@ -124,6 +136,12 @@
    <point/>
   </object>
   <object id="27" name="entry_2" x="340" y="40">
+   <point/>
+  </object>
+  <object id="33" name="entry_3" x="260" y="40">
+   <point/>
+  </object>
+  <object id="34" name="entry_4" x="420" y="40">
    <point/>
   </object>
  </objectgroup>
