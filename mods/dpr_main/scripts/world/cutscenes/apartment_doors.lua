@@ -72,4 +72,13 @@ return {
 		cutscene:text("* You can't help but wonder who it might belong to.")
 		-- To write (in like a 1000 years when this gremlin's DLC will come out)
 	end,
+	gen = function(cutscene, event)
+		Game.world.music:pause()
+		cutscene:wait(1)
+		cutscene:text("[wait:30][sound:giygastalk][voice:none][speed:0.3][shake]* Come in...")
+		cutscene:text("[wait:30][sound:giygastalk][voice:none][speed:0.3][shake]* Come and see [wait:10]the story...")
+		cutscene:text("[wait:30][sound:giygastalk][voice:none][speed:0.3][shake]* The story of [wait:10]a man\n[wait:10]* Who went too deep...")
+		cutscene:wait(1)
+		Game.world.music:play()
+	end
 }

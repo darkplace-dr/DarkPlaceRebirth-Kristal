@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 71,
+  nextobjectid = 74,
   properties = {
     ["music"] = "mainhub"
   },
@@ -24,7 +24,8 @@ return {
     {
       name = "apartment_doors",
       firstgid = 171,
-      filename = "../../tilesets/apartment_doors.tsx"
+      filename = "../../tilesets/apartment_doors.tsx",
+      exportfilename = "../../tilesets/apartment_doors.lua"
     }
   },
   layers = {
@@ -536,7 +537,7 @@ return {
         },
         {
           id = 66,
-          name = "",
+          name = "ddelta",
           type = "",
           shape = "rectangle",
           x = 860,
@@ -559,6 +560,20 @@ return {
           height = 128,
           rotation = 0,
           gid = 175,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 72,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 260,
+          y = 240,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 176,
           visible = true,
           properties = {}
         }
@@ -738,6 +753,21 @@ return {
             ["marker"] = "spawn",
             ["sound"] = "dooropen"
           }
+        },
+        {
+          id = 73,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 270,
+          y = 200,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.gen"
+          }
         }
       }
     },
@@ -874,7 +904,7 @@ return {
         },
         {
           id = 25,
-          name = "",
+          name = "entry_gen",
           type = "",
           shape = "point",
           x = 320,
