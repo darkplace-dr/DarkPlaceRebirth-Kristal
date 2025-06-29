@@ -353,4 +353,13 @@ function lib:onKeyPressed(key)
     end
 end
 
+function lib:shouldWeIncreaseTheRateAtWhichYouGainNightmaresOrNot()
+    for _, party in ipairs(Game.party or {}) do
+        if party:checkArmor("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares") then
+            return true
+        end
+    end
+    return false
+end
+
 return lib

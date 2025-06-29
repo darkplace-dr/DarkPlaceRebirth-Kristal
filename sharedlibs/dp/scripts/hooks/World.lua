@@ -47,7 +47,14 @@ function World:canMb(map)
 end
 
 function World:shouldMb(map)
-    return self:canMb(map) and love.math.random(1, 1000) == 666
+    if not self:canMb(map) then return false end
+    local chance
+    if DP:shouldWeIncreaseTheRateAtWhichYouGainNightmaresOrNot() then
+        chance = love.math.random(1, 10) == 6
+    else
+        chance = love.math.random(1, 1000) == 666
+    end
+    return chance
 end
 
 return World

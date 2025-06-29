@@ -424,6 +424,33 @@ local cliffside = {
     end,
 
     fun_gus = function (cutscene, event)
+        local --returns true if prime
+        function isPrime(n)
+            local n = tonumber(n)
+            --catch nil, 0, 1, negative and non int numbers
+            if not n or n<2 or (n % 1 ~=0) then 
+                return false
+            --catch even number above 2
+            elseif n>2 and (n % 2 == 0) then 
+                return false
+            --primes over 5 end in 1,3,7 or 9
+            --catch numbers that end in 5 or 0 (multiples of 5)
+            elseif n>5 and (n % 5 ==0) then 
+                return false
+            --now check for prime
+            else
+                --only do the odds
+                for i = 3, math.sqrt(n), 2 do
+                    --did it divide evenly
+                    if (n % i == 0) then
+                        return false
+                    end
+                end
+                --can defeat optimus
+                return true
+            end
+        end
+        
         local gus = cutscene:getCharacter("gus")
 
         gus:setAnimation("idle")
@@ -433,6 +460,7 @@ local cliffside = {
         cutscene:textTagged("* ACCORDIN' TO MY \nSOURCES 'ERE...", nil, gus)
 		
         local FUN = Game:getFlag("FUN")
+        local prime = isPrime(FUN)
         cutscene:textTagged("* THE AMOUNT OF [color:yellow]fun[color:reset] YOU'LL HAVE WILL BE [color:yellow]"..FUN.."%[color:reset]!", nil, gus)
         if FUN >= 0 and FUN <= 20 then
             gus:setSprite("asleep")
@@ -440,6 +468,14 @@ local cliffside = {
             gus:setAnimation("idle")
             cutscene:textTagged("* BUT DON'TCHA WORRY!", nil, gus)
             cutscene:textTagged("* I'M SURE YOU'LL STILL HAVE SUM [color:yellow]fun[color:reset] REGARDLESS,[wait:5] YA 'ERE?", nil, gus)
+            if prime then
+                cutscene:textTagged("* I MEAN, IT'S IT'S PRIME TIME TO HAVE SUM [color:yellow]fun[color:reset], AFTER ALL!", nul, gus)
+                Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares")
+            end
+        elseif prime then
+            -- Note the fact that nothing tells you that you got this. Isn't that such great game design?
+            cutscene:textTagged("* HEEEY, S'POSE THAT MEANS IT'S PRIME TIME TO HAVE SUM [color:yellow]fun[color:reset], HUH?", nul, gus)
+            Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares")
         elseif FUN >= 21 and FUN <= 40 then
             cutscene:textTagged("* AH!\n * PRETTY DECENT PERCENTAGE!", nil, gus)
             cutscene:textTagged("* YOU MIGHT FIND QUITE A FEW VERY INTERESTING THINGS ALONG YER WAY!", nil, gus)
@@ -451,14 +487,14 @@ local cliffside = {
                 cutscene:textTagged("* SAY, CAN I TELL YA A SECRET?", nil, gus)
                 cutscene:textTagged("* NUMBERS IN THE SIXTIES ARE MY FAAAVORITES!", nil, gus)
                 cutscene:textTagged("* YOU WANNA KNOW WHY?", nil, gus)
-				
+
                 local darkness = Rectangle(0, 0, 640, 480)
                 darkness.layer = Game.world.player.layer - 0.1
                 darkness:setScale(1)
                 darkness:setColor(0, 0, 0)
                 darkness:setParallax(0, 0)
                 Game.world:addChild(darkness)
-			
+
                 Game.world.music:setPitch(0.25)
                 Assets.playSound("noise")
                 gus:setSprite("spooky")
@@ -474,7 +510,8 @@ local cliffside = {
             cutscene:text("* HOLY SMOKES!!!", nil, gus)
             cutscene:text("* YER [color:yellow]fun[color:reset] IS OFF THE CHARTS!!", nil, gus)
             cutscene:text("* EXPECT SUM GREAT THINGS COMIN' YER WAY, BUDDY!!!\n* AH-HA!!!", nil, gus)
-        elseif FUN < 0 or FUN > 100 then
+        -- FUN ~= FUN in case it's NaN
+        elseif FUN < 0 or FUN > 100 or FUN ~= FUN then
             cutscene:textTagged("* WOOAAH NELLY![wait:5]\n* THAT RIGHT THERE IS A [shake:4]WACKY[shake:0] \nPERCENTAGE!!", nil, gus)
             cutscene:textTagged("* ACCORDING TO MY SOURCES 'ERE THE AMOUNT RANGES FROM ONE TO A HUNDRED!", nil, gus)
             cutscene:textTagged("* SO EITHER MY SOURCES 'ERE ARE INCORRECT...", nil, gus)
@@ -496,11 +533,11 @@ local cliffside = {
             Game.world.music:setPitch(1)
             Assets.playSound("noise")
             gus:setAnimation("idle")
-			
+
             cutscene:textTagged("* AH-HA!!!\n* WELL WHATEVER IT IS, I'M SURE IT'LL BE FIXED SOON!", nil, gus)
             cutscene:textTagged("* AFTER ALL,[wait:5] THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
         end
-		
+
         cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
         cutscene:textTagged("* CHECK BACK FOR HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE THE NEXT TIME!!", nil, gus)
         cutscene:textTagged("* AH-HA!!!", nil, gus)
