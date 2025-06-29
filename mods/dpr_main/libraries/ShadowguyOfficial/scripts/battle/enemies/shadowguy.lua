@@ -224,9 +224,9 @@ function Shadowguy:onActStart(battler, name)
 				enemy:setAnimation("idle")
 			end
 			if enemy.spare_after_sharpshoot then
-				enemy:remove()
 				enemy:defeat("SPARED", false)
 				enemy:onSpared()
+				enemy:remove()
 			end
 		end
 		wait(20/30)
