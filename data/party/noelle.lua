@@ -165,11 +165,14 @@ function character:drawPowerStat(index, x, y, menu)
     end
 end
 
-function character:onLevelUpLVLib()
-    self:increaseStat("health", 10)
-    self:increaseStat("attack", 1)
-    self:increaseStat("magic", 3)
-    self:increaseStat("defense", 1)
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 5)
+    self:increaseStat("magic", 1)
+    if level % 2 == 0 then
+        self:increaseStat("defense", 1)
+        self:increaseStat("magic", 1)
+        self:increaseStat("attack", 1)
+    end
 end
 
 return character

@@ -76,10 +76,13 @@ function character:onLevelUp(level)
 end
 
 function character:onLevelUpLVLib(level)
-    self:increaseStat("health", 10)
-    self:increaseStat("attack", 3)
-    self:increaseStat("defense", 1)
-    self:increaseStat("magic", 1)
+    self:increaseStat("health", 5)
+    self:increaseStat("attack", 1)
+    if level % 2 == 0 then
+        self:increaseStat("attack", 1)
+        self:increaseStat("defense", 1)
+        self:increaseStat("magic", 1)
+    end
 end
 
 function character:drawPowerStat(index, x, y, menu)

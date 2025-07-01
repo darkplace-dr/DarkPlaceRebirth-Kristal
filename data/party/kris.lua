@@ -166,6 +166,14 @@ function character:onLevelUp(level)
     end
 end
 
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 5)
+    self:increaseStat("defense", 1)
+    if level % 2 == 0 then
+        self:increaseStat("attack", 1)
+    end
+end
+
 function character:onPowerSelect(menu)
     if Utils.random() < ((Game.chapter == 1) and 0.02 or 0.04) then
         menu.kris_dog = true

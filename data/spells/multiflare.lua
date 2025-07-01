@@ -60,7 +60,7 @@ function spell:onLightCast(user, target)
 end
 
 function spell:getDamage(user, target)
-    local damage = math.ceil((user.chara:getStat("magic") * 10) - (target.defense))
+    local damage = math.ceil((user.chara:getStat("magic") * 8) - (target.defense * 2))
     if target.powder then
         damage = damage * 2
         target.powder_damage = true

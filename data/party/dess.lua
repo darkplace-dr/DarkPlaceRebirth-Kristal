@@ -127,10 +127,19 @@ function character:onArc()
 end
 
 function character:onLevelUpLVLib(level)
-    self:increaseStat("health", 10)
-    self:increaseStat("attack", 2)
-    self:increaseStat("defense", 1)
-	self:increaseStat("magic", 1)
+    if Game:isDessMode() then
+        self:increaseStat("health", 10)
+        self:increaseStat("attack", 2)
+        self:increaseStat("defense", 1)
+	    self:increaseStat("magic", 1)
+    else
+        self:increaseStat("health", 5)
+        self:increaseStat("attack", 1)
+        if level % 2 == 0 then
+            self:increaseStat("defense", 1)
+	        self:increaseStat("magic", 1)
+        end
+    end
 
     if level == 2 then
 		if not Game:getFlag("acj_dess_pacifist") then
