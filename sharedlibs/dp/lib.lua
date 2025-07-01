@@ -9,6 +9,22 @@ function lib:init()
     self:initBattleTaunt()
 end
 
+function lib:postInit(new_file)
+    if not new_file then
+        self:checkSaveStatus()
+    end
+end
+
+function lib:checkSaveStatus()
+    local brenda = Game:getPartyMember("brenda")
+    if not brenda:hasSpell("multiflare") then
+        brenda:removeSpell("gammabeam")
+        brenda:addSpell("multiflare")
+        brenda:addSpell("powderkeg")
+        print("[DP Lib] WARNING: Brenda does not have MultiFlare. Giving starting spells and removing GammaBeam. Save is likely from before her new spells were added.")
+    end
+end
+
 function lib:onRegistered()
     ---@type table<string, CodeBlock>
     self.codeblocks = {}
