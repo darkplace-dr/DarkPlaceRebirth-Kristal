@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="32" nextobjectid="70">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="102" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="32" nextobjectid="70">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -222,8 +222,7 @@
   </object>
   <object id="52" name="interactable" x="3756" y="174" width="48" height="66">
    <properties>
-    <property name="text1" value="* (It's locked...)"/>
-    <property name="text2" value="* (...[wait:5] the town it's pretty empty today.)"/>
+    <property name="cutscene" value="hometown.susie_house"/>
    </properties>
   </object>
   <object id="64" gid="409" x="1920" y="178" width="230" height="92">

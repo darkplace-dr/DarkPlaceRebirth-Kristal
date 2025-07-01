@@ -329,7 +329,7 @@ return {
       Assets.playSound("knock")
       cutscene:text("* (Knock knock knock...)")
       cutscene:text("* (...)")
-      cutscene:text("* (No response...)\n[wait:5]* (... but the distant trousle of bones.)")
+      cutscene:text("* (No response...)\n[wait:5]* (... not even the distant trousle of bones.)")
 
     end,
 
@@ -1119,4 +1119,130 @@ return {
         end
         cutscene:hideNametag()
     end,
+
+    susie_house = function(cutscene)
+        local kris = cutscene:getCharacter("kris")
+        local susie = cutscene:getCharacter("susie")
+
+        if not susie or #Game.party > 2 then
+            cutscene:text("* (It's locked...)")
+            cutscene:text("* (...[wait:5] the town it's pretty empty today.)")
+            if susie then
+                cutscene:text("* ...", "neutral_side", "susie")
+            end
+            return
+        end
+
+        if susie and not kris then
+            cutscene:text("* ...", "neutral_side", "susie")
+            cutscene:text("* We should go look somewhere else.", "nervous", "susie")
+            cutscene:text("* I'd prefer to check out this place with [color:yellow]Kris[color:reset].", "smile", "susie")
+            if cutscene:getCharacter("hero") then
+                cutscene:text("* ...[wait:4]Sure?", "neutral_closed", "hero")
+            end
+
+            local text = Text("BTW: YOU CAN'T GET KRIS YET")
+            text:setColor(COLORS.white)
+            Game.world:addChild(text)
+            text:setParallax(0)
+            text:setLayer(WORLD_LAYERS["top"])
+            text:setPosition(SCREEN_WIDTH+10, 0)
+            text.physics.speed_x = -4
+
+            text.siner = 0
+            text.hscroll = 0
+            Utils.hook(text, "update", function(orig, self, ...)
+                orig(self, ...)
+                self.siner = self.siner + DTMULT*10
+
+                self.hscroll = self.hscroll + DTMULT
+                if self.hscroll > 240 then
+                    self.hscroll = self.hscroll - 240
+                end
+
+                local function fcolor(h, s, v)
+                    self.hue = (h / 255) % 1
+                    return Utils.hsvToRgb((h / 255) % 1, s / 255, v / 255)
+                end
+
+                self:setColor(fcolor(self.siner / 4, 160 + (math.sin(self.siner / 32) * 60), 255))
+
+                if self.x+self:getTextWidth() <= 0 then
+                    self:remove()
+                end
+            end)
+            return
+        end
+
+        if kris then
+            cutscene:text("* ...", "neutral_side", "susie")
+            cutscene:text("* Hey Kris...", "smirk", "susie")
+            cutscene:text("* Do you think the Knight also created a fountain here...?", "smirk", "susie")
+            cutscene:text("* Why?[wait:5] Well,[wait:3] uh...", "surprise", "susie")
+            cutscene:text("* I guess I don't need to hide it from you, Kris.", "sincere", "susie")
+            cutscene:text("* That's where I live!", "sincere_smile", "susie")
+            cutscene:text("* I,[wait:3] uh,[wait:3] yeah.[wait:5] I live here.", "smirk", "susie")
+            cutscene:text("* It's pretty...[wait:5] ok.[wait:5] I guess.", "shy_down", "susie")
+            cutscene:text("* ...", "shy", "susie")
+            cutscene:text("* Ah whatever,[wait:3] that's not the point!!", "teeth_b", "susie")
+            cutscene:text("* The point is:[wait:3] we never checked my own appartment!", "smile", "susie")
+            cutscene:text("* Even YOUR house got a Dark World![wait:5] Why not mine?", "smile", "susie")
+            cutscene:text("* And honestly...[wait:5] I'm curious...", "neutral_side", "susie")
+            cutscene:text("* I wonder what a Dark Fountain could have done in there.", "nervous", "susie")
+            cutscene:text("* So watcha say,[wait:3] Kris?[wait:5] Do we risk opening this door?", "smile", "susie")
+            local choice = cutscene:choicer({"Let's go!", "No."})
+            if choice == 1 then
+                Assets.playSound("drive")
+
+                local dog = Sprite("world/npcs/dog/dogcar")
+                Game.world:addChild(dog)
+                dog:setLayer(kris:getLayer()+1)
+                local x, y = kris:getScreenPos()
+                dog:setScreenPos(SCREEN_WIDTH+60, y-dog.height)
+                dog:play(1/2, true)
+
+                cutscene:look(kris, "right")
+
+                local wait = true
+                local dog_y = dog.y
+                cutscene:during(function()
+                    dog.x = dog.x - 15*DTMULT
+
+                    if dog.frame == 2 then
+                        dog.y = dog_y+2
+                    else
+                        dog.y = dog_y
+                    end
+
+                    if dog.x <= kris.x+kris.width then
+                        wait = false
+                        return false
+                    end
+                end)
+
+                cutscene:wait(function() return not wait end)
+
+                Assets.stopSound("drive")
+                Assets.playSound("hurt")
+                Game.world.fader.alpha = 1
+                dog:remove()
+                cutscene:wait(1.5)
+
+                cutscene:text("* (The shock was so bad,\n[wait:3]It send you back in time.)")
+                cutscene:text("* (Maybe this is [color:yellow]something you should check out later[color:reset].)")
+
+                cutscene:detachFollowers()
+                kris:setPosition(3610, 310)
+                cutscene:look(kris, "down")
+                susie:setPosition(3685, 310)
+                cutscene:look(susie, "left")
+                cutscene:interpolateFollowers()
+                cutscene:attachFollowersImmediate()
+
+                cutscene:wait(cutscene:fadeIn())
+            else
+                cutscene:text("* Coward.", "smile", "susie")
+            end
+        end
+    end
 }
