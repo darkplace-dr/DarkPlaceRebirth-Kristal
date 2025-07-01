@@ -71,17 +71,17 @@ function actor:init()
         -- Battle offsets
         ["battle/idle"] = {-5, -1},
 
-        ["battle/attack"] = {-8, -11},
-        ["battle/attackready"] = {-8, -11},
-        ["battle/act"] = {-4, -1},
-        ["battle/actready"] = {-4, -1},
+        ["battle/attack"] = {-9, -1},
+        ["battle/attackready"] = {-9, -1},
+        ["battle/act"] = {-5, -1},
+        ["battle/actready"] = {-5, -1},
         ["battle/spell"] = {-6, -2},
         ["battle/spellready"] = {-6, -2},
         ["battle/item"] = {-5, -4},
         ["battle/itemready"] = {-5, -4},
         ["battle/defend"] = {-12, -1},
 
-        ["battle/defeat"] = {-5, 5},
+        ["battle/defeat"] = {-5, 10},
         ["battle/hurt"] = {-8, -11},
 
         ["battle/intro"] = {-8, -9},
