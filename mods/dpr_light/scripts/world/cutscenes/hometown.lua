@@ -329,7 +329,7 @@ return {
       Assets.playSound("knock")
       cutscene:text("* (Knock knock knock...)")
       cutscene:text("* (...)")
-      cutscene:text("* (No response...)\n[wait:5]* (... but the distant trousle of bones.)")
+      cutscene:text("* (No response...)\n[wait:5]* (... not even the distant trousle of bones.)")
 
     end,
 
