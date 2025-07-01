@@ -138,6 +138,9 @@ function EnemyBattler:init(actor, use_overlay)
     self.defeated = false
 
     self.current_target = "ANY"
+
+    self.powder = false
+    self.powder_damage = false
 end
 
 ---@param bool boolean

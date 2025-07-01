@@ -51,6 +51,8 @@ function actor:init()
         ["battle/item_ready"]   = {"battle/itemready", 0.1, false},
         ["battle/defend_ready"] = {"battle/defend", 1/15, false},
 
+        ["battle/multiflare"]   = {"battle/act", 1/15, false},
+
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
 

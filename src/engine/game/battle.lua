@@ -2475,6 +2475,14 @@ function Battle:nextTurn()
 
     for _,enemy in ipairs(self:getActiveEnemies()) do
         enemy:onTurnStart()
+
+        if enemy.powder_damage then
+            Assets.playSound("bump")
+            enemy:shake(5)
+            enemy:removeFX("powder_fx")
+            enemy.powder_damage = false
+            enemy.powder = false
+        end
     end
 
     if self.battle_ui then

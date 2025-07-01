@@ -24,7 +24,8 @@ function character:init()
 
     self.lw_portrait = "face/brenda/neutral"
 
-    self:addSpell("gammabeam")
+    self:addSpell("multiflare")
+    self:addSpell("powderkeg")
 
     self.health = 100
 
