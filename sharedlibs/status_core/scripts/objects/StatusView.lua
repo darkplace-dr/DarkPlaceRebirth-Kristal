@@ -18,7 +18,7 @@ function StatusView:init()
 end
 
 function StatusView:update()
-	if Game.battle and Game.battle.party and Game.battle.party[Game.battle.current_selecting] and Input.down("menu") and (Game.battle.state == "ACTIONSELECT") then
+	if Game.battle and Game.battle.party and Game.battle.party[Game.battle.current_selecting] and Input.down("menu") and (Game.battle.state == "ACTIONSELECT") and not OVERLAY_OPEN then
 		self.bg.alpha = 1
 	else
 		self.bg.alpha = 0
@@ -27,7 +27,7 @@ function StatusView:update()
 end
 
 function StatusView:draw()
-	if Game.battle and Game.battle.party and Game.battle.party[Game.battle.current_selecting] and Input.down("menu") and (Game.battle.state == "ACTIONSELECT") then
+	if Game.battle and Game.battle.party and Game.battle.party[Game.battle.current_selecting] and Input.down("menu") and (Game.battle.state == "ACTIONSELECT") and not OVERLAY_OPEN then
 		super.draw(self)
 		love.graphics.setFont(self.font)
 		love.graphics.printf(string.upper(Game.battle.party[Game.battle.current_selecting].chara.name), 0, 0, 457, "center")
