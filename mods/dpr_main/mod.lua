@@ -97,9 +97,6 @@ function Mod:postInit(new_file)
 	
 	Game:setFlag("devDinerBorderState", nil)
     self:initializeImportantFlags(new_file)
-    if not new_file then
-        self:checkSaveStatus()
-    end
 end
 
 function Mod:initializeImportantFlags(new_file)
@@ -153,16 +150,6 @@ function Mod:initializeImportantFlags(new_file)
         Game:setFlag("pc_gifts_status", generateStatusTable(self.pc_gifts_data))
     else
         Game:setFlag("pc_gifts_status", Utils.merge(generateStatusTable(self.pc_gifts_data), Game:getFlag("pc_gifts_status")))
-    end
-end
-
-function Mod:checkSaveStatus()
-    local brenda = Game:getPartyMember("brenda")
-    if not brenda:hasSpell("multiflare") then
-        brenda:removeSpell("gammabeam")
-        brenda:addSpell("multiflare")
-        brenda:addSpell("powderkeg")
-        print("WARNING: Brenda does not have MultiFlare. Giving starting spells and removing GammaBeam. Save is likely from before her new spells were added.")
     end
 end
 
