@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -856,8 +856,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text1"] = "* (It's locked...)",
-            ["text2"] = "* (...[wait:5] the town it's pretty empty today.)"
+            ["cutscene"] = "hometown.susie_house"
           }
         },
         {
