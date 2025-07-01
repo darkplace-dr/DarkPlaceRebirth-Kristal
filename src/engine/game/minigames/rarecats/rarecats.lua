@@ -165,10 +165,8 @@ function RareCats:setState(state)
 end
 
 function RareCats:onStateChange(old, new)
-    if new == "INTRO" then
-        self:changeWindowTitle()
-    elseif new == "MAIN" then
-        self.music:play("dogcheck/baci_perugina2")
+    if new == "MAIN" then
+        self.music:play("deltarune/spamton_dance")
     elseif new == "TRANSITIONOUT1"then
     elseif new == "TRANSITIONOUT2" then
         self:preEndCleanup()
@@ -184,45 +182,34 @@ function RareCats:summonCat()
     self.cat.y = math.floor(love.math.random(160, 320))
     self.cat.physics.speed_x = Utils.pick({-30, 30}) / 10
     self.cat.physics.speed_y = Utils.pick({-30, 30}) / 10
+    self.cat:setScale(2)
 	
     if self.cats_clicked >= 100 then
         self:hardReset()
-        self.cat.visible = false
     else
         if o <= 700 then
             Kristal.Console:log("normal")
-            self.cat.type = 1
-            self.cat.sprite:set("cat_001/dance")
-            self.cat.sprite:play(1/30, true)
+            self.cat.type = 0
             self.cat.point_value = 10
         elseif o <= 879 then		
             Kristal.Console:log("blue ora")
-            self.cat.type = 2
-            self.cat.sprite:set("cat_002/dance")
-            self.cat.sprite:play(1/30, true)
+            self.cat.type = 1
             self.cat.point_value = 50
         elseif o <= 959 then
             Kristal.Console:log("rock & roll")
-            self.cat.type = 5
-            self.cat.sprite:set("cat_005/dance")
-            self.cat.sprite:play(1/30, true)
-            self.cat.point_value = 250
+            self.cat.type = 4
+            self.cat.point_value = 500
         elseif o <= 989 then
             Kristal.Console:log("ANGLE WING!!!!")
-            self.cat.type = 6
-            self.cat.sprite:set("cat_006/dance")
-            self.cat.sprite:play(1/30, true)
-            self.cat.point_value = 1000
+            self.cat.type = 5
+            self.cat.point_value = 1500
         elseif o <= 999 then
             Kristal.Console:log("SUPER HOLY ANGlE WING!!!!")
-            self.cat.type = 7
-            self.cat.sprite:set("cat_007/dance")
-            self.cat.sprite:play(1/30, true)
-            self.cat.point_value = 3000
+            self.cat.type = 6
+            self.cat.point_value = 5000
         end
+        self:addChild(self.cat)
     end
-	
-    self:addChild(self.cat)
 end
 
 function RareCats:hardReset()
@@ -230,10 +217,10 @@ function RareCats:hardReset()
 
     Assets.playSound("face", 2, 1)
 
-    self.friend = Sprite("cat_009", 320, 240, nil, nil, "minigames/rarecats")
+    self.friend = Sprite("IMAGE_FRIEND_W", 320, 240, nil, nil, "minigames/rarecats")
     self.friend.scale = 0.1
     self.friend.layer = 9999
-    self.friend:setOriginExact(47, 52)
+    self.friend:setOriginExact(14, 12)
     self.friend.graphics.grow = 1
     self:addChild(self.friend)	
 
