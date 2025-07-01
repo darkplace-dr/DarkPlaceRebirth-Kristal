@@ -173,10 +173,58 @@ function Mod:postLoad()
     end
 	
 	Game:rollShiny("hero")
+	self.mic_controller = MicController()
+	Game.stage:addChild(self.mic_controller)
+	if Game:getFlag("microphone_id") then
+		self.mic_controller.mic_id = Game:getFlag("microphone_id", 1)
+	end
+	if Game:getFlag("microphone_right_click") then
+		self.mic_controller.right_click_mic = Game:getFlag("microphone_right_click", 0)
+	end
+	if Game:getFlag("microphone_sensitivity") then
+		self.mic_controller.mic_sensitivity = Game:getFlag("microphone_sensitivity", 0.5)
+	end
+end
+
+function Mod:enableMicAccess(id)
+	Game:setFlag("mic_active", true)
+	self.mic_controller:startRecordMic(id or 1)
+end
+
+function Mod:disableMicAccess()
+	Game:setFlag("mic_active", false)
+	self.mic_controller:startRecordMic()
+end
+
+function Mod:openMicMenu()
+	if not Game:getFlag("mic_active", false) then
+		Mod:enableMicAccess(1)
+	end
+	Game.world:openMenu(MicMenu())
 end
 
 function Mod:preUpdate()
     self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+end
+
+function Mod:unload()
+	if self.mic_controller then
+		-- I have no idea if this will even fix the potential memory leak but it's worth a shot
+		self.mic_controller.cleaning_up = true
+		self.mic_controller.mic_recording = false
+		if self.mic_controller.mic_data then
+			self.mic_controller.mic_data:release()
+			self.mic_controller.mic_data = nil
+		end
+		if self.mic_controller.mic_inputs then
+			for _, inputs in ipairs(self.mic_controller.mic_inputs) do
+				inputs:release()
+			end
+		end
+		Game:setFlag("mic_active", false)
+		self.mic_controller:remove()
+		collectgarbage()
+	end
 end
 
 function Mod:addGlobalEXP(exp)
