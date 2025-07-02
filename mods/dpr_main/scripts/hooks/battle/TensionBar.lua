@@ -14,13 +14,16 @@ function TensionBar:init(x, y, dont_animate, volume_mode)
         self.tp_bar_fill = Assets.getTexture("ui/battle/vol_bar_fill")
         self.tp_bar_outline = Assets.getTexture("ui/battle/vol_bar_outline")
 	end
-	self.right_shoulder_nodisplay = true
+	self.right_shoulder_display = false
 	self.left_shoulder_display = false
 	if Kristal.isConsole() then
-		self.right_shoulder_nodisplay = Utils.containsValue(Input.getBoundKeys("confirm", true), "gamepad:rightshoulder") or false
+		self.right_shoulder_display = true
 		self.left_shoulder_display = true
 		for aliasname, lalias in pairs(Input.gamepad_bindings) do
 			for keyindex, lkey in ipairs(lalias) do
+				if Utils.equal(lkey, "gamepad:rightshoulder") then
+					self.right_shoulder_display = false
+				end
 				if Utils.equal(lkey, "gamepad:leftshoulder") then
 					self.left_shoulder_display = false
 				end
@@ -55,7 +58,7 @@ function TensionBar:drawText()
 				rx, ry = -14 + 32, -37
 			end
 			Draw.setColor(Utils.mergeColor(COLORS["gray"], COLORS["white"], Utils.clamp(self.mic.mic_volume_real/50, 0, 1)))
-			if not self.right_shoulder_nodisplay then
+			if self.right_shoulder_display then
 				Draw.draw(Input.getButtonTexture("gamepad:rightshoulder"), Utils.lerp(lx, rx, 0.5), ly, 0, 2, 2)
 			elseif self.left_shoulder_display then
 				Draw.draw(Input.getButtonTexture("gamepad:leftshoulder"), Utils.lerp(lx, rx, 0.5), ly, 0, 2, 2)

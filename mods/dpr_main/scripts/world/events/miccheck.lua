@@ -20,10 +20,13 @@ function MicCheck:onInteract(player, dir)
 	if Kristal.isConsole() then
 		local result_text = ""
 		local must_reassign = false
-		local shoulder_r_bound = Utils.containsValue(Input.getBoundKeys("confirm", true), "gamepad:rightshoulder") or false
+		local shoulder_r_bound = false
 		local shoulder_l_bound = false
 		for aliasname, lalias in pairs(Input.gamepad_bindings) do
 			for keyindex, lkey in ipairs(lalias) do
+				if Utils.equal(lkey, "gamepad:rightshoulder") then
+					shoulder_r_bound = true
+				end
 				if Utils.equal(lkey, "gamepad:leftshoulder") then
 					shoulder_l_bound = true
 				end

@@ -37,12 +37,12 @@ function MicController:init()
 	self.left_shoulder = false
 	if Kristal.isConsole() then
 		self.right_shoulder = true
-		if Utils.containsValue(Input.getBoundKeys("confirm", true), "gamepad:rightshoulder") then
-			self.right_shoulder = false
-		end
 		self.left_shoulder = true
 		for aliasname, lalias in pairs(Input.gamepad_bindings) do
 			for keyindex, lkey in ipairs(lalias) do
+				if Utils.equal(lkey, "gamepad:rightshoulder") then
+					self.right_shoulder = false
+				end
 				if Utils.equal(lkey, "gamepad:leftshoulder") then
 					self.left_shoulder = false
 				end
