@@ -184,6 +184,9 @@ function Mod:postLoad()
 	if Game:getFlag("microphone_sensitivity") then
 		self.mic_controller.mic_sensitivity = Game:getFlag("microphone_sensitivity", 0.5)
 	end
+	if Game:getFlag("mic_active", false) then
+		Mod:enableMicAccess(self.mic_controller.mic_id)
+	end
 end
 
 function Mod:enableMicAccess(id)
@@ -221,7 +224,6 @@ function Mod:unload()
 				inputs:release()
 			end
 		end
-		Game:setFlag("mic_active", false)
 		self.mic_controller:remove()
 		collectgarbage()
 	end
