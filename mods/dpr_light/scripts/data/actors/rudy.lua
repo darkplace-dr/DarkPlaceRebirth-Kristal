@@ -8,7 +8,7 @@ function actor:init()
     self.width = 22
     self.height = 60
 
-    self.hitbox = {5, 22, 19, 11}
+    self.hitbox = {0, 0, 22, 60}
 
     self.color = {1, 1, 0}
 
@@ -25,7 +25,10 @@ function actor:init()
 
     self.talk_sprites = {}
 
-    self.animations = {}
+    self.animations = {
+        ["cough"] = {"cough", 1/8, true},
+        ["laugh"] = {"laugh", 1/8, true},
+    }
 
     self.offsets = {}
 end

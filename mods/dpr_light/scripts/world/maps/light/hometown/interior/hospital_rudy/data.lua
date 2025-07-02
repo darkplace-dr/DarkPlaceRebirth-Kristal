@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 19,
+  nextobjectid = 20,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -265,7 +265,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* (It's a bunch of roses in a glass container.)"
+            ["text"] = "* (It's a bouquet of flowers in a glass container.)"
           }
         },
         {
@@ -301,6 +301,22 @@ return {
             ["map"] = "light/hometown/interior/hospital_hallway",
             ["marker"] = "entryrudy",
             ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 19,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 286,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "rudy",
+            ["cutscene"] = "hometown.rudy"
           }
         }
       }
