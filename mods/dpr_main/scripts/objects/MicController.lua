@@ -8,9 +8,11 @@ function MicController:init()
 	self.mic_inputs = love.audio.getRecordingDevices()
 	self.mic_names = {}
 	for i = 1, #self.mic_inputs do
-		local mic_name = self.mic_inputs[i]:getName()
-		mic_name = Utils.split(mic_name, "(", true)[2]
-		mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+		local mic_name = self.mic_inputs[i]:getName() or "Microphone "..tostring(i)
+		if mic_name and Utils.split(mic_name, "(", true)[2] then
+			mic_name = Utils.split(mic_name, "(", true)[2]
+			mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+		end
 		self.mic_names[i] = mic_name
 	end
 	self.mic_recording = false
@@ -33,6 +35,9 @@ function MicController:init()
 	self.cleaning_up = false
 	
 	self.right_click_mic = 0
+	if #self.mic_inputs <= 0 then
+		self.right_click_mic = 1
+	end
 	self.right_shoulder = false
 	self.left_shoulder = false
 	if Kristal.isConsole() then
@@ -148,18 +153,28 @@ function MicController:initMics()
 		end
 	end
 	self.mic_inputs = love.audio.getRecordingDevices()
+	self.mic_names = {}
+	if #self.mic_inputs <= 0 then
+		self.mic_id = -1
+		if self.right_click_mic == 0 then
+			self.right_click_mic = 1
+		end
+	else
+		if self.mic_id > #self.mic_inputs then
+			self.mic_id = #self.mic_inputs
+		end
+		for i = 1, #self.mic_inputs do
+			local mic_name = self.mic_inputs[i]:getName() or "Microphone"..tostring(i)
+			if mic_name and Utils.split(mic_name, "(", true)[2] then
+				mic_name = Utils.split(mic_name, "(", true)[2]
+				mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+			end
+			self.mic_names[i] = mic_name
+		end
+		self:startRecordMic()
+	end
 	if self.mic_id > #self.mic_inputs then
 		self.mic_id = #self.mic_inputs
-	end
-	self.mic_names = {}
-	for i = 1, #self.mic_inputs do
-		local mic_name = self.mic_inputs[i]:getName()
-		mic_name = Utils.split(mic_name, "(", true)[2]
-		mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
-		self.mic_names[i] = mic_name
-	end
-	if not Game:getFlag("mic_active", false) then
-		self:startRecordMic()
 	end
 end
 
@@ -170,7 +185,7 @@ function MicController:startRecordMic(id)
 	if id then
 		self.mic_id = id
 	end
-	if self.mic_inputs and self.mic_inputs[self.mic_id] then
+	if Game:getFlag("mic_active", false) and self.mic_inputs and self.mic_inputs[self.mic_id] then
 		if self.mic_data then
 			self.mic_data:release()
 			self.mic_data = nil
