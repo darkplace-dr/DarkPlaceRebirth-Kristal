@@ -426,6 +426,132 @@ return {
         end
     end,
 
+    rudy = function(cutscene, event)
+        local rudy = cutscene:getCharacter("rudy")
+        local noelle = cutscene:getCharacter("noelle_lw")
+        local susie = cutscene:getCharacter("susie_lw")
+        local kris = cutscene:getCharacter("kris_lw")
+        Assets.playSound("rudycough")
+        rudy:setAnimation("cough")
+        cutscene:wait(1.5)
+        rudy:setSprite("d")
+        if not Game.world.map.rudy_greeting then
+            if noelle then
+                cutscene:text("* Well,[wait:5] if it isn't my dear Noelle!", "happier", "rudy")
+                if susie then
+                    cutscene:text("* I see you've brought...", "smile", "rudy")
+                    local notreally = "friend"
+                    local susieline = "???"
+                    if kris then
+                        notreally = "friends"
+                        susieline = "???\nKris???"
+                    end
+                    cutscene:text("* Your \""..notreally.."\",[wait:5] as well![react:1][wait:5][react:2]", "wink", "rudy", {reactions={
+                        {"DAD!!!", "mid", "mid", "shock", "noelle"},
+                        {susieline, "right", "bottom", "shy_b", "susie"}
+                    }})
+                end
+                cutscene:text("* How have you been,[wait:5] sweetheart?", "smile_side", "rudy")
+                cutscene:text("* Not much...[wait:5] Lately I've just been having fun with my friends.", "smile_closed", "noelle")
+                cutscene:text("* Ah,[wait:5] that's great,[wait:5] that's great.", "happy", "rudy")
+            elseif susie then
+                if kris then
+                    cutscene:text("* Susie![wait:5] Kris![wait:5] Isn't it wonderful to see you two!", "happier", "rudy")
+                    cutscene:text("* What is it?[wait:5] Susie needs me for some Noelle advice?", "wink", "rudy")
+                else
+                    cutscene:text("* Susie! Isn't it wonderful to see you!", "happier", "rudy")
+                    cutscene:text("* What is it?[wait:5] Need me for some Noelle advice?", "wink", "rudy")
+                end
+                cutscene:text("* Wh-[wait:5] I-[wait:5][face:teeth_b] NO!!!", "blush", "susie")
+                cutscene:text("* Heh,[wait:5] heh...[wait:10] Whatever you say.", "smile", "rudy")
+            elseif kris then
+                cutscene:text("* Hey Krismas![wait:5] What's up?", "happier", "rudy")
+                if #Game.party == 1 then
+                    cutscene:text("* Where's your friend?[wait:5] Is she busy?", "neutral", "rudy")
+                    cutscene:text("* Now,[wait:5] don't worry.[wait:5] I'm sure she'll get some free time for you.", "neutral", "rudy")
+                else
+                    cutscene:text("* You've got some new friends I see.", "smile", "rudy")
+                    cutscene:text("* Well,[wait:5] in the meantime...[wait:10] Kris,[wait:5] let me tell you something.", "neutral", "rudy")
+                    cutscene:text("* Noelle,[wait:5] Susie...[wait:10] Don't forget about them,[wait:5] alright?", "upset", "rudy")
+                    cutscene:text("* They seem to be happy around you.", "wink", "rudy")
+                end
+            else
+                cutscene:text("* Heh,[wait:5] heh...", "smile_side", "rudy")
+                cutscene:text("* Wow,[wait:5] this is gotta be the first time I have visitors...", "happy", "rudy")
+                cutscene:text("* Whom I don't even know!", "happier", "rudy")
+                Assets.playSound("rudylaugh")
+                rudy:setAnimation("laugh")
+                cutscene:wait(1.5)
+                rudy:setSprite("d")
+            end
+            cutscene:text("* Oh,[wait:5] you wanted to chat about something?", "smile_side", "rudy")
+            Game.world.map.rudy_greeting = true
+        else
+            cutscene:text("* Want to chat?", "smile", "rudy")
+        end
+        local topic = cutscene:choicer({"Sickness", "Leave"})
+        if topic == 1 then
+            if noelle then
+                cutscene:text("* Don't worry sweetie,[wait:5] I'm gonna be outta here in no time.", "smile", "rudy")
+                cutscene:text("* I just...[wait:10] Need a bit more rest,[wait:5] that's all.", "smile_side", "rudy")
+            else
+                local names = ""
+                if kris then
+                    names = ",[wait:5] Kris"
+                    if susie then
+                        names = ",[wait:5] Kris,[wait:5] Susie"
+                    end
+                elseif susie then
+                    names = ",[wait:5] Susie"
+                end
+                cutscene:text("* Hey"..names.."...[wait:10] Don't tell that to Noelle,[wait:5] but...", "upset", "rudy")
+                cutscene:text("* I'm not sure if I'm gonna be out of here anytime soon.", "serious", "rudy")
+                cutscene:text("* The coughing's been getting worse recently.", "upset", "rudy")
+                cutscene:text("* Now,[wait:5] don't worry.[wait:5] I'm not going down yet.", "wink", "rudy")
+                if kris or susie then
+                    if Game:getFlag("rudy_promise") then
+                        cutscene:text("* Hey...", "happy", "rudy")
+                        cutscene:text("* Thanks again for that promise.", "happier", "rudy")
+                        cutscene:text("* And don't worry about me,[wait:5] I'm more than fine for now.", "wink", "rudy")
+                    else
+                        if kris then
+                            if susie then
+                                cutscene:text("* But if...[wait:10] Kris...[wait:10] Kris,[wait:5] Susie,[wait:5] if something happens,[wait:5] then...", "serious", "rudy")
+                            else
+                                cutscene:text("* But if...[wait:10] Kris...[wait:10] Kris,[wait:5] if something happens,[wait:5] then...", "serious", "rudy")
+                            end
+                        elseif susie then
+                            cutscene:text("* But if...[wait:10] Susie...[wait:10] Susie,[wait:5] if something happens,[wait:5] then...", "serious", "rudy")
+                        end
+                        cutscene:text("* Promise me you'll take good care of Noelle,[wait:5] alright?", "smile_side", "rudy")
+                        cutscene:text("* She can't be left all alone by herself...", "neutral", "rudy")
+                        cutscene:text("* Is that not too much to ask?", "smile_side", "rudy")
+                        if kris then
+                            cutscene:choicer({"Promise", "Promise"})
+                            if susie then
+                                cutscene:text("* We...[wait:10] We promise.", "shy_down", "susie")
+                            end
+                        elseif susie then
+                            cutscene:text("* I...[wait:10] I promise.", "shy_down", "susie")
+                        end
+                        cutscene:text("* H...[wait:10] Heh,[wait:5] thank you.", "smile_side", "rudy")
+                        Assets.playSound("rudycough")
+                        rudy:setAnimation("cough")
+                        cutscene:wait(1.5)
+                        rudy:setSprite("d")
+                        Game:setFlag("rudy_promise", true)
+                    end
+                else
+                    cutscene:text("* Huh?[wait:5] What I'm diagnosed with?", "serious", "rudy")
+                    cutscene:text("* I appreciate your concern,[wait:5] but...", "smile_side", "rudy")
+                    cutscene:text("* It's not like there's anything you could do,[wait:5] heh.", "happy", "rudy")
+                end
+            end
+        else
+            cutscene:text("* Have a good day.", "happy", "rudy")
+        end
+    end,
+
     hospitalroom2bed = function(cutscene, event)
         if Game:getFlag("POST_SNOWGRAVE") then
             cutscene:text("* (He's breathing slowly.)")
