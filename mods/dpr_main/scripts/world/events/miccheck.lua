@@ -44,12 +44,12 @@ function MicCheck:onInteract(player, dir)
 		self.nomic = true
 	else
 		self.nomic = false
-		if self.text_once and self:getFlag("used") then
+		if self.text_once and Game:getFlag("mic_crystal_used", false) then
 			self:onTextEnd()
 			return
 		end
 		if self.text_once then
-			self:setFlag("used", true)
+			Game:setFlag("mic_crystal_used", true)
 		end
 
 		super.onInteract(self, player, dir)
