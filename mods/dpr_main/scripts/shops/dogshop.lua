@@ -70,8 +70,8 @@ function DogShop:startTalk(talk)
 			"* I can give you a link if you want.",
 			"* (To the first Dumbfuck Turnabout)\nhttps://objection.lol/case/fdsp9k1i/the-dumbfuck-turnabout",
 			"* (To the sequel, the Dumberfuck Turnabout)\nhttps://objection.lol/case/8mufxagy/the-dumberfuck-turnabout \n* (That's the one I show up in!!)",
-			"* There was a third one being made but Charbomber stopped making it as soon as he realized he put too much effort into it.",
-			"* Isn't that funny?[wait:10] I bet if you DM him asking for it he can send you the files for it.",
+			"* There was a third one being made but Charbomber stopped making it as soon as she realized she put too much effort into it.",
+			"* Isn't that funny?[wait:10] I bet if you DM her asking for it she can send you the files for it.",
 			"* Oh yeah,[wait:5] and...[wait:10]\n* Only select the option that will replace this after having played each one.",
         })
 	elseif talk == "After Playing" then
