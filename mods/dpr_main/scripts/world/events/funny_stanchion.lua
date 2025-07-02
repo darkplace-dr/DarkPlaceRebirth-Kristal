@@ -53,16 +53,17 @@ function FunnyStanchion:update()
 		local mid_size = self.end_x - self.start_x
 		local mid_count = math.ceil(mid_size / 40)
 		mid_count = mid_count + 1
+		local px = player.x+player.width/2
 		for i = 1, mid_count do
-			if player.x >= (self.x + i*40) - 60 and player.x < (self.x + i*40) - 40 then
+			if px >= (self.x + i*40) - 60 and px < (self.x + i*40) - 40 then
 				self.stanchion_frame[i] = 2
-			elseif player.x >= (self.x + i*40) - 40 and player.x < (self.x + i*40) - 20 then
+			elseif px >= (self.x + i*40) - 40 and px < (self.x + i*40) - 20 then
 				self.stanchion_frame[i] = 3
-			elseif player.x >= (self.x + i*40) - 20 and player.x <= (self.x + i*40) + 20 then
+			elseif px >= (self.x + i*40) - 20 and px <= (self.x + i*40) + 20 then
 				self.stanchion_frame[i] = 4
-			elseif player.x <= (self.x + i*40) + 40 and player.x > (self.x + i*40) + 20 then
+			elseif px <= (self.x + i*40) + 40 and px > (self.x + i*40) + 20 then
 				self.stanchion_frame[i] = 5
-			elseif player.x <= (self.x + i*40) + 60 and player.x > (self.x + i*40) + 40 then
+			elseif px <= (self.x + i*40) + 60 and px > (self.x + i*40) + 40 then
 				self.stanchion_frame[i] = 6
 			else
 				self.stanchion_frame[i] = 1

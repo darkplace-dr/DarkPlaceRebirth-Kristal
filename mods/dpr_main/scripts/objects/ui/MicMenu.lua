@@ -13,7 +13,9 @@ function MicMenu:init()
     self.heart_sprite = Assets.getTexture("player/heart_centered")
     self.star_sprite = Assets.getTexture("ui/battle/sparestar")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
-
+	
+	Mod.mic_controller:initMics()
+	
 	local yoff = 60
 	if #Mod.mic_controller.mic_inputs + 3 > 11 then
 		yoff = 30
@@ -239,10 +241,13 @@ function MicMenu:draw()
 					if Input.usingGamepad() then
 						input_str = "    "
 						local x_off = 0
-						if i == self.menu_max - 2 and mic.right_click_mic == 2 then
+						if mic.right_click_mic == 2 then
 							x_off = 18
 						end
+						local r, g, b, a = love.graphics.getColor()
+						Draw.setColor(1, 1, 1)
 						Draw.draw(Input.getTexture("cancel"), self.box.x - 32 + 46 + x_off, self.box.y - 32 + 40 + 27 + (i-1)*30 - (menu_y-1)*30, 0, 2, 2)
+						Draw.setColor(r,g,b,a)
 					end
 					love.graphics.print(str..input_str.." [Also Not Recommended]", self.box.x - 32 + 48, self.box.y - 32 + 40 + 24 + (i-1)*30 - (menu_y-1)*30)
 				else

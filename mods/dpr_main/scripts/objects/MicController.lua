@@ -20,6 +20,7 @@ function MicController:init()
 	self.mic_values = {}
 	self.lerp_mic_volume = 0
 	self.mic_volume = 0
+	self.mic_volume_real = 0
 	self.invert_mic = false
 	
 	self.us_old = -1
@@ -32,6 +33,22 @@ function MicController:init()
 	self.cleaning_up = false
 	
 	self.right_click_mic = 0
+	self.right_shoulder = false
+	self.left_shoulder = false
+	if Kristal.isConsole() then
+		self.right_shoulder = true
+		self.left_shoulder = true
+		for aliasname, lalias in pairs(Input.gamepad_bindings) do
+			for keyindex, lkey in ipairs(lalias) do
+				if Utils.equal(lkey, "gamepad:rightshoulder") then
+					self.right_shoulder = false
+				end
+				if Utils.equal(lkey, "gamepad:leftshoulder") then
+					self.left_shoulder = false
+				end
+			end
+		end
+	end
 end
 
 function MicController:onRemove(parent)
@@ -44,7 +61,6 @@ function MicController:onRemove(parent)
 				inputs:release()
 			end
 		end
-		Game:setFlag("mic_active", false)
 		collectgarbage()
 	end
 end
@@ -59,7 +75,6 @@ function MicController:onRemoveFromStage(stage)
 				inputs:release()
 			end
 		end
-		Game:setFlag("mic_active", false)
 		collectgarbage()
 	end
 end
@@ -74,7 +89,15 @@ function MicController:update()
 	end
 	self.mic_timer = self.mic_timer + DTMULT
 	self.mic_collect_timer = self.mic_collect_timer + DTMULT
-	if self.right_click_mic == 1 then
+	if Kristal.isConsole() then
+		if Input.keyDown("gamepad:rightshoulder") and self.right_shoulder then
+			self.mic_volume = 100
+		elseif Input.keyDown("gamepad:leftshoulder") and self.left_shoulder then
+			self.mic_volume = 100
+		else
+			self.mic_volume = 0
+		end
+	elseif self.right_click_mic == 1 then
 		if Input.mouseDown(2) then
 			self.mic_volume = 100
 		else
@@ -111,6 +134,33 @@ function MicController:update()
 		end
 		self.mic_volume = Utils.lerp(self.mic_volume, self.lerp_mic_volume, DTMULT)
 	end
+	self.mic_volume_real = self.mic_volume_real + ((self.mic_volume - self.mic_volume_real) * 0.25*DTMULT)
+end
+
+function MicController:initMics()
+	if self.cleaning_up then
+		return
+	end
+	self:stopRecordMic()
+	if self.mic_inputs then
+		for _, inputs in ipairs(self.mic_inputs) do
+			inputs:release()
+		end
+	end
+	self.mic_inputs = love.audio.getRecordingDevices()
+	if self.mic_id > #self.mic_inputs then
+		self.mic_id = #self.mic_inputs
+	end
+	self.mic_names = {}
+	for i = 1, #self.mic_inputs do
+		local mic_name = self.mic_inputs[i]:getName()
+		mic_name = Utils.split(mic_name, "(", true)[2]
+		mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+		self.mic_names[i] = mic_name
+	end
+	if not Game:getFlag("mic_active", false) then
+		self:startRecordMic()
+	end
 end
 
 function MicController:startRecordMic(id)
@@ -121,10 +171,6 @@ function MicController:startRecordMic(id)
 		self.mic_id = id
 	end
 	if self.mic_inputs and self.mic_inputs[self.mic_id] then
-		local mic_name = self.mic_inputs[self.mic_id]:getName()
-		mic_name = Utils.split(mic_name, "(", true)[2]
-		mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
-		print(mic_name)
 		if self.mic_data then
 			self.mic_data:release()
 			self.mic_data = nil

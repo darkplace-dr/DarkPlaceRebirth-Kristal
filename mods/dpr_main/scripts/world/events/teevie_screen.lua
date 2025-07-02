@@ -34,7 +34,9 @@ function TeevieScreen:update()
     if not self.turned_on and Game.world and Game.world.player and self.can_turn_on then
         local player = Game.world.player
 
-		if player.x > self.x - 10 and player.x < self.x + 50 and player.y >= self.y + 20 then
+		local px = player.x-player.width
+		local py = player.y-player.height*2
+		if px > self.x - 10 and px < self.x + 50 and py >= self.y + 20 then
 			self:turnOn()
 		end
     end
