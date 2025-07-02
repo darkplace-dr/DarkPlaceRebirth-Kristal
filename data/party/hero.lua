@@ -80,6 +80,14 @@ function character:onLevelUp(level)
     end
 end
 
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 5)
+    self:increaseStat("defense", 1)
+    if level % 2 == 0 then
+        self:increaseStat("attack", 1)
+    end
+end
+
 function character:drawPowerStat(index, x, y, menu)
     if index == 1 then
         local icon = Assets.getTexture("ui/menu/icon/exclamation")

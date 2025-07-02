@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 30,
+  nextobjectid = 35,
   properties = {},
   tilesets = {
     {
@@ -348,6 +348,38 @@ return {
           text = "Hello World",
           wrap = true,
           properties = {}
+        },
+        {
+          id = 30,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = -40,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_6",
+            ["marker"] = "entry_2"
+          }
+        },
+        {
+          id = 31,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = -40,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_6",
+            ["marker"] = "entry_3"
+          }
         }
       }
     },
@@ -444,6 +476,32 @@ return {
           type = "",
           shape = "point",
           x = 340,
+          y = 40,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "entry_3",
+          type = "",
+          shape = "point",
+          x = 260,
+          y = 40,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "entry_4",
+          type = "",
+          shape = "point",
+          x = 420,
           y = 40,
           width = 0,
           height = 0,

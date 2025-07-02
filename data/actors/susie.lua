@@ -308,6 +308,16 @@ function actor:init(style)
         ["ledge_punch_2"] = {-8, -3},
         ["sneak/left"] = {-6, 5},
         ["sneak/right"] = {-2, 5},
+
+        ["run/left"] = {0, 0},-- I dunno the offsets and neither where to find them in DR code
+        ["run/right"] = {0, 0},
+        ["run/up"] = {0, 0},
+        ["run/down"] = {0, 0},
+
+        ["run_serious/left"] = {0, 0}, -- same situation as normal run sprites
+        ["run_serious/right"] = {0, 0},
+        ["run_serious/up"] = {0, 0},
+        ["run_serious/down"] = {0, 0},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

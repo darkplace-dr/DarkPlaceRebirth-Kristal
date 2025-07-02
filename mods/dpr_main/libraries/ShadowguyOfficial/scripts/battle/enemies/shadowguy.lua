@@ -88,12 +88,14 @@ function Shadowguy:onActStart(battler, name)
 		kris = {0, 0},
 		susie = {0, 3},
 		ralsei = {7, 0},
+		ceroba = {0, -8},
 	}
 	
 	local heart_offsets = {
 		kris = {27+34, 33+12},
 		susie = {27+49, 42},
 		ralsei = {47+32, 50-3},
+		ceroba = {27+50, 33+6},
 	}
 	
     local function getSpriteAndOffset(id)
@@ -222,9 +224,9 @@ function Shadowguy:onActStart(battler, name)
 				enemy:setAnimation("idle")
 			end
 			if enemy.spare_after_sharpshoot then
-				enemy:remove()
 				enemy:defeat("SPARED", false)
 				enemy:onSpared()
+				enemy:remove()
 			end
 		end
 		wait(20/30)

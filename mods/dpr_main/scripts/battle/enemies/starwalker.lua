@@ -65,6 +65,9 @@ function Starwalker:init()
     self.progress = 0
 
     self.blue = false
+
+    self:setTired(true)
+    self:setTired(false)
 end
 
 function Starwalker:onTurnEnd()

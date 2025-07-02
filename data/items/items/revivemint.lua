@@ -66,13 +66,17 @@ function item:onWorldUse(target)
 end
 
 function item:onBattleUse(user, target)
+    local heal_amount
+    if target.chara:getHealth() <= 0 then
+        heal_amount = math.abs(target.chara:getHealth()) + target.chara:getStat("health")
+    else
+        heal_amount = math.ceil(target.chara:getStat("health") / 2)
+    end
     if target.chara:getStat("health") <= 0 then
         target:restoreMaxHealth(math.abs(target.chara:getHealth()) + target.chara:getStat("health_def"))
-    elseif target.chara:getHealth() <= 0 or target.chara:getStat("health") <= 0 then
-        target:heal(math.abs(target.chara:getHealth()) + target.chara:getStat("health"))
-    else
-        target:heal(math.ceil(target.chara:getStat("health") / 2))
+        return
     end
+    target:heal(Game.battle:applyHealBonuses(heal_amount, user.chara))
 end
 
 return item

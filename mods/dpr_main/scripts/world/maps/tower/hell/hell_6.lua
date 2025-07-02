@@ -9,8 +9,8 @@ return {
   height = 20,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 13,
-  nextobjectid = 19,
+  nextlayerid = 14,
+  nextobjectid = 31,
   properties = {},
   tilesets = {
     {
@@ -84,33 +84,17 @@ return {
     },
     {
       type = "imagelayer",
-      image = "../../../../../assets/sprites/world/bg/temple_middle.png",
-      id = 9,
-      name = "temple_m",
-      class = "",
-      visible = true,
-      opacity = 0.8,
-      offsetx = -130,
-      offsety = 180,
-      parallaxx = 1,
-      parallaxy = 1,
-      repeatx = false,
-      repeaty = false,
-      properties = {}
-    },
-    {
-      type = "imagelayer",
       image = "../../../../../assets/sprites/world/bg/temple_front.png",
       id = 8,
       name = "temple_f",
       class = "",
       visible = true,
       opacity = 0.8,
-      offsetx = 600,
+      offsetx = 982,
       offsety = 160,
       parallaxx = 1,
       parallaxy = 1,
-      repeatx = false,
+      repeatx = true,
       repeaty = false,
       properties = {}
     },
@@ -411,18 +395,111 @@ return {
           }
         },
         {
-          id = 18,
-          name = "npc",
+          id = 19,
+          name = "transition",
           type = "",
-          shape = "point",
-          x = 400,
+          shape = "rectangle",
+          x = -40,
           y = 480,
-          width = 0,
-          height = 0,
+          width = 40,
+          height = 80,
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "egg"
+            ["map"] = "tower/hell/hell_7",
+            ["marker"] = "entry"
+          }
+        },
+        {
+          id = 21,
+          name = "fl_clocks",
+          type = "",
+          shape = "rectangle",
+          x = 40,
+          y = 360,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flip"] = true
+          }
+        },
+        {
+          id = 22,
+          name = "fl_clocks",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 560,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flip"] = false
+          }
+        },
+        {
+          id = 23,
+          name = "fl_clocks",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 40,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flip"] = false
+          }
+        },
+        {
+          id = 24,
+          name = "fl_clocks",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 160,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flip"] = true
+          }
+        },
+        {
+          id = 26,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 800,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_5",
+            ["marker"] = "entry_3"
+          }
+        },
+        {
+          id = 27,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 800,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "tower/hell/hell_5",
+            ["marker"] = "entry_4"
           }
         }
       }
@@ -447,6 +524,45 @@ return {
           type = "",
           shape = "point",
           x = 340,
+          y = 800,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 20,
+          name = "entry_2",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "entry_3",
+          type = "",
+          shape = "point",
+          x = 420,
+          y = 800,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "entry_2",
+          type = "",
+          shape = "point",
+          x = 260,
           y = 800,
           width = 0,
           height = 0,

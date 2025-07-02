@@ -326,6 +326,7 @@ WavedashBurst = require("src.engine.game.effects.wavedashburst")
 IceBeamSpell = require("src.engine.game.effects.icebeamspell")
 IceBurst = require("src.engine.game.effects.iceburst")
 MirrorEffect = require("src.engine.game.effects.mirroreffect")
+MultiFlareFireball = require("src.engine.game.effects.multiflarefireball")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
 DojoBG = require("src.engine.game.battle.bg.dojobg")

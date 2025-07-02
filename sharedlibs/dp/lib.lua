@@ -9,6 +9,22 @@ function lib:init()
     self:initBattleTaunt()
 end
 
+function lib:postInit(new_file)
+    if not new_file then
+        self:checkSaveStatus()
+    end
+end
+
+function lib:checkSaveStatus()
+    local brenda = Game:getPartyMember("brenda")
+    if not brenda:hasSpell("multiflare") then
+        brenda:removeSpell("gammabeam")
+        brenda:addSpell("multiflare")
+        brenda:addSpell("powderkeg")
+        print("[DP Lib] WARNING: Brenda does not have MultiFlare. Giving starting spells and removing GammaBeam. Save is likely from before her new spells were added.")
+    end
+end
+
 function lib:onRegistered()
     ---@type table<string, CodeBlock>
     self.codeblocks = {}
@@ -351,6 +367,15 @@ function lib:onKeyPressed(key)
         Game.minigame:onKeyPressed(key)
         return true
     end
+end
+
+function lib:shouldWeIncreaseTheRateAtWhichYouGainNightmaresOrNot()
+    for _, party in ipairs(Game.party or {}) do
+        if party:checkArmor("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares") then
+            return true
+        end
+    end
+    return false
 end
 
 return lib

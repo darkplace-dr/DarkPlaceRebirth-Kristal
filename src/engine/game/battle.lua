@@ -1328,7 +1328,12 @@ function Battle:processAction(action)
                 dmg_sprite.layer = enemy.layer + 0.01
                 dmg_sprite.battler_id = action.character_id or nil
                 table.insert(enemy.dmg_sprites, dmg_sprite)
-                dmg_sprite:play(1/15, false, function(s) s:remove(); Utils.removeFromTable(enemy.dmg_sprites, dmg_sprite) end) -- Remove itself and Remove the dmg_sprite from the enemy's dmg_sprite table when its removed
+                local dmg_anim_speed = 1/15
+                if attacksprite == "effects/attack/shard" then
+                    -- Ugly hardcoding BlackShard animation speed accuracy for now
+                    dmg_anim_speed = 1/10
+                end
+                dmg_sprite:play(dmg_anim_speed, false, function(s) s:remove(); Utils.removeFromTable(enemy.dmg_sprites, dmg_sprite) end) -- Remove itself and Remove the dmg_sprite from the enemy's dmg_sprite table when its removed
                 enemy.parent:addChild(dmg_sprite)
 
                 local sound = enemy:getDamageSound() or "damage"
@@ -1337,9 +1342,14 @@ function Battle:processAction(action)
                 end
                 enemy:hurt(damage, battler)
 
+                -- TODO: Call this even if damage is 0, will be a breaking change
                 battler.chara:onAttackHit(enemy, damage)
             else
                 enemy:hurt(0, battler, nil, nil, nil, action.points ~= 0)
+            end
+
+            for _,item in ipairs(battler.chara:getEquipment()) do
+                item:onAttackHit(battler, enemy, damage)
             end
 
             self:finishAction(action)
@@ -2475,6 +2485,14 @@ function Battle:nextTurn()
 
     for _,enemy in ipairs(self:getActiveEnemies()) do
         enemy:onTurnStart()
+
+        if enemy.powder_damage then
+            Assets.playSound("bump")
+            enemy:shake(5)
+            enemy:removeFX("powder_fx")
+            enemy.powder_damage = false
+            enemy.powder = false
+        end
     end
 
     if self.battle_ui then
@@ -3753,6 +3771,19 @@ function Battle:handleAttackingInput(key)
             end
         end
     end
+end
+
+--- Returns the equipment-modified heal amount from a healing action performed by the specified party member
+---@param base_heal number      The heal amount to modify
+---@param healer PartyMember    The character performing the heal action
+function Battle:applyHealBonuses(base_heal, healer)
+    local current_heal = base_heal
+    for _,battler in ipairs(self.party) do
+        for _,item in ipairs(battler.chara:getEquipment()) do
+            current_heal = item:applyHealBonus(current_heal, base_heal, healer)
+        end
+    end
+    return current_heal
 end
 
 function Battle:canDeepCopy()

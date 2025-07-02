@@ -137,6 +137,11 @@ function actor:init()
         ["t_pose"] = {-4, 0},
         ["sneak/left"] = {-4, 3},
         ["sneak/right"] = {-2, 3},
+
+        --["run/left"] = {0, 0}, -- not existing, might be added in the future(?)
+        ["run/right"] = {0, 0},  -- I dunno the offsets and neither where to find them in DR code
+        --["run/up"] = {0, 0}, -- not existing, might be added in the future(?)
+        ["run/down"] = {0, 0},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

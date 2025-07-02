@@ -295,6 +295,16 @@ function actor:initChapter2()
         ["stool"] = {-11, 18},
         ["sneak/left"] = {-5, -3},
         ["sneak/right"] = {7, -3},
+
+        ["run/left"] = {0, 0},-- I dunno the offsets and neither where to find them in DR code
+        ["run/right"] = {0, 0},
+        ["run/up"] = {0, 0},
+        ["run/down"] = {0, 0},
+
+        ["float/left"] = {0, 0}, -- same situation as run sprites
+        ["float/right"] = {0, 0},
+        ["float/up"] = {0, 0},
+        ["float/down"] = {0, 0},
     }
 
     self.menu_anim = "pose"

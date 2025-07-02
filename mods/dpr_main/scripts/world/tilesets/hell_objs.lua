@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 2,
+  tilecount = 3,
   tiles = {
     {
       id = 0,
@@ -36,6 +36,12 @@ return {
       image = "../../../assets/sprites/tilesets/objs/tree_cliffs.png",
       width = 180,
       height = 168
+    },
+    {
+      id = 2,
+      image = "../../../assets/sprites/tilesets/objs/hell/bench.png",
+      width = 78,
+      height = 50
     }
   }
 }
