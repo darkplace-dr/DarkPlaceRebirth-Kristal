@@ -98,12 +98,12 @@ return {
 				
 				if Game.party[1].id == "susie" then
 					cutscene:showNametag("Susie")
-					cutscene:text("* I'm Susie![wait:10]\n* I'm the one who made the fountains!", "sincere_smile", "susie")
-					cutscene:text("* I mean,[wait:5] not that I'm proud of that NOW...", "nervous_side", "susie")
+					cutscene:text("* I'm Susie![wait:10]\n* I'm the one fought the Knight!", "sincere_smile", "susie")
+					cutscene:text("* And,[wait:5] well,[wait:5] lost,[wait:5] but...", "nervous_side", "susie")
 					cutscene:showNametag("Jamm")
-					cutscene:text("* Fountains?", "neutral", "jamm")
+					cutscene:text("* The Knight?", "neutral", "jamm")
 					cutscene:showNametag("Susie")
-					cutscene:text("* They,[wait:5] uh,[wait:5] let us enter the dark worlds.", "smirk", "susie")
+					cutscene:text("* They have been opening the fountains.", "smirk", "susie")
 					cutscene:showNametag("Jamm")
 					cutscene:text("* Yeah,[wait:5] sounds about right.", "stern", "jamm")
 				elseif Game.party[1].id == "hero" then
@@ -132,12 +132,12 @@ return {
 			for k,party in ipairs(Game.party) do
 				if party.id == "susie" then
 					cutscene:showNametag("Susie")
-					cutscene:text("* I'm Susie![wait:10]\n* I'm the one who made the fountains!", "sincere_smile", "susie")
-					cutscene:text("* I mean,[wait:5] not that I'm proud of that NOW...", "nervous_side", "susie")
+					cutscene:text("* I'm Susie![wait:10]\n* I'm the one fought the Knight!", "sincere_smile", "susie")
+					cutscene:text("* And,[wait:5] well,[wait:5] lost,[wait:5] but...", "nervous_side", "susie")
 					cutscene:showNametag("Jamm")
-					cutscene:text("* Fountains?", "neutral", "jamm")
+					cutscene:text("* The Knight?", "neutral", "jamm")
 					cutscene:showNametag("Susie")
-					cutscene:text("* They,[wait:5] uh,[wait:5] let us enter the dark worlds.", "smirk", "susie")
+					cutscene:text("* They have been opening the fountains.", "smirk", "susie")
 					cutscene:showNametag("Jamm")
 					cutscene:text("* Yeah,[wait:5] sounds about right.", "stern", "jamm")
 				elseif party.id == "hero" then
