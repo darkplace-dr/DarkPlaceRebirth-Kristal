@@ -110,23 +110,32 @@ function actor:init()
 end
 
 function actor:onWorldDraw(chara)
-    local player = Game.world.player
+    if Kristal.Config["runAnimations"] then
+        local player = Game.world.player
 
-    if Game.world.cutscene and not self.cut then
-        self.default = "walk"
-        chara:resetSprite()
-        self.cut = true
-    elseif not Game.world.cutscene then
-        if self.cut then self.cut = nil end
-        if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
-            self.default = "run"
-            chara:resetSprite()
-        elseif self.default == "run" and player.run_timer == 0 then
+        local moving = false
+        local c, b = chara.x, chara.y
+        if c ~= self.l or b ~= self.ll then
+            moving = true
+        end
+
+        if Game.world.cutscene and not self.cut then
             self.default = "walk"
             chara:resetSprite()
+            self.cut = true
+        elseif not Game.world.cutscene then
+            if self.cut then self.cut = nil end
+            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene and moving then
+                self.default = "run"
+                chara:resetSprite()
+            elseif self.default == "run" and (player.run_timer == 0 or moving == false) then
+                self.default = "walk"
+                chara:resetSprite()
+            end
         end
+        self.l = chara.x
+        self.ll = chara.y
     end
-
 end
 
 return actor
