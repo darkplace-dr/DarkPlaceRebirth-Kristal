@@ -33,7 +33,7 @@ function DarkCharacterMenu:init(selected)
 
 	self:partySprites()
 
-	self.index = 3
+	self.index = 4
 
 	self.selected = selected or 1
 
@@ -44,7 +44,7 @@ function DarkCharacterMenu:init(selected)
 	self.text.y = 310
 	
 	self:addChild(self.heart_sprite)
-	self.heart_sprite.y = self.bg.y + 170
+	self.heart_sprite.y = self.bg.y + 125
 	self.heart_sprite.x = self.bg.x + (self.selected) * 100
 	self.target_x = self.bg.x + (self.selected) * 100
 	self:selection(0)
@@ -167,7 +167,7 @@ function DarkCharacterMenu:update()
 		end
 
 	elseif Input.pressed("confirm") then
-		if (self.selected == 3 and #Game.party == 1) then
+		if self.selected >= (#Game.party+2) then
 			self.ui_cant_select:stop()
 			self.ui_cant_select:play()
 			self.heart_sprite:shake(0, 5)

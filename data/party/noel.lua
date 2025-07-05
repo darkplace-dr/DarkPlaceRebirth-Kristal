@@ -41,7 +41,7 @@ function character:init()
     self:addSpell("quick_heal")
     self:addSpell("life_steal")
 
-    self:addSpell("sirens_serenade") --Dont expect this spell to be perminant
+    --self:addSpell("sirens_serenade")
 
     -- Current health (saved to the save file)
     self.health = 890
@@ -118,7 +118,7 @@ function character:init()
     -- Message shown on gameover (optional)
     self.gameover_message = nil
 
-    local save = Game:loadNoel()
+    local save = Noel:loadNoel()
     if save and not Kristal.temp_save == true then
             self:loadEquipment(save.Equipped)
         self.health = save.Health
@@ -216,7 +216,7 @@ end
 
 
 function character:getGameOverMessage(main)
-    --local save = Game:loadNoel()
+    --local save = Noel:loadNoel()
     ---assert(save)
     return {
         "oh...[wait:5]\nYou died...",
@@ -284,7 +284,7 @@ end
 
 function character:load(data)
 
-    local save = Game:loadNoel()
+    local save = Noel:loadNoel()
     local save_stat = {}
     local lw_save_stat = {}
     if save then
@@ -342,6 +342,10 @@ function character:load(data)
 
     if Kristal.temp_save == true then
         Kristal.temp_save = nil
+    end
+
+    if self:hasSpell("sirens_serenade") then
+        self:removeSpell("sirens_serenade")
     end
 end
 

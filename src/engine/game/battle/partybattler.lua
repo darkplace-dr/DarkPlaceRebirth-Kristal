@@ -478,6 +478,10 @@ function PartyBattler:update()
 
     self.darken_fx.color = {1 - (self.darken_timer / 30), 1 - (self.darken_timer / 30), 1 - (self.darken_timer / 30)}
 
+    if self.jumping then
+        self:processJump()
+    end
+
     super.update(self)
 end
 
@@ -682,6 +686,94 @@ function PartyBattler:onDefeatFatal(damage, battler)
             Game.battle.party[num] = nil
             Game.battle.battle_ui.action_boxes[num]:remove()
             Game.party[num] = nil
+        end
+    end
+end
+
+function PartyBattler:jumpTo(x, y, speed, time, jump_sprite, land_sprite)
+    if type(x) == "string" then
+        land_sprite = jump_sprite
+        jump_sprite = time
+        time = speed
+        speed = y
+        x, y = self.world.map:getMarker(x)
+    end
+    self.jump_start_x = self.x
+    self.jump_start_y = self.y
+    self.jump_x = x
+    self.jump_y = y
+    self.jump_speed = speed or 0
+    self.jump_time = time or 1
+    self.jump_sprite = jump_sprite
+    self.land_sprite = land_sprite
+    self.fake_gravity = 0
+    self.jump_arc_y = 0
+    self.jump_timer = 0
+    self.real_y = 0
+    self.drawshadow = false
+    --dark = (global.darkzone + 1)
+    self.jump_use_sprites = false
+    self.jump_sprite_timer = 0
+    self.jump_progress = 0
+    self.init = false
+
+    if (jump_sprite ~= nil) then
+        self.jump_use_sprites = true
+    end
+    self.drawshadow = false
+
+    self.jumping = true
+end
+
+function PartyBattler:processJump()
+    if (not self.init) then
+        self.fake_gravity = (self.jump_speed / ((self.jump_time*30) * 0.5))
+        self.init = true
+
+        self.false_end_x = self.jump_x
+        self.false_end_y = self.jump_y
+        if (self.jump_use_sprites) then
+            self.sprite:set(self.land_sprite)
+            self.jump_progress = 1
+        else
+            self.jump_progress = 2
+        end
+    end
+    if (self.jump_progress == 1) then
+        self.jump_sprite_timer = self.jump_sprite_timer + DT
+        if (self.jump_sprite_timer >= 5/30) then
+            self.sprite:set(self.jump_sprite)
+            self.jump_progress = 2
+        end
+    end
+    if (self.jump_progress == 2) then
+        self.jump_timer = self.jump_timer + DT
+        self.jump_speed = self.jump_speed - (self.fake_gravity * DTMULT)
+        self.jump_arc_y = self.jump_arc_y - (self.jump_speed * DTMULT)
+        self.x = Utils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
+        self.real_y = Utils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
+
+        self.x = self.x
+        self.y = self.real_y + self.jump_arc_y
+
+        if (self.jump_timer >= self.jump_time) then
+            self.x = self.jump_x
+            self.y = self.jump_y
+
+            self.jump_progress = 3
+            self.jump_sprite_timer = 0
+        end
+    end
+    if (self.jump_progress == 3) then
+        if (self.jump_use_sprites) then
+            self.sprite:set(self.land_sprite)
+            self.jump_sprite_timer = self.jump_sprite_timer + DT
+        else
+            self.jump_sprite_timer = 10/30
+        end
+        if (self.jump_sprite_timer >= 5/30) then
+            self.sprite:setAnimation("battle/idle")
+            self.jumping = false
         end
     end
 end

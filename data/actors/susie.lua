@@ -309,15 +309,15 @@ function actor:init(style)
         ["sneak/left"] = {-6, 5},
         ["sneak/right"] = {-2, 5},
 
-        ["run/left"] = {0, 0},-- I dunno the offsets and neither where to find them in DR code
-        ["run/right"] = {0, 0},
-        ["run/up"] = {0, 0},
-        ["run/down"] = {0, 0},
+        ["run/left"] = {-6, 0},-- I dunno the offsets and neither where to find them in DR code
+        ["run/right"] = {-6, 0},
+        ["run/up"] = {-4, 0},
+        ["run/down"] = {-4, 0},
 
-        ["run_serious/left"] = {0, 0}, -- same situation as normal run sprites
-        ["run_serious/right"] = {0, 0},
-        ["run_serious/up"] = {0, 0},
-        ["run_serious/down"] = {0, 0},
+        ["run_serious/left"] = {-6, 0}, -- same situation as normal run sprites
+        ["run_serious/right"] = {-6, 0},
+        ["run_serious/up"] = {-4, 0},
+        ["run_serious/down"] = {-4, 0},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
@@ -336,6 +336,35 @@ function actor:getAnimation(anim)
         return self.animations_alt[anim] or nil
     else
         return super.getAnimation(self, anim)
+    end
+end
+
+function actor:onWorldDraw(chara)
+    if Kristal.Config["runAnimations"] then
+        local player = Game.world.player
+
+        local moving = false
+        local c, b = chara.x, chara.y
+        if c ~= self.l or b ~= self.ll then
+            moving = true
+        end
+
+        if Game.world.cutscene and not self.cut then
+            self.default = "walk"
+            chara:resetSprite()
+            self.cut = true
+        elseif not Game.world.cutscene then
+            if self.cut then self.cut = nil end
+            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene and moving then
+                self.default = "run"
+                chara:resetSprite()
+            elseif self.default == "run" and (player.run_timer == 0 or moving == false) then
+                self.default = "walk"
+                chara:resetSprite()
+            end
+        end
+        self.l = chara.x
+        self.ll = chara.y
     end
 end
 

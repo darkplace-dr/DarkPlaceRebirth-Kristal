@@ -240,6 +240,13 @@ function Battle:createPartyBattlers()
             end
         end
     end
+
+    if Game.party[4] then
+        self.back_row = PartyBattler(Game.party[4], 42, 324)
+        self:addChild(self.back_row)
+        --self:addChild(ActionBox(0, 0, 4, self.battle.back_row))
+    end
+
 end
 
 ---@param state string
@@ -1099,7 +1106,7 @@ function Battle:processCharacterActions()
     self.current_action_index = 1
 
     -- TODO: Remove COMBO action/class, combining/replacing with SPELL/CutsceneSpell
-    local order = {"ACT", {"SPELL", "ITEM", "SPARE", "COMBO"}}
+    local order = {"ACT", {"SPELL", "ITEM", "SPARE", "COMBO", "SWAP"}}
 
     for lib_id,_ in Kristal.iterLibraries() do
         order = Kristal.libCall(lib_id, "getActionOrder", order, self.encounter) or order
@@ -1467,7 +1474,43 @@ function Battle:processAction(action)
         battler:setAnimation("battle/defend")
         battler.defending = true
         return false
+    elseif action.action == "SWAP" then
+        local num = action.data.number
+        local bat = self.party[num]
+        local chr = self.back_row
+        local x, y = bat.x, bat.y
 
+        local speed = 0.2
+        if num == 3 then speed = 0.16 end
+        bat:jumpTo(chr.x, chr.y, 1, speed, "jump_ball", "landed")
+        Assets.playSound("jump")
+        chr:jumpTo(x, y, 1, speed, "jump_ball", "landed")
+
+        self.party[num] = chr
+        self.back_row = bat
+
+        self.timer:after(0.25, function()
+            self:sortChildren()
+        end)
+
+        self.timer:after(0.5, function()
+            self:sortChildren()
+            local box = self.battle_ui.action_boxes[num]
+            box.battler = self.party[num]
+            box:createButtons()
+            if box.battler.chara:getNameSprite() then
+                if not box.name_sprite then
+                    box.name_sprite = Sprite(box.battler.chara:getNameSprite(), 51 + box.name_offset_x, 14 + box.name_offset_y)
+                    box.box:addChild(box.name_sprite)
+                end
+                box.name_sprite:setSprite(box.battler.chara:getNameSprite())
+            elseif box.name_sprite then
+                box.name_sprite:remove()
+                box.name_sprite = nil
+            end
+            self:finishAction(action)
+        end)
+        return false
     else
         -- we don't know how to handle this...
         Kristal.Console:warn("Unhandled battle action: " .. tostring(action.action))
@@ -2556,6 +2599,7 @@ function Battle:returnToWorld()
         self.encounter:setFlag("violenced", true)
     end
     self.transition_timer = 0
+    if self.back_row then self.party[4] = self.back_row end
     for _,battler in ipairs(self.party) do
         if self.party_world_characters[battler.chara.id] then
             self.party_world_characters[battler.chara.id].visible = true
