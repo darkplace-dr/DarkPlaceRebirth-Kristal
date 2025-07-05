@@ -225,6 +225,8 @@ function DarkConfigMenu:update()
                 if self.currently_selected == 1 then
                     self.state = "BORDER"
                 elseif self.currently_selected == 2 then
+                    Kristal.Config["runAnimations"] = not Kristal.Config["runAnimations"] or false
+                elseif self.currently_selected == 3 then
                     Game.world.menu:closeBox()
                 end
             end
@@ -253,7 +255,7 @@ function DarkConfigMenu:update()
         if self.current_config_page == 1 then
             self.currently_selected = Utils.clamp(self.currently_selected, 1, 7)
         elseif self.current_config_page == 2 then
-            self.currently_selected = Utils.clamp(self.currently_selected, 1, 2)
+            self.currently_selected = Utils.clamp(self.currently_selected, 1, 3)
         end
 		
         local old_page = self.current_config_page
@@ -403,7 +405,11 @@ function DarkConfigMenu:draw()
             end
             love.graphics.print("Border", 88, 38 + (0 * 32))
             Draw.setColor(PALETTE["world_text"])
-            love.graphics.print("Back", 88, 38 + (1 * 32))
+
+            love.graphics.print("Run Animations", 88, 38 + (1 * 32))
+            love.graphics.print(Kristal.Config["runAnimations"] and "ON" or "OFF", 348, 38 + (1 * 32))
+
+            love.graphics.print("Back", 88, 38 + (2 * 32))
 			
             if self.state == "BORDER" then
                 love.graphics.setColor(PALETTE["world_text_selected"])

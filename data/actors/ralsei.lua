@@ -296,18 +296,39 @@ function actor:initChapter2()
         ["sneak/left"] = {-5, -3},
         ["sneak/right"] = {7, -3},
 
-        ["run/left"] = {0, 0},-- I dunno the offsets and neither where to find them in DR code
-        ["run/right"] = {0, 0},
-        ["run/up"] = {0, 0},
-        ["run/down"] = {0, 0},
+        ["run/left"] = {-6, 0},-- I dunno the offsets and neither where to find them in DR code
+        ["run/right"] = {-6, 0},
+        ["run/up"] = {-4, 0},
+        ["run/down"] = {-2, 0},
 
-        ["float/left"] = {0, 0}, -- same situation as run sprites
-        ["float/right"] = {0, 0},
+        ["float/left"] = {-6, -6}, -- same situation as run sprites
+        ["float/right"] = {-6, -6},
         ["float/up"] = {0, 0},
         ["float/down"] = {0, 0},
     }
 
     self.menu_anim = "pose"
+end
+
+function actor:onWorldDraw(chara)
+    if Kristal.Config["runAnimations"] then
+        local player = Game.world.player
+
+        if Game.world.cutscene and not self.cut then
+            self.default = "walk"
+            chara:resetSprite()
+            self.cut = true
+        elseif not Game.world.cutscene then
+            if self.cut then self.cut = nil end
+            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
+                self.default = "run" --({"run", "float"})[math.random(2)]
+                chara:resetSprite()
+            elseif self.default ~= "walk" and player.run_timer == 0 then
+                self.default = "walk"
+                chara:resetSprite()
+            end
+        end
+    end
 end
 
 return actor
