@@ -64,6 +64,8 @@ function actor:init()
 
         -- Cutscene animations
         --["laugh"]               = {"laugh", 4/30, true},
+
+        ["jump_ball"] = {"ball", 1/15, true},
     }
 
     -- Table of sprite offsets (indexed by sprite name)

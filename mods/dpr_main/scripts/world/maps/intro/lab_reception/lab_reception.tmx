@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="74">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tilesets/blue_grass_lol.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,134,135,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,150,151,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="65" x="0" y="80" width="640" height="40"/>
+  <object id="68" x="-40" y="0" width="40" height="480"/>
+  <object id="71" x="0" y="480" width="640" height="40"/>
+  <object id="72" x="640" y="0" width="40" height="480"/>
+ </objectgroup>
+ <objectgroup id="5" name="objects_bg"/>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="73" name="interactable" x="300" y="80" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="one_offs.trapped_forever"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="12" name="entry" x="320" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

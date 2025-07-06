@@ -1,6 +1,7 @@
 return {
     ---@param cutscene WorldCutscene
     introcutscene = function(cutscene)
+        Game.reset_map = [[intro/lab_reception]]
         local text
         Game:setBorder("simple")
 

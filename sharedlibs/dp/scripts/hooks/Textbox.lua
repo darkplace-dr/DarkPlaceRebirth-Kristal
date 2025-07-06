@@ -14,6 +14,12 @@ function Textbox:setActor(actor)
             super.draw(self)
         end
     end
+
+    self.marcy = false
+    
+    if self.actor and self.actor.id == "marcy" and Game:getFlag("marcy_but_with_an_eye_patch_which_is_so_pirate___rhymes_with_grug", false) then
+        self.marcy = Assets.getTexture("face/marcy/patch")
+    end
 end
 
 function Textbox:draw()
@@ -42,6 +48,9 @@ function Textbox:draw()
                 self.blink = self.actor.blink or (self.blink + DTMULT)
             end
         end
+    end
+    if self.marcy then
+        Draw.draw(self.marcy, 18, 10, 0, 2, 2)
     end
 end
 

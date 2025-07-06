@@ -24,4 +24,16 @@ return {
 			cutscene:wait(cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y + 20))
 		end
     end,
+    trapped_forever = function(cutscene)
+        local id = Game.world.player.actor.id
+
+        if Game:getGlobalFlag(id.. "_trapped_forever", false) then
+            Game.world:loadMap("hub_elevator")
+        else
+            Game:setGlobalFlag(id.. "_trapped_forever", true)
+            Kristal.returnToMenu()
+        end
+    end,
+    lost_hero = function(cutscene)
+    end,
 }
