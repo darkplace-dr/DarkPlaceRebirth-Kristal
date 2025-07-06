@@ -17,7 +17,7 @@ function Textbox:setActor(actor)
 
     self.marcy = false
     
-    if self.actor and self.actor.id == "marcy" and Game:getFlag("marcy_but_with_an_eye_patch_which_is_so_pirate___rhymes_with_grug", false) then
+    if self.actor and self.actor.id == "marcy" and Game:getFlag("marcy_has_eyepatch", false) then
         self.marcy = Assets.getTexture("face/marcy/patch")
     end
 end
