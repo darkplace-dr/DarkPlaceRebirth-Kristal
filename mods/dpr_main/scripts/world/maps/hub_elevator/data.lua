@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -165,7 +165,7 @@ return {
             ["color_9"] = "#ff00c800",
             ["cutscene_10"] = "heaven_fall",
             ["cutscene_6"] = "broken_elevator",
-            ["dest_1"] = "pre_pit",
+            ["dest_1"] = "intro/lab_reception",
             ["dest_10"] = "nothing",
             ["dest_2"] = "main_hub",
             ["dest_3"] = "floor2/main_1",

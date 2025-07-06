@@ -148,6 +148,8 @@ function actor:init()
         ["brella"] = {"brella"},
         ["ashes_0"] = {"ashes_0"},
         ["ashes_1"] = {"ashes_1"},
+        ["landed"] = {"landed", 1/15},
+        ["jump_ball"] = {"ball", 1/15, true},
     }
 
     self.offsets = {

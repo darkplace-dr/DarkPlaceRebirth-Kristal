@@ -346,6 +346,8 @@ function Game:save(x, y)
 
     Kristal.callEvent(KRISTAL_EVENT.save, data)
 
+    Game.reset_map = nil
+
     return data
 end
 
@@ -472,12 +474,14 @@ function Game:load(data, index, fade)
     end
 
     local map = nil
-    local room_id = data.room_id or Kristal.getModOption("map")
+    local new_load = Game.reset_map or Kristal.getModOption("map")
+    local room_id = data.room_id or new_load
     if room_id and not self.bossrush_encounters then
         map = Registry.createMap(room_id, self.world)
 
         self.light = map.light or false
     end
+    if Game.reset_map then Game.reset_map = nil end
     
     self.default_equip_slots = data.default_equip_slots or 48
     if self.is_new_file and Game:getConfig("lessEquipments") then
