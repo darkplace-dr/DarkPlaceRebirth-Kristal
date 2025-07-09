@@ -85,7 +85,7 @@ function ActionButton:select()
                 end
             })
             Game.battle:setState("MENUSELECT", "SPARE")
-        elseif #Game.party > 3 then
+        elseif Game.battle.back_row then
 
             self:spare_menu()
 
@@ -157,6 +157,8 @@ function ActionButton:spare_menu()
         end
     })
 
+    if Game.battle.back_row then
+
     local par_t = Game.party
     local chr = Game.battle.back_row.chara
     local lol = true
@@ -182,6 +184,7 @@ function ActionButton:spare_menu()
                 Game.battle:pushAction("SWAP", nil, data)
             end
         })
+    end
 
 end
 
