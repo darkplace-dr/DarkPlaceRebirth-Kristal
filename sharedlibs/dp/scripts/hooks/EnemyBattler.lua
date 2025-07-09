@@ -9,6 +9,13 @@ function EnemyBattler:init(actor, use_overlay)
 	self.service_mercy = 20
 
     self.killable = false
+	
+	-- These next three variables are for the "Disarm" spell Jamm learns in Dark Future.
+	self.has_weapon = false
+	self.disarm_chance = -0.1
+	-- Ideally, armed enemies would have separate attacks and sprites for when they're disarmed.
+	-- Disarming doesn't deal damage. It only puts the enemy at some disadvantage.
+	self.disarmed = false
 end
 
 function EnemyBattler:registerMinipartyAct(party, mini, name, description, party, tp, highlight, icons)
@@ -133,5 +140,20 @@ end
 function EnemyBattler:canSleep()
     return self.tiredness >= 100
 end
+
+function EnemyBattler:attemptDisarm()
+    if self.has_weapon then
+		if not self.disarmed then
+			if Utils.random() <= self.disarm_chance then
+				return true, "* The enemy was disarmed!"
+			end
+			return false, "* The enemy resisted...[wait:10] Try again?"
+		end
+		return false, "* But the enemy was already disarmed."
+	end
+	return false, "* But the enemy couldn't be disarmed."
+end
+
+function EnemyBattler:onDisarm() end
 
 return EnemyBattler
