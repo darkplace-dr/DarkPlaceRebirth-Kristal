@@ -247,4 +247,12 @@ return {
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text"
   },
+  {
+    name = "Really Good Showrunner Cover",
+    file = "ReallyGoodShowrunnerCover",
+    composer = "Hyperboid",
+    released = "2025",
+    origin = "Super Mario 64: Beyond The Cursed Mirror(?)",
+    album = "itsfuckingmike"
+  },
 }
