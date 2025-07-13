@@ -20,6 +20,12 @@ function Textbox:setActor(actor)
     if self.actor and self.actor.id == "marcy" and Game:getFlag("marcy_has_eyepatch", false) then
         self.marcy = Assets.getTexture("face/marcy/patch")
     end
+
+    self.jamm = false
+    
+    if self.actor and self.actor.id == "jamm" and Game:getFlag("jamm_has_glasses", false) then
+        self.jamm = Assets.getTexture("face/jamm/glasses_overlay")
+    end
 end
 
 function Textbox:draw()
@@ -51,6 +57,9 @@ function Textbox:draw()
     end
     if self.marcy then
         Draw.draw(self.marcy, 18, 10, 0, 2, 2)
+    end
+    if self.jamm then
+        Draw.draw(self.jamm, -1, 3, 0, 2, 2)
     end
 end
 
