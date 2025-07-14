@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,7 +9,7 @@ return {
   height = 30,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 13,
+  nextlayerid = 14,
   nextobjectid = 69,
   properties = {
     ["border"] = "green_room",
@@ -46,7 +46,7 @@ return {
         {
           id = 13,
           name = "greenroom_floor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 140,
           y = 10,
@@ -59,7 +59,7 @@ return {
         {
           id = 14,
           name = "greenroom_floor_area",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 200,
@@ -75,7 +75,7 @@ return {
         {
           id = 15,
           name = "greenroom_floor_area",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 1040,
@@ -141,6 +141,56 @@ return {
       }
     },
     {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 24,
+      height = 30,
+      id = 13,
+      name = "floor_2",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 273, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 273, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 273, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
       type = "objectgroup",
       draworder = "topdown",
       id = 3,
@@ -157,7 +207,7 @@ return {
         {
           id = 1,
           name = "greenroom_wall",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 80,
@@ -170,11 +220,11 @@ return {
         {
           id = 2,
           name = "greenroom_wall",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 100,
+          x = 120,
           y = 440,
-          width = 180,
+          width = 160,
           height = 120,
           rotation = 0,
           visible = true,
@@ -183,7 +233,7 @@ return {
         {
           id = 3,
           name = "greenroom_wall",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 440,
@@ -196,11 +246,11 @@ return {
         {
           id = 4,
           name = "greenroom_wall",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 440,
-          width = 220,
+          width = 200,
           height = 120,
           rotation = 0,
           visible = true,
@@ -209,11 +259,11 @@ return {
         {
           id = 5,
           name = "greenroom_wall",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 920,
-          width = 340,
+          width = 320,
           height = 120,
           rotation = 0,
           visible = true,
@@ -238,7 +288,7 @@ return {
         {
           id = 60,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 200,
@@ -252,7 +302,7 @@ return {
         {
           id = 62,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 1010,
@@ -282,7 +332,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 38,
           y = 640,
@@ -296,7 +346,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 640,
@@ -310,7 +360,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1120,
@@ -324,7 +374,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 210,
@@ -404,7 +454,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 580,
@@ -418,7 +468,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 210,
           y = 580,
@@ -432,7 +482,7 @@ return {
         {
           id = 68,
           name = "transition",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 920,
           y = 1120,
@@ -520,7 +570,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 440,
@@ -533,7 +583,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 370,
           y = 420,
@@ -546,7 +596,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 440,
@@ -559,7 +609,7 @@ return {
         {
           id = 31,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 420,
@@ -572,7 +622,7 @@ return {
         {
           id = 32,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 450,
           y = 200,
@@ -585,7 +635,7 @@ return {
         {
           id = 34,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 200,
@@ -598,7 +648,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 80,
@@ -611,7 +661,7 @@ return {
         {
           id = 36,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 0,
@@ -624,7 +674,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 0,
@@ -637,7 +687,7 @@ return {
         {
           id = 38,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 440,
@@ -650,7 +700,7 @@ return {
         {
           id = 39,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 640,
@@ -663,7 +713,7 @@ return {
         {
           id = 40,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 920,
@@ -676,7 +726,7 @@ return {
         {
           id = 41,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 1120,
@@ -689,7 +739,7 @@ return {
         {
           id = 42,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 640,
@@ -702,7 +752,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 640,
@@ -715,7 +765,7 @@ return {
         {
           id = 44,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 840,
           y = 560,
@@ -733,7 +783,7 @@ return {
         {
           id = 45,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 40,
           y = 640,
@@ -751,7 +801,7 @@ return {
         {
           id = 53,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 370,
           y = 560,
@@ -764,7 +814,7 @@ return {
         {
           id = 56,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 230,
           y = 560,
@@ -777,7 +827,7 @@ return {
         {
           id = 57,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 530,
           y = 900,
@@ -790,7 +840,7 @@ return {
         {
           id = 59,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 200,
@@ -819,7 +869,7 @@ return {
         {
           id = 65,
           name = "entry_greenroom",
-          class = "",
+          type = "",
           shape = "point",
           x = 820,
           y = 1080,

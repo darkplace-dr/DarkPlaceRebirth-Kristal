@@ -6,7 +6,7 @@ function TensionBar:init(x, y, dont_animate, volume_mode)
 	
 	self.mic = Mod.mic_controller
 	self.volume_bar_mode = volume_mode or false
-	if Game.battle and Game.battle.encounter and Game.battle.encounter.uses_mic then
+	if Game.battle and Game.battle.encounter and Game.battle.encounter.mike_battle then
 		self.volume_bar_mode = true
 	end
 	if self.volume_bar_mode then
@@ -113,7 +113,7 @@ function TensionBar:drawFill()
 			love.graphics.setColor(COLORS["red"])
 		end
         Draw.pushScissor()
-        Draw.scissorPoints(0, 196 - ((self.mic.mic_volume_real/100) * 195) - 3, 25, 196)
+        Draw.scissorPoints(0, 197 - ((self.mic.mic_volume_real/100) * 196) - 4, 25, 197)
         Draw.draw(self.tp_bar_fill, 0, 0)
         Draw.popScissor()
 	else

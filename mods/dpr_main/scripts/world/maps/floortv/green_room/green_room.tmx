@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="93">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -68,6 +68,7 @@
   <object id="23" gid="388" x="760" y="280" width="280" height="40"/>
   <object id="38" name="savepoint" x="404" y="397" width="40" height="40">
    <properties>
+    <property name="flagcheck" value="!can_kill"/>
     <property name="text1" value="* (Stars ripple on the walls like soft music.)"/>
     <property name="text2" value="* (You're filled with the power of relaxation.)"/>
    </properties>
@@ -109,6 +110,13 @@
     <property name="marker" value="entry_greenroom"/>
    </properties>
    <polygon points="0,0 80,80 80,40 0,-40"/>
+  </object>
+  <object id="93" name="savepoint" x="404" y="397" width="40" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+    <property name="text1" value="* (The room is quiet,[wait:5] with nobody left to enjoy it...)"/>
+    <property name="text2" value="* (You feel a sense of emptiness.)"/>
+   </properties>
   </object>
  </objectgroup>
  <layer id="6" name="above" width="36" height="12">

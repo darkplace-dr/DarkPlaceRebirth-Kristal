@@ -115,8 +115,8 @@
   </object>
   <object id="48" name="transition" x="-40" y="240" width="40" height="120">
    <properties>
-    <property name="map" value="floortv/stealthtest"/>
-    <property name="marker" value="spawn"/>
+    <property name="map" value="floortv/stealthzone"/>
+    <property name="marker" value="entry_right"/>
    </properties>
   </object>
  </objectgroup>
@@ -127,7 +127,7 @@
   <object id="45" name="entry_right" x="920" y="300">
    <point/>
   </object>
-  <object id="46" name="entry_left" x="80" y="300">
+  <object id="46" name="entry_left" x="40" y="300">
    <point/>
   </object>
  </objectgroup>

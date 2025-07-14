@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 24,
+  tilecount = 25,
   tiles = {
     {
       id = 0,
@@ -168,6 +168,12 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png",
       width = 37,
       height = 37
+    },
+    {
+      id = 26,
+      image = "../../../assets/sprites/world/maps/tvland/stealthzone.png",
+      width = 66,
+      height = 30
     }
   }
 }

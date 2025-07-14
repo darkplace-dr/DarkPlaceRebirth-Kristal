@@ -516,8 +516,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floortv/stealthtest",
-            ["marker"] = "spawn"
+            ["map"] = "floortv/stealthzone",
+            ["marker"] = "entry_right"
           }
         }
       }
@@ -567,7 +567,7 @@ return {
           name = "entry_left",
           type = "",
           shape = "point",
-          x = 80,
+          x = 40,
           y = 300,
           width = 0,
           height = 0,

@@ -294,6 +294,12 @@ function Mod:onMapMusic(map, music)
     end
 end
 
+function Mod:onMapBorder(map, border)
+	if border == "green_room" and map.id:find("floortv/") and Game:getFlag("can_kill", false) then
+		return "green_room_blue"
+	end
+end
+
 ---@param file DeltaruneSave
 function Mod:loadDeltaruneFile(file)
     -- TODO: Load items into custom storages, and
