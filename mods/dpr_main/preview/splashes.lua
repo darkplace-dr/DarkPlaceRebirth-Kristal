@@ -84,4 +84,5 @@ return {
     "Knockback Bros.\nbut like not\nadvanced",
     "We'll cross that bridge\nwhen we come to it.",
     "I will become back\nmy money.",
+	"Chess Battle Advanced"
 }
