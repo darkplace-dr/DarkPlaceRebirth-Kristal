@@ -9,6 +9,7 @@ function MicMenu:init()
     self.draw_children_below = 0
 
     self.font = Assets.getFont("main")
+    self.ja_font = Assets.getFont("ja_main")
 
     self.heart_sprite = Assets.getTexture("player/heart_centered")
     self.star_sprite = Assets.getTexture("ui/battle/sparestar")
@@ -146,11 +147,17 @@ function MicMenu:update()
 				else
 					mic.right_click_mic = 0
 				end
+				if #mic.mic_inputs <= 0 and mic.right_click_mic == 0 then
+					mic.right_click_mic = 2
+				end
 			elseif self.selected_y == self.menu_max - 1 and not Kristal.isConsole() then
 				if mic.right_click_mic ~= 2 then
 					mic.right_click_mic = 2
 				else
 					mic.right_click_mic = 0
+				end
+				if #mic.mic_inputs <= 0 and mic.right_click_mic == 0 then
+					mic.right_click_mic = 1
 				end
 			else
 				self.chosen_y = self.selected_y
@@ -211,7 +218,7 @@ function MicMenu:draw()
 			if i >= menu_y and i < menu_y + 8 then
 				if mic.right_click_mic == 0 then
 					if self.chosen_y == i and #Mod.mic_controller.mic_inputs > 0 then
-						str = "   "
+						str = " "
 						Draw.setColor(1, 1, 1)
 						Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
 						Draw.setColor(Utils.hexToRgb("#FFFF40"))
@@ -219,17 +226,23 @@ function MicMenu:draw()
 						Draw.setColor(1, 1, 1)
 					end
 				elseif i == self.menu_max - 2 and mic.right_click_mic == 1 then
-					str = "   "
+					str = " "
 					Draw.setColor(1, 1, 1)
 					Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
 					Draw.setColor(Utils.hexToRgb("#FFFF40"))
 				elseif i == self.menu_max - 1 and mic.right_click_mic == 2 then
-					str = "   "
+					str = " "
 					Draw.setColor(1, 1, 1)
 					Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
 					Draw.setColor(Utils.hexToRgb("#FFFF40"))
 				else
 					Draw.setColor(1, 1, 1)
+				end
+				
+				if i ~= self.menu_max then
+					love.graphics.setFont(self.ja_font)
+				else
+					love.graphics.setFont(self.font)
 				end
 				
 				if i == self.menu_max then
@@ -239,7 +252,7 @@ function MicMenu:draw()
 				elseif i == self.menu_max - 1 and not Kristal.isConsole() then
 					local input_str = Input.getText("cancel")
 					if Input.usingGamepad() then
-						input_str = "    "
+						input_str = " "
 						local x_off = 0
 						if mic.right_click_mic == 2 then
 							x_off = 18
@@ -255,7 +268,7 @@ function MicMenu:draw()
 					if mic.mic_names[i] then
 						mic_name = mic.mic_names[i]
 						local shortened = false
-						while self.font:getWidth(mic_name) > 300 do
+						while self.ja_font:getWidth(mic_name) > 300 do
 							mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name) - 1)
 							shortened = true
 						end
@@ -318,6 +331,7 @@ function MicMenu:draw()
 			end
 		end
 		
+		love.graphics.setFont(self.font)
 		if self.menu_max > 7 then
 			love.graphics.setColor(COLORS["dkgray"])
 			love.graphics.rectangle("fill", self.box.x - 32 + 580 - 29, self.box.y - 32 + 70, 5, 222)
@@ -351,15 +365,30 @@ function MicMenu:draw()
 		if mic.mic_names[mic.mic_id] then
 			local mic_name = mic.mic_names[mic.mic_id]
 			local shortened = false
-			while self.font:getWidth(mic_name) > 600 do
+			while self.ja_font:getWidth(mic_name) > 600 do
 				mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name) - 1)
 				shortened = true
 			end
 			if shortened then
 				mic_name = mic_name.."..."
 			end
+			if mic.right_click_mic == 1 then
+				mic_name = "Mouse Right-Click"
+			elseif mic.right_click_mic == 2 then
+				mic_name = Input.getText("cancel")
+				if Input.usingGamepad() then
+					mic_name = " "
+					local r, g, b, a = love.graphics.getColor()
+					Draw.setColor(0.5, 0.5, 0.5)
+					Draw.draw(Input.getTexture("cancel"), self.box.x - 32 + 190, self.box.y - 32 + 344 - 46, 0, 1, 1)
+					Draw.setColor(r,g,b,a)
+				end
+			end
 			Draw.setColor(0.5, 0.5, 0.5)
-			love.graphics.print("* Current Microphone:  "..mic_name, self.box.x - 32 + 48, self.box.y - 32 + 344 - 48, 0, 0.5, 0.5)
+			love.graphics.print("* Current Microphone:  ", self.box.x - 32 + 48, self.box.y - 32 + 344 - 48, 0, 0.5, 0.5)
+			love.graphics.setFont(self.ja_font)	
+			love.graphics.print(mic_name, self.box.x - 32 + 48 + self.font:getWidth("* Current Microphone:  ")/2, self.box.y - 32 + 344 - 48, 0, 0.5, 0.5)
+			love.graphics.setFont(self.font)
 		end
 		love.graphics.setLineWidth(4)
 		love.graphics.setColor(Utils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))

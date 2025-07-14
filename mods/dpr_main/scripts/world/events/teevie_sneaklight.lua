@@ -12,6 +12,7 @@ function TeevieSneakLight:init(data)
 	self.spotlight = Assets.getTexture("world/events/teevie_sneaklight/spotlight")
 	
 	self.wall_y = properties["wally"] or 240
+	self.type = properties["type"] or 1
 	self.move_type = properties["movetype"] or 0
 	self.path = properties["path"]
 	self.speed = properties["speed"] or 100
@@ -45,14 +46,21 @@ function TeevieSneakLight:onAdd(parent)
 end
 
 function TeevieSneakLight:draw()
-    local squash_height = 1
-    local stretch_height = math.min((self.wall_y - self.y) / 8, self.light_height)
-	love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.45)
-	if stretch_height > 0 then
-		Draw.drawPart(self.texture, 0, 0, 0, 0, self.light_width, stretch_height, 0, 4, 8, 15, 0)
+	if self.type == 0 then
+		love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.5)
+		Draw.draw(self.texture, 0 + math.sin(self.timer / 10) * 4, 0 + math.cos(self.timer / 23) * 1, 0, self.scale_x * 2, self.scale_y, 15, 7)
+		love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.4)
+		Draw.draw(self.texture, 0 + math.sin(self.timer / 11) * 4, 0, 0, (self.scale_x * 2) + 0.5, self.scale_y + 0.2, 15, 7)
+	else
+		local squash_height = 1
+		local stretch_height = math.min((self.wall_y - self.y) / 8, self.light_height)
+		love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.45)
+		if stretch_height > 0 then
+			Draw.drawPart(self.texture, 0, 0, 0, 0, self.light_width, stretch_height, 0, 4, 8, 15, 0)
+		end
+		love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.6)
+		Draw.drawPart(self.texture, 0, 0 + stretch_height * 8, 0, stretch_height, self.light_width, self.light_height - stretch_height, 0, 4, 4, 15, 0)
 	end
-	love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.alpha * 0.6)
-    Draw.drawPart(self.texture, 0, 0 + stretch_height * 8, 0, stretch_height, self.light_width, self.light_height - stretch_height, 0, 4, 4, 15, 0)
 	if self.lamp then
 		local modder = math.sin(self.timer / 10)
 		
@@ -64,7 +72,7 @@ function TeevieSneakLight:draw()
 		love.graphics.setColor(1,1,1,1)
 		Draw.draw(self.spotlight, modder*2, (self.yy-self.y - (self.yy-self.y)/4)-self.lightpos, 0, 2, 2, 10, 0)
 	end
-	if DEBUG_RENDER then
+	if DEBUG_RENDER and self.type ~= 0 then
 		love.graphics.setColor(1,0,0,1)
 		if self.catch_type == 1 and self.y < self.wall_y and math.abs(self.y - self.wall_y) < 110 then 
 			Draw.rectangle("line", -18, self.wall_y-self.y-41, 41, 44+self.yy-self.wall_y)
@@ -82,6 +90,9 @@ function TeevieSneakLight:isActive()
 end
 
 function TeevieSneakLight:doCatch()
+	if self.type == 0 then
+		return
+	end
 	self.alerted = true
 	Game.lock_movement = true
 	self.world.timer:tween(16/30, self, {x = Game.world.player.x}, "out-back")
@@ -98,8 +109,7 @@ end
 function TeevieSneakLight:update()
     if self:isActive() then
 		self.timer = self.timer + DTMULT
-			local stretch_height = math.min((self.wall_y - self.y) / 8, self.light_height)
-			if not self.alerted then
+		if not self.alerted then
 			if self.path and self.world.map.paths[self.path] then
 				local path = self.world.map.paths[self.path]
 
@@ -137,44 +147,47 @@ function TeevieSneakLight:update()
 			Game.world:addChild(effect)
 			self.particle_timer = 0
 		end
-
-        if self.can_catch and not self.alerted then
-            if self.world.player then
-                Object.startCache()
-				if self.catch_type == 1 then
-					if self.y < self.wall_y and math.abs(self.y - self.wall_y) < 110 then
-						local in_radius = self.world.player:collidesWith(Hitbox(self.world, self.x-18, self.wall_y-41, 41, 44+self.yy-self.wall_y))
+		
+		if self.type ~= 0 then
+			if self.can_catch and not self.alerted then
+				if self.world.player then
+					Object.startCache()
+					if self.catch_type == 1 then
+						if self.y < self.wall_y and math.abs(self.y - self.wall_y) < 110 then
+							local in_radius = self.world.player:collidesWith(Hitbox(self.world, self.x-18, self.wall_y-41, 41, 44+self.yy-self.wall_y))
+							if in_radius then
+								self:doCatch()
+							end
+						end
+					elseif self.catch_type == 0 then
+						local stretch_height = math.min((self.wall_y - self.y) / 8, self.light_height)
+						local in_radius = self.world.player:collidesWith(Hitbox(self.world, self.x-9, self.y+15+stretch_height * 4, 23, 37))
 						if in_radius then
 							self:doCatch()
 						end
 					end
-				elseif self.catch_type == 0 then
-					local in_radius = self.world.player:collidesWith(Hitbox(self.world, self.x-9, self.y+15+stretch_height * 4, 23, 37))
-					if in_radius then
-						self:doCatch()
-					end
-				end
-				if self.give_points and not self.alerted then
-					if self.points_buffer < 0 then
-						if Game:getFlag("sneaking_give_points", false) then
-							if math.abs(self.y - self.world.player.y) < 180 and math.abs(self.world.player.x - self.x) < 10 then
-								for _,light in ipairs(self.world:getEvents("teevie_sneaklight")) do
-									light.points_buffer = 4
+					if self.give_points and not self.alerted then
+						if self.points_buffer < 0 then
+							if Game:getFlag("sneaking_give_points", false) then
+								if math.abs(self.y - self.world.player.y) < 180 and math.abs(self.world.player.x - self.x) < 10 then
+									for _,light in ipairs(self.world:getEvents("teevie_sneaklight")) do
+										light.points_buffer = 4
+									end
+									self.give_points = false
+									Assets.playSound("barrel_jump", 0.8, 2)
+									self.color = Utils.mergeColor(self.color, COLORS["blue"], 0.1)
+									-- todo: points-like reward? i don't know
 								end
-								self.give_points = false
-								Assets.playSound("barrel_jump", 0.8, 2)
-								self.color = Utils.mergeColor(self.color, COLORS["blue"], 0.1)
-								-- todo: points-like reward? i don't know
 							end
+						else
+							self.points_buffer = self.points_buffer - DTMULT
 						end
-					else
-						self.points_buffer = self.points_buffer - DTMULT
 					end
+					Object.endCache()
 				end
-                Object.endCache()
-            end
-        end
-    end
+			end
+		end
+	end
 
     super.update(self)
 end

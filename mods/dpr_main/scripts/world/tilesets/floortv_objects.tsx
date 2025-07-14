@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="24" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="25" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -75,5 +75,8 @@
  </tile>
  <tile id="25">
   <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png"/>
+ </tile>
+ <tile id="26">
+  <image width="66" height="30" source="../../../assets/sprites/world/maps/tvland/stealthzone.png"/>
  </tile>
 </tileset>
