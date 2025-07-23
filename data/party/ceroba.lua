@@ -50,7 +50,7 @@ function character:init()
         magic = 5
     }
 
-    self.weapon_icon = "ui/menu/equip/staff"
+    self.weapon_icon = "ui/menu/equip/staff_c"
 
     self:setWeapon("cerobas_staff")
     self:setArmor(1, "hair_ribbon")

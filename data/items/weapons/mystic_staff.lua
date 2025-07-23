@@ -1,25 +1,25 @@
-local item, super = Class(Item, "beginners_wand")
+local item, super = Class(Item, "mystic_staff")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "B.'s Wand"
+    self.name = "MysticStaff"
 
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = "ui/menu/icon/wand"
+    self.icon = "ui/menu/icon/staff"
 
     -- Battle description
     self.effect = ""
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "A beginner's magic wand."
+    self.description = "A dark purple staff with a lilac crystal orb.\nGrants a high magical bonus."
 
     -- Default shop price (sell price is halved)
-    self.price = 40
+    self.price = 1000
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,33 +34,29 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 0,
+        magic = 5,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = nil
-    self.bonus_icon = nil
+    self.bonus_name = "Magic Up"
+    self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
+        ceroba = true,
         nell = true,
     }
 
     -- Character reactions
     self.reactions = {
-        susie = "THAT'S JUST A STICK!",
-        ralsei = "Oh... It's... What's that?",
-        noelle = "I don't think I can use it...",
-		dess = "your a wizard, harry",
-        brenda = "Uh... Abracadabra?",
-		jamm = "I'm not really a wizard.",
-        noel = "Glorified Toy...",
-        ceroba = "I don't need that to do magic.",
-        nell = "Okay...?"
+        susie = "Well, if I have to.",
+        ralsei = "Not my type of magic...",
+        noelle = "(It looks...)",
+		dess = "\"mystic\" my ass",
+        brenda = "",
+        jamm = "",
+        ceroba = "Good fit for a hero. But not me.",
+        nell = "Back to origins, eh?"
     }
-end
-
-function item:convertToLightEquip(inventory)
-    return "light/foam_dart_rifle"
 end
 
 return item

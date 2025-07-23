@@ -28,16 +28,16 @@ function character:init()
 
     self.stats = {
         health = 130,
-        attack = 3,
+        attack = 6,
         defense = 2,
-        magic = 5
+        magic = 0
     }
 
     self.max_stats = {}
 
-    self.weapon_icon = "ui/menu/equip/wand"
+    self.weapon_icon = "ui/menu/equip/staff"
 
-    self:setWeapon("beginners_wand")
+    self:setWeapon("mystic_staff")
     self:setArmor(1, "amber_card") -- Placeholder
     self:setArmor(2, "amber_card") -- Placeholder
 
@@ -56,8 +56,8 @@ function character:init()
     self.head_icons = "party/nell/icon"
     self.name_sprite = "party/nell/name"
 
-    self.attack_sprite = "effects/attack/cut" -- Placeholder
-    self.attack_sound = "laz_c" -- Placeholder
+    self.attack_sprite = "effects/attack/cut_nell"
+    self.attack_sound = "laz_c"
     self.attack_pitch = 1
 
     self.battle_offset = {0, 0}
@@ -88,16 +88,16 @@ end
 
 function character:drawPowerStat(index, x, y, menu)
     if index == 1 then
-        local icon = Assets.getTexture("ui/menu/icon/shy")
+        local icon = Assets.getTexture("ui/menu/icon/question")
         love.graphics.draw(icon, x-26, y+6, 0, 2, 2)
-        love.graphics.print("Notmuchtosay", x, y, 0, 0.7, 1)
-        love.graphics.print("Yes", x+130, y)
+        love.graphics.print("??????:", x, y)
+        love.graphics.print("???", x+130, y)
         return true
     elseif index == 2 then
-        local icon = Assets.getTexture("ui/menu/icon/cool")
+        local icon = Assets.getTexture("ui/menu/icon/question")
         love.graphics.draw(icon, x-26, y+6, 0, 2, 2)
-        love.graphics.print("Original", x, y)
-        love.graphics.print("No", x+130, y)
+        love.graphics.print("??????:", x, y)
+        love.graphics.print("???", x+130, y)
         return true
     elseif index == 3 then
         local icon = Assets.getTexture("ui/menu/icon/fire")
