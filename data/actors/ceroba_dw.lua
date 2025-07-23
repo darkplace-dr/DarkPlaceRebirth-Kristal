@@ -50,7 +50,6 @@ function actor:init()
 
         ["battle/attack_end"]   = {"battle/attackend", 1/15, false, next="battle/idle"},
         ["battle/act_end"]      = {"battle/actend", 1/15, false, next="battle/idle"},
-        ["battle/defend_end"]   = {"battle/defendend", 1/15, false, next="battle/idle"},
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
@@ -81,26 +80,25 @@ function actor:init()
         ["slide"] = {-1, 1},
 
         -- Battle offsets
-        ["battle/idle"] = {-6, -6},
+        ["battle/idle"] = {-8, 0},
 
-        ["battle/attack"] = {-6, -12},
-        ["battle/attackready"] = {-6, -12},
-        ["battle/attackend"] = {-6, -6},
-        ["battle/act"] = {6, -7},
-        ["battle/actend"] = {-7, -7},
-        ["battle/actready"] = {-7, -7},
-        ["battle/spell"] = {-1, -13},
-        ["battle/spellready"] = {-1, -13},
-        ["battle/item"] = {-12, -6},
-        ["battle/itemready"] = {-12, -6},
-        ["battle/defend"] = {-6, -7},
-        ["battle/defendend"] = {-6, -7},
+        ["battle/attack"] = {-6, -4},
+        ["battle/attackready"] = {-6, -7},
+        ["battle/attackend"] = {-6, -2},
+        ["battle/act"] = {-3, -4},
+        ["battle/actend"] = {-9, -1},
+        ["battle/actready"] = {-3, -4},
+        ["battle/spell"] = {-3, -7},
+        ["battle/spellready"] = {-3, -7},
+        ["battle/item"] = {-14, 0},
+        ["battle/itemready"] = {-14, 0},
+        ["battle/defend"] = {2, 4},
 
-        ["battle/defeat"] = {-6, -6},
-        ["battle/hurt"] = {-6, -6},
+        ["battle/defeat"] = {-4, 6},
+        ["battle/hurt"] = {-8, 0},
 
-        ["battle/intro"] = {-6, -6},
-        ["battle/victory"] = {-6, -6},
+        ["battle/intro"] = {-10, 0},
+        ["battle/victory"] = {-8, 0},
 
         -- Cutscene offsets
         ["fall"] = {0, 0},
