@@ -6,7 +6,7 @@ function item:init()
     self.name = "Ceroba's Staff"
 
     self.type = "weapon"
-    self.icon = "ui/menu/icon/staff"
+    self.icon = "ui/menu/icon/staff_c"
 
     self.effect = ""
     self.shop = ""
