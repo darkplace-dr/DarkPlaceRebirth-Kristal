@@ -35,7 +35,8 @@ function item:init()
     -- Character reactions (key = party member id)
     self.reactions = {
         susie = "... Isn't that rain?",
-        noelle = "It's like when we ate snow."
+        noelle = "It's like when we ate snow.",
+        ceroba = "Not much difference from water."
     }
 end
 

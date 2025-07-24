@@ -39,7 +39,8 @@ function item:init()
     self.reactions = {
         susie = "Like my old school.",
         ralsei = "Is this legal?",
-        noelle = "Here, I refreezed it!"
+        noelle = "Here, I refreezed it!",
+        ceroba = "It's not bad, actually."
     }
 end
 

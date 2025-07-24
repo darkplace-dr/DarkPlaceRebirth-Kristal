@@ -41,7 +41,8 @@ function item:init()
     self.reactions = {
         susie = "Hell yeah! Cheers!",
         ralsei = "Y-yuck! Er, mmm, medicine?",
-        noelle = "... fine, you can have the LAST DROP."
+        noelle = "... fine, you can have the LAST DROP.",
+        ceroba = "Phew, that's a strong taste!"
     }
 end
 
