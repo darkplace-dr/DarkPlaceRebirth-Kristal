@@ -23,7 +23,7 @@ function Dess:init()
     self.low_health_percentage = 0.2
 
     self.waves = {
-        "basic"
+        "dess/starbeam"
     }
 
     self.dialogue = {
