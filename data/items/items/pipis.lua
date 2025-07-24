@@ -48,11 +48,13 @@ function item:init()
         kris = {
             susie = "Huh?",
             ralsei = "Where'd it go?",
-            noelle = "Kris! (I wanted that...)"
+            noelle = "Kris! (I wanted that...)",
+            ceroba = "(Did they just...!?)"
         },
         susie = "Hell no.",
         ralsei = "Is... that, um, nutritious?",
-        noelle = "C... Can we keep it?"
+        noelle = "C... Can we keep it?",
+        ceroba = "... that's just a blue ball."
     }
 end
 

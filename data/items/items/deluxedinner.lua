@@ -39,7 +39,8 @@ function item:init()
     self.reactions = {
         susie = "Look, I'm a roach.",
         ralsei = "I'm a comfy caterpillar!",
-        noelle = "I'm, um, an alien?"
+        noelle = "I'm, um, an alien?",
+        ceroba = "Uh... What do I do with these?"
     }
 end
 

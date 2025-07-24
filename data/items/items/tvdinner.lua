@@ -21,7 +21,8 @@ function item:init()
     self.description_variants = {
         [1] = "A TV-shaped premade meal. The TV's pointy\nnose is used as a cone for the ice cream.",
         [2] = "A TV-shaped premade meal. Unfortunately,\nthe vegan steak seems to be a normal shape.",
-        [3] = "A TV-shaped premade meal. It even has\na giant crumb of your favorite pie."
+        [3] = "A TV-shaped premade meal. It even has\na giant crumb of your favorite pie.",
+        [4] = "A TV-shaped premade meal. You can see\na mix of various foods in it."
     }
 
     -- Amount healed (HealItem variable)
@@ -51,17 +52,26 @@ function item:init()
             },
             susie = "Ack, it's leaking!",
             ralsei = "Look at my long nose!",
-            noelle = "\"Brain freeze is for the weak!\""
+            noelle = "\"Brain freeze is for the weak!\"",
+            ceroba = "(I wonder if they have my favorite...)"
         },
         [2] = {
             susie = "... obviously isn't real blood.",
             ralsei = "Rare? I ate a rare item?",
-            noelle = "I can hardly tell it's not, um, real blood."
+            noelle = "I can hardly tell it's not, um, real blood.",
+            ceroba = "What does \"vegan\" mean anyway?"
         },
         [3] = {
             susie = "Butterscotch, nice!",
             ralsei = "Wow, what a nice flavor!",
-            noelle = "Mmm, butterscotch!"
+            noelle = "Mmm, butterscotch!",
+            ceroba = "Would be great with some tea."
+        },
+        [4] = {
+            susie = "Heh, meat! Nice.",
+            ralsei = "Such a rich flavor!",
+            noelle = "It's crunchy like a salad!",
+            ceroba = "A bold decision to mix so much stuff."
         }
     }
 end
