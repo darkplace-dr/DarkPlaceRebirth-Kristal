@@ -52,6 +52,7 @@ function item:init()
         susie = "Sleigh the bad guys.",
         ralsei = "Mmm! Minty and festive!",
         noelle = "What is this, a barber pole?",
+        jamm = "I know Susie'd try to eat this."
     }
 end
 
