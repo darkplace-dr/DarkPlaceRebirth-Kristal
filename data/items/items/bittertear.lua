@@ -36,7 +36,8 @@ function item:init()
     self.reactions = {
         susie = "... Isn't that rain?",
         noelle = "It's like when we ate snow.",
-        ceroba = "Not much difference from water."
+        ceroba = "Not much difference from water.",
+        jamm = "So... it's water."
     }
 end
 

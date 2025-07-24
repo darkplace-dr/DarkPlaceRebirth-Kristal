@@ -40,7 +40,9 @@ function item:init()
         susie = "Look, I'm a roach.",
         ralsei = "I'm a comfy caterpillar!",
         noelle = "I'm, um, an alien?",
-        ceroba = "Uh... What do I do with these?"
+        ceroba = "Uh... What do I do with these?",
+        jamm = "I always hated the accessories.",
+        ["jamm+marcy"] = "They look cute on you, Marcy!"
     }
 end
 
