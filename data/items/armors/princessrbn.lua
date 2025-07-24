@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = false,
+        jamm = false,
     }
 
     -- Character reactions
@@ -51,6 +52,7 @@ function item:init()
         susie = "Nah. Gloves don't fit.",
         ralsei = "Cute! (Gloves don't fit)",
         noelle = "Kris, you can wear the gloves!",
+        jamm = "I'm already wearing gloves!"
     }
 end
 
