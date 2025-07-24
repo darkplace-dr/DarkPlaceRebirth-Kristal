@@ -51,6 +51,7 @@ function item:init()
         susie = "ABSOLUTELY not.",
         ralsei = "Yeah!",
         noelle = "Go...  t... team?",
+        jamm = "GO US!"
     }
     -- Ralsei cheer reactions (advanced on each equip)
     self.ralsei_cheer_reactions = {

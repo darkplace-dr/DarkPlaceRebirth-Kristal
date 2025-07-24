@@ -52,6 +52,7 @@ function item:init()
         susie = "Heheh...",
         ralsei = "I'll keep my place.",
         noelle = "Look, ribbon dancing!",
+        jamm = "...What?"
     }
 end
 

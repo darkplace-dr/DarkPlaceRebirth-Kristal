@@ -53,25 +53,33 @@ function item:init()
             susie = "Ack, it's leaking!",
             ralsei = "Look at my long nose!",
             noelle = "\"Brain freeze is for the weak!\"",
-            ceroba = "(I wonder if they have my favorite...)"
+            ceroba = "(I wonder if they have my favorite...)",
+            jamm = "What flavor is this? I like it.",
+            ["jamm+marcy"] = "Yeah, you deserve it, Marcy."
         },
         [2] = {
             susie = "... obviously isn't real blood.",
             ralsei = "Rare? I ate a rare item?",
             noelle = "I can hardly tell it's not, um, real blood.",
-            ceroba = "What does \"vegan\" mean anyway?"
+            ceroba = {
+                ceroba = "What does \"vegan\" mean anyway?",
+                jamm = "No meat or dairy. No fun."
+            },
+            jamm = "It... TASTES like meat, at least."
         },
         [3] = {
             susie = "Butterscotch, nice!",
             ralsei = "Wow, what a nice flavor!",
             noelle = "Mmm, butterscotch!",
-            ceroba = "Would be great with some tea."
+            ceroba = "Would be great with some tea.",
+            jamm = "Wow! Pie is delicious!"     -- Never had pie before
         },
         [4] = {
             susie = "Heh, meat! Nice.",
             ralsei = "Such a rich flavor!",
             noelle = "It's crunchy like a salad!",
-            ceroba = "A bold decision to mix so much stuff."
+            ceroba = "A bold decision to mix so much stuff.",
+            jamm = "I always liked trail mix."
         }
     }
 end

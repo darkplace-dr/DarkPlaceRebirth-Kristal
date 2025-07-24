@@ -49,12 +49,14 @@ function item:init()
             susie = "Huh?",
             ralsei = "Where'd it go?",
             noelle = "Kris! (I wanted that...)",
-            ceroba = "(Did they just...!?)"
+            ceroba = "(Did they just...!?)",
+            jamm = "What th..."
         },
         susie = "Hell no.",
         ralsei = "Is... that, um, nutritious?",
         noelle = "C... Can we keep it?",
-        ceroba = "... that's just a blue ball."
+        ceroba = "... that's just a blue ball.",
+        jamm = "Looks like a giant egg..."
     }
 end
 

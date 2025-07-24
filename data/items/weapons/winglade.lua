@@ -50,6 +50,7 @@ function item:init()
         susie = "Don't make me sneeze!",
         ralsei = "Th-that tickles!",
         noelle = "... whose feather is this?",
+        jamm = "It's... an enemy...?"
     }
 end
 

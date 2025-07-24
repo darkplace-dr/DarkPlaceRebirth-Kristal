@@ -50,6 +50,7 @@ function item:init()
         susie = "Hell yeah, what's this?",
         ralsei = "Sh-should I wear this...?",
         noelle = "No... it's for someone... taller.",
+        jamm = "How'd you guys get this again?"
     }
 
     -- TODO: Elemental resistance

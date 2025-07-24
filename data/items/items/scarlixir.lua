@@ -42,7 +42,9 @@ function item:init()
         susie = "Hell yeah! Cheers!",
         ralsei = "Y-yuck! Er, mmm, medicine?",
         noelle = "... fine, you can have the LAST DROP.",
-        ceroba = "Phew, that's a strong taste!"
+        ceroba = "Phew, that's a strong taste!",
+        jamm = "Down the hatch...",
+        ["jamm+marcy"] = "Plug your nose, Marcy..."
     }
 end
 

@@ -51,6 +51,7 @@ function item:init()
             ralsei = "It's got drool on it.",
         },
         noelle = "What's next, cheezy armor? Faha!",
+        jamm = "It looks... holy."
     }
 end
 
