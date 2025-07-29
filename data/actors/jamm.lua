@@ -116,15 +116,15 @@ function actor:init()
         ["sneak/right"] = {2, 3},
 
         --- Climbing offsets
-        ["climb/climb"] = {0, 0},
-        ["climb/charge"] = {0, 0},
-        ["climb/slip_left"] = {0, 0},
-        ["climb/slip_right"] = {0, 0},
-        ["climb/land_left"] = {0, 0},
-        ["climb/land_right"] = {0, 0},
-        ["climb/jump_up"] = {0, 0},
-        ["climb/jump_left"] = {0, 0},
-        ["climb/jump_right"] = {0, 0},
+        ["climb/climb"] = {-4, 8},
+        ["climb/charge"] = {-4, 8},
+        ["climb/slip_left"] = {-4, 8},
+        ["climb/slip_right"] = {-4, 8},
+        ["climb/land_left"] = {-4, 8},
+        ["climb/land_right"] = {-4, 8},
+        ["climb/jump_up"] = {-4, 8},
+        ["climb/jump_left"] = {-4, 8},
+        ["climb/jump_right"] = {-4, 8},
     }
 
     self.mirror_sprites = {
