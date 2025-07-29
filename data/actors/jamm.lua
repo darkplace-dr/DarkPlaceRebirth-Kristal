@@ -64,6 +64,7 @@ function actor:init()
         ["battle/tactic_freeze_shiny"] 	= {"battle/tactic_freeze_shiny", 1/15, false},
 		
 		-- Cutscene animations
+        ["jump_ball"]           = {"ball", 1/15, true},
 		["sit"]               			= {"sit", 4/30, true},
     }
 

@@ -61,6 +61,7 @@ function actor:init()
         ["battle/victory"]      = {"battle_dungeonkiller/victory", 1/10, false},
 		
 		-- Cutscene animations
+        ["jump_ball"]           = {"ball", 1/15, true},
 		["sit"]               	= {"sit", 4/30, true},
     }
 
