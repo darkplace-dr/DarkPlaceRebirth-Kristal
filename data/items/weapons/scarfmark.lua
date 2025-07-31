@@ -52,7 +52,8 @@ function item:init()
         susie = "Heheh...",
         ralsei = "I'll keep my place.",
         noelle = "Look, ribbon dancing!",
-        jamm = "...What?"
+        jamm = "...What?",
+        ceroba = "Isn't that the bookmark?"
     }
 end
 

@@ -50,7 +50,8 @@ function item:init()
         susie = "Scoopin' time.",
         ralsei = "Don't scoop me!",
         noelle = "That red... is that blood?",
-        jamm = "Feels... vampiric."
+        jamm = "Feels... vampiric.",
+        ceroba = "Don't even try it." -- she's NOT getting scooped up
     }
 end
 

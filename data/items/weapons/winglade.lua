@@ -50,7 +50,15 @@ function item:init()
         susie = "Don't make me sneeze!",
         ralsei = "Th-that tickles!",
         noelle = "... whose feather is this?",
-        jamm = "It's... an enemy...?"
+        jamm = "It's... an enemy...?",
+        ceroba = {
+            ceroba = "A-achoo!",
+            ralsei = "Bless you!",
+            noelle = "Bless you!",
+            dess = "bless yo ass",
+            jamm = "Bless you.",
+            ["jamm+marcy"] = "Bless you. // Bless you!",
+        },
     }
 end
 
