@@ -1256,6 +1256,11 @@ function Battle:processAction(action)
     if action.action == "SPARE" then
         local worked = enemy:canSpare()
 
+        local text = enemy:getSpareText(battler, worked)
+        if text then
+            self:battleText(text)
+        end
+
         battler:setAnimation("battle/spare", function()
             enemy:onMercy(battler)
             if not worked then
@@ -1263,11 +1268,6 @@ function Battle:processAction(action)
             end
             self:finishAction(action)
         end)
-
-        local text = enemy:getSpareText(battler, worked)
-        if text then
-            self:battleText(text)
-        end
 
         return false
 
@@ -1929,6 +1929,7 @@ function Battle:commitSingleAction(action)
 
     local anim = action.action:lower()
     if action.action == "SPELL" and action.data then
+        anim = action.data:getSelectAnimation()
         local result = action.data:onSelect(battler, action.target)
         if result ~= false then
             if action.tp then
@@ -1938,7 +1939,7 @@ function Battle:commitSingleAction(action)
                     Game:removeTension(-action.tp)
                 end
             end
-            battler:setAnimation("battle/"..anim.."_ready")
+            battler:setAnimation(anim)
             action.icon = anim
         end
     else
@@ -3470,9 +3471,7 @@ function Battle:onKeyPressed(key)
             self.soul.collidable = false
         end
         if key == "b" then
-            for _,battler in ipairs(self.party) do
-                battler:hurt(math.huge)
-            end
+            self:hurt(math.huge, true, "ALL")
         end
         if key == "k" then
             Game:setTension(Game:getMaxTension() * 2, true)
