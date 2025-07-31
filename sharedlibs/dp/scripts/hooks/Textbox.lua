@@ -3,7 +3,7 @@ local Textbox, super = Utils.hookScript(Textbox)
 
 function Textbox:setText(text, callback)
     super.setText(self, text, callback)
-    if self.actor.id == "noel" and (math.random(99) == 64) then
+    if self.actor and self.actor.id == "noel" and (math.random(99) == 64) then
 
         for i, b in ipairs(self.text.nodes) do
             if b.character then
