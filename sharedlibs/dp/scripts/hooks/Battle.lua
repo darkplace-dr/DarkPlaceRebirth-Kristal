@@ -85,25 +85,25 @@ function Battle:breakSoulShield()
     Assets.playSound("mirrorbreak")
     local souleffect = Sprite("player/heart_dodge")
     souleffect:setOrigin(0.5, 0.5)
-    souleffect.layer = Game.battle.soul.layer + 1
-    souleffect:setParent(Game.battle.soul)
+    souleffect.layer = self.soul.layer + 0.1
+    souleffect:setParent(self.soul)
     souleffect.graphics.grow = 0.1
     souleffect.alpha = 0.5
     souleffect:fadeOutAndRemove(0.5)
     local shard_x_table = {-2, 0, 2, 8, 10, 12}
     local shard_y_table = {0, 3, 6}
-    Game.battle.soul.shards = {}
+    self.soul.shards = {}
     for i = 1, 6 do
         local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
         local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
-        local shard = Sprite("player/heart_shard", Game.battle.soul.x + x_pos, Game.battle.soul.y + y_pos)
+        local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
         shard.physics.direction = math.rad(Utils.random(360))
         shard.physics.speed = 7
         shard.physics.gravity = 0.2
-        shard.layer = Game.battle.soul.layer
+        shard.layer = self.soul.layer
         shard:play(5/30)
-        table.insert(Game.battle.soul.shards, shard)
-        Game.battle.soul.stage:addChild(shard)
+        table.insert(self.soul.shards, shard)
+        self.soul.stage:addChild(shard)
     end
 end
 
