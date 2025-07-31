@@ -584,9 +584,6 @@ end
 ---@param no_warning boolean?
 function Registry.registerGlobal(id, value, no_warning)
     if _G[id] then
-        if type(value) == "table"
-            and value.__hookscript_class
-        then return end
         if not no_warning then
             Kristal.Console:warn("Global '"..tostring(id).."' already exists, replacing")
         end
@@ -1098,7 +1095,12 @@ function Registry.iterScripts(base_path, exclude_folder)
     local addChunk, parse
 
     addChunk = function(path, chunk, file, full_path)
-        local success,a,b,c,d,e,f = pcall(chunk)
+        local success,a,b,c,d,e,f = xpcall(chunk, function (msg)
+            if type(msg) == "table" then
+                return msg
+            end
+            return ({msg = debug.traceback(msg)})
+        end)
         if not success then
             if type(a) == "table" and a.included then
                 table.insert(queued_parse, {path, chunk, file, full_path})
@@ -1113,6 +1115,9 @@ function Registry.iterScripts(base_path, exclude_folder)
                 result_path = split_path[#split_path]
             end
             local id = type(a) == "table" and a.id or result_path
+            if type(a) == "table" and a.__hookscript_class then
+                return true
+            end
             table.insert(result, {out = {a,b,c,d,e,f}, path = result_path, id = id, full_path = full_path})
             return true
         end

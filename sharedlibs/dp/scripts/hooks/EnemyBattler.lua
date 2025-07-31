@@ -16,6 +16,9 @@ function EnemyBattler:init(actor, use_overlay)
 	-- Ideally, armed enemies would have separate attacks and sprites for when they're disarmed.
 	-- Disarming doesn't deal damage. It only puts the enemy at some disadvantage.
 	self.disarmed = false
+
+    self.powder = false
+    self.powder_damage = false
 end
 
 function EnemyBattler:registerMinipartyAct(party, mini, name, description, party, tp, highlight, icons)
