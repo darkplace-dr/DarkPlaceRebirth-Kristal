@@ -55,10 +55,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        noel = {
-            noel = "(Dead wife? CRINGE.)",
-            jamm = "Noel, shut the fuck up."
-        },
+        noel = "niche",
         susie = "Looks dumb, feels dumb. I don't want it.",
         ralsei = "Look at all the colors!",
         noelle = "(It doesn't fit...?)",
@@ -67,7 +64,6 @@ function item:init()
 		mario = {
 			mario = "Blech! That tastes like shit!",
 			jamm = "Did you try to eat it!?",
-            noel = "Sharing is caring.",
 		},
         dess = "ew im alergic to flowers AND love",
         ceroba = "It's beautiful... But give it to Jamm.",

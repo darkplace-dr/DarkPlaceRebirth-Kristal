@@ -1,6 +1,19 @@
 ---@class Textbox : Textbox
 local Textbox, super = Utils.hookScript(Textbox)
 
+function Textbox:setText(text, callback)
+    super.setText(self, text, callback)
+    if self.actor.id == "noel" and (math.random(99) == 64) then
+
+        for i, b in ipairs(self.text.nodes) do
+            if b.character then
+                b.character = Noel:crow_launguage(b.character)
+            end
+        end
+        self.text.draw_every_frame = true
+    end
+end
+
 function Textbox:setActor(actor)
     self.noel = false
     super.setActor(self, actor)

@@ -50,7 +50,7 @@ function item:init()
         noelle = "Armor? (It's cool...)",
         dess = "ermmm this has GOT to be bait dont feed the trolls guys",
         jamm = "Don't think this is a good idea...",
-        noel = "I'll take my chances.",
+        noel = "",
         ["jamm+marcy"] = "Marcy, we don't respond to these.",
         ceroba = "So is this a mail or an armor?",
     }

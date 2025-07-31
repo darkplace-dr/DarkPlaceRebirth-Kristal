@@ -26,7 +26,6 @@ function Noel:checkNoel()
 
     elseif noelsave and not Game:hasPartyMember("noel") then
         Noel:NoelEnter(noelsave)
-
     end
 end
 
@@ -129,6 +128,8 @@ local place_holder = function(cutscene, event)
             end
         else
             choicer = cutscene:choicer({"Yes", "No"})
+            --cutscene:text("* Don't say things you don't mean.", "lam", "noel")
+            --cutscene:text("* Just keep playing your game.", "t_goaway", "noel")
         end
         if choicer == 1 then
             cutscene:text("* Swag Bacon.", "bruh", "noel")
@@ -416,6 +417,75 @@ function Noel:die()
 end
 
 function Noel:uninstall()
+end
+
+function Noel:breaks(frue)
+
+--crirorwf, ophacotchwehaq, wvagixhaq, aclhnhaq
+end
+
+
+function Noel:crow_launguage(txt)
+    local txt = txt
+    --There is 100% a better way to do this
+    local crow_language = {
+        a = "w",
+        b = "v",
+        c = "n",
+        d = "x",
+        e = "o",
+        f = "b",
+        g = "z",
+        h = "r",
+        i = "h",
+        j = "m",
+        k = "y",
+        l = "e",
+        m = "q",
+        n = "t",
+        o = "l",
+        p = "u",
+        q = "f",
+        r = "i",
+        s = "a",
+        t = "c",
+        u = "g",
+        v = "j",
+        w = "s",
+        x = "p",
+        y = "k",
+        z = "d",
+        A = "W",
+        B = "V",
+        C = "N",
+        D = "X",
+        E = "O",
+        F = "B",
+        G = "Z",
+        H = "R",
+        I = "H",
+        J = "M",
+        K = "Y",
+        L = "E",
+        M = "Q",
+        N = "T",
+        O = "L",
+        P = "U",
+        Q = "F",
+        R = "I",
+        S = "A",
+        T = "C",
+        U = "G",
+        V = "J",
+        W = "S",
+        X = "P",
+        Y = "K",
+        Z = "D",
+    }
+    local output = txt:gsub(".", function(symbol)
+        return crow_language[symbol] or symbol
+    end)
+    return output
 end
 
 function Noel:getDebugOptions(context, thing)
