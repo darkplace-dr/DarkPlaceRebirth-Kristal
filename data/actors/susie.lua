@@ -54,17 +54,14 @@ function actor:init(style)
 
         -- Battle animations
         ["battle/idle"]         = {"battle/idle", 0.2, true},
-        ["battle/idle_serious"] = {"battle/idle_serious", 0.2, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
-        ["battle/attack_serious"] = {"battle/attack_serious", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
         ["battle/spell"]        = {"battle/spell", 1/15, false, next="battle/idle"},
         ["battle/item"]         = {"battle/item", 1/12, false, next="battle/idle"},
         ["battle/spare"]        = {"battle/act", 1/15, false, next="battle/idle"},
 
         ["battle/attack_ready"] = {"battle/attackready", 0.2, true},
-        ["battle/attack_ready_serious"] = {"battle/attackready_serious", 0.2, true},
         ["battle/act_ready"]    = {"battle/actready", 0.2, true},
         ["battle/spell_ready"]  = {"battle/spellready", 0.2, true},
         ["battle/item_ready"]   = {"battle/itemready", 0.2, true},
@@ -92,8 +89,22 @@ function actor:init(style)
         ["away_scratch"] = {"away_scratch", 0.2, true},
     }
 
-    -- Alternate animations to use for Susie with eyes
-    self.animations_alt = {
+    -- Alternate animations to use for Susie without a smile
+    self.animations_serious = {
+        ["battle/idle"]         = {"battle_serious/idle", 0.2, true},
+
+        ["battle/attack"]       = {"battle_serious/attack", 1/15, false},
+        ["battle/spell"]        = {"battle_serious/spell", 1/15, false, next="battle/idle"},
+        ["battle/item"]         = {"battle_serious/item", 1/12, false, next="battle/idle"},
+
+        ["battle/attack_ready"] = {"battle_serious/attackready", 0.2, true},
+        ["battle/spell_ready"]  = {"battle_serious/spellready", 0.2, true},
+        ["battle/item_ready"]   = {"battle_serious/itemready", 0.2, true},
+        ["battle/defend_ready"] = {"battle_serious/defend", 1/15, false},
+    }
+
+    -- Alternate animations to use for Susie with visible eyes
+    self.animations_eyes = {
         ["battle/idle"]         = {"battle_eyes/idle", 0.2, true},
         ["battle/idle_serious"] = {"battle_eyes/idle_serious", 0.2, true},
 
@@ -123,7 +134,7 @@ function actor:init(style)
         ["battle/rude_buster"]  = {"battle_eyes/rudebuster", 1/15, false, next="battle/idle"},
     }
 
-    -- Alternate animations to use for Susie with eyes
+    -- Alternate animations to use for Susie when she's enraged
     self.animations_rage = {
         ["battle/idle"]         = {"battle_enraged/idle", 0.2, true},
 
@@ -212,6 +223,17 @@ function actor:init(style)
         ["battle/victory"] = {-28, -7},
 
         ["battle/rudebuster"] = {-44, -33},
+
+        -- Battle offsets (serious)
+        ["battle_serious/idle"] = {-22, -1},
+
+        ["battle_serious/attack"] = {-26, -25},
+        ["battle_serious/attackready"] = {-26, -25},
+        ["battle_serious/spell"] = {-22, -30},
+        ["battle_serious/spellready"] = {-22, -15},
+        ["battle_serious/item"] = {-22, -1},
+        ["battle_serious/itemready"] = {-22, -1},
+        ["battle_serious/defend"] = {-20, -23},
 
         -- Battle offsets (eyes)
         ["battle_eyes/idle"] = {-22, -1},
@@ -324,7 +346,7 @@ function actor:init(style)
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
 
     self.menu_anim = "pose"
-	
+
 	self.shiny_id = "susie"
 end
 
@@ -332,8 +354,10 @@ function actor:getAnimation(anim)
     -- If the weird route flag is set and an alt animation is defined, use it instead
 	if Game:getPartyMember("susie").rage and self.animations_rage[anim] ~= nil then
 		return self.animations_rage[anim] or nil
-    elseif Game:getPartyMember("susie"):getFlag("eyes", false) and self.animations_alt[anim] ~= nil then
-        return self.animations_alt[anim] or nil
+    elseif Game:getPartyMember("susie"):getFlag("serious", false) and self.animations_serious[anim] ~= nil then
+        return self.animations_serious[anim] or nil
+    elseif Game:getPartyMember("susie"):getFlag("eyes", false) and self.animations_eyes[anim] ~= nil then
+        return self.animations_eyes[anim] or nil
     else
         return super.getAnimation(self, anim)
     end

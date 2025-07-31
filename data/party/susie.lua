@@ -172,12 +172,13 @@ function character:init()
     -- Character flags (saved to the save file)
     self.flags = {
         ["auto_attack"] = false,
+        ["serious"] = false,
         ["eyes"] = true
     }
-	
+
 	self.rage = false
 	self.rage_counter = 0
-	
+
 	self.tv_name = "ASS"
 end
 
@@ -197,6 +198,13 @@ function character:onTurnStart(battler)
     elseif self:getFlag("auto_attack", false) then
         Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[1], nil, {points = 150})
     end
+end
+
+function PartyMember:getMenuIcon()
+    if self:getFlag("eyes", false) then
+        return "party/susie/head_eyes"
+    end
+    return self.menu_icon
 end
 
 function character:getHeadIcon()
