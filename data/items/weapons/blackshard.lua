@@ -50,7 +50,8 @@ function item:init()
     self.reactions = {
         susie = "... how is this a weapon?",
         ralsei = "I... shouldn't use it.",
-        jamm = "...And you got this from the Knight?"
+        jamm = "...And you got this from the Knight?",
+        ceroba = "I just... Don't trust this thing."
     }
 end
 

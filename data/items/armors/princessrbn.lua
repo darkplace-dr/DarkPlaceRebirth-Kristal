@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         susie = false,
         jamm = false,
+        ceroba = false
     }
 
     -- Character reactions
@@ -52,7 +53,8 @@ function item:init()
         susie = "Nah. Gloves don't fit.",
         ralsei = "Cute! (Gloves don't fit)",
         noelle = "Kris, you can wear the gloves!",
-        jamm = "I'm already wearing gloves!"
+        jamm = "I'm already wearing gloves!",
+        ceroba = "Not a big royalty fan."
     }
 end
 

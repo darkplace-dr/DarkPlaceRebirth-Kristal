@@ -20,6 +20,8 @@ end
 function spell:getCastMessage(user, target)
     if Game:getSoulPartyMember().pp > 0 then
         return "* But the SOUL was already protected."
+    elseif not Game.battle.no_buff_loop then
+        return "* But the SOUL was already about\nto be protected."
     else
         return "* "..user.chara:getName().." protected the SOUL!"
     end
@@ -28,13 +30,15 @@ end
 function spell:getLightCastMessage(user, target)
     if Game:getSoulPartyMember().pp > 0 then
         return "* But the SOUL was already protected."
+    elseif not Game.battle.no_buff_loop then
+        return "* But the SOUL was already about\nto be protected."
     else
         return "* "..user.chara:getName().." protected the SOUL!"
     end
 end
 
 function spell:onCast(user, target)
-	if Game:getSoulPartyMember().pp > 0 then
+	if Game:getSoulPartyMember().pp > 0 or not Game.battle.no_buff_loop then
         Game:giveTension(self.cost)
     else
         Game.battle.no_buff_loop = false
@@ -42,7 +46,7 @@ function spell:onCast(user, target)
 end
 
 function spell:onLightCast(user, target)
-	if Game:getSoulPartyMember().pp > 0 then
+	if Game:getSoulPartyMember().pp > 0 or not Game.battle.no_buff_loop then
         Game:giveTension(self.cost)
     else
         Game.battle.no_buff_loop = false
