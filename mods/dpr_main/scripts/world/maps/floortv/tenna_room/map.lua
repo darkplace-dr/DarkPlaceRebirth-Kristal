@@ -4,11 +4,11 @@ function TennaRoom:load()
     super.load(self)
 
     local tenna = Game.world:getCharacter("tenna")
-    if Game:getFlag("can_kill", true) then
-        tenna:setSprite("sad")
-        tenna.actor:setPreset(0)
+    if Game:getFlag("can_kill") == true then
+        tenna.sprite:setPreset(0)
+        tenna:setAnimation("pose_headlowered_nose")
     else
-        tenna.actor:setPreset(23)
+        tenna.sprite:setPreset(24)
     end
 end
 
