@@ -51,7 +51,7 @@ function item:init()
         dess = "alr how do you spell a swear",
         jamm = "Spells \"Memory...\"",
         ["jamm+marcy"] = "Spells \"Family.\"",
-        noel = "\"Dear Lunet?\"",
+        noel = "This isn't very useful.",
         ceroba = "\"Justice\", huh?",
     }
 end
