@@ -17,7 +17,7 @@ function actor:init()
     self.path = "world/npcs/tenna"
     self.default = "point_up"
 
-    self.voice = nil
+    self.voice = "tenna"
     self.portrait_path = nil
     self.portrait_offset = nil
 
@@ -118,6 +118,8 @@ function actor:init()
     }
 
     self.disallow_replacement_texture = true
+	
+    self.voice_timer = 0
 end
 
 function actor:createSprite()
@@ -146,6 +148,25 @@ function actor:onResetSprite(sprite)
     super.onResetSprite(sprite)
     
     sprite:resetMesh(sprite)
+end
+
+function actor:onWorldUpdate(chara)
+    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+end
+
+function actor:onTextSound()
+    if self.voice_timer == 0 then
+        local rand = Utils.random(0, 8, 1) + 1
+	
+        local serious_voice = Game:getFlag("tennaSeriousVoice", 1)
+        local pitchrandom = (0.86 + Utils.random(0.35)) * serious_voice
+        local soundindex = "voice/tenna/tv_voice_short_"..rand
+
+        Assets.stopAndPlaySound(soundindex, 0.7, pitchrandom)
+
+        self.voice_timer = 3
+    end
+    return true
 end
 
 return actor

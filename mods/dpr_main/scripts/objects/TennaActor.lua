@@ -67,7 +67,7 @@ function TennaActor:init(actor)
 
     self.animsiner = 0
     self.animsinerb = 0
-    self.armshake = 0
+    self.armshake = 1
     self.armshakesiner = 0
 	
 	
@@ -446,92 +446,108 @@ function TennaActor:setPreset(preset)
     end
 end
 
+function TennaActor:setShaking(amount)
+    self.shakeamt = amount
+end
+
 function TennaActor:update()
-        if self.anim == "idle" then
-            self.battle_leg_l.visible = true
-            self.battle_leg_r.visible = true
-            self.battle_tails.visible = true
-            self.battle_arm_back.visible = true
-            self.battle_torso.visible = true
-            self.battle_tie.visible = true
-            self.battle_face.visible = true
-            self.battle_arm_front.visible = true
+    if self.shakeamt > 0 then
+        self.shaketimer = self.shaketimer - DTMULT
+
+        if self.shaketimer <= 0 then
+            self.shakex = Utils.random(-self.shakeamt, self.shakeamt)
+            self.shakey = Utils.random(-self.shakeamt, self.shakeamt)
+            self.shaketimer = self.shaketime
+        end
+    else
+        self.shakex = 0
+        self.shakey = 0
+    end
+
+    if self.anim == "idle" and self.drawtype == 0 then
+        self.battle_leg_l.visible = true
+        self.battle_leg_r.visible = true
+        self.battle_tails.visible = true
+        self.battle_arm_back.visible = true
+        self.battle_torso.visible = true
+        self.battle_tie.visible = true
+        self.battle_face.visible = true
+        self.battle_arm_front.visible = true
 		
-            self.animsiner = self.animsiner + DTMULT
+        self.animsiner = self.animsiner + DTMULT
 			
-            local bx = (math.sin(self.animsiner / 6) * 5) / 2
-            local by = (-math.abs(math.cos(self.animsiner / 4)) * 5) / 2
-            local armx = (math.sin(self.animsiner / 6) * 9) / 2
-            local army = (math.cos(self.animsiner / 6) * 6) / 2
-            local headx = (math.sin(self.animsiner / 6) * 8) / 2
-            local heady = ((math.sin(self.animsiner / 6) * 6) + 4) / 2
-            local legx = (math.sin((self.animsiner + 4) / 6) * 5) / 2
-            local legy = (math.cos(self.animsiner / 6) * 2) / 2
+        local bx = (math.sin(self.animsiner / 6) * 5) / 2
+        local by = (-math.abs(math.cos(self.animsiner / 4)) * 5) / 2
+        local armx = (math.sin(self.animsiner / 6) * 9) / 2
+        local army = (math.cos(self.animsiner / 6) * 6) / 2
+        local headx = (math.sin(self.animsiner / 6) * 8) / 2
+        local heady = ((math.sin(self.animsiner / 6) * 6) + 4) / 2
+        local legx = (math.sin((self.animsiner + 4) / 6) * 5) / 2
+        local legy = (math.cos(self.animsiner / 6) * 2) / 2
 			
-            self.animsinerb = self.animsinerb + DTMULT
+        self.animsinerb = self.animsinerb + DTMULT
 			
-            local image = self.animsiner / 6
-            local loopimage = 1.5 + (math.sin(image) * 1.5)
-            local loopimage1 = 1 + (math.sin(image) * 1)
-            local tailimage = image
+        local image = self.animsiner / 6
+        local loopimage = 1.5 + (math.sin(image) * 1.5)
+        local loopimage1 = 1 + (math.sin(image) * 1)
+        local tailimage = image
 			
-            self.armshake = self.armshake * -1
-            self.armshakesiner = self.armshakesiner + DTMULT
-            local chargingup = 1
-            local armshakevalue = Utils.clamp((math.sin((self.armshakesiner / 18) - 1) * 1.5) - 1, 0, 4)
-            local armshakey = armshakevalue * self.armshake
+        self.armshake = self.armshake * -1
+        self.armshakesiner = self.armshakesiner + DTMULT
+        local chargingup = 1
+        local armshakevalue = Utils.clamp((math.sin((self.armshakesiner / 18) - 1) * 1.5) - 1, 0, 4)
+        local armshakey = armshakevalue * self.armshake
 			
-            local headimage = 3
+        local headimage = 3
             
-            if (chargingup == 0) then
-                armshakey = 0
-                armshakevalue = 0
-            end
-
-            self.battle_leg_l:setFrame(math.floor(image))
-            self.battle_leg_l.x = (58-28) - legx
-            self.battle_leg_l.y = (135-17) + legy
-			
-            self.battle_leg_r:setFrame(math.floor(image))
-            self.battle_leg_r.x = (58-28) + legx
-            self.battle_leg_r.y = (135-17) - (legy / 4)
-
-
-            self.battle_tails:setFrame(math.floor(tailimage))
-            self.battle_tails.x = ((58-28) + (bx / 2)) - 4
-            self.battle_tails.y = (135-17) + by
-
-            self.battle_arm_back:setFrame(math.floor(4 - loopimage))
-            self.battle_arm_back.x = ((58-28) + bx) - (armx * 1.5) + 12
-            self.battle_arm_back.y = ((135-17) + by) - army
-
-            self.battle_torso:setFrame(1)
-            self.battle_torso.x = (58-28) + bx
-            self.battle_torso.y = (135-17) + by
-
-            self.battle_tie:setFrame(1)
-            self.battle_tie.x = (58-28) + bx
-            self.battle_tie.y = (135-17) + by
-
-            self.battle_face:setFrame(headimage - math.floor((armshakevalue * 5)))
-            self.battle_face.x = (((58-28) + bx) - headx) + 2 + (armshakey / 2)
-            self.battle_face.y = ((135-17) + by + heady) - 2 - (armshakey / 2)
-
-            self.battle_arm_front:setFrame(1 + math.floor(loopimage))			
-            self.battle_arm_front.x = (((58-28) + bx) - armx) + armshakey
-            self.battle_arm_front.y = (((135-17) + by) + army) + armshakey
-
-        else
-            self.battle_leg_l.visible = false
-            self.battle_leg_r.visible = false
-            self.battle_tails.visible = false
-            self.battle_arm_back.visible = false
-            self.battle_torso.visible = false
-            self.battle_tie.visible = false
-            self.battle_face.visible = false
-            self.battle_arm_front.visible = false
+        if (chargingup == 0) then
+            armshakey = 0
+            armshakevalue = 0
         end
 
+        self.battle_leg_l:setFrame(math.floor(image))
+        self.battle_leg_l.x = (58-28) - legx
+        self.battle_leg_l.y = (135-17) + legy
+			
+        self.battle_leg_r:setFrame(math.floor(image))
+        self.battle_leg_r.x = (58-28) + legx
+        self.battle_leg_r.y = (135-17) - (legy / 4)
+
+
+        self.battle_tails:setFrame(math.floor(tailimage))
+        self.battle_tails.x = ((58-28) + (bx / 2)) - 4
+        self.battle_tails.y = (135-17) + by
+
+        self.battle_arm_back:setFrame(math.floor(4 - loopimage))
+        self.battle_arm_back.x = ((58-28) + bx) - (armx * 1.5) + 12
+        self.battle_arm_back.y = ((135-17) + by) - army
+
+        self.battle_torso:setFrame(1)
+        self.battle_torso.x = (58-28) + bx
+        self.battle_torso.y = (135-17) + by
+
+        self.battle_tie:setFrame(1)
+        self.battle_tie.x = (58-28) + bx
+        self.battle_tie.y = (135-17) + by
+
+        self.battle_face:setFrame(headimage - math.floor(armshakevalue * 6))
+        self.battle_face.x = (((58-28) + bx) - headx) + 2 + (armshakey / 2)
+        self.battle_face.y = ((135-17) + by + heady) - 2 - (armshakey / 2)
+
+        self.battle_arm_front:setFrame(math.floor(1 + loopimage))			
+        self.battle_arm_front.x = (((58-28) + bx) - armx) + armshakey
+        self.battle_arm_front.y = (((135-17) + by) + army) + armshakey
+
+    else
+        self.battle_leg_l.visible = false
+        self.battle_leg_r.visible = false
+        self.battle_tails.visible = false
+        self.battle_arm_back.visible = false
+        self.battle_torso.visible = false
+        self.battle_tie.visible = false
+        self.battle_face.visible = false
+        self.battle_arm_front.visible = false
+    end
     if self.drawtype == 2 then
         if self.changed_to_segmented_laugh == false then
             self:setAnimation("laugh_pose_segmented")
@@ -539,23 +555,23 @@ function TennaActor:update()
         end
 
         self.shtimer = self.shtimer + DTMULT
-		
+
         self.laugh_leftarm.visible = true
         self.laugh_body.visible = true
         self.laugh_rightarm.visible = true
 
         self.laugh_leftarm.x = (58-28) + ((math.sin(self.shtimer / self.rate) * 2) + 3) 
         self.laugh_leftarm.y = (135-17) + (math.cos(self.shtimer / self.rate) * 2)
-		
+
         self.laugh_body.scale_y = 1 + (math.sin(self.shtimer / self.rate) * 0.05)
-		
+
         self.laugh_rightarm.x = (58-28) - ((math.sin(self.shtimer / self.rate) * 2) + 3)
         self.laugh_rightarm.y = (135-17) - (-math.cos(self.shtimer / self.rate) * 2)
     else
         self.laugh_leftarm.visible = false
         self.laugh_body.visible = false
         self.laugh_rightarm.visible = false
-		
+
         self.changed_to_segmented_laugh = false
     end
 
@@ -892,6 +908,12 @@ function TennaActor:draw()
                 self.y2 = self.y2 * (self.yscale / 2)
                 self.y3 = self.y3 * (self.yscale / 2)
                 self.y4 = self.y4 * (self.yscale / 2)
+            end
+            if self.shakex ~= 0 then
+                self.x1 = self.x1 + self.shakex
+                self.x2 = self.x2 + self.shakex
+                self.x3 = self.x3 + self.shakex
+                self.x4 = self.x4 + self.shakex
             end
             if self.shakey ~= 0 then
                 self.y1 = self.y1 + self.shakey

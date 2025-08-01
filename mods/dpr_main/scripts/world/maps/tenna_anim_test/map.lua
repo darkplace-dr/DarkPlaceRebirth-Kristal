@@ -48,6 +48,10 @@ function TennaAnimTest:update()
             self.tenna_voice = true
             self.tenna_voicetimer = 0
         end
+
+        if Input.pressed("b") then
+            Game.world.tenna:setAnimation("idle")
+        end
     end
 	
     if self.tenna_voice then
