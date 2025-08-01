@@ -77,6 +77,7 @@ function actor:init(style)
         ["battle/victory"]      = {"battle/victory", 1/10, false},
 
         ["battle/rude_buster"]  = {"battle/rudebuster", 1/15, false, next="battle/idle"},
+        ["battle/sing"]         = {"battle/sing", 1/5, true},
 
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
@@ -87,6 +88,18 @@ function actor:init(style)
 
         ["laugh_right"] = {"laugh_right", 0.2, true},
         ["away_scratch"] = {"away_scratch", 0.2, true},
+
+        -- all animation speeds below are probably incorrect so feel free to fix 'em'
+        ["look_back_whisper_look"] = {"look_back_whisper_look", 0.2, true},
+        ["look_down_arm_shake"] = {"look_down_arm_shake", 1/6, true},
+
+        ["chuckle"] = {"chuckle", 0.2, true},
+
+        ["clap"] = {"clap", 1/9, true},
+
+        ["halt_serious_right"] = {"halt_serious_right", 1/9, false},
+
+        ["ready_axe"] = {"ready_axe", 12/30, false},
     }
 
     -- Alternate animations to use for Susie without a smile
@@ -223,6 +236,7 @@ function actor:init(style)
         ["battle/victory"] = {-28, -7},
 
         ["battle/rudebuster"] = {-44, -33},
+        ["battle/sing"] = {-21, -7},
 
         -- Battle offsets (serious)
         ["battle_serious/idle"] = {-22, -1},
@@ -267,6 +281,7 @@ function actor:init(style)
 
         -- Cutscene offsets
         ["pose"] = {-1, -1},
+        ["pose_what_the"] = {-1, -1},
 
         ["fall"] = {0, -4},
         ["ball"] = {1, 7},
@@ -288,6 +303,7 @@ function actor:init(style)
 
         ["point_left"] = {-11, 2},
         ["point_right"] = {0, 2},
+        ["point_right_unhappy"] = {0, 2},
         ["point_up"] = {-2, -12},
 
         ["point_up_turn"] = {-4, -12},
@@ -302,6 +318,7 @@ function actor:init(style)
 
         ["exasperated_left"] = {-1, 0},
         ["exasperated_right"] = {-5, 0},
+        ["exasperated_stare"] = {-5, 0},
 
         ["angry_down"] = {-10, 2},
         ["turn_around"] = {-12, 2},
@@ -340,6 +357,29 @@ function actor:init(style)
         ["run_serious/right"] = {-6, 0},
         ["run_serious/up"] = {-4, 0},
         ["run_serious/down"] = {-4, 0},
+
+        ["ready_axe"] = {-18, -12},
+
+        ["clash_jump"] = {-26, -12}, -- ehh idk placed the numbers randomly here
+
+        ["crouch"] = {-3, 10},
+
+        ["halt_serious_right"] = {-3, -1},
+
+        ["jump"] = {0, -2},
+
+        ["headhand"] = {0, -2},
+
+        ["look_back"] = {-1, 0},
+        ["look_back_cross_arms"] = {0, 1},
+        ["look_back_right"] = {0, 0},
+        ["look_back_whisper_look"] = {0, 3},
+
+        ["look_react"] = {-1, 0},
+        ["look_react_right"] = {-1, 0},
+
+        ["up_benddown"] = {0, 8},
+        ["up_look_right_full"] = {3, 0},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

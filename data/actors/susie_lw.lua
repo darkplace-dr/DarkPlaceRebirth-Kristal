@@ -54,6 +54,12 @@ function actor:init()
         ["sit"] = {"sit", 0.25, true},
 
         ["eat_chalk"] = {"eat_chalk", 0.15, false},
+
+        ["shifty"] = {"shifty", 1/4.5, true},
+
+        ["stretch"] = {"stretch", 1/6, false},
+
+        ["yawn"] = {"yawn", 1/7.5, true},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -119,8 +125,16 @@ function actor:init()
 
         ["away_scratch"] = {-2, -2},
 
+        ["guts_pose"] = {-1, -1},
+        ["pose"] = {-1, -1},
+
+        ["shocked_behind_left"] = {0, -4},
+        ["shocked_behind_right"] = {-16, -4},
+
+        ["stretch"] = {0, -1},
+
     }
-	
+
 	self.shiny_id = "susie"
 end
 
