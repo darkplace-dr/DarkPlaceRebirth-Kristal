@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         kris = true,
         noelle = true,
+        hero = true,
     }
 
     -- Character reactions
