@@ -76,6 +76,10 @@ function Starwalker:init()
     self:setTired(false)
 end
 
+function Starwalker:getGrazeTension()
+    return 0
+end
+
 function Starwalker:onTurnEnd()
     self.progress = self.progress + 1
 	
