@@ -128,6 +128,31 @@ function Mod:initializeImportantFlags(new_file)
             prefix_os = {Windows = "Roaming/PizzaTower_GM2"},
             wine_steam_appid = 2231450
         },
+        BOB = {
+            name = "Born of Bread",
+            file = {"Saved/SaveGames/Settings.sav"},
+            item_id = "soupladle",
+            -- Not sure what the Mac OS_X or Linux directories for BOB are.
+            -- If anyone else knows tho, feel free to add them in here lol.
+            prefix_os = {Windows = "Local/BornOfBread"},
+            wine_steam_appid = 1555140
+        },
+        YATC = {
+            name = "You Are The Code",
+            file = {"logs/godot.log"},
+            item_id = "binariband",
+            -- Not sure what the Mac OS_X or Linux directories for YATC are.
+            -- If anyone else knows tho, feel free to add them in here lol.
+            prefix_os = {Windows = "Roaming/thinkwithgames/YouAreTheCode"},
+            wine_steam_appid = 3333330
+        },
+        OVERTIME = {
+            file = {"Mercenaries.sav", "Progress.sav", "Story.sav", "undertale_save", "Universal.sav"},
+            party_id = "pauling",
+            -- Not sure what the Mac OS_X or Linux directories for Overtime are.
+            -- If anyone else knows tho, feel free to add them in here lol.
+            prefix_os = {Windows = "Local/Overtime"}
+        },
 
         -- Use "KR_" as a prefix to check for a Kristal Mod instead
         KR_frozen_heart = {item_id = "angelring"},

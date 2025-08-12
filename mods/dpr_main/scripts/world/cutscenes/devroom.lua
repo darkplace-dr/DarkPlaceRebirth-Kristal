@@ -88,32 +88,56 @@ local devroom = {
                 if not game_name then
                     game_name = kristal and Utils.titleCase(gift:sub(start+1):gsub("_", " ")) or gift
                 end
-                local item = Registry.createItem(gifts[gift].item_id)
-                local item_name = item:getName()
+                local item
+                local item_name
+                local party
+                local party_name
+                if gifts[gift].item_id then
+                    item = Registry.createItem(gifts[gift].item_id)
+                    item_name = item:getName()
+                elseif gifts[gift].party_id then
+                    party = Registry.createPartyMember(gifts[gift].party_id)
+                    party_name = party:getName()
+                end
                 devroom_pc:setAnimation("happy")
                 cutscene:text(t_c.."* [Seems like you have played [color:yellow]"..game_name..t_c.."!]")
                 devroom_pc:setAnimation("on")
-                cutscene:text(t_c.."* [A gift is registered for playing this game![wait:3]\nHere's your [color:yellow]"..item_name..t_c.."!]")
-                if Game.inventory:addItem(item) then
-                    if item.id == "egg" then
-                        Assets.stopAndPlaySound("egg")
+                if item then
+                    cutscene:text(t_c.."* [A gift is registered for playing this game![wait:3]\nHere's your [color:yellow]"..item_name..t_c.."!]")
+                    if Game.inventory:addItem(item) then
+                        if item.id == "egg" then
+                            Assets.stopAndPlaySound("egg")
+                        else
+                            Assets.stopAndPlaySound("item")
+                        end
+                        gift_status[gift] = true
+                        cutscene:text("* You got the "..item_name..".")
+                        if i < #new_gifts then
+                            devroom_pc:setAnimation("happy")
+                            cutscene:text(t_c.."* [And we're not done yet!]")
+                        end
                     else
-                        Assets.stopAndPlaySound("item")
+                        devroom_pc:setAnimation("oh")
+                        cutscene:text(t_c.."* [Oh but your inventory is full!]")
+                        nothingText()
+                        devroom_pc:setAnimation("happy")
+                        cutscene:text(t_c.."* [But no worries,[wait:2] I'll keep your gift with me until you can take it!]")
+                        cutscene:text(t_c.."* [So come back soon!]")
+                        break
                     end
+                elseif party then
+                    Game:unlockPartyMember(gifts[gift].party_id)
+                    cutscene:text(t_c.."* [A gift is registered for playing this game![wait:3]\nYou unlocked [color:yellow]"..party_name..t_c.."!]")
+                    Assets.stopAndPlaySound("charjoined")
                     gift_status[gift] = true
-                    cutscene:text("* You got the "..item_name..".")
+                    Game.world.music:pause()
+                    cutscene:text("* "..party_name.." is now selectable in the [color:yellow]PARTY ROOM[color:white].")
+                    Game.world.music:resume()
+                    Assets.stopSound("charjoined")
                     if i < #new_gifts then
                         devroom_pc:setAnimation("happy")
                         cutscene:text(t_c.."* [And we're not done yet!]")
                     end
-                else
-                    devroom_pc:setAnimation("oh")
-                    cutscene:text(t_c.."* [Oh but your inventory is full!]")
-                    nothingText()
-                    devroom_pc:setAnimation("happy")
-                    cutscene:text(t_c.."* [But no worries,[wait:2] I'll keep your gift with me until you can take it!]")
-                    cutscene:text(t_c.."* [So come back soon!]")
-                    break
                 end
             end
 
