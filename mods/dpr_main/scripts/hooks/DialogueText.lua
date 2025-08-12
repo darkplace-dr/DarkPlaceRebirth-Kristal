@@ -25,18 +25,14 @@ function DialogueText:processModifier(node, dry)
 
         if texture then
             if not dry then
-				if tname == "tv_time" then
-					-- tv time stuff goes here
-				else
-					local ftext = FunnyText(tname, sound, self.state.current_x + x_offset, self.state.current_y + y_offset)
-					ftext:setOriginExact(x_origin,y_origin)
-					ftext.ideal_scale_x = x_scale
-					ftext.ideal_scale_y = y_scale
-					ftext.layer = self.layer - 1
-					ftext.speed = speed
-					self:addChild(ftext)
-					table.insert(self.sprites, ftext)
-				end
+				local ftext = FunnyText(tname, sound, self.state.current_x + x_offset, self.state.current_y + y_offset)
+				ftext:setOriginExact(x_origin,y_origin)
+				ftext.ideal_scale_x = x_scale
+				ftext.ideal_scale_y = y_scale
+				ftext.layer = self.layer - 1
+				ftext.speed = speed
+				self:addChild(ftext)
+				table.insert(self.sprites, ftext)
             end
             self.state.current_x = self.state.current_x + (texture[1]:getWidth() * x_scale) + self.state.spacing
         end
