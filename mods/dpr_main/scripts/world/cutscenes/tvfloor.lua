@@ -65,6 +65,16 @@ return {
 
 	end,
 
+	funnytexttest = function(cutscene)
+		cutscene:text("* Wow,[wait:5] what an [funnytext:amazing_01,ftext_prize,8,-58,204,61]\n                 performance!!!")
+		cutscene:text("* The audience has been brought to [funnytext:tears/tears,splat,0,0,98,31],[wait:5] folks!")
+		cutscene:text("* MIKE,[wait:5] the [funnytext:board,ftext_woodblock,0,0,71,46],[wait:5]\nplease!")
+		--cutscene:text("[funnytext:brother/brother,ftext_brother,0,0,91,23]")
+		cutscene:text("* The gushing pillar of darkness that gives us all form -\n[funnytext:dark_fountain/dark_fountain,ftext_dark_fountain,-20,-30,220,40]!!")
+		cutscene:text("* Is another\n[funnytext:physical_challenge/physical_challenge,ftext_bounce,0,-10,195,34]!")
+		cutscene:itsTVTime()
+	end,
+
 	desshasfans = function(cutscene)
 		if not Game:hasPartyMember("dess") or Game:getFlag("can_kill", false) then return end
 		local dess = cutscene:getCharacter("dess")
