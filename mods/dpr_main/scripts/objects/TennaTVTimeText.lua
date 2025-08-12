@@ -36,10 +36,6 @@ function TennaTVTimeText:init(x, y, width, height, battle_box)
 	table.insert(self.tv_time_letters, {timestamp = 2.85, tex = Assets.getTexture("funnytext/tv_time/time"), x = 386, y = 71, scale = 3, origin_x = 89, origin_y = 47})
 end
 
-function TennaTVTimeText:onAdd(parent)
-	super.onAdd(self, parent)
-end
-
 function TennaTVTimeText:update()
 	super.update(self)
 
@@ -79,6 +75,14 @@ function TennaTVTimeText:update()
 	for i = 1, self.tv_max do
 		self.tv_time_letters[i].scale = Utils.approach(self.tv_time_letters[i].scale, 1, (0.4 * self.tv_pitch) * DTMULT)
 	end
+end
+
+function TennaTVTimeText:getBorder()
+    if self.box.visible then
+        return self.box:getBorder()
+    else
+        return 0, 0
+    end
 end
 
 function TennaTVTimeText:draw()
