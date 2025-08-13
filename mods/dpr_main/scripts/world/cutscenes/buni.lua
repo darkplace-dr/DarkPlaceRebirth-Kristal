@@ -4,7 +4,7 @@ return {
             cutscene:text("* I have nothing left to ask of you.")
             cutscene:text("* You are the master of Starrune trivia.")
         else
-            cutscene:text("* Welcome! I am the STARRUNE EXPERT!")
+            cutscene:text("* Welcome! I am the STARRUNE POPSTAR EXPERT!")
             cutscene:text("* Can you answer my seven trvia questions correctly?")
             local opinion = cutscene:choicer({"I can!", "I can't..."})
             if opinion == 1 then
@@ -13,6 +13,7 @@ return {
                 cutscene:text("* Heh, just a small joke.")
                 Game.world.music:play("BABASPACE")
                 cutscene:text("* The MIDI for this song has been made by Theopold The Gamer.")
+                cutscene:text("* All questions assume the answers are for Starrune: Popstar.")
                 Game:setFlag("QUIZWRONG", false)
                 if not Game:getFlag("QUIZWRONG") then
                     cutscene:text("* Question 1:")
