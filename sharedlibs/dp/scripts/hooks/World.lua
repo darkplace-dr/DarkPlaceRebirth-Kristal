@@ -57,4 +57,11 @@ function World:shouldMb(map)
     return chance
 end
 
+function World:loadMap(...)
+    if self.map and self.map.id then
+        Game:setFlag("PREVMAP", self.map.id)
+    end
+    super.loadMap(self, ...)
+end
+
 return World
