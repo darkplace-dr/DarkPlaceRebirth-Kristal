@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="237">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="56" height="56" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="237">
  <editorsettings>
   <export target="entrance.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="border" value="tritraland"/>
   <property name="music" value="TRITRALAND"/>
   <property name="name" value="Tritra Land"/>
  </properties>
