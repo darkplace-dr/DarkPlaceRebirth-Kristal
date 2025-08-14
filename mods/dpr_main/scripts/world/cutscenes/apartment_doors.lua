@@ -39,7 +39,7 @@ return {
 			end
 		end
 	end,
-  
+
 	ddelta = function(cutscene, event)
 		cutscene:text("* It's a door.")
 		cutscene:text("* The sign reads \"This\napartment belongs to Diamond Deltahedron.\"")
@@ -72,6 +72,7 @@ return {
 		cutscene:text("* You can't help but wonder who it might belong to.")
 		-- To write (in like a 1000 years when this gremlin's DLC will come out)
 	end,
+
 	gen = function(cutscene, event)
 		Game.world.music:pause()
 		cutscene:wait(1)
@@ -80,5 +81,31 @@ return {
 		cutscene:text("[wait:30][sound:giygastalk][voice:none][speed:0.3][shake]* The story of [wait:10]a man\n[wait:10]* Who went too deep...")
 		cutscene:wait(1)
 		Game.world.music:play()
-	end
+	end,
+
+	ceroba = function(cutscene, event)
+		if Game:getFlag("ceroba_dead") then
+			cutscene:text("* You have a feeling that this room might be left empty forever...")
+		elseif Game:hasPartyMember("ceroba") then
+			cutscene:text("* That's my room.", "neutral", "ceroba")
+			cutscene:text("* You want to come in?", "alt", "ceroba")
+			local choice = cutscene:choicer({"Yes", "No"})
+			cutscene:text("* Alright then.", "neutral", "ceroba")
+			if choice == 1 then
+				cutscene:mapTransition("floor2/apartments/ceroba", "entrance")
+			end
+		elseif Game:hasUnlockedPartyMember("ceroba") then
+			cutscene:text("* Knock on the door?")
+			local choice = cutscene:choicer({"Yes", "No"})
+			if choice == 1 then
+				Assets.playSound("knock", 0.8)
+				cutscene:wait(1)
+				cutscene:text("* Come in!", nil, "ceroba")
+				Assets.playSound("dooropen")
+				cutscene:mapTransition("floor2/apartments/ceroba", "entrance")
+			end
+		else
+			cutscene:text("* A door with an interesting style choice. It's locked.")
+		end
+	end,
 }
