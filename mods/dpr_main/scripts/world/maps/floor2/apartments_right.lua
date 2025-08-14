@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 43,
+  nextobjectid = 45,
   properties = {
     ["music"] = "mainhub"
   },
@@ -20,6 +20,12 @@ return {
       firstgid = 1,
       filename = "../../tilesets/floor2.tsx",
       exportfilename = "../../tilesets/floor2.lua"
+    },
+    {
+      name = "apartment_doors",
+      firstgid = 171,
+      filename = "../../tilesets/apartment_doors.tsx",
+      exportfilename = "../../tilesets/apartment_doors.lua"
     }
   },
   layers = {
@@ -410,6 +416,20 @@ return {
           properties = {
             ["texture"] = "world/maps/floor2/door_spamgolor"
           }
+        },
+        {
+          id = 43,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 828,
+          y = 600,
+          width = 184,
+          height = 160,
+          rotation = 0,
+          gid = 177,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -456,6 +476,21 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "floor2.spamgolor"
+          }
+        },
+        {
+          id = 44,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 560,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.ceroba"
           }
         }
       }
@@ -541,7 +576,7 @@ return {
         },
         {
           id = 32,
-          name = "",
+          name = "ceroba",
           type = "",
           shape = "point",
           x = 920,
