@@ -87,6 +87,10 @@ function something:init()
         "Lol.",
         "Rofl.",
         "Don't dissapoint me.",
+        "The girl will break the cage.",
+        "Tonight will be until 15 pm.",
+        "The banished princess\nwill gain a subject.",
+        "The lord controls the\nscreens with her strings.",
     }
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
