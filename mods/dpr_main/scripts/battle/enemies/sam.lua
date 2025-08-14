@@ -15,6 +15,7 @@ function Sam:init()
 	self.service_mercy = 100
 	
 	self.boss = true
+    self.milestone = true
 
     self.spare_points = 0
     self.tired_percentage = 0

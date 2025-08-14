@@ -1,0 +1,9 @@
+{
+    "id": "froggit-lib",
+    "authors": [
+        "Sam Deluxe"
+    ],
+    "dependencies": ["magical-glass"],
+    "version": "v1.1.5",
+    "engineVer": "v0.10.0-dev",
+}

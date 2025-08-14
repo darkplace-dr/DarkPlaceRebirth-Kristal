@@ -21,6 +21,7 @@ function OmegaSpamton:init()
     self.money = 5500
     --[[self.experience = Mod:isInRematchMode() and 0 or 1500]] 
 	self.service_mercy = 0
+    self.milestone = true   -- good luck getting Miss Pauling in this fight but yeah
 	
 	self.boss = true
 	

@@ -98,8 +98,47 @@ function character:init()
 	self.graduate = true
 end
 
+function character:addExp(amount)
+    -- Miss Pauling is a milestone-based character. Meaning if the encounter is a milestone encounter,
+    --   that's when she levels up; not based on EXP.
+    local leveled_up = false
+    if Game.battle.encounter.milestone then
+        leveled_up = true
+        self.love = self.love + 1
+        self:onLevelUpLVLib(self.love)
+    end
+
+    return leveled_up
+end
+
+function character:onLightLevelUp()
+    -- Miss Pauling is a milestone-based character. Meaning if the encounter is a milestone encounter,
+    --   that's when she levels up; not based on EXP.
+    if Game.battle.encounter.milestone then
+        local new_lv = self:getLightLV() + 1
+        
+        self:setLightLV(new_lv, false)
+    end
+end
+
+function character:lightLVStats()
+	levelstats = {
+		health = 15 + (self.lw_lv * 5),
+		attack = 10 + self.lw_lv,
+		defense = 10 + self.lw_lv,
+		magic = 0
+	}
+    return levelstats
+end
+
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 12)
+    self:increaseStat("attack", 2)
+    self:increaseStat("defense", 1)
+end
+
 function character:onLevelUp(level)
-    self:increaseStat("health", 2)
+    self:increaseStat("health", 3)
     if level % 10 == 0 then
         self:increaseStat("attack", 1)
     end

@@ -20,6 +20,7 @@ function Egg:init()
 
     self.killable = true
     self.movearound = true
+    self.milestone = true
 
     self.waves = {
     }

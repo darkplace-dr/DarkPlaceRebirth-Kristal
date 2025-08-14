@@ -19,6 +19,7 @@ function Starwalker:init()
 	self.service_mercy = 0
 	
 	self.boss = true
+    self.milestone = true
 
     self.spare_points = 0
 

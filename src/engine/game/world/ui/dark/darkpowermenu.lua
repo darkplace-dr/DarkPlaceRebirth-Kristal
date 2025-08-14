@@ -443,15 +443,26 @@ end
 
 function DarkPowerMenu:drawExperience()
     Draw.setColor(1, 1, 1, 1)
-    love.graphics.print( "LOVE:",   242-6,  122)
-    love.graphics.print(  "EXP:",   242-6,  156)
-    love.graphics.print( "NEXT:",   242-6,  190)
-    love.graphics.print("KILLS:",   242-6,  224)
+    if self.party:getSelected().id == "pauling" then
+        love.graphics.print("LEVEL:",   242-6,  122)
+        love.graphics.print("KILLS:",   242-6,  156)
+        -- love.graphics.print("HIRED:",   242-6,  190)                         -- Reserved for HIRED
+        love.graphics.print("MILESTONE-BASED",   242-6,  258)
 
-    love.graphics.print(               self:getLOVE(),  	242+64, 122)
-    love.graphics.print(                self:getExp(),  	242+49, 156)
-    love.graphics.print(             self:getNextLv(),  	242+62, 190)
-    love.graphics.print(              self:getKills(),  	242+76, 224)
+        love.graphics.print(               self:getLOVE(),  	242+76, 122)
+        love.graphics.print(              self:getKills(),  	242+76, 156)
+        -- love.graphics.print(          self:getNextLv(),  	242+76, 190)    -- Reserved for HIRED
+    else
+        love.graphics.print( "LOVE:",   242-6,  122)
+        love.graphics.print(  "EXP:",   242-6,  156)
+        love.graphics.print( "NEXT:",   242-6,  190)
+        love.graphics.print("KILLS:",   242-6,  224)
+
+        love.graphics.print(               self:getLOVE(),  	242+64, 122)
+        love.graphics.print(                self:getExp(),  	242+49, 156)
+        love.graphics.print(             self:getNextLv(),  	242+62, 190)
+        love.graphics.print(              self:getKills(),  	242+76, 224)
+    end
 end
 
 function DarkPowerMenu:getKills()

@@ -19,6 +19,7 @@ function GoogleDino:init()
     self.money = 98
     self.experience = 5
 	self.service_mercy = 5
+    self.milestone = true
 	
 	self.boss = true
 	
