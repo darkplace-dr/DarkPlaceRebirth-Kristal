@@ -25,4 +25,19 @@ function Encounter:createSoul(x, y, color)
     end
 end
 
+function Encounter:addEnemy(enemy, x, y, ...)
+    local enemy_obj
+    if type(enemy) == "string" then
+        enemy_obj = Registry.createEnemy(enemy, ...)
+    else
+        enemy_obj = enemy
+    end
+    
+    if enemy_obj.milestone and enemy_obj.experience > 0 then
+        self.milestone = true
+    end
+    
+    return super.addEnemy(self, enemy, x, y, ...)
+end
+
 return Encounter

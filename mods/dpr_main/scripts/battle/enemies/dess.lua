@@ -21,6 +21,7 @@ function Dess:init()
     self.spare_points = 0
     self.tired_percentage = 0
     self.low_health_percentage = 0.2
+    self.milestone = true
 
     self.waves = {
         "dess/starbeam"

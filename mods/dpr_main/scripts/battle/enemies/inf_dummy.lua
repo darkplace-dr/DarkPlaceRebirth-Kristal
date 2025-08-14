@@ -9,8 +9,8 @@ function Dummy:init()
     self:setActor("dummy")
 
     -- Enemy health
-    self.max_health = 1000000
-    self.health = 1000000
+    self.max_health = math.huge
+    self.health = math.huge
     -- Enemy attack (determines bullet damage)
     self.attack = 4
     -- Enemy defense (usually 0)
@@ -19,6 +19,7 @@ function Dummy:init()
     self.money = 100
     self.experience = 5
 	self.service_mercy = 0
+    self.milestone = true       -- If you SOMEHOW manage to kill the Infinite Dummy, it will count as a milestone for Miss Pauling.
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 20
@@ -60,11 +61,6 @@ function Dummy:onAct(battler, name)
     -- If the act is none of the above, run the base onAct function
     -- (this handles the Check act)
     return super.onAct(self, battler, name)
-end
-
-function Dummy:update()
-	super.update(self)
-	self.health = 1000000
 end
 
 return Dummy

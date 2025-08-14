@@ -20,6 +20,7 @@ function Mimic:init()
     self.money = 1000
     self.experience = 50
 	self.service_mercy = 0
+    self.milestone = true
 	
 	self.boss = true
 

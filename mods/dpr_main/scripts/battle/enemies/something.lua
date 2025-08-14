@@ -27,6 +27,7 @@ function something:init()
     self.tired_percentage = 0.25
 	
 	self.boss = true
+    self.milestone = true
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 2

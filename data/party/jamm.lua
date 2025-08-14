@@ -16,6 +16,7 @@ function character:init()
 
     self.soul_priority = 1
     self.soul_color = {1, 106/255, 0}
+    self.soul_facing = "up"
 
     if Game:getFlag("jamm_canact") then
         self.has_act = true
