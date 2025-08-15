@@ -129,6 +129,12 @@ function LightEnemyBattler:init(actor, use_overlay)
 
     self.show_hp = true
     self.show_mercy = true
+
+    self.graze_tension = 1.6 -- (1/10 of a defend, or cheap spell)
+end
+
+function LightEnemyBattler:getGrazeTension()
+    return self.graze_tension
 end
 
 function LightEnemyBattler:toggleOverlay(overlay, reset)
