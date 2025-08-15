@@ -54,7 +54,7 @@ function RainBallBullet:update()
 	end
 	local to_remove = {}
 	
-	if Game.battle.wave_timer < Game.battle.wave_length - (10/30) then
+	if self.amount > 1 and (Game.battle.wave_timer < Game.battle.wave_length - (10/30)) then
 		for _,bullet in ipairs(self.bullets) do
 			if self.bullet_collider:collidesWith(bullet.collider) then
 				table.insert(to_remove, bullet)

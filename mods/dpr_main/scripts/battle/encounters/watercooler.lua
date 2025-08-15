@@ -12,7 +12,7 @@ function Watercooler:init()
     self.background = true
 
     -- Add the dummy enemy to the encounter
-    self:addEnemy("watercooler")
+    self:addEnemy("watercooler", 507, 196)
 end
 
 function Watercooler:onReturnToWorld(events)
