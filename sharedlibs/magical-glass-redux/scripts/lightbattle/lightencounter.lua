@@ -54,6 +54,8 @@ function LightEncounter:init()
         "* Don't slow me down.", --1/20
         "* Escaped..." --17/20
     }
+
+    self.reduced_tension = false
 end
 
 function LightEncounter:onSoulTransition()
@@ -447,6 +449,17 @@ end
 function LightEncounter:addFlag(flag, amount)
     if self.id == nil then return end
     return Game:addFlag("lightencounter#"..self.id..":"..flag, amount)
+end
+
+function LightEncounter:hasReducedTension()
+    return self.reduced_tension
+end
+
+function LightEncounter:getDefendTension(battler)
+    if self:hasReducedTension() then
+        return 2
+    end
+    return 16
 end
 
 function LightEncounter:canDeepCopy()

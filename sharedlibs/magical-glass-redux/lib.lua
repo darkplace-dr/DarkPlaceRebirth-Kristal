@@ -186,6 +186,11 @@ function lib:preInit()
         ["tension_max"] = PALETTE["tension_max"],
         
         ["tension_desc"] = PALETTE["tension_desc"],
+
+        ["tension_back_reduced"] = PALETTE["tension_back_reduced"],
+        ["tension_decrease_reduced"] = PALETTE["tension_decrease_reduced"],
+        ["tension_fill_reduced"] = PALETTE["tension_fill_reduced"],
+        ["tension_max_reduced"] = PALETTE["tension_max_reduced"],
         
         ["action_health_bg"] = COLORS.red,
         ["action_health"] = COLORS.lime,
@@ -3428,8 +3433,9 @@ function lib:init()
 
     Utils.hook(Savepoint, "init", function(orig, self, x, y, properties)
         orig(self, x, y, properties)
+        self.style = Kristal.getLibConfig("magical-glass", "savepoint_style")
         Game.world.timer:after(1/30, function()
-            if Game:isLight() then
+            if Game:isLight() and self.style == "undertale" then
                 self:setSprite("world/events/lightsavepoint", 1/6)
             end
         end)
@@ -3451,6 +3457,23 @@ function lib:init()
                 self.world:openMenu(LightSaveMenu(Game.save_id, self.marker))
             else
                 self.world:openMenu(LightSaveMenuExpanded(self.marker))
+            end
+        end
+    end)
+
+    Utils.hook(Savepoint, "update", function(orig, self)
+        Interactable.update(self)
+
+        if Game:isLight() and self.style == "deltarune" then
+            self.sprite.alpha = 0.5
+
+            if Game.world.player then
+                local dist = Utils.dist(self.x, self.y, Game.world.player.x, Game.world.player.y)
+
+
+                if dist <= 80 then
+                    self.sprite.alpha = math.min(1, ((1 - (dist/80)) + 0.5))
+                end
             end
         end
     end)

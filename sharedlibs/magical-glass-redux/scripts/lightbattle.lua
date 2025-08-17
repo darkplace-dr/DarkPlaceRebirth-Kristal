@@ -3223,6 +3223,14 @@ function LightBattle:onKeyPressed(key)
     end
 end
 
+function LightBattle:hasReducedTension()
+    return self.encounter:hasReducedTension()
+end
+
+function LightBattle:getDefendTension(battler)
+    return self.encounter:getDefendTension(battler)
+end
+
 function LightBattle:handleActionSelectInput(key)
     if not self.encounter.event then
         local actbox = self.battle_ui.action_boxes[self.current_selecting]

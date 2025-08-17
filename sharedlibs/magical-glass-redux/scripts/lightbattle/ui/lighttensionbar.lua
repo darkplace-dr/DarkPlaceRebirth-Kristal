@@ -49,10 +49,15 @@ end
 
 function LightTensionBar:getDebugInfo()
     local info = super.getDebugInfo(self)
-    table.insert(info, "Tension: "  .. Utils.round(self:getPercentageFor(Game:getTension()) * 100) .. "%")
+    table.insert(info, "Tension: " .. Utils.round(self:getPercentageFor(Game:getTension()) * 100) .. "%")
     table.insert(info, "Apparent: " .. Utils.round(self.apparent / 2.5))
-    table.insert(info, "Current: "  .. Utils.round(self.current / 2.5))
+    table.insert(info, "Current: " .. Utils.round(self.current / 2.5))
+    table.insert(info, "Reduced: " .. (self:hasReducedTension() and "True" or "False"))
     return info
+end
+
+function LightTensionBar:hasReducedTension()
+    return Game.battle and Game.battle:hasReducedTension() or false
 end
 
 function LightTensionBar:getTension250()
@@ -160,22 +165,38 @@ function LightTensionBar:drawText()
 end
 
 function LightTensionBar:drawBack()
-    Draw.setColor(MG_PALETTE["tension_back"])
+    Draw.setColor(self:hasReducedTension() and MG_PALETTE["tension_back_reduced"] or MG_PALETTE["tension_back"])
     Draw.pushScissor()
     Draw.scissorPoints(0, 0, 25, 156 - (self:getPercentageFor250(self.current) * 156) + 1)
     Draw.draw(self.tp_bar_fill, 0, 0)
     Draw.popScissor()
 end
+
+function LightTensionBar:getFillColor()
+    return self:hasReducedTension() and MG_PALETTE["tension_fill_reduced"] or MG_PALETTE["tension_fill"]
+end
+
+function LightTensionBar:getFillMaxColor()
+    return self:hasReducedTension() and MG_PALETTE["tension_max_reduced"] or MG_PALETTE["tension_max"]
+end
+
+function LightTensionBar:getFillDecreaseColor()
+    return self:hasReducedTension() and MG_PALETTE["tension_decrease_reduced"] or MG_PALETTE["tension_decrease"]
+end
 --todo: make apparent tension current tension
 function LightTensionBar:drawFill()
+    local tension_fill = self:getFillColor()
+    local tension_max = self:getFillMaxColor()
+    local tension_decrease = self:getFillDecreaseColor()
+
     if (self.apparent < self.current) then
-        Draw.setColor(MG_PALETTE["tension_decrease"])
+        Draw.setColor(tension_decrease)
         Draw.pushScissor()
         Draw.scissorPoints(0, 156 - (self:getPercentageFor250(self.current) * 156) + 1, 25, 156)
         Draw.draw(self.tp_bar_fill, 0, 0)
         Draw.popScissor()
 
-        Draw.setColor(MG_PALETTE["tension_fill"])
+        Draw.setColor(tension_fill)
         Draw.pushScissor()
         Draw.scissorPoints(0, 156 - (self:getPercentageFor250(self.apparent) * 156) + 1 + (self:getPercentageFor(self.tension_preview) * 156), 25, 156)
         Draw.draw(self.tp_bar_fill, 0, 0)
@@ -187,18 +208,18 @@ function LightTensionBar:drawFill()
         Draw.draw(self.tp_bar_fill, 0, 0)
         Draw.popScissor()
 
-        Draw.setColor(MG_PALETTE["tension_fill"])
+        Draw.setColor(tension_fill)
         if (self.maxed) then
-            Draw.setColor(MG_PALETTE["tension_max"])
+            Draw.setColor(tension_max)
         end
         Draw.pushScissor()
         Draw.scissorPoints(0, 156 - (self:getPercentageFor250(self.current) * 156) + 1 + (self:getPercentageFor(self.tension_preview) * 156), 25, 156)
         Draw.draw(self.tp_bar_fill, 0, 0)
         Draw.popScissor()
     elseif (self.apparent == self.current) then
-        Draw.setColor(MG_PALETTE["tension_fill"])
+        Draw.setColor(tension_fill)
         if (self.maxed) then
-            Draw.setColor(MG_PALETTE["tension_max"])
+            Draw.setColor(tension_max)
         end
         Draw.pushScissor()
         Draw.scissorPoints(0, 156 - (self:getPercentageFor250(self.current) * 156) + 1 + (self:getPercentageFor(self.tension_preview) * 156), 25, 156)
@@ -208,21 +229,21 @@ function LightTensionBar:drawFill()
 
     if (self.tension_preview > 0) then
         local alpha = (math.abs((math.sin((self.tsiner / 8)) * 0.5)) + 0.2)
-        local color_to_set = {1, 1, 1, alpha}
+        local color_to_set = { 1, 1, 1, alpha }
 
         local theight = 156 - (self:getPercentageFor250(self.current) * 156)
         local theight2 = theight + (self:getPercentageFor(self.tension_preview) * 156)
         -- Note: causes a visual bug.
         if (theight2 > ((0 + 156) - 1)) then
             theight2 = ((0 + 156) - 1)
-            color_to_set = {COLORS.dkgray[1], COLORS.dkgray[2], COLORS.dkgray[3], 0.7}
+            color_to_set = { COLORS.dkgray[1], COLORS.dkgray[2], COLORS.dkgray[3], 0.7 }
         end
 
         Draw.pushScissor()
         Draw.scissorPoints(0, theight2 + 1, 25, theight + 1)
 
         -- No idea how Deltarune draws this, cause this code was added in Kristal:
-        local r,g,b,_ = love.graphics.getColor()
+        local r, g, b, _ = love.graphics.getColor()
         Draw.setColor(r, g, b, 0.7)
         Draw.draw(self.tp_bar_fill, 0, 0)
         -- And back to the translated code:
