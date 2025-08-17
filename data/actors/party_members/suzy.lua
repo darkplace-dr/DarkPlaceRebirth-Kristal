@@ -1,4 +1,4 @@
-local actor, super = Class(Actor, "suzy_lw")
+local actor, super = Class(Actor, "suzy")
 
 function actor:init()
     super.init(self)
@@ -15,13 +15,13 @@ function actor:init()
 
     self.color = {1, 1, 1}
 
-    self.path = "party/suzy/light"
+    self.path = "party/suzy/dark"
 
     self.default = "walk"
 
     self.voice = "suzy"
 
-    --self.portrait_path = "face/suzy"
+    self.portrait_path = "face/suzy"
 
     self.portrait_offset = nil
 
@@ -41,9 +41,15 @@ function actor:init()
     self.offsets = {
     }
 end
+
 function actor:onTextSound(node)
-    local meth = math.random(1, 2)
-    Assets.playSound("voice/suzy_".. meth, 1, 1)
+    if self.snd then
+        self.snd:stop()
+        self.snd = nil
+    end
+    local meth, w = math.random(1, 3), 1
+    if meth > 2 then meth = 2 end 
+    self.snd = Assets.playSound("voice/suzy_".. meth, 1, w)
     return true
 end
 

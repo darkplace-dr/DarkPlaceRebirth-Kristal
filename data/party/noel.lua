@@ -282,6 +282,20 @@ function character:save()
     return data
 end
 
+
+
+function character:getReaction(item, user)
+    local menu = Game.world.menu
+    if not menu then return "" end
+    local selected = menu.box.selected_slot
+    if item or user.id ~= self.id then
+        return super.getReaction(self, item, user)
+    elseif selected == 1 then
+        return "Outstanding move."
+    elseif not self:getArmor(selected - 1) then
+        return "You want me to swap nothing with nothing?"
+    end
+end
 function character:load(data)
 
     local save = Noel:loadNoel()

@@ -58,6 +58,10 @@ return {
                 cutscene:text("* allan please add dialogue", "neutral", "dess")
             end
             cutscene:hideNametag()
+        elseif partyleader == "mario" then
+            cutscene:text("* allan please add dialogue", "neutral", "mario")
+            cutscene:text("* Everyone knows Mario is cool as fuck.[wait:10] But who knows what he's thinking?[wait:10] Who knows why he crushes turtles?[wait:10] And why do we think about him as fondly as we think of the mystical (nonexistent?) Dr Pepper?[wait:10] Perchance.", "neutral", "mario")
+            cutscene:hideNametag()
         else
             if map == "grey_cliffside/cliffside_start" then
                 if partyleader == "hero" then

@@ -12,7 +12,9 @@ return {
   nextlayerid = 9,
   nextobjectid = 74,
   properties = {
-    ["border"] = "tower_outside"
+    ["border"] = "tower_outside",
+    ["music"] = "mainhub_outside",
+    ["notmusic"] = "sanctuarium_aeternum"
   },
   tilesets = {
     {
@@ -34,7 +36,7 @@ return {
     },
     {
       name = "hub_objects",
-      firstgid = 552,
+      firstgid = 480,
       filename = "../../../tilesets/hub_objects.tsx",
       exportfilename = "../../../tilesets/hub_objects.lua"
     }
@@ -564,7 +566,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
-          gid = 566,
+          gid = 494,
           visible = true,
           properties = {}
         },
@@ -578,7 +580,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
-          gid = 566,
+          gid = 494,
           visible = true,
           properties = {}
         },
@@ -592,7 +594,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
-          gid = 566,
+          gid = 494,
           visible = true,
           properties = {}
         },
@@ -606,7 +608,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
-          gid = 566,
+          gid = 494,
           visible = true,
           properties = {}
         }
