@@ -555,11 +555,11 @@ function LightSoul:update()
             table.insert(collided_bullets, bullet)
         end
         if self.inv_timer == 0 and Game.battle:getState() == "DEFENDING" then
-            if bullet.tp ~= 0 and bullet:collidesWith(self.graze_collider) then
+            if bullet:canGraze() and bullet:collidesWith(self.graze_collider) then
                 local old_graze = bullet.grazed
                 if bullet.grazed then
                     Game:giveTension(bullet:getGrazeTension() * DT * self.graze_tp_factor)
-                    if Game.battle.wave_timer < Game.battle.wave_length - (1/3) then
+                    if Game.battle.wave_timer < Game.battle.wave_length - (1 / 3) then
                         Game.battle.wave_timer = Game.battle.wave_timer + (bullet.time_bonus * (DT / 30) * self.graze_time_factor)
                     end
                     if self.graze_sprite.timer < 0.1 then

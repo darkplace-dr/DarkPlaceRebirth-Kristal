@@ -187,7 +187,7 @@ function LightActionButton:select()
                 ["name"] = "Defend",
                 ["special"] = "defend",
                 ["callback"] = function(menu_item)
-                    Game.battle:pushAction("DEFEND", nil, {tp = -16})
+                    Game.battle:pushAction("DEFEND", nil, {tp = -Game.battle:getDefendTension(self.battler)})
                 end
             })
         end
@@ -229,7 +229,7 @@ function LightActionButton:select()
         self.battler.manual_spare = true
         Game.battle:setState("ENEMYSELECT", "SPARE")
     elseif self.type == "defend" then
-        Game.battle:pushAction("DEFEND", nil, {tp = -16})
+        Game.battle:pushAction("DEFEND", nil, {tp = -Game.battle:getDefendTension(self.battler)})
     end
 end
 

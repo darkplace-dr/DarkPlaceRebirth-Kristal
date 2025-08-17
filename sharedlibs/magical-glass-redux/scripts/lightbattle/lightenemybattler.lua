@@ -130,7 +130,7 @@ function LightEnemyBattler:init(actor, use_overlay)
     self.show_hp = true
     self.show_mercy = true
 
-    self.graze_tension = 1.6 -- (1/10 of a defend, or cheap spell)
+    self.graze_tension = 1.6
 end
 
 function LightEnemyBattler:getGrazeTension()
@@ -733,6 +733,9 @@ function LightEnemyBattler:getDamageSound() end
 function LightEnemyBattler:getDamageVoice() end
 
 function LightEnemyBattler:getAttackTension(amount)
+    if Game.battle:hasReducedTension() then
+        return amount / 2.5
+    end
     return amount * 1
 end
 
