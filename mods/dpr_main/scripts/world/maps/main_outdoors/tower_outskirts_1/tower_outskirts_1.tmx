@@ -5,11 +5,13 @@
  </editorsettings>
  <properties>
   <property name="border" value="tower_outside"/>
+  <property name="music" value="mainhub_outside"/>
+  <property name="notmusic" value="sanctuarium_aeternum"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/blue_grass_lol.tsx"/>
  <tileset firstgid="209" source="../../../tilesets/main_area.tsx"/>
  <tileset firstgid="417" source="../../../tilesets/cliffs.tsx"/>
- <tileset firstgid="552" source="../../../tilesets/hub_objects.tsx"/>
+ <tileset firstgid="480" source="../../../tilesets/hub_objects.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="22">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,107,105,105,105,124,0,0,0,0,0,0,0,0,
@@ -154,10 +156,10 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="70" gid="566" x="160" y="320" width="120" height="120"/>
-  <object id="71" gid="566" x="80" y="640" width="120" height="120"/>
-  <object id="72" gid="566" x="920" y="240" width="120" height="120"/>
-  <object id="73" gid="566" x="960" y="520" width="120" height="120"/>
+  <object id="70" gid="494" x="160" y="320" width="120" height="120"/>
+  <object id="71" gid="494" x="80" y="640" width="120" height="120"/>
+  <object id="72" gid="494" x="920" y="240" width="120" height="120"/>
+  <object id="73" gid="494" x="960" y="520" width="120" height="120"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="61" name="spawn" x="640" y="560">

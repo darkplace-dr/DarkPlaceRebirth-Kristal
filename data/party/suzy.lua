@@ -5,7 +5,7 @@ function character:init()
 
     self.name = "Suzy"
 
-    self:setActor("suzy_lw")
+    self:setActor("suzy")
     self:setLightActor("suzy_lw")
     self:setDarkTransitionActor("suzy_lw") --"suzy_dark_transition"
 
@@ -13,7 +13,7 @@ function character:init()
     self.love = 1
     self.level = 1
 
-    self.title = "Silly Dragon Placeholder Text."
+    self.title = "Man, I should really put text here."
 
     self.soul_priority = 1
 
@@ -54,7 +54,7 @@ function character:init()
         magic = 5
     }
 
-    self.color = {106/255, 13/255, 173/255}
+    self.color = {0.7, 0.3, 0.8}
 
     self.dmg_color = {0.8, 0.6, 0.8}
 
@@ -169,8 +169,6 @@ function character:getReaction(item, user)
         return super.getReaction(self, item, user)
     elseif selected == 1 then
         return "I need that!"
-    elseif not self:getArmor(selected - 1) then
-        return "You want me to swap nothing with nothing?"
     else
         if menu.suzy_complain then
             local comp = menu.suzy_complain

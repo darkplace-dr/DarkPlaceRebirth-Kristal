@@ -1390,36 +1390,7 @@ end
 
 
 -- TODO: Clean this up, remove unuseeeeeeed Noelstuff, move into libdp
-
-local save_dir = "saves"
-local n_save = "saves/null.char"
-
-function Game:saveNoel(new_data)
-    if Kristal.temp_save == true then
-    else
-
-    local data = self:loadNoel() or {}
-    if new_data then
-        for k, v in pairs(new_data) do
-            data[k] = v
-        end
-    end
-
-    love.filesystem.createDirectory(save_dir)
-    love.filesystem.write(n_save, JSON.encode(data))
-
-    end
-end
-
-function Game:loadNoel()
-    if Kristal.temp_save == true then
-    else
-    if love.filesystem.getInfo(n_save) then
-        return JSON.decode(love.filesystem.read(n_save))
-    end
-    end
-    return nil
-end
+-- Removed, I forgot I put this here.
 
 function Game:getGlobalFlag(flag, default)
     local flags
@@ -1462,6 +1433,14 @@ function Game:getUISkin()
 end
 
 function Game:unlockPartyMember(member)
+    -- the reason why i'm doing it like this is because some older saves have like, 11 noels in this table
+    local unlocks = Game:getFlag("_unlockedPartyMembers")
+    for i = #unlocks, 1, -1 do
+        if unlocks[i] == member then
+            table.remove(unlocks, i)
+        end
+    end
+
     Kristal.callEvent(KRISTAL_EVENT.onDPUnlockPartyMember, member)
     if Game:getPartyMember(member) then
         table.insert(Game:getFlag("_unlockedPartyMembers"), member)
