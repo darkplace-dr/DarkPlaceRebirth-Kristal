@@ -646,7 +646,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 20,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,

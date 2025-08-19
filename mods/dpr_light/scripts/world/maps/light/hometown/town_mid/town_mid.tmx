@@ -141,7 +141,7 @@
   <object id="58" gid="347" x="1880" y="234" width="424" height="334"/>
   <object id="59" gid="346" x="2360" y="234" width="414" height="406"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="20" name="objects">
+ <objectgroup color="#ff00ff" id="20" name="objects_party">
   <object id="26" name="transition" x="1560" y="-40" width="200" height="40">
    <properties>
     <property name="facing" value="up"/>
