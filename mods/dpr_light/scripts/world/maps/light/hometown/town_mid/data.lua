@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,11 +10,12 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 32,
-  nextobjectid = 70,
+  nextobjectid = 71,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
-    ["music"] = "hometown"
+    ["music"] = "hometown",
+    ["name"] = "Hometown"
   },
   tilesets = {
     {
@@ -892,6 +893,19 @@ return {
             ["day"] = 1,
             ["rain"] = 1
           }
+        },
+        {
+          id = 70,
+          name = "savepoint",
+          type = "",
+          shape = "rectangle",
+          x = 1480,
+          y = 179,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

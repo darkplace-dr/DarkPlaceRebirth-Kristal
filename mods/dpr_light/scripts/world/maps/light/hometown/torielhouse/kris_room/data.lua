@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,12 +10,13 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 27,
+  nextobjectid = 28,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
     ["light"] = true,
-    ["music"] = "deltarune/home"
+    ["music"] = "deltarune/home",
+    ["name"] = "Kris's Room"
   },
   tilesets = {
     {
@@ -393,6 +394,19 @@ return {
             ["map"] = "light/hometown/torielhouse/toriel_hallway",
             ["marker"] = "spawn"
           }
+        },
+        {
+          id = 27,
+          name = "savepoint",
+          type = "",
+          shape = "rectangle",
+          x = 306,
+          y = 219,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
