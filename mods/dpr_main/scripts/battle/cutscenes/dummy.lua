@@ -22,9 +22,15 @@ return {
         end
     end,
     tattle = function(cutscene, battler, enemy)
-        cutscene:text("* That's a training dummy, Hero!", nil, "suzy_lw")
-        cutscene:text("* Like the name implies,[wait:5] It's only purpose is to be used like a training dummy. [wait:5]* Duh!", nil, "suzy_lw")
-        cutscene:text("* So try your best to break it in half![wait:10] * Or don't...", nil, "suzy_lw")
+        local tex = "."
+        if Game:hasPartyMember("hero") then tex = ", Hero." end
+        cutscene:text("* That's a training dummy" ..tex, "face", "suzy")
+        cutscene:text("* Not much to say other than it's a dummy. [wait:5]\n[face:smile_b]* Duh!", "neutral", "suzy")
+        cutscene:text("* It's attacks are really easy to dodge.\n* So you should be fine.", "smile", "suzy")
+        local p = Game.party[1]
+        if p:getHealth() < p:getStat("health")/4 then
+           cutscene:text("* Too bad you suck at dodging.", "smile_b", "suzy")
+        end
 
     end
 }

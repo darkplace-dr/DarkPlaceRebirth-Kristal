@@ -194,6 +194,19 @@
         // Whether when playing with multiple party members, the leader name will be mentioned as 'You'.
         /////
         "multi_leader_mentioned_as_you": false,
+
+        ///// Savepoint Style
+        // Determines the appearance of savepoints drawn in the light world.
+        ///// Values:
+        //
+        // "undertale"
+        // UNDERTALE-styled savepoints. (yellow, doesn't fade)
+        //
+        // "deltarune"
+        // deltarune-styled savepoints. (white, fades depending on the player's distance from it)
+        //
+        /////
+        "savepoint_style": "undertale",
         
         ///// Debug Mode
         // Determines whether the library is in its debug mode state.

@@ -10,9 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 82,
+  nextobjectid = 85,
   properties = {
-    ["border"] = "tower_outside"
+    ["border"] = "tower_outside",
+    ["music"] = "mainhub_outside"
   },
   tilesets = {
     {
@@ -34,7 +35,7 @@ return {
     },
     {
       name = "hub_objects",
-      firstgid = 552,
+      firstgid = 480,
       filename = "../../../tilesets/hub_objects.tsx",
       exportfilename = "../../../tilesets/hub_objects.lua"
     }
@@ -446,7 +447,7 @@ return {
           width = 41,
           height = 49,
           rotation = 0,
-          gid = 559,
+          gid = 487,
           visible = true,
           properties = {
             ["dlc"] = "dlc_trials"
@@ -487,34 +488,6 @@ return {
             ["dlc"] = "dlc_trials",
             ["solid"] = true
           }
-        },
-        {
-          id = 80,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 120,
-          y = 640,
-          width = 120,
-          height = 120,
-          rotation = 0,
-          gid = 566,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 81,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 640,
-          y = 720,
-          width = 120,
-          height = 120,
-          rotation = 0,
-          gid = 566,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -636,12 +609,40 @@ return {
           width = 32,
           height = 32,
           rotation = 0,
-          gid = 562,
+          gid = 490,
           visible = true,
           properties = {
             ["cond"] = "Game:hasPartyMember(\"hero\") and Game:hasPartyMember(\"susie\") and Game:hasPartyMember(\"noel\")",
             ["dlc"] = "dlc_trials"
           }
+        },
+        {
+          id = 80,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 640,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          gid = 494,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 81,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 720,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          gid = 494,
+          visible = true,
+          properties = {}
         }
       }
     },

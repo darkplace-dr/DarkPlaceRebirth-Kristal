@@ -21,7 +21,7 @@ function actor:init()
 
     self.voice = "suzy"
 
-    --self.portrait_path = "face/"
+    --self.portrait_path = "face/suzy"
 
     self.portrait_offset = nil
 
@@ -40,6 +40,11 @@ function actor:init()
 
     self.offsets = {
     }
+end
+function actor:onTextSound(node)
+    local meth = math.random(1, 2)
+    Assets.playSound("voice/suzy_".. meth, 1, 1)
+    return true
 end
 
 return actor

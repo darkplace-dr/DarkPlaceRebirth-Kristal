@@ -232,12 +232,12 @@ return {
     album = "undertale"
   },
   {
-    name = "Stronger Monsters",
-    file = "battle2ut",
-    composer = "Toby Fox",
-    released = "2015",
-    origin = "Undertale",
-    album = "undertale"
+    name = "The House",
+    file = "the_wild_east_house",
+    composer = "MasterSwordRemix",
+    released = "2023",
+    origin = "Undertale Yellow",
+    album = "uty"
   },
   {
     name = "BIGGEST SHOT",
