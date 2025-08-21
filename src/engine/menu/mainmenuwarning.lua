@@ -57,6 +57,8 @@ function MainMenuWarning:init(menu)
 
     self.animation_clock = -1
     self.active = false
+    
+    self.old_time = os.time()
 end
 
 function MainMenuWarning:registerEvents()
@@ -86,6 +88,10 @@ function MainMenuWarning:update()
 
     if self.warning_state == "SUBNAUTICA" then
         self:detecting_leviathans()
+    end
+
+    if self.warning_state == "CLOCK" then
+        self:clock()
     end
 end
 
@@ -203,6 +209,16 @@ function MainMenuWarning:detecting_leviathans()
 
             self.last_time = time     
 	end
+end
+
+function MainMenuWarning:clock()
+    self.text_contents:setText(os.date("%X", os.time()))
+    self.text_accept:setText("Press "..Input.getText("confirm").. (Input.usingGamepad() and "" or " ").. "to start.")
+    
+    if self.old_time ~= os.time() then
+        self.old_time = os.time()
+        Assets.playSound("graze")
+    end
 end
 
 return MainMenuWarning
