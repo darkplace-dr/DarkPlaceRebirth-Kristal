@@ -172,11 +172,18 @@ function character:getFleeText()
 	return self.flee_text
 end
 
-function character:getMinimemberID()
+function character:getAssistID()
     if Game:getFlag("marcy_joined") then
         return "marcy"
     end
-    return super.getMinimemberID(self)
+    return super.getAssistID(self)
+end
+
+function character:getAssistColor()
+    if Game:getFlag("marcy_joined") then
+        return Utils.unpackColor({0, 1, 1})
+    end
+    return super.getAssistColor(self)
 end
 
 function character:getGameOverMessage(main)

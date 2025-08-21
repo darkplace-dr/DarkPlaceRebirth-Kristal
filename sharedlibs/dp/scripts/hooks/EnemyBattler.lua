@@ -21,32 +21,23 @@ function EnemyBattler:init(actor, use_overlay)
     self.powder_damage = false
 end
 
-function EnemyBattler:registerMinipartyAct(party, mini, name, description, party, tp, highlight, icons)
-    party = type(party) == "string" and Game:getPartyMember(party) or party
-    if not party:getMinimemberID(mini) then return end
-    self:registerActFor(party.id, name, description, party, tp, highlight, icons)
+function EnemyBattler:registerAssistAct(party_member, mini, name, description, party, tp, highlight, icons)
+    if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
+    if not Game:getPartyMember(party_member):getAssistID(--[[For some reason, there was a `mini` parameter here???]]) then return end
+    self:registerActFor(party_member, name, description, party, tp, highlight, icons)
 
-    local color = {party:getColor()}
-
-    -- TODO: Unhardcode
-    if party.id == "jamm" and mini == "marcy" then
-        color = {0,1,1}
-    end
+    local color = {Game:getPartyMember(party_member):getAssistColor()}
 
     self.acts[#self.acts].color = color
 end
 
 
-function EnemyBattler:registerShortMinipartyAct(party, mini, name, description, party, tp, highlight, icons)
-    party = type(party) == "string" and Game:getPartyMember(party) or party
-    if not party:getMinimemberID(mini) then return end
-    self:registerShortActFor(party.id, name, description, party, tp, highlight, icons)
+function EnemyBattler:registerShortAssistAct(party, mini, name, description, party, tp, highlight, icons)
+    if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
+    if not Game:getPartyMember(party_member):getAssistID(--[[For some reason, there was a `mini` parameter here???]]) then return end
+    self:registerShortActFor(party_member, name, description, party, tp, highlight, icons)
 
-    -- TODO: Unhardcode, make a PartyMember getter
-    local color = {1, 1, 1}
-    if party.id == "jamm" and mini == "marcy" then
-        color = {0,1,1}
-    end
+    local color = {Game:getPartyMember(party_member):getAssistColor()}
 
     self.acts[#self.acts].color = color
 end
@@ -57,7 +48,7 @@ function EnemyBattler:registerMarcyAct(name, description, party, tp, highlight, 
     love.timer.sleep(1)
     Kristal.Console:warn("Deprecated EnemyBattler:registerMarcyAct used!")
     Kristal.Console:warn(info.source .. ":"..info.currentline)
-    self:registerMinipartyAct("jamm", "marcy", name, description, party, tp, highlight, icons)
+    self:registerAssistAct("jamm", "marcy", name, description, party, tp, highlight, icons)
 end
 
 ---@deprecated
@@ -66,7 +57,7 @@ function EnemyBattler:registerShortMarcyAct(name, description, party, tp, highli
     love.timer.sleep(1)
     Kristal.Console:warn("Deprecated EnemyBattler:registerMarcyAct used!")
     Kristal.Console:warn(info.source .. ":"..info.currentline)
-    self:registerShortMinipartyAct("jamm", "marcy", name, description, party, tp, highlight, icons)
+    self:registerShortAssistAct("jamm", "marcy", name, description, party, tp, highlight, icons)
 end
 
 function EnemyBattler:onMercy(battler, spare_all)
