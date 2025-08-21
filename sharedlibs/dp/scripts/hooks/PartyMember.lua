@@ -149,13 +149,17 @@ end
 
 --- Returns the min
 ---@return string?
-function PartyMember:getMinimemberID()
+function PartyMember:getAssistID()
     return nil
+end
+
+function PartyMember:getAssistColor()
+    return self:getColor()
 end
 
 function PartyMember:getReaction(item, user)
     if item then
-        return item:getReaction(user.id, self.id, self:getMinimemberID())
+        return item:getReaction(user.id, self.id, self:getAssistID())
     end
 end
 
