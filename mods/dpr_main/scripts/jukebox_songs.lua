@@ -16,14 +16,6 @@ return {
     album = "dark_place_with_text"
   },
   {
-    name = "Get on the Bus",
-    file = "get_on_the_bus",
-    composer = "Keiichi Suzuki, Hirokazu Tanaka",
-    released = "1994",
-    origin = "MOTHER 2/Earthbound",
-    album = "mother_2"
-  },
-  {
     name = "Our Castle Town",
     file = "mainhub",
     composer = "Spunky Tunky",
@@ -48,60 +40,12 @@ return {
     album = "dark_place_with_text"
   },
   {
-    name = "Rude Buster",
-    file = "battle",
-    composer = "Toby Fox",
-    released = "2018",
-    origin = "Deltarune",
-    album = "dr_ch1"
-  },
-  {
-    name = "Enemy Approaching!",
-    file = "battleut",
-    composer = "Toby Fox",
-    released = "2015",
-    origin = "Undertale",
-    album = "undertale"
-  },
-  {
     name = "I'LL SHOW YOU THE POWER OF",
     file = "spamgolor_battle",
     composer = "JustAnAverageChilly",
     released = "2024",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text"
-  },
-  {
-    name = "Susie",
-    file = "deltarune/s_neo",
-    composer = "Toby Fox",
-    released = "2018",
-    origin = "Deltarune",
-    album = "dr_ch1"
-  },
-  {
-    name = "STARSTRUCK", -- official name according to the Soundcloud upload
-    file = "starwalker",
-    composer = "Nyako",
-    released = "March 21st, 2024",
-    origin = "Kristal",
-    album = "default"
-  },
-  {
-    name = "Faint Courage",
-    file = "AUDIO_DEFEAT",
-    composer = "Toby Fox",
-    released = "2021",
-    origin = "Deltarune",
-    album = "dr_ch2"
-  },
-  {
-    name = "Darkness Falls",
-    file = "AUDIO_DARKNESS",
-    composer = "Toby Fox",
-    released = "2018",
-    origin = "Deltarune",
-    album = "dr_ch1"
   },
   {
     name = "Warp Zone",
@@ -118,6 +62,22 @@ return {
     released = "2023",
     origin = "Dark Place",
     album = "dark_place_with_text"
+  },
+  {
+    name = "BIGGEST SHOT",
+    file = "omega_spamton",
+    composer = "BrendaK7200",
+    released = "2025",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
+  },
+  {
+    name = "STARSTRUCK", -- official name according to the Soundcloud upload
+    file = "starwalker",
+    composer = "Nyako",
+    released = "March 21st, 2024",
+    origin = "Kristal",
+    album = "default"
   },
   {
     name = "Gimmie Your Wallet, Miss",
@@ -144,6 +104,14 @@ return {
     album = "dr_ts"
   },
   {
+    name = "Get on the Bus",
+    file = "get_on_the_bus",
+    composer = "Keiichi Suzuki, Hirokazu Tanaka",
+    released = "1994",
+    origin = "MOTHER 2/Earthbound",
+    album = "mother_2"
+  },
+  {
     name = "Undefeatable",
     file = "undefeatable",
     composer = "Tomoya Ohtani",
@@ -152,8 +120,80 @@ return {
     album = "sonic_frontiers_stillness_and_motion"
   },
   {
-    name = "Cool Mixtape",
-    file = "deltarune/queen_car_radio",
+    name = "Enemy Approaching!",
+    file = "battleut",
+    composer = "Toby Fox",
+    released = "2015",
+    origin = "Undertale",
+    album = "undertale"
+  },
+  {
+    name = "sans.",
+    file = "deltarune/muscle",
+    composer = "Toby Fox",
+    released = "2015",
+    origin = "Undertale",
+    album = "undertale"
+  },
+  {
+    name = "Susie",
+    file = "deltarune/s_neo",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "The Door",
+    file = "deltarune/door",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Rude Buster",
+    file = "battle",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Fanfare (from \"Rose of Winter\")",
+    file = "deltarune/fanfare",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Darkness Falls",
+    file = "AUDIO_DARKNESS",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "THE HOLY",
+    file = "deltarune/THE_HOLY",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Berdly",
+    file = "deltarune/berdly_theme",
+    composer = "Toby Fox",
+    released = "2021",
+    origin = "Deltarune",
+    album = "dr_ch2"
+  },
+  {
+    name = "Faint Courage",
+    file = "AUDIO_DEFEAT",
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
@@ -170,6 +210,14 @@ return {
   {
     name = "WELCOME TO THE CITY (Alt)",
     file = "deltarune/cybercity_alt",
+    composer = "Toby Fox",
+    released = "2021",
+    origin = "Deltarune",
+    album = "dr_ch2"
+  },
+  {
+    name = "Cool Mixtape",
+    file = "deltarune/queen_car_radio",
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
@@ -208,6 +256,14 @@ return {
     album = "dr_ch3_4"
   },
   {
+    name = "Glowing Snow",
+    file = "deltarune/tv_results_screen",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
     name = "TV WORLD",
     file = "deltarune/tv_world",
     composer = "Toby Fox",
@@ -216,20 +272,52 @@ return {
     album = "dr_ch3_4"
   },
   {
-    name = "THE HOLY",
-    file = "deltarune/THE_HOLY",
+    name = "It's TV Time!",
+    file = "deltarune/tenna_battle",
     composer = "Toby Fox",
-    released = "2018",
+    released = "2025",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch3_4"
   },
   {
-    name = "sans.",
-    file = "deltarune/muscle",
+    name = "Hammer of Justice",
+    file = "deltarune/ch4_extra_boss",
     composer = "Toby Fox",
-    released = "2015",
-    origin = "Undertale",
-    album = "undertale"
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Volume Adjustment",
+    file = "deltarune/mike_zone",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Catswing",
+    file = "deltarune/mike",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "AIRWAVES",
+    file = "deltarune/spamton_dance",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Man 2",
+    file = "deltarune/man_2",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
   },
   {
     name = "The House",
@@ -238,14 +326,6 @@ return {
     released = "2023",
     origin = "Undertale Yellow",
     album = "uty"
-  },
-  {
-    name = "BIGGEST SHOT",
-    file = "omega_spamton",
-    composer = "BrendaK7200",
-    released = "2025",
-    origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
   },
   {
     name = "Really Good Showrunner Cover",

@@ -12,7 +12,7 @@ return {
   nextlayerid = 7,
   nextobjectid = 19,
   properties = {
-    ["music"] = "man_2"
+    ["music"] = "deltarune/man_2"
   },
   tilesets = {
     {
