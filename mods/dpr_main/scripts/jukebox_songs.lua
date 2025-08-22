@@ -335,4 +335,52 @@ return {
     origin = "Super Mario 64: Beyond The Cursed Mirror(?)",
     album = "itsfuckingmike"
   },
+  {
+    name = "Same Old Story",
+    file = "Same Old Story",
+    composer = "Joel Baylis",
+    released = "2023",
+    origin = "Casette Beasts",
+    album = "casette_beasts"
+  },
+  {
+    name = "Face Down",
+    file = "facedown",
+    composer = "Joel Baylis",
+    released = "2023",
+    origin = "Casette Beasts",
+    album = "casette_beasts"
+  },
+  {
+    name = "Wherever We Are Now",
+    file = "whereverwearenow",
+    composer = "Joel Baylis",
+    released = "2023",
+    origin = "Casette Beasts",
+    album = "casette_beasts"
+  },
+  {
+    name = "TRITRALAND",
+    file = "TRITRALAND",
+    composer = "Tritra Serpifeu",
+    released = "2025",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place"
+  },
+  {
+    name = "Cyber Moon",
+    file = "Cyber Moon",
+    composer = "Tritra Serpifeu",
+    released = "2022",
+    origin = "Doki Doki Festive Firework",
+    album = "starrune"
+  },
+  {
+    name = "Space Cover",
+    file = "BABASPACE",
+    composer = "Tritra Serpifeu\nVia Midi by Theopold the Gamer",
+    released = "2024",
+    origin = "Snail Smite\nOriginal from: BABA IS YOU",
+    album = "snailsmite"
+  },
 }
