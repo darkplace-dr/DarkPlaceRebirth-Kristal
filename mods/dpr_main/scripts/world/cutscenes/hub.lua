@@ -806,7 +806,7 @@ local hub = {
 			
                 cutscene:textTagged("* haha HELL YEAH I did it", "swag", "dess")
 		
-                music_cut:play("fanfare")
+                music_cut:play("deltarune/fanfare")
 			
                 for i,_ in ipairs(Game.party) do
                     local chara = Game.party[i]

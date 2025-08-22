@@ -207,7 +207,7 @@ local dess_mode = function(cutscene, event)
         cutscene:text("* Okay.", "d_neutral_2", "noel")
 
         Game.world.music:pause()
-        local fan = Music("fanfare", 1, 0.9, false)
+        local fan = Music("deltarune/fanfare", 1, 0.9, false)
 
         Game:addPartyMember("noel")
 
