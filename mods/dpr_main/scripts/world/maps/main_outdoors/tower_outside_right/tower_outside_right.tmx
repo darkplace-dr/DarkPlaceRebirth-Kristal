@@ -108,7 +108,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="14" name="Object Layer 4">
+ <objectgroup id="14" name="objects">
   <object id="74" name="farm_tile" x="720" y="520" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="11" name="collision">
