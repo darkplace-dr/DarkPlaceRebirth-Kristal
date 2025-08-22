@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 175,
+  nextobjectid = 176,
   properties = {
     ["border"] = "teevie",
     ["keepmusic"] = true,
@@ -925,6 +925,22 @@ return {
           gid = 183,
           visible = true,
           properties = {}
+        },
+        {
+          id = 175,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1200,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "pippins",
+            ["cutscene"] = "tvfloor.pippins_first"
+          }
         }
       }
     },
