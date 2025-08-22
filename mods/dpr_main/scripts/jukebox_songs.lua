@@ -128,6 +128,14 @@ return {
     album = "undertale"
   },
   {
+    name = "Determination",
+    file = "determination",
+    composer = "Toby Fox",
+    released = "2015",
+    origin = "Undertale",
+    album = "undertale"
+  },
+  {
     name = "sans.",
     file = "deltarune/muscle",
     composer = "Toby Fox",
@@ -178,6 +186,22 @@ return {
   {
     name = "THE HOLY",
     file = "deltarune/THE_HOLY",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Your Power",
+    file = "deltarune/usefountain",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
+  },
+  {
+    name = "Before the Story",
+    file = "mod_menu",
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
@@ -274,6 +298,14 @@ return {
   {
     name = "It's TV Time!",
     file = "deltarune/tenna_battle",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
+    name = "Castle Funk",
+    file = "deltarune/castle_funk_long",
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
