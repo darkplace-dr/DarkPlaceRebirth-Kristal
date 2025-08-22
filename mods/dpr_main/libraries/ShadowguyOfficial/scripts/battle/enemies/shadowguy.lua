@@ -43,19 +43,62 @@ function Shadowguy:init()
 	
 	self.fsiner = 0
 	self.spare_after_sharpshoot = false
+	
+	self.gainmercyovertime = false
+	self.gainmercytimer = 0
+	self.boogietarget = nil
+	self.showtempmercy = false
+	self.savepartyhp = {}
 end
 
 function Shadowguy:update()
 	super.update(self)
 	self.fsiner = self.fsiner + DTMULT
+	if Game.battle.state == "DEFENDINGEND" and self.gainmercyovertime == true then
+		self.gainmercyovertime = false
+		self.gainmercytimer = 0
+		Game.battle.timer:after(15/30, function() self.showtempmercy = false end)
+		self.boogietarget = nil
+	end
+	if self.gainmercyovertime == true and (Game.battle.state == "DEFENDINGBEGIN" or Game.battle.state == "DEFENDING") then
+		for i,battler in ipairs(Game.battle.party) do
+			if self.savepartyhp[i] > battler.chara:getHealth() then
+				self.gainmercyovertime = false
+				self.gainmercytimer = 0
+				Game.battle.timer:after(50/30, function() self.showtempmercy = false end)
+				self.boogietarget = nil
+			end
+		end
+		self.gainmercytimer = self.gainmercytimer + DTMULT
+		if self.gainmercytimer >= 30 then
+			self:addTemporaryMercy(1, true, {0, 100}, (function() return self.showtempmercy == false end))
+			self.gainmercytimer = 29
+		end
+	end
+end
+
+function Shadowguy:getTarget()
+	if self.gainmercyovertime == true then
+		return self.boogietarget or Game.battle:randomTarget()
+	else
+		return Game.battle:randomTarget()
+	end
 end
 
 function Shadowguy:onAct(battler, name)
     if name == "Boogie" then
-        self:addMercy(Utils.round(50/#Game.battle.party))
-        return {string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName()), "* (... but it's not implemented yet.)"}
-	end
-
+		self.gainmercyovertime = true
+		self.showtempmercy = true
+		self.boogietarget = battler
+		for i,battler in ipairs(Game.battle.party) do
+			self.savepartyhp[i] = battler.chara:getHealth()
+		end
+        self:addTemporaryMercy(5, true, {0, 100}, (function() return self.showtempmercy == false end))
+        return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
+	elseif name == "Standard" then
+        self:addMercy(30)
+        return "* " .. battler.chara:getName() .. " danced!"
+    end
 	return super.onAct(self, battler, name)
 end
 
@@ -303,6 +346,16 @@ function Shadowguy:getEncounterText()
 	else
 		return super.getEncounterText(self)
 	end
+end
+
+function Shadowguy:getNextWaves()
+    if Game.battle.turn_count > 4 and love.math.random(0,200) < 2 then
+        return {"shadowguy/censoredbulletpattern"}
+    elseif #Game.battle:getActiveEnemies() == 1 then
+        return {"shadowguy/tommygun"}
+	end
+
+    return super.getNextWaves(self)
 end
 
 return Shadowguy

@@ -46,6 +46,11 @@ function ShadowguyTommyGun:onEnd()
 			enemy:setAnimation("idle")
 		end
 		enemy.layer = BATTLE_LAYERS["battlers"]
+		for _,dmg in ipairs(Game.stage:getObjects(DamageNumber)) do
+			if dmg.parent == enemy.parent then
+				dmg.layer = enemy.layer
+			end
+		end
 		enemy.sprite.gun_rot = math.rad(180)
 		enemy.sprite.gun:setFrame(1)
 	end
@@ -57,6 +62,11 @@ function ShadowguyTommyGun:onStart()
 		enemy.xx = enemy.x
 		enemy:setAnimation("firing")
 		enemy.layer = BATTLE_LAYERS["above_bullets"]
+		for _,dmg in ipairs(Game.stage:getObjects(DamageNumber)) do
+			if dmg.parent == enemy.parent then
+				dmg.layer = enemy.layer
+			end
+		end
 		enemy.sprite.gun_rot = math.rad(180)
 		enemy.sprite.gun:setFrame(1)
 		if love.math.random(1, 8) == 1 then
