@@ -60,6 +60,8 @@ function actor:init()
         ["stretch"] = {"stretch", 1/6, false},
 
         ["yawn"] = {"yawn", 1/7.5, true},
+
+        ["slump_arms_down"] = {"slump_arms_down", 1/6, false},
     }
 
     -- Tables of sprites to change into in mirrors
