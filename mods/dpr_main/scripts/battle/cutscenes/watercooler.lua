@@ -8,6 +8,7 @@ return {
             kris = {0, 0},
             susie = {0, 3},
             ralsei = {7, 0},
+            ceroba = {-2, -3},
         }
         for _,battler in ipairs(Game.battle.party) do
             battler.start_x = battler.x

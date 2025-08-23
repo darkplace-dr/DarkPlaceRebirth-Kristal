@@ -97,6 +97,7 @@ function Shadowguy:onAct(battler, name)
         return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
 	elseif name == "Standard" then
         self:addMercy(30)
+		self:setTired(true)
         return "* " .. battler.chara:getName() .. " danced!"
     end
 	return super.onAct(self, battler, name)
@@ -105,6 +106,7 @@ end
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
         self:addMercy(30)
+		self:setTired(true)
         return "* " .. battler.chara:getName() .. " danced!"
     end
     return nil
@@ -131,14 +133,14 @@ function Shadowguy:onActStart(battler, name)
 		kris = {0, 0},
 		susie = {0, 3},
 		ralsei = {7, 0},
-		ceroba = {0, -8},
+		ceroba = {-2, -3},
 	}
 	
 	local heart_offsets = {
 		kris = {27+34, 33+12},
 		susie = {27+49, 42},
 		ralsei = {47+32, 50-3},
-		ceroba = {27+50, 33+6},
+		ceroba = {74, 50},
 	}
 	
     local function getSpriteAndOffset(id)
