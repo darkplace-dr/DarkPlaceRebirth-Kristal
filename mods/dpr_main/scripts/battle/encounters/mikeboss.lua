@@ -6,7 +6,7 @@ function MikeBoss:init()
     self.music = "deltarune/mike"
     self.text = "* It's Mike!"
 
-	self.uses_mic = true
+	self.mike_battle = true
 
     -- Add the dummy enemy to the encounter
     self.mimic = self:addEnemy("mimic")
