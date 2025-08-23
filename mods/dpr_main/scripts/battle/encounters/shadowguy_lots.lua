@@ -5,11 +5,8 @@ function ShadowguyLots:init()
 
     self.text = "* Holy FUCK"
 
-    --self:addEnemy("virovirokun", 530, 148)
-    --self:addEnemy("virovirokun", 560, 262)
-
-    self.first_viro = self:addEnemy("shadowguy")
-    self.first_viro.money = 69
+    self.first_guy = self:addEnemy("shadowguy")
+    self.first_guy.money = 69
 
     for i = 1, 500 do
         self:addEnemy("shadowguy", Utils.random(SCREEN_WIDTH/2) + SCREEN_WIDTH + 80, Utils.random(SCREEN_HEIGHT))
@@ -17,23 +14,15 @@ function ShadowguyLots:init()
 
     self.done_stupid_thing = false
 
-    --self:addEnemy("virovirokun")
-    --self:addEnemy("virovirokun")
-
     self.background = true
     self.music = "battle"
-
-    --self.default_xactions = false
-
-    --Game.battle:registerXAction("susie", "Snap")
-    --Game.battle:registerXAction("susie", "Supercharge", "Charge\nfaster", 80)
 end
 
 function ShadowguyLots:getNextWaves()
     for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
-        enemy.selected_wave = "vironeedle_lots"
+        enemy.selected_wave = "tommygun_lots"
     end
-    return {"vironeedle_lots"}
+    return {"tommygun_lots"}
 end
 
 function ShadowguyLots:beforeStateChange(old, new)
@@ -67,7 +56,7 @@ function ShadowguyLots:beforeStateChange(old, new)
                 src2:setPitch(1.5)
 
                 for _,enemy in ipairs(Game.battle.enemies) do
-                    if enemy ~= self.first_viro then
+                    if enemy ~= self.first_guy then
                         local x = enemy.x
                         Game.battle.timer:tween(1, enemy, {x = x - SCREEN_WIDTH/2 - 80})
                     end
