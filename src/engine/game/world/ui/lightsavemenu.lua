@@ -15,7 +15,6 @@ function LightSaveMenu:init(marker)
     self.ui_select = Assets.newSound("ui_select")
 
     self.heart_sprite = Assets.getTexture("player/heart")
-    self.divider_sprite = Assets.getTexture("ui/box/dark/top")
 
     self.main_box = UIBox(124, 130, 391, 154)
     self.main_box.layer = -1
