@@ -96,6 +96,13 @@ function Shadowguy:onAct(battler, name)
         self:addTemporaryMercy(5, true, {0, 100}, (function() return self.showtempmercy == false end))
         return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
 	elseif name == "Standard" then
+		battler:setAnimation("dance")
+		local afterimage1 = AfterImage(battler, 0.8)
+		local afterimage2 = AfterImage(battler, 0.9)
+		afterimage1.physics.speed_x = 4
+		afterimage2.physics.speed_x = 2
+		battler.parent:addChild(afterimage1)
+		battler.parent:addChild(afterimage2)
         self:addMercy(30)
 		self:setTired(true)
         return "* " .. battler.chara:getName() .. " danced!"
@@ -105,6 +112,13 @@ end
 
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
+		battler:setAnimation("dance")
+		local afterimage1 = AfterImage(battler, 0.8)
+		local afterimage2 = AfterImage(battler, 0.9)
+		afterimage1.physics.speed_x = 4
+		afterimage2.physics.speed_x = 2
+		battler.parent:addChild(afterimage1)
+		battler.parent:addChild(afterimage2)
         self:addMercy(30)
 		self:setTired(true)
         return "* " .. battler.chara:getName() .. " danced!"
