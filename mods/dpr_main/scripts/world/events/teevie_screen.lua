@@ -1,7 +1,9 @@
 local TeevieScreen, super = Class(Event)
 
-function TeevieScreen:init(data)
-    super.init(self, data)
+function TeevieScreen:init(properties)
+    super.init(self, properties)
+	
+    properties = properties or {}
 	
     self:setSprite("world/events/teevie_screen/screen")
 	self.sprite:setScale(1,1)
@@ -20,6 +22,8 @@ function TeevieScreen:init(data)
 	if can_kill then
 		self.can_turn_on = false
 	end
+
+    self.trigger_height = properties["trigger_height"] or 210
 end
 
 function TeevieScreen:turnOn()
@@ -36,7 +40,7 @@ function TeevieScreen:update()
 
 		local px = player.x-player.width
 		local py = player.y-player.height*2
-		if px > self.x - 10 and px < self.x + 50 and py >= self.y + 20 then
+		if px > self.x - 10 and px < self.x + 50 and py > self.y + 20  and py < self.y + self.trigger_height then
 			self:turnOn()
 		end
     end
