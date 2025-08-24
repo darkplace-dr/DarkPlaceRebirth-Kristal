@@ -43,7 +43,7 @@ function actor:init()
         ["battle/spare"]         = {"battle/spell", 1/10, false, next="battle/idle"},
 
         ["battle/attack_ready"]  = {"battle/attackready", 0.2, true},
-        ["battle/act_ready"]     = {"battle/actready", 0.2, true, },
+        ["battle/act_ready"]     = {"battle/actready", 0.2, true},
         ["battle/spell_ready"]   = {"battle/spellready", 0.2, true},
         ["battle/item_ready"]    = {"battle/itemready", 0.2, true},
         ["battle/defend_ready"]  = {"battle/defend", 1/15, false},
@@ -52,11 +52,11 @@ function actor:init()
 
         ["battle/hurt"]          = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]        = {"battle/defeat", 1/15, false},
-		
+
 		["battle/transition"]    = {"battle/transition", 1/15, false},
         ["battle/intro"]   		 = {"battle/intro", 1/15, false},
         ["battle/victory"]       = {"battle/victory", 1/10, false},
-		
+
 		["battle/snap"]          = {"battle/snap", 2/30, false, next="battle/idle"},
 		["battle/spellsuper"]    = {"battle/spellsuper", 2/30, false, next="battle/spellsuperend"},
 		["battle/spellsuperend"] = {"battle/spellsuperend", 2/30, true},
@@ -77,30 +77,32 @@ function actor:init()
         ["walk/up"] = {-4, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-3, 0},
+        ["battle/idle"] = {-20, 0},
 
-        ["battle/attack"] = {-4, 0},
-        ["battle/attack_ready"] = {-4, 0},
-        ["battle/act"] = {0, 0},
-        ["battle/actend"] = {0, 0},
-        ["battle/act_ready"] = {0, 0},
-        ["battle/spell"] = {-3, 0},
-        ["battle/spell_ready"] = {0, 0},
-        ["battle/item"] = {-2, 0},
-        ["battle/item_ready"] = {-2, 0},
-        ["battle/defend"] = {-9, 0},
+        ["battle/attack"] = {-20, 0},
+        ["battle/attackready"] = {-20, 0},
+        ["battle/attackready_shake"] = {-20, 0},
+        ["battle/act"] = {-20, 0},
+        ["battle/actend"] = {-20, 0},
+        ["battle/actready"] = {-12, 0},
+        ["battle/spell"] = {-20, 0},
+        ["battle/spellready"] = {-20, 0},
+        ["battle/item"] = {-20, 0},
+        ["battle/itemready"] = {-20, 0},
+        ["battle/defend"] = {-20, 0},
 
-        ["battle/defeat"] = {0, 0},
-        ["battle/hurt"] = {-9, 0},
+        ["battle/defeat"] = {-12, 18},
+        ["battle/hurt"] = {-20, 0},
 
-        ["battle/transition"] = {-4, 0},
-        ["battle/intro"] = {-4, 0},
-        ["battle/victory"] = {-8, 0},
-		
-        ["battle/snap"] = {0, 0},
-        ["battle/spellsuper"] = {0, 0},
-        ["battle/tactic_freeze"] = {0, 0},
-        
+        ["battle/transition"] = {-20, 0},
+        ["battle/intro"] = {-20, 0},
+        ["battle/victory"] = {-20, 0},
+
+        ["battle/snap"] = {-20, 0},
+        ["battle/spellsuper"] = {-19, 0},
+        ["battle/spellsuperend"] = {-18, 0},
+        ["battle/tactic_freeze"] = {-20, 0},
+
         ["reddit_gold"] = {-20, -20},
         ["sonic_adventure"] = {-20, -10},
         ["bup"] = {-20, -10},
@@ -115,7 +117,7 @@ function actor:init()
     self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}
 
     self.menu_anim = "sonic_adventure"
-	
+
 	self.shiny_id = "dess"
 end
 
