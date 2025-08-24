@@ -114,7 +114,7 @@ function actor:init()
         ["talk_to_marcy_reach"] = {-7, 13},
         ["talk_to_marcy_relate"] = {-7, 13},
         
-        ["dance"] = {0, 0},
+        ["dance"] = {-4, 0},
 		
         ["sneak/left"] = {-6, 3},
         ["sneak/right"] = {2, 3},
