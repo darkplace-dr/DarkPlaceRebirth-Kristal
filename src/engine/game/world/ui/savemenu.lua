@@ -68,6 +68,7 @@ function SaveMenu:updateSaveBoxSize()
 end
 
 function SaveMenu:update()
+    if OVERLAY_OPEN then return end
     if self.state == "MAIN" then
         if Input.pressed("cancel") then
             self:remove()
