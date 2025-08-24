@@ -155,7 +155,9 @@ function VentLauncher:update()
     end
 
 
-    if self.cooldown > 0 then self.cooldown = self.cooldown - 1 * DTMULT end
+    if self.cooldown > 0 then
+        self.cooldown = math.max(self.cooldown - 1 * DTMULT, 0)
+    end
 
 
 
