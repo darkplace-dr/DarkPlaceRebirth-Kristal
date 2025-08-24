@@ -65,7 +65,9 @@ function actor:init()
 		
 		-- Cutscene animations
         ["jump_ball"]           = {"ball", 1/15, true},
-		["sit"]               			= {"sit", 4/30, true},
+		["sit"]               	= {"sit", 4/30, true},
+        
+		["dance"]               = {"dance", 1/10, true},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -111,6 +113,8 @@ function actor:init()
         ["talk_to_marcy"] = {0, 13},
         ["talk_to_marcy_reach"] = {-7, 13},
         ["talk_to_marcy_relate"] = {-7, 13},
+        
+        ["dance"] = {-4, 0},
 		
         ["sneak/left"] = {-6, 3},
         ["sneak/right"] = {2, 3},
