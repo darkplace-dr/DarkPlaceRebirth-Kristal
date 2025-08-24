@@ -6,7 +6,7 @@ function RareCatsEntity:init(x, y, type)
 
     self.width = 41
     self.height = 40
-    self:setHitbox(0, 0, self.width, self.height)
+    self.collider = Hitbox(self, 0, 0, self.width, self.height)
     self:setScale(1)
 
     self.type = type or 0
@@ -43,7 +43,6 @@ function RareCatsEntity:update()
     local mx, my = Input.getMousePosition()
     if (Input.mousePressed() and not clicked) and self.minigame.cats_clicked < 100 then
         if self:clicked() and not self.kill_cat then
-            self.minigame.score = self.minigame.score + self.point_value
             self.minigame.cats_clicked = self.minigame.cats_clicked + 1
 			
             self.physics.speed_x = 0
@@ -52,45 +51,58 @@ function RareCatsEntity:update()
             self.kill_cat = true
 			
             if not self.played_sound then
+                Assets.playSound("wing")
+			
                 if self.type == 0 then
+                    Assets.playSound("meow", nil, 2)
                     Assets.playSound("magicsprinkle", 0.8)
                     self.point_value = 10
                 end
                 if self.type == 1 then
+                    Assets.playSound("meow", nil, 1.86)
                     Assets.playSound("magicsprinkle", 0.9, 0.95)
                     self.point_value = 50
                 end
                 if self.type == 2 then
+                    Assets.playSound("meow", nil, 1.58)
                     Assets.playSound("magicsprinkle", 1, 0.9)
                     self.point_value = 100
                 end
                 if self.type == 3 then
+                    Assets.playSound("meow", nil, 1)
                     Assets.playSound("magicsprinkle", 1, 0.8)
                     self.point_value = 250
                 end
                 if self.type == 4 then
+                    Assets.playSound("meow_angry", nil, 1)
                     Assets.playSound("cd_bagel/susie", 0.8, 1.3 + Utils.random(0.1))
                     self.point_value = 500
                 end
                 if self.type == 5 then
+                    Assets.playSound("meow_angry", nil, 0.86)
                     Assets.playSound("magicsprinkle", 1, 0.5)
                     Assets.playSound("cd_bagel/ralsei_stereo", 1, 1)
                     self.point_value = 1500
                 end
                 if self.type == 6 then
+                    Assets.playSound("meow_angry", nil, 0.72)
                     Assets.playSound("magicsprinkle", 1, 0.25)
                     Assets.playSound("cd_bagel/ralsei_stereo", 1, 0.8)
                     Assets.playSound("cd_bagel/ralsei_stereo", 1, 0.81)
                     self.point_value = 5000
                 end
                 if self.type == 7 then
+                    Assets.playSound("meow_angry", nil, 0.5)
                     Assets.playSound("magicsprinkle", 1, 0.1)
                     Assets.playSound("cd_bagel/ralsei_stereo", 1, 0.6)
                     Assets.playSound("cd_bagel/ralsei_stereo", 1, 0.62)
                     self.point_value = 10000
                 end
+
                 self.played_sound = true
             end
+			
+            self.minigame.score = self.minigame.score + self.point_value
 			
             self.points_txt = Text("+"..self.point_value, self.width/2 - 12, 0)
             self.points_txt:setScale(0.5)

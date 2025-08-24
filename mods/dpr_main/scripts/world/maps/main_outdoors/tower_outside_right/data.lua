@@ -206,7 +206,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 14,
-      name = "Object Layer 4",
+      name = "objects",
       class = "",
       visible = true,
       opacity = 1,

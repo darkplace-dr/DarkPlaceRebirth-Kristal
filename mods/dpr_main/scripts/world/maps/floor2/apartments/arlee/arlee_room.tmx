@@ -4,7 +4,7 @@
   <export target="arlee_room.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="music" value="man_2"/>
+  <property name="music" value="deltarune/man_2"/>
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/arleeroom.tsx"/>
  <imagelayer id="2" name="room">

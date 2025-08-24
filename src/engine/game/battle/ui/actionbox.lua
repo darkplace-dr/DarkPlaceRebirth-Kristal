@@ -207,12 +207,13 @@ function ActionBox:draw()
         Draw.setColor(1, 1, 1, 1)
 
         local name = self.battler.chara:getName():upper()
+        local spacing = 5 - Utils.len(name)
 
-        local start_x = self.box.x + (51 + self.name_offset_x)
-        local end_x = start_x + (55 - self.name_offset_x)
-        for i = 1, name:len() do
-            local letter = name:sub(i, i)
-            love.graphics.print(letter, (start_x + ((i) * ((end_x - start_x)/name:len()))) - font:getWidth(letter), self.box.y + 14 - self.data_offset - 1 + self.name_offset_y)
+        local off = 0
+        for i = 1, Utils.len(name) do
+            local letter = Utils.sub(name, i, i)
+            love.graphics.print(letter, self.box.x + 51 + off, self.box.y + 14 - self.data_offset - 1)
+            off = off + font:getWidth(letter) + spacing
         end
     end
 end

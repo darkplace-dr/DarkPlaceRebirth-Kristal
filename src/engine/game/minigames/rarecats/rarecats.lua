@@ -29,6 +29,7 @@ function RareCats:init()
     self.hud_x, self.hud_y = 230, 484
 	
     self.spawn_cat = false
+    self.type = 0
 end
 
 function RareCats:postInit()
@@ -99,19 +100,6 @@ function RareCats:draw()
     if self.state == "INTRO" or self.state == "MAIN" then
         local score = string.format("%d", self.score)
         local cats_clicked = string.format("%d", self.cats_clicked)
-		
-		--bordered text
-        love.graphics.setColor(0.5, 0.5, 0.5, self.hud_alpha)
-		
-        love.graphics.printf("SCORE: "..score, 158, self.hud_y + 4, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("SCORE: "..score, 158, self.hud_y + 8, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("SCORE: "..score, 162, self.hud_y + 4, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("SCORE: "..score, 162, self.hud_y + 8, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-		
-        love.graphics.printf("CATS CLICKED: "..cats_clicked.."/100", 158, self.hud_y + 26, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("CATS CLICKED: "..cats_clicked.."/100", 158, self.hud_y + 30, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("CATS CLICKED: "..cats_clicked.."/100", 162, self.hud_y + 26, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
-        love.graphics.printf("CATS CLICKED: "..cats_clicked.."/100", 162, self.hud_y + 30, SCREEN_WIDTH, "center", 0, 0.5, 0.5)
 
 		--text
         love.graphics.setColor(1, 1, 1, self.hud_alpha)
@@ -121,13 +109,13 @@ function RareCats:draw()
 	
     local function pressToContinue()
         if Input.active_gamepad then
-            love.graphics.printf("Press    to quit", 160, 380, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
+            love.graphics.printf("PRESS    TO QUIT", 160, 380, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
             love.graphics.draw(Input.getTexture("confirm"), (SCREEN_WIDTH/2) - 16, 378, 0, 1, 1)
-            love.graphics.printf("Press    to retry", 160, 400, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
+            love.graphics.printf("PRESS    TO RETRY", 160, 400, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
             love.graphics.draw(Input.getTexture("cancel"), (SCREEN_WIDTH/2) - 20, 398, 0, 1, 1)
         else
-            love.graphics.printf("Press " .. Input.getText("confirm") .. " to quit", 160, 380, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
-            love.graphics.printf("Press " .. Input.getText("cancel") .. " to retry", 160, 400, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
+            love.graphics.printf("PRESS " .. Input.getText("confirm") .. " TO QUIT", 160, 380, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
+            love.graphics.printf("PRESS " .. Input.getText("cancel") .. " TO RETRY", 160, 400, SCREEN_WIDTH, "center", 0, 0.5, 0.5, 0.5)
         end
     end
 	
@@ -175,39 +163,29 @@ end
 
 function RareCats:summonCat()
     self.spawn_cat = true
-    local o = math.floor(math.random() * 1000) + 1
-	
-    self.cat = RareCatsEntity()
-    self.cat.x = math.floor(love.math.random(160, 480))
-    self.cat.y = math.floor(love.math.random(160, 320))
-    self.cat.physics.speed_x = Utils.pick({-30, 30}) / 10
-    self.cat.physics.speed_y = Utils.pick({-30, 30}) / 10
-    self.cat:setScale(2)
+    local o = math.floor(love.math.random() * 1000) + 1
 	
     if self.cats_clicked >= 100 then
         self:hardReset()
     else
-        if o <= 700 then
-            Kristal.Console:log("normal")
-            self.cat.type = 0
-            self.cat.point_value = 10
-        elseif o <= 879 then		
-            Kristal.Console:log("blue ora")
-            self.cat.type = 1
-            self.cat.point_value = 50
-        elseif o <= 959 then
-            Kristal.Console:log("rock & roll")
-            self.cat.type = 4
-            self.cat.point_value = 500
-        elseif o <= 989 then
-            Kristal.Console:log("ANGLE WING!!!!")
-            self.cat.type = 5
-            self.cat.point_value = 1500
-        elseif o <= 999 then
-            Kristal.Console:log("SUPER HOLY ANGlE WING!!!!")
-            self.cat.type = 6
-            self.cat.point_value = 5000
+        if o <= 700 then      --normal
+            self.type = 0
+        elseif o <= 879 then  --blue ora
+            self.type = 1
+        elseif o <= 959 then  --rock & roll
+            self.type = 4
+        elseif o <= 989 then  --ANGLE WING!!!!
+            self.type = 5
+        elseif o <= 999 then  --SUPER HOLY ANGlE WING!!!!
+            self.type = 6
         end
+    end
+	
+    self.cat = RareCatsEntity(math.floor(love.math.random(160, 480)), math.floor(love.math.random(160, 320)), self.type)
+    self.cat.physics.speed_x = Utils.pick({-30, 30}) / 10
+    self.cat.physics.speed_y = Utils.pick({-30, 30}) / 10
+    self.cat:setScale(2)
+    if self.cats_clicked < 100 then
         self:addChild(self.cat)
     end
 end
@@ -215,6 +193,7 @@ end
 function RareCats:hardReset()
     self.music:stop()
 
+    Assets.stopSound()
     Assets.playSound("face", 2, 1)
 
     self.friend = Sprite("IMAGE_FRIEND_W", 320, 240, nil, nil, "minigames/rarecats")

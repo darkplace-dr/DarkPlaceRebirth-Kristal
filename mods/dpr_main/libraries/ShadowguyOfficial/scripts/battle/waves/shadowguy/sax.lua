@@ -39,6 +39,11 @@ function ShadowguySax:onStart()
 	for _, enemy in ipairs(self.enemies) do
 		enemy:setAnimation('sax_b')
 		enemy.layer = BATTLE_LAYERS["above_bullets"]
+		for _,dmg in ipairs(Game.stage:getObjects(DamageNumber)) do
+			if dmg.parent == enemy.parent then
+				dmg.layer = enemy.layer
+			end
+		end
 	end	
 
 	local btimer = 40*self.ratio
@@ -95,6 +100,11 @@ function ShadowguySax:onEnd()
 			enemy:setAnimation("idle")
 		end
 		enemy.layer = BATTLE_LAYERS["battlers"]
+		for _,dmg in ipairs(Game.stage:getObjects(DamageNumber)) do
+			if dmg.parent == enemy.parent then
+				dmg.layer = enemy.layer
+			end
+		end
 	end
 	Game:setFlag("shadowguySaxAmt", 0)
 end

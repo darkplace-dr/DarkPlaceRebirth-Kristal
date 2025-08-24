@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="175">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="176">
  <editorsettings>
   <export target="stealthzone.lua" format="lua"/>
  </editorsettings>
@@ -263,6 +263,13 @@
    </properties>
   </object>
   <object id="174" gid="183" x="1000" y="400" width="132" height="60"/>
+  <object id="175" name="npc" x="1200" y="320">
+   <properties>
+    <property name="actor" value="pippins"/>
+    <property name="cutscene" value="tvfloor.pippins_first"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <layer id="13" name="tiles_above" width="50" height="18">
   <data encoding="csv">

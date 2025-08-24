@@ -147,7 +147,7 @@ local desslmao = {
 		cutscene:hideNametag()
 
 		Game.world.music:stop()
-		local fan = Music("fanfare", 1, 0.9, false)
+		local fan = Music("deltarune/fanfare", 1, 0.9, false)
 
 		cutscene:detachFollowers()
 

@@ -283,4 +283,19 @@ return {
 		cutscene:wait(1)
 		light:remove()
 	end,
+	
+    pippins_first = function(cutscene, event)
+        if event.interact_count == 1 then
+            cutscene:showNametag("Pippins")
+            cutscene:text("* This is Punishment Cage D.", nil, event)
+            cutscene:text("* ... Y'know,[wait:5] was there ever a Punishment Cage C in the first place?", nil, event)
+            cutscene:hideNametag()
+        else
+            cutscene:showNametag("Pippins")
+            cutscene:text("* By the way,[wait:5] I heard security here can be quite different.", nil, event)
+            cutscene:text("* If you don't pay attention,[wait:5] you may be quite surprised! Hee hee.", nil, event)
+            cutscene:hideNametag()
+        end
+    end,
+
 }

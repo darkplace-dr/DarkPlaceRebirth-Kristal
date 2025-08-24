@@ -54,7 +54,7 @@ function item:init()
 		dess = ">look inside >cd",
         jamm = "So what decides these songs?",
         noel = "I'm seeing stars.",
-        ceroba = "", -- empty until sound effect is added
+        ceroba = "Sounds like memories...",
         brenda = "Sounds like home."
     }
 

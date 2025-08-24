@@ -48,6 +48,7 @@ function TestShop:init()
     self:registerItem("picnic")
     self:registerItem("lunacookies")
     self:registerItem("peanut")
+    self:registerItem("rentalwear")
 
 	self.shopkeeper:setActor("shopkeepers/anna")
     self.shopkeeper.sprite:setPosition(-24, 12)

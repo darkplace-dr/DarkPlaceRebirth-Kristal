@@ -50,7 +50,7 @@ function DarkPartyMenu:init(selected)
 		["Miscellaneous"] = self.misc,
 	}
 
-	if Game:loadNoel() then -- oh ho ho! secret character!
+	if Noel:loadNoel() then -- oh ho ho! secret character!
 		table.insert(self.unlocked, "noel")
 	end
 
@@ -103,7 +103,7 @@ function DarkPartyMenu:selection(num)
 			table.insert(menus, k)
 		end
 		local noeltitle = "[shake:1]"..(" "):rep(26)
-		if Game:loadNoel() and self.slot_selected > 1 then --SECRET MENU!
+		if Noel:loadNoel() and self.slot_selected > 1 then --SECRET MENU!
 			table.insert(menus, noeltitle)
 		end
 		

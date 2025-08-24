@@ -73,6 +73,7 @@ function TeevieSneakLight:draw()
 		Draw.draw(self.spotlight, modder*2, (self.yy-self.y - (self.yy-self.y)/4)-self.lightpos, 0, 2, 2, 10, 0)
 	end
 	if DEBUG_RENDER and self.type ~= 0 then
+		local stretch_height = math.min((self.wall_y - self.y) / 8, self.light_height)
 		love.graphics.setColor(1,0,0,1)
 		if self.catch_type == 1 and self.y < self.wall_y and math.abs(self.y - self.wall_y) < 110 then 
 			Draw.rectangle("line", -18, self.wall_y-self.y-41, 41, 44+self.yy-self.wall_y)

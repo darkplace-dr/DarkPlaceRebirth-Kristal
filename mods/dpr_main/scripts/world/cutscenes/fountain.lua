@@ -106,7 +106,7 @@ return function(cutscene)
             cutscene:playSound("great_shine")
             cutscene:wait(1)
     
-            Game.world.music:play("usefountain", 1)
+            Game.world.music:play("deltarune/usefountain", 1)
             Game.world.music.source:setLooping(false)
     
             cutscene:wait(50/30)
@@ -235,7 +235,7 @@ return function(cutscene)
             cutscene:playSound("great_shine")
             cutscene:wait(1)
     
-            Game.world.music:play("usefountain", 1)
+            Game.world.music:play("deltarune/usefountain", 1)
             Game.world.music.source:setLooping(false)
     
             cutscene:wait(50/30)

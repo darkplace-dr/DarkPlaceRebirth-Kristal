@@ -204,12 +204,12 @@ BallJumpSCoin = require("src.engine.game.minigames.balljump.balljumpscoin")
 BallJumpSpikeF = require("src.engine.game.minigames.balljump.balljumpspikef")
 BallJumpSpiny = require("src.engine.game.minigames.balljump.balljumpspiny")
 
---[[PunchOut = require("src.engine.game.minigames.punchout.punchout")
+PunchOut = require("src.engine.game.minigames.punchout.punchout")
 PunchOutHero = require("src.engine.game.minigames.punchout.punchouthero")
 PunchOutQueen = require("src.engine.game.minigames.punchout.punchoutqueen")
 PunchOutHitbox = require("src.engine.game.minigames.punchout.punchouthitbox")
 PunchOutWheel = require("src.engine.game.minigames.punchout.punchoutwheel")
-PunchOutBaseball = require("src.engine.game.minigames.punchout.punchoutbaseball")]]
+PunchOutBaseball = require("src.engine.game.minigames.punchout.punchoutbaseball")
 
 RareCats = require("src.engine.game.minigames.rarecats.rarecats")
 RareCatsEntity = require("src.engine.game.minigames.rarecats.rarecatsentity")

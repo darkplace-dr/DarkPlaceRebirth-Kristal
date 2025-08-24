@@ -914,7 +914,7 @@ local cliffside = {
             
                     get_bus:stop()
             
-                    --[[local fan = Music("fanfare", 1, 1, false)
+                    --[[local fan = Music("deltarune/fanfare", 1, 1, false)
             
                     lore_board:slideTo(-120, lore_board.y, 15)
             
@@ -1796,7 +1796,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) 
 
         get_bus:stop()
 
-        local fan = Music("fanfare", 1, 1, false)
+        local fan = Music("deltarune/fanfare", 1, 1, false)
 
         lore_board:slideTo(-120, 680, 15)
 
