@@ -88,6 +88,8 @@ function SaveMenu:update()
                 self.ui_select:play()
 
                 self.selected_file = Game.save_id
+                self.selected_x = self.selected_file%2 == 0 and 2 or 1
+                self.selected_y = self.selected_file <= 2 and 1 or 2
                 self.saved_file = nil
 
                 self.main_box.visible = false
