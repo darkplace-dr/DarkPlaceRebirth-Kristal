@@ -249,4 +249,29 @@ return {
 			return finished
 		end)
     end,
+
+	bd_dance = function(cutscene, battler, self)
+		Game:setFlag("shadowguy_bd", true)
+		local brenda_index = nil
+		local dess_index = nil
+		for i, v in ipairs(Game.party) do
+			if v.id == "brenda" then
+				brenda_index = i
+			elseif v.id == "dess" then
+				dess_index = i
+			end
+		end
+		cutscene:text("* Brenda danced!")
+		cutscene:text("* dude is that the fuckin caramelldansen?", "annoyed", "dess")
+		if brenda_index > dess_index then
+			battler:setSprite("dance_up")
+		else
+			battler:setSprite("dance_down")
+		end
+		cutscene:text("* thats so cringe lol", "condescending", "dess")
+		cutscene:text("* ...", "suspicious_b", "brenda")
+		cutscene:text("* Look,[wait:5] I may be cringe...", "dissapointed", "brenda")
+		battler:setAnimation("dance")
+		cutscene:text("* But I am FREE!", "happy", "brenda")
+	end,
 }

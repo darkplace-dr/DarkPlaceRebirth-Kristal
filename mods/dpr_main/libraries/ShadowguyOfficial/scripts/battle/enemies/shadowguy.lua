@@ -105,6 +105,10 @@ function Shadowguy:onAct(battler, name)
 		battler.parent:addChild(afterimage2)
         self:addMercy(30)
 		self:setTired(true)
+		if battler.chara.id == "brenda" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_bd") then
+			Game.battle:startActCutscene("shadowguy", "bd_dance")
+			return
+		end
         return "* " .. battler.chara:getName() .. " danced!"
     end
 	return super.onAct(self, battler, name)
