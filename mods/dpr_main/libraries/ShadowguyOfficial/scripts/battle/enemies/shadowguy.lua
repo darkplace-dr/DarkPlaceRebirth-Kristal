@@ -109,6 +109,10 @@ function Shadowguy:onAct(battler, name)
 			Game.battle:startActCutscene("shadowguy", "bd_dance")
 			return
 		end
+		if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") then
+			Game.battle:startActCutscene("shadowguy", "jd_dance")
+			return
+		end
         return "* " .. battler.chara:getName() .. " danced!"
     end
 	return super.onAct(self, battler, name)
@@ -116,6 +120,9 @@ end
 
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
+        if battler.chara.id == "jamm" and Game:getFlag("dungeonkiller") then
+            return "* Jamm didn't feel like doing anything."
+        end
 		battler:setAnimation("dance")
 		local afterimage1 = AfterImage(battler, 0.8)
 		local afterimage2 = AfterImage(battler, 0.9)
@@ -131,6 +138,12 @@ function Shadowguy:onShortAct(battler, name)
 end
 
 function Shadowguy:isXActionShort(battler)
+	if battler.chara.id == "brenda" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_bd") then
+		return false
+	end
+	if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") and not Game:getFlag("dungeonkiller") then
+		return false
+	end
     return true
 end
 
