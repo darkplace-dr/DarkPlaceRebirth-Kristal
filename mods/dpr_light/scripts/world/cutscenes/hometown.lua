@@ -976,7 +976,7 @@ return {
         cutscene:showNametag("Dess")
         cutscene:text("* lalalalala can't hear you", "calm_b", "dess")
         cutscene:hideNametag()
-        event:setFacing("right")
+        event:setFacing("up")
         cutscene:getCharacter("jammarcy_light"):setFacing("up")
     end,
 
