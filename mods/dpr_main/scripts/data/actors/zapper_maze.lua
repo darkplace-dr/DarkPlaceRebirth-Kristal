@@ -20,7 +20,7 @@ function actor:init()
     self.animations = {}
 
     self.talk_sprites = {
-        [""] = 0.15
+        ["talk"] = 0.15
     }
 
     self.offsets = {}

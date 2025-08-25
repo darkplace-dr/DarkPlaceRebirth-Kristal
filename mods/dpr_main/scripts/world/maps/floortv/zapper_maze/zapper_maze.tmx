@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="119">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="122">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="teevie"/>
-  <property name="music" value="deltarune/tv_world"/>
+  <property name="keepmusic" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/teevie_land.tsx"/>
  <tileset firstgid="157" source="../../../tilesets/floortv_objects.tsx"/>
@@ -202,21 +202,73 @@
   <object id="103" x="2087" y="1440" width="60" height="36"/>
  </objectgroup>
  <objectgroup color="#55aaff" id="5" name="objects_below">
-  <object id="60" name="teevie_light" x="100" y="400" width="40" height="40"/>
-  <object id="61" name="teevie_light" x="640" y="240" width="40" height="40"/>
-  <object id="62" name="teevie_light" x="800" y="240" width="40" height="40"/>
-  <object id="64" name="teevie_light" x="960" y="240" width="40" height="40"/>
-  <object id="66" name="teevie_light" x="1120" y="240" width="40" height="40"/>
-  <object id="68" name="teevie_light" x="440" y="1440" width="40" height="40"/>
-  <object id="69" name="teevie_light" x="560" y="1440" width="40" height="40"/>
-  <object id="70" name="teevie_light" x="160" y="1440" width="40" height="40"/>
-  <object id="71" name="teevie_light" x="40" y="1440" width="40" height="40"/>
+  <object id="60" name="teevie_light" x="100" y="400" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="61" name="teevie_light" x="640" y="240" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="62" name="teevie_light" x="800" y="240" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="64" name="teevie_light" x="960" y="240" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="66" name="teevie_light" x="1120" y="240" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="68" name="teevie_light" x="440" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="69" name="teevie_light" x="560" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="70" name="teevie_light" x="160" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="71" name="teevie_light" x="40" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
   <object id="74" name="teevie_screen" x="1700" y="1320" width="80" height="80"/>
   <object id="76" name="teevie_screen" x="1940" y="240" width="80" height="80"/>
-  <object id="79" name="teevie_light" x="1720" y="1440" width="40" height="40"/>
-  <object id="80" name="teevie_light" x="1860" y="1440" width="40" height="40"/>
-  <object id="81" name="teevie_light" x="2000" y="1440" width="40" height="40"/>
-  <object id="82" name="teevie_light" x="1960" y="360" width="40" height="40"/>
+  <object id="79" name="teevie_light" x="1720" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="80" name="teevie_light" x="1860" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="81" name="teevie_light" x="2000" y="1440" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="82" name="teevie_light" x="1960" y="360" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
   <object id="84" name="teevie_screen" x="1980" y="1320" width="80" height="80"/>
   <object id="93" name="teevie_screen" x="80" y="280" width="80" height="80">
    <properties>
@@ -238,114 +290,175 @@
   <object id="100" gid="170" x="1600" y="1480" width="80" height="160"/>
   <object id="101" gid="2147483818" x="2080" y="1480" width="80" height="160"/>
   <object id="105" name="fakechest" x="1520" y="580" width="40" height="40"/>
-  <object id="106" name="npc" x="320" y="310">
+  <object id="106" name="zapper_maze_npc" x="320" y="310">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffff0000"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="down"/>
+    <property name="tele_marker" value="plus_up"/>
    </properties>
    <point/>
   </object>
-  <object id="107" name="npc" x="320" y="620">
+  <object id="107" name="zapper_maze_npc" x="320" y="620">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffffa040"/>
+    <property name="text" value="* add text here for non-participating zapper"/>
    </properties>
    <point/>
   </object>
-  <object id="108" name="npc" x="640" y="540">
+  <object id="108" name="zapper_maze_npc" x="640" y="540">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffffff00"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="right"/>
+    <property name="tele_marker" value="plus_down"/>
    </properties>
    <point/>
   </object>
-  <object id="109" name="npc" x="1200" y="340">
+  <object id="109" name="zapper_maze_npc" x="1200" y="340">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ff00ffff"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="left"/>
+    <property name="tele_marker" value="bottomleft_right"/>
    </properties>
    <point/>
   </object>
-  <object id="110" name="npc" x="1860" y="860">
+  <object id="110" name="zapper_maze_npc" x="1860" y="860">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ff00ff00"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="right"/>
+    <property name="tele_marker" value="plus_left"/>
    </properties>
    <point/>
   </object>
-  <object id="111" name="npc" x="1040" y="700">
+  <object id="111" name="zapper_maze_npc" x="1040" y="700">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffff0000"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="down"/>
+    <property name="tele_marker" value="topleft_up"/>
    </properties>
    <point/>
   </object>
-  <object id="112" name="npc" x="1340" y="980">
+  <object id="112" name="zapper_maze_npc" x="1340" y="980">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffff00ff"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="down"/>
+    <property name="tele_marker" value="bottomright_up"/>
    </properties>
    <point/>
   </object>
-  <object id="113" name="npc" x="720" y="980">
+  <object id="113" name="zapper_maze_npc" x="720" y="980">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ff00ff00"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="up"/>
+    <property name="tele_marker" value="topright_down"/>
    </properties>
    <point/>
   </object>
-  <object id="114" name="npc" x="1040" y="1260">
+  <object id="114" name="zapper_maze_npc" x="1040" y="1260">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffffff00"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="up"/>
+    <property name="tele_marker" value="topmiddle_left"/>
    </properties>
    <point/>
   </object>
-  <object id="116" name="npc" x="600" y="1510">
+  <object id="116" name="zapper_maze_npc" x="600" y="1510">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ff00ffff"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="left"/>
+    <property name="tele_marker" value="topmiddle_right"/>
    </properties>
    <point/>
   </object>
-  <object id="117" name="npc" x="320" y="1100">
+  <object id="117" name="zapper_maze_npc" x="320" y="1100">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffff00ff"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="left"/>
+    <property name="tele_marker" value="plus_right"/>
    </properties>
    <point/>
   </object>
-  <object id="118" name="npc" x="1540" y="1200">
+  <object id="118" name="zapper_maze_npc" x="1540" y="1200">
    <properties>
     <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffff00ff"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="left"/>
+    <property name="tele_marker" value="plus_right"/>
    </properties>
    <point/>
+  </object>
+  <object id="119" name="interactable" x="80" y="1400" width="80" height="40">
+   <properties>
+    <property name="text" value="* (It's a poster. It doesn't have any words on it.)"/>
+   </properties>
+  </object>
+  <object id="120" name="interactable" x="480" y="1400" width="80" height="40">
+   <properties>
+    <property name="text" value="* (It's a poster. It doesn't have any words on it.)"/>
+   </properties>
+  </object>
+  <object id="121" name="interactable" x="1840" y="1400" width="80" height="40">
+   <properties>
+    <property name="text" value="* (It's a poster. It has word on it.)"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
-  <object id="26" x="320" y="360">
+  <object id="26" name="topleft_up" x="320" y="360">
    <point/>
   </object>
-  <object id="27" x="320" y="560">
+  <object id="27" name="topleft_down" x="320" y="560">
    <point/>
   </object>
-  <object id="28" x="640" y="480">
+  <object id="28" name="topmiddle_left" x="640" y="480">
    <point/>
   </object>
-  <object id="31" x="1140" y="340">
+  <object id="31" name="topmiddle_right" x="1140" y="340">
    <point/>
   </object>
-  <object id="33" x="1860" y="800">
+  <object id="33" name="topright_down" x="1860" y="800">
    <point/>
   </object>
-  <object id="34" x="1040" y="800">
+  <object id="34" name="plus_up" x="1040" y="800">
    <point/>
   </object>
-  <object id="35" x="800" y="980">
+  <object id="35" name="plus_left" x="800" y="980">
    <point/>
   </object>
-  <object id="37" x="1040" y="1200">
+  <object id="37" name="plus_down" x="1040" y="1200">
    <point/>
   </object>
-  <object id="38" x="1280" y="980">
+  <object id="38" name="plus_right" x="1280" y="980">
    <point/>
   </object>
-  <object id="48" x="530" y="1510">
+  <object id="48" name="bottomleft_right" x="530" y="1510">
    <point/>
   </object>
-  <object id="49" x="320" y="1160">
+  <object id="49" name="bottomleft_up" x="320" y="1160">
    <point/>
   </object>
-  <object id="50" x="1540" y="1240">
+  <object id="50" name="bottomright_up" x="1540" y="1240">
    <point/>
   </object>
   <object id="51" name="entry_topleft" x="40" y="460">
