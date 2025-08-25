@@ -298,4 +298,17 @@ return {
         end
     end,
 
+    maze_zapper = function(cutscene, event)
+		cutscene:showNametag("Zapper")
+        cutscene:text("* You seem lost. Do youse need assistance?", nil, event)
+        local choicer = cutscene:choicer({"Yes", "No"})
+        if choicer == 1 then
+			cutscene:text("* That can be arranged.", nil, event)
+			cutscene:hideNametag()
+			local change = TVTurnOff({map = Game.world.map.id, marker = event.data.properties["tele_marker"] or "spawn", facing = event.data.properties["tele_facing"] or "down", flag = event.data.properties["tele_flag"] or nil})
+			Game.world:addChild(change)
+		else
+			cutscene:hideNametag()
+		end
+    end,
 }
