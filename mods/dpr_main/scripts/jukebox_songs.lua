@@ -72,6 +72,14 @@ return {
     album = "dark_place_with_text"
   },
   {
+    name = "TRITRALAND",
+    file = "TRITRALAND",
+    composer = "Tritra Serpifeu",
+    released = "2025",
+    origin = "Dark Place: REBIRTH",
+    album = "dark_place_with_text"
+  },
+  {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload
     file = "starwalker",
     composer = "Nyako",
@@ -360,6 +368,22 @@ return {
     album = "uty"
   },
   {
+    name = "Cyber Moon",
+    file = "Cyber Moon",
+    composer = "Tritra Serpifeu",
+    released = "2022",
+    origin = "Doki Doki Festive Firework",
+    album = "starrune"
+  },
+  {
+    name = "Space Cover",
+    file = "BABASPACE",
+    composer = "Tritra Serpifeu\nVia Midi by Theopold the Gamer",
+    released = "2024",
+    origin = "Snail Smite\nOriginal from: BABA IS YOU",
+    album = "snailsmite"
+  },
+  {
     name = "Really Good Showrunner Cover",
     file = "ReallyGoodShowrunnerCover",
     composer = "Hyperboid",
@@ -392,27 +416,11 @@ return {
     album = "casette_beasts"
   },
   {
-    name = "TRITRALAND",
-    file = "TRITRALAND",
-    composer = "Tritra Serpifeu",
-    released = "2025",
-    origin = "Dark Place: REBIRTH",
-    album = "dark_place"
-  },
-  {
-    name = "Cyber Moon",
-    file = "Cyber Moon",
-    composer = "Tritra Serpifeu",
-    released = "2022",
-    origin = "Doki Doki Festive Firework",
-    album = "starrune"
-  },
-  {
-    name = "Space Cover",
-    file = "BABASPACE",
-    composer = "Tritra Serpifeu\nVia Midi by Theopold the Gamer",
-    released = "2024",
-    origin = "Snail Smite\nOriginal from: BABA IS YOU",
-    album = "snailsmite"
+    name = "Silence",
+    file = "silence",
+    composer = "N/A",
+    released = "N/A",
+    origin = "N/A",
+    album = "border"
   },
 }
