@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="70" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="88">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="70" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="90">
  <editorsettings>
   <export target="quiztest.lua" format="lua"/>
  </editorsettings>
@@ -244,6 +244,12 @@ CALLED?</property>
    <properties>
     <property name="map" value="floortv/pre_elevator"/>
     <property name="marker" value="entry_right"/>
+   </properties>
+  </object>
+  <object id="88" name="transition" x="2800" y="280" width="40" height="120">
+   <properties>
+    <property name="map" value="floortv/zapper_maze"/>
+    <property name="marker" value="entry_topleft"/>
    </properties>
   </object>
  </objectgroup>

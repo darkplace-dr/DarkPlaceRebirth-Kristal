@@ -57,7 +57,10 @@ function actor:init()
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
 
         ["battle/intro"]        = {"battle/attackready", 0.1, false},
-        ["battle/victory"]      = {"battle/victory", 1/10, false}
+        ["battle/victory"]      = {"battle/victory", 1/10, false},
+
+        -- Cutscene animations
+        ["dance"]               = {"dance", 0.2, true}
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -88,6 +91,11 @@ function actor:init()
 
         ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-22, -3},
+
+        -- Cutscene offsets
+        ["dance"] = {-5, -1},
+        ["dance_up"] = {-5, -1},
+        ["dance_down"] = {-5, -1},
 
         -- Taunt offsets
         ["catgirl"] = {-4, 0}

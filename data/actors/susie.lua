@@ -100,6 +100,10 @@ function actor:init(style)
         ["halt_serious_right"] = {"halt_serious_right", 1/9, false},
 
         ["ready_axe"] = {"ready_axe", 12/30, false},
+
+        ["dance"] = {"dance", 1/6, true},
+
+        ["pirouette"] = {"pirouette", 1/8, true},
     }
 
     -- Alternate animations to use for Susie without a smile
@@ -229,6 +233,7 @@ function actor:init(style)
         ["battle/item"] = {-22, -1},
         ["battle/itemready"] = {-22, -1},
         ["battle/defend"] = {-20, -23},
+        ["battle/defend_peek"] = {-20, -23},
 
         ["battle/defeat"] = {-22, -1},
         ["battle/hurt"] = {-22, -1},
@@ -380,6 +385,10 @@ function actor:init(style)
 
         ["up_benddown"] = {0, 8},
         ["up_look_right_full"] = {3, 0},
+
+        ["dance"] = {-3, -1},
+
+        ["pirouette"] = {-3, -1},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

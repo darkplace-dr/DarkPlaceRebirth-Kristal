@@ -96,7 +96,23 @@ function Shadowguy:onAct(battler, name)
         self:addTemporaryMercy(5, true, {0, 100}, (function() return self.showtempmercy == false end))
         return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
 	elseif name == "Standard" then
+		battler:setAnimation("dance")
+		local afterimage1 = AfterImage(battler, 0.8)
+		local afterimage2 = AfterImage(battler, 0.9)
+		afterimage1.physics.speed_x = 4
+		afterimage2.physics.speed_x = 2
+		battler.parent:addChild(afterimage1)
+		battler.parent:addChild(afterimage2)
         self:addMercy(30)
+		self:setTired(true)
+		if battler.chara.id == "brenda" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_bd") then
+			Game.battle:startActCutscene("shadowguy", "bd_dance")
+			return
+		end
+		if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") then
+			Game.battle:startActCutscene("shadowguy", "jd_dance")
+			return
+		end
         return "* " .. battler.chara:getName() .. " danced!"
     end
 	return super.onAct(self, battler, name)
@@ -104,13 +120,30 @@ end
 
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
+        if battler.chara.id == "jamm" and Game:getFlag("dungeonkiller") then
+            return "* Jamm didn't feel like doing anything."
+        end
+		battler:setAnimation("dance")
+		local afterimage1 = AfterImage(battler, 0.8)
+		local afterimage2 = AfterImage(battler, 0.9)
+		afterimage1.physics.speed_x = 4
+		afterimage2.physics.speed_x = 2
+		battler.parent:addChild(afterimage1)
+		battler.parent:addChild(afterimage2)
         self:addMercy(30)
+		self:setTired(true)
         return "* " .. battler.chara:getName() .. " danced!"
     end
     return nil
 end
 
 function Shadowguy:isXActionShort(battler)
+	if battler.chara.id == "brenda" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_bd") then
+		return false
+	end
+	if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") and not Game:getFlag("dungeonkiller") then
+		return false
+	end
     return true
 end
 
@@ -131,14 +164,14 @@ function Shadowguy:onActStart(battler, name)
 		kris = {0, 0},
 		susie = {0, 3},
 		ralsei = {7, 0},
-		ceroba = {0, -8},
+		ceroba = {-2, -3},
 	}
 	
 	local heart_offsets = {
 		kris = {27+34, 33+12},
 		susie = {27+49, 42},
 		ralsei = {47+32, 50-3},
-		ceroba = {27+50, 33+6},
+		ceroba = {74, 50},
 	}
 	
     local function getSpriteAndOffset(id)

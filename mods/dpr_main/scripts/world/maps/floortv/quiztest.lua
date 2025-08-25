@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 88,
+  nextobjectid = 90,
   properties = {
     ["border"] = "teevie",
     ["music"] = "deltarune/tv_world"
@@ -46,7 +46,7 @@ return {
         {
           id = 2,
           name = "teevie_bg",
-          type = "",
+          class = "",
           shape = "point",
           x = 0,
           y = 0,
@@ -183,7 +183,7 @@ return {
         {
           id = 1,
           name = "teevie_tvs",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 760,
           y = 40,
@@ -196,7 +196,7 @@ return {
         {
           id = 18,
           name = "teevie_tvs",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1640,
           y = 40,
@@ -209,7 +209,7 @@ return {
         {
           id = 29,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 280,
@@ -224,7 +224,7 @@ return {
         {
           id = 30,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 100,
           y = 160,
@@ -239,7 +239,7 @@ return {
         {
           id = 33,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 360,
@@ -254,7 +254,7 @@ return {
         {
           id = 34,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 440,
@@ -269,7 +269,7 @@ return {
         {
           id = 35,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 520,
@@ -284,7 +284,7 @@ return {
         {
           id = 39,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1600,
           y = 360,
@@ -299,7 +299,7 @@ return {
         {
           id = 40,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1740,
           y = 360,
@@ -314,7 +314,7 @@ return {
         {
           id = 41,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1880,
           y = 360,
@@ -329,7 +329,7 @@ return {
         {
           id = 53,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2640,
           y = 280,
@@ -344,7 +344,7 @@ return {
         {
           id = 62,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2620,
           y = 160,
@@ -359,7 +359,7 @@ return {
         {
           id = 72,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 600,
@@ -374,7 +374,7 @@ return {
         {
           id = 73,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 440,
@@ -389,7 +389,7 @@ return {
         {
           id = 74,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 520,
@@ -404,7 +404,7 @@ return {
         {
           id = 75,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 600,
@@ -419,7 +419,7 @@ return {
         {
           id = 76,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1000,
           y = 360,
@@ -434,7 +434,7 @@ return {
         {
           id = 82,
           name = "teevie_spikes",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 400,
@@ -450,7 +450,7 @@ return {
         {
           id = 83,
           name = "teevie_spikes",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 840,
           y = 400,
@@ -466,7 +466,7 @@ return {
         {
           id = 84,
           name = "teevie_spikes",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 880,
           y = 400,
@@ -482,7 +482,7 @@ return {
         {
           id = 85,
           name = "teevie_spikes",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 920,
           y = 400,
@@ -514,7 +514,7 @@ return {
         {
           id = 77,
           name = "teevie_quiz",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1080,
           y = 40,
@@ -555,7 +555,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 400,
@@ -568,7 +568,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -581,7 +581,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 206,
           y = 260,
@@ -594,7 +594,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 654,
           y = 260,
@@ -607,7 +607,7 @@ return {
         {
           id = 31,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 14,
           y = 260,
@@ -620,7 +620,7 @@ return {
         {
           id = 43,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1926,
           y = 260,
@@ -633,7 +633,7 @@ return {
         {
           id = 56,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2726,
           y = 280,
@@ -646,7 +646,7 @@ return {
         {
           id = 57,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2534,
           y = 280,
@@ -659,7 +659,7 @@ return {
         {
           id = 69,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 400,
@@ -672,7 +672,7 @@ return {
         {
           id = 70,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 760,
           y = 440,
@@ -685,7 +685,7 @@ return {
         {
           id = 71,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 440,
@@ -714,7 +714,7 @@ return {
         {
           id = 19,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 249,
@@ -727,7 +727,7 @@ return {
         {
           id = 20,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 354,
@@ -742,7 +742,7 @@ return {
         {
           id = 45,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2000,
           y = 249,
@@ -755,7 +755,7 @@ return {
         {
           id = 46,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1920,
           y = 354,
@@ -770,7 +770,7 @@ return {
         {
           id = 48,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 300,
@@ -784,7 +784,7 @@ return {
         {
           id = 49,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 300,
@@ -798,7 +798,7 @@ return {
         {
           id = 50,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 300,
@@ -812,7 +812,7 @@ return {
         {
           id = 51,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1920,
           y = 300,
@@ -826,7 +826,7 @@ return {
         {
           id = 52,
           name = "teevie_cameras",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1960,
           y = 200,
@@ -839,7 +839,7 @@ return {
         {
           id = 63,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2720,
           y = 320,
@@ -853,7 +853,7 @@ return {
         {
           id = 64,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2520,
           y = 320,
@@ -867,7 +867,7 @@ return {
         {
           id = 67,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 280,
@@ -883,7 +883,7 @@ return {
         {
           id = 68,
           name = "script",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2260,
           y = 280,
@@ -898,7 +898,7 @@ return {
         {
           id = 87,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 640,
@@ -909,6 +909,22 @@ return {
           properties = {
             ["map"] = "floortv/pre_elevator",
             ["marker"] = "entry_right"
+          }
+        },
+        {
+          id = 88,
+          name = "transition",
+          class = "",
+          shape = "rectangle",
+          x = 2800,
+          y = 280,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floortv/zapper_maze",
+            ["marker"] = "entry_topleft"
           }
         }
       }
@@ -930,7 +946,7 @@ return {
         {
           id = 3,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 140,
           y = 350,
@@ -943,7 +959,7 @@ return {
         {
           id = 65,
           name = "entry_left",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 340,
@@ -956,7 +972,7 @@ return {
         {
           id = 66,
           name = "entry_right",
-          type = "",
+          class = "",
           shape = "point",
           x = 2760,
           y = 340,
@@ -969,7 +985,7 @@ return {
         {
           id = 86,
           name = "entry_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 880,
           y = 600,

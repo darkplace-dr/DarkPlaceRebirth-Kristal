@@ -139,7 +139,7 @@ return {
         Game.world:addChild(soul)
         cutscene:wait(1.75)
 
-        if Game:isDessMode() then
+        if Game:isDessMode() then  --might rewrite this a tiny bit later but idk yet lol. -J.A.R.U.
             world_music:stop()
             gonerText("WAIT WHAT THE FUCK.[wait:20]")
 
@@ -217,7 +217,7 @@ return {
     
             world_music:stop()
             Assets.playSound("wing")
-            gonerText("SHIT-")
+            gonerText("OH !#@?-")
             Assets.playSound("closet_fall")
     
     
@@ -264,25 +264,23 @@ return {
                 Game.world:addChild(legs)
             end
     
-    
-    
             cutscene:wait(5)
             Assets.playSound("badexplosion")
+            cutscene:wait(1.5)
+            gonerText("...[wait:20]")
+            gonerText("WELL...[wait:40]\nTHAT IS...[wait:20]")
+            gonerText("VERY[wait:40]\nVERY[wait:40]\nUNFORTUNATE.[wait:20]")
+            cutscene:wait(1.5)
+            gonerText("...[wait:20]")
+            gonerText("NOT TO WORRY,[wait:20] I'LL\nFIND A[wait:40] SUITABLE\nREPLACEMENT.[wait:20]")
+            gonerText("ONE MOMENT...\n[wait:40]IF YOU PLEASE.[wait:20]")
+            cutscene:wait(5)
+            gonerText("FOUND ONE.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("...[wait:20]")
-            gonerText("I DROPPED THE FUCKING[wait:40]\nGONER PIECES.[wait:20]")
-            gonerText("OKAY NO NEED TO\nPANIC I JUST NEED\nTO FIND A REPLACEMENT.[wait:20]")
-            gonerText("JUST...\n[wait:40]GIMME A MINUTE,\nOKAY?[wait:20]")
-            cutscene:wait(2.5)
-            gonerText("...[wait:20]")
-            cutscene:wait(2.5)
-            gonerText("...[wait:20]")
-            cutscene:wait(2.5)
-            gonerText("FOUND IT.[wait:20]")
             gonerText("NOW.[wait:20]")
     
             cutscene:wait(0.5)
-            gonerText("WE MAY[wait:40]\nBEGIN\n[wait:20]")
+            gonerText("WE MAY[wait:40]\nPROPERLY[wait:40]\nBEGIN[wait:20]")
             cutscene:wait(1.25)
     
             soul:hide()
@@ -319,21 +317,20 @@ return {
                 hero_sprite.rotation = -(offset_x/48)
             end)
     
-            gonerText("THIS[wait:40]\nIS YOUR VESSEL.[wait:20]")
+            gonerText("THIS[wait:40]\nIS YOUR NEW\nVESSEL.[wait:20]")
     
             cutscene:wait(1)
     
             gonerText("ITS NAME[wait:40]\nIS-")
-            gonerText("OKAY SO I MADE THIS\nLIKE OVER A\nDECADE AGO.[wait:20]")
-            gonerText("SO THE NAME IS\nKINDA ASS.[wait:20]")
-            gonerText("SO LET'S JUST SAY\nTHEIR NAME IS \"HERO\"\nAND MOVE ON,[wait:5] OKAY?[wait:20]")
-            gonerText("ANYWAYS[wait:20]")
-            gonerText("ITS NAME[wait:40]\nIS \"HERO\"[wait:20]")
+            gonerText("...")
+            gonerText("ALRIGHT, I MADE\nTHIS VESSEL YEARS AGO.[wait:20]")
+            gonerText("SO ITS NAME IS \nADMITTEDLY[wait:40] NOT\nTHE GREATEST.[wait:20]")
+            gonerText("SO WE SHALL INSTEAD\nCALL THIS VESSEL:\n[wait:40]\"HERO\".[wait:20]")
             cutscene:wait(0.5)
     
-            gonerText("DO YOU ACCEPT[wait:40]\nTHIS VESSEL?[wait:20]", false)
+            gonerText("DO YOU\nACCEPT IT?", false)
     
-            cutscene:wait(4)
+            cutscene:wait(0.5)
     
             local chosen = nil
             local choicer = GonerChoice(220, 360, {
@@ -351,74 +348,80 @@ return {
     
             if chosen == "YES" then
                 gonerText("EXCELLENT.[wait:20]")
+                cutscene:wait(0.5)
                 gonerText("TRULY[wait:40]\nEXCELLENT.[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("NOW...[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("ALLOW ME TO\nEXPLAIN[wait:40]WHY YOU ARE\nHERE.[wait:20]")
     
                 cutscene:wait(0.75)
             else
                 Game:setFlag("_main_vesselno", true)
-                gonerText("WELL I HAVE LITERALLY\nNOTHING ELSE.")
-                gonerText("SO FUCK YOU,[wait:5]\nWE'RE GOING WITH IT\nANYWAYS.")
-                gonerText("...[wait:20]")
+                gonerText("NO...?")
                 cutscene:wait(0.5)
-                gonerText("I'M SORRY[wait:40]\nTHAT WAS VERY...[wait:20]")
+                gonerText("I THINK YOU \nUNDERESTIMATE...")
                 cutscene:wait(0.5)
-                gonerText("UNPROFESSIONAL[wait:40]\nOF ME.[wait:20]")
+                gonerText("THE SITUATION\nAT HAND.[wait:20]")
                 cutscene:wait(0.5)
-                gonerText("I APOLOGIZE[wait:40]\nFOR YELLING AT YOU.[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("THIS IS THE ONLY\nAVAILABLE OPTION.[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("MOSTLY DUE TO MY\n[wait:40]MISTAKE MOMENTS\nAGO...[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("AND YOUR ORIGINAL\nHOST IS[wait:40] UNAVAILABLE.[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("SO YOU HAVE[wait:40]\nNO CHOICE IN\nTHE MATTER.[wait:20]")
+                cutscene:wait(0.5)
+                gonerText("ALLOW ME TO\n[wait:40]ELABORATE.[wait:20]")
     
                 cutscene:wait(0.75)
             end
-    
-            gonerText("ANYWAYS.[wait:20]")
-            cutscene:wait(0.5)
+
             gonerText("THE PURPOSE[wait:40]\nOF THIS MEETING.[wait:20]")
             cutscene:wait(0.5)
             gonerText("THE FABRIC OF REALITY[wait:40]\nIS AT STAKE.[wait:20]")
             cutscene:wait(0.5)
+            gonerText("AND THE DELTA WARRIORS HAVE[wait:40]\nDISAPPEARED.[wait:20]")
+            cutscene:wait(0.5)
             gonerText("CONTRARY TO WHAT[wait:40]\nYOU PREVIOUSLY THOUGHT...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("THERE IS NO SUCH THING[wait:40]\nAS \"THE ROARING\"[wait:20]")
+            gonerText("AS WELL AS TO\nMY OWN SURPRISE...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("IT IS SOMETHING[wait:40]\nI MADE UP.[wait:20]")
+            gonerText("THERE IS NO SUCH\nTHING[wait:40] AS\n\"THE ROARING\"[wait:20]")
             cutscene:wait(0.5)
-            gonerText("TO PREVENT PEOPLE[wait:40]\nFROM CREATING[wait:40]\nDARK FOUNTAINS.[wait:20]")
+            gonerText("AS YOU CAN\nIMAGINE...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("AS THAT WOULD CAUSE[wait:40]\nREALITY TO BECOME...[wait:20]")
+            gonerText("I DID NOT EXPECT[wait:40]\nFOR THINGS TO\nGO THIS WAY.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("VERY[wait:40]\nUNSTABLE.[wait:20]")
+            gonerText("AND THE KNIGHT.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("BUT IT SEEMS LIKE[wait:40]\nA VERY CERTAIN[wait:40]\nEMPOLYEE OF MINE...[wait:20]")
+            gonerText("THE ROARING\nKNIGHT...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("IS REFUSING TO\nLISTEN TO ME.[wait:20]")
+            gonerText("WAS PARTICULARLY[wait:40]\nUPSET WITH THIS\nREVELATION.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("NOT ONLY THAT...[wait:20]")
+            gonerText("SO,[wait:20] IN DESPARATION[wait:40]\nAND FRUSTRATION...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("THEY HAVE TAKEN\nANOTHER EMPLOYEE\nOF MINE HOSTAGE.")
+            gonerText("THEY OPENED MULTIPLE\nFOUNTAINS[wait:40]ACROSS THE\nLIGHT WORLD.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("FOR GOD'S SAKE...[wait:20]")
+            gonerText("AND BECAUSE OF\nTHE NUMEROUS\nFOUNTAINS...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("I KNEW I SHOULDN'T\nHAVE HIRED A\nREBELIOUS TEENAGER.[wait:20]")
+            gonerText("THIS HAS CAUSED\nREALITY TO BECOME...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("BUT NO.[wait:20]\nMRS. HOLIDAY [wait:10]INSISTED[wait:20]\nI HIRE HER DAUGHTER.[wait:20]")
+            gonerText("UNSTABLE.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("...[wait:20]")
+            gonerText("AND THAT[wait:40]\nIS WHERE YOU\nCOME IN.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("I APOLOGIZE.[wait:20]")
+            gonerText("YOUR MISSION...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("I WAS GETTING VERY[wait:40]\nOFF-TOPIC.[wait:20]")
+            gonerText("IS TO FIND THE[wait:40]\nDELTA WARRIORS.[wait:20]")
             cutscene:wait(0.5)
-            gonerText("ANYWAYS.[wait:20]")
-            cutscene:wait(0.5)
-            gonerText("YOUR MISSION.[wait:20]")
-            cutscene:wait(0.5)
-            gonerText("IS TO GATHER THE[wait:40]\nDELTA WARRIORS.[wait:20]")
-            cutscene:wait(0.5)
-            gonerText("AND PREVENT REALITY[wait:40]\nFROM COLLAPSING.[wait:20]")
+            gonerText("AND PREVENT REALITY[wait:40]\nFROM COLLAPSING\nIN ON ITSELF.[wait:20]")
             cutscene:wait(0.5)
     
             gonerText("DO YOU ACCEPT[wait:40]\nTHIS MISSION?[wait:20]", false)
     
-            cutscene:wait(4)
+            cutscene:wait(0.5)
     
             chosen = nil
             choicer = GonerChoice(220, 360, {
@@ -439,25 +442,31 @@ return {
                 gonerText("TRULY[wait:40]\nEXCELLENT.[wait:20]")
     
                 cutscene:wait(0.75)
+                gonerText("NOW.[wait:20]")
             else
                 if Game:getFlag("_main_vesselno") then
-                    gonerText("OKAY YOU ARE\nREALLY STARTING TO\nPISS ME OFF.[wait:20]")
-                    gonerText("LIKE SERIOUSLY?[wait:20]")
-                    gonerText("I TAKE BACK\nMY APOLOGY.[wait:20]")
-                    gonerText("YOU'RE GONNA\nSAVE THE WORLD.[wait:20]")
-                    gonerText("WHETHER YOU LIKE IT\nOR NOT.[wait:20]")
+                    gonerText("...[wait:20]")
+                    gonerText("I SEE THAT\nYOU ARE VERY[wait:40]\nOPINIONATED.[wait:20]")
+                    gonerText("WELL...[wait:40]\nNO MATTER.[wait:20]")
+                    gonerText("AS I HAVE\nPREVIOUSLY\nSTATED...[wait:20]")
+                    gonerText("YOU'RE GOING TO\nSAVE THE WORLD.[wait:20]")
+                    gonerText("WHETHER YOU\nLIKE IT [wait:40]OR\nNOT.[wait:20]")
+                    cutscene:wait(0.75)
+                    gonerText("NOW.[wait:20]")
                 else
-                    gonerText("THAT WAS[wait:40]\nA RHETORICAL QUESTION.[wait:20]")
+                    gonerText("NO...?[wait:20]")
+                    gonerText("HOW[wait:40]\nINTERESTING.[wait:20]")
                     cutscene:wait(0.5)
-                    gonerText("WHY ARE YOU EVEN HERE[wait:40]\nIF NOT TO PLAY\nTHE GAME?[wait:20]")
+                    gonerText("WHY WOULD YOU\nACCEPT [wait:40]THE VESSEL...[wait:20]")
+                    gonerText("...IF YOU ARE\nNOT UP [wait:40]FOR\nTHE TASK?[wait:20]")
                     cutscene:wait(0.5)
-                    gonerText("WHATEVER.[wait:20]")
+                    gonerText("WELL...[wait:40]\nNO MATTER.[wait:20]")
+                    gonerText("REGARDLESS OF\nWHAT YOU THINK.[wait:20]")
+                    gonerText("WE MUST PROCEED\nWITH HASTE.[wait:20]")
+                    cutscene:wait(0.75)
                 end
-    
-                cutscene:wait(0.75)
             end
-    
-            gonerText("NOW.[wait:20]")
+
             cutscene:wait(0.5)
             gonerText("THE FUTURE[wait:20]")
             cutscene:wait(1)

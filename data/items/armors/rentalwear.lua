@@ -49,14 +49,14 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        susie = "Money, that's what I need.",
-        ralsei = "Two pairs of glasses?",
-        noelle = "(Seems... familiar?)",
-        dess = "wow this seems familiar for no reason in particular",
-        jamm = "Not really a glasses guy, but...",
-        noel = "Can't take em with me.",
-        ["jamm+marcy"] = "You look like a real big shot with those, Marcy!",
-        ceroba = "Everything's now pink-yellow-ish...",
+        susie = "No! Not my money!",
+        ralsei = "At least it's... good?",
+        noelle = "(Does it just... suck money?)",
+        dess = "oh noooo how will I pay my taxes now",
+        jamm = "",
+        noel = "",
+        ["jamm+marcy"] = "",
+        ceroba = "Goodbye my earnings.",
     }
 end
 

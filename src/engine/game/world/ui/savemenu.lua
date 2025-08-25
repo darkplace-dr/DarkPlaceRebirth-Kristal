@@ -15,7 +15,6 @@ function SaveMenu:init(marker)
     self.ui_select = Assets.newSound("ui_select")
 
     self.heart_sprite = Assets.getTexture("player/heart")
-    self.divider_sprite = Assets.getTexture("ui/box/dark/top")
 
     self.main_box = UIBox(124, 130, 391, 154)
     self.main_box.layer = -1
@@ -68,6 +67,7 @@ function SaveMenu:updateSaveBoxSize()
 end
 
 function SaveMenu:update()
+    if OVERLAY_OPEN then return end
     if self.state == "MAIN" then
         if Input.pressed("cancel") then
             self:remove()
@@ -87,6 +87,8 @@ function SaveMenu:update()
                 self.ui_select:play()
 
                 self.selected_file = Game.save_id
+                self.selected_x = self.selected_file%2 == 0 and 2 or 1
+                self.selected_y = self.selected_file <= 2 and 1 or 2
                 self.saved_file = nil
 
                 self.main_box.visible = false

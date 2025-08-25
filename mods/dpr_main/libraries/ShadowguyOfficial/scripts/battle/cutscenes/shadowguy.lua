@@ -249,4 +249,57 @@ return {
 			return finished
 		end)
     end,
+
+	bd_dance = function(cutscene, battler, self)
+		Game:setFlag("shadowguy_bd", true)
+		local brenda_index = nil
+		local dess_index = nil
+		for i, v in ipairs(Game.party) do
+			if v.id == "brenda" then
+				brenda_index = i
+			elseif v.id == "dess" then
+				dess_index = i
+			end
+		end
+		cutscene:text("* Brenda danced!")
+		cutscene:text("* dude is that the fuckin caramelldansen?", "annoyed", "dess")
+		if brenda_index > dess_index then
+			battler:setSprite("dance_up")
+		else
+			battler:setSprite("dance_down")
+		end
+		cutscene:text("* thats so cringe lol", "condescending", "dess")
+		cutscene:text("* ...", "suspicious_b", "brenda")
+		cutscene:text("* Look,[wait:5] I may be cringe...", "dissapointed", "brenda")
+		battler:setAnimation("dance")
+		cutscene:text("* But I am FREE!", "happy", "brenda")
+	end,
+
+	jd_dance = function(cutscene, battler, self)
+		Game:setFlag("shadowguy_jd", true)
+		local jamm_index = nil
+		local dess_index = nil
+		for i, v in ipairs(Game.party) do
+			if v.id == "jamm" then
+				jamm_index = i
+			elseif v.id == "dess" then
+				dess_index = i
+			end
+		end
+		cutscene:text("* Jamm danced!")
+		cutscene:text("* dude is that a distraction dance?", "annoyed", "dess")
+		cutscene:text("* we're not even trying to distract anyone lmao", "condescending", "dess")
+		if jamm_index > dess_index then
+			battler:setSprite("walk/up")
+		else
+			battler:setSprite("walk/down")
+		end
+		cutscene:text("* But...[wait:10] isn't that what all these encounters are?", "neutral", "jamm")
+		cutscene:text("* You know,[wait:5] distracting someone to forget about fighting us.", "look_left", "jamm")
+		cutscene:text("* Whenever we ACT,[wait:5] isn't that the endgoal?", "neutral", "jamm")
+		cutscene:text("* ", "wtf_b", "dess")
+		battler:setAnimation("dance")
+		cutscene:text("* Besides,[wait:5] it's not about what dance you do.", "smile", "jamm")
+		cutscene:text("* I'm having fun,[wait:5] and that's what matters.", "happy", "jamm")
+	end,
 }

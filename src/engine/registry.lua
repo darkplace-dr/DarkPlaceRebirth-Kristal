@@ -116,6 +116,9 @@ function Registry.initialize(preload)
                 if Mod and love.filesystem.getInfo(plugin.path.."/plugin.lua") then
                     local chunk = love.filesystem.load(plugin.path.."/plugin.lua")
                     Kristal.PluginLoader.plugin_scripts[plugin.id] = assert(chunk(), plugin.path.."/plugin.lua returned nil.")
+                elseif Mod and love.filesystem.getInfo(plugin.path.."/lib.lua") then
+                    local chunk = love.filesystem.load(plugin.path.."/lib.lua")
+                    Kristal.PluginLoader.plugin_scripts[plugin.id] = assert(chunk(), plugin.path.."/lib.lua returned nil.")
                 end
             end
         end
