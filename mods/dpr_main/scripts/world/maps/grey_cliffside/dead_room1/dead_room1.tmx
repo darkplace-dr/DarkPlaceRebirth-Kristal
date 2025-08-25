@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="72">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="77">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -10,10 +10,6 @@
  <tileset firstgid="64" source="../../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="5" name="objects_bg">
   <object id="28" name="glitch_bg" x="520" y="560" width="40" height="40"/>
- </objectgroup>
- <objectgroup id="6" name="objects_glass">
-  <object id="29" name="voidglass" x="80" y="540" width="160" height="40"/>
-  <object id="61" name="magicglass" x="560" y="200" width="240" height="120"/>
  </objectgroup>
  <layer id="8" name="Tile Layer 2" width="20" height="24">
   <data encoding="csv">
@@ -71,6 +67,15 @@
 23,23,23,23,23,23,26,14,25,23,23,23,23,23,24,50,50,50,51,0
 </data>
  </layer>
+ <objectgroup id="6" name="objects_glass">
+  <object id="29" name="voidglass" x="120" y="540" width="120" height="40"/>
+  <object id="61" name="magicglass" x="560" y="200" width="240" height="120"/>
+  <object id="76" name="voidglass" x="80" y="540" width="40" height="40">
+   <properties>
+    <property name="broken" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="11" name="objects_crystal">
   <object id="49" name="neocrystal" x="244" y="70" width="112" height="160">
    <properties>
@@ -94,7 +99,7 @@
   <object id="23" x="80" y="500" width="120" height="40"/>
   <object id="24" x="80" y="580" width="120" height="40"/>
   <object id="26" x="360" y="456" width="40" height="224"/>
-  <object id="46" x="40" y="540" width="40" height="40"/>
+  <object id="46" x="50" y="540" width="40" height="40"/>
   <object id="56" x="480" y="120" width="80" height="40"/>
   <object id="58" x="160" y="720" width="80" height="40"/>
   <object id="59" x="80" y="360" width="80" height="16"/>
