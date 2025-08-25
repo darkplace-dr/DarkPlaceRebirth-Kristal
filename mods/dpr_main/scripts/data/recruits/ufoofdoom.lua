@@ -7,7 +7,7 @@ function UFOOfDoom:init()
     self.name = "UFO Of Doom"
 
     -- How many times an enemy needs to be spared to be recruited.
-    self.recruit_amount = 8
+    self.recruit_amount = 7
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 3

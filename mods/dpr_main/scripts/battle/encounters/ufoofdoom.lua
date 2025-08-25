@@ -3,7 +3,7 @@ local UfoEncounter, super = Class(Encounter)
 function UfoEncounter:init()
     super.init(self)
 
-    self.text = "* HOLY SHIT 2:[wait:5] Electric Boogaloo"
+    self.text = "* HOLY SHIT"
 
     self.music = "batterup"
 
@@ -11,7 +11,6 @@ function UfoEncounter:init()
 	self.hide_world = true
 
     self:addEnemy("ufoofdoom")
-	self:addEnemy("ufoofdoom")
 end
 
 function UfoEncounter:onBattleInit()
