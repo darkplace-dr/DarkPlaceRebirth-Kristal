@@ -554,9 +554,8 @@ end
 ---@param name string
 ---@param data table
 function lib:loadObject(world, name, data)
-    if false then
-    elseif name:lower() == "voidglass" then
-        return VoidGlass(data.x, data.y, rect_data, data.properties["broken"])
+    if name:lower() == "voidglass" then
+        return VoidGlass(data.x, data.y, {data.width, data.height, data.polygon}, data.properties["broken"])
     elseif name:lower() == "warpbin" then
         return WarpBin(data)
     elseif name:lower() == "superstar" then

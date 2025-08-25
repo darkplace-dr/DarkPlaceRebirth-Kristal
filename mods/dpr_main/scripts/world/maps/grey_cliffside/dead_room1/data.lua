@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 72,
+  nextobjectid = 77,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -52,48 +52,6 @@ return {
           y = 560,
           width = 40,
           height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 6,
-      name = "objects_glass",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 29,
-          name = "voidglass",
-          type = "",
-          shape = "rectangle",
-          x = 80,
-          y = 540,
-          width = 160,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 61,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 200,
-          width = 240,
-          height = 120,
           rotation = 0,
           visible = true,
           properties = {}
@@ -186,6 +144,63 @@ return {
         14, 14, 14, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 8, 15, 32, 32, 32, 33, 0,
         7, 14, 8, 17, 16, 14, 17, 14, 14, 14, 8, 7, 14, 16, 15, 41, 41, 41, 42, 0,
         23, 23, 23, 23, 23, 23, 26, 14, 25, 23, 23, 23, 23, 23, 24, 50, 50, 50, 51, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_glass",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 29,
+          name = "voidglass",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 540,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 200,
+          width = 240,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 76,
+          name = "voidglass",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 540,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["broken"] = true
+          }
+        }
       }
     },
     {
@@ -409,7 +424,7 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 40,
+          x = 50,
           y = 540,
           width = 40,
           height = 40,
