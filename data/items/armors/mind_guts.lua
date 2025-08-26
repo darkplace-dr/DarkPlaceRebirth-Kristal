@@ -19,7 +19,7 @@ function item:init()
     self.description = "For those whose mind is always too numb."
 
     -- Default shop price (sell price is halved)
-    self.price = 500
+    self.price = 600
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,9 +34,9 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = -5,
-        magic = 9,
-        attack = -1,
+        defense = -6,
+        magic = 12,
+        attack = -2,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil

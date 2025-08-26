@@ -19,7 +19,7 @@ function item:init()
     self.description = "For those whose body reject strategy."
 
     -- Default shop price (sell price is halved)
-    self.price = 500
+    self.price = 600
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,9 +34,9 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = -5,
-        attack = 9,
-        magic = -1,
+        defense = -6,
+        attack = 12,
+        magic = -2,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
