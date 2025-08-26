@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 237,
+  nextobjectid = 239,
   properties = {
     ["border"] = "tritraland",
     ["music"] = "TRITRALAND",
@@ -1601,15 +1601,15 @@ return {
           name = "npc",
           type = "",
           shape = "rectangle",
-          x = 600,
+          x = 800,
           y = 320,
           width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "machine",
-            ["cutscene"] = "machine.d"
+            ["actor"] = "annabelle_cabinet",
+            ["cutscene"] = "machine.a"
           }
         },
         {
@@ -2474,7 +2474,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 1040,
-          y = 440,
+          y = 480,
           width = 160,
           height = 40,
           rotation = 0,
@@ -2488,7 +2488,7 @@ return {
           name = "forcefield",
           type = "",
           shape = "rectangle",
-          x = 1000,
+          x = 720,
           y = 320,
           width = 40,
           height = 120,
@@ -2506,7 +2506,7 @@ return {
           x = 1200,
           y = 320,
           width = 40,
-          height = 120,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {
@@ -2519,7 +2519,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 1040,
-          y = 420,
+          y = 460,
           width = 160,
           height = 20,
           rotation = 0,
@@ -2576,6 +2576,37 @@ return {
           properties = {
             ["actor"] = "buni",
             ["cutscene"] = "buni.d"
+          }
+        },
+        {
+          id = 237,
+          name = "npc",
+          type = "",
+          shape = "rectangle",
+          x = 606.711,
+          y = 318.267,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "machine",
+            ["cutscene"] = "machine.d"
+          }
+        },
+        {
+          id = 238,
+          name = "forcefield",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 440,
+          width = 280,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "can_kill"
           }
         }
       }
