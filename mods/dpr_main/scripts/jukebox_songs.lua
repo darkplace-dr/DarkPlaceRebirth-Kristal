@@ -80,54 +80,6 @@ return {
     album = "dark_place_with_text"
   },
   {
-    name = "STARSTRUCK", -- official name according to the Soundcloud upload
-    file = "starwalker",
-    composer = "Nyako",
-    released = "March 21st, 2024",
-    origin = "Kristal",
-    album = "default"
-  },
-  {
-    name = "Gimmie Your Wallet, Miss",
-    file = "gimmieyourwalletmiss",
-    composer = "Charbomber",
-    released = "TBA",
-    origin = "Deltarune: The Stars",
-    album = "dr_ts"
-  },
-  {
-    name = "Batter Up!",
-    file = "batterup",
-    composer = "Charbomber",
-    released = "TBA",
-    origin = "Deltarune: The Stars",
-    album = "dr_ts"
-  },
-  {
-    name = "Three Strikes, You're Out!",
-    file = "threestrikesyoureout",
-    composer = "Charbomber",
-    released = "TBA",
-    origin = "Deltarune: The Stars",
-    album = "dr_ts"
-  },
-  {
-    name = "Get on the Bus",
-    file = "get_on_the_bus",
-    composer = "Keiichi Suzuki, Hirokazu Tanaka",
-    released = "1994",
-    origin = "MOTHER 2/Earthbound",
-    album = "mother_2"
-  },
-  {
-    name = "Undefeatable",
-    file = "undefeatable",
-    composer = "Tomoya Ohtani",
-    released = "2022",
-    origin = "Sonic Frontiers",
-    album = "sonic_frontiers_stillness_and_motion"
-  },
-  {
     name = "Enemy Approaching!",
     file = "battleut",
     composer = "Toby Fox",
@@ -360,6 +312,38 @@ return {
     album = "dr_ch3_4"
   },
   {
+    name = "STARSTRUCK", -- official name according to the Soundcloud upload
+    file = "starwalker",
+    composer = "Nyako",
+    released = "March 21st, 2024",
+    origin = "Kristal",
+    album = "default"
+  },
+  {
+    name = "Gimmie Your Wallet, Miss",
+    file = "gimmieyourwalletmiss",
+    composer = "Charbomber",
+    released = "TBA",
+    origin = "Deltarune: The Stars",
+    album = "dr_ts"
+  },
+  {
+    name = "Batter Up!",
+    file = "batterup",
+    composer = "Charbomber",
+    released = "TBA",
+    origin = "Deltarune: The Stars",
+    album = "dr_ts"
+  },
+  {
+    name = "Three Strikes, You're Out!",
+    file = "threestrikesyoureout",
+    composer = "Charbomber",
+    released = "TBA",
+    origin = "Deltarune: The Stars",
+    album = "dr_ts"
+  },
+  {
     name = "The House",
     file = "the_wild_east_house",
     composer = "MasterSwordRemix",
@@ -384,12 +368,36 @@ return {
     album = "snailsmite"
   },
   {
+    name = "Dreamed Death",
+    file = "dreamed death",
+    composer = "Tritra Serpifeu\nWith Help via Midi's by IronInvoker47",
+    released = "2025",
+    origin = "Deltarune: Loving Genesis",
+    album = "lovinggenesis"
+  },
+  {
     name = "Really Good Showrunner Cover",
     file = "ReallyGoodShowrunnerCover",
     composer = "Hyperboid",
     released = "2025",
     origin = "Super Mario 64: Beyond The Cursed Mirror(?)",
     album = "itsfuckingmike"
+  },
+  {
+    name = "Get on the Bus",
+    file = "get_on_the_bus",
+    composer = "Keiichi Suzuki, Hirokazu Tanaka",
+    released = "1994",
+    origin = "MOTHER 2/Earthbound",
+    album = "mother_2"
+  },
+  {
+    name = "Undefeatable",
+    file = "undefeatable",
+    composer = "Tomoya Ohtani",
+    released = "2022",
+    origin = "Sonic Frontiers",
+    album = "sonic_frontiers_stillness_and_motion"
   },
   {
     name = "Same Old Story",

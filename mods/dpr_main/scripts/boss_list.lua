@@ -1,5 +1,17 @@
 return {
   {
+    name = "Benchthing",
+    encounter = "something",
+    difficulty = {true, true, true, false, false},
+    preview = "something",
+    description = "A nightmare creature on vacation, has attacks from the game STARRUNE POPSTAR.",
+    locked_description = "Walk east towards the lampposts in the distance to meet this boss!",
+    health = 5678,
+    attack = 10,
+    defense = 10,
+    flag = "something_defeated"
+  },
+  {
     name = "Starwalker",
     encounter = "starwalker",
     difficulty = {true, true, true, true, false},
@@ -22,6 +34,18 @@ return {
     attack = 10,
     defense = 2,
     flag = "mimic_defeated"
+  },
+  {
+    name = "Annabelle",
+    encounter = "annabelle",
+    difficulty = {true, true, true, true, true},
+    preview = "annabelle",
+    description = "An actress who plays a powerful huntress demon who loves toying with her prey.",
+    locked_description = "Fight her in TRITRALAND to unlock this fight!",
+    health = 3240,
+    attack = 18,
+    defense = 15,
+    flag = "annabelle_defeated"
   },
   {
     name = "Omega Spamton",
