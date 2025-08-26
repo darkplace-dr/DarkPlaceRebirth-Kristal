@@ -272,6 +272,14 @@ return {
     album = "dr_ch3_4"
   },
   {
+    name = "From Now On (Battle 2)",
+    file = "ch4_battle",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4"
+  },
+  {
     name = "Hammer of Justice",
     file = "deltarune/ch4_extra_boss",
     composer = "Toby Fox",
