@@ -19,7 +19,7 @@ function item:init()
     self.description = "For those whose soul will survive a beating."
 
     -- Default shop price (sell price is halved)
-    self.price = 500
+    self.price = 600
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,9 +34,9 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = 9,
-        attack = -3,
-        magic = -3,
+        defense = 12,
+        attack = -4,
+        magic = -4,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
