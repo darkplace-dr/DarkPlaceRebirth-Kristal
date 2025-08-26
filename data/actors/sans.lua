@@ -60,6 +60,20 @@ function actor:init()
     }
 
     self.taunt_sprites = {"shrug", "sleeping", "eyes", "bike", "wink"}
+
+    self.voice_timer = 0
+end
+
+function actor:onWorldUpdate(chara)
+    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+end
+
+function actor:onTextSound()
+    if self.voice_timer == 0 then
+        Assets.stopAndPlaySound("voice/sans")
+        self.voice_timer = 2
+    end
+    return true
 end
 
 return actor

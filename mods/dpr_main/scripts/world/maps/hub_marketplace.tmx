@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="59">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="61">
  <editorsettings>
   <export target="hub_marketplace.lua" format="lua"/>
  </editorsettings>
@@ -106,6 +106,15 @@
    <point/>
   </object>
   <object id="53" gid="211" x="642" y="220" width="114" height="140"/>
+  <object id="59" name="npc" x="1000" y="280">
+   <properties>
+    <property name="actor" value="boxer"/>
+    <property name="text1">* (Shuffle  shuffle.)
+(I am a box. People put stuff on me.)</property>
+    <property name="text2" value="* (I eat that stuff. Such is the way of the box.)"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers" visible="0">
   <object id="15" name="entry" x="1200" y="320">

@@ -53,7 +53,13 @@ return {
 			if not Game:getFlag("a_brenda_door") then
 				cutscene:showNametag("Brenda")
 				cutscene:text("* Oh wow,[wait:5] my own apartment?", "shocked", "brenda")
-				cutscene:text("* Wait hold on,[wait:5] I just got here,[wait:5] how the hell do I have my own personalized apartment?", "suspicious_b", "brenda")
+				cutscene:text("* Wait hold on,[wait:5] I just got here...", "suspicious_b", "brenda")
+				cutscene:text("* How the hell do I have my own personalized apartment?", "suspicious_b", "brenda")
+                if Game:hasPartyMember("jamm") then
+                    cutscene:showNametag("Jamm")
+					cutscene:text("* Beats me.[wait:10]\n* I asked the same thing too.", "neutral", "jamm")
+					cutscene:text("* I was surprised Marcy's name was on it.[wait:10]\n* She's just a kid.", "nervous_left", "jamm")
+                end
 				cutscene:text("* Eh whatever,[wait:5] don't look a Giftrot in the mouth as they say.", "suspicious", "brenda")
 				cutscene:hideNametag()
 			end

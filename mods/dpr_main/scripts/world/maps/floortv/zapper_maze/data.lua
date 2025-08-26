@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,10 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 119,
+  nextobjectid = 123,
   properties = {
     ["border"] = "teevie",
-    ["music"] = "deltarune/tv_world"
+    ["keepmusic"] = true
   },
   tilesets = {
     {
@@ -56,7 +56,7 @@ return {
         {
           id = 1,
           name = "teevie_bg",
-          class = "",
+          type = "",
           shape = "point",
           x = 0,
           y = 0,
@@ -277,7 +277,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 280,
@@ -290,7 +290,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 240,
@@ -303,7 +303,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 240,
@@ -316,7 +316,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 640,
@@ -329,7 +329,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 520,
@@ -342,7 +342,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 400,
@@ -355,7 +355,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 560,
@@ -368,7 +368,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 240,
@@ -381,7 +381,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -394,7 +394,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1240,
           y = 240,
@@ -407,7 +407,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 640,
@@ -420,7 +420,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 640,
@@ -433,7 +433,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 1040,
@@ -446,7 +446,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 1040,
@@ -459,7 +459,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 1280,
@@ -472,7 +472,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 880,
@@ -485,7 +485,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 600,
@@ -498,7 +498,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1400,
           y = 880,
@@ -511,7 +511,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 640,
@@ -524,7 +524,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1800,
           y = 880,
@@ -537,7 +537,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 480,
@@ -550,7 +550,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 360,
@@ -563,7 +563,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1800,
           y = 320,
@@ -576,7 +576,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1440,
           y = 560,
@@ -589,7 +589,7 @@ return {
         {
           id = 39,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 1040,
@@ -602,7 +602,7 @@ return {
         {
           id = 40,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 1440,
@@ -615,7 +615,7 @@ return {
         {
           id = 42,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1560,
@@ -628,7 +628,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1040,
@@ -641,7 +641,7 @@ return {
         {
           id = 44,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 1160,
@@ -654,7 +654,7 @@ return {
         {
           id = 45,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1440,
           y = 1160,
@@ -667,7 +667,7 @@ return {
         {
           id = 46,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 1560,
@@ -680,7 +680,7 @@ return {
         {
           id = 47,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 1120,
@@ -693,7 +693,7 @@ return {
         {
           id = 56,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 1000,
@@ -706,7 +706,7 @@ return {
         {
           id = 96,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 14,
           y = 400,
@@ -719,7 +719,7 @@ return {
         {
           id = 97,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 166,
           y = 400,
@@ -732,7 +732,7 @@ return {
         {
           id = 98,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1854,
           y = 360,
@@ -745,7 +745,7 @@ return {
         {
           id = 99,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2046,
           y = 360,
@@ -758,7 +758,7 @@ return {
         {
           id = 102,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1614,
           y = 1440,
@@ -771,7 +771,7 @@ return {
         {
           id = 103,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2087,
           y = 1440,
@@ -800,7 +800,7 @@ return {
         {
           id = 60,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 100,
           y = 400,
@@ -808,12 +808,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 61,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 240,
@@ -821,12 +823,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 62,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 240,
@@ -834,12 +838,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 64,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 240,
@@ -847,12 +853,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 66,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 240,
@@ -860,12 +868,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 68,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 1440,
@@ -873,12 +883,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 69,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 1440,
@@ -886,12 +898,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 70,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 1440,
@@ -899,12 +913,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 71,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 1440,
@@ -912,12 +928,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 74,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1700,
           y = 1320,
@@ -930,7 +948,7 @@ return {
         {
           id = 76,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1940,
           y = 240,
@@ -943,7 +961,7 @@ return {
         {
           id = 79,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1720,
           y = 1440,
@@ -951,12 +969,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 80,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1860,
           y = 1440,
@@ -964,12 +984,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 81,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2000,
           y = 1440,
@@ -977,12 +999,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = true
+          }
         },
         {
           id = 82,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1960,
           y = 360,
@@ -990,12 +1014,14 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["odd"] = false
+          }
         },
         {
           id = 84,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1980,
           y = 1320,
@@ -1008,7 +1034,7 @@ return {
         {
           id = 93,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 280,
@@ -1039,7 +1065,7 @@ return {
         {
           id = 88,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 400,
@@ -1055,7 +1081,7 @@ return {
         {
           id = 89,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1840,
           y = 400,
@@ -1069,7 +1095,7 @@ return {
         {
           id = 91,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2040,
           y = 400,
@@ -1083,7 +1109,7 @@ return {
         {
           id = 94,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 440,
@@ -1097,7 +1123,7 @@ return {
         {
           id = 95,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 440,
@@ -1111,7 +1137,7 @@ return {
         {
           id = 100,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1600,
           y = 1480,
@@ -1125,7 +1151,7 @@ return {
         {
           id = 101,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2080,
           y = 1480,
@@ -1139,7 +1165,7 @@ return {
         {
           id = 105,
           name = "fakechest",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1520,
           y = 580,
@@ -1151,8 +1177,8 @@ return {
         },
         {
           id = 106,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 320,
           y = 310,
@@ -1161,13 +1187,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffff0000",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "down",
+            ["tele_marker"] = "plus_up"
           }
         },
         {
           id = 107,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 320,
           y = 620,
@@ -1176,13 +1206,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffffa040",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "down",
+            ["tele_marker"] = "bottomleft_up"
           }
         },
         {
           id = 108,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 640,
           y = 540,
@@ -1191,13 +1225,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffffff00",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "right",
+            ["tele_marker"] = "plus_down"
           }
         },
         {
           id = 109,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1200,
           y = 340,
@@ -1206,13 +1244,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ff00ffff",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "left",
+            ["tele_marker"] = "bottomleft_right"
           }
         },
         {
           id = 110,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1860,
           y = 860,
@@ -1221,13 +1263,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ff00ff00",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "right",
+            ["tele_marker"] = "plus_left"
           }
         },
         {
           id = 111,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1040,
           y = 700,
@@ -1236,13 +1282,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffff0000",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "down",
+            ["tele_marker"] = "topleft_up"
           }
         },
         {
           id = 112,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1340,
           y = 980,
@@ -1251,13 +1301,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffff00ff",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "down",
+            ["tele_marker"] = "bottomright_up"
           }
         },
         {
           id = 113,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 720,
           y = 980,
@@ -1266,13 +1320,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ff00ff00",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "up",
+            ["tele_marker"] = "topright_down"
           }
         },
         {
           id = 114,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1040,
           y = 1260,
@@ -1281,13 +1339,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffffff00",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "up",
+            ["tele_marker"] = "topmiddle_left"
           }
         },
         {
           id = 116,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 600,
           y = 1510,
@@ -1296,13 +1358,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ff00ffff",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "left",
+            ["tele_marker"] = "topmiddle_right"
           }
         },
         {
           id = 117,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 320,
           y = 1100,
@@ -1311,13 +1377,17 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffffa040",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "up",
+            ["tele_marker"] = "topleft_down"
           }
         },
         {
           id = 118,
-          name = "npc",
-          class = "",
+          name = "zapper_maze_npc",
+          type = "",
           shape = "point",
           x = 1540,
           y = 1200,
@@ -1326,7 +1396,73 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "zapper_maze"
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffff00ff",
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "left",
+            ["tele_marker"] = "plus_right"
+          }
+        },
+        {
+          id = 119,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 1400,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a poster. It doesn't have any words on it.)"
+          }
+        },
+        {
+          id = 120,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 1400,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a poster. It doesn't have any words on it.)"
+          }
+        },
+        {
+          id = 121,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1840,
+          y = 1400,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a poster. It has word on it.)"
+          }
+        },
+        {
+          id = 122,
+          name = "zapper_maze_npc",
+          type = "",
+          shape = "point",
+          x = 1680,
+          y = 580,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffc0c0c0",
+            ["text"] = "* add text here for non-participating zapper"
           }
         }
       }
@@ -1347,8 +1483,8 @@ return {
       objects = {
         {
           id = 26,
-          name = "",
-          class = "",
+          name = "topleft_up",
+          type = "",
           shape = "point",
           x = 320,
           y = 360,
@@ -1360,8 +1496,8 @@ return {
         },
         {
           id = 27,
-          name = "",
-          class = "",
+          name = "topleft_down",
+          type = "",
           shape = "point",
           x = 320,
           y = 560,
@@ -1373,8 +1509,8 @@ return {
         },
         {
           id = 28,
-          name = "",
-          class = "",
+          name = "topmiddle_left",
+          type = "",
           shape = "point",
           x = 640,
           y = 480,
@@ -1386,8 +1522,8 @@ return {
         },
         {
           id = 31,
-          name = "",
-          class = "",
+          name = "topmiddle_right",
+          type = "",
           shape = "point",
           x = 1140,
           y = 340,
@@ -1399,8 +1535,8 @@ return {
         },
         {
           id = 33,
-          name = "",
-          class = "",
+          name = "topright_down",
+          type = "",
           shape = "point",
           x = 1860,
           y = 800,
@@ -1412,8 +1548,8 @@ return {
         },
         {
           id = 34,
-          name = "",
-          class = "",
+          name = "plus_up",
+          type = "",
           shape = "point",
           x = 1040,
           y = 800,
@@ -1425,8 +1561,8 @@ return {
         },
         {
           id = 35,
-          name = "",
-          class = "",
+          name = "plus_left",
+          type = "",
           shape = "point",
           x = 800,
           y = 980,
@@ -1438,8 +1574,8 @@ return {
         },
         {
           id = 37,
-          name = "",
-          class = "",
+          name = "plus_down",
+          type = "",
           shape = "point",
           x = 1040,
           y = 1200,
@@ -1451,8 +1587,8 @@ return {
         },
         {
           id = 38,
-          name = "",
-          class = "",
+          name = "plus_right",
+          type = "",
           shape = "point",
           x = 1280,
           y = 980,
@@ -1464,8 +1600,8 @@ return {
         },
         {
           id = 48,
-          name = "",
-          class = "",
+          name = "bottomleft_right",
+          type = "",
           shape = "point",
           x = 530,
           y = 1510,
@@ -1477,8 +1613,8 @@ return {
         },
         {
           id = 49,
-          name = "",
-          class = "",
+          name = "bottomleft_up",
+          type = "",
           shape = "point",
           x = 320,
           y = 1160,
@@ -1490,8 +1626,8 @@ return {
         },
         {
           id = 50,
-          name = "",
-          class = "",
+          name = "bottomright_up",
+          type = "",
           shape = "point",
           x = 1540,
           y = 1240,
@@ -1504,7 +1640,7 @@ return {
         {
           id = 51,
           name = "entry_topleft",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 460,
@@ -1517,7 +1653,7 @@ return {
         {
           id = 52,
           name = "entry_topright",
-          class = "",
+          type = "",
           shape = "point",
           x = 2127,
           y = 420,
@@ -1530,7 +1666,7 @@ return {
         {
           id = 53,
           name = "entry_bottomleft",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 1520,
@@ -1543,7 +1679,7 @@ return {
         {
           id = 54,
           name = "entry_bottomright",
-          class = "",
+          type = "",
           shape = "point",
           x = 2120,
           y = 1500,
@@ -1556,7 +1692,7 @@ return {
         {
           id = 67,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 1040,
           y = 960,

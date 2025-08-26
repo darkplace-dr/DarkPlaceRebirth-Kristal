@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="70">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="71">
  <editorsettings>
   <export target="dessend.lua" format="lua"/>
  </editorsettings>
@@ -8,34 +8,33 @@
   <property name="music" value="gimmieyourwalletmiss"/>
   <property name="name" value="Dess - THE ENDING"/>
  </properties>
- <tileset firstgid="1" source="../../tilesets/castle.tsx"/>
- <tileset firstgid="41" source="../../tilesets/whitespace.tsx"/>
+ <tileset firstgid="1" source="../../tilesets/whitespace.tsx"/>
  <layer id="1" name="tiles" width="16" height="24">
   <data encoding="csv">
-45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,
-45,45,45,48,48,48,48,48,48,48,48,48,45,45,45,45,
-45,45,46,45,45,45,45,45,45,45,45,45,44,45,45,45,
-45,45,46,45,45,45,45,45,45,45,45,45,44,45,45,45,
-45,45,46,45,45,45,45,45,45,45,45,45,44,45,45,45,
-45,45,46,45,45,45,45,45,45,45,45,45,44,45,45,45,
-45,45,45,42,42,42,43,45,41,42,42,42,45,45,45,45,
-45,45,45,45,45,45,41,45,42,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45,
-45,45,45,45,45,45,44,45,45,44,45,45,45,45,45,45
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,8,8,8,8,8,8,8,8,8,5,5,5,5,
+5,5,6,5,5,5,5,5,5,5,5,5,4,5,5,5,
+5,5,6,5,5,5,5,5,5,5,5,5,4,5,5,5,
+5,5,6,5,5,5,5,5,5,5,5,5,4,5,5,5,
+5,5,6,5,5,5,5,5,5,5,5,5,4,5,5,5,
+5,5,5,2,2,2,3,5,1,2,2,2,5,5,5,5,
+5,5,5,5,5,5,1,5,2,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5,
+5,5,5,5,5,5,4,5,5,4,5,5,5,5,5,5
 </data>
  </layer>
  <layer id="2" name="decal" width="16" height="24">
@@ -69,8 +68,8 @@
  <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
   <object id="17" x="200" y="280" width="40" height="680"/>
   <object id="18" x="360" y="280" width="40" height="680"/>
-  <object id="50" x="80" y="240" width="200" height="40"/>
-  <object id="51" x="320" y="240" width="200" height="40"/>
+  <object id="50" x="80" y="240" width="195" height="40"/>
+  <object id="51" x="325" y="240" width="195" height="40"/>
   <object id="62" x="80" y="40" width="440" height="40"/>
   <object id="63" x="480" y="80" width="40" height="160"/>
   <object id="64" x="80" y="80" width="40" height="160"/>
@@ -79,66 +78,39 @@
   <object id="53" name="enemy" x="280" y="240" width="40" height="40">
    <properties>
     <property name="actor" value="ufoofdoom"/>
+    <property name="aura" type="bool" value="false"/>
     <property name="encounter" value="mimicboss"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
+    <property name="flagcheck" value="!mimic_defeated"/>
    </properties>
   </object>
-  <object id="54" name="enemy" x="240" y="600" width="40" height="40">
+  <object id="54" name="enemy" x="280" y="600" width="40" height="40">
    <properties>
     <property name="actor" value="ufoofdoom"/>
+    <property name="aura" type="bool" value="false"/>
     <property name="encounter" value="ufoofdooms"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
-    <property name="group" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="55" name="enemy" x="320" y="600" width="40" height="40">
-   <properties>
-    <property name="actor" value="ufoofdoom"/>
-    <property name="encounter" value="ufoofdooms"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
-    <property name="group" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="56" name="enemy" x="260" y="480" width="40" height="40">
-   <properties>
-    <property name="actor" value="ufoofdoom"/>
-    <property name="encounter" value="ufoofdooms"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
-    <property name="group" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="57" name="enemy" x="300" y="480" width="40" height="40">
-   <properties>
-    <property name="actor" value="ufoofdoom"/>
-    <property name="encounter" value="ufoofdooms"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
-    <property name="group" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="58" name="enemy" x="280" y="720" width="40" height="40">
-   <properties>
-    <property name="actor" value="ufoofdoom"/>
-    <property name="encounter" value="ufoofdooms"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
+    <property name="once" type="bool" value="true"/>
+    <property name="pacetype" value="horizontalswing"/>
+    <property name="swingdiv" type="float" value="4"/>
+    <property name="swinglength" type="float" value="60"/>
    </properties>
   </object>
   <object id="60" name="script" x="240" y="280" width="120" height="80">
    <properties>
     <property name="cutscene" value="desslmao.dessboss"/>
-    <property name="flagcheck" value="!mimicBossDone"/>
-    <property name="once" type="bool" value="true"/>
+    <property name="flagcheck" value="!mimic_defeated"/>
+    <property name="once" type="bool" value="false"/>
    </properties>
   </object>
   <object id="61" name="transition" x="200" y="960" width="200" height="40">
    <properties>
-    <property name="map" value="dessstuff/dessstart"/>
-    <property name="marker" value="entry"/>
+    <property name="map" value="dessstuff/desssecondhalf"/>
+    <property name="marker" value="entry_2"/>
    </properties>
   </object>
   <object id="65" name="npc" x="120" y="80" width="40" height="40">
    <properties>
     <property name="actor" value="dess_plush"/>
-    <property name="cond" value="Game:getFlag(&quot;mimicBossDone&quot;) and not Game:getFlag(&quot;dess_plush&quot;)"/>
+    <property name="cond" value="Game:getFlag(&quot;mimic_defeated&quot;) and not Game:getFlag(&quot;dess_plush&quot;)"/>
     <property name="cutscene" value="plushies.dess_plush"/>
    </properties>
   </object>
@@ -150,6 +122,9 @@
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="20" name="entry" x="300" y="920">
+   <point/>
+  </object>
+  <object id="70" name="spawn" x="300" y="520">
    <point/>
   </object>
  </objectgroup>

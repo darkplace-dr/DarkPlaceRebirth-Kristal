@@ -402,7 +402,7 @@ return {
             cutscene:wait(0.5)
             gonerText("SO,[wait:20] IN DESPARATION[wait:40]\nAND FRUSTRATION...[wait:20]")
             cutscene:wait(0.5)
-            gonerText("THEY OPENED MULTIPLE\nFOUNTAINS[wait:40]ACROSS THE\nLIGHT WORLD.[wait:20]")
+            gonerText("THEY OPENED MULTIPLE\nFOUNTAINS[wait:40] ACROSS THE\nLIGHT WORLD.[wait:20]")
             cutscene:wait(0.5)
             gonerText("AND BECAUSE OF\nTHE NUMEROUS\nFOUNTAINS...[wait:20]")
             cutscene:wait(0.5)

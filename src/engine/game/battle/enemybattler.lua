@@ -186,8 +186,10 @@ end
 ---@param icons?        string[]        A list of texture paths to icons that will display next to the name of this act (party member heads are drawn automatically as required)
 ---@return table act    The data of the act, also added to the `acts` table
 function EnemyBattler:registerAct(name, description, party, tp, highlight, icons)
+    local all
     if type(party) == "string" then
         if party == "all" then
+            all = true
             party = {}
             for _,chara in ipairs(Game.party) do
                 table.insert(party, chara.id)
@@ -204,8 +206,9 @@ function EnemyBattler:registerAct(name, description, party, tp, highlight, icons
         ["tp"] = tp or 0,
         ["highlight"] = highlight,
         ["short"] = false,
-        ["icons"] = icons
+        ["icons"] = icons,
     }
+    if all then act.all = true end -- in case a party member switches mid battle somehow
     table.insert(self.acts, act)
     return act
 end

@@ -1507,7 +1507,7 @@ local cliffside = {
                 cutscene:showNametag("Hero")
                 cutscene:text("* Here,[wait:5] let me read it.", "neutral_closed_b", "hero")
                 cutscene:hideNametag()
-                cutscene:text("* (The note is scratched up and hard to make out,[wait:5] but you could just barely make it out.)")
+                cutscene:text("* (The note is scratched up and hard to read,[wait:5] but you could just barely make it out.)")
                 cutscene:text("* (Warp Bin...[wait:10] enter code...[wait:10] transport to destination...)")
                 cutscene:text("* (There also seems to be a list of codes as well,[wait:5] but all the codes are scratched out.)")
                 cutscene:text("* (Save for \"THETOWER\"...)")
