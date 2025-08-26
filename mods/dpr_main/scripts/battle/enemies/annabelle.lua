@@ -9,17 +9,19 @@ function annabelle:init()
     self:setActor("annabelle")
 
     -- Enemy health (Perfect Hit does 75.)
-    self.max_health = 3240
-    self.health = 3240
+    self.max_health = 3000
+    self.health = 3000
     -- Enemy attack (determines bullet damage)
-    self.attack = 18
+    self.attack = 15
     -- Enemy defense (usually 0)
-    self.defense = 18
+    self.defense = 15
     -- Enemy reward
     self.money = 750
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 0
+
+    self.disable_mercy = true
 
     self.tired_percentage = 0.04
 
@@ -27,9 +29,9 @@ function annabelle:init()
 
     -- List of possible wave ids, randomly picked each turn
     self.waves = {
+        "anna/annabellechase_easy",
         "anna/annabelledelay_easy",
         "anna/annabellespider_easy",
-        "anna/annabellechase_easy",
         "anna/annabelletri_easy",
         
         "anna/annabelletri_quick",
@@ -59,7 +61,7 @@ function annabelle:init()
     }
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
-    self.check = "AT 18 DF 18\n* Huntress demon who loves observing nature and toying with humanity."
+    self.check = "AT 16 DF 16\n* Huntress demon who loves observing nature and toying with humanity."
 
     -- Text randomly displayed at the bottom of the screen each turn
     self.text = {

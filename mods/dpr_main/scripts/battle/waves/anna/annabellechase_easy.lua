@@ -30,9 +30,38 @@ function Basic:onStart()
             -- Spawn arrow_short angled towards the player with speed 8 (see scripts/battle/bullets/arrow_short.lua)
             self.animation.sprite:set("attack")
             Assets.playSound("wing")
-            self:spawnBullet("arrow_chase", x, y, angle, 5)
+            if Input.down("up") and not Input.down("down") then 
+                self:spawnBullet("arrow_long", x, y, angle, 10, 120)
+            else if not Input.down("up") and Input.down("down") then 
+                    self:spawnBullet("arrow_long", x, y, angle, 10, 220)
+                else self:spawnBullet("arrow_long", x, y, angle, 10, 170) end
+            end
         end
-    self.timer:every(1.2, function()
+    self.timer:every(1, function()
+        -- Get all enemies that selected this wave as their attack
+        local attackers = self:getAttackers()
+
+        -- Loop through all attackers
+        for _, attacker in ipairs(attackers) do
+
+            -- Get the attacker's center position
+            local x, y = attacker:getRelativePos(attacker.width/2, attacker.height/2)
+
+            -- Get the angle between the bullet position and the soul's position
+            local angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+
+            -- Spawn arrow_short angled towards the player with speed 8 (see scripts/battle/bullets/arrow_short.lua)
+            self.animation.sprite:set("attack")
+            Assets.playSound("wing")
+            if Input.down("up") and not Input.down("down") then 
+                self:spawnBullet("arrow_long", x, y, angle, 10, 120)
+            else if not Input.down("up") and Input.down("down") then 
+                    self:spawnBullet("arrow_long", x, y, angle, 10, 220)
+                else self:spawnBullet("arrow_long", x, y, angle, 10, 170) end
+            end
+        end
+    end)
+    self.timer:every(1.3, function()
         -- Get all enemies that selected this wave as their attack
         local attackers = self:getAttackers()
 
