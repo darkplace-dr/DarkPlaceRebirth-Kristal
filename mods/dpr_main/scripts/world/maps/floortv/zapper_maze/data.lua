@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 122,
+  nextobjectid = 123,
   properties = {
     ["border"] = "teevie",
     ["keepmusic"] = true
@@ -1208,7 +1208,9 @@ return {
           properties = {
             ["actor"] = "zapper_maze",
             ["color"] = "#ffffa040",
-            ["text"] = "* add text here for non-participating zapper"
+            ["cutscene"] = "tvfloor.maze_zapper",
+            ["tele_facing"] = "down",
+            ["tele_marker"] = "bottomleft_up"
           }
         },
         {
@@ -1376,10 +1378,10 @@ return {
           visible = true,
           properties = {
             ["actor"] = "zapper_maze",
-            ["color"] = "#ffff00ff",
+            ["color"] = "#ffffa040",
             ["cutscene"] = "tvfloor.maze_zapper",
-            ["tele_facing"] = "left",
-            ["tele_marker"] = "plus_right"
+            ["tele_facing"] = "up",
+            ["tele_marker"] = "topleft_down"
           }
         },
         {
@@ -1444,6 +1446,23 @@ return {
           visible = true,
           properties = {
             ["text"] = "* (It's a poster. It has word on it.)"
+          }
+        },
+        {
+          id = 122,
+          name = "zapper_maze_npc",
+          type = "",
+          shape = "point",
+          x = 1680,
+          y = 580,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "zapper_maze",
+            ["color"] = "#ffc0c0c0",
+            ["text"] = "* add text here for non-participating zapper"
           }
         }
       }

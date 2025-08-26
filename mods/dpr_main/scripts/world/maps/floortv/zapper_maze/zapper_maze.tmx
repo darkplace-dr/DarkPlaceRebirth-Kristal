@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="122">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="123">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -304,7 +304,9 @@
    <properties>
     <property name="actor" value="zapper_maze"/>
     <property name="color" type="color" value="#ffffa040"/>
-    <property name="text" value="* add text here for non-participating zapper"/>
+    <property name="cutscene" value="tvfloor.maze_zapper"/>
+    <property name="tele_facing" value="down"/>
+    <property name="tele_marker" value="bottomleft_up"/>
    </properties>
    <point/>
   </object>
@@ -391,10 +393,10 @@
   <object id="117" name="zapper_maze_npc" x="320" y="1100">
    <properties>
     <property name="actor" value="zapper_maze"/>
-    <property name="color" type="color" value="#ffff00ff"/>
+    <property name="color" type="color" value="#ffffa040"/>
     <property name="cutscene" value="tvfloor.maze_zapper"/>
-    <property name="tele_facing" value="left"/>
-    <property name="tele_marker" value="plus_right"/>
+    <property name="tele_facing" value="up"/>
+    <property name="tele_marker" value="topleft_down"/>
    </properties>
    <point/>
   </object>
@@ -422,6 +424,14 @@
    <properties>
     <property name="text" value="* (It's a poster. It has word on it.)"/>
    </properties>
+  </object>
+  <object id="122" name="zapper_maze_npc" x="1680" y="580">
+   <properties>
+    <property name="actor" value="zapper_maze"/>
+    <property name="color" type="color" value="#ffc0c0c0"/>
+    <property name="text" value="* add text here for non-participating zapper"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
