@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="16">
+ <editorsettings>
+  <export target="dessfirsthalf.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="white"/>
+  <property name="music" value="gimmieyourwalletmiss"/>
+  <property name="name" value="Dess - THE FIRST HALF"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/whitespace.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,1,2,2,2,2,2,2,2,2,2,2,2,7,8,
+5,5,4,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,4,5,5,8,8,8,8,8,8,8,8,9,2,2,
+5,5,4,5,6,5,5,5,5,5,5,5,5,5,5,5,
+5,5,4,5,6,5,5,5,5,5,5,5,5,5,5,5,
+5,5,4,5,6,5,5,5,5,5,5,5,5,5,5,5
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="1" x="200" y="360" width="360" height="120"/>
+  <object id="2" x="560" y="320" width="80" height="40"/>
+  <object id="3" x="560" y="240" width="80" height="40"/>
+  <object id="4" x="80" y="200" width="480" height="40"/>
+  <object id="5" x="40" y="240" width="40" height="240"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" id="5" name="paths">
+  <object id="9" name="ufoofdoom" x="240" y="200" width="320" height="160">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="11" name="enemy" x="380" y="260" width="40" height="40">
+   <properties>
+    <property name="actor" value="ufoofdoom"/>
+    <property name="aura" type="bool" value="false"/>
+    <property name="chase" type="bool" value="false"/>
+    <property name="encounter" value="ufoofdooms"/>
+    <property name="once" type="bool" value="true"/>
+    <property name="path" value="ufoofdoom"/>
+    <property name="progress" value="-0.1"/>
+   </properties>
+  </object>
+  <object id="13" name="transition" x="40" y="480" width="200" height="40">
+   <properties>
+    <property name="map" value="dessstuff/dessstart"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="14" name="transition" x="640" y="240" width="40" height="120">
+   <properties>
+    <property name="map" value="dessstuff/desssecondhalf"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="7" name="spawn" x="140" y="310">
+   <point/>
+  </object>
+  <object id="10" name="entry" x="140" y="470">
+   <point/>
+  </object>
+  <object id="15" name="entry_2" x="610" y="310">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

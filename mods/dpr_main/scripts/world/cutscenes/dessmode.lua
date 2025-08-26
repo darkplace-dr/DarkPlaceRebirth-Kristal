@@ -132,7 +132,7 @@ local cliffside = {
                 dess:setSprite("walk/down")
                 cutscene:wait(0.75)
                 cutscene:textTagged("* oh hey its the person who chose my name", "heckyeah", "dess")
-                cutscene:textTagged("* welcome to DESS MODE[font:main_mono,16]TM[font:reset]", "swag", "dess")
+                cutscene:textTagged("* welcome to [funnytext:dess_mode/dess_mode,mode,0,0,152,28] ", "swag", "dess") -- apparently you need an extra character at the end for the funnytext to work properly. huh.
                 if Game:isSpecialMode("i can literally put anything in this check and it behaves as expected since dess mode doesn't apply in EVERYCHALLEN") then
                     cutscene:textTagged("* specifically nightmare mode[font:main_mono,16]TM[font:reset] ", "doom_shiteatinggrin", "dess")
                 end

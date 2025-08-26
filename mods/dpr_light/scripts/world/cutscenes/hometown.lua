@@ -267,7 +267,6 @@ return {
                 "susie",
                 "noelle",
                 "berdly",
-                "brenda",
                 "jamm",
                 "ceroba",
                 "noel"

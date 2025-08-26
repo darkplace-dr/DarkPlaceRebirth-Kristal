@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 70,
+  nextobjectid = 71,
   properties = {
     ["border"] = "white",
     ["music"] = "gimmieyourwalletmiss",
@@ -18,14 +18,8 @@ return {
   },
   tilesets = {
     {
-      name = "castle",
-      firstgid = 1,
-      filename = "../../tilesets/castle.tsx",
-      exportfilename = "../../tilesets/castle.lua"
-    },
-    {
       name = "whitespace",
-      firstgid = 41,
+      firstgid = 1,
       filename = "../../tilesets/whitespace.tsx",
       exportfilename = "../../tilesets/whitespace.lua"
     }
@@ -49,30 +43,30 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 48, 48, 48, 48, 48, 48, 48, 48, 48, 45, 45, 45, 45,
-        45, 45, 46, 45, 45, 45, 45, 45, 45, 45, 45, 45, 44, 45, 45, 45,
-        45, 45, 46, 45, 45, 45, 45, 45, 45, 45, 45, 45, 44, 45, 45, 45,
-        45, 45, 46, 45, 45, 45, 45, 45, 45, 45, 45, 45, 44, 45, 45, 45,
-        45, 45, 46, 45, 45, 45, 45, 45, 45, 45, 45, 45, 44, 45, 45, 45,
-        45, 45, 45, 42, 42, 42, 43, 45, 41, 42, 42, 42, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 41, 45, 42, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45,
-        45, 45, 45, 45, 45, 45, 44, 45, 45, 44, 45, 45, 45, 45, 45, 45
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 5,
+        5, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5,
+        5, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5,
+        5, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5,
+        5, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5,
+        5, 5, 5, 2, 2, 2, 3, 5, 1, 2, 2, 2, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 1, 5, 2, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 5
       }
     },
     {
@@ -136,7 +130,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 280,
@@ -149,7 +143,7 @@ return {
         {
           id = 18,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 280,
@@ -162,11 +156,11 @@ return {
         {
           id = 50,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 240,
-          width = 200,
+          width = 195,
           height = 40,
           rotation = 0,
           visible = true,
@@ -175,11 +169,11 @@ return {
         {
           id = 51,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
-          x = 320,
+          x = 325,
           y = 240,
-          width = 200,
+          width = 195,
           height = 40,
           rotation = 0,
           visible = true,
@@ -188,7 +182,7 @@ return {
         {
           id = 62,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 40,
@@ -201,7 +195,7 @@ return {
         {
           id = 63,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 480,
           y = 80,
@@ -214,7 +208,7 @@ return {
         {
           id = 64,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 80,
@@ -243,7 +237,7 @@ return {
         {
           id = 53,
           name = "enemy",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 240,
@@ -253,103 +247,36 @@ return {
           visible = true,
           properties = {
             ["actor"] = "ufoofdoom",
+            ["aura"] = false,
             ["encounter"] = "mimicboss",
-            ["flagcheck"] = "!mimicBossDone"
+            ["flagcheck"] = "!mimic_defeated"
           }
         },
         {
           id = 54,
           name = "enemy",
-          type = "",
-          shape = "rectangle",
-          x = 240,
-          y = 600,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ufoofdoom",
-            ["encounter"] = "ufoofdooms",
-            ["flagcheck"] = "!mimicBossDone",
-            ["group"] = 1
-          }
-        },
-        {
-          id = 55,
-          name = "enemy",
-          type = "",
-          shape = "rectangle",
-          x = 320,
-          y = 600,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ufoofdoom",
-            ["encounter"] = "ufoofdooms",
-            ["flagcheck"] = "!mimicBossDone",
-            ["group"] = 1
-          }
-        },
-        {
-          id = 56,
-          name = "enemy",
-          type = "",
-          shape = "rectangle",
-          x = 260,
-          y = 480,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ufoofdoom",
-            ["encounter"] = "ufoofdooms",
-            ["flagcheck"] = "!mimicBossDone",
-            ["group"] = 2
-          }
-        },
-        {
-          id = 57,
-          name = "enemy",
-          type = "",
-          shape = "rectangle",
-          x = 300,
-          y = 480,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ufoofdoom",
-            ["encounter"] = "ufoofdooms",
-            ["flagcheck"] = "!mimicBossDone",
-            ["group"] = 2
-          }
-        },
-        {
-          id = 58,
-          name = "enemy",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
-          y = 720,
+          y = 600,
           width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
             ["actor"] = "ufoofdoom",
+            ["aura"] = false,
             ["encounter"] = "ufoofdooms",
-            ["flagcheck"] = "!mimicBossDone"
+            ["once"] = true,
+            ["pacetype"] = "horizontalswing",
+            ["swingdiv"] = 4,
+            ["swinglength"] = 60
           }
         },
         {
           id = 60,
           name = "script",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 280,
@@ -359,14 +286,14 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "desslmao.dessboss",
-            ["flagcheck"] = "!mimicBossDone",
-            ["once"] = true
+            ["flagcheck"] = "!mimic_defeated",
+            ["once"] = false
           }
         },
         {
           id = 61,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 960,
@@ -375,14 +302,14 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "dessstuff/dessstart",
-            ["marker"] = "entry"
+            ["map"] = "dessstuff/desssecondhalf",
+            ["marker"] = "entry_2"
           }
         },
         {
           id = 65,
           name = "npc",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 80,
@@ -392,14 +319,14 @@ return {
           visible = true,
           properties = {
             ["actor"] = "dess_plush",
-            ["cond"] = "Game:getFlag(\"mimicBossDone\") and not Game:getFlag(\"dess_plush\")",
+            ["cond"] = "Game:getFlag(\"mimic_defeated\") and not Game:getFlag(\"dess_plush\")",
             ["cutscene"] = "plushies.dess_plush"
           }
         },
         {
           id = 69,
           name = "warpbin",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 80,
@@ -430,10 +357,23 @@ return {
         {
           id = 20,
           name = "entry",
-          type = "",
+          class = "",
           shape = "point",
           x = 300,
           y = 920,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 70,
+          name = "spawn",
+          class = "",
+          shape = "point",
+          x = 300,
+          y = 520,
           width = 0,
           height = 0,
           rotation = 0,

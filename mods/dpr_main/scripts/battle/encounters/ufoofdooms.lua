@@ -3,20 +3,15 @@ local UfoEncounter, super = Class(Encounter)
 function UfoEncounter:init()
     super.init(self)
 
-    -- Text displayed at the bottom of the screen at the start of the encounter
-    self.text = "* HOLY SHIT"
+    self.text = "* HOLY SHIT 2:[wait:5] Electric Boogaloo"
 
-    -- Battle music ("battle" is rude buster)
     self.music = "batterup"
 
-    -- Enables the purple grid battle background
     self.background = false
 	self.hide_world = true
 
-    -- Add the dummy enemy to the encounter
     self:addEnemy("ufoofdoom")
 	self:addEnemy("ufoofdoom")
-
 end
 
 function UfoEncounter:onBattleInit()
