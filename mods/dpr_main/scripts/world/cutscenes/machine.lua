@@ -484,5 +484,79 @@ return {
             cutscene:hideShop()
         end
         stall:setSprite("off")
+    end,
+
+    a = function(cutscene, event)
+        cutscene:text("* The machine turns on, each of the four buttons have text on them.")
+        local opinion = cutscene:choicer({"Fight", "Reward", "Info", "Shut off"})
+        if opinion == 1 then
+            cutscene:startEncounter("annabelle", true, stall)
+            Game:setFlag("annabelle_defeated", true)
+            cutscene:text("* Rewards can now be claimed under Reward in this machine.")
+            cutscene:text("* Each reward can only be claimed once.")
+        end
+        if opinion == 2 then
+            if Game:getFlag("annabelle_defeated") then
+                local reward = cutscene:choicer({"Claim\nBody Guts", "Claim\nMind Guts", "Claim Soul Guts", "Shut off"})
+                if reward == 1 then
+                    if not Game:getFlag("bg_claim") then
+                        local itemcheck = Game.inventory:addItem("body_guts")
+                        if itemcheck then
+                            Game:setFlag("bg_claim", true)
+                            cutscene:text("* A strange patch (?) falls out of the machine.")
+                        else
+                            cutscene:text("* You do not have space in your inventory.")
+                        end
+                    else
+                        cutscene:text("* You already claimed this reward.")
+                    end
+                end
+                if reward == 2 then
+                    if not Game:getFlag("mg_claim") then
+                        local itemcheck = Game.inventory:addItem("mind_guts")
+                        if itemcheck then
+                            Game:setFlag("mg_claim", true)
+                            cutscene:text("* A strange patch (?) falls out of the machine.")
+                        else
+                            cutscene:text("* You do not have space in your inventory.")
+                        end
+                    else
+                        cutscene:text("* You already claimed this reward.")
+                    end
+                end
+                if reward == 3 then
+                    if not Game:getFlag("sg_claim") then
+                        local itemcheck = Game.inventory:addItem("soul_guts")
+                        if itemcheck then
+                            Game:setFlag("sg_claim", true)
+                            cutscene:text("* A strange patch (?) falls out of the machine.")
+                        else
+                            cutscene:text("* You do not have space in your inventory.")
+                        end
+                    else
+                        cutscene:text("* You already claimed this reward.")
+                    end
+                end
+            else
+                cutscene:text("* Defeat Annabelle to unlock this segment.")
+            end
+        end
+        if opinion == 3 then
+            cutscene:text("* Hello, I am Annabelle. This is my cabinet.")
+            cutscene:text("* Master (God I hate calling him that) soon releases a new game.")
+            cutscene:text("* I will be the girl at the center!")
+            cutscene:text("* I will have my own big fight!")
+            cutscene:text("* It will be glorious! But I could use feedback.")
+            cutscene:text("* In the real game you do fight me with another loadout.")
+            cutscene:text("* But you can still fight me here to give feedback on my attacks!")
+            cutscene:text("* Well, you'd have to tell Tritra the feedback.")
+            cutscene:text("* But you're smart, you set this game up.")
+            cutscene:text("* You'll find Tritra.")
+            cutscene:text("* Anyhow, once you defeat me, the rewards will be yours!")
+            cutscene:text("* Three pieces of armor for specialists who focus on single stats!")
+            cutscene:text("* The battle will be very difficult though, as it is meant for experts.")
+            cutscene:text("* Or at least those who have any kind of complete loadout.")
+            cutscene:text("* Good luck! Make sure to save!")
+        end
     end
 }
