@@ -42,8 +42,8 @@ return {
     preview = "annabelle",
     description = "An actress who plays a powerful huntress demon who loves toying with her prey.",
     locked_description = "Fight her in TRITRALAND to unlock this fight!",
-    health = 3240,
-    attack = 18,
+    health = 3000,
+    attack = 15,
     defense = 15,
     flag = "annabelle_defeated"
   },
