@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="57">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="58">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -9,7 +9,13 @@
  </properties>
  <tileset firstgid="1" source="../../../tilesets/cliffs.tsx"/>
  <tileset firstgid="64" source="../../../tilesets/cliffs_objs.tsx"/>
- <objectgroup id="6" name="objects_bg"/>
+ <objectgroup id="6" name="objects_bg">
+  <object id="57" name="cameratarget" x="0" y="520" width="640" height="440">
+   <properties>
+    <property name="marker" value="camtargy"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="9" name="black" width="16" height="24">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

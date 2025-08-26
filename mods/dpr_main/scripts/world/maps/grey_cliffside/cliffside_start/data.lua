@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.0",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 57,
+  nextobjectid = 58,
   properties = {
     ["border"] = "cliffside",
     ["music"] = "demonic_little_grey_cliffs"
@@ -43,7 +43,23 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 57,
+          name = "cameratarget",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 520,
+          width = 640,
+          height = 440,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["marker"] = "camtargy"
+          }
+        }
+      }
     },
     {
       type = "tilelayer",
