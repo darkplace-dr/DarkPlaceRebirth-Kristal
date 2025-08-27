@@ -29,6 +29,23 @@ function spell:onCast(user, target)
             Game.battle.timer:after((i * 0.15), function()
                 if #Game.battle:getActiveEnemies() >= 1 then
                     target = Game.battle:getActiveEnemies()[love.math.random(1,#Game.battle:getActiveEnemies())]
+
+                    if target.id == "darkclone/brenda" then
+                        local skillknow = false
+                        for _, v in ipairs(target.usedskills) do
+                            if v == "multiflare" then
+                                skillknow = true
+                            end
+                        end
+                        if skillknow == false then
+                            table.insert(target.usedskills, "multiflare")
+                        end
+                        if target.powder then
+                            target.defense = Game:getPartyMember("brenda"):getStat("defense")
+                            target.powder_immunity = true
+                        end
+                    end
+
                     Assets.playSound("noise")
                     local x, y = user:getRelativePos(user.width, user.height/2 - 4, Game.battle)
                     local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
