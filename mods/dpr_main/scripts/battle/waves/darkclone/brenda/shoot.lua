@@ -14,6 +14,18 @@ function Shoot:onStart()
     local attacker = Game.battle.enemies[1]
     attacker:setAnimation("aim")
 
+    if attacker.fireball then
+        local fireball = self:spawnBullet("darkclone/brenda/fireball", Game.battle.arena.right, Game.battle.arena.top, 0, 0)
+        if attacker.health/attacker.max_health < 0.5 then
+            local fireball_follower = self:spawnBullet("darkclone/brenda/fireball_follower", Game.battle.arena.right, Game.battle.arena.top, 0, 0)
+            fireball_follower.target = fireball
+            if attacker.health/attacker.max_health < 0.25 then
+                local fireball_follower2 = self:spawnBullet("darkclone/brenda/fireball_follower", Game.battle.arena.right, Game.battle.arena.top, 0, 0)
+                fireball_follower2.target = fireball_follower
+            end
+        end
+    end
+
     local function volley()
         for i = 1, 3, 1 do
             self.timer:after(0.1*i, function()
