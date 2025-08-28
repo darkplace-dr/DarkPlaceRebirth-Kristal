@@ -35,7 +35,7 @@ function DarkCloneBrenda:init()
         "* It's you.[wait:10].[wait:10].[wait:10]?",
     }
 
-    self.killable = true
+    self.killable = false   -- The kill sequence happens outside of battle, Brenda
 
     self.usedskills = {}
 end
