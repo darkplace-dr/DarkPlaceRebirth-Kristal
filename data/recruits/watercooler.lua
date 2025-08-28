@@ -25,7 +25,7 @@ function Watercooler:init()
     
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"battle/enemies/watercooler/idle", -3, 27}
+    self.box_sprite = {"recruits/watercooler/idle", -3, 27}
     
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

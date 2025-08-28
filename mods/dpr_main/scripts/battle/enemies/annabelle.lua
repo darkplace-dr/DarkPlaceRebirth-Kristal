@@ -26,6 +26,7 @@ function annabelle:init()
     self.tired_percentage = 0.04
 
     self.killable = false
+    
 
     -- List of possible wave ids, randomly picked each turn
     self.waves = {

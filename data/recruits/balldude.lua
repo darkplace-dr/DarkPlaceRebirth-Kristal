@@ -31,7 +31,7 @@ function BallDude:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"battle/enemies/balldude/idle", 0, 0}
+    self.box_sprite = {"recruits/balldude/idle", 0, 0}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

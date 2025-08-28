@@ -38,7 +38,7 @@ function DarkCloneBrenda:init()
         "* Smells like a bonfire."
     }
 
-    self.killable = true
+    self.killable = false   -- The kill sequence happens outside of battle, Brenda
 
     self.usedskills = {}
     self.fireball = false

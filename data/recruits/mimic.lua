@@ -1,26 +1,26 @@
-local UFOOfDoom, super = Class(Recruit)
+local Mimic, super = Class(Recruit)
 
-function UFOOfDoom:init()
+function Mimic:init()
     super.init(self)
 
     -- Display Name
-    self.name = "UFO Of Doom"
+    self.name = "Mimic"
 
     -- How many times an enemy needs to be spared to be recruited.
-    self.recruit_amount = 7
+    self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 3
+    self.index = 4
 
     -- Selection Display
-    self.description = "A UFO just like from those\nmovies about aliens."
+    self.description = "A shapeshifter that loves to say\n\"Happy New Year 1998!\"."
     self.chapter = 99
-    self.level = 2
-    self.attack = 3
-    self.defense = 0
-    self.element = "SPACE"
-    self.like = "Flying"
-    self.dislike = "Crashing"
+    self.level = 9
+    self.attack = 10
+    self.defense = 2
+    self.element = "TRANSFIGURATION"
+    self.like = "1998"
+    self.dislike = "Being a boss"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
@@ -31,7 +31,7 @@ function UFOOfDoom:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"battle/enemies/ufoofdoom/idle", 0, 0, (75/120)/4}
+    self.box_sprite = {"recruits/ufoofdoom/idle", 0, 0, (75/120)/4}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +39,4 @@ function UFOOfDoom:init()
     self.recruited = 0
 end
 
-return UFOOfDoom
+return Mimic

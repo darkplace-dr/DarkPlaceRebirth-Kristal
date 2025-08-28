@@ -110,6 +110,7 @@ function something:init()
     self:registerAct("Allegro", "Deal 20%\nDamage", nil, 100)
 
     self.killable = false
+    
 end
 
 function something:onAct(battler, name)
