@@ -53,9 +53,8 @@ function item:init()
         ralsei = "At least it's... good?",
         noelle = "(Does it just... suck money?)",
         dess = "oh noooo how will I pay my taxes now",
-        jamm = "",
+        jamm = "...Eh, not as bad as student loans.",
         noel = "",
-        ["jamm+marcy"] = "",
         ceroba = "Goodbye my earnings.",
     }
 end
