@@ -10,10 +10,11 @@ function DarkCloneBrenda:init()
     self.default = "idle"
     self:setAnimation("idle")
 
-    self.max_health = 25 * Game:getPartyMember("brenda"):getStat("health")
-    self.health = 25 * Game:getPartyMember("brenda"):getStat("health")
+    self.max_health = 40 * Game:getPartyMember("brenda"):getStat("health")
+    self.health = 40 * Game:getPartyMember("brenda"):getStat("health")
     self.attack = Game:getPartyMember("brenda"):getStat("attack") / 3
-    self.defense = Game:getPartyMember("brenda"):getStat("defense")
+    self.defense = Game:getPartyMember("brenda"):getStat("defense") + Game:getPartyMember("brenda"):getStat("magic") / 2
+    self.tired_percentage = -1
     self.money = 0
 
     self.disable_mercy = true
@@ -33,11 +34,14 @@ function DarkCloneBrenda:init()
     self.text = {
         "* It observes your movements.",
         "* It's you.[wait:10].[wait:10].[wait:10]?",
+        "* Smells like gunpowder.",
+        "* Smells like a bonfire."
     }
 
     self.killable = true
 
     self.usedskills = {}
+    self.fireball = false
 end
 
 function DarkCloneBrenda:onAct(battler, name)
@@ -73,7 +77,7 @@ function DarkCloneBrenda:update()
 
         local defense = self.defense
         if self.powder_immunity then
-            self.defense = Game:getPartyMember("brenda"):getStat("defense")
+            self.defense = Game:getPartyMember("brenda"):getStat("defense") + Game:getPartyMember("brenda"):getStat("magic") / 2
         end
 
         local health = self.health
@@ -104,6 +108,29 @@ function DarkCloneBrenda:updateAttacks(skill)
         end
         if learntskill == false then
             table.insert(self.waves, "darkclone/brenda/shoot")
+        end
+    elseif skill == "multiflare" then
+        if self.fireball == false then
+            self.fireball = true
+        end
+        local learntskill = false
+        for i, v in ipairs(self.waves) do
+            if v == "darkclone/brenda/flare" then
+                learntskill = true
+            end
+        end
+        if learntskill == false then
+            table.insert(self.waves, "darkclone/brenda/flare")
+        end
+    elseif skill == "powderkeg" and not Game.battle:getPartyBattler("brenda").powder then
+        local learntskill = false
+        for i, v in ipairs(self.waves) do
+            if v == "darkclone/brenda/powder" then
+                learntskill = true
+            end
+        end
+        if learntskill == false then
+            table.insert(self.waves, "darkclone/brenda/powder")
         end
     end
 end

@@ -1,4 +1,4 @@
----@class Actor.tutorialmaster.hero : Actor
+---@class Actor.tutorialmaster.brenda : Actor
 local actor, super = Class(Actor)
 
 function actor:init()
@@ -10,7 +10,7 @@ function actor:init()
 end
 
 function actor:createSprite()
-    return TutorialMasterSprite(self, "hero")
+    return TutorialMasterSprite(self, "brenda")
 end
 
 return actor
