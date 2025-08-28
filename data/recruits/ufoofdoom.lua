@@ -1,37 +1,37 @@
-local Poseur, super = Class(Recruit)
+local UFOOfDoom, super = Class(Recruit)
 
-function Poseur:init()
+function UFOOfDoom:init()
     super.init(self)
 
     -- Display Name
-    self.name = "Poseur"
+    self.name = "UFO Of Doom"
 
     -- How many times an enemy needs to be spared to be recruited.
-    self.recruit_amount = 1
+    self.recruit_amount = 7
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 2
+    self.index = 3
 
     -- Selection Display
-    self.description = "Recruit description text\ngoes here."
+    self.description = "A UFO just like from those\nmovies about aliens."
     self.chapter = 99
-    self.level = 1
-    self.attack = 4
-    self.defense = 1
-    self.element = "TEST"
-    self.like = "Testing"
-    self.dislike = "Not testing"
+    self.level = 2
+    self.attack = 3
+    self.defense = 0
+    self.element = "SPACE"
+    self.like = "Flying"
+    self.dislike = "Crashing"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {68/255,41/255,1,1}
+    self.box_gradient_color = {1,1,1,1}
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"battle/enemies/poseur/idle", 0, 0, 1/4}
+    self.box_sprite = {"recruits/ufoofdoom/idle", 0, 0, (75/120)/4}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +39,4 @@ function Poseur:init()
     self.recruited = 0
 end
 
-return Poseur
+return UFOOfDoom

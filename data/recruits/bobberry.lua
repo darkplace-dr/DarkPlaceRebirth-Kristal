@@ -1,37 +1,37 @@
-local Dummy, super = Class(Recruit)
+local Bobberry, super = Class(Recruit)
 
-function Dummy:init()
+function Bobberry:init()
     super.init(self)
 
     -- Display Name
-    self.name = "Dummy"
+    self.name = "Bobberry"
 
     -- How many times an enemy needs to be spared to be recruited.
-    self.recruit_amount = 1
+    self.recruit_amount = 6
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 1
+    self.index = 5
 
     -- Selection Display
-    self.description = "A training dummy made by Ralsei.\nHow did it get here...?"
+    self.description = "Once a usual Bob without a berry,\nnow Bob with a berry. But\neveryone just call them\n\"Bobberry\"."
     self.chapter = 99
-    self.level = 1
-    self.attack = 4
+    self.level = 5
+    self.attack = 8
     self.defense = 0
-    self.element = "FIGHT"
-    self.like = "People being nice"
-    self.dislike = "Violence"
+    self.element = "BALL"
+    self.like = "Berries"
+    self.dislike = "Stealing"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {68/255,41/255,1,1}
+    self.box_gradient_color = {1,177/255,0,1}
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"battle/enemies/dummy/idle", 0, 0}
+    self.box_sprite = {"recruits/bobberry/idle", 0, 0, 1}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +39,4 @@ function Dummy:init()
     self.recruited = 0
 end
 
-return Dummy
+return Bobberry
