@@ -8,6 +8,7 @@ function Dummy:init()
     self.text = "* Your SOUL is [color:pink]pink[color:reset] now. It's locked to 9 positions."
     -- Enables the purple grid battle background
     self.background = true
+    self.flee = false
 
     -- Add the dummy enemy to the encounter
     self:addEnemy("annabelle")
