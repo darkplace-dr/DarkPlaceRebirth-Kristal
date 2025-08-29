@@ -313,4 +313,12 @@ return {
 			cutscene:hideNametag()
 		end
     end,
+
+    not_maze_zapper = function(cutscene, event)
+	cutscene:showNametag("Zapper")
+        cutscene:text("* You seem lost. Do youse need assistance?", nil, event)
+        cutscene:text("* Too bad, I'm not working in dis place!", nil, event)
+        cutscene:text("* I'm here for da free watah, not for helping cheaters like youse!", nil, event)
+	cutscene:hideNametag()
+    end,
 }
