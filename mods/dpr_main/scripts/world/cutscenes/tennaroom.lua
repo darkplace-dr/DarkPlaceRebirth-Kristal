@@ -8,6 +8,10 @@ return {
         local susie = cutscene:getCharacter("susie")
         local tenna = cutscene:getCharacter("tenna")
 
+        if Game.world.player.x > tenna.x then
+            tenna.sprite.flip_x = true
+        end
+
         if not Game:getFlag("tenna_introduction") then
             Game:setFlag("tenna_introduction", true)
             if susie then
@@ -134,5 +138,6 @@ return {
 
         tenna.sprite:setPreset(24)
         cutscene:hideNametag()
+        tenna.sprite.flip_x = false
     end,
 }
