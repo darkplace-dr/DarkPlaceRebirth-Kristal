@@ -7,11 +7,11 @@ function actor:init()
     self.name = "Jamm"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 21
-    self.height = 41
+    self.width = 19
+    self.height = 38
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {3, 28, 13, 10}
+    self.hitbox = {4, 28, 13, 10}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {0, 1, 1}
@@ -44,11 +44,16 @@ function actor:init()
         ["walk/right"] = {0, 0},
         ["walk/up"] = {0, 0},
         ["walk/down"] = {0, 0},
-		
+
         ["walk_church/left"] = {0, 0},
         ["walk_church/right"] = {0, 0},
         ["walk_church/up"] = {0, 0},
         ["walk_church/down"] = {0, 0},
+
+        ["walk_shadowed/left"] = {0, 0},
+        ["walk_shadowed/right"] = {0, 0},
+        ["walk_shadowed/up"] = {0, 0},
+        ["walk_shadowed/down"] = {0, 0},
 
         ["slide"] = {0, 0},
     }
@@ -58,14 +63,26 @@ function actor:init()
         ["walk/up"] = "walk/down",
         ["walk/left"] = "walk/left",
         ["walk/right"] = "walk/right",
-		
+
         ["walk_church/down"] = "light_church/up",
         ["walk_church/up"] = "light_church/down",
         ["walk_church/left"] = "light_church/left",
         ["walk_church/right"] = "light_church/right",
+
+        ["walk_shadowed/down"] = "walk_shadowed/up",
+        ["walk_shadowed/up"] = "walk_shadowed/down",
+        ["walk_shadowed/left"] = "walk_shadowed/left",
+        ["walk_shadowed/right"] = "walk_shadowed/right",
     }
-	
+
 	self.shiny_id = "jamm"
+end
+
+function actor:getDefault()
+    if Game:getFlag("dungeonkiller") then
+        return "walk_shadowed"
+    end
+    return self.default
 end
 
 return actor
