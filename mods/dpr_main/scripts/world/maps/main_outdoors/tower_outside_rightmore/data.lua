@@ -230,7 +230,7 @@ return {
           properties = {
             ["actor"] = "sneyek",
             ["text1"] = "* Wow, this place is nice.\nSo nice and shady.",
-            ["text2"] = "* I might just stay in the shade down here"
+            ["text2"] = "* I might just stay in the shade down here."
           }
         }
       }
@@ -648,7 +648,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_outdoors/tower_outside",
+            ["map"] = "main_outdoors/tower_outside_right",
             ["marker"] = "entry2"
           }
         },
@@ -810,3 +810,4 @@ return {
     }
   }
 }
+
