@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 40,
+  nextobjectid = 42,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub",
@@ -90,7 +90,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 920,
@@ -103,7 +103,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1000,
           y = 640,
@@ -116,7 +116,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 480,
@@ -129,7 +129,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 0,
@@ -142,7 +142,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 0,
@@ -155,7 +155,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 480,
@@ -168,7 +168,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 560,
@@ -181,7 +181,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 920,
@@ -194,7 +194,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 1000,
@@ -207,7 +207,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 1000,
@@ -236,7 +236,7 @@ return {
         {
           id = 1,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 1060,
           y = 820,
@@ -252,7 +252,7 @@ return {
         {
           id = 13,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 600,
           y = -40,
@@ -268,7 +268,7 @@ return {
         {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 800,
@@ -284,7 +284,7 @@ return {
         {
           id = 25,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 800,
@@ -297,7 +297,7 @@ return {
         {
           id = 26,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1320,
           y = 800,
@@ -313,7 +313,7 @@ return {
         {
           id = 27,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 600,
           y = 1120,
@@ -324,6 +324,22 @@ return {
           properties = {
             ["map"] = "main_outdoors/tower_outside",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 41,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 820,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "miss_info",
+            ["cutscene"] = "hub.missinfo"
           }
         }
       }
@@ -345,7 +361,7 @@ return {
         {
           id = 12,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 660,
           y = 560,
@@ -358,7 +374,7 @@ return {
         {
           id = 14,
           name = "north",
-          class = "",
+          type = "",
           shape = "point",
           x = 660,
           y = 72,
@@ -371,7 +387,7 @@ return {
         {
           id = 37,
           name = "south",
-          class = "",
+          type = "",
           shape = "point",
           x = 660,
           y = 1080,
@@ -384,7 +400,7 @@ return {
         {
           id = 38,
           name = "east",
-          class = "",
+          type = "",
           shape = "point",
           x = 60,
           y = 860,
@@ -397,7 +413,7 @@ return {
         {
           id = 39,
           name = "west",
-          class = "",
+          type = "",
           shape = "point",
           x = 1280,
           y = 860,
