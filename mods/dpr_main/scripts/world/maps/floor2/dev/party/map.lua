@@ -26,6 +26,38 @@ function PartyRoom:onEnter()
     if Game:hasUnlockedPartyMember("hero") == false or Game:hasPartyMember("hero") then
         hero:remove()
     end
+    local dess = self:getEvent(68)
+    if Game:hasUnlockedPartyMember("dess") == false or Game:hasPartyMember("dess") then
+        dess:remove()
+    end
+    local noelle = self:getEvent(69)
+    if Game:hasUnlockedPartyMember("noelle") == false or Game:hasPartyMember("noelle") then
+        noelle:remove()
+    end
+    local berdly = self:getEvent(70)
+    if Game:hasUnlockedPartyMember("berdly") == false or Game:hasPartyMember("berdly") then
+        berdly:remove()
+    end
+    local kris = self:getEvent(71)
+    if Game:hasUnlockedPartyMember("kris") == false or Game:hasPartyMember("kris") then
+        kris:remove()
+    end
+    local ralsei = self:getEvent(72)
+    if Game:hasUnlockedPartyMember("ralsei") == false or Game:hasPartyMember("ralsei") then
+        ralsei:remove()
+    end
+    local mario = self:getEvent(73)
+    if Game:hasUnlockedPartyMember("mario") == false or Game:hasPartyMember("mario") then
+        mario:remove()
+    end
+    local pauling = self:getEvent(74)
+    if Game:hasUnlockedPartyMember("pauling") == false or Game:hasPartyMember("pauling") then
+        pauling:remove()
+    end
+    local ostarwalker = self:getEvent(75)
+    if Game:hasUnlockedPartyMember("ostarwalker") == false or Game:hasPartyMember("ostarwalker") then
+        ostarwalker:remove()
+    end
 end
 
 return PartyRoom

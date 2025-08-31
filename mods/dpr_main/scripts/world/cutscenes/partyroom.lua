@@ -1,7 +1,8 @@
 return {
     hero = function(cutscene, event)
         cutscene:showNametag("Hero")
-        cutscene:text("* Hey.", "neutral", "hero")
+        cutscene:text("* Hey.", "neutral_closed", "hero")
+        cutscene:hideNametag()
     end,
     susie = function(cutscene, event)
         cutscene:showNametag("Susie")
@@ -80,19 +81,18 @@ return {
                     cutscene:text("* Somewhat.", "shy_b", "susie")
                 end
             end
-            --[[
             if not Game:getFlag("drcastsplitup_known") then
                 cutscene:text("* Y'know,[wait:5] speaking of those guys...", "neutral_side", "susie")
                 cutscene:text("* I didn't see them at all when I first entered this Dark World.", "nervous", "susie")
                 cutscene:text("* Which is strange because we were all together when we entered.", "nervous_side", "susie")
                 cutscene:text("* Not gonna lie,[wait:5] I'm starting to worry for them...", "shy_down", "susie")
-                Kristal.callEvent("createQuest", "Where's Kris", "krismissing", "Susie mentioned Kris not being with her when she entered the Dark World. Go search for clues on their wherabouts.")
-                Kristal.callEvent("createQuest", "Lost Girl", "noellemissing", "Susie mentioned Noelle not being with her when she entered the Dark World. Go search for clues on her wherabouts.")
+                Game:getQuest("krismissing"):unlock()
+                Game:getQuest("noellemissing"):unlock()
                 if not Game:getFlag("POST_SNOWGRAVE") then
-                    Kristal.callEvent("createQuest", "Missing Berd", "berdlymissing", "Susie mentioned Berdly not being with her when she entered the Dark World. Go search for clues on his wherabouts.")
+                    Game:getQuest("berdlymissing"):unlock()
                 end
                 Game:setFlag("drcastsplitup_known", true)
-            end]]
+            end
         elseif opinion == 2 then
             cutscene:text("* What do I think of this place?", "neutral", "susie")
             cutscene:text("* Well I think it's weird as hell.", "neutral_side", "susie")
@@ -110,6 +110,50 @@ return {
         end
         cutscene:hideNametag()
     end,
+    dess = function(cutscene, event)
+        event:facePlayer()
+        cutscene:showNametag("Dess")
+        cutscene:text("* eyyy what's upp it's me Dess", "heckyeah", "dess")
+        cutscene:hideNametag()
+        event:setFacing("down")
+    end,
+    noelle = function(cutscene, event)
+        event:facePlayer()
+        cutscene:showNametag("Noelle")
+        cutscene:text("* Oh,[wait:5] uh...[wait:5] Hey there.", "smile_closed", "noelle")
+        cutscene:hideNametag()
+        event:setFacing("down")
+    end,
+    berdly = function(cutscene, event)
+        event:facePlayer()
+        cutscene:showNametag("Berdly")
+        cutscene:text("* Ah...[wait:5] Greetings,[wait:5] my fellow teammate.", "smirk", "berdly")
+        cutscene:hideNametag()
+        event:setFacing("down")
+    end,
+    kris = function(cutscene, event)
+        cutscene:text("* (They just stand in silence,[wait:5] seemingly looking in Susie's direction.)")
+    end,
+    ralsei = function(cutscene, event)
+        event:facePlayer()
+        cutscene:showNametag("Ralsei")
+        cutscene:text("* Oh,[wait:5] hello there![wait:5] You need anything?", "blush_smile", "ralsei")
+        cutscene:hideNametag()
+        event:setFacing("down")
+    end,
+    mario = function(cutscene, event)
+        event:facePlayer()
+        cutscene:showNametag("Mario")
+        cutscene:text("* I wonder if they serve spaghetti in here", "main", "mario")
+        cutscene:hideNametag()
+        event:setFacing("down")
+    end,
+    pauling = function(cutscene, event)
+        cutscene:text("* (She seems to be concentrated on writing something down...)")
+    end,
+    ostarwalker = function(cutscene, event)
+        cutscene:text("* This party room is[wait:10]\n       pissing me off")
+    end,
 
 -- keep this at the bottom
 -- and type a face every time you edit this file
@@ -118,6 +162,7 @@ return {
 -- :(
 -- :)
 -- :P
+-- :/
     party = function(cutscene, event)
         cutscene:after(function()
            Game.world:openMenu(DarkCharacterMenu())    

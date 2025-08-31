@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="67">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -107,7 +107,7 @@
   <object id="59" gid="146" x="440" y="280" width="100" height="70"/>
   <object id="60" gid="146" x="440" y="400" width="100" height="70"/>
   <object id="61" gid="146" x="440" y="520" width="100" height="70"/>
-  <object id="63" name="npc" x="145" y="515">
+  <object id="63" name="npc" x="145" y="330">
    <properties>
     <property name="actor" value="susie"/>
     <property name="cutscene" value="partyroom.susie"/>
@@ -119,6 +119,70 @@
    <properties>
     <property name="actor" value="hero"/>
     <property name="cutscene" value="partyroom.hero"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="68" name="npc" x="690" y="224">
+   <properties>
+    <property name="actor" value="dess"/>
+    <property name="cutscene" value="partyroom.dess"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="69" name="npc" x="464" y="240">
+   <properties>
+    <property name="actor" value="noelle"/>
+    <property name="cutscene" value="partyroom.noelle"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="71" name="npc" x="304" y="290">
+   <properties>
+    <property name="actor" value="kris"/>
+    <property name="cutscene" value="partyroom.kris"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="73" name="npc" x="624" y="290">
+   <properties>
+    <property name="actor" value="mario"/>
+    <property name="cutscene" value="partyroom.mario"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="74" name="npc" x="676" y="290">
+   <properties>
+    <property name="actor" value="pauling"/>
+    <property name="cutscene" value="partyroom.pauling"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="75" name="npc" x="830" y="500">
+   <properties>
+    <property name="actor" value="ostarwalker"/>
+    <property name="cutscene" value="partyroom.ostarwalker"/>
+    <property name="sprite" value="base"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="70" name="npc" x="516" y="240">
+   <properties>
+    <property name="actor" value="berdly"/>
+    <property name="cutscene" value="partyroom.berdly"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="72" name="npc" x="356" y="290">
+   <properties>
+    <property name="actor" value="ralsei"/>
+    <property name="cutscene" value="partyroom.ralsei"/>
     <property name="facing" value="down"/>
    </properties>
    <point/>
