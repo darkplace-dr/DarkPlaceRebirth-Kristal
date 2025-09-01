@@ -30,7 +30,7 @@ function Shadowguy:init()
     }
 	
 	self.low_health_text = "* Shadowguy's blues look bluer and bluer."
-	self.tired_text = "* Shadowguy is on the midnight train to Dreamsville."
+	self.tired_text = "* Shadowguy is on the midnight \ntrain to Dreamsville."
 	self.spareable_text = "* Shadowguy look seriously jazzed."
 	
 	self:registerAct("Boogie", "Dance,\ndon't\nget hit!")
