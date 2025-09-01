@@ -25,12 +25,14 @@ function actor:init()
 
     self.animations = {
         ["idle"] = {"battle/idle", 0.2, true},
-        ["aim"] = {"battle/aim", 0.08, false}
+        ["aim"] = {"battle/aim", 0.08, false},
+        ["point"] = {"battle/point", 1/15, false}
     }
 
     self.offsets = {
         ["battle/idle"] = {-5, -1},
         ["battle/aim"] = {-25, -1},
+        ["battle/point"] = {-24, -1}
     }
 end
 

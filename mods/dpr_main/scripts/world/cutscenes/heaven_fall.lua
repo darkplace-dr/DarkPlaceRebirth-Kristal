@@ -1,5 +1,12 @@
 return function(cutscene)
 
+
+    if not Game:getFlag("heaven_open", false) then
+        cutscene:textTagged("* No.", "smug", "dess")
+        cutscene:mapTransition("main_hub", "spawn")
+        return
+    end
+
     local texts = {}
     
         local function bigText(str, advance, skippable)

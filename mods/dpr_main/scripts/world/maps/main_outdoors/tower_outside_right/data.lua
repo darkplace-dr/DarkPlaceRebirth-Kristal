@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 126,
+  nextobjectid = 130,
   properties = {
     ["border"] = "tower_outside",
     ["music"] = "mainhub_outside",
@@ -716,24 +716,6 @@ return {
           properties = {}
         },
         {
-          id = 123,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 240,
-          y = 400,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 40, y = 40 },
-            { x = 40, y = 0 }
-          },
-          properties = {}
-        },
-        {
           id = 125,
           name = "",
           type = "",
@@ -742,6 +724,19 @@ return {
           y = 440,
           width = 40,
           height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 129,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 400,
+          width = 40,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -848,8 +843,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_outdoors/tower_outside",
-            ["marker"] = "entry3"
+            ["map"] = "main_outdoors/tower_outside_rightmore",
+            ["marker"] = "entry"
           }
         },
         {
@@ -864,8 +859,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_outdoors/tower_outside",
-            ["marker"] = "entry3"
+            ["map"] = "main_outdoors/tower_outside_rightmore",
+            ["marker"] = "entry2"
           }
         },
         {
@@ -905,6 +900,32 @@ return {
           shape = "point",
           x = 40,
           y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 126,
+          name = "entry2",
+          type = "",
+          shape = "point",
+          x = 960,
+          y = 640,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 127,
+          name = "entry3",
+          type = "",
+          shape = "point",
+          x = 960,
+          y = 240,
           width = 0,
           height = 0,
           rotation = 0,

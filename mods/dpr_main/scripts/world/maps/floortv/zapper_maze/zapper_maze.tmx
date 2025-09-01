@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="123">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="54" height="44" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="123">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -429,7 +429,7 @@
    <properties>
     <property name="actor" value="zapper_maze"/>
     <property name="color" type="color" value="#ffc0c0c0"/>
-    <property name="text" value="* add text here for non-participating zapper"/>
+    <property name="cutscene" value="tvfloor.not_maze_zapper"/>
    </properties>
    <point/>
   </object>
