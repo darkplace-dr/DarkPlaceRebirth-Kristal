@@ -24,19 +24,19 @@ function Watercooler:init()
     self.spare_points = 8
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
-    self.check = "The water was confirmed to be [color:blue]cool[color:white]."
+    self.check = "The water was confirmed to be \n[color:blue]cool[color:reset]."
 
     -- Text randomly displayed at the bottom of the screen each turn
     self.text = {
         "* The watercooler shows no mercy.",
-        "* The watercooler doesn't do anything in particular.",
-        "* The watercooler leaves an icy silence.",
-		"* The watercooler cools water, coolly.",
+        "* The watercooler doesn't do \nanything in particular.",
+        "* The watercooler leaves an icy \nsilence.",
+		"* The watercooler cools water, \ncoolly.",
     }
     -- Text displayed at the bottom of the screen when the enemy has low health
     self.low_health_text = "* The watercooler looks like it needs a refill."
 	self.tired_text = "* The watercooler's bubbles rest on the surface."
-	self.spareable_text = "* The watercooler's water blushes a cranberry pink."
+	self.spareable_text = "* The watercooler's water blushes \na cranberry pink."
 	
     -- Register act called "Smile"
     self:registerAct("BegForMercy")
@@ -128,20 +128,20 @@ end
 function Watercooler:onAct(battler, name)
 	if name == "Check" then
 		self:onCheck(battler)
-		return "* You CHECKed the watercooler...\n* The water was confirmed to be [color:blue]cool[color:white]."
+		return "* You CHECKed the watercooler...\n* The water was confirmed to be \n[color:blue]cool[color:reset]."
     elseif name == "BegForMercy" then
 		Game:setFlag("watercooler_mercy_begs", Game:getFlag("watercooler_mercy_begs", 0) + 1)
 		if Game:getFlag("watercooler_mercy_begs", 0) == 1 then
 			self:registerAct("ActCool", "", "all")
 			self:registerAct("Flirt")
 			return {
-				"* You begged for mercy...\n* ... but the watercooler showed none.",
-				"* You thought of some better, different ACTs to try next, instead."
+				"* You begged for mercy...\n* ... but the watercooler showed \nnone.",
+				"* You thought of some better, \ndifferent ACTs to try next, \ninstead."
 			}
 		elseif Game:getFlag("watercooler_mercy_begs", 0) == 2 then
 			return {
-				"* You begged for mercy...\n* ... but the watercooler showed none.",
-				"* This is probably because your NAME isn't YELLOW."
+				"* You begged for mercy...\n* ... but the watercooler showed \nnone.",
+				"* This is probably because your \nNAME isn't YELLOW."
 			}
 		elseif Game:getFlag("watercooler_mercy_begs", 0) >= 3 then
 			return "* You begged for mercy...\n* This doesn't do anything."
@@ -151,6 +151,8 @@ function Watercooler:onAct(battler, name)
     elseif name == "Flirt" then
 		Game:setFlag("watercooler_flirted", true)
 		Game.battle:startActCutscene("watercooler", "flirt")
+    elseif name == "Standard" then
+        return self:onShortAct(battler, name)
     end
 
     -- If the act is none of the above, run the base onAct function

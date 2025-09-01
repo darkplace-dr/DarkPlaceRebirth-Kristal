@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 16,
+  nextobjectid = 17,
   properties = {
     ["music"] = "jamm_apartment"
   },
@@ -166,6 +166,21 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "apartments/jamm.jamm_bed"
+          }
+        },
+        {
+          id = 16,
+          name = "codechest",
+          type = "",
+          shape = "point",
+          x = 140,
+          y = 340,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["code"] = "item_party"
           }
         }
       }

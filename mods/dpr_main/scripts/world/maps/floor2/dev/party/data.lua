@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 10,
-  nextobjectid = 67,
+  nextlayerid = 11,
+  nextobjectid = 76,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev"
@@ -581,7 +581,7 @@ return {
           type = "",
           shape = "point",
           x = 145,
-          y = 515,
+          y = 330,
           width = 0,
           height = 0,
           rotation = 0,
@@ -606,6 +606,142 @@ return {
           properties = {
             ["actor"] = "hero",
             ["cutscene"] = "partyroom.hero",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 68,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 690,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "dess",
+            ["cutscene"] = "partyroom.dess",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 69,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 464,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "noelle",
+            ["cutscene"] = "partyroom.noelle",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 71,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 304,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "kris",
+            ["cutscene"] = "partyroom.kris",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 73,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 624,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "mario",
+            ["cutscene"] = "partyroom.mario",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 74,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 676,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "pauling",
+            ["cutscene"] = "partyroom.pauling",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 75,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 830,
+          y = 500,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "ostarwalker",
+            ["cutscene"] = "partyroom.ostarwalker",
+            ["sprite"] = "base"
+          }
+        },
+        {
+          id = 70,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 516,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "berdly",
+            ["cutscene"] = "partyroom.berdly",
+            ["facing"] = "down"
+          }
+        },
+        {
+          id = 72,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 356,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "ralsei",
+            ["cutscene"] = "partyroom.ralsei",
             ["facing"] = "down"
           }
         },

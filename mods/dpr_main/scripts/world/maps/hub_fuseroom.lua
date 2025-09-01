@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 11,
+  nextobjectid = 12,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub"
@@ -213,6 +213,22 @@ return {
           properties = {
             ["actor"] = "malius",
             ["cutscene"] = "hub.malius"
+          }
+        },
+        {
+          id = 11,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 160,
+          y = 338,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "fuselings",
+            ["text"] = "* We are the fuselings\nWe await our fusing."
           }
         }
       }
