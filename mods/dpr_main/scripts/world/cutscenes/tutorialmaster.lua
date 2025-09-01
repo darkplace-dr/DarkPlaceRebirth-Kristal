@@ -136,5 +136,42 @@ local tutorialmaster = {
         end
         master:setAnimation({ "idle" })
     end,
+    brenda = function(cutscene, master)
+        cutscene:setTextboxTop(true)
+        master:setAnimation({ "bop" })
+        cutscene:text("* I'm Brenda Master.\n[wait:5]* Ask me about BRENDA's.")
+        local choices = { "Powderkeg", "Battle", "Fact" }
+        table.insert(choices, "Bye")
+        local c = cutscene:choicer(choices)
+        if c == 1 then
+            cutscene:text("* MultiFlare may not do MUCH...")
+            cutscene:text("* But to increase its damage,[wait:5] you need to do as SUCH.")
+            cutscene:text("* Cover your enemy in black POWDER...")
+            master:setAnimation({ "shocked" })
+            cutscene:text("* Then your FIRE attacks will hit.[noskip][wait:10].[wait:10].[wait:10] LOUDER?")
+        elseif c == 2 then
+            cutscene:text("* Brenda's defenses may not be HIGH...")
+            cutscene:text("* But her attack damage can be SKY-HIGH-[wait:5]", nil, nil, {auto = true})
+            cutscene:text("* Hold on...[wait:10] Did...[wait:5] did you just rhyme \"high\" with itself?", "suspicious_b", "brenda")
+            master:setAnimation({ "shocked" })
+            cutscene:text("* LOOK,[wait:5] COMING UP WITH RHYMES ON THE SPOT IS HARD,[wait:5] OKAY?!")
+        elseif c == 3 then
+            cutscene:text("* Brenda may not be a SQUID...")
+            cutscene:text("* But she still likes it when you give us QUID.")
+            cutscene:text("* I-", "shocked", "brenda")
+            cutscene:text("* No.", "pissed", "brenda")
+            master:setAnimation({ "shocked" })
+            cutscene:text("* Perhaps I appealed to the wrong nationality!")
+            master:setAnimation({ "bop" })
+            cutscene:text("* Brenda may not be fond of PRANKS...")
+            cutscene:text("* But she still likes it when you give us FRANCS.")
+            cutscene:text("* That currency isn't even in use anymore.", "suspicious", "brenda")
+            master:setAnimation({ "shocked" })
+            cutscene:text("* IT'S THE THOUGHT THAT COUNTS,[wait:5] OKAY?!")
+        elseif c == 4 then
+            cutscene:text("* Later,[wait:5] kid.")
+        end
+        master:setAnimation({ "idle" })
+    end,
 }
 return tutorialmaster

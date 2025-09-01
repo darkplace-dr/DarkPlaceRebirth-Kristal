@@ -7,9 +7,13 @@ function character:init()
 
     self:setActor("jamm")
     self:setLightActor("jamm_lw")
-    self.actor_hurt = Registry.createActor("jamm_hurt")
-    self.lw_actor_hurt = Registry.createActor("jamm_lw_hurt")
     self:setDarkTransitionActor("jamm_dark_transition")
+
+    if Game:getFlag("marcy_joined") then
+		self:setActor("jammarcy")
+		self:setLightActor("jammarcy_light")
+		self:setDarkTransitionActor("jammarcy_dark_transition")
+	end
 
     self.level = 1
     self.title = "Slingshotter\nTakes aim, then\nfires"
@@ -64,20 +68,6 @@ function character:init()
     self.menu_icon = "party/jamm/head"
     self.head_icons = "party/jamm/icon"
     self.name_sprite = "party/jamm/name"
-	
-	if Game:getFlag("dungeonkiller") and Game:getFlag("jamm_closure") then
-		self:setActor("jamm_hurt")
-		self:setLightActor("jamm_lw_hurt")
-		self.menu_icon = "party/jamm/head_shadowed"
-	elseif Game:getFlag("marcy_joined") then
-		self:setActor("jammarcy")
-		self:setLightActor("jammarcy_light")
-		self:setDarkTransitionActor("jammarcy_dark_transition")
-		self.menu_icon = "party/jamm/withmarcy/head"
-		self.head_icons = "party/jamm/withmarcy/icon"
-		self.name_sprite = "party/jamm/withmarcy/name"
-		self.name = "J&M"
-	end
 
     self.attack_sprite = "effects/attack/sling"
     self.attack_sound = "sling"
@@ -88,22 +78,42 @@ function character:init()
     self.menu_icon_offset = nil
 
     self.gameover_message = nil
-	
+
 	self.flee_text = {
 		"[voice:jamm][facec:jamm/nervous]Nope! I'm out!"
 	}
-	
+
 	self.graduate = true
 end
 
-function character:getActor(light)
-    if light == nil then
-        light = Game.light
+function character:getName()
+    if Game:getFlag("marcy_joined", false) then
+        return "J&M"
     end
-    if Game:getFlag("jamm_closure") and Game:getFlag("dungeonkiller") then
-        return light and self.lw_actor_hurt or self.actor_hurt
+    return self.name
+end
+
+function character:getMenuIcon()
+    if Game:getFlag("dungeonkiller", false) then
+        return "party/jamm/head_shadowed"
+    elseif Game:getFlag("marcy_joined", false) then
+        return "party/jamm/withmarcy/head"
     end
-    return super.getActor(self, light)
+    return self.menu_icon
+end
+
+function character:getHeadIcons()
+    if Game:getFlag("marcy_joined", false) then
+        return "party/jamm/withmarcy/icon"
+    end
+    return self.head_icons
+end
+
+function character:getNameSprite()
+    if Game:getFlag("marcy_joined", false) then
+        return "party/jamm/withmarcy/name"
+    end
+    return self.name_sprite
 end
 
 function character:getStarmanTheme() return "jamm" end
@@ -151,7 +161,7 @@ function character:drawPowerStat(index, x, y, menu)
         love.graphics.draw(icon, x+90, y+6, 0, 2, 2)
         love.graphics.print("x", x+111, y)
         love.graphics.print("∞", x+122, y+3)
-        
+
         return true
     end
 end

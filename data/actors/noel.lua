@@ -178,6 +178,11 @@ function actor:init()
         ["walk/left"] = {0, 1},
         ["walk/right"] = {0, 1},
 
+
+        ["sneak/left"] = {-4, -10},
+
+        ["sneak/right"] = {-4, -10},
+
     }
 
     self.mirror_sprites = {

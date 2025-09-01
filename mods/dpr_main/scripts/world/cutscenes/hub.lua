@@ -2099,7 +2099,7 @@ local hub = {
     end,
 
 
-    miss_info = function(cutscene, event)
+    missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")
     end,
 }

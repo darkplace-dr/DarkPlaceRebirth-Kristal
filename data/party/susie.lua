@@ -200,7 +200,7 @@ function character:onTurnStart(battler)
     end
 end
 
-function PartyMember:getMenuIcon()
+function character:getMenuIcon()
     if self:getFlag("eyes", false) then
         return "party/susie/head_eyes"
     end
