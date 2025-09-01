@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="16">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="17">
  <editorsettings>
   <export target="jamm_room.lua" format="lua"/>
  </editorsettings>
@@ -51,6 +51,12 @@
    <properties>
     <property name="cutscene" value="apartments/jamm.jamm_bed"/>
    </properties>
+  </object>
+  <object id="16" name="codechest" x="140" y="340">
+   <properties>
+    <property name="code" value="item_party"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="collision">
