@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="17">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="18">
  <editorsettings>
   <export target="jamm_room.lua" format="lua"/>
  </editorsettings>
@@ -27,6 +27,9 @@
  </imagelayer>
  <objectgroup id="3" name="markers">
   <object id="10" name="entry" x="230" y="440">
+   <point/>
+  </object>
+  <object id="17" name="closet_exit" x="460" y="288">
    <point/>
   </object>
  </objectgroup>
