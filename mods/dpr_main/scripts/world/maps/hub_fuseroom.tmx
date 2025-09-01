@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="11">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="12">
  <editorsettings>
   <export target="hub_fuseroom.lua" format="lua"/>
  </editorsettings>
@@ -58,6 +58,14 @@
    <properties>
     <property name="actor" value="malius"/>
     <property name="cutscene" value="hub.malius"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="11" name="npc" x="160" y="338">
+   <properties>
+    <property name="actor" value="fuselings"/>
+    <property name="text">* We are the fuselings
+We await our fusing.</property>
    </properties>
    <point/>
   </object>
