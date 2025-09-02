@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 69,
+  nextobjectid = 70,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -499,6 +499,22 @@ return {
           properties = {
             ["map"] = "floortv/green_room",
             ["marker"] = "entry_left"
+          }
+        },
+        {
+          id = 69,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 318.61,
+          y = 215.32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "ramb",
+            ["cutscene"] = "tvfloor.ramb"
           }
         }
       }
