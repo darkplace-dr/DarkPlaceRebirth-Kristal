@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="21">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="25">
  <editorsettings>
-  <export target="hub_tutorialmasters.lua" format="lua"/>
+  <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="mainhub"/>
@@ -42,6 +42,7 @@
    </properties>
   </object>
   <object id="19" x="120" y="160" width="80" height="40"/>
+  <object id="24" x="435" y="166" width="80" height="40"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="3" name="objects">
   <object id="10" name="transition" x="-40" y="240" width="40" height="80">
@@ -66,6 +67,13 @@
   <object id="20" name="interactable" x="120" y="160" width="80" height="40">
    <properties>
     <property name="cutscene" value="hub.money_hole"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="21" gid="224" x="447" y="208" width="60" height="40"/>
+  <object id="23" name="interactable" x="434" y="162" width="80" height="60">
+   <properties>
+    <property name="cutscene" value="hub.square_hole"/>
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
