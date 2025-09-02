@@ -335,12 +335,10 @@ return {
             cutscene:text("* Oh, sorry. [wait:5]Just thought of the wrong thing.")
             if susie then
                 cutscene:showNametag("Susie")
-                cutscene:text("* Hey, [wait:5]aren't you one of the guys who were working for Tenna?", "surprise", "susie")
-                ramb:setSprite("suprised")
-                cutscene:showNametag("Ramb")
-                cutscene:text("* Oh, [wait:5]you do remember me out of other employees?")
+                cutscene:text("* Hey, [wait:5]aren't you one of the guys who was working for Tenna?", "surprise", "susie")
                 ramb:setSprite("nostalgic")
-                cutscene:text("* So you're that Kris's friend, [wait:5]eh?")
+                cutscene:showNametag("Ramb")
+                cutscene:text("* Oh, [wait:5]you're one of those Kris's friends, [wait:5]eh?")
                 cutscene:showNametag("Susie")
                 cutscene:text("* Well, yeah.", "nervous", "susie")
                 if not kris then
@@ -350,12 +348,12 @@ return {
                 ramb:setSprite("turned")
                 cutscene:text("* Well, [wait:5]guess we can have a little chit-chat right now.")
                 ramb:setSprite("look")
-                cutscene:text("* As long as ol' Tenna having fun somewhere else.")
+                cutscene:text("* As long as ol' Tenna's having fun somewhere else.")
                 ramb:setSprite("idle")
-                cutscene:text("* Anyways, [wait:5]anything you wanna to talk about?")
+                cutscene:text("* Anyways, [wait:5]anything you wanna talk about?")
             else
                 ramb:setSprite("look")
-                cutscene:text("* Anyways, [wait:5]anything you want to talk about? [wait:5]\n* I'm free for now.")
+                cutscene:text("* Anyways, [wait:5]anything you wanna talk about? [wait:5]\n* I'm free for now.")
             end
             ramb:setSprite("idle")
 	    cutscene:hideNametag()
@@ -376,7 +374,7 @@ return {
             cutscene:showNametag("Ramb")
             ramb:setSprite("nostalgic")
             cutscene:text("* Ah, Tenna.")
-            cutscene:text("* He's a pretty...[wait:5] \"chaotic\", [wait:5]I would say.")
+            cutscene:text("* He's pretty...[wait:5] \"chaotic\", [wait:5]I would say.")
             ramb:setSprite("idle")
             cutscene:text("* A little \"random\", [wait:5]eh?")
             ramb:setSprite("turned")
@@ -384,11 +382,11 @@ return {
             ramb:setSprite("annoyed")
             cutscene:text("* Not in the style of him to go nuts like that.")
             ramb:setSprite("idle")
-            cutscene:text("* But uhh...[wait:5]\n* Since that day.")
+            cutscene:text("* But uhh...[wait:5]\n* Since that day,")
             ramb:setSprite("look")
             cutscene:text("* He BEGGED me to come back into his \"Neo Green Room\" crew.")
             ramb:setSprite("nostalgic")
-            cutscene:text("* Well, [wait:5]some things never change, [wait:5]aren't they?")
+            cutscene:text("* Well, [wait:5]some things never change, [wait:5]do they?")
             ramb:setSprite("idle")
 	    cutscene:hideNametag()
         elseif choice == 2 then
@@ -398,7 +396,7 @@ return {
                 ramb:setSprite("turned")
                 cutscene:text("* And, [wait:5]if you find Kris,")
                 ramb:setSprite("look")
-                cutscene:text("* Tell them to have a fun time whenever they are, [wait:5]'kay?")
+                cutscene:text("* Tell them to have a fun time wherever they are, [wait:5]'kay?")
                 ramb:setSprite("turned")
                 cutscene:text("* Okay, [wait:5]cheers.")
             end
@@ -421,22 +419,22 @@ return {
             ramb:setSprite("suprised")
             cutscene:text("* Huh? [wait:5]Stickers, [wait:5]you say?")
             ramb:setSprite("turned")
-            cutscene:text("* Sorry, [wait:5]don't think Tenna would be happy if I would help you out with it.")
+            cutscene:text("* Sorry, [wait:5]don't think Tenna would be happy if I helped you out with it.")
             ramb:setSprite("idle")
-            cutscene:text("* Maximum I could do is giving you hints and stuff like that, [wait:5]but...")
+            cutscene:text("* The most I could do is give you hints and stuff like that, [wait:5]but...")
             ramb:setSprite("look")
             cutscene:text("* I haven't found any stickers in here yet.") -- TODO: make ramb give hints to the harder stickers
             ramb:setSprite("annoyed")
             cutscene:text("* Man, [wait:5]looks like Tenna hid them really hard this time.")
             ramb:setSprite("nostalgic")
             cutscene:text("* Well, [wait:5]at least these games are fun, [wait:5]y'know?")
-            local choicee = cutscene:choicer({"They are", "They're not"})
-            if choicee == 1 then
+            local gamechoice = cutscene:choicer({"They are", "They're not"})
+            if gamechoice == 1 then
                 ramb:setSprite("turned")
                 cutscene:text("* That's more like it!")
             else
                 ramb:setSprite("turned")
-                cutscene:text("* Gee, [wait:5]would be better if you would try to enjoy something.")
+                cutscene:text("* Gee, [wait:5]would be better if you tried to enjoy something.") -- TODO: edit this dialogue when there will be more ramb related stuff
             end
             ramb:setSprite("idle")
             cutscene:text("* Anyways, [wait:5]try to find 'em all, [wait:5]'kay?")
