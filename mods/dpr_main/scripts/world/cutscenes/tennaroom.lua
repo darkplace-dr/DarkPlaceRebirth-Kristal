@@ -136,6 +136,29 @@ return {
             end
         end
 
+
+
+            --[[ORIGNAL BOARD: ARG
+            tenna.sprite:setPreset(1)
+            cutscene:text("* The BOARDS? Why,[wait:5] they've been out of order!", nil, "tenna")
+            cutscene:text("* Making my games didn't come without a few issues,[wait:5] y'know!", nil, "tenna")
+            tenna.sprite:setPreset(4)
+            cutscene:text("* Modding's harder than it looks!", nil, "tenna")
+            tenna.sprite:setPreset(22)
+            cutscene:text("* But,[wait:5] if you really want to play the GAMES so badly...", nil, "tenna")
+            cutscene:text("* Who am I to deny a comeback special!", nil, "tenna")
+            tenna.sprite:setPreset(30)
+            cutscene:text("* We'll get everyone back together!", nil, "tenna")
+            tenna.sprite:setPreset(21)
+            cutscene:text("* Even you ROMB!!", nil, "tenna")
+            tenna.sprite:setPreset(25)
+            cutscene:text("* Kids, go talk to Ramb! He might have the old console on him!", nil, "tenna")
+            cutscene:text("* Hurry! The fate of TV Time is at stake!", nil, "tenna")
+            tenna.sprite:setPreset(28)
+            cutscene:text("* Heh,[wait:5] but only if you guys want to play along!", nil, "tenna")
+            cutscene:text("* I've learned that forced coercion never works well!", nil, "tenna")
+            tenna.sprite:setPreset(24)]]
+
         tenna.sprite:setPreset(24)
         cutscene:hideNametag()
         tenna.sprite.flip_x = false
