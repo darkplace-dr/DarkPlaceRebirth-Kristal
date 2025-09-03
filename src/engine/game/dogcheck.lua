@@ -34,6 +34,8 @@ function DogCheck:init(variant)
     self.pumpkin_goal_x = 0
     self.pumpkin_frame = 1
     self.pumpkins_made = 0
+	
+    self.prophecy_siner = 0
 
     love.window.setTitle("Dog Place: REBIRTH")
 end
@@ -156,7 +158,6 @@ function DogCheck:start()
         createDog(cust_sprites_base.."/dog_board", 0.2, 0, 0, 8)
         playSong(song_path.."ch3_board3")
     elseif self.variant == "chapter4" then -- WIP. sleeping dog sprite is a placeholder until we have the actual dog prophecy object ready lol
-        createDog("misc/dog_sleep", 0.8)
         playSong(song_path.."annoying_prophecy")
     elseif self.variant == "montypython" then
         playSong(song_path.."intermission")
@@ -272,6 +273,15 @@ function DogCheck:makeBGPumpkin(axis, y, x)
     self:addChild(pumpkin_sprite)
 end
 
+local function draw_sprite_tiled_ext(tex, _, x, y, sx, sy, color, alpha)
+    local r,g,b,a = love.graphics.getColor()
+    if color then
+        Draw.setColor(color, alpha)
+    end
+    Draw.drawWrapped(tex, true, true, x, y, 0, sx, sy)
+    love.graphics.setColor(r,g,b,a)
+end
+
 function DogCheck:draw()
     super.draw(self)
 
@@ -319,6 +329,61 @@ function DogCheck:draw()
         Draw.setColor(1, 1, 0)
         love.graphics.circle("fill", 420 + math.cos(self.summer_siner / 18) * 6, 40 + math.sin(self.summer_siner / 18) * 6, 28 + math.sin(self.summer_siner / 6) * 4, 100)
     end
+	
+	if self.variant == "chapter4" then
+        self.prophecy_siner = self.prophecy_siner + DTMULT
+		local tilespr = Assets.getTexture(cust_sprites_base.."/prophecy/IMAGE_DEPTH_EXTEND_MONO_SEAMLESS")
+		local tiletex = Assets.getTexture(cust_sprites_base.."/prophecy/IMAGE_DEPTH_EXTEND_SEAMLESS")
+		local grad20 = Assets.getTexture(cust_sprites_base.."/prophecy/gradient20")
+		local w = 150
+		local h = 90
+		local xoff = 0
+		local yoff = 0
+		local xsin = 0
+		local ysin = math.cos(self.prophecy_siner / 12) * 4
+		local sprite_canvas = Draw.pushCanvas(320, 240)
+		love.graphics.stencil(function()
+			local last_shader = love.graphics.getShader()
+			love.graphics.setShader(Kristal.Shaders["Mask"])
+			Draw.draw(Assets.getTexture(cust_sprites_base.."/uz"), 75, 80, 0, 1, 1, 11, 80)
+			love.graphics.setShader(last_shader)
+		end, "replace", 1)
+		love.graphics.setStencilTest("greater", 0)
+		draw_sprite_tiled_ext(tilespr, 0, math.ceil(self.prophecy_siner / 2), math.ceil(self.prophecy_siner / 2), 1, 1, Utils.hexToRgb("#42D0FF"))
+		love.graphics.setStencilTest()
+
+		local back_canvas = Draw.pushCanvas(w, h)
+		local ogbg = Utils.hexToRgb("#A3F8FF")
+		ogbg = COLORS["black"]
+		local linecol = Utils.mergeColor(Utils.hexToRgb("#8BE9EF"), Utils.hexToRgb("#17EDFF"), 0.5 + (math.sin(self.prophecy_siner / 120) * 0.5))
+		local gradalpha = 1
+		Draw.setColor(ogbg, gradalpha*0.5)
+		Draw.rectangle("fill", 0, 0, 320, 240)
+		love.graphics.setBlendMode("add")
+		draw_sprite_tiled_ext(tiletex, 0, math.ceil(-self.prophecy_siner / 2), math.ceil(-self.prophecy_siner / 2), 1, 1, linecol, 1)
+		love.graphics.setBlendMode("alpha")
+		local gradcol = COLORS["black"]
+		Draw.setColor(gradcol, gradalpha)
+		Draw.draw(grad20, 0, 0, 0, w/20, -3, 0, 20)
+		Draw.draw(grad20, 0, h, 0, w/20, 3, 0, 20)
+		Draw.draw(grad20, 0, 0, math.rad(90), h/20, 3, 0, 20)
+		Draw.draw(grad20, w, 0, math.rad(90), h/20, -3, 0, 20)
+		love.graphics.setBlendMode("alpha")
+		love.graphics.setBlendMode("add")
+		Draw.setColor(1,1,1)
+		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
+		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
+		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
+		love.graphics.setBlendMode("alpha")
+		Draw.popCanvas()
+		Draw.popCanvas()
+		for i = 1, 2 do	
+			Draw.setColor(1,1,1,0.5) -- The alpha isn't accurate to DR's code but fuck it
+			Draw.draw(back_canvas, SCREEN_WIDTH/2 + ysin * (2 * i), SCREEN_HEIGHT/2 + ysin * (2 * i), 0, 4, 4, w/2, h/2)
+		end
+		Draw.setColor(1,1,1,1)
+		Draw.draw(back_canvas, SCREEN_WIDTH/2 + xsin, SCREEN_HEIGHT/2 + ysin, 0, 4, 4, w/2, h/2)
+	end
 end
 
 function DogCheck:chapter2Script(wait)
