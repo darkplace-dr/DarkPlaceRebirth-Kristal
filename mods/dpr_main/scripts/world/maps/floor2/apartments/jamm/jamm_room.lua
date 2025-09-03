@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 17,
+  nextobjectid = 18,
   properties = {
     ["music"] = "jamm_apartment"
   },
@@ -85,6 +85,19 @@ return {
           shape = "point",
           x = 230,
           y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "closet_exit",
+          type = "",
+          shape = "point",
+          x = 460,
+          y = 288,
           width = 0,
           height = 0,
           rotation = 0,

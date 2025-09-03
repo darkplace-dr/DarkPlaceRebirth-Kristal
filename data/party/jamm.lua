@@ -84,6 +84,10 @@ function character:init()
 	}
 
 	self.graduate = true
+    
+    self.flags = {
+        ["disarmed"] = false
+    }
 end
 
 function character:getName()

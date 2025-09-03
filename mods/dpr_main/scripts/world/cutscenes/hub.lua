@@ -1720,6 +1720,16 @@ local hub = {
         end
     end,
 
+    square_hole = function(cutscene, event)
+            cutscene:text("* Square Hole")
+            local choicer = cutscene:choicer({"Look into it", "Do not"})
+            if choicer == 1 then
+                    cutscene:text("* (It's a square-shaped hole.)")
+                    cutscene:text("* (There appears to be a variety of shapes in it.)")
+                    cutscene:text("* (...But there aren't any squares.)")
+        end
+    end,
+
     garbage = function(cutscene, event)
         local texts = {}
         local function genBigText(text, x, y, scale, goner, wait_time)

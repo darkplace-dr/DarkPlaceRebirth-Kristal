@@ -338,6 +338,39 @@ return {
 	
 	marcy_closet = function(cutscene, event)
 		cutscene:text("* It's Marcy's walk-in closet.")
+        if Game:getFlag("jamm_closet_available") and not Game:hasPartyMember("jamm") then
+            cutscene:text("* Will you go through the closet?")
+            local choice = cutscene:choicer({"Enter", "Do not"})
+            
+            if choice == 1 then
+                cutscene:fadeOut(0.25)
+                cutscene:wait(0.25)
+                Assets.playSound("dooropen")    -- Temporary sound
+                cutscene:text("* You enter the closet.")
+                Assets.playSound("doorclose")   -- Temporary sound
+                cutscene:wait(1)
+                
+                local partytalk = false
+                
+                -- ... do party dialogue here and don't forget to set partytalk if necessary
+                
+                if not partytalk then
+                    cutscene:text("* After a bit,[wait:5] you manage to find Jamm's closet door.")
+                    Assets.playSound("dooropen")    -- Temporary sound
+                    cutscene:wait(1)
+                    Assets.playSound("doorclose")   -- Temporary sound
+                else
+                
+                end
+                
+                Game.world:loadMap("floor2/apartments/jamm/jamm_room", "closet_exit", "down")
+                
+                cutscene:fadeIn(0.25)
+                cutscene:wait(0.25)
+            else
+                cutscene:text("* You leave it closed.")
+            end
+        end
 	end,
 	
 	jamm_bed = function(cutscene, event)
@@ -584,6 +617,31 @@ return {
 				end
 			else
 				cutscene:text("* Thank you for finding papa!", "smile", "marcy")
+                if not Game:getFlag("discovered_jamm_pc") and not Game:hasPartyMember("jamm") then
+                    cutscene:text("* But Marcy is concerned...", "sad", "marcy")
+                    cutscene:text("* See,[wait:5] Marcy noticed something off about her papa,[wait:5] and...", "sad", "marcy")
+                    cutscene:text("* She wants to help him.", "frown", "marcy")
+                    if cutscene:getCharacter("hero") then
+                        cutscene:showNametag("Hero")
+                        cutscene:text("* So how can we help?", "neutral_closed", "hero")
+                        cutscene:showNametag("Marcy")
+                    end
+                    cutscene:text("* Marcy noticed papa go to his room a lot lately...", "sad", "marcy")
+                    cutscene:text("* You can get there through the closet.", "sad", "marcy")
+                    cutscene:text("* Marcy isn't allowed in there...", "frown", "marcy")
+                    cutscene:text("* But Marcy didn't hear anything about you!", "confident", "marcy")
+			
+                    if cutscene:getCharacter("susie") then
+                        cutscene:showNametag("Susie")
+                        cutscene:text("* I guess we can help.", "sincere_smile", "susie")
+                    else
+                        cutscene:hideNametag()
+                        cutscene:text("* You tell Marcy you'll help Jamm.")
+                    end
+                    cutscene:text("* Yay![wait:10] Thank you!", "happy", "marcy")
+                    cutscene:hideNametag()
+                    Game:setFlag("jamm_closet_available", true)
+                end
 				if Game:getFlag("dungeonkiller") then
 					cutscene:text("* But...[wait:10]\n* Marcy sees papa is concerned...", "sad", "marcy")
 					cutscene:text("* Marcy is worried...[wait:10]\n* Did something happen to papa?", "sad", "marcy")

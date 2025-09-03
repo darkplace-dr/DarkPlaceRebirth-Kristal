@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 25,
+  nextobjectid = 24,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub"
@@ -224,19 +224,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 24,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 435,
-          y = 166,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -336,8 +323,8 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 447,
-          y = 208,
+          x = 445,
+          y = 212,
           width = 60,
           height = 40,
           rotation = 0,
