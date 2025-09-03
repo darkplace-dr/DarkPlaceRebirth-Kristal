@@ -44,4 +44,13 @@ function spell:onCast(user, target)
 	end
 end
 
+function spell:isUsable(chara) return not chara:getFlag("disarmed") end
+
+function spell:getBattleDescription()
+    if chara:getFlag("disarmed") then
+        return "Disarmed"
+    end
+    return self.effect
+end
+
 return spell
