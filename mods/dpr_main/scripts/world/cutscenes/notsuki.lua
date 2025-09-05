@@ -94,6 +94,7 @@ return {
                     cutscene:text("* I have hidden a chest somewhere in this room.", nil, "notsuki")
                     cutscene:text("* Try to find it! Bet you can't!", nil, "notsuki")
                 elseif not Game:getFlag("tl_ct1") then
+                    Game:setFlag("tl_ct1", true)
                     cutscene:text("* So you found the chest, huh?", nil, "notsuki")
                     cutscene:text("* That casette has music I really like on it!", nil, "notsuki")
                     cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
@@ -103,9 +104,32 @@ return {
                         Game:setFlag("tl_lt_check_1", true)
                         cutscene:text("* Not everyone found that casette.", nil, "notsuki")
                         cutscene:text("* One even did something by one of the trees.", nil, "notsuki")
+                        cutscene:text("* Kneeling and doing things with their hand and everything.", nil, "notsuki")
                         cutscene:text("* You think someone like that would find the casette.", nil, "notsuki")
                         cutscene:text("* Must have done something different.", nil, "notsuki")
                     end
+                elseif not Game:getFlag("annabelle_defeated") then
+                    cutscene:text("* There is something else you can do.", nil, "notsuki")
+                    cutscene:text("* Try to defeat Annabelle.", nil, "notsuki")
+                    cutscene:text("* Though you may want to do this later.", nil, "notsuki")
+                    cutscene:text("* You need to be well prepared, for sure!", nil, "notsuki")
+                elseif not Game:getFlag("tl_ct2") then
+                    Game:setFlag("tl_ct2", true)
+                    cutscene:text("* You have defeated Annabelle, congrats!", nil, "notsuki")
+                    cutscene:text("* She is actually a pretty sweet girl, just a dedicated actress.", nil, "notsuki")
+                    cutscene:text("* Though I do think she greatlty enjoys the role she plays.", nil, "notsuki")
+                    cutscene:text("* Else she wouldn't do it, would she?", nil, "notsuki")
+                    cutscene:text("* I am also here by choice.", nil, "notsuki")
+                    cutscene:text("* I at least think so, maybe I am forced to be here.", nil, "notsuki")
+                    cutscene:text("* But I don't know because I am a robot.", nil, "notsuki")
+                    cutscene:text("* ...better not to think about it.", nil, "notsuki")
+                else
+                    cutscene:text("* Even if the things you can do may not be much...", nil, "notsuki")
+                    cutscene:text("* Tritra Land will always be there for you.", nil, "notsuki")
+                    cutscene:text("* Unless you become a murderer.", nil, "notsuki")
+                    cutscene:text("* Annabelle would still be up for a rematch, though.", nil, "notsuki")
+                    cutscene:text("* Which to me is playing with fire.", nil, "notsuki")
+                    cutscene:text("* But fire magic heals her so what do I know.", nil, "notsuki")
                 end
             end
         end
