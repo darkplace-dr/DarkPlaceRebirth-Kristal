@@ -28,7 +28,7 @@ return {
             cutscene:text("* For instance to the right there is a replica of the Cinnamon Clouds race.", nil, "notsuki")
             cutscene:text("* If you manage to activate the clock and get to me fast enough...", nil, "notsuki")
             cutscene:text("* ...I'll give you a reward! The timer will be 12 seconds!", nil, "notsuki")
-            if Game.playtime <= 1440 then
+            if Game.playtime <= 1560 then
                 cutscene:text("* ...", nil, "notsuki")
                 cutscene:text("* You are new here, aren't you?", nil, "notsuki")
                 cutscene:text("* You just arrived and came here.", nil, "notsuki")
@@ -99,6 +99,13 @@ return {
                     cutscene:text("* I even tried convincing my master to use it for this room!", nil, "notsuki")
                     cutscene:text("* But he insisted on using self composed stuff...", nil, "notsuki")
                     cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
+                    if not Game:getFlag("tl_lt_check_2") then
+                        Game:setFlag("tl_lt_check_1", true)
+                        cutscene:text("* Not everyone found that casette.", nil, "notsuki")
+                        cutscene:text("* One even did something by one of the trees.", nil, "notsuki")
+                        cutscene:text("* You think someone like that would find the casette.", nil, "notsuki")
+                        cutscene:text("* Must have done something different.", nil, "notsuki")
+                    end
                 end
             end
         end
