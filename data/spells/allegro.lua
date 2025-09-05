@@ -11,7 +11,7 @@ function spell:init()
     -- Battle description
     self.effect = "20%\nDamage"
     -- Menu description
-    self.description = "Attack that deals 20% of the targets current HP. Such best against bosses who barely took damage."
+    self.description = "Attack that deals about 20% of the targets current HP. Such best against bosses who barely took damage."
 
     -- TP cost
     self.cost = 100
@@ -32,7 +32,7 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-    local damage = math.ceil(target.health/15)
+    local damage = math.ceil(target.health/15) + Utils.clamp((user.chara:getStat("attack")*2)-28, 0, 50)
     local orig_pos_x, orig_pos_y = user.x, user.y
     Assets.playSound("shakerbreaker")
     user:slideTo(target.x - 80, target.y, 0.5)
@@ -75,7 +75,7 @@ function spell:onCast(user, target)
 end
 
 function spell:onLightCast(user, target)
-    local damage = math.ceil(target.health/15)
+    local damage = math.ceil(target.health/15) + Utils.clamp((user.chara:getStat("attack"))-14, 0, 50)
     Game.battle.timer:after(0.5, function()
         Assets.playSound("scytheburst")
         target:hurt(damage, user)

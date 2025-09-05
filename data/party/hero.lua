@@ -151,6 +151,14 @@ function character:onTurnStart(battler)
     if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
         self:heal(9)
     end
+    if Game:getFlag("LastTurnJJ") then
+        Game:setFlag("LastTurnJJ", false)
+    else
+        Game:setFlag("JJS1", false)
+        Game:setFlag("JJS2", false)
+        Game:setFlag("JJS3", false)
+        Game:setFlag("JJS4", false)
+    end
 end
 
 return character
