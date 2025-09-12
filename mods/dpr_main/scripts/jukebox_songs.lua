@@ -432,7 +432,7 @@ return {
     album = "casette_beasts"
   },
   {
-    name = "12/09/2025 23:19",
+    name = "WHATCHACALLITSNAME (Cover)",
     file = "whatchacallitsname_notsuki_cover",
     composer = "Original by decoyman120\nCover by Notsuki",
     released = "2025",
