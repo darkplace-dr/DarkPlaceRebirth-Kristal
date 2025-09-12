@@ -432,6 +432,14 @@ return {
     album = "casette_beasts"
   },
   {
+    name = "12/09/2025 23:19",
+    file = "whatchacallitsname_notsuki_cover",
+    composer = "Original by decoyman120\nCover by Notsuki",
+    released = "2025",
+    origin = "Youtube, go give the original a listen! I did this song an injustice.",
+    album = "whatchacallitsname"
+  },
+  {
     name = "Silence",
     file = "silence",
     composer = "N/A",
