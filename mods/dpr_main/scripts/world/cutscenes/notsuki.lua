@@ -102,6 +102,7 @@ return {
                     cutscene:text("* Oh well, hope you enjoy that casette as much as I do!", nil, "notsuki")
                     if not Game:getFlag("tl_lt_check_2") then
                         Game:setFlag("tl_lt_check_1", true)
+                        Game:setFlag("tl_chestsearch2", true)
                         cutscene:text("* Not everyone found that casette.", nil, "notsuki")
                         cutscene:text("* One even did something by one of the trees.", nil, "notsuki")
                         cutscene:text("* Kneeling and doing things with their hand and everything.", nil, "notsuki")
@@ -159,7 +160,42 @@ return {
                 cutscene:text("* You don't have enough space to take its loot...")
             end
         else
-            cutscene:text("* As you already took a casette, it automatically closes!")
+            if Game:getFlag("tl_chestsearch3") then
+                if not Game:getFlag("tl_chestsearch4") then
+                    cutscene:text("* After careful inspection. There is something else.")
+                    cutscene:text("* You open a secret cabinet.")
+                else
+                    cutscene:text("* You open the secret cabinet.")
+                end
+                Game.world.music:play("whatchacallitsname_notsuki_cover")
+                cutscene:text("* As you open it a song starts playing.")
+                cutscene:text("* There is a small note in there:")
+                cutscene:text("* What you find here is a cover of a song.")
+                cutscene:text("* WHATCHACALLITSNAME by decoyman120.")
+                cutscene:text("* Go give the original a listen! I did this song an injustice.")
+                cutscene:text("* This cover is actually quite bad.")
+                cutscene:text("* But it is still an important memory.")
+                cutscene:text("* Of the last time me and my creator met.")
+                cutscene:text("* Also, how did you find this?")
+                cutscene:text("* You got nothing better to do than stare at a chest?")
+                cutscene:text("* Go read The Time Machine by H. G. Wells or something.")
+                cutscene:text("* It's in the public domain, after all.")
+                cutscene:text("* And don't mention this chest to me.")
+                cutscene:text("* I don't want to indulge your creepy behavior.")
+                cutscene:text("* -Notsuki")
+                cutscene:text("* CONTINUE THIS TEXT BOX TO STOP LISTENING.")
+                Game.world.music:play("TRITRALAND")
+                Game:setFlag("tl_chestsearch4", true)
+            else
+                cutscene:text("* As you already took a casette, it automatically closes!")
+                if Game:getFlag("tl_chestsearch2") then
+                    Game:setFlag("tl_chestsearch3", true)
+                end
+                if Game:getFlag("tl_chestsearch1") then
+                    Game:setFlag("tl_chestsearch2", true)
+                end
+                Game:setFlag("tl_chestsearch1", true)
+            end
         end
     end
 }

@@ -40,6 +40,13 @@ return {
                 cutscene:text("* There is a badge in that leaf.")
                 cutscene:text("* A memory from another hero.")
                 cutscene:text("* Their technique should come in handy.")
+                if Game:getFlag("tl_chestsearch2") then
+                    Game:setFlag("tl_chestsearch3", true)
+                end
+                if Game:getFlag("tl_chestsearch1") then
+                    Game:setFlag("tl_chestsearch2", true)
+                end
+                Game:setFlag("tl_chestsearch1", true)
             else
                 cutscene:text("* No, there is nothing of note.")
             end
