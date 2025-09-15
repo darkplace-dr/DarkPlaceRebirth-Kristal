@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="96">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="96">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -10,7 +10,7 @@
  </properties>
  <tileset firstgid="1" source="../../tilesets/main_area.tsx"/>
  <tileset firstgid="209" source="../../tilesets/other-objects.tsx"/>
- <tileset firstgid="212" source="../../tilesets/bright forest.tsx"/>
+ <tileset firstgid="213" source="../../tilesets/bright forest.tsx"/>
  <objectgroup color="#ffaaff" id="8" name="objects_bg"/>
  <layer id="1" name="Tile Layer 1" width="23" height="27">
   <data encoding="csv">
@@ -120,8 +120,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,217,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,239,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,218,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,240,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -206,7 +206,7 @@
   </object>
   <object id="33" name="transition" x="920" y="200" width="40" height="80">
    <properties>
-    <property name="map" value="hub_prefountain"/>
+    <property name="map" value="hub_pregreatdoor"/>
     <property name="marker" value="west"/>
    </properties>
   </object>
