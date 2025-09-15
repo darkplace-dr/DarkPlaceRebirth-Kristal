@@ -113,7 +113,7 @@ return {
   },
   {
     name = "The Door",
-    file = "deltarune/door",
+    file = "deltarune/creepydoor",
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
