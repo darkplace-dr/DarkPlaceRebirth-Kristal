@@ -32,7 +32,7 @@ return {
         hero:setFacing("down")
         hero:setSprite("fell")
         cutscene:wait(1)
-        local ocean = Music("ocean")
+        local ocean = Music("deltarune/ocean")
         ocean:play()
         cutscene:wait(5)
         cutscene:shakeCharacter(hero, 4, y)
