@@ -24,8 +24,7 @@ return {
     {
       name = "greenpath",
       firstgid = 209,
-      filename = "../tilesets/greenpath.tsx",
-      exportfilename = "../tilesets/greenpath.lua"
+      filename = "../tilesets/greenpath.tsx"
     }
   },
   layers = {
@@ -146,7 +145,7 @@ return {
           shape = "rectangle",
           x = 0,
           y = 880,
-          width = 520,
+          width = 1600,
           height = 40,
           rotation = 0,
           visible = true,
@@ -179,52 +178,13 @@ return {
           properties = {}
         },
         {
-          id = 14,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 520,
-          y = 880,
-          width = 520,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 15,
           name = "",
           type = "",
           shape = "rectangle",
           x = 640,
           y = 760,
-          width = 520,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 16,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1040,
-          y = 880,
-          width = 520,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 17,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1040,
-          y = 760,
-          width = 520,
+          width = 960,
           height = 40,
           rotation = 0,
           visible = true,
@@ -274,7 +234,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_fountain",
+            ["map"] = "hub_greatdoor",
             ["marker"] = "entry"
           }
         },

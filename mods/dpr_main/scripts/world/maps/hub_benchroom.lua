@@ -1099,7 +1099,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_prefountain",
+            ["map"] = "hub_pregreatdoor",
             ["marker"] = "east"
           }
         },
@@ -1115,7 +1115,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_prefountain",
+            ["map"] = "hub_pregreatdoor",
             ["marker"] = "east"
           }
         },
@@ -1131,7 +1131,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_prefountain",
+            ["map"] = "hub_pregreatdoor",
             ["marker"] = "east"
           }
         },

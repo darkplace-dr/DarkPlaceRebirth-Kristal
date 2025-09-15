@@ -245,19 +245,19 @@
  <objectgroup color="#ff00ff" id="3" name="objects">
   <object id="106" name="transition" x="-400" y="1000" width="40" height="80">
    <properties>
-    <property name="map" value="hub_prefountain"/>
+    <property name="map" value="hub_pregreatdoor"/>
     <property name="marker" value="east"/>
    </properties>
   </object>
   <object id="108" name="transition" x="-400" y="400" width="40" height="80">
    <properties>
-    <property name="map" value="hub_prefountain"/>
+    <property name="map" value="hub_pregreatdoor"/>
     <property name="marker" value="east"/>
    </properties>
   </object>
   <object id="109" name="transition" x="-400" y="1600" width="40" height="80">
    <properties>
-    <property name="map" value="hub_prefountain"/>
+    <property name="map" value="hub_pregreatdoor"/>
     <property name="marker" value="east"/>
    </properties>
   </object>
