@@ -13,6 +13,7 @@ function character:init()
     self.title = "Fat Italian\nHe's only 25972305824983 kg"
 
     self.soul_priority = 0
+    self.soul_facing = "up"
 
     self.has_act = false
     self.has_spells = true

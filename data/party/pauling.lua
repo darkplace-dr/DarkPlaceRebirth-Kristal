@@ -21,6 +21,7 @@ function character:init()
     -- The color of this character's soul (optional, defaults to red)
     self.soul_color = {165/255, 86/255, 33/255}
 	self.heart_sprite = "player/heart_pauling"
+    self.soul_facing = "pauling"
 
     -- Whether the party member can act / use spells
     self.has_act = true
