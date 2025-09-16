@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -123,7 +123,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -136,7 +136,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 0,
@@ -149,7 +149,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 480,
           y = 0,
@@ -178,7 +178,7 @@ return {
         {
           id = 4,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 364,
           y = 40,
@@ -193,7 +193,7 @@ return {
         {
           id = 6,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 780,
@@ -209,7 +209,7 @@ return {
         {
           id = 8,
           name = "npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 200,
@@ -241,7 +241,7 @@ return {
         {
           id = 5,
           name = "entry_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 720,
@@ -254,7 +254,7 @@ return {
         {
           id = 7,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 720,

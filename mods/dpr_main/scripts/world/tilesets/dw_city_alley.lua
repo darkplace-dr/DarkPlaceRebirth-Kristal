@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.9.0",
   name = "dw_city_alley",
   class = "",
   tilewidth = 40,
@@ -9,7 +9,7 @@ return {
   spacing = 0,
   margin = 0,
   columns = 11,
-  image = "../../../assets/sprites/tilesets/dw_city_street.png",
+  image = "../../../assets/sprites/tilesets/city_alley.png",
   imagewidth = 440,
   imageheight = 400,
   objectalignment = "unspecified",

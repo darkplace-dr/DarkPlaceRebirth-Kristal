@@ -23,8 +23,8 @@ function TVTurnOff:init(options)
 	self.dest_facing = options["facing"] or "down"
 	self.flag = options["flag"]
 	
-	self.texture_1 = Assets.getTexture("effects/zapper_tvturnoff1")
-	self.texture_2 = Assets.getTexture("effects/zapper_tvturnoff2")
+	self.texture_1 = Assets.getTexture("effects/zapper/tvturnoff1")
+	self.texture_2 = Assets.getTexture("effects/zapper/tvturnoff2")
 	self.xscale1 = 10
 	self.yscale1 = 10
 	self.xscale2 = 0.1

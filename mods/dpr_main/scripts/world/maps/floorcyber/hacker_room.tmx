@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="20">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="21">
  <editorsettings>
-  <export format="lua"/>
+  <export target="hacker_room.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="cyber"/>
@@ -47,13 +47,16 @@
   </object>
   <object id="19" name="transition" x="280" y="480" width="80" height="40">
    <properties>
-    <property name="map" value="floorcyber/street_1"/>
-    <property name="marker" value="elevator"/>
+    <property name="map" value="floorcyber/shops"/>
+    <property name="marker" value="entry_hacker"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#aa00ff" id="2" name="markers">
   <object id="5" name="spawn" x="320" y="440">
+   <point/>
+  </object>
+  <object id="20" name="entry" x="320" y="440">
    <point/>
   </object>
  </objectgroup>
