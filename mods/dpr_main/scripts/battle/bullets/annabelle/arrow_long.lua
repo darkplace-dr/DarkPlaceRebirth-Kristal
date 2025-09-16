@@ -1,25 +1,23 @@
 local SmallBullet, super = Class(Bullet)
 
-function SmallBullet:init(x, y, dir, speed)
+function SmallBullet:init(x, y, dir, speed, dx)
     -- Last argument = sprite path
-    super.init(self, x, y, "bullets/annaspider")
+    super.init(self, x, y, "battle/bullets/annabelle/arrow_long")
 
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
     self.physics.direction = dir
     -- Speed the bullet moves (pixels per frame at 30FPS)
     self.physics.speed = speed
-    --self.collider = nil
-    --self.color = {0.5,0.5,0.5}
-    self.destroy_on_hit = false
+    self.dx = dx
 end
 
 function SmallBullet:update()
     -- For more complicated bullet behaviours, code here gets called every update
-    if self.y > 420 then
-        self.physics.direction = math.rad(270)
+    if self.dx < self.y then
+        self.y = self.y - (4 * DTMULT)
     end
-    if self.y < 20 then
-        self.physics.direction = math.rad(90)
+    if self.dx > self.y then
+        self.y = self.y + (4 * DTMULT)
     end
 
     super.update(self)

@@ -6,15 +6,15 @@ function Basic:init()
 end
 
 function Basic:onStart()
-    self:spawnBullet("soulmarker", 320, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 220, math.rad(180), 0)
     local attackers = self:getAttackers()
 
         -- Loop through all attackers
@@ -31,16 +31,16 @@ function Basic:onStart()
             Assets.playSound("wing")
             local random = love.math.random(1, 3)
             if random == 1 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 120)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 220)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 220)
             end
             if random == 2 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 170)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 220)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 170)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 220)
             end
             if random == 3 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 170)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 170)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 120)
             end
         end
     self.timer:every(0.55, function()
@@ -61,16 +61,16 @@ function Basic:onStart()
             Assets.playSound("wing")
             local random = love.math.random(1, 3)
             if random == 1 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 120)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 220)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 220)
             end
             if random == 2 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 170)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 220)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 170)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 220)
             end
             if random == 3 then
-                self:spawnBullet("arrow_long", x, y, angle, 12, 170)
-                self:spawnBullet("arrow_long", x, y, angle, 12, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 170)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 120)
             end
         end
     end)

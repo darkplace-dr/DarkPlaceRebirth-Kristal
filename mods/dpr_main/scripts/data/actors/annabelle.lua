@@ -12,7 +12,7 @@ function actor:init()
 
     --self.flip = "right"
 
-    self.path = "enemies/annabelle"
+    self.path = "battle/enemies/annabelle"
     self.default = "idle"
 
     self.animations = {

@@ -2,7 +2,7 @@ local arrowchase, super = Class(Bullet)
 
 function arrowchase:init(x, y, dir, speed)
     -- Last argument = sprite path
-    super.init(self, x, y, "bullets/arrow_chase")
+    super.init(self, x, y, "battle/bullets/annabelle/arrow_chase")
     self.color = {0.9, 0.5, 0.9}
     -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
     self.physics.direction = dir
