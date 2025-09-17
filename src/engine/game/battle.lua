@@ -3563,13 +3563,7 @@ function Battle:onKeyPressed(key)
                     end
                     if v.party and (#v.party > 0) then
                         for _,party_id in ipairs(v.party) do
-                            local extra = (self.back_slot and self.back_slot.id == party_id)
-                            if v.all == true then
-                                v.party = {}
-                                for i = 1, 3 do
-                                    v.party[i] = Game.battle.party[i].chara.id
-                                end
-                            elseif not self:getPartyIndex(party_id) then
+                            if not self:getPartyIndex(party_id) then
                                 insert = false
                                 break
                             end

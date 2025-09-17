@@ -288,7 +288,7 @@ end
 
 function preview:drawSplashText()
     love.graphics.setColor(1, 1, 0, self.fade)
-    local font = Assets.getFont("main")
+    local font = Assets.getFont("plain")
     love.graphics.setFont(font)
     local scale = 1 + math.sin(self.splash_timer) / 10
     local splash_angle, splash_x, splash_y
