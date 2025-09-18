@@ -8,7 +8,7 @@ function Zapper:init()
     self.music = "battle"
     self.background = true
 
-    self:addEnemy("zapper")
+    self:addEnemy("zapper", 529, 235)
 end
 
 --[[function Zapper:onReturnToWorld(events)
