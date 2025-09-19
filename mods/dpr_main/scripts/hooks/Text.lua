@@ -1,7 +1,7 @@
 ---@class Text : Text
 table.insert(Text.COMMANDS, "funnytext")
 
-local Text, super = Utils.hookScript(DialogueText)
+local Text, super = Utils.hookScript(Text)
 
 function Text:init(text, x, y, w, h, options)
     super.init(self, text, x or 0, y or 0, w or SCREEN_WIDTH, h or SCREEN_HEIGHT, options)
@@ -26,6 +26,7 @@ function Text:processModifier(node, dry)
         if texture then
             if not dry then
 				local ftext = FunnyText(tname, sound, self.state.current_x + x_offset, self.state.current_y + y_offset)
+				ftext.in_dialogue = false
 				ftext:setOriginExact(x_origin,y_origin)
 				ftext.ideal_scale_x = x_scale
 				ftext.ideal_scale_y = y_scale
