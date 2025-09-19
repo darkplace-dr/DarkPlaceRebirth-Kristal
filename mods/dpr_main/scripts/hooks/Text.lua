@@ -26,6 +26,7 @@ function Text:processModifier(node, dry)
         if texture then
             if not dry then
 				local ftext = FunnyText(tname, sound, self.state.current_x + x_offset, self.state.current_y + y_offset)
+				ftext.in_dialogue = false
 				ftext:setOriginExact(x_origin,y_origin)
 				ftext.ideal_scale_x = x_scale
 				ftext.ideal_scale_y = y_scale

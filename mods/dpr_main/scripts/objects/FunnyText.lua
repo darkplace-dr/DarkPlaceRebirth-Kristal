@@ -16,6 +16,7 @@ function FunnyText:init(texture, sound, x, y)
 	self.speed = 1
 	self.looped = false
 	self.lerp = nil
+	self.in_dialogue = true
 end
 
 function FunnyText:onAdd(parent)
@@ -38,6 +39,9 @@ function FunnyText:update()
 		self.texture = self.loop_texture
 		self.looped = true
 		self.time = 0
+	end
+	if not self.in_dialogue then
+		return
 	end
 	local dtext = self.parent or nil
 	if dtext and not dtext:isTyping() then
