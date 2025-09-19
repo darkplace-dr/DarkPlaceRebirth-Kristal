@@ -38,7 +38,13 @@ function Room1:update()
 		for _, party in ipairs(Game.world.followers) do
 			local actor = party.actor
 			if actor and actor.id then
-				table.insert(shape, actor.id) 
+				table.insert(shape, actor.id)
+			end
+		end
+		for _, party in ipairs(Game.party) do
+			local assist = party:getAssistID() or nil
+			if assist then
+				table.insert(shape, assist)
 			end
 		end
 		local firework = Firework(xpos, ypos, "world/firework/shape_"..Utils.pick(shape), Utils.pick({0,2,1}))
