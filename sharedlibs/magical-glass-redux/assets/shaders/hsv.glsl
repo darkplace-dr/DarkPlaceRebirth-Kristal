@@ -1,7 +1,7 @@
 extern vec2 texsize;
-uniform float hue_shift = 0.0; // Default hue shift
-uniform float saturation = 0.0; // Default saturation adjustment
-uniform float value = 0.0; // Default value adjustment
+uniform float hue_shift; // Default hue shift
+uniform float saturation; // Default saturation adjustment
+uniform float value; // Default value adjustment
 
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
