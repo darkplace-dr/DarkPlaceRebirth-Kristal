@@ -1,6 +1,6 @@
 // Cool thing about GLSL is you can just do this lol
 uniform float min;
-uniform float max;
+uniform float max = 1.0;
 
 vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
     vec4 pix = Texel(tex, texture_coords);

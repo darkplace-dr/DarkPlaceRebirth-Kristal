@@ -1,11 +1,17 @@
 ---@class Text : Text
 table.insert(Text.COMMANDS, "funnytext")
+table.insert(Text.COMMANDS, "rainbow")
 
 local Text, super = Utils.hookScript(Text)
 
 function Text:init(text, x, y, w, h, options)
     super.init(self, text, x or 0, y or 0, w or SCREEN_WIDTH, h or SCREEN_HEIGHT, options)
 	self.draw_children_below = 0 -- funnytext draws below the text
+end
+
+function Text:resetState()
+	super.resetState(self)
+	table.insert(self.state, {rainbow_speed = 0, rainbow_distance = 0})
 end
 
 function Text:processModifier(node, dry)
@@ -37,7 +43,27 @@ function Text:processModifier(node, dry)
             end
             self.state.current_x = self.state.current_x + (texture[1]:getWidth() * x_scale) + self.state.spacing
         end
-    end
+    elseif node.command == "rainbow" then
+		self.state.rainbow_speed = tonumber(node.arguments[1]) or 8
+		self.state.rainbow_distance = tonumber(node.arguments[2]) or 8
+        self.draw_every_frame = true
+	end
+end
+
+function Text:getTextColor(state, use_base_color)
+	if state.rainbow_speed and state.rainbow_speed > 0 then
+		if use_base_color then
+			cr, cg, cb, ca = self:getDrawColor()
+		else
+			cr, cg, cb, ca = 1, 1, 1, 1
+		end
+		local sr, sg, sb, sa = Utils.hsvToRgb((((self.timer * state.rainbow_speed) + (state.typed_characters * state.rainbow_distance)) / 255) % 1, 140/255, 1)
+		sa = sa or 1
+
+		return sr * cr, sg * cg, sb * cb, sa * ca
+	else
+		super.getTextColor(self, state, use_base_color)
+	end
 end
 
 return Text

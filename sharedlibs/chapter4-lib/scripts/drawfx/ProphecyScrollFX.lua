@@ -37,14 +37,9 @@ local function draw_set_alpha(a)
     love.graphics.setColor(r,g,b,a)
 end
 
-local function scr_wave(arg0, arg1, arg2, arg3)
-    local a4 = (arg1 - arg0) * 0.5;
-    return arg0 + a4 + (math.sin((((Kristal.getTime() * 30 * 0.001) + (arg2 * arg3)) / arg2) * (2 * math.pi)) * a4);
-end
-
 function ProphecyScrollFX:draw(texture)
-    self:drawPart(texture, 0, 0.5, scr_wave(0, 0.4, 4, 0))
-    self:drawPart(texture, 0.5, 1.0, 1 or scr_wave(0.4, 0.4, 4, 0))
+    self:drawPart(texture, 0, 0.5, Ch4Lib.scr_wave(0, 0.4, 4, 0))
+    self:drawPart(texture, 0.5, 1.0, 1 or Ch4Lib.scr_wave(0.4, 0.4, 4, 0))
 end
 
 function ProphecyScrollFX:drawPart(texture, min, max, alpha)
