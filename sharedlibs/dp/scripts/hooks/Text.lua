@@ -62,7 +62,7 @@ function Text:getTextColor(state, use_base_color)
 
 		return sr * cr, sg * cg, sb * cb, sa * ca
 	else
-		super.getTextColor(self, state, use_base_color)
+		return super.getTextColor(self, state, use_base_color)
 	end
 end
 
