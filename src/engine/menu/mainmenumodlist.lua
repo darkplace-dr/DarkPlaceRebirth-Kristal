@@ -64,6 +64,9 @@ function MainMenuModList:onEnter(old_state)
     elseif #self.list.mods > 0 then
         self.list.active = true
         self.list.visible = true
+
+        self.menu.selected_mod = self:getSelectedMod()
+        self.menu.selected_mod_button = self:getSelectedButton()
     end
 end
 
@@ -74,7 +77,7 @@ function MainMenuModList:onLeave(new_state)
     end
 
     self.active = false
-    
+
     self.menu.heart:setColor(Kristal.getSoulColor())
     self.menu.heart:setSprite("player/heart_menu")
     self.menu.heart_outline.visible = false
@@ -105,7 +108,7 @@ function MainMenuModList:onKeyPressed(key, is_repeat)
 
             elseif mod then
                 Assets.stopAndPlaySound("ui_select")
-                if (mod["useSaves"] == "has_saves" and (#love.filesystem.getDirectoryItems( "saves/"..mod.id ) > 0))
+                if (mod["useSaves"] == "has_saves" and (#love.filesystem.getDirectoryItems("saves/" .. mod.id) > 0))
                 or (mod["useSaves"] ~= "has_saves" and mod["useSaves"])
                 or (mod["useSaves"] == nil and not mod["encounter"]) then
                     self.menu:setState("FILESELECT")
@@ -375,7 +378,7 @@ function MainMenuModList:buildModListFavorited()
     end)
     
     -- Add mods to the list
-    for _,mod in ipairs(self.mods) do
+    for _, mod in ipairs(self.mods) do
         -- Create the mod button
         local button = ModButton(mod.name or mod.id, 424, 62, mod)
         self.list:addMod(button)
@@ -387,6 +390,9 @@ function MainMenuModList:buildModListFavorited()
             if success then
                 self.scripts[mod.id] = result
                 button.preview_script = result
+
+                result.fade = 0
+                result.selected = false
 
                 if result.init then
                     result:init(mod, button)
@@ -492,6 +498,9 @@ function MainMenuModList:buildModList()
             if success then
                 self.scripts[mod.id] = result
                 button.preview_script = result
+
+                result.fade = 0
+                result.selected = false
 
                 if result.init then
                     result:init(mod, button)
