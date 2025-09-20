@@ -12,7 +12,7 @@ end
 
 
 function actor:normalUpdates(sprite)
-    if sprite.cust then
+    if sprite.sprite.cust then
         if sprite.sprite.cust.rotation then sprite.rotation = sprite.sprite.cust.rotation end
     end
 end
