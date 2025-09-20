@@ -10,6 +10,13 @@ local function h(hex)
     return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
 end
 
+
+function actor:normalUpdates(sprite)
+    if self.cust then
+        if self.cust.rotation then sprite.rotation = self.cust.rotation end
+    end
+end
+
 function actor:onSpriteInit(sprite)
     sprite:addFX(OutlineFX(self.color))
     --print(sprite.sprite_options[1])
@@ -27,6 +34,7 @@ function actor:onSpriteInit(sprite)
         end
     else
         function self:onWorldDraw(chara)
+            self:normalUpdates(chara)
         end
         function self:onBattleDraw(chara)
         end
