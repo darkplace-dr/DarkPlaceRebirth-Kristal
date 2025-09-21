@@ -270,7 +270,6 @@ function PartyBattler:swoon()
         Game.battle:removeAction(Game.battle:getPartyIndex(self.chara.id))
     end
     Game.battle:checkGameOver()
->>>>>>> upstream/main
 end
 
 function PartyBattler:down()
