@@ -1456,7 +1456,7 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
         save.spawn_position = {x, y}
     end
 
-    Gamestate.switch(use_lame_fadeout and Kristal.States["LameFadeout"] or {}, use_lame_fadeout)
+    Kristal.setState(use_lame_fadeout and "LameFadeout" or {}, use_lame_fadeout)
     Kristal.clearModState()
 
     Kristal.loadAssets("", "mods", "", function()
@@ -1467,7 +1467,7 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
                 if use_lame_fadeout then
                     Kristal.States["LameFadeout"]:onLoadFinish(game_params)
                 else
-                    Gamestate.switch(Kristal.States["Game"], unpack(game_params))
+                    Kristal.setState("Game", unpack(game_params))
                 end
             end
         end)
@@ -1843,7 +1843,7 @@ function Kristal.loadGame(id, fade)
         if data.mod == Mod.info.id then
             Game:load(data, id, fade)
         else
-            Gamestate.switch({})
+            Kristal.setState({})
             Kristal.clearModState()
             Kristal.loadAssets("", "mods", "", function()
                 Kristal.startGameDPR(id, data.name)

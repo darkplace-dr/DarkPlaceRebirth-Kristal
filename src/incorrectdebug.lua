@@ -75,7 +75,7 @@ function Debug:leave()
         Kristal.loadMod(self.save_data.mod, self.save_data.save_id, self.save_data.name, function ()
             if Kristal.preInitMod(self.save_data.mod) then
                 Kristal.setDesiredWindowTitleAndIcon()
-                Gamestate.switch(Kristal.States["Game"], self.save_data)
+                Kristal.setState("Game", self.save_data)
             end
         end)
     end)
@@ -115,7 +115,7 @@ function Debug:update()
 
         self.error_done = true
 
-        Gamestate.switch({})
+        Kristal.setState({})
     end
 
     local function fcolor(h, s, v)
