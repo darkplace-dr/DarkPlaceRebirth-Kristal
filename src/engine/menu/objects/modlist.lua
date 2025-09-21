@@ -44,7 +44,7 @@ function ModList:getById(id)
 end
 
 function ModList:clearMods()
-    for _,v in ipairs(self.mods) do
+    for _, v in ipairs(self.mods) do
         self.mod_container:removeChild(v)
     end
     self.mods = {}

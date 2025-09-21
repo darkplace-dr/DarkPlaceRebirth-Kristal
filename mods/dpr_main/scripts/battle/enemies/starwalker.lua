@@ -1,3 +1,4 @@
+---@class Starwalker : EnemyBattler
 local Starwalker, super = Class(EnemyBattler)
 
 function Starwalker:init()
@@ -45,7 +46,7 @@ function Starwalker:init()
         "* Smells like a subtle DeltaRaid reference."
     }
 
-    self.low_health_text = "* Star walker has      hurt"
+    self.low_health_text = "* Star walker is [color:yellow]Pissed[color:reset] off..."
 
     self:registerAct("Star walker", "")
 
@@ -75,6 +76,61 @@ function Starwalker:init()
 
     self:setTired(true)
     self:setTired(false)
+
+    self.was_hit = false
+end
+
+function Starwalker:getTarget()
+    return "ALL"
+end
+
+function Starwalker:makeBullet(x, y)
+    if (Utils.random() < 0.25) then
+        return Registry.createBullet("FallenStarBullet", x, y)
+    end
+
+    return Registry.createBullet("StarBullet", x, y)
+end
+
+function Starwalker:onAct(battler, name)
+    if name == "Check" then
+        self:onCheck(battler)
+
+        local check_text = {
+            "* Starwalker - AT 1 DF 1\n[wait:5]* The   [color:yellow]original[color:reset]  enemy\n[wait:5]* Can only deal [sound:vine_boom][offset:0,-16][font:main_mono,64]1[offset:0,16][font:reset][wait:10] damage"
+        }
+
+        if (self.was_hit) then
+            table.insert(check_text, "* Can't keep dodging forever.[wait:5]\n* Keep attacking.")
+        end
+
+        return check_text
+    elseif name == "DualHeal" then
+        Game.battle:powerAct("dual_heal", battler, "ralsei")
+    elseif name == "Red Buster" then
+        Game.battle:powerAct("red_buster", battler, "susie", self)
+    elseif name == "Star walker" then
+        self:addMercy(0.01)
+        return "* The Original Starwalker  absorbs the\nACT"
+    elseif name == "Standard" then
+        self:addMercy(0.01)
+        if battler.chara.id == "ralsei" then
+            return "* Ralsei passes away\n(it got [color:yellow]absorbed)"
+        elseif battler.chara.id == "susie" then
+            return "* Susie more like sussy\n(it got [color:yellow]absorbed)"
+        end
+    end
+
+    return super.onAct(self, battler, name)
+end
+
+function Starwalker:onHurt(damage, battler)
+    super.onHurt(self, damage, battler)
+
+    -- This doesn't get called if damage is 0 but we'll check anyway
+    if damage > 0 then
+        self.was_hit = true
+    end
 end
 
 function Starwalker:getGrazeTension()
@@ -90,6 +146,10 @@ function Starwalker:onTurnEnd()
 end
 
 function Starwalker:getEncounterText()
+    if (self.progress == 1) and (Game:getTension() < 8) then
+        return "* Kris...!\n[wait:5]* Try to get the [color:yellow]Fallen Stars[color:reset]!", "pleased", "ralsei"
+    end
+
     if (self.progress == 2) then
         return "* Star walker is preparing\n[color:blue]something [offset:0,-8][color:red][font:main_mono,48]!!"
     end
@@ -97,6 +157,7 @@ function Starwalker:getEncounterText()
 end
 
 function Starwalker:getNextWaves()
+<<<<<<< HEAD:mods/dpr_main/scripts/battle/enemies/starwalker.lua
     if (self.progress == 0) then
         return {"starwalker/starwings"}
     elseif (self.progress == 1) then
@@ -117,6 +178,30 @@ function Starwalker:getNextWaves()
         return {"starwalker/stardust"}
     elseif (self.progress == 7) then
         return {"starwalker/starwingscomet"}
+=======
+    self.blue = false
+
+    --[[if true then
+        self.blue = true
+        return {"starwalker/starup"}
+    end]]
+
+    if (self.progress == 0) then
+        return { "starwalker/starwings" }
+    elseif (self.progress == 1) then
+        return { "starwalker/starwingsfaster" }
+    elseif (self.progress == 2) then
+        return { "starwalker/staract" }
+    elseif (self.progress == 3) then
+        self.blue = true
+        return { "starwalker/starwings" }
+    elseif (self.progress == 4) then
+        self.blue = true
+        return { "starwalker/starwingsfaster" }
+    elseif (self.progress == 5) then
+        self.blue = true
+        return { "starwalker/starup" }
+>>>>>>> upstream/main:mods/_testmod/scripts/battle/enemies/starwalker.lua
     end
 
     return super.getNextWaves(self)
@@ -179,6 +264,7 @@ function Starwalker:onActStart(battler, name)
     super.onActStart(self, battler, name)
 end
 
+<<<<<<< HEAD:mods/dpr_main/scripts/battle/enemies/starwalker.lua
 function Starwalker:onAct(battler, name)
     if name == "DualHeal" then
         Game.battle:powerAct("dual_heal", battler, "ralsei")
@@ -208,6 +294,8 @@ function Starwalker:onAct(battler, name)
     return super.onAct(self, battler, name)
 end
 
+=======
+>>>>>>> upstream/main:mods/_testmod/scripts/battle/enemies/starwalker.lua
 function Starwalker:onShortAct(battler, name)
     if name == "Standard" then
         if Game:isDessMode() then
