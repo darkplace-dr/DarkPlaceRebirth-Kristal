@@ -10,7 +10,7 @@ function Bobberry:init()
     self.recruit_amount = 6
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 5
+    self.index = 40
 
     -- Selection Display
     self.description = "Once a usual Bob without a berry,\nnow Bob with a berry. But\neveryone just call them\n\"Bobberry\"."

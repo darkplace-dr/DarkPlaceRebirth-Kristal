@@ -10,7 +10,7 @@ function Dummy:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 1
+    self.index = 35
 
     -- Selection Display
     self.description = "A training dummy made by Ralsei.\nHow did it get here...?"

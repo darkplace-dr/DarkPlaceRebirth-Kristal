@@ -10,7 +10,7 @@ function BallDude:init()
     self.recruit_amount = 4
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 6
+    self.index = 41
 
     -- Selection Display
     self.description = "A ball that is a dude. Or a dude\nthat is a ball...?"
