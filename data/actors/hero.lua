@@ -43,7 +43,7 @@ function actor:init()
         -- Battle animations
         ["battle/idle"]         = {"battle/idle", 0.2, true},
 
-        ["battle/attack"]       = {"battle/attack", 1/15, false},
+        --[[["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
         ["battle/spell"]        = {"battle/act", 1/15, false},
         ["battle/item"]         = {"battle/item", 1/12, false, next="battle/idle"},
@@ -62,7 +62,7 @@ function actor:init()
 
         ["battle/transition"]   = {"sword_jump_down", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
-        ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/victory"]      = {"battle/victory", 1/10, false},]]
 
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
