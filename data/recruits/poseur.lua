@@ -10,7 +10,7 @@ function Poseur:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 2
+    self.index = 36
 
     -- Selection Display
     self.description = "Recruit description text\ngoes here."

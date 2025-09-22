@@ -10,7 +10,7 @@ function Mimic:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 4
+    self.index = 39
 
     -- Selection Display
     self.description = "A shapeshifter that loves to say\n\"Happy New Year 1998!\"."
@@ -18,7 +18,7 @@ function Mimic:init()
     self.level = 9
     self.attack = 10
     self.defense = 2
-    self.element = "TRANSFIGURATION"
+    self.element = "COPY"
     self.like = "1998"
     self.dislike = "Being a boss"
 
