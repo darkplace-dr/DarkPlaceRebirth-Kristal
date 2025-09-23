@@ -1,31 +1,31 @@
-local Bullet, super = Class(Bullet)
+local StarBullet, super = Class(Bullet, "StarBullet")
 
-function Bullet:init(x, y, dir, speed, speedup)
-    -- Last argument = sprite path
-    super.init(self, x, y, "battle/bullets/starbullet")
-	
-	self.element = "star"
-	
-    -- Move the bullet in dir radians (0 = right, pi = left, clockwise rotation)
-    self.physics.direction = dir
-    -- Speed the bullet moves (pixels per frame at 30FPS)
-    self.physics.speed = speed
-	
-	self.physics.friction = -speedup
-	
-	self.alpha = 0
+function StarBullet:init(x, y)
+    super.init(self, x, y, "battle/bullets/star")
+
+    self.grazed = true
+    self.graphics.spin = math.rad(45 / 4)
+
+    self.inv_timer = 1 / 30
+    self.destroy_on_hit = false
+
+    self.timer = 0
 end
 
-function Bullet:update()
-    -- For more complicated bullet behaviours, code here gets called every update
-	
-	if self.alpha < 1 then
-		self.alpha = self.alpha + (0.05 * DTMULT)
-	end
-	
-	--self.physics.speed = self.physics.speed * 1.05
+function StarBullet:shouldSwoon(damage, target, soul)
+    return true
+end
 
+function StarBullet:update()
     super.update(self)
+
+    self.timer = self.timer + DTMULT
+    if self.parent then
+        while self.timer >= 1 do
+            self.parent:addChild(AfterImage(self, 0.5, 0.1))
+            self.timer = self.timer - 1
+        end
+    end
 end
 
-return Bullet
+return StarBullet
