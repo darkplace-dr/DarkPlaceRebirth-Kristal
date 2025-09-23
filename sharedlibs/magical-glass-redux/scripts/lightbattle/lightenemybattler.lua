@@ -21,6 +21,9 @@ function LightEnemyBattler:init(actor, use_overlay)
     self.health = 100
     self.attack = 1
     self.defense = 0
+    
+    -- Whether the enemy deals bonus damage when having more HP (Light World only)
+    self.bonus_damage = true
 
     self.money = 0
     self.experience = 0
@@ -128,7 +131,9 @@ function LightEnemyBattler:init(actor, use_overlay)
     self.damage_offset = {5, -40}
 
     self.show_hp = true
-    self.show_mercy = true
+    
+    self.temporary_mercy = 0
+    self.temporary_mercy_percent = nil
 
     self.graze_tension = 1.6
 end
@@ -161,10 +166,23 @@ end
 function LightEnemyBattler:getDamageOffset() return self.damage_offset end
 
 function LightEnemyBattler:getHPVisibility() return self.show_hp end
-function LightEnemyBattler:getMercyVisibility() return self.show_mercy end
 
 function LightEnemyBattler:setTired(bool)
+    local old_tired = self.tired
     self.tired = bool
+    if self.tired then
+        if not old_tired and Kristal.getLibConfig("magical-glass", "tired_messages") and self.health > 0 then
+            -- Check for self.parent so setting Tired state in init doesn't crash
+            if self.parent then
+                self:lightStatusMessage("text", "TIRED", {0/255, 178/255, 255/255})
+                Assets.playSound("spellcast", 0.5, 0.9)
+            end
+        end
+    else
+        if old_tired and Kristal.getLibConfig("magical-glass", "awake_messages") and self.health > 0 then
+            if self.parent then self:lightStatusMessage("text", "AWAKE", {0/255, 178/255, 255/255}) end
+        end
+    end
 end
 
 function LightEnemyBattler:registerAct(name, description, party, tp, icons)
@@ -355,7 +373,7 @@ function LightEnemyBattler:addMercy(amount)
         return
     end
     
-    if Kristal.getLibConfig("magical-glass", "mercy_messages") and self:getMercyVisibility() then
+    if Kristal.getLibConfig("magical-glass", "mercy_messages") then
         if amount == 0 then
             self:lightStatusMessage("text", "MISS", COLORS.silver)
         else
@@ -389,6 +407,69 @@ function LightEnemyBattler:addMercy(amount)
         end
     end
 
+end
+
+function LightEnemyBattler:addTemporaryMercy(amount, play_sound, clamp, kill_condition)
+    kill_condition = kill_condition or function ()
+        return Game.battle.state ~= "DEFENDING" and Game.battle.state ~= "DEFENDINGEND"
+    end
+
+    clamp = clamp or {0, 100}
+
+    self.temporary_mercy = self.temporary_mercy + amount
+
+    local min, max = clamp[1], clamp[2]
+    self.temporary_mercy = Utils.clamp(self.temporary_mercy, min, max)
+
+    if Kristal.getLibConfig("magical-glass", "mercy_messages") then
+        if self.temporary_mercy == 0 then
+            if not self.temporary_mercy_percent then
+                self.temporary_mercy_percent = self:lightStatusMessage("text", "MISS", COLORS.silver)
+                self.temporary_mercy_percent.kill_condition = kill_condition
+                self.temporary_mercy_percent.kill_others = true
+                -- In Deltarune, the mercy percent takes a bit more time to start to fade out after the enemy's turn ends
+                self.temporary_mercy_percent.kill_timer = 30
+            else
+                self.temporary_mercy_percent.type = "text"
+                self.temporary_mercy_percent.text = "MISS"
+                self.temporary_mercy_percent.color = COLORS.silver
+            end
+        else
+            if not self.temporary_mercy_percent then
+                self.temporary_mercy_percent = self:lightStatusMessage("mercy", amount)
+                self.temporary_mercy_percent.kill_condition = kill_condition
+                self.temporary_mercy_percent.kill_others = true
+                self.temporary_mercy_percent.kill_timer = 30
+
+                -- Only play the mercyadd sound when the DamageNumber is first shown
+                if play_sound ~= false then
+                    if amount > 0 then
+                        local pitch = 0.8
+                        if amount < 99 then pitch = 1 end
+                        if amount <= 50 then pitch = 1.2 end
+                        if amount <= 25 then pitch = 1.4 end
+
+                        local src = Assets.playSound("mercyadd", 0.8)
+                        src:setPitch(pitch)
+                    end
+                end
+            else
+                self.temporary_mercy_percent.type = "mercy"
+                if self.temporary_mercy >= 0 then
+                    self.temporary_mercy_percent.text = "+"..self.temporary_mercy.."%"
+                else
+                    self.temporary_mercy_percent.text = self.temporary_mercy.."%"
+                end
+                if self.temporary_mercy == 100 then
+                    self.temporary_mercy_percent.color = COLORS.lime
+                else
+                    self.temporary_mercy_percent.color = COLORS.yellow
+                end
+                self.temporary_mercy_percent.gauge.amount = self.temporary_mercy
+            end
+        end
+        self.temporary_mercy_percent.kill_timer = 0
+    end
 end
 
 function LightEnemyBattler:onMercy(battler)
@@ -950,26 +1031,26 @@ function LightEnemyBattler:lightStatusMessage(type, arg, color, kill)
         self.x_number_offset = self.x_number_offset + 1
     end
     
-    if (type == "damage" and self:getHPVisibility()) or (type == "mercy" and self:getMercyVisibility()) then
-        local gauge = LightGauge(type, arg, x + offset_x, y + offset_y + 8, self)
+    local gauge
+    if (type == "damage" and self:getHPVisibility()) or (type == "mercy") then
+        gauge = LightGauge(type, arg, x + offset_x, y + offset_y + 8, self)
         self.parent:addChild(gauge)
     end
     
     local percent
-    if type == "mercy" and self:getMercyVisibility() or type ~= "mercy" then
-        percent = LightDamageNumber(type, arg, x + offset_x + math.floor((self.x_number_offset + 1) / 2) * 122 * ((self.x_number_offset % 2 == 0) and -1 or 1), y_msg_position(), color, self)
-        if kill then
-            percent.kill_others = true
-        end
-        self.parent:addChild(percent)
-        self.active_msg = self.active_msg + 1
-    
-        if not kill then
-            if self.light_hit_count >= 0 then
-                self.light_hit_count = self.light_hit_count + 1
-            else
-                self.light_hit_count = self.light_hit_count - 1
-            end
+    percent = LightDamageNumber(type, arg, x + offset_x + math.floor((self.x_number_offset + 1) / 2) * 122 * ((self.x_number_offset % 2 == 0) and -1 or 1), y_msg_position(), color, self)
+    percent.gauge = gauge
+    if kill then
+        percent.kill_others = true
+    end
+    self.parent:addChild(percent)
+    self.active_msg = self.active_msg + 1
+
+    if not kill then
+        if self.light_hit_count >= 0 then
+            self.light_hit_count = self.light_hit_count + 1
+        else
+            self.light_hit_count = self.light_hit_count - 1
         end
     end
 
@@ -1115,6 +1196,12 @@ function LightEnemyBattler:update()
         if self.hurt_timer == 0 then
             self:onHurtEnd()
         end
+    end
+    
+    if self.temporary_mercy_percent and self.temporary_mercy_percent.kill_condition_succeed then
+        self.mercy = Utils.clamp(self.mercy + self.temporary_mercy, 0, 100)
+        self.temporary_mercy = 0
+        self.temporary_mercy_percent = nil
     end
 
     super.update(self)
