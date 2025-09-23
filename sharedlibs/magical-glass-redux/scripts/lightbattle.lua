@@ -1323,14 +1323,16 @@ function LightBattle:onStateChange(old,new)
             end
         end
 
-        if self:hasCutscene() then
-            self.cutscene:after(function()
-                self:setState("DEFENDINGEND", "TURNDONE")
-            end)
-        else
-            self.timer:after(15/30, function()
-                self:setState("DEFENDINGEND", "TURNDONE")
-            end)
+        if self.state_reason == "WAVEENDED" then
+            if self:hasCutscene() then
+                self.cutscene:after(function()
+                    self:setState("DEFENDINGEND", "TURNDONE")
+                end)
+            else
+                self.timer:after(15/30, function()
+                    self:setState("DEFENDINGEND", "TURNDONE")
+                end)
+            end
         end
     end
 
@@ -1842,9 +1844,13 @@ function LightBattle:update()
         end
         self.waves = {}
 
-        if self.state_reason == "TURNDONE" and #self.arena.target_position == 0 and #self.arena.target_shape == 0 and not self.forced_victory then
-            Input.clear("cancel", true)
-            self:nextTurn()
+        if #self.arena.target_position == 0 and #self.arena.target_shape == 0 and not self.forced_victory then
+            self:setSubState("ARENARESET", "DEFENDINGEND")
+            if self.state_reason == "TURNDONE" then
+                self:setSubState("NONE")
+                Input.clear("cancel", true)
+                self:nextTurn()
+            end
         end
     elseif self.state == "SHORTACTTEXT" then
         self:updateShortActText()
