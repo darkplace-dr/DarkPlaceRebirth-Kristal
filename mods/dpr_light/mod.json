@@ -41,6 +41,7 @@
         "kristal": {
             // End of config
         },
+        "engine-fixes": {},
         "magical-glass": {
             "savepoint_style": "deltarune"
         }
