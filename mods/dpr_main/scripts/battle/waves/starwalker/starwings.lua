@@ -20,7 +20,7 @@ function Starwings:onStart()
             Assets.playSound("stardrop")
             for i = -1, 1 do
                 local offset = i * 15
-                local star = self:spawnBullet("battle/bullets/star", self.starwalker.x - 20, self.starwalker.y - 40)
+                local star = self:spawnBullet(self.starwalker:makeBullet(self.starwalker.x - 20, self.starwalker.y - 40))
                 star.grazed = true
                 star.inv_timer = 10/30
                 star.destroy_on_hit = false

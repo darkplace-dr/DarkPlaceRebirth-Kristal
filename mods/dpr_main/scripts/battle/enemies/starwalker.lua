@@ -78,6 +78,18 @@ function Starwalker:init()
     self:setTired(false)
 end
 
+function Starwalker:getTarget()
+    return "ALL"
+end
+
+function Starwalker:makeBullet(x, y)
+    if (Utils.random() < 0.25) then
+        return Registry.createBullet("FallenStarBullet", x, y)
+    end
+
+    return Registry.createBullet("StarBullet", x, y)
+end
+
 function Starwalker:getGrazeTension()
     return 0
 end

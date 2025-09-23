@@ -3,7 +3,7 @@ local Starwalker, super = Class(Encounter)
 function Starwalker:init()
     super.init(self)
 
-    self.text = "* Star walker has      changed forms...\n* [color:yellow]TP[color:reset] Gain reduced outside of [color:green]???[color:reset]"
+    self.text = "* Star walker has changed forms...\n* [color:yellow]TP[color:reset] Gain reduced outside of [color:yellow]Fallen Stars![color:reset]"
 
     self.starwalker = self:addEnemy("starwalker", 530, 238)
 
@@ -32,6 +32,17 @@ function Starwalker:onBattleInit()
         Game.battle.dojo_bg = DojoBG({1, 1, 1})
         Game.battle:addChild(Game.battle.dojo_bg)
     end
+end
+
+function Starwalker:isAutoHealingEnabled(target)
+    return false
+end
+
+function Starwalker:canSwoon(target)
+    if (target.chara.id == "kris") then
+        return false
+    end
+    return true
 end
 
 function Starwalker:update()
