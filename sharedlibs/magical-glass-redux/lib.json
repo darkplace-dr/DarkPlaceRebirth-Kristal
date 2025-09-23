@@ -8,7 +8,7 @@
         "Just Another Random User",     // contributor
     ],
     "dependencies": ["engine-fixes"],
-    "version": "v3.1.1",
+    "version": "v3.1.3",
     "engineVer": "v0.10.0-dev",
 
     "config": {
