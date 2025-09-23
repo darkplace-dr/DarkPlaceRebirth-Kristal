@@ -520,8 +520,8 @@ function lib:init()
         end)
     end)
     
-    Utils.hook(Transition, "init", function(orig, self, x, y, w, h, properties)
-        orig(self, x, y, w, h, properties)
+    Utils.hook(Transition, "init", function(orig, self, x, y, shape, properties)
+        orig(self, x, y, shape, properties)
         
         properties = properties or {}
         
@@ -667,6 +667,12 @@ function lib:init()
         self.turn_count = self.turn_count - 1
         return orig(self)
     end)
+    
+    if Kristal.getLibConfig("magical-glass", "undertale_text_skipping") == true then
+        Utils.hook(Battle, "updateShortActText", function(orig, self)
+            if Input.pressed("confirm") then orig(self) end
+        end)
+    end
     
     Utils.hook(Battle, "onStateChange", function(orig, self, old, new)
         local result = self.encounter:beforeStateChange(old,new)
@@ -1738,12 +1744,18 @@ function lib:init()
             self.destroy_on_hit = "alt"
             self.layer = LIGHT_BATTLE_LAYERS["bullets"]
         end
-        self.bonus_damage = true -- Whether the bullet deals bonus damage when having more HP (Light World only)
+        self.bonus_damage = nil -- Whether the bullet deals bonus damage when having more HP (Light World only)
         self.remove_outside_of_arena = false
     end)
     
     Utils.hook(Bullet, "onDamage", function(orig, self, soul)
-        lib.bonus_damage = self.bonus_damage
+        lib.bonus_damage = nil
+        if self.attacker then
+            lib.bonus_damage = self.attacker.bonus_damage
+        end
+        if self.bonus_damage ~= nil then
+            lib.bonus_damage = self.bonus_damage
+        end
         local battlers = orig(self, soul)
         lib.bonus_damage = nil
         
@@ -1764,6 +1776,14 @@ function lib:init()
         end
         
         return battlers
+    end)
+    
+    Utils.hook(Bullet, "getDamage", function(orig, self)
+        if Game:isLight() then
+            return self.damage or (self.attacker and self.attacker.attack) or 0
+        else
+            return orig(self)
+        end
     end)
 
     Utils.hook(Bullet, "update", function(orig, self)
@@ -1878,12 +1898,7 @@ function lib:init()
 
             if Input.pressed("confirm") then
                 local item = Game.inventory:getItem(self.storage, self.item_selecting)
-                -- TODO: Make it so weapons can only be equipped to certain party members (Why doesn't this code work?)
-                if item.type ~= "weapon" or item.equipable[Game.party[self.party_selecting].id] == true then
-                    self:useItem(item, self.party_selecting)
-                else
-                    Assets.stopAndPlaySound("ui_cant_select")
-                end
+                self:useItem(item)
             end
 
         else
@@ -1918,7 +1933,6 @@ function lib:init()
 
         if self.state ~= "PARTYSELECT" then
             local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            -- TODO: Make it so weapons can only be equipped to certain party members (Why doesn't this code work?)
             if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
                 Draw.setColor(PALETTE["world_text"])
             else
@@ -1943,11 +1957,7 @@ function lib:init()
             end
         elseif self.state == "PARTYSELECT" then
             local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            if item.type ~= "weapon" or item.equipable[Game.party[self.party_selecting].id] == true then
-                Draw.setColor(PALETTE["world_text"])
-            else
-                Draw.setColor(PALETTE["world_gray"])
-            end
+            Draw.setColor(PALETTE["world_text"])
             
             local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
             
@@ -2007,8 +2017,10 @@ function lib:init()
                 if Input.shift() then
                     save_pos = {self.player.x, self.player.y}
                 end
-                if not Kristal.getLibConfig("magical-glass", "expanded_light_save_menu") then
+                if Kristal.getLibConfig("magical-glass", "savepoint_style") ~= "undertale" then
                     self:openMenu(LightSaveMenu(Game.save_id, save_pos))
+                elseif not Kristal.getLibConfig("magical-glass", "expanded_light_save_menu") then
+                    self:openMenu(LightSaveMenuNormal(Game.save_id, save_pos))
                 else
                     self:openMenu(LightSaveMenuExpanded(save_pos))
                 end
@@ -2385,13 +2397,44 @@ function lib:init()
             local def = self.chara:getStat("defense")
             local hp = self.chara:getHealth()
             
-            local bonus = lib.bonus_damage ~= false and hp > 20 and math.min(1 + math.floor((hp - 20) / 10), 8) or 0
-            amount = Utils.round(amount / 5 + bonus - def / 5)
+            local bonus = (lib.bonus_damage ~= false and self.bonus_damage ~= false) and hp > 20 and math.min(1 + math.floor((hp - 20) / 10), 8) or 0
+            amount = Utils.round(amount + bonus - def / 5)
             
             return math.max(amount, 1)
         else
             return orig(self, amount)
         end
+    end)
+    
+    Utils.hook(PartyBattler, "calculateDamageSimple", function(orig, self, amount)
+        if Game:isLight() then
+            return math.ceil(amount - (self.chara:getStat("defense") / 5))
+        else
+            return orig(self, amount)
+        end
+    end)
+    
+    Utils.hook(PartyBattler, "hurt", function(orig, self, amount, exact, color, options)
+        if type(exact) == "string" then
+            exact = false
+            self.bonus_damage = false
+        end
+        orig(self, amount, exact, color, options)
+        self.bonus_damage = nil
+    end)
+    
+    Utils.hook(EnemyBattler, "init", function(orig, self, actor, use_overlay)
+        orig(self, actor, use_overlay)
+        
+        -- Whether this enemy can die, and whether it's the Undertale death or Deltarune death
+        self.can_die = false
+        self.ut_death = false
+        
+        -- Whether this enemy should use bigger dust particles upon death when ut_death is enabled.
+        self.large_dust = false
+        
+        -- Whether the enemy deals bonus damage when having more HP (Light World only)
+        self.bonus_damage = true
     end)
     
     Utils.hook(EnemyBattler, "getAttackDamage", function(orig, self, damage, battler, points)
@@ -2406,10 +2449,14 @@ function lib:init()
     end)
     
     Utils.hook(EnemyBattler, "freeze", function(orig, self)
-        if Game:isLight() then
-            Game.battle.money = Game.battle.money - 24 + 2
+        if not self.can_freeze then
+            self:onDefeat()
+        else
+            orig(self)
+            if Game:isLight() then
+                Game.battle.money = Game.battle.money - 24 + 2
+            end
         end
-        orig(self)
     end)
     
     Utils.hook(EnemyBattler, "defeat", function(orig, self, reason, violent)
@@ -2424,6 +2471,47 @@ function lib:init()
         else
             Game.battle.xp = Game.battle.xp - self.experience
         end
+    end)
+    
+    Utils.hook(EnemyBattler, "onDefeat", function(orig, self, damage, battler)
+        if self.exit_on_defeat then
+            if self.can_die then
+                if self.ut_death then
+                    self:onDefeatVaporized(damage, battler)
+                else
+                    self:onDefeatFatal(damage, battler)
+                end
+            else
+                self:onDefeatRun(damage, battler)
+            end
+        else
+            self.sprite:setAnimation("defeat")
+        end
+    end)
+    
+    Utils.hook(EnemyBattler, "onDefeatVaporized", function(orig, self, damage, battler)
+        self.hurt_timer = -1
+
+        Assets.playSound("vaporized", 1.2)
+
+        local sprite = self:getActiveSprite()
+
+        sprite.visible = false
+        sprite:stopShake()
+
+        local death_x, death_y = sprite:getRelativePos(0, 0, self)
+        local death
+        if self.large_dust then
+            death = DustEffectLarge(sprite:getTexture(), death_x, death_y, true, function() self:remove() end)
+        else
+            death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() self:remove() end)
+        end
+         
+        death:setColor(sprite:getDrawColor())
+        death:setScale(sprite:getScale())
+        self:addChild(death)
+
+        self:defeat("KILLED", true)
     end)
 
     Utils.hook(PartyMember, "init", function(orig, self)
@@ -2923,7 +3011,15 @@ function lib:init()
 
         local offset = 0
         if self.top then
-            offset = 270
+            if Mod.libs["talk_button"] then
+                if Game:getFlag("has_cell_phone", false) and (Kristal.getLibConfig("talk_button", "have_talk_when_alone") or #Game.world.followers > 0) then
+                    offset = 304
+                else
+                    offset = 270
+                end
+            else
+                offset = 270
+            end
         end
 
         local chara = Game.party[1]
@@ -2959,15 +3055,15 @@ function lib:init()
             end
             love.graphics.print("CELL", 84, 188 + (36 * 2))
             
-            if Mod.libs["light_menu_talk"] then
-                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or #Game.party > 1 then
+            if Mod.libs["talk_button"] then
+                if Kristal.getLibConfig("talk_button", "have_talk_when_alone") or #Game.world.followers > 0 then
                     Draw.setColor(PALETTE["world_text"])
                     love.graphics.print("TALK", 84, 188 + (36 * 3))
                 end
             end
         else
-            if Mod.libs["light_menu_talk"] then
-                if Kristal.getLibConfig("light_menu_talk", "have_talk_when_alone") or #Game.party > 1 then
+            if Mod.libs["talk_button"] then
+                if Kristal.getLibConfig("talk_button", "have_talk_when_alone") or #Game.world.followers > 0 then
                     Draw.setColor(PALETTE["world_text"])
                     love.graphics.print("TALK", 84, 188 + (36 * 2))
                 end
@@ -3433,9 +3529,8 @@ function lib:init()
 
     Utils.hook(Savepoint, "init", function(orig, self, x, y, properties)
         orig(self, x, y, properties)
-        self.style = Kristal.getLibConfig("magical-glass", "savepoint_style")
         Game.world.timer:after(1/30, function()
-            if Game:isLight() and self.style == "undertale" then
+            if Game:isLight() and Kristal.getLibConfig("magical-glass", "savepoint_style") == "undertale" then
                 self:setSprite("world/events/lightsavepoint", 1/6)
             end
         end)
@@ -3453,79 +3548,21 @@ function lib:init()
                 end
             end
             
-            if self.simple_menu or (self.simple_menu == nil and not Kristal.getLibConfig("magical-glass", "expanded_light_save_menu")) then
+            if Kristal.getLibConfig("magical-glass", "savepoint_style") ~= "undertale" then
                 self.world:openMenu(LightSaveMenu(Game.save_id, self.marker))
+            elseif self.simple_menu or (self.simple_menu == nil and not Kristal.getLibConfig("magical-glass", "expanded_light_save_menu")) then
+                self.world:openMenu(LightSaveMenuNormal(Game.save_id, self.marker))
             else
                 self.world:openMenu(LightSaveMenuExpanded(self.marker))
             end
         end
     end)
 
-    Utils.hook(Savepoint, "update", function(orig, self)
-        Interactable.update(self)
-
-        if Game:isLight() and self.style == "deltarune" then
-            self.sprite.alpha = 0.5
-
-            if Game.world.player then
-                local dist = Utils.dist(self.x, self.y, Game.world.player.x, Game.world.player.y)
-
-
-                if dist <= 80 then
-                    self.sprite.alpha = math.min(1, ((1 - (dist/80)) + 0.5))
-                end
-            end
-        end
-    end)
-
-    Utils.hook(LightSaveMenu, "update", function(orig, self)
-        if self.state == "MAIN" and (Input.pressed("left") or Input.pressed("right")) then
-            Assets.stopAndPlaySound("ui_move")
-        end
-        orig(self)
-    end)
-
-    --[[Utils.hook(LightSaveMenu, "draw", function(orig, self) -- Commenting this out for now
-        love.graphics.setFont(self.font)
-
-        if self.state == "SAVED" then
-            Draw.setColor(PALETTE["world_text_selected"])
-        else
-            Draw.setColor(PALETTE["world_text"])
-        end
-    
-        local data      = self.saved_file        or {}
-        local mg        = data.magical_glass     or {}
-
-        local name      = data.name              or "EMPTY"
-        local level     = mg.save_level          or 0
-        local playtime  = data.playtime          or 0
-        local room_name = data.room_name         or "--"
-    
-        love.graphics.print(name,         self.box.x + 8,        self.box.y - 10 + 8)
-        love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..level, self.box.x + 210 - 42, self.box.y - 10 + 8)
-    
-        local minutes = math.floor(playtime / 60)
-        local seconds = math.floor(playtime % 60)
-        local time_text = string.format("%d:%02d", minutes, seconds)
-        love.graphics.printf(time_text, self.box.x - 280 + 148, self.box.y - 10 + 8, 500, "right")
-    
-        love.graphics.print(room_name, self.box.x + 8, self.box.y + 38)
-    
-        if self.state == "MAIN" then
-            love.graphics.print("Save",   self.box.x + 30  + 8, self.box.y + 98)
-            love.graphics.print("Return", self.box.x + 210 + 8, self.box.y + 98)
-    
-            Draw.setColor(Game:getSoulColor())
-            Draw.draw(self.heart_sprite, self.box.x + 10 + (self.selected_x - 1) * 180, self.box.y + 96 + 8, 0, 2, 2)
-        elseif self.state == "SAVED" then
-            love.graphics.print("File saved.", self.box.x + 30 + 8, self.box.y + 98)
-        end
-    
-        Draw.setColor(1, 1, 1)
-    
-        Object.draw(self)
-    end)]]
+    if Kristal.getLibConfig("magical-glass", "savepoint_style") == "undertale" then
+        Utils.hook(Savepoint, "update", function(orig, self)
+            Interactable.update(self)
+        end)
+    end
     
     Utils.hook(Spell, "init", function(orig, self)
         orig(self)
@@ -3624,30 +3661,6 @@ function lib:init()
             end
         end
         return message
-    end)
-    
-    Utils.hook(SnowGraveSpell, "update", function(orig, self)
-        if Game.battle.light then
-            Object.update(self)
-            self.timer = self.timer + DTMULT
-            self.since_last_snowflake = self.since_last_snowflake + DTMULT
-
-            if self.hurt_enemies then
-                self.hurt_enemies = false
-                for i, enemy in ipairs(Game.battle.enemies) do
-                    if enemy then
-                        enemy.hit_count = 0
-                        enemy:hurt(self.damage + Utils.round(math.random(100)), self.caster)
-                        enemy:flash()
-                        if enemy.health <= 0 then
-                            enemy.can_die = true
-                        end
-                    end
-                end
-            end
-        else
-            orig(self)
-        end
     end)
 
     Utils.hook(SnowGraveSpell, "createSnowflake", function(orig, self, x, y)
@@ -3777,8 +3790,17 @@ function lib:init()
         end
     end)
 
-    Utils.hook(Game, "gameOver", function(orig, self, x, y)
-        orig(self, x, y)
+    Utils.hook(Game, "gameOver", function(orig, self, x, y, redraw)
+        if redraw == nil then
+            if Game.battle then -- Battle type correction
+                if Game.battle.light then
+                    redraw = true
+                else
+                    redraw = false
+                end
+            end
+        end
+        orig(self, x, y, redraw)
         lib:setGameOvers((lib:getGameOvers() or 0) + 1)
     end)
     
@@ -3789,75 +3811,10 @@ function lib:init()
         end
         if Game.battle then -- Battle type correction
             if Game.battle.light then
-                self.screenshot = nil
                 self.timer = 28
             else
-                self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
                 self.timer = 0
             end
-        end
-    end)
-    
-    Utils.hook(ActionBoxDisplay, "draw", function(orig, self) -- Fixes an issue with HP higher than normal
-        if Game:isLight() and #Game.battle.party <= 3 then
-            if Game.battle.current_selecting == self.actbox.index then
-                Draw.setColor(self.actbox.battler.chara:getColor())
-            else
-                Draw.setColor(PALETTE["action_strip"], 1)
-            end
-
-            love.graphics.setLineWidth(2)
-            love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
-
-            love.graphics.setLineWidth(2)
-            if Game.battle.current_selecting == self.actbox.index then
-                love.graphics.line(1  , 2, 1,   36)
-                love.graphics.line(212, 2, 212, 36)
-            end
-
-            Draw.setColor(PALETTE["action_fill"])
-            love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
-
-            Draw.setColor(Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") and MG_PALETTE["player_health_bg"] or PALETTE["action_health_bg"])
-            love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
-
-            local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
-
-            if health > 0 then
-                if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") then
-                    Draw.setColor(MG_PALETTE["player_health"])
-                else
-                    Draw.setColor(self.actbox.battler.chara:getColor())
-                end
-                love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.min(math.ceil(health), 76), 9) -- here
-            end
-
-
-            local color = PALETTE["action_health_text"]
-            if health <= 0 then
-                color = PALETTE["action_health_text_down"]
-            elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
-                color = PALETTE["action_health_text_low"]
-            else
-                color = PALETTE["action_health_text"]
-            end
-
-
-            local health_offset = 0
-            health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
-
-            Draw.setColor(color)
-            love.graphics.setFont(self.font)
-            love.graphics.print(self.actbox.battler.chara:getHealth(), 152 - health_offset, 9 - self.actbox.data_offset)
-            Draw.setColor(PALETTE["action_health_text"])
-            love.graphics.print("/", 161, 9 - self.actbox.data_offset)
-            local string_width = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
-            Draw.setColor(color)
-            love.graphics.print(self.actbox.battler.chara:getStat("health"), 205 - string_width, 9 - self.actbox.data_offset)
-
-            Object.draw(self)
-        else
-            orig(self)
         end
     end)
 end
@@ -3947,8 +3904,8 @@ function lib:registerDebugOptions(debug)
     debug.exclusive_battle_menus["LIGHTBATTLE"] = {"light_wave_select"}
     debug.exclusive_battle_menus["DARKBATTLE"] = {"wave_select"}
     debug.exclusive_world_menus = {}
-    debug.exclusive_world_menus["LIGHTWORLD"] = {"light_select_shop"}
-    debug.exclusive_world_menus["DARKWORLD"] = {"dark_select_shop"}
+    debug.exclusive_world_menus["LIGHTWORLD"] = {}
+    debug.exclusive_world_menus["DARKWORLD"] = {}
 
     debug:registerMenu("encounter_select", "Encounter Select")
     
@@ -4008,19 +3965,28 @@ function lib:registerDebugOptions(debug)
             debug:closeMenu()
         end)
     end
+    
+    debug:registerMenu("select_shop", "Enter Shop")
+    
+    debug:registerOption("select_shop", "Enter Dark Shop", "Enter a dark shop.", function()
+        debug:enterMenu("dark_select_shop", 0)
+    end)
+    debug:registerOption("select_shop", "Enter Light Shop", "Enter a light shop.", function()
+        debug:enterMenu("light_select_shop", 0)
+    end)
+    
+    debug:registerMenu("dark_select_shop", "Enter Dark Shop", "search")
+    for id,_ in pairs(Registry.shops) do
+        debug:registerOption("dark_select_shop", id, "Enter this shop.", function()
+            Game:enterShop(id, nil, false)
+            debug:closeMenu()
+        end)
+    end
 
     debug:registerMenu("light_select_shop", "Enter Light Shop", "search")
     for id,_ in pairs(self.light_shops) do
         debug:registerOption("light_select_shop", id, "Enter this shop.", function()
             Game:enterShop(id, nil, true)
-            debug:closeMenu()
-        end)
-    end
-
-    debug:registerMenu("dark_select_shop", "Enter Dark Shop", "search")
-    for id,_ in pairs(Registry.shops) do
-        debug:registerOption("dark_select_shop", id, "Enter this shop.", function()
-            Game:enterShop(id, nil, false)
             debug:closeMenu()
         end)
     end
@@ -4062,28 +4028,10 @@ function lib:registerDebugOptions(debug)
     local in_dark_world = function () return in_game() and not Game:isLight() end
     local in_light_world = function () return in_game() and Game:isLight() end
     
-    local index = 1
     for i = #debug.menus["main"].options, 1, -1 do
         local option = debug.menus["main"].options[i]
-        if option.name == "Enter Shop" then -- Gets the index of the "Enter Shop" in the main debug menu
-            index = i
-        end
-        if Utils.containsValue({"Start Wave", "End Battle", "Enter Shop"}, option.name) then
+        if Utils.containsValue({"Start Wave", "End Battle"}, option.name) then
             table.remove(debug.menus["main"].options, i)
-        end
-    end
-    
-    debug:registerOption("main", "Enter Shop", "Enter a dark shop.", function()
-        debug:enterMenu("dark_select_shop", 0)
-    end, function() return in_overworld() and in_dark_world() end)
-    
-    debug:registerOption("main", "Enter Shop", "Enter a light shop.", function()
-        debug:enterMenu("light_select_shop", 0)
-    end, function() return in_overworld() and in_light_world() end)
-    
-    for i,option in ipairs(debug.menus["main"].options) do -- Positions the "Enter Shop" at the usual place (both of them)
-        if option.name == "Enter Shop" then
-            table.insert(debug.menus["main"].options, index, table.remove(debug.menus["main"].options, i))
         end
     end
     
@@ -4229,17 +4177,22 @@ function lib:setLightLV(level)
     end
 end
 
-function lib:gameNotOver(x, y)
-    Kristal.hideBorder(0)
-    
-    local reload
-    local encounter = Game.battle and Game.battle.encounter and Game.battle.encounter.id
-    local shop = Game.shop and Game.shop.id
-    if encounter then
-        reload = {"BATTLE", encounter}
-    elseif shop then
-        reload = {"SHOP", shop}
+function lib:gameNotOver(x, y, redraw)
+    if redraw == nil then
+        if Game.battle then -- Battle type correction
+            if Game.battle.light then
+                redraw = true
+            else
+                redraw = false
+            end
+        end
     end
+    
+    if redraw or (redraw == nil and Game:isLight()) then
+        love.draw() -- Redraw the frame so the screenshot will use an updated draw data
+    end
+    
+    Kristal.hideBorder(0)
 
     Game.state = "GAMEOVER"
     if Game.battle   then Game.battle  :remove() end
@@ -4248,7 +4201,7 @@ function lib:gameNotOver(x, y)
     if Game.gameover then Game.gameover:remove() end
     if Game.legend   then Game.legend  :remove() end
 
-    Game.gameover = GameNotOver(x or 0, y or 0, reload)
+    Game.gameover = GameNotOver(x or 0, y or 0)
     Game.stage:addChild(Game.gameover)
 end
 function lib:postUpdate()

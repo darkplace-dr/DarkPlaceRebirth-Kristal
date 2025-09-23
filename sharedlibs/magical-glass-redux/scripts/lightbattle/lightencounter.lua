@@ -275,8 +275,8 @@ function LightEncounter:onFlee()
                 end
                 
                 for _,party in ipairs(Utils.removeDuplicates(party_to_lvl_up)) do
-                    Game.level_up_count = Game.level_up_count + 1
-                    party:onLevelUp(Game.level_up_count)
+                    party.level_up_count = party.level_up_count + 1
+                    party:onLevelUp(party.level_up_count)
                 end
 
                 self.used_flee_message = "* Ran away with " .. money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
@@ -460,6 +460,14 @@ function LightEncounter:getDefendTension(battler)
         return 2
     end
     return 16
+end
+
+function LightEncounter:isAutoHealingEnabled(battler)
+    return true
+end
+
+function LightEncounter:canSwoon(target)
+    return true
 end
 
 function LightEncounter:canDeepCopy()
