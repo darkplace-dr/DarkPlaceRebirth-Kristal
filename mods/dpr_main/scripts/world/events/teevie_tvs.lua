@@ -111,7 +111,7 @@ function TeevieTVs:update()
 		for j,screen in ipairs(self.tv_screens[i]) do
 			local ii = i - 1
 			local jj = j - 1
-			screen.timer = screen.timer + 1
+			screen.timer = screen.timer + (1 * DTMULT)
 			if screen.con == 0 then
 				if math.abs(screen.timer) % 8 == 0 then
 					screen.frame = screen.frame + 1

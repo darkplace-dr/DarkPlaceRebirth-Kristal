@@ -23,14 +23,14 @@ end
 function LameFadeout:update()
     self.progress = Utils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
     if self.progress >= 1 and self.game_params then
-        Gamestate.switch(Kristal.States["Game"], unpack(self.game_params))
+        Kristal.setState("Game", unpack(self.game_params))
     end
 end
 
 function LameFadeout:onLoadFinish(game_params)
     self.game_params = game_params
     if self.progress >= 1 then
-        Gamestate.switch(Kristal.States["Game"], unpack(self.game_params))
+        Kristal.setState("Game", unpack(self.game_params))
     end
 end
 

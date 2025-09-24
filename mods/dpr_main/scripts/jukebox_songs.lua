@@ -113,7 +113,7 @@ return {
   },
   {
     name = "The Door",
-    file = "deltarune/door",
+    file = "deltarune/creepydoor",
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
@@ -431,6 +431,14 @@ return {
     origin = "Casette Beasts",
     album = "casette_beasts"
   },
+  --{
+  --  name = "WHATCHACALLITSNAME (Cover)",
+  --  file = "whatchacallitsname_notsuki_cover",
+  --  composer = "Original by decoyman120\nCover by Notsuki",
+  --  released = "2025",
+  --  origin = "Youtube, go give the original a listen! I did this song an injustice.",
+  --  album = "whatchacallitsname"
+  --},
   {
     name = "Silence",
     file = "silence",

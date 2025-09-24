@@ -132,7 +132,7 @@ function LightShop:postInit()
     end
 
     -- Construct the UI
-    self.large_box = UIBox(0, 0, 0, 0, "lightshop")
+    self.large_box = UIBox(0, 0, 0, 0, Game:isLight() and "lightshop" or "dark")
     local left, top = self.large_box:getBorder()
     self.large_box:setOrigin(0, 1)
     self.large_box.x = left - 8

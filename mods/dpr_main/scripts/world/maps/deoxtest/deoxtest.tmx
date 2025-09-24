@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="43" height="36" tilewidth="40" tileheight="40" infinite="0" nextlayerid="17" nextobjectid="82">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="43" height="36" tilewidth="40" tileheight="40" infinite="0" nextlayerid="17" nextobjectid="82">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="forest"/>
-  <property name="music" value="forest"/>
+  <property name="music" value="deoxynn_forest"/>
   <property name="name" value="Test Map"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/castle.tsx"/>

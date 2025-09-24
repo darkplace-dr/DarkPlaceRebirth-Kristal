@@ -10,7 +10,7 @@ function LightBattle:init()
 
     self.party = {}
 
-    -- states: BATTLETEXT, TRANSITION, ACTIONSELECT, MENUSELECT, ENEMYSELECT, PARTYSELECT, TURNDONE
+    -- states: BATTLETEXT, TRANSITION, ACTIONSELECT, MENUSELECT, ENEMYSELECT, PARTYSELECT
     -- ENEMYDIALOGUE, DEFENDING, DEFENDINGEND, VICTORY, TRANSITIONOUT, ATTACKING, FLEEING, FLEEFAIL
     -- BUTNOBODYCAME
 
@@ -149,10 +149,6 @@ function LightBattle:init()
     self:addChild(self.darkify_fader)
     
     self.multi_mode = Kristal.getLibConfig("magical-glass", "multi_always_on") or #self.party > 1
-	
-    -- Base pitch for the music to return to when not using timeslow.
-    -- This must be changed along with music.pitch in order to correctly change the music's pitch.
-    self.music.basepitch = self.music.pitch
 end
 
 function LightBattle:isPagerMenu()
@@ -1303,7 +1299,7 @@ function LightBattle:onStateChange(old,new)
         end
     end
     
-    local normal_arena_state = {"TURNDONE", "DEFENDINGEND", "TRANSITIONOUT", "ACTIONSELECT", "VICTORY", "INTRO", "ACTIONS", "ENEMYSELECT", "PARTYSELECT", "MENUSELECT", "ATTACKING", "FLEEING", "FLEEFAIL", "BUTNOBODYCAME"}
+    local normal_arena_state = {"DEFENDINGEND", "TRANSITIONOUT", "ACTIONSELECT", "VICTORY", "INTRO", "ACTIONS", "ENEMYSELECT", "PARTYSELECT", "MENUSELECT", "ATTACKING", "FLEEING", "FLEEFAIL", "BUTNOBODYCAME"}
 
     local should_end = not self.encounter.event
     if Utils.containsValue(normal_arena_state, new) then
@@ -1327,22 +1323,20 @@ function LightBattle:onStateChange(old,new)
             end
         end
 
-        if self:hasCutscene() then
-            self.cutscene:after(function()
-                self:setState("TURNDONE", "WAVEENDED")
-            end)
-        else
-            self.timer:after(15/30, function()
-                self:setState("TURNDONE", "WAVEENDED")
-            end)
+        if self.state_reason == "WAVEENDED" then
+            if self:hasCutscene() then
+                self.cutscene:after(function()
+                    self:setState("DEFENDINGEND", "TURNDONE")
+                end)
+            else
+                self.timer:after(15/30, function()
+                    self:setState("DEFENDINGEND", "TURNDONE")
+                end)
+            end
         end
     end
 
     self.encounter:onStateChange(old,new)
-	
-    if old == "INTRO" then
-        self.music.basepitch = self.music.pitch
-    end
 end
 
 function LightBattle:nextTurn()
@@ -1384,7 +1378,7 @@ function LightBattle:nextTurn()
         battler.hit_count = 0
         battler.delay_turn_end = false
         battler.manual_spare = false
-        if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() then
+        if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() and self.encounter:isAutoHealingEnabled(battler) then
             battler:heal(battler.chara:autoHealAmount())
         end
         battler.action = nil
@@ -1606,6 +1600,7 @@ function LightBattle:checkGameOver()
             wave:onEnd(true)
         end
     end
+    self:stopCameraShake()
     if self.encounter:onGameOver() then
         return
     end
@@ -1843,16 +1838,26 @@ function LightBattle:update()
         end
 
         self:updateWaves()
-    elseif self.state == "TURNDONE" then
+    elseif self.state == "DEFENDINGEND" then
         for _,wave in ipairs(self.waves) do
             wave:onArenaExit()
         end
         self.waves = {}
 
-        if self.state_reason == "WAVEENDED" and #self.arena.target_position == 0 and #self.arena.target_shape == 0 and not self.forced_victory then
-            Input.clear("cancel", true)
-            self:nextTurn()
+        if #self.arena.target_position == 0 and #self.arena.target_shape == 0 and not self.forced_victory then
+            self:setSubState("ARENARESET", "DEFENDINGEND")
+            if self.state_reason == "TURNDONE" then
+                self:setSubState("NONE")
+                Input.clear("cancel", true)
+                self:nextTurn()
+            end
         end
+    elseif self.state == "SHORTACTTEXT" then
+        self:updateShortActText()
+    end
+    
+    for _,battler in ipairs(self.party) do
+        battler:update()
     end
     
     if self.state == "ACTIONSELECT" then
@@ -1870,7 +1875,7 @@ function LightBattle:update()
         self:updateMenuWaves()
     end
     
-    if Utils.containsValue({"TURNDONE", "DEFENDINGEND", "ACTIONSELECT", "ACTIONS", "VICTORY", "TRANSITIONOUT", "BATTLETEXT", "FLEEING", "FLEEFAIL", "BUTNOBODYCAME"}, self.state) then
+    if Utils.containsValue({"DEFENDINGEND", "ACTIONSELECT", "ACTIONS", "VICTORY", "TRANSITIONOUT", "BATTLETEXT", "FLEEING", "FLEEFAIL", "BUTNOBODYCAME"}, self.state) then
         self.darkify_fader.alpha = Utils.approach(self.darkify_fader.alpha, 0, DTMULT * 0.05)
         self.arena.alpha = Utils.approach(self.arena.alpha, 1, DTMULT * 0.05)
     end
@@ -2394,6 +2399,10 @@ function LightBattle:shakeCamera(x, y, friction)
     self.camera:shake(x, y, friction)
 end
 
+function LightBattle:stopCameraShake()
+    self.camera:stopShake()
+end
+
 function LightBattle:randomTargetOld()
     local none_targetable = true
     for _,battler in ipairs(self.party) do
@@ -2486,7 +2495,7 @@ function LightBattle:getPartyFromTarget(target)
     end
 end
 
-function LightBattle:hurt(amount, exact, target)
+function LightBattle:hurt(amount, exact, target, swoon)
     -- If target is a numberic value, it will hurt the party battler with that index
     -- "ANY" will choose the target randomly
     -- "ALL" will hurt the entire party all at once
@@ -2507,43 +2516,45 @@ function LightBattle:hurt(amount, exact, target)
     if target == "ANY" then
         target = self:randomTargetOld()
 
-        -- Calculate the average HP of the party.
-        -- This is "scr_party_hpaverage", which gets called multiple times in the original script.
-        -- We'll only do it once here, just for the slight optimization. This won't affect accuracy.
+        if isClass(target) and target:includes(LightPartyBattler) then
+            -- Calculate the average HP of the party.
+            -- This is "scr_party_hpaverage", which gets called multiple times in the original script.
+            -- We'll only do it once here, just for the slight optimization. This won't affect accuracy.
 
-        -- Speaking of accuracy, this function doesn't work at all!
-        -- It contains a bug which causes it to always return 0, unless all party members are at full health.
-        -- This is because of a random floor() call.
-        -- I won't bother making the code accurate; all that matters is the output.
+            -- Speaking of accuracy, this function doesn't work at all!
+            -- It contains a bug which causes it to always return 0, unless all party members are at full health.
+            -- This is because of a random floor() call.
+            -- I won't bother making the code accurate; all that matters is the output.
 
-        local party_average_hp = 1
+            local party_average_hp = 1
 
-        for _,battler in ipairs(self.party) do
-            if battler.chara:getHealth() ~= battler.chara:getStat("health") then
-                party_average_hp = 0
-                break
+            for _,battler in ipairs(self.party) do
+                if battler.chara:getHealth() ~= battler.chara:getStat("health") then
+                    party_average_hp = 0
+                    break
+                end
             end
-        end
 
-        -- Retarget... twice.
-        if target.chara:getHealth() / target.chara:getStat("health") < (party_average_hp / 2) then
-            target = self:randomTargetOld()
-        end
-        if target.chara:getHealth() / target.chara:getStat("health") < (party_average_hp / 2) then
-            target = self:randomTargetOld()
-        end
+            -- Retarget... twice.
+            if target.chara:getHealth() / target.chara:getStat("health") < (party_average_hp / 2) then
+                target = self:randomTargetOld()
+            end
+            if target.chara:getHealth() / target.chara:getStat("health") < (party_average_hp / 2) then
+                target = self:randomTargetOld()
+            end
 
-        -- If we landed on Kris (or, well, the first party member), and their health is low, retarget (plot armor lol)
-        if (target == self.party[1]) and ((target.chara:getHealth() / target.chara:getStat("health")) < 0.35) then
-            target = self:randomTargetOld()
-        end
+            -- If we landed on Kris (or, well, the first party member), and their health is low, retarget (plot armor lol)
+            if (target == self.party[1]) and ((target.chara:getHealth() / target.chara:getStat("health")) < 0.35) then
+                target = self:randomTargetOld()
+            end
 
-        target.targeted = true
+            target.targeted = true
+        end
     end
 
     -- Now it's time to actually damage them!
     if isClass(target) and target:includes(LightPartyBattler) then
-        target:hurt(amount, exact)
+        target:hurt(amount, exact, nil, { swoon = self.encounter:canSwoon(target) and swoon })
         return {target}
     end
 
@@ -2551,7 +2562,7 @@ function LightBattle:hurt(amount, exact, target)
         Assets.playSound("hurt")
         local alive_battlers = Utils.filter(self.party, function(battler) return not battler.is_down end)
         for _,battler in ipairs(alive_battlers) do
-            battler:hurt(amount, exact, nil, {all = true})
+            battler:hurt(amount, exact, nil, { all = true, swoon = self.encounter:canSwoon(battler) and swoon })
         end
         -- Return the battlers who aren't down, aka the ones we hit.
         return alive_battlers
@@ -3200,20 +3211,7 @@ function LightBattle:onKeyPressed(key)
     elseif self.state == "BATTLETEXT" then
         -- Nothing here
     elseif self.state == "SHORTACTTEXT" then
-        if Input.isConfirm(key) then
-            if (not self.battle_ui.short_act_text_1:isTyping()) and
-               (not self.battle_ui.short_act_text_2:isTyping()) and
-               (not self.battle_ui.short_act_text_3:isTyping()) then
-                self.battle_ui.short_act_text_1:setText("")
-                self.battle_ui.short_act_text_2:setText("")
-                self.battle_ui.short_act_text_3:setText("")
-                for _,iaction in ipairs(self.short_actions) do
-                    self:finishAction(iaction)
-                end
-                self.short_actions = {}
-                self:setState("ACTIONS", "SHORTACTTEXT")
-            end
-        end
+        -- Nothing here
     elseif self.state == "ENEMYDIALOGUE" then
         -- Nothing here
     elseif self.state == "ACTIONSELECT" then
@@ -3351,6 +3349,24 @@ function LightBattle:updateMenuWaves()
     if all_done and not self.finished_menu_waves then
         self.finished_menu_waves = true
         self.encounter:onMenuWavesDone()
+    end
+end
+
+
+function LightBattle:updateShortActText()
+    if Input.pressed("confirm") or Kristal.getLibConfig("magical-glass", "undertale_text_skipping") ~= false and Input.down("menu") then
+        if (not self.battle_ui.short_act_text_1:isTyping()) and
+           (not self.battle_ui.short_act_text_2:isTyping()) and
+           (not self.battle_ui.short_act_text_3:isTyping()) then
+            self.battle_ui.short_act_text_1:setText("")
+            self.battle_ui.short_act_text_2:setText("")
+            self.battle_ui.short_act_text_3:setText("")
+            for _,iaction in ipairs(self.short_actions) do
+                self:finishAction(iaction)
+            end
+            self.short_actions = {}
+            self:setState("ACTIONS", "SHORTACTTEXT")
+        end
     end
 end
 

@@ -3,7 +3,11 @@ local TVTurnOff, super = Class(Object)
 function TVTurnOff:init(options)
     super.init(self)
 	
-	self:setLayer(WORLD_LAYERS["top"])
+	if Game.battle then
+		self:setLayer(BATTLE_LAYERS["top"])
+	else
+		self:setLayer(WORLD_LAYERS["top"])
+	end
 	self:setParallax(0,0)
 	
 	self.con = 0
@@ -19,8 +23,8 @@ function TVTurnOff:init(options)
 	self.dest_facing = options["facing"] or "down"
 	self.flag = options["flag"]
 	
-	self.texture_1 = Assets.getTexture("effects/zapper_tvturnoff1")
-	self.texture_2 = Assets.getTexture("effects/zapper_tvturnoff2")
+	self.texture_1 = Assets.getTexture("effects/zapper/tvturnoff1")
+	self.texture_2 = Assets.getTexture("effects/zapper/tvturnoff2")
 	self.xscale1 = 10
 	self.yscale1 = 10
 	self.xscale2 = 0.1
@@ -46,6 +50,9 @@ function TVTurnOff:update()
 			if self.type == 0 then
 				Game.world.music:pause()
 				Game.world.music:setVolume(0)
+			elseif self.type == 1 then
+				Game.battle.music:pause()
+				Game.battle.music:setVolume(0)
 			end
 			self.con = 2
 			self.subcon = 0
@@ -66,6 +73,9 @@ function TVTurnOff:update()
 					Game.world.music:resume()
 					Game.world.music:fade(1, 0.25)
 				end
+			elseif self.type == 1 then -- Zapper battle
+				Game.battle.music:resume()
+				Game.battle.music:fade(1, 0.25)
 			end
 			self:remove()
 		end

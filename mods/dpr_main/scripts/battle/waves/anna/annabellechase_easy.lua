@@ -6,15 +6,15 @@ function Basic:init()
 end
 
 function Basic:onStart()
-    self:spawnBullet("soulmarker", 320, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 220, math.rad(180), 0)
     -- Get all enemies that selected this wave as their attack
         local attackers = self:getAttackers()
 
@@ -31,10 +31,10 @@ function Basic:onStart()
             self.animation.sprite:set("attack")
             Assets.playSound("wing")
             if Input.down("up") and not Input.down("down") then 
-                self:spawnBullet("arrow_long", x, y, angle, 10, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 120)
             else if not Input.down("up") and Input.down("down") then 
-                    self:spawnBullet("arrow_long", x, y, angle, 10, 220)
-                else self:spawnBullet("arrow_long", x, y, angle, 10, 170) end
+                    self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 220)
+                else self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 170) end
             end
         end
     self.timer:every(1, function()
@@ -54,10 +54,10 @@ function Basic:onStart()
             self.animation.sprite:set("attack")
             Assets.playSound("wing")
             if Input.down("up") and not Input.down("down") then 
-                self:spawnBullet("arrow_long", x, y, angle, 10, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 120)
             else if not Input.down("up") and Input.down("down") then 
-                    self:spawnBullet("arrow_long", x, y, angle, 10, 220)
-                else self:spawnBullet("arrow_long", x, y, angle, 10, 170) end
+                    self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 220)
+                else self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 170) end
             end
         end
     end)
@@ -78,10 +78,10 @@ function Basic:onStart()
             self.animation.sprite:set("attack")
             Assets.playSound("wing")
             if Input.down("up") and not Input.down("down") then 
-                self:spawnBullet("arrow_long", x, y, angle, 10, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 120)
             else if not Input.down("up") and Input.down("down") then 
-                    self:spawnBullet("arrow_long", x, y, angle, 10, 220)
-                else self:spawnBullet("arrow_long", x, y, angle, 10, 170) end
+                    self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 220)
+                else self:spawnBullet("annabelle/arrow_long", x, y, angle, 10, 170) end
             end
         end
     end)

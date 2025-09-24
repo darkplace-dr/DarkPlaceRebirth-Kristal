@@ -15,8 +15,13 @@ else
         ["Game"] = require("src.engine.game.game"),
         ["LameFadeout"] = require("src.engine.game.lamefadeout"),
         ["Testing"] = require("src.teststate"),
-        ["Debug"] = require("src.incorrectdebug")
+        ["Debug"] = require("src.incorrectdebug"),
+        ["Empty"] = {}
     }
+
+    Kristal.EnteredStates = {}
+    Kristal.CurrentState = nil
+    Kristal.StateStack = {}
 
     Kristal.Loader = {
         in_channel = nil,
@@ -163,9 +168,6 @@ function love.load(args)
     Kristal.ChapterConfigs[4] = JSON.decode(love.filesystem.read("configs/chapter4.json"))
     Kristal.ExtraConfigs = JSON.decode(love.filesystem.read("configs/extra.json"))
 
-    -- register gamestate calls
-    Gamestate.registerEvents()
-
     -- initialize overlay
     Kristal.Overlay:init()
 
@@ -182,120 +184,6 @@ function love.load(args)
 
     SCREENSHOT_DISPLAY = 1
     TAKING_SCREENSHOT = false
-
-    -- setup hooks
-    Utils.hook(love, "update", function (orig, ...)
-        if PERFORMANCE_TEST_STAGE == "UPDATE" then
-            PERFORMANCE_TEST = {}
-            Utils.pushPerformance("Total")
-        end
-        orig(...)
-        Kristal.Stage:update()
-        Kristal.Overlay:update()
-        if PERFORMANCE_TEST then
-            Utils.popPerformance()
-            print("-------- PERFORMANCE --------")
-            Utils.printPerformance()
-            PERFORMANCE_TEST_STAGE = "DRAW"
-            PERFORMANCE_TEST = nil
-        end
-    end)
-    Utils.hook(love, "draw", function (orig, ...)
-        if PERFORMANCE_TEST_STAGE == "DRAW" then
-            PERFORMANCE_TEST = {}
-            Utils.pushPerformance("Total")
-        end
-
-        love.graphics.reset()
-
-        Draw.pushCanvas(SCREEN_CANVAS)
-        love.graphics.clear(0, 0, 0, 0)
-        orig(...)
-        Kristal.Stage:draw()
-        Kristal.Overlay:draw()
-        Draw.popCanvas()
-
-        Draw.setColor(1, 1, 1, 1)
-
-        if Kristal.callEvent(KRISTAL_EVENT.drawScreen, SCREEN_CANVAS) then return end
-
-        if Kristal.bordersEnabled() then
-            local border = Kristal.getBorder()
-
-            local dynamic = Kristal.Config["borders"] == "dynamic"
-
-            if dynamic and BORDER_FADING == "OUT" and BORDER_FADE_FROM then
-                border = BORDER_FADE_FROM
-            end
-
-            if border then
-                -- ugly hack for a ternary with falsy value in the middle
-                local border_texture = (isClass(border) and {} or {Assets.getTexture("borders/" ..border)})[1]
-
-                love.graphics.scale(Kristal.getGameScale())
-                Draw.setColor(1, 1, 1, dynamic and BORDER_ALPHA or 1)
-                love.graphics.push("all")
-                love.graphics.translate(
-                    ((love.graphics.getWidth()/Kristal.getGameScale())) / 2 + (((love.graphics.getHeight()/Kristal.getGameScale()) / -2) * (16/9)),
-                    ((love.graphics.getHeight()/Kristal.getGameScale()) / 2) + ((love.graphics.getHeight()/Kristal.getGameScale()) / -2)
-                )
-                if border_texture then
-                    Draw.draw(border_texture, 0, 0, 0, BORDER_SCALE)
-                end
-                if dynamic then
-                    if isClass(border) then
-                        border:draw()
-                    end
-                    Kristal.callEvent(KRISTAL_EVENT.onBorderDraw, border.id, border_texture)
-                end
-                love.graphics.pop()
-                Draw.setColor(1, 1, 1, 1)
-                love.graphics.reset()
-            end
-
-            LAST_BORDER = border
-        end
-
-        -- Draw the game canvas
-        love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
-        love.graphics.scale(Kristal.getGameScale())
-        Draw.draw(SCREEN_CANVAS, -SCREEN_WIDTH / 2, -SCREEN_HEIGHT / 2)
-
-        love.graphics.reset()
-        love.graphics.scale(Kristal.getGameScale())
-
-        if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
-            if Input.usingGamepad() then
-                Draw.setColor(0, 0, 0, 0.5)
-                love.graphics.circle("fill", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
-                Draw.setColor(1, 1, 1, 1)
-                love.graphics.circle("line", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
-            elseif MOUSE_SPRITE and love.window.hasMouseFocus() then
-                Draw.draw(MOUSE_SPRITE, love.mouse.getX() / Kristal.getGameScale(),
-                          love.mouse.getY() / Kristal.getGameScale())
-            end
-        end
-
-        Draw._clearUnusedCanvases()
-
-        if PERFORMANCE_TEST then
-            Utils.popPerformance()
-            Utils.printPerformance()
-            PERFORMANCE_TEST_STAGE = nil
-            PERFORMANCE_TEST = nil
-        end
-
-        local screenshot_size = Utils.lerp(20, 0, SCREENSHOT_DISPLAY)
-        if screenshot_size > 0 and not TAKING_SCREENSHOT then
-            local w = love.graphics.getWidth() / Kristal.getGameScale()
-            local h = love.graphics.getHeight() / Kristal.getGameScale()
-            love.graphics.rectangle("fill", 0, 0, screenshot_size, h)
-            love.graphics.rectangle("fill", w - screenshot_size, 0, screenshot_size, h)
-            love.graphics.rectangle("fill", 0, 0, w, screenshot_size)
-            love.graphics.rectangle("fill", 0, h - screenshot_size, w, screenshot_size)
-        end
-        TAKING_SCREENSHOT = false
-    end)
 
     -- start load thread
     Kristal.Loader.in_channel = love.thread.getChannel("load_in")
@@ -329,7 +217,7 @@ function love.load(args)
     end
 
     -- load menu
-    Gamestate.switch(Kristal.States["Loading"])
+    Kristal.setState("Loading")
 
     -- Initialize Discord RPC
     if DISCORD_RPC_AVAILABLE and Kristal.Config["discordRPC"] then
@@ -353,7 +241,125 @@ function love.quit()
     end
 end
 
+function love.draw()
+    if PERFORMANCE_TEST_STAGE == "DRAW" then
+        PERFORMANCE_TEST = {}
+        Utils.pushPerformance("Total")
+    end
+
+    -- We need to draw the game to a canvas, so we can scale
+    -- Also, to draw the borders later
+    Draw.reset()
+
+    Draw.pushCanvas(SCREEN_CANVAS)
+    love.graphics.clear(0, 0, 0, 1)
+
+    -- Draw the current state
+    local state = Kristal.getState()
+    if state ~= nil and state.draw then
+        state:draw()
+    end
+
+    -- Draw the stage & overlay
+    Kristal.Stage:draw()
+    Kristal.Overlay:draw()
+
+    Draw.popCanvas()
+
+    if Kristal.callEvent(KRISTAL_EVENT.drawScreen, SCREEN_CANVAS) then return end
+
+    -- Draw borders if possible
+    Kristal.drawBorders()
+
+    -- Draw the game canvas
+    love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+    love.graphics.scale(Kristal.getGameScale())
+    Draw.setColor(1, 1, 1, 1)
+    Draw.draw(SCREEN_CANVAS, -SCREEN_WIDTH / 2, -SCREEN_HEIGHT / 2)
+
+    Draw.reset()
+    love.graphics.scale(Kristal.getGameScale())
+
+    if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
+        if Input.usingGamepad() then
+            Draw.setColor(0, 0, 0, 0.5)
+            love.graphics.circle("fill", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
+            Draw.setColor(1, 1, 1, 1)
+            love.graphics.circle("line", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
+        elseif MOUSE_SPRITE and love.window.hasMouseFocus() then
+            Draw.draw(MOUSE_SPRITE, love.mouse.getX() / Kristal.getGameScale(),
+                        love.mouse.getY() / Kristal.getGameScale())
+        end
+    end
+
+    Draw._clearUnusedCanvases()
+
+    if PERFORMANCE_TEST then
+        Utils.popPerformance()
+        Utils.printPerformance()
+        PERFORMANCE_TEST_STAGE = nil
+        PERFORMANCE_TEST = nil
+    end
+
+    local screenshot_size = Utils.lerp(20, 0, SCREENSHOT_DISPLAY)
+    if screenshot_size > 0 and not TAKING_SCREENSHOT then
+        local w = love.graphics.getWidth() / Kristal.getGameScale()
+        local h = love.graphics.getHeight() / Kristal.getGameScale()
+        love.graphics.rectangle("fill", 0, 0, screenshot_size, h)
+        love.graphics.rectangle("fill", w - screenshot_size, 0, screenshot_size, h)
+        love.graphics.rectangle("fill", 0, 0, w, screenshot_size)
+        love.graphics.rectangle("fill", 0, h - screenshot_size, w, screenshot_size)
+    end
+    TAKING_SCREENSHOT = false
+end
+
+function Kristal.drawBorders()
+    if Kristal.bordersEnabled() then
+        Draw.setColor(1, 1, 1, 1)
+
+        local border = Kristal.getBorder()
+
+        local dynamic = Kristal.Config["borders"] == "dynamic"
+
+        if dynamic and BORDER_FADING == "OUT" and BORDER_FADE_FROM then
+            border = BORDER_FADE_FROM
+        end
+
+        if border then
+            -- ugly hack for a ternary with falsy value in the middle
+            local border_texture = (isClass(border) and {} or {Assets.getTexture("borders/" ..border)})[1]
+
+            love.graphics.scale(Kristal.getGameScale())
+            Draw.setColor(1, 1, 1, dynamic and BORDER_ALPHA or 1)
+            love.graphics.push("all")
+            love.graphics.translate(
+                ((love.graphics.getWidth()/Kristal.getGameScale())) / 2 + (((love.graphics.getHeight()/Kristal.getGameScale()) / -2) * (16/9)),
+                ((love.graphics.getHeight()/Kristal.getGameScale()) / 2) + ((love.graphics.getHeight()/Kristal.getGameScale()) / -2)
+            )
+            if border_texture then
+                Draw.draw(border_texture, 0, 0, 0, BORDER_SCALE)
+            end
+            if dynamic then
+                if isClass(border) then
+                    border:draw()
+                end
+                Kristal.callEvent(KRISTAL_EVENT.onBorderDraw, border.id, border_texture)
+            end
+            love.graphics.pop()
+            Draw.setColor(1, 1, 1, 1)
+            Draw.reset()
+        end
+
+        LAST_BORDER = border
+    end
+end
+
 function love.update(dt)
+    if PERFORMANCE_TEST_STAGE == "UPDATE" then
+        PERFORMANCE_TEST = {}
+        Utils.pushPerformance("Total")
+    end
+
     BASE_DT = dt
     if FAST_FORWARD then
         CURRENT_SPEED_MULT = FAST_FORWARD_SPEED
@@ -364,6 +370,11 @@ function love.update(dt)
     DT = dt
     DTMULT = dt * 30
     RUNTIME = RUNTIME + dt
+
+    local state = Kristal.getState()
+    if state ~= nil and state.update then
+        state:update()
+    end
 
     if BORDER_FADING == "OUT" then
         BORDER_ALPHA = BORDER_ALPHA - (dt / BORDER_FADE_TIME)
@@ -391,6 +402,8 @@ function love.update(dt)
     Music.update()
     Assets.update()
     TextInput.update()
+
+    Kristal.Stage:update()
 
     SCREENSHOT_DISPLAY = Utils.approach(SCREENSHOT_DISPLAY, 1, 4 * dt)
 
@@ -432,6 +445,18 @@ function love.update(dt)
             end
         end
     end
+
+    -- Update overlay last (after loader, which sometimes updates the overlay)
+    Kristal.Overlay:update()
+
+    if PERFORMANCE_TEST then
+        Utils.popPerformance()
+        print("-------- PERFORMANCE --------")
+        Utils.printPerformance()
+        PERFORMANCE_TEST_STAGE = "DRAW"
+        PERFORMANCE_TEST = nil
+    end
+
 end
 
 function love.textinput(key)
@@ -490,7 +515,7 @@ function Kristal.onKeyPressed(key, is_repeat)
         end
 
         local state = Kristal.getState()
-        if state.onKeyPressed and not OVERLAY_OPEN then
+        if state and state.onKeyPressed and not OVERLAY_OPEN then
             state:onKeyPressed(key, is_repeat)
         end
     end
@@ -602,7 +627,7 @@ end
 ---@param  msg string|table     The error message.
 ---@return function|nil handler The error handler, called every frame instead of the main loop.
 function Kristal.errorHandler(msg)
-    love.graphics.setShader()
+    Draw.reset()
 
     local copy_color = { 1, 1, 1, 1 }
     local anim_index = 1
@@ -696,7 +721,7 @@ function Kristal.errorHandler(msg)
     end
     if love.audio then love.audio.stop() end
 
-    love.graphics.reset()
+    Draw.reset()
 
     Draw.setColor(1, 1, 1, 1)
 
@@ -945,18 +970,86 @@ end
 ---| "Game"    # The game state, entered when loading a mod.
 ---| "Testing" # The testing state, used in development.
 ---| "Debug"   # Unused
+---| "Empty"   # An empty state, which does nothing.
 ---@param ... any Arguments passed to the gamestate.
 function Kristal.setState(state, ...)
+    local previous = Kristal.getState()
+
+    if previous ~= nil and previous.leave then
+        previous:leave()
+    end
+
     if type(state) == "string" then
-        Gamestate.switch(Kristal.States[state], ...)
+        Kristal.CurrentState = Kristal.States[state]
     else
-        Gamestate.switch(state, ...)
+        Kristal.CurrentState = state
+    end
+
+    if not Kristal.EnteredStates[Kristal.CurrentState] and Kristal.CurrentState.init then
+        Kristal.EnteredStates[Kristal.CurrentState] = true
+        Kristal.CurrentState:init()
+    end
+
+    if Kristal.CurrentState.enter then
+        Kristal.CurrentState:enter(previous, ...)
+    end
+end
+
+--- Pushes a new Gamestate onto the stack.
+---@param state table|string The gamestate to switch to.
+---| "Loading" # The loading state, before entering the main menu.
+---| "Menu"    # The main menu state.
+---| "Game"    # The game state, entered when loading a mod.
+---| "Testing" # The testing state, used in development.
+---| "Empty"   # An empty state, which does nothing.
+---@param ... any Arguments passed to the gamestate.
+function Kristal.pushState(state, ...)
+    local previous = Kristal.getState()
+
+    if previous ~= nil and previous.pause then
+        previous:pause()
+    end
+
+    table.insert(Kristal.StateStack, previous)
+
+    if type(state) == "string" then
+        Kristal.CurrentState = Kristal.States[state]
+    else
+        Kristal.CurrentState = state
+    end
+
+    if not Kristal.EnteredStates[Kristal.CurrentState] and Kristal.CurrentState.init then
+        Kristal.EnteredStates[Kristal.CurrentState] = true
+        Kristal.CurrentState:init()
+    end
+
+    if Kristal.CurrentState.enter then
+        Kristal.CurrentState:enter(previous, ...)
+    end
+end
+
+--- Pops the current Gamestate off the stack, returning to the previous one.
+function Kristal.popState()
+    local previous = Kristal.getState()
+
+    if previous ~= nil and previous.leave then
+        previous:leave()
+    end
+
+    Kristal.CurrentState = table.remove(Kristal.StateStack, #Kristal.StateStack)
+
+    if Kristal.CurrentState == nil then
+        error("Attempt to pop state with empty stack!")
+    end
+
+    if Kristal.CurrentState.resume then
+        Kristal.CurrentState:resume()
     end
 end
 
 ---@return table state The current Gamestate.
 function Kristal.getState()
-    return Gamestate.current()
+    return Kristal.CurrentState
 end
 
 ---@return number runtime The current runtime (`RUNTIME`), affected by timescale / fast-forward.
@@ -1068,7 +1161,8 @@ end
 --- Exits the current mod and returns to the Kristal menu.
 function Kristal.returnToMenu()
     -- Go to empty state
-    Gamestate.switch({})
+    Kristal.setState("Empty")
+
     -- Clear the mod
     Kristal.clearModState()
 	
@@ -1083,7 +1177,7 @@ function Kristal.returnToMenu()
     -- Reload mods and return to memu
     Kristal.loadAssets("", "mods", "", function ()
         Kristal.setDesiredWindowTitleAndIcon()
-        Gamestate.switch(MainMenu)
+        Kristal.setState(MainMenu)
     end)
 
     Kristal.DebugSystem:refresh()
@@ -1116,7 +1210,8 @@ function Kristal.quickReload(mode)
     local mod_id = Mod.info.id
 
     -- Go to empty state
-    Gamestate.switch({})
+    Kristal.setState("Empty")
+
     -- Clear the mod
     Kristal.clearModState()
 	-- Reload plugins
@@ -1132,7 +1227,7 @@ function Kristal.quickReload(mode)
                     Kristal.setDesiredWindowTitleAndIcon()
                     if save then
                         -- Switch to Game and load the temp save
-                        Gamestate.switch(Game, save, save_id, false)
+                        Kristal.setState(Game, save, save_id, false)
                         -- If we had an encounter, restart the encounter
                         if encounter then
                             Game:encounter(encounter, false)
@@ -1143,7 +1238,7 @@ function Kristal.quickReload(mode)
                         end
                     else
                         -- Switch to Game
-                        Gamestate.switch(Game)
+                        Kristal.setState(Game)
                     end
                 end
             end)
@@ -1257,7 +1352,7 @@ function Kristal.loadMod(id, save_id, save_name, after)
     Kristal.loadModAssets(mod.id, "all", "", after or function ()
         if Kristal.preInitMod(mod.id) then
             Kristal.setDesiredWindowTitleAndIcon()
-            Gamestate.switch(Kristal.States["Game"], save_id, save_name)
+            Kristal.setState("Game", save_id, save_name)
         end
     end)
 
@@ -1361,7 +1456,7 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
         save.spawn_position = {x, y}
     end
 
-    Gamestate.switch(use_lame_fadeout and Kristal.States["LameFadeout"] or {}, use_lame_fadeout)
+    Kristal.setState(use_lame_fadeout and "LameFadeout" or {}, use_lame_fadeout)
     Kristal.clearModState()
 
     Kristal.loadAssets("", "mods", "", function()
@@ -1372,7 +1467,7 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
                 if use_lame_fadeout then
                     Kristal.States["LameFadeout"]:onLoadFinish(game_params)
                 else
-                    Gamestate.switch(Kristal.States["Game"], unpack(game_params))
+                    Kristal.setState("Game", unpack(game_params))
                 end
             end
         end)
@@ -1712,7 +1807,8 @@ function Kristal.loadConfig()
         verboseLoader = false,
         ["plugins/enabled_plugins"] = {},
         dLoad = true,
-        altAttack = false
+        altAttack = false,
+        brokenMenuBoxes = false
     }
     if love.filesystem.getInfo("settings.json") then
         Utils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
@@ -1747,7 +1843,7 @@ function Kristal.loadGame(id, fade)
         if data.mod == Mod.info.id then
             Game:load(data, id, fade)
         else
-            Gamestate.switch({})
+            Kristal.setState({})
             Kristal.clearModState()
             Kristal.loadAssets("", "mods", "", function()
                 Kristal.startGameDPR(id, data.name)

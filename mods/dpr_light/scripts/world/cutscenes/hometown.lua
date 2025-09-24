@@ -224,7 +224,7 @@ return {
         cutscene:text("* (Play it?)")
         local opinion = cutscene:choicer({"Yes", "No"})
             if opinion == 1 then
-                Assets.playSound("piano")
+                Assets.playSound("pianonoise")
                 cutscene:text("* (Plink...)")
             else
                 cutscene:text("* (Your hands linger over the keys doing nothing.)")

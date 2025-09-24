@@ -12,7 +12,7 @@ function arlee:init()
         self.background = false
 	    self.hide_world = true
     else
-        self.music = "arleesveryoriginalbattletheme"
+        self.music = "deltarune/tenna_battle"
         -- Enables the purple grid battle background
         self.background = true
     end

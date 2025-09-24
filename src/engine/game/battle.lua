@@ -420,7 +420,7 @@ function Battle:onStateChange(old,new)
         end
 
         if self.state_reason == "CANCEL" then
-            self.battle_ui.encounter_text:setText("[instant]" .. self.battle_ui.current_encounter_text)
+            self:setEncounterText(self.battle_ui.current_encounter_text, true)
         end
 
         local had_started = self.started
@@ -1094,6 +1094,20 @@ function Battle:registerXAction(party, name, description, tp)
     table.insert(self.xactions, act)
 end
 
+--- A simple redirect to the Encounter's [`getInitialEncounterText`](lua://Encounter.getInitialEncounterText). \
+--- Here for encapsulation and hooking, if you need more complex behavior.
+---@return string|string[] text # If a table, you should use [next] to advance the text
+---@return string? portrait # The portrait to show
+---@return PartyBattler|PartyMember|Actor|string? actor # The actor to use for the text settings (ex. voice, portrait settings)
+function Battle:getInitialEncounterText()
+    return self.encounter:getInitialEncounterText()
+end
+
+--- A simple redirect to the Encounter's [`getEncounterText`](lua://Encounter.getEncounterText). \
+--- Here for encapsulation and hooking, if you need more complex behavior.
+---@return string|string[] text # If a table, you should use [next] to advance the text
+---@return string? portrait # The portrait to show
+---@return PartyBattler|PartyMember|Actor|string? actor # The actor to use for the text settings (ex. voice, portrait settings)
 function Battle:getEncounterText()
     return self.encounter:getEncounterText()
 end
@@ -2190,11 +2204,12 @@ function Battle:getPartyFromTarget(target)
 end
 
 --- Hurts the `target` party member(s)
----@param amount    number
----@param exact?    boolean
----@param target?   number|"ALL"|"ANY"|PartyBattler The target battler's index, instance, or strings for specific selection logic (defaults to `"ANY"`)
+---@param amount    number # The amount of damage which should be dealt.
+---@param exact?    boolean # Whether or not the damage should be applied exactly (defaults to `false`)
+---@param target?   number|"ALL"|"ANY"|PartyBattler # The target of the attack. Can be a battler's index, a battler, "ANY" or "ALL" (defaults to `"ANY"`)
+---@param swoon?    boolean # Whether or not the damage will swoon the battler if they're downed
 ---@return table?
-function Battle:hurt(amount, exact, target)
+function Battle:hurt(amount, exact, target, swoon)
     -- If target is a numberic value, it will hurt the party battler with that index
     -- "ANY" will choose the target randomly
     -- "ALL" will hurt the entire party all at once
@@ -2253,15 +2268,15 @@ function Battle:hurt(amount, exact, target)
 
     -- Now it's time to actually damage them!
     if isClass(target) and target:includes(PartyBattler) then
-        target:hurt(amount, exact)
-        return {target}
+        target:hurt(amount, exact, nil, { swoon = self.encounter:canSwoon(target) and swoon })
+        return { target }
     end
 
     if target == "ALL" then
         Assets.playSound("hurt")
         local alive_battlers = Utils.filter(self.party, function(battler) return not battler.is_down end)
         for _,battler in ipairs(alive_battlers) do
-            battler:hurt(amount, exact, nil, {all = true})
+            battler:hurt(amount, exact, nil, { all = true, swoon = self.encounter:canSwoon(battler) and swoon })
         end
         -- Return the battlers who aren't down, aka the ones we hit.
         return alive_battlers
@@ -2410,7 +2425,7 @@ function Battle:nextParty()
     else
         if self:getState() ~= "ACTIONSELECT" then
             self:setState("ACTIONSELECT")
-            self.battle_ui.encounter_text:setText("[instant]" .. self.battle_ui.current_encounter_text)
+            self:setEncounterText(self.battle_ui.current_encounter_text, true)
         end
         local party = self.party[self.current_selecting]
         party.chara:onActionSelect(party, false)
@@ -2480,7 +2495,7 @@ function Battle:nextTurn()
 
     for _,battler in ipairs(self.party) do
         battler.hit_count = 0
-        if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() then
+        if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() and self.encounter:isAutoHealingEnabled(battler) then
             battler:heal(battler.chara:autoHealAmount(), nil, true)
         end
         battler.action = nil
@@ -2512,13 +2527,21 @@ function Battle:nextTurn()
             --box:setHeadIcon("head")
             box:resetHeadIcon()
         end
+        local text, portrait, actor = nil, nil, nil
         if self.state == "INTRO" or self.state_reason == "INTRO" or not self.seen_encounter_text then
             self.seen_encounter_text = true
-            self.battle_ui.current_encounter_text = self.encounter.text
+            text, portrait, actor = self:getInitialEncounterText()
         else
-            self.battle_ui.current_encounter_text = self:getEncounterText()
+            text, portrait, actor = self:getEncounterText()
         end
-        self.battle_ui.encounter_text:setText(self.battle_ui.current_encounter_text)
+
+        self.battle_ui.current_encounter_text = {
+            text = text,
+            portrait = portrait,
+            actor = actor
+        }
+
+        self:setEncounterText(self.battle_ui.current_encounter_text, false)
     end
 
     if self.soul then
@@ -2705,6 +2728,39 @@ end
 ---@param text? string[]    The text to set
 function Battle:infoText(text)
     self.battle_ui.encounter_text:setText(text or "")
+end
+
+---@class EncounterTextOptions
+---@field text     string|string[] # If a table, you should use [next] to advance the text
+---@field portrait string? # The portrait to show
+---@field actor    PartyBattler|PartyMember|Actor|string? # The actor to use for the text settings (ex. voice, portrait settings)
+
+---@param options EncounterTextOptions
+function Battle:setEncounterText(options, instant)
+    self.battle_ui:clearEncounterText()
+
+    actor = options.actor
+    if isClass(actor) and actor:includes(PartyBattler) then
+        actor = actor.chara.actor
+    end
+
+    if isClass(actor) and actor:includes(PartyMember) then
+        actor = actor.actor
+    end
+
+    self.battle_ui.encounter_text:setActor(actor)
+    self.battle_ui.encounter_text:setFace(options.portrait)
+
+    local text = options.text or ""
+    if instant then
+        if type(text) == "table" then
+            text = "[instant]" .. text[#text]
+        else
+            text = "[instant]" .. text
+        end
+    end
+
+    self.battle_ui.encounter_text:setText(text)
 end
 
 ---@return boolean?
@@ -3563,13 +3619,7 @@ function Battle:onKeyPressed(key)
                     end
                     if v.party and (#v.party > 0) then
                         for _,party_id in ipairs(v.party) do
-                            local extra = (self.back_slot and self.back_slot.id == party_id)
-                            if v.all == true then
-                                v.party = {}
-                                for i = 1, 3 do
-                                    v.party[i] = Game.battle.party[i].chara.id
-                                end
-                            elseif not self:getPartyIndex(party_id) then
+                            if not self:getPartyIndex(party_id) then
                                 insert = false
                                 break
                             end

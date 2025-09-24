@@ -166,7 +166,7 @@ function EnemyBattler:setTired(bool)
             if self.parent then
                 self:statusMessage("msg", "tired")
                 Assets.playSound("spellcast", 0.5, 0.9)
-            end 
+            end
         end
     else
         self.comment = ""
@@ -186,10 +186,8 @@ end
 ---@param icons?        string[]        A list of texture paths to icons that will display next to the name of this act (party member heads are drawn automatically as required)
 ---@return table act    The data of the act, also added to the `acts` table
 function EnemyBattler:registerAct(name, description, party, tp, highlight, icons)
-    local all
     if type(party) == "string" then
         if party == "all" then
-            all = true
             party = {}
             for _,chara in ipairs(Game.party) do
                 table.insert(party, chara.id)
@@ -206,9 +204,8 @@ function EnemyBattler:registerAct(name, description, party, tp, highlight, icons
         ["tp"] = tp or 0,
         ["highlight"] = highlight,
         ["short"] = false,
-        ["icons"] = icons,
+        ["icons"] = icons
     }
-    if all then act.all = true end -- in case a party member switches mid battle somehow
     table.insert(self.acts, act)
     return act
 end
@@ -570,7 +567,9 @@ function EnemyBattler:getNameColors()
 end
 
 --- Gets the encounter text that should be shown in the battle box if this enemy is chosen for encounter text. Called at the start of each turn.
----@return string? text
+---@return string|string[] text # If a table, you should use [next] to advance the text
+---@return string? portrait # The portrait to show
+---@return PartyBattler|PartyMember|Actor|string? actor # The actor to use for the text settings (ex. voice, portrait settings)
 function EnemyBattler:getEncounterText()
     local has_spareable_text = self.spareable_text and self:canSpare()
 
@@ -895,21 +894,20 @@ function EnemyBattler:onDefeatFatal(damage, battler)
 end
 
 --- Heals the enemy by `amount` health
----@param amount number
-function EnemyBattler:heal(amount)
+---@param amount            number  The amount of health to restore
+---@param sparkle_color?    table   The color of the heal sparkles (defaults to the standard green) or false to not show sparkles
+function EnemyBattler:heal(amount, sparkle_color)
     Assets.stopAndPlaySound("power")
     self.health = self.health + amount
 
-    self:flash()
-
     if self.health >= self.max_health then
         self.health = self.max_health
-        self:statusMessage("msg", "max")
+        self:statusMessage("msg", "max", nil, nil, 8)
     else
-        self:statusMessage("heal", amount, {0, 1, 0})
+        self:statusMessage("heal", amount, {0, 1, 0}, nil, 8)
     end
 
-    self:sparkle()
+    self:healEffect(unpack(sparkle_color or {}))
 end
 
 --- Freezes this enemy and defeats them with the reason `"FROZEN"` \

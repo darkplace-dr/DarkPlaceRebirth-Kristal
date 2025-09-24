@@ -121,6 +121,8 @@ function DogCheck:start()
 
         if song_here == song_path.."dogcheck" then
             playSong(song_here, (0.9 + Utils.random(0.1)))
+        elseif song_here == "deltarune/tv_results_screen" then
+            playSong(song_here, 2.5)
 		else
             playSong(song_here, song_is_sog and 0.8 or 1, 1)
         end

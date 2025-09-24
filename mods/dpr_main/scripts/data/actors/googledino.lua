@@ -14,7 +14,7 @@ function actor:init()
 
     self.flip = "right"
 
-    self.path = "world/npcs/googledino"
+    self.path = "battle/enemies/googledino"
     self.default = "idle"
 
     self.voice = nil

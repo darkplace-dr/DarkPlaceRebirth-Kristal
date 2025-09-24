@@ -22,7 +22,7 @@ end
 
 function character:lightLVStats()
     return {
-        health = self:getLightLV() <= 20 and math.min(25 + self:getLightLV() * 5,99) or 25 + self:getLightLV() * 5,
+        health = self:getLightLV() <= 20 and math.min(25 + self:getLightLV() * 5, 99) or 25 + self:getLightLV() * 5,
         attack = 10 + self:getLightLV() * 2 + math.floor(self:getLightLV() / 4),
         defense = 9 + math.ceil(self:getLightLV() / 4),
         magic = math.ceil(self:getLightLV() / 4)

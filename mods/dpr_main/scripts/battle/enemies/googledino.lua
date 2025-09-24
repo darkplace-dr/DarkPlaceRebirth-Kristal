@@ -3,51 +3,48 @@ local GoogleDino, super = Class(EnemyBattler)
 function GoogleDino:init()
     super.init(self)
 
-    -- Enemy name
     self.name = "Google Dino"
-    -- Sets the actor, which handles the enemy's sprites (see scripts/data/actors/dummy.lua)
     self:setActor("googledino")
 
-    -- Enemy health
-    self.max_health = 980
     self.health = 980
-    -- Enemy attack (determines bullet damage)
     self.attack = 5
-    -- Enemy defense (usually 0)
     self.defense = 2
-    -- Enemy reward
+    self.max_health = 980
     self.money = 98
     self.experience = 5
+
+    self.spare_points = 10	
+    self.tired_percentage = 0.25
 	self.service_mercy = 5
     self.milestone = true
-	
 	self.boss = true
-	
-    self.difficulty = 1
 
-    -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
-    self.spare_points = 10
 
-    -- List of possible wave ids, randomly picked each turn
     self.waves = {
         "googledino/runner"
     }
 
-    -- Check text (automatically has "ENEMY NAME - " at the start)
     self.check = "AT 5 DF 2\nA dinosaur on a journey.\nIt seems you are in its way."
 
-    -- Text randomly displayed at the bottom of the screen each turn
     self.text = {
         "* (Your internet has been disconnected.)",
-        "* The Dino stares at you with a blank expression on its face.",
-        "* Smells like network diagnostics.",
-        "* You don't think you'll complete the game.",
+        "* The dino stares ahead with \na blank expression on \nits face.",
+        "* You thought you saw a \npterodactyl flying over \nhead.",
+        "* You don't think you'll complete \nthe game.",
     }
-    -- Text displayed at the bottom of the screen when the enemy has low health
     self.low_health_text = "* The servers are crashing."
+    self.tired_text = "* The dino seems to be going into sleep mode."
+    self.spareable_text = "* Seems like the Wi-Fi's \nback online."
 
     self:registerAct("Reboot", "10% Mercy\nAttacks\nget harder")
     self:registerAct("X-Reboot", "20% Mercy\nAttacks\nget harder", "all")
+
+    self.difficulty = 1
+    self.hp_ratio = 0
+end
+
+function GoogleDino:isXActionShort(battler)
+    return true
 end
 
 function GoogleDino:onShortAct(battler, name)
@@ -90,10 +87,9 @@ function GoogleDino:onAct(battler, name)
             "dialup_5",
         })
         self:addMercy(10)
-        self.difficulty = self.difficulty + 1
-        return {
-            "* You attempted to reboot the internet...\n[wait:5]* Difficulty increased!",
-        }
+        self.difficulty = self.difficulty + 0.5
+
+        return "* You attempted to reboot the internet...\n[wait:5]* Difficulty increased!"
     elseif name == "X-Reboot" then
         Assets.playSound(Utils.pick{
             "dialup_0",
@@ -105,8 +101,8 @@ function GoogleDino:onAct(battler, name)
         })
         self:addMercy(20)
         self.difficulty = self.difficulty + 1
+        
         return "* Everyone attempted to reboot the internet...\n[wait:5]* Difficulty increased!"
-
     elseif name == "Standard" then --X-Action
         -- Give the enemy 5% mercy
         if battler.chara.id == "ralsei" then
@@ -119,6 +115,7 @@ function GoogleDino:onAct(battler, name)
             return "* Susie roared at the Dino.\n* It roared back. What an interesting conversation!"
 		elseif battler.chara.id == "dess" then
             -- D-Action text
+            self:setTired(true)
             return "* Dess did absolutely nothing. The Dino got bored and started feeling [color:blue]TIRED[color:reset]."
 		elseif battler.chara.id == "brenda" then
             -- B-Action text
@@ -148,6 +145,53 @@ function GoogleDino:onAct(battler, name)
     -- If the act is none of the above, run the base onAct function
     -- (this handles the Check act)
     return super.onAct(self, battler, name)
+end
+
+function GoogleDino:onHurt()
+    self.hp_ratio = (self.health / self.max_health)
+    
+    if self.hp_ratio <= 0.8 and self.difficulty < 2 then
+        self.difficulty = 2
+    end
+    if self.hp_ratio <= 0.6 and self.difficulty < 3 then
+        self.difficulty = 3
+    end
+    if self.hp_ratio <= 0.4 and self.difficulty < 4 then
+        self.difficulty = 4
+    end
+    if self.hp_ratio <= 0.2 and self.difficulty < 5 then
+        self.difficulty = 5
+    end
+
+    Game.battle.timer:after(5/30, function()
+        Assets.playSound("dino_die", 4)
+    end)
+
+    return super.onHurt(self)
+end
+
+function GoogleDino:getEncounterText()
+    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
+        return self.low_health_text
+
+    elseif self.tired_text and self.tired then
+        return self.tired_text
+
+    elseif self.spareable_text and self:canSpare() then
+        return self.spareable_text
+    end
+
+	if love.math.random(0, 100) < 3 then
+		return "* Smells like network diagnostics."
+	else
+		if love.math.random(0, 4) == 4 then
+			return self.last_text
+		else
+			local text = super.getEncounterText(self)
+			self.last_text = text
+			return text
+		end
+	end
 end
 
 return GoogleDino

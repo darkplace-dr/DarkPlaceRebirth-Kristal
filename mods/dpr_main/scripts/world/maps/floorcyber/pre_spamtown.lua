@@ -1,0 +1,310 @@
+return {
+  version = "1.9",
+  luaversion = "5.1",
+  tiledversion = "1.9.0",
+  class = "",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 32,
+  height = 12,
+  tilewidth = 40,
+  tileheight = 40,
+  nextlayerid = 6,
+  nextobjectid = 18,
+  properties = {
+    ["border"] = "cyber",
+    ["music"] = "deltarune/alley_ambience",
+    ["name"] = "Cyber Floor - ???"
+  },
+  tilesets = {
+    {
+      name = "dw_city_alley",
+      firstgid = 1,
+      filename = "../../tilesets/dw_city_alley.tsx",
+      exportfilename = "../../tilesets/dw_city_alley.lua"
+    },
+    {
+      name = "city_alleyway",
+      firstgid = 111,
+      filename = "../../tilesets/city_alleyway.tsx",
+      exportfilename = "../../tilesets/city_alleyway.lua"
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 32,
+      height = 12,
+      id = 1,
+      name = "Tile Layer 1",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        354, 358, 359, 356, 354, 355, 358, 355, 360, 359, 355, 355, 355, 359, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 356, 354, 355, 355,
+        369, 370, 370, 371, 372, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 371, 369, 370, 370,
+        369, 370, 370, 371, 387, 385, 390, 385, 385, 385, 385, 385, 403, 385, 385, 385, 385, 385, 385, 385, 385, 385, 388, 385, 385, 385, 385, 385, 386, 369, 370, 370,
+        387, 400, 390, 401, 399, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 389, 400, 400, 400, 400, 400, 400, 400, 400, 400, 389, 401, 399, 400, 400,
+        399, 403, 400, 401, 402, 400, 400, 400, 400, 405, 400, 400, 400, 400, 388, 400, 400, 400, 400, 404, 400, 400, 400, 400, 403, 400, 400, 400, 401, 399, 400, 400,
+        399, 400, 400, 401, 414, 419, 415, 415, 415, 415, 420, 418, 415, 415, 415, 415, 419, 415, 415, 415, 415, 415, 415, 415, 415, 415, 415, 415, 416, 399, 400, 400,
+        399, 400, 400, 401, 54, 46, 104, 46, 49, 46, 105, 46, 49, 46, 103, 46, 49, 46, 49, 46, 49, 46, 49, 46, 49, 46, 104, 46, 52, 399, 400, 400,
+        399, 400, 389, 401, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 63, 399, 400, 400,
+        399, 400, 388, 401, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 399, 400, 400,
+        399, 404, 400, 401, 354, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 356, 75, 75, 399, 400, 400,
+        399, 400, 400, 401, 369, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 371, 75, 75, 399, 400, 400,
+        399, 400, 400, 401, 384, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 385, 386, 75, 75, 399, 400, 400
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 32,
+      height = 12,
+      id = 2,
+      name = "Tile Layer 2",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 320, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 128, 129, 141, 335, 0, 0, 0, 0, 0, 157, 158, 159, 0, 157, 158, 159, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 142, 143, 144, 156, 350, 0, 0, 0, 0, 0, 172, 173, 174, 0, 172, 173, 174, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 339, 0, 339, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 291, 292, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 306, 307, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 3,
+      name = "collision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 160,
+          y = 360,
+          width = 920,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 2,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 1160,
+          y = 240,
+          width = 40,
+          height = 240,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 160,
+          y = 200,
+          width = 1000,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 4,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 120,
+          y = 240,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 760,
+          y = 240,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          class = "",
+          shape = "rectangle",
+          x = 840,
+          y = 240,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 4,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 9,
+          name = "transition",
+          class = "",
+          shape = "rectangle",
+          x = 1080,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/electrodasher_encounter",
+            ["marker"] = "entry_prespamtown"
+          }
+        },
+        {
+          id = 13,
+          name = "savepoint",
+          class = "",
+          shape = "rectangle",
+          x = 200,
+          y = 240,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 14,
+          name = "interactable",
+          class = "",
+          shape = "rectangle",
+          x = 440,
+          y = 120,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (The poster is torn, revealing a faded one underneath.)",
+            ["text2"] = "* BIG SHOT AUTOS! TAKE A RIDE AROUND TOWN IN OUR SPECIAL",
+            ["text3"] = "* (The rest is cut off.)"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 5,
+      name = "markers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 7,
+          name = "entry",
+          class = "",
+          shape = "point",
+          x = 1120,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "entry_elevator",
+          class = "",
+          shape = "point",
+          x = 320,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 11,
+          name = "spawn",
+          class = "",
+          shape = "point",
+          x = 1040,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
+}

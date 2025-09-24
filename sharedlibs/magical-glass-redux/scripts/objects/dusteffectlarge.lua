@@ -12,12 +12,15 @@ function DustEffectLarge:init(texture, x, y, allow_black_pixels, after)
     
     self.width, self.height = texture:getWidth(), texture:getHeight()
     
+    -- New canvas
     self.canvas = love.graphics.newCanvas(self.width, self.height)
     self.canvas:setFilter("nearest", "nearest")
-    
+
     love.graphics.setCanvas(self.canvas)
-    love.graphics.reset()
-    love.graphics.draw(self.texture)
+        love.graphics.clear(0, 0, 0, 0)
+        love.graphics.setBlendMode("alpha")
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.draw(self.texture)
     love.graphics.setCanvas()
     
     local data = self.canvas:newImageData()

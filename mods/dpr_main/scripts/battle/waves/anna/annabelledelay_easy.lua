@@ -6,15 +6,15 @@ function Basic:init()
 end
 
 function Basic:onStart()
-    self:spawnBullet("soulmarker", 320, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 220, math.rad(180), 0)
     -- Get all enemies that selected this wave as their attack
         local attackers = self:getAttackers()
 
@@ -32,34 +32,34 @@ function Basic:onStart()
             Assets.playSound("wing")
             local random = love.math.random(1, 6)
             if random == 1 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,2)
             end
             if random == 2 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,1)
             end
             if random == 3 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,2)
             end
             if random == 4 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,1)
             end
             if random == 5 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,0)
             end
             if random == 6 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,0)
             end
         end
     self.timer:every(1, function()
@@ -80,34 +80,34 @@ function Basic:onStart()
             Assets.playSound("wing")
             local random = love.math.random(1, 6)
             if random == 1 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,2)
             end
             if random == 2 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,1)
             end
             if random == 3 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,2)
             end
             if random == 4 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,0)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,1)
             end
             if random == 5 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,0)
             end
             if random == 6 then
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 170,1)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 120,2)
-                self:spawnBullet("arrow_delay", x, y, math.rad(180), -4, 220,0)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 170,1)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 120,2)
+                self:spawnBullet("annabelle/arrow_delay", x, y, math.rad(180), -4, 220,0)
             end
         end
     end)

@@ -7,7 +7,9 @@ function BattleUI:init()
 
     self.layer = BATTLE_LAYERS["ui"]
 
-    self.current_encounter_text = Game.battle.encounter.text
+    self.current_encounter_text = {
+        text = Game.battle.encounter.text
+    }
 
     self.encounter_text = Textbox(30, 53, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 53, "main_mono", nil, true)
     self.encounter_text.text.line_offset = 0
@@ -74,7 +76,7 @@ function BattleUI:init()
 
     self.sparestar = Assets.getTexture("ui/battle/sparestar")
     self.tiredmark = Assets.getTexture("ui/battle/tiredmark")
-    
+
     self:resetXACTPosition()
 end
 
@@ -88,7 +90,7 @@ function BattleUI:clearEncounterText()
     self.encounter_text:setFont()
     self.encounter_text:setAlign("left")
     self.encounter_text:setSkippable(true)
-    self.encounter_text:setAdvance(true)
+    self.encounter_text:setAdvance(false)
     self.encounter_text:setAuto(false)
     self.encounter_text:setText("")
 end
@@ -410,8 +412,8 @@ function BattleUI:drawState()
             end
             love.graphics.print("MERCY", 524, 39, 0, 1, 0.5)
         end
-        
-        for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             if self.xact_x_pos < font:getWidth(enemy.name) + 142 then
                 self.xact_x_pos = font:getWidth(enemy.name) + 142
             end
@@ -621,6 +623,9 @@ function BattleUI:drawState()
                 love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(mhp_perc * 101), 16)
 
                 local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
+                -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
+                -- Swooning is the only time you can ever see it this low
+                percentage = math.max(-1, percentage)
                 Draw.setColor(PALETTE["action_health"])
                 love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * (math.ceil(mhp_perc * 101))), 16)
             end
