@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="26" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="55">
+ <editorsettings>
+  <export target="cave.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="name" value="Test Map - Room 1"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/minekraft_overworld.tsx"/>
+ <tileset firstgid="10" source="../../tilesets/cliffs_objs.tsx"/>
+ <layer id="2" name="bg" width="26" height="12" opacity="0.36">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,
+5,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,5,0,0,0,5,5,5,5,
+5,5,5,5,5,5,5,5,0,5,5,5,5,5,6,5,5,0,0,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,0,5,5,5,5,5,5,5,5,0,5,5,5,5,5,5,5,5,
+0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,5,5,5,5,5,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="tiles" width="26" height="12">
+  <data encoding="csv">
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,0,0,0,0,5,5,5,0,0,0,0,0,0,5,5,5,5,5,5,
+0,5,5,5,5,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5,5,5,5,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,5,5,5,0,0,0,0,
+0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,
+5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
+  <object id="37" x="359.667" y="362.667" width="320" height="40"/>
+  <object id="39" x="681.333" y="322.667" width="40" height="40"/>
+  <object id="40" x="319.667" y="322.667" width="40" height="40"/>
+  <object id="42" x="359.667" y="282.667" width="320" height="48.1164"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="48" name="interactable" x="160" y="337.75" width="76" height="25.3333">
+   <properties>
+    <property name="cutscene" value="cliffside.warp_bin"/>
+   </properties>
+  </object>
+  <object id="52" gid="7" x="168.091" y="360.295" width="32" height="32"/>
+  <object id="53" gid="8" x="200.091" y="360.295" width="32" height="32"/>
+  <object id="54" name="warpbin" x="560" y="320" width="120" height="40">
+   <properties>
+    <property name="skin" value="main_hub"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="44" name="spawn" x="519.667" y="355.667">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
