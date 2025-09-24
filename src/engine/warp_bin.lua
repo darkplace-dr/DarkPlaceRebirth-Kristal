@@ -51,6 +51,16 @@ Kristal.warp_bin_codes = {
         end,
     },
 }
+-- i refuse to lower my softcoding standarts
+package.loaded["src/engine/warps"] = nil
+local warps = require("src/engine/warps")
+if warps then
+    local loadedWarps = warps:loadWarps()
+    for warpName,warpValue in pairs(loadedWarps) do
+        Kristal.warp_bin_codes[warpName] = warpValue
+        -- a b c d
+    end
+end
 local gray_area_info = {
     result = function(cutscene)
         Game:setFlag("greyarea_exit_to", {Game.world.map.id, Game.world.player.x, Game.world.player.y})
