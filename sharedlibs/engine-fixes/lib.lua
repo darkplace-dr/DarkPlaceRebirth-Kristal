@@ -1,5 +1,16 @@
 local lib = {}
 
+function lib:save(data)
+    data.calls = Game.world.calls
+end
+
+function lib:load(data, new_file)
+    Game.world.calls = {}
+    if data.calls then
+        Game.world.calls = data.calls
+    end
+end
+
 function lib:init()
     Utils.hook(EnemyBattler, "init", function(orig, self, actor, use_overlay)
         orig(self, actor, use_overlay)
@@ -28,6 +39,14 @@ function lib:init()
     end)
     
     Utils.hook(EnemyBattler, "getHPVisibility", function(orig, self) return self.show_hp end)
+    
+    Utils.hook(EnemyBattler, "defeat", function(orig, self, reason, violent)
+        orig(self, reason, violent)
+        
+        if not violent then
+            Game.battle.xp = Game.battle.xp - self.experience
+        end
+    end)
     
     Utils.hook(PartyBattler, "hurt", function(orig, self, amount, exact, color, options)
         options = options or {}
@@ -150,6 +169,31 @@ function lib:init()
         return false
     end)
     
+    -- Replaces a phone call in the Light World CELL menu with another
+    Utils.hook(World, "replaceCall", function(orig, self, replace_name, name, scene)
+        for i,call in ipairs(self.calls) do
+            if call[1] == replace_name then
+                self.calls[i] = {name, scene}
+                break
+            end
+        end
+    end)
+    
+    -- Removes a phone call in the Light World CELL menu
+    Utils.hook(World, "removeCall", function(orig, self, name)
+        for i,call in ipairs(self.calls) do
+            if call[1] == name then
+                table.remove(self.calls, i)
+                break
+            end
+        end
+    end)
+    
+    -- Removes all the phone calls in the Light World CELL menu
+    Utils.hook(World, "clearCalls", function(orig, self)
+        self.calls = {}
+    end)
+    
     Utils.hook(Game, "gameOver", function(orig, self, x, y, redraw)
         if redraw or (redraw == nil and Game:isLight()) then
             love.draw() -- Redraw the frame so the screenshot will use an updated draw data
@@ -190,10 +234,6 @@ function lib:init()
             end
         end
         return -9, -9
-    end)
-    
-    Utils.hook(PartyMember, "autoHealAmount", function(orig, self)
-        return math.ceil(self:getStat("health") / 8)
     end)
     
     Utils.hook(PartyMember, "onSave", function(orig, self, data)
@@ -251,7 +291,7 @@ function lib:init()
         end
     end)
     
-    Utils.hook(ActionBoxDisplay, "draw", function(orig, self) -- Fixes an issue with HP higher than normal
+    Utils.hook(ActionBoxDisplay, "draw", function(orig, self) -- Fixes an issue with HP higher than normal + MGR Karma
         if #Game.battle.party <= 3 then
             if Game.battle.current_selecting == self.actbox.index then
                 Draw.setColor(self.actbox.battler.chara:getColor())
@@ -271,24 +311,38 @@ function lib:init()
             Draw.setColor(PALETTE["action_fill"])
             love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
 
-            Draw.setColor(MagicalGlassLib and Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") and Game:isLight() and MG_PALETTE["player_health_bg"] or PALETTE["action_health_bg"])
+            Draw.setColor(MagicalGlassLib and Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") and Game:isLight() and (Game.battle.encounter.karma_mode and MG_PALETTE["player_karma_health_bg"] or MG_PALETTE["player_health_bg"]) or PALETTE["action_health_bg"])
             love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
 
             local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
+            local karma_health
+            if MagicalGlassLib then
+                karma_health = ((self.actbox.battler.chara:getHealth() - self.actbox.battler.karma) / self.actbox.battler.chara:getStat("health")) * 76
+            end
 
             if health > 0 then
+                if MagicalGlassLib then
+                    if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") and Game:isLight() then
+                        Draw.setColor(MG_PALETTE["player_karma_health"])
+                    else
+                        Draw.setColor(MG_PALETTE["player_karma_health_dark"])
+                    end
+                    love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.min(math.ceil(health), 76), 9)
+                end
                 if MagicalGlassLib and Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") and Game:isLight() then
                     Draw.setColor(MG_PALETTE["player_health"])
                 else
                     Draw.setColor(self.actbox.battler.chara:getColor())
                 end
-                love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.min(math.ceil(health), 76), 9) -- here
+                love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.min(math.ceil(MagicalGlassLib and (Game.battle.encounter.karma_mode and karma_health > 1 and (karma_health - 1) or karma_health) or health), 76), 9)
             end
 
 
             local color = PALETTE["action_health_text"]
             if health <= 0 then
                 color = PALETTE["action_health_text_down"]
+            elseif MagicalGlassLib and self.actbox.battler.karma > 0 then
+                color = MG_PALETTE["player_karma_text"]
             elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
                 color = PALETTE["action_health_text_low"]
             else
@@ -392,6 +446,13 @@ function lib:init()
         love.graphics.print(self.reaction_text, reaction_x, 43, 0, 0.5, 0.5)
 
         Object.draw(self)
+    end)
+    
+    Utils.hook(Recruit, "load", function(orig, self, data)
+        self.recruited = data.recruited
+        self.hidden = data.hidden
+        
+        self:onLoad(data)
     end)
 end
 

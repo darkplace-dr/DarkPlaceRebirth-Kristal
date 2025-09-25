@@ -519,11 +519,7 @@ function BattleUI:drawState()
                             else
                                 Draw.setColor(PALETTE["action_health_text"])
                             end
-                            if enemy:getHPVisibility() then
-                                love.graphics.print(math.ceil(hp_percent * 100) .. "%", hp_x + 4, 55 + y_off, 0, 1, 0.5)
-                            else
-                                love.graphics.print("???", hp_x + 4, 55 + y_off, 0, 1, 0.5)
-                            end
+                            love.graphics.print(enemy:getHealthDisplay(), hp_x + 4, 55 + y_off, 0, 1, 0.5)
                         end
                     end
                 end

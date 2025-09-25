@@ -189,7 +189,7 @@ function LightBattle:postInit(state, encounter)
     end
     
     if check_encounter:includes(Encounter) then
-        error("Attempted to use Encounter in a LightBattle. Convert the encounter file to a LightEncounter")
+        error("Attempted to use Encounter in a LightBattle. Convert the encounter \"" .. check_encounter.id .. "\" file to a LightEncounter")
     end
     
     self.state = state
@@ -1218,7 +1218,11 @@ function LightBattle:onStateChange(old,new)
                     party:onLevelUp(Game.level_up_count)
                 end
 
-                win_text = no_skip.."* YOU WON!\n* You earned " .. self.money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                if self.xp == 0 then
+                    win_text = no_skip.."* YOU WON!\n* You earned " .. self.money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                else
+                    win_text = no_skip.."* YOU WON!\n* You earned " .. self.xp .. " EXP and " .. self.money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                end
 
                 Assets.playSound("dtrans_lw", 0.7, 2)
                 --scr_levelup()
@@ -1639,6 +1643,33 @@ end
 
 function LightBattle:infoText(text)
     self.battle_ui.encounter_text:setText("[shake:"..MagicalGlassLib.light_battle_shake_text.."]" .. text or "")
+end
+
+function LightBattle:setEncounterText(options, instant)
+    self.battle_ui:clearEncounterText()
+
+    actor = options.actor
+    if isClass(actor) and actor:includes(PartyBattler) then
+        actor = actor.chara.actor
+    end
+
+    if isClass(actor) and actor:includes(PartyMember) then
+        actor = actor.actor
+    end
+
+    self.battle_ui.encounter_text:setActor(actor)
+    self.battle_ui.encounter_text:setFace(options.portrait)
+
+    local text = options.text or ""
+    if instant then
+        if type(text) == "table" then
+            text = "[instant]" .. text[#text]
+        else
+            text = "[instant]" .. text
+        end
+    end
+
+    self.battle_ui.encounter_text:setText("[shake:"..MagicalGlassLib.light_battle_shake_text.."]"..text)
 end
 
 function LightBattle:hasCutscene()
@@ -2601,7 +2632,7 @@ function LightBattle:setWaves(waves)
             wave = MagicalGlassLib:getLightWave(wave)
         end
         if not wave:includes(LightWave) then
-            error("Attempted to use Wave in a LightBattle. Convert '"..waves[i].."' to a LightWave")
+            error("Attempted to use Wave in a LightBattle. Convert \""..waves[i].."\" to a LightWave")
         end
     end
     for i,wave in ipairs(waves) do
@@ -2631,7 +2662,7 @@ function LightBattle:setMenuWaves(waves)
             wave = MagicalGlassLib:getLightWave(wave)
         end
         if not wave:includes(LightWave) then
-            error("Attempted to use Wave in a LightBattle. Convert '"..waves[i].."' to a LightWave")
+            error("Attempted to use Wave in a LightBattle. Convert \""..waves[i].."\" to a LightWave")
         end
     end
     for i,wave in ipairs(waves) do

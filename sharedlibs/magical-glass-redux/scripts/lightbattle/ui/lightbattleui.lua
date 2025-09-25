@@ -582,7 +582,7 @@ function LightBattleUI:drawState()
                     end
                     local hp_x = 190 + (name_length * 16)
                     if Game.battle.state_reason ~= "ACT" and Game.battle.state_reason ~= "SPARE" and Game.battle.state_reason ~= "XACT" then
-                        if enemy:getHPVisibility() and enemy.selectable then
+                        if enemy.show_hp_bar and enemy.selectable then
                             if Game:isLight() then
                                 Draw.setColor(MG_PALETTE["action_health_bg"])
                             else
@@ -601,19 +601,19 @@ function LightBattleUI:drawState()
                                 local shadow_offset = 1
 
                                 Draw.setColor(COLORS.black)
-                                love.graphics.printf(math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%", (hp_x + 19) + shadow_offset, (9 + y_offset) + shadow_offset, 64, "center")
-
+                                Draw.printAlign(enemy:getHealthDisplay(), (hp_x + 51) + shadow_offset, (9 + y_offset) + shadow_offset, "center")
+                                
                                 if Game:isLight() then
                                     Draw.setColor(MG_PALETTE["action_health_text"])
                                 else
                                     Draw.setColor(PALETTE["action_health_text"])
                                 end
-                                love.graphics.printf(math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%", hp_x + 19, 9 + y_offset, 64, "center")
+                                Draw.printAlign(enemy:getHealthDisplay(), hp_x + 51, 9 + y_offset, "center")
                             end
                         end
                     else
                         local mercy_x = Game.battle.state_reason == "XACT" and 480 or hp_x
-                        if self.draw_mercy then
+                        if self.show_mercy_bar and self.draw_mercy then
                             if enemy.selectable then
                                 if Game:isLight() then
                                     Draw.setColor(MG_PALETTE["battle_mercy_bg"])
@@ -643,14 +643,14 @@ function LightBattleUI:drawState()
                                     local shadow_offset = 1
 
                                     Draw.setColor(COLORS.black)
-                                    love.graphics.printf(math.floor(enemy.mercy) .. "%", (mercy_x + 19) + shadow_offset, (9 + y_offset) + shadow_offset, 64, "center")
+                                    Draw.printAlign(math.floor(enemy.mercy) .. "%", (hp_x + 51) + shadow_offset, (9 + y_offset) + shadow_offset, "center")
 
                                     if Game:isLight() then
                                         Draw.setColor(MG_PALETTE["battle_mercy_text"])
                                     else
                                         Draw.setColor(PALETTE["battle_mercy_text"])
                                     end
-                                    love.graphics.printf(math.floor(enemy.mercy) .. "%", mercy_x + 19, 9 + y_offset, 64, "center")
+                                    Draw.printAlign(math.floor(enemy.mercy) .. "%", hp_x + 51, 9 + y_offset, "center")
                                 end
                             end
                         end
@@ -678,11 +678,7 @@ function LightBattleUI:drawState()
                             else
                                 Draw.setColor(PALETTE["action_health_text"])
                             end
-                            if enemy:getHPVisibility() then
-                                love.graphics.print(math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%", hp_x + 4, 10 + y_offset, 0, 1, 0.5)
-                            else
-                                love.graphics.print("???", hp_x + 4, 10 + y_offset, 0, 1, 0.5)
-                            end
+                            love.graphics.print(enemy:getHealthDisplay(), hp_x + 4, 10 + y_offset, 0, 1, 0.5)
                         end
                     end
                     
@@ -744,22 +740,14 @@ function LightBattleUI:drawState()
                             local shadow_offset = 1
 
                             Draw.setColor(COLORS.black)
-                            if enemy:getHPVisibility() then
-                                love.graphics.printf(math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%", (hp_x + 20) + shadow_offset, (10 + y_offset) + shadow_offset, 64, "center")
-                            else
-                                love.graphics.print("???", (hp_x + 36) + shadow_offset, (10 + y_offset) + shadow_offset)
-                            end
+                            Draw.printAlign(enemy:getHealthDisplay(), (hp_x + 52) + shadow_offset, (10 + y_offset) + shadow_offset, "center")
 
                             if Game:isLight() then
                                 Draw.setColor(MG_PALETTE["action_health_text"])
                             else
                                 Draw.setColor(PALETTE["action_health_text"])
                             end
-                            if enemy:getHPVisibility() then
-                                love.graphics.printf(math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%", hp_x + 20, 10 + y_offset, 64, "center")
-                            else
-                                love.graphics.print("???", hp_x + 36, 10 + y_offset)
-                            end
+                            Draw.printAlign(enemy:getHealthDisplay(), hp_x + 52, 10 + y_offset, "center")
                         end
                     end
 
@@ -794,14 +782,14 @@ function LightBattleUI:drawState()
         
                             if self.draw_percents and enemy.selectable then
                                 Draw.setColor(COLORS.black)
-                                love.graphics.printf(math.floor(enemy.mercy) .. "%", 509 + shadow_offset, (10 + y_offset) + shadow_offset, 64, "center")
+                                Draw.printAlign(math.floor(enemy.mercy) .. "%", 541 + shadow_offset, (10 + y_offset) + shadow_offset, "center")
 
                                 if Game:isLight() then
                                     Draw.setColor(MG_PALETTE["battle_mercy_text"])
                                 else
                                     Draw.setColor(PALETTE["battle_mercy_text"])
                                 end
-                                love.graphics.printf(math.floor(enemy.mercy) .. "%", 509, 10 + y_offset, 64, "center")
+                                Draw.printAlign(math.floor(enemy.mercy) .. "%", 541, 10 + y_offset, "center")
                             end
                         end
                     end

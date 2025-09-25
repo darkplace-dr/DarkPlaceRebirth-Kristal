@@ -233,12 +233,17 @@ function LightPartyBattler:addKarma(amount)
 end
 
 function LightPartyBattler:toggleSaveButton(value)
-    self.has_save = value and true or false
+    if value == nil then
+        self.has_save = not self.has_save
+        value = self.has_save
+    else
+        self.has_save = value
+    end
     for _,action_box in ipairs(Game.battle.battle_ui.action_boxes) do
         if action_box.battler == self then
             for _,button in ipairs(action_box.buttons or {}) do
                 if button.type == "act" then
-                    button.rainbow = value and true or false
+                    button.rainbow = value
                     if value then
                         button.tex = Assets.getTexture("ui/lightbattle/btn/save")
                         button.hover_tex = Assets.getTexture("ui/lightbattle/btn/save_h")

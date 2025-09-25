@@ -41,8 +41,8 @@ function LightEnemyBattler:init(actor, use_overlay)
 
     -- Whether this enemy can be frozen or die, and whether it's the Undertale death or Deltarune death
     self.can_freeze = true
-    self.can_die = true
-    self.ut_death = true
+    self.can_die = Game:isLight() and true or false
+    self.ut_death = Game:isLight() and true or false
 
     -- Whether this enemy should use bigger dust particles upon death when ut_death is enabled.
     self.large_dust = false
@@ -92,9 +92,9 @@ function LightEnemyBattler:init(actor, use_overlay)
     self.tired_text = nil
     self.spareable_text = nil
 
-    self.tired_percentage = 0
-    self.spare_percentage = 0.25
-    self.low_health_percentage = 0.25
+    self.tired_percentage = Game:isLight() and 0 or 0.5
+    self.spare_percentage = Game:isLight() and 0.25 or 0
+    self.low_health_percentage = Game:isLight() and 0.25 or 0.5
 
     -- Speech bubble style - defaults to "round" or "cyber", depending on chapter
     -- This is set to nil in `battler.lua` as well, but it's here for completion's sake.
@@ -129,13 +129,21 @@ function LightEnemyBattler:init(actor, use_overlay)
 
     self.gauge_size = 100
     self.damage_offset = {5, -40}
-
-    self.show_hp = true
+    
+    -- The bars will only be hidden in Undertale gauge style.
+    -- However, it will still hide the light gauge in any other gauge style.
+    self.show_hp_bar = true
+    self.show_mercy_bar = true
     
     self.temporary_mercy = 0
     self.temporary_mercy_percent = nil
 
     self.graze_tension = 1.6
+end
+
+function LightEnemyBattler:getHealthDisplay()
+    local hp_percent = self.health / self.max_health
+    return math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%"
 end
 
 function LightEnemyBattler:getGrazeTension()
@@ -164,8 +172,6 @@ function LightEnemyBattler:getGaugeSize()
     end
 end
 function LightEnemyBattler:getDamageOffset() return self.damage_offset end
-
-function LightEnemyBattler:getHPVisibility() return self.show_hp end
 
 function LightEnemyBattler:setTired(bool)
     local old_tired = self.tired
@@ -465,7 +471,9 @@ function LightEnemyBattler:addTemporaryMercy(amount, play_sound, clamp, kill_con
                 else
                     self.temporary_mercy_percent.color = COLORS.yellow
                 end
-                self.temporary_mercy_percent.gauge.amount = self.temporary_mercy
+                if self.temporary_mercy_percent.gauge then
+                    self.temporary_mercy_percent.gauge.amount = self.temporary_mercy
+                end
             end
         end
         self.temporary_mercy_percent.kill_timer = 0
@@ -1010,6 +1018,18 @@ function LightEnemyBattler:freeze()
     self:defeat("FROZEN", true)
 end
 
+function LightEnemyBattler:setRecruitStatus(v)
+    Game:getLightRecruit(self.id):setRecruited(v)
+end
+
+function LightEnemyBattler:getRecruitStatus()
+    return Game:getLightRecruit(self.id):getRecruited()
+end
+
+function LightEnemyBattler:isRecruitable()
+    return Game:getLightRecruit(self.id)
+end
+
 function LightEnemyBattler:lightStatusMessage(type, arg, color, kill)
     local x, y = self:getRelativePos(self.width/2, self.height/2 - 10)
     
@@ -1032,7 +1052,7 @@ function LightEnemyBattler:lightStatusMessage(type, arg, color, kill)
     end
     
     local gauge
-    if (type == "damage" and self:getHPVisibility()) or (type == "mercy") then
+    if (type == "damage" and self.show_hp_bar) or (type == "mercy" and self.show_mercy_bar) then
         gauge = LightGauge(type, arg, x + offset_x, y + offset_y + 8, self)
         self.parent:addChild(gauge)
     end
@@ -1106,6 +1126,32 @@ function LightEnemyBattler:defeat(reason, violent)
         Game.battle.xp = Game.battle.xp + self.experience
         if MagicalGlassLib.random_encounter and MagicalGlassLib:createRandomEncounter(MagicalGlassLib.random_encounter).population then
             MagicalGlassLib:createRandomEncounter(MagicalGlassLib.random_encounter):addFlag("violent", 1)
+        end
+        if self:isRecruitable() and self:getRecruitStatus() ~= false then
+            if Game:getConfig("enableRecruits") and self.done_state ~= "FROZEN" then
+                local message = self:lightStatusMessage("text", "LOST", {255/255, 0/255, 0/255}, true)
+                message:resetPhysics()
+                message.y = message.y + 50
+            end
+            self:setRecruitStatus(false)
+        end
+    end
+    
+    if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
+        self:setRecruitStatus(self:getRecruitStatus() + 1)
+        if Game:getConfig("enableRecruits") then
+            local message = self:lightStatusMessage("text", "RECRUIT", {255/255, 255/255, 0/255}, true)
+            message:resetPhysics()
+            message.y = message.y + 50
+            if Game:getLightRecruit(self.id):getRecruitAmount() > 1 then
+                local counter = self:lightStatusMessage("text", self:getRecruitStatus().."/"..Game:getLightRecruit(self.id):getRecruitAmount(), {255/255, 255/255, 0/255}, true)
+                counter:resetPhysics()
+                counter.y = counter.y + 82
+            end
+            Assets.playSound("sparkle_gem")
+        end
+        if self:getRecruitStatus() >= Game:getLightRecruit(self.id):getRecruitAmount() then
+            self:setRecruitStatus(true)
         end
     end
     
