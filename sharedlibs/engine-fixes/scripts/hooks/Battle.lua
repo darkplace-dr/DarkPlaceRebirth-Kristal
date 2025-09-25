@@ -553,6 +553,11 @@ function Battle:onStateChange(old,new)
             battler:setSleeping(false)
             battler.defending = false
             battler.action = nil
+            
+            if MagicalGlassLib then
+                battler.chara:setHealth(battler.chara:getHealth() - battler.karma)
+                battler.karma = 0
+            end
 
             battler.chara:resetBuffs()
 
@@ -567,7 +572,9 @@ function Battle:onStateChange(old,new)
             box:resetHeadIcon()
         end
 
-        self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
+        if not MagicalGlassLib or self.state_reason ~= "FLEE" then
+            self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
+        end
 
         for _,battler in ipairs(self.party) do
             for _,equipment in ipairs(battler.chara:getEquipment()) do
@@ -613,7 +620,11 @@ function Battle:onStateChange(old,new)
                 party:onLevelUp(party.level_up_count)
             end
 
-            win_text = "* You won!\n* Got " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
+            if self.xp == 0 then
+                win_text = "* You won!\n* Got " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
+            else
+                win_text = "* You won!\n* Got " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
+            end
 
             Assets.playSound("dtrans_lw", 0.7, 2)
             --scr_levelup()
@@ -961,11 +972,24 @@ end
 function Battle:processActionGroup(group)
     if type(group) == "string" then
         local found = false
-        for i,battler in ipairs(self.party) do
-            local action = self.character_actions[i]
-            if action and action.action == group then
-                found = true
-                self:beginAction(action)
+        local found_save = false
+        if MagicalGlassLib then -- Give SAVE priority
+            for i,battler in ipairs(self.party) do
+                local action = self.character_actions[i]
+                if action and action.action == group and action.name == "_SAVE" then
+                    found = true
+                    found_save = true
+                    self:beginAction(action)
+                end
+            end
+        end
+        if not found_save then
+            for i,battler in ipairs(self.party) do
+                local action = self.character_actions[i]
+                if action and action.action == group then
+                    found = true
+                    self:beginAction(action)
+                end
             end
         end
         for _,action in ipairs(self.current_actions) do
@@ -1096,7 +1120,7 @@ function Battle:processAction(action)
         end)
 
         return false
-
+        
     elseif action.action == "ATTACK" or action.action == "AUTOATTACK" then
         local attacksound = battler.chara:getWeapon() and battler.chara:getWeapon():getAttackSound(battler, enemy, action.points) or battler.chara:getAttackSound()
         local attackpitch  = battler.chara:getWeapon() and battler.chara:getWeapon():getAttackPitch(battler, enemy, action.points) or battler.chara:getAttackPitch()
@@ -1239,9 +1263,20 @@ function Battle:processAction(action)
 
             self:shortActText(short_text)
         else
-            local text = enemy:onAct(battler, action.name)
-            if text then
-                self:setActText(text)
+            if MagicalGlassLib and action.name == "_SAVE" then
+                local encounter_text = self.battle_ui.encounter_text
+                enemy:onSave(battler)
+                if encounter_text.text.text == "" then
+                    self:setActText("")
+                    encounter_text.text.can_advance = false
+                end
+                
+                return false
+            else
+                local text = enemy:onAct(battler, action.name)
+                if text then
+                    self:setActText(text)
+                end
             end
         end
 
@@ -2103,6 +2138,10 @@ function Battle:nextParty()
         end
         self.current_selecting = (self.current_selecting % #self.party) + 1
     end
+    
+    if MagicalGlassLib and self.substate == "SAVE" then
+        self:setSubState("NONE")
+    end
 
     if all_done then
         self.selected_character_stack = {}
@@ -2270,7 +2309,11 @@ function Battle:checkGameOver()
     if self.encounter:onGameOver() then
         return
     end
-    Game:gameOver(self:getSoulLocation())
+    if MagicalGlassLib and self.encounter.invincible then
+        MagicalGlassLib:gameNotOver(self:getSoulLocation())
+    else
+        Game:gameOver(self:getSoulLocation())
+    end
 end
 
 --- Ends the battle and removes itself from `Game.battle`
@@ -3111,6 +3154,9 @@ function Battle:onKeyPressed(key)
             self.ui_move:stop()
             self.ui_move:play()
             Game:setTensionPreview(0)
+            if MagicalGlassLib and self.substate == "SAVE" then
+                self:setSubState("NONE")
+            end
             self:setState("ACTIONSELECT", "CANCEL")
             return
         elseif Input.is("left", key) then -- TODO: pagination
@@ -3160,6 +3206,18 @@ function Battle:onKeyPressed(key)
                 self:pushAction("XACT", self.enemies_index[self.selected_enemy], xaction)
             elseif self.state_reason == "SPARE" then
                 self:pushAction("SPARE", self.enemies_index[self.selected_enemy])
+            elseif MagicalGlassLib and self.state_reason == "ACT" and self.substate == "SAVE" and self.enemies_index[self.selected_enemy].save_no_acts then
+                local save_act = {
+                    ["character"] = nil,
+                    ["name"] = "_SAVE",
+                    ["description"] = "",
+                    ["party"] = nil,
+                    ["tp"] = 0,
+                    ["highlight"] = false,
+                    ["short"] = false,
+                    ["icons"] = nil
+                }
+                self:pushAction("ACT", self.enemies_index[self.selected_enemy], save_act)
             elseif self.state_reason == "ACT" then
                 self:clearMenuItems()
                 local enemy = self.enemies_index[self.selected_enemy]
@@ -3214,6 +3272,9 @@ function Battle:onKeyPressed(key)
                 self:setState("MENUSELECT", "ITEM")
             else
                 self:setState("ACTIONSELECT", "CANCEL")
+            end
+            if MagicalGlassLib and self.substate == "SAVE" then
+                self:setSubState("NONE")
             end
             return
         end

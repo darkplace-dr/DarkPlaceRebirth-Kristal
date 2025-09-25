@@ -8,7 +8,7 @@
         "Just Another Random User",     // contributor
     ],
     "dependencies": ["engine-fixes"],
-    "version": "v3.1.3",
+    "version": "v3.2.2",
     "engineVer": "v0.10.0-dev",
 
     "config": {
@@ -116,6 +116,11 @@
         // This works somewhat differently than normal, because almost everyone can equip any light item, so the mechanic was adjusted.
         /////
         "equipment_conversion": true,
+        
+        ///// Health Conversion
+        // Converts the party members current health between the light and dark worlds.
+        /////
+        "health_conversion": true,
 
         ///// Punch Card Exploit Emulation
         // Re-creates Undertale's Punch Card wrong warp and moving in cutscenes exploit.
