@@ -15,11 +15,13 @@
 ---@field lock_movement     boolean
 ---@field key_repeat        boolean
 ---@field started           boolean
----@field border            Border
+---@field border            string|Border
 ---
 ---@field previous_state    string
 ---@field state             string
 ---@field music             Music
+---
+---@field encounter_enemies Character[]|string[]
 ---
 ---@field chapter           integer
 ---@field save_name         string
@@ -34,7 +36,7 @@
 ---@field lw_money          integer
 ---@field level_up_count    integer
 ---@field temp_followers    table<[string, number]|string>
----@field flags             table<[string, any]>
+---@field flags             table<string, any>
 ---@field party             PartyMember[]
 ---@field party_data        PartyMember[]
 ---@field recruits_data     Recruit[]
@@ -43,6 +45,8 @@
 ---@field fader             Fader
 ---@field max_followers     integer
 ---@field is_new_file       boolean
+---
+---@field died_once         boolean?
 local Game = {}
 
 function Game:clear()
@@ -98,7 +102,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
 
     fade = fade ~= false
     if type(save_id) == "table" then
-        local save = save_id
+        local save = save_id ---@type SaveData
         save_id = save_name
         save_name = nil
         self:load(save, save_id, fade)
@@ -549,7 +553,7 @@ function Game:load(data, index, fade)
                         if not main_armor:includes(LightEquipItem) then
                             error("Cannot set 2nd armor, 1st armor must be a LightEquipItem")
                         end
-                        main_armor:setArmor(2, armors[i])
+                        self.party_data[id]:setArmor(2, armors[i])
                     else
                         self.party_data[id]:setArmor(i, armors[i] ~= "" and armors[i] or nil)
                     end
@@ -1036,7 +1040,7 @@ function Game:movePartyMember(chara, index)
 end
 
 ---@param chara string|PartyMember
----@return integer
+---@return integer?
 function Game:getPartyIndex(chara)
     if type(chara) == "string" then
         chara = self:getPartyMember(chara)
