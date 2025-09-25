@@ -17,9 +17,9 @@ function Starwalker:init()
     self.defense = 2
     self.money = 420
     self.experience = --[[Mod:isInRematchMode() and 0 or]] 420
-	self.service_mercy = 0
-	
-	self.boss = true
+    self.service_mercy = 0
+    
+    self.boss = true
     self.milestone = true
 
     self.spare_points = 0
@@ -76,6 +76,10 @@ function Starwalker:init()
 
     self:setTired(true)
     self:setTired(false)
+end
+
+function Starwalker:getHealthDisplay()
+    return math.ceil(100 + (100 - (self.health / self.max_health) * 100)) .. "%"
 end
 
 function Starwalker:getTarget()
