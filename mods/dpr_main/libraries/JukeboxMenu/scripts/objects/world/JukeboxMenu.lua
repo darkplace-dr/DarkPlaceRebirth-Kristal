@@ -142,6 +142,7 @@ function JukeboxMenu:init(simple)
     self.heart_target_y = self:calculateHeartTargetY()
     self.heart.y = self.heart_target_y
 
+    self.timer = self:addChild(Timer())
     self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
     self.info_accordion_timer_handle = nil
 
@@ -350,9 +351,9 @@ function JukeboxMenu:update()
                 dest_width)]]
             Assets.stopAndPlaySound("wing")
             if self.info_accordion_timer_handle then
-                Game.world.timer:cancel(self.info_accordion_timer_handle)
+                self.timer:cancel(self.info_accordion_timer_handle)
             end
-            self.info_accordion_timer_handle = Game.world.timer:approach(1/3.5,
+            self.info_accordion_timer_handle = self.timer:approach(1/3.5,
                 self.width, dest_width,
                 function(value)
                     value = math.floor(value)
@@ -387,9 +388,9 @@ function JukeboxMenu:close()
     self:remove()
 end
 
-function JukeboxMenu:onRemove()
+function JukeboxMenu:onRemoveFromStage(_)
     if self.info_accordion_timer_handle then
-        Game.world.timer:cancel(self.info_accordion_timer_handle)
+        self.timer:cancel(self.info_accordion_timer_handle)
     end
 end
 
