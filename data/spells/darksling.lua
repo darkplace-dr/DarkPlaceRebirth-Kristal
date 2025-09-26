@@ -89,6 +89,6 @@ function spell:onLightCast(user, target)
 	target:hurt(damage, user)
 end
 
-function spell:isUsable(chara) return not chara:getFlag("disarmed") end
+function spell:isUsable(chara) return not chara.disarmed end
 
 return spell

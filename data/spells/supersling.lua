@@ -103,6 +103,6 @@ function spell:onLightCast(user, target)
 	end)
 end
 
-function spell:isUsable(chara) return not chara:getFlag("disarmed") end
+function spell:isUsable(chara) return not chara.disarmed end
 
 return spell
