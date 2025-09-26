@@ -158,7 +158,9 @@ function lib:init()
 
         if any_killed and not any_alive then
             for _,party in ipairs(Game.party) do
-                party:setHealth(0)
+                if party:getHealth() > 0 then
+                    party:setHealth(0)
+                end
             end
             self:stopCameraShake()
             if not self.map:onGameOver() then
