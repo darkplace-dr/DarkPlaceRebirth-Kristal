@@ -1,3 +1,4 @@
+---@type JukeboxMenu.Song[]
 return {
   {
     name = "WELCOME AGAIN",
@@ -213,7 +214,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 145
   },
   {
     name = "Ruder Buster",
@@ -221,7 +223,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 130
   },
   {
     name = "Welcome to the Green Room",
@@ -229,7 +232,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 85
   },
   {
     name = "Vapor Buster",
@@ -237,7 +241,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 100
   },
   {
     name = "Glowing Snow",
