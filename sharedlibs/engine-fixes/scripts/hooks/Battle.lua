@@ -809,6 +809,19 @@ function Battle:onStateChange(old,new)
     end
 
     self.encounter:onStateChange(old,new)
+
+    if old == "INTRO" then
+        self.music.basepitch = self.music.pitch
+    end
+
+    if self.discoball then
+        -- For some reason this happens twice
+        if new == "ACTIONSELECT" then
+            self.discoball.tweendir = 1
+        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
+            self.discoball.tweendir = -1
+        end
+    end
 end
 
 --- Gets the location the soul should spawn at when waves start by default
