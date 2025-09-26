@@ -102,7 +102,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 128
   },
   {
     name = "Susie",
@@ -126,7 +127,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 140
   },
   {
     name = "Fanfare (from \"Rose of Winter\")",
@@ -166,7 +168,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 65
   },
   {
     name = "Berdly",
@@ -190,7 +193,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 149.5
   },
   {
     name = "WELCOME TO THE CITY (Alt)",
@@ -258,7 +262,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 145
   },
   {
     name = "It's TV Time!",
@@ -266,7 +271,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 148
   },
   {
     name = "Castle Funk",
@@ -274,7 +280,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 125
   },
   {
     name = "From Now On (Battle 2)",
@@ -282,7 +289,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 132.5
   },
   {
     name = "Hammer of Justice",
@@ -290,7 +298,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 160
   },
   {
     name = "Volume Adjustment",
@@ -298,7 +307,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 156
   },
   {
     name = "Catswing",
@@ -306,7 +316,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 130
   },
   {
     name = "AIRWAVES",
@@ -314,7 +325,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 140
   },
   {
     name = "Man 2",
