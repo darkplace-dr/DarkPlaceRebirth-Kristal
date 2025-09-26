@@ -4,11 +4,22 @@
 ---@overload fun(...) : JukeboxMenu
 local JukeboxMenu, super = Class(Object)
 
+---@class JukeboxMenu.Song
+---@field name string?
+---@field file string?
+---@field composer string?
+---@field released string?
+---@field origin string?
+---@field locked boolean|string|nil
+---@field album string?
+---@field _locked_explicit boolean?
+
 JukeboxMenu.MAX_WIDTH = 540
 JukeboxMenu.SONG_INFO_AREA_X = 300
 JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
 
 ---@private
+---@return JukeboxMenu.Song[]
 function JukeboxMenu:_buildSongs()
     local songs = {}
 
@@ -27,6 +38,21 @@ function JukeboxMenu:_buildSongs()
     end
 
     return songs
+end
+
+---@param music Music?
+---@return JukeboxMenu.Song?
+function JukeboxMenu:getPlayingEntry(music)
+    music = music or Game.world.music
+    if not music then
+        return nil
+    end
+
+    for _,song in ipairs(self.songs) do
+        if not song.locked and song.file == music.current then
+            return song
+        end
+    end
 end
 
 function JukeboxMenu:init(simple)
@@ -66,6 +92,7 @@ function JukeboxMenu:init(simple)
 
     self.none_text = "---"
     self.none_album = "default"
+    ---@type JukeboxMenu.Song
     self.default_song = {
         name = nil,
         file = nil,
@@ -79,7 +106,6 @@ function JukeboxMenu:init(simple)
     self.songs = self:_buildSongs()
 
     local navigate_to_playing = Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit")
-    local playing_song = nil
     self.album_art_cache = {}
     self.album_art_cache[self.none_album] = Assets.getTexture("albums/"..self.none_album)
     for _,song in ipairs(self.songs) do
@@ -92,12 +118,9 @@ function JukeboxMenu:init(simple)
         if song.album and not self.album_art_cache[song.album] then
             self.album_art_cache[song.album] = Assets.getTexture("albums/"..song.album)
         end
-
-        if navigate_to_playing and not playing_song and not song.locked and song.file == Game.world.music.current then
-            playing_song = song
-        end
     end
 
+    ---@type JukeboxMenu.Song[][]
     self.pages = {}
     self.page_index = 1
     self.songs_per_page = 7
@@ -108,11 +131,14 @@ function JukeboxMenu:init(simple)
         self.selected_index[page] = 1
     end
 
-    if navigate_to_playing and playing_song then
-        local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
-        if j then
-            self.page_index = i
-            self.selected_index[self.page_index] = j
+    if navigate_to_playing then
+        local playing_song = self:getPlayingEntry()
+        if playing_song then
+            local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
+            if j then
+                self.page_index = i
+                self.selected_index[self.page_index] = j
+            end
         end
     end
 
@@ -143,7 +169,7 @@ function JukeboxMenu:draw()
     -- draw the first line
     love.graphics.setColor(0, 0.4, 0)
     love.graphics.rectangle("line", 2, 40, 240, 1)
-    local music = (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+    local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
     for i = 1, self.songs_per_page do
         local song = page[i] or self.default_song
         local name = song.name or self.none_text
@@ -152,7 +178,7 @@ function JukeboxMenu:draw()
         local is_being_played
         if not song.file or song.locked then
             love.graphics.setColor(0.5, 0.5, 0.5)
-        elseif music and music.current == song.file then
+        elseif song == playing_song then
             is_being_played = true
             if self.color_playing_song then
                 love.graphics.setColor(1, 1, 0)
