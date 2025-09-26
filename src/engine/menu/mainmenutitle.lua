@@ -45,7 +45,8 @@ function MainMenuTitle:onEnter(old_state)
     if TARGET_MOD then
         self.options = {
             {"play",    self.has_target_saves and "Load game" or "Start game"},
-            {"dlc",     "Manage DLCs"},
+            {"modfolder", "Open DLCs folder"},
+            --{"dlc",     "Manage DLCs"},
             {"options", "Options"},
             {"credits", "Credits"},
             {"quit",    "Quit"},
@@ -53,7 +54,8 @@ function MainMenuTitle:onEnter(old_state)
     else
         self.options = {
             {"play",      "Play a mod"},
-            {"dlc",       "Manage DLCs"},
+            {"modfolder", "Open DLCs folder"},
+            --{"dlc",       "Manage DLCs"},
             {"options",   "Options"},
             {"credits",   "Credits"},
             {"wiki",      "Open wiki"},
