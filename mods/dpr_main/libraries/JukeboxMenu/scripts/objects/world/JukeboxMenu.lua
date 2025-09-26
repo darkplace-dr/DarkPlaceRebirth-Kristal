@@ -4,9 +4,57 @@
 ---@overload fun(...) : JukeboxMenu
 local JukeboxMenu, super = Class(Object)
 
+---@class JukeboxMenu.Song
+---@field name string?
+---@field file string?
+---@field bpm number?
+---@field composer string?
+---@field released string?
+---@field origin string?
+---@field locked boolean|string|nil
+---@field album string?
+---@field _locked_explicit boolean?
+
 JukeboxMenu.MAX_WIDTH = 540
 JukeboxMenu.SONG_INFO_AREA_X = 300
 JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
+
+---@private
+---@return JukeboxMenu.Song[]
+function JukeboxMenu:_buildSongs()
+    local songs = {}
+
+    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
+    if old_list_ok and old_list ~= nil then
+        songs = Utils.merge(songs, old_list)
+    end
+
+    songs = Utils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
+
+    for lib_id, _ in Kristal.iterLibraries() do
+        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
+        if lib_songs ~= nil then
+            songs = Utils.merge(songs, lib_songs)
+        end
+    end
+
+    return songs
+end
+
+---@param music Music?
+---@return JukeboxMenu.Song?
+function JukeboxMenu:getPlayingEntry(music)
+    music = music or Game.world.music
+    if not music then
+        return nil
+    end
+
+    for _,song in ipairs(self.songs) do
+        if not song.locked and song.file == music.current then
+            return song
+        end
+    end
+end
 
 function JukeboxMenu:init(simple)
     super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, 360)
@@ -27,11 +75,8 @@ function JukeboxMenu:init(simple)
     self.box.debug_select = false
     self:addChild(self.box)
 
-    ---@type love.Font
     self.font = Assets.getFont("main")
     self.font_2 = Assets.getFont("plain")
-    -- DP HACK
-    self.font_cjk = Assets.getFont("simsun_small")
 
     self.heart = Sprite("player/heart_menu")
     self.heart:setOrigin(0.5, 0.5)
@@ -45,6 +90,7 @@ function JukeboxMenu:init(simple)
 
     self.none_text = "---"
     self.none_album = "default"
+    ---@type JukeboxMenu.Song
     self.default_song = {
         name = nil,
         file = nil,
@@ -55,10 +101,9 @@ function JukeboxMenu:init(simple)
         album = nil
     }
 
-    self.songs = modRequire("scripts.jukebox_songs")
+    self.songs = self:_buildSongs()
 
     local navigate_to_playing = Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit")
-    local playing_song = nil
     self.album_art_cache = {}
     self.album_art_cache[self.none_album] = Assets.getTexture("albums/"..self.none_album)
     for _,song in ipairs(self.songs) do
@@ -71,12 +116,9 @@ function JukeboxMenu:init(simple)
         if song.album and not self.album_art_cache[song.album] then
             self.album_art_cache[song.album] = Assets.getTexture("albums/"..song.album)
         end
-
-        if navigate_to_playing and not playing_song and not song.locked and song.file == Game.world.music.current then
-            playing_song = song
-        end
     end
 
+    ---@type JukeboxMenu.Song[][]
     self.pages = {}
     self.page_index = 1
     self.songs_per_page = 7
@@ -87,17 +129,21 @@ function JukeboxMenu:init(simple)
         self.selected_index[page] = 1
     end
 
-    if navigate_to_playing and playing_song then
-        local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
-        if j then
-            self.page_index = i
-            self.selected_index[self.page_index] = j
+    if navigate_to_playing then
+        local playing_song = self:getPlayingEntry()
+        if playing_song then
+            local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
+            if j then
+                self.page_index = i
+                self.selected_index[self.page_index] = j
+            end
         end
     end
 
     self.heart_target_y = self:calculateHeartTargetY()
     self.heart.y = self.heart_target_y
 
+    self.timer = self:addChild(Timer())
     self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
     self.info_accordion_timer_handle = nil
 
@@ -122,7 +168,7 @@ function JukeboxMenu:draw()
     -- draw the first line
     love.graphics.setColor(0, 0.4, 0)
     love.graphics.rectangle("line", 2, 40, 240, 1)
-    local music = (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+    local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
     for i = 1, self.songs_per_page do
         local song = page[i] or self.default_song
         local name = song.name or self.none_text
@@ -131,7 +177,7 @@ function JukeboxMenu:draw()
         local is_being_played
         if not song.file or song.locked then
             love.graphics.setColor(0.5, 0.5, 0.5)
-        elseif music and music.current == song.file then
+        elseif song == playing_song then
             is_being_played = true
             if self.color_playing_song then
                 love.graphics.setColor(1, 1, 0)
@@ -180,11 +226,6 @@ function JukeboxMenu:draw()
 
     local info_font = self.font
     local info_scale = 0.5
-    -- DP HACK
-    if song.cjk_info then
-        info_font = self.font_cjk
-        info_scale = 1
-    end
     love.graphics.setFont(info_font)
     local info_w = 260 / info_scale
     local info = string.format(
@@ -311,9 +352,9 @@ function JukeboxMenu:update()
                 dest_width)]]
             Assets.stopAndPlaySound("wing")
             if self.info_accordion_timer_handle then
-                Game.world.timer:cancel(self.info_accordion_timer_handle)
+                self.timer:cancel(self.info_accordion_timer_handle)
             end
-            self.info_accordion_timer_handle = Game.world.timer:approach(1/3.5,
+            self.info_accordion_timer_handle = self.timer:approach(1/3.5,
                 self.width, dest_width,
                 function(value)
                     value = math.floor(value)
@@ -348,9 +389,9 @@ function JukeboxMenu:close()
     self:remove()
 end
 
-function JukeboxMenu:onRemove()
+function JukeboxMenu:onRemoveFromStage(_)
     if self.info_accordion_timer_handle then
-        Game.world.timer:cancel(self.info_accordion_timer_handle)
+        self.timer:cancel(self.info_accordion_timer_handle)
     end
 end
 
