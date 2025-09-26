@@ -8,6 +8,20 @@ JukeboxMenu.MAX_WIDTH = 540
 JukeboxMenu.SONG_INFO_AREA_X = 300
 JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
 
+---@private
+function JukeboxMenu:_buildSongs()
+    local songs = Kristal.modCall("getJukeboxSongs")
+
+    for lib_id, _ in Kristal.iterLibraries() do
+        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
+        if lib_songs ~= nil then
+            songs = Utils.merge(songs, lib_songs)
+        end
+    end
+
+    return songs
+end
+
 function JukeboxMenu:init(simple)
     super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, 360)
 
@@ -55,7 +69,7 @@ function JukeboxMenu:init(simple)
         album = nil
     }
 
-    self.songs = modRequire("scripts.jukebox_songs")
+    self.songs = self:_buildSongs()
 
     local navigate_to_playing = Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit")
     local playing_song = nil
