@@ -10,7 +10,14 @@ JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
 
 ---@private
 function JukeboxMenu:_buildSongs()
-    local songs = Kristal.modCall("getJukeboxSongs")
+    local songs = {}
+
+    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
+    if old_list_ok and old_list ~= nil then
+        songs = Utils.merge(songs, old_list)
+    end
+
+    songs = Utils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
 
     for lib_id, _ in Kristal.iterLibraries() do
         local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
