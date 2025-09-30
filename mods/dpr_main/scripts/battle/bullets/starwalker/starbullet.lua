@@ -1,4 +1,4 @@
-local StarBullet, super = Class(Bullet, "StarBullet")
+local StarBullet, super = Class(Bullet, "SW_StarBullet")
 
 function StarBullet:init(x, y)
     super.init(self, x, y, "battle/bullets/star")

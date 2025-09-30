@@ -1,4 +1,4 @@
-local FallenStarBullet, super = Class("StarBullet", "FallenStarBullet")
+local FallenStarBullet, super = Class("SW_StarBullet", "SW_FallenStarBullet")
 
 function FallenStarBullet:init(x, y)
     super.init(self, x, y)

@@ -88,10 +88,10 @@ end
 
 function Starwalker:makeBullet(x, y)
     if (Utils.random() < 0.25) then
-        return Registry.createBullet("FallenStarBullet", x, y)
+        return Registry.createBullet("SW_FallenStarBullet", x, y)
     end
 
-    return Registry.createBullet("StarBullet", x, y)
+    return Registry.createBullet("SW_StarBullet", x, y)
 end
 
 function Starwalker:getGrazeTension()
