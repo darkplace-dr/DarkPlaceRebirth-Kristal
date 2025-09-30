@@ -11,7 +11,7 @@ function StarFade:onStart()
 		local x = Utils.random(Game.battle.arena.left, Game.battle.arena.right)
         local y = Utils.random(Game.battle.arena.top, Game.battle.arena.bottom)
         -- Spawn smallbullet going left with speed 8 (see scripts/battle/bullets/smallbullet.lua)
-        local bullet = self:spawnBullet("starbulletfade", x, y)
+        local bullet = self:spawnBullet("ufos/starbulletfade", x, y)
         -- Dont remove the bullet offscreen, because we spawn it offscreen
         --bullet.remove_offscreen = true
     end)
