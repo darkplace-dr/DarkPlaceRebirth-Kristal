@@ -300,11 +300,9 @@ return {
           cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
         else
             cutscene:text("* (There are photos of unfamiliar humans inside.)")
-            local leader_id = Mod:getLeader().id
+            local leader_id = GeneralUtils:getLeader().id
             if leader_id == "kris" then
                 cutscene:text("* (You shut the book quickly.)")
-            elseif leader_id == "YOU" then
-                cutscene:text("* (Unfortunately, there's no photos of frogs like you.)")
             end
         end
 
