@@ -271,12 +271,9 @@ return {
                 "ceroba",
                 "noel"
             }
-            local leader_id = Mod:getLeader().id
+            local leader_id = GeneralUtils:getLeader().id
             if leader_id == "kris" then
                 cutscene:text("* (A photo of your mother and father on their wedding day.)")
-            elseif leader_id == "YOU" then
-                cutscene:text("* (A photo of Toriel and a random goat man on a wedding day.)")
-                cutscene:text("* (Wait... Toriel was married??)")
             elseif Utils.containsValue(characters_who_knows_dreemurr, leader_id) then
                 cutscene:text("* (A photo of Toriel and Asgore on their wedding day.)")
             else
