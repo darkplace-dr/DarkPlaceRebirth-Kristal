@@ -14,8 +14,7 @@ function TennaAnimTest:update()
 	
     Game.world.tenna = Game.world:getCharacter("tenna")
 
-    if Kristal.Console.is_open or Kristal.DebugSystem:isMenuOpen() then
-    else
+    if not OVERLAY_OPEN then
         if Input.pressed("right") then
             if self.ind < 69 then
                 self.ind = self.ind + 1
@@ -58,14 +57,15 @@ function TennaAnimTest:update()
         self.tenna_voicetimer = self.tenna_voicetimer + 1 * DTMULT
         if (self.tenna_voicetimer % 3) == 0 then
             Assets.stopAndPlaySound(Utils.pick{
-                "voice/tenna/tv_voice_short",
+                "voice/tenna/tv_voice_short_1",
                 "voice/tenna/tv_voice_short_2",
                 "voice/tenna/tv_voice_short_3",
                 "voice/tenna/tv_voice_short_4",
                 "voice/tenna/tv_voice_short_5",
                 "voice/tenna/tv_voice_short_6",
                 "voice/tenna/tv_voice_short_7",
-                "voice/tenna/tv_voice_short_8"
+                "voice/tenna/tv_voice_short_8",
+                "voice/tenna/tv_voice_short_9"
             })
         end
         if self.tenna_voicetimer > 18 then
