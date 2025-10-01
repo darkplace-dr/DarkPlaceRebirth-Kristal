@@ -235,6 +235,7 @@
    <properties>
     <property name="actor" value="sans"/>
     <property name="cutscene" value="hub.sans"/>
+    <property name="flagcheck" value="!dessTriedToKillSans"/>
    </properties>
    <point/>
   </object>

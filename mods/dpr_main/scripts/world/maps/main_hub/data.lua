@@ -802,7 +802,8 @@ return {
           visible = true,
           properties = {
             ["actor"] = "sans",
-            ["cutscene"] = "hub.sans"
+            ["cutscene"] = "hub.sans",
+            ["flagcheck"] = "!dessTriedToKillSans"
           }
         },
         {
