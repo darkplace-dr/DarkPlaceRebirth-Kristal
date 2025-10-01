@@ -8,7 +8,7 @@ return {
         local susie = cutscene:getCharacter("susie")
         local tenna = cutscene:getCharacter("tenna")
 
-        if Game.world.player.x > tenna.x then
+        if Game.world.player.facing == "left" then
             tenna.sprite.flip_x = true
         end
 
@@ -39,8 +39,8 @@ return {
             tenna.sprite:setPreset(1)
             cutscene:text("* Granted,[wait:5] he JUST did that,[wait:5] so it's only just ME,[wait:5] MYSELF,[wait:5] and I here!", nil, "tenna")
             tenna.sprite:setPreset(21)
-            cutscene:showNametag("Mr. \"Ant\" Tenna")
-            cutscene:text("* But for the sake of clarity,[wait:5] you can just call me Mr. \"Ant\" Tenna!", nil, "tenna") -- TODO: "Mr. "Ant" Tenna" should also be a funnytext
+            cutscene:showNametag("Mr. (Ant) Tenna")
+            cutscene:text("* But for the sake of clarity,[wait:5] you can just call me MR. (ANT) TENNA!", nil, "tenna") -- TODO: "Mr. "Ant" Tenna" should also be a funnytext
             tenna.sprite:setPreset(0)
             tenna:setSprite("bulletin")
             cutscene:text("* Now,[wait:5] uh,[wait:5] just a forewarning...", nil, "tenna")
@@ -55,30 +55,28 @@ return {
         end
 
         tenna.sprite:setPreset(2)
-        cutscene:showNametag("Mr. \"Ant\" Tenna")
+        cutscene:showNametag("Mr. (Ant) Tenna")
         cutscene:text("* Whaddya need from your good \nol' pal?", nil, "tenna")
         cutscene:hideNametag()
 
-        local choicer = {"Why are\nyou 3D?", "Nothing"}
+        local choicer = {"Why are\nyou 3D?", "Nothing", "Games"}
         if Game:getFlag("arlee_quest") then
             table.insert(choicer, "Starbits?")
         end
-        if Game:getFlag("tenna_physicalchallenge") then
-            table.insert(choicer, "Physical Challenge")
-        end
 
         local choice = cutscene:choicer(choicer)
-        cutscene:showNametag("Mr. \"Ant\" Tenna")
+        cutscene:showNametag("Mr. (Ant) Tenna")
         if choice == 1 then
             tenna.sprite:setPreset(1)
-            cutscene:text("* What?[wait:10] Why do I look 3D?", nil, "tenna")
+            cutscene:text("* What?[wait:10]\n* Why do I look 3D?", nil, "tenna")
             tenna.sprite:setPreset(0)
             tenna:setSprite("pose_podium_1")
             Game.world.music:pause()
             cutscene:text("* ...", nil, "tenna")
-            tenna.sprite:setPreset(2)
             Game.world.music:resume()
-            tenna:setAnimation("point_left")
+            Assets.playSound("wing")
+            tenna:shake()
+            tenna:setSprite("tie_adjust_a")
             cutscene:text("* Kid,[wait:5] did you hit your head or something?", nil, "tenna")
             tenna.sprite:setPreset(4)
             cutscene:text("* You're 3D,[wait:5] I'm 3D,[wait:5] this WHOLE ROOM is 3D!", nil, "tenna")
@@ -86,11 +84,42 @@ return {
             cutscene:text("* WHAT?[wait:5]\n* You think we're in some sorta VIDEO GAME or something?", nil, "tenna")
             cutscene:text("* And I'm rendered in a different artstyle from everything else??", nil, "tenna")
             tenna:setAnimation("laugh")
-            cutscene:text("* HAHAHA![wait:10] That's the FUNNIEST thing I've heard all day!!", nil, "tenna")
+            Assets.playSound("whip_hard")
+            Assets.playSound("laughtrack_short_temp")
+            cutscene:text("* HAHAHA!!![wait:10] This is the FUNNIEST thing I've heard all day,[wait:5] folks!!", nil, "tenna")
+            Assets.stopSound("laughtrack_short_temp")
         elseif choice == 2 then
             tenna.sprite:setPreset(3)
             cutscene:text("* Well,[wait:5] give me a holler if you need me.", nil, "tenna")
         elseif choice == 3 then
+            tenna.sprite:setPreset(2)
+            tenna:setSprite("pose_podium_1")
+            cutscene:text("* The BOARDS?[wait:5]\n* Why,[wait:5] they've been out of \norder!", nil, "tenna")
+            tenna:setAnimation("whisper")
+            cutscene:text("* Making my games didn't come without a few issues,[wait:5] y'know!", nil, "tenna")
+            tenna.sprite:setPreset(1)
+            cutscene:text("* Modding's harder than it \nlooks!", nil, "tenna")
+            tenna.sprite:setPreset(22)
+            cutscene:text("* But,[wait:5] if you REALLY want to play the GAMES so badly...", nil, "tenna")
+            tenna.sprite:setPreset(1)
+            cutscene:text("* Who am I to deny a COMEBACK SPECIAL!?", nil, "tenna")
+            tenna.sprite:setPreset(30)
+            cutscene:text("* We'll get EVERYONE back together!!!", nil, "tenna")
+            tenna.sprite:setPreset(21)
+            Assets.playSound("whip_hard")
+            cutscene:text("* THAT INCLUDES YOU TOO,[wait:5] MIKE!!!", nil, "tenna")
+            tenna.sprite:setPreset(25)
+            cutscene:text("* Kids, go talk to Ramb![wait:5]\n* He might have the old console on him!", nil, "tenna")
+            tenna.sprite:setPreset(2)
+            Assets.playSound("whip_crack_only")
+            tenna:setAnimation("point_left")
+            cutscene:text("* Hurry![wait:5]\n* The fate of[funnytext:tv_time,ftext_enter,0,0,96,48][wait:5]is at stake!!", nil, "tenna")
+            tenna.sprite:setPreset(0)
+            tenna:setSprite("pose_podium_2")
+            cutscene:text("* Heh,[wait:5] but that's only if you WANT to play, of course!", nil, "tenna")
+            tenna:setAnimation("whisper_blush")
+            cutscene:text("* I've learned by now that forcing someone to play NEVER works well.", nil, "tenna")
+        elseif choice == 4 then
             if not Game:getFlag("tenna_physicalchallenge") then
                 tenna.sprite:setPreset(-3)
                 cutscene:text("* Huh?[wait:10] Have I seen any STARBITS lying around?", nil, "tenna")
@@ -111,53 +140,28 @@ return {
                 cutscene:text("* Bring them all to me,[wait:5] and you'll win the STARBIT!", nil, "tenna")
                 tenna.sprite:setPreset(3)
                 cutscene:text("* Now,[wait:5] are you READY?[wait:10] Because...", nil, "tenna")
-                tenna.sprite:setPreset(21)
+                tenna.sprite:setPreset(0)
+                tenna:setSprite("point_at_screen_c")
                 Game.world.music:pause()
                 cutscene:itsTVTime()
                 Game.world.music:resume()
                 Game:setFlag("tenna_physicalchallenge", true)
                 Game:setFlag("challenge_stickers", 0)
             else
-                tenna.sprite:setPreset(4)
-                cutscene:text("* You gotta beat that\n[funnytext:physical_challenge/physical_challenge,ftext_bounce,-10,-10,195,34][wait:10]\nbefore you get that STARBIT!", nil, "tenna")
-            end
-        elseif choice == 4 then
-            local stickers = Game:getFlag("challenge_stickers")
-            tenna.sprite:setPreset(1)
-            tenna:setSprite("pose_podium_3")
-            cutscene:text("* Let's see how many stickers you have...", nil, "tenna")
-            tenna:setSprite("pose_podium_4")
-            cutscene:text("* It seems you have "..stickers.." out of 8 stickers!", nil, "tenna")
-            if stickers == 0 then
-                tenna.sprite:setPreset(4)
-                cutscene:text("* WOW---!!![wait:5]\n* YOU haven't collected a SINGLE sticker!", nil, "tenna")
-                tenna.sprite:setPreset(17)
-                cutscene:text("* Remember,[wait:5] the stickers look like me,[wait:5] you can't miss 'em.", nil, "tenna")
+                local stickers = Game:getFlag("challenge_stickers")
+                tenna.sprite:setPreset(2)
+                tenna:setSprite("pose_podium_3")
+                cutscene:text("* Let's see how many stickers \nyou have...", nil, "tenna")
+                tenna:setSprite("pose_podium_4")
+                cutscene:text("* It seems you have "..stickers.." out of 8 stickers!", nil, "tenna")
+                if stickers == 0 then
+                    tenna.sprite:setPreset(4)
+                    cutscene:text("* WOW---!!![wait:5]\n* YOU haven't collected a SINGLE sticker!", nil, "tenna")
+                    tenna.sprite:setPreset(17)
+                    cutscene:text("* Remember,[wait:5] the stickers look like me,[wait:5] you can't miss 'em.", nil, "tenna")
+                end
             end
         end
-
-
-
-            --[[ORIGNAL BOARD: ARG
-            tenna.sprite:setPreset(1)
-            cutscene:text("* The BOARDS? Why,[wait:5] they've been out of order!", nil, "tenna")
-            cutscene:text("* Making my games didn't come without a few issues,[wait:5] y'know!", nil, "tenna")
-            tenna.sprite:setPreset(4)
-            cutscene:text("* Modding's harder than it looks!", nil, "tenna")
-            tenna.sprite:setPreset(22)
-            cutscene:text("* But,[wait:5] if you really want to play the GAMES so badly...", nil, "tenna")
-            cutscene:text("* Who am I to deny a comeback special!", nil, "tenna")
-            tenna.sprite:setPreset(30)
-            cutscene:text("* We'll get everyone back together!", nil, "tenna")
-            tenna.sprite:setPreset(21)
-            cutscene:text("* Even you ROMB!!", nil, "tenna")
-            tenna.sprite:setPreset(25)
-            cutscene:text("* Kids, go talk to Ramb! He might have the old console on him!", nil, "tenna")
-            cutscene:text("* Hurry! The fate of TV Time is at stake!", nil, "tenna")
-            tenna.sprite:setPreset(28)
-            cutscene:text("* Heh,[wait:5] but only if you guys want to play along!", nil, "tenna")
-            cutscene:text("* I've learned that forced coercion never works well!", nil, "tenna")
-            tenna.sprite:setPreset(24)]]
 
         tenna.sprite:setPreset(24)
         cutscene:hideNametag()
