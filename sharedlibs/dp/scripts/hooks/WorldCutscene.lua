@@ -41,6 +41,7 @@ function WorldCutscene:startMinigame(game)
 end
 
 -- This thing needs to be exploded
+---@deprecated Not really deprecated but basically doesn't work like how a cutscene function is supposed to. So unstable and not recommended.
 --- Wrapper for [WorldCutscene:text](lua://WorldCutscene.text) that adds a nametag
 ---@overload fun(self: WorldCutscene, text: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
 ---@overload fun(self: WorldCutscene, text: string, portrait?: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
@@ -71,15 +72,14 @@ function WorldCutscene:textTagged(text, portrait, actor, options)
     end
     options = options or {}
     if type(actor) == "string" then
-        actor = self:getCharacter(actor) or actor
+        actor = self:getCharacter(actor) or Registry.createActor(actor)
     end
     if actor == nil then
         actor = self.textbox_actor
     end
 
     if options.nametag or actor then
-        local tag = options.nametag or (type(actor) == "string" and Utils.titleCase(actor) or actor:getName())
-        self:showNametag(tag, {font = options.nametag_font or ((actor and isClass(actor)) and actor:getFont())})
+        self:showNametag(options.nametag or actor:getName(), {font = options.nametag_font or ((actor and isClass(actor)) and actor:getFont())})
     end
     self:text(text, portrait, actor, options)
     self:hideNametag()
