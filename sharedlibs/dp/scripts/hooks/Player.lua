@@ -58,6 +58,14 @@ function Player:getCurrentSpeed(running)
     return speed
 end
 
+function Player:getDebugInfo()
+    local info = super.getDebugInfo(self)
+
+    table.insert(info, string.format("Toque timer: %f", self.run_toque_timer))
+
+    return info
+end
+
 function Player:isMovementEnabled()
     return not DP.taunt_lock_movement
         and super.isMovementEnabled(self)
@@ -72,12 +80,10 @@ end
 
 function Player:update()
     super.update(self)
-    if DP:isTauntingAvaliable() then
-        if self.last_collided_x or self.last_collided_y and self:getCurrentSpeed(false) >= 10 then
-            self:shake(4, 0)
-            if self.toque_collide_sound then self.toque_collide_sound:stop() end
-            self.toque_collide_sound = Assets.playSound("wing")
-        end
+    if DP:isTauntingAvaliable() and (self.last_collided_x or self.last_collided_y) and self.run_toque_timer >= 6 then
+        self:shake(4, 0)
+        if self.toque_collide_sound then self.toque_collide_sound:stop() end
+        self.toque_collide_sound = Assets.playSound("wing")
     end
 
     if self.invincible_colors then
