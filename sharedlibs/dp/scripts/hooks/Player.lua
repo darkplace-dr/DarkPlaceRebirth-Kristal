@@ -11,6 +11,8 @@ function Player:init(chara, x, y)
     self.old_song = ""
     self.so_gamer = Assets.getShader("so_gamer")
 
+    self.base_speed_multiplier = 1
+
     if DP.run_timer_hold then
         self.run_timer = DP.run_timer_hold
     end
@@ -26,7 +28,7 @@ function Player:getBaseWalkSpeed()
     --[[local override = self.actor.walk_speed_override
     if override ~= nil then return override end]]
 
-    return super.getBaseWalkSpeed(self)
+    return super.getBaseWalkSpeed(self) * (self.base_speed_multiplier == nil and 1 or self.base_speed_multiplier)
 end
 
 function Player:getCurrentSpeed(running)
