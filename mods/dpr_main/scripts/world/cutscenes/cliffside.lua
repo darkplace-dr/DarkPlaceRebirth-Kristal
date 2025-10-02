@@ -1051,15 +1051,15 @@ local cliffside = {
         Game.world.player:setState("SLIDE")
 
         cutscene:wait(function ()
-            if Game.world.player.walk_speed < -8 then
+            if Game.world.player.base_speed_multiplier <= -2 then
                 Assets.playSound("jump", 1, 0.5)
                 Game.world.player.physics.speed_y = -10
                 Game.world.player.physics.friction = -1.5
-                Game.world.player.walk_speed = -8
+                Game.world.player.base_speed_multiplier = -2
 
                 return true
             else
-                Game.world.player.walk_speed = Game.world.player.walk_speed - DT * 8
+                Game.world.player.base_speed_multiplier = Game.world.player.base_speed_multiplier - DT * 2
                 return false
             end
         end)
@@ -1139,7 +1139,7 @@ local cliffside = {
         Game.world.player:resetSprite()
         Game.world.player:shake(5)
         Assets.playSound("dtrans_flip")
-        Game.world.player.walk_speed = 4
+        Game.world.player.base_speed_multiplier = 1
     end,
 
     badge_tutorial = function(cutscene, event)
@@ -1268,15 +1268,15 @@ local cliffside = {
         Game.world.player:setState("SLIDE")
 
         cutscene:wait(function ()
-            if Game.world.player.walk_speed < -8 then
+            if Game.world.player.base_speed_multiplier <= -2 then
                 Assets.playSound("jump", 1, 0.5)
                 Game.world.player.physics.speed_y = -10
                 Game.world.player.physics.friction = -1.5
-                Game.world.player.walk_speed = -8
+                Game.world.player.base_speed_multiplier = -2
 
                 return true
             else
-                Game.world.player.walk_speed = Game.world.player.walk_speed - DT * 8
+                Game.world.player.base_speed_multiplier = Game.world.player.base_speed_multiplier - DT * 2
                 return false
             end
         end)
@@ -1356,7 +1356,7 @@ local cliffside = {
         Game.world.player:resetSprite()
         Game.world.player:shake(5)
         Assets.playSound("dtrans_flip")
-        Game.world.player.walk_speed = 4
+        Game.world.player.base_speed_multiplier = 1
     end,
 
     reverse_cliff_up = function (cutscene, event)
@@ -1372,7 +1372,7 @@ local cliffside = {
 
         Game.world.player.layer = 22
 
-        Game.world.player.walk_speed = -12
+        Game.world.player.base_speed_multiplier = -3
         print(top)
 
         cutscene:wait(function ()
@@ -1385,7 +1385,7 @@ local cliffside = {
 
         Game.world.player:setState("WALK")
 
-        Game.world.player.walk_speed = 4
+        Game.world.player.base_speed_multiplier = 1
         Game.world.player.noclip = false
         Game.world.player.layer = ssss
     end,
@@ -1419,15 +1419,15 @@ local cliffside = {
         Game.world.player:setState("SLIDE")
 
         cutscene:wait(function ()
-            if Game.world.player.walk_speed < -8 then
+            if Game.world.player.base_speed_multiplier <= -2 then
                 Assets.playSound("jump", 1, 0.5)
                 Game.world.player.physics.speed_y = -10
                 Game.world.player.physics.friction = -1.5
-                Game.world.player.walk_speed = -8
+                Game.world.player.base_speed_multiplier = -2
 
                 return true
             else
-                Game.world.player.walk_speed = Game.world.player.walk_speed - DT * 8
+                Game.world.player.base_speed_multiplier = Game.world.player.base_speed_multiplier - DT * 2
                 return false
             end
         end)
@@ -1492,7 +1492,7 @@ local cliffside = {
         Game.world.player:resetSprite()
         Game.world.player:shake(5)
         Assets.playSound("dtrans_flip")
-        Game.world.player.walk_speed = 4
+        Game.world.player.base_speed_multiplier = 1
         Game.world.player.cliff = nil
     end,
 

@@ -18,7 +18,7 @@ function QuestCreatedPopup:init(quest)
     self.box:addChild(Text("[font:plain]"..quest_name, nil, nil, box_size_w))
     if not Game:getFlag("quest_menu_ever_opened") then
         self.box:addChild(Component(FillSizing(), FixedSizing(1)))
-        self.box:addChild(Text("[font:main,16][color:#808080](Press [bind:quest] to view)",
+        self.open_menu_hint = self.box:addChild(Text("[font:main,16][color:#808080](Press [bind:quest] to view)",
             nil, nil, box_size_w, nil, { align = "center" }))
     end
 end
@@ -42,6 +42,10 @@ end
 function QuestCreatedPopup:update()
     if not self.quest_menu_present_initially and #Game.stage:getObjects(QuestMenu) > 0 then
         self:remove()
+    elseif self.open_menu_hint then
+        self.open_menu_hint.alpha =
+            (Game.world and Game.world.state == "GAMEPLAY" and not Game.battle and not Game.shop)
+            and 1 or 0.5
     end
 
     super.update(self)

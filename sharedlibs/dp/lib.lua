@@ -425,19 +425,7 @@ function lib:updateTaunt()
         and (Game.state == "OVERWORLD" and Game.world.state == "GAMEPLAY"
             and not Game.world:hasCutscene() and not Game.lock_movement)
     then
-        -- awesome workaround for run_anims
-        Game.world.player:setState("WALK")
-        Game.world.player.running = false
-        for _, follower in ipairs(Game.world.followers) do
-            if follower:getTarget() == Game.world.player and follower.state == "RUN" then
-                follower.state_manager:setState("WALK")
-                follower.running = false
-            end
-        end
-        Game.world.player:resetFollowerHistory()
-        self.taunt_lock_movement = true
-
-        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+        local any_taunted = false
 
         for _,chara in ipairs(Game.stage:getObjects(Character)) do
             if not chara.actor or not chara.visible then goto continue end
@@ -445,6 +433,8 @@ function lib:updateTaunt()
             -- workaround due to actors being loaded first by registry
             local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
             if not sprites or #sprites <= 0 then goto continue end
+
+            any_taunted = true
 
             local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
             shine:setOrigin(0.5, 0.5)
@@ -463,9 +453,25 @@ function lib:updateTaunt()
             ::continue::
         end
 
-        Game.world.timer:after(1/3, function()
-            self.taunt_lock_movement = false
-        end)
+        if any_taunted then
+            -- awesome workaround for run_anims
+            Game.world.player:setState("WALK")
+            Game.world.player.running = false
+            for _, follower in ipairs(Game.world.followers) do
+                if follower:getTarget() == Game.world.player and follower.state == "RUN" then
+                    follower.state_manager:setState("WALK")
+                    follower.running = false
+                end
+            end
+            Game.world.player:resetFollowerHistory()
+
+            self.taunt_lock_movement = true
+            Game.world.timer:after(1/3, function()
+                self.taunt_lock_movement = false
+            end)
+
+            Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+        end
     end
 end
 
