@@ -32,7 +32,6 @@ function Player:init(chara, x, y)
 
     self.moving_x = 0
     self.moving_y = 0
-    self.walk_speed = Game:isLight() and 6 or 4
 
     self.last_move_x = self.x
     self.last_move_y = self.y
@@ -54,10 +53,30 @@ function Player:init(chara, x, y)
 
 end
 
+function Player:getBaseWalkSpeed()
+    return Game:isLight() and 6 or 4
+end
+
+function Player:getCurrentSpeed(running)
+    local speed = self:getBaseWalkSpeed()
+    if running then
+        if self.run_timer > 60 then
+            speed = speed + (Game:isLight() and 6 or 5)
+        elseif self.run_timer > 10 then
+            speed = speed + 4
+        else
+            speed = speed + 2
+        end
+    end
+    return speed
+end
+
 function Player:getDebugInfo()
     local info = super.getDebugInfo(self)
     table.insert(info, "State: " .. self.state_manager.state)
-    table.insert(info, "Walk speed: " .. self.walk_speed)
+    table.insert(info, "Walk speed: " .. self:getBaseWalkSpeed())
+    table.insert(info, "Current walk speed: " .. self:getCurrentSpeed(false))
+    table.insert(info, "Current run speed: " .. self:getCurrentSpeed(true))
     table.insert(info, "Run timer: " .. self.run_timer)
     table.insert(info, "Can run: " .. (self.force_walk and "False" or "True"))
     table.insert(info, "Hurt timer: " .. self.hurt_timer)
@@ -67,10 +86,14 @@ end
 
 function Player:getDebugOptions(context)
     context = super.getDebugOptions(self, context)
-    context:addMenuItem("Toggle force run", "Toggle if the player is forced to run or not",
-        function () self.force_run = not self.force_run end)
-    context:addMenuItem("Toggle force walk", "Toggle if the player is forced to walk or not",
-        function () self.force_walk = not self.force_walk end)
+    context:addMenuItem(
+        "Toggle force run", "Toggle if the player is forced to run or not",
+        function () self.force_run = not self.force_run end
+    )
+    context:addMenuItem(
+        "Toggle force walk", "Toggle if the player is forced to walk or not",
+        function () self.force_walk = not self.force_walk end
+    )
     return context
 end
 
@@ -222,16 +245,7 @@ function Player:handleMovement()
         self.run_timer = 200
     end
 
-    local speed = self.walk_speed
-    if running then
-        if self.run_timer > 60 then
-            speed = speed + (Game:isLight() and 6 or 5)
-        elseif self.run_timer > 10 then
-            speed = speed + 4
-        else
-            speed = speed + 2
-        end
-    end
+    local speed = self:getCurrentSpeed(running)
 
     self:move(walk_x, walk_y, speed * DTMULT)
 
@@ -304,7 +318,7 @@ function Player:updateSlide()
     end
 
     self.run_timer = 50
-    local speed = self.walk_speed + 4
+    local speed = self:getBaseWalkSpeed() + 4
 
     self:move(slide_x, slide_y, speed * DTMULT)
 

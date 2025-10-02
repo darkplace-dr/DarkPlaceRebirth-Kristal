@@ -32,6 +32,7 @@ function MouseHole:init()
 
     self.background = "ui/shop/mousehole_background"
     self.shop_music = nil
+    self.background_speed = 5/30
 
     self.shopkeeper:setActor("shopkeepers/amelia")
     self.shopkeeper.sprite:setPosition(0, 8)
@@ -52,7 +53,6 @@ end
 
 function MouseHole:postInit()
     super.postInit(self)
-    self.background_sprite:play(5/30, true)
     self.shopkeeper:setLayer(SHOP_LAYERS["above_boxes"])
 end
 
