@@ -558,6 +558,7 @@ local cliffside = {
         cutscene:text("* (A large crystal towers before you...)")
         cutscene:text("* (Someone seems to be trapped inside it.)")
         cutscene:text("* (Would you like to free them?)")
+
         local choicer = cutscene:choicer({"Yes", "No"})
         local crystal
         if Game.world.map.id == "grey_cliffside/dead_room1" then
@@ -570,13 +571,10 @@ local cliffside = {
             if Game.world.player.facing == "up" then
 		        cutscene:wait(cutscene:walkTo(Game.world.player, 300, 260, 1))
 		        Game.world.player:setFacing("up")
-
 		        Game.world.music:pause()
-
                 cutscene:wait(1)
 
 		        local white_glows = Game.world.map.white_glows
-
 		        if white_glows then
                     Game.world.timer:tween(5, white_glows, {alpha = 0})
                 end
@@ -591,18 +589,11 @@ local cliffside = {
                 cutscene:playSound("great_shine")
 
                 cutscene:wait(3)
-				
 				cutscene:detachCamera()
-    
                 Assets.playSound("kristal_intro", 1, 0.25)
-                --Game.world.music:play("unsealing_audio", 1)
-                --Game.world.music.source:setLooping(false)
-
-                --cutscene:wait(50/30)
 
                 Game.world.timer:tween(170/30, soul, {y = 160})
                 Game.world.timer:tween(5, crystal.trapped_party_member, {alpha = 0.70})
-
                 cutscene:wait(5)
                 local rev = Assets.playSound("revival")
                 soul:shine()
@@ -625,16 +616,13 @@ local cliffside = {
                 end
                 cutscene:wait(2)
 		        rev:stop()
-
 		        if white_glows then
 		            white_glows.alpha = 1
                 end
                 for i,v in ipairs(Game.world.map.tile_layers) do
                     Game.world.map.tile_layers[i].alpha = 1
                 end
-
 		        soul:remove()
-
                 for i,v in ipairs(flash_parts) do
                     flash_parts[i]:remove()
                 end
@@ -646,11 +634,14 @@ local cliffside = {
                 else
                     susie = cutscene:spawnNPC("suzy_lw", Game.world.player.x, 180)
                 end
-
                 crystal.broken = true
                 crystal.spawn_shards = true
 		        Assets.stopSound("kristal_intro")
-		        Assets.playSound("mirrorbreak")
+
+		        Assets.playSound("glassbreak", 0.4, 0.6)
+		        Assets.playSound("sparkle_glock", 0.5, 0.8)
+		        Assets.playSound("sparkle_glock", 0.5, 0.71)
+
 		        susie:shake()
 		        susie.alpha = 1
 		        cutscene:slideTo(susie, susie.x, 245, 0.5, "out-cubic")
@@ -660,8 +651,7 @@ local cliffside = {
 		        susie:shake()
                 Assets.playSound("bump")
 		        susie.sprite:removeFX()
-
-		        cutscene:wait(3)
+		        cutscene:wait(4)
 		        susie:shake()
                 Assets.playSound("bump")
 		        cutscene:wait(1)
@@ -688,7 +678,7 @@ local cliffside = {
                     cutscene:text("* [shake:0.8]Nope.[wait:5] Nope.[wait:5]Nope.[wait:5]Nope.", "shocked", "hero")
                     cutscene:text("* It's Hero.[wait:5][face:neutral_closed] My name is Hero.", "suspicious", "hero")
 
-                    Game.world.music:play("demonic_little_grey_cliffs")
+                    --Game.world.music:play("demonic_little_grey_cliffs")
                     cutscene:text("* This is all very much a placeholder text/cutscene. Please rewrite it if you want.")
 
                     susie:convertToFollower()
@@ -696,7 +686,8 @@ local cliffside = {
                     Game:unlockPartyMember("suzy")
                     cutscene:attachCamera()
                     cutscene:wait(cutscene:attachFollowers())
-                else
+                end
+                if susie.actor.name == "Susie" then
                     susie.x = Game.world.player.x
                     susie:shake()
                     susie:setFacing("up")
@@ -736,14 +727,15 @@ local cliffside = {
                     cutscene:wait(cutscene:slideTo(susie, 130, 240, 0.5, "out-cubic"))
                     local hero = Game.world:getCharacter("hero")
                     hero:setFacing("left")
-                    --cutscene:wait(0.5)
+
                     cutscene:showNametag("???")
                     cutscene:text("* Hey![wait:5] Back off-", "bangs/nervous_b", "susie", {auto = true})
                     cutscene:text("* ...", "bangs/nervous_smile", "susie")
                     cutscene:hideNametag()
-                    --local choicer = cutscene:choicer({ "* Who are you\ntalking to?", "* Are you\nokay?" })
+
                     cutscene:showNametag("???")
-                    cutscene:text("* Thought there was someone behind me.", "bangs/nervous_smile", "susie")
+                    cutscene:text("* Oh,[wait:5] uh,[wait:5] sorry.", "bangs/nervous_smile", "susie")
+                    cutscene:text("* Thought you were something else.", "bangs/nervous", "susie")
                     cutscene:hideNametag()
                     cutscene:wait(1)
                     Assets.playSound("equip")
@@ -754,7 +746,7 @@ local cliffside = {
                     cutscene:wait(cutscene:walkTo(susie, Game.world.player.x - 50, Game.world.player.y, 2, "right"))
                     cutscene:text("[speed:0.3]* ...", "bangs/neutral", "susie")
                     cutscene:showNametag("???")
-                    cutscene:text("* Who the hell are YOU?", "bangs/annoyed", "susie")
+                    cutscene:text("* Who the hell are you anyway??", "bangs/annoyed", "susie")
                     cutscene:showNametag("Hero")
                     cutscene:text("* Uh,[wait:5] I'm Hero.", "neutral_closed", "hero")
                     cutscene:text("* And you are?", "neutral_closed_b", "hero")
@@ -803,99 +795,151 @@ local cliffside = {
                     Assets.playSound("impact")
                     susie:setSprite("pose")
                     cutscene:wait(0.5)
+
                     local get_bus = Music("get_on_the_bus")
-                    Game.world:spawnObject(MusicLogo(" Get on the Bus\n    Earthbound OST", 360, 220), WORLD_LAYERS["ui"])
+                    --Game.world:spawnObject(MusicLogo(" Get on the Bus\n    Earthbound OST", 360, 220), WORLD_LAYERS["ui"]) --commenting this out cuz its a bit distracting.
 
                     cutscene:showNametag("Susie")
                     cutscene:text("* The name's Susie!", "closed_grin", "susie")
                     susie.actor.default = "walk"
                     susie:resetSprite()
-                    cutscene:text("* Hey,[wait:5] thanks for saving me,[wait:5] I dunno how long I was gonna be in there.", "smirk", "susie")
+                    cutscene:text("* Hey,[wait:5] thanks for saving me.[wait:5] Dunno how long I was gonna be in there.", "smirk", "susie")
                     cutscene:showNametag("Hero")
                     cutscene:text("[speed:0.2]* ...", "really", "hero")
                     susie:setSprite("shock_down")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Oh,[wait:5] uh.", "shock", "susie")
+                    cutscene:text("* Uhhh,[wait:5] right.", "shock", "susie")
                     susie:setAnimation("away_scratch")
                     cutscene:text("* Sorry for calling your name cliched,[wait:5] I guess.", "shock_nervous", "susie")
                     cutscene:showNametag("Hero")
-                    cutscene:text("* ... Right.", "really", "hero")
-                    cutscene:text("* How'd you even wind up trapped in that crystal?", "neutral_closed_b", "hero")
+                    cutscene:text("* ...[wait:5] uh-huh.", "really", "hero")
+                    cutscene:text("* Anyways, how'd you wind up trapped in that crystal?", "neutral_closed_b", "hero")
+                    cutscene:text("* More importantly,[wait:5] how did you even end up here to begin with?", "neutral_closed", "hero")
                     susie:resetSprite()
                     get_bus:fade(0, 1)
                     susie:setFacing("up")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Hmm...", "shy_down", "susie")
-                    cutscene:text("* I...[wait:5] don't remember...", "annoyed_down", "susie")
-                    cutscene:text("* I can remember entering this Dark World very clearly...", "neutral_side", "susie")
+                    cutscene:text("* ...", "shy_down", "susie")
+                    cutscene:text("* I...[wait:5] don't really know...", "annoyed_down", "susie")
+                    cutscene:text("* Last thing I can remember was that I was chasing-", "neutral_side", "susie", {auto = true})
+                    cutscene:text("* ...!", "shock", "susie")
+
+                    Game.world.music:play("deltarune/creepydoor")
+                    Assets.playSound("wing")
+                    susie:shake()
+                    susie:setSprite("shock_down")
+                    cutscene:text("* Crap,[wait:5] right,[wait:5] The Knight!!", "surprise_frown", "susie")
+                    susie:setSprite("walk")
+                    susie:setFacing("up")
+                    cutscene:text("* They must've been the one who trapped me in this thing!", "angry_b", "susie")
+                    susie:setAnimation("look_down_arm_shake")
+                    cutscene:text("* Ugh,[wait:5] when I get my hands on that goddamn-", "angry_c", "susie")
+                    susie:setSprite("look_down_right_surprise")
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* (ahem)", "neutral_opened", "hero")
+                    cutscene:hideNametag()
+                    susie:setSprite("walk_unhappy")
                     susie:setFacing("right")
-                    cutscene:text("* Everything after that is foggy.", "annoyed_down", "susie")
-                    cutscene:showNametag("Hero")
-                    cutscene:text("* I see...", "neutral_closed", "hero")
-                    get_bus:fade(1, 0.01)
-                    cutscene:text("* How'd you find this Dark World?", "neutral_closed_b", "hero")
-                    --get_bus:pause()
+
+                    cutscene:wait(1)
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Oh,[wait:5] I made it.", "smile", "susie")
-                    cutscene:hideNametag("Susie")
-                    Game.world.timer:tween(3, get_bus, { pitch = 0.01 })
-                    cutscene:wait(3)
-                    get_bus:pause()
+                    cutscene:text("* Right,[wait:5] right...", "annoyed_down", "susie")
+                    cutscene:text("* Last I remember, I was chasing the Knight back at the Church.", "annoyed", "susie")
+                    cutscene:text("* They were trying to flee from me and my friends after it failed at...", "neutral_side", "susie")
+                    Assets.playSound("wing")
+                    susie:setAnimation("away_scratch")
+                    cutscene:text("* ...well,[wait:5] WHATEVER their plan was.", "sus_nervous", "susie")
+                    susie:setSprite("confused_right")
+                    cutscene:text("* What was it that Ralsei said?[wait:5] Something about a \"Titan\"?", "annoyed_down", "susie")
+                    cutscene:hideNametag()
+                    Game.world.music:fade(0, 1)
                     cutscene:wait(0.5)
-                    cutscene:showNametag("Hero")
-                    cutscene:text("* You what-", "shocked", "hero")
+                    susie:resetSprite()
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Yeah this is like,[wait:5] my thousandth one I think?", "smirk", "susie")
+                    Assets.playSound("wing")
+                    susie:setSprite("away")
+                    cutscene:text("* Ehh,[wait:5] what does it matter?", "closed_grin", "susie")
+                    susie:setSprite("away_hand")
+                    cutscene:text("* I now know that whole prophecy's total bunk anyways.", "annoyed", "susie")
+                    susie:setSprite("walk_back_arm")
+                    susie:setFacing("left")
+                    cutscene:text("* Which means Kris and I don't need to worry about saving the world!", "closed_grin", "susie")
+                    cutscene:hideNametag()
+
+                    cutscene:wait(1)
                     cutscene:showNametag("Hero")
-                    cutscene:text("* You...[wait:5] you DO know that's a really bad idea,[wait:5] right?", "shocked", "hero")
+                    cutscene:text("* Uhhhhh yeah,[wait:5] about that...", "shocked", "hero")
+                    susie:setSprite("walk_unhappy")
+                    susie:setFacing("right")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* What,[wait:5] The Roaring?", "surprise", "susie")
-                    cutscene:text("* Pshhh,[wait:5] that legend's total bunk y'know.", "closed_grin", "susie")
+                    cutscene:text("* Huh?", "neutral_side", "susie")
                     cutscene:showNametag("Hero")
-                    cutscene:text("* No,[wait:5] something much,[wait:5]\nmuch worse.", "pout", "hero")
+                    cutscene:text("* While,[wait:5] yes,[wait:5] the prophecy DID turn out to be false...", "neutral_closed_b", "hero")
+                    cutscene:text("* ... the fate of the world is still at stake,[wait:5] unfortunately.", "pout", "hero")
+                    Assets.playSound("wing")
+                    susie:shake()
+                    susie:setSprite("shock_right")
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* WHAT?!", "surprise_frown", "susie")
+                    cutscene:slideTo(hero, hero.x + 10, hero.y, 0.2, "out-cubic")
+                    susie:shake()
+                    susie:setSprite("point_right_unhappy")
+                    cutscene:text("* How the hell would YOU know anything about that!?", "angry", "susie")
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* (Oh boy...)", "pout", "hero")
+                    susie:setSprite("walk_unhappy")
+                    susie:setFacing("right")
+                    cutscene:text("* You might wanna sit down. This is gonna take a bit to explain...", "pout", "hero")
                     cutscene:hideNametag()
                     cutscene:wait(cutscene:fadeOut(1))
                     cutscene:wait(2)
-            
-                    --[[local lore_board = Sprite("world/cutscenes/cliffside/lore_board")
-            
-                    lore_board.x, lore_board.y = Game.world.player.x - 100, Game.world.player.y - 150
-            
+
+                    local lore_board = Sprite("world/cutscenes/cliffside/lore_board")
+                    lore_board.x, lore_board.y = 190, 120
                     Game.world:addChild(lore_board)
-            
                     lore_board:setScale(2)
-                    lore_board.layer = 0.6]]
-					
+                    lore_board.layer = 0.6
+
+                    hero.x, hero.y = 366, 290
+                    susie.x, susie.y = 260, 290
+                    hero:setFacing("up")
+                    susie:setFacing("up")
+
 					cutscene:text("[noskip][speed:0.5]* (One excessively long lore summary later...)")
-            
                     cutscene:wait(cutscene:fadeIn(1))
+                    cutscene:wait(1)
+                    susie:setFacing("right")
+                    susie:setSprite("surprised_right")
                     cutscene:showNametag("Susie")
                     cutscene:text("* Oh damn.", "shock", "susie")
+                    hero:setFacing("left")
                     cutscene:showNametag("Hero")
-                    cutscene:text("* Yeah.", "neutral_closed", "hero")
+                    cutscene:text("* Yeah...", "neutral_closed", "hero")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Uhh,[wait:5] guess I'm not opening any more Dark Fountains then.", "shock_nervous", "susie")
+                    susie:setSprite("confused_right")
+                    cutscene:text("* That, uh... certainly explains a lot.", "shock_nervous", "susie")
                     susie:setSprite("exasperated_right")
 
-                    get_bus:resume()           
-                    Game.world.timer:tween(3, get_bus, { pitch = 1 })
-            
+                    get_bus:fade(1, 1)
+                    Assets.playSound("whip_hard")
+                    susie:shake()
                     cutscene:showNametag("Susie")
-                    cutscene:text("* WHY THE HELL DID RALSEI NOT TELL ME ABOUT THIS?!", "teeth_b", "susie")
+                    cutscene:text("* Why didn't Ralsei ever tell me ANY of this?!", "teeth_b", "susie")
                     susie:resetSprite()
-                    cutscene:text("* The Roaring?[wait:10]\nCool and badass end of the world.", "teeth_smile", "susie")
-                    cutscene:text("* I'd get to fight TITANS!", "closed_grin", "susie")
+                    cutscene:text("* Like,[wait:5] the Roaring sounds more badass than what's going on here.", "teeth_smile", "susie")
+                    cutscene:text("* I'd get to fight TITANS and stuff!", "closed_grin", "susie")
                     susie:setFacing("up")
-                    cutscene:text("* But reality collapsing in on itself?", "neutral_side", "susie")
+                    cutscene:text("* But reality collapsing in on itself??", "neutral_side", "susie")
                     susie:setFacing("right")
-                    cutscene:text("* That's just lame.", "annoyed", "susie")
+                    cutscene:text("* That's just lame,[wait:5] dude.", "annoyed", "susie")
                     cutscene:showNametag("Hero")
-                    cutscene:text("* Well,[wait:5] that's settled then.", "smug_b", "hero")
-                    cutscene:text("* We'll go seal this fountain and the world is saved.", "smug", "hero")
-                    cutscene:text("* Y'know unless anyone else decides to open up fountains but uh...", "shocked", "hero")
-                    cutscene:text("* I'm sure it'll be fine.", "happy", "hero")
+                    cutscene:text("* Well,[wait:5] I suppose that settles it then.", "smug_b", "hero")
+                    cutscene:text("* We'll find your friends, seal the fountains that the Knight made...", "smug", "hero")
+                    cutscene:text("* ... and just like that, reality will be saved.", "smug", "hero")
+                    cutscene:text("* Well, unless the Knight opens up MORE fountains but uh...", "shocked", "hero")
+                    cutscene:text("* I'm sure we can handle it.", "happy", "hero")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Uhh,[wait:5] where even IS the Dark Fountain?", "nervous_side", "susie")
+                    cutscene:text("* Uhh,[wait:5] where even IS the Dark Fountain of this place anyways?", "nervous_side", "susie")
                     cutscene:showNametag("Hero")
                     cutscene:text("* That...[wait:5] is something I don't know.", "annoyed", "hero")
                     susie:setSprite("exasperated_right")
@@ -905,38 +949,58 @@ local cliffside = {
                     cutscene:showNametag("Hero")
                     cutscene:text("* Hey,[wait:2] I'm sure there's a way out of here.", "neutral_closed_b", "hero")
                     susie:setFacing("left")
-                    cutscene:text("* We just gotta keep going forward.", "happy", "hero")
+                    cutscene:text("* We just gotta keep going forward.", "neutral_closed", "hero")
                     susie:setFacing("right")
                     cutscene:showNametag("Susie")
-                    cutscene:text("* Yeah,[wait:5] you're right.", "small_smile", "susie")
-                    cutscene:text("* Well,[wait:5] lead the way, Hero!", "sincere_smile", "susie")
+                    cutscene:text("* Yeah,[wait:5] guess I don't really have much of a choice now.", "annoyed_down", "susie")
+                    cutscene:text("* Well uhh,[wait:5] lead the way, Hero.", "sincere_smile", "susie")
                     cutscene:hideNametag()
             
                     get_bus:stop()
-            
-                    --[[local fan = Music("deltarune/fanfare", 1, 1, false)
-            
-                    lore_board:slideTo(-120, lore_board.y, 15)
-            
-                    cutscene:text("[noskip][speed:0.1]* (Susie joined the[func:remove] party!)",
-                        {
-                            auto = true,
-                            functions = {
-                                remove = function ()
-                                    lore_board:explode()
-                                end
-                            }
-                        })
-                    fan:remove()]]
 					
 					Game.world.music:pause()
                     local party_jingle = Music("deltarune/charjoined")
                     party_jingle:play()
                     party_jingle.source:setLooping(false)
-                    
                     cutscene:text("[noskip]* Susie joined the party.")
-					Game.world.music:resume()
                     party_jingle:remove()
+
+                    cutscene:wait(0.5)
+                    hero:setFacing("up")
+                    cutscene:wait(1)
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* Oh yeah.[wait:5]\n* I should get rid of this thing for now.", "neutral_opened", "hero")
+                    cutscene:hideNametag()
+					
+                    Assets.playSound("impact")
+                    lore_board:shake()
+                    hero:setSprite("walk/up_4")
+                    cutscene:wait(0.5)
+                    hero:setSprite("walk")
+                    hero:setFacing("up")
+                    susie:setFacing("up")
+                    cutscene:wait(1)
+                    susie:shake()
+                    susie:setSprite("shock_behind")
+					
+                    local explosion = Explosion(lore_board.x + (lore_board.width), lore_board.y + (lore_board.height))
+                    explosion:setOrigin(0.5, 0.5)
+                    explosion:setScale(8, 4)
+                    explosion:setLayer(Game.world.player.layer - 0.1)
+                    Game.world:addChild(explosion)
+                    cutscene:wait(0.5)
+                    lore_board:remove()
+					
+                    cutscene:wait(1)
+                    susie:setSprite("walk")
+                    susie:setFacing("up")
+                    cutscene:wait(1)
+                    hero:setFacing("left")
+                    susie:setFacing("right")
+
+                    cutscene:showNametag("Hero")
+                    cutscene:text("* Aight,[wait:5] let's get movin'.", "smug", "hero")
+                    cutscene:hideNametag()
 
                     susie:convertToFollower()
                     Game:setFlag("cliffside_susie", true)
