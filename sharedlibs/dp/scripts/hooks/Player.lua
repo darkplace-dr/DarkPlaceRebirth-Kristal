@@ -74,7 +74,7 @@ function Player:update()
     super.update(self)
     if DP:isTauntingAvaliable() then
         if self.last_collided_x or self.last_collided_y and self:getCurrentSpeed(false) >= 10 then
-            self.world.player:shake(4, 0)
+            self:shake(4, 0)
             if self.toque_collide_sound then self.toque_collide_sound:stop() end
             self.toque_collide_sound = Assets.playSound("wing")
         end
