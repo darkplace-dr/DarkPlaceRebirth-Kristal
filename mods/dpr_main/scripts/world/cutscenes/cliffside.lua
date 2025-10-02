@@ -139,7 +139,7 @@ local cliffside = {
 
                 cutscene:wait(1)
                 cutscene:textTagged("* Ah.[wait:10] So it was you who called out to me.", "neutral_closed", "hero")
-                cutscene:textTagged("* Should've guessed. I believe overheard you conversing with [color:yellow]HIM[color:reset].", "neutral_closed", "hero")
+                cutscene:textTagged("* Should've guessed. I believe I overheard you conversing with [color:yellow]HIM[color:reset].", "neutral_closed", "hero")
                 hero:setSprite("walk/left")
                 cutscene:wait(0.5)
                 cutscene:textTagged("* Unless he was talking to himself again...", "pout", "hero")
@@ -147,7 +147,7 @@ local cliffside = {
                 cutscene:wait(0.5)
                 hero:setSprite("walk/down")
                 cutscene:textTagged("* Regardless,[wait:5] it seems you're stuck with me,[wait:5] so...", "neutral_opened", "hero")
-                cutscene:textTagged("* First thing we should is find out who caused reality to shit itself.", "neutral_closed", "hero")
+                cutscene:textTagged("* We should find out what caused reality to collapse in on itself.", "neutral_closed", "hero")
 				
                 cutscene:wait(0.5)
                 hero:setFacing("up")

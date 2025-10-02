@@ -353,7 +353,7 @@ return {
                 cutscene:wait(0.5)
                 gonerText("NOW...[wait:20]")
                 cutscene:wait(0.5)
-                gonerText("ALLOW ME TO\nEXPLAIN[wait:40]WHY YOU ARE\nHERE.[wait:20]")
+                gonerText("ALLOW ME TO\nEXPLAIN[wait:40] WHY YOU ARE\nHERE.[wait:20]")
     
                 cutscene:wait(0.75)
             else
