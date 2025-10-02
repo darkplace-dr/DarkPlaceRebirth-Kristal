@@ -36,23 +36,16 @@ end
 
 function Player:getCurrentSpeed(running)
     local speed = super.getCurrentSpeed(self, running)
-    --local base_speed = super.getBaseWalkSpeed(self)
 
     -- Holding run with the Pizza Toque equipped (or if the file name is "PEPPINO")
     -- will cause a gradual increase in speed.
     if DP:isTauntingAvaliable()
-        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry") then
-        if self.run_timer > 60 then
-            self.run_toque_timer = self.run_toque_timer + DT
-            speed = speed + self.run_toque_timer
-        else
-            self.run_toque_timer = 0
-            --[[
-            if speed > base_speed then
-                speed = base_speed
-            end
-            ]]
-        end
+        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry")
+        and self.run_timer > 60 then
+        self.run_toque_timer = self.run_toque_timer + DT
+        speed = speed + self.run_toque_timer
+    else
+        self.run_toque_timer = 0
     end
 
     return speed
