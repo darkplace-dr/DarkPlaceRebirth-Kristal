@@ -1,5 +1,5 @@
----@class GreenRoomWall : Object
----@GreenRoomWall fun(...) : Object
+---@class GreenRoomWall : Event
+---@overload fun(...) : Event
 local GreenRoomWall, super = Class(Event)
 
 function GreenRoomWall:init(data)
@@ -22,8 +22,10 @@ function GreenRoomWall:init(data)
 	end
 	
 	if not Game.world.map.star_canvas then
-		Game.world.map.star_canvas = love.graphics.newCanvas(1720 * 0.5, 488 * 0.5)
-		Draw.pushCanvas(Game.world.map.star_canvas)
+		Game.world.map.star_canvas = love.graphics.newCanvas(860, 244)
+		Draw.pushCanvas(Game.world.map.star_canvas, {
+            clear = true
+        })
 		for i = 0, 12 do
 			local __x = (i * 40) - 80 - 120
 			local __y = -40 + (44 * i)
@@ -106,15 +108,19 @@ function GreenRoomWall:onLoad()
 end
 function GreenRoomWall:draw()
 	super.draw(self)
+
     local shader = Kristal.Shaders["GradientV"]
     local last_shader = love.graphics.getShader()
+
 	love.graphics.setShader(shader)
     shader:sendColor("from", {99/255, 142/255, 152/255})
     shader:sendColor("to", {168/255, 228/255, 131/255})
 	Draw.draw(Assets.getTexture("bubbles/fill"), 0, 0, 0, self.width, self.height-10)
 	love.graphics.setShader(last_shader)
+
     Draw.pushScissor()
 	Draw.scissor(0, 0, self.width, self.height - 10)
+
 	if Game.world.map.star_canvas then
 		self.bg_speed = self.bg_speed - self.tile_speed * DTMULT
 		self.bg_speed_y = self.bg_speed_y + self.tile_speed * DTMULT
@@ -124,6 +130,7 @@ function GreenRoomWall:draw()
 		if self.bg_speed_y > -88 then
 			self.bg_speed_y = self.bg_speed_y - 88
 		end
+
 		-- This fucking sucks but I don't know how to do it better
 		love.graphics.stencil(function()
 			if Game.world.map.star_canvas then
@@ -140,6 +147,7 @@ function GreenRoomWall:draw()
 		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt))
 		shader:sendColor("to", {140/255, 180/255, 151/255})
 		Draw.draw(Assets.getTexture("bubbles/fill"), 0, 0, 0, self.width, self.height-10)
+
 		love.graphics.stencil(function()
 			if Game.world.map.star_canvas then
 				local last_shader = love.graphics.getShader()
@@ -155,10 +163,13 @@ function GreenRoomWall:draw()
 		shader:sendColor("from", Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt))
 		shader:sendColor("to", {140/255, 180/255, 151/255})
 		Draw.draw(Assets.getTexture("bubbles/fill"), 0, 0, 0, self.width, self.height-10)
+
 		love.graphics.setStencilTest()
         love.graphics.setShader(last_shader)
 	end
+
     Draw.popScissor()
+
 	Draw.setColor(159/255,216/255,135/255,0.3)
 	Draw.rectangle("fill", 0, self.height - 10, self.width, 30)
 	Draw.setColor(1,1,1,1)
