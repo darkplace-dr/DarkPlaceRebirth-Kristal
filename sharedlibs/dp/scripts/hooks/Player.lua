@@ -21,6 +21,9 @@ function Player:init(chara, x, y)
     if DP.run_toque_timer_hold then
         self.run_toque_timer = DP.run_toque_timer_hold
     end
+
+    ---@type love.Source?
+    self.toque_collide_sound = nil
 end
 
 function Player:getBaseWalkSpeed()
@@ -72,7 +75,8 @@ function Player:update()
     if DP:isTauntingAvaliable() then
         if self.last_collided_x or self.last_collided_y and self:getCurrentSpeed(false) >= 10 then
             self.world.player:shake(4, 0)
-            Assets.playSound("wing")
+            if self.toque_collide_sound then self.toque_collide_sound:stop() end
+            self.toque_collide_sound = Assets.playSound("wing")
         end
     end
 
