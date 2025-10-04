@@ -175,6 +175,7 @@
 			"pacifyGlow": true,
 			"tiredMessages": true,
 			"awakeMessages": true,
+			"oldRudeBuster": false
 		},
     }
 }
