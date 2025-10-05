@@ -4387,11 +4387,7 @@ function lib:onActionSelect(battler, button)
                             ["data"] = spell,
                             ["callback"] = function(menu_item)
                                 Game.battle.selected_xaction = spell
-                                if Mod.libs["engine-fixes"] then
-                                    Game.battle:setState("ENEMYSELECT", "XACT")
-                                else
-                                    Game.battle:setState("XACTENEMYSELECT", "SPELL")
-                                end
+                                Game.battle:setState("XACTENEMYSELECT", "SPELL")
                             end
                         })
                     end
@@ -4415,11 +4411,7 @@ function lib:onActionSelect(battler, button)
                                 ["data"] = spell,
                                 ["callback"] = function(menu_item)
                                     Game.battle.selected_xaction = spell
-                                    if Mod.libs["engine-fixes"] then
-                                        Game.battle:setState("ENEMYSELECT", "XACT")
-                                    else
-                                        Game.battle:setState("XACTENEMYSELECT", "SPELL")
-                                    end
+                                    Game.battle:setState("XACTENEMYSELECT", "SPELL")
                                 end
                             })
                         end
