@@ -68,6 +68,8 @@ function actor:init()
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
         ["jump_ball"]           = {"ball", 1/15, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
     if Game.chapter == 1 then

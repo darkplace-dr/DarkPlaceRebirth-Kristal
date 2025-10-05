@@ -104,7 +104,7 @@ function actor:init(style)
 
         ["dance"] = {"dance", 1/6, true},
 
-        ["pirouette"] = {"pirouette", 1/8, true},
+        ["pirouette"] = {"pirouette", 4/30, true},
     }
 
     -- Alternate animations to use for Susie without a smile
