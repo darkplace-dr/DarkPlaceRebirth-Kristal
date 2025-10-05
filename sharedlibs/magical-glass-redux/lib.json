@@ -7,8 +7,8 @@
         "Bor",                          // contributor
         "Just Another Random User",     // contributor
     ],
-    "dependencies": ["engine-fixes"],
-    "version": "v3.2.2",
+
+    "version": "v2.26.1",
     "engineVer": "v0.10.0-dev",
 
     "config": {
