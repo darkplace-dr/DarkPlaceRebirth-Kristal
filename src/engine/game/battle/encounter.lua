@@ -146,24 +146,7 @@ function Encounter:getVictoryXP(xp) end
 ---@param money integer     Money earned on victory
 ---@param xp    integer     XP earned on victory
 ---@return string? text
-function Encounter:getVictoryText(text, money, xp)
-    local self = Game.battle
-    if self.killed then
-        local levelup = false
-        for i,v in ipairs(self.party) do
-            local love = v.chara.love
-            v.chara:addExp(xp)
-            if v.chara.love > love then
-                levelup = true
-            end
-        end
-        if levelup then
-            Assets.playSound("levelup", 1, 1)
-            
-            return "* You won!\n* Got " .. xp .. " EXP and " .. money .. " "..Game:getConfig("darkCurrencyShort")..".\n* Your LOVE increased!"
-        end
-    end    
-end
+function Encounter:getVictoryText(text, money, xp) end
 
 function Encounter:update() end
 
