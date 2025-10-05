@@ -10,10 +10,12 @@ local function h(hex)
     return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
 end
 
-
 function actor:normalUpdates(sprite)
     if sprite.sprite.cust then
-        if sprite.sprite.cust.rotation then sprite.rotation = sprite.sprite.cust.rotation end
+        local fx = sprite.sprite:getFX(OutlineFX)
+        local col = sprite.sprite.cust.outline
+        fx:setColor(col[1], col[2], col[3])
+        sprite:setColor(sprite.sprite.cust.color)
     end
 end
 
@@ -40,14 +42,13 @@ function actor:onSpriteInit(sprite)
         end
     end
 
+    local fun = Noel:getFlag("FUN")
+    if fun == 56 then
+        sprite.cust = {outline = {0, 0, 1}, color = {1, 0, 0}}
+    end
+
     if Game:getPartyMember("noel").kills >= 100 then
-    sprite:addFX(PaletteFX({
-        h '#585858',
-        h '#272727',
-    }, {
-        h '#a6504d',
-        h '#6a2020',
-    }))
+        sprite:addFX(PaletteFX({h '#585858', h '#272727',}, {h '#a6504d',h '#6a2020',}))
     end
 
     if Noel:isDess() then
@@ -59,7 +60,6 @@ function actor:onSpriteInit(sprite)
         
         self.menu_anim = "brella"
     end
-
 end
 
 --Up and down didnt look nice enough
