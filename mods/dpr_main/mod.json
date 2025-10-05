@@ -168,8 +168,6 @@
     "config": {
         "seqwaves": {},
         "chapter4lib": {},
-        // "engine-fixes": {},
-        "talk_button": {},
         "kristal": {
             "growStronger": false,
 			"pacifyGlow": true,

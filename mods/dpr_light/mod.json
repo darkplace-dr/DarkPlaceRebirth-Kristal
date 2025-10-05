@@ -38,11 +38,12 @@
     // Config values for the engine and any libraries you may have.
     // These config values can control chapter-specific features as well.
     "config": {
-        "engine-fixes": {},
-        "magical-glass": {},
-        "talk_button": {},
         "kristal": {
             // End of config
         },
+        "engine-fixes": {},
+        "magical-glass": {
+            "savepoint_style": "deltarune"
+        }
     }
 }
