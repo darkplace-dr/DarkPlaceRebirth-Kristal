@@ -214,7 +214,9 @@ function actor:initChapter2()
         ["hug_stop"]            = {"hug_stop", 2/9, false},
 
         ["wave_start"]          = {"wave_start", 5/30, false, next="wave_down"},
-        ["wave_down"]           = {"wave_down", 5/30, true}
+        ["wave_down"]           = {"wave_down", 5/30, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
     -- Tables of sprites to change into in mirrors

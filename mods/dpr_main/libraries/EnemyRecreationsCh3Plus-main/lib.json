@@ -1,0 +1,21 @@
+{
+    "id": "enemyrecreations-ch3+",
+
+    "version": "v1.0.1",
+    "engineVer": "v0.10.0",
+
+    "authors": [
+        "HmmNoPls"
+    ],
+
+    "config": {
+        "shuttah": {
+            "use_whitelist": false,
+            "whitelist": [
+                "shuttah/diamond_white", "shuttah/photobullet", "shuttah/waterdrop",
+                "winglade/batstab", "winglade/ring_afterimage", "winglade/ring"
+            ],
+            "blacklist": [ "shuttah/photobullet", "shuttah/diamond_black" ]
+        }
+    }
+}
