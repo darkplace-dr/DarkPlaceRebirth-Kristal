@@ -178,7 +178,7 @@ return {
 			end
 			local recolor = guy:addFX(RecolorFX())
 			recolor.color = {0,0,0}
-			guy.sprite:play(2/30, false)
+			guy:play(2/30, false)
 			Game.world.timer:tween(8/30, recolor, {color = {1,1,1}}, "out-quad")
 			Game.world.timer:tween(0.6, guy, {x = desxloc}, "out-quad")
 			local groundpos = Game.world.player.y
