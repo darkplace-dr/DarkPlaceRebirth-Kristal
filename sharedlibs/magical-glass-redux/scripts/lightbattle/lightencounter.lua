@@ -346,12 +346,14 @@ function LightEncounter:addEnemy(enemy, x, y, ...)
     else
         enemy_obj = enemy
     end
+
     local enemies = self.queued_enemy_spawns
-    local enemies_index
+    local enemies_index = Utils.copy(self.queued_enemy_spawns, true)
     if Game.battle and Game.state == "BATTLE" then
         enemies = Game.battle.enemies
         enemies_index = Game.battle.enemies_index
     end
+
     if x and y then
         enemy_obj:setPosition(x, y)
     else
@@ -361,11 +363,10 @@ function LightEncounter:addEnemy(enemy, x, y, ...)
         local x, y = SCREEN_WIDTH/2 - 1 + (76 * #enemies), 244
         enemy_obj:setPosition(x, y)
     end
+
     enemy_obj.encounter = self
     table.insert(enemies, enemy_obj)
-    if enemies_index then
-        table.insert(enemies_index, enemy_obj)
-    end
+    table.insert(enemies_index, enemy_obj)
     if Game.battle and Game.state == "BATTLE" then
         Game.battle:addChild(enemy_obj)
     end
@@ -443,14 +444,17 @@ function LightEncounter:createSoul(x, y, color)
 end
 
 function LightEncounter:setFlag(flag, value)
+    if self.id == nil then return end
     Game:setFlag("lightencounter#"..self.id..":"..flag, value)
 end
 
 function LightEncounter:getFlag(flag, default)
+    if self.id == nil then return end
     return Game:getFlag("lightencounter#"..self.id..":"..flag, default)
 end
 
 function LightEncounter:addFlag(flag, amount)
+    if self.id == nil then return end
     return Game:addFlag("lightencounter#"..self.id..":"..flag, amount)
 end
 

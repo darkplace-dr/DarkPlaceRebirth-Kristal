@@ -670,6 +670,22 @@ function Battle:onStateChange(old,new)
             --scr_levelup()
         end
 
+        if self.killed then
+            local levelup = false
+            for i,v in ipairs(self.party) do
+                local love = v.chara.love
+                v.chara:addExp(self.xp)
+                if v.chara.love > love then
+                    levelup = true
+                end
+            end
+            if levelup then
+                win_text = "* You won!\n* Got " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* Your LOVE increased!"
+
+                Assets.playSound("levelup", 1, 1)
+            end
+        end
+
         win_text = self.encounter:getVictoryText(win_text, self.money, self.xp) or win_text
 
         if self.encounter.no_end_message then
@@ -964,6 +980,19 @@ function Battle:onStateChange(old,new)
     end
 
     self.encounter:onStateChange(old,new)
+
+    if old == "INTRO" then
+        self.music.basepitch = self.music.pitch
+    end
+
+    if self.discoball then
+        -- For some reason this happens twice
+        if new == "ACTIONSELECT" then
+            self.discoball.tweendir = 1
+        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
+            self.discoball.tweendir = -1
+        end
+    end
 end
 
 --- Gets the location the soul should spawn at when waves start by default

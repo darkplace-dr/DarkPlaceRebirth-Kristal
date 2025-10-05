@@ -88,21 +88,7 @@ function Encounter:beforeStateChange(old, new) end
 --- *(Override)* Called when [`Battle:setState()`](lua://Battle.setState) is called, after any state change code has run.
 ---@param old string
 ---@param new string
-function Encounter:onStateChange(old, new)
-    local self = Game.battle
-    if old == "INTRO" then
-        self.music.basepitch = self.music.pitch
-    end
-
-    if self.discoball then
-        -- For some reason this happens twice
-        if new == "ACTIONSELECT" then
-            self.discoball.tweendir = 1
-        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
-            self.discoball.tweendir = -1
-        end
-    end
-end
+function Encounter:onStateChange(old, new) end
 
 --- *(Override)* Called when an [`ActionButton`](lua://ActionButton.init) is selected.
 ---@param battler   PartyBattler
@@ -160,24 +146,7 @@ function Encounter:getVictoryXP(xp) end
 ---@param money integer     Money earned on victory
 ---@param xp    integer     XP earned on victory
 ---@return string? text
-function Encounter:getVictoryText(text, money, xp)
-    local self = Game.battle
-    if self.killed then
-        local levelup = false
-        for i,v in ipairs(self.party) do
-            local love = v.chara.love
-            v.chara:addExp(xp)
-            if v.chara.love > love then
-                levelup = true
-            end
-        end
-        if levelup then
-            Assets.playSound("levelup", 1, 1)
-            
-            return "* You won!\n* Got " .. xp .. " EXP and " .. money .. " "..Game:getConfig("darkCurrencyShort")..".\n* Your LOVE increased!"
-        end
-    end    
-end
+function Encounter:getVictoryText(text, money, xp) end
 
 function Encounter:update() end
 

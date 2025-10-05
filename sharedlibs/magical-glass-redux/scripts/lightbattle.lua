@@ -2413,6 +2413,10 @@ function LightBattle:hasAction(character_id)
     return self.character_actions[character_id] ~= nil
 end
 
+function LightBattle:getActiveParty()
+    return Utils.filter(self.party, function(party) return not party.is_down end)
+end
+
 function LightBattle:getActiveEnemies()
     for _,enemy in pairs(self.enemies) do
         if enemy.done_state == "PRE-DEATH" and enemy.health > 0 then
@@ -2420,17 +2424,6 @@ function LightBattle:getActiveEnemies()
         end
     end
     return Utils.filter(self.enemies, function(enemy) return not enemy.done_state end)
-end
-
-function LightBattle:getActiveParty()
-    return Utils.filter(self.party, function(party) return not party.is_down end)
-end
-
-function LightBattle:resetEnemiesIndex(reset_xact)
-    self.enemies_index = Utils.copy(self.enemies, true)
-    if reset_xact ~= false then
-        self.battle_ui:resetXACTPosition()
-    end
 end
 
 function LightBattle:shakeCamera(x, y, friction)

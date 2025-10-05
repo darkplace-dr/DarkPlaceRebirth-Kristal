@@ -4,12 +4,11 @@
         "Nyakorita",                    // original author
         "Sam Deluxe",                   // previous author and lead programmer
         "FireRainV",                    // current developer
-        "SadDiamondMan",                // Frisk
         "Bor",                          // contributor
         "Just Another Random User",     // contributor
     ],
-    "dependencies": ["engine-fixes"],
-    "version": "v3.2.7",
+
+    "version": "v2.26.1",
     "engineVer": "v0.10.0-dev",
 
     "config": {
@@ -226,11 +225,6 @@
         // Whether when playing with multiple party members, the leader name will be mentioned as 'You'.
         /////
         "multi_leader_mentioned_as_you": false,
-        
-        ///// Frisk Using The Player Name
-        // Whether Frisk will be named after the name you entered in your save file or their own name.
-        /////
-        "frisk_use_player_name": false,
         
         ///// Debug Mode
         // Determines whether the library is in its debug mode state.

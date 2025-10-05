@@ -29,11 +29,4 @@ function character:lightLVStats()
     }
 end
 
-function character:getGameOverMessage(main)
-    return {
-        main:getName()..",[wait:15] are you\nokay?!",
-        "Please,[wait:15]\nwake up...!"
-    }
-end
-
 return character

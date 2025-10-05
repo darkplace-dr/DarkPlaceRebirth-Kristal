@@ -189,202 +189,225 @@ function lib:loadHooks()
         Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
         Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
         
-        Utils.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...)
-            local enemy_obj = orig(self, enemy, x, y, ...)
+        Utils.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...) 
+            local enemy_obj
+            if type(enemy) == "string" then
+                enemy_obj = MagicalGlassLib:createLightEnemy(enemy, ...)
+            else
+                enemy_obj = enemy
+            end
             
             if enemy_obj.milestone and enemy_obj.experience > 0 then
                 self.milestone = true
             end
             
-            return enemy_obj
+            return orig(self, enemy, x, y, ...)
+        end)
+
+        Utils.hook(LightStatMenu, "draw", function(orig, self)
+            love.graphics.setFont(self.font)
+            Draw.setColor(PALETTE["world_text"])
+            
+            local party = Game.party[self.party_selecting]
+            
+            if self.state == "PARTYSELECT" then
+                local function party_box_area()
+                    local party_box = self.party_select_bg
+                    love.graphics.rectangle("fill", party_box.x - 24, party_box.y - 24, party_box.width + 48, party_box.height + 48)
+                end
+                love.graphics.stencil(party_box_area, "replace", 1)
+                love.graphics.setStencilTest("equal", 0)
+            end
+            
+            if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+                Draw.setColor({235/255, 235/255, 130/255})
+            end
+            
+            love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
+            
+            Draw.setColor(PALETTE["world_text"])
+            
+            if party:getLightStatText() and not party:getLightPortrait() then
+                love.graphics.print(party:getLightStatText(), 172, 8)
+            end
+            
+            local ox, oy = party.actor:getPortraitOffset()
+            if party:getLightPortrait() then
+                Draw.draw(Assets.getTexture(party:getLightPortrait()), 179 + ox, 7 + oy, 0, 2, 2)
+            end
+
+            if #Game.party > 1 then
+                if self.state == "STATS" or self.state == "SPELLS" then
+                    Draw.setColor(Game:getSoulColor())
+                    Draw.draw(self.heart_sprite, 212, 124, 0, 2, 2)
+                end
+                
+                Draw.setColor(PALETTE["world_text"])
+                love.graphics.print("<                >", 162, 116)
+            end
+
+            Draw.setColor(PALETTE["world_text"])
+            
+            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").."  "..party:getLightLV(), 4, 68)
+            love.graphics.print("HP  "..party:getHealth().." / "..party:getStat("health"), 4, 100)
+
+            if self.state == "STATS" then
+                local exp_needed = math.max(0, party:getLightEXPNeeded(party:getLightLV() + 1) - party:getLightEXP())
+            
+                local at = party:getBaseStats()["attack"]
+                local df = party:getBaseStats()["defense"]
+                local mg = party:getBaseStats()["magic"]
+                
+                if self.undertale_stat_display then
+                    at = at - 10
+                    df = df - 10
+                end
+
+                local offset = 0
+                if self.show_magic then
+                    offset = 16
+                    love.graphics.print("MG  ", 4, 228 - offset)
+                    love.graphics.print(mg  .. " ("..party:getEquipmentBonus("magic")   .. ")", 44, 228 - offset) -- alinging the numbers with the rest of the stats
+                end
+                love.graphics.print("AT  "  .. at  .. " ("..party:getEquipmentBonus("attack")  .. ")", 4, 164 - offset)
+                love.graphics.print("DF  "  .. df  .. " ("..party:getEquipmentBonus("defense") .. ")", 4, 196 - offset)
+                
+                if party.id ~= "pauling" then
+                    love.graphics.print("EXP: " .. party:getLightEXP(), 172, 164)
+                    love.graphics.print("NEXT: ".. exp_needed, 172, 196)
+                else
+                    love.graphics.print("MILESTONE", 172, 164)
+                end
+            
+                local weapon_name = "None"
+                local armor_name = "None"
+
+                if party:getWeapon() then
+                    weapon_name = party:getWeapon():getEquipDisplayName()
+                end
+
+                if party:getArmor(1) then
+                    armor_name = party:getArmor(1):getEquipDisplayName()
+                end
+                
+                love.graphics.print("WEAPON: "..weapon_name, 4, 256)
+                love.graphics.print("ARMOR: "..armor_name, 4, 288)
+            
+                love.graphics.print(Game:getConfig("lightCurrency"):upper()..": "..Game.lw_money, 4, 328)
+                if MagicalGlassLib.kills > 20 then
+                    love.graphics.print("KILLS: "..MagicalGlassLib.kills, 172, 328)
+                end
+                
+                if self.show_magic then
+                    love.graphics.setFont(self.font_small)
+                    if Input.usingGamepad() then
+                        Draw.printAlign("PRESS    TO VIEW SPELLS", 150, 368, "center")
+                        Draw.draw(Input.getTexture("confirm"), 100, 366)
+                    else
+                        Draw.printAlign("PRESS " .. Input.getText("confirm") .. " TO VIEW SPELLS", 150, 368, "center")
+                    end
+                end
+            else
+                local spells = self:getSpells()
+                local spell_limit = self:getSpellLimit()
+                
+                love.graphics.setFont(self.font_small)
+                Draw.setColor(PALETTE["world_gray"])
+                love.graphics.print(Kristal.getLibConfig("magical-glass", "light_battle_tp_name"), 21, 138)
+                
+                love.graphics.setFont(self.font)
+                Draw.setColor(PALETTE["world_text"])
+                for i = self.scroll_y, math.min(#spells, self.scroll_y + (spell_limit - 1)) do
+                    local spell = spells[i]
+                    local offset = i - self.scroll_y
+                    
+                    love.graphics.print(tostring(spell:getTPCost(party)).."%", 20, 148 + offset * 32)
+                    love.graphics.print(spell:getName(), 90, 148 + offset * 32)
+                end
+                
+                Draw.setColor(Game:getSoulColor())
+                if self.state == "SELECTINGSPELL" then
+                    Draw.draw(self.heart_sprite, -4, 156 + 32 * (self.spell_selecting - self.scroll_y), 0, 2, 2)
+                elseif self.state == "USINGSPELL" then
+                    if self.option_selecting == 1 then
+                        Draw.draw(self.heart_sprite, -4 + 32, 348, 0, 2, 2)
+                    elseif self.option_selecting == 2 then
+                        Draw.draw(self.heart_sprite, 206 - 32, 348, 0, 2, 2)
+                    end
+                end
+                
+                -- Draw scroll arrows if needed
+                if #spells > spell_limit then
+                    Draw.setColor(1, 1, 1)
+
+                    -- Move the arrows up and down only if we're in the spell selection state
+                    local sine_off = 0
+                    if self.state == "SELECTINGSPELL" then
+                        sine_off = math.sin((Kristal.getTime()*30)/12) * 3
+                    end
+
+                    if self.scroll_y > 1 then
+                        -- up arrow
+                        Draw.draw(self.arrow_sprite, 294 - 4, (148 + 25 - 3) - sine_off, 0, 1, -1)
+                    end
+                    if self.scroll_y + spell_limit <= #spells then
+                        -- down arrow
+                        Draw.draw(self.arrow_sprite, 294 - 4, (148 + (32 * spell_limit) - 19) + sine_off)
+                    end
+                end
+                
+                -- Draw scrollbar if needed (unless the spell limit is 2, in which case the scrollbar is too small)
+                if self.state == "SELECTINGSPELL" and spell_limit > 2 and #spells > spell_limit then
+                    local scrollbar_height = (spell_limit - 2) * 32 + 7
+                    Draw.setColor(0.25, 0.25, 0.25)
+                    love.graphics.rectangle("fill", 294, 148 + 30, 6, scrollbar_height)
+                    local percent = (self.scroll_y - 1) / (#spells - spell_limit)
+                    Draw.setColor(1, 1, 1)
+                    love.graphics.rectangle("fill", 294, 148 + 30 + math.floor(percent * (scrollbar_height-6)), 6, 6)
+                end
+                
+                if self.state == "PARTYSELECT" then
+                    love.graphics.setStencilTest()
+                    Draw.setColor(PALETTE["world_text"])
+                    
+                    local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
+                    
+                    Draw.printAlign("Use " .. spells[self.spell_selecting]:getName() .. " on", 150, 231 + (#Game.party > z and 18 or 56), "center")
+
+                    for i,party in ipairs(Game.party) do
+                        if i <= z then
+                            love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 269 + (#Game.party > z and 18 or 56))
+                        else
+                            love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 269 + 38 + (#Game.party > z and 18 or 56))
+                        end
+                    end
+
+                    Draw.setColor(Game:getSoulColor())
+                    for i,party in ipairs(Game.party) do
+                        if i == self.party_selecting_spell then
+                            if i <= z then
+                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 277 + (#Game.party > z and 18 or 56), 0, 2, 2)
+                            else
+                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 277 + 38 + (#Game.party > z and 18 or 56), 0, 2, 2)
+                            end
+                        end
+                    end
+                else
+                    Draw.setColor(PALETTE["world_text"])
+                    if self.state ~= "SPELLS" and not self:canCast(spells[self.spell_selecting]) then
+                        Draw.setColor(PALETTE["world_gray"])
+                    end
+                    love.graphics.print("USE" , 20 + 32 , 340)
+                    Draw.setColor(PALETTE["world_text"])
+                    love.graphics.print("INFO", 230 - 32, 340)
+                end
+            end
+            love.graphics.setFont(self.font)			
+            local party = Game.party[self.party_selecting]
+            
+            Draw.setColor(COLORS.white)
         end)
     end
-    
-    Utils.hook(ActionButton, "select", function(orig, self)
-        if Game.battle.encounter:onActionSelect(self.battler, self) then return end
-        if Kristal.callEvent(KRISTAL_EVENT.onActionSelect, self.battler, self) then return end
-        if self.type == "item" then
-            Game.battle:clearMenuItems()
-            for i,item in ipairs(Game.inventory:getStorage("items")) do
-                Game.battle:addMenuItem({
-                    ["name"] = item:getName(),
-                    ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
-                    ["description"] = item:getBattleDescription(),
-                    ["data"] = item,
-                    ["callback"] = function(menu_item)
-                        Game.battle.selected_item = menu_item
-
-                        if not item.target or item.target == "none" then
-                            Game.battle:pushAction("ITEM", nil, menu_item)
-                        elseif item.target == "ally" then
-                            Game.battle:setState("PARTYSELECT", "ITEM")
-                        elseif item.target == "enemy" then
-                            Game.battle:setState("ENEMYSELECT", "ITEM")
-                        elseif item.target == "party" then
-                            Game.battle:pushAction("ITEM", Game.battle.party, menu_item)
-                        elseif item.target == "enemies" then
-                            Game.battle:pushAction("ITEM", Game.battle:getActiveEnemies(), menu_item)
-                        end
-                    end
-                })
-            end
-            if Game.inventory:hasItem("oddstone") then
-                local item = Game.inventory:getItemByID("oddstone")
-                Game.battle:addMenuItem({
-                    ["name"] = item:getName(),
-                    ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
-                    ["description"] = item:getBattleDescription(),
-                    ["data"] = item,
-                    ["callback"] = function(menu_item)
-                        Game.battle.selected_item = menu_item
-
-                        if not item.target or item.target == "none" then
-                            Game.battle:pushAction("ITEM", nil, menu_item)
-                        elseif item.target == "ally" then
-                            Game.battle:setState("PARTYSELECT", "ITEM")
-                        elseif item.target == "enemy" then
-                            Game.battle:setState("ENEMYSELECT", "ITEM")
-                        elseif item.target == "party" then
-                            Game.battle:pushAction("ITEM", Game.battle.party, menu_item)
-                        elseif item.target == "enemies" then
-                            Game.battle:pushAction("ITEM", Game.battle:getActiveEnemies(), menu_item)
-                        end
-                    end
-                })
-            end
-            if #Game.battle.menu_items > 0 then
-                Game.battle:setState("MENUSELECT", "ITEM")
-            end
-        elseif self.type == "spare" then
-            local battle_leader = 1
-            if self.battler == Game.battle.party[battle_leader] then
-
-                self:spare_menu()
-
-                local party = {}
-                local party_up = {}
-                for k,chara in ipairs(Game.party) do
-                    if k < 4 and not Game.battle.party[k].is_down then
-                        table.insert(party_up, chara.id)
-                    end
-                    if k < 4 then table.insert(party, chara.id) end
-                end
-                Game.battle:addMenuItem({
-                    ["name"] = "Flee",
-                    ["unusable"] = not Game.battle.encounter.flee,
-                    ["description"] = Game.battle.encounter.flee and "" or "Can't\nEscape",
-                    ["party"] = Game.battle.encounter.flee and party or {},
-                    ["callback"] = function(menu_item)
-                        if (love.math.random(1,100) < Game.battle.encounter.flee_chance) then
-                            Game.battle:setState("FLEE")
-                        else
-                            Game.battle:setState("ENEMYDIALOGUE", "FLEE")
-                            Game.battle.current_selecting = 0
-                        end
-                    end
-                })
-                Game.battle:setState("MENUSELECT", "SPARE")
-            elseif Game.battle.back_row then
-
-                self:spare_menu()
-
-                Game.battle:setState("MENUSELECT", "SPARE")
-            else
-                Game.battle:setState("ENEMYSELECT", "SPARE")
-            end
-        elseif self.type == "skill" then
-            Game.battle:clearMenuItems()
-
-            for id, action in ipairs(self.battler.chara:getSkills()) do
-                Game.battle:addMenuItem({
-                    ["name"] = action[1],
-                    ["description"] = action[2],
-                    ["color"] = action[3],
-                    ["callback"] = action[4]
-                })
-            end
-
-            Game.battle:setState("MENUSELECT", "SKILL")
-        elseif self.type == "tension" then
-            Game.battle:pushAction("TENSION", nil, {tp = -32})
-        else
-            return orig(self)
-        end
-    end)
-    
-    Utils.hook(ActionButton, "hasSpecial", function(orig, self)
-        if self.battler and self.type == "skill" then
-            local has_tired = false
-            for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
-                if enemy.tired then
-                    has_tired = true
-                    break
-                end
-            end
-            if has_tired then
-                local has_pacify = false
-                for _,spell in ipairs(self.battler.chara:getSpells()) do
-                    if spell and spell:hasTag("spare_tired") then
-                        if spell:isUsable(self.battler.chara) and spell:getTPCost(self.battler.chara) <= Game:getTension() then
-                            has_pacify = true
-                            break
-                        end
-                    end
-                end
-                return has_pacify
-            end
-        end
-        return orig(self)
-    end)
-    
-    Utils.hook(ActionButton, "spare_menu", function(orig, self)
-        Game.battle:clearMenuItems()
-        local sparable = false
-        for k,v in pairs(Game.battle:getActiveEnemies()) do
-            if v.mercy >= 100 then
-                sparable = true
-                break
-            end
-        end
-        Game.battle:addMenuItem({
-            ["name"] = "Spare",
-            ["unusable"] = false,
-            ["description"] = "",
-            ["color"] = sparable and {1, 1, 0, 1} or {1, 1, 1, 1},
-            ["callback"] = function(menu_item)
-                Game.battle:setState("ENEMYSELECT", "SPARE")
-            end
-        })
-
-        if Game.battle.back_row then
-
-        local par_t = Game.party
-        local chr = Game.battle.back_row.chara
-        local lol = true
-        local party = {}
-        if chr.can_lead == false and Game.battle.current_selecting == 1 then lol = false end 
-        if chr.health <= 0 then lol = false end
-
-        if lol == false then
-            party[1] = chr.id
-        end
-
-            local data = {}
-            data.data = {}
-            data.data.number = Game.battle.current_selecting
-            print(data.data.number)
-            Game.battle:addMenuItem({
-                ["name"] = "Swap",
-                ["unusable"] = not lol,
-                ["description"] = "Swap\nParty\nMember",
-                ["party"] = party,
-                ["callback"] = function(menu_item)
-                    --Game.party[4].act_num = Game.battle.current_selecting
-                    Game.battle:pushAction("SWAP", nil, data)
-                end
-            })
-        end
-    end)
 end
 
 

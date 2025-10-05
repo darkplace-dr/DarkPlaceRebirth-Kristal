@@ -157,11 +157,6 @@ function lib:init()
         end
 
         if any_killed and not any_alive then
-            for _,party in ipairs(Game.party) do
-                if party:getHealth() > 0 then
-                    party:setHealth(0)
-                end
-            end
             self:stopCameraShake()
             if not self.map:onGameOver() then
                 Game:gameOver(self.soul:getScreenPos())
@@ -458,18 +453,6 @@ function lib:init()
         self.hidden = data.hidden
         
         self:onLoad(data)
-    end)
-    
-    Utils.hook(DebugSystem, "returnMenu", function(orig, self)
-        orig(self)
-        if not (#self.menu_history == 0) then
-            self.menu_target_y = 0
-        end
-    end)
-    
-    Utils.hook(DebugSystem, "enterMenu", function(orig, self, menu, soul, skip_history)
-        orig(self, menu, soul, skip_history)
-        self.menu_target_y = 0
     end)
 end
 
