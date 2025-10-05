@@ -88,21 +88,7 @@ function Encounter:beforeStateChange(old, new) end
 --- *(Override)* Called when [`Battle:setState()`](lua://Battle.setState) is called, after any state change code has run.
 ---@param old string
 ---@param new string
-function Encounter:onStateChange(old, new)
-    local self = Game.battle
-    if old == "INTRO" then
-        self.music.basepitch = self.music.pitch
-    end
-
-    if self.discoball then
-        -- For some reason this happens twice
-        if new == "ACTIONSELECT" then
-            self.discoball.tweendir = 1
-        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
-            self.discoball.tweendir = -1
-        end
-    end
-end
+function Encounter:onStateChange(old, new) end
 
 --- *(Override)* Called when an [`ActionButton`](lua://ActionButton.init) is selected.
 ---@param battler   PartyBattler
