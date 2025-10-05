@@ -335,6 +335,9 @@ function character:load(data)
         self.lw_stats = lw_save_stat or data.lw_stats or self.lw_stats
         self.flags = data.flags or self.flags
         self.lw_health = save.Health or data.lw_health or self:getStat("health", 0, true)
+        if not Noel:getFlag("FUN") then
+            Noel:setFlag("FUN", Game:getFlag("FUN", 11))
+        end
     else
         self.stats = data.stats or self.stats
         self.health = data.health or self:getStat("health", 0, false)
