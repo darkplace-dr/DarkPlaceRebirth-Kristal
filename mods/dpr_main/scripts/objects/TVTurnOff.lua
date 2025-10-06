@@ -2,12 +2,8 @@ local TVTurnOff, super = Class(Object)
 
 function TVTurnOff:init(options)
     super.init(self)
-	
-	if Game.battle then
-		self:setLayer(BATTLE_LAYERS["top"])
-	else
-		self:setLayer(WORLD_LAYERS["top"])
-	end
+
+    self:setLayer(9999)
 	self:setParallax(0,0)
 	
 	self.con = 0
@@ -47,10 +43,10 @@ function TVTurnOff:update()
 		end
 		if self.timer >= 8 then
 			Assets.playSound("tvturnoff2")
-			if self.type == 0 then
+			if self.type == 0 then -- overworld
 				Game.world.music:pause()
 				Game.world.music:setVolume(0)
-			elseif self.type == 1 then
+			elseif self.type == 1 then -- battle
 				Game.battle.music:pause()
 				Game.battle.music:setVolume(0)
 			end
@@ -62,18 +58,18 @@ function TVTurnOff:update()
 		self.timer2 = self.timer2 + DTMULT
 		if self.timer >= 30 then
 			self.con = 3
-			if self.type == 0 then
+			Game.fader.alpha = 1
+			Game.fader:fadeIn()
+			if self.type == 0 then -- overworld
 				if self.flag then
 					Game:setFlag(self.flag, true)
 				end
 				Game.world:loadMap(self.dest_map, self.dest_marker, self.dest_facing, nil)
-				Game.world.fader.alpha = 1
-				Game.world.fader:fadeIn()
 				if Game.world.map.keep_music then
 					Game.world.music:resume()
 					Game.world.music:fade(1, 0.25)
 				end
-			elseif self.type == 1 then -- Zapper battle
+			elseif self.type == 1 then -- battle
 				Game.battle.music:resume()
 				Game.battle.music:fade(1, 0.25)
 			end
