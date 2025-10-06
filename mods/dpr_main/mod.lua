@@ -146,6 +146,12 @@ function Mod:initializeImportantFlags(new_file)
             prefix_os = {Windows = "Roaming/thinkwithgames/YouAreTheCode"},
             wine_steam_appid = 3333330
         },
+        PROJECTCAT = {
+            name = "Project Cat",
+            file = {"Frost-Garb_ProjectCat/player.json"},
+            item_id = "marketkey",
+            prefix_os = {Windows = "Roaming/LOVE"},
+        },
         OVERTIME = {
             file = {"Mercenaries.sav", "Progress.sav", "Story.sav", "undertale_save", "Universal.sav"},
             party_id = "pauling",

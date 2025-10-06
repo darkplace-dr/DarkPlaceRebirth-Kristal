@@ -1,3 +1,25 @@
+local function deliver(cutscene)
+	cutscene:text("* Ok wait there i'll give you what you have to deliver")
+	-- woah an item goes trough the wall :o
+	Assets.playSound("bluh")
+	cutscene:wait(1)
+	local success, result_text = Game.inventory:tryGiveItem("fluffy_bandana")
+	if success then
+		Game:setFlag("ken_quest_gaveBandana", 1)
+		Game:getQuest("delivering_a_bandana"):unlock()
+		Assets.playSound("item")
+		cutscene:text(result_text)
+		cutscene:text("* There!")
+		cutscene:text("* Come back once you deliver it and i might give you a tip")
+	else
+		cutscene:text(result_text)
+		cutscene:text("* ...")
+		Assets.playSound("bluh")
+		cutscene:wait(1)
+		cutscene:text("* It's okay, you can still come back later")
+	end
+end
+
 return {
 	jamm = function(cutscene, event)
 		cutscene:text("* It's a door.")
@@ -87,6 +109,112 @@ return {
 		cutscene:text("[wait:30][sound:giygastalk][voice:none][speed:0.3][shake]* The story of [wait:10]a man\n[wait:10]* Who went too deep...")
 		cutscene:wait(1)
 		Game.world.music:play()
+	end,
+
+	ken = function(cutscene, event)
+		cutscene:text("* Oh someowsne at the door...")
+		cutscene:text("* Wait are you that delivery guy i contacted?...")
+		local choice = cutscene:choicer({"Yes", "No"})
+		if choice == 1 then
+			local resolution = Game:getFlag("ken_quest_resolution")
+			if resolution then
+				Assets.playSound("bluh")
+				cutscene:wait(1)
+			end
+			if resolution == 1 then
+				local success, result_text = Game.inventory:tryGiveItem("bowl_hat")
+				if success then
+					Assets.playSound("item")
+					cutscene:text(result_text)
+					cutscene:text("* There you go")
+					cutscene:text("* Come back if you want more")
+				else
+					Assets.playSound("bluh")
+					cutscene:text(result_text)
+					cutscene:text("* Oh well you can always come back later")
+				end
+				return
+			elseif resolution == 2 then
+				local success, result_text = Game.inventory:tryGiveItem("paper_hat")
+				if success then
+					Assets.playSound("item")
+					cutscene:text(result_text)
+					cutscene:text("* There you go...")
+				else
+					Assets.playSound("bluh")
+					cutscene:text(result_text)
+					cutscene:text("* Oh...")
+				end
+				return
+			end
+			if Game:getFlag("ken_quest_gaveBandana") == 1 then
+				cutscene:text("* Have you delivered the thing yet?")
+				local choice3 = cutscene:choicer({"Yes", "No"})
+				if choice3 == 1 then
+					local hasBandana = Game.inventory:hasItem("fluffy_bandana")
+					if hasBandana or not Game:getQuest("delivering_a_bandana"):isCompleted() then
+						cutscene:text("* ... are you REALLY sure you delivered it?")
+						local choice4 = cutscene:choicer({"Yes", "No"})
+						if choice4 == 1 then
+							cutscene:text("* ... okay")
+							cutscene:text("* Here's a little something for your troubles")
+							local success, result_text = Game.inventory:tryGiveItem("paper_hat")
+							if success then
+								Game:setFlag("ken_quest_resolution", 2)
+								Assets.playSound("item")
+								cutscene:text(result_text)
+								cutscene:text("* There you go...")
+								cutscene:text("* You can come back here anytime for more")
+							else
+								Assets.playSound("bluh")
+								cutscene:text(result_text)
+								cutscene:text("* oh well, try again when you have more space")
+							end
+							return
+						elseif choice4 == 2 then
+							cutscene:text("* Oh... okay")
+						end
+					else
+						cutscene:text("* Okay!")
+						cutscene:text("* Here's a little something for your troubles")
+						local success, result_text = Game.inventory:tryGiveItem("bowl_hat")
+						if success then
+							Game:setFlag("ken_quest_resolution", 1)
+							Assets.playSound("item")
+							cutscene:text(result_text)
+							cutscene:text("* There you go")
+							cutscene:text("* Come back if you want more")
+							cutscene:text("* Have a nice day and thank you")
+						else
+							Assets.playSound("bluh")
+							cutscene:text(result_text)
+							cutscene:text("* Oh well you can always come back later")
+						end
+						return
+					end
+				else
+					cutscene:text("* Oh... okay")
+					return
+				end
+			else
+				deliver(cutscene)
+				return
+			end
+		else
+			if Game:getFlag("ken_quest_gaveBandana") == 1 then
+				cutscene:text("* ...")
+				return
+			else
+				cutscene:text("* Oh... well do you want to deliver something for me?")
+				local choice2 = cutscene:choicer({"Yes", "No"})
+				if choice2 == 1 then
+					deliver(cutscene)
+				else
+					cutscene:text("* ...")
+					return
+				end
+			end
+		end
 	end,
 
 	ceroba = function(cutscene, event)

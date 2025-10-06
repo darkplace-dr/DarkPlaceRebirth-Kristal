@@ -55,6 +55,41 @@
             "width": 2200,
             "x": 3000,
             "y": -800
+        },
+        {
+            "fileName": "maps/hub_pregreatdoor.tmx",
+            "height": 960,
+            "width": 800,
+            "x": 1000,
+            "y": -600
+        },
+        {
+            "fileName": "maps/spamgolor_meeting.tmx",
+            "height": 480,
+            "width": 920,
+            "x": 1000,
+            "y": 760
+        },
+        {
+            "fileName": "maps/hub_traininggrounds.tmx",
+            "height": 600,
+            "width": 880,
+            "x": 2000,
+            "y": 560
+        },
+        {
+            "fileName": "maps/hub_fuseroom.tmx",
+            "height": 480,
+            "width": 960,
+            "x": -1040,
+            "y": 800
+        },
+        {
+            "fileName": "maps/hub_fluffys_palace.tmx",
+            "height": 896,
+            "width": 896,
+            "x": 1012,
+            "y": 2304
         }
     ],
     "onlyShowAdjacentMaps": false,

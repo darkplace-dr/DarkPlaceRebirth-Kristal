@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 74,
+  nextobjectid = 76,
   properties = {
     ["music"] = "mainhub"
   },
@@ -18,14 +18,106 @@ return {
     {
       name = "floor2",
       firstgid = 1,
-      filename = "../../tilesets/floor2.tsx",
-      exportfilename = "../../tilesets/floor2.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 17,
+      image = "../../../../assets/sprites/tilesets/floor2.png",
+      imagewidth = 340,
+      imageheight = 200,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 20,
+        height = 20
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 170,
+      tiles = {}
     },
     {
       name = "apartment_doors",
       firstgid = 171,
-      filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.lua"
+      class = "",
+      tilewidth = 184,
+      tileheight = 160,
+      spacing = 0,
+      margin = 0,
+      columns = 0,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 1,
+        height = 1
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 8,
+      tiles = {
+        {
+          id = 0,
+          image = "../../../../assets/sprites/world/apartment_doors/jamm.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 1,
+          image = "../../../../assets/sprites/world/apartment_doors/brenda.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 2,
+          image = "../../../../assets/sprites/world/apartment_doors/nell.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 3,
+          image = "../../../../assets/sprites/world/apartment_doors/ddelta.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 4,
+          image = "../../../../assets/sprites/world/apartment_doors/arlee.png",
+          width = 106,
+          height = 128
+        },
+        {
+          id = 5,
+          image = "../../../../assets/sprites/world/apartment_doors/ubx.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 6,
+          image = "../../../../assets/sprites/world/apartment_doors/ceroba.png",
+          width = 184,
+          height = 160
+        },
+        {
+          id = 7,
+          image = "../../../../assets/sprites/world/apartment_doors/ken.png",
+          width = 120,
+          height = 160
+        }
+      }
     }
   },
   layers = {
@@ -99,10 +191,10 @@ return {
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -576,6 +668,20 @@ return {
           gid = 176,
           visible = true,
           properties = {}
+        },
+        {
+          id = 74,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 460,
+          y = 240,
+          width = 120,
+          height = 160,
+          rotation = 0,
+          gid = 178,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -768,6 +874,21 @@ return {
           properties = {
             ["cutscene"] = "apartment_doors.gen"
           }
+        },
+        {
+          id = 75,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 470,
+          y = 200,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "apartment_doors.ken"
+          }
         }
       }
     },
@@ -917,7 +1038,7 @@ return {
         },
         {
           id = 26,
-          name = "",
+          name = "entry_ken",
           type = "",
           shape = "point",
           x = 520,
