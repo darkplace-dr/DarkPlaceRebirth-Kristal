@@ -42,7 +42,7 @@ function DLCButton:draw()
         love.graphics.rectangle("fill", 0, 0, self.width, self.height)
 
         -- Draw the rectangle outlines
-        self:drawCoolRectangle(0, 0, self.width, self.height)
+        -- self:drawCoolRectangle(0, 0, self.width, self.height)
     else
         if self.selected then
             Draw.setColor(1, 1, 1, 1)

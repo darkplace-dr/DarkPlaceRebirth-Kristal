@@ -427,6 +427,7 @@ function MainMenuDLC:drawError()
 
 	local y = 48*3
 	for i,error in ipairs(self.loading_errors) do
+		error.response = tonumber(error.response) or 0
 		Draw.printShadow(string.format("%s's %q: %i - %s", error.owner, error.repo, error.response, error.message), 0, y, 2, "center", 640)
 		y = y + 48
 	end
