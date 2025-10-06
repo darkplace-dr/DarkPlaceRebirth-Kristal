@@ -20,10 +20,10 @@ function character:init()
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 1
     -- The color of this character's soul (optional, defaults to red)
-    self.soul_color = {1, 1, 1}
+    self.soul_color = { 1, 1, 1 }
     -- In which direction will this character's soul face (optional, defaults to facing up)
     self.soul_facing = "down"
-    
+
     -- Whether the party member can act / use spells
     self.has_act = false
     self.has_spells = true
@@ -46,14 +46,14 @@ function character:init()
         health = 90,
         attack = 3,
         defense = 1,
-        magic = 11
+        magic = 11,
     }
 
     -- Max stats from level-ups
     self.max_stats = {}
-    
+
     self.frost_resist = true
-    
+
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
     self.stronger_absent = {}
 
@@ -72,17 +72,17 @@ function character:init()
     self.lw_armor_default = "light/bandage"
 
     -- Character color (for action box outline and hp bar)
-    self.color = {1, 1, 0}
+    self.color = { 1, 1, 0 }
     -- Damage color (for the number when attacking enemies) (defaults to the main color)
-    self.dmg_color = {1, 1, 0.3}
+    self.dmg_color = { 1, 1, 0.3 }
     -- Attack bar color (for the target bar used in attack mode) (defaults to the main color)
-    self.attack_bar_color = {1, 1, 153/255}
+    self.attack_bar_color = { 1, 1, 153 / 255 }
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
-    self.attack_box_color = {1, 1, 0}
+    self.attack_box_color = { 1, 1, 0 }
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
-    self.xact_color = {1, 1, 0.5}
+    self.xact_color = { 1, 1, 0.5 }
 
-    self.icon_color = {1, 1, 0}
+    self.icon_color = { 1, 1, 0 }
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/noelle/head"
@@ -99,7 +99,7 @@ function character:init()
     self.attack_pitch = 1.5
 
     -- Battle position offset (optional)
-    self.battle_offset = {0, 0}
+    self.battle_offset = { 0, 0 }
     -- Head icon position offset (optional)
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
@@ -112,16 +112,16 @@ function character:init()
     self.flags = {
         ["iceshocks_used"] = 0,
         ["boldness"] = -12,
-        ["weird"] = false
+        ["weird"] = false,
     }
 end
 
 function character:getTitle()
-    local prefix = "LV"..self:getLevel().." "
+    local prefix = "LV" .. self:getLevel() .. " "
     if self:checkWeapon("thornring") then
-        return prefix.."Ice Trancer\nReceives pain to\nbecome stronger."
+        return prefix .. "Ice Trancer\nReceives pain to\nbecome stronger."
     elseif self:getFlag("iceshocks_used", 0) > 0 then
-        return prefix.."Frostmancer\nFreezes the enemy."
+        return prefix .. "Frostmancer\nFreezes the enemy."
     else
         return super.getTitle(self)
     end
@@ -146,20 +146,20 @@ end
 function character:drawPowerStat(index, x, y, menu)
     if index == 1 then
         local icon = Assets.getTexture("ui/menu/icon/snow")
-        Draw.draw(icon, x-26, y+6, 0, 2, 2)
+        Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
         love.graphics.print("Coldness", x, y)
-        local coldness = Utils.clamp(47 + (self:getFlag("iceshocks_used", 0) * 7), 47, 100)
-        love.graphics.print(coldness, x+130, y)
+        local coldness = MathUtils.clamp(47 + (self:getFlag("iceshocks_used", 0) * 7), 47, 100)
+        love.graphics.print(coldness, x + 130, y)
         return true
     elseif index == 2 then
         local icon = Assets.getTexture("ui/menu/icon/exclamation")
-        Draw.draw(icon, x-26, y+6, 0, 2, 2)
+        Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
         love.graphics.print("Boldness", x, y, 0, 0.8, 1)
-        love.graphics.print(self:getFlag("boldness", -12), x+130, y)
+        love.graphics.print(self:getFlag("boldness", -12), x + 130, y)
         return true
     elseif index == 3 then
         local icon = Assets.getTexture("ui/menu/icon/fire")
-        Draw.draw(icon, x-26, y+6, 0, 2, 2)
+        Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
         love.graphics.print("Guts:", x, y)
         return true
     end

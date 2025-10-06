@@ -565,6 +565,14 @@ function Kristal.onKeyPressed(key, is_repeat)
         elseif key == "f8" then
             print("Hotswapping files...\nNOTE: Might be unstable. If anything goes wrong, it's not our fault :P")
             Hotswapper.scan()
+        elseif key == "f9" and Input.shift() then
+            love.filesystem.createDirectory("screenshots")
+            -- FIXME: the game might freeze when using love.system.openURL to open a file directory
+            if (love.system.getOS() == "Windows") then
+                os.execute('start /B \"\" \"'..love.filesystem.getSaveDirectory()..'/screenshots\"')
+            else
+                love.system.openURL("file://"..love.filesystem.getSaveDirectory().."/screenshots")
+            end
         elseif key == "f9" then
             love.filesystem.createDirectory("screenshots")
             love.graphics.captureScreenshot("screenshots/" .. os.time() .. "-" .. RUNTIME .. ".png")
@@ -2099,10 +2107,10 @@ end
 --- Clears all mod-defined hooks from `Utils.hook`, and restores the original functions. \
 --- Called internally when a mod is unloaded.
 function Kristal.clearModHooks()
-    for _, hook in ipairs(Utils.__MOD_HOOKS) do
+    for _, hook in ipairs(HookSystem.__MOD_HOOKS) do
         hook.target[hook.name] = hook.orig
     end
-    Utils.__MOD_HOOKS = {}
+    HookSystem.__MOD_HOOKS = {}
 end
 
 --- Removes all mod-defined classes from base classes' `__includers` table.
@@ -2111,7 +2119,7 @@ function Kristal.clearModSubclasses()
     for class, subs in pairs(MOD_SUBCLASSES) do
         for _, sub in ipairs(subs) do
             if class.__includers then
-                Utils.removeFromTable(class.__includers, sub)
+                TableUtils.removeValue(class.__includers, sub)
             end
         end
     end
