@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="74">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
  <editorsettings>
   <export target="apartments_left.lua" format="lua"/>
  </editorsettings>
@@ -46,10 +46,10 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,109,110,111,0,0,109,110,111,0,0,109,110,111,0,0,109,110,111,0,0,0,0,0,0,0,
-0,0,0,0,0,0,126,127,128,0,0,126,127,128,0,0,126,127,128,0,0,126,127,128,0,0,0,0,0,0,0,
-0,0,0,0,0,0,143,144,145,0,0,143,144,145,0,0,143,144,145,0,0,143,144,145,0,0,0,0,0,0,0,
-0,0,0,0,0,0,160,161,162,0,0,160,161,162,0,0,160,161,162,0,0,160,161,162,0,0,0,0,0,0,0,
+0,0,0,0,0,0,109,110,111,0,0,0,0,0,0,0,109,110,111,0,0,109,110,111,0,0,0,0,0,0,0,
+0,0,0,0,0,0,126,127,128,0,0,0,0,0,0,0,126,127,128,0,0,126,127,128,0,0,0,0,0,0,0,
+0,0,0,0,0,0,143,144,145,0,0,0,0,0,0,0,143,144,145,0,0,143,144,145,0,0,0,0,0,0,0,
+0,0,0,0,0,0,160,161,162,0,0,0,0,0,0,0,160,161,162,0,0,160,161,162,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -171,6 +171,7 @@
   <object id="66" name="ddelta" gid="174" x="860" y="600" width="120" height="160"/>
   <object id="69" gid="175" x="666" y="600" width="106" height="128"/>
   <object id="72" gid="176" x="260" y="240" width="120" height="160"/>
+  <object id="74" gid="178" x="460" y="240" width="120" height="160"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="6" name="objects">
   <object id="16" name="transition" x="840" y="1200" width="120" height="40">
@@ -240,6 +241,11 @@
     <property name="cutscene" value="apartment_doors.gen"/>
    </properties>
   </object>
+  <object id="75" name="interactable" x="470" y="200" width="100" height="40">
+   <properties>
+    <property name="cutscene" value="apartment_doors.ken"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="15" name="entry_main_1" x="900" y="1160">
@@ -272,7 +278,7 @@
   <object id="25" name="entry_gen" x="320" y="280">
    <point/>
   </object>
-  <object id="26" x="520" y="280">
+  <object id="26" name="entry_ken" x="520" y="280">
    <point/>
   </object>
   <object id="27" x="720" y="280">

@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 5,
-  nextobjectid = 16,
+  nextobjectid = 22,
   properties = {
     ["border"] = "mainhub"
   },
@@ -18,8 +18,31 @@ return {
     {
       name = "main_area",
       firstgid = 1,
-      filename = "../tilesets/main_area.tsx",
-      exportfilename = "../tilesets/main_area.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 13,
+      image = "../../../assets/sprites/tilesets/main_area.png",
+      imagewidth = 260,
+      imageheight = 320,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     }
   },
   layers = {
@@ -100,9 +123,48 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
+          x = 480,
+          y = 400,
+          width = 280,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 440,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 440,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "",
+          type = "",
+          shape = "rectangle",
           x = 160,
           y = 400,
-          width = 600,
+          width = 240,
           height = 40,
           rotation = 0,
           visible = true,
@@ -164,6 +226,22 @@ return {
           properties = {
             ["map"] = "main_hub",
             ["marker"] = "east1"
+          }
+        },
+        {
+          id = 20,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 520,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "hub_fluffys_palace",
+            ["marker"] = "entry"
           }
         },
         {
