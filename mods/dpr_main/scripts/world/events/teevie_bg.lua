@@ -1,5 +1,5 @@
----@class GreenRoomWall : Object
----@GreenRoomWall fun(...) : Object
+---@class TeevieBG : Event
+---@TeevieBG fun(...) : Event
 local TeevieBG, super = Class(Event)
 
 function TeevieBG:init(data)
@@ -15,6 +15,7 @@ function TeevieBG:init(data)
 	self.rect_2.color_bottom = {0,0,0}
 	self.rect_2:setLayer(self.layer)
 	Game.world:addChild(self.rect_2)
+
 	self.star_01 = Sprite("world/maps/tvland/teevie_bg_star_01_tile", 0, 0)
 	self.star_01.alpha = 0.6
 	self.star_01.color = Utils.mergeColor({36/255,38/255,94/255}, COLORS["black"], 0.5)
@@ -22,7 +23,7 @@ function TeevieBG:init(data)
 	self.star_01.wrap_texture_x = true
 	self.star_01.wrap_texture_y = true
 	self.star_01:setLayer(self.layer + 0.01)
-	self.star_01:setParallax(0, 0)
+	self.star_01:setParallax(0.2, 0)
 	Game.world:addChild(self.star_01)
 	self.star_02 = Sprite("world/maps/tvland/teevie_bg_star_02_tile", 0, 0)
 	self.star_02.alpha = 0.5
@@ -31,7 +32,7 @@ function TeevieBG:init(data)
 	self.star_02.wrap_texture_x = true
 	self.star_02.wrap_texture_y = true
 	self.star_02:setLayer(self.layer + 0.02)
-	self.star_02:setParallax(0, 0)
+	self.star_02:setParallax(0.2, 0)
 	Game.world:addChild(self.star_02)
 	self.star_03 = Sprite("world/maps/tvland/teevie_bg_star_01_tile", 0, 0)
 	self.star_03.color = Utils.mergeColor({36/255,38/255,94/255}, {9/255,9/255,22/255}, 0.2)
@@ -39,7 +40,7 @@ function TeevieBG:init(data)
 	self.star_03.wrap_texture_x = true
 	self.star_03.wrap_texture_y = true
 	self.star_03:setLayer(self.layer + 0.03)
-	self.star_03:setParallax(0, 0)
+	self.star_03:setParallax(0.4, 0)
 	Game.world:addChild(self.star_03)
 	self.star_04 = Sprite("world/maps/tvland/teevie_bg_star_02_tile", 0, 0)
 	self.star_04.color = Utils.mergeColor({36/255,38/255,94/255}, {9/255,9/255,22/255}, 0.7)
@@ -47,7 +48,7 @@ function TeevieBG:init(data)
 	self.star_04.wrap_texture_x = true
 	self.star_04.wrap_texture_y = true
 	self.star_04:setLayer(self.layer + 0.04)
-	self.star_04:setParallax(0, 0)
+	self.star_04:setParallax(0.4, 0)
 	Game.world:addChild(self.star_04)
 	self.star_05 = Sprite("world/maps/tvland/teevie_bg_star_03_tile", 0, 0)
 	self.star_05.color = Utils.mergeColor({36/255,38/255,94/255}, COLORS["blue"], 0.2)
@@ -56,7 +57,7 @@ function TeevieBG:init(data)
 	self.star_05.wrap_texture_x = true
 	self.star_05.wrap_texture_y = true
 	self.star_05:setLayer(self.layer + 0.05)
-	self.star_05:setParallax(0, 0)
+	self.star_05:setParallax(0.4, 0)
 	Game.world:addChild(self.star_05)
 	self.star_06 = Sprite("world/maps/tvland/teevie_bg_star_03_tile", 0, 0)
 	self.star_06.color = Utils.mergeColor({36/255,38/255,94/255}, {9/255,9/255,22/255}, 0.1)
@@ -64,8 +65,9 @@ function TeevieBG:init(data)
 	self.star_06.wrap_texture_x = true
 	self.star_06.wrap_texture_y = true
 	self.star_06:setLayer(self.layer + 0.06)
-	self.star_06:setParallax(0, 0)
+	self.star_06:setParallax(0.4, 0)
 	Game.world:addChild(self.star_06)
+
 	self.star_coverrect = GradientVRect(0, 0, Game.world.map.width * Game.world.map.tile_width, Game.world.map.height * Game.world.map.tile_height)
 	self.star_coverrect.alpha = 0.5
 	self.star_coverrect.color_top = {36/255,38/255,94/255}
@@ -128,6 +130,7 @@ end
 
 function TeevieBG:update()
 	super.update(self)
+
 	self.bg_speed = self.bg_speed - (1 * DTMULT) * 0.4
 	self.bg_speed_y = self.bg_speed_y + (1 * DTMULT) * 0.4
 	if self.bg_speed < -SCREEN_WIDTH then
@@ -136,6 +139,7 @@ function TeevieBG:update()
 	if self.bg_speed_y > -SCREEN_HEIGHT then
 		self.bg_speed_y = self.bg_speed_y - SCREEN_HEIGHT
 	end
+
 	self.star_01.x = self.bg_speed * 0.5
 	self.star_01.y = self.bg_speed_y * 0.5
 	self.star_02.x = self.bg_speed * 0.5
