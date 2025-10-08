@@ -89,21 +89,6 @@ function DarkMenu:addButton(button, index)
 end
 
 function DarkMenu:addButtons()
-    if Game.tutorial then
-        self:addButton({
-            ["state"]          = "",
-            ["sprite"]         = Assets.getTexture("ui/menu/btn/talk"),
-            ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/talk_h"),
-            ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/talk"),
-            ["callback"]       = function()
-                Game.world:startCutscene("_talk", "main", Game.world.map.id, Game.party[1].id)
-
-                self.ui_select:stop()
-                self.ui_select:play()
-            end
-        })
-        return
-    end
     -- ITEM
     self:addButton({
         ["state"]          = "ITEMMENU",
@@ -146,20 +131,6 @@ function DarkMenu:addButtons()
             self.box = DarkPowerMenu()
             self.box.layer = 1
             self:addChild(self.box)
-
-            self.ui_select:stop()
-            self.ui_select:play()
-        end
-    })
-
-    -- TALK
-    self:addButton({
-        ["state"]          = "",
-        ["sprite"]         = Assets.getTexture("ui/menu/btn/talk"),
-        ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/talk_h"),
-        ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/talk"),
-        ["callback"]       = function()
-            Game.world:startCutscene("_talk", "main", Game.world.map.id, Game.party[1].id)
 
             self.ui_select:stop()
             self.ui_select:play()

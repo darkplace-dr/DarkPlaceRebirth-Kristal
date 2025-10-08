@@ -340,6 +340,24 @@ end
 function lib:init()
 
     print("Loaded Magical Glass: Redux " .. self.info.version .. "!")
+    
+    -- Undertale Borders
+    self.active_keys = {}
+    self.flower_positions = {
+        {34, 679},
+        {94, 939},
+        {269, 489},
+        {0, 319},
+        {209, 34},
+        {1734, 0},
+        {1829, 359},
+        {1789, 709},
+        {1584, 1049}
+    }
+    self.idle_time = RUNTIME * 1000
+    self.idle = false
+
+
 
     self.encounters_enabled = false
     self.steps_until_encounter = nil
@@ -2047,8 +2065,6 @@ function lib:init()
 
     Utils.hook(LightItemMenu, "init", function(orig, self)
         orig(self)
-        if TARGET_MOD == "dpr_main" then return end
-
         if Mod.libs["moreparty"] and #Game.party > 3 then
             if not Kristal.getLibConfig("moreparty", "classic_mode") then
                 self.party_select_bg = UIBox(-97, 242, 492, #Game.party == 4 and 52 or 90)
@@ -2065,8 +2081,6 @@ function lib:init()
     end)
     
     Utils.hook(LightItemMenu, "update", function(orig, self)
-        if TARGET_MOD == "dpr_main" then orig(self) return end
-        
         if self.state == "ITEMOPTION" then
             if Input.pressed("cancel") then
                 self.state = "ITEMSELECT"
@@ -2142,8 +2156,6 @@ function lib:init()
     end)
 
     Utils.hook(LightItemMenu, "draw", function(orig, self)
-        if TARGET_MOD == "dpr_main" then orig(self) return end
-        
         love.graphics.setFont(self.font)
 
         local inventory = Game.inventory:getStorage(self.storage)
@@ -2222,8 +2234,6 @@ function lib:init()
     end)
 
     Utils.hook(LightItemMenu, "useItem", function(orig, self, item)
-        if TARGET_MOD == "dpr_main" then orig(self, item) return end
-        
         local result
         if item.target == "ally" then
             result = item:onWorldUse(Game.party[self.party_selecting])
@@ -3367,8 +3377,6 @@ function lib:init()
     end)
 
     Utils.hook(LightMenu, "draw", function(orig, self)
-        if TARGET_MOD == "dpr_main" then orig(self) return end
-        
         Object.draw(self)
         
         if self.box and self.box.state == "PARTYSELECT" then
@@ -4308,6 +4316,24 @@ function lib:init()
             end
         end
     end)
+    
+    Utils.hook(Recruit, "init", function(orig, self)
+        orig(self)
+        
+        self.light = nil
+    end)
+    
+    Utils.hook(Recruit, "getHidden", function(orig, self)
+        if self.light ~= nil and not orig(self) then
+            if self.light and Game:isLight() then
+                return false
+            elseif not self.light and not Game:isLight() then
+                return false
+            end
+            return true
+        end
+        return orig(self)
+    end)
 end
 
 function lib:onActionSelect(battler, button)
@@ -4800,6 +4826,17 @@ function lib:registerDebugOptions(debug)
     
     debug:addToExclusiveMenu("OVERWORLD", {"dark_encounter_select", "light_encounter_select", "dark_select_shop", "light_select_shop"})
     debug:addToExclusiveMenu("BATTLE", "light_wave_select")
+    
+    -- Custom Borders
+    local borders = {
+        "custom/dark_battle",
+        "custom/light_battle",
+        "custom/glow",
+    }
+    
+    for _,border in ipairs(borders) do
+        debug:registerOption("border_menu", border, "Switch to the border \"" .. border .. "\".", function() Game:setBorder(border) end)
+    end
 end
 
 function lib:setupLightShop(shop)
@@ -4942,6 +4979,116 @@ function lib:gameNotOver(x, y, redraw)
     Game.gameover = GameNotOver(x or 0, y or 0)
     Game.stage:addChild(Game.gameover)
 end
+
+-- Undertale Borders
+function lib:onKeyPressed(key, is_repeat)
+    if not is_repeat then
+        self.active_keys[key] = true
+    end
+end
+
+-- Undertale Borders
+function lib:onKeyReleased(key)
+    self.active_keys[key] = nil
+end
+
+function lib:onBorderDraw(border_sprite)
+    -- Undertale Border
+    if border_sprite == "undertale/sepia" then
+        local idle_min = 300000
+        local idle_time = 0
+        local current_time = RUNTIME * 1000
+        if (self.idle and current_time >= (self.idle_time + idle_min)) then
+            idle_time = (current_time - (self.idle_time + idle_min))
+        end
+
+        local idle_frame = (math.floor((idle_time / 100)) % 3)
+
+        if idle_frame > 0 then
+            for index, pos in pairs(self.flower_positions) do
+                local x, y = (pos[1] * BORDER_SCALE), (pos[2] * BORDER_SCALE) - 1
+                local round = Utils.round
+                love.graphics.setBlendMode("replace")
+                local flower = Assets.getTexture("borders_addons/undertale/sepia/" .. tostring(index) .. ((idle_frame == 1) and "a" or "b"))
+                love.graphics.setColor(1, 1, 1, BORDER_ALPHA)
+                love.graphics.draw(flower, round(x), round(y), 0, BORDER_SCALE, BORDER_SCALE)
+                love.graphics.setColor(1, 1, 1, 1)
+                love.graphics.setBlendMode("alpha")
+            end
+        end
+    end
+    -- Battle Borders
+    if border_sprite == "custom/dark_battle" then
+        love.graphics.setColor(0, 0, 0, BORDER_ALPHA)
+        love.graphics.rectangle("fill", -8, -8, SCREEN_WIDTH+16, SCREEN_HEIGHT+16)
+
+        love.graphics.setLineStyle("rough")
+        love.graphics.setLineWidth(2)
+
+        local offset = (Kristal.getTime() * 30) % 100
+
+        for i = 2, 22 do
+            if Game:isLight() then
+                love.graphics.setColor(0, 61 / 255, 17 / 255, BORDER_ALPHA / 2)
+            else
+                love.graphics.setColor(66 / 255, 0, 66 / 255, BORDER_ALPHA / 2)
+            end
+            love.graphics.line(0, -210 + (i * 50) + math.floor(offset / 2), BORDER_WIDTH * BORDER_SCALE, -210 + (i * 50) + math.floor(offset / 2))
+            love.graphics.line(-200 + (i * 50) + math.floor(offset / 2), 0, -200 + (i * 50) + math.floor(offset / 2), BORDER_HEIGHT * BORDER_SCALE)
+        end
+
+        for i = 3, 23 do
+            if Game:isLight() then
+                love.graphics.setColor(0, 61 / 255, 17 / 255, BORDER_ALPHA)
+            else
+                love.graphics.setColor(66 / 255, 0, 66 / 255, BORDER_ALPHA)
+            end
+            love.graphics.line(0, -100 + (i * 50) - math.floor(offset), BORDER_WIDTH * BORDER_SCALE, -100 + (i * 50) - math.floor(offset))
+            love.graphics.line(-100 + (i * 50) - math.floor(offset), 0, -100 + (i * 50) - math.floor(offset), BORDER_HEIGHT * BORDER_SCALE)
+        end
+
+        if Game:isLight() then
+            love.graphics.setColor(1, 1, 1, BORDER_ALPHA)
+        else
+            love.graphics.setColor(0, 1, 0, BORDER_ALPHA)
+        end
+
+        local width = 5
+
+        love.graphics.setLineWidth(width)
+
+        local left = 160 - width / 2
+        local top = 30 - width / 2
+
+        love.graphics.rectangle("line", left, top, 640 + width, 480 + width)
+    end
+    if border_sprite == "custom/light_battle" then
+        love.graphics.setColor(0, 0, 0, BORDER_ALPHA)
+        love.graphics.rectangle("fill", -8, -8, SCREEN_WIDTH+16, SCREEN_HEIGHT+16)
+        
+        love.graphics.setColor(Game:isLight() and {34/255, 177/255, 76/255, BORDER_ALPHA} or {175/255, 35/255, 175/255, BORDER_ALPHA})
+        love.graphics.draw(Assets.getTexture("borders_addons/light_battle"), 0, 0, 0, BORDER_SCALE)
+    end
+    -- Custom Border
+    if border_sprite == "custom/glow" then
+        love.graphics.setColor(0, 0, 0, BORDER_ALPHA)
+        love.graphics.rectangle("fill", -8, -8, SCREEN_WIDTH+16, SCREEN_HEIGHT+16)
+
+        local offset = (Kristal.getTime() * 30)
+        for i = 1, 8 do
+            local width = (1 + math.sin(offset / 30)) * i * 8
+
+            love.graphics.setLineWidth(width)
+            love.graphics.setColor(0.5, 0.5, 0.5, 0.1 * BORDER_ALPHA)
+
+            local left = 160 - width / 2
+            local top = 30 - width / 2
+
+            love.graphics.rectangle("line", left, top, 640 + width, 480 + width)
+        end
+    end
+end
+
 function lib:postUpdate()
     Game.lw_xp = nil
     for _,party in pairs(Game.party_data) do -- Gets the party with the most Light EXP
@@ -4961,6 +5108,17 @@ function lib:postUpdate()
             lib:createRandomEncounter(lib.random_encounter):resetSteps(false)
             lib.random_encounter = nil
         end
+    end
+    
+    -- Undertale Borders
+    if Utils.equal(self.active_keys, {}, false) then
+        self.idle_time = 0
+        self.idle = false
+    else
+        if not self.idle then
+            self.idle_time = RUNTIME * 1000
+        end
+        self.idle = true
     end
 end
 

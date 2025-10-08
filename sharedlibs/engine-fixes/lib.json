@@ -1,0 +1,15 @@
+{
+    "id": "engine-fixes", // Fixes many issues with Kristal, ones that may take forever to get merged
+    "authors": [
+        "FireRainV"
+    ],
+    "version": "v1.3.2",
+    "engineVer": "v0.10.0-dev",
+    
+    "config": {
+        // The Sytle of Spells to use
+        // number value: 1 (Chapter 1), 2 (Chapter 2)... 0 (Default to Chapter)
+        // string value: "default" (to chapter)
+        "spells_style": 0,
+    }
+}

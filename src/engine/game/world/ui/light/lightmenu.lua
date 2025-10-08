@@ -44,18 +44,14 @@ function LightMenu:init()
     self:addChild(self.info_box)
     self:realign()
 
-    if Game:getFlag("has_cell_phone") then
-        self.choice_box = UIBox(56, 192, 94, 126)
-    else
-        self.choice_box = UIBox(56, 192, 94, 100)
-    end
+    self.choice_box = UIBox(56, 192, 94, 100)
     self:addChild(self.choice_box)
 
     self.storage = "items"
 end
 
 function LightMenu:getMaxSelecting()
-    return Game:getFlag("has_cell_phone", false) and 4 or 3
+    return Game:getFlag("has_cell_phone", false) and 3 or 2
 end
 
 function LightMenu:onAddToStage(stage)
@@ -120,38 +116,16 @@ function LightMenu:onButtonSelect(button)
         self.ui_select:stop()
         self.ui_select:play()
     elseif button == 3 then
-        if Game:getFlag("has_cell_phone") then
-            if #Game.world.calls > 0 then
-                Input.clear("confirm")
-                self.state = "CELLMENU"
-                self.box = LightCellMenu()
-                self.box.layer = 1
-                self:addChild(self.box)
-
-                self.ui_select:stop()
-                self.ui_select:play()
-            end
-        else
+        if #Game.world.calls > 0 then
             Input.clear("confirm")
-            Game.world:closeMenu()
+            self.state = "CELLMENU"
+            self.box = LightCellMenu()
+            self.box.layer = 1
+            self:addChild(self.box)
 
             self.ui_select:stop()
             self.ui_select:play()
-
-            Game.world:startCutscene("_talk_light")
-
-            return
         end
-    elseif button == 4 then
-        Input.clear("confirm")
-        Game.world:closeMenu()
-
-        self.ui_select:stop()
-        self.ui_select:play()
-
-        Game.world:startCutscene("_talk_light")
-
-        return
     end
 end
 
@@ -188,18 +162,13 @@ function LightMenu:draw()
     love.graphics.setFont(self.font_small)
     love.graphics.print("LV  "..chara:getLightLV(), 46, 100 + offset)
     love.graphics.print("HP  "..chara:getHealth().."/"..chara:getStat("health"), 46, 118 + offset)
-    if MagicalGlassLib and Kristal.getLibConfig("magical-glass", "undertale_menu_display") then
-        love.graphics.print(Game:getConfig("lightCurrencyShort"), 46, 136 + offset)
-        love.graphics.print(Game.lw_money, 82, 136 + offset)
-    else
-        love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
-    end
+    love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
 
     love.graphics.setFont(self.font)
-    if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
-        Draw.setColor(PALETTE["world_text"])
-    else
+    if Game.inventory:getItemCount(self.storage, false) <= 0 then
         Draw.setColor(PALETTE["world_gray"])
+    else
+        Draw.setColor(PALETTE["world_text"])
     end
     love.graphics.print("ITEM", 84, 188 + (36 * 0))
     Draw.setColor(PALETTE["world_text"])
@@ -211,11 +180,6 @@ function LightMenu:draw()
             Draw.setColor(PALETTE["world_gray"])
         end
         love.graphics.print("CELL", 84, 188 + (36 * 2))
-        Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("TALK", 84, 188 + (36 * 3))
-    else
-        Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("TALK", 84, 188 + (36 * 2))
     end
 
     if self.state == "MAIN" then

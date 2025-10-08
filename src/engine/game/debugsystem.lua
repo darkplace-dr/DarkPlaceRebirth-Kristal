@@ -386,7 +386,6 @@ function DebugSystem:fadeMusicIn()
     local music = Game:getActiveMusic()
     if music and self.music_needs_reset then
         music:fade(self.old_music_volume, 0.5)
-        music:resume()
     end
     self.music_needs_reset = false
 end
@@ -749,9 +748,7 @@ function DebugSystem:registerSubMenus()
     end)
     self:registerMenuLeave("music_test", function()
         self:fadeMusicIn()
-        self.music:fade(0, 0.5, function()
-            self.music:stop()
-        end)
+        self.music:stop()
     end)
 
     for id, _ in pairs(Assets.data.music) do
@@ -1181,7 +1178,7 @@ function DebugSystem:onKeyPressed(key, is_repeat)
         if Input.isConfirm(key) and not is_repeat then
             local option = options[self.current_selecting]
             if option then
-                if self.current_menu ~= "sound_test" and self.current_menu ~= "music_test" then
+                if self.current_menu ~= "sound_test" then
                     Assets.playSound("ui_select")
                 end
                 option.func()
