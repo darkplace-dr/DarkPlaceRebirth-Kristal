@@ -895,7 +895,7 @@ function DebugSystem:registerDefaults()
     self:registerOption("main", "Sound Test", "Enter the sound test menu.", function ()
                             self:enterMenu("sound_test", 0)
                         end, in_game)
-
+                        
     self:registerOption("main", "Music Test", "Enter the music test menu.", function ()
                             self:enterMenu("music_test", 0)
                         end, in_game)
