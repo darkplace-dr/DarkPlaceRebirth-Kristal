@@ -18,7 +18,6 @@ function BlueSoul:init(x, y)
     self.jump_height = 5 		-- How high can the blue soul jump? [real] (any number) | default: 5
     self.jump_count = 1 		-- How much can the blue soul double jump? [real] (any number) | default: 2
     self.direction = "down" 	-- What directiion is the soul facing and falling? [string] ("down"; "left"; "up"; "right") | default: "down"
-    self:setFacing("up")        -- Sets the soul sprite to face up
 end
 
 function BlueSoul:update()
