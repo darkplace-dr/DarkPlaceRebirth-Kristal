@@ -213,6 +213,11 @@ function lib:preInit()
         ["battle_mercy_bg"] = PALETTE["battle_mercy_bg"],
         ["battle_mercy_text"] = PALETTE["battle_mercy_text"],
         
+        ["gauge_outline"] = COLORS.black,
+        ["gauge_bg"] = {64/255, 64/255, 64/255, 1},
+        ["gauge_health"] = COLORS.lime,
+        ["gauge_mercy"] = COLORS.yellow,
+        
         ["pink_spare"] = {255/255, 187/255, 212/255, 1},
         
         ["player_health_bg"] = COLORS.red,
@@ -280,7 +285,9 @@ function lib:preInit()
         ["damage_numbers"]     = 150,
         ["top"]                = 1000
     }
+end
 
+function lib:onRegistered()
     self.random_encounters = {}
     for _,path,rnd_enc in Registry.iterScripts("battle/randomencounters") do
         assert(rnd_enc ~= nil, '"randomencounters/'..path..'.lua" does not return value')
@@ -780,23 +787,6 @@ function lib:init()
         else
             orig(self, old, new)
         end
-    end)
-    
-    Utils.hook(Soul, "onDamage", function(orig, self, bullet, amount, battlers)
-        orig(self, bullet, amount, battlers)
-        local best_amount
-        for _,battler in ipairs(battlers) do
-            local equip_amount = 0
-            for _,equip in ipairs(battler.chara:getEquipment()) do
-                if equip.getInvBonus then
-                    equip_amount = equip_amount + equip:getInvBonus()
-                end
-            end
-            if not best_amount or equip_amount > best_amount then
-                best_amount = equip_amount
-            end
-        end
-        self.inv_timer = self.inv_timer + (best_amount or 0)
     end)
     
     Utils.hook(Soul, "init", function(orig, self, x, y, color)
@@ -1994,16 +1984,33 @@ function lib:init()
     end)
     
     Utils.hook(Bullet, "onDamage", function(orig, self, soul)
-        local damage = self:getDamage()
-        if damage > 0 then
-            lib.bonus_damage = self.bonus_damage
-            local battlers = Game.battle:hurt(damage, false, self:getTarget())
-            soul.inv_timer = self.inv_timer
-            soul:onDamage(self, damage, battlers)
-            lib.bonus_damage = nil
-            return battlers
+        lib.bonus_damage = nil
+        if self.attacker then
+            lib.bonus_damage = self.attacker.bonus_damage
         end
-        return {}
+        if self.bonus_damage ~= nil then
+            lib.bonus_damage = self.bonus_damage
+        end
+        local battlers = orig(self, soul)
+        lib.bonus_damage = nil
+        
+        if self:getDamage() > 0 then
+            local best_amount
+            for _,battler in ipairs(battlers) do
+                local equip_amount = 0
+                for _,equip in ipairs(battler.chara:getEquipment()) do
+                    if equip.getInvBonus then
+                        equip_amount = equip_amount + equip:getInvBonus()
+                    end
+                end
+                if not best_amount or equip_amount > best_amount then
+                    best_amount = equip_amount
+                end
+            end
+            soul.inv_timer = soul.inv_timer + (best_amount or 0)
+        end
+        
+        return battlers
     end)
     
     Utils.hook(Bullet, "getDamage", function(orig, self)

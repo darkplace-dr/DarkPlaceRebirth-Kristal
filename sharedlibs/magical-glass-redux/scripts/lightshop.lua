@@ -261,7 +261,6 @@ function LightShop:getState()
 end
 
 function LightShop:onStateChange(old,new)
-    Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
     self.draw_divider = false
@@ -283,8 +282,18 @@ function LightShop:onStateChange(old,new)
         self:setDialogueText("")
         self:setRightText("")
         self.info_box.visible = false
+        if not self.sell_no_selling_text then
+            if #Game.inventory:getStorage("items") > 0 then
+                self:enterSellMenu({"Sell Items", "items"})
+            else
+                self:setState("MAINMENU")
+                self:startDialogue(self.sell_no_storage_text)
+            end
+        else
+            self:setState("MAINMENU")
+            self:startDialogue(self.sell_no_selling_text)
+        end
     elseif new == "SELLING" then
-        Game.key_repeat = true
         self:setDialogueText("")
         self:setRightText("")
         self.info_box.visible = false
@@ -667,18 +676,6 @@ function LightShop:draw()
 
             Draw.popScissor()
         end
-    elseif self.state == "SELLMENU" then
-        if not self.sell_no_selling_text then
-            if #Game.inventory:getStorage("items") > 0 then
-                self:enterSellMenu({"Sell Items","items"})
-            else
-                self:setState("MAINMENU")
-                self:startDialogue(self.sell_no_storage_text)
-            end
-        else
-            self:setState("MAINMENU")
-            self:startDialogue(self.sell_no_selling_text)
-        end
     elseif self.state == "SELLING" then
         local inventory = Game.inventory:getStorage(self.state_reason[2])
         local page = math.ceil(self.sell_current_selecting_x / 2) - 1
@@ -856,7 +853,6 @@ function LightShop:onKeyPressed(key, is_repeat)
             if self.sell_confirming then
                 if Input.isConfirm(key) then
                     self.sell_confirming = false
-                    Game.key_repeat = true
                     local current_item = inventory[self:getSellMenuIndex()]
                     if self.current_selecting_choice == 1 then
                         self:sellItem(current_item)
@@ -884,7 +880,6 @@ function LightShop:onKeyPressed(key, is_repeat)
                     end
                 elseif Input.isCancel(key) then
                     self.sell_confirming = false
-                    Game.key_repeat = true
                 elseif Input.is("left", key) or Input.is("right", key) then
                     if self.current_selecting_choice == 1 then
                         self.current_selecting_choice = 2
@@ -893,11 +888,10 @@ function LightShop:onKeyPressed(key, is_repeat)
                     end
                 end
             else
-                if Input.isConfirm(key) and not is_repeat then
+                if Input.isConfirm(key) then
                     if inventory[self:getSellMenuIndex()] then
                         if inventory[self:getSellMenuIndex()]:isSellable() then
                             self.sell_confirming = true
-                            Game.key_repeat = false
                             self.current_selecting_choice = 1
                             self:setRightText("")
                         else
@@ -906,9 +900,9 @@ function LightShop:onKeyPressed(key, is_repeat)
                     else
                         self:setState("MAINMENU")
                     end
-                elseif Input.isCancel(key) and not is_repeat then
+                elseif Input.isCancel(key) then
                     self:setState("MAINMENU")
-                elseif Input.is("up", key) and not is_repeat then
+                elseif Input.is("up", key) then
                     local old = self.sell_current_selecting_y
                     
                     if self.sell_current_selecting_y == 5 then
@@ -921,7 +915,7 @@ function LightShop:onKeyPressed(key, is_repeat)
                             self.sell_current_selecting_y = old
                         end
                     end
-                elseif Input.is("down", key) and not is_repeat then
+                elseif Input.is("down", key) then
                     local old = self.sell_current_selecting_y
                     self.sell_current_selecting_y = self.sell_current_selecting_y + 1
                     if not self:isValidMenuLocation() then
@@ -932,7 +926,7 @@ function LightShop:onKeyPressed(key, is_repeat)
                             self.sell_current_selecting_y = old
                         end
                     end
-                elseif Input.is("right", key) and not is_repeat and self.sell_current_selecting_y < 5 then
+                elseif Input.is("right", key) and self.sell_current_selecting_y < 5 then
                     local old = self.sell_current_selecting_x
                     self.sell_current_selecting_x = self.sell_current_selecting_x + 1
                     if not self:isValidMenuLocation() then
@@ -947,7 +941,7 @@ function LightShop:onKeyPressed(key, is_repeat)
                         end
                     end
 
-                elseif Input.is("left", key) and not is_repeat and self.sell_current_selecting_y < 5 then
+                elseif Input.is("left", key) and self.sell_current_selecting_y < 5 then
                     local old = self.sell_current_selecting_x
                     self.sell_current_selecting_x = self.sell_current_selecting_x - 1
 
