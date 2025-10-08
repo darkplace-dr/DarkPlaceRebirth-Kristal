@@ -113,11 +113,6 @@ function lib:init()
         end
     end)
     
-    -- Stops the camera shake.
-    Utils.hook(World, "stopCameraShake", function(orig, self)
-        self.camera:stopShake()
-    end)
-    
     Utils.hook(World, "hurtParty", function(orig, self, battler, amount)
         Assets.playSound("hurt")
 
@@ -162,7 +157,7 @@ function lib:init()
                     party:setHealth(0)
                 end
             end
-            self:stopCameraShake()
+            self:shakeCamera(0)
             if not self.map:onGameOver() then
                 Game:gameOver(self.soul:getScreenPos())
             end
@@ -249,51 +244,6 @@ function lib:init()
     Utils.hook(PartyMember, "onLoad", function(orig, self, data)
         orig(self, data)
         self.level_up_count = data.level_up_count or self.level_up_count
-    end)
-    
-    Utils.hook(PartyBattler, "calculateDamage", function(orig, self, amount)
-        local def = self.chara:getStat("defense")
-        local max_hp = self.chara:getStat("health")
-
-        local threshold_a = (max_hp / 5)
-        local threshold_b = (max_hp / 8)
-        for i = 1, math.abs(def) do
-            if amount > threshold_a then
-                amount = amount + (def >= 0 and -3 or 3)
-            elseif amount > threshold_b then
-                amount = amount + (def >= 0 and -2 or 2)
-            else
-                amount = amount + (def >= 0 and -1 or 1)
-            end
-            if def >= 0 then
-                if amount <= 0 or def == math.huge then
-                    amount = 0
-                    break
-                end
-            else
-                if amount == math.huge or def == -math.huge then
-                    amount = math.huge
-                    break
-                end
-            end
-        end
-
-        return math.max(amount, 1)
-    end)
-    
-    Utils.hook(Shop, "init", function(orig, self)
-        orig(self)
-        
-        self.background = nil
-        self.background_speed = 5/30
-    end)
-    
-    Utils.hook(Shop, "postInit", function(orig, self)
-        orig(self)
-        
-        if self.background and self.background ~= "" then 
-            self.background_sprite:play(self.background_speed, true)
-        end
     end)
     
     Utils.hook(ActionBoxDisplay, "draw", function(orig, self) -- Fixes an issue with HP higher than normal + MGR Karma
@@ -451,13 +401,6 @@ function lib:init()
         love.graphics.print(self.reaction_text, reaction_x, 43, 0, 0.5, 0.5)
 
         Object.draw(self)
-    end)
-    
-    Utils.hook(Recruit, "load", function(orig, self, data)
-        self.recruited = data.recruited
-        self.hidden = data.hidden
-        
-        self:onLoad(data)
     end)
     
     Utils.hook(DebugSystem, "returnMenu", function(orig, self)

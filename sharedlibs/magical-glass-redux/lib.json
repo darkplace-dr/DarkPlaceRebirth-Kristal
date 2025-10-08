@@ -9,7 +9,7 @@
         "Just Another Random User",     // contributor
     ],
     "dependencies": ["engine-fixes"],
-    "version": "v3.2.7",
+    "version": "v3.4.18",
     "engineVer": "v0.10.0-dev",
 
     "config": {
@@ -34,6 +34,11 @@
         // Whether EXP is global to all party members or local to each
         /////
         "shared_light_exp": false,
+
+        ///// Enables single reticle weapons to crit
+        ///// Deals 25 percent more damage when criting
+        /////
+        "deltatraveler_crits": false,
 
         ///// Light Battle TP
         // Enables tension and grazing in Light Battles.

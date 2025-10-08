@@ -14,6 +14,16 @@ function LightActionBox:init(x, y, index, battler)
     end
 end
 
+function LightActionBox:getSelectableButtons()
+    local buttons = {}
+    for i, button in ipairs(self.buttons) do
+        if not button.disabled then
+            table.insert(buttons, button)
+        end
+    end
+    return buttons
+end
+
 function LightActionBox:getButtons(battler) end
 
 function LightActionBox:createButtons()
@@ -68,11 +78,11 @@ function LightActionBox:createButtons()
         end
     end
 
-    self.selected_button = Utils.clamp(self.selected_button, 1, #self.buttons)
+    self.selected_button = Utils.clamp(self.selected_button, 1, #self:getSelectableButtons())
 end
 
 function LightActionBox:snapSoulToButton()
-    if self.buttons then
+    if self:getSelectableButtons() then
         if self.selected_button < 1 then
             self.selected_button = #self.buttons
         end
@@ -88,7 +98,7 @@ end
 
 function LightActionBox:update()
     if self.buttons then
-        for i,button in ipairs(self.buttons) do
+        for i,button in ipairs(self:getSelectableButtons()) do
             if (Game.battle.current_selecting == 0 and self.index == 1) or (Game.battle.current_selecting == self.index) then
                 button.visible = true
             else
@@ -108,12 +118,15 @@ function LightActionBox:update()
 end
 
 function LightActionBox:select()
+    local buttons = self:getSelectableButtons()
     self.last_button = self.selected_button
-    self.buttons[self.selected_button]:select()
+    buttons[self.selected_button]:select()
 end
 
 function LightActionBox:unselect()
-    self.buttons[self.selected_button]:unselect()
+    local buttons = self:getSelectableButtons()
+    self.last_button = self.selected_button
+    buttons[self.selected_button]:unselect()
 end
 
 function LightActionBox:draw()

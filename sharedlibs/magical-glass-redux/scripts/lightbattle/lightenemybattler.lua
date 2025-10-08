@@ -146,6 +146,10 @@ function LightEnemyBattler:getHealthDisplay()
     return math.max(0,math.ceil(hp_percent),math.floor(hp_percent * 100)) .. "%"
 end
 
+function LightEnemyBattler:getMercyDisplay()
+    return math.floor(self.mercy) .. "%"
+end
+
 function LightEnemyBattler:getGrazeTension()
     return self.graze_tension
 end
@@ -173,11 +177,19 @@ function LightEnemyBattler:getGaugeSize()
 end
 function LightEnemyBattler:getDamageOffset() return self.damage_offset end
 
+function LightEnemyBattler:isTiredMessageEnabled()
+    return self.health > 0
+end
+
+function LightEnemyBattler:isAwakeMessageEnabled()
+    return self.health > 0
+end
+
 function LightEnemyBattler:setTired(bool)
     local old_tired = self.tired
     self.tired = bool
     if self.tired then
-        if not old_tired and Kristal.getLibConfig("magical-glass", "tired_messages") and self.health > 0 then
+        if not old_tired and Kristal.getLibConfig("magical-glass", "tired_messages") and self:isTiredMessageEnabled() then
             -- Check for self.parent so setting Tired state in init doesn't crash
             if self.parent then
                 self:lightStatusMessage("text", "TIRED", {0/255, 178/255, 255/255})
@@ -185,7 +197,7 @@ function LightEnemyBattler:setTired(bool)
             end
         end
     else
-        if old_tired and Kristal.getLibConfig("magical-glass", "awake_messages") and self.health > 0 then
+        if old_tired and Kristal.getLibConfig("magical-glass", "awake_messages") and self:isAwakeMessageEnabled() then
             if self.parent then self:lightStatusMessage("text", "AWAKE", {0/255, 178/255, 255/255}) end
         end
     end
@@ -783,8 +795,23 @@ function LightEnemyBattler:getAttackDamage(damage, lane, points, stretch)
             return damage
         end
 
+        local crit_bonus
+        if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+            if points <= 8 then
+                crit_bonus = 1.25
+            else
+                crit_bonus = 1
+            end
+        else
+            crit_bonus = 1 -- Fixes a nil value that crashes the engine if the mod config is not active
+        end
+            
+
         if Game:isLight() then
-            total_damage = (lane.battler.chara:getStat("attack") - self.defense) + Utils.random(0, 2, 1)
+            total_damage = (lane.battler.chara:getStat("attack") - self.defense) * crit_bonus -- Normal damage. Only changes if Deltraveler Crits config is active
+            if not Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                total_damage = total_damage + Utils.random(0, 2, 1) -- If Deltatraveler crits is unactive, add a 0-2 random damag bonus, similar to Undertale
+            end
         else
             total_damage = (lane.battler.chara:getStat("attack") * 3.375 - self.defense * 1.363) + Utils.random(0, 2, 1)
         end
@@ -846,7 +873,7 @@ function LightEnemyBattler:onHurt(damage, battler)
     end
 
     if self.can_shake then
-        self:getActiveSprite():shake(6, 0, 0.2, 2/30)
+        self:getActiveSprite():shake(6, 0, 0.4, 2/30)
     end
 
     Game.battle.timer:after(1/3, function()

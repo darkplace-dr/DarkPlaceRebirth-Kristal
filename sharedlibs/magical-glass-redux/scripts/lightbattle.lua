@@ -1604,7 +1604,7 @@ function LightBattle:checkGameOver()
             wave:onEnd(true)
         end
     end
-    self:stopCameraShake()
+    self:shakeCamera(0)
     if self.encounter:onGameOver() then
         return
     end
@@ -2140,6 +2140,12 @@ function LightBattle:powerAct(spell, battler, user, target)
 
     self.timer:after(7/30, function()
         Assets.playSound("boost")
+        local bx, by = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 15
+        local soul = Sprite("effects/soulshine", bx, by)
+        soul:play(1/30, false, function() soul:remove() end)
+        soul:setOrigin(0.25, 0.25)
+        soul:setScale(2, 2)
+        self:addChild(soul)
     end)
 
     self.timer:after(24/30, function()
@@ -2435,10 +2441,6 @@ end
 
 function LightBattle:shakeCamera(x, y, friction)
     self.camera:shake(x, y, friction)
-end
-
-function LightBattle:stopCameraShake()
-    self.camera:stopShake()
 end
 
 function LightBattle:randomTargetOld()

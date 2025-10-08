@@ -191,7 +191,16 @@ function LightAttackBox:hit(battler)
 
         battler.stretch = (self.target_sprite.width - battler.score) / self.target_sprite.width
 
+    if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+        bolt:burst()
+        if battler.score == 1 then
+            Assets.playSound("criticalswing", 0.8)
+            bolt.sprite:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.8))
+        end
+    else
         bolt:flash()
+    end
+
         battler.attacked = true
     
         return battler.score, battler.stretch

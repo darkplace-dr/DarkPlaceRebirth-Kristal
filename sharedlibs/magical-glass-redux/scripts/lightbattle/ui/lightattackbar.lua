@@ -38,7 +38,11 @@ function LightAttackBar:flash(flash_speed)
 end
 
 function LightAttackBar:burst()
+if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+    self.sprite:setSprite(self.active_sprite)
+else
     self.sprite:setSprite(self.fade_sprite)
+end
     self.bursting = true
     self.hit = true
 end

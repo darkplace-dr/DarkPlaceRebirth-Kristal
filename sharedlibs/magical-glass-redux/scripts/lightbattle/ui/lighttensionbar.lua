@@ -1,6 +1,6 @@
 local LightTensionBar, super = Class(Object)
 
-function LightTensionBar:init(x, y, dont_animate)
+function LightTensionBar:init(x, y)
     if Game.world and (not x) then
         local x2 = Game.world.camera:getRect()
         x = x2 - 25
@@ -26,17 +26,13 @@ function LightTensionBar:init(x, y, dont_animate)
 
     self.parallax_y = 0
 
-    if dont_animate ~= false then
-        self.animating_in = false
-    else
-        self.animating_in = true
-    end
-
     self.animation_timer = 0
 
     self.tsiner = 0
 
     self.tension_preview = 0
+    
+    self.timer = self:addChild(Timer())
 end
 
 function LightTensionBar:show()
@@ -45,6 +41,37 @@ end
 
 function LightTensionBar:hide()
     self.visible = false
+end
+
+function LightTensionBar:flash()
+    -- Spawn the flash if needed
+    if self.current_flash == nil or self.current_flash:isRemoved() then
+        self.current_flash = self:addChild(LightTensionBarGlow()) --[[@as TensionBarGlow]]
+    else
+        -- Still exists, reuse it
+        self.current_flash.current_alpha = 1
+    end
+
+    -- Spawn 3-5 sparkles
+    for _ = 1, love.math.random(3, 5) do
+        local x = self.x + love.math.random(0, 26)
+        local y = self.y + 40 + love.math.random(0, 120)
+        local sparkle = self.parent:addChild(Sprite("effects/spare/star", x, y))
+        sparkle.layer = 999
+        sparkle.alpha = 1
+
+        local duration = 10 + love.math.random(0, 5)
+
+        sparkle:play(1 / (30 * (5 / duration)), true)
+        sparkle.physics.speed = 3 + love.math.random() * 3
+        sparkle.physics.direction = -math.rad(90)
+        sparkle:fadeTo(0.25, duration / 30)
+        self.timer:tween(duration / 30, sparkle.physics, { speed = 0 }, "linear")
+
+        self.timer:after(duration / 30, function ()
+            sparkle:remove()
+        end)
+    end
 end
 
 function LightTensionBar:getDebugInfo()
@@ -150,9 +177,9 @@ function LightTensionBar:drawText()
     love.graphics.setFont(self.font)
     if (tamt < 100) then
         love.graphics.setColor(0, 0, 0, 1)
-        love.graphics.printf(tostring(math.floor(self:getPercentageFor250(self.apparent) * 100)) .. "%", 29 - 38, self.height - 4, 50, "center")
+        Draw.printAlign(tostring(math.floor(self:getPercentageFor250(self.apparent) * 100)) .. "%", 15 + 1, self.height - 4, "center")
         love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.printf(tostring(math.floor(self:getPercentageFor250(self.apparent) * 100)) .. "%", 29 - 39, self.height - 5, 50, "center")
+        Draw.printAlign(tostring(math.floor(self:getPercentageFor250(self.apparent) * 100)) .. "%", 15, self.height - 5, "center")
     end
     if (tamt >= 100) then
         self.maxed = true

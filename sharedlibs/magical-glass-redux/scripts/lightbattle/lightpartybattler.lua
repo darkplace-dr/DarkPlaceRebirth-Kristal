@@ -245,11 +245,11 @@ function LightPartyBattler:toggleSaveButton(value)
                 if button.type == "act" then
                     button.rainbow = value
                     if value then
-                        button.tex = Assets.getTexture("ui/lightbattle/btn/save")
-                        button.hover_tex = Assets.getTexture("ui/lightbattle/btn/save_h")
+                        button.texture = Assets.getTexture("ui/lightbattle/btn/save")
+                        button.hover_texture = Assets.getTexture("ui/lightbattle/btn/save_h")
                     else
-                        button.tex = button.tex_og
-                        button.hover_tex = button.hover_tex_og
+                        button.texture = button.texture_og
+                        button.hover_texture = button.hover_texture_og
                     end
                     button:setColor(1, 1, 1, 1)
                 end

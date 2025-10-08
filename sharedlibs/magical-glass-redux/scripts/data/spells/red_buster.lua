@@ -12,9 +12,9 @@ function spell:onLightCast(user, target)
         Assets.playSound("rudebuster_swing")
         local x, y = (SCREEN_WIDTH/2), SCREEN_HEIGHT
         local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
-        local blast = RudeBusterBeam(true, x, y, tx, ty, function(damage_bonus, play_sound)
-            local damage = self:getDamage(user, target, damage_bonus)
-            if play_sound then
+        local blast = RudeBusterBeam(true, x, y, tx, ty, function(pressed)
+            local damage = self:getDamage(user, target, pressed)
+            if pressed then
                 Assets.playSound("scytheburst")
             end
             target:hurt(damage, user)
@@ -27,9 +27,14 @@ function spell:onLightCast(user, target)
     return false
 end
 
-function spell:getDamage(user, target, damage_bonus)
+function spell:getDamage(user, target, pressed, damage_bonus)
+    if pressed then
+        damage_bonus = 40
+    else
+        damage_bonus = 0
+    end
     if Game:isLight() then
-        local damage = math.ceil((user.chara:getStat("magic") * 2) + (user.chara:getStat("attack") * 5) - (target.defense * 4)) + 40 + math.ceil(damage_bonus / 1.5)
+        local damage = math.ceil((user.chara:getStat("magic") * 2) + (user.chara:getStat("attack") * 5) - (target.defense * 4)) + 40 + damage_bonus
         return damage
     else
         return super.getDamage(self, user, target, damage_bonus)

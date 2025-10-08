@@ -44,9 +44,17 @@ function HelpWindow:update()
         if (#item.description > 0 or (item.tp and item.tp > 0)) then
             if not self.showing then
                 self.showing = true
+               if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                TweenManager.tween(self, {y = 237}, 10, "outCubic")
+                else
                 TweenManager.tween(self, {y = 237}, 6, "outCubic")
+                end
                 if Game.battle.tension_bar then
+               if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                    TweenManager.tween(Game.battle.tension_bar, {y = 17}, 10, "outCubic")
+               else
                     TweenManager.tween(Game.battle.tension_bar, {y = 17}, 6, "outCubic")
+               end
                 end
 				if Mod.libs["enemy_tension_bar"] and Game.battle.enemy_tension_bar then
 					TweenManager.tween(Game.battle.enemy_tension_bar, {y = 17}, 6, "outCubic")

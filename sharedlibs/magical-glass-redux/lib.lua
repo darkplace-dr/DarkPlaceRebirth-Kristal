@@ -13,6 +13,7 @@ HelpWindow               = libRequire("magical-glass", "scripts/lightbattle/ui/h
 LightDamageNumber        = libRequire("magical-glass", "scripts/lightbattle/ui/lightdamagenumber")
 LightGauge               = libRequire("magical-glass", "scripts/lightbattle/ui/lightgauge")
 LightTensionBar          = libRequire("magical-glass", "scripts/lightbattle/ui/lighttensionbar")
+LightTensionBarGlow      = libRequire("magical-glass", "scripts/lightbattle/ui/lighttensionbarglow")
 LightActionButton        = libRequire("magical-glass", "scripts/lightbattle/ui/lightactionbutton")
 LightActionBox           = libRequire("magical-glass", "scripts/lightbattle/ui/lightactionbox")
 LightAttackBox           = libRequire("magical-glass", "scripts/lightbattle/ui/lightattackbox")
@@ -45,6 +46,7 @@ function lib:unload()
     LightDamageNumber        = nil
     LightGauge               = nil
     LightTensionBar          = nil
+    LightTensionBarGlow      = nil
     LightActionButton        = nil
     LightActionBox           = nil
     LightAttackBox           = nil
@@ -238,7 +240,7 @@ function lib:preInit()
         ["light_world_dark_battle_color"] = COLORS.white,
         ["light_world_dark_battle_color_attackbar"] = COLORS.lime,
         ["light_world_dark_battle_color_attackbox"] = {0.5, 0, 0, 1},
-        ["light_world_dark_battle_color_damage_single"] = COLORS.white,
+        ["light_world_dark_battle_color_damage_single"] = {1, 0.3, 0.3, 1},
     }
     
     MG_EVENT = {
@@ -1787,6 +1789,9 @@ function lib:init()
         sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
         enemy.parent:addChild(sprite)
         -- sprite:play((stretch / 4) / 1.6, false, function(this)
+        if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then -- Deltraveler stuff
+        stretch = stretch / 2.35
+        end
         sprite:play(Game:isLight() and (stretch / 4) / 1.6 or 1/8, false, function(this) -- dark stuff here
             Game.battle.timer:after(3/30, function()
                 self:onLightAttackHurt(battler, enemy, damage, stretch, crit, Game:isLight())
@@ -4207,27 +4212,35 @@ function lib:init()
         end
         
         local reload_buttons = 0
-        if not self.battler.already_has_flee_button and Game.battle.encounter.can_flee then
-            if Game.battle:getPartyIndex(battle_leader) == Game.battle.current_selecting and (Input.pressed("up") or Input.pressed("down")) then
-                if self.hovered then
-                    local last_type = self.type
-                    if last_type == "spare" then
-                        self.battler.flee_button = true
-                        reload_buttons = 1
-                        Game.battle.ui_move:stop()
-                        Game.battle.ui_move:play()
-                    end
-                    if last_type == "flee" then
-                        self.battler.flee_button = false
-                        reload_buttons = 1
-                        Game.battle.ui_move:stop()
-                        Game.battle.ui_move:play()
+        if not self.battler.already_has_flee_button then
+            if Game.battle.encounter.can_flee then
+                if Game.battle:getPartyIndex(battle_leader) == Game.battle.current_selecting and (Input.pressed("up") or Input.pressed("down")) then
+                    if self.hovered then
+                        local last_type = self.type
+                        if last_type == "spare" then
+                            self.battler.flee_button = true
+                            reload_buttons = 1
+                            Game.battle.ui_move:stop()
+                            Game.battle.ui_move:play()
+                        end
+                        if last_type == "flee" then
+                            self.battler.flee_button = false
+                            reload_buttons = 1
+                            Game.battle.ui_move:stop()
+                            Game.battle.ui_move:play()
+                        end
                     end
                 end
-            end
-            if self.type == "flee" and Game.battle:getPartyIndex(self.battler.chara.id) ~= Game.battle.current_selecting then
-                self.battler.flee_button = false
-                reload_buttons = 2
+                if self.battler.flee_button == true and Game.battle:getPartyIndex(self.battler.chara.id) ~= Game.battle.current_selecting then
+                    self.battler.flee_button = false
+                    reload_buttons = 2
+                end
+            else
+                if self.battler.flee_button == true and Game.battle:getPartyIndex(self.battler.chara.id) == Game.battle.current_selecting then
+                    print(true)
+                    self.battler.flee_button = false
+                    reload_buttons = 2
+                end
             end
         end
         
@@ -4298,7 +4311,7 @@ function lib:init()
             end
         end
 
-        self.selected_button = Utils.clamp(self.selected_button, 1, #self.buttons)
+        self.selected_button = Utils.clamp(self.selected_button, 1, #self:getSelectableButtons())
     end)
     
     Utils.hook(ActionBox, "update", function(orig, self)
@@ -4420,7 +4433,11 @@ function lib:onActionSelect(battler, button)
                             ["data"] = spell,
                             ["callback"] = function(menu_item)
                                 Game.battle.selected_xaction = spell
-                                Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                                if Mod.libs["engine-fixes"] then
+                                    Game.battle:setState("ENEMYSELECT", "XACT")
+                                else
+                                    Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                                end
                             end
                         })
                     end
@@ -4444,7 +4461,11 @@ function lib:onActionSelect(battler, button)
                                 ["data"] = spell,
                                 ["callback"] = function(menu_item)
                                     Game.battle.selected_xaction = spell
-                                    Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                                    if Mod.libs["engine-fixes"] then
+                                        Game.battle:setState("ENEMYSELECT", "XACT")
+                                    else
+                                        Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                                    end
                                 end
                             })
                         end
@@ -4506,21 +4527,22 @@ end
 function lib:modifyActionButtons(battler, buttons)
     if battler.flee_button == nil and not battler.already_has_flee_button then
         for i,button in ipairs(buttons) do
-            if button == "flee" then
+            if button == fleebutton().type then
                 battler.already_has_flee_button = true
+                buttons[i] = fleebutton()
                 break
             end
         end
     elseif battler.flee_button == true then
         for i,button in ipairs(buttons) do
             if button == "spare" then
-                buttons[i] = "flee"
+                buttons[i] = fleebutton()
                 break
             end
         end
     elseif battler.flee_button == false then
         for i,button in ipairs(buttons) do
-            if button == "flee" then
+            if button == fleebutton().type then
                 buttons[i] = "spare"
                 break
             end

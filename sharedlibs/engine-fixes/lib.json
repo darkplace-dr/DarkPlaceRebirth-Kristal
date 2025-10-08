@@ -3,13 +3,13 @@
     "authors": [
         "FireRainV"
     ],
-    "version": "v1.3.3",
+    "version": "v1.4.3",
     "engineVer": "v0.10.0-dev",
     
     "config": {
         // The Sytle of Spells to use
-        // number value: 1 (Chapter 1), 2 (Chapter 2)... 0 (Default to Chapter)
-        // string value: "default" (to chapter)
-        "spells_style": 0,
+        // boolean value: ture (Chapter 1), false (Chapter 2+)
+        // null value: "default" (to chapter)
+        "old_spells": null,
     }
 }

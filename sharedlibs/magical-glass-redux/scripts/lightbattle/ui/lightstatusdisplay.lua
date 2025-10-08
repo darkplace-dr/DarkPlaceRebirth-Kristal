@@ -161,6 +161,9 @@ function LightStatusDisplay:drawStatusStrip()
             love.graphics.print(current .. " / " .. max, x + 245 + size * 1.2 + 1 + 14 + (karma_mode and Assets.getTexture("ui/lightbattle/kr"):getWidth() + 12 or 0) - karma_mode_offset, y)
         else
             local x, y = 22 + (3 - #Game.battle.party - (#Game.battle.party == 2 and 0.4 or 0)) * 102 + (index - 1) * 102 * 2 * (#Game.battle.party == 2 and (1 + 0.4) or 1), 10
+            if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                x, y = 41 + (3 - #Game.battle.party - (#Game.battle.party == 2 and 0 or 0)) * 102 + (index - 1) * 95 * 2 * (#Game.battle.party == 2 and (1) or 1), 10
+            end
             
             local name = battler.chara:getShortName()
             local level = Game:isLight() and battler.chara:getLightLV() or battler.chara:getLevel()
@@ -169,13 +172,24 @@ function LightStatusDisplay:drawStatusStrip()
             local max = battler.chara:getStat("health")
             local karma = battler.karma
             
-            love.graphics.setFont(Assets.getFont("namelv", 24))
-            love.graphics.setColor(MG_PALETTE["player_text"])
-            love.graphics.print(name, x, y - 7)
-            love.graphics.setFont(Assets.getFont("namelv", 16))
-            love.graphics.print((Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")).." " .. level, x, y + 13)
-            
-            love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 66, y + 15)
+            if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                if Game.battle.current_selecting == index then
+                love.graphics.setFont(Assets.getFont("namelv", 16))
+                love.graphics.setColor(MG_PALETTE["player_text"])
+                love.graphics.print(name, x+9, y+2)
+                else
+                love.graphics.setFont(Assets.getFont("namelv", 16))
+                love.graphics.setColor(MG_PALETTE["player_text"])
+                love.graphics.print(name, x+9, y-4)
+                end
+            else
+                love.graphics.draw(Assets.getTexture("ui/lightbattle/hp"), x + 66, y + 15)
+                love.graphics.setFont(Assets.getFont("namelv", 24))
+                love.graphics.setColor(MG_PALETTE["player_text"])
+                love.graphics.print(name, x, y - 7)
+                love.graphics.setFont(Assets.getFont("namelv", 16))
+                love.graphics.print((Game:isLight() and Kristal.getLibConfig("magical-glass", "light_level_name_short") or Kristal.getLibConfig("magical-glass", "light_level_name_dark")).." " .. level, x, y + 13)
+            end
             
             local small = false
             for _,party in ipairs(Game.battle.party) do
@@ -188,7 +202,22 @@ function LightStatusDisplay:drawStatusStrip()
             if karma_mode then
                 love.graphics.draw(Assets.getTexture("ui/lightbattle/kr"), x + 95 + (small and 20 or 32) * 1.2 + 1, y + 15)
             end
-            
+
+            if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+            if current > 0 then
+                if Game.battle.current_selecting == index then
+                love.graphics.setColor(Game:isLight() and (MG_PALETTE["player_health_bg"]) or MG_PALETTE["player_health_bg_dark"])
+                love.graphics.rectangle("fill", x + 72, y+5, (small and 20 or 28) * 1.2 + 1, 9)
+                love.graphics.setColor(Game:isLight() and MG_PALETTE["player_health"] or {battler.chara:getColor()})
+                love.graphics.rectangle("fill", x + 72, y+5, math.ceil((Utils.clamp(current, 0, max) / max) * (small and 20 or 28)) * 1.2 + 1, 9)
+                else
+                love.graphics.setColor(Game:isLight() and (MG_PALETTE["player_health_bg"]) or MG_PALETTE["player_health_bg_dark"])
+                love.graphics.rectangle("fill", x + 72, y-1, (small and 20 or 28) * 1.2 + 1, 9)
+                love.graphics.setColor(Game:isLight() and MG_PALETTE["player_health"] or {battler.chara:getColor()})
+                love.graphics.rectangle("fill", x + 72, y-1, math.ceil((Utils.clamp(current, 0, max) / max) * (small and 20 or 28)) * 1.2 + 1, 9)
+                end
+            end
+        else
             love.graphics.setColor(Game:isLight() and (karma_mode and MG_PALETTE["player_karma_health_bg"] or MG_PALETTE["player_health_bg"]) or MG_PALETTE["player_health_bg_dark"])
             love.graphics.rectangle("fill", x + 92, y, (small and 20 or 32) * 1.2 + 1, 21)
             if current > 0 then
@@ -197,6 +226,7 @@ function LightStatusDisplay:drawStatusStrip()
                 love.graphics.setColor(Game:isLight() and MG_PALETTE["player_health"] or {battler.chara:getColor()})
                 love.graphics.rectangle("fill", x + 92, y, math.ceil((Utils.clamp(current - karma, 0, max) / max) * (small and 20 or 32)) * 1.2 + 1 - (karma_mode and 1 or 0), 21)
             end
+        end
             
             love.graphics.setFont(Assets.getFont("namelv", 16))
             if max < 10 and max >= 0 then
@@ -220,12 +250,33 @@ function LightStatusDisplay:drawStatusStrip()
                 color = MG_PALETTE["player_karma_text"]
             end
             love.graphics.setColor(color)
-            Draw.printAlign(current .. "/" .. max, x + 197, y + 3 - (karma_mode and 2 or 0), "right")
+            if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                if Game.battle.current_selecting == index then
+                    Draw.printAlign(current .. "/" .. max, x + 170, y + 3, "right")
+                else
+                    Draw.printAlign(current .. "/" .. max, x + 170, y - 3, "right")
+                end
+            else
+                Draw.printAlign(current .. "/" .. max, x + 197, y + 3 - (karma_mode and 2 or 0), "right")
+            end
             
             if Game.battle.current_selecting == index or DEBUG_RENDER and Input.alt() then
                 love.graphics.setColor(battler.chara:getColor())
-                love.graphics.setLineWidth(2)
-                love.graphics.rectangle("line", x - 3, y - 7, 201, 35)
+                if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                    if Game.battle.current_selecting == index then
+                        love.graphics.setLineWidth(6)
+                        love.graphics.rectangle("line", x, y - 12, 177, 35)
+                    end
+                else
+                    love.graphics.setLineWidth(2)
+                    love.graphics.rectangle("line", x - 3, y - 7, 201, 35)
+                end
+            else
+                if Kristal.getLibConfig("magical-glass", "deltatraveler_crits") then
+                love.graphics.setColor(battler.chara:getColor())
+                love.graphics.setLineWidth(6)
+                love.graphics.rectangle("line", x, y - 18, 177, 35)
+                end
             end
             
             if battler:isTargeted() and Game:getConfig("targetSystem") and Game.battle.state == "ENEMYDIALOGUE" then

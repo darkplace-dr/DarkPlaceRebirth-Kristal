@@ -2,6 +2,8 @@ local character, super = Class("noelle", true)
 
 function character:init()
     super.init(self)
+    
+    self:setDarkTransitionActor("noelle_dark_transition")
 
     -- Light world portrait in the menu (saved to the save file)
     self.lw_portrait = "face/noelle/smile"

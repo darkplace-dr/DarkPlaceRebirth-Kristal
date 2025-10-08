@@ -5,7 +5,9 @@ function SaveButton:init()
 end
 
 function SaveButton:update()
-    self:setColor(Utils.hslToRgb(Kristal.getTime() / 0.75 % 1, 1, 0.69))
+    if self.usable then
+        self:setColor(Utils.hslToRgb(Kristal.getTime() / 0.75 % 1, 1, 0.69))
+    end
 
     super.update(self)
 end

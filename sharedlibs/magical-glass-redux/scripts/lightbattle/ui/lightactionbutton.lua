@@ -6,21 +6,23 @@ function LightActionButton:init(type, battler, x, y)
     self.type = type
     self.battler = battler
     
-    self.tex = Assets.getTexture("ui/lightbattle/btn/" .. type)
-    self.hover_tex = Assets.getTexture("ui/lightbattle/btn/" .. type .. "_h")
+    self.texture = Assets.getTexture("ui/lightbattle/btn/" .. type)
+    self.hover_texture = Assets.getTexture("ui/lightbattle/btn/" .. type .. "_h")
+    self.disabled_texture = Assets.getTexture("ui/lightbattle/btn/" .. type .. "_d")
     
     -- Used to restore the save button back to the act button
-    self.tex_og = self.tex
-    self.hover_tex_og = self.hover_tex
+    self.texture_og = self.texture
+    self.hover_texture_og = self.hover_texture
     self.rainbow = false
 
-    self.width = self.tex:getWidth()
-    self.height = self.tex:getHeight()
+    self.width = self.texture:getWidth()
+    self.height = self.texture:getHeight()
 
     self:setOriginExact(self.width / 2, 13)
 
     self.hovered = false
     self.selectable = true
+    self.disabled = false
 end
 
 function LightActionButton:select()
@@ -238,13 +240,15 @@ function LightActionButton:unselect()
 end
 
 function LightActionButton:draw()
-    if self.selectable and self.hovered then
-        love.graphics.draw(self.hover_tex or self.tex)
+    if self.disabled then
+        love.graphics.draw(self.disabled_texture or self.texture)
+    elseif self.selectable and self.hovered then
+        love.graphics.draw(self.hover_texture or self.texture)
     else
-        love.graphics.draw(self.tex)
+        love.graphics.draw(self.texture)
     end
     
-    if self.rainbow then
+    if not self.disabled and self.rainbow then
         self:setColor(Utils.hslToRgb(Kristal.getTime() / 0.75 % 1, 1, 0.69))
     end
 
