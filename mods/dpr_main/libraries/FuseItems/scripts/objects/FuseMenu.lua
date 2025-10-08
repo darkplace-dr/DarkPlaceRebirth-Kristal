@@ -5,6 +5,8 @@ function FuseMenu:init()
 
 	self.parallax_x = 0
 	self.parallax_y = 0
+    
+    self.font = Assets.getFont("main")
 
 	self:reloadItemsList()
 
@@ -49,7 +51,6 @@ function FuseMenu:reloadItemsList()
 	for k, recipe in ipairs(self.param_list) do
 		table.insert(self.list, {})
 		for k2,item in pairs(recipe) do
-			print(k, k2)
 			if k2 ~= "autofuse" and k2 ~= "cutscene" then
 				local true_item = Registry.createItem(item)
 				self.list[k][k2] = true_item
@@ -247,6 +248,7 @@ end
 
 function FuseMenu:draw()
 	love.graphics.setColor(0, 0, 0)
+    love.graphics.setFont(self.font)
 	if self.state == "FUSE" then
 		love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, 121)
 	end
