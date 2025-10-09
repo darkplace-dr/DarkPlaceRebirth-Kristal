@@ -17,7 +17,7 @@ return {
             if susie then
                 tenna.sprite:setPreset(1)
                 cutscene:showNametag("Tenna")
-                cutscene:text("* WELL,[wait:5] if it isn't one my FAVORITE [funnytext:star,sparkle_glock,0,-10,73,30] contestants!", nil, "tenna")
+                cutscene:text("* WELL,[wait:5] if it isn't one of my FAVORITE [funnytext:star,sparkle_glock,0,-10,73,30] contestants!", nil, "tenna")
                 cutscene:showNametag("Susie")
                 cutscene:text("* Tenna?[wait:10]\n* The hell are you doing here?", "surprise", "susie")
                 cutscene:showNametag("Tenna")
