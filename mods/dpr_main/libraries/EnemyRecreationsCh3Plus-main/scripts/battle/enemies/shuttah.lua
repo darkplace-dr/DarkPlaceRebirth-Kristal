@@ -7,7 +7,7 @@ function Shuttah:init()
     self:setActor("shuttah")
 
     self.max_health = 421
-    self.health = self.max_health
+    self.health = 421
     self.attack = 8
     self.defense = 0
     self.money = 100
@@ -29,22 +29,22 @@ function Shuttah:init()
     self.check = "When its eyes snap\nshut, memories are made\nin grey."
 
     self.text = {
-        "* Shuttah sings in a gasping voice.",
-        "* Shuttah considers the best lighting for its attack.",
+        "* Shuttah sings in a gasping\nvoice.",
+        "* Shuttah considers the best\nlighting for its attack.",
         "* Shuttah struttahs.",
-        "* Shuttah takes selfies from two angles at once."
+        "* Shuttah takes selfies from two\nangles at once."
     }
 
-    self.spareable_text = "* Shuttah preps for its RECRUITment portrait."
+    self.spareable_text = "* Shuttah preps for its\nRECRUITment portrait."
     self.tired_percentage = 1/3
     self.low_health_percentage = 1/3
-    self.low_health_text = "* Shuttah's starting to look sepia."
-    self.tired_text = "* Shuttah is so TIRED, it can't keep its shutters open."
+    self.low_health_text = "* Shuttah's starting to look\nsepia."
+    self.tired_text = "* Shuttah is so TIRED, it can't\nkeep its shutters open."
 
     self:registerAct("EasyPhoto", "Timely\nphoto", {"ralsei"})
     self:registerAct("ToughPhoto", "Fast\nphoto")
     self:registerAct("PowerPhoto", "Extra\nMercy", {"susie"}, 25)
-    
+
     self.last_challenge = nil
     self.last_challenge_fail = false
 end
@@ -91,7 +91,7 @@ function Shuttah:onShortAct(battler, name)
                 "* Ralsei has a perfect hair day!",
                 "* Ralsei's photo got overexposed!"
             }
-            return Utils.pick(flavor_text)
+            return TableUtils.pick(flavor_text)
         elseif battler.chara.id == "susie" then
             local flavor_text = {
                 "* Susie sneezes during a photo!",
@@ -99,7 +99,7 @@ function Shuttah:onShortAct(battler, name)
                 "* Susie blinks during a photo!"
             }
             self:addMercy(25)
-            return Utils.pick(flavor_text)
+            return TableUtils.pick(flavor_text)
         else
             self:addMercy(25)
             return "* "..battler.chara:getName().." stared into the camera!"
@@ -112,7 +112,7 @@ end
 function Shuttah:getEncounterText()
     -- It seems like theres a 3/101 chance that this text overrides everything
     -- according to the decompiled code??? (Idk how GameMaker code works)
-    if Utils.random(0, 100, 1) < 3 then
+    if MathUtils.random(0, 100) < 3 then
         return "* Smells like a darkroom... ironically enough."
     end
 

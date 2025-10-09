@@ -7,12 +7,11 @@ function Winglade:init()
     self:setActor("winglade")
 
     self.max_health = 470
-    self.health = self.max_health
-    self.attack = 13
+    self.health = 470
+    self.attack = 14
     self.defense = 0
     self.money = 155
-
-    self.spare_points = 20
+    self.spare_points = 10
 
     self.waves = {
         "winglade/circlearena",
@@ -20,20 +19,22 @@ function Winglade:init()
     }
 
     self.dialogue = {
-        "Halo, goodeye!        Halo, goodeye!", 
-        "Halo, are you listening?", 
-        "You oppose the revolution?", 
-        "Open your eyes        Open your eyes", 
-        "Viva la revolution!  Viva la revolution!", 
-        "To spin, is to trust", 
+        "Halo, goodeye!        Halo, goodeye!",
+        "Halo, are you listening?            ",
+        "You oppose the revolution?          ",
+        "Open your eyes        Open your eyes"
+    }
+    self.dialogue_mercy = {
+        "Viva la revolution!  Viva la revolution!",
+        "To spin, is to trust"
     }
 
-    self.check = "AT 13 DF 0\n* A radical blade with feathers at the hilt."
+    self.check = "A radical blade with\nfeathers at the hilt."
 
     self.text = {
         "* Winglade molts and revolts.",
         "* Winglade watches distrustfully.",
-        "* Winglade draws flowers with its blade.",
+        "* Winglade draws flowers with its\nblade.",
         "* Winglade rotates aggressively."
     }
 
@@ -42,10 +43,9 @@ function Winglade:init()
     self.low_health_percentage = 1/3
     self.low_health_text = "* Winglade sheds feathers heavily."
     self.tired_text = "* Winglade's eye flutters shut."
-    
 
-    self:registerAct("Spin")
-    self:registerAct("SpinS", "", {"susie"})
+    self:registerAct("Spin", "Spin\n50%\nmercy")
+    self:registerAct("SpinS", "60%\nMercy\nto all", {"susie"})
     self:registerAct("Whirl", "SPARE\nall!", {"susie", "ralsei"}, 64)
 end
 
@@ -68,19 +68,19 @@ function Winglade:onAct(battler, name)
         for _, enemy in ipairs(Game.battle.enemies) do
             if enemy ~= self then enemy:addMercy(10) end
         end
-        Assets.playSound("pirouette")
+        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         battler:setAnimation('pirouette')
         return "* You spun masterfully!"
     elseif name == "SpinS" then
         for _, enemy in ipairs(Game.battle.enemies) do
             if enemy.id == 'winglade' then enemy:addMercy(60) end
         end
-        Assets.playSound("pirouette")
+        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         battler:setAnimation('pirouette')
         Game.battle:getPartyBattler('susie'):setAnimation('pirouette')
         return "* You and Susie spun masterfully!"
     elseif name == "Whirl" then
-        Assets.playSound("pirouette")
+        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         Game.battle:getPartyBattler('kris'):setAnimation('pirouette')
         Game.battle:getPartyBattler('susie'):setAnimation('pirouette')
         Game.battle:getPartyBattler('ralsei'):setAnimation('pirouette')
@@ -99,7 +99,7 @@ end
 
 function Winglade:onShortAct(battler, name)
     if name == "Standard" then --X-Action
-        Assets.playSound("pirouette")
+        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         battler:setAnimation('pirouette')
         if battler.chara.id == "ralsei" then
             self:addMercy(50)
@@ -117,6 +117,20 @@ function Winglade:onShortAct(battler, name)
     end
 
     return super.onShortAct(self, battler, name)
+end
+
+function Winglade:getEnemyDialogue()
+    if self.dialogue_override then
+        local dialogue = self.dialogue_override
+        self.dialogue_override = nil
+        return dialogue
+    end
+
+    if self.mercy >= 100 then
+        return TableUtils.pick(self.dialogue_mercy)
+    end
+
+    return TableUtils.pick(self.dialogue)
 end
 
 function Winglade:getEncounterText()
@@ -137,11 +151,11 @@ function Winglade:getEncounterText()
         return self.spareable_text
     end
 
-    if Utils.random(0, 100, 1) < 3 then
+    if MathUtils.random(0, 100) < 3 then
         return "* Smells like old down pillow."
     end
 
-    return Utils.pick(self.text)
+    return TableUtils.pick(self.text)
 end
 
 return Winglade
