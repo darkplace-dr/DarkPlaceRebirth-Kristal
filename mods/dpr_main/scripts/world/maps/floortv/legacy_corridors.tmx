@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="70">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="71">
  <editorsettings>
   <export target="legacy_corridors.lua" format="lua"/>
  </editorsettings>
@@ -157,6 +157,14 @@
    <properties>
     <property name="actor" value="ramb"/>
     <property name="cutscene" value="tvfloor.ramb"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="70" name="npc" x="680" y="580">
+   <properties>
+    <property name="actor" value="shuttah"/>
+    <property name="cond" value="Game:hasRecruit(&quot;shuttah&quot;)"/>
+    <property name="cutscene" value="recruits.shuttah"/>
    </properties>
    <point/>
   </object>

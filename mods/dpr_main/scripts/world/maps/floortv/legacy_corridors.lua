@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 70,
+  nextobjectid = 71,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -515,6 +515,23 @@ return {
           properties = {
             ["actor"] = "ramb",
             ["cutscene"] = "tvfloor.ramb"
+          }
+        },
+        {
+          id = 70,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 680,
+          y = 580,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "shuttah",
+            ["cond"] = "Game:hasRecruit(\"shuttah\")",
+            ["cutscene"] = "recruits.shuttah"
           }
         }
       }

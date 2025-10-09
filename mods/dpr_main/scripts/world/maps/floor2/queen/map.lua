@@ -16,8 +16,8 @@ end
 
 function QueenRoom:onEnter()
 	super.onEnter(self)
-	
-	if Game:getFlag("recruited_shadowguys", false) then
+
+	if Game:hasRecruit("shadowguy") then
 		self.car = Game.world:spawnNPC("shadowguy_car", 800, 170, {cutscene = "floor2.queen_shadowguys"})
 		self.car_x_start = self.car.x
 		self.car_x_target = self.car_x_start

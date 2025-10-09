@@ -110,6 +110,7 @@ function actor:init()
         ["angreh"] = {-20, -10},
         ["oc"] = {-20, -10},
         ["paneton"] = {-20, -10},
+        ["dab"] = {-20, -10},
         ["sneak/left"] = {-5, 3},
         ["sneak/right"] = {7, 3},
     }
