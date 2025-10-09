@@ -43,11 +43,11 @@ local cyber = {
 				end
 				cutscene:getCharacter("jamm"):setSprite(TableUtils.pick(poses))
 			end
-			--if cutscene:getCharacter("jammarcy") then cutscene:getCharacter("jammarcy"):setSprite() end -- no cool pose :( (unless the box one counts but I wasn't sure lol)
+			if cutscene:getCharacter("jammarcy") then cutscene:getCharacter("jammarcy"):setSprite("bs_win") end
 			if cutscene:getCharacter("ceroba_dw") then cutscene:getCharacter("ceroba_dw"):setSprite("cool") end
 
 			event:setAnimation("pose")
-			cutscene:wait(1)
+			cutscene:wait(1.2)
 			Assets.playSound("camera_flash")
 			cutscene:wait(cutscene:fadeOut(0.15, {color = {1, 1, 1}}))
 			cutscene:wait(cutscene:fadeIn(0.15, {color = {1, 1, 1}}))
