@@ -18,8 +18,8 @@ function Firework:init(x, y, exp_tex, coltype)
     self.canvas = love.graphics.newCanvas(self.width, self.height)
     self.canvas:setFilter("nearest", "nearest")
 
-    love.graphics.setCanvas(self.canvas)
     love.graphics.reset()
+    love.graphics.setCanvas(self.canvas)
     love.graphics.draw(self.firework_texture)
     love.graphics.setCanvas()
 

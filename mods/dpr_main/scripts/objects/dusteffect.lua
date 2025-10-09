@@ -16,8 +16,8 @@ function DustEffect:init(texture, x, y, allow_black_pixels, after)
     self.canvas = love.graphics.newCanvas(self.width, self.height)
     self.canvas:setFilter("nearest", "nearest")
 
-    love.graphics.setCanvas(self.canvas)
     love.graphics.reset()
+    love.graphics.setCanvas(self.canvas)
     love.graphics.draw(self.texture)
     love.graphics.setCanvas()
 
