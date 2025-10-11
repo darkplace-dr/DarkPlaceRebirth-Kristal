@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="176">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="50" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="176">
  <editorsettings>
   <export target="stealthzone.lua" format="lua"/>
  </editorsettings>
@@ -267,6 +267,7 @@
    <properties>
     <property name="actor" value="pippins"/>
     <property name="cutscene" value="tvfloor.pippins_first"/>
+    <property name="sprite" value="talk"/>
    </properties>
    <point/>
   </object>
@@ -300,7 +301,7 @@
   <object id="152" name="spawn" x="1720" y="340">
    <point/>
   </object>
-  <object id="153" name="entry_cage" x="1358" y="305">
+  <object id="153" name="entry_cage" x="1358" y="304">
    <point/>
   </object>
   <object id="169" name="entry_left" x="40" y="500">
