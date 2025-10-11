@@ -3246,7 +3246,7 @@ function Battle:drawBackground()
         if self.month == 2 and self.day == 14 then
             Draw.setColor(128/255, 0/255, 85/255, self.transition_timer / 10 / 2)
         elseif self.month == 10 and self.day == 31 then
-            Draw.setColor(1, 87/255, 0, (self.transition_timer / 10) / 2)
+            Draw.setColor(204/255, 85/255, 0/255, (self.transition_timer / 10) / 2)
         else
             Draw.setColor(66/255, 0, 66/255, (self.transition_timer / 10) / 2)
         end
@@ -3258,7 +3258,7 @@ function Battle:drawBackground()
         if self.month == 2 and self.day == 14 then
             Draw.setColor(128/255, 0/255, 85/255, self.transition_timer / 10)
         elseif self.month == 10 and self.day == 31 then
-            Draw.setColor(1, 87/255, 0, self.transition_timer / 10)
+            Draw.setColor(204/255, 85/255, 0/255, self.transition_timer / 10)
         else
             Draw.setColor(66/255, 0, 66/255, self.transition_timer / 10)
         end
