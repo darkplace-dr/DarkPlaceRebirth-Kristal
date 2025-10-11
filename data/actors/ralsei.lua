@@ -219,6 +219,8 @@ function actor:initChapter2()
         ["dance"]               = {"dance", 1/6, true},
 
         ["pirouette"]           = {"pirouette", 4/30, true},
+
+        ["sing"]                = {"sing", 1/5, true},
     }
 
     -- Tables of sprites to change into in mirrors
