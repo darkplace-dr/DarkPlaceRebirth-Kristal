@@ -69,6 +69,8 @@ function actor:init()
         ["jump_fall"]           = {"fall", 1/5, true},
         ["jump_ball"]           = {"ball", 1/15, true},
 
+        ["dance"]               = {"dance", 1/6, true},
+
         ["pirouette"]           = {"pirouette", 4/30, true},
     }
 

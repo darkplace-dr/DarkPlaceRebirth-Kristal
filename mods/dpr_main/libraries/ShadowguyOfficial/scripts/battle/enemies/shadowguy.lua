@@ -58,6 +58,7 @@ function Shadowguy:update()
 		self.gainmercyovertime = false
 		self.gainmercytimer = 0
 		Game.battle.timer:after(15/30, function() self.showtempmercy = false end)
+		self.boogietarget:toggleOverlay(false) -- removes dance animation
 		self.boogietarget = nil
 	end
 	if self.gainmercyovertime == true and (Game.battle.state == "DEFENDINGBEGIN" or Game.battle.state == "DEFENDING") then
@@ -87,6 +88,16 @@ end
 
 function Shadowguy:onAct(battler, name)
     if name == "Boogie" then
+		self:setAnimation("sax_b")
+		battler:toggleOverlay(true) -- dance animation needs to stay through the enemy's turn
+		battler.overlay_sprite:setAnimation("dance")
+		battler:flash()
+		local afterimage1 = AfterImage(battler, 0.6)
+		local afterimage2 = AfterImage(battler, 1)
+		afterimage1.physics.speed_x = 5
+		afterimage2.physics.speed_x = 2.5
+		battler.parent:addChild(afterimage1)
+		battler.parent:addChild(afterimage2)
 		self.gainmercyovertime = true
 		self.showtempmercy = true
 		self.boogietarget = battler
@@ -96,11 +107,13 @@ function Shadowguy:onAct(battler, name)
         self:addTemporaryMercy(5, true, {0, 100}, (function() return self.showtempmercy == false end))
         return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
 	elseif name == "Standard" then
+		self:setAnimation("sax_b")
 		battler:setAnimation("dance")
-		local afterimage1 = AfterImage(battler, 0.8)
-		local afterimage2 = AfterImage(battler, 0.9)
-		afterimage1.physics.speed_x = 4
-		afterimage2.physics.speed_x = 2
+		battler:flash()
+		local afterimage1 = AfterImage(battler, 0.6)
+		local afterimage2 = AfterImage(battler, 1)
+		afterimage1.physics.speed_x = 5
+		afterimage2.physics.speed_x = 2.5
 		battler.parent:addChild(afterimage1)
 		battler.parent:addChild(afterimage2)
         self:addMercy(30)
@@ -123,11 +136,13 @@ function Shadowguy:onShortAct(battler, name)
         if battler.chara.id == "jamm" and Game:getFlag("dungeonkiller") then
             return "* Jamm didn't feel like doing anything."
         end
+		self:setAnimation("sax_b")
 		battler:setAnimation("dance")
-		local afterimage1 = AfterImage(battler, 0.8)
-		local afterimage2 = AfterImage(battler, 0.9)
-		afterimage1.physics.speed_x = 4
-		afterimage2.physics.speed_x = 2
+		battler:flash()
+		local afterimage1 = AfterImage(battler, 0.6)
+		local afterimage2 = AfterImage(battler, 1)
+		afterimage1.physics.speed_x = 5
+		afterimage2.physics.speed_x = 2.5
 		battler.parent:addChild(afterimage1)
 		battler.parent:addChild(afterimage2)
         self:addMercy(30)

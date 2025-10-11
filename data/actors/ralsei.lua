@@ -216,6 +216,8 @@ function actor:initChapter2()
         ["wave_start"]          = {"wave_start", 5/30, false, next="wave_down"},
         ["wave_down"]           = {"wave_down", 5/30, true},
 
+        ["dance"]               = {"dance", 1/6, true},
+
         ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
