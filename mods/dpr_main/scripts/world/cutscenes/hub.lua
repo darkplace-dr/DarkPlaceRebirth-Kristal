@@ -903,21 +903,27 @@ local hub = {
                 sans.physics.speed_x = 0
                 sans.physics.speed_y = 0
 
-                sans.layer = 0.7
                 cutscene:wait(3)
                 music_cut:stop()
 
                 local elevator = Game.world:getEvent(65)
-                elevator:open()
-                cutscene:wait(0.01)
+                elevator.sprite_inside.visible = false
+
+                --hacky layering method, but it works
+                local elevator_inside = Sprite("world/events/elevatordoor/floor1/inside", elevator.x + 15, elevator.y - 65)
+                elevator_inside:setScale(2)
+                elevator_inside:setLayer(elevator.layer - 0.1)
+                Game.world:addChild(elevator_inside)
+
+                sans:setLayer(elevator_inside.layer + 0.01)
                 sans.x = 462
                 sans.y = 122
-				cutscene:wait(0.5)
+                elevator:open()
+                cutscene:wait(0.5)
                 dess:setFacing("up")
                 cutscene:wait(2.5)
                 cutscene:textTagged("* wait how the fu", "wtf", "dess", {auto = true})
 				
-
                 music_cut:play("deltarune/muscle")				
 				
                 local you_kids = #Game.party > 1 and "you kids" or "you"
@@ -930,10 +936,12 @@ local hub = {
 				
                 music_cut:stop()
                 Game.world.fader:fadeOut(nil, {alpha = 1, speed = 10})
+                elevator.sprite_inside.visible = true
                 elevator:close()
+                elevator_inside:remove()
                 sans.x = 545
                 sans.y = 150
-				dess:setFacing("down")
+                dess:setFacing("down")
 
                 Assets.playSound("noise")
                 cutscene:wait(1)
