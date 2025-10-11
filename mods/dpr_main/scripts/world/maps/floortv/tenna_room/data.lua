@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 20,
-  nextobjectid = 144,
+  nextobjectid = 145,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/baci_perugina"
@@ -266,7 +266,7 @@ return {
           visible = true,
           properties = {
             ["text1"] = "* (Welcome to the TENNA ROOM!)",
-            ["text2"] = "* (Feel free to add your Tennas here!)"
+            ["text2"] = "* (All Tennas are welcome!)"
           }
         },
         {
@@ -613,8 +613,27 @@ return {
             { x = 0, y = -40 }
           },
           properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
             ["map"] = "floortv/green_room",
-            ["marker"] = "entry_right"
+            ["marker"] = "entry_right",
+            ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 144,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 528,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "tenna_wm",
+            ["animation"] = "pose"
           }
         }
       }

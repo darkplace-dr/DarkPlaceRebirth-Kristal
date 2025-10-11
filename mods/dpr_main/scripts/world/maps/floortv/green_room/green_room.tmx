@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -99,15 +99,21 @@
   </object>
   <object id="89" name="transition" x="120" y="160">
    <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
     <property name="map" value="floortv/legacy_corridors"/>
     <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
    </properties>
    <polygon points="0,0 -80,80 -80,40 0,-40"/>
   </object>
   <object id="90" name="transition" x="1320" y="160">
    <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
     <property name="map" value="floortv/tenna_room"/>
     <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
    </properties>
    <polygon points="0,0 80,80 80,40 0,-40"/>
   </object>

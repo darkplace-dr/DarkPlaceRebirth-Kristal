@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="41" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="144">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="41" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="145">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -129,7 +129,7 @@
   <object id="34" name="interactable" x="140" y="400" width="80" height="40">
    <properties>
     <property name="text1" value="* (Welcome to the TENNA ROOM!)"/>
-    <property name="text2" value="* (Feel free to add your Tennas here!)"/>
+    <property name="text2" value="* (All Tennas are welcome!)"/>
    </properties>
   </object>
   <object id="66" name="greenroom_wall" x="120" y="320" width="120" height="120"/>
@@ -165,10 +165,20 @@
   <object id="140" gid="437" x="640" y="696" width="40" height="40"/>
   <object id="142" name="transition" x="120" y="440">
    <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
     <property name="map" value="floortv/green_room"/>
     <property name="marker" value="entry_right"/>
+    <property name="sound" value="dooropen"/>
    </properties>
    <polygon points="0,0 -80,80 -80,40 0,-40"/>
+  </object>
+  <object id="144" name="npc" x="528" y="360">
+   <properties>
+    <property name="actor" value="tenna_wm"/>
+    <property name="animation" value="pose"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <layer id="7" name="above" width="41" height="24">
