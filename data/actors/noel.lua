@@ -53,7 +53,7 @@ function actor:onSpriteInit(sprite)
 
     if Noel:isDess() then
         self.default = "dess_mode/walk"
-        
+        self.animations["battle/idle"] = {"dess_mode/battle/idle", 0.2, true}
         self.menu_anim = "dess_mode/walk/down_1"
     else
         self.default = "walk"
@@ -143,9 +143,7 @@ function actor:init()
         ["stop"]         = {"stop/stop", 1/12, false},
         ["battle/a"]         = {"battle/a", 0.2, true},
         ["battle/idle"]         = {"battle/idle", 0.2, true},
-        ["battle/boo_you_suck"]         = {"battle/idle", 0.2, true},
         ["battle/defeat"]         = {"battle/down", 0.2, false},
-        ["you_gonna_hit_me"]         = {"battle/you_gonna_hit_me", 0.2, true},
         ["battle/attack_ready"] = {"battle/attack_ready", 1/60, false},
         ["battle/spell_ready"]  = {"battle/attack_ready", 1/8, false},
         ["battle/attack"]         = {"battle/attack", 1/35, false},
@@ -164,6 +162,7 @@ function actor:init()
         ["battle/a"] = {-28, -18},
         ["stop/stop"] = {-28, -18},
         ["battle/idle"] = {-28, -18},
+        ["dess_mode/battle/idle"] = {-28, -18},
         ["battle/down"] = {-28, -18},
         ["battle/you_gonna_hit_me"] = {-28, -18},
         ["battle/boo_you_suck"] = {-28, -18},
