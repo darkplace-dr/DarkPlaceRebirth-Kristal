@@ -127,6 +127,10 @@ function GreenRoomWall:draw()
 			Draw.draw(self.shine_frames[(self.shine_frame + starting_index - 1) % 4 + 1], 5 + (i * 75) + x_offset, 5 + y_offset, 0, 2, 2)
 		end
 	end
+	
+	Draw.setColor(159/255,216/255,135/255,0.3)
+	Draw.rectangle("fill", 0, self.height, self.width, 30)
+	Draw.setColor(1,1,1,1)
 end
 
 return GreenRoomWall
