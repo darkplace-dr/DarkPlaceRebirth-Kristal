@@ -3314,7 +3314,7 @@ function Battle:drawBackground()
         self.enable_particles = false
     end
 
-    if self.month == 10 and self.day == 31 then
+    if self.month == 10 then
         for _,line in ipairs(self.lines) do
             Draw.setColor(0.7, 0.7, 0.72, self.transition_timer / 10)
             love.graphics.line(line:render())
