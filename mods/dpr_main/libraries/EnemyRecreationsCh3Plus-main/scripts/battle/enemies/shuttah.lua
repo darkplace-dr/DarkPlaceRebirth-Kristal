@@ -36,10 +36,10 @@ function Shuttah:init()
     }
 
     self.spareable_text = "* Shuttah preps for its\nRECRUITment portrait."
-    self.tired_percentage = 1/3
-    self.low_health_percentage = 1/3
     self.low_health_text = "* Shuttah's starting to look\nsepia."
     self.tired_text = "* Shuttah is so TIRED, it can't\nkeep its shutters open."
+
+    self.low_health_percentage = 1/3
 
     self:registerAct("EasyPhoto", "Timely\nphoto", {"ralsei"})
     self:registerAct("ToughPhoto", "Fast\nphoto")

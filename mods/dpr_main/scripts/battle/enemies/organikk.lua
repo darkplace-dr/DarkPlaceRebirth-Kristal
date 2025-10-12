@@ -45,6 +45,8 @@ function Organikk:init()
     self.tired_text = "* Organikk extolls the virtues of\nnaptime."
 	self.spareable_text = "* Organikk extolls the virtues of\nmercy."
 
+    self.low_health_percentage = 1/3
+
     self:registerAct("Perform", "Musical\nmercy")
     self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"susie"})
     self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"ralsei"})
