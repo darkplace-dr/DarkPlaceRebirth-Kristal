@@ -44,7 +44,12 @@ function actor:init()
         ["pose_podium"]           = {"pose_podium", 1, true},
         ["pose_headlowered_nose"] = {"pose_headlowered_nose", 1, true},
         ["laugh_pose"]            = {"laugh_pose", 1, true},
+        ["laugh_pose_alt"]        = {"laugh_pose_alt", 1, true},
         ["laugh_pose_segmented"]  = {"", 1, true},
+
+        ["tie_adjust_a"]          = {"tie_adjust_a", 1, true},
+        ["tie_adjust_b"]          = {"tie_adjust_b", 1, true},
+        ["tie_adjust_c"]          = {"tie_adjust_c", 1, true},
 
         ["grasp"]                 = {"grasp", 0.175, true},
         ["grasp_anim"]            = {"grasp_anim", 0.175, true},
@@ -93,6 +98,11 @@ function actor:init()
         ["pose_podium"]                 = {(58-77)-28, (135-137)-17},
         ["pose_headlowered_nose"]       = {(58-54)-28, (135-108)-17},
         ["laugh_pose"]                  = {(58-42)-28, (135-92)-17},
+        ["laugh_pose_alt"]              = {(58-56)-28, (135-102)-17},
+
+        ["tie_adjust_a"]                = {(58-19)-28, (135-121)-17},
+        ["tie_adjust_b"]                = {(58-21)-28, (135-121)-17},
+        ["tie_adjust_c"]                = {(58-21)-28, (135-121)-17},
 
         ["grasp"]                       = {(58-46)-28, (135-119)-17},
         ["grasp_anim"]                  = {(58-46)-28, (135-119)-17},
@@ -112,6 +122,7 @@ function actor:init()
         ["bulletin"]                    = {(58-43)-28, (135-113)-17},
         ["laugh"]                       = {(58-76)-28, (135-103)-17},
         ["evil"]                        = {(58-37)-28, (135-107)-17},
+        ["frightened"]                  = {(58-29)-28, (135-123)-17},
         
         ["battle/attack"]               = {(58-58)-28, (135-114)-17},
         ["battle/hurt"]                 = {(58-31)-28, (135-113)-17},
