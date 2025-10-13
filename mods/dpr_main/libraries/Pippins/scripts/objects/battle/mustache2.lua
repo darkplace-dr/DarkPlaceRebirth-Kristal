@@ -1,7 +1,7 @@
 local Mustache2, super = Class(Sprite) --Sprite
 
 function Mustache2:init(x, y)
-    super:init(self, "effects/mustache2_1", x, y)
+    super.init(self, "effects/mustache2_1", x, y)
     self.alpha = 1
     self.scale_x = 2
     self.scale_y = 2
@@ -9,7 +9,7 @@ function Mustache2:init(x, y)
 end
 
 function Mustache2:update()
-    super:update(self)
+    super.update(self)
     local ralsei =  Game.battle:getPartyBattler("ralsei")
     local enemy = Game.battle:getActiveEnemies()
     if(ralsei.is_down == true) then
