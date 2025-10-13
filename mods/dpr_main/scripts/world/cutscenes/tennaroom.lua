@@ -171,4 +171,11 @@ return {
         cutscene:hideNametag()
         tenna.sprite.flip_x = false
     end,
+    ---@param cutscene WorldCutscene
+    ---@param fctenna NPC
+    forecastedtenna = function (cutscene, fctenna)
+        -- Or as some say, "Funny Feline Tenna."
+        cutscene:setSpeaker(fctenna)
+        cutscene:text("* Test fucking DIALOGUE!", "wink")
+    end
 }

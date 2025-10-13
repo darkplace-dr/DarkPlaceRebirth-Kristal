@@ -168,6 +168,7 @@
     "config": {
         "seqwaves": {},
         "chapter4lib": {},
+        "offseteditor": {},
         "kristal": {
             "growStronger": false,
 			"pacifyGlow": true,

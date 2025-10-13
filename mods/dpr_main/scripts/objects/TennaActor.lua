@@ -1,3 +1,4 @@
+---@class TennaActor: ActorSprite
 local TennaActor, super = Class(ActorSprite)
 
 function TennaActor:init(actor)

@@ -125,6 +125,7 @@ function character:getTitle()
 end
 
 function character:getActor(light)
+    if not Game.world or not Game.world.map then return super.getActor(self, light) end
     if light == nil then
         light = Game.light
     end
