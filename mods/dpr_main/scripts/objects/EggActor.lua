@@ -1,7 +1,7 @@
 local Egg, super = Class(ActorSprite)
 
 function Egg:init(actor)
-    super:init(self, actor)
+    super.init(self, actor)
 
     self.ray = EggRay(51, 46)
     self.ray.id = "ray"

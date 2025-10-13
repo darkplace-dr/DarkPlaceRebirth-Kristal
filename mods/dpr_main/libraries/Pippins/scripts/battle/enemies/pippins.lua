@@ -132,7 +132,7 @@ function Pippins:onShortAct(battler, name)
         end
 	end
 
-    return super:onShortAct(self, battler, name)
+    return super.onShortAct(self, battler, name)
 end
 
 function Pippins:isXActionShort(battler)

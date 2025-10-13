@@ -1,7 +1,7 @@
 local Eye, super = Class(Sprite) --Sprite
 
 function Eye:init(x, y)
-    super:init(self, "effects/eye_1", x, y)
+    super.init(self, "effects/eye_1", x, y)
     self.alpha = 1
     self.scale_x = 2
     self.scale_y = 2
@@ -9,7 +9,7 @@ function Eye:init(x, y)
 end
 
 function Eye:update()
-    super:update(self)
+    super.update(self)
     local kris =  Game.battle:getPartyBattler("kris")
     local enemy = Game.battle:getActiveEnemies()
     if(#enemy == 0) then

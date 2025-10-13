@@ -46,7 +46,7 @@ function TeevieSpikes:update()
 end
 
 function TeevieSpikes:getDebugInfo()
-	local info = super:getDebugInfo(self)
+	local info = super.getDebugInfo(self)
 	if self.flag then
 		table.insert(info, "Flag: "    .. self.flag)
 	end
