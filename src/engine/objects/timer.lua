@@ -138,8 +138,8 @@ end
 ---@param from          number          The starting value of the key.
 ---@param to            number          The target value of the key.
 ---@param max_time      number          The duration of the tween in frames at 30 FPS.
----@param ease_type     number          A number between -3 to 7 determining the ease type.
----@param ease_in_out   ease_in_out     A string determining whether the ease is in, out, or in out.
+---@param ease_type?    number          A number between -3 to 7 determining the ease type.
+---@param ease_in_out?  ease_in_out     A string determining whether the ease is in, out, or in out.
 ---@return table handle
 function Timer:lerpVar(target, key, from, to, max_time, ease_type, ease_in_out)
     local time = 0

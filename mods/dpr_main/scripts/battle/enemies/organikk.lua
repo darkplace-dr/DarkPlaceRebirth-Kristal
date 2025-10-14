@@ -15,8 +15,8 @@ function Organikk:init()
     self.spare_points = 10
 
     self.waves = {
-        "organikk/notes",
-        --"organikk/longnote"
+        -- "organikk/notes",
+        "organikk/longnotes"
     }
 
     self.dialogue = {
