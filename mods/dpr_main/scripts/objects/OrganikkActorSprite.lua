@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local OrganikkActorSprite, super = Class(ActorSprite)
 
 function OrganikkActorSprite:init(actor)
@@ -9,8 +10,24 @@ function OrganikkActorSprite:init(actor)
 
     self.head = Sprite(self:getTexturePath("head"), 0, 0)
     self.head.debug_select = false
-    --self.head:play(1/6) -- uhh idk
+    -- self.head:play(1/6) -- uhh idk
     self:addChild(self.head)
+
+    self.siner_2 = 0
+    self.siner = 0
+end
+
+function OrganikkActorSprite:update()
+    super.update(self)
+
+    self.siner_2 = self.siner_2 + 1/6 * DTMULT
+    self.siner = self.siner + MathUtils.clamp(0.25 + (math.sin(self.siner_2 / 6) * 0.3), 0, 0.5) * DTMULT
+
+    local anim = self.anim or "idle"
+    -- if anim == nil or type(anim) ~= "table" then anim = "idle" end
+    if anim == "idle" then
+        self.head:setFrame(math.floor(self.siner))
+    end
 end
 
 function OrganikkActorSprite:getTexturePath(sprite_name)
