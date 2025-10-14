@@ -175,7 +175,66 @@ return {
     ---@param fctenna NPC
     forecastedtenna = function (cutscene, fctenna)
         -- Or as some say, "Funny Feline Tenna."
+        -- Dialogue almost entirely written by TheSkerch.
         cutscene:setSpeaker(fctenna)
-        cutscene:text("* Test fucking DIALOGUE!", "wink")
+        cutscene:after(function () cutscene:hideNametag() end)
+        cutscene:showNametag("FC!Tenna")
+        if not Game:getFlag("tenna_introduction_forecasted") then
+        end
+        -- Game:setFlag("tenna_introduction_forecasted", true)
+        local crude_c = true
+        local choice = cutscene:choicer({
+            "Money",
+            "Authorities",
+            "New Future!",
+            -- "Wings"
+        })
+        if choice == 1 then
+            cutscene:text("* Oh MONEY you say??", "wink")
+            cutscene:text("* Money? Are we sponsored by HONEY??", "troll")
+            cutscene:text("* Well no actually... I DON'T KNOW what that IS!", "disapproving")
+            cutscene:text("* But SPEAKING of MONEY... Do YOU have some??", "icantthinkofagoodnamebutiswearithasagooduse")
+            cutscene:text("* Wait is that!", "pensive")
+            cutscene:text("* Oh MAN I GOTTA bolt!", "wink")
+        elseif choice == 2 then
+            cutscene:text("* WHAT? WHAT did you say?", "disapproving")
+            cutscene:text("* They're AFTER me???", "traumatized")
+            cutscene:text("* Oh DAMMIT! Guess I gotta LIFT OFF!", "sad")
+            cutscene:text("* With my lightspeedwings [font:main]sponsored all NEW FASHIONABLE[font:main_mono] pair of WINGS!", "smile")
+        elseif choice == 3 then
+            cutscene:text("* NEW Future!", "wink")
+            cutscene:text("* NEW like all MY shows! SOOOO relevant to the KIDS!", "smile")
+            Assets.playSound("phone")
+            cutscene:hideNametag()
+            cutscene:wait(1)
+            -- he recieves a call
+            cutscene:showNametag("FC!Tenna")
+            cutscene:text("* Wait WHAT??? What are you SAYING???")
+            cutscene:text("* I'm... not... NEW?")
+            cutscene:text("* I'm in the OLD PAST?")
+            cutscene:text("* ...", "sad")
+            cutscene:text("* Sorry kids... I'm just gonna...", "sad")
+            crude_c = false
+        end
+        cutscene:hideNametag()
+
+        -- leaving this commented out because itsTVTime i mean its funny thanks vscode
+
+        --[[
+        fctenna.physics.gravity = -30/30
+        fctenna.physics.friction = 1/30
+        fctenna.graphics.spin = 0.01
+        fctenna.physics.gravity_direction = 0.05 + (math.pi/2)
+        ]]
+
+        -- TODO: He should be sad if you choose new future
+        fctenna:setAnimation("flying")
+        fctenna.physics.speed_y = -4
+
+        cutscene:wait(3)
+        cutscene:showNametag("Mr. (Ant) Tenna")
+        cutscene:setSpeaker("tenna")
+        local funnytext = crude_c and "crude,funnyfelineboat_discovery" or "rude,funnyfelineboat_discovery"
+        cutscene:text("* Well, THAT was [funnytext:"..funnytext..", -110, -40]!")
     end
 }
