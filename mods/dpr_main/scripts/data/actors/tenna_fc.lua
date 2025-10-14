@@ -11,7 +11,7 @@ function actor:init()
         ["aurafarming"] = {-7, 0};
         ["idle"] = {0, 0};
         ["pensive"] = {2, -2};
-        ["flying"] = {-4, 0};
+        ["flying"] = {-18, -7};
     }
     self.width, self.height = 34, 87
     self.name = "FC!Tenna"
