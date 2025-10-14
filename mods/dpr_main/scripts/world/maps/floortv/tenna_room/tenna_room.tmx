@@ -180,7 +180,7 @@
    </properties>
    <point/>
   </object>
-  <object id="145" name="npc" x="1050" y="832">
+  <object id="145" name="npc" x="1050" y="830">
    <properties>
     <property name="actor" value="tenna_fc"/>
     <property name="cutscene" value="tennaroom.forecastedtenna"/>
