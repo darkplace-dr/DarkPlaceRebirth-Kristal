@@ -125,8 +125,8 @@ function JukeboxMenu:init(simple)
         end
     end
 
-    self.albums_art_dir = "albums/"
-    self.default_album_art = Assets.getTexture(self.albums_art_dir .. self.default_song.album)
+    self.album_art_dir = Kristal.getLibConfig("JukeboxMenu", "albumArtDirectory")
+    self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
 
     ---@type JukeboxMenu.Song[][]
     self.pages = {}
@@ -285,7 +285,7 @@ function JukeboxMenu:draw()
 
     local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
     local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
-    local album_art = Assets.getTexture(self.albums_art_dir .. album_art_path) or self.default_album_art
+    local album_art = Assets.getTexture(self.album_art_dir .. album_art_path) or self.default_album_art
     local album_art_def_size = 250
     local album_art_end_y = self.HEAD_HR_END_Y + 13 + album_art_def_size
     love.graphics.draw(
