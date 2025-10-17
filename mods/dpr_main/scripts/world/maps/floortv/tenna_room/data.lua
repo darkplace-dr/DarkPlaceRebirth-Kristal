@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 20,
-  nextobjectid = 147,
+  nextobjectid = 148,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/baci_perugina"
@@ -650,6 +650,22 @@ return {
           properties = {
             ["actor"] = "tenna_fc",
             ["cutscene"] = "tennaroom.forecastedtenna"
+          }
+        },
+        {
+          id = 147,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 640,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "tenna_ec",
+            ["cutscene"] = "tennaroom.eclipsetenna"
           }
         }
       }

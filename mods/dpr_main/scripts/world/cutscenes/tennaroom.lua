@@ -236,5 +236,23 @@ return {
         cutscene:setSpeaker("tenna")
         local funnytext = crude_c and "crude,funnyfelineboat_discovery" or "rude,funnyfelineboat_discovery"
         cutscene:text("* Well, THAT was [funnytext:"..funnytext..", -110, -40]!")
+    end,
+    eclipsetenna = function (cutscene, ectenna)
+        cutscene:setSpeaker(ectenna)
+        cutscene:after(function () cutscene:hideNametag() end)
+		-- placeholder dialogue for now...
+        cutscene:showNametag("DR:E!Tenna")
+		ectenna:setSprite("lookleft")
+		cutscene:text("[face:ooh]* Funny place we're in,\n[wait:5]eh?")
+		ectenna:setSprite("idle")
+		cutscene:text("[face:shit]* You wouldn't happen to\nknow any... directions\nwould you?")
+		cutscene:text("[face:idle]* I mean listen kid:")
+		cutscene:text("[face:ooh]* I got [wait:5]ACTORS. [wait:10]Actors\nthat I also pay[wait:5].[wait:5].[wait:5].")
+		ectenna:setSprite("lookleft")
+		cutscene:text("[face:what]* Lesser. [wait:5]Than most.")
+		ectenna:setSprite("idle")
+		cutscene:text("[face:what]* And if I'm not there,\n[wait:5]someone might take over.")
+		cutscene:text("[face:what]* And if someone takes\nover, [wait:5]that means that\nthey might get PAID.")
+		cutscene:text("[face:thefuck]* So the longer I'm out\nhere, [wait:5]the longer someone\nmight take [wait:10]MY [wait:10]MONEY.")
     end
 }
