@@ -23,7 +23,7 @@ function actor:init()
     }
 
     self.offsets = {
-        ["hurt"] = {0, -7},
+        ["hurt"] = {0, -3.5},
     }
 
     self.parts = {
