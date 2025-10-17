@@ -46,6 +46,8 @@ function Bibliox:init()
     self:registerAct("EasyProof", "More\ntime to\nfix", {"ralsei"})
 
     self.killable = true
+
+    self.beardstroke = false
 end
 
 function Bibliox:isXActionShort(battler)
@@ -115,6 +117,18 @@ function Bibliox:getEncounterText()
     end
 
     return TableUtils.pick(self.text)
+end
+
+function Bibliox:update()
+    super.update(self)
+
+    if Game.battle.state == "ENEMYDIALOGUE" and not self.beardstroke and self.mercy < 100 then
+        self.beardstroke = true
+        self:setAnimation("beard_stroke")
+    elseif Game.battle.state == "DEFENDINGEND" and self.beardstroke then
+        self.beardstroke = false
+        self:setAnimation("idle")
+    end
 end
 
 return Bibliox

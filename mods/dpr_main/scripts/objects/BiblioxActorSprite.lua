@@ -9,10 +9,10 @@ function BiblioxActorSprite:init(actor)
 
     self.head = Sprite(self:getTexturePath("head"), 2, 0)
     self.head.debug_select = false
-    self.head:play(1/6)
     self:addChild(self.head)
 
     self.animsiner = 0
+    self.beardtimer = 0
 end
 
 function BiblioxActorSprite:getTexturePath(sprite_name)
@@ -36,11 +36,17 @@ function BiblioxActorSprite:update()
 
     local anim = self.anim or "idle"
     if anim == "idle" then
-        self.head.x = self.x + (math.sin(self.animsiner / 10)) * 2
-    elseif anim == "beard_stroke" then -- yeah I tried
+        self.beardtimer = 0
+        self.head.x = self.x + 2 + (math.sin(self.animsiner / 10)) * 2
+        self.head:setSprite(self:getTexturePath("head"))
+        self.head:setFrame(math.floor(self.animsiner / 5))
+    elseif anim == "beard_stroke" then
+        if self.beardtimer < 32 then
+            self.beardtimer = self.beardtimer + 1 * DTMULT
+        end
         self.head:setPosition(2, 0)
         self.head:setSprite(self:getTexturePath("head_beard_stroke"))
-        --self.head:play(1/6, false)
+        self.head:setFrame(math.floor(self.beardtimer / 3))
     end
 end
 
