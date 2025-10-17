@@ -181,7 +181,7 @@ function JukeboxMenu:_buildSongs()
         end
     end
 
-    for _,song in ipairs(songs) do
+    for _,song in pairs(songs) do
         if song.locked == nil then
             song.locked = not evaluateCond(song, self)
         else
@@ -347,7 +347,7 @@ end
 
 function JukeboxMenu:update()
     local function warpIndex(index)
-        return MathUtils.clampWrap(index, 1, self.songs_per_page)
+        return MathUtils.wrapIndex(index, self.songs_per_page)
     end
 
     if not OVERLAY_OPEN then
@@ -392,7 +392,7 @@ function JukeboxMenu:update()
             end
             self.page_index = self.page_index + 1
         end
-        self.page_index = MathUtils.clampWrap(self.page_index, 1, #self.pages)
+        self.page_index = MathUtils.wrapIndex(self.page_index, #self.pages)
 
         local page = self.pages[self.page_index]
         --move up
