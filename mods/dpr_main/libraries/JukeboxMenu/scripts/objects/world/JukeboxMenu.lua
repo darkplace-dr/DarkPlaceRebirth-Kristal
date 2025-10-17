@@ -115,7 +115,45 @@ function JukeboxMenu:init(simple)
         album = "default"
     }
 
-    self.songs = self:_buildSongs()
+    self:_buildSongs()
+
+    self.album_art_dir = Kristal.getLibConfig("JukeboxMenu", "albumArtDirectory")
+    self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
+
+    self.timer = self:addChild(Timer())
+    self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
+    self.info_accordion_timer_handle = nil
+
+    self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
+    self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
+end
+
+---@private
+function JukeboxMenu:_buildSongs()
+    self.songs = {} ---@type JukeboxMenu.Song[]
+
+    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
+    if old_list_ok and old_list ~= nil then
+        self.songs = TableUtils.merge(self.songs, old_list)
+    end
+
+    self.songs = TableUtils.merge(self.songs, Kristal.modCall("getJukeboxSongs") or {})
+
+    for lib_id, _ in Kristal.iterLibraries() do
+        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
+        if lib_songs ~= nil then
+            self.songs = TableUtils.merge(self.songs, lib_songs)
+        end
+    end
+
+    for _,song in pairs(self.songs) do
+        if song.locked == nil then
+            song.locked = not evaluateCond(song, self)
+        else
+            song._locked_explicit = true
+        end
+    end
+
     self.song_by_file = {}
     for _,song in pairs(self.songs) do
         if song.file then
@@ -123,9 +161,10 @@ function JukeboxMenu:init(simple)
             self.song_by_file[song.file] = song
         end
     end
+end
 
-    self.album_art_dir = Kristal.getLibConfig("JukeboxMenu", "albumArtDirectory")
-    self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
+function JukeboxMenu:onAddToStage(stage)
+    super.onAddToStage(self, stage)
 
     ---@type JukeboxMenu.Song[][]
     self.pages = {}
@@ -153,43 +192,6 @@ function JukeboxMenu:init(simple)
 
     self.heart_target_y = self:calculateHeartTargetY()
     self.heart.y = self.heart_target_y
-
-    self.timer = self:addChild(Timer())
-    self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
-    self.info_accordion_timer_handle = nil
-
-    self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
-    self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
-end
-
----@private
----@return JukeboxMenu.Song[]
-function JukeboxMenu:_buildSongs()
-    local songs = {}
-
-    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
-    if old_list_ok and old_list ~= nil then
-        songs = TableUtils.merge(songs, old_list)
-    end
-
-    songs = TableUtils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
-
-    for lib_id, _ in Kristal.iterLibraries() do
-        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
-        if lib_songs ~= nil then
-            songs = TableUtils.merge(songs, lib_songs)
-        end
-    end
-
-    for _,song in pairs(songs) do
-        if song.locked == nil then
-            song.locked = not evaluateCond(song, self)
-        else
-            song._locked_explicit = true
-        end
-    end
-
-    return songs
 end
 
 ---@param music Music?
