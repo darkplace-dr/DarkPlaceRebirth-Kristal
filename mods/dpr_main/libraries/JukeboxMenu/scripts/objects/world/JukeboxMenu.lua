@@ -293,7 +293,7 @@ function JukeboxMenu:update()
 
             if not song.locked and song.file then
                 Game.world.music:play(song.file, 1)
-                Game:setFlag("curJukeBoxSong", song.file)
+                Kristal.callEvent("onJukeboxPlay", song)
             else
                 Assets.playSound("error")
             end
