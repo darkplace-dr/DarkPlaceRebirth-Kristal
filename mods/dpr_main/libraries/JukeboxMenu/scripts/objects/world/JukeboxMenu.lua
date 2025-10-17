@@ -1,16 +1,47 @@
--- FIXME: Copy relevant Mod utils into this
+-- The util functions below are duplicated from utils_general purposefully
+-- in preparation to any sort of standalone release in the future
 
 -- Gets the index of an item in a 2D table
 ---@return any? i
 ---@return any? j
 local function getIndex2D(t, value)
     for i,r in pairs(t) do
-        local j = Utils.getIndex(r, value)
+        local j = TableUtils.getIndex(r, value)
         if j then
             return i, j
         end
     end
     return nil, nil
+end
+
+---@param ... any # Extra parameters to cond()
+local function evaluateCond(data, ...)
+    local result = true
+
+    if data.cond then
+        result = data.cond(...)
+    elseif data.flagcheck then
+        local inverted, flag = StringUtils.startsWith(data.flagcheck, "!")
+
+        local flag_value = Game.flags[flag]
+        local expected_value = data.flagvalue
+        local is_true
+        if expected_value ~= nil then
+            is_true = flag_value == expected_value
+        elseif type(result) == "number" then
+            is_true = flag_value > 0
+        else
+            is_true = flag_value
+        end
+
+        if is_true then
+            result = not inverted
+        else
+            result = inverted
+        end
+    end
+
+    return result
 end
 
 ---@class JukeboxMenu : Object
@@ -139,21 +170,21 @@ function JukeboxMenu:_buildSongs()
 
     local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
     if old_list_ok and old_list ~= nil then
-        songs = Utils.merge(songs, old_list)
+        songs = TableUtils.merge(songs, old_list)
     end
 
-    songs = Utils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
+    songs = TableUtils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
 
     for lib_id, _ in Kristal.iterLibraries() do
         local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
         if lib_songs ~= nil then
-            songs = Utils.merge(songs, lib_songs)
+            songs = TableUtils.merge(songs, lib_songs)
         end
     end
 
     for _,song in ipairs(songs) do
         if song.locked == nil then
-            song.locked = not GeneralUtils:evaluateCond(song, self)
+            song.locked = not evaluateCond(song, self)
         else
             song._locked_explicit = true
         end
@@ -317,7 +348,7 @@ end
 
 function JukeboxMenu:update()
     local function warpIndex(index)
-        return Utils.clampWrap(index, 1, self.songs_per_page)
+        return MathUtils.clampWrap(index, 1, self.songs_per_page)
     end
 
     if not OVERLAY_OPEN then
@@ -333,7 +364,7 @@ function JukeboxMenu:update()
             local song = self.pages[self.page_index][self.selected_index[self.page_index]] or self.default_song
 
             if not song._locked_explicit then
-                song.locked = not GeneralUtils:evaluateCond(song, self)
+                song.locked = not evaluateCond(song, self)
             end
 
             if not song.locked and song.file then
@@ -362,7 +393,7 @@ function JukeboxMenu:update()
             end
             self.page_index = self.page_index + 1
         end
-        self.page_index = Utils.clampWrap(self.page_index, 1, #self.pages)
+        self.page_index = MathUtils.clampWrap(self.page_index, 1, #self.pages)
 
         local page = self.pages[self.page_index]
         --move up
@@ -384,7 +415,7 @@ function JukeboxMenu:update()
         --self.selected_index[self.page_index] = warpIndex(self.selected_index[self.page_index])
 
         if self.info_collpasible and Input.pressed("menu", false) then
-            local dest_width = Utils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
+            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
                 and self.MIN_WIDTH or self.MAX_WIDTH
             --[[Log:print(self.width, self.width > self.MIN_WIDTH,
                 not not self.info_reveal_timer_handle, self.info_reveal_timer_handle and self.info_reveal_timer_handle.direction,

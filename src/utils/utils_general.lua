@@ -81,7 +81,7 @@ function GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_ap
         if not try_wine_route then
             -- don't ask why %
             name = string.gsub(name, "%XDG_CONFIG_HOME%", os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config")
-            local starts_at_root, _ = Utils.startsWith(name, "/")
+            local starts_at_root, _ = StringUtils.startsWith(name, "/")
             if not starts_at_root then
                 path = os.getenv("HOME").."/"..name
             else
@@ -181,7 +181,7 @@ function GeneralUtils:fileExists(name, try_wine_route, wine_steam_appid)
         if not try_wine_route then
             -- don't ask why %
             name = string.gsub(name, "%XDG_CONFIG_HOME%", os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config")
-            local starts_at_root, _ = Utils.startsWith(name, "/")
+            local starts_at_root, _ = StringUtils.startsWith(name, "/")
             if not starts_at_root then
                 path = os.getenv("HOME").."/"..name
             else
@@ -286,7 +286,7 @@ function GeneralUtils:evaluateCond(data, ...)
     if data.cond then
         result = data.cond(...)
     elseif data.flagcheck then
-        local inverted, flag = Utils.startsWith(data.flagcheck, "!")
+        local inverted, flag = StringUtils.startsWith(data.flagcheck, "!")
 
         local flag_value = Game.flags[flag]
         local expected_value = data.flagvalue
@@ -325,7 +325,7 @@ end
 ---@return any? j
 function GeneralUtils:getIndex2D(t, value)
     for i,r in pairs(t) do
-        local j = Utils.getIndex(r, value)
+        local j = TableUtils.getIndex(r, value)
         if j then
             return i, j
         end
@@ -354,7 +354,7 @@ end
 ---@return number
 function GeneralUtils:lerpSnap(a, b, m, snap_delta)
     if snap_delta == nil then snap_delta = 0.001 end
-    local result = Utils.lerp(a, b, m)
+    local result = MathUtils.lerp(a, b, m)
     if b - result <= snap_delta then
         return b
     end
