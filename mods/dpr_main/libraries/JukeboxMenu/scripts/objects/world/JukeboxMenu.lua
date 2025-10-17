@@ -38,6 +38,14 @@ function JukeboxMenu:_buildSongs()
         end
     end
 
+    for _,song in ipairs(songs) do
+        if song.locked == nil then
+            song.locked = not GeneralUtils:evaluateCond(song, self)
+        else
+            song._locked_explicit = true
+        end
+    end
+
     return songs
 end
 
@@ -103,18 +111,12 @@ function JukeboxMenu:init(simple)
 
     self.songs = self:_buildSongs()
 
-    local navigate_to_playing = Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit")
+    local albums_spr_dir = "albums/"
     self.album_art_cache = {}
-    self.album_art_cache[self.none_album] = Assets.getTexture("albums/"..self.none_album)
+    self.album_art_cache[self.none_album] = Assets.getTexture(albums_spr_dir .. self.none_album)
     for _,song in ipairs(self.songs) do
-        if song.locked == nil then
-            song.locked = not GeneralUtils:evaluateCond(song, self)
-        else
-            song._locked_explicit = true
-        end
-
         if song.album and not self.album_art_cache[song.album] then
-            self.album_art_cache[song.album] = Assets.getTexture("albums/"..song.album)
+            self.album_art_cache[song.album] = Assets.getTexture(albums_spr_dir .. song.album)
         end
     end
 
@@ -129,7 +131,7 @@ function JukeboxMenu:init(simple)
         self.selected_index[page] = 1
     end
 
-    if navigate_to_playing then
+    if Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit") then
         local playing_song = self:getPlayingEntry()
         if playing_song then
             local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
