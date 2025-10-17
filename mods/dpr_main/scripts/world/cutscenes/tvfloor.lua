@@ -470,4 +470,78 @@ return {
         ramb:setAnimation("idle")
         cutscene:hideNametag()
     end,
+
+    ralsei_impostor = function(cutscene, event)
+        local hero = cutscene:getCharacter("hero")
+        local susie = cutscene:getCharacter("susie")
+        local dess = cutscene:getCharacter("dess")
+
+        local ralsei_impostor = cutscene:getCharacter("ralseiimpostor")
+
+        if susie then
+            cutscene:showNametag("Susie")
+            cutscene:text("* Ralsei!?\n[wait:5]* Is that you??", "surprise", "susie")
+            cutscene:text("* Man,[wait:5] am I glad to see you!", "sincere_smile", "susie")
+            if hero then
+                cutscene:showNametag("Hero")
+                cutscene:text("* Uhhh... Susie?", "shocked", "hero")
+                cutscene:text("* I don't think that's your friend...", "shocked", "hero")
+                cutscene:showNametag("Susie")
+                cutscene:text("* The hell makes you say that-[next]", "suspicious", "susie")
+            end
+            cutscene:hideNametag()
+        end
+
+        ralsei_impostor:setFacing("down")
+        Assets.playSound("alert")
+        cutscene:wait(8/30)
+		
+        if susie then
+            Assets.playSound("sussurprise", 2)
+            susie:shake()
+            if susie.facing == "up" or susie.facing == "down" then
+                susie:setSprite("shock_up")
+            elseif susie.facing == "right" then
+                susie:setSprite("shock_right")
+            elseif susie.facing == "left" then
+                susie:setSprite("shock_left")
+            end
+        end
+
+        cutscene:wait(20/30)
+        cutscene:showNametag("Pippins")
+        if susie and not hero then
+            cutscene:text("* I'm not Ralsei!!")
+        else
+            cutscene:text("* Had ya fooled,[wait:5] didn't I?")
+            if dess or Game:isDessMode() then
+                cutscene:showNametag("Dess")
+                cutscene:text("* No not really tbh", "", "dess")
+            end
+        end
+        cutscene:hideNametag()
+
+        Assets.playSound("tensionhorn")
+        cutscene:wait(8/30)
+        local src = Assets.playSound("tensionhorn")
+        src:setPitch(1.1)
+        cutscene:wait(12/30)
+
+        if susie then
+            susie:resetSprite()
+        end
+
+        Game:setFlag("pippins_shuttah_violence", false)
+        Game:encounter("pippins_shuttah", nil, {ralsei_impostor})
+        cutscene:after(function()
+            ralsei_impostor:remove()
+        end)
+    end,
+
+    post_ralsei_impostor = function(cutscene, event)
+        cutscene:showNametag("Pippins")
+        cutscene:text("* Hey.\n[wait:5]* Just wanna say sorry for tricking you earlier.", nil, event)
+        cutscene:text("* You gotta admit that though.\n[wait:5]* That costume WAS pretty convincing,[wait:5] right?", nil, event)
+        cutscene:hideNametag()
+    end,
 }

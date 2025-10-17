@@ -1367,9 +1367,9 @@ local hub = {
 
     transition = function(cutscene, event)
         if love.math.random(1, 100) <= 5 then
-            cutscene:mapTransition("spamgolor_meeting", "west")
+            cutscene:mapTransition("floor1/spamgolor_meeting", "west")
             -- default wait func waits for the fade animation to end. movement should be allowed slightly before that
-            cutscene:wait(function () return Game.world.map.id == "spamgolor_meeting" end)
+            cutscene:wait(function () return Game.world.map.id == "floor1/spamgolor_meeting" end)
             local timeout = .5
             cutscene:during(function () timeout = timeout - DT end)
             -- prevent player from accidentally exiting the room
@@ -1377,7 +1377,7 @@ local hub = {
                 return Input.up("left") or (timeout <= 0)
             end)
         else
-            cutscene:mapTransition("hub_traininggrounds", "entry")
+            cutscene:mapTransition("floor1/traininggrounds", "entry")
         end
     end,
 
@@ -1393,7 +1393,7 @@ local hub = {
                 return Input.up("left") or (timeout <= 0)
             end)
         else
-            cutscene:mapTransition("hub_fuseroom", "entry")
+            cutscene:mapTransition("floor1/fuseroom", "entry")
         end
     end,
 
@@ -2201,7 +2201,6 @@ local hub = {
             event:setFlag("poem_plate", true)
         end
     end,
-
 
     missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")

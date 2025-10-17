@@ -11,7 +11,7 @@ local cliffside = {
     intro = function (cutscene, event)
         Kristal.hideBorder(0)
         cutscene:wait(function ()
-            if Game.world.map.id == [[hub_dess_house]] then
+            if Game.world.map.id == [[floor1/dess_house]] then
                 return true
             else
                 return false

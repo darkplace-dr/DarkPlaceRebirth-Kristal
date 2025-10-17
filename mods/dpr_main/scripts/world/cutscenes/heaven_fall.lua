@@ -3,7 +3,7 @@ return function(cutscene)
 
     if not Game:getFlag("heaven_open", false) then
         cutscene:textTagged("* No.", "smug", "dess")
-        cutscene:mapTransition("main_hub", "spawn")
+        cutscene:mapTransition("floor1/main", "spawn")
         return
     end
 

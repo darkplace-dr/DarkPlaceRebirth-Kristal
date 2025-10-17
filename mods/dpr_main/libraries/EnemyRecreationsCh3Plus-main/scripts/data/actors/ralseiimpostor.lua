@@ -1,4 +1,4 @@
-local RalseiImpostor, super = Class(Actor)
+local RalseiImpostor, super = Class(Actor, "ralseiimpostor")
 
 function RalseiImpostor:init(style)
     super.init(self)

@@ -268,8 +268,8 @@ function Noel:NoelEnter(noelsave)
         local spawnPositions = {
             warphub = {384, 361, {cutscene = place_holder, animation = "brella"}},
             room1 = {400, 740, {cutscene = place_holder, animation = "brella"}},
-            main_hub = {460, 380, {cutscene = place_holder, animation = "brella"}},
-            main_hub_south = {660, 730, {cutscene = place_holder, animation = "brella"}},
+            ["floor1/main"] = {460, 380, {cutscene = place_holder, animation = "brella"}},
+            ["floor1/main_south"] = {660, 730, {cutscene = place_holder, animation = "brella"}},
             ["floorcyber/dog_highway"] = {1006, 428, {cutscene = place_holder}},
             ["steamworks/05"] = {260, 290, {cutscene = place_holder}},
             ["steamworks/09"] = {1000, 390, {cutscene = place_holder}},

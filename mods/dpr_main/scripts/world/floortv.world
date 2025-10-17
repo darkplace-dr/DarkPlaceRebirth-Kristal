@@ -48,6 +48,13 @@
             "width": 2000,
             "x": -6040,
             "y": -1920
+        },
+        {
+            "fileName": "maps/floortv/ralsei_imposter.tmx",
+            "height": 640,
+            "width": 640,
+            "x": 2240,
+            "y": -960
         }
     ],
     "onlyShowAdjacentMaps": false,

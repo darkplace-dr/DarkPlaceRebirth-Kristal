@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 123,
+  nextobjectid = 124,
   properties = {
     ["border"] = "teevie",
     ["keepmusic"] = true
@@ -56,7 +56,7 @@ return {
         {
           id = 1,
           name = "teevie_bg",
-          type = "",
+          class = "",
           shape = "point",
           x = 0,
           y = 0,
@@ -277,7 +277,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 280,
@@ -290,7 +290,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 240,
@@ -303,7 +303,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 240,
@@ -316,7 +316,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 640,
@@ -329,7 +329,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 520,
@@ -342,7 +342,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 400,
@@ -355,7 +355,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 560,
@@ -368,7 +368,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 240,
@@ -381,7 +381,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -394,7 +394,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1240,
           y = 240,
@@ -407,7 +407,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 680,
           y = 640,
@@ -420,7 +420,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 640,
@@ -433,7 +433,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 1040,
@@ -446,7 +446,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 680,
           y = 1040,
@@ -459,7 +459,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 1280,
@@ -472,7 +472,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 880,
@@ -485,7 +485,7 @@ return {
         {
           id = 18,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 600,
@@ -498,7 +498,7 @@ return {
         {
           id = 19,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1400,
           y = 880,
@@ -511,7 +511,7 @@ return {
         {
           id = 20,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1480,
           y = 640,
@@ -524,7 +524,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1800,
           y = 880,
@@ -537,7 +537,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1920,
           y = 480,
@@ -550,7 +550,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1480,
           y = 360,
@@ -563,7 +563,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1800,
           y = 320,
@@ -576,7 +576,7 @@ return {
         {
           id = 25,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1440,
           y = 560,
@@ -589,7 +589,7 @@ return {
         {
           id = 39,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 1040,
@@ -602,7 +602,7 @@ return {
         {
           id = 40,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 1440,
@@ -615,7 +615,7 @@ return {
         {
           id = 42,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 1560,
@@ -628,7 +628,7 @@ return {
         {
           id = 43,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 1040,
@@ -641,7 +641,7 @@ return {
         {
           id = 44,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1600,
           y = 1160,
@@ -654,7 +654,7 @@ return {
         {
           id = 45,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1440,
           y = 1160,
@@ -667,7 +667,7 @@ return {
         {
           id = 46,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1480,
           y = 1560,
@@ -680,7 +680,7 @@ return {
         {
           id = 47,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1480,
           y = 1120,
@@ -693,7 +693,7 @@ return {
         {
           id = 56,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 1000,
@@ -706,7 +706,7 @@ return {
         {
           id = 96,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 14,
           y = 400,
@@ -719,7 +719,7 @@ return {
         {
           id = 97,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 166,
           y = 400,
@@ -732,7 +732,7 @@ return {
         {
           id = 98,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1854,
           y = 360,
@@ -745,7 +745,7 @@ return {
         {
           id = 99,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2046,
           y = 360,
@@ -758,7 +758,7 @@ return {
         {
           id = 102,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1614,
           y = 1440,
@@ -771,7 +771,7 @@ return {
         {
           id = 103,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2087,
           y = 1440,
@@ -800,7 +800,7 @@ return {
         {
           id = 60,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 100,
           y = 400,
@@ -815,7 +815,7 @@ return {
         {
           id = 61,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 240,
@@ -830,7 +830,7 @@ return {
         {
           id = 62,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 800,
           y = 240,
@@ -845,7 +845,7 @@ return {
         {
           id = 64,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 240,
@@ -860,7 +860,7 @@ return {
         {
           id = 66,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1120,
           y = 240,
@@ -875,7 +875,7 @@ return {
         {
           id = 68,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 1440,
@@ -890,7 +890,7 @@ return {
         {
           id = 69,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 1440,
@@ -905,7 +905,7 @@ return {
         {
           id = 70,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 1440,
@@ -920,7 +920,7 @@ return {
         {
           id = 71,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 1440,
@@ -935,7 +935,7 @@ return {
         {
           id = 74,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1700,
           y = 1320,
@@ -948,7 +948,7 @@ return {
         {
           id = 76,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1940,
           y = 240,
@@ -961,7 +961,7 @@ return {
         {
           id = 79,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1720,
           y = 1440,
@@ -976,7 +976,7 @@ return {
         {
           id = 80,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1860,
           y = 1440,
@@ -991,7 +991,7 @@ return {
         {
           id = 81,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2000,
           y = 1440,
@@ -1006,7 +1006,7 @@ return {
         {
           id = 82,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1960,
           y = 360,
@@ -1021,7 +1021,7 @@ return {
         {
           id = 84,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1980,
           y = 1320,
@@ -1034,7 +1034,7 @@ return {
         {
           id = 93,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 280,
@@ -1065,7 +1065,7 @@ return {
         {
           id = 88,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 400,
@@ -1081,7 +1081,7 @@ return {
         {
           id = 89,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1840,
           y = 400,
@@ -1095,7 +1095,7 @@ return {
         {
           id = 91,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2040,
           y = 400,
@@ -1109,7 +1109,7 @@ return {
         {
           id = 94,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 440,
@@ -1123,7 +1123,7 @@ return {
         {
           id = 95,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 440,
@@ -1137,7 +1137,7 @@ return {
         {
           id = 100,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1600,
           y = 1480,
@@ -1151,7 +1151,7 @@ return {
         {
           id = 101,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 2080,
           y = 1480,
@@ -1165,7 +1165,7 @@ return {
         {
           id = 105,
           name = "fakechest",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1520,
           y = 580,
@@ -1178,7 +1178,7 @@ return {
         {
           id = 106,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 310,
@@ -1197,7 +1197,7 @@ return {
         {
           id = 107,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 620,
@@ -1216,7 +1216,7 @@ return {
         {
           id = 108,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 640,
           y = 540,
@@ -1235,7 +1235,7 @@ return {
         {
           id = 109,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1200,
           y = 340,
@@ -1254,7 +1254,7 @@ return {
         {
           id = 110,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1860,
           y = 860,
@@ -1273,7 +1273,7 @@ return {
         {
           id = 111,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1040,
           y = 700,
@@ -1292,7 +1292,7 @@ return {
         {
           id = 112,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1340,
           y = 980,
@@ -1311,7 +1311,7 @@ return {
         {
           id = 113,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 720,
           y = 980,
@@ -1330,7 +1330,7 @@ return {
         {
           id = 114,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1040,
           y = 1260,
@@ -1349,7 +1349,7 @@ return {
         {
           id = 116,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 600,
           y = 1510,
@@ -1368,7 +1368,7 @@ return {
         {
           id = 117,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 1100,
@@ -1387,7 +1387,7 @@ return {
         {
           id = 118,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1540,
           y = 1200,
@@ -1406,7 +1406,7 @@ return {
         {
           id = 119,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 80,
           y = 1400,
@@ -1421,7 +1421,7 @@ return {
         {
           id = 120,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 480,
           y = 1400,
@@ -1436,7 +1436,7 @@ return {
         {
           id = 121,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1840,
           y = 1400,
@@ -1451,7 +1451,7 @@ return {
         {
           id = 122,
           name = "zapper_maze_npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 1680,
           y = 580,
@@ -1463,6 +1463,22 @@ return {
             ["actor"] = "zapper_maze",
             ["color"] = "#ffc0c0c0",
             ["cutscene"] = "tvfloor.not_maze_zapper"
+          }
+        },
+        {
+          id = 123,
+          name = "transition",
+          class = "",
+          shape = "rectangle",
+          x = 2160,
+          y = 1440,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floortv/ralsei_imposter",
+            ["marker"] = "entry"
           }
         }
       }
@@ -1484,7 +1500,7 @@ return {
         {
           id = 26,
           name = "topleft_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 360,
@@ -1497,7 +1513,7 @@ return {
         {
           id = 27,
           name = "topleft_down",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 560,
@@ -1510,7 +1526,7 @@ return {
         {
           id = 28,
           name = "topmiddle_left",
-          type = "",
+          class = "",
           shape = "point",
           x = 640,
           y = 480,
@@ -1523,7 +1539,7 @@ return {
         {
           id = 31,
           name = "topmiddle_right",
-          type = "",
+          class = "",
           shape = "point",
           x = 1140,
           y = 340,
@@ -1536,7 +1552,7 @@ return {
         {
           id = 33,
           name = "topright_down",
-          type = "",
+          class = "",
           shape = "point",
           x = 1860,
           y = 800,
@@ -1549,7 +1565,7 @@ return {
         {
           id = 34,
           name = "plus_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 1040,
           y = 800,
@@ -1562,7 +1578,7 @@ return {
         {
           id = 35,
           name = "plus_left",
-          type = "",
+          class = "",
           shape = "point",
           x = 800,
           y = 980,
@@ -1575,7 +1591,7 @@ return {
         {
           id = 37,
           name = "plus_down",
-          type = "",
+          class = "",
           shape = "point",
           x = 1040,
           y = 1200,
@@ -1588,7 +1604,7 @@ return {
         {
           id = 38,
           name = "plus_right",
-          type = "",
+          class = "",
           shape = "point",
           x = 1280,
           y = 980,
@@ -1601,7 +1617,7 @@ return {
         {
           id = 48,
           name = "bottomleft_right",
-          type = "",
+          class = "",
           shape = "point",
           x = 530,
           y = 1510,
@@ -1614,7 +1630,7 @@ return {
         {
           id = 49,
           name = "bottomleft_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 1160,
@@ -1627,7 +1643,7 @@ return {
         {
           id = 50,
           name = "bottomright_up",
-          type = "",
+          class = "",
           shape = "point",
           x = 1540,
           y = 1240,
@@ -1640,7 +1656,7 @@ return {
         {
           id = 51,
           name = "entry_topleft",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 460,
@@ -1653,7 +1669,7 @@ return {
         {
           id = 52,
           name = "entry_topright",
-          type = "",
+          class = "",
           shape = "point",
           x = 2127,
           y = 420,
@@ -1666,7 +1682,7 @@ return {
         {
           id = 53,
           name = "entry_bottomleft",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 1520,
@@ -1679,7 +1695,7 @@ return {
         {
           id = 54,
           name = "entry_bottomright",
-          type = "",
+          class = "",
           shape = "point",
           x = 2120,
           y = 1500,
@@ -1692,7 +1708,7 @@ return {
         {
           id = 67,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 1040,
           y = 960,

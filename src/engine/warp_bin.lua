@@ -40,7 +40,7 @@ Kristal.warp_bin_codes = {
             cutscene:text("* test uwu.")
         end,
     },
-    ["FLOORONE"] = { result = "main_hub", mod = "dpr_main" },
+    ["FLOORONE"] = { result = "floor1/main", mod = "dpr_main" },
     ["GIMMICK"] = { result = "gimmick_test/gimmick_test1", mod = "dpr_main" },
     ["SLIDER"] = { result = "slider_start", mod = "dpr_main" },
     ["WIFIDOWN"] = { result = "googlefield", mod = "dpr_main" },
