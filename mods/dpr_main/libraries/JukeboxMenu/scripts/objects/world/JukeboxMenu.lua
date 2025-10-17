@@ -60,6 +60,7 @@ local JukeboxMenu, super = Class(Object)
 ---@field _locked_explicit boolean?
 
 JukeboxMenu.MAX_WIDTH = 540
+JukeboxMenu.SONG_INFO_AREA_X = 263
 JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X - 37
 JukeboxMenu.MIN_HEIGHT = 360
 
@@ -70,8 +71,6 @@ JukeboxMenu.ENTRY_START_X = 2
 JukeboxMenu.ENTRY_START_Y = JukeboxMenu.HEAD_HR_END_Y + 16
 JukeboxMenu.ENTRY_HEART_START_X = 14
 JukeboxMenu.ENTRY_H = 40
-
-JukeboxMenu.SONG_INFO_AREA_X = 263
 
 function JukeboxMenu:init(simple)
     super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, self.MIN_HEIGHT)
