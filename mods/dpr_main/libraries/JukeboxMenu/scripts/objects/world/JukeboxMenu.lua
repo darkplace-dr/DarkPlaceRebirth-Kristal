@@ -96,24 +96,22 @@ function JukeboxMenu:init(simple)
 
     self.music_note = Assets.getTexture("ui/music_note")
 
-    self.none_text = "---"
-    self.none_album = "default"
     ---@type JukeboxMenu.Song
     self.default_song = {
-        name = nil,
+        name = "---",
         file = nil,
-        composer = nil,
-        released = nil,
-        origin = nil,
+        composer = "---",
+        released = "---",
+        origin = "---",
         locked = nil,
-        album = nil
+        album = "default"
     }
 
     self.songs = self:_buildSongs()
 
     local albums_spr_dir = "albums/"
     self.album_art_cache = {}
-    self.album_art_cache[self.none_album] = Assets.getTexture(albums_spr_dir .. self.none_album)
+    self.album_art_cache[self.default_song.album] = Assets.getTexture(albums_spr_dir .. self.default_song.album)
     for _,song in ipairs(self.songs) do
         if song.album and not self.album_art_cache[song.album] then
             self.album_art_cache[song.album] = Assets.getTexture(albums_spr_dir .. song.album)
@@ -173,8 +171,10 @@ function JukeboxMenu:draw()
     local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
     for i = 1, self.songs_per_page do
         local song = page[i] or self.default_song
-        local name = song.name or self.none_text
+
+        local name = song.name or self.default_song.name
         if song.locked then name = "Locked" end
+
         love.graphics.setColor(1, 1, 1)
         local is_being_played
         if not song.file or song.locked then
@@ -185,6 +185,7 @@ function JukeboxMenu:draw()
                 love.graphics.setColor(1, 1, 0)
             end
         end
+
         local scale_x = math.min(math.floor(196 / self.font:getWidth(name) * 100) / 100, 1)
         love.graphics.print(name, 40, 40 + 40 * (i - 1) + 3, 0, scale_x, 1)
         love.graphics.setColor(1, 1, 1)
@@ -219,11 +220,8 @@ function JukeboxMenu:draw()
     local song = page[self.selected_index[self.page_index]] or self.default_song
 
     love.graphics.setColor(1, 1, 1)
-    local album_art_path = song.album or self.none_album
-    if not song.file or song.locked then
-        album_art_path = self.none_album
-    end
-    local album_art = self.album_art_cache[album_art_path] or self.album_art_cache[self.none_album]
+    local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
+    local album_art = assert(self.album_art_cache[album_art_path])
     love.graphics.draw(album_art, 410, 162, 0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
     local info_font = self.font
@@ -232,9 +230,9 @@ function JukeboxMenu:draw()
     local info_w = 260 / info_scale
     local info = string.format(
         "Composer: %s\nReleased: %s\nOrigin: %s",
-        song.composer or self.none_text,
-        song.released or self.none_text,
-        song.origin or self.none_text
+        song.composer or self.default_song.composer,
+        song.released or self.default_song.released,
+        song.origin or self.default_song.origin
     )
     local _, info_lines = info_font:getWrap(info, info_w)
     local info_yoff = info_font:getHeight() * #info_lines * info_scale
