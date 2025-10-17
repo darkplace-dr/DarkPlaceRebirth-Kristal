@@ -659,7 +659,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_hub_south",
+            ["map"] = "floor1/main_south",
             ["marker"] = "north"
           }
         },
@@ -691,7 +691,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_marketplace",
+            ["map"] = "floor1/marketplace",
             ["marker"] = "entry"
           }
         },
@@ -707,7 +707,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_tutorialmasters",
+            ["map"] = "floor1/tutorialmasters",
             ["marker"] = "entry"
           }
         },
@@ -723,7 +723,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "hub_pregreatdoor",
+            ["map"] = "floor1/pregreatdoor",
             ["marker"] = "west"
           }
         },
