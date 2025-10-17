@@ -74,7 +74,7 @@ function Organikk:onAct(battler, name)
             particle.layer = battler.layer - 0.01
             Game.battle:addChild(particle)
         end
-        if Game.battle.wicabel_perform then
+        if Game.battle.wicabel_tuning then
             Assets.playSound("act_perform_better")
             self:addMercy(100)
             return "* You performed a tune! It was\nsuper effective!"
