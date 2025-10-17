@@ -51,17 +51,17 @@ function JukeboxMenu:_buildSongs()
 end
 
 ---@param music Music?
+---@param ignore_locked boolean?
 ---@return JukeboxMenu.Song?
-function JukeboxMenu:getPlayingEntry(music)
+function JukeboxMenu:getPlayingEntry(music, ignore_locked)
     music = music or Game.world.music
     if not music then
         return nil
     end
 
-    for _,song in ipairs(self.songs) do
-        if not song.locked and song.file == music.current then
-            return song
-        end
+    local song = self.song_by_file[music.current]
+    if song and (ignore_locked or not song.locked) then
+        return song
     end
 end
 
@@ -117,6 +117,13 @@ function JukeboxMenu:init(simple)
     }
 
     self.songs = self:_buildSongs()
+    self.song_by_file = {}
+    for _,song in pairs(self.songs) do
+        if song.file then
+            assert(not self.song_by_file[song.file], "Duplicate song entry for file "..song.file)
+            self.song_by_file[song.file] = song
+        end
+    end
 
     self.albums_art_dir = "albums/"
     self.default_album_art = Assets.getTexture(self.albums_art_dir .. self.default_song.album)
