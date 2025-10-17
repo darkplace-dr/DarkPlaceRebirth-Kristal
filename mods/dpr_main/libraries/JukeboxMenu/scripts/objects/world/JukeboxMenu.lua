@@ -65,6 +65,19 @@ function JukeboxMenu:getPlayingEntry(music, ignore_locked)
     end
 end
 
+-- Gets the index of an item in a 2D table
+---@return any? i
+---@return any? j
+local function getIndex2D(t, value)
+    for i,r in pairs(t) do
+        local j = Utils.getIndex(r, value)
+        if j then
+            return i, j
+        end
+    end
+    return nil, nil
+end
+
 function JukeboxMenu:init(simple)
     super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, self.MIN_HEIGHT)
 
@@ -130,8 +143,10 @@ function JukeboxMenu:init(simple)
 
     ---@type JukeboxMenu.Song[][]
     self.pages = {}
+    ---@type integer
     self.page_index = 1
     self.songs_per_page = 7
+    ---@type integer[]
     self.selected_index = {}
     for page = 1, math.ceil(#self.songs / self.songs_per_page) do
         local start_index = 1 + (page-1) * self.songs_per_page
@@ -142,7 +157,7 @@ function JukeboxMenu:init(simple)
     if Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit") then
         local playing_song = self:getPlayingEntry()
         if playing_song then
-            local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
+            local i, j = getIndex2D(self.pages, playing_song)
             if j then
                 self.page_index = i
                 self.selected_index[self.page_index] = j

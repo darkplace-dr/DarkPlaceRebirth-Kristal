@@ -309,10 +309,10 @@ function GeneralUtils:setPresenceState(details)
 end
 
 -- Gets the index of an item in a 2D table
----@return integer|nil i
----@return integer|nil j
+---@return any? i
+---@return any? j
 function GeneralUtils:getIndex2D(t, value)
-    for i,r in ipairs(t) do
+    for i,r in pairs(t) do
         local j = Utils.getIndex(r, value)
         if j then
             return i, j
