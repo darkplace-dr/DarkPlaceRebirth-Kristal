@@ -16,8 +16,9 @@ local JukeboxMenu, super = Class(Object)
 ---@field _locked_explicit boolean?
 
 JukeboxMenu.MAX_WIDTH = 540
-JukeboxMenu.SONG_INFO_AREA_X = 300
-JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
+JukeboxMenu.SONG_INFO_AREA_X = 263
+JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X - 37
+JukeboxMenu.MIN_HEIGHT = 360
 
 ---@private
 ---@return JukeboxMenu.Song[]
@@ -65,7 +66,7 @@ function JukeboxMenu:getPlayingEntry(music)
 end
 
 function JukeboxMenu:init(simple)
-    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, 360)
+    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, self.MIN_HEIGHT)
 
     self.parallax_x = 0
     self.parallax_y = 0
@@ -86,12 +87,20 @@ function JukeboxMenu:init(simple)
     self.font = Assets.getFont("main")
     self.font_2 = Assets.getFont("plain")
 
+    self._head_hr_start_y = 20
+    self._head_hr_h = 4
+    self._head_hr_end_y = self._head_hr_start_y + self._head_hr_h
+    self._entry_start_x = 2
+    self._entry_start_y = self._head_hr_end_y + 16
+    self._entry_heart_xoff = 14
+    self._entry_h = 40
+
     self.heart = Sprite("player/heart_menu")
     self.heart:setOrigin(0.5, 0.5)
     self.heart:setScale(2)
     self.heart:setColor(Game:getSoulColor())
     self.heart.layer = 1
-    self.heart.x = 16
+    self.heart.x = self._entry_start_x + self._entry_heart_xoff
     self:addChild(self.heart)
 
     self.music_note = Assets.getTexture("ui/music_note")
@@ -147,21 +156,26 @@ end
 
 function JukeboxMenu:draw()
     Draw.pushScissor()
-    local box_pad = 20 -- HACK because working with UIBoxes is annoying
-    Draw.scissor(-box_pad, -box_pad, self.width+box_pad*2, self.height+box_pad*2)
+    local padding_size = 16
+    local padding_adj = padding_size + 2 -- HACK because working with UIBoxes is annoying
+    Draw.scissor(-padding_adj, -padding_adj, self.width+padding_adj*2, self.height+padding_adj*2)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(self.font)
-    love.graphics.printf("JUKEBOX", 0, -17, self.width, "center")
-    love.graphics.setLineWidth(4)
-    love.graphics.rectangle("line", -16, 20, self.width+32, 1)
+    love.graphics.printf("JUKEBOX", 0, -padding_size - 1, self.width, "center")
+    love.graphics.setLineWidth(self._head_hr_h)
+    love.graphics.rectangle("line", -padding_size, self._head_hr_start_y, self.width + (padding_size*2), 1)
+    love.graphics.setLineWidth(1)
 
     local page = self.pages[self.page_index]
 
-    love.graphics.setLineWidth(1)
     -- draw the first line
     love.graphics.setColor(0, 0.4, 0)
-    love.graphics.rectangle("line", 2, 40, 240, 1)
+    local entry_start_x = 2
+    local entry_start_y = self._entry_start_y
+    local entry_w = 240
+    local entry_h = self._entry_h
+    love.graphics.rectangle("line", entry_start_x, entry_start_y, entry_w, 1)
     local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
     for i = 1, self.songs_per_page do
         local song = page[i] or self.default_song
@@ -180,48 +194,55 @@ function JukeboxMenu:draw()
             end
         end
 
-        local scale_x = math.min(math.floor(196 / self.font:getWidth(name) * 100) / 100, 1)
-        love.graphics.print(name, 40, 40 + 40 * (i - 1) + 3, 0, scale_x, 1)
+        local entry_name_start = 38
+        local entry_name_scale_x = math.min(math.floor((entry_w - entry_name_start - 4) / self.font:getWidth(name) * 100) / 100, 1)
+        love.graphics.print(name, entry_start_x + entry_name_start, entry_start_y + entry_h * (i - 1) + 3, 0, entry_name_scale_x, 1)
         love.graphics.setColor(1, 1, 1)
 
         if self.show_music_note and is_being_played then
-            love.graphics.setColor(1, 1, 1, math.abs(self:calculateHeartTargetY(i) - self.heart.y)/40)
+            love.graphics.setColor(1, 1, 1, math.abs(self:calculateHeartTargetY(i) - self.heart.y) / entry_h)
             love.graphics.draw(self.music_note,
-                16, 40 + 40 * (i - 1) + 40/2 + (math.sin(Kristal.getTime() * 4) * 2),
+                entry_start_x + self._entry_heart_xoff,
+                self:calculateHeartTargetY(i) + (math.sin(Kristal.getTime() * 4) * 2),
                 0, 1, 1,
                 self.music_note:getWidth()/2, self.music_note:getHeight()/2
             )
         end
 
         love.graphics.setColor(0, 0.4, 0)
-        love.graphics.rectangle("line", 2, 40 + 40 * i, 240, 1)
+        love.graphics.rectangle("line", entry_start_x, entry_start_y + entry_h * i, entry_w, 1)
     end
-    love.graphics.setLineWidth(4)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(COLORS.white)
 
     love.graphics.setColor(0.4, 0.4, 0.4)
     love.graphics.setFont(self.font_2)
-    love.graphics.printf("Page "..self.page_index.."/"..#self.pages, -16, (43 + 40 * (self.songs_per_page - 1)) + 60, 276, "center")
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf("Page "..self.page_index.."/"..#self.pages, 0, entry_start_y + entry_h * self.songs_per_page + 23, self.MIN_WIDTH + 4, "center")
+    love.graphics.setColor(COLORS.white)
     love.graphics.setFont(self.font)
 
-    local info_area_sep_padding = 40
+    local info_area_sep_padding = 3
+    love.graphics.setLineWidth(info_area_sep_padding + 1)
     local info_area_sep_a = (self.width - self.SONG_INFO_AREA_X + info_area_sep_padding)/(self.MIN_WIDTH + info_area_sep_padding)
     love.graphics.setColor(1, 1, 1, info_area_sep_a)
-    love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, 20, 1, 356)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, self._head_hr_start_y, 1, self.MIN_HEIGHT - 4)
+    love.graphics.setColor(COLORS.white)
 
     local song = page[self.selected_index[self.page_index]] or self.default_song
 
-    love.graphics.setColor(1, 1, 1)
+    local info_w_constrain = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
     local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
     local album_art = Assets.getTexture(self.albums_art_dir .. album_art_path) or self.default_album_art
-    love.graphics.draw(album_art, 410, 162, 0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
+    local album_art_def_size = 250
+    local album_art_end_y = self._head_hr_end_y + 13 + album_art_def_size
+    love.graphics.draw(
+        album_art,
+        self.SONG_INFO_AREA_X + info_w_constrain/2 + 10, album_art_end_y - album_art_def_size/2,
+        0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
     local info_font = self.font
     local info_scale = 0.5
     love.graphics.setFont(info_font)
-    local info_w = 260 / info_scale
+    local info_w = (info_w_constrain - 7*2 - 1) / info_scale
     local info = string.format(
         "Composer: %s\nReleased: %s\nOrigin: %s",
         song.composer or self.default_song.composer,
@@ -230,17 +251,17 @@ function JukeboxMenu:draw()
     )
     local _, info_lines = info_font:getWrap(info, info_w)
     local info_yoff = info_font:getHeight() * #info_lines * info_scale
-    love.graphics.printf(info, 270, 372 - info_yoff, info_w, "left", 0, info_scale, info_scale)
-
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf(info, self.SONG_INFO_AREA_X + 7, album_art_end_y + 85 - info_yoff, info_w, "left", 0, info_scale, info_scale)
 
     if self.show_duration_bar then
         local music_always = Game.world.music
-        local duration_x, duration_y = 6, 396
+        local duration_hr_y = 380
+        local duration_x, duration_y = 6, duration_hr_y + 16
         local duration_w, duration_h = self.width - duration_x * 2, 6
+        local duration_needle_h_bump = 2
         local duration_loop_mark_w = duration_h / 2
 
-        love.graphics.rectangle("line", -16, 380, self.width+32, 1)
+        love.graphics.rectangle("line", -padding_size, duration_hr_y, self.width + (padding_size*2), 1)
 
         love.graphics.setColor(0.25, 0.25, 0.25)
         love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_h)
@@ -261,8 +282,8 @@ function JukeboxMenu:draw()
 
         local duration_needle_percent = music_always:tell() / getDuration(music_always)
         local duration_needle_x = math.floor(duration_needle_percent * (duration_w - duration_h))
-        Draw.setColor(1, 1, 1)
-        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y, duration_h, duration_h)
+        Draw.setColor(COLORS.white)
+        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_h, duration_h + duration_needle_h_bump*2)
     end
 
     Draw.popScissor()
@@ -371,11 +392,13 @@ function JukeboxMenu:update()
         self.heart.y = self.heart_target_y
     end
     self.heart.y = self.heart.y + (self.heart_target_y - self.heart.y) / 2 * DTMULT
+
+    super.update(self)
 end
 
 function JukeboxMenu:calculateHeartTargetY(i)
     if i == nil then i = self.selected_index[self.page_index] end
-    return 60 + 40 * (i - 1)
+    return self._entry_start_y + self._entry_h * (i - 1) + self._entry_h/2
 end
 
 function JukeboxMenu:close()
