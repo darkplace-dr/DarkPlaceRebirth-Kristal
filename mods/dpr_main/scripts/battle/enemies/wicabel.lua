@@ -43,6 +43,10 @@ function Wicabel:init()
     self:registerAct("Tuningx2", "Tuning\ntwice", {"susie"})
 
     self.killable = true
+
+    self.talksoundcon = 0
+    self.talksoundtimer = 7
+    self.talksounddone = false
 end
 
 function Wicabel:isXActionShort(battler)
@@ -126,6 +130,31 @@ function Wicabel:getEncounterText()
     end
 
     return TableUtils.pick(self.text)
+end
+
+function Wicabel:update()
+    super.update(self)
+
+    if Game.battle.state == "ENEMYDIALOGUE" and not self.talksounddone then
+        self.talksoundcon = 1
+        self.talksoundtimer = self.talksoundtimer + 1 * DTMULT
+        if (self.talksoundtimer == 8 or self.talksoundtimer == 16 or self.talksoundtimer == 24) and self.talksoundcon == 1 then
+            Assets.stopSound("musicbox")
+            Assets.playSound("musicbox", 0.35, (0.7 + MathUtils.random(0.6)))
+        end
+        if self.talksoundtimer == 24 then
+            self.talksounddone = true
+            self.talksoundtimer = 7
+            self.talksoundcon = 0
+        end
+    elseif Game.battle.state ~= "ENEMYDIALOGUE" then
+        if self.talksounddone then
+            self.talksounddone = false
+            self.talksoundcon = 0
+            self.talksoundtimer = 7
+            Assets.stopSound("musicbox")
+        end
+    end
 end
 
 return Wicabel
