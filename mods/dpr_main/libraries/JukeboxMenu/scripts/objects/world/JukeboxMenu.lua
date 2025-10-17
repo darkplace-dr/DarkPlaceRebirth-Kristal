@@ -109,14 +109,8 @@ function JukeboxMenu:init(simple)
 
     self.songs = self:_buildSongs()
 
-    local albums_spr_dir = "albums/"
-    self.album_art_cache = {}
-    self.album_art_cache[self.default_song.album] = Assets.getTexture(albums_spr_dir .. self.default_song.album)
-    for _,song in ipairs(self.songs) do
-        if song.album and not self.album_art_cache[song.album] then
-            self.album_art_cache[song.album] = Assets.getTexture(albums_spr_dir .. song.album)
-        end
-    end
+    self.albums_art_dir = "albums/"
+    self.default_album_art = Assets.getTexture(self.albums_art_dir .. self.default_song.album)
 
     ---@type JukeboxMenu.Song[][]
     self.pages = {}
@@ -221,7 +215,7 @@ function JukeboxMenu:draw()
 
     love.graphics.setColor(1, 1, 1)
     local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
-    local album_art = assert(self.album_art_cache[album_art_path])
+    local album_art = Assets.getTexture(self.albums_art_dir .. album_art_path) or self.default_album_art
     love.graphics.draw(album_art, 410, 162, 0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
     local info_font = self.font
