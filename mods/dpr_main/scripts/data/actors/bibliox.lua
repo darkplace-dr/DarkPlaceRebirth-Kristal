@@ -18,12 +18,13 @@ function actor:init()
     self.talk_sprites = {}
 
     self.animations = {
-        ["idle"]   = {"body", 1, true},
         ["hurt"]   = {"hurt", 1, true},
         ["spared"] = {"spare", 1, true},
     }
 
-    self.offsets = {}
+    self.offsets = {
+        ["spare"] = {2, 4}
+    }
 
     self.parts = {
         ["base"] = {"base"},
