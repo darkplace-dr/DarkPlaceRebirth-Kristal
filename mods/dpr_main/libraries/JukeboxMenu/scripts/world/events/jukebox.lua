@@ -52,7 +52,7 @@ function Jukebox:update()
         local music = (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
         if not music then goto anim_done end
 
-        local song = self.menu:getPlayingEntry(music)
+        local song = self.menu:getPlayingEntry(music, true)
         local bpm = song and song.bpm or 100
         if bpm >= 200 then
             bpm = bpm / 2

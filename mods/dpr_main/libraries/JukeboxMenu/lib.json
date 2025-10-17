@@ -12,6 +12,7 @@
         "indicatePlayingSongWithMusicNote": true,
         "infoCollapsible": true,
         "showDurationBar": true,
-        "animateToBeat": true
+        "animateToBeat": true,
+        "albumArtDirectory": "albums/"
     }
 }

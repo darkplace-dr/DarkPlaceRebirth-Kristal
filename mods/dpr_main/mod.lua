@@ -359,3 +359,7 @@ function Mod:onTextSound(voice, node, text)
         return true
     end
 end
+
+function Mod:onJukeboxPlay(song)
+    Game:setFlag("curJukeBoxSong", song.file)
+end

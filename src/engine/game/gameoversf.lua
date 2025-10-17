@@ -76,27 +76,29 @@ end
 function GameOverSF:draw()
     love.graphics.setColor(COLORS["white"])
 
+    local title_y = -8
+    local body_y = self.height/2-8
     if not self.my_bars then
         if self.state_manager.state == "SHOWING_UP" or self.state_manager.state == "IDLE" then
             love.graphics.setFont(self.font)
-            love.graphics.printf("GAME OVER", 0, 0, self.width, "center")
+            love.graphics.printf("GAME OVER", 0, title_y, self.width, "center")
 
             love.graphics.setFont(self.font_body)
-            love.graphics.printf("Watch an ad to continue?", 0, 55, self.width, "center")
+            love.graphics.printf("Watch an ad to continue?", 0, body_y, self.width, "center")
         end
 
         if self.state_manager.state == "CONFIRMED" then
             -- it would be funny if theres actually ads
             -- idk how to implement it though, using videos doesnt feel right
             love.graphics.setFont(self.font_body)
-            love.graphics.printf("I lied there's no ad LOL", 0, 55, self.width, "center")
+            love.graphics.printf("I lied there's no ad LOL", 0, body_y, self.width, "center")
         end
     else
         love.graphics.setFont(self.font)
-        love.graphics.printf("BRUH!! you LOST'd,  LOSER", 0, 0, self.width, "center")
+        love.graphics.printf("BRUH!! you LOST'd,  LOSER", 0, title_y, self.width, "center")
 
         love.graphics.setFont(self.font_body)
-        love.graphics.printf("HAHAhahahahahahahah you did this to your selv\nenjoys the night wares i've given you", 0, 45, self.width, "center")
+        love.graphics.printf("HAHAhahahahahahahah you did this to your selv\nenjoys the night wares i've given you", 0, body_y, self.width, "center")
     end
 
     self:drawChildren()

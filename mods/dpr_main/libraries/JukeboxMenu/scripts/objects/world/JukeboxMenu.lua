@@ -1,4 +1,48 @@
--- FIXME: Copy relevant Mod utils into this
+-- The util functions below are duplicated from utils_general purposefully
+-- in preparation to any sort of standalone release in the future
+
+-- Gets the index of an item in a 2D table
+---@return any? i
+---@return any? j
+local function getIndex2D(t, value)
+    for i,r in pairs(t) do
+        local j = TableUtils.getIndex(r, value)
+        if j then
+            return i, j
+        end
+    end
+    return nil, nil
+end
+
+---@param ... any # Extra parameters to cond()
+local function evaluateCond(data, ...)
+    local result = true
+
+    if data.cond then
+        result = data.cond(...)
+    elseif data.flagcheck then
+        local inverted, flag = StringUtils.startsWith(data.flagcheck, "!")
+
+        local flag_value = Game.flags[flag]
+        local expected_value = data.flagvalue
+        local is_true
+        if expected_value ~= nil then
+            is_true = flag_value == expected_value
+        elseif type(result) == "number" then
+            is_true = flag_value > 0
+        else
+            is_true = flag_value
+        end
+
+        if is_true then
+            result = not inverted
+        else
+            result = inverted
+        end
+    end
+
+    return result
+end
 
 ---@class JukeboxMenu : Object
 ---@overload fun(...) : JukeboxMenu
@@ -16,48 +60,20 @@ local JukeboxMenu, super = Class(Object)
 ---@field _locked_explicit boolean?
 
 JukeboxMenu.MAX_WIDTH = 540
-JukeboxMenu.SONG_INFO_AREA_X = 300
-JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X
+JukeboxMenu.SONG_INFO_AREA_X = 263
+JukeboxMenu.MIN_WIDTH = JukeboxMenu.MAX_WIDTH - JukeboxMenu.SONG_INFO_AREA_X - 37
+JukeboxMenu.MIN_HEIGHT = 360
 
----@private
----@return JukeboxMenu.Song[]
-function JukeboxMenu:_buildSongs()
-    local songs = {}
-
-    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
-    if old_list_ok and old_list ~= nil then
-        songs = Utils.merge(songs, old_list)
-    end
-
-    songs = Utils.merge(songs, Kristal.modCall("getJukeboxSongs") or {})
-
-    for lib_id, _ in Kristal.iterLibraries() do
-        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
-        if lib_songs ~= nil then
-            songs = Utils.merge(songs, lib_songs)
-        end
-    end
-
-    return songs
-end
-
----@param music Music?
----@return JukeboxMenu.Song?
-function JukeboxMenu:getPlayingEntry(music)
-    music = music or Game.world.music
-    if not music then
-        return nil
-    end
-
-    for _,song in ipairs(self.songs) do
-        if not song.locked and song.file == music.current then
-            return song
-        end
-    end
-end
+JukeboxMenu.HEAD_HR_START_Y = 20
+JukeboxMenu.HEAD_HR_H = 4
+JukeboxMenu.HEAD_HR_END_Y = JukeboxMenu.HEAD_HR_START_Y + JukeboxMenu.HEAD_HR_H
+JukeboxMenu.ENTRY_START_X = 2
+JukeboxMenu.ENTRY_START_Y = JukeboxMenu.HEAD_HR_END_Y + 16
+JukeboxMenu.ENTRY_HEART_START_X = 14
+JukeboxMenu.ENTRY_H = 40
 
 function JukeboxMenu:init(simple)
-    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, 360)
+    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, self.MIN_HEIGHT)
 
     self.parallax_x = 0
     self.parallax_y = 0
@@ -83,65 +99,26 @@ function JukeboxMenu:init(simple)
     self.heart:setScale(2)
     self.heart:setColor(Game:getSoulColor())
     self.heart.layer = 1
-    self.heart.x = 16
+    self.heart.x = self.ENTRY_START_X + self.ENTRY_HEART_START_X
     self:addChild(self.heart)
 
     self.music_note = Assets.getTexture("ui/music_note")
 
-    self.none_text = "---"
-    self.none_album = "default"
     ---@type JukeboxMenu.Song
     self.default_song = {
-        name = nil,
+        name = "---",
         file = nil,
-        composer = nil,
-        released = nil,
-        origin = nil,
+        composer = "---",
+        released = "---",
+        origin = "---",
         locked = nil,
-        album = nil
+        album = "default"
     }
 
-    self.songs = self:_buildSongs()
+    self:_buildSongs()
 
-    local navigate_to_playing = Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit")
-    self.album_art_cache = {}
-    self.album_art_cache[self.none_album] = Assets.getTexture("albums/"..self.none_album)
-    for _,song in ipairs(self.songs) do
-        if song.locked == nil then
-            song.locked = not GeneralUtils:evaluateCond(song, self)
-        else
-            song._locked_explicit = true
-        end
-
-        if song.album and not self.album_art_cache[song.album] then
-            self.album_art_cache[song.album] = Assets.getTexture("albums/"..song.album)
-        end
-    end
-
-    ---@type JukeboxMenu.Song[][]
-    self.pages = {}
-    self.page_index = 1
-    self.songs_per_page = 7
-    self.selected_index = {}
-    for page = 1, math.ceil(#self.songs / self.songs_per_page) do
-        local start_index = 1 + (page-1) * self.songs_per_page
-        self.pages[page] = {unpack(self.songs, start_index, math.min(start_index + self.songs_per_page - 1, #self.songs))}
-        self.selected_index[page] = 1
-    end
-
-    if navigate_to_playing then
-        local playing_song = self:getPlayingEntry()
-        if playing_song then
-            local i, j = GeneralUtils:getIndex2D(self.pages, playing_song)
-            if j then
-                self.page_index = i
-                self.selected_index[self.page_index] = j
-            end
-        end
-    end
-
-    self.heart_target_y = self:calculateHeartTargetY()
-    self.heart.y = self.heart_target_y
+    self.album_art_dir = Kristal.getLibConfig("JukeboxMenu", "albumArtDirectory")
+    self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
 
     self.timer = self:addChild(Timer())
     self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
@@ -151,28 +128,116 @@ function JukeboxMenu:init(simple)
     self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
 end
 
+---@private
+function JukeboxMenu:_buildSongs()
+    self.songs = {} ---@type JukeboxMenu.Song[]
+
+    local old_list_ok, old_list = pcall(modRequire, "scripts.jukebox_songs")
+    if old_list_ok and old_list ~= nil then
+        self.songs = TableUtils.merge(self.songs, old_list)
+    end
+
+    self.songs = TableUtils.merge(self.songs, Kristal.modCall("getJukeboxSongs") or {})
+
+    for lib_id, _ in Kristal.iterLibraries() do
+        local lib_songs = Kristal.libCall(lib_id, "getJukeboxSongs")
+        if lib_songs ~= nil then
+            self.songs = TableUtils.merge(self.songs, lib_songs)
+        end
+    end
+
+    for _,song in pairs(self.songs) do
+        if song.locked == nil then
+            song.locked = not evaluateCond(song, self)
+        else
+            song._locked_explicit = true
+        end
+    end
+
+    self.song_by_file = {}
+    for _,song in pairs(self.songs) do
+        if song.file then
+            assert(not self.song_by_file[song.file], "Duplicate song entry for file "..song.file)
+            self.song_by_file[song.file] = song
+        end
+    end
+end
+
+function JukeboxMenu:onAddToStage(stage)
+    super.onAddToStage(self, stage)
+
+    ---@type JukeboxMenu.Song[][]
+    self.pages = {}
+    ---@type integer
+    self.page_index = 1
+    self.songs_per_page = 7
+    ---@type integer[]
+    self.selected_index = {}
+    for page = 1, math.ceil(#self.songs / self.songs_per_page) do
+        local start_index = 1 + (page-1) * self.songs_per_page
+        self.pages[page] = {unpack(self.songs, start_index, math.min(start_index + self.songs_per_page - 1, #self.songs))}
+        self.selected_index[page] = 1
+    end
+
+    if Kristal.getLibConfig("JukeboxMenu", "navigateToPlayingSongAtInit") then
+        local playing_song = self:getPlayingEntry()
+        if playing_song then
+            local i, j = getIndex2D(self.pages, playing_song)
+            if j then
+                self.page_index = i
+                self.selected_index[self.page_index] = j
+            end
+        end
+    end
+
+    self.heart_target_y = self:calculateHeartTargetY()
+    self.heart.y = self.heart_target_y
+end
+
+---@param music Music?
+---@param ignore_locked boolean?
+---@return JukeboxMenu.Song?
+function JukeboxMenu:getPlayingEntry(music, ignore_locked)
+    music = music or Game.world.music
+    if not music then
+        return nil
+    end
+
+    local song = self.song_by_file[music.current]
+    if song and (ignore_locked or not song.locked) then
+        return song
+    end
+end
+
 function JukeboxMenu:draw()
     Draw.pushScissor()
-    local box_pad = 20 -- HACK because working with UIBoxes is annoying
-    Draw.scissor(-box_pad, -box_pad, self.width+box_pad*2, self.height+box_pad*2)
+    local padding_size = 16
+    local padding_adj = padding_size + 2 -- HACK because working with UIBoxes is annoying
+    Draw.scissor(-padding_adj, -padding_adj, self.width+padding_adj*2, self.height+padding_adj*2)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(self.font)
-    love.graphics.printf("JUKEBOX", 0, -17, self.width, "center")
-    love.graphics.setLineWidth(4)
-    love.graphics.rectangle("line", -16, 20, self.width+32, 1)
+    love.graphics.printf("JUKEBOX", 0, -padding_size - 1, self.width, "center")
+    love.graphics.setLineWidth(self.HEAD_HR_H)
+    love.graphics.rectangle("line", -padding_size, self.HEAD_HR_START_Y, self.width + (padding_size*2), 1)
+    love.graphics.setLineWidth(1)
 
     local page = self.pages[self.page_index]
 
-    love.graphics.setLineWidth(1)
     -- draw the first line
     love.graphics.setColor(0, 0.4, 0)
-    love.graphics.rectangle("line", 2, 40, 240, 1)
+    local entry_start_x = 2
+    local entry_start_y = self.ENTRY_START_Y
+    local entry_w = 240
+    local entry_h = self.ENTRY_H
+    love.graphics.rectangle("line", entry_start_x, entry_start_y, entry_w, 1)
     local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
     for i = 1, self.songs_per_page do
         local song = page[i] or self.default_song
-        local name = song.name or self.none_text
+
+        local name = song.name or self.default_song.name
         if song.locked then name = "Locked" end
+
         love.graphics.setColor(1, 1, 1)
         local is_being_played
         if not song.file or song.locked then
@@ -183,70 +248,76 @@ function JukeboxMenu:draw()
                 love.graphics.setColor(1, 1, 0)
             end
         end
-        local scale_x = math.min(math.floor(196 / self.font:getWidth(name) * 100) / 100, 1)
-        love.graphics.print(name, 40, 40 + 40 * (i - 1) + 3, 0, scale_x, 1)
+
+        local entry_name_start = 38
+        local entry_name_scale_x = math.min(math.floor((entry_w - entry_name_start - 4) / self.font:getWidth(name) * 100) / 100, 1)
+        love.graphics.print(name, entry_start_x + entry_name_start, entry_start_y + entry_h * (i - 1) + 3, 0, entry_name_scale_x, 1)
         love.graphics.setColor(1, 1, 1)
 
         if self.show_music_note and is_being_played then
-            love.graphics.setColor(1, 1, 1, math.abs(self:calculateHeartTargetY(i) - self.heart.y)/40)
+            love.graphics.setColor(1, 1, 1, math.abs(self:calculateHeartTargetY(i) - self.heart.y) / entry_h)
             love.graphics.draw(self.music_note,
-                16, 40 + 40 * (i - 1) + 40/2 + (math.sin(Kristal.getTime() * 4) * 2),
+                entry_start_x + self.ENTRY_HEART_START_X,
+                self:calculateHeartTargetY(i) + (math.sin(Kristal.getTime() * 4) * 2),
                 0, 1, 1,
                 self.music_note:getWidth()/2, self.music_note:getHeight()/2
             )
         end
 
         love.graphics.setColor(0, 0.4, 0)
-        love.graphics.rectangle("line", 2, 40 + 40 * i, 240, 1)
+        love.graphics.rectangle("line", entry_start_x, entry_start_y + entry_h * i, entry_w, 1)
     end
-    love.graphics.setLineWidth(4)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(COLORS.white)
 
     love.graphics.setColor(0.4, 0.4, 0.4)
     love.graphics.setFont(self.font_2)
-    love.graphics.printf("Page "..self.page_index.."/"..#self.pages, -16, (43 + 40 * (self.songs_per_page - 1)) + 60, 276, "center")
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf("Page "..self.page_index.."/"..#self.pages, 0, entry_start_y + entry_h * self.songs_per_page + 23, self.MIN_WIDTH + 4, "center")
+    love.graphics.setColor(COLORS.white)
     love.graphics.setFont(self.font)
 
-    local info_area_sep_padding = 40
+    local info_area_sep_padding = 3
+    love.graphics.setLineWidth(info_area_sep_padding + 1)
     local info_area_sep_a = (self.width - self.SONG_INFO_AREA_X + info_area_sep_padding)/(self.MIN_WIDTH + info_area_sep_padding)
     love.graphics.setColor(1, 1, 1, info_area_sep_a)
-    love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, 20, 1, 356)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, self.HEAD_HR_START_Y, 1, self.MIN_HEIGHT - 4)
+    love.graphics.setColor(COLORS.white)
 
     local song = page[self.selected_index[self.page_index]] or self.default_song
 
-    love.graphics.setColor(1, 1, 1)
-    local album_art_path = song.album or self.none_album
-    if not song.file or song.locked then
-        album_art_path = self.none_album
-    end
-    local album_art = self.album_art_cache[album_art_path] or self.album_art_cache[self.none_album]
-    love.graphics.draw(album_art, 410, 162, 0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
+    local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
+    local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
+    local album_art = Assets.getTexture(self.album_art_dir .. album_art_path) or self.default_album_art
+    local album_art_def_size = 250
+    local album_art_end_y = self.HEAD_HR_END_Y + 13 + album_art_def_size
+    love.graphics.draw(
+        album_art,
+        self.SONG_INFO_AREA_X + infosect_w/2 + 10, album_art_end_y - album_art_def_size/2,
+        0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
     local info_font = self.font
     local info_scale = 0.5
     love.graphics.setFont(info_font)
-    local info_w = 260 / info_scale
+    local info_pad = 7
+    local info_w = (infosect_w - info_pad*2 - 1) / info_scale
     local info = string.format(
         "Composer: %s\nReleased: %s\nOrigin: %s",
-        song.composer or self.none_text,
-        song.released or self.none_text,
-        song.origin or self.none_text
+        song.composer or self.default_song.composer,
+        song.released or self.default_song.released,
+        song.origin or self.default_song.origin
     )
     local _, info_lines = info_font:getWrap(info, info_w)
     local info_yoff = info_font:getHeight() * #info_lines * info_scale
-    love.graphics.printf(info, 270, 372 - info_yoff, info_w, "left", 0, info_scale, info_scale)
-
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.printf(info, self.SONG_INFO_AREA_X + info_pad, album_art_end_y + 85 - info_yoff, info_w, "left", 0, info_scale, info_scale)
 
     if self.show_duration_bar then
         local music_always = Game.world.music
-        local duration_x, duration_y = 6, 396
+        local duration_hr_y = 380
+        local duration_x, duration_y = 6, duration_hr_y + 16
         local duration_w, duration_h = self.width - duration_x * 2, 6
+        local duration_needle_h_bump = 2
         local duration_loop_mark_w = duration_h / 2
 
-        love.graphics.rectangle("line", -16, 380, self.width+32, 1)
+        love.graphics.rectangle("line", -padding_size, duration_hr_y, self.width + (padding_size*2), 1)
 
         love.graphics.setColor(0.25, 0.25, 0.25)
         love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_h)
@@ -267,8 +338,8 @@ function JukeboxMenu:draw()
 
         local duration_needle_percent = music_always:tell() / getDuration(music_always)
         local duration_needle_x = math.floor(duration_needle_percent * (duration_w - duration_h))
-        Draw.setColor(1, 1, 1)
-        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y, duration_h, duration_h)
+        Draw.setColor(COLORS.white)
+        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_h, duration_h + duration_needle_h_bump*2)
     end
 
     Draw.popScissor()
@@ -278,7 +349,7 @@ end
 
 function JukeboxMenu:update()
     local function warpIndex(index)
-        return Utils.clampWrap(index, 1, self.songs_per_page)
+        return MathUtils.wrapIndex(index, self.songs_per_page)
     end
 
     if not OVERLAY_OPEN then
@@ -294,12 +365,12 @@ function JukeboxMenu:update()
             local song = self.pages[self.page_index][self.selected_index[self.page_index]] or self.default_song
 
             if not song._locked_explicit then
-                song.locked = not GeneralUtils:evaluateCond(song, self)
+                song.locked = not evaluateCond(song, self)
             end
 
             if not song.locked and song.file then
                 Game.world.music:play(song.file, 1)
-                Game:setFlag("curJukeBoxSong", song.file)
+                Kristal.callEvent("onJukeboxPlay", song)
             else
                 Assets.playSound("error")
             end
@@ -323,7 +394,7 @@ function JukeboxMenu:update()
             end
             self.page_index = self.page_index + 1
         end
-        self.page_index = Utils.clampWrap(self.page_index, 1, #self.pages)
+        self.page_index = MathUtils.wrapIndex(self.page_index, #self.pages)
 
         local page = self.pages[self.page_index]
         --move up
@@ -345,7 +416,7 @@ function JukeboxMenu:update()
         --self.selected_index[self.page_index] = warpIndex(self.selected_index[self.page_index])
 
         if self.info_collpasible and Input.pressed("menu", false) then
-            local dest_width = Utils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
+            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
                 and self.MIN_WIDTH or self.MAX_WIDTH
             --[[Log:print(self.width, self.width > self.MIN_WIDTH,
                 not not self.info_reveal_timer_handle, self.info_reveal_timer_handle and self.info_reveal_timer_handle.direction,
@@ -377,11 +448,13 @@ function JukeboxMenu:update()
         self.heart.y = self.heart_target_y
     end
     self.heart.y = self.heart.y + (self.heart_target_y - self.heart.y) / 2 * DTMULT
+
+    super.update(self)
 end
 
 function JukeboxMenu:calculateHeartTargetY(i)
     if i == nil then i = self.selected_index[self.page_index] end
-    return 60 + 40 * (i - 1)
+    return self.ENTRY_START_Y + self.ENTRY_H * (i - 1) + self.ENTRY_H/2
 end
 
 function JukeboxMenu:close()
