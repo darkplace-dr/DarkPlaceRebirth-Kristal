@@ -52,6 +52,18 @@ function GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_ap
         return false
     end
 
+    local path = ""
+    local function directoryExists(file)
+        local ok, err, code = os.rename(file, file)
+        if not ok then
+            if code == 13 then
+                -- Permission denied, but it exists
+                return true
+            end
+        end
+        return ok, err
+    end
+
     if love.system.getOS() == "Windows" then
         local function unixizePathSep(path)
             return string.gsub(path, "\\", "/")
@@ -112,7 +124,7 @@ end
 function GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
     local file = GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_appid)
     if not file then return false end
-    content = {}
+    local content = {}
     for l in file:lines() do
         table.insert(content, l)
     end
@@ -124,10 +136,10 @@ end
 -- This function handles closing the file handle and decode the file data assuming it's JSON
 ---@param try_wine_route? boolean # If true, an attempt to check wineprefixs for the file will be made on Linux. In this case name should be a path for Windows.
 ---@param wine_steam_appid? number # The Steam AppID of the game to check for; if specified, wine route will also check the wineprefix corresponding to that AppID.
---- @return table content
+---@return table? content
 function GeneralUtils:openExternalJSONFile(name, try_wine_route, wine_steam_appid)
     local file = GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
-    if not file then return false end
+    if not file then return end
     return JSON.decode(Utils.getCombinedText(file))
 end
 
