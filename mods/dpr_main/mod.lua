@@ -203,7 +203,6 @@ function Mod:postLoad()
         Kristal.setState("Debug", save_data)
     end
 	
-	Game:rollShiny("hero")
 	self.mic_controller = MicController()
 	Game.stage:addChild(self.mic_controller)
 	if Game:getFlag("microphone_id") then
