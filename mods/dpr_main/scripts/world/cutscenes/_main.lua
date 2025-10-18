@@ -481,6 +481,7 @@ return {
             --Game.fader:fadeOut {speed = 0}
     
             cutscene:after(function()
+                Game:rollShiny("hero")
                 Game:setGlobalFlag("Intro_seen", true)
                 Game.tutorial = true
                 Game.world:mapTransition("grey_cliffside/cliffside_start", nil, "down")
