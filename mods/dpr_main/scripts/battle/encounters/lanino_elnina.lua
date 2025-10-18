@@ -8,8 +8,8 @@ function LaninoElnina:init()
     self.music = "deltarune/rudebuster_boss"
     self.background = true
 
-    self:addEnemy("lanino")
-    self:addEnemy("elnina")
+    self:addEnemy("lanino", 520, 180)
+    self:addEnemy("elnina", 560, 308)
 
     self.weather = {"rain", "snow", "sun", "moon"}
     self.current_weather = TableUtils.pick(self.weather)
