@@ -33,7 +33,7 @@ function Starwalker:init()
     self.waves = {
         "starwalker/starwings",
         "starwalker/starwingsfaster",
-        "starwalker/starwingscomets",
+        "starwalker/starwingscomet",
         "starwalker/starwingshyper",
         "starwalker/starcomets",
     }
