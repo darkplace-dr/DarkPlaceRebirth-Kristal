@@ -31,8 +31,10 @@ function Starwalker:init()
     self.movearound = true
 
     self.waves = {
-        "starwalker/starwingsfaster",
         "starwalker/starwings",
+        "starwalker/starwingsfaster",
+        "starwalker/starwingscomets",
+        "starwalker/starwingshyper",
         "starwalker/starcomets",
     }
 
@@ -94,6 +96,14 @@ function Starwalker:makeBullet(x, y)
     return Registry.createBullet("SW_StarBullet", x, y)
 end
 
+function Starwalker:makeCometBullet(x, y)
+    if (Utils.random() < 0.25) then
+        return Registry.createBullet("SW_FallenStarComet", x, y)
+    end
+
+    return Registry.createBullet("SW_StarComet", x, y)
+end
+
 function Starwalker:getGrazeTension()
     return 0
 end
@@ -134,7 +144,7 @@ function Starwalker:getNextWaves()
         self.blue = true
         return {"starwalker/stardust"}
     elseif (self.progress == 7) then
-        return {"starwalker/starwingscomet"}
+        return {"starwalker/starwingshyper"}
     end
 
     return super.getNextWaves(self)

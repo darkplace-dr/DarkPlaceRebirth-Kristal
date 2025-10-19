@@ -7,6 +7,8 @@ function Stardust:init()
     self.starwalker.layer = self.starwalker.layer + 500
 	
 	self:setArenaSize(240, 110)
+
+    self.spawn_bullets = true
 end
 
 function Stardust:onStart()
@@ -14,17 +16,22 @@ function Stardust:onStart()
 
     self.timer:after(0.1, function()
         self.timer:every(0.1, function()
-            local stardust = self:spawnBullet("starwalker/stardust", self.starwalker.x, self.starwalker.y - 20)
-            stardust.inv_timer = 10/30
+            if self.spawn_bullets then
+                local stardust = self:spawnBullet("starwalker/stardust", self.starwalker.x, self.starwalker.y - 20)
+                stardust.inv_timer = 10/30
+            end
         end)
-	
         self.timer:every(0.2, function()
-            Assets.playSound("sparkle_glock", 0.5, Utils.random(1.2, 1.5))
+            if self.spawn_bullets then
+                Assets.playSound("sparkle_glock", 0.5, Utils.random(1.2, 1.5))
+            end
         end)
     end)
 
     if not Game:isSpecialMode "BLUE" then
         self.timer:after(10, function()
+            self.spawn_bullets = false
+
             self.starwalker:setMode("still")
             self.starwalker.sprite:set("reaching")
             Assets.playSound("ui_select")

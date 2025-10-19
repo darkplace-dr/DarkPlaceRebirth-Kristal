@@ -1,4 +1,4 @@
-local Bullet, super = Class(Bullet)
+local Bullet, super = Class(Bullet, "SW_StarComet")
 
 function Bullet:init(x, y)
     -- Last argument = sprite path
@@ -12,6 +12,8 @@ function Bullet:init(x, y)
     self.physics.friction = -0.2
 	
     self.destroy_on_hit = false
+
+    self.starwalker = Game.battle:getEnemyBattler("starwalker")
 end
 
 function Bullet:update()
@@ -37,7 +39,7 @@ function Bullet:destroy()
 	
     for i = -1, 1 do
         local offset = i * 15
-        local star = self.wave:spawnBullet("battle/bullets/star", self.x, self.y)
+        local star = self.wave:spawnBullet(self.starwalker:makeBullet(self.x, self.y))
         star.inv_timer = 10/30
         star:setScale(1)
         star.physics.direction = math.atan2(Game.battle.soul.y - star.y, Game.battle.soul.x - star.x) + math.rad(offset)
