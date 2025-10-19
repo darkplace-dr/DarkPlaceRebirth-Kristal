@@ -28,7 +28,7 @@ function StarBulletHyper:update()
     super.update(self)
 	
     self.colorsiner = self.colorsiner + DTMULT
-    self:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, (0.25 + math.sin(self.colorsiner / 3)) * 0.25))
+    self:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, (0.75 + math.sin(self.colorsiner / 3)) * 0.25))
 
     if self.x < Game.battle.arena.left - 40 or self.y < Game.battle.arena.top - 40 or self.y > Game.battle.arena.bottom + 40 then
         self:destroy()
