@@ -285,7 +285,7 @@ return {
   },
   {
     name = "Dark Sanctuary",
-    file = "church_wip",
+    file = "deltarune/church_wip",
     composer = "Toby Fox",
     released = "2025",
     origin = "DELTARUNE Chapter 4",
