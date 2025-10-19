@@ -17,7 +17,7 @@ end
 
 function Shockwave:update()
     local dist = 20 * self.scale_x
-    self.timer = self.timer + 1
+    self.timer = self.timer + (1 * DTMULT)
 
     
 

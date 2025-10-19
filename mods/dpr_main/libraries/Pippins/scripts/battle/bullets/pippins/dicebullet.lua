@@ -51,7 +51,7 @@ function DiceBullet:update()
     super.update(self)
 
     if(self.alarm_1 > 0 and self.alarm_1_start == true) then
-        self.alarm_1 = self.alarm_1 - 1
+        self.alarm_1 = self.alarm_1 - (1 * DTMULT)
         if(self.alarm_1 <= 0) then
             local shockwave = self.wave:spawnBullet("pippins/shockwave", self.x, self.y)
             shockwave.count = 0
@@ -130,7 +130,7 @@ function DiceBullet:update()
                     shockwave.scale_x = 2
                     shockwave.scale_y = 2
                 end
-                self.owari = self.owari + 1
+                self.owari = self.owari + (1 * DTMULT)
             
 
             end
@@ -139,7 +139,7 @@ function DiceBullet:update()
     end
 
 
-	self.rotation = self.rotation + math.rad(self.rot_speed)
+	self.rotation = self.rotation + math.rad(self.rot_speed) * DTMULT
 
 	if (math.abs(self.x + self.physics.speed_x - Game.battle.arena.x) > 65) then   
         self.rot_speed = (self.rot_speed * -0.8)
@@ -153,7 +153,7 @@ function DiceBullet:update()
 		self.physics.speed_y = DiceBullet:scr_approach_curve(self.physics.speed_y, 0, self.decel)
         self.physics.speed_x = DiceBullet:scr_approach_curve(self.physics.speed_x, 0, self.decel *self.decel)
         self.rot_speed = DiceBullet:scr_approach_curve(self.rot_speed, 0, self.decel)
-        self.decel = self.decel - 1
+        self.decel = self.decel - (1 * DTMULT)
         if (self.decel == 10) then
             self.queue_lock = true
 	    end
@@ -165,7 +165,7 @@ function DiceBullet:update()
     end
 
     if((self.y + self.physics.speed_y) > (Game.battle.arena.y + 58) and self.physics.speed_y > 0) then
-        self.physics.speed_y = self.physics.speed_y * Utils.pick{-0.3,-0.6,-0.8,-1}
+        self.physics.speed_y = self.physics.speed_y * (Utils.pick{-0.3,-0.6,-0.8,-1} ^ DTMULT)
 
         Assets.playSound("bump", 1)
 
@@ -187,7 +187,7 @@ function DiceBullet:draw()
             self.force_index = self.image_index
 	    end
 
-        self.tick_count = self.tick_count + (self.turn_rate / (1.5 + self.slowed_rotate))
+        self.tick_count = self.tick_count + (self.turn_rate / (1.5 + self.slowed_rotate)) * DTMULT
 
         local delay = 0.1 + (0.6 * ((self.image_index % 4 == 0) and 1 or 0))
 
@@ -203,13 +203,13 @@ function DiceBullet:draw()
     end
 
 	if (self.alpha < 1 and self. con == 0) then
-        self.alpha = self.alpha + 0.3
+        self.alpha = self.alpha + (0.3 * DTMULT)
 	end
 
     if (self.alpha ~= 0 and self. con >= 1) then
-        self.alpha = self.alpha - 0.3
-        self.scale_x = self.scale_x + 0.2
-        self.scale_y = self.scale_y + 0.2
+        self.alpha = self.alpha - (0.3 * DTMULT)
+        self.scale_x = self.scale_x + (0.2 * DTMULT)
+        self.scale_y = self.scale_y + (0.2 * DTMULT)
         if(self.alpha <= 0) then
             self:remove()
         end
