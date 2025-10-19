@@ -284,13 +284,22 @@ return {
     bpm = 125
   },
   {
+    name = "Dark Sanctuary",
+    file = "church_wip",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "DELTARUNE Chapter 4",
+    album = "dr_ch3_4",
+    bpm = 190
+  },
+  {
     name = "From Now On (Battle 2)",
     file = "ch4_battle",
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 132.5
+    bpm = 265
   },
   {
     name = "Hammer of Justice",
