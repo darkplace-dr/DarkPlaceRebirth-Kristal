@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 20,
+  nextlayerid = 8,
+  nextobjectid = 22,
   properties = {},
   tilesets = {
     {
@@ -84,8 +84,8 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 36, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 36, 0
       }
     },
     {
@@ -113,11 +113,40 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 36, 36, 36, 42, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 36, 36, 36, 42, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 36, 36, 36, 51, 0, 0,
-        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6,
-        16, 14, 14, 8, 14, 7, 14, 14, 14, 8, 14, 14, 14, 17, 14, 7, 15,
-        14, 7, 14, 14, 17, 14, 14, 16, 14, 14, 17, 14, 7, 14, 14, 8, 15,
-        23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24,
-        50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 51
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 5, 5, 5, 5, 6, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 14, 14, 14, 17, 14, 15, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23, 23, 23, 23, 23, 24, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 32, 32, 32, 32, 33, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 50, 50, 50, 50, 50, 51, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects_glass",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 20,
+          name = "magicglass",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 280,
+          width = 360,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     },
     {
@@ -139,7 +168,7 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 680,
+          x = 640,
           y = 240,
           width = 40,
           height = 200,
@@ -153,8 +182,8 @@ return {
           type = "",
           shape = "rectangle",
           x = 0,
-          y = 440,
-          width = 720,
+          y = 400,
+          width = 640,
           height = 40,
           rotation = 0,
           visible = true,
@@ -180,7 +209,7 @@ return {
           shape = "rectangle",
           x = 560,
           y = 240,
-          width = 120,
+          width = 80,
           height = 40,
           rotation = 0,
           visible = true,
@@ -240,7 +269,7 @@ return {
           x = -40,
           y = 280,
           width = 40,
-          height = 160,
+          height = 120,
           rotation = 0,
           visible = true,
           properties = {
@@ -296,7 +325,7 @@ return {
           type = "",
           shape = "point",
           x = 40,
-          y = 360,
+          y = 350,
           width = 0,
           height = 0,
           rotation = 0,
