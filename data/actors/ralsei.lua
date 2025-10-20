@@ -220,6 +220,8 @@ function actor:initChapter2()
 
         ["pirouette"]           = {"pirouette", 4/30, true},
 
+        ["nuzzle"]              = {"nuzzle", 1/10, false},
+
         ["sing"]                = {"sing", 1/5, true},
     }
 
@@ -314,6 +316,8 @@ function actor:initChapter2()
         ["float/right"] = {-6, -6},
         ["float/up"] = {0, 0},
         ["float/down"] = {0, 0},
+
+        ["nuzzle"] = {-1, 0},
     }
 
     self.menu_anim = "pose"
