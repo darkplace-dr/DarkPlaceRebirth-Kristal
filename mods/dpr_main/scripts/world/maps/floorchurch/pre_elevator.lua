@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,6 +12,7 @@ return {
   nextlayerid = 13,
   nextobjectid = 47,
   properties = {
+    ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
     ["name"] = "Sanctuary Floor - Main Lobby"
   },
@@ -259,7 +260,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 440,
@@ -272,7 +273,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 320,
@@ -285,7 +286,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 440,
@@ -298,7 +299,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1080,
           y = 440,
@@ -311,7 +312,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1400,
           y = 320,
@@ -324,7 +325,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1400,
           y = 440,
@@ -337,7 +338,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 560,
@@ -350,7 +351,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 880,
           y = 640,
@@ -363,7 +364,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1040,
           y = 640,
@@ -376,7 +377,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 560,
@@ -389,7 +390,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 600,
           y = 360,
@@ -408,7 +409,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1400,
           y = 360,
@@ -427,7 +428,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1400,
           y = 440,
@@ -446,7 +447,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 600,
           y = 440,
@@ -465,7 +466,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1040,
           y = 400,
@@ -478,7 +479,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 920,
           y = 400,
@@ -507,7 +508,7 @@ return {
         {
           id = 22,
           name = "elevatordoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 940,
           y = 400,
@@ -536,7 +537,7 @@ return {
         {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2000,
           y = 360,
@@ -552,7 +553,7 @@ return {
         {
           id = 16,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 360,
@@ -568,7 +569,7 @@ return {
         {
           id = 17,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 800,
@@ -584,7 +585,7 @@ return {
         {
           id = 24,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 380,
@@ -600,7 +601,7 @@ return {
         {
           id = 33,
           name = "prophecy",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 360,
@@ -622,7 +623,7 @@ return {
         {
           id = 38,
           name = "roomglow",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -637,7 +638,7 @@ return {
         {
           id = 39,
           name = "cameratarget",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1480,
           y = 360,
@@ -671,7 +672,7 @@ return {
         {
           id = 27,
           name = "entry_left",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 400,
@@ -684,7 +685,7 @@ return {
         {
           id = 28,
           name = "entry_guei_stairs",
-          class = "",
+          type = "",
           shape = "point",
           x = 1960,
           y = 400,
@@ -697,7 +698,7 @@ return {
         {
           id = 29,
           name = "entry_pianos",
-          class = "",
+          type = "",
           shape = "point",
           x = 1000,
           y = 760,
@@ -710,7 +711,7 @@ return {
         {
           id = 30,
           name = "entry_elevator",
-          class = "",
+          type = "",
           shape = "point",
           x = 1000,
           y = 480,
@@ -723,7 +724,7 @@ return {
         {
           id = 31,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 1000,
           y = 560,
@@ -736,7 +737,7 @@ return {
         {
           id = 40,
           name = "targ",
-          class = "",
+          type = "",
           shape = "point",
           x = 1680,
           y = 280,

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,6 +12,7 @@ return {
   nextlayerid = 8,
   nextobjectid = 19,
   properties = {
+    ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
     ["name"] = "Sanctuary Floor - Piano Puzzles"
   },
@@ -120,7 +121,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 0,
@@ -133,7 +134,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 0,
@@ -146,7 +147,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1040,
           y = 240,
@@ -159,7 +160,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 200,
@@ -172,7 +173,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 200,
@@ -185,7 +186,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -198,7 +199,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 360,
@@ -211,7 +212,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 360,
@@ -240,7 +241,7 @@ return {
         {
           id = 13,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = -40,
@@ -256,7 +257,7 @@ return {
         {
           id = 14,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 280,
@@ -269,7 +270,7 @@ return {
         {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1200,
           y = 280,
@@ -282,7 +283,7 @@ return {
         {
           id = 17,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 400,
@@ -311,7 +312,7 @@ return {
         {
           id = 9,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 320,
@@ -324,7 +325,7 @@ return {
         {
           id = 10,
           name = "entry_left",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 320,
@@ -337,7 +338,7 @@ return {
         {
           id = 11,
           name = "entry_lobby",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 40,
@@ -350,7 +351,7 @@ return {
         {
           id = 12,
           name = "entry_right",
-          class = "",
+          type = "",
           shape = "point",
           x = 1160,
           y = 320,
