@@ -1,16 +1,16 @@
-local ShadowShop, super = Class(Shop, "shadowsalesman")
+local ShadowShop, super = Class(Shop, "jaru")
 
 function ShadowShop:init()
     super.init(self)
 
     if not Game:isDessMode() then
 		self.encounter_text = "[emote:idle]* Welcome.[wait:5]\n* Feel free to look around."
-		self.shop_text = "[emote:idle]* C'mon kid,[wait:5] I don't have all day, y'know..."
+		self.shop_text = "[emote:suspicious]* C'mon kid,[wait:5] I don't have all day, y'know..."
 		self.leaving_text = "[emote:idle]* Feel free to come back, if you want..."
-		self.buy_menu_text = "[emote:eyebrow_raise]What'll it be?"
-		self.buy_confirmation_text = "That'll be\n%s ..."
+		self.buy_menu_text = "[emote:point]What'll it be?"
+		self.buy_confirmation_text = "That'll be\n%s..."
 		self.buy_refuse_text = "[emote:annoyed]Then why'd you ask for it, you schmuck?!"
-		self.buy_text = "Much obliged, kid."
+		self.buy_text = "[emote:thumbs_up]Much obliged, kid."
 		self.buy_storage_text = "I'll put that in storage for ya."
 		self.buy_too_expensive_text = "[emote:annoyed]Come back when you can afford this."
 		self.buy_no_space_text = "[emote:idle]Clear out some of your stuff, kid."
@@ -28,13 +28,13 @@ function ShadowShop:init()
 		self.sell_options_text["armors"]  = "Sure, I can take some stuff off ya."
 		self.sell_options_text["storage"] = "Sure, I can take some stuff off ya."
     else
-		self.encounter_text = "[emote:idle]* Welcome.[wait:5]\n* Feel free to[speed:0.5]...\n[wait:10][speed:1]* (...oh god dammit, it's HER again.)"
+		self.encounter_text = "[emote:idle]* Welcome.[wait:5]\n* Feel free to[speed:0.5]...\n[wait:10][speed:1]* (...oh great,[wait:5] it's her again.)"
 		self.shop_text = "[emote:idle]* C'mon kid,[wait:5] I don't have all day, y'know..."
 		self.leaving_text = "[emote:idle]* Goodbye...[wait:10]\n* (...and good riddance.)"
 		self.buy_menu_text = "[emote:annoyed]You better not take all the soda again."
 		self.buy_confirmation_text = "That'll be\n%s ..."
 		self.buy_refuse_text = "[emote:annoyed]Then why'd you want it, you schmuck?!"
-		self.buy_text = "At least, you have the decency to pay me..."
+		self.buy_text = "At least you have the decency to pay me..."
 		self.buy_storage_text = "I'll put that in storage for ya."
 		self.buy_too_expensive_text = "[emote:annoyed]Come back when you can afford this."
 		self.buy_no_space_text = "[emote:idle]Clear out some of your stuff, kid."
@@ -82,8 +82,8 @@ function ShadowShop:init()
 		self:registerTalk("Order")
     end
 
-    self.shopkeeper:setActor("shadowsalesman_shop")
-    self.shopkeeper.sprite:setPosition(0, 15)
+    self.shopkeeper:setActor("jaru_shop")
+    self.shopkeeper.sprite:setPosition(0, -30)
     self.shopkeeper.slide = true
 
     self.voice = "jaru"
@@ -95,7 +95,7 @@ function ShadowShop:init()
     self.shop_bg.layer = self.shopkeeper.layer - 1
 	
     self.shop_fg = self:addChild(JARUShopFG())
-    self.shop_fg.layer = self.shopkeeper.layer + 1
+    self.shop_fg.layer = self.shopkeeper.layer - 1
 end
 
 function ShadowShop:startTalk(talk)
