@@ -19,6 +19,14 @@ function BlueSoul:init(x, y)
     self.jump_count = 1 		-- How much can the blue soul double jump? [real] (any number) | default: 2
     self.direction = "down" 	-- What directiion is the soul facing and falling? [string] ("down"; "left"; "up"; "right") | default: "down"
     self:setFacing("up")        -- Sets the soul sprite to face up
+	self.pauling_mode = false   -- Overtime-style autojump when Pauling is the leader
+    local chara = Game:getSoulPartyMember()
+    
+    if chara and chara.id == "pauling" and chara:getSoulPriority() >= 0 and not self.pauling_mode then
+		self.pauling_mode = true
+		self.color = {1, 0.625, 0.25}
+		self:setFacing("pauling")
+    end
 end
 
 function BlueSoul:update()
@@ -40,11 +48,13 @@ function BlueSoul:doMovement()
 		-- Keyboard input:
 		if Input.down("left")  then move_x = move_x - 1 end
 		if Input.down("right") then move_x = move_x + 1 end
-		if Input.pressed("up") then 
-			self:jumpStart()
-		end
-		if Input.released("up") then 
-			self:jumpEnd()
+		if not self.pauling_mode then
+			if Input.pressed("up") then 
+				self:jumpStart()
+			end
+			if Input.released("up") then 
+				self:jumpEnd()
+			end
 		end
 
 		if Input.pressed("down") then
@@ -59,6 +69,9 @@ function BlueSoul:doMovement()
 		
 		if self.last_collided_y == 1 and self.gravity >= 0 then
 			self:jumpReset()
+			if self.pauling_mode then
+				self:jumpStart()
+			end
 		else
 			self.jumped = true
 		end
@@ -69,13 +82,15 @@ function BlueSoul:doMovement()
 		-- Keyboard input:
 		if Input.down("left")  then move_x = move_x - 1 end
 		if Input.down("right") then move_x = move_x + 1 end
-		if Input.pressed("down") then 
-			self:jumpStart()
+		if not self.pauling_mode then
+			if Input.pressed("down") then 
+				self:jumpStart()
+			end
+			if Input.released("down") then 
+				self:jumpEnd()
+			end
 		end
-		if Input.released("down") then 
-			self:jumpEnd()
-		end
-
+		
 		if Input.pressed("up") then
 			self:doGroundPound()
 		end
@@ -88,6 +103,9 @@ function BlueSoul:doMovement()
 		
 		if self.last_collided_y == -1 and self.gravity >= 0 then
 			self:jumpReset()
+			if self.pauling_mode then
+				self:jumpStart()
+			end
 		else
 			self.jumped = true
 		end
@@ -98,11 +116,13 @@ function BlueSoul:doMovement()
 		-- Keyboard input:
 		if Input.down("up")  then move_y = move_y - 1*DTMULT end
 		if Input.down("down") then move_y = move_y + 1*DTMULT end
-		if Input.pressed("right") then 
-			self:jumpStart()
-		end
-		if Input.released("right") then 
-			self:jumpEnd()
+		if not self.pauling_mode then
+			if Input.pressed("right") then 
+				self:jumpStart()
+			end
+			if Input.released("right") then 
+				self:jumpEnd()
+			end
 		end
 
 		if Input.pressed("left") then
@@ -117,6 +137,9 @@ function BlueSoul:doMovement()
 		
 		if self.last_collided_x == -1 and self.gravity >= 0 then
 			self:jumpReset()
+			if self.pauling_mode then
+				self:jumpStart()
+			end
 		else
 			self.jumped = true
 		end
@@ -127,11 +150,13 @@ function BlueSoul:doMovement()
 		-- Keyboard input:
 		if Input.down("up")  then move_y = move_y - 1 end
 		if Input.down("down") then move_y = move_y + 1 end
-		if Input.pressed("left") then 
-			self:jumpStart()
-		end
-		if Input.released("left") then 
-			self:jumpEnd()
+		if not self.pauling_mode then
+			if Input.pressed("left") then 
+				self:jumpStart()
+			end
+			if Input.released("left") then 
+				self:jumpEnd()
+			end
 		end
 
 		if Input.pressed("right") then
@@ -146,6 +171,9 @@ function BlueSoul:doMovement()
 		
 		if self.last_collided_x == 1 and self.gravity >= 0 then
 			self:jumpReset()
+			if self.pauling_mode then
+				self:jumpStart()
+			end
 		else
 			self.jumped = true
 		end
