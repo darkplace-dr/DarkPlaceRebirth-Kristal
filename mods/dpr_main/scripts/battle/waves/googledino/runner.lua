@@ -10,6 +10,11 @@ function Runner:init()
 
     --soul starting position
     self:setSoulPosition(200, 200)
+	self.autojump_fairness = false
+	local chara = Game:getSoulPartyMember()
+	if chara and chara.id == "pauling" and chara:getSoulPriority() >= 0 then
+		self.autojump_fairness = true
+	end
 end
 
 function Runner:onStart()
@@ -42,8 +47,7 @@ function Runner:onStart()
     self.timer:after(0.8, function()
         self.timer:every(1.5, function()
             local x = Game.battle.arena.right + 20
-
-			if diff >= 2 and love.math.random(0, 8-diff) == 0 then			
+			if diff >= 2 and love.math.random(0, 8-diff) == 0 and not self.autojump_fairness then	
 				local bullet = self:spawnBulletTo(Game.battle.mask, "dinobird", x, love.math.random(162, 162+(diff*5)), math.rad(180), ground_speed)
 			else
 				local bullet = self:spawnBulletTo(Game.battle.mask, "cactus", x, 222, math.rad(180), ground_speed)

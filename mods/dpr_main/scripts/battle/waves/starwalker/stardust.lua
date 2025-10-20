@@ -50,7 +50,10 @@ function Stardust:onStart()
                     Assets.playSound("great_shine")
                     Assets.playSound("closet_impact", 1, 1.5)
                     Game.battle:swapSoul(Soul())
-
+					local chara = Game:getSoulPartyMember()
+					if chara and chara.id == "pauling" and chara:getSoulPriority() >= 0 then
+						Game.battle.soul.color = {165/255, 86/255, 33/255}
+					end
                     local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
                     soulafterimage.graphics.grow_x = 0.2
                     soulafterimage.graphics.grow_y = 0.2
