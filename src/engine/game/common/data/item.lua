@@ -97,6 +97,9 @@ function Item:init()
     self.bonus_name = nil
     self.bonus_icon = nil
 
+    -- TODO: Document whatever this thing is.
+    self.turn_heal = 0
+
     -- The color of the bonus icon, always orange in DELTARUNE
     self.bonus_color = PALETTE["world_ability_icon"]
 
@@ -354,17 +357,30 @@ end
 ---@param user_id       string  The id of the character using/equipping the item
 ---@param reactor_id    string  The id of the character to get a reaction for
 ---@return string?  reaction
-function Item:getReaction(user_id, reactor_id)
+function Item:getReaction(user_id, reactor_id, miniparty)
     local reactions = self:getReactions()
+    local miniparty_reactor
+    if miniparty then
+        miniparty_reactor = reactor_id.."+"..miniparty
+    end
     if reactions[user_id] then
         if type(reactions[user_id]) == "string" then
             if reactor_id == user_id then
+                if miniparty then
+                    local reaction = reactions[miniparty_reactor]
+                    if reaction then return reaction end
+                end
                 return reactions[user_id]
             else
                 return nil
             end
         else
-            return reactions[user_id][reactor_id]
+            local reaction = reactions[user_id]
+            if miniparty then
+                local minireaction = reaction[miniparty_reactor]
+                if minireaction then return minireaction end
+            end
+            return reaction[reactor_id]
         end
     end
 end
@@ -379,6 +395,8 @@ function Item:getTypeName()
         return "WEAPON"
     elseif self.type == "armor" then
         return "ARMOR"
+    elseif self.type == "badge" then
+        return "BADGE"
     end
     return "UNKNOWN"
 end

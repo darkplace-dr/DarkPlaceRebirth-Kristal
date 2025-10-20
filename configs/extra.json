@@ -1,0 +1,20 @@
+{
+    //Extra Binding Pages Menu - Config
+    "saveAfterModification": false,     //Save keybinds when modifying them.
+    "cancelToExit": false,              //Allow you to press the cancel key to get out of the binding menu.
+    "onlyMyDLCBind": false,               //Make it so no other bind beside the default DarkPlace one and the DLC one are loaded.
+    "hideIfNoExtra": true,              //Hide the page counter and the arrows when there is no extra keybind.
+    "showArrow": true,                  //Show arrows next to the page counter if conditions are met.
+    "bannedKeys": {                     //List of key to hide in the binding menu. (Contains an example)
+        //"Name_of_key": "id_of_key"
+        "Console":          "console",
+        "Debug Menu":       "debug_menu",
+        "Object Selector":  "object_selector",
+        "Fast Forward":     "fast_forward",
+        "Mod Rebind":       "mod_rebind"
+    },
+
+    // Menu Scroller
+    "darkMenuScroller": "middle",       //Wether the scroller is centered based around the center or two points (string: middle||side)
+    
+}

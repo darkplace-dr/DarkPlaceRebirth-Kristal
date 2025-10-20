@@ -28,9 +28,15 @@ function ActionBox:init(x, y, index, battler)
     end
     self.force_head_sprite = false
 
+    self.name_offset_x, self.name_offset_y = battler.chara:getNameOffset()
+
     if battler.chara:getNameSprite() then
-        self.name_sprite = Sprite(battler.chara:getNameSprite(), 51, 14)
+        self.name_sprite = Sprite(battler.chara:getNameSprite(), 51 + self.name_offset_x, 14 + self.name_offset_y)
         self.box:addChild(self.name_sprite)
+
+        if Game:getFlag("SHINY", {})[battler.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
+            self.name_sprite:addFX(GradientFX(COLORS.white, { 235 / 255, 235 / 255, 130 / 255 }, 1, math.pi / 2))
+        end
     end
 
     self.hp_sprite = Sprite("ui/hp", 109, 22)
@@ -63,8 +69,14 @@ function ActionBox:createButtons()
 
     local btn_types = { "fight", "act", "magic", "item", "spare", "defend" }
 
-    if not self.battler.chara:hasAct() then Utils.removeFromTable(btn_types, "act") end
-    if not self.battler.chara:hasSpells() then Utils.removeFromTable(btn_types, "magic") end
+    if self.battler.chara.set_buttons then
+        btn_types = self.battler.chara.set_buttons
+    elseif self.battler.chara:hasSkills() then
+        btn_types = { "fight", "skill", "item", "spare", "defend" }
+    else
+        if not self.battler.chara:hasAct() then Utils.removeFromTable(btn_types, "act") end
+        if not self.battler.chara:hasSpells() then Utils.removeFromTable(btn_types, "magic") end
+    end
 
     for lib_id, _ in Kristal.iterLibraries() do
         btn_types = Kristal.libCall(lib_id, "getActionButtons", self.battler, btn_types) or btn_types
@@ -75,6 +87,10 @@ function ActionBox:createButtons()
 
     if (#btn_types <= 5) and Game:getConfig("oldUIPositions") then
         start_x = start_x - 5.5
+    end
+
+    if (#btn_types <= 6) and Game:getConfig("oldUIPositions") then
+        start_x = 30
     end
 
     for i, btn in ipairs(btn_types) do
@@ -98,22 +114,26 @@ end
 function ActionBox:setHeadIcon(icon)
     self.force_head_sprite = true
 
-    local full_icon = self.battler.chara:getHeadIcons().."/"..icon
+    self.head_sprite:setColor(1, 1, 1)
+
+    local full_icon = self.battler.chara:getHeadIcons() .. "/" .. icon
     if self.head_sprite:hasSprite(full_icon) then
         self.head_sprite:setSprite(full_icon)
     else
-        self.head_sprite:setSprite(self.battler.chara:getHeadIcons().."/head")
+        self.head_sprite:setSprite(self.battler.chara:getHeadIcons() .. "/head")
     end
 end
 
 function ActionBox:resetHeadIcon()
     self.force_head_sprite = false
 
-    local full_icon = self.battler.chara:getHeadIcons().."/"..self.battler:getHeadIcon()
+    self.head_sprite:setColor(1, 1, 1)
+
+    local full_icon = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
     if self.head_sprite:hasSprite(full_icon) then
         self.head_sprite:setSprite(full_icon)
     else
-        self.head_sprite:setSprite(self.battler.chara:getHeadIcons().."/head")
+        self.head_sprite:setSprite(self.battler.chara:getHeadIcons() .. "/head")
     end
 end
 
@@ -135,17 +155,31 @@ function ActionBox:update()
 
     self.head_sprite.y = 11 - self.data_offset + self.head_offset_y
     if self.name_sprite then
-        self.name_sprite.y = 14 - self.data_offset
+        self.name_sprite.y = 14 - self.data_offset + self.name_offset_y
     end
     self.hp_sprite.y = 22 - self.data_offset
 
     if not self.force_head_sprite then
+
+        --its a bit messy but i dont have the willpower to clean it
+
         local current_head = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
+        local head_has_icons = true
         if not self.head_sprite:hasSprite(current_head) then
-            current_head = self.battler.chara:getHeadIcons() .. "/head"
+            current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
+            head_has_icons = false
+            if not self.head_sprite:hasSprite(current_head) then
+                current_head = self.battler.chara:getHeadIcons() .. "/head"
+            end
         end
 
         if not self.head_sprite:isSprite(current_head) then
+            local color = { 1, 1, 1 }
+            self.head_sprite:setColor(self.battler.chara.icon_color or color)
+            if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                -- These icons are already colored and don't play nice with the coloring system.
+                self.head_sprite:setColor(color)
+            end
             self.head_sprite:setSprite(current_head)
         end
     end
@@ -200,9 +234,10 @@ function ActionBox:drawActionBox()
     if Game.battle.current_selecting == self.index then
         Draw.setColor(self.battler.chara:getColor())
         love.graphics.setLineWidth(2)
-        love.graphics.line(1  , 2, 1,   37)
-        love.graphics.line(Game:getConfig("oldUIPositions") and 211 or 212, 2, Game:getConfig("oldUIPositions") and 211 or 212, 37)
-        love.graphics.line(0  , 6, 212, 6 )
+        love.graphics.line(1, 2, 1, 37)
+        love.graphics.line(Game:getConfig("oldUIPositions") and 211 or 212, 2,
+            Game:getConfig("oldUIPositions") and 211 or 212, 37)
+        love.graphics.line(0, 6, 212, 6)
     end
     Draw.setColor(1, 1, 1, 1)
 end
@@ -213,7 +248,7 @@ function ActionBox:drawSelectionMatrix()
     love.graphics.rectangle("fill", 2, 2, 209, 35)
 
     if Game.battle.current_selecting == self.index then
-        local r,g,b,a = self.battler.chara:getColor()
+        local r, g, b, a = self.battler.chara:getColor()
 
         for i = 0, 11 do
             local siner = self.selection_siner + (i * (10 * math.pi))

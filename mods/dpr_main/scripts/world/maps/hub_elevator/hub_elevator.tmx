@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="elevator"/>
+ </properties>
+ <objectgroup color="#0000ff" id="6" name="collision">
+  <object id="21" x="160" y="240" width="40" height="120"/>
+  <object id="23" x="201" y="200" width="240" height="41"/>
+  <object id="24" x="440" y="240" width="40" height="120"/>
+  <object id="25" x="200" y="360" width="80" height="120"/>
+  <object id="26" x="360" y="360" width="80" height="120"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="6" name="elevatorbuttons" x="360" y="200" width="40" height="40"/>
+  <object id="7" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="intro/lab_reception"/>
+    <property name="marker" value="entry_elevator"/>
+    <property name="sound" value="elecdoor_close"/>
+   </properties>
+  </object>
+  <object id="29" name="elevator" x="0" y="0" width="40" height="40">
+   <properties>
+    <property name="color_1" type="color" value="#ff321fc3"/>
+    <property name="color_10" type="color" value="#ff00c800"/>
+    <property name="color_11" type="color" value="#ffffb15e"/>
+    <property name="color_2" type="color" value="#ff4429ff"/>
+    <property name="color_3" type="color" value="#ff97caf7"/>
+    <property name="color_4" type="color" value="#ff2368b8"/>
+    <property name="color_5" type="color" value="#ff913645"/>
+    <property name="color_6" type="color" value="#ff6aadff"/>
+    <property name="color_7" type="color" value="#ff373887"/>
+    <property name="color_8" type="color" value="#ff4429ff"/>
+    <property name="color_9" type="color" value="#ffffff00"/>
+    <property name="cutscene_7" value="broken_elevator"/>
+    <property name="dest_1" value="intro/lab_reception"/>
+    <property name="dest_10" value="deoxtest"/>
+    <property name="dest_11" value="evergroves/start"/>
+    <property name="dest_2" value="floor1/main"/>
+    <property name="dest_3" value="floor2/main_1"/>
+    <property name="dest_4" value="floorcyber/pre_elevator"/>
+    <property name="dest_5" value="floortv/pre_elevator"/>
+    <property name="dest_6" value="floorchurch/pre_elevator"/>
+    <property name="dest_7" value="nothing"/>
+    <property name="dest_8" value="seal_room/seal_room_1"/>
+    <property name="dest_9" value="tritraland/entrance"/>
+    <property name="length_1" type="int" value="140"/>
+    <property name="length_10" type="int" value="40"/>
+    <property name="length_11" type="int" value="40"/>
+    <property name="length_2" type="int" value="40"/>
+    <property name="length_3" type="int" value="40"/>
+    <property name="length_4" type="int" value="40"/>
+    <property name="length_5" type="int" value="40"/>
+    <property name="length_6" type="int" value="40"/>
+    <property name="length_7" type="int" value="40"/>
+    <property name="length_8" type="int" value="40"/>
+    <property name="length_9" type="int" value="40"/>
+    <property name="mod_1" value="dpr_pit_dlc"/>
+    <property name="name_1" value="The Dark Pit"/>
+    <property name="name_10" value="Deoxtest"/>
+    <property name="name_11" value="Evergroves"/>
+    <property name="name_2" value="Floor 1"/>
+    <property name="name_3" value="Floor 2"/>
+    <property name="name_4" value="Cyber Floor"/>
+    <property name="name_5" value="TV Floor"/>
+    <property name="name_6" value="Sanctuary Floor"/>
+    <property name="name_7" value="Nowhere"/>
+    <property name="name_8" value="Room"/>
+    <property name="name_9" value="TritraLand"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="5" name="entry" x="320" y="440">
+   <point/>
+  </object>
+  <object id="32" name="buttons" x="380" y="260">
+   <point/>
+  </object>
+  <object id="33" name="spawn" x="320" y="320">
+   <point/>
+  </object>
+  <object id="34" name="entry_up" x="320" y="260">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

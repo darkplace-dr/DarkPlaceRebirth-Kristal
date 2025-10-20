@@ -27,7 +27,10 @@ function item:init()
         ["kris"] = 80,
         ["susie"] = 20,
         ["ralsei"] = 50,
-        ["noelle"] = 70
+		["dess"] = 70,
+        ["noelle"] = 70,
+		["jamm"] = 30,
+        ["ceroba"] = 30,
     }
 
     -- nice
@@ -65,7 +68,11 @@ function item:init()
     self.reactions = {
         susie = "THAT'S it?",
         ralsei = "Aww, thanks, Kris!",
-        noelle = "Umm, it's ok, Kris, I'll share..."
+        noelle = "Umm, it's ok, Kris, I'll share...",
+		dess = "sorry link, come back when you're a bit more, eeeeerrrrm, richer",
+        jamm = "I thought this was hollow...?",
+        ["jamm+marcy"] = "Prepare for a sugar rush, guys...!",
+        ceroba = "Not a fan of chocolate personally...",
     }
 end
 

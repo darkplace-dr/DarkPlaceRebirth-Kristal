@@ -12,7 +12,8 @@ function character:init()
     self:setDarkTransitionActor("kris_dark_transition")
 
     -- Display level (saved to the save file)
-    self.level = Game.chapter
+    self.love = 1
+    self.level = self.love
     -- Default title / class (saved to the save file)
     if Game.chapter == 1 then
         self.title = "Leader\nCommands the party\nwith various ACTs."
@@ -28,6 +29,8 @@ function character:init()
     self.soul_priority = 2
     -- The color of this character's soul (optional, defaults to red)
     self.soul_color = {1, 0, 0}
+    -- In which direction will this character's soul face (optional, defaults to facing up)
+    self.soul_facing = "up"
 
     -- Whether the party member can act / use spells
     self.has_act = true
@@ -98,6 +101,8 @@ function character:init()
             health = 240
         }
     end
+    -- For some reason, we emptied the max_stats table. This preserves that old behavior.
+    self.max_stats = {}
     
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
     self.stronger_absent = {"kris","susie","ralsei"}
@@ -127,6 +132,8 @@ function character:init()
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {0.5, 1, 1}
 
+    self.icon_color = {0, 162/255, 232/255}
+
     -- Head icon in the equip / power menu
     self.menu_icon = "party/kris/head"
     -- Path to head icons used in battle
@@ -155,6 +162,14 @@ end
 function character:onLevelUp(level)
     self:increaseStat("health", 2)
     if level % 10 == 0 then
+        self:increaseStat("attack", 1)
+    end
+end
+
+function character:onLevelUpLVLib(level)
+    self:increaseStat("health", 5)
+    self:increaseStat("defense", 1)
+    if level % 2 == 0 then
         self:increaseStat("attack", 1)
     end
 end

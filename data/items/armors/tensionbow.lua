@@ -46,7 +46,10 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+        noel = "I feel tense. Good...",
+        ceroba = "Feels more tense than usual.",
+    }
 end
 
 return item

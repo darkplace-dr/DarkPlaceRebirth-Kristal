@@ -50,6 +50,7 @@ function Player:init(chara, x, y)
     outlinefx:setAlpha(self.battle_alpha)
 
     self.outlinefx = self:addFX(outlinefx)
+
 end
 
 function Player:getBaseWalkSpeed()
@@ -77,6 +78,7 @@ function Player:getDebugInfo()
     table.insert(info, "Current walk speed: " .. self:getCurrentSpeed(false))
     table.insert(info, "Current run speed: " .. self:getCurrentSpeed(true))
     table.insert(info, "Run timer: " .. self.run_timer)
+    table.insert(info, "Can run: " .. (self.force_walk and "False" or "True"))
     table.insert(info, "Hurt timer: " .. self.hurt_timer)
     table.insert(info, "Slide in place: " .. (self.slide_in_place and "True" or "False"))
     return info

@@ -47,7 +47,10 @@ function item:init()
     self.reactions = {
         susie = "Don't throw dust at me!",
         ralsei = "It's minty!",
-        noelle = "What are you sprinkling?"
+        noelle = "What are you sprinkling?",
+		dess = "jesser we have to cook cocainer",
+        jamm = "Dust isn't my favorite, but...",
+        ceroba = "*cough* *cough* What's that!?",
     }
 end
 
@@ -63,6 +66,10 @@ function item:onBattleUse(user, target)
         local heal_amount = 10
         if battler.chara:getHealth() <= 0 then
             heal_amount = math.abs(battler.chara:getHealth()) + math.ceil(battler.chara:getStat("health") / 4)
+        end
+        if battler.chara:getStat("health") <= 0 then
+            battler:restoreMaxHealth(math.abs(target.chara:getHealth()) + target.chara:getStat("health_def"))
+            return
         end
         battler:heal(Game.battle:applyHealBonuses(heal_amount, user.chara))
     end

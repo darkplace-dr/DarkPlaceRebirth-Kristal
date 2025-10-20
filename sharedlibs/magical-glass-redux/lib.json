@@ -1,0 +1,234 @@
+{
+    "id": "magical-glass",
+    "authors": [
+        "Nyakorita",                    // original author
+        "Sam Deluxe",                   // previous author and lead programmer
+        "FireRainV",                    // current developer
+        "Bor",                          // contributor
+        "Just Another Random User",     // contributor
+    ],
+
+    "version": "v2.26.1",
+    "engineVer": "v0.10.0-dev",
+
+    "config": {
+        
+        ///// Default Battle System
+        // If an encounter isn't forcing a battle system, the system set here will be used
+        // as a fallback.
+        //
+        // Second value sets the default world type if no map is present.
+        // Used when playing using just an encounter without a map.
+        ///// First Value:
+        // "undertale"
+        // "deltarune"
+        //
+        ///// Second Value:
+        // true = Light
+        // false = Dark
+        /////
+        "default_battle_system": ["deltarune", false],
+        
+        ///// Shared Light EXP
+        // Whether EXP is global to all party members or local to each
+        /////
+        "shared_light_exp": false,
+
+        ///// Light Battle TP
+        // Enables tension and grazing in Light Battles.
+        // In addition, adds the Defend command to the mercy action button in Light Battles.
+        /////
+        "light_battle_tp": false,
+        
+        ///// Light Battle TP Name
+        // The name of tension in light battles.
+        /////
+        "light_battle_tp_name": "TP",
+        
+        ///// Light level name
+        // The name (and short name) of light levels.
+        /////
+        "light_level_name": "LOVE",
+        "light_level_name_short": "LV",
+        "light_level_name_dark": "LV",
+
+        ///// UNDERTALE Text Skipping
+        // Disables text skipping in ANY textbox when holding down cancel or menu.
+        /////
+        // false = Allows text skipping
+        // "slim" = Text which cannot be skipped in UT battles won't be skippable (like the YOU WON! text)
+        // true = Text skipping is not allowed (like holding down the menu button to quickly skip dialogue)
+        /////
+        "undertale_text_skipping": false,
+        
+        ///// Game Over Skipping
+        // Whether you can skip the game over screen by repeatly pressing the confirm button.
+        /////
+        // First Value: Whether you can skip it in the dark world.
+        // Second Value: Whether you can skip it in the light world.
+        /////
+        "gameover_skipping": [true, true],
+        
+        ///// Dark Battles In The Light World Color Mode
+        // Controls what color palette will be used for dark battles in the light world.
+        /////
+        // false = Normal
+        // "slim" = Colors the head icon and the health bar
+        // true = Colors the head icon, the health bar, the attack box and battle strips (in solo party member, also colors the damage)
+        /////
+        "light_world_dark_battle_color_override": "slim",
+        
+        ///// Dark Battles In The Light World Tension
+        // Whether dark battles in the light world will have tension.
+        /////
+        "light_world_dark_battle_tension": true,
+        
+        ///// UNDERTALE Movement Can Run
+        // Enables the ability to run when using the Undertale player movement.
+        /////
+        "undertale_movement_can_run": false,
+        
+        ///// Light Battles HP Gauge Length Cap
+        // Limits the length of the HP bar in light battles.
+        ///// Values:
+        //
+        // true
+        // Limits the gauge at 99. 
+        //
+        // false
+        // Doesn't limit the gauge.
+        //
+        // number
+        // Limits the gauge to the number specified.
+        //
+        /////
+        "hp_gauge_length_cap": true,
+
+        ///// Item Conversion
+        // Like in Deltarune, converts the Dark World inventory to the Ball of Junk and items like the Shadow Crystal to Glass 
+        // when traveling to the Light World or back.
+        /////
+        "item_conversion": true,
+        
+        ///// Equipment Conversion
+        // Like in Deltarune, converts items like the Spookysword to the Halloween Pencil and the Silver Watch to the Wristwatch
+        // when traveling to the Light World or back.
+        // This works somewhat differently than normal, because almost everyone can equip any light item, so the mechanic was adjusted.
+        /////
+        "equipment_conversion": true,
+        
+        ///// Health Conversion
+        // Converts the party members current health between the light and dark worlds.
+        /////
+        "health_conversion": true,
+
+        ///// Punch Card Exploit Emulation
+        // Re-creates Undertale's Punch Card wrong warp and moving in cutscenes exploit.
+        /////
+        "punch_card_exploit": true,
+
+        ///// UNDERTALE Menu Display
+        // Subtracts 10 from base AT and DF in the Light World's STAT menu.
+        // Moves the currency amount in the menu to be align with the rest of the amonuts.
+        /////
+        "undertale_menu_display": false,
+        
+        ///// Always Show Magic
+        // Displays the MAGIC stat and spells in the Light World STAT menu even if there's no
+        // member in the current party who can cast spells.
+        /////
+        "always_show_magic": false,
+
+        ///// Gauge Style
+        // Determines the appearance of gauges drawn in ENEMYSELECT or PARTYSELECT in Light Battles.
+        ///// Values:
+        //
+        // "undertale"
+        // UNDERTALE-styled HP gauge. (Also supports Mercy gauge)
+        //
+        // "deltarune"
+        // deltarune-styled HP and Mercy gauges.
+        //
+        // "deltatraveler"
+        // The gauge styles used in Deltatraveler.
+        //
+        /////
+        "gauge_style": "undertale",
+        
+        ///// Enemy Gauge Smoothness
+        // Whether the enemy HP/MERCY bar when hit/gain mercy will be smooth like Deltatraveler or be accurate to Undertale.
+        /////
+        "enemy_gauge_smoothness": false,
+
+        ///// Mercy Bar
+        // Draws the Mercy Bar in Light Battles.
+        /////
+        "mercy_bar": false,
+
+        ///// Mercy Messages
+        // Shows the amount of mercy added to an enemy when their mercy gauge increases in Light Battles.
+        /////
+        "mercy_messages": false,
+        
+        ///// Tired Messages
+        // Shows a message when an enemy fall asleep in Light Battles.
+        /////
+        "tired_messages": false,
+        
+        ///// Awake Messages
+        // Shows a message when an enemy wake up in Light Battles.
+        /////
+        "awake_messages": false,
+
+        ///// Enemy Bar Percentages
+        // Draws the HP and Mercy text and Percentages on the gauges.
+        /////
+        "enemy_bar_percentages": false,
+
+        ///// Light Enemy Chaser Auras
+        // Whether enemies in the light world will also have auras.
+        /////
+        "light_enemy_auras": false,
+        
+        ///// Savepoint Style
+        // Determines the appearance of savepoints drawn in the light world.
+        ///// Values:
+        //
+        // "undertale"
+        // UNDERTALE-styled savepoints. (yellow, doesn't fade)
+        // Uses Undertale saving style
+        //
+        // "deltarune"
+        // deltarune-styled savepoints. (white, fades depending on the player's distance from it)
+        // Uses Deltarune saving style
+        //
+        /////
+        "savepoint_style": "deltarune",
+        
+        ///// Expanded Light Save Menu
+        // Allows having 3 save slots in the light world save points.
+        // (Ignored if "savepoint_style" is set to "deltarune")
+        /////
+        "expanded_light_save_menu": false,
+        
+        ///// Multi-Party Mode in Solo-Party
+        // Whether Multi-Party light battle style will also be enabled when playing with just a single party member.
+        /////
+        "multi_always_on": false,
+        
+        ///// Multi-Party Deltarune Spare Style
+        // Whether you can only spare a single enemy per battler in Multi-Party light battles.
+        /////
+        "multi_deltarune_spare": false,
+        
+        ///// Multi-Party Deltarune Spare Style
+        // Whether when playing with multiple party members, the leader name will be mentioned as 'You'.
+        /////
+        "multi_leader_mentioned_as_you": false,
+        
+        ///// Debug Mode
+        // Determines whether the library is in its debug mode state.
+        /////
+        "debug": false,
+    }
+}

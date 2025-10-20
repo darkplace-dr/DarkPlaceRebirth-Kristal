@@ -52,6 +52,8 @@ function item:init()
         susie = "Spider on my head. K.",
         ralsei = "Itsy and/or bitsy!",
         noelle = "E-Ew! Kris, get that away!",
+        jamm = "(Does this apply to me...?)",
+        ceroba = "Widow to widow."
     }
 end
 

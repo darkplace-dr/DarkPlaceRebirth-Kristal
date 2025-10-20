@@ -214,7 +214,13 @@ function actor:initChapter2()
         ["hug_stop"]            = {"hug_stop", 2/9, false},
 
         ["wave_start"]          = {"wave_start", 5/30, false, next="wave_down"},
-        ["wave_down"]           = {"wave_down", 5/30, true}
+        ["wave_down"]           = {"wave_down", 5/30, true},
+
+        ["dance"]               = {"dance", 1/6, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
+
+        ["sing"]                = {"sing", 1/5, true},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -294,8 +300,43 @@ function actor:initChapter2()
         ["wave_down"] = {2, 1},
 
         ["splat"] = {-15, 21},
-        ["stool"] = {-11, 18}
+        ["stool"] = {-11, 18},
+        ["sneak/left"] = {-5, -3},
+        ["sneak/right"] = {7, -3},
+
+        ["run/left"] = {-6, 0},-- I dunno the offsets and neither where to find them in DR code
+        ["run/right"] = {-6, 0},
+        ["run/up"] = {-4, 0},
+        ["run/down"] = {-2, 0},
+
+        ["float/left"] = {-6, -6}, -- same situation as run sprites
+        ["float/right"] = {-6, -6},
+        ["float/up"] = {0, 0},
+        ["float/down"] = {0, 0},
     }
+
+    self.menu_anim = "pose"
+end
+
+function actor:onWorldDraw(chara)
+    if Kristal.Config["runAnimations"] then
+        local player = Game.world.player
+
+        if Game.world.cutscene and not self.cut then
+            self.default = "walk"
+            chara:resetSprite()
+            self.cut = true
+        elseif not Game.world.cutscene then
+            if self.cut then self.cut = nil end
+            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
+                self.default = "run" --({"run", "float"})[math.random(2)]
+                chara:resetSprite()
+            elseif self.default ~= "walk" and player.run_timer == 0 then
+                self.default = "walk"
+                chara:resetSprite()
+            end
+        end
+    end
 end
 
 return actor

@@ -1,14 +1,23 @@
 .vscode/
 .DS_Store
 
-mods/*
-!mods/_light/
-!mods/_testmod/
-!mods/example/
-!mods/previewtest/
-!mods/z/
-
 build/
 output/
 
 *.tiled-session
+
+# Ignore all DLCs except dpr_main and dpr_light
+mods/*
+!/mods/dpr_main/
+!/mods/dpr_light/
+
+DarkPlaceREBIRTH.lnk
+open.bat
+
+# Ignore aseprite files
+*.ase
+*.aseprite
+
+# desktop.ini files
+*.ini
+Kristal.bat

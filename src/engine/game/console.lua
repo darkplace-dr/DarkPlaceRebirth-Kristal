@@ -15,7 +15,7 @@ function Console:init()
 
     self.history = {}
 
-    self:push("Welcome to [color:cyan]KRISTAL[color:reset]! This is the debug console.")
+    self:push("Welcome to [color:2C00AE]DARK PLACE[color:reset]! This is the debug console.")
     self:push("You can enter Lua here to be ran! Use [color:gray]clear()[color:reset] to clear the console.")
     self:push("")
 
@@ -348,6 +348,13 @@ function Console:run(str)
     self:push(history_string)
     if Utils.startsWith(run_string, "=") then
         run_string = "print(" .. Utils.sub(run_string, 2) .. ")"
+    end
+    local j = run_string:find("Mod.jeku_memory")
+    if j then
+        self:log("What do you think you're doing?")
+        if Game.shop and Game.shop.id == "jeku_shop" then
+            Game.shop.shopkeeper:onEmote("insane")
+        end
     end
     local status, err = pcall(function() self:unsafeRun(run_string) end)
     if (not status) and err then

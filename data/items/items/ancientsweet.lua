@@ -42,7 +42,9 @@ function item:init()
     self.reactions = {
         susie = "Ugh! How old is this?!",
         ralsei = "Aww Kris, y-your favorite...",
-        noelle = "I'd... I'd rather eat meat..."
+        noelle = "I'd... I'd rather eat meat...",
+        ceroba = "*cough* How old is that!?",
+        jamm = "Didn't age like wine..."
     }
 end
 

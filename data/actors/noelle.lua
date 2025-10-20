@@ -217,7 +217,11 @@ function actor:init()
         ["head_lowered"] = {0, 0},
         ["head_lowered_look_left"] = {0, 0},
         ["head_lowered_look_right"] = {0, 0},
+        ["sneak/left"] = {-4, 3},
+        ["sneak/right"] = {2, 3},
     }
+
+    self.menu_anim = "blush"
 end
 
 function actor:getAnimation(anim)

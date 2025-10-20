@@ -34,7 +34,9 @@ function MainMenuModList:init(menu)
 
     self.loading_mods = false
     self.last_loaded = {}
-
+    
+    self.reset_soul = false
+    
     self.active = false
 end
 
@@ -77,6 +79,7 @@ function MainMenuModList:onLeave(new_state)
     self.active = false
 
     self.menu.heart:setColor(Kristal.getSoulColor())
+    self.menu.heart:setSprite("player/heart_menu")
     self.menu.heart_outline.visible = false
 end
 
@@ -177,6 +180,16 @@ function MainMenuModList:update()
         self.menu.heart_outline:setColor(button:getFavoritedColor())
     else
         self.menu.heart_outline.visible = false
+    end
+    
+    if self.list:isOnCreate() then
+        if not self.reset_soul then
+            self.menu.heart:setColor(Kristal.getSoulColor())
+            self.menu.heart:setSprite("player/heart_menu")
+        end
+        self.reset_soul = true
+    else
+        self.reset_soul = false
     end
 end
 
@@ -325,6 +338,7 @@ function MainMenuModList:reloadMods()
     self.loading_mods = true
 
     Kristal.Mods.clear()
+	Kristal.loadAssets("", "plugins", "")
     Kristal.loadAssets("", "mods", "", function()
         if #Kristal.Mods.failed_mods > 0 then
             self.menu:setState("MODERROR")

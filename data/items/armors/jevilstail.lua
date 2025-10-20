@@ -43,13 +43,23 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+	    jamm = false,
+        noel = false,
+        ceroba = false,
+    }
+
 
     -- Character reactions
     self.reactions = {
         susie = "Figured I'd grow one someday.",
         ralsei = "I'm a good devil, OK?",
         noelle = "... (I like it...)",
+        dess = "im gonna go commit a felony now",
+        jamm = "It won't fit...!",
+        ["jamm+marcy"] = "It won't fit either of us...!",
+        noel = "I am not a circus.",
+        ceroba = "I have my own.", -- at least I think???
     }
 end
 

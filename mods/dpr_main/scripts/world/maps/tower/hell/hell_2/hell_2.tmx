@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="25" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="24">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="fun"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/hell.tsx"/>
+ <layer id="1" name="mask" width="25" height="12">
+  <data encoding="csv">
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+32,32,32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="2" name="collision">
+  <object id="1" x="0" y="160" width="280" height="40"/>
+  <object id="2" x="280" y="120" width="40" height="80"/>
+  <object id="3" x="280" y="80" width="440" height="40"/>
+  <object id="4" x="680" y="120" width="40" height="80"/>
+  <object id="5" x="720" y="160" width="280" height="40"/>
+  <object id="9" x="280" y="280" width="40" height="80"/>
+  <object id="10" x="0" y="280" width="280" height="40"/>
+  <object id="11" x="280" y="360" width="440" height="40"/>
+  <object id="12" x="680" y="280" width="40" height="80"/>
+  <object id="13" x="720" y="280" width="280" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="3" name="objects">
+  <object id="17" name="savepoint" x="480" y="100" width="40" height="40"/>
+  <object id="18" name="fl_clocks" x="200" y="0" width="40" height="40">
+   <properties>
+    <property name="flip" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="fl_clocks" x="40" y="360" width="40" height="40">
+   <properties>
+    <property name="flip" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="20" name="fl_clocks" x="760" y="40" width="40" height="40">
+   <properties>
+    <property name="flip" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="21" name="fl_clocks" x="920" y="440" width="40" height="40">
+   <properties>
+    <property name="flip" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="22" name="transition" x="-40" y="200" width="40" height="80">
+   <properties>
+    <property name="map" value="tower/hell/hell_1"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="23" name="transition" x="1000" y="200" width="40" height="80">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55ff7f" id="4" name="markers">
+  <object id="14" name="entry_left" x="40" y="240">
+   <point/>
+  </object>
+  <object id="15" name="spawn" x="500" y="200">
+   <point/>
+  </object>
+  <object id="16" name="entry_right" x="960" y="240">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

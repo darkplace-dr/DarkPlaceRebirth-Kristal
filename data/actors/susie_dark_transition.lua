@@ -11,6 +11,8 @@ function actor:init(style)
     self.path = "party/susie/dark_transition"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
     self.default = "run"
+	
+	self.shiny_id = "susie"
 end
 
 return actor

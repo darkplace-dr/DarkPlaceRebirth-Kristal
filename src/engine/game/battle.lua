@@ -240,6 +240,13 @@ function Battle:createPartyBattlers()
             end
         end
     end
+
+    if Game.party[4] then
+        self.back_row = PartyBattler(Game.party[4], 42, 324)
+        self:addChild(self.back_row)
+        --self:addChild(ActionBox(0, 0, 4, self.battle.back_row))
+    end
+
 end
 
 ---@param state string
@@ -338,6 +345,10 @@ function Battle:postInit(state, encounter)
 
     if not self.encounter:onBattleInit() then
         self:setState(state)
+    end
+
+    if Game.bossrush_encounters and not self.encounter.no_dojo_bg then
+        self.dojobg = self:addChild(DojoBG())
     end
 end
 
@@ -538,6 +549,20 @@ function Battle:onStateChange(old,new)
                 end
             end
         end
+        local had_started = self.started
+        if not self.started then
+            self.started = true
+
+            for _,battler in ipairs(self.party) do
+                battler:resetSprite()
+            end
+
+            if self.encounter.music then
+                self.music:play(self.encounter.music)
+            end
+        end
+
+        self:showUI()
     elseif new == "DIALOGUEEND" then
         self.battle_ui:clearEncounterText()
 
@@ -565,6 +590,8 @@ function Battle:onStateChange(old,new)
         end
     elseif new == "VICTORY" then
         self.current_selecting = 0
+        Game:getPartyMember("susie").rage = false
+        Game:getPartyMember("susie").rage_counter = 0
 
         if self.tension_bar then
             self.tension_bar:hide()
@@ -576,7 +603,9 @@ function Battle:onStateChange(old,new)
             battler.action = nil
 
             battler.chara:resetBuffs()
-
+            -- TODO: Why is this treated specially? Why can't it just be a statbuff?
+            battler.chara:restoreMaxHealth()
+            
             if battler.chara:getHealth() <= 0 then
                 battler:revive()
                 battler.chara:setHealth(battler.chara:autoHealAmount())
@@ -603,6 +632,12 @@ function Battle:onStateChange(old,new)
         -- if (in_dojo) then
         --     self.money = 0
         -- end
+
+        if self.killed == false then
+            self.xp = 0
+        else
+            self.xp = self.xp/2
+        end
 
         Game.money = Game.money + self.money
         Game.xp = Game.xp + self.xp
@@ -638,6 +673,22 @@ function Battle:onStateChange(old,new)
 
             Assets.playSound("dtrans_lw", 0.7, 2)
             --scr_levelup()
+        end
+
+        if self.killed then
+            local levelup = false
+            for i,v in ipairs(self.party) do
+                local love = v.chara.love
+                v.chara:addExp(self.xp)
+                if v.chara.love > love then
+                    levelup = true
+                end
+            end
+            if levelup then
+                win_text = "* You won!\n* Got " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* Your LOVE increased!"
+
+                Assets.playSound("levelup", 1, 1)
+            end
         end
 
         win_text = self.encounter:getVictoryText(win_text, self.money, self.xp) or win_text
@@ -758,7 +809,122 @@ function Battle:onStateChange(old,new)
         end
 
         self.defending_begin_timer = 0
-    end
+    elseif new == "FLEE" then
+        self.current_selecting = 0
+		local flee_complete = false
+
+        if self.tension_bar then
+            self.tension_bar:hide()
+        end
+
+        for _,battler in ipairs(self.party) do
+            battler:setSleeping(false)
+            battler.defending = false
+            battler.action = nil
+
+            if battler.chara:getHealth() <= 0 then
+                battler:revive()
+                battler.chara:setHealth(1)
+            end
+
+			battler:setAnimation("battle/hurt")
+
+            Assets.playSound("defeatrun")
+
+			local sweat = Sprite("effects/defeat/sweat")
+			sweat:setOrigin(0.5, 0.5)
+			sweat:setScale(0.5, 0.5)
+			sweat:play(5/30, true)
+			sweat.layer = 100
+			battler:addChild(sweat)
+
+			Game.battle.timer:after(15/30, function()
+				sweat:remove()
+				battler:getActiveSprite().run_away_2 = true
+				flee_complete = true
+			end)
+
+            local box = self.battle_ui.action_boxes[self:getPartyIndex(battler.chara.id)]
+            box:resetHeadIcon()
+        end
+        
+        -- self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
+
+        for _,battler in ipairs(self.party) do
+            for _,equipment in ipairs(battler.chara:getEquipment()) do
+                self.money = math.floor(equipment:applyMoneyBonus(self.money) or self.money)
+            end
+        end
+
+        self.money = math.floor(self.money)
+
+        self.money = self.encounter:getVictoryMoney(self.money) or self.money
+        self.xp = self.encounter:getVictoryXP(self.xp) or self.xp
+        -- if (in_dojo) then
+        --     self.money = 0
+        -- end
+
+        Game.money = Game.money + self.money
+        Game.xp = Game.xp + self.xp
+
+        if (Game.money < 0) then
+            Game.money = 0
+        end
+        
+        local earn_text = ""
+        if self.money ~= 0 or self.xp ~= 0 then
+            earn_text = "* Ran away with " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort").."."
+        end
+            
+        if self.used_violence and Game:getConfig("growStronger") then
+            local stronger = "You"
+
+            for _,battler in ipairs(self.party) do
+                Game.level_up_count = Game.level_up_count + 1
+                battler.chara:onLevelUp(Game.level_up_count)
+
+                if battler.chara.id == Game:getConfig("growStrongerChara") then
+                    stronger = battler.chara:getName()
+                end
+            end
+
+            earn_text = "* Ran away with " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
+
+            Assets.playSound("dtrans_lw", 0.7, 2)
+            --scr_levelup()
+        end
+        
+        local flee_text = "* "
+		
+		local flee_list = {
+			"I'm outta here.",
+			"I've got better to do.",
+			"Escaped...",
+			"Don't slow me down."
+		}
+		
+        for _,battler in pairs(Game.battle.party) do
+            for _,text in pairs(battler.chara:getFleeText()) do
+                table.insert(flee_list, text)
+            end
+        end
+		
+        if earn_text == "" then
+            flee_text = flee_text .. Utils.pick(flee_list)
+        else
+            flee_text = earn_text
+        end
+		
+        self:battleText(flee_text, function()
+			for _,battler in ipairs(self.party) do
+				battler:getActiveSprite().run_away_2 = false
+				battler.x = battler.x - 240
+			end
+            self:setState("TRANSITIONOUT")
+            self.encounter:onBattleEnd()
+            return true
+        end)
+	end
 
     -- List of states that should remove the arena.
     -- A whitelist is better than a blacklist in case the modder adds more states.
@@ -819,6 +985,19 @@ function Battle:onStateChange(old,new)
     end
 
     self.encounter:onStateChange(old,new)
+
+    if old == "INTRO" then
+        self.music.basepitch = self.music.pitch
+    end
+
+    if self.discoball then
+        -- For some reason this happens twice
+        if new == "ACTIONSELECT" then
+            self.discoball.tweendir = 1
+        elseif new == "ENEMYDIALOGUE" or new == "DEFENDINGBEGIN" or new == "TRANSITIONOUT" then
+            self.discoball.tweendir = -1
+        end
+    end
 end
 
 --- Gets the location the soul should spawn at when waves start by default
@@ -877,6 +1056,13 @@ function Battle:swapSoul(object)
     object.layer = self.soul.layer
     self.soul = object
     self:addChild(object)
+	
+    --Timeslow/Focus placebo stuff
+    Game.stage.timescale = 1
+	Game.battle.music.pitch = Game.battle.music.basepitch
+	Game.battle.soul.vhsfx.active = false
+	Game.battle.soul.outlinefx.active = false
+	Input.clear("focus_placebo")
 end
 
 function Battle:resetAttackers()
@@ -954,7 +1140,8 @@ function Battle:processCharacterActions()
 
     self.current_action_index = 1
 
-    local order = {"ACT", {"SPELL", "ITEM", "SPARE"}}
+    -- TODO: Remove COMBO action/class, combining/replacing with SPELL/CutsceneSpell
+    local order = {"ACT", {"SPELL", "ITEM", "SPARE", "COMBO", "SWAP"}}
 
     for lib_id,_ in Kristal.iterLibraries() do
         order = Kristal.libCall(lib_id, "getActionOrder", order, self.encounter) or order
@@ -963,6 +1150,7 @@ function Battle:processCharacterActions()
 
     -- Always process SKIP actions at the end
     table.insert(order, "SKIP")
+    table.insert(order, "DECIDE")
 
     for _,action_group in ipairs(order) do
         if self:processActionGroup(action_group) then
@@ -1157,6 +1345,11 @@ function Battle:processAction(action)
             end
 
             local damage = Utils.round(enemy:getAttackDamage(action.damage or 0, battler, action.points or 0))
+            local weapon = battler.chara:getWeapon()
+            -- TODO: Unhardcode, add Item:applyDamageModifier or something
+            if weapon and weapon.id == "berserkeraxe" and crit then
+               damage = damage*2
+            end
             if damage < 0 then
                 damage = 0
             end
@@ -1270,6 +1463,13 @@ function Battle:processAction(action)
 
     elseif action.action == "SKIP" then
         return true
+    elseif action.action == "DECIDE" then
+        local res = battler.chara:doBattleDescision(battler)
+        if res == true then
+            return true
+        else
+            -- TODO: Fix this case
+        end
 
     elseif action.action == "SPELL" then
         self.battle_ui:clearEncounterText()
@@ -1278,8 +1478,16 @@ function Battle:processAction(action)
         action.data:onStart(battler, action.target)
 
         return false
+	
+	elseif action.action == "COMBO" then
+        self.battle_ui:clearEncounterText()
 
-    elseif action.action == "ITEM" then
+        -- The combo itself handles the animation and finishing
+        action.data:onStart(battler, action.target)
+
+        return false
+	
+	elseif action.action == "ITEM" then
         local item = action.data
         if item.instant then
             self:finishAction(action)
@@ -1301,7 +1509,43 @@ function Battle:processAction(action)
         battler:setAnimation("battle/defend")
         battler.defending = true
         return false
+    elseif action.action == "SWAP" then
+        local num = action.data.number
+        local bat = self.party[num]
+        local chr = self.back_row
+        local x, y = bat.x, bat.y
 
+        local speed = 0.2
+        if num == 3 then speed = 0.16 end
+        bat:jumpTo(chr.x, chr.y, 1, speed, "jump_ball", "landed")
+        Assets.playSound("jump")
+        chr:jumpTo(x, y, 1, speed, "jump_ball", "landed")
+
+        self.party[num] = chr
+        self.back_row = bat
+
+        self.timer:after(0.25, function()
+            self:sortChildren()
+        end)
+
+        self.timer:after(0.5, function()
+            self:sortChildren()
+            local box = self.battle_ui.action_boxes[num]
+            box.battler = self.party[num]
+            box:createButtons()
+            if box.battler.chara:getNameSprite() then
+                if not box.name_sprite then
+                    box.name_sprite = Sprite(box.battler.chara:getNameSprite(), 51 + box.name_offset_x, 14 + box.name_offset_y)
+                    box.box:addChild(box.name_sprite)
+                end
+                box.name_sprite:setSprite(box.battler.chara:getNameSprite())
+            elseif box.name_sprite then
+                box.name_sprite:remove()
+                box.name_sprite = nil
+            end
+            self:finishAction(action)
+        end)
+        return false
     else
         -- we don't know how to handle this...
         Kristal.Console:warn("Unhandled battle action: " .. tostring(action.action))
@@ -2060,6 +2304,81 @@ function Battle:hurt(amount, exact, target, swoon)
     end
 end
 
+--- TODO: Use negative statbuff instead
+function Battle:mhp_hurt(amount, exact, target)
+    -- If target is a numberic value, it will hurt the party battler with that index
+    -- "ANY" will choose the target randomly
+    -- "ALL" will hurt the entire party all at once
+    target = target or "ANY"
+
+    -- Alright, first let's try to adjust targets.
+
+    if type(target) == "number" then
+        target = self.party[target]
+    end
+
+    if isClass(target) and target:includes(PartyBattler) then
+        if (not target) or (target.chara:getHealth() <= 0) then -- Why doesn't this look at :canTarget()? Weird.
+            target = self:randomTargetOld()
+        end
+    end
+
+    if target == "ANY" then
+        target = self:randomTargetOld()
+
+        -- Calculate the average HP of the party.
+        -- This is "scr_party_hpaverage", which gets called multiple times in the original script.
+        -- We'll only do it once here, just for the slight optimization. This won't affect accuracy.
+
+        -- Speaking of accuracy, this function doesn't work at all!
+        -- It contains a bug which causes it to always return 0, unless all party members are at full health.
+        -- This is because of a random floor() call.
+        -- I won't bother making the code accurate; all that matters is the output.
+
+        local party_average_hp = 1
+
+        for _,battler in ipairs(self.party) do
+            if battler.chara:getStat("health") ~= battler.chara:getStat("health_def") then
+                party_average_hp = 0
+                break
+            end
+        end
+
+        -- Retarget... twice.
+        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
+            target = self:randomTargetOld()
+        end
+        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
+            target = self:randomTargetOld()
+        end
+
+        -- If we landed on Kris (or, well, the first party member), and their health is low, retarget (plot armor lol)
+        if (target == self.party[1]) and ((target.chara:getStat("health") / target.chara:getStat("health_def")) < 0.35) then
+            target = self:randomTargetOld()
+        end
+
+        -- They got hit, so un-darken them
+        target.should_darken = false
+        target.targeted = true
+    end
+
+    -- Now it's time to actually damage them!
+    if isClass(target) and target:includes(PartyBattler) then
+        target:mhp_hurt(amount, exact)
+        return {target}
+    end
+
+    if target == "ALL" then
+        Assets.playSound("hurt")
+        local alive_battlers = Utils.filter(self.party, function(battler) return not battler.is_down end)
+        for _,battler in ipairs(alive_battlers) do
+            battler:mhp_hurt(amount, exact, nil, {all = true})
+        end
+        -- Return the battlers who aren't down, aka the ones we hit.
+        return alive_battlers
+    end
+end
+
 --- Sets the waves table to what is specified by `waves`
 ---@param waves table<string|Wave>|string|Wave
 ---@param allow_duplicates? boolean If true, duplicate waves will coexist with each other
@@ -2254,6 +2573,14 @@ function Battle:nextTurn()
 
     for _,enemy in ipairs(self:getActiveEnemies()) do
         enemy:onTurnStart()
+
+        if enemy.powder_damage then
+            Assets.playSound("bump")
+            enemy:shake(5)
+            enemy:removeFX("powder_fx")
+            enemy.powder_damage = false
+            enemy.powder = false
+        end
     end
 
     if self.battle_ui then
@@ -2265,7 +2592,26 @@ function Battle:nextTurn()
     if self.current_selecting ~= 0 and self.state ~= "ACTIONSELECT" then
         self:setState("ACTIONSELECT")
     end
+    
+    for _,party in ipairs(Game.party) do
+        for _,spell in ipairs(party.spells) do
+            if spell.id == "echo" then
+                if #spell.spells > 0 then
+                    spell.spell_int = spell.spell_int + 1
+                    local selected_spell = spell.spell_int%#spell.spells
+                    if selected_spell == 0 then
+                        selected_spell = #spell.spells
+                    end
+                    spell.current_spell = spell.spells[selected_spell]
+                    spell.effect = "Current:\n" .. spell.current_spell:getName()
+                    spell.tags = spell.current_spell.tags
+                    spell.target = spell.current_spell.target
+                end
+            end
+        end
+    end
 end
+
 
 --- Checks to see whether the whole party is downed and starts a [`GameOver`](lua://GameOver.init) if they are
 function Battle:checkGameOver()
@@ -2288,7 +2634,9 @@ end
 
 --- Ends the battle and removes itself from `Game.battle`
 function Battle:returnToWorld()
-    if not Game:getConfig("keepTensionAfterBattle") then
+    -- TODO: Find out why is this must be a flag
+    if Game:getFlag("tension_storage") == true then
+    elseif not Game:getConfig("keepTensionAfterBattle") then
         Game:setTension(0)
     end
     self.encounter:setFlag("done", true)
@@ -2296,6 +2644,7 @@ function Battle:returnToWorld()
         self.encounter:setFlag("violenced", true)
     end
     self.transition_timer = 0
+    if self.back_row then self.party[4] = self.back_row end
     for _,battler in ipairs(self.party) do
         if self.party_world_characters[battler.chara.id] then
             self.party_world_characters[battler.chara.id].visible = true
@@ -2329,6 +2678,24 @@ function Battle:returnToWorld()
     self.encounter.defeated_enemies = self.defeated_enemies
     Game.battle = nil
     Game.state = "OVERWORLD"
+    if Game.bossrush_encounters then
+        table.remove(Game.bossrush_encounters, 1)
+        if #Game.bossrush_encounters > 0 then
+            local boss = Game:getBossRef(Game.bossrush_encounters[1])
+            if boss.mod == Mod.info.id then
+                Game:encounter(boss.encounter)
+            else
+                Kristal.swapIntoMod(boss.mod)
+            end
+        else
+            Game.bossrush_encounters = nil
+            -- TODO: Better default
+            local returning = Game:getFlag("bossrush_return", {mod = "dpr_main", map = "main_hub"})
+            -- Can't use Game:swapIntoMod because it kicks you
+            -- back to the title screen before that happens
+            Kristal.swapIntoMod(returning.mod, false, returning.map)
+        end
+    end
 end
 
 ---@param text          string|string[]
@@ -2597,6 +2964,19 @@ function Battle:update()
     if self.state == "TRANSITIONOUT" then
         self:updateTransitionOut()
     end
+
+	if self.superpower then
+		if (self.super_timer - (DT * 30))%10 > self.super_timer%10 then
+			Game:removeTension(1)
+
+			if Game.tension <= 0 then
+				self.superpower = false
+				self.music:play(self.encounter.music)
+			end
+		end
+
+		self.super_timer = self.super_timer + DT * 30
+	end
 end
 
 function Battle:updateChildren()
@@ -2621,8 +3001,13 @@ function Battle:updateIntro()
         for _,v in ipairs(self.party) do
             v:setAnimation("battle/idle")
         end
-        self:setState("ACTIONSELECT", "INTRO")
-        --self:nextTurn()
+		self.seen_encounter_text = false
+		if Mod.back_attack then
+			self:setState("ENEMYDIALOGUE", "INTRO")
+		else
+			self:setState("ACTIONSELECT", "INTRO")
+			--self:nextTurn()
+		end
     end
 end
 
@@ -2858,16 +3243,88 @@ function Battle:drawBackground()
     love.graphics.setLineWidth(1)
 
     for i = 2, 16 do
-        Draw.setColor(66 / 255, 0, 66 / 255, (self.transition_timer / 10) / 2)
+        if self.month == 2 and self.day == 14 then
+            Draw.setColor(128/255, 0/255, 85/255, self.transition_timer / 10 / 2)
+        elseif self.month == 10 then
+            Draw.setColor(204/255, 85/255, 0/255, (self.transition_timer / 10) / 2)
+        else
+            Draw.setColor(66/255, 0, 66/255, (self.transition_timer / 10) / 2)
+        end
         love.graphics.line(0, -210 + (i * 50) + math.floor(self.offset / 2), 640, -210 + (i * 50) + math.floor(self.offset / 2))
         love.graphics.line(-200 + (i * 50) + math.floor(self.offset / 2), 0, -200 + (i * 50) + math.floor(self.offset / 2), 480)
     end
 
     for i = 3, 16 do
-        Draw.setColor(66 / 255, 0, 66 / 255, self.transition_timer / 10)
+        if self.month == 2 and self.day == 14 then
+            Draw.setColor(128/255, 0/255, 85/255, self.transition_timer / 10)
+        elseif self.month == 10 then
+            Draw.setColor(204/255, 85/255, 0/255, self.transition_timer / 10)
+        else
+            Draw.setColor(66/255, 0, 66/255, self.transition_timer / 10)
+        end
         love.graphics.line(0, -100 + (i * 50) - math.floor(self.offset), 640, -100 + (i * 50) - math.floor(self.offset))
         love.graphics.line(-100 + (i * 50) - math.floor(self.offset), 0, -100 + (i * 50) - math.floor(self.offset), 480)
     end
+
+    if self.enable_particles then
+        local particle_to_remove = {}
+        for _,particle in ipairs(self.particles) do
+            particle.radius = Utils.approach(particle.radius, 0, DT)
+            particle.y = particle.y - particle.speed * DTMULT
+
+            if particle.radius <= 0 then
+                table.insert(particle_to_remove, particle)
+            end
+        end
+        for _,particle in ipairs(particle_to_remove) do
+            Utils.removeFromTable(self.particles, particle)
+        end
+
+        self.particle_interval = self.particle_interval + DT
+        if self.particle_interval >= 0.4 then
+            self.particle_interval = 0
+            local radius = Utils.random(2, 12)
+		
+            table.insert(self.particles, {
+                type = "hearts",
+                radius = radius, max_radius = radius,
+                x = Utils.random(SCREEN_WIDTH), y = SCREEN_HEIGHT + radius,
+                speed = 4 * Utils.random(0.5, 1),
+                scale = Utils.pick{1, 1.5, 2},
+            })
+        end
+		
+        for _,particle in ipairs(self.particles) do
+            if self.month == 2 and self.day == 14 then
+                Draw.setColor(196/255, 20/255, 152/255, (particle.radius / particle.max_radius) * self.transition_timer / 10)
+            else
+                Draw.setColor(1, 1, 1, (particle.radius / particle.max_radius) * self.transition_timer / 10)
+            end
+            if self.particles.type == "hearts" then
+                self.particle_tex = Assets.getTexture("player/heart_menu_outline")
+            end
+            local particle_ox, particle_oy = 0, 0
+            love.graphics.draw(self.particle_tex, particle.x, particle.y, particle.radius, particle.scale, particle.scale, particle_ox, particle_oy)
+        end
+    end
+	
+    if self.month == 2 and self.day == 14 then
+        self.enable_particles = true
+    else
+        self.enable_particles = false
+    end
+
+    if self.month == 10 then
+        for _,line in ipairs(self.lines) do
+            Draw.setColor(0.7, 0.7, 0.72, self.transition_timer / 10)
+            love.graphics.line(line:render())
+        end
+    end
+end
+
+function Battle:spawnWeb(x1, y1, x2, y2)
+    local curve = love.math.newBezierCurve(x1,y1, (x1+x2)/2,(y1+y2)/2 + love.math.random(20,100), x2,y2)
+    table.insert(self.lines, curve)
 end
 
 function Battle:isWorldHidden()
@@ -3080,9 +3537,9 @@ function Battle:onKeyPressed(key)
         if self.state == "DEFENDING" and key == "f" then
             self.encounter:onWavesDone()
         end
-        if self.soul and self.soul.visible and key == "j" then
-            local x, y = self:getSoulLocation()
+        if self.soul and key == "j" then
             self.soul:shatter(6)
+            self:getPartyBattler(Game:getSoulPartyMember().id):hurt(math.huge)
 
             -- Prevents a crash related to not having a soul in some waves
             self:spawnSoul(x, y)
@@ -3213,6 +3670,8 @@ function Battle:onKeyPressed(key)
                 self:pushAction("SPELL", enemy, self.selected_spell)
             elseif self.state_reason == "ITEM" then
                 self:pushAction("ITEM", enemy, self.selected_item)
+            elseif self.state_reason == "COMBO" then
+                self:pushAction("COMBO", enemy, self.selected_combo)
             else
                 self:nextParty()
             end
@@ -3227,6 +3686,8 @@ function Battle:onKeyPressed(key)
                 self:setState("MENUSELECT", "SPELL")
             elseif self.state_reason == "ITEM" then
                 self:setState("MENUSELECT", "ITEM")
+            elseif self.state_reason == "COMBO" then
+                self:setState("MENUSELECT", "COMBO")
             else
                 self:setState("ACTIONSELECT", "CANCEL")
             end
@@ -3279,6 +3740,8 @@ function Battle:onKeyPressed(key)
                 self:pushAction("SPELL", self.party[self.current_menu_y], self.selected_spell)
             elseif self.state_reason == "ITEM" then
                 self:pushAction("ITEM", self.party[self.current_menu_y], self.selected_item)
+            elseif self.state_reason == "COMBO" then
+                self:pushAction("COMBO", self.party[self.current_menu_y], self.selected_combo)
             else
                 self:nextParty()
             end
@@ -3384,8 +3847,35 @@ function Battle:handleActionSelectInput(key)
     end
 end
 
----@param key string
 function Battle:handleAttackingInput(key)
+	if Kristal.Config["altAttack"] then
+		local key_to_party_index = {
+			isConfirm = 1,
+			isCancel  = 2,
+			isMenu    = 3
+		}
+
+		for key_check, party_index in pairs(key_to_party_index) do
+			if Input[key_check](key) and not self.attack_done and not self.cancel_attack and #self.battle_ui.attack_boxes > 0 then
+				for _, attack in ipairs(self.battle_ui.attack_boxes) do
+					if attack.battler == Game.battle.party[party_index] then
+						local closeness = attack:getClose()
+						if closeness and closeness < 14.2 and closeness > -2 then
+							local points = attack:hit()
+							local action = self:getActionBy(attack.battler, true)
+							action.points = points
+							if self:processAction(action) then
+								self:finishAction(action)
+							end
+						end
+						break
+					end
+				end
+			end
+		end
+        return false
+	end
+
     if Input.isConfirm(key) then
         if not self.attack_done and not self.cancel_attack and #self.battle_ui.attack_boxes > 0 then
             local closest
@@ -3437,6 +3927,59 @@ end
 
 function Battle:canDeepCopy()
     return false
+end
+
+function Battle:mhp_pierce(amount, exact, target)
+    target = target or "ANY"
+
+
+    if type(target) == "number" then
+        target = self.party[target]
+    end
+
+    if isClass(target) and target:includes(PartyBattler) then
+        if (not target) or (target.chara:getHealth() <= 0) then -- Why doesn't this look at :canTarget()? Weird.
+            target = self:randomTargetOld()
+        end
+    end
+
+    if target == "ANY" then
+        target = self:randomTargetOld()
+
+        local party_average_hp = 1
+
+        for _,battler in ipairs(self.party) do
+            if battler.chara:getStat("health") ~= battler.chara:getStat("health_def") then
+                party_average_hp = 0
+                break
+            end
+        end
+
+        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
+            target = self:randomTargetOld()
+        end
+
+        -- They got hit, so un-darken them
+        target.should_darken = false
+        target.targeted = true
+    end
+
+    -- Now it's time to actually damage them!
+    if isClass(target) and target:includes(PartyBattler) then
+        target:mhp_pierce(amount, exact)
+        return {target}
+    end
+
+    if target == "ALL" then
+        Assets.playSound("hurt")
+        for _,battler in ipairs(self.party) do
+            if not battler.is_down then
+                battler:mhp_pierce(amount, exact, nil, {all = true})
+            end
+        end
+        -- Return the battlers who aren't down, aka the ones we hit.
+        return Utils.filter(self.party, function(item) return not item.is_down end)
+    end
 end
 
 return Battle

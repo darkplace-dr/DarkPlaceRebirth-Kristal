@@ -51,6 +51,9 @@ function item:init()
         susie = "Heh, you steal this? Heh.",
         ralsei = "It's beautiful...",
         noelle = "...",
+        jamm = "It's cold...",
+		dess = "you aborted snowgrave for this dialogue?",
+        ceroba = "It's like touching the ice..."
     }
 end
 

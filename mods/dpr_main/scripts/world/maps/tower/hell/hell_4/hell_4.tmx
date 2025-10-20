@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="15">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../../tilesets/hell.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="14">
+  <data encoding="csv">
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,0,
+32,32,32,32,32,32,0,0,0,0,0,0,0,0,0,0,
+32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,32,
+0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+0,0,0,0,0,0,0,0,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="320" y="0" width="320" height="240"/>
+  <object id="2" x="320" y="320" width="320" height="240"/>
+  <object id="3" x="0" y="480" width="320" height="80"/>
+  <object id="4" x="0" y="160" width="240" height="240"/>
+  <object id="7" x="0" y="0" width="320" height="80"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="4" name="objects">
+  <object id="13" name="transition" x="-40" y="80" width="40" height="80">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry_3"/>
+   </properties>
+  </object>
+  <object id="12" name="transition" x="-40" y="400" width="40" height="80">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry_2"/>
+   </properties>
+  </object>
+  <object id="14" name="transition" x="640" y="240" width="40" height="80">
+   <properties>
+    <property name="map" value="tower/hell/hell_5"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55ff7f" id="5" name="markers">
+  <object id="9" name="entry" x="40" y="440">
+   <point/>
+  </object>
+  <object id="10" name="entry_2" x="600" y="280">
+   <point/>
+  </object>
+  <object id="11" name="entry_3" x="40" y="120">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

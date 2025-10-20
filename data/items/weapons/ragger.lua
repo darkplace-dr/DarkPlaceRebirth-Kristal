@@ -50,6 +50,9 @@ function item:init()
         susie = "Ow! That can't be comfy!",
         ralsei = "Feels prickly... Nice!",
         noelle = "Ouch! ... kind of nice",
+        jamm = "Like a rose's thorn...",
+		dess = "who ever uses this",
+        ceroba = "Uncomfortable."
     }
 end
 

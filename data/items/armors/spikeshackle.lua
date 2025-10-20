@@ -49,6 +49,10 @@ function item:init()
         susie = "Get a load of THIS!",
         ralsei = "Looking SHARP!",
         noelle = "(It's tearing my sleeves...)",
+        dess = "ermmm unused item much?",
+        jamm = "Seems like a torture device.",
+        noel = "Good job using debug cheater.",
+        ceroba = "Hopefully it won't tear my clothes...",
     }
 end
 

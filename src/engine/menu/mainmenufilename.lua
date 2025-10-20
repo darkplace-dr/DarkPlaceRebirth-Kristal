@@ -32,7 +32,7 @@ function MainMenuFileName:onEnter(old_state)
         white_fade = mod.whiteFade ~= false and not mod.transition,
 
         on_confirm = function(name)
-            Kristal.loadMod(mod.id, self.menu.file_select.selected_y, name)
+            Kristal.startGameDPR(Utils.clamp(self.menu.file_select.selected_global, 1, 4), name)
 
             if mod.transition then
                 self.file_namer.name_preview.visible = false
@@ -61,11 +61,6 @@ function MainMenuFileName:onLeave(new_state)
     self.file_namer = nil
 
     self.menu.heart.visible = true
-end
-
-function MainMenuFileName:draw()
-    local mod_name = string.upper(self.menu.selected_mod.name or self.menu.selected_mod.id)
-    Draw.printShadow(mod_name, 16, 8)
 end
 
 return MainMenuFileName

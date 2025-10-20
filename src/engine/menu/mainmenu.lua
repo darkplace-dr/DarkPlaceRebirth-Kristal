@@ -46,11 +46,15 @@ function MainMenu:enter()
     self.mod_create = MainMenuModCreate(self)
     self.mod_config = MainMenuModConfig(self)
     self.mod_error = MainMenuModError(self)
-    self.file_select = MainMenuFileSelect(self)
+    self.file_select = MainMenuFileSelectDark(self)
+    self.completion_select = MainMenuCompletionSelect(self)
     self.file_name_screen = MainMenuFileName(self)
     self.default_name_screen = MainMenuDefaultName(self)
     self.controls = MainMenuControls(self)
     self.deadzone_config = MainMenuDeadzone(self)
+    self.dlc_list = MainMenuDLC(self)
+    self.warning = MainMenuWarning(self)
+    self.plugins = MainMenuPlugins(self)
 
     -- Register states
     self.state = "NONE"
@@ -63,10 +67,22 @@ function MainMenu:enter()
     self.state_manager:addState("MODCONFIG", self.mod_config)
     self.state_manager:addState("MODERROR", self.mod_error)
     self.state_manager:addState("FILESELECT", self.file_select)
+    self.state_manager:addState("COMPLETIONSELECT", self.completion_select)
     self.state_manager:addState("FILENAME", self.file_name_screen)
     self.state_manager:addState("DEFAULTNAME", self.default_name_screen)
     self.state_manager:addState("CONTROLS", self.controls)
     self.state_manager:addState("DEADZONE", self.deadzone_config)
+    self.state_manager:addState("DLC", self.dlc_list)
+    self.state_manager:addState("WARNING", self.warning)
+    self.state_manager:addState("plugins", self.plugins)
+
+    for _, mod in ipairs(Kristal.Mods.getMods()) do
+		if not mod.plugin then goto continue end
+		if not love.filesystem.getInfo(mod.path.."/options.lua") then goto continue end
+		local result = love.filesystem.load(mod.path.."/options.lua")(mod)
+		self.state_manager:addState("plugin_"..mod.id, result(MainMenu))
+		::continue::
+	end
 
     self.fader = Fader()
     self.fader.layer = 10000
@@ -96,10 +112,28 @@ function MainMenu:enter()
 
     self.mod_list:buildModList()
 
-    self.ver_string = "v" .. tostring(Kristal.Version)
+    self.ver_string = "Kristal v" .. tostring(Kristal.Version)
     local trimmed_commit = GitFinder:fetchTrimmedCommit()
     if trimmed_commit then
-        self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
+        self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
+    end
+    local dlc_ids = Utils.getKeys(Kristal.Mods.data)
+	for _,dlc in ipairs(dlc_ids) do
+		local our_mod = nil
+		for _,mod in ipairs(Kristal.Mods.list) do
+			if dlc == mod.id then
+				our_mod = mod
+				break
+			end
+		end
+		if our_mod.plugin_path then
+			Utils.removeFromTable(dlc_ids, dlc)
+		end
+	end
+    Utils.removeFromTable(dlc_ids, "dpr_main")
+    Utils.removeFromTable(dlc_ids, "dpr_light")
+    if #dlc_ids > 0 then
+        self.ver_string = self.ver_string .. "\nInstalled DLCs: " .. table.concat(dlc_ids, ", ")
     end
 
     if not self.music:isPlaying() then
@@ -108,8 +142,10 @@ function MainMenu:enter()
 
     if #Kristal.Mods.failed_mods > 0 then
         self:setState("MODERROR")
-    else
+    elseif Kristal.Config["seenLegitWarning"] and Kristal.Config["skipIntro"] then
         self:setState("TITLE")
+    else
+        self:setState("WARNING")
     end
 
     Kristal.setPresence({
@@ -296,6 +332,14 @@ function MainMenu:update()
         end
         self.heart.x = self.heart.x + ((self.heart_target_x - self.heart.x) / 2) * DTMULT
         self.heart.y = self.heart.y + ((self.heart_target_y - self.heart.y) / 2) * DTMULT
+    end
+
+    if Kristal.Shatter then
+        if Kristal.Config["enableShatter"] then
+            Kristal.Shatter.active = true
+        else
+            Kristal.Shatter.active = false
+        end
     end
 end
 

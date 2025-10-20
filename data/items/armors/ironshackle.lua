@@ -49,6 +49,11 @@ function item:init()
         susie = "(Damn, it's actually cool...)",
         ralsei = "*jingle jangle* Haha!",
         noelle = "I'm the ghost of holidays past!",
+        dess = "holy shit terraria reference?????",
+        jamm = "Relatable.",
+        ["jamm+marcy"] = "Relatable. // What do you mean, papa?",
+        noel = "Am I being detained?",
+        ceroba = "Surprisingly light.",
     }
 end
 

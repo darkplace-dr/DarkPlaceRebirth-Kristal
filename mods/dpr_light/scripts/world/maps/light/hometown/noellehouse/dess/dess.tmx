@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="38">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="deltarune/noelle_distant"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="4" name="bg" offsetx="-40" offsety="40">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/noellehouse/dess.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup id="8" name="objects_deco">
+  <object id="1" gid="91" x="46" y="308" width="160" height="182"/>
+  <object id="17" gid="118" x="92" y="140" width="56" height="32"/>
+ </objectgroup>
+ <objectgroup color="#5500ff" id="5" name="collision">
+  <object id="2" x="0" y="200" width="40" height="280"/>
+  <object id="3" x="520" y="200" width="40" height="280"/>
+  <object id="4" x="330" y="440" width="190" height="40"/>
+  <object id="5" x="40" y="440" width="210" height="40"/>
+  <object id="6" x="40" y="200" width="480" height="40"/>
+  <object id="21" x="40" y="240" width="166" height="46"/>
+  <object id="22" x="154" y="286" width="34" height="20"/>
+  <object id="23" x="466" y="408" width="44" height="32"/>
+  <object id="24" x="500" y="268" width="20" height="56"/>
+  <object id="25" x="482" y="324" width="38" height="46"/>
+  <object id="26" x="40" y="348" width="50" height="92"/>
+  <object id="27" x="90" y="402" width="108" height="38"/>
+  <object id="28" x="338" y="398" width="104" height="42"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="6" name="objects">
+  <object id="11" gid="92" x="334" y="440" width="116" height="64"/>
+  <object id="12" gid="93" x="458" y="440" width="58" height="50"/>
+  <object id="13" gid="95" x="476" y="380" width="48" height="136"/>
+  <object id="14" name="transition" x="250" y="480" width="80" height="40">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/noellehouse/main"/>
+    <property name="marker" value="entrydess"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="20" gid="94" x="46" y="440" width="156" height="92"/>
+  <object id="29" name="dess_guitar" x="400" y="184" width="36" height="68">
+   <properties>
+    <property name="flagcheck" value="!dess_guitar_stolen"/>
+   </properties>
+  </object>
+  <object id="30" name="interactable" x="66" y="228" width="124" height="40">
+   <properties>
+    <property name="text1" value="* (It's Dess's bed. Underneath are army rations,[wait:5] guitar picks,[wait:5] paintball gear,[wait:5] ice skates...)"/>
+    <property name="text2" value="* (...[wait:5] and a badly traced drawing of a dragon.)"/>
+   </properties>
+  </object>
+  <object id="31" name="interactable" x="344" y="404" width="94" height="28">
+   <properties>
+    <property name="text" value="* (It's a CD player. Underneath are tons of punk rock CDs...[wait:5] and one still-sealed ska CD.)"/>
+   </properties>
+  </object>
+  <object id="32" name="interactable" x="102" y="402" width="76" height="34">
+   <properties>
+    <property name="text" value="* (It's a computer. The monitor is unplugged.)"/>
+   </properties>
+  </object>
+  <object id="33" name="interactable" x="48" y="358" width="36" height="72">
+   <properties>
+    <property name="cutscene" value="noellehouse.dess_shelf"/>
+   </properties>
+  </object>
+  <object id="34" name="interactable" x="496" y="278" width="26" height="30">
+   <properties>
+    <property name="text" value="* Rollerblades,[wait:5] wiffle bat. Looking at these things make your head hurt."/>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="228" y="176" width="156" height="50">
+   <properties>
+    <property name="text" value="* (It's an excessively large walk-in closet.)"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="466" y="410" width="42" height="28">
+   <properties>
+    <property name="cutscene" value="noellehouse.dess_box"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="486" y="332" width="26" height="30">
+   <properties>
+    <property name="text1" value="* A violin,[wait:5] a flute,[wait:5] a microphone..."/>
+    <property name="text2" value="* They all look very expensive,[wait:5] and very dented."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="7" name="markers">
+  <object id="15" name="spawn" x="290" y="450">
+   <point/>
+  </object>
+  <object id="16" name="entry" x="290" y="458">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

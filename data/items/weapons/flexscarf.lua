@@ -51,6 +51,8 @@ function item:init()
         susie = "Looks like a giant caterpillar.  ", -- The whitespace is intentional?
         ralsei = "So pliable, like me!",
         noelle = "Twist it and... it's a wreath!",
+        jamm = "Flexible...",
+        ceroba = "Reminds me of a hair scrunchie."
     }
 end
 

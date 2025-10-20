@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = false,
+        ceroba = false
     }
 
     -- Character reactions
@@ -51,6 +52,8 @@ function item:init()
         susie = "ABSOLUTELY not.",
         ralsei = "Yeah!",
         noelle = "Go...  t... team?",
+        jamm = "GO US!",
+        ceroba = "I don't... Do healing."
     }
     -- Ralsei cheer reactions (advanced on each equip)
     self.ralsei_cheer_reactions = {

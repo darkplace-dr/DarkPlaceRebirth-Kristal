@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="dev"/>
+  <property name="music" value="dev"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/devroom_mono.tsx"/>
+ <tileset firstgid="145" source="../../../../tilesets/devroom_objects.tsx"/>
+ <tileset firstgid="149" source="../../../../tilesets/cctiles.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="24" height="16">
+  <data encoding="csv">
+17,17,17,17,37,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,38,17,17,17,
+17,17,17,37,102,53,53,41,41,41,41,41,41,41,41,41,41,41,53,53,100,38,17,17,
+17,17,37,102,114,41,41,41,0,0,0,0,0,0,0,0,0,41,41,41,112,100,38,17,
+17,17,18,114,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,53,0,52,16,17,
+29,29,30,0,0,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,0,52,16,17,
+53,53,54,0,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,52,16,17,
+41,41,54,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,16,17,
+53,53,54,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+65,65,66,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+14,14,14,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+5,5,6,14,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+17,17,18,14,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,14,16,17,
+17,17,49,6,14,14,14,14,14,14,14,14,14,14,14,14,14,14,86,86,14,4,50,17,
+17,17,17,49,5,5,5,5,5,5,5,5,5,5,5,5,5,6,86,86,4,50,17,17,
+17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,18,86,86,16,17,17,17
+</data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="24" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,9,10,10,10,10,10,10,10,10,10,11,0,0,0,0,0,0,
+0,0,0,0,0,0,0,21,22,22,22,22,22,22,22,22,22,23,0,0,0,0,0,0,
+0,0,0,0,114,0,0,21,22,22,22,22,22,22,22,22,22,23,0,0,112,112,0,0,
+0,0,0,114,126,0,0,33,34,34,34,34,34,34,34,34,34,35,0,0,124,112,0,0,
+0,0,0,126,138,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,124,0,0,
+0,0,0,138,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="6" name="collision">
+  <object id="4" x="160" y="560" width="560" height="80"/>
+  <object id="5" x="80" y="520" width="80" height="80"/>
+  <object id="6" x="0" y="440" width="120" height="80"/>
+  <object id="7" x="0" y="240" width="120" height="120"/>
+  <object id="8" x="120" y="120" width="40" height="160"/>
+  <object id="9" x="160" y="80" width="40" height="160"/>
+  <object id="10" x="200" y="160" width="600" height="40"/>
+  <object id="11" x="800" y="80" width="40" height="160"/>
+  <object id="12" x="840" y="120" width="40" height="160"/>
+  <object id="13" x="880" y="280" width="40" height="280"/>
+  <object id="14" x="840" y="520" width="40" height="80"/>
+  <object id="15" x="800" y="560" width="40" height="80"/>
+  <object id="30" x="450" y="480" width="80" height="40"/>
+  <object id="31" x="450" y="360" width="80" height="40"/>
+  <object id="33" x="450" y="240" width="80" height="40"/>
+  <object id="34" x="290" y="420" width="80" height="40"/>
+  <object id="36" x="290" y="290" width="80" height="40"/>
+  <object id="37" x="610" y="420" width="80" height="40"/>
+  <object id="39" x="610" y="290" width="80" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="objects">
+  <object id="16" name="transition" x="720" y="640" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/dev/main_1"/>
+    <property name="marker" value="party"/>
+   </properties>
+  </object>
+  <object id="17" name="dogconegroup" x="0" y="360" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="18" name="dogconegroup" x="0" y="400" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="jukebox" x="740" y="200">
+   <point/>
+  </object>
+  <object id="65" name="interactable" x="220" y="200" width="62" height="20">
+   <properties>
+    <property name="cutscene" value="partyroom.party"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="objects_tables">
+  <object id="55" gid="146" x="280" y="330" width="100" height="70"/>
+  <object id="56" gid="146" x="600" y="330" width="100" height="70"/>
+  <object id="57" gid="146" x="280" y="460" width="100" height="70"/>
+  <object id="58" gid="146" x="600" y="460" width="100" height="70"/>
+  <object id="59" gid="146" x="440" y="280" width="100" height="70"/>
+  <object id="60" gid="146" x="440" y="400" width="100" height="70"/>
+  <object id="61" gid="146" x="440" y="520" width="100" height="70"/>
+  <object id="63" name="npc" x="145" y="330">
+   <properties>
+    <property name="actor" value="susie"/>
+    <property name="cutscene" value="partyroom.susie"/>
+    <property name="sprite" value="wall_right"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" name="npc" x="330" y="420">
+   <properties>
+    <property name="actor" value="hero"/>
+    <property name="cutscene" value="partyroom.hero"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="68" name="npc" x="690" y="224">
+   <properties>
+    <property name="actor" value="dess"/>
+    <property name="cutscene" value="partyroom.dess"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="69" name="npc" x="464" y="240">
+   <properties>
+    <property name="actor" value="noelle"/>
+    <property name="cutscene" value="partyroom.noelle"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="71" name="npc" x="304" y="290">
+   <properties>
+    <property name="actor" value="kris"/>
+    <property name="cutscene" value="partyroom.kris"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="73" name="npc" x="624" y="290">
+   <properties>
+    <property name="actor" value="mario"/>
+    <property name="cutscene" value="partyroom.mario"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="74" name="npc" x="676" y="290">
+   <properties>
+    <property name="actor" value="pauling"/>
+    <property name="cutscene" value="partyroom.pauling"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="75" name="npc" x="830" y="500">
+   <properties>
+    <property name="actor" value="ostarwalker"/>
+    <property name="cutscene" value="partyroom.ostarwalker"/>
+    <property name="sprite" value="base"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="70" name="npc" x="516" y="240">
+   <properties>
+    <property name="actor" value="berdly"/>
+    <property name="cutscene" value="partyroom.berdly"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="72" name="npc" x="356" y="290">
+   <properties>
+    <property name="actor" value="ralsei"/>
+    <property name="cutscene" value="partyroom.ralsei"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="66" gid="148" x="220" y="220" width="62" height="104"/>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="7" name="markers">
+  <object id="3" name="main" x="760" y="600">
+   <point/>
+  </object>
+  <object id="40" name="spawn" x="760" y="400">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

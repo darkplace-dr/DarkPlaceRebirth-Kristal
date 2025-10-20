@@ -44,23 +44,22 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        susie = false
+        susie = false,
+        dess = false,
+        ceroba = false
     }
 
     -- Character reactions
-    if Game.chapter == 1 then
-        self.reactions = {
-            susie = "Nope. Not in 1st grade anymore.",
-            ralsei = "Um... D-do I look cute...?",
-            noelle = "... feels familiar.",
-        }
-    else
-        self.reactions = {
-            susie = "I said NO! C'mon already!",
-            ralsei = "It's nice being dressed up...",
-            noelle = "... feels familiar.",
-        }
-    end
+    self.reactions = {
+        susie = "I said NO! C'mon already!",
+        ralsei = "It's nice being dressed up...",
+        noelle = "... feels familiar.",
+        dess = "ew i hate pink things",
+        jamm = "How adorable!",
+        ["jamm+marcy"] = "It looks great on you, Marcy!",
+        noel = "More tension?",
+        ceroba = "A bit too small.",
+    }
 end
 
 return item

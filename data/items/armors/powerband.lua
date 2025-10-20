@@ -48,6 +48,8 @@ function item:init()
         susie = "BLOOD POWER ACTIVATE!",
         ralsei = "I'm juiced up!",
         noelle = "Why always jewelry?",
+        jamm = "I feel powered up!",
+        ceroba = "(Makes me feel stronger than usual...)"
     }
 end
 

@@ -50,6 +50,11 @@ function item:init()
         susie = "What's this!? A CHOPSTICK?",
         ralsei = "That's yours, Kris...",
         noelle = "(It has bite marks...)",
+	    dess = "I'm not a fucking nerd",
+        brenda = "How do you even hurt someone with this?",
+	    jamm = "Ow! Splinter...",
+        noel = "you can only get one of these...",
+        ceroba = "Looks like just a big toy."
     }
 end
 

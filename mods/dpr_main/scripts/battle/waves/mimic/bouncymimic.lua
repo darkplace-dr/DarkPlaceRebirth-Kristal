@@ -1,0 +1,22 @@
+local BouncyMimic, super = Class(Wave)
+
+function BouncyMimic:onStart()
+    ---@type EnemyBattler.Mimic
+    local mimic = Game.battle:getEnemyBattler("mimic")
+    mimic:morph("poseur")
+    self.timer:every(1/8, function()
+        local posx = Utils.random(Game.battle.arena.left, Game.battle.arena.right)
+        local posy = Game.battle.arena.top
+
+        -- Spawn smallbullet going left with speed 8 (see scripts/battle/bullets/smallbullet.lua)
+        self:spawnBullet("poseur/bouncybullet", posx, posy)
+    end)
+end
+
+function BouncyMimic:update()
+    -- Code here gets called every frame
+
+    super.update(self)
+end
+
+return BouncyMimic

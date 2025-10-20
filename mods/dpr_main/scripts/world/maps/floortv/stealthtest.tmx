@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="91">
+ <editorsettings>
+  <export target="stealthtest.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="teevie"/>
+  <property name="keepmusic" type="bool" value="true"/>
+  <property name="punish_map" value="floortv/stealthtest"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/teevie_land_backstage.tsx"/>
+ <tileset firstgid="280" source="../../tilesets/teevie_land.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="32" height="12">
+  <data encoding="csv">
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,
+66,47,46,47,46,47,46,47,46,47,46,47,46,47,46,67,66,47,46,47,46,47,46,47,46,47,46,47,46,47,46,67,
+66,46,47,46,47,46,47,46,47,46,47,46,47,46,47,67,66,46,47,46,47,46,47,46,47,46,47,46,47,46,47,67,
+66,47,46,47,46,47,46,47,46,47,46,47,46,47,46,67,66,47,46,47,46,47,46,47,46,47,46,47,46,47,46,67,
+66,46,47,46,47,46,47,46,47,46,47,46,47,46,47,67,66,46,47,46,47,46,47,46,47,46,47,46,47,46,47,67,
+83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,83,84,
+92,93,92,93,92,93,92,93,19,19,19,19,19,19,92,93,92,93,92,93,92,93,92,93,19,19,19,19,19,19,92,93,
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,83,84,19,19,19,19,19,19,19,19,19,19,19,19,19,19,83,84,
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,
+19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19
+</data>
+ </layer>
+ <layer id="6" name="Tile Layer 2" width="32" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="5" name="collision">
+  <object id="1" x="-10" y="200" width="1290" height="40"/>
+  <object id="6" x="640" y="320" width="320" height="40"/>
+  <object id="7" x="1200" y="320" width="80" height="40"/>
+  <object id="14" x="960" y="280" width="240" height="80"/>
+  <object id="70" x="0" y="320" width="320" height="40"/>
+  <object id="71" x="320" y="280" width="240" height="80"/>
+  <object id="72" x="560" y="320" width="80" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff5500" id="3" name="objects_sneaking">
+  <object id="4" name="teevie_sneakzone" x="720" y="240" width="480" height="2"/>
+  <object id="16" name="teevie_sneakhead" x="720" y="420">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="teevie_sneakhead" x="780" y="450">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="18" name="teevie_sneakhead" x="810" y="410">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="19" name="teevie_sneakhead" x="870" y="460">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="20" name="teevie_sneakhead" x="910" y="420">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="21" name="teevie_sneakhead" x="960" y="470">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="22" name="teevie_sneakhead" x="1000" y="410">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="23" name="teevie_sneakhead" x="1040" y="450">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="24" name="teevie_sneakhead" x="1110" y="410">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="28" name="teevie_sneakhead" x="1160" y="460">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="29" name="teevie_sneakhead" x="1230" y="430">
+   <properties>
+    <property name="type" value="shadowguy"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="73" name="teevie_sneakhead" x="80" y="430">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="74" name="teevie_sneakhead" x="140" y="460">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="76" name="teevie_sneakhead" x="250" y="470">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="77" name="teevie_sneakhead" x="300" y="450">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="78" name="teevie_sneakhead" x="190" y="440">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="79" name="teevie_sneakhead" x="360" y="440">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="80" name="teevie_sneakhead" x="410" y="460">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="81" name="teevie_sneakhead" x="470" y="440">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="82" name="teevie_sneakhead" x="520" y="460">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="83" name="teevie_sneakhead" x="590" y="440">
+   <properties>
+    <property name="type" value="zapper"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="85" name="teevie_sneakzone" x="80" y="240" width="480" height="2"/>
+ </objectgroup>
+ <objectgroup color="#ff5500" id="7" name="objects_sneaklights">
+  <object id="12" name="teevie_sneaklight" x="840" y="272">
+   <properties>
+    <property name="catchtype" type="int" value="0"/>
+    <property name="cutscene" value="tvfloor.sneakattack_shadowguy"/>
+    <property name="movetype" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="teevie_sneaklight" x="1080" y="316">
+   <properties>
+    <property name="catchtype" type="int" value="1"/>
+    <property name="cutscene" value="tvfloor.sneakattack_shadowguy"/>
+    <property name="movetype" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="88" name="teevie_sneaklight" x="200" y="270">
+   <properties>
+    <property name="catchtype" type="int" value="0"/>
+    <property name="cutscene" value="tvfloor.sneakattack_zapper"/>
+    <property name="movetype" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="89" name="teevie_sneaklight" x="440" y="314">
+   <properties>
+    <property name="catchtype" type="int" value="1"/>
+    <property name="cutscene" value="tvfloor.sneakattack_zapper"/>
+    <property name="movetype" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="15" name="transition" x="-40" y="240" width="40" height="80">
+   <properties>
+    <property name="map" value="floortv/stealthtest"/>
+   </properties>
+  </object>
+  <object id="31" name="transition" x="1280" y="240" width="40" height="80">
+   <properties>
+    <property name="map" value="floortv/pre_elevator"/>
+    <property name="market" value="entry_left"/>
+   </properties>
+  </object>
+  <object id="90" name="transition" x="-80" y="250" width="40" height="80">
+   <properties>
+    <property name="map" value="floortv/stealthtest"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="2" name="markers">
+  <object id="5" name="spawn" x="40" y="280">
+   <point/>
+  </object>
+  <object id="30" name="entry_cage" x="600" y="280">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

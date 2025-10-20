@@ -50,6 +50,8 @@ function item:init()
         susie = "Eat dirt, losers.",
         ralsei = "Could I wash it off first?",
         noelle = "N-no way! Susie wouldn't use that!",
+        jamm = "How'd you even...",
+        ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
     }
 end
 

@@ -50,12 +50,20 @@ function item:init()
         susie = "Uhhh... Ok.",
         ralsei = "A perfect fit!",
         noelle = "Wh... what is this?",
+		dess = "boringggg but ok",
+        noel = "Nice try...",
+        jamm = "Now how do I use this...",
+        ceroba = "I suppose I can use that..."
     }
 end
 
 function item:canEquip(character, slot_type, slot_index)
-    -- Equippable to all characters
-    return true
+    -- Equippable to *nearly* all characters
+    if character.id == "noel" then
+        return false
+    else
+        return true
+    end
 end
 
 return item

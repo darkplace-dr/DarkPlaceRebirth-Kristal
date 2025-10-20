@@ -14,7 +14,7 @@ function item:init()
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = ""
+    self.shop = "Magic up. It\nlooks cool!"
     -- Menu description
     self.description = "A golden coin with a once-powerful mousewizard engraved on it."
 
@@ -48,6 +48,12 @@ function item:init()
         susie = "This guy's... familiar?",
         ralsei = "Chu! Healing power UP!",
         noelle = "... from the family entertainment center?",
+        dess = "ermmm possible chuck-e-cheese reference?",
+        jamm = "This brings back memories.",
+        ["jamm+marcy"] = "Marcy wants to go there! // Maybe soon, Marcy.",
+        noel = "Is this from a resturant?",
+        ceroba = "Isn't that just a normal coin?",
+        suzy = "Rest In Pepperonis",
     }
 end
 

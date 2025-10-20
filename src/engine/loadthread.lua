@@ -6,6 +6,8 @@ json = require("src.lib.json")
 
 verbose = false
 
+kristal_config = {}
+
 --[[if love.filesystem.getInfo("mods/example/_GENERATED_FROM_MOD_TEMPLATE") then
     love.filesystem.mount("mod_template/assets", "mods/example/assets")
     love.filesystem.mount("mod_template/scripts", "mods/example/scripts")
@@ -81,6 +83,7 @@ function resetData()
 
     path_loaded = {
         ["mods"] = {},
+        ["plugins"] = {},
 
         ["sprites"] = {},
         ["fonts"] = {},
@@ -129,6 +132,10 @@ local loaders = {
 
             if love.filesystem.getInfo(full_path .. "/preview.lua") then
                 mod.preview_script_path = full_path .. "/preview.lua"
+            end
+			
+			if love.filesystem.getInfo(full_path .. "/plugin.lua") then
+                mod.plugin_path = full_path .. "/plugin.lua"
             end
 
             if love.filesystem.getInfo(full_path .. "/bg.png") then
@@ -214,43 +221,90 @@ local loaders = {
             end
 
             mod.libs = mod.libs or {}
+            mod.sharedlibs = mod.sharedlibs or {}
+
+            local function loadLib(lib_dir_path, lib_path, callback)
+                local lib_full_path = lib_dir_path .. lib_path
+                local lib_zip_id = checkExtension(lib_path, "zip")
+                if lib_zip_id then
+                    local mounted_path = lib_full_path
+                    lib_full_path = lib_dir_path .. lib_zip_id
+                    lib_path = lib_zip_id
+                    love.filesystem.mount(mounted_path, lib_full_path)
+                end
+
+                local lib = {}
+
+                ok = true
+
+                if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
+                    ok, lib = pcall(json.decode, love.filesystem.read(lib_full_path .. "/lib.json"))
+                end
+
+                if not ok then
+                    table.insert(data.failed_mods, {
+                        path = lib_dir_path,
+                        error = lib,
+                        file = "lib.json"
+                    })
+                    print("[WARNING] Mod \"" .. lib_dir_path .. "\" has a library with an invalid lib.json!")
+                    return
+                end
+
+                lib.id = lib.id or lib_path
+                lib.folder = lib_path
+                lib.path = lib_full_path
+                callback(lib)
+            end
+
+            local active_sharedlibs = {}
+
+            if love.filesystem.getInfo("/sharedlibs/") then
+                local all_sharedlibs = {}
+                local loaddeps
+                function loaddeps(lib)
+                    if active_sharedlibs[lib.id] then return end
+                    active_sharedlibs[lib.id] = lib
+                    for _, deplib in ipairs(lib.dependencies or {}) do
+                        loaddeps(all_sharedlibs[deplib])
+                    end
+                end
+                local dirs = love.filesystem.getDirectoryItems("/sharedlibs")
+                for _, lib_path in ipairs(dirs) do
+                    loadLib("sharedlibs/", lib_path, function (lib)
+                        all_sharedlibs[lib.id] = lib
+                    end)
+                end
+                for lib_id, lib in pairs(all_sharedlibs) do
+                    local lib_path = lib.path:sub(#"sharedlibs/")
+                    local enabled = lib.default or lib.preload_assets or false
+                    if mod.config and mod.config[lib.id] then
+                        enabled = true
+                    end
+                    for _, value in ipairs(mod.sharedlibs) do
+                        if value == lib.id then
+                            enabled = true
+                            break
+                        end
+                    end
+                    if enabled then
+                        loaddeps(lib)
+                    end
+                end
+            end
+
+            for id, lib in pairs(active_sharedlibs) do
+                mod.libs[lib.id] = lib
+            end
 
             if love.filesystem.getInfo(full_path .. "/libraries") then
                 for _, lib_path in ipairs(love.filesystem.getDirectoryItems(full_path .. "/libraries")) do
-                    local lib_full_path = full_path .. "/libraries/" .. lib_path
-                    local lib_zip_id = checkExtension(lib_path, "zip")
-                    if lib_zip_id then
-                        local mounted_path = lib_full_path
-                        lib_full_path = full_path .. "/libraries/" .. lib_zip_id
-                        lib_path = lib_zip_id
-                        love.filesystem.mount(mounted_path, lib_full_path)
-                    end
-
-                    local lib = {}
-
-                    ok = true
-
-                    if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
-                        ok, lib = pcall(json.decode, love.filesystem.read(lib_full_path .. "/lib.json"))
-                    end
-
-                    if not ok then
-                        table.insert(data.failed_mods, {
-                            path = path,
-                            error = lib,
-                            file = "lib.json"
-                        })
-                        print("[WARNING] Mod \"" .. path .. "\" has a library with an invalid lib.json!")
-                        return
-                    end
-
-                    lib.id = lib.id or lib_path
-                    lib.folder = lib_path
-                    lib.path = lib_full_path
-
-                    mod.libs[lib.id] = lib
+                    loadLib(full_path .. "/libraries/", lib_path, function(lib)
+                        mod.libs[lib.id] = lib
+                    end)
                 end
             end
+
 
             -- Fail mod loading if library dependencies are unfulfilled
             for _, lib in pairs(mod.libs) do
@@ -264,6 +318,59 @@ local loaders = {
                         })
                         print("[WARNING] Issue loading mod \"" .. path .. "\" - " .. error)
                         return
+                    end
+                end
+            end
+
+            data.mods[mod.id] = mod
+        end
+    end },
+	
+	["plugins"] = { "plugins", function (base_dir, path, full_path)
+        local zip_id = checkExtension(path, "zip")
+        if zip_id then
+            local mounted_path = full_path
+            full_path = combinePath(base_dir, "plugins", zip_id)
+            path = zip_id
+            love.filesystem.mount(mounted_path, full_path)
+        end
+		if (path:sub(-9) == "/mod.json") then
+			full_path = full_path:gsub("%/mod.json", "")
+			path = path:gsub("%/mod.json", "")
+		end
+        if love.filesystem.getInfo(full_path .. "/mod.json") then
+            local ok, mod = pcall(json.decode, love.filesystem.read(full_path .. "/mod.json"))
+
+            if love.filesystem.getInfo(full_path .. "/_GENERATED_FROM_MOD_TEMPLATE") then
+                full_path = "mod_template"
+            end
+
+            if not ok then
+                table.insert(data.failed_mods, {
+                    path = path,
+                    error = mod,
+                    file = "mod.json"
+                })
+                print("[WARNING] Mod \"" .. path .. "\" has an invalid mod.json!")
+                return
+            end
+
+            mod.id = mod.id or path
+            mod.folder = path
+            mod.path = full_path
+			
+			if love.filesystem.getInfo(full_path .. "/preview.lua") then
+                mod.preview_script_path = full_path .. "/preview.lua"
+            end
+			
+			if love.filesystem.getInfo(full_path .. "/plugin.lua") then
+                mod.plugin_path = full_path .. "/plugin.lua"
+            end
+			
+			if love.filesystem.getInfo(full_path .. "/preview") then
+                for _, file in ipairs(love.filesystem.getDirectoryItems(full_path .. "/preview")) do
+                    if file == "preview.lua" then
+                        mod.preview_script_path = full_path .. "/preview/preview.lua"
                     end
                 end
             end
@@ -370,6 +477,7 @@ local loaders = {
 
 function loadPath(baseDir, loader, path, pre)
     if path_loaded[loader][path] then return end
+    if kristal_config["borders"] == "off" and loader == "sprites" and path:sub(1,#("borders")) == "borders" then end
 
     if verbose then
         out_channel:push({ status = "loading", loader = loader, path = path })
@@ -390,7 +498,7 @@ function loadPath(baseDir, loader, path, pre)
     local full_path = combinePath(baseDir, loaders[loader][1], path)
     local info = love.filesystem.getInfo(full_path)
     if info then
-        if info.type == "directory" and (loader ~= "mods" or path == "") then
+        if info.type == "directory" and ((loader ~= "mods" and loader ~= "plugins") or path == "") then
             local files = love.filesystem.getDirectoryItems(full_path)
             for _, file in ipairs(files) do
                 if not pre or pre == "" or file:sub(1, #pre) == pre then
@@ -418,6 +526,8 @@ while true do
         verbose = true
     elseif msg == "stop" then
         break
+    elseif msg.config then
+        kristal_config = msg.config
     else
         local key = msg.key or 0
         local baseDir = msg.dir or ""
@@ -429,10 +539,12 @@ while true do
 
         if loader == "all" then
             for k, _ in pairs(loaders) do
-                -- dont load mods when we load with "all"
-                if k ~= "mods" then
-                    for _, path in ipairs(paths) do
-                        loadPath(baseDir, k, path)
+                -- dont load mods and plugins when we load with "all"
+                if (k ~= "mods" and k ~= "plugins") then
+                    if (k ~= "sprites" or not kristal_config.lazySprites ) then
+                        for _, path in ipairs(paths) do
+                            loadPath(baseDir, k, path)
+                        end
                     end
                 end
             end

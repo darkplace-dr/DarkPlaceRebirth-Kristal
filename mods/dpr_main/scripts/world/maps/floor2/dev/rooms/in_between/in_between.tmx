@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
+ <editorsettings>
+  <export target="in_between.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="dev_inbetween"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/devroom_mono.tsx"/>
+ <tileset firstgid="145" source="../../../../../tilesets/floor2/dirty_secrets/hoteldoors.tsx"/>
+ <layer id="1" name="tiles" width="24" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,0,0,
+41,41,41,41,41,0,0,41,0,0,41,0,0,41,0,0,41,0,0,41,41,42,0,0,
+53,53,53,53,53,0,0,53,0,0,53,0,0,53,0,0,53,0,0,53,53,54,0,0,
+65,65,65,65,65,137,137,137,137,137,137,137,137,137,137,137,137,137,137,65,65,66,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,0,0,
+26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,27,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="3" name="collision">
+  <object id="1" x="0" y="400" width="880" height="40"/>
+  <object id="13" x="0" y="240" width="880" height="40"/>
+  <object id="14" x="880" y="280" width="40" height="120"/>
+ </objectgroup>
+ <objectgroup id="2" name="objects">
+  <object id="4" gid="146" x="208" y="280" width="64" height="100"/>
+  <object id="9" gid="151" x="568" y="280" width="64" height="100"/>
+  <object id="10" gid="152" x="688" y="280" width="64" height="100"/>
+  <object id="11" gid="148" x="448" y="280" width="64" height="100"/>
+  <object id="12" gid="145" x="328" y="280" width="64" height="100"/>
+  <object id="15" name="transition" x="-40" y="280" width="40" height="120">
+   <properties>
+    <property name="map" value="floor2/dev/pre_elevator"/>
+    <property name="marker" value="main"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="markers">
+  <object id="17" name="spawn" x="40" y="340">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

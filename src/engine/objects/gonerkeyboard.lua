@@ -30,7 +30,20 @@ GonerKeyboard.MODES = {
             {"k", "l", "m", "n", "o", "p", "q", "r", "s", "t"},
             {"u", "v", "w", "x", "y", "z", "BACK", "<<", "END", "<<"}
         }
-    }
+    },
+    ["warpbin"] = {
+        x      = 136,
+        y      = 140,
+        step_x = 40,
+        step_y = 40,
+        name_y = 80,
+        keyboard = {
+            {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "_"},
+            {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "-"},
+            {"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "<<"},
+            {"U", "V", "W", "X", "Y", "Z", "BACK", "<<", "END", "<<", "<<"},
+        }
+    },
 }
 
 function GonerKeyboard:init(limit, mode, callback, key_callback)

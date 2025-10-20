@@ -1,0 +1,90 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floor1/main/main.tmx",
+            "height": 1080,
+            "width": 920,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floor1/marketplace.tmx",
+            "height": 480,
+            "width": 1240,
+            "x": -1320,
+            "y": 320
+        },
+        {
+            "fileName": "maps/floor1/pregreatdoor.tmx",
+            "height": 960,
+            "width": 800,
+            "x": 1000,
+            "y": -600
+        },
+        {
+            "fileName": "maps/floor1/tutorialmasters/tutorialmasters.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 1000,
+            "y": 360
+        },
+        {
+            "fileName": "maps/floor1/main_south/main_south.tmx",
+            "height": 1120,
+            "width": 1320,
+            "x": -200,
+            "y": 1160
+        },
+        {
+            "fileName": "maps/floor1/dess_house.tmx",
+            "height": 560,
+            "width": 640,
+            "x": -920,
+            "y": 1720
+        },
+        {
+            "fileName": "maps/floor1/starwalker/starwalker.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 1200,
+            "y": 1720
+        },
+        {
+            "fileName": "maps/floor1/benchroom.tmx",
+            "height": 2080,
+            "width": 2200,
+            "x": 3000,
+            "y": -800
+        },
+        {
+            "fileName": "maps/floor1/spamgolor_meeting.tmx",
+            "height": 480,
+            "width": 920,
+            "x": 1000,
+            "y": 760
+        },
+        {
+            "fileName": "maps/floor1/traininggrounds.tmx",
+            "height": 600,
+            "width": 880,
+            "x": 2000,
+            "y": 560
+        },
+        {
+            "fileName": "maps/floor1/fuseroom.tmx",
+            "height": 480,
+            "width": 960,
+            "x": -1040,
+            "y": 800
+        },
+        {
+            "fileName": "maps/floor1/fluffys_palace.tmx",
+            "height": 896,
+            "width": 896,
+            "x": 1012,
+            "y": 2304
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

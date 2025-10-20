@@ -226,6 +226,7 @@ KRISTAL_EVENT = {
     getConfig = "getConfig", -- intercept mod's config value / at: Game:getConfig(key, merge, deep_merge) / passes: string:key / returns: nil|any
     getPaletteColor = "getPaletteColor", -- intercept rgba color pallete value / at: (metatable@PALETTE).__index(t,i) / passes: string:i / returns: nil|table
     getSoulColor = "getSoulColor", -- intercept rgba soul color value / at: Game:getSoulColor() / passes: NONE / returns nil|table
+    getSoulFacing = "getSoulFacing", -- intercept soul facing value / at: Game:getSoulFacing() / passes: NONE / returns nil|string
 
     --battle events--
     onActionSelect = "onActionSelect", -- overrides action button selection / at: ActionButton:select() / passes: Battler:battler, ActionButton:self / returns: bool
@@ -286,5 +287,14 @@ KRISTAL_EVENT = {
     onRegisterEventScripts = "onRegisterEventScripts", -- event scripts finished registering / in: Registry.initEvents() / passes: NONE / returns: NONE
     onRegisterControllers = "onRegisterControllers", -- controller scripts finished registering / in: Registry.initControllers() / passes: NONE / returns: NONE
     onRegisterShops = "onRegisterShops", -- shop scripts finished registering / in: Registry.initShops() / passes: NONE / returns: NONE
+    onRegisterMinigames = "onRegisterMinigames", -- minigame scripts finished registering / in: Registry.initMinigames() / passes: NONE / returns: NONE
     onRegistered = "onRegistered", -- all scripts finished registering / in: Registry.initialize(preload) / passes: NONE / returns: NONE
+
+    --dark place events--
+    onDPDessTalk = "onDPDessTalk", -- talked to dess in Dess - THE BEGINNING / in: dpr_main/scripts/world/cutscenes/desslmao.lua / passes: NONE / returns: NONE
+    onDPMbStart = "onDPMbStart", -- kris will lose / in: scripts/world/maps/​/map.lua / passes: NONE / returns: NONE
+    onDPMbEnd = "onDPMbEnd", -- kris lost / in: scripts/world/maps/​/map.lua / passes: NONE / returns: NONE
+    onDPUnlockPartyMember = "onDPUnlockPartyMember", -- player unlocked a new party member / in: Game:unlockPartyMember(member) / passes: string:member / returns: NONE
+    onDPWarpBinUsed = "onDPWarpBinUsed", -- player used the warp bin / in: Game:unlockPartyMember(member) / passes: string:code, WarpBinCodeInfo?:action / returns: NONE
+    drawScreen = "drawScreen", -- overrides drawing SCREEN_CANVAS and border / in: [HOOK]love.draw(...)J\love.load(args) / passes: Canvas:canvas / returns: bool
 }

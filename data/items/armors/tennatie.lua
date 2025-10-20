@@ -49,6 +49,8 @@ function item:init()
         susie = "Bandana-style.",
         ralsei = "Like a sash...?",
         noelle = "Look, I'm like a gift!",
+        jamm = "I'll just... wrap it around my arm.",
+        ceroba = "Guess it can go in my hair..."
     }
 end
 

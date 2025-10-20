@@ -47,7 +47,10 @@ function item:init()
     self.reactions = {
         susie = "Don't throw mints at me!",
         ralsei = "It's minty!",
-        noelle = "What are you throwing?"
+        noelle = "What are you throwing?",
+		dess = "oh shiit food fight",
+        jamm = "Mints aren't my favorite, but...",
+        ceroba = "Could've just gave it normally...",
     }
 end
 
@@ -60,7 +63,9 @@ end
 
 function item:onBattleUse(user, target)
     for _,battler in ipairs(Game.battle.party) do
-        if battler.chara:getHealth() <= 0 then
+        if battler.chara:getStat("health") <= 0 then
+            battler:restoreMaxHealth(math.abs(target.chara:getHealth()) + target.chara:getStat("health_def"))
+        elseif battler.chara:getHealth() <= 0 then
             battler:heal(math.abs(battler.chara:getHealth()) + battler.chara:getStat("health"))
         else
             battler:heal(Game.battle:applyHealBonuses(50, user.chara))

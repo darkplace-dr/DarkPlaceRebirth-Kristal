@@ -15,13 +15,23 @@ function MainMenuTitle:init(menu)
     self.menu = menu
 
     self.logo = Assets.getTexture("kristal/title_logo_shadow")
+    
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.logo = Assets.getTexture("kristal/title_logo_sun")
+    end
 
     self.selected_option = 1
+end
+
+function MainMenuTitle:update()
+    -- Do nothing?
 end
 
 function MainMenuTitle:registerEvents()
     self:registerEvent("enter", self.onEnter)
     self:registerEvent("keypressed", self.onKeyPressed)
+    self:registerEvent("update", self.update)
     self:registerEvent("draw", self.draw)
 end
 
@@ -35,6 +45,7 @@ function MainMenuTitle:onEnter(old_state)
     if TARGET_MOD then
         self.options = {
             {"play",    self.has_target_saves and "Load game" or "Start game"},
+            {"dlc",     "Manage DLCs"},
             {"options", "Options"},
             {"credits", "Credits"},
             {"quit",    "Quit"},
@@ -42,7 +53,7 @@ function MainMenuTitle:onEnter(old_state)
     else
         self.options = {
             {"play",      "Play a mod"},
-            {"modfolder", "Open mods folder"},
+            {"dlc",       "Manage DLCs"},
             {"options",   "Options"},
             {"credits",   "Credits"},
             {"wiki",      "Open wiki"},
@@ -68,10 +79,15 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
         if option == "play" then
             if not TARGET_MOD then
                 self.menu:setState("MODSELECT")
-				if MainMenu.mod_list:getSelectedMod() and MainMenu.mod_list:getSelectedMod().soulColor then
-					MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
-				end
-            elseif self.has_target_saves then
+				if MainMenu.mod_list:getSelectedMod() then
+                    if MainMenu.mod_list:getSelectedMod().soulColor then
+                        MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+                    end
+                    if MainMenu.mod_list:getSelectedMod().soulFacing then
+                        MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
+                    end
+				end 
+            elseif self.menu.selected_mod["useSaves"] or self.menu.selected_mod["useSaves"] == nil and (not self.menu.selected_mod["encounter"] or self.has_target_saves) then
                 self.menu:setState("FILESELECT")
             else
                 if not Kristal.loadMod(TARGET_MOD, 1) then
@@ -79,6 +95,9 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
                 end
             end
 
+        elseif option == "dlc" then
+            self.menu:setState("DLC")
+            --love.system.openURL("file://"..love.filesystem.getSource().."/mods")
         elseif option == "modfolder" then
             -- FIXME: the game might freeze when using love.system.openURL to open a file directory
             if (love.system.getOS() == "Windows") then
@@ -126,7 +145,13 @@ function MainMenuTitle:draw()
     --Draw.draw(self.selected_mod and self.selected_mod.logo or self.logo, 160, 70)
 
     for i, option in ipairs(self.options) do
-        Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
+        local date = os.date("*t")
+        if date.month == 4 and date.day == 1 then
+            Draw.setColor(0, 0, 0, 1)
+            Draw.printLight(option[2], 215, 219 + 32 * (i - 1))
+        else
+            Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
+        end
     end
 end
 

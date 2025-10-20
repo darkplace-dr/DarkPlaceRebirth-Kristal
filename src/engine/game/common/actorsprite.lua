@@ -434,8 +434,9 @@ function ActorSprite:update()
                 -- Old frame for reference
                 local old_frame = math.floor(self.walk_frame)
 
+                local anim_speed = self.actor.walk_anim_speed or 1
                 -- Increase our walking frame
-                self.walk_frame = self.walk_frame + (DT * (self.walk_speed > 0 and self.walk_speed or 1))
+                self.walk_frame = self.walk_frame + (DT * (self.walk_speed > 0 and self.walk_speed or 1) * anim_speed)
 
                 -- Our current frame we should actually render using
                 local floored_frame = math.floor(self.walk_frame)
@@ -464,6 +465,10 @@ function ActorSprite:update()
         self.run_away_timer = self.run_away_timer + DTMULT
     end
 
+    if self.run_away_2 then
+        self.run_away_timer_2 = self.run_away_timer_2 + DTMULT
+    end
+
     super.update(self)
 
     self.actor:onSpriteUpdate(self)
@@ -487,6 +492,16 @@ function ActorSprite:draw()
             local alph = a * 0.4
             Draw.setColor(r,g,b, ((alph - (self.run_away_timer / 8)) + (i / 200)))
             Draw.draw(self.texture, i * 2, 0)
+        end
+        return
+    end
+
+    if self.texture and self.run_away_2 then
+        local r,g,b,a = self:getDrawColor()
+        for i = 0, 80 do
+            local alph = a * 0.4
+            Draw.setColor(r,g,b, ((alph - (self.run_away_timer_2 / 8)) + (i / 200)))
+            Draw.draw(self.texture, -i * 2, 0)
         end
         return
     end

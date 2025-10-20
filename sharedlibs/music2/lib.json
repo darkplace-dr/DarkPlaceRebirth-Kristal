@@ -1,0 +1,7 @@
+{
+    "id": "music2",
+    "authors": ["Dobby233Liu"],
+    "version": "v1.0.0",
+    "default": true,
+    "engineVer": "v0.8.1-dev"
+}

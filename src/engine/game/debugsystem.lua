@@ -101,6 +101,13 @@ function DebugSystem:init()
     self.filtered_flags_list = {}
 end
 
+-- TODO: What the hell
+function DebugSystem:locateDLCs()
+    for i, v in ipairs(t) do
+        
+    end
+end
+
 function DebugSystem:getStage()
     if Kristal.getState() then
         return Kristal.getState().stage
@@ -379,6 +386,7 @@ function DebugSystem:fadeMusicIn()
     local music = Game:getActiveMusic()
     if music and self.music_needs_reset then
         music:fade(self.old_music_volume, 0.5)
+        music:resume()
     end
     self.music_needs_reset = false
 end
@@ -615,6 +623,14 @@ function DebugSystem:registerSubMenus()
         end)
     end
 
+    self:registerMenu("minigame_select", "Minigame Select", "search")
+    for id,_ in pairs(Registry.minigames) do
+        self:registerOption("minigame_select", id, "Start this minigame.", function()
+            Game:startMinigame(id)
+            self:closeMenu()
+        end)
+    end
+
     self:registerMenu("cutscene_select", "Cutscene Select", "search")
     
     -- add a cutscene stopper
@@ -662,6 +678,21 @@ function DebugSystem:registerSubMenus()
             if Game.state ~= "LEGEND" then
                 Game:fadeIntoLegend(cutscene)
             end
+            self:closeMenu()
+        end)
+    end
+
+    self:registerMenu("dlc_select", "DLC Select", "search")
+
+    local dlcs = Utils.filter(Kristal.Mods.getMods(), function(mod) return not mod.hidden end)
+    local dlc_ids = {}
+    for i, v in ipairs(dlcs) do
+        table.insert(dlc_ids, v.id)
+    end
+
+    for i, v in ipairs(dlc_ids) do
+        self:registerOption("dlc_select", v, "Enter this DLC.", function ()
+            Game:swapIntoMod(v, false)
             self:closeMenu()
         end)
     end
@@ -788,6 +819,7 @@ function DebugSystem:registerDefaults()
     local in_battle = function () return in_game() and Game.state == "BATTLE" end
     local in_overworld = function () return in_game() and Game.state == "OVERWORLD" end
     local in_legend = function() return in_game() and Game.state == "LEGEND" end
+    local in_minigame = function() return in_game() and Game.state == "MINIGAME" end
 
     -- Global
 
@@ -891,6 +923,9 @@ function DebugSystem:registerDefaults()
     self:registerOption("main", "Enter Shop", "Enter a shop.", function ()
                             self:enterMenu("select_shop", 0)
                         end, in_overworld)
+    self:registerOption("main", "Start Minigame", "Start a minigame.", function ()
+                            self:enterMenu("minigame_select", 0)
+                        end, in_overworld)
 
     self:registerOption("main", "Play Cutscene", "Play a cutscene.", function ()
                             self:enterMenu("cutscene_select", 0)
@@ -899,6 +934,18 @@ function DebugSystem:registerDefaults()
     self:registerOption("main", "Play Legend", "Play a legend cutscene.", function ()
                             self:enterMenu("legend_select", 0)
                         end, function() return in_overworld() or in_legend() end)
+
+    self:registerOption("main", "Select DLC", "Select a DLC to load into.", function ()
+                            self:enterMenu("dlc_select", 0)
+    end, in_overworld)
+
+
+	self:registerOption("main", "Party Menu", "Enter the  Party  Menu.", 
+        function () 
+            Game.world:openMenu(DarkCharacterMenu()) 
+            self:closeMenu()
+        end, in_overworld
+    )
 
     -- Battle specific
     self:registerOption("main", "Start Wave", "Start a wave.", function ()
@@ -909,6 +956,11 @@ function DebugSystem:registerDefaults()
                             Game.battle:setState("VICTORY")
                             self:closeMenu()
                         end, in_battle)
+    -- Minigame specific
+    self:registerOption("main", "End Minigame", "End the current minigame.", function()
+        Game.minigame:endMinigame()
+        self:closeMenu()
+    end, in_minigame)
 end
 
 function DebugSystem:getValidOptions()
@@ -1129,7 +1181,7 @@ function DebugSystem:onKeyPressed(key, is_repeat)
         if Input.isConfirm(key) and not is_repeat then
             local option = options[self.current_selecting]
             if option then
-                if self.current_menu ~= "sound_test" then
+                if self.current_menu ~= "sound_test" and self.current_menu ~= "music_test" then
                     Assets.playSound("ui_select")
                 end
                 option.func()
@@ -1187,6 +1239,11 @@ function DebugSystem:onKeyPressed(key, is_repeat)
                 self:setState("MENU")
             end
             return
+        end
+        if key == "pageup" then
+            self.faces_y = self.faces_y + 512
+        elseif key == "pagedown" then
+            self.faces_y = self.faces_y - 512
         end
     elseif self.state == "FLAGS" then
         if not Game.flags then

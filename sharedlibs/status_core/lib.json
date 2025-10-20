@@ -1,0 +1,22 @@
+{
+    "id": "status_core",
+    "version": "1.0.0",
+    "engineVersion": "0.10.0",
+	"authors": [
+		"AcousticJamm",
+		"HyperBoid"
+	],
+	"optionalDependencies": [
+		"magical-glass"
+	],
+	"config": {
+		// If true, it will color the status effect icon's colors to the party member that has them.
+		"match_color": true,
+		
+		// If true, the status effect menu will show up for the player when they hold C.
+		"status_menu": true,
+		
+		// Library dependencies stuff
+		"magical-glass": true
+	},
+}

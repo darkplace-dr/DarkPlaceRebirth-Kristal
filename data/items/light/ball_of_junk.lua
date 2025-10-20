@@ -7,7 +7,7 @@ function item:init()
     self.name = "Ball of Junk"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "item"
+    self.type = "key"
     -- Whether this item is for the light world
     self.light = true
 
@@ -25,7 +25,71 @@ function item:init()
 end
 
 function item:onWorldUse()
-    Game.world:showText("* You looked at the junk ball in\nadmiration.[wait:5]\n* Nothing happened.")
+    Game.world:startCutscene(function(cutscene) 
+
+        local dark_items = 0
+        local slots_to_convert = {}
+        local first_item = nil
+        -- Check inventory for any dark items
+        for i, item in ipairs(Game.inventory:getStorage("items")) do
+            if not item.light then
+                table.insert(slots_to_convert, i)
+                dark_items = dark_items + 1
+                -- If this is the first one, store its name
+                if not first_item then first_item = item:getName() end
+            end
+        end
+        cutscene:text("* You looked at the junk ball in\nadmiration." .. (dark_items == 0 and "[wait:5]\n* Nothing happened." or ""))
+        if dark_items > 0 then
+            if dark_items == 1 then
+                cutscene:text("* You could probably add your [color:yellow]" .. first_item .. "[color:reset] into it.")
+            else
+                cutscene:text("* You could probably add some\nmore of your items into it.")
+            end
+            cutscene:text("* You think about how you [color:yellow]won't\nbe able to get " .. (dark_items == 1 and "it" or "them") .. " back out[color:reset]\nif you do...")
+            cutscene:text("* But " .. (dark_items == 1 and "it" or "they") .. " might be more useful\nin the Dark World anyway.")
+            cutscene:text("* Add your [color:yellow]" .. (dark_items == 1 and first_item or "DARK ITEMS") .. "[color:reset] to your\n[color:yellow]BALL OF JUNK[color:reset]?")
+            local choice = cutscene:choicer({"Yes", "No"})
+            if choice == 1 then
+                if dark_items == 1 then
+                    -- If there's only one, transfer the item into the dark inventory as if we got it from a chest
+                    local success, result_text = Game.inventory:tryGiveItem(Game.inventory:getStorage("items")[slots_to_convert[1]])
+                    if success then Game.inventory:removeItem(Game.inventory:getStorage("items")[slots_to_convert[1]]) end
+                    cutscene:text(result_text)
+                else
+                    -- If there's more than one, we need to transfer each item individually, then update the light inventory to remove any empty slots.
+                    local items_converted = 0
+                    for i, item in ipairs(slots_to_convert) do
+
+                        local success, result_text = Game.inventory:tryGiveItem(Game.inventory:getStorage("items")[item])
+                        if success then
+                            items_converted = items_converted + 1
+                            Game.inventory:getStorage("items")[item] = "Removed Item"
+                        else
+                            break -- Inventory is full; stop here
+                        end
+
+                    end
+                    if items_converted == 0 then -- Couldn't transfer any
+                        cutscene:text("* (Your [color:yellow]BALL OF JUNK[color:reset] is too big\nto take any items.)")
+                    elseif items_converted < dark_items then -- Transferred some, but not all
+                        cutscene:text("* (Your [color:yellow]BALL OF JUNK[color:reset] became too big to take all of your items.)")
+                    else
+                        cutscene:text("* (Your [color:yellow]DARK ITEMS[color:reset] were added to your [color:yellow]BALL OF JUNK[color:reset].)")
+                    end
+                    -- Remove empty item slots
+                    for i = 1, Game.inventory.storages.items.max do
+                        if Game.inventory.storages.items[i] == "Removed Item" then table.remove(Game.inventory.storages.items, i) end
+                    end
+                end
+
+            end
+            
+        end
+
+    end)
+
+    --Game.world:showText("* You looked at the junk ball in\nadmiration.[wait:5]\n* Nothing happened.")
     return false
 end
 

@@ -57,6 +57,19 @@
     // this option is explicitly set to false; else, it's done if this is set to true.
     "setWindowTitleAndIcon": null,
 
+    // Dark Place-specific configuration for DLCs.
+    "dlc": {
+        // Warp bin codes. 
+        "extraBinCodes": {
+            // "TESTCODE": true
+            // "OTHRROOM": "room2"
+        },
+        // World map properties, such as x/y position (not yet implemented)
+        "worldMap": {},
+        // Bosses that can be re-fought from the Boss Rush menu (not yet accessible)
+        "bosses": {}
+    },
+
     // Config values for the engine and any libraries you may have.
     // These config values can control chapter-specific features as well.
     "config": {

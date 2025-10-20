@@ -27,7 +27,8 @@ function item:init()
         ["kris"] = 10,
         ["susie"] = 120,
         ["ralsei"] = 120,
-        ["noelle"] = 70
+        ["noelle"] = 70,
+		["dess"] = 100,
     }
 
     -- Default shop price (sell price is halved)
@@ -67,8 +68,10 @@ function item:init()
             ralsei = "Tastes like blueberries!",
             susie = "Huh? Really?"
         },
-        noelle = "Tastes like cinnamon! (What is this aftertaste...?)"
+        noelle = "Tastes like cinnamon! (What is this aftertaste...?)",
+		dess = "tastes like shit",
     }
+	
 end
 
 function item:getBattleHealAmount(id)

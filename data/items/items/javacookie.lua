@@ -24,7 +24,8 @@ function item:init()
     self.heal_amount = 90
     -- Amount this item heals for specific characters
     self.heal_amounts = {
-        ["kris"] = 100
+        ["kris"] = 100,
+        ["noel"] = 128,
     }
 
     -- Default shop price (sell price is halved)
@@ -54,7 +55,12 @@ function item:init()
     self.reactions = {
         susie = "It says GUTS!",
         ralsei = "It says Fluffy...",
-        noelle = "I... I can't read these symbols..."
+        noelle = "I... I can't read these symbols...",
+		dess = "thank god its not a javascript cookie",
+        jamm = "Better than Bedrock.",
+        ["jamm+marcy"] = "You prefer Bedrock, Marcy?",
+		noel = "uh... are ya sure?",
+        ceroba = "What's \"java\"?"
     }
 end
 

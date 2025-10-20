@@ -55,7 +55,10 @@ function item:init()
     self.reactions = {
         susie = "Cool, it's wriggling.",
         ralsei = "Yum, is this spaghetti?",
-        noelle = "Tastes like... jumprope?"
+        noelle = "Tastes like... jumprope?",
+        jamm = "Huh. Roux... Not bad.",
+		dess = "(does a very realistic depiction of dance move titled 'the worm')",
+        ceroba = "A good sauce. (Wait, there's worms?!)",
     }
 end
 

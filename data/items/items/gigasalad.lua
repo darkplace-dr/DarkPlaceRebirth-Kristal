@@ -24,7 +24,9 @@ function item:init()
     self.heal_amount = 4
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
-        ["noelle"] = 90
+        ["noelle"] = 90,
+		["dess"] = 80, -- -10 HP for the ranch tax
+		["jamm"] = 1,
     }
 
     -- Default shop price (sell price is halved)
@@ -54,8 +56,13 @@ function item:init()
     self.reactions = {
         susie = "Why this!?",
         ralsei = "Let's be healthy!",
-        noelle = "Something to graze on!"
+        noelle = "Something to graze on!",
+		dess = "told you i eat lettuce",
+        jamm = "Not much of a salad eater...",
+        ["jamm+marcy"] = "It's good for you, Marcy!",
+        ceroba = "At least it's good for me.",
     }
+	
 end
 
 function item:getBattleHealAmountModified(id, healer)

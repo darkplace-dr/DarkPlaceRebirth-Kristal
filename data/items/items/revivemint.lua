@@ -53,7 +53,10 @@ function item:init()
             susie = "(Don't look it)",
             ralsei = "Ah, I'm refreshed!"
         },
-        noelle = "Mints? I love mints!"
+        noelle = "Mints? I love mints!",
+		dess = "jesser we have to cook methm",
+        jamm = "And we used it here, why?",
+        ceroba = "Mints are alright, I suppose.",
     }
 end
 
@@ -68,6 +71,10 @@ function item:onBattleUse(user, target)
         heal_amount = math.abs(target.chara:getHealth()) + target.chara:getStat("health")
     else
         heal_amount = math.ceil(target.chara:getStat("health") / 2)
+    end
+    if target.chara:getStat("health") <= 0 then
+        target:restoreMaxHealth(math.abs(target.chara:getHealth()) + target.chara:getStat("health_def"))
+        return
     end
     target:heal(Game.battle:applyHealBonuses(heal_amount, user.chara))
 end

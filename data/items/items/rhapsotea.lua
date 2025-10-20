@@ -39,7 +39,9 @@ function item:init()
     self.reactions = {
         susie = "Sounds kinda like Noelle.",
         ralsei = "... the hymn of the prophecy.",
-        noelle = "(... Kris would never join choir...)"
+        noelle = "(... Kris would never join choir...)",
+        ceroba = "Is it... Singing?",
+        jamm = "Brings me back..."
     }
 end
 

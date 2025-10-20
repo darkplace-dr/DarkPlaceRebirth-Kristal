@@ -1,0 +1,12 @@
+v1.1.1
+- Fix `speedadjust_divisor` not being used in the speedadjust calculation.
+
+v1.1.0
+- Adds `car_killer` - Destroys cars that collide with it.
+- Adds `car_turner` - Changes the direction of cars that collide with it.
+- Adds support for `left` and `right` car directions with `car_turner` and `TrafficCar:setDirection()`
+- Renamed `TrafficCarGenerator.car_type` to `TrafficCarGenerator.walkdir`. `car_type` as a property name on events in maps will continue to be recognised, but this will be referred to everywhere as `walkdir` in future.
+- `OnTrafficCarDirectionChange` callback added
+
+v1.0.0
+- Initial release

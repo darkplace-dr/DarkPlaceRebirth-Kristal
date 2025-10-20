@@ -1,0 +1,125 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/grey_cliffside/cliffside_right.tmx",
+            "height": 680,
+            "width": 1200,
+            "x": 1920,
+            "y": 0
+        },
+        {
+            "fileName": "maps/grey_cliffside/cliffside_start/cliffside_start.tmx",
+            "height": 960,
+            "width": 640,
+            "x": 1200,
+            "y": -480
+        },
+        {
+            "fileName": "maps/grey_cliffside/cliffside_right_2.tmx",
+            "height": 800,
+            "width": 1200,
+            "x": 2080,
+            "y": 760
+        },
+        {
+            "fileName": "maps/grey_cliffside/dead_room1.tmx",
+            "height": 960,
+            "width": 800,
+            "x": 1040,
+            "y": -1520
+        },
+        {
+            "fileName": "maps/grey_cliffside/the_end.tmx",
+            "height": 480,
+            "width": 680,
+            "x": -2080,
+            "y": -4480
+        },
+        {
+            "fileName": "maps/grey_cliffside/cliffside_right_2/cliffside_right_2.tmx",
+            "height": 1400,
+            "width": 1200,
+            "x": 2080,
+            "y": 760
+        },
+        {
+            "fileName": "maps/grey_cliffside/cave_2b.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 4080,
+            "y": 1680
+        },
+        {
+            "fileName": "maps/grey_cliffside/cliffside_right_2b.tmx",
+            "height": 640,
+            "width": 640,
+            "x": 1360,
+            "y": 960
+        },
+        {
+            "fileName": "maps/grey_cliffside/cave_1.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 3360,
+            "y": 1680
+        },
+        {
+            "fileName": "maps/grey_cliffside/dead_room1/dead_room1.tmx",
+            "height": 960,
+            "width": 800,
+            "x": 1040,
+            "y": -1520
+        },
+        {
+            "fileName": "maps/grey_cliffside/cliffside_pcv.tmx",
+            "height": 480,
+            "width": 680,
+            "x": 1920,
+            "y": -1600
+        },
+        {
+            "fileName": "maps/grey_cliffside/worse_vents.tmx",
+            "height": 1480,
+            "width": 2000,
+            "x": -1040,
+            "y": -1360
+        },
+        {
+            "fileName": "maps/grey_cliffside/climb_1.tmx",
+            "height": 2000,
+            "width": 680,
+            "x": -1160,
+            "y": -3440
+        },
+        {
+            "fileName": "maps/grey_cliffside/first_chr_encounter.tmx",
+            "height": 480,
+            "width": 680,
+            "x": -1400,
+            "y": -4000
+        },
+        {
+            "fileName": "maps/grey_cliffside/cave_3.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 4840,
+            "y": 440
+        },
+        {
+            "fileName": "maps/grey_cliffside/cave_3b.tmx",
+            "height": 1200,
+            "width": 720,
+            "x": 4800,
+            "y": 960
+        },
+        {
+            "fileName": "maps/grey_cliffside/cave_2.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 4080,
+            "y": 1120
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

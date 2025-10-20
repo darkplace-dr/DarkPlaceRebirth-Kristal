@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="church" type="bool" value="true"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="church"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="bg">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/church/choir.png" width="640" height="480"/>
+ </imagelayer>
+ <imagelayer id="6" name="items">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/church/choir_items.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="80" y="120" width="480" height="40"/>
+  <object id="2" x="400" y="400" width="160" height="80"/>
+  <object id="3" x="80" y="400" width="240" height="80"/>
+  <object id="4" x="80" y="160" width="40" height="240"/>
+  <object id="5" x="520" y="160" width="40" height="240"/>
+  <object id="10" x="464" y="160" width="38" height="24"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="6" name="church_choir_door" x="360" y="40" width="80" height="120"/>
+  <object id="7" name="transition" x="320" y="462" width="80" height="40">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/church/entrance"/>
+    <property name="marker" value="entrychoir"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="9" gid="114" x="120" y="356" width="48" height="146"/>
+  <object id="11" name="interactable" x="200" y="160" width="106" height="16">
+   <properties>
+    <property name="cutscene" value="church.wardrobe"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" name="interactable" x="120" y="160" width="80" height="22">
+   <properties>
+    <property name="cutscene" value="church.bells"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="interactable" x="154" y="248" width="14" height="112">
+   <properties>
+    <property name="cutscene" value="church.piano"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="interactable" x="120" y="220" width="34" height="140">
+   <properties>
+    <property name="cutscene" value="church.piano"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="markers">
+  <object id="8" name="spawn" x="360" y="454">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="controllers">
+  <object id="15" name="hometowndaynight" x="0" y="0">
+   <properties>
+    <property name="palette" value="world/church_palette"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

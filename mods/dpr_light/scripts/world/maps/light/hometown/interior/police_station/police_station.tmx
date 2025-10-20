@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="29">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="hometown"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="room">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/interior/police.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="1" x="356" y="112" width="164" height="40"/>
+  <object id="2" x="520" y="28" width="40" height="372"/>
+  <object id="3" x="120" y="28" width="400" height="40"/>
+  <object id="4" x="360" y="400" width="200" height="40"/>
+  <object id="5" x="360" y="440" width="40" height="40"/>
+  <object id="6" x="80" y="400" width="200" height="40"/>
+  <object id="7" x="80" y="28" width="40" height="372"/>
+  <object id="8" x="240" y="440" width="40" height="40"/>
+  <object id="10" x="120" y="246" width="94" height="104"/>
+  <object id="11" x="120" y="152" width="94" height="74"/>
+  <object id="12" x="120" y="152" width="238" height="40"/>
+  <object id="13" x="360" y="360" width="160" height="40"/>
+  <object id="14" x="460" y="264" width="60" height="96"/>
+  <object id="20" x="258" y="256" width="138" height="72"/>
+  <object id="23" x="358" y="192" width="162" height="14"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="15" gid="13" x="354" y="206" width="166" height="138"/>
+  <object id="17" gid="12" x="242" y="330" width="170" height="118"/>
+  <object id="22" gid="11" x="150" y="168" width="56" height="32"/>
+  <object id="24" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="facing" value="up"/>
+    <property name="map" value="light/hometown/town_south"/>
+    <property name="marker" value="entrypolice"/>
+   </properties>
+  </object>
+  <object id="9" name="interactable" x="120" y="360" width="40" height="40">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text" value="* (Well-cared-for flowers.)"/>
+   </properties>
+  </object>
+  <object id="26" name="npc" x="201" y="240">
+   <properties>
+    <property name="actor" value="napstablook"/>
+    <property name="cutscene" value="hometown.blook"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="27" name="interactable" x="239" y="89" width="85" height="80">
+   <properties>
+    <property name="text1" value="* (You skimmed a news article about Undyne.)"/>
+    <property name="text2" value="* New Police Chief Undyne's Explosive Debut"/>
+    <property name="text3" value="* ...passionate young rookie... becomes the new police chief..."/>
+    <property name="text4">* Though energetic, it may be 
+hard to live up to the 
+legacy...</property>
+    <property name="text5" value="* ... after Asgore Dreemurr was removed from the force..."/>
+    <property name="text6">* (... there's no need to read 
+any more.)</property>
+   </properties>
+  </object>
+  <object id="28" name="interactable" x="123" y="267" width="80" height="80">
+   <properties>
+    <property name="text1">* (Photos of Chief Undyne and 
+Deputy Napstablook.)</property>
+    <property name="text2">* (Undyne is rescuing all of 
+Catti's family from a tree.)</property>
+    <property name="text3">* (... Napstablook is also stuck
+in the tree somehow.)</property>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="25" name="spawn" x="320" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

@@ -486,6 +486,8 @@ function DarkEquipMenu:drawStats()
     for i = 1, 3 do
         self:drawAbilityPreview(i, -8, 178 + (27 * i), abilities, ability_comp)
     end
+
+    party:drawEquipStat(self)
 end
 
 function DarkEquipMenu:drawStatPreview(stat, x, y, stats, compare, show_difference)

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="45">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="none"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="bg">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/noellehouse/closet.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup id="6" name="objects_vent">
+  <object id="9" gid="127" x="292" y="244" width="56" height="32"/>
+ </objectgroup>
+ <objectgroup id="7" name="objects_brokenvent">
+  <object id="17" gid="136" x="268" y="216" width="56" height="32" rotation="90"/>
+ </objectgroup>
+ <objectgroup id="8" name="objects">
+  <object id="18" gid="138" x="286" y="288" width="64" height="60"/>
+  <object id="19" gid="141" x="356" y="328" width="40" height="54"/>
+  <object id="21" gid="142" x="336" y="366" width="48" height="36"/>
+  <object id="22" gid="140" x="366" y="382" width="34" height="32"/>
+  <object id="24" gid="139" x="252" y="364" width="38" height="34"/>
+  <object id="25" gid="137" x="240" y="390" width="40" height="40"/>
+  <object id="44" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/noellehouse/main"/>
+    <property name="marker" value="entrycloset"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="200" y="400" width="80" height="80"/>
+  <object id="3" x="360" y="400" width="80" height="80"/>
+  <object id="4" x="400" y="160" width="40" height="240"/>
+  <object id="5" x="200" y="160" width="40" height="240"/>
+  <object id="6" x="240" y="240" width="160" height="40"/>
+  <object id="27" x="240" y="364" width="38" height="24"/>
+  <object id="28" x="252" y="340" width="38" height="24"/>
+  <object id="31" x="336" y="342" width="48" height="24"/>
+  <object id="32" x="286" y="240" width="64" height="48"/>
+  <object id="33" x="366" y="362" width="34" height="20"/>
+  <object id="34" x="356" y="286" width="40" height="43"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="markers">
+  <object id="8" name="spawn" x="320" y="464">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

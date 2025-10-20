@@ -48,6 +48,8 @@ function item:init()
         susie = "Look! I punched through a guy!",
         ralsei = "A bigger one could make Kris!",
         noelle = "This smells amazing! Um, sorry.",
+        jamm = "Christmas time already...?",
+        ceroba = "(If only I could bake...)"
     }
 end
 

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="green_room"/>
+  <property name="music" value="deltarune/greenroom_detune"/>
+  <property name="name" value="TV Floor - Green Room"/>
+ </properties>
+ <tileset firstgid="1" source="../../../tilesets/ch3_dw_tvland_stage.tsx"/>
+ <tileset firstgid="370" source="../../../tilesets/floortv_objects.tsx"/>
+ <objectgroup id="2" name="objects_floor">
+  <object id="16" name="greenroom_floor" x="10" y="10" width="40" height="40"/>
+ </objectgroup>
+ <layer id="1" name="floor" width="36" height="12">
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,
+36,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,
+36,36,0,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,36,36,
+36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,
+36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,
+36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="3" name="objects_below">
+  <object id="2" name="greenroom_wall" x="80" y="40" width="640" height="120">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="39" name="greenroom_wall" x="720" y="40" width="640" height="120">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="objects_below_2">
+  <object id="3" gid="370" x="38" y="240" width="82" height="204"/>
+  <object id="4" gid="2147484018" x="1320" y="240" width="82" height="204"/>
+  <object id="5" gid="374" x="401" y="169" width="60" height="88"/>
+  <object id="17" gid="372" x="400" y="340" width="280" height="100"/>
+  <object id="18" gid="373" x="760" y="340" width="280" height="100"/>
+  <object id="33" gid="380" x="387" y="434" width="16" height="12"/>
+  <object id="34" gid="381" x="407" y="437" width="32" height="30"/>
+  <object id="35" gid="380" x="443" y="434" width="16" height="12"/>
+  <object id="37" gid="378" x="550" y="160" width="390" height="120"/>
+  <object id="78" gid="389" x="1120" y="160" width="92" height="146"/>
+  <object id="80" gid="390" x="1001" y="160" width="76" height="104"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="objects">
+  <object id="7" gid="371" x="520" y="440" width="116" height="102"/>
+  <object id="8" gid="371" x="804" y="440" width="116" height="102"/>
+  <object id="9" gid="377" x="640" y="440" width="160" height="40"/>
+  <object id="14" gid="2147484024" x="273" y="454" width="70" height="94"/>
+  <object id="15" gid="376" x="1100" y="454" width="70" height="94"/>
+  <object id="22" gid="387" x="400" y="280" width="280" height="40"/>
+  <object id="23" gid="388" x="760" y="280" width="280" height="40"/>
+  <object id="38" name="savepoint" x="404" y="397" width="40" height="40">
+   <properties>
+    <property name="flagcheck" value="!can_kill"/>
+    <property name="text1" value="* (Stars ripple on the walls like soft music.)"/>
+    <property name="text2" value="* (You're filled with the power of relaxation.)"/>
+   </properties>
+  </object>
+  <object id="72" name="interactable" x="660" y="410" width="120" height="30">
+   <properties>
+    <property name="cutscene" value="tvfloor.greenroomplatter"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="77" name="greenroom_platter" x="670" y="368" width="100" height="88"/>
+  <object id="81" name="interactable" x="1001" y="120" width="76" height="40">
+   <properties>
+    <property name="text">* (It's a door.)[wait:5]
+* (It's locked.)</property>
+   </properties>
+  </object>
+  <object id="83" name="interactable" x="1120" y="120" width="90" height="40">
+   <properties>
+    <property name="text">* (It's the cooler door.)[wait:5]
+* (It's also locked.)</property>
+   </properties>
+  </object>
+  <object id="84" name="interactable" x="550" y="120" width="390" height="40">
+   <properties>
+    <property name="text" value="* (Doesn't seem like anyone's here...)"/>
+   </properties>
+  </object>
+  <object id="89" name="transition" x="120" y="160">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/legacy_corridors"/>
+    <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+   <polygon points="0,0 -80,80 -80,40 0,-40"/>
+  </object>
+  <object id="90" name="transition" x="1320" y="160">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/tenna_room"/>
+    <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+   <polygon points="0,0 80,80 80,40 0,-40"/>
+  </object>
+  <object id="93" name="savepoint" x="404" y="397" width="40" height="40">
+   <properties>
+    <property name="flagcheck" value="can_kill"/>
+    <property name="text1" value="* (The room is quiet,[wait:5] with nobody left to enjoy it...)"/>
+    <property name="text2" value="* (You feel a sense of emptiness.)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="6" name="above" width="36" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,0,
+0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,0,
+0,0,0,0,0,0,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,36,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="7" name="collision">
+  <object id="40" x="40" y="240" width="240" height="40"/>
+  <object id="41" x="240" y="280" width="40" height="160"/>
+  <object id="42" x="280" y="440" width="880" height="40"/>
+  <object id="44" x="1160" y="240" width="40" height="200"/>
+  <object id="46" x="1200" y="240" width="200" height="40"/>
+  <object id="50" x="120" y="120" width="1200" height="40"/>
+  <object id="57" x="400" y="256" width="80" height="84"/>
+  <object id="58" x="480" y="256" width="200" height="64"/>
+  <object id="59" x="760" y="256" width="200" height="64"/>
+  <object id="60" x="960" y="256" width="80" height="88"/>
+  <object id="61" x="280" y="400" width="40" height="40"/>
+  <object id="64" x="1120" y="400" width="40" height="40"/>
+  <object id="66" x="520" y="400" width="120" height="40"/>
+  <object id="68" x="800" y="400" width="120" height="40"/>
+  <object id="85" x="401" y="160" width="60" height="9"/>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="8" name="markers">
+  <object id="86" name="entry_left" x="140" y="200">
+   <point/>
+  </object>
+  <object id="92" name="entry_right" x="1260" y="200">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

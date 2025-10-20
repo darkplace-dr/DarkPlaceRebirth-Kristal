@@ -61,6 +61,19 @@ function Assets.clear()
     self.quads = {}
 end
 
+---@param path string
+---@return new_path string
+function Assets.checkSpritesOverride(path)
+    local split_path = Utils.splitFast(path, "/")
+    if #split_path > 1 then
+        if split_path[1] == "player" then
+            table.insert(split_path, 2, Kristal.getSoulFacing())
+            return table.concat(split_path, "/")
+        end
+    end
+    return path
+end
+
 ---@param data Assets.data
 function Assets.loadData(data)
     Utils.merge(self.data, data, true)
@@ -261,12 +274,43 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
+    if not Kristal.Config["lazySprites"] or self.data.texture[path] then goto done end
+    do
+        local data = Assets.getTextureData(path)
+        self.data.texture[path] = data and love.graphics.newImage(data)
+    end
+    ::found::
+    ::done::
     return self.data.texture[path]
 end
+
+Utils.hook(Assets, "getTexture", function (orig, path)
+    return orig(Assets.checkSpritesOverride(path)) or orig(path)
+end)
 
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
+    if not Kristal.Config["lazySprites"] or self.data.texture_data[path] then goto done end
+    if love.filesystem.getInfo("/assets/sprites/"..path..".png") then
+        self.data.texture_data[path] = love.image.newImageData("/assets/sprites/"..path..".png")
+        self.texture_ids[self.data.texture_data[path]] = path
+    end
+    if Mod then
+        if love.filesystem.getInfo(Mod.info.path .. "/assets/sprites/"..path..".png") then
+            self.data.texture_data[path] = love.image.newImageData(Mod.info.path .. "/assets/sprites/"..path..".png")
+            self.texture_ids[self.data.texture_data[path]] = path
+            goto found
+        end
+        for id,lib in Kristal.iterLibraries() do
+            if love.filesystem.getInfo(lib.info.path .. "/assets/sprites/"..path..".png") then
+                self.data.texture_data[path] = love.image.newImageData(lib.info.path .. "/assets/sprites/"..path..".png")
+                self.texture_ids[self.data.texture_data[path]] = path
+            end
+        end
+    end
+    ::found::
+    ::done::
     return self.data.texture_data[path]
 end
 
@@ -283,13 +327,38 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
+    if not Kristal.Config["lazySprites"] or self.data.frames[path] then goto done end
+    do
+        local frames = {}
+        if Assets.getTexture(path.."_1") then
+            local i = 1
+            while Assets.getTexture(path .. "_"..i) do
+                table.insert(frames, Assets.getTexture(path .. "_"..i))
+                i = i + 1
+            end
+        elseif Assets.getTexture(path.."_01") then
+            local i = 1
+            while Assets.getTexture(path .. string.format("_%.2d", i)) do
+                table.insert(frames, Assets.getTexture(path .. string.format("_%.2d", i)))
+                i = i + 1
+            end
+        end
+        if #frames > 0 then
+            self.data.frames[path] = frames
+        end
+    end
+    ::done::
     return self.data.frames[path]
 end
+
+Utils.hook(Assets, "getFrames", function (orig, path)
+    return orig(Assets.checkSpritesOverride(path)) or orig(path)
+end)
 
 ---@param path string
 ---@return string[]
 function Assets.getFrameIds(path)
-    return self.data.frame_ids[path]
+    return self.data.frame_ids[Assets.checkSpritesOverride(path)] or self.data.frame_ids[path]
 end
 
 ---@param texture string

@@ -42,13 +42,20 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        noel = false,
+    }
 
     -- Character reactions
     self.reactions = {
         susie = "Money, that's what I need.",
         ralsei = "Two pairs of glasses?",
         noelle = "(Seems... familiar?)",
+        dess = "wow this seems familiar for no reason in particular",
+        jamm = "Not really a glasses guy, but...",
+        noel = "Can't take em with me.",
+        ["jamm+marcy"] = "You look like a real big shot with those, Marcy!",
+        ceroba = "Everything's now pink-yellow-ish...",
     }
 end
 

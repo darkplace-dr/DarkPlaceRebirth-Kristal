@@ -70,6 +70,8 @@ function Actor:init()
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {}
+
+    self.walk_anim_speed = 1
 end
 
 -- Callbacks

@@ -1337,6 +1337,15 @@ function Shop:getFlag(name, default)
     return Game:getFlag("shop#" .. self.id .. ":" .. name, default)
 end
 
+--- Adds `amount` to a numeric flag named `flag` (or defines it if it does not exist)
+---@param flag      string  The name of the flag to add to
+---@param amount?   number  (Defaults to `1`)
+---@return number new_value
+function Shop:addFlag(flag, amount)
+    Game.flags["shop#" .. self.id .. ":"..flag] = (Game.flags["shop#" .. self.id .. ":"..flag] or 0) + (amount or 1)
+    return Game.flags["shop#" .. self.id .. ":"..flag]
+end
+
 ---@param current_item Item
 function Shop:sellItem(current_item)
     -- SELL THE ITEM

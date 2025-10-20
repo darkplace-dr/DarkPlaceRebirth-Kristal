@@ -1,8 +1,17 @@
 local Loading = {}
 
 function Loading:init()
-    self.logo = love.graphics.newImage("assets/sprites/kristal/title_logo.png")
-    self.logo_heart = love.graphics.newImage("assets/sprites/kristal/title_logo_heart.png")
+    self.logo = love.graphics.newImage("assets/sprites/kristal/title_logo_shadow.png")
+    self.logo_big_star = love.graphics.newImage("assets/sprites/kristal/title/big_star.png")
+    self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/text.png")
+    self.logo_tagline = love.graphics.newImage("assets/sprites/kristal/title/tagline.png")
+
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.fools = true
+        self.shader_invert = love.graphics.newShader[[ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) { vec4 col = texture2D( texture, texture_coords ); return vec4(1-col.r, 1-col.g, 1-col.b, col.a); } ]]
+        self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/fool.png")
+    end
 end
 
 function Loading:enter(from, dir)
@@ -18,11 +27,7 @@ function Loading:enter(from, dir)
     self.h = self.logo:getHeight()
 
     if not Kristal.Config["skipIntro"] then
-        self.noise = love.audio.newSource("assets/sounds/kristal_intro.ogg", "static")
-        self.end_noise = love.audio.newSource("assets/sounds/kristal_intro_end.ogg", "static")
-        self.noise:play()
-    else
-        self:beginLoad()
+        self.noise = love.audio.newSource("assets/music/darkplace_intro.ogg", "static")
     end
 
     self.siner = 0
@@ -39,9 +44,28 @@ function Loading:enter(from, dir)
     self.skiptimer = 0
     self.key_check = not Kristal.Args["wait"]
 
+    self.star_timer = 0
+    self.star_scale = 0
+    self.star_rot = -math.rad(90)
+    self.star_rotspeed = 2
+
+    self.letter_offsets = {}
+    self.letter_w = 52
+    for i = 1, 10 do
+        self.letter_offsets[i] = {
+            quad = love.graphics.newQuad((i - 1) * self.letter_w, 0,
+                self.letter_w, self.logo_text:getHeight(),
+                self.logo_text:getWidth(), self.logo_text:getHeight()),
+            x = -20, y = 0, alpha = 0
+        }
+    end
+    self.text_timer = 0
+    self.tagline_alpha = 0
+
     self.fader_alpha = 0
 
     self.done_loading = false
+    self:beginLoad()
 end
 
 function Loading:beginLoad()
@@ -51,6 +75,17 @@ function Loading:beginLoad()
     self.load_complete = false
 
     Kristal.loadAssets("", "all", "")
+    local paths = {}
+    for _, name in ipairs(love.filesystem.getDirectoryItems("sharedlibs")) do
+        local lib_full_path = "sharedlibs/"..name
+        if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
+            local data = JSON.decode(love.filesystem.read(lib_full_path.."/lib.json"))
+            if data.preload_assets then
+                Kristal.loadAssets(lib_full_path, "all", "")
+            end
+        end
+    end
+    Kristal.loadAssets("", "plugins", "")
     Kristal.loadAssets("", "mods", "", function ()
         self.loading = false
         self.load_complete = true
@@ -113,129 +148,114 @@ function Loading:drawSprite(image, x, y, alpha)
     love.graphics.pop()
 end
 
-function Loading:draw()
-    if Kristal.Config["skipIntro"] then
-        love.graphics.push()
-        love.graphics.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-        love.graphics.scale(2, 2)
-        self:drawSprite(self.logo, 0, 0, 1)
-        love.graphics.pop()
-        return
+function Loading:lerpSnap(a, b, m, snap_delta)
+    if snap_delta == nil then snap_delta = 0.001 end
+    local result = Utils.lerp(a, b, m)
+    if b - result <= snap_delta then
+        return b
     end
+    return result
+end
 
-    local dt_mult = DT * 15
+function Loading:draw()
+    if self.load_complete then
+        local date = os.date("*t")
+        if date.month == 4 and date.day == 1 then
+            love.graphics.setShader(self.shader_invert)
+        end
 
-    -- We need to draw the logo on a canvas
-    local logo_canvas = Draw.pushCanvas(320, 240)
-    love.graphics.clear()
 
-    if (self.animation_phase == 0) then
-        self.siner = self.siner + 1 * dt_mult
-        self.factor = self.factor - (0.003 + (self.siner / 900)) * dt_mult
-        if (self.factor < 0) then
-            self.factor = 0
-            self.animation_phase = 1
-            if not self.loading and not self.load_complete then
-                self:beginLoad()
+        if Kristal.Config["skipIntro"] then
+            love.graphics.push()
+            love.graphics.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+            love.graphics.scale(1, 1)
+            self:drawSprite(self.logo, 0, 0, 1)
+            love.graphics.pop()
+            return
+        end
+
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(self.logo_big_star, SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
+            self.star_rot, self.star_scale, self.star_scale,
+            self.logo_big_star:getWidth()/2, self.logo_big_star:getHeight()/2)
+
+        self.animation_phase_timer = self.animation_phase_timer + 1 * DTMULT
+        if (self.animation_phase == 0) then
+            self.noise:play()
+        end
+        if (self.animation_phase >= 0) then
+            self.star_timer = self.star_timer + 0.1 * DTMULT
+
+            local idle_rot = math.sin((self.star_timer - 2) * self.star_rotspeed / 10) / 4
+            self.star_rot = self:lerpSnap(self.star_rot, idle_rot, 0.1 * DTMULT)
+
+	    	local idle_scale = 1 + math.sin((self.star_timer - 2) * 0.4) * 0.1
+            self.star_scale = self:lerpSnap(self.star_scale, idle_scale, 0.1 * DTMULT)
+            if (self.animation_phase_timer >= 60) and self.animation_phase == 0 then
+                self.animation_phase_timer = 0
+                self.animation_phase = 1
             end
         end
-        for i = 0, self.h - 1 do
-            self.ia = ((self.siner / 25) - (math.abs((i - (self.h / 2))) * 0.05))
-            self.xoff = ((40 * math.sin(((self.siner / 5) + (i / 3)))) * self.factor)
-            self.xoff2 = ((40 * math.sin((((self.siner / 5) + (i / 3)) + 0.6))) * self.factor)
-            self.xoff3 = ((40 * math.sin((((self.siner / 5) + (i / 3)) + 1.2))) * self.factor)
-            self:drawScissor(self.logo, 0, i, self.w, 2, (self.x + self.xoff), (self.y + i), ((1 - self.factor) / 2))
-            self:drawScissor(self.logo, 0, i, self.w, 2, (self.x + self.xoff2), (self.y + i), ((1 - self.factor) / 2))
-            self:drawScissor(self.logo, 0, i, self.w, 2, (self.x + self.xoff3), (self.y + i), ((1 - self.factor) / 2))
+        if (self.animation_phase >= 1) then
+            self.text_timer = self.text_timer + DTMULT
+
+            for i = 1, 10 do
+                local off = self.letter_offsets[i]
+                off.y = math.sin((self.text_timer + i * 10) / 20) * 20 - 5
+
+                if i <= math.min(10, math.floor((self.text_timer + 4) / 4)) then
+                    off.x = Utils.ease(-10, 10, off.alpha, "out-cubic")
+                    off.alpha = Utils.approach(off.alpha, 1, 0.05 * DTMULT)
+                end
+            end
+            for i = 1, 10 do
+                local off = self.letter_offsets[i]
+                love.graphics.setColor(1, 1, 1, off.alpha)
+                love.graphics.draw(self.logo_text, off.quad, 66 + (i - 1) * self.letter_w + off.x, 220 + off.y)
+            end
+            if (self.animation_phase_timer >= 120 and self.animation_phase == 1) then
+                self.animation_phase_timer = 0
+                self.animation_phase = 2
+            end
         end
+        if (self.animation_phase >= 2) then
+            self.tagline_alpha = Utils.approach(self.tagline_alpha, 1, 0.01 * DTMULT)
+            if (self.animation_phase_timer >= 160) and not self.skipped and self.animation_phase == 2 then
+                self.skipped = true
+                self.animation_phase = 3
+            end
+            love.graphics.setColor(1, 1, 1, self.tagline_alpha)
+            love.graphics.draw(self.logo_tagline,
+                SCREEN_WIDTH/2, SCREEN_HEIGHT/2+60,
+                0, 1, 1,
+                self.logo_tagline:getWidth()/2, self.logo_tagline:getHeight()/2)
+        end
+        if self.skipped then
+            -- Draw the screen fade
+            Draw.setColor(0, 0, 0, self.fader_alpha)
+            love.graphics.rectangle("fill", 0, 0, 640, 480)
+
+            if self.fader_alpha > 1 then
+                self.animation_done = true
+                self.noise:stop()
+            end
+
+            -- Change the fade opacity for the next frame
+            self.fader_alpha = math.max(0, self.fader_alpha + (0.02 * DTMULT))
+            self.noise:setVolume(math.max(0, 1 - self.fader_alpha))
+        end
+
+        -- Reset the draw color
+        Draw.setColor(1, 1, 1, 1)
+
+        --Reset Shaders
+        love.graphics.setShader()
     end
-    if (self.animation_phase == 1) then
-        self:drawSprite(self.logo, self.x + (self.w / 2), self.y + (self.h / 2), self.logo_alpha)
-        self.animation_phase_timer = self.animation_phase_timer + 1 * dt_mult
-        if (self.animation_phase_timer >= 30) and self.load_complete then
-            self.siner = 0
-            self.factor = 0
-            self.animation_phase = 2
-            self.end_noise:play()
-        end
-    end
-    if (self.animation_phase == 2) then
-        if (self.animation_phase_plus == 0) then
-            self.siner = self.siner + 0.5 * dt_mult
-        end
-        if (self.siner >= 20) then
-            self.animation_phase_plus = 1
-        end
-        if (self.animation_phase_plus == 1) then
-            self.siner = self.siner + 0.5 * dt_mult
-            self.logo_alpha = self.logo_alpha - 0.02 * dt_mult
-            self.logo_alpha_2 = self.logo_alpha_2 - 0.08 * dt_mult
-        end
-
-        self:drawSprite(self.logo, self.x + (self.w / 2), self.y + (self.h / 2), self.logo_alpha_2)
-        self.mina = (self.siner / 30)
-        if (self.mina >= 0.14) then
-            self.mina = 0.14
-        end
-        self.factor2 = self.factor2 + 0.05 * dt_mult
-        for i = 0, 9 do
-            self:drawSprite(self.logo,
-                            ((self.x + (self.w / 2)) - (math.sin(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            ((self.y + (self.h / 2)) - (math.cos(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            (self.mina * self.logo_alpha))
-            self:drawSprite(self.logo,
-                            ((self.x + (self.w / 2)) + (math.sin(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            ((self.y + (self.h / 2)) - (math.cos(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            (self.mina * self.logo_alpha))
-            self:drawSprite(self.logo,
-                            ((self.x + (self.w / 2)) - (math.sin(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            ((self.y + (self.h / 2)) + (math.cos(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            (self.mina * self.logo_alpha))
-            self:drawSprite(self.logo,
-                            ((self.x + (self.w / 2)) + (math.sin(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            ((self.y + (self.h / 2)) + (math.cos(((self.siner / 8) + (i / 2))) * (i * self.factor2))),
-                            (self.mina * self.logo_alpha))
-        end
-        self:drawSprite(self.logo_heart, self.x + (self.w / 2), self.y + (self.h / 2), self.logo_alpha)
-        if (self.logo_alpha <= -0.5 and self.skipped == false) then
-            self.animation_done = true
-        end
-    end
-
-    -- Reset canvas to draw to
-    Draw.popCanvas()
-
-    -- Draw the canvas on the screen scaled by 2x
-    Draw.setColor(1, 1, 1, 1)
-    Draw.draw(logo_canvas, 0, 0, 0, 2, 2)
-
-    if self.skipped then
-        -- Draw the screen fade
-        Draw.setColor(0, 0, 0, self.fader_alpha)
-        love.graphics.rectangle("fill", 0, 0, 640, 480)
-
-        if self.fader_alpha > 1 then
-            self.animation_done = true
-            self.noise:stop()
-            self.end_noise:stop()
-        end
-
-        -- Change the fade opacity for the next frame
-        self.fader_alpha = math.max(0, self.fader_alpha + (0.04 * dt_mult))
-        self.noise:setVolume(math.max(0, 1 - self.fader_alpha))
-        self.end_noise:setVolume(math.max(0, 1 - self.fader_alpha))
-    end
-
-    -- Reset the draw color
-    Draw.setColor(1, 1, 1, 1)
 end
 
 function Loading:onKeyPressed(key)
     self.key_check = true
     self.skipped = true
-    if not self.loading and not self.load_complete then
-        self:beginLoad()
-    end
 end
 
 return Loading

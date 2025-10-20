@@ -1,0 +1,111 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floor2/dev/main_1.tmx",
+            "height": 640,
+            "width": 1280,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floor2/dev/pre_elevator.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -720,
+            "y": 40
+        },
+        {
+            "fileName": "maps/floor2/dev/party/party.tmx",
+            "height": 640,
+            "width": 960,
+            "x": 400,
+            "y": -1240
+        },
+        {
+            "fileName": "maps/floor2/dev/coffeeshop.tmx",
+            "height": 480,
+            "width": 960,
+            "x": 120,
+            "y": -520
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall_entry.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -800,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall.tmx",
+            "height": 480,
+            "width": 16000,
+            "x": -80,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floor2/dev/everhall_end.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 16000,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floor2/main_1.tmx",
+            "height": 560,
+            "width": 880,
+            "x": -3600,
+            "y": -40
+        },
+        {
+            "fileName": "maps/floor2/wobblything_room.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -2640,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floor2/main_2.tmx",
+            "height": 960,
+            "width": 960,
+            "x": -3640,
+            "y": 600
+        },
+        {
+            "fileName": "maps/floor2/apartments_left.tmx",
+            "height": 1200,
+            "width": 1240,
+            "x": -4440,
+            "y": -1280
+        },
+        {
+            "fileName": "maps/floor2/apartments_right.tmx",
+            "height": 1200,
+            "width": 1240,
+            "x": -3120,
+            "y": -1280
+        },
+        {
+            "fileName": "maps/floor2/lancer.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -5800,
+            "y": -2400
+        },
+        {
+            "fileName": "maps/floor2/queen.tmx",
+            "height": 480,
+            "width": 1280,
+            "x": -5800,
+            "y": -1840
+        },
+        {
+            "fileName": "maps/floor2/pre_diner.tmx",
+            "height": 640,
+            "width": 1680,
+            "x": -2600,
+            "y": 840
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

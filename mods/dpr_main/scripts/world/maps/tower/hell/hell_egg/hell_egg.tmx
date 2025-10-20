@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="15">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../../tilesets/hell.tsx"/>
+ <tileset firstgid="78" source="../../../../tilesets/hell_objs.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,0,0,0,0,32,32,32,32,32,32,
+32,32,32,32,32,0,0,0,0,0,0,32,32,32,32,32,
+32,32,32,32,32,0,0,0,0,0,0,32,32,32,32,32,
+32,32,32,32,32,0,0,0,0,0,0,32,32,32,32,32,
+32,32,32,32,32,32,0,0,0,0,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,0,0,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="2" name="collision">
+  <object id="5" x="240" y="320" width="40" height="160"/>
+  <object id="6" x="360" y="320" width="40" height="160"/>
+  <object id="7" x="400" y="280" width="40" height="40"/>
+  <object id="8" x="440" y="160" width="40" height="120"/>
+  <object id="9" x="400" y="120" width="40" height="40"/>
+  <object id="10" x="240" y="80" width="160" height="40"/>
+  <object id="11" x="200" y="120" width="40" height="40"/>
+  <object id="12" x="160" y="160" width="40" height="120"/>
+  <object id="13" x="200" y="280" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="3" name="objects">
+  <object id="1" gid="79" x="244" y="240" width="180" height="168"/>
+  <object id="2" name="interactable" x="280" y="220" width="80" height="20">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text" value="* It's a tree,[wait:5] as normal as ever."/>
+   </properties>
+  </object>
+  <object id="3" name="interactable" x="280" y="200" width="80" height="20">
+   <properties>
+    <property name="cutscene" value="tower_outside.egg"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="tower/hell/hell_3"/>
+    <property name="marker" value="entry_4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55ff7f" id="4" name="markers">
+  <object id="14" name="spawn" x="320" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

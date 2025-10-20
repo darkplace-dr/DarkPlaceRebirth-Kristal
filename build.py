@@ -138,7 +138,6 @@ ignorefiles = [
     ".github",
     ".git",
     ".vscode",
-    "mods",
     "docs",
     "lib",
     "build",
@@ -268,21 +267,6 @@ for file in os.listdir(os.path.join(kristal_path, "lib")):
 print("Zipping Kristal packages...")
 shutil.make_archive(os.path.join(output_path, "kristal-"+ver_str+"-love"), 'zip', os.path.join(build_path, "lovepkg"))
 shutil.make_archive(os.path.join(output_path, "kristal-"+ver_str+"-win"), 'zip', os.path.join(build_path, "executable"))
-
-print("Packaging example mod...")
-
-try:
-    os.makedirs(os.path.join(build_path, "example"))
-except FileExistsError:
-    pass
-
-shutil.copytree(os.path.join(kristal_path, "mods", "example", "assets"), os.path.join(build_path, "example", "assets"))
-shutil.copytree(os.path.join(kristal_path, "mods", "example", "scripts"), os.path.join(build_path, "example", "scripts"))
-shutil.copy(os.path.join(kristal_path, "mods", "example", "mod.json"), os.path.join(build_path, "example", "mod.json"))
-shutil.copy(os.path.join(kristal_path, "mods", "example", "mod.lua"), os.path.join(build_path, "example", "mod.lua"))
-shutil.copy(os.path.join(kristal_path, "mods", "example", "example.tiled-project"), os.path.join(build_path, "example", "example.tiled-project"))
-
-shutil.make_archive(os.path.join(output_path, "example-mod"), 'zip', os.path.join(build_path, "example"))
 
 print("Done!")
 print("Generated files:")

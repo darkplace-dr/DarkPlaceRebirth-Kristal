@@ -16,6 +16,7 @@
 ---
 ---@field soul_priority integer
 ---@field soul_color    table
+---@field soul_facing   string
 ---
 ---@field has_act       boolean
 ---@field has_spells    boolean
@@ -119,8 +120,18 @@ function PartyMember:init()
         health = 100,
         attack = 10,
         defense = 2,
-        magic = 0
+        magic = 0,
+        health_def = 100 -- placeholder for true MHP, do not use
     }
+
+	-- Arc Completion Bonus Stats
+	self.arcBonusStats = {
+		health = 0,
+		attack = 0,
+		defense = 0,
+		magic = 0,
+	}
+
     -- Max stats from level-ups
     self.max_stats = {}
     
@@ -879,7 +890,8 @@ function PartyMember:save()
         lw_stats = self.lw_stats,
         spells = self:saveSpells(),
         equipped = self:saveEquipment(),
-        flags = self.flags
+        flags = self.flags,
+        kills = self.kills
     }
     self:onSave(data)
     return data
@@ -902,6 +914,7 @@ function PartyMember:load(data)
     self.flags = data.flags or self.flags
     self.health = data.health or self:getStat("health", 0, false)
     self.lw_health = data.lw_health or self:getStat("health", 0, true)
+    self.kills = data.kills or self.kills
 
     self:onLoad(data)
 end

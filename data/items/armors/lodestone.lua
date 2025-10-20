@@ -50,6 +50,8 @@ function item:init()
         susie = "Escargot? ... escargross.",
         ralsei = "I have no opinions on snails!",
         noelle = "Did your mom eat the non-shell part?",
+        jamm = "Slow and steady wins the race.",
+        ceroba = "Snails are... Peculiar creatures."
     }
 end
 

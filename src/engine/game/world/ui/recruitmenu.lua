@@ -182,7 +182,11 @@ function RecruitMenu:draw()
                 Draw.setColor(COLORS["white"])
                 if i == self.selected then
                     Draw.printAlign(recruit:getName(), 473, 240, "center")
-                    love.graphics.print("CHAPTER " .. recruit:getChapter(), 368, 280)
+					if recruit:getChapter() == 99 then
+                        love.graphics.print("DARK PLACE", 368, 280)
+                    else
+                        love.graphics.print("CHAPTER " .. recruit:getChapter(), 368, 280)
+                    end
                     Draw.printAlign("LV " .. recruit:getLevel(), 576, 280, "right")
                     if Input.usingGamepad() then
                         love.graphics.print("More Info", 414, 320)
@@ -230,7 +234,11 @@ function RecruitMenu:draw()
         for i,recruit in pairs(self.recruits) do
             Draw.printAlign(self.selected .. "/" .. #self.recruits, 590, 30, "right", 0, 0.5, 1)
             if i == self.selected then
-                love.graphics.print("CHAPTER " .. recruit:getChapter(), 300, 30, 0, 0.5, 1)
+                if recruit:getChapter() == 99 then
+                    love.graphics.print("DARK PLACE", 300, 30, 0, 0.5, 1)
+                else
+                    love.graphics.print("CHAPTER " .. recruit:getChapter(), 300, 30, 0, 0.5, 1)
+                end
                 love.graphics.print(recruit:getName(), 300, 70)
                 love.graphics.setFont(self.description_font)
                 Draw.printAlign(Game:hasRecruit(recruit.id) and recruit:getDescription() or "Not yet fully recruited", 301, 120, {["align"] = "left", ["line_offset"] = 4})

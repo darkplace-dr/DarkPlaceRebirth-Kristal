@@ -10,11 +10,14 @@ else
     Kristal.Mods = require("src.engine.mods")
     Kristal.Overlay = require("src.engine.overlay")
     Kristal.Shaders = require("src.engine.shaders")
+    Kristal.PluginLoader = require("src.engine.pluginloader")
     Kristal.States = {
         ["Loading"] = require("src.engine.loadstate"),
         ["MainMenu"] = require("src.engine.menu.mainmenu"),
         ["Game"] = require("src.engine.game.game"),
+        ["LameFadeout"] = require("src.engine.game.lamefadeout"),
         ["Testing"] = require("src.teststate"),
+        ["Debug"] = require("src.incorrectdebug"),
         ["Empty"] = {}
     }
 
@@ -43,6 +46,22 @@ else
         waiting = 0,
         end_funcs = {}
     }
+
+    -- Hotswaps Noel specifically. Why can't we just use hotswapper? I don't know! Ask SDM!
+    function Kristal.reloadnoel()
+        -- If you don't know what this is for, then don't touch it!!!
+        
+        package.loaded["src.engine.game.char_file_handlers.noel_spawn"] = nil 
+        Noel = require("src.engine.game.char_file_handlers.noel_spawn")      
+        if Noel:loadNoel() then
+            Kristal.noel = true
+        else 
+            Kristal.noel = false
+        end
+    end
+
+    Kristal.reloadnoel()
+
 end
 
 function Kristal.fetch(url, options)
@@ -61,6 +80,7 @@ function Kristal.fetch(url, options)
     options.headers = options.headers or {}
     options.headers["User-Agent"] = options.headers["User-Agent"] or ("Kristal/" .. tostring(Kristal.Version))
 
+    Kristal.Console:log("Fetching from URL "..url)
     Kristal.HTTPS.in_channel:push({
         url = url,
         key = Kristal.HTTPS.next_key,
@@ -73,6 +93,7 @@ function Kristal.fetch(url, options)
 end
 
 function love.load(args)
+    Kristal.reloadnoel() -- TODO: Fix (or at least document) whatever makes it so that this has to run twice.
     --[[
         Launch args:
             --wait: Pauses the load screen until a key is pressed
@@ -135,6 +156,7 @@ function love.load(args)
 
     -- setup structure
     love.filesystem.createDirectory("mods")
+    love.filesystem.createDirectory("plugins")
     love.filesystem.createDirectory("saves")
 
     -- default registry
@@ -146,6 +168,7 @@ function love.load(args)
     Kristal.ChapterConfigs[2] = JSON.decode(love.filesystem.read("configs/chapter2.json"))
     Kristal.ChapterConfigs[3] = JSON.decode(love.filesystem.read("configs/chapter3.json"))
     Kristal.ChapterConfigs[4] = JSON.decode(love.filesystem.read("configs/chapter4.json"))
+    Kristal.ExtraConfigs = JSON.decode(love.filesystem.read("configs/extra.json"))
 
     -- initialize overlay
     Kristal.Overlay:init()
@@ -167,6 +190,8 @@ function love.load(args)
     -- start load thread
     Kristal.Loader.in_channel = love.thread.getChannel("load_in")
     Kristal.Loader.out_channel = love.thread.getChannel("load_out")
+    -- TODO: Make a function that only pushes the config that loadthread actually has a use for
+    Kristal.Loader.in_channel:push({config = Kristal.Config})
 
     Kristal.Loader.thread = love.thread.newThread("src/engine/loadthread.lua")
     Kristal.Loader.thread:start()
@@ -242,6 +267,8 @@ function love.draw()
     Kristal.Overlay:draw()
 
     Draw.popCanvas()
+
+    if Kristal.callEvent(KRISTAL_EVENT.drawScreen, SCREEN_CANVAS) then return end
 
     -- Draw borders if possible
     Kristal.drawBorders()
@@ -960,6 +987,7 @@ end
 ---| "Menu"    # The main menu state.
 ---| "Game"    # The game state, entered when loading a mod.
 ---| "Testing" # The testing state, used in development.
+---| "Debug"   # Unused
 ---| "Empty"   # An empty state, which does nothing.
 ---@param ... any Arguments passed to the gamestate.
 function Kristal.setState(state, ...)
@@ -1120,7 +1148,8 @@ function Kristal.clearModState()
     Kristal.callEvent(KRISTAL_EVENT.unload)
     Mod = nil
 
-    Kristal.Mods.clear()
+    -- TODO: make this work with the plugin loader
+    -- Kristal.Mods.clear()
     Kristal.clearModHooks()
     Kristal.clearModSubclasses()
 
@@ -1143,6 +1172,8 @@ function Kristal.clearModState()
     -- Restore assets and registry
     Assets.restoreData()
     Registry.initialize()
+
+    Kristal.reloadnoel()
 end
 
 --- Exits the current mod and returns to the Kristal menu.
@@ -1152,6 +1183,8 @@ function Kristal.returnToMenu()
 
     -- Clear the mod
     Kristal.clearModState()
+	
+	Kristal.loadAssets("", "plugins", "")
 
     -- Quit the game if the menu is disabled
     if AUTO_MOD_START and TARGET_MOD then
@@ -1179,12 +1212,14 @@ end
 ---| "none" # Fully reloads the mod from the start of the game.
 function Kristal.quickReload(mode)
     -- Temporarily save game variables
-    local save, save_id, encounter, shop
+    local save, save_id, encounter, shop, minigame
     if mode == "temp" then
+        Kristal.temp_save = true
         save = Game:save()
         save_id = Game.save_id
         encounter = Game.battle and Game.battle.encounter and Game.battle.encounter.id
         shop = Game.shop and Game.shop.id
+		minigame = Game.minigame and Game.minigame.id
     elseif mode == "save" then
         save_id = Game.save_id
     end
@@ -1197,6 +1232,8 @@ function Kristal.quickReload(mode)
 
     -- Clear the mod
     Kristal.clearModState()
+	-- Reload plugins
+	Kristal.loadAssets("", "plugins", "")
     -- Reload mods
     Kristal.loadAssets("", "mods", "", function ()
         Kristal.setDesiredWindowTitleAndIcon()
@@ -1212,6 +1249,8 @@ function Kristal.quickReload(mode)
                         -- If we had an encounter, restart the encounter
                         if encounter then
                             Game:encounter(encounter, false)
+                        elseif minigame then -- If we were in a minigame, restart it
+                            Game:startMinigame(minigame)
                         elseif shop then -- If we were in a shop, re-enter it
                             Game:enterShop(shop)
                         end
@@ -1371,9 +1410,86 @@ function Kristal.loadModAssets(id, asset_type, asset_paths, after)
 
     -- Finally load all assets (libraries first)
     for _, lib_id in ipairs(mod.lib_order) do
-        Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
+        if not mod.libs[lib_id].preload_assets then
+            Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
+        else
+            finishLoadStep()
+        end
     end
     Kristal.loadAssets(mod.path, asset_type or "all", asset_paths or "", finishLoadStep)
+    for plugin in Kristal.PluginLoader.iterPlugins(true) do
+        Kristal.loadAssets(plugin.path, asset_type or "all", asset_paths or "", finishLoadStep)
+    end
+end
+
+function Kristal.startGameDPR(save_id, save_name, after)
+    local save = Kristal.getSaveFile(save_id)
+    Kristal.loadMod(save and save.mod or TARGET_MOD, save_id, save_name, after)
+end
+
+-- Loads into the provided mod with the current save slot.
+---@param use_lame_fadeout boolean|string? # DO NOT USE, work in progress.
+function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
+    --this is for noel, so they dont save their file for a possible armor dupe
+    Kristal.temp_save = true
+
+    assert(id)
+    if not Kristal.Mods.getMod(id) then
+        -- TODO: Floweycheck DLC
+        print("WARNING: DLC " .. id .. " is not installed.")
+    end
+    Game:setFlag("is_swapping_mods", true)
+
+    local save_id = Game.started and Game.save_id or 1
+    local save = Game.started and Game:save() or Kristal.getSaveFile(save_id)
+    local map_args = {...}
+    local map = table.remove(map_args, 1)
+    local marker, x, y, facing
+    if type(map_args[1]) == "string" then
+        marker = table.remove(map_args, 1)
+    elseif type(map_args[1]) == "number" then
+        x = table.remove(map_args, 1)
+        y = table.remove(map_args, 1)
+    else
+        marker = "spawn"
+    end
+    if map_args[1] then
+        facing = table.remove(map_args, 1)
+    end
+
+    Kristal.modswap_destination = {
+        map,
+        marker,
+        x,
+        y,
+        facing
+    }
+
+    save.room_id = "conversion_rooms/" .. (Game.light and "light" or "dark")
+    --save.room_id = map
+    save.spawn_facing = facing
+    if marker then
+        save.spawn_marker = marker
+    else
+        save.spawn_position = {x, y}
+    end
+
+    Kristal.setState(use_lame_fadeout and "LameFadeout" or {}, use_lame_fadeout)
+    Kristal.clearModState()
+
+    Kristal.loadAssets("", "mods", "", function()
+        Kristal.loadMod(id, nil, nil, function()
+            if Kristal.preInitMod(id) then
+                Kristal.setDesiredWindowTitleAndIcon()
+                local game_params = {save, save_id}
+                if use_lame_fadeout then
+                    Kristal.States["LameFadeout"]:onLoadFinish(game_params)
+                else
+                    Kristal.setState("Game", unpack(game_params))
+                end
+            end
+        end)
+    end)
 end
 
 local function shouldWindowUseModBranding()
@@ -1406,6 +1522,52 @@ function Kristal.setDesiredWindowTitleAndIcon()
     local mod = shouldWindowUseModBranding()
     love.window.setIcon(mod and mod.window_icon_data or Kristal.icon)
     love.window.setTitle(mod and mod.name or Kristal.game_default_name)
+
+    -- eh, this is mildly amusing
+    if Mod then
+        Kristal.funnytitle()
+    end
+end
+
+Kristal.funny_titles = {
+    "Deltarune",
+    "Half-Life",
+    "* GOD damnit KRIS where the HELL are WE!?",
+    "* GOD damnit HERO where the HELL are WE!?",
+    "* SO, I have no fucking clue where we are.",
+    "* z...z.....z.....z.......Z.........Z",
+    "Kristale",
+    "* \z
+    WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+    WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? \z
+    WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT? WHAT?",
+    "A DESS, a FLIMBO, and a DELF from the SHELF",
+    "* REDDIT GOLD POG!!",
+    "LOOK ITS bAnNAna and MEGALORE!!!",
+    "GREYAREA",
+    "Kristal",
+    "Spamton Sweepstakes",
+    "Includes Darkness!",
+    "It's raining somewhere else...",
+    "Minecraft",
+    "Counter Strike Source Not Found()",
+    "Grian Is Watching You.",
+    "PLAY THE RIBBIT MOD, NOW!!!",
+    "Dark Place: REBIRTH",
+    "Thetaseal",
+    "Undertale Yellow: The Roba Edition",
+    "Power Star",
+    "Doki Doki Literature Club!",
+}
+-- Sets a random title and icon to the game window.
+function Kristal.funnytitle(force_icon)
+    if Utils.random() < 0.5 then return end
+    local funnytitle_rand = love.math.random(#Kristal.funny_titles)
+    if force_icon then funnytitle_rand = force_icon end
+    local funnytitle = Kristal.funny_titles[funnytitle_rand] or "Depa Runts"
+    local funnyicon = Assets.getTextureData("kristal/icons/icon_"..tostring(funnytitle_rand)) or Kristal.icon
+    love.window.setTitle(funnytitle)
+    love.window.setIcon(funnyicon)
 end
 
 --- Called internally. Calls the `preInit` event on the mod and initializes the registry.
@@ -1433,6 +1595,8 @@ function Kristal.preInitMod(id)
 
     -- Initialize registry
     Registry.initialize()
+    -- Shove the warp bin cutscene into the registry
+    Registry.registerWorldCutscene("warp_bin", WarpBinCS)
 
     -- Return true if no "preInit" explicitly returns true
     return use_callback
@@ -1624,6 +1788,15 @@ function Kristal.getSoulColor()
     return unpack(COLORS.red)
 end
 
+--- Returns the soul facing direction which should be used.
+---@return string The facing value.
+function Kristal.getSoulFacing()
+    if Kristal.getState() == Game then
+        return Game:getSoulFacing()
+    end
+    return "up"
+end
+
 --- Called internally. Loads the saved user config, with default values.
 ---@return table config The user config.
 function Kristal.loadConfig()
@@ -1634,9 +1807,10 @@ function Kristal.loadConfig()
         fps = 30,
         vSync = false,
         frameSkip = false,
-        debug = false,
+        debug = true,
         fullscreen = false,
         simplifyVFX = false,
+        ardlc = false,
         autoRun = false,
         masterVolume = 0.6,
         favorites = {},
@@ -1649,6 +1823,9 @@ function Kristal.loadConfig()
         defaultName = "",
         skipNameEntry = false,
         verboseLoader = false,
+        ["plugins/enabled_plugins"] = {},
+        dLoad = true,
+        altAttack = false,
         brokenMenuBoxes = false
     }
     if love.filesystem.getInfo("settings.json") then
@@ -1670,8 +1847,7 @@ function Kristal.saveGame(id, data)
     data = data or Game:save()
     Game.save_id = id
     Game.quick_save = nil
-    love.filesystem.createDirectory("saves/" .. Mod.info.id)
-    love.filesystem.write("saves/" .. Mod.info.id .. "/file_" .. id .. ".json", JSON.encode(data))
+    love.filesystem.write("saves" .. "/file_" .. id .. ".json", JSON.encode(data))
 end
 
 --- Loads the game from a save file.
@@ -1679,10 +1855,18 @@ end
 ---@param fade? boolean Whether the game should fade in after loading. (Defaults to `false`)
 function Kristal.loadGame(id, fade)
     id = id or Game.save_id
-    local path = "saves/" .. Mod.info.id .. "/file_" .. id .. ".json"
-    if love.filesystem.getInfo(path) then
-        local data = JSON.decode(love.filesystem.read(path))
-        Game:load(data, id, fade)
+    local data = Kristal.getSaveFile(id)
+    if data then
+        assert(Mod)
+        if data.mod == Mod.info.id then
+            Game:load(data, id, fade)
+        else
+            Kristal.setState({})
+            Kristal.clearModState()
+            Kristal.loadAssets("", "mods", "", function()
+                Kristal.startGameDPR(id, data.name)
+            end)
+        end
     else
         Game:load(nil, id, fade)
     end
@@ -1690,11 +1874,10 @@ end
 
 --- Returns the data from the specified save file.
 ---@param id?   number    The save file index to load. (Defaults to the currently loaded save index)
----@param path? string    The save folder to load from. (Defaults to the current mod's save folder)
 ---@return table|nil data The data loaded from the save file, or `nil` if the file doesn't exist.
-function Kristal.getSaveFile(id, path)
+function Kristal.getSaveFile(id)
     id = id or Game.save_id
-    local full_path = "saves/" .. (path or Mod.info.id) .. "/file_" .. id .. ".json"
+    local full_path = "saves" .. "/file_" .. id .. ".json"
     if love.filesystem.getInfo(full_path) then
         return JSON.decode(love.filesystem.read(full_path))
     end
@@ -1703,37 +1886,39 @@ end
 
 --- Returns whether the specified save file exists.
 ---@param id?   number    The save file index to check. (Defaults to the currently loaded save index)
----@param path? string    The save folder to check. (Defaults to the current mod's save folder)
 ---@return boolean exists Whether the save file exists.
-function Kristal.hasSaveFile(id, path)
+function Kristal.hasSaveFile(id)
     id = id or Game.save_id
-    local full_path = "saves/" .. (path or Mod.info.id) .. "/file_" .. id .. ".json"
+    local full_path = "saves" .. "/file_" .. id .. ".json"
     return love.filesystem.getInfo(full_path) ~= nil
 end
 
 --- Returns whether the specified save folder has any save files.
----@param path? string    The save folder to check. (Defaults to the current mod's save folder)
 ---@return boolean exists Whether the save folder has any save files.
 function Kristal.hasAnySaves(path)
     local full_path = "saves/" .. (path or Mod.info.id)
-    return love.filesystem.getInfo(full_path) and (#love.filesystem.getDirectoryItems(full_path) > 0)
+    if love.filesystem.getInfo(full_path) then
+        for _,file in ipairs(love.filesystem.getDirectoryItems(full_path)) do
+            if string.sub(file, 1, 5) == "file_" and string.sub(file, -5) == ".json" then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 --- Saves the given data to a file in the save folder.
 ---@param file  string The file name to save to.
 ---@param data  table  The data to save.
----@param path? string The save folder to save to. (Defaults to the current mod's save folder)
-function Kristal.saveData(file, data, path)
-    love.filesystem.createDirectory("saves/" .. (path or Mod.info.id))
-    love.filesystem.write("saves/" .. (path or Mod.info.id) .. "/" .. file .. ".json", JSON.encode(data or {}))
+function Kristal.saveData(file, data)
+    love.filesystem.write("saves/" .. file .. ".json", JSON.encode(data or {}))
 end
 
 --- Loads and returns the data from a file in the save folder.
 ---@param file  string    The file name to load.
----@param path? string    The save folder to load from. (Defaults to the current mod's save folder)
 ---@return table|nil data The data loaded from the file, or `nil` if the file doesn't exist.
-function Kristal.loadData(file, path)
-    local full_path = "saves/" .. (path or Mod.info.id) .. "/" .. file .. ".json"
+function Kristal.loadData(file)
+    local full_path = "saves/" .. file .. ".json"
     if love.filesystem.getInfo(full_path) then
         return JSON.decode(love.filesystem.read(full_path))
     end
@@ -1741,9 +1926,8 @@ end
 
 --- Erases a file from the save folder.
 ---@param file  string The file name to erase.
----@param path? string The save folder to erase from. (Defaults to the current mod's save folder)
-function Kristal.eraseData(file, path)
-    love.filesystem.remove("saves/" .. (path or Mod.info.id) .. "/" .. file .. ".json")
+function Kristal.eraseData(file)
+    love.filesystem.remove("saves/" .. file .. ".json")
 end
 
 --- Calls a function from the current `Mod`, if it exists.
@@ -1793,8 +1977,11 @@ function Kristal.callEvent(f, ...)
     if not Mod then return end
     local lib_result = {Kristal.libCall(nil, f, ...)}
     local mod_result = {Kristal.modCall(f, ...)}
+    local plugin_result = {Kristal.PluginLoader.pluginCall(f, ...)}
     --print("EVENT: "..tostring(f), #mod_result, #lib_result)
-    if(#mod_result > 0) then
+    if(#plugin_result > 0) then
+        return Utils.unpack(plugin_result)
+    elseif(#mod_result > 0) then
         return Utils.unpack(mod_result)
     else
         return Utils.unpack(lib_result)

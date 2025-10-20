@@ -68,6 +68,10 @@ function actor:init()
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
         ["jump_ball"]           = {"ball", 1/15, true},
+
+        ["dance"]               = {"dance", 1/6, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
     if Game.chapter == 1 then
@@ -136,7 +140,19 @@ function actor:init()
         ["sit"] = {-3, 0},
 
         ["t_pose"] = {-4, 0},
+        ["sneak/left"] = {-4, 3},
+        ["sneak/right"] = {-2, 3},
+
+        --["run/left"] = {0, 0}, -- not existing, might be added in the future(?)
+        ["run/right"] = {0, 0},  -- I dunno the offsets and neither where to find them in DR code
+        --["run/up"] = {0, 0}, -- not existing, might be added in the future(?)
+        ["run/down"] = {0, 0},
     }
+
+    -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
+    self.taunt_sprites = {"pose", "peace", "t_pose", "sit"}
+
+    self.menu_anim = "pose"
 end
 
 return actor

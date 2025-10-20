@@ -48,21 +48,7 @@ function item:init()
 end
 
 function item:onWorldUse()
-    Game.world:startCutscene(function(cutscene)
-        Assets.playSound("phone", 0.7)
-        cutscene:text("* (You tried to call on the Cell\nPhone.)", nil, nil, {advance = false})
-        cutscene:wait(40/30)
-        local was_playing = Game.world.music:isPlaying()
-        if was_playing then
-            Game.world.music:pause()
-        end
-        Assets.playSound("smile")
-        cutscene:wait(200/30)
-        if was_playing then
-            Game.world.music:resume()
-        end
-        cutscene:text("* It's nothing but garbage noise.")
-    end)
+    Game.world:startCutscene("shared_cutscenes", "cell_phone")
 end
 
 return item

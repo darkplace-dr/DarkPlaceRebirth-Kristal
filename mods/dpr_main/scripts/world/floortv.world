@@ -1,0 +1,62 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floortv/legacy_corridors.tmx",
+            "height": 1200,
+            "width": 960,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floortv/green_room/green_room.tmx",
+            "height": 480,
+            "width": 1440,
+            "x": 960,
+            "y": 880
+        },
+        {
+            "fileName": "maps/floortv/tenna_room/tenna_room.tmx",
+            "height": 960,
+            "width": 1640,
+            "x": 2400,
+            "y": 600
+        },
+        {
+            "fileName": "maps/floortv/pre_elevator/pre_elevator.tmx",
+            "height": 480,
+            "width": 960,
+            "x": -3960,
+            "y": -1880
+        },
+        {
+            "fileName": "maps/floortv/quiztest.tmx",
+            "height": 640,
+            "width": 2800,
+            "x": -2880,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floortv/zapper_maze/zapper_maze.tmx",
+            "height": 1760,
+            "width": 2160,
+            "x": 0,
+            "y": -2040
+        },
+        {
+            "fileName": "maps/floortv/stealthzone.tmx",
+            "height": 720,
+            "width": 2000,
+            "x": -6040,
+            "y": -1920
+        },
+        {
+            "fileName": "maps/floortv/ralsei_imposter.tmx",
+            "height": 640,
+            "width": 640,
+            "x": 2240,
+            "y": -960
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

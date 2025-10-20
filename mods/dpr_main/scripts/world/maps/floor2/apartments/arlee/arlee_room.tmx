@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="19">
+ <editorsettings>
+  <export target="arlee_room.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="deltarune/man_2"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/arleeroom.tsx"/>
+ <imagelayer id="2" name="room">
+  <image source="../../../../../../assets/sprites/world/maps/arleeroom/arlee_room.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup color="#0000ff" id="4" name="collision">
+  <object id="1" x="120" y="138" width="400" height="40"/>
+  <object id="2" x="80" y="138" width="40" height="268"/>
+  <object id="4" x="80" y="406" width="204" height="74"/>
+  <object id="5" x="520" y="138" width="40" height="268"/>
+  <object id="6" x="354" y="406" width="206" height="74"/>
+  <object id="13" x="120" y="178" width="92" height="102"/>
+  <object id="14" x="400" y="378" width="92" height="28"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="objects">
+  <object id="7" gid="1" x="120" y="280" width="92" height="142"/>
+  <object id="8" gid="2" x="400" y="406" width="92" height="54"/>
+  <object id="10" name="interactable" x="280" y="138" width="80" height="40">
+   <properties>
+    <property name="text">* You try to see over the darkness...[wait:5]
+* You see nothing.</property>
+   </properties>
+  </object>
+  <object id="11" name="interactable" x="400" y="372" width="92" height="34">
+   <properties>
+    <property name="cutscene" value="arlee.computer"/>
+   </properties>
+  </object>
+  <object id="12" name="interactable" x="120" y="178" width="92" height="102">
+   <properties>
+    <property name="text" value="* Normal bed,[wait:5] for normal people."/>
+   </properties>
+  </object>
+  <object id="17" name="transition" x="282" y="480" width="74" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floor2/apartments_left"/>
+    <property name="marker" value="entry_arlee"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="18" name="npc" x="440" y="240">
+   <properties>
+    <property name="actor" value="arlee"/>
+    <property name="cutscene" value="arlee.starbits"/>
+    <property name="flagcheck" value="arlee_quest"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="6" name="markers">
+  <object id="15" name="spawn" x="320" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

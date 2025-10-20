@@ -965,6 +965,20 @@ function World:loadMap(...)
         self.map:onExit()
     end
 
+    -- MB Easter Egg
+    if self.shouldMb and self:shouldMb(map) then
+        -- TODO: Move these out of the Kristal table because that's stupid and it should've never been like that
+        Kristal.mb_map_dest = map
+        Kristal.mb_marker_dest = marker or {x, y}
+        Kristal.mb_facing_dest = facing
+        Kristal.mb_callback_dest = callback
+        map = "​"
+        marker = "spawn"
+        x, y = nil, nil
+        facing = nil
+        callback = nil
+    end
+
     self:setupMap(map, unpack(args))
 
     if self.map.markers["spawn"] then

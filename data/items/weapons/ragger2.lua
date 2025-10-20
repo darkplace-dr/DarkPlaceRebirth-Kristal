@@ -51,7 +51,11 @@ function item:init()
         susie = "This is Ralsei's deal.",
         ralsei = "I'm a prickly prince!",
         noelle = "(It's like Santa's beard?)",
+        jamm = "Don't even think about it.",
+		dess = "who ever uses these",
+        ceroba = "REALLY uncomfortable."
     }
+
 end
 
 return item

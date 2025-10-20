@@ -48,6 +48,11 @@ function item:init()
         susie = "... okay.",
         ralsei = "It says \"Friendship!\"",
         noelle = "Hey, y-you jumbled it...",
+        dess = "alr how do you spell a swear",
+        jamm = "Spells \"Memory...\"",
+        ["jamm+marcy"] = "Spells \"Family.\"",
+        noel = "This isn't very useful.",
+        ceroba = "\"Justice\", huh?",
     }
 end
 

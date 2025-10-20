@@ -259,8 +259,17 @@ function BattleUI:drawState()
 
         local x = 0
         local y = 0
-        Draw.setColor(Game.battle.encounter:getSoulColor())
-        Draw.draw(self.heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 230), 30 + ((Game.battle.current_menu_y - (page*3)) * 30))
+		local party = Game.battle.party[Game.battle.current_selecting].chara
+		if party.soul_color then
+			Draw.setColor(party.soul_color)
+		else
+			Draw.setColor(Game.battle.encounter:getSoulColor())
+		end
+		local heart_sprite = self.heart_sprite
+		if party.heart_sprite then
+			heart_sprite = Assets.getTexture(party.heart_sprite)
+		end
+        Draw.draw(heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 230), 30 + ((Game.battle.current_menu_y - (page*3)) * 30))
 
         local font = Assets.getFont("main")
         love.graphics.setFont(font)
@@ -377,8 +386,17 @@ function BattleUI:drawState()
         local max_page = math.ceil(#enemies / 3) - 1
         local page_offset = page * 3
 
-        Draw.setColor(Game.battle.encounter:getSoulColor())
-        Draw.draw(self.heart_sprite, 55, 30 + ((Game.battle.current_menu_y - page_offset) * 30))
+        local party = Game.battle.party[Game.battle.current_selecting].chara
+        if party.soul_color then
+			Draw.setColor(party.soul_color)
+		else
+			Draw.setColor(Game.battle.encounter:getSoulColor())
+		end
+		local heart_sprite = self.heart_sprite
+		if party.heart_sprite then
+			heart_sprite = Assets.getTexture(party.heart_sprite)
+		end
+        Draw.draw(heart_sprite, 55, 30 + ((Game.battle.current_menu_y - page_offset) * 30))
 
         local font = Assets.getFont("main")
         love.graphics.setFont(font)
@@ -574,8 +592,17 @@ function BattleUI:drawState()
         local max_page = math.ceil(#Game.battle.party / 3) - 1
         local page_offset = page * 3
 
-        Draw.setColor(Game.battle.encounter:getSoulColor())
-        Draw.draw(self.heart_sprite, 55, 30 + ((Game.battle.current_menu_y - page_offset) * 30))
+        local party = Game.battle.party[Game.battle.current_selecting].chara
+        if party.soul_color then
+            Draw.setColor(party.soul_color)
+        else
+            Draw.setColor(Game.battle.encounter:getSoulColor())
+        end
+        local heart_sprite = self.heart_sprite
+        if party.heart_sprite then
+            heart_sprite = Assets.getTexture(party.heart_sprite)
+        end
+        Draw.draw(heart_sprite, 55, 30 + ((Game.battle.current_menu_y - page_offset) * 30))
 
         local font = Assets.getFont("main")
         love.graphics.setFont(font)
@@ -583,16 +610,25 @@ function BattleUI:drawState()
         for index = page_offset+1, math.min(page_offset+3, #Game.battle.party) do
             Draw.setColor(1, 1, 1, 1)
             love.graphics.print(Game.battle.party[index].chara:getName(), 80, 50 + ((index - page_offset - 1) * 30))
+            
+            local mhp_perc = Game.battle.party[index].chara:getStat("health") / Game.battle.party[index].chara:getStat("health_def")
+            if mhp_perc <= 0 then
+                Draw.setColor(1, 0, 0, 1)
+                love.graphics.print("(Fallen)", 400, 50 + ((index - page_offset - 1) * 30))
+            else
+                Draw.setColor(COLORS.dkgray)
+                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
 
-            Draw.setColor(PALETTE["action_health_bg"])
-            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
+                Draw.setColor(PALETTE["action_health_bg"])
+                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(mhp_perc * 101), 16)
 
-            local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
-            -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
-            -- Swooning is the only time you can ever see it this low
-            percentage = math.max(-1, percentage)
-            Draw.setColor(PALETTE["action_health"])
-            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * 101), 16)
+                local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
+                -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
+                -- Swooning is the only time you can ever see it this low
+                percentage = math.max(-1, percentage)
+                Draw.setColor(PALETTE["action_health"])
+                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * (math.ceil(mhp_perc * 101))), 16)
+            end
         end
 
         Draw.setColor(1, 1, 1, 1)

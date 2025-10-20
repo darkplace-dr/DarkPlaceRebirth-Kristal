@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="41">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="deltarune/noelle_house_wip"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="bg">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/noellehouse/noelle.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup id="6" name="objects_deco">
+  <object id="9" gid="107" x="482" y="282" width="74" height="124"/>
+  <object id="23" gid="135" x="160" y="140" width="14" height="20"/>
+  <object id="24" gid="134" x="176" y="160" width="22" height="40"/>
+  <object id="25" gid="132" x="370" y="180" width="22" height="60"/>
+  <object id="26" gid="135" x="392" y="140" width="14" height="20"/>
+  <object id="27" gid="134" x="414" y="160" width="22" height="40"/>
+  <object id="30" gid="133" x="436" y="154" width="14" height="34"/>
+  <object id="31" gid="132" x="458" y="180" width="22" height="60"/>
+  <object id="32" gid="153" x="490" y="156" width="56" height="32"/>
+ </objectgroup>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="120" y="200" width="440" height="40"/>
+  <object id="2" x="560" y="240" width="40" height="200"/>
+  <object id="3" x="520" y="440" width="40" height="40"/>
+  <object id="4" x="80" y="440" width="360" height="40"/>
+  <object id="5" x="0" y="320" width="80" height="160"/>
+  <object id="14" x="482" y="240" width="72" height="30"/>
+  <object id="15" x="80" y="312" width="98" height="40"/>
+  <object id="16" x="94" y="410" width="84" height="30"/>
+  <object id="17" x="216" y="408" width="196" height="32"/>
+  <object id="18" x="514" y="300" width="46" height="140"/>
+  <object id="19" x="468" y="344" width="46" height="44"/>
+  <object id="20" x="178" y="270">
+   <polygon points="0,0 38,0 0,82"/>
+  </object>
+  <object id="21" x="202" y="240" width="14" height="30"/>
+  <object id="22" x="240" y="240" width="234" height="30"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="6" name="transition" x="440" y="480" width="80" height="40">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/noellehouse/main"/>
+    <property name="marker" value="entrynoelle"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="10" gid="103" x="464" y="392" width="42" height="74"/>
+  <object id="11" gid="105" x="514" y="324" width="44" height="66"/>
+  <object id="12" gid="106" x="198" y="440" width="230" height="68"/>
+  <object id="13" gid="104" x="90" y="440" width="92" height="54"/>
+  <object id="33" name="interactable" x="96" y="254" width="104" height="77">
+   <properties>
+    <property name="text" value="* (It's Noelle's bed. There's ample space to hide underneath.)"/>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="102" y="414" width="68" height="20">
+   <properties>
+    <property name="cutscene" value="noellehouse.noelle_computer"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="232" y="386" width="100" height="40">
+   <properties>
+    <property name="text" value="* (It's a state of the art high-definition TV with old game consoles under it.)"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="244" y="210" width="218" height="54">
+   <properties>
+    <property name="text" value="* (It's a couch,[wait:5] for watching the TV.)"/>
+   </properties>
+  </object>
+  <object id="38" name="interactable" x="354" y="390" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="noellehouse.noelle_plant"/>
+   </properties>
+  </object>
+  <object id="39" name="interactable" x="515" y="312" width="40" height="94">
+   <properties>
+    <property name="text" value="* (It's Noelle's homework desk.)"/>
+   </properties>
+  </object>
+  <object id="40" name="interactable" x="492" y="224" width="52" height="38">
+   <properties>
+    <property name="text" value="* (A clothes wardrobe. A pair of small angel wings are inside...[wait:5] worn out and tattered.)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="markers">
+  <object id="7" name="spawn" x="474" y="450">
+   <point/>
+  </object>
+  <object id="8" name="entry" x="474" y="452">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

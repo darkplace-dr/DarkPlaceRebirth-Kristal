@@ -18,11 +18,18 @@
 ---@field page_scroll_timer number
 ---
 ---@field noise_timer number
+---@field retro boolean
 ---
 ---@overload fun(menu:MainMenu) : MainMenuOptions
 local MainMenuOptions, super = Class(StateClass)
 
 function MainMenuOptions:init(menu)
+    self.retro = false
+    local date = os.date("*t")
+    if date.month == 3 and date.day == 10 then
+        self.retro = true
+    end
+
     self.menu = menu
 
     self.state_manager = StateManager("MENU", self, true)
@@ -56,6 +63,27 @@ function MainMenuOptions:init(menu)
     self.page_scroll_timer = 0
 
     self.noise_timer = 0
+	
+    self.clouds1_x = 0
+    self.clouds2_x = 0
+    self.scroll_speed = 2
+    self.scroll_speed2 = 1
+	
+    self.dog_balloon_siner = 0
+	
+    self.clouds_1 = Assets.getTexture("kristal/options_clouds1")
+    if self.retro then
+        self.clouds_1 = Assets.getTexture("kristal/options_retro1")
+    end
+    self.clouds_2 = Assets.getTexture("kristal/options_clouds2")
+    if self.retro then
+        self.clouds_2 = Assets.getTexture("kristal/options_retro2")
+    end
+    self.moon = Assets.getTexture("kristal/options_moon")
+    if self.retro then
+        self.moon = Assets.getTexture("kristal/options_platform")
+    end
+    self.dog = Assets.getTexture("kristal/dog_balloon")
 end
 
 function MainMenuOptions:registerEvents()
@@ -70,6 +98,7 @@ end
 -------------------------------------------------------------------------------
 
 function MainMenuOptions:onEnter(old_state)
+    if old_state == "plugins" then return end
     self.selected_option = 1
     self.selected_page = 1
 
@@ -80,6 +109,7 @@ function MainMenuOptions:onEnter(old_state)
 end
 
 function MainMenuOptions:onLeave()
+    Kristal.Loader.in_channel:push({config = Kristal.Config})
     self:setState("NONE")
 end
 
@@ -91,6 +121,11 @@ function MainMenuOptions:update()
     local page = self.pages[self.selected_page]
     local options = self.options[page].options
     local max_option = #options + 1
+	
+    self.clouds1_x = self.clouds1_x + self.scroll_speed * DTMULT
+    self.clouds2_x = self.clouds2_x + self.scroll_speed2 * DTMULT
+	
+    self.dog_balloon_siner = self.dog_balloon_siner + DTMULT
 
     if self.selected_option < max_option then
         local y_off = (self.selected_option - 1) * 32
@@ -113,12 +148,41 @@ function MainMenuOptions:update()
         self.page_scroll_timer = Utils.approach(self.page_scroll_timer, 0, DT)
     end
 
+    if Kristal.noel == true then
+        self:noel_char()
+    end
+
     self.menu.heart_target_x, self.menu.heart_target_y = self:getHeartPos()
 
     self.state_manager:update()
 end
 
 function MainMenuOptions:draw()
+    local offset = math.sin(self.dog_balloon_siner * 0.1) * 15
+
+    if self.retro then
+        Draw.setColor(0.36, 0.58, 0.99, 1)
+    else
+        Draw.setColor(COLORS.black)
+    end
+    Draw.rectangle("fill", 0, 0, 640, 480)
+
+    Draw.setColor(COLORS.white)
+    Draw.draw(self.moon, 484, 38, 0, 1, 1)
+    if self.retro then
+        Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 200, 0, 1, 1)
+    else
+        Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
+    end
+    if not self.retro then
+        Draw.draw(self.dog, 536, 296 + offset, 0, 2, 2)
+    end
+    if self.retro then
+        Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
+    else
+        Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
+    end
+
     local menu_font = Assets.getFont("main")
 
     local page = self.pages[self.selected_page]
@@ -163,7 +227,7 @@ function MainMenuOptions:draw()
         Draw.setColor(COLORS.white)
     end
 
-    local menu_x = 185 - 14
+    local menu_x = 62 - 14
     local menu_y = 110
 
     local width = 360
@@ -203,7 +267,7 @@ function MainMenuOptions:draw()
         Draw.popScissor()
     end
 
-    Draw.printShadow("Back", 0, 454 - 8, 2, "center", 640)
+    Draw.printShadow("Back", menu_x, 440 - 8, 2, "left", 640)
 
     self.state_manager:draw()
 end
@@ -225,6 +289,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
         Assets.stopAndPlaySound("ui_move")
 
         Kristal.saveConfig()
+
+        self:remove_noel_char()
 
         self.menu:setState("TITLE")
         self.menu.title_screen:selectOption("options")
@@ -278,6 +344,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
         if self.selected_option == max_option then
             -- "Back" button
             Kristal.saveConfig()
+
+            self:remove_noel_char()
 
             self.menu:setState("TITLE")
             self.menu.title_screen:selectOption("options")
@@ -461,12 +529,12 @@ function MainMenuOptions:getHeartPos()
     local x, y = 152, 129
 
     if self.selected_option < max_option then
-        x = 152
+        x = 27
         y = 129 + (self.selected_option - 1) * 32 + self.scroll_target_y
     else
         -- "Back" button
-        x = 320 - 32 - 16 + 1
-        y = 480 - 16 + 1
+        x = 27
+        y = 512 - 64 + 3
     end
 
     return x + self.heart_x, y
@@ -527,6 +595,7 @@ function MainMenuOptions:initializeOptions()
     self:registerOptionsPage("general", "GENERAL")
     self:registerOptionsPage("graphics", "GRAPHICS")
     self:registerOptionsPage("engine", "ENGINE")
+    self:registerOptionsPage("gameplay", "GAMEPLAY")
 
     ---------------------
     -- General Options
@@ -540,6 +609,7 @@ function MainMenuOptions:initializeOptions()
 
     local function enterControls(type)
         self.menu:pushState("CONTROLS", type)
+        self:remove_noel_char()
     end
     self:registerOption("general", "Keyboard Controls", nil, function () enterControls("keyboard") end)
     self:registerOption("general", "Gamepad Controls", nil, function () enterControls("gamepad") end)
@@ -578,6 +648,8 @@ function MainMenuOptions:initializeOptions()
                         end)
 
     self:registerConfigOption({ "general", "graphics" }, "Simplify VFX", "simplifyVFX")
+	
+    self:registerConfigOption("general", "Auto-Reload DLC", "ardlc")
 
     self:registerOption("graphics", "Target FPS", function (x, y)
                             if Kristal.Config["fps"] > 0 then
@@ -596,9 +668,7 @@ function MainMenuOptions:initializeOptions()
         love.window.setVSync(toggled and 1 or 0)
     end)
     self:registerConfigOption("graphics", "Frame Skip", "frameSkip")
-    self:registerConfigOption("graphics", "Broken Menu Boxes", "brokenMenuBoxes", function (toggled)
-        self.menu.mod_list:buildModList()
-    end)
+    self:registerConfigOption("graphics", "Broken Menu Boxes", "brokenMenuBoxes")
 
     ---------------------
     -- Engine Options
@@ -611,14 +681,110 @@ function MainMenuOptions:initializeOptions()
                             return Kristal.Config["defaultName"]
                         end, function ()
                             self.menu:pushState("DEFAULTNAME")
+                            self:remove_noel_char()
                         end)
     self:registerConfigOption("engine", "Skip Name Entry", "skipNameEntry")
 
     self:registerConfigOption("engine", "Debug Hotkeys", "debug")
     self:registerConfigOption("engine", "Verbose Loader", "verboseLoader")
+    self:registerConfigOption("engine", "Lazy Load Sprites", "lazySprites")
     self:registerConfigOption("engine", "Use System Mouse", "systemCursor", function () Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Always Show Mouse", "alwaysShowCursor", function () Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Instant Quit", "instantQuit")
+
+    self:registerConfigOption("gameplay", "Prefer Goner Keybd.", "prefersGonerKeyboard")
+    self:registerConfigOption("gameplay", "Enable Shatter", "enableShatter")
+    self:registerOption("gameplay", "Plugins", function ()
+        local active, total = 0, 0
+        local enabled = Kristal.Config["plugins/enabled_plugins"] or {}
+        for _, mod in ipairs(Kristal.Mods.getMods()) do
+            if mod.plugin then total = total + 1 end
+            if enabled[mod.id] then active = active + 1 end
+        end
+        return active.."/"..total
+    end,
+    function ()
+        ---@diagnostic disable-next-line: undefined-field
+        if Kristal.PluginLoader == nil then Assets.playSound("ui_cant_select"); return end
+        self:remove_noel_char()
+        self.menu:pushState("plugins")
+    end)
+
+    self:registerConfigOption("gameplay", "Descriptive Loading", "dLoad")
+    self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
+    self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
+
+end
+
+-------------------------------------------------------------------------------
+-- Noel the Nobody
+-- please ignore :)
+-------------------------------------------------------------------------------
+
+function MainMenuOptions:remove_noel_char()
+    if self.noel then
+        self.noel:remove()
+        self.noel2:remove()
+        self.container:remove()
+        self.container = nil
+        self.noel = nil
+        self.noel2 = nil
+    end
+end
+
+function MainMenuOptions:noel_char()
+    if self.noel2 then
+        --for the update function
+        --dont forget this sad diamond man you dumbass
+        local angle = Utils.angle(self.menu.heart.x, self.menu.heart.y, self.noel.x + 4, self.noel.y - 18)
+        --print(angle)
+        self.noel2.y = -angle*10 + self.noel.y
+        self.noel2.x = self.noel.x 
+    else
+
+    self.container = self.menu.stage:addChild(Object())
+    self.container:setLayer(50)
+    --Might come back to this in the future since noel is tecnically a save file
+    --self.noel = Sprite("face/noel/hey_jeku")
+    if self.retro then
+        self.noel = Sprite("party/noel/retro_1")
+        self.noel.visible = true
+        self.noel:setOrigin(0.5, 0.5)
+        self.noel:setScale(-2, 2)
+        self.noel.x, self.noel.y = 521, 156
+        self.noel.layer = 50
+        self.container:addChild(self.noel)
+        self.noel:addFX(OutlineFX())
+        self.noel:getFX(OutlineFX):setColor(1, 1, 1)
+    
+        self.noel2 = Sprite("party/noel/retro_2")
+        self.noel2.visible = true
+        self.noel2:setOrigin(0.5, 0.5)
+        self.noel2:setScale(-2, 2)
+        self.noel2.x, self.noel2.y = 50, 300
+        self.noel2.layer = 50
+        self.container:addChild(self.noel2)
+    else
+        self.noel = Sprite("party/noel/battle/temp_idle_1")
+        self.noel.visible = true
+        self.noel:setOrigin(0.5, 0.5)
+        self.noel:setScale(-2, 2)
+        self.noel.x, self.noel.y = 521, 153
+        self.noel.layer = 50
+        self.container:addChild(self.noel)
+        self.noel:addFX(OutlineFX())
+        self.noel:getFX(OutlineFX):setColor(1, 1, 1)
+    
+        self.noel2 = Sprite("party/noel/battle/temp_idle_2")
+        self.noel2.visible = true
+        self.noel2:setOrigin(0.5, 0.5)
+        self.noel2:setScale(-2, 2)
+        self.noel2.x, self.noel2.y = 50, 300
+        self.noel2.layer = 50
+        self.container:addChild(self.noel2)
+    end
+
+    end
 end
 
 return MainMenuOptions

@@ -49,6 +49,10 @@ function item:init()
         susie = "ROACH? Oh, brooch. Heh.",
         ralsei = "I'm a cute little corkboard!",
         noelle = "Queen... gave this to me.",
+        dess = "I'm Wing Desster, the royal scientist!",
+        jamm = "Not that I'm a part of her fan club, but...",
+        noel = "Ow! MOTHERFU-",
+        ceroba = "\"Royal\", huh?",
     }
 end
 

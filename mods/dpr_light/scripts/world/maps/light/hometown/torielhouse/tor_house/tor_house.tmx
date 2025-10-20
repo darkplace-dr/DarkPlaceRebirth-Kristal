@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="35" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="53">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="deltarune/home"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="room">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/torielhouse/living_room.png" width="1414" height="480"/>
+ </imagelayer>
+ <objectgroup id="7" name="objects_night_below" visible="0">
+  <object id="49" gid="72" x="1222" y="400" width="134" height="288">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="objects_below">
+  <object id="51" gid="73" x="944" y="310" width="112" height="140"/>
+ </objectgroup>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="1" x="342" y="80" width="44" height="236"/>
+  <object id="2" x="386" y="276" width="42" height="40"/>
+  <object id="3" x="428" y="316">
+   <polygon points="0,0 0,-40 40,-40"/>
+  </object>
+  <object id="4" x="468" y="236" width="228" height="40"/>
+  <object id="5" x="684" y="280" width="134" height="40"/>
+  <object id="6" x="818" y="320">
+   <polygon points="0,0 0,-40 40,-40"/>
+  </object>
+  <object id="7" x="818" y="218" width="40" height="62"/>
+  <object id="8" x="858" y="218" width="290" height="40"/>
+  <object id="10" x="1192" y="324">
+   <polygon points="0,0 0,-40 -40,-40"/>
+  </object>
+  <object id="11" x="1156" y="282">
+   <polygon points="0,0 -40,40 -120,0 0,-40"/>
+  </object>
+  <object id="13" x="1270" y="402">
+   <polygon points="0,0 0,-40 -40,-40"/>
+  </object>
+  <object id="14" x="246" y="314">
+   <polygon points="0,0 -40,0 -40,40"/>
+  </object>
+  <object id="15" x="138" y="422">
+   <polygon points="0,0 0,-40 40,-40"/>
+  </object>
+  <object id="16" x="236" y="80" width="40" height="236"/>
+  <object id="20" x="158" y="400" width="1112" height="40"/>
+  <object id="28" x="418" y="384" width="308" height="16"/>
+  <object id="29" x="854" y="382" width="282" height="18"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects_party">
+  <object id="17" name="transition" x="166" y="342" width="40" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="left"/>
+    <property name="map" value="light/hometown/torielhouse/toriel_bathroom"/>
+    <property name="marker" value="spawn"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="18" name="transition" x="1192" y="320" width="40" height="42">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/krisyard"/>
+    <property name="marker" value="entryhouse"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="19" name="transition" x="276" y="154" width="66" height="36">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/torielhouse/toriel_hallway"/>
+    <property name="marker" value="entryeast"/>
+    <property name="sound" value="escaped"/>
+   </properties>
+  </object>
+  <object id="21" name="interactable" x="754" y="280" width="44" height="40">
+   <properties>
+    <property name="text">* It's a landline phone.
+[wait:5]* But you already have a cell phone.</property>
+   </properties>
+  </object>
+  <object id="22" name="interactable" x="458" y="236" width="76" height="40">
+   <properties>
+    <property name="text1" value="* It's a sink. You could wash your hands here."/>
+    <property name="text2" value="* ...[wait:5] but,[wait:5] isn't the sink in the bathroom better?"/>
+   </properties>
+  </object>
+  <object id="23" name="interactable" x="534" y="236" width="82" height="40">
+   <properties>
+    <property name="cutscene" value="tor_home.oven"/>
+   </properties>
+  </object>
+  <object id="24" name="interactable" x="616" y="236" width="80" height="40">
+   <properties>
+    <property name="text" value="* (Cookie cutters for gingerbread monsters and gingerbread humans.)"/>
+   </properties>
+  </object>
+  <object id="25" name="interactable" x="412" y="260" width="44" height="40">
+   <properties>
+    <property name="cutscene" value="tor_home.fridge"/>
+   </properties>
+  </object>
+  <object id="26" name="interactable" x="948" y="258" width="94" height="46">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text" value="* (You can feel a pressure gradient from the absence of entertainment.)"/>
+   </properties>
+  </object>
+  <object id="27" gid="38" x="370" y="400" width="830" height="94"/>
+  <object id="30" name="interactable" x="1148" y="382" width="52" height="18">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text" value="* It's a book of hymns."/>
+   </properties>
+  </object>
+  <object id="31" name="interactable" x="684" y="280" width="44" height="40">
+   <properties>
+    <property name="text">* It's a trashcan.
+[wait:5]* Somehow,[wait:5] its floral scent has increased.</property>
+   </properties>
+  </object>
+  <object id="36" gid="39" x="846" y="324" width="94" height="104"/>
+  <object id="37" name="interactable" x="852" y="280" width="88" height="40">
+   <properties>
+    <property name="cutscene" value="tor_home.chairiel"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="39" gid="74" x="886" y="196" width="230" height="60"/>
+  <object id="40" gid="77" x="474" y="158" width="52" height="50"/>
+  <object id="41" gid="77" x="630" y="158" width="52" height="50"/>
+ </objectgroup>
+ <objectgroup id="6" name="objects_night" visible="0">
+  <object id="43" gid="75" x="886" y="196" width="230" height="60">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="44" gid="76" x="474" y="158" width="52" height="50">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="45" gid="76" x="630" y="158" width="52" height="50">
+   <properties>
+    <property name="night" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="33" name="entrybathroom" x="246" y="366">
+   <point/>
+  </object>
+  <object id="34" name="spawn" x="310" y="222">
+   <point/>
+  </object>
+  <object id="35" name="entryeast" x="1158" y="346">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="9" name="controllers">
+  <object id="52" name="hometowndaynight" x="0" y="0">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

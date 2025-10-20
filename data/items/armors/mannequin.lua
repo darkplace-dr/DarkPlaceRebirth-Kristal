@@ -48,6 +48,10 @@ function item:init()
         susie = "Not even gonna ask.",
         ralsei = "Um, the d-dress is cute...",
         noelle = "(Why did they spend $300 on this!?)",
+        dess = "300 buckarinos down the drain...",
+        jamm = "How are we even carrying this?",
+        noel = "You fucking idiot.",
+        ceroba = "I.. Um... No.",
     }
 end
 

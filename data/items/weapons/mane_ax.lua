@@ -48,6 +48,11 @@ function item:init()
         susie = "I'm too GOOD for that.",
         ralsei = "Ummm... it's a bit big.",
         noelle = "It... smells nice...",
+	    dess = "Too heavy",
+        brenda = "I can't carry THAT.",
+	    jamm = "I mean, I'm not THAT strong...",
+        noel = "I'm gonna pull a [Rude Buster]!",
+        ceroba = "(It's not THAT heavy...)"
     }
 end
 

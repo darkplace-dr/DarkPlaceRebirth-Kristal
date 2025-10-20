@@ -50,7 +50,11 @@ function item:init()
     self.reactions = {
         susie = "Mmm, seconds!",
         ralsei = "Whoops.",
-        noelle = "Happy birthday! Haha!"
+        noelle = "Happy birthday! Haha!",
+		dess = "happy easter",
+        jamm = "That's a LOT of sugar.",
+        ["jamm+marcy"] = "Here. We'll split it, Marcy.",
+        ceroba = "Are we celebrating something?",
     }
 end
 

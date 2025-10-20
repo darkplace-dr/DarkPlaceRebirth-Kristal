@@ -15,7 +15,6 @@ function SaveMenu:init(marker)
     self.ui_select = Assets.newSound("ui_select")
 
     self.heart_sprite = Assets.getTexture("player/heart")
-    self.divider_sprite = Assets.getTexture("ui/box/dark/top")
 
     self.main_box = UIBox(124, 130, 391, 154)
     self.main_box.layer = -1
@@ -49,10 +48,12 @@ function SaveMenu:init(marker)
     self.selected_x = 1
     self.selected_y = 1
 
+    self.selected_file = 1
+
     self.saved_file = nil
 
     self.saves = {}
-    for i = 1, 3 do
+    for i = 1, 4 do
         self.saves[i] = Kristal.getSaveFile(i)
     end
 end
@@ -66,6 +67,7 @@ function SaveMenu:updateSaveBoxSize()
 end
 
 function SaveMenu:update()
+    if OVERLAY_OPEN then return end
     if self.state == "MAIN" then
         if Input.pressed("cancel") then
             self:remove()
@@ -84,7 +86,9 @@ function SaveMenu:update()
                 self.ui_select:stop()
                 self.ui_select:play()
 
-                self.selected_y = Game.save_id
+                self.selected_file = Game.save_id
+                self.selected_x = self.selected_file%2 == 0 and 2 or 1
+                self.selected_y = self.selected_file <= 2 and 1 or 2
                 self.saved_file = nil
 
                 self.main_box.visible = false
@@ -122,19 +126,42 @@ function SaveMenu:update()
             self.main_box.visible = true
             self.save_box.visible = false
         end
+
         local last_selected = self.selected_y
         if Input.pressed("up") then
             self.selected_y = self.selected_y - 1
+            if self.selected_file ~= 2 and last_selected ~= 3 then
+                self.selected_file = self.selected_file - 2
+            end
         end
         if Input.pressed("down") then
             self.selected_y = self.selected_y + 1
+            if self.selected_file ~= 3 and last_selected ~= 3 then
+                self.selected_file = self.selected_file + 2
+            end
         end
-        self.selected_y = Utils.clamp(self.selected_y, 1, 4)
+
+        if Input.pressed("left") then
+            self.selected_x = self.selected_x - 1
+            if self.selected_file ~= 3 then
+                self.selected_file = self.selected_file - 1
+            end
+        end
+        if Input.pressed("right") then
+            self.selected_x = self.selected_x + 1
+            if self.selected_file ~= 2 then
+                self.selected_file = self.selected_file + 1
+            end
+        end
+
+        self.selected_file = Utils.clamp(self.selected_file, 1, 4)
+        self.selected_x = Utils.clamp(self.selected_x, 1, 2)
+        self.selected_y = Utils.clamp(self.selected_y, 1, 3)
         if Input.pressed("confirm") then
             self.ui_select:stop()
             self.ui_select:play()
 
-            if self.selected_y == 4 then
+            if self.selected_y == 3 then
                 self.state = "MAIN"
 
                 self.selected_x = 1
@@ -142,14 +169,16 @@ function SaveMenu:update()
 
                 self.main_box.visible = true
                 self.save_box.visible = false
-            elseif self.selected_y ~= Game.save_id and self.saves[self.selected_y] then
+            elseif self.selected_file ~= Game.save_id and self.saves[self.selected_file] then
+                self.selected_x = 1
+
                 self.state = "OVERWRITE"
 
                 self.overwrite_box.visible = true
             else
                 self.state = "SAVED"
 
-                self.saved_file = self.selected_y
+                self.saved_file = self.selected_file
                 Kristal.saveGame(self.saved_file, Game:save(self.marker))
                 self.saves[self.saved_file] = Kristal.getSaveFile(self.saved_file)
 
@@ -166,7 +195,7 @@ function SaveMenu:update()
         if Input.pressed("cancel") then
             self.state = "SAVE"
 
-            self.selected_x = 1
+            self.selected_x = (self.selected_file%2 == 0 and 2) or 1
             self.overwrite_box.visible = false
         end
         if Input.pressed("left") or Input.pressed("right") then
@@ -176,19 +205,19 @@ function SaveMenu:update()
             if self.selected_x == 1 then
                 self.state = "SAVED"
 
-                self.saved_file = self.selected_y
+                self.saved_file = self.selected_file
                 Kristal.saveGame(self.saved_file, Game:save(self.marker))
                 self.saves[self.saved_file] = Kristal.getSaveFile(self.saved_file)
 
                 Assets.playSound("save")
 
-                self.selected_x = 1
+                self.selected_x = (self.selected_file%2 == 0 and 2) or 1
                 self.overwrite_box.visible = false
                 self:updateSaveBoxSize()
             else
                 self.state = "SAVE"
 
-                self.selected_x = 1
+                self.selected_x = (self.selected_file%2 == 0 and 2) or 1
                 self.overwrite_box.visible = false
             end
         end
@@ -238,21 +267,30 @@ function SaveMenu:draw()
         local heart_positions_y = {228, 270}
         Draw.setColor(Game:getSoulColor())
         Draw.draw(self.heart_sprite, heart_positions_x[self.selected_x], heart_positions_y[self.selected_y])
+    
     elseif self.state == "SAVE" or self.state == "OVERWRITE" then
         self:drawSaveFile(0, Game:getSavePreview(), 74, 26, false, true)
 
-        self:drawSaveFile(1, self.saves[1], 74, 138, self.selected_y == 1)
-        Draw.draw(self.divider_sprite, 74, 208, 0, 493, 2)
+        self:drawSaveFile(1, self.saves[1], 64 + 2, 138 - 4, self.selected_file == 1)
 
-        self:drawSaveFile(2, self.saves[2], 74, 222, self.selected_y == 2)
-        Draw.draw(self.divider_sprite, 74, 292, 0, 493, 2)
+        self:drawSaveFile(2, self.saves[2], 312 + 2, 138 - 4, self.selected_file == 2)
 
-        self:drawSaveFile(3, self.saves[3], 74, 306, self.selected_y == 3)
-        Draw.draw(self.divider_sprite, 74, 376, 0, 493, 2)
+        self:drawSaveFile(3, self.saves[3], 64 + 2, 264, self.selected_file == 3)
 
-        if self.selected_y == 4 then
+        self:drawSaveFile(4, self.saves[4], 312 + 2, 264, self.selected_file == 4)
+
+        Draw.setColor(PALETTE["world_text"])
+        Draw.rectangle("fill", SCREEN_WIDTH/2 - 3, self.save_list.height/2 + 7, 6, 252)
+        Draw.rectangle("fill", self.save_list.x - 20, SCREEN_HEIGHT/2 + 22 - 4, 497, 6)
+        Draw.rectangle("fill", self.save_list.x - 20, 388 - 4, 497, 6)
+
+        if self.selected_y == 3 then
             Draw.setColor(Game:getSoulColor())
-            Draw.draw(self.heart_sprite, 236, 402)
+            if self.selected_x == 1 then
+                Draw.draw(self.heart_sprite, 239, 403)
+            else
+                Draw.draw(self.heart_sprite, 383, 403)
+            end
 
             Draw.setColor(PALETTE["world_text_selected"])
         else
@@ -262,20 +300,24 @@ function SaveMenu:draw()
     elseif self.state == "SAVED" then
         self:drawSaveFile(self.saved_file, self.saves[self.saved_file], 74, 26, false, true)
 
-        self:drawSaveFile(1, self.saves[1], 74, 138, self.selected_y == 1)
-        Draw.draw(self.divider_sprite, 74, 208, 0, 493, 2)
+        self:drawSaveFile(1, self.saves[1], 64 + 2, 138 - 4, self.selected_file == 1)
 
-        self:drawSaveFile(2, self.saves[2], 74, 222, self.selected_y == 2)
-        Draw.draw(self.divider_sprite, 74, 292, 0, 493, 2)
+        self:drawSaveFile(2, self.saves[2], 312 + 2, 138 - 4, self.selected_file == 2)
 
-        self:drawSaveFile(3, self.saves[3], 74, 306, self.selected_y == 3)
+        self:drawSaveFile(3, self.saves[3], 64 + 2, 264, self.selected_file == 3)
+
+        self:drawSaveFile(4, self.saves[4], 312 + 2, 264, self.selected_file == 4)
+
+        Draw.setColor(PALETTE["world_text"])
+        Draw.rectangle("fill", SCREEN_WIDTH/2 - 3, self.save_list.height/2 + 31, 6, 252)
+        Draw.rectangle("fill", self.save_list.x - 20, SCREEN_HEIGHT/2 + 22 - 4, 497, 6)
     end
 
     super.draw(self)
 
     if self.state == "OVERWRITE" then
         Draw.setColor(PALETTE["world_text"])
-        local overwrite_text = "Overwrite Slot "..self.selected_y.."?"
+        local overwrite_text = "Overwrite Slot "..self.selected_file.."?"
         love.graphics.print(overwrite_text, SCREEN_WIDTH/2 - self.font:getWidth(overwrite_text)/2, 123)
 
         local function drawOverwriteSave(data, x, y)
@@ -285,9 +327,10 @@ function SaveMenu:draw()
             love.graphics.print(data.name, x + (w/2) - self.font:getWidth(data.name)/2, y)
             love.graphics.print("LV "..data.level, x, y)
 
-            local minutes = math.floor(data.playtime / 60)
+            local hours = math.floor(data.playtime / 3600)
+            local minutes = math.floor(data.playtime / 60 % 60)
             local seconds = math.floor(data.playtime % 60)
-            local time_text = string.format("%d:%02d", minutes, seconds)
+            local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
             love.graphics.print(time_text, x + w - self.font:getWidth(time_text), y)
 
             -- Room name
@@ -295,7 +338,7 @@ function SaveMenu:draw()
         end
 
         Draw.setColor(PALETTE["world_text"])
-        drawOverwriteSave(self.saves[self.selected_y], 80, 165)
+        drawOverwriteSave(self.saves[self.selected_file], 80, 165)
         Draw.setColor(PALETTE["world_text_selected"])
         drawOverwriteSave(Game:getSavePreview(), 80, 235)
 
@@ -322,49 +365,73 @@ function SaveMenu:draw()
 end
 
 function SaveMenu:drawSaveFile(index, data, x, y, selected, header)
+
     if self.saved_file then
-        if self.saved_file == index then
+        if self.saved_file == index and self.selected_y ~= 3 then
             Draw.setColor(PALETTE["world_text_selected"])
         else
             Draw.setColor(PALETTE["world_save_other"])
         end
     else
-        if selected then
+        if selected and self.selected_y ~= 3 then
             Draw.setColor(PALETTE["world_text_selected"])
         else
             Draw.setColor(PALETTE["world_text"])
         end
     end
     if self.saved_file == index and not header then
-        love.graphics.print("File Saved", x + 180, y + 22)
+        love.graphics.print("File Saved", x + 67, y + 44)
     elseif not data then
-        love.graphics.print("New File", x + 193, y + 22)
-        if selected then
+        love.graphics.print("New File", x + 79, y + 44)
+        if selected and self.selected_y ~= 3 then
             Draw.setColor(Game:getSoulColor())
-            Draw.draw(self.heart_sprite, x + 161, y + 30)
+            if self.selected_x == 1 then
+                Draw.draw(self.heart_sprite, x + 50, y + 53)
+            else
+                Draw.draw(self.heart_sprite, x + 196, y + 54)
+            end
         end
     else
-        if self.saved_file or header then
-            love.graphics.print("LV "..data.level, x + 26, y + 6)
+        if not header then
+            love.graphics.print("LV "..data.level, x + 14, y + 6)
+    
+            love.graphics.print(data.name, x + (262 / 2) - self.font:getWidth(data.name) / 2, y + 44)
+    
+            local hours = math.floor(data.playtime / 3600)
+            local minutes = math.floor(data.playtime / 60 % 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
+            love.graphics.print(time_text, x + 248 - self.font:getWidth(time_text), y + 6)
+    
+            local room_x = Utils.clamp((260 / 2) - self.font:getWidth(data.room_name)/2, 12, math.huge)
+            local room_sx = self.font:getWidth(data.room_name) <= 237 and 1 or 237/self.font:getWidth(data.room_name)
+            love.graphics.print(data.room_name, x + room_x, y + 82, 0, room_sx, 1)
+    
+            if selected and not header and self.selected_y ~= 3 then
+                Draw.setColor(Game:getSoulColor())
+                Draw.draw(self.heart_sprite, x + 122, y + 15)
+            end
         else
-            love.graphics.print("LV "..data.level, x + 50, y + 6)
-        end
+            love.graphics.print("LV "..data.level, x + 26, y + 6)
 
-        love.graphics.print(data.name, x + (493 / 2) - self.font:getWidth(data.name) / 2, y + 6)
-
-        local minutes = math.floor(data.playtime / 60)
-        local seconds = math.floor(data.playtime % 60)
-        local time_text = string.format("%d:%02d", minutes, seconds)
-        love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
-
-        love.graphics.print(data.room_name, x + (493 / 2) - self.font:getWidth(data.room_name) / 2, y + 38)
-
-        if selected and not header then
-            Draw.setColor(Game:getSoulColor())
-            Draw.draw(self.heart_sprite, x + 18, y + 14)
+            love.graphics.print(data.name, x + (493 / 2) - self.font:getWidth(data.name) / 2, y + 6)
+    
+            local hours = math.floor(data.playtime / 3600)
+            local minutes = math.floor(data.playtime / 60 % 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
+            love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
+    
+            love.graphics.print(data.room_name, x + (493 / 2) - self.font:getWidth(data.room_name) / 2, y + 38)
+    
+            if selected and not header and self.selected_y ~= 3 then
+                Draw.setColor(Game:getSoulColor())
+                Draw.draw(self.heart_sprite, x + 18, y + 14)
+            end
         end
     end
     Draw.setColor(1, 1, 1)
 end
+
 
 return SaveMenu

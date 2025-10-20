@@ -18,6 +18,8 @@
 ---
 ---@field defeated_enemies      table
 ---
+---@field no_dojo_bg            boolean
+---
 ---@field reduced_tension       boolean
 ---
 ---@overload fun(...) : Encounter
@@ -346,14 +348,14 @@ end
 ---@param flag  string
 ---@param value any
 function Encounter:setFlag(flag, value)
-    Game:setFlag("encounter#"..self.id..":"..flag, value)
+    Game:setFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, value)
 end
 
 ---@param flag      string
 ---@param default?  any
 ---@return any
 function Encounter:getFlag(flag, default)
-    return Game:getFlag("encounter#"..self.id..":"..flag, default)
+    return Game:getFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, default)
 end
 
 --- Increments a numerical flag by `amount`.
@@ -361,7 +363,7 @@ end
 ---@param amount?   number  (Defaults to `1`)
 ---@return number
 function Encounter:addFlag(flag, amount)
-    return Game:addFlag("encounter#"..self.id..":"..flag, amount)
+    return Game:addFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, amount)
 end
 
 --- Checks if the encounter has reduced tension.

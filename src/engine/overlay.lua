@@ -21,6 +21,9 @@ function Overlay:init()
         love.graphics.newImage("assets/sprites/ui/loading_4.png"),
         love.graphics.newImage("assets/sprites/ui/loading_5.png"),
     }
+	
+    self.loading_star = love.graphics.newImage("assets/sprites/effects/star.png")
+    self.loading_star_rot = 0
 
     self.font = love.graphics.newFont("assets/fonts/main.ttf", 32)
 
@@ -36,6 +39,8 @@ function Overlay:init()
 end
 
 function Overlay:update()
+    self.loading_star_rot = self.loading_star_rot + 5 * DTMULT
+
     if self.loading then
         if self.load_alpha < 1 then
             self.load_alpha = math.min(1, self.load_alpha + DT / 0.25)
@@ -99,14 +104,29 @@ function Overlay:draw()
     Draw.draw(self.quit_frames[quit_frame])
     love.graphics.pop()
 
+    -- Draw the translucent rectangle
+    love.graphics.push()
+    love.graphics.scale(2)
+    Draw.setColor(0, 0, 0, self.load_alpha - 0.5)
+    love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    love.graphics.pop()
+	
+    -- Draw the load star graphic
+    love.graphics.push()
+    love.graphics.translate(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    love.graphics.scale(2)
+    Draw.setColor(1, 1, 1, self.load_alpha)
+    Draw.draw(self.loading_star, 0, -self.loading_star:getHeight(), math.rad(self.loading_star_rot), 1, 1, self.loading_star:getWidth()/2, self.loading_star:getHeight()/2)
+    love.graphics.pop()
+
     -- Draw the load text
     love.graphics.push()
-    love.graphics.translate(0, SCREEN_HEIGHT)
+    love.graphics.translate(SCREEN_WIDTH/2 + 5, SCREEN_HEIGHT/2 + 20)
     love.graphics.scale(2)
     Draw.setColor(1, 1, 1, self.load_alpha)
     local load_frame = (math.floor(self.load_timer / 0.25) % #self.load_frames) + 1
     local load_texture = self.load_frames[load_frame]
-    Draw.draw(load_texture, 0, -load_texture:getHeight())
+    Draw.draw(load_texture, 0, -load_texture:getHeight(), 0, 1, 1, load_texture:getWidth()/2, 0)
     love.graphics.pop()
 
     -- Draw the loader messages

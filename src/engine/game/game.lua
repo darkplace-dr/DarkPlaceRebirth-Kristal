@@ -7,6 +7,7 @@
 ---@field shop              Shop
 ---@field gameover          GameOver
 ---@field legend            Legend
+---@field dogcheck          DogCheck
 ---@field inventory         DarkInventory|LightInventory
 ---@field dark_inventory    DarkInventory
 ---@field light_inventory   LightInventory
@@ -39,6 +40,7 @@
 ---@field party             PartyMember[]
 ---@field party_data        PartyMember[]
 ---@field recruits_data     Recruit[]
+---@field quests_data       Quest[]
 ---
 ---@field fader             Fader
 ---@field max_followers     integer
@@ -65,15 +67,19 @@ function Game:clear()
     self.stage = nil
     self.world = nil
     self.battle = nil
+    self.minigame = nil
     self.shop = nil
     self.gameover = nil
     self.legend = nil
+    self.dogcheck = nil
     self.inventory = nil
     self.quick_save = nil
     self.lock_movement = false
     self.key_repeat = false
     self.started = false
     self.border = "simple"
+    self.swap_into_mod = nil
+    self.total_bp = nil
 end
 
 ---@overload fun(self: Game, previous_state: string, save_data: SaveData, save_id: number)
@@ -92,6 +98,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
     Kristal.callEvent(KRISTAL_EVENT.init)
 
     self.lock_movement = false
+
 
     fade = fade ~= false
     if type(save_id) == "table" then
@@ -127,6 +134,36 @@ function Game:enter(previous_state, save_id, save_name, fade)
     end
 end
 
+---@deprecated
+function Game:addEventTime(arg0)
+    return DP:addEventTime(arg0)
+end
+
+---@deprecated
+function Game:addPromise(arg0, arg1)
+	return DP:addPromise(arg0, arg1)
+end
+
+---@deprecated
+function Game:checkPromises()
+	return DP:checkPromises()
+end
+
+---@deprecated
+function Game:rollShiny(arg0, arg1)
+	return DP:rollShiny(arg0, arg1)
+end
+
+---@deprecated
+function Game:forceShiny(arg0, arg1)
+	return DP:forceShiny(arg0, arg1)
+end
+
+
+---@deprecated
+function Game:loadHooks()
+    return DP:loadHooks()
+end
 
 function Game:leave()
     self:clear()
@@ -174,7 +211,10 @@ end
 ---@param deep_merge?   boolean
 ---@return any
 function Game:getConfig(key, merge, deep_merge)
-    local default_config = Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)]
+    local default_config = Utils.copy(Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)])
+    for index, config in pairs(Kristal.ExtraConfigs) do
+       default_config[index] = config
+    end
 
     if not Mod then return default_config[key] end
 
@@ -203,12 +243,16 @@ function Game:getActiveMusic()
         return self.world.music
     elseif self.state == "BATTLE" then
         return self.battle.music
+	elseif self.state == "MINIGAME" then
+        return self.minigame.music
     elseif self.state == "SHOP" then
         return self.shop.music
     elseif self.state == "GAMEOVER" then
         return self.gameover.music
     elseif self.state == "LEGEND" then
         return self.legend.music
+    elseif self.state == "DOGCHECK" then
+        return self.dogcheck.music
     else
         return self.music
     end
@@ -234,6 +278,8 @@ end
 ---@return SaveData
 function Game:save(x, y)
     local data = {
+        mod = Mod.info.id,
+
         chapter = self.chapter,
 
         name = self.save_name,
@@ -259,7 +305,11 @@ function Game:save(x, y)
 
         temp_followers = self.temp_followers,
 
-        flags = self.flags
+        flags = self.flags,
+
+        total_bp = self.total_bp,
+
+        bossrush_encounters = self.bossrush_encounters,
     }
 
     if x then
@@ -293,7 +343,14 @@ function Game:save(x, y)
         data.recruits_data[k] = v:save()
     end
 
+    data.quests_data = {}
+    for k,v in pairs(self.quests_data) do
+        data.quests_data[k] = v:save()
+    end
+
     Kristal.callEvent(KRISTAL_EVENT.save, data)
+
+    Game.reset_map = nil
 
     return data
 end
@@ -308,10 +365,14 @@ function Game:load(data, index, fade)
 
     self:clear()
 
+    if data.mod and data.mod ~= Mod.info.id then
+        print("WARNING: Loading save file from a different DLC. Hopefully you're just switching inbetween.")
+    end
+
     BORDER_ALPHA = 0
     Kristal.showBorder(1)
 
-    -- states: OVERWORLD, BATTLE, SHOP, GAMEOVER, LEGEND
+    -- states: OVERWORLD, BATTLE, SHOP, MINIGAME, GAMEOVER, LEGEND, DOGCHECK
     self.state = "OVERWORLD"
 
     self.stage = Stage()
@@ -377,6 +438,16 @@ function Game:load(data, index, fade)
             end
         end
     end
+    self:initQuests()
+    if data.quests_data then
+        for k,v in pairs(data.quests_data) do
+            if self.quests_data[k] then
+                self.quests_data[k]:load(v)
+            else
+                self.quests_data[k] = FallbackQuest(v)
+            end
+        end
+    end
 
     if data.temp_followers then
         self.temp_followers = data.temp_followers
@@ -387,6 +458,8 @@ function Game:load(data, index, fade)
         end
     end
 
+    self.bossrush_encounters = data.bossrush_encounters
+
     self.level_up_count = data.level_up_count or 0
 
     self.money = data.money or Kristal.getModOption("money") or 0
@@ -394,6 +467,8 @@ function Game:load(data, index, fade)
 
     self.tension = data.tension or 0
     self.max_tension = data.max_tension or 100
+
+    self.total_bp = data.total_bp or 3
 
     self.lw_money = data.lw_money or 2
 
@@ -403,12 +478,14 @@ function Game:load(data, index, fade)
     end
 
     local map = nil
-    local room_id = data.room_id or Kristal.getModOption("map")
-    if room_id then
+    local new_load = Game.reset_map or Kristal.getModOption("map")
+    local room_id = data.room_id or new_load
+    if room_id and not self.bossrush_encounters then
         map = Registry.createMap(room_id, self.world)
 
         self.light = map.light or false
     end
+    if Game.reset_map then Game.reset_map = nil end
     
     self.default_equip_slots = data.default_equip_slots or 48
     if self.is_new_file and Game:getConfig("lessEquipments") then
@@ -485,6 +562,18 @@ function Game:load(data, index, fade)
         end
     end
 
+    local swapped_dlc = Game:getFlag("is_swapping_mods", false)
+    -- Make sure it only comes back when you load a file, not when switching between DLCs
+    if not Game:getFlag("is_swapping_mods", false) and Game:getFlag("oddstone_tossed", false) then
+        -- If you threw away the Odd Stone, bring it back
+        if self.light then
+            self.inventory:addItem("light/grey_marble")
+        else
+            self.inventory:addItem("oddstone")
+        end
+        Game:setFlag("oddstone_tossed", false)
+    end
+    Game:setFlag("is_swapping_mods", false)
     -- END SAVE FILE VARIABLES --
 
     Kristal.callEvent(KRISTAL_EVENT.load, data, self.is_new_file, index)
@@ -508,9 +597,43 @@ function Game:load(data, index, fade)
         elseif Kristal.getModOption("shop") then
             self:enterShop(Kristal.getModOption("shop"), { menu = true })
         end
+    elseif self.bossrush_encounters then
+        self:setBorder("battle")
+        self:encounter(self:getBossRef(self.bossrush_encounters[1]).encounter)
     end
 
-    Kristal.callEvent(KRISTAL_EVENT.postLoad)
+    Kristal.callEvent(KRISTAL_EVENT.postLoad, swapped_dlc)
+
+
+    --Code stolen from Simbel's depths dlc
+    if Kristal.Config["dLoad"] == true then
+		local text = Text("FILE " ..Game.save_id.. " LOADED")
+		text:setParallax(0)
+		text:setScreenPos(3, 3)
+		text:setLayer(WORLD_LAYERS["top"])
+		text.alpha = 5
+		text:setGraphics({
+			fade_to = 0,
+			fade = 0.1,
+			fade_callback = function(self) self:remove() end
+		})
+		Game.world:addChild(text)
+    end
+	
+	if not self:getFlag("SHINY") then
+		self:setFlag("SHINY", {})
+		for k,v in ipairs(Game:getFlag("unlockedPartyMembers", {})) do
+			self:rollShiny(v)
+		end
+	end
+	
+	if not self:getFlag("PROMISES") then
+		self:setFlag("PROMISES", {})
+	end
+	
+	if not self:getFlag("unlocked_codeblocks") then
+		self:setFlag("unlocked_codeblocks", {})
+	end
 end
 
 ---@param light? boolean
@@ -573,7 +696,8 @@ end
 
 ---@param x? number
 ---@param y? number
-function Game:gameOver(x, y)
+---@param sf? boolean
+function Game:gameOver(x, y, sf)
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
@@ -582,9 +706,15 @@ function Game:gameOver(x, y)
     if self.shop     then self.shop    :remove() end
     if self.gameover then self.gameover:remove() end
     if self.legend   then self.legend  :remove() end
+    if self.dogcheck then self.dogcheck:remove() end
 
-    self.gameover = GameOver(x or 0, y or 0)
-    self.stage:addChild(self.gameover)
+    if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
+        self.gameover = GameOver(x or 0, y or 0)
+        self.stage:addChild(self.gameover)
+    else
+        self.gameover = GameOverSF(sf == "bearers" and true or nil)
+        self.stage:addChild(self.gameover)
+    end
 end
 
 ---@param cutscene          string
@@ -623,6 +753,7 @@ end
 function Game:loadQuick(fade)
     local save = self.quick_save
     if save then
+        assert(save.mod == Mod.info.id, "Loading quick save created in another DLC ("..save.mod..") is UNIMPLEMENTED!")
         self:load(save, self.save_id, fade)
     else
         Kristal.loadGame(self.save_id)
@@ -708,6 +839,46 @@ function Game:enterShop(shop, options)
     self.shop:onEnter()
 end
 
+function Game:startMinigame(game)
+    if Game.minigame then
+        error("Attempt to enter minigame while already being in one")
+    end
+
+    Game.state = "MINIGAME"
+
+    Game.minigame = Registry.createMinigame(game)
+
+    Game.minigame:postInit()
+
+    Game.stage:addChild(Game.minigame)
+end
+
+function Game:dogCheck(variant)
+    Kristal.hideBorder(0)
+
+    self.state = "DOGCHECK"
+    if self.battle   then self.battle  :remove() end
+    if self.world    then self.world   :remove() end
+    if self.shop     then self.shop    :remove() end
+    if self.gameover then self.gameover:remove() end
+    if self.legend   then self.legend  :remove() end
+    if self.dogcheck then self.dogcheck:remove() end
+
+    self.dogcheck = DogCheck(variant)
+    self.stage:addChild(self.dogcheck)
+end
+
+function Game:setPresenceState(details)
+    self.rpc_state = details
+
+    -- talk about some half-baked support :bangbang:
+    local presence = Kristal.getPresence()
+    if presence then
+        presence.state = Kristal.callEvent("getPresenceState")
+        Kristal.setPresence(presence)
+    end
+end
+
 --- Sets the value of the flag named `flag` to `value`
 ---@param flag  string
 ---@param value any
@@ -756,6 +927,13 @@ function Game:initRecruits()
         else
             error("Attempted to create non-existent recruit \"" .. id .. "\"")
         end
+    end
+end
+
+function Game:initQuests()
+    self.quests_data = {}
+    for id,_ in pairs(Registry.quests) do
+        self.quests_data[id] = Registry.createQuest(id)
     end
 end
 
@@ -926,6 +1104,26 @@ function Game:getSoulColor()
     return 1, 0, 0, 1
 end
 
+---@return string
+function Game:getSoulFacing()
+    if Game.state == "BATTLE" and Game.battle and Game.battle.encounter and Game.battle.encounter.getSoulFacing and Game.battle.encounter:getSoulFacing() then
+        return Game.battle.encounter:getSoulFacing()
+    end
+
+    local face = Kristal.callEvent(KRISTAL_EVENT.getSoulFacing)
+    if face ~= nil then
+        return face
+    end
+    
+    local chara = Game:getSoulPartyMember()
+    
+    if chara and chara:getSoulPriority() >= 0 and chara:getSoulFacing() then
+        return chara:getSoulFacing()
+    end
+    
+    return "up"
+end
+
 ---@return PartyMember?
 function Game:getActLeader()
     for _,party in ipairs(self.party) do
@@ -1002,7 +1200,7 @@ end
 ---@param amount        number
 ---@param dont_clamp?   boolean
 function Game:setTension(amount, dont_clamp)
-    Game.tension = dont_clamp and amount or Utils.clamp(amount, 0, Game.max_tension)
+    Game.tension = dont_clamp and amount or Utils.clamp(amount, 0, Game:getMaxTension())
 end
 
 ---@return number
@@ -1017,7 +1215,14 @@ end
 
 ---@return number
 function Game:getMaxTension()
-    return Game.max_tension or 100
+    local max_tension = Game.max_tension or 100
+    max_tension = max_tension + (50 * self:getBadgeEquipped("tension_plus"))
+    return max_tension
+end
+
+-- [Kristal.swapIntoMod](lua://Kristal.swapIntoMod) but it happens after update
+function Game:swapIntoMod(...)
+    self.swap_into_mod = {...}
 end
 
 function Game:update()
@@ -1055,6 +1260,11 @@ function Game:update()
     self.stage:update()
 
     Kristal.callEvent(KRISTAL_EVENT.postUpdate, DT)
+
+    if Game.swap_into_mod then
+        Kristal.swapIntoMod(unpack(Game.swap_into_mod))
+        Game.swap_into_mod = nil
+    end
 end
 
 ---@param key       string
@@ -1115,5 +1325,185 @@ function Game:draw()
     Kristal.callEvent(KRISTAL_EVENT.postDraw)
     love.graphics.pop()
 end
+
+---@param ignore_light? boolean -- if you still want some stats etc. despite being in LW
+function Game:getBadgeStorage(ignore_light)
+    if self:isLight() and not ignore_light then return {} end
+    local inventory ---@type DarkInventory
+    if not self:isLight() then
+        inventory = self.inventory
+    else
+        inventory = self.dark_inventory
+    end
+    if not inventory then return {} end
+    return inventory:getStorage("badges")
+end
+
+---@return {mod: string, encounter: string} boss?
+function Game:getBossRef(id)
+    for mod_id, mod in pairs(Kristal.Mods.data) do
+        if mod.dlc and mod.dlc.bosses then
+            if mod.dlc.bosses[id] then
+                local t = Utils.copy(mod.dlc.bosses[id])
+                t.mod = t.mod or mod_id
+                return t
+            end
+        end
+    end
+end
+
+function Game:getUsedBadgePoints(ignore_light)
+    local total_bp = 0
+    for _, badge in ipairs(Game:getBadgeStorage(ignore_light)) do
+        if badge.equipped then
+            total_bp = total_bp + badge:getBadgePoints()
+        end
+    end
+    return total_bp
+end
+
+function Game:getBadgeEquipped(badge, ignore_light)
+    local total_count = 0
+    for _, b in ipairs(Game:getBadgeStorage(ignore_light)) do
+        if b.equipped and b.id == badge then
+            total_count = total_count + 1
+        end
+    end
+    return total_count
+end
+
+--- Taunt Mechanic
+---@deprecated
+function Game:isTauntingAvaliable()
+    return DP:isTauntingAvaliable()
+end
+
+
+-- TODO: Clean this up, remove unuseeeeeeed Noelstuff, move into libdp
+-- Removed, I forgot I put this here.
+
+function Game:getGlobalFlag(flag, default)
+    local flags
+
+    if love.filesystem.getInfo("saves/global_flags.json") then
+        flags = JSON.decode(love.filesystem.read("saves/global_flags.json"))
+    else
+        return false
+    end
+
+    local result = flags[flag]
+    if result == nil then
+        return default
+    else
+        return result
+    end
+end
+
+function Game:setGlobalFlag(flag_name, value)
+    local data
+    if love.filesystem.getInfo("saves/global_flags.json") then
+        data = JSON.decode(love.filesystem.read("saves/global_flags.json"))
+    else
+        data = {}
+    end
+
+
+    local new_data = {[flag_name] = value}
+    if new_data then
+        for k, v in pairs(new_data) do
+            data[k] = v
+        end
+    end
+
+    love.filesystem.write("saves/global_flags.json", JSON.encode(data))
+end
+
+function Game:getUISkin()
+    return Game:isLight() and "light" or "dark"
+end
+
+function Game:unlockPartyMember(member)
+    -- the reason why i'm doing it like this is because some older saves have like, 11 noels in this table
+    local unlocks = Game:getFlag("_unlockedPartyMembers")
+    for i = #unlocks, 1, -1 do
+        if unlocks[i] == member then
+            table.remove(unlocks, i)
+        end
+    end
+
+    Kristal.callEvent(KRISTAL_EVENT.onDPUnlockPartyMember, member)
+    if Game:getPartyMember(member) then
+        table.insert(Game:getFlag("_unlockedPartyMembers"), member)
+    else
+        error("Could not find any existing party member with id \""..member.."\".")
+    end
+end
+
+function Game:getUnlockedPartyMembers()
+    return Game:getFlag("_unlockedPartyMembers")
+end
+
+--- Checks if you have a party member unlocked and returns true if you do. Returns false otherwise
+---@param member string -- the party member ID to check for
+function Game:hasUnlockedPartyMember(member)
+    for i, v in ipairs(Game:getUnlockedPartyMembers()) do
+        if v == member then
+            return true
+        end
+    end
+    return false
+end
+
+function Game:getQuest(id)
+    return self.quests_data[id]
+end
+
+--- Checks if you have a certain DLC installed and returns true if you do. Returns false otherwise
+---@param dlc string -- the DLC ID to check for
+---@param recheck bool -- to make sure if the DLC is actually still in the directory
+function Game:hasDLC(dlc, recheck)
+	-- Step 1. Make sure it's registered in the system.
+	local has_dlc = (Kristal.Mods.getMod(dlc) ~= nil)
+	if has_dlc then
+		if (recheck ~= false) then
+			-- Step 2. Check to see if the directory actually still exists.
+			local info = love.filesystem.getInfo(Kristal.Mods.getMod(dlc).path)
+
+			if info and info.type == "directory" then
+				return true
+			else
+				return false
+			end
+		else
+			return true
+		end
+	end
+	return false
+end
+
+function Game:isDessMode()
+    if Game:getFlag("Dess_Mode") then
+        return true
+    else
+        return false
+    end
+end
+
+--- Debug function -
+--- Unlocks every party member (Except for Noel since their unlock mechanics are weird) --Thank you for not adding Noel to this list!
+function Game:unlockAllPartyMembers()
+    local unlock = {"berdly", "bor", "brenda", "ceroba", "ddelta", "dess", "hero", "jamm", "kris", "mario", "nell", "noelle", "ostarwalker", "pauling", "ralsei", "susie", "suzy"}
+    for i, v in ipairs(unlock) do
+        Game:unlockPartyMember(v)
+    end
+end
+
+---@param name string
+function Game:isSpecialMode(name)
+    if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
+    if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
+    return Game.save_name:upper() == name:upper()
+end
+
 
 return Game

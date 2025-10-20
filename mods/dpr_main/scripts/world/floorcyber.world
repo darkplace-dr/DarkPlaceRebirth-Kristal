@@ -1,0 +1,76 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floorcyber/street_1.tmx",
+            "height": 480,
+            "width": 1280,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floorcyber/pre_elevator.tmx",
+            "height": 640,
+            "width": 640,
+            "x": 320,
+            "y": -680
+        },
+        {
+            "fileName": "maps/floorcyber/dog_highway.tmx",
+            "height": 1160,
+            "width": 1160,
+            "x": 1360,
+            "y": -280
+        },
+        {
+            "fileName": "maps/floorcyber/fireworks/fireworks.tmx",
+            "height": 480,
+            "width": 3200,
+            "x": -3280,
+            "y": -120
+        },
+        {
+            "fileName": "maps/floorcyber/sideways_cars_1.tmx",
+            "height": 680,
+            "width": 800,
+            "x": -5360,
+            "y": -2080
+        },
+        {
+            "fileName": "maps/floorcyber/numbers_station.tmx",
+            "height": 800,
+            "width": 640,
+            "x": -3280,
+            "y": -960
+        },
+        {
+            "fileName": "maps/floorcyber/hacker_room.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -4440,
+            "y": -720
+        },
+        {
+            "fileName": "maps/floorcyber/shops.tmx",
+            "height": 1200,
+            "width": 880,
+            "x": -4240,
+            "y": -200
+        },
+        {
+            "fileName": "maps/floorcyber/electrodasher_encounter.tmx",
+            "height": 1080,
+            "width": 960,
+            "x": -5280,
+            "y": 40
+        },
+        {
+            "fileName": "maps/floorcyber/pre_spamtown.tmx",
+            "height": 480,
+            "width": 1280,
+            "x": -5760,
+            "y": -520
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

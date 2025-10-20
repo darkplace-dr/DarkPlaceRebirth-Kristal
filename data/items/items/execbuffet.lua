@@ -39,7 +39,10 @@ function item:init()
     self.reactions = {
         susie = "Rich people eat THIS?",
         ralsei = "P... pinky up!",
-        noelle = "Caviar AGAIN?"
+        noelle = "Caviar AGAIN?",
+        ceroba = "Those are WHAT!?", -- girl learns about the fish eggs
+        jamm = "Never liked the fancy shit...",
+        ["jamm+marcy"] = "Never liked the fancy stuff..."
     }
 end
 

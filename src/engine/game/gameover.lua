@@ -4,7 +4,7 @@
 ---@overload fun(...) : GameOver
 local GameOver, super = Class(Object, "gameover")
 
-function GameOver:init(x, y)
+function GameOver:init(x, y, force_message, force_track)
     super.init(self, 0, 0)
 
     self.font = Assets.getFont("main")
@@ -34,6 +34,15 @@ function GameOver:init(x, y)
     if Game:isLight() then
         self.timer = 28 -- We only wanna show one frame if we're in Undertale mode
     end
+	
+	self.force_message = force_message
+
+    self.is_nohit = Game:isSpecialMode "MERG"
+
+    if force_track then
+        self.force_track = force_track
+    end
+
 end
 
 function GameOver:onRemove(parent)
@@ -42,63 +51,91 @@ function GameOver:onRemove(parent)
     self.music:remove()
 end
 
-
 function GameOver:update()
     super.update(self)
 
     self.timer = self.timer + DTMULT
-    if (self.timer >= 30) and (self.current_stage == 0) then
-        self.screenshot = nil
-        self.current_stage = 1
-    end
-    if (self.timer >= 50) and (self.current_stage == 1) then
-        Assets.playSound("break1")
-        self.soul:setSprite("player/heart_break")
-        self.current_stage = 2
-    end
-    if (self.timer >= 90) and (self.current_stage == 2) then
-        Assets.playSound("break2")
-
-        local shard_count = 6
-        local x_position_table = {-2, 0, 2, 8, 10, 12}
-        local y_position_table = {0, 3, 6}
-
-        self.shards = {}
-        for i = 1, shard_count do 
-            local x_pos = x_position_table[((i - 1) % #x_position_table) + 1]
-            local y_pos = y_position_table[((i - 1) % #y_position_table) + 1]
-            local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
-            shard:setColor(self.soul:getColor())
-            shard.physics.direction = math.rad(Utils.random(360))
-            shard.physics.speed = 7
-            shard.physics.gravity = 0.2
-            shard:play(5/30)
-            table.insert(self.shards, shard)
-            self:addChild(shard)
+	
+    if self.is_nohit == false and self.current_stage < 4 then
+        if (self.timer >= 30) and (self.current_stage == 0) then
+            self.screenshot = nil
+            self.current_stage = 1
         end
+        if (self.timer >= 50) and (self.current_stage == 1) then
+            Assets.playSound("break1")
+            self.soul:setSprite("player/heart_break")
+            self.current_stage = 2
+        end
+        if (self.timer >= 90) and (self.current_stage == 2) then
+            Assets.playSound("break2")
 
-        self.soul:remove()
-        self.soul = nil
-        self.current_stage = 3
-    end
-    if (self.timer >= 140) and (self.current_stage == 3) then
-        if Game:isLight() then
-            self.fader_alpha = 0
-            self.current_stage = 4
-        else
-            self.fader_alpha = (self.timer - 140) / 10
-            if self.fader_alpha >= 1 then
-                for i = #self.shards, 1, -1 do
-                    self.shards[i]:remove()
-                end
-                self.shards = {}
+            local shard_count = 6
+            local x_position_table = {-2, 0, 2, 8, 10, 12}
+            local y_position_table = {0, 3, 6}
+
+            self.shards = {}
+            for i = 1, shard_count do 
+                local x_pos = x_position_table[((i - 1) % #x_position_table) + 1]
+                local y_pos = y_position_table[((i - 1) % #y_position_table) + 1]
+                local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
+                shard:setColor(self.soul:getColor())
+                shard.physics.direction = math.rad(Utils.random(360))
+                shard.physics.speed = 7
+                shard.physics.gravity = 0.2
+                shard:play(5/30)
+                table.insert(self.shards, shard)
+                self:addChild(shard)
+            end
+
+            self.soul:remove()
+            self.soul = nil
+            self.current_stage = 3
+        end
+        if (self.timer >= 140) and (self.current_stage == 3) then
+            if Game:isLight() then
                 self.fader_alpha = 0
                 self.current_stage = 4
+            else
+                self.fader_alpha = (self.timer - 140) / 10
+                if self.fader_alpha >= 1 then
+                    for i = #self.shards, 1, -1 do
+                        self.shards[i]:remove()
+                    end
+                    self.shards = {}
+                    self.fader_alpha = 0
+                    self.current_stage = 4
+                end
             end
+        end
+    elseif self.current_stage < 4 then
+        Assets.playSound("heavydamage")
+        self.nine_wall = Sprite("effects/9_wall", -50, -50)
+        self.nine_wall.color = {1,0,0}
+        self:addChild(self.nine_wall)
+        -- Shake randomly
+        Game.world.timer:everyInstant(5/30, function()
+            self.nine_wall.graphics.shake_x = love.math.random(0,10)
+            self.nine_wall.graphics.shake_y = love.math.random(0,10)
+        end, 60)
+        self.nine_wall:fadeOutAndRemove(1)
+        if self.soul then
+            self.soul:remove()
+            self.soul = nil
+        end
+        self.screenshot = nil
+        self.timer = 100
+        self.current_stage = 5
+        if not self.force_message then
+            self.force_message = "You lost."
         end
     end
     if (self.timer >= 150) and (self.current_stage == 4) then
-        self.music:play(Game:isLight() and "determination" or Game:getConfig("oldGameOver") and "AUDIO_DRONE" or "AUDIO_DEFEAT")
+
+        if self.force_track then
+            self.music:play(self.force_track)
+        else
+            self.music:play(Game:isLight() and "determination" or Game:getConfig("oldGameOver") and "AUDIO_DRONE" or "AUDIO_DEFEAT")
+        end
         if not Game:getConfig("oldGameOver") or Game:isLight() then
             if Game:isLight() then
                 self.text = Sprite("ui/gameover_ut", 111, 32)
@@ -155,6 +192,15 @@ function GameOver:update()
                     end
                 end
                 table.insert(self.lines, full_line)
+            end
+            if self.force_message then
+            	if type(self.force_message)=="table" then
+            		for i, message in ipairs(self.force_message) do
+            			self.force_message[i] = "[speed:0.5][spacing:"..(Game:isLight() and 6 or 8).."]"..message
+            		end
+            	else
+            		self.lines = {"[speed:0.5][spacing:"..(Game:isLight() and 6 or 8).."]"..self.force_message}
+            	end
             end
             self.dialogue = DialogueText(
                 self.lines[1], Game:isLight() and 114 or 100, Game:isLight() and 320 or 300,

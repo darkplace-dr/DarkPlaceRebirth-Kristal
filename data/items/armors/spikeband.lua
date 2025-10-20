@@ -49,6 +49,10 @@ function item:init()
         susie = "Can't say no to spikes.",
         ralsei = "Um, do I... look tough?",
         noelle = "(Maybe Susie would like this look?)",
+        dess = "cool now im just like susie deltarune frfr",
+        jamm = "Huh, sharp. Better keep it away from Marcy.",
+        noel = "I feel like punching things now.",
+        ceroba = "Is that considered looking \"badass\"?",
     }
 end
 

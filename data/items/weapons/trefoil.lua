@@ -50,6 +50,9 @@ function item:init()
         susie = "That tacky thing? No!",
         ralsei = "Not my shade of green...",
         noelle = "Okay! ...? What do you mean, unused!?",
+        jamm = "I'm not a billboard!",
+		dess = "unused item alert",
+        ceroba = "That thing just shines with luck!"
     }
 end
 

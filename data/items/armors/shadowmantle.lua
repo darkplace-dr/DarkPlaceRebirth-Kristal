@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = false,
+        dess = false
     }
 
     -- Character reactions
@@ -50,6 +51,9 @@ function item:init()
         susie = "Hell yeah, what's this?",
         ralsei = "Sh-should I wear this...?",
         noelle = "No... it's for someone... taller.",
+        jamm = "How'd you guys get this again?",
+        dess = "nah fuck you John Mantle",
+        ceroba = "If you insist."
     }
 
     -- TODO: Elemental resistance

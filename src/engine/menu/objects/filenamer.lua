@@ -58,6 +58,8 @@ function FileNamer:init(options)
     else
         self:setState("KEYBOARD")
     end
+
+    self.dess = 0
 end
 
 function FileNamer:checkTransition(old, new)
@@ -121,53 +123,102 @@ function FileNamer:setState(state)
         end
         self:addChild(self.keyboard)
     elseif state == "CONFIRM" then
-        local confirm_text = self.confirm_text
-        for k,v in pairs(self.name_messages) do
-            if k == self.name then
-                confirm_text = v
+        if self.name == "DESS" then -- Butt-ugly hack
+            self.dess = self.dess + 1
+            local confirm_text = "fat chance lmao"
+            if self.dess == 2 then
+                confirm_text = "i already said you can't\nuse my name >:["
+            elseif self.dess >= 3 then
+                confirm_text = "ok FINE you can use my name.\nbut i get to be the\nmain character"
             end
-        end
-        self.text:setText(confirm_text)
-        self.text.x = self.text.init_x - 4
-        self.name_preview = Text(self.name, SCREEN_WIDTH/2, 80, {wrap = false, font = "main", auto_size = true})
-        self.name_preview:setOrigin(0.5, 0)
-        self:addChild(self.name_preview)
-        self.name_zoom = 0
-        local allow = true
-        for k,v in pairs(self.deny_names) do
-            if v == self.name then
-                allow = false
+            self.text:setText(confirm_text)
+            self.text.x = self.text.init_x - 4
+            self.name_preview = Text(self.name, SCREEN_WIDTH/2, 80, {wrap = false, font = "main", auto_size = true})
+            self.name_preview:setOrigin(0.5, 0)
+            self:addChild(self.name_preview)
+            self.name_zoom = 0
+            local allow = false
+            if self.dess >=3 then
+                allow = true
             end
-        end
-        if allow then
-            self.choicer = GonerChoice(220, 360, {
-                {{"NO",0,0},{"<<"},{">>"},{"YES",160,0}}
-            }, nil, function(choice, x, y)
-                if choice == "YES" then
-                    if self.do_fadeout then
-                        self:setState("FADEOUT")
-                    else
-                        self:setState("DONE")
+            if allow then
+                self.choicer = GonerChoice(220, 360, {
+                    {{"NO",0,0},{"<<"},{">>"},{"YES",160,0}}
+                }, nil, function(choice, x, y)
+                    if choice == "YES" then
+                        if self.do_fadeout then
+                            self:setState("FADEOUT")
+                        else
+                            self:setState("DONE")
+                        end
+                    elseif choice == "NO" then
+                        self:setState("KEYBOARD")
                     end
-                elseif choice == "NO" then
+                end)
+            else
+                self.choicer = GonerChoice(220, 360, {
+                    {{"NO",0,0}}
+                }, nil, function(choice, x, y)
                     self:setState("KEYBOARD")
-                end
-            end)
+                end)
+            end
+            if self.name == self.default_name and self.default_name ~= "" then
+                self.choicer:setSelectedOption(4, 1)
+                self.choicer:resetSoulPosition()
+            elseif allow then
+                self.choicer:setSelectedOption(2, 1)
+                self.choicer:setSoulPosition(80, 0)
+            end
+            self:addChild(self.choicer)
         else
-            self.choicer = GonerChoice(220, 360, {
-                {{"NO",0,0}}
-            }, nil, function(choice, x, y)
-                self:setState("KEYBOARD")
-            end)
+            local confirm_text = self.confirm_text
+            for k,v in pairs(self.name_messages) do
+                if k == self.name then
+                    confirm_text = v
+                end
+            end
+            self.text:setText(confirm_text)
+            self.text.x = self.text.init_x - 4
+            self.name_preview = Text(self.name, SCREEN_WIDTH/2, 80, {wrap = false, font = "main", auto_size = true})
+            self.name_preview:setOrigin(0.5, 0)
+            self:addChild(self.name_preview)
+            self.name_zoom = 0
+            local allow = true
+            for k,v in pairs(self.deny_names) do
+                if v == self.name then
+                    allow = false
+                end
+            end
+            if allow then
+                self.choicer = GonerChoice(220, 360, {
+                    {{"NO",0,0},{"<<"},{">>"},{"YES",160,0}}
+                }, nil, function(choice, x, y)
+                    if choice == "YES" then
+                        if self.do_fadeout then
+                            self:setState("FADEOUT")
+                        else
+                            self:setState("DONE")
+                        end
+                    elseif choice == "NO" then
+                        self:setState("KEYBOARD")
+                    end
+                end)
+            else
+                self.choicer = GonerChoice(220, 360, {
+                    {{"NO",0,0}}
+                }, nil, function(choice, x, y)
+                    self:setState("KEYBOARD")
+                end)
+            end
+            if self.name == self.default_name and self.default_name ~= "" then
+                self.choicer:setSelectedOption(4, 1)
+                self.choicer:resetSoulPosition()
+            elseif allow then
+                self.choicer:setSelectedOption(2, 1)
+                self.choicer:setSoulPosition(80, 0)
+            end
+            self:addChild(self.choicer)
         end
-        if self.name == self.default_name and self.default_name ~= "" then
-            self.choicer:setSelectedOption(4, 1)
-            self.choicer:resetSoulPosition()
-        elseif allow then
-            self.choicer:setSelectedOption(2, 1)
-            self.choicer:setSoulPosition(80, 0)
-        end
-        self:addChild(self.choicer)
     elseif state == "FADEOUT" then
         Music.stop()
         Assets.playSound("dtrans_lw")

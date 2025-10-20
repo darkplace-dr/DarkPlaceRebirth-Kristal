@@ -26,6 +26,7 @@ end
 HTTPS_AVAILABLE = ok
 
 if not ok then
+    print("The HTTPS library has failed to load.")
     return
 end
 

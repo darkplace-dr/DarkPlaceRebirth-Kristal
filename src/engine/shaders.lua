@@ -106,4 +106,19 @@ Shaders["Mask"] = love.graphics.newShader[[
     }
  ]]
 
+Shaders["ColorGradient"] = love.graphics.newShader[[
+    #pragma language glsl3
+
+    extern vec4 from;
+    extern vec4 to;
+    extern float screenHeight;
+
+    vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
+    {
+        float y = screen_coords.y / screenHeight;
+
+        return mix(from, to, y)*Texel(tex, texture_coords).a;
+    }
+]]
+
 return Shaders

@@ -48,6 +48,10 @@ function item:init()
         susie = "Money, that's what I need.",
         ralsei = "Do they take credit?",
         noelle = "It goes with my watch!",
+        dess = "chaching",
+        jamm = "(Did they max it out...?)",
+        noel = "How do I use one of these?",
+        ceroba = "Is this real silver?",
     }
 end
 

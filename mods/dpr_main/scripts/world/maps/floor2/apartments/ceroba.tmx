@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="16">
+ <editorsettings>
+  <export target="ceroba.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="the_wild_east_house"/>
+ </properties>
+ <imagelayer id="2" name="bg">
+  <image source="../../../../../assets/sprites/world/maps/apartments/ceroba.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="1" x="360" y="408" width="280" height="72"/>
+  <object id="2" x="0" y="408" width="280" height="72"/>
+  <object id="3" x="0" y="0" width="640" height="168"/>
+  <object id="4" x="0" y="168" width="98" height="240"/>
+  <object id="5" x="540" y="168" width="100" height="240"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="6" name="transition" x="280" y="460" width="80" height="20">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floor2/apartments_right"/>
+    <property name="marker" value="ceroba"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="9" name="interactable" x="106" y="168" width="96" height="144">
+   <properties>
+    <property name="cutscene" value="apartments/ceroba.bed"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" name="interactable" x="204" y="168" width="44" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/ceroba.nightstand"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" name="interactable" x="252" y="168" width="100" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/ceroba.table"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" name="interactable" x="354" y="150" width="78" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/ceroba.fridge"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="interactable" x="438" y="150" width="102" height="40">
+   <properties>
+    <property name="cutscene" value="apartments/ceroba.dresser"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="npc" x="300" y="230">
+   <properties>
+    <property name="actor" value="ceroba_dw"/>
+    <property name="cond" value="Game:hasUnlockedPartyMember(&quot;ceroba&quot;) and not Game:hasPartyMember(&quot;ceroba&quot;)"/>
+    <property name="cutscene" value="apartments/ceroba.thoughts"/>
+    <property name="facing" value="up"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="7" name="entrance" x="320" y="440">
+   <point/>
+  </object>
+  <object id="15" name="spawn" x="320" y="300">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

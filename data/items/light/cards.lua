@@ -7,7 +7,7 @@ function item:init(inventory)
     self.name = "Cards"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "item"
+    self.type = "key"
     -- Whether this item is for the light world
     self.light = true
 

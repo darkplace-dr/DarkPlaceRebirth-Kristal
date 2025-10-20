@@ -48,6 +48,8 @@ function item:init()
         susie = "Let's go, Rude Buster!",
         ralsei = "Behold! Heal Prayer!",
         noelle = "(The other flavor is better)",
+        jamm = "Here we go, DarkSling!",
+        ceroba = "Let there be flowers."
     }
 end
 

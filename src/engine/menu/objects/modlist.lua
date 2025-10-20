@@ -56,11 +56,8 @@ end
 function ModList:addMod(mod)
     table.insert(self.mods, mod)
     self.mod_container:addChild(mod)
-
-    local padding = Kristal.Config["brokenMenuBoxes"] and 4 or 6
-
-    mod:setPosition(4, self.mod_list_height + padding)
-    self.mod_list_height = self.mod_list_height + mod.height + (padding * 2)
+    mod:setPosition(4, self.mod_list_height + 4)
+    self.mod_list_height = self.mod_list_height + mod.height + 12
     if (self.selected == 0) and (#self.mods == 1) then
         self.selected = 1
         mod:onSelect()

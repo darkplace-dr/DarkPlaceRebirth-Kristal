@@ -27,6 +27,8 @@ function spell:getTPCost(chara)
     local cost = super.getTPCost(self, chara)
     if chara and chara:checkWeapon("thornring") then
         cost = Utils.round(cost / 2)
+    elseif chara and chara:checkWeapon("crimsonspire") then
+        cost = Utils.round(cost / 4)
     end
     return cost
 end

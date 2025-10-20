@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="18">
+ <editorsettings>
+  <export target="marcy_room.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="jamm_apartment"/>
+ </properties>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <imagelayer id="5" name="Image Layer 1">
+  <image source="../../../../../../assets/sprites/world/maps/apartments/marcy_room.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup id="6" name="markers">
+  <object id="11" name="entry" x="400" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="objects">
+  <object id="12" name="transition" x="360" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/apartments/jamm/jamm_apartment"/>
+    <property name="marker" value="marcy"/>
+   </properties>
+  </object>
+  <object id="13" name="interactable" x="240" y="160" width="38" height="40">
+   <properties>
+    <property name="text1" value="* It's a drawing of Jamm,[wait:5] Marcy,[wait:5] and one who you can assume is Ania."/>
+   </properties>
+  </object>
+  <object id="14" name="interactable" x="416" y="228" width="94" height="90">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.marcy_bed"/>
+   </properties>
+  </object>
+  <object id="15" name="interactable" x="320" y="200" width="96" height="28">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.marcy_desk"/>
+   </properties>
+  </object>
+  <object id="16" name="interactable" x="132" y="234" width="74" height="28">
+   <properties>
+    <property name="cutscene" value="apartments/jamm.marcy_closet"/>
+   </properties>
+  </object>
+  <object id="17" name="npc" x="390" y="250">
+   <properties>
+    <property name="actor" value="marcy"/>
+    <property name="cutscene" value="apartments/jamm.marcy"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="collision" visible="0">
+  <object id="1" x="0" y="0" width="640" height="200"/>
+  <object id="2" x="0" y="400" width="360" height="80"/>
+  <object id="3" x="0" y="200" width="110" height="200"/>
+  <object id="4" x="110" y="200" width="120" height="62"/>
+  <object id="6" x="510" y="200" width="130" height="280"/>
+  <object id="8" x="440" y="400" width="80" height="80"/>
+  <object id="9" x="320" y="200" width="190" height="28"/>
+  <object id="10" x="416" y="228" width="94" height="90"/>
+ </objectgroup>
+</map>

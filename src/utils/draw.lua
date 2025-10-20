@@ -412,6 +412,23 @@ function Draw.printShadow(text, x, y, offset, align, limit)
     love.graphics.printf(text, x, y, limit or width, align or "left")
 end
 
+function Draw.printLight(text, x, y, offset, align, limit)
+    x, y = x or 0, y or 0
+    offset = offset or 2
+
+    local r, g, b, a = love.graphics.getColor()
+
+    local width = love.graphics.getFont():getWidth(Utils.getCombinedText(text))
+
+    -- Draw the shadow, offset by a given amount of pixels to the bottom right
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.printf(text, x + offset, y + offset, limit or width, align or "left")
+
+    -- Draw the main text
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.printf(text, x, y, limit or width, align or "left")
+end
+
 --- Modes: `none`
 --- - `none`: Creates a canvas based on object size and draws the object at 0,0 (not transformed)
 ---

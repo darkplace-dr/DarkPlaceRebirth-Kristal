@@ -48,6 +48,11 @@ function item:init()
         susie = "Damn, guess I'm cursed.",
         ralsei = "A letter?... For me...?",
         noelle = "Armor? (It's cool...)",
+        dess = "ermmm this has GOT to be bait dont feed the trolls guys",
+        jamm = "Don't think this is a good idea...",
+        noel = "",
+        ["jamm+marcy"] = "Marcy, we don't respond to these.",
+        ceroba = "So is this a mail or an armor?",
     }
 end
 

@@ -39,7 +39,9 @@ function item:init()
     self.reactions = {
         susie = "Yuck.",
         ralsei = "Um?",
-        noelle = "No flavor... anymore."
+        noelle = "No flavor... anymore.",
+        ceroba = "I wouldn't even call that a tea anymore.",
+        jamm = "It's all chunky..."
     }
 end
 

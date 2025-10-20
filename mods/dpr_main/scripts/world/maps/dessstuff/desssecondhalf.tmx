@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="19">
+ <editorsettings>
+  <export target="desssecondhalf.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="white"/>
+  <property name="music" value="gimmieyourwalletmiss"/>
+  <property name="name" value="Dess - THE SECOND HALF"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/whitespace.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="24" height="12">
+  <data encoding="csv">
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,6,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,6,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,6,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,6,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,6,5,5,5,
+5,5,5,5,5,5,5,1,2,2,2,3,5,5,5,5,5,6,5,5,6,5,5,5,
+8,8,8,8,1,2,2,5,5,5,5,5,2,2,2,3,8,9,5,5,6,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,5,5,5,
+2,2,2,7,8,8,5,5,5,5,5,8,8,8,9,2,2,2,2,2,2,5,5,5,
+5,5,5,5,5,5,7,8,8,8,9,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="1" x="0" y="240" width="160" height="40"/>
+  <object id="2" x="160" y="200" width="120" height="40"/>
+  <object id="3" x="280" y="160" width="200" height="40"/>
+  <object id="4" x="480" y="200" width="160" height="40"/>
+  <object id="5" x="640" y="0" width="80" height="280"/>
+  <object id="6" x="840" y="0" width="40" height="320"/>
+  <object id="7" x="600" y="320" width="240" height="40"/>
+  <object id="8" x="440" y="360" width="160" height="40"/>
+  <object id="9" x="240" y="400" width="200" height="40"/>
+  <object id="10" x="120" y="360" width="120" height="40"/>
+  <object id="11" x="0" y="320" width="120" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="12" name="enemy" x="560" y="280" width="40" height="40">
+   <properties>
+    <property name="actor" value="ufoofdoom"/>
+    <property name="aura" type="bool" value="false"/>
+    <property name="chase" type="bool" value="false"/>
+    <property name="encounter" value="ufoofdooms"/>
+    <property name="once" type="bool" value="true"/>
+    <property name="pacetype" value="verticalswing"/>
+    <property name="swingdiv" type="float" value="4"/>
+    <property name="swinglength" type="float" value="40"/>
+   </properties>
+  </object>
+  <object id="13" name="transition" x="680" y="-40" width="200" height="40">
+   <properties>
+    <property name="map" value="dessstuff/dessend"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="14" name="transition" x="-40" y="240" width="40" height="120">
+   <properties>
+    <property name="map" value="dessstuff/dessfirsthalf"/>
+    <property name="marker" value="entry_2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="15" name="entry" x="40" y="310">
+   <point/>
+  </object>
+  <object id="16" name="spawn" x="340" y="310">
+   <point/>
+  </object>
+  <object id="17" name="entry_2" x="780" y="80">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

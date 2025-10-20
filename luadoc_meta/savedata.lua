@@ -3,6 +3,7 @@
 --- All the data that gets saved by Kristal when the player saves their game
 ---
 ---@class SaveData
+---@field mod string
 ---@field chapter integer
 ---@field name string
 ---@field level integer

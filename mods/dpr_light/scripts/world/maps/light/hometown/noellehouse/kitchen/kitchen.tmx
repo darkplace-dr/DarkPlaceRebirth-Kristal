@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="13" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
+  <property name="light" type="bool" value="true"/>
+  <property name="music" value="deltarune/noelle_house_wip"/>
+  <property name="name" value="Noelle's House"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/hometownobjects.tsx"/>
+ <imagelayer id="2" name="bg" offsetx="80" offsety="40">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/noellehouse/kitchen.png" width="1280" height="480"/>
+ </imagelayer>
+ <objectgroup color="#5500ff" id="3" name="collision">
+  <object id="2" x="320" y="480" width="40" height="40"/>
+  <object id="3" x="200" y="480" width="40" height="40"/>
+  <object id="4" x="320" y="440" width="976" height="40"/>
+  <object id="5" x="160" y="440" width="80" height="40"/>
+  <object id="6" x="120" y="160" width="40" height="320"/>
+  <object id="7" x="1296" y="160" width="40" height="320"/>
+  <object id="8" x="160" y="160" width="1136" height="40"/>
+  <object id="18" x="568" y="200" width="40" height="124"/>
+  <object id="19" x="160" y="324" width="80" height="60"/>
+  <object id="20" x="366" y="324" width="242" height="60"/>
+  <object id="21" x="210" y="200" width="274" height="22"/>
+  <object id="22" x="692" y="240" width="278" height="118"/>
+  <object id="23" x="730" y="230" width="40" height="8"/>
+  <object id="24" x="810" y="230" width="40" height="8"/>
+  <object id="25" x="890" y="232" width="40" height="6"/>
+  <object id="26" x="810" y="358" width="40" height="38"/>
+  <object id="28" x="730" y="358" width="40" height="36"/>
+  <object id="27" x="890" y="358" width="40" height="38"/>
+  <object id="29" x="1162" y="394" width="80" height="40"/>
+  <object id="30" x="1120" y="320" width="160" height="74"/>
+  <object id="31" x="1064" y="240" width="134" height="80"/>
+  <object id="32" x="1074" y="200" width="26" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="1" name="transition" x="240" y="520" width="80" height="40">
+   <properties>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="facing" value="down"/>
+    <property name="map" value="light/hometown/noellehouse/main"/>
+    <property name="marker" value="entrykitchen"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="10" name="savepoint" x="506" y="183" width="40" height="40"/>
+  <object id="12" gid="97" x="160" y="380" width="80" height="76"/>
+  <object id="13" gid="98" x="366" y="382" width="240" height="78"/>
+  <object id="14" gid="96" x="730" y="238" width="200" height="46"/>
+  <object id="15" gid="100" x="1154" y="430" width="92" height="38"/>
+  <object id="16" gid="99" x="1112" y="410" width="178" height="190"/>
+  <object id="17" gid="101" x="1044" y="328" width="180" height="268"/>
+  <object id="33" gid="126" x="176" y="106" width="56" height="32"/>
+  <object id="34" name="interactable" x="218" y="150" width="40" height="66">
+   <properties>
+    <property name="text">* (The fridge is packed with festive foods.)
+* (...[wait:5] and a jar of pickles.)</property>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="292" y="176" width="50" height="40">
+   <properties>
+    <property name="text" value="* (The sink is sparkling clean.)"/>
+   </properties>
+  </object>
+  <object id="36" name="interactable" x="366" y="176" width="64" height="40">
+   <properties>
+    <property name="text" value="* (New stovetop,[wait:5] ancient katana.)"/>
+   </properties>
+  </object>
+  <object id="37" name="interactable" x="442" y="168" width="40" height="48">
+   <properties>
+    <property name="text" value="* (In the cupboard are...[wait:5] cutters for gingerbread monsters.)"/>
+   </properties>
+  </object>
+  <object id="38" name="interactable" x="1074" y="206" width="40" height="84">
+   <properties>
+    <property name="text" value="* (It's a highly climbable looking tree.)"/>
+   </properties>
+  </object>
+  <object id="39" name="interactable" x="1124" y="336" width="40" height="42">
+   <properties>
+    <property name="text" value="* (It's a piano.)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="markers">
+  <object id="9" name="entry" x="278" y="496">
+   <point/>
+  </object>
+  <object id="11" name="spawn" x="526" y="260">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

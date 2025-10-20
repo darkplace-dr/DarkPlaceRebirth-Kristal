@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="21">
+ <editorsettings>
+  <export target="pre_elevator.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="city"/>
+  <property name="music" value="cybercity_transition"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/street_edges.tsx"/>
+ <tileset firstgid="209" source="../../tilesets/dw_city_street.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="16">
+  <data encoding="csv">
+132,132,27,28,29,30,132,37,38,39,44,40,37,38,39,132,
+132,37,38,39,42,30,132,50,51,52,23,132,50,51,52,132,
+132,50,51,52,132,30,132,132,118,35,36,132,132,132,132,132,
+132,132,132,132,132,43,132,132,132,132,44,132,132,132,132,132,
+132,132,132,132,132,43,132,132,132,132,44,132,132,37,38,39,
+132,132,132,132,132,69,72,71,71,72,75,132,132,50,51,52,
+116,117,132,132,132,82,268,268,268,268,88,132,105,106,106,106,
+129,130,132,132,132,95,150,150,150,150,101,27,28,29,132,132,
+132,132,132,132,132,82,150,150,150,150,88,40,41,42,132,132,
+132,132,132,132,132,95,150,150,150,150,101,54,118,119,119,119,
+132,132,37,38,39,82,150,150,150,150,88,105,106,106,107,54,
+132,132,50,51,52,95,150,150,150,150,101,118,119,119,37,38,
+132,132,132,132,132,82,150,150,150,150,88,132,132,132,50,51,
+37,38,39,132,132,95,150,150,150,150,101,132,132,105,106,106,
+50,37,38,39,132,82,150,150,150,150,88,115,116,117,132,132,
+132,50,51,52,132,95,150,150,150,150,101,128,129,130,119,119
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="1" x="160" y="200" width="40" height="440"/>
+  <object id="2" x="440" y="200" width="40" height="440"/>
+  <object id="15" x="200" y="160" width="80" height="40"/>
+  <object id="16" x="360" y="160" width="80" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="6" name="objects_elevator">
+  <object id="17" name="elevatordoor" x="260" y="160" width="120" height="40">
+   <properties>
+    <property name="double_doors" value="true"/>
+    <property name="type" value="cyber"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="13" name="transition" x="280" y="140" width="80" height="40">
+   <properties>
+    <property name="map" value="hub_elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="20" name="transition" x="200" y="640" width="240" height="40">
+   <properties>
+    <property name="map" value="floorcyber/street_1"/>
+    <property name="marker" value="elevator"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="18" name="entry_elevator" x="320" y="250">
+   <point/>
+  </object>
+  <object id="19" name="south" x="320" y="590">
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="2" name="Tile Layer 2" width="16" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+106,106,107,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,27,28,29,0,0,0,0,0,0,0,0,0,0,0,0,
+35,40,41,42,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,205,206,207,201,202,203,0,0,0,0,0,
+0,0,0,0,0,132,132,132,132,132,132,0,0,0,0,0
+</data>
+ </layer>
+</map>

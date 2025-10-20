@@ -51,6 +51,9 @@ function item:init()
         susie = "Smiley faces? Ecch.",
         ralsei = "You can do it!",
         noelle = "Now THIS is a tacky scarf! Faha!",
+		dess = ":)",
+        ceroba = "How lovely...",
+        noel = "blatant lie",
     }
 end
 

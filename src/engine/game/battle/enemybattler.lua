@@ -387,10 +387,9 @@ function EnemyBattler:spare(pacify)
             parent:addChild(img2)
             self:remove()
         end)
-        
-        self:defeat(pacify and "PACIFIED" or "SPARED", false)
     end
-
+    -- TODO: In Kristal, the defeat() call is part of the condition above. Make this consistent.
+    self:defeat(pacify and "PACIFIED" or "SPARED", false)
     self:onSpared()
 end
 
@@ -874,6 +873,10 @@ function EnemyBattler:onDodge(battler, attacked) end
 ---@param damage?    number
 ---@param battler?   PartyBattler
 function EnemyBattler:onDefeat(damage, battler)
+    if self.killable and Game:getFlag("can_kill") then
+        self:onDefeatFatal(damage, battler)
+        return
+    end
     if self.exit_on_defeat then
         self:onDefeatRun(damage, battler)
     elseif self.sprite then
@@ -1021,6 +1024,28 @@ function EnemyBattler:defeat(reason, violent)
             end
             self:setRecruitStatus(false)
         end
+        if self.done_state == "KILLED" or self.done_state == "FROZEN" then
+            Game.battle.killed = true
+            for i, battler in ipairs(Game.battle.party) do
+                battler.chara.kills = battler.chara.kills + 1
+                if battler.chara.name == "Noel" then
+                    local newData = {
+                        Kills = battler.chara.kills
+                    }    
+                    Noel:saveNoel(newData)
+                end
+            end
+            if self.done_state == "FROZEN" then
+                Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
+            else
+                Game.battle.xp = Game.battle.xp + self.experience
+            end
+            if Game:hasPartyMember("hero") then
+                Game:getPartyMember("hero"):addKarma(-1)
+            end
+        end
+    elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
+        Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
     end
     
     if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
@@ -1033,6 +1058,9 @@ function EnemyBattler:defeat(reason, violent)
         end
         if self:getRecruitStatus() >= Game:getRecruit(self.id):getRecruitAmount() then
             self:setRecruitStatus(true)
+            if Game:hasPartyMember("hero") then
+                Game:getPartyMember("hero"):addKarma(1)
+            end
         end
     end
     
