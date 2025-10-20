@@ -21,3 +21,6 @@ open.bat
 # desktop.ini files
 *.ini
 Kristal.bat
+
+# i hate papaya
+*.papyrus
