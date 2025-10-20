@@ -15,6 +15,8 @@ function GonerBackground:init(x, y, song, song_pitch_increases, music_obj)
         song_pitch_increases = true
     end
 
+    self.sprite = Assets.getTexture("world/cutscenes/intro/DEPTH")
+
     self.music_pitch_inc = 0.02
     local music_pitch = self.music_pitch_inc
     self.music_target_pitch = song and 0.95 or 1
@@ -30,7 +32,7 @@ function GonerBackground:init(x, y, song, song_pitch_increases, music_obj)
     self.timer = Timer()
     self.timer:every(40/30, function()
         self.piece_depth = self.piece_depth - 0.001
-        local piece = self:addChild(GonerBackgroundPiece())
+        local piece = self:addChild(GonerBackgroundPiece(self.sprite, self.x, self.y))
         piece.layer = self.piece_depth
     end)
     self:addChild(self.timer)
