@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="47">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="47">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="border" value="church_a"/>
   <property name="music" value="deltarune/church_wip"/>
   <property name="name" value="Sanctuary Floor - Main Lobby"/>
  </properties>
