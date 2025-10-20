@@ -1,10 +1,8 @@
----@class Actor.susie_depths : Actor
--- I hate this so much but it's needed so that the custom offsets apply
-local actor, super = Class(require("data.actors.susie"))
+---@class Actor.hero_depths : Actor
+local actor, super = Class("hero", "hero_depths")
 
 function actor:init()
     super.init(self)
-    self.path = "party/susie/dark"
 end
 
 local function h(hex)
@@ -15,7 +13,7 @@ end
 function actor:onSpriteInit(sprite)
     sprite:addFX(OutlineFX()):setColor(Utils.unpackColor(Utils.hexToRgb("#ffb162")))
     -- As an alternative to editing the sprites, we add a PaletteFX. This won't work for Ch7.
-    sprite:addFX(PaletteFX("party/susie/depths/palette", 1, nil),nil)
+    sprite:addFX(PaletteFX("party/hero/depths/palette", 1, nil),nil)
 end
 
 
