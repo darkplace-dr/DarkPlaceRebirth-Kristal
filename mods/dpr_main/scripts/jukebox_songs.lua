@@ -275,6 +275,15 @@ return {
     bpm = 148
   },
   {
+    name = "Hall of Fame",
+    file = "deltarune/tv_hall_of_fame",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4",
+    bpm = 140.75
+  },
+  {
     name = "Castle Funk",
     file = "deltarune/castle_funk_long",
     composer = "Toby Fox",
