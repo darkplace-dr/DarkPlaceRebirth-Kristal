@@ -4,7 +4,7 @@ Registry.registerGlobal("Ch4Lib", lib)
 Ch4Lib = lib
 
 function lib:init()
-    Utils.merge(MUSIC_VOLUMES, {
+    TableUtils.merge(MUSIC_VOLUMES, {
         ch4_battle = 0.7
     })
 	self.invert_alpha = love.graphics.newShader[[

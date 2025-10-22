@@ -25,13 +25,13 @@ function event:onInteract(player, dir)
     ---@param cutscene WorldCutscene
     ---@diagnostic disable-next-line: param-type-mismatch
     self.world:startCutscene(function (cutscene)
-        local tx = Utils.round(player.x-(self.x+20), 40)+(self.x+20)
-        tx = Utils.clamp(tx, self.x+20, self.x+self.width-20)
-        local ty = Utils.round(self.y, 40)
+        local tx = MathUtils.roundToMultiple(player.x-(self.x+20), 40)+(self.x+20)
+        tx = MathUtils.clamp(tx, self.x+20, self.x+self.width-20)
+        local ty = MathUtils.roundToMultiple(self.y, 40)
         if dir == "down" then
             ty = ty + 80
         else
-            ty = ty - 40
+            ty = ty
         end
         
         Assets.playSound("wing")
@@ -63,7 +63,7 @@ function event:preClimbEnter(player)
             for i,follower in ipairs(self.world.followers) do
                 local mask = follower:getFX(id)
                 if mask then
-                    self.world.timer:tween(10/30, mask, {alpha = 1}, nil, function ()
+                    self.world.timer:tween(8/30, mask, {alpha = 1}, nil, function ()
                         follower:removeFX(mask)
                     end)
                 end

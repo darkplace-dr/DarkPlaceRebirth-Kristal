@@ -1,4 +1,4 @@
 ---@class Bullet : Bullet
-local Bullet, super = Utils.hookScript(Bullet)
+local Bullet, super = HookSystem.hookScript(Bullet)
 
 return Bullet

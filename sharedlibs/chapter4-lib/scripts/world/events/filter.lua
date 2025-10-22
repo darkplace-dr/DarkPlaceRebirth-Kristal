@@ -29,6 +29,10 @@ end
 --- *Override* Returns an instance of the desired DrawFX, depending on the properties.
 ---@return DrawFX?
 function event:createFX(properties)
+    local mod_fx = Kristal.callEvent("c4lCreateFilterFX", properties.type, properties)
+    if mod_fx then
+        return mod_fx
+    end
     local fxtype = (properties.type or "hsv"):lower()
     if fxtype == "hsv" then
         return HSVShiftFX()

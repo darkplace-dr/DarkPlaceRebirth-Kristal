@@ -1,6 +1,6 @@
 ---@class Camera : Camera
 ---@field tower CylinderTower
-local Camera, super = Utils.hookScript(Camera)
+local Camera, super = HookSystem.hookScript(Camera)
 
 
 function Camera:getMinPosition(...)
