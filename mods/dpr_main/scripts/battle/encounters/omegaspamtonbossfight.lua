@@ -15,11 +15,11 @@ function OmegaSpamton:init()
 
     self.omega = self:addEnemy("omega_spamton", 770, 1350)
     self.omega:setAnimation("static")
-	
+
 	self.flee = false
 
     self.boss_rush = false
-	
+
     if Game:getFlag("omegaspamton_defeated") == true then
         self.boss_rush = true
     end
@@ -39,14 +39,14 @@ end
 
 function OmegaSpamton:beforeStateChange(old, new)
     local override = false
-	
+
     if not old == "CUTSCENE" then
         if Game.battle.enemies[1].health <= 0 then
             Game.battle.music:fade(0, 1)
             Game.battle:startCutscene("omegaspamton_intro", "omegaspamton_outro")
             override = true
         end
-		
+
         if Game.battle.enemies[1].mercy >= 100 then
             Game.battle.music:fade(0, 1)
             Game.battle:startCutscene("omegaspamton_intro", "omegaspamton_outro_alt")
@@ -55,10 +55,14 @@ function OmegaSpamton:beforeStateChange(old, new)
     end
 
     if new == "ENEMYDIALOGUE" then
-        local cutscene = Game.battle:startCutscene("omegaspamton_fight.talk")
-        cutscene:after(function()
-            Game.battle:setState("DIALOGUEEND")
-        end)
+        if Game.battle.enemies[1] then
+            local cutscene = Game.battle:startCutscene("omegaspamton_fight.talk")
+            cutscene:after(function()
+                Game.battle:setState("DIALOGUEEND")
+            end)
+        else
+            Game.battle:setState("VICTORY")
+        end
     end
 
     if new == "ACTIONS" and self.progress >= 200 then
