@@ -7,7 +7,7 @@ function ChurchHighlightFX:init(alpha, color, settings, priority)
 
     self.alpha = alpha or 0
     self.color = color or {1, 1, 1, 1}
-    self.dark_color = settings["darkcol"] or Utils.hexToRgb("#404040")
+    self.dark_color = settings["darkcol"] or ColorUtils.hexToRGB("#404040FF")
     self.darkness = settings["darkness"] or 1
     self.scale = settings["scale"] or 1
     self.thickness = settings["thickness"] or 1
@@ -59,7 +59,7 @@ function ChurchHighlightFX:draw(texture)
 
     Draw.drawCanvas(texture)
 	
-	local dr,dg,db   = unpack(Utils.mergeColor({1,1,1}, {self:getDarkColor()}, self.alpha))
+	local dr,dg,db   = unpack(ColorUtils.mergeColor({1,1,1}, {self:getDarkColor()}, self.alpha))
     shader:send("inputcolor", {dr,dg,db})
     shader:send("amount", 1)
     love.graphics.setShader(shader)

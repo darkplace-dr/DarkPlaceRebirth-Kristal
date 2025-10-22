@@ -1,5 +1,5 @@
 ---@class TensionBar : TensionBar
-local TensionBar, super = Utils.hookScript(TensionBar)
+local TensionBar, super = HookSystem.hookScript(TensionBar)
 
 function TensionBar:flash(...)
     -- I just know there will be a better implementation from Kristal

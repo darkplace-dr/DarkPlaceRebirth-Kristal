@@ -8,9 +8,9 @@ function RoomGlow:init(data)
 	self:setParallax(0,0)
     local properties = data and data.properties or {}
 	self.prophecy_glow = properties["prophecy"] or false
-    self.tint = Utils.parseColorProperty(properties["tint"]) or Utils.hexToRgb("#2A39FF")
-    self.highlight = Utils.parseColorProperty(properties["highlight"]) or Utils.hexToRgb("#42D0FF")
-    self.darkcol = Utils.parseColorProperty(properties["darkness"]) or Utils.hexToRgb("#404040")
+    self.tint = TiledUtils.parseColorProperty(properties["tint"]) or ColorUtils.hexToRGB("#2A39FFFF")
+    self.highlight = TiledUtils.parseColorProperty(properties["highlight"]) or ColorUtils.hexToRGB("#42D0FFFF")
+    self.darkcol = TiledUtils.parseColorProperty(properties["darkness"]) or ColorUtils.hexToRGB("#404040FF")
 	self.glowactive = false
 	self.actind = 0
 	self.lerpstrength = 0.125
@@ -51,9 +51,9 @@ function RoomGlow:update()
 	end
 	if self.init then
 		if self.glowactive then
-			self.actind = Utils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
+			self.actind = MathUtils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
 		else
-			self.actind = Utils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
+			self.actind = MathUtils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
 		end
 	end
 	if self.tile_dark and self.tile_dark:getFX("shadow") then
@@ -88,7 +88,7 @@ end
 
 function RoomGlow:draw()
 	if self.actind > 0 then
-		love.graphics.setColor(Utils.mergeColor({1,1,1}, {self.tint[1],self.tint[2],self.tint[3]}, self.actind))
+		love.graphics.setColor(ColorUtils.mergeColor({1,1,1}, {self.tint[1],self.tint[2],self.tint[3]}, self.actind))
 		love.graphics.setBlendMode("multiply", "premultiplied")
 		love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 		love.graphics.setBlendMode("alpha", "alphamultiply")

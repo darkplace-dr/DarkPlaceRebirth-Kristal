@@ -8,7 +8,7 @@ function RippleEffect:MakeRipple(x, y, life, color, radmax, radstart, thickness,
     depth = depth or 1999000
     color = color or 16159050
     if type(color) == "number" then
-        color = Utils.hexToRgb("#"..Utils.sub(string.format("%08X",color), 3,8))
+        color = ColorUtils.hexToRGB("#"..StringUtils.sub(string.format("%08X",color), 3,8).."FF")
         color[1], color[3] = color[3], color[1]
     end
     local obj = self(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve)
@@ -71,14 +71,14 @@ function RippleEffect:draw()
     self.life = math.max(0, self.life - 1);
 
     if (self.physics.speed_x > 0) then
-        self.physics.speed_x = Utils.approach(self.physics.speed_x, 0, self.fric*DTMULT)
+        self.physics.speed_x = MathUtils.approach(self.physics.speed_x, 0, self.fric*DTMULT)
     end
 
     if (self.physics.speed_y > 0) then
-        self.physics.speed_y = Utils.approach(self.physics.speed_y, 0, self.fric*DTMULT)
+        self.physics.speed_y = MathUtils.approach(self.physics.speed_y, 0, self.fric*DTMULT)
     end
 
-    self.rad = Utils.lerp(self.radstart, self.radmax, self.curve(1 - (self.life / self.lifemax)));
+    self.rad = MathUtils.lerp(self.radstart, self.radmax, self.curve(1 - (self.life / self.lifemax)));
 
     if (self.rad > 0) then
         self.shader:send("rippleRad", {self.rad, self.radmax, self.thickness})

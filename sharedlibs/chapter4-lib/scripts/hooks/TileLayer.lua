@@ -1,7 +1,7 @@
 ---@class TileLayer : TileLayer
 ---@field wrap_x boolean
 ---@field wrap_y boolean
-local TileLayer, super = Utils.hookScript(TileLayer)
+local TileLayer, super = HookSystem.hookScript(TileLayer)
 
 function TileLayer:draw()
     if not (self.wrap_x or self.wrap_y) then

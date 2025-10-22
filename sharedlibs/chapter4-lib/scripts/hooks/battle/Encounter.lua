@@ -1,5 +1,5 @@
 ---@class Encounter : Encounter
-local Encounter, super = Utils.hookScript(Encounter)
+local Encounter, super = HookSystem.hookScript(Encounter)
 
 local old_prop_name = "reduced_tp"
 

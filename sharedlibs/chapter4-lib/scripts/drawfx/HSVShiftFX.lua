@@ -35,9 +35,9 @@ function HSVShiftFX:update()
 
     if (self.heartbeat_mode) then
         local _percent = Game:getActiveMusic():tell() / Game:getActiveMusic().source:getDuration();
-        self.hue = Utils.lerp(self.hue_start, self.hue_target, math.abs(math.sin(_percent * math.pi)));
-        self.sat = Utils.lerp(self.sat_start, self.sat_target, math.abs(math.sin(_percent * math.pi)));
-        self.val = Utils.lerp(self.val_start, self.val_target, math.abs(math.sin(_percent * math.pi)));
+        self.hue = MathUtils.lerp(self.hue_start, self.hue_target, math.abs(math.sin(_percent * math.pi)));
+        self.sat = MathUtils.lerp(self.sat_start, self.sat_target, math.abs(math.sin(_percent * math.pi)));
+        self.val = MathUtils.lerp(self.val_start, self.val_target, math.abs(math.sin(_percent * math.pi)));
     end
 
 end
