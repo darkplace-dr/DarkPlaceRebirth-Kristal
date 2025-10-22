@@ -77,4 +77,12 @@ function Electrodasher:onHurt(damage, battler)
     return super.onHurt(self)
 end
 
+function Electrodasher:getEncounterText()
+    if love.math.random(0, 100) < 3 then
+        return "* Smells like car batteries."
+    else
+        return super.getEncounterText(self)
+    end
+end
+
 return Electrodasher
