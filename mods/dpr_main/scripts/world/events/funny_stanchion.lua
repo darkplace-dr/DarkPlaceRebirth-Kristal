@@ -3,14 +3,23 @@ local FunnyStanchion, super = Class(Event)
 function FunnyStanchion:init(data)
     super.init(self, data)
 
-    self.front_left_sprite = Assets.getFrames("world/events/funny_stanchion/front_left")
-    self.front_middle_sprite = Assets.getFrames("world/events/funny_stanchion/front_middle")
-    self.front_right_sprite = Assets.getFrames("world/events/funny_stanchion/front_right")
-    self.back_left_sprite = Assets.getTexture("world/events/funny_stanchion/back_left")
-    self.back_middle_sprite = Assets.getTexture("world/events/funny_stanchion/back_middle")
-    self.back_right_sprite = Assets.getTexture("world/events/funny_stanchion/back_right")
-
     local properties = data.properties or {}
+    self.type = properties["type"] or "normal"
+	if self.type == "hof" then
+		self.front_left_sprite = Assets.getFrames("world/events/funny_stanchion/hall_of_fame/front_left")
+		self.front_middle_sprite = Assets.getFrames("world/events/funny_stanchion/hall_of_fame/front_middle")
+		self.front_right_sprite = Assets.getFrames("world/events/funny_stanchion/hall_of_fame/front_right")
+		self.back_left_sprite = Assets.getTexture("world/events/funny_stanchion/hall_of_fame/back_left")
+		self.back_middle_sprite = Assets.getTexture("world/events/funny_stanchion/hall_of_fame/back_middle")
+		self.back_right_sprite = Assets.getTexture("world/events/funny_stanchion/hall_of_fame/back_right")
+	else
+		self.front_left_sprite = Assets.getFrames("world/events/funny_stanchion/front_left")
+		self.front_middle_sprite = Assets.getFrames("world/events/funny_stanchion/front_middle")
+		self.front_right_sprite = Assets.getFrames("world/events/funny_stanchion/front_right")
+		self.back_left_sprite = Assets.getTexture("world/events/funny_stanchion/back_left")
+		self.back_middle_sprite = Assets.getTexture("world/events/funny_stanchion/back_middle")
+		self.back_right_sprite = Assets.getTexture("world/events/funny_stanchion/back_right")
+	end
 
     self.dir = properties["dir"] or "front"
 	if self.dir == "front" then

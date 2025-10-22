@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 25,
+  tilecount = 30,
   tiles = {
     {
       id = 0,
@@ -174,6 +174,36 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/stealthzone.png",
       width = 66,
       height = 30
+    },
+    {
+      id = 28,
+      image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/kris.png",
+      width = 52,
+      height = 56
+    },
+    {
+      id = 30,
+      image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/susie.png",
+      width = 52,
+      height = 56
+    },
+    {
+      id = 29,
+      image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/ralsei.png",
+      width = 52,
+      height = 56
+    },
+    {
+      id = 27,
+      image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/best_inu.png",
+      width = 52,
+      height = 56
+    },
+    {
+      id = 32,
+      image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png",
+      width = 38,
+      height = 97
     }
   }
 }

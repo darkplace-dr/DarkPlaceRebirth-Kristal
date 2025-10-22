@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 71,
+  nextobjectid = 75,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -533,6 +533,31 @@ return {
             ["cond"] = "Game:hasRecruit(\"shuttah\")",
             ["cutscene"] = "recruits.shuttah"
           }
+        },
+        {
+          id = 72,
+          name = "transition",
+          type = "",
+          shape = "polygon",
+          x = 120,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -80, y = 80 },
+            { x = -80, y = 40 },
+            { x = 0, y = -40 }
+          },
+          properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
+            ["map"] = "floortv/hall_of_fame",
+            ["marker"] = "entry_legacy",
+            ["sound"] = "dooropen"
+          }
         }
       }
     },
@@ -814,24 +839,6 @@ return {
           properties = {}
         },
         {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 40,
-          y = 640,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 80, y = -80 },
-            { x = 0, y = -80 }
-          },
-          properties = {}
-        },
-        {
           id = 53,
           name = "",
           type = "",
@@ -906,6 +913,19 @@ return {
           shape = "point",
           x = 820,
           y = 1080,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 74,
+          name = "entry_hall_of_fame",
+          type = "",
+          shape = "point",
+          x = 140,
+          y = 600,
           width = 0,
           height = 0,
           rotation = 0,
