@@ -117,7 +117,7 @@ function Starbeam:update()
 	end
 	if self.knockback ~= 0 then
 		local knockback = math.pow(self.knockback/10, 5) * 10
-		self.gt_x = self.gt_x - knockback
+		self.gt_x = self.gt_x - knockback*DTMULT
 		self.knockback = MathUtils.approach(self.knockback, 0, 0.5*DTMULT)
 		Game.battle.arena.sprite.x = MathUtils.random(-1, 1) * (knockback / 10)
 		Game.battle.arena.sprite.y = MathUtils.random(-1, 1) * (knockback / 10)
