@@ -879,7 +879,7 @@ local desslmao = {
                 susie_party:addOpinion("dess", -10)
             end
     
-            if Game:getPartyMember("dess").kills >= 9 then
+            if Game:getPartyMember("dess").kills >= 8 then
                 cutscene:wait(3)
                 cutscene:setSpeaker("dess")
                 cutscene:textTagged("* Hey actually wait", "genuine", "dess")
