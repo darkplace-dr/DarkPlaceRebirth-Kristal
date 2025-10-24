@@ -1115,6 +1115,14 @@ function Battle:registerXAction(party, name, description, tp)
     table.insert(self.xactions, act)
 end
 
+function Battle:getXAction(xact_name, party)
+    for _, xact in ipairs(self.xactions) do
+        if xact["name"] == xact_name and xact["party"] == party then
+            return xact
+        end
+    end
+end
+
 --- A simple redirect to the Encounter's [`getInitialEncounterText`](lua://Encounter.getInitialEncounterText). \
 --- Here for encapsulation and hooking, if you need more complex behavior.
 ---@return string|string[] text # If a table, you should use [next] to advance the text
