@@ -142,7 +142,8 @@ function Diamond_Store:postInit()
     end
 
     self.dialogue_text = DialogueText(nil, 30, 270, 372, 194)
-
+    self.dialogue_text:addFX(OutlineFX())
+    self.dialogue_text:getFX():setColor(0, 0, 0)
     self.dialogue_text:registerCommand("emote", emoteCommand)
 
     self.dialogue_text:setLayer(SHOP_LAYERS["dialogue"])
@@ -150,7 +151,8 @@ function Diamond_Store:postInit()
     self:setDialogueText(self.encounter_text)
 
     self.right_text = DialogueText("", 30 + 420, 260, 176, 206)
-
+    self.right_text:addFX(OutlineFX())
+    self.right_text:getFX():setColor(0, 0, 0)
     self.right_text:registerCommand("emote", emoteCommand)
 
     self.right_text:setLayer(SHOP_LAYERS["dialogue"])
@@ -165,6 +167,14 @@ function Diamond_Store:postInit()
     self.info_box:remove()
     self.bg_cover:remove()
 
+end
+
+function Diamond_Store:setDialogueText(text)
+    self.dialogue_text:setText(self:getVoicedText("[color:#53fff7]".. text))
+end
+
+function Diamond_Store:setRightText(text)
+    self.right_text:setText(self:getVoicedText("[color:#53fff7]".. text))
 end
 
 function Diamond_Store:startTalk(talk)
