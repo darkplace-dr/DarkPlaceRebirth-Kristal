@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="50">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="52">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="teevie"/>
   <property name="music" value="deltarune/tv_world"/>
+  <property name="name" value="TV Floor - Lobby"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/teevie_land.tsx"/>
  <tileset firstgid="157" source="../../../tilesets/floortv_objects.tsx"/>
@@ -119,6 +120,7 @@
     <property name="marker" value="entry_right"/>
    </properties>
   </object>
+  <object id="51" name="savepoint" x="808" y="236" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="7" name="markers">
   <object id="32" name="entry_elevator" x="480" y="190">
