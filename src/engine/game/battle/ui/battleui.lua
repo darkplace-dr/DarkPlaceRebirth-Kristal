@@ -493,7 +493,7 @@ function BattleUI:drawState()
                 end
 
                 if Game.battle.state_reason == "XACT" then
-                    Draw.setColor(Game.battle.party[Game.battle.current_selecting].chara:getXActColor())
+                    Draw.setColor(Game.battle:getXAction(Game.battle.selected_xaction.name, Game.battle.party[Game.battle.current_selecting].chara.id)["color"])
                     if Game.battle.selected_xaction.id == 0 then
                         love.graphics.print(enemy:getXAction(Game.battle.party[Game.battle.current_selecting]), self.xact_x_pos, 50 + y_off)
                     else
