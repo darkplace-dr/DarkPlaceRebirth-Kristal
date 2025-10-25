@@ -72,7 +72,7 @@ function Jukebox:update()
         local tell = music:tell()
         local beat = false
         local last_played_this = self.last_tell[1] == music.current
-        if not last_played_this or (tell - self.last_tell[2]) < 0 then
+        if last_played_this and (tell - self.last_tell[2]) < 0 then
             beat = true
         elseif last_played_this and (tell % modulo) < (self.last_tell[2] % modulo) then
             beat = true
