@@ -7,7 +7,10 @@ function Warstalker:init()
     self.text = "[instant]Error: src/engine/registry.lua:273: Attempt to create non existent enemy \"starwalker\"\nstack traceback:\n[C]: in function 'pcall'\nmain.lua:438: in function <main.lua:436>\n[C]: in function 'error'"
 
     -- The Project Spacetime inspiration is evident here
-    self.music = "battle2ut-bitcrush"
+    self.music = "starwalker-bitcrush"
+    if MathUtils.randomInt(1400) < 8 then
+        self.music = "battle2ut-bitcrush"
+    end
     -- Enables the purple grid battle background
     self.background = true
 

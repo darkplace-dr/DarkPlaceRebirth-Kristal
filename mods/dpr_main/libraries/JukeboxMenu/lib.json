@@ -13,6 +13,10 @@
         "infoCollapsible": true,
         "showDurationBar": true,
         "animateToBeat": true,
-        "albumArtDirectory": "albums/"
+        "albumArtDirectory": "albums/",
+        "useSimpleModeByDefault": false,
+        "rememberCollpaseState": true,
+        "enableMetronome": false,
+        "defaultBpm": 120
     }
 }

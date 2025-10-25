@@ -38,6 +38,7 @@
 local Registry = {}
 local self = Registry
 
+Registry.saved_data = nil
 Registry.new_globals = {}
 Registry.last_globals = {}
 
@@ -157,6 +158,25 @@ function Registry.initialize(preload)
     self.preload = preload
 
     Hotswapper.updateFiles("registry")
+end
+
+function Registry.saveData()
+    self.saved_data = {}
+    for registry,path in pairs(self.paths) do
+        self.saved_data[registry] = self[registry]
+    end
+end
+
+---@return boolean
+function Registry.restoreData()
+    if self.saved_data then
+        for registry,path in pairs(self.paths) do
+            self[registry] = self.saved_data[registry]
+        end
+        return true
+    else
+        return false
+    end
 end
 
 function Registry.restoreOverridenGlobals()
@@ -1125,7 +1145,7 @@ function Registry.iterScripts(base_path, exclude_folder)
             return true
         end
     end
-    parse = function(path, _chunks)
+    parse = function(path, _chunks, full_path_prefix)
         chunks = _chunks
         parsed = {}
         queued_parse = {}
@@ -1141,7 +1161,7 @@ function Registry.iterScripts(base_path, exclude_folder)
                     file = file:sub(2)
                 end
                 parsed[full_path] = true
-                addChunk(path, chunk, file, full_path)
+                addChunk(path, chunk, file, full_path_prefix..full_path)
             end
         end
         while #queued_parse > 0 do
@@ -1160,20 +1180,20 @@ function Registry.iterScripts(base_path, exclude_folder)
         end
     end
 
-    parse(base_path, self.base_scripts)
+    parse(base_path, self.base_scripts, "scripts/")
     if Mod then
         for _, mod in ipairs(Kristal.Mods.list) do
             Kristal.Mods.getAndLoadMod(mod.id)
-            parse("sharedscripts/"..base_path, mod.script_chunks)
+            parse("sharedscripts/"..base_path, mod.script_chunks, Mod.info.path.."/")
         end
         for _,library in Kristal.iterLibraries() do
-            parse("scripts/"..base_path, library.info.script_chunks)
+            parse("scripts/"..base_path, library.info.script_chunks, Mod.info.path.."/")
         end
-        parse("scripts/"..base_path, Mod.info.script_chunks)
+        parse("scripts/"..base_path, Mod.info.script_chunks, Mod.info.path.."/")
         for plugin,_,_ in Kristal.PluginLoader.iterPlugins(true) do
             local value = Kristal.PluginLoader.script_chunks[plugin.id]
             if value then
-                parse(base_path, value)
+                parse(base_path, value, Mod.info.path.."/")
             end
         end
     end
@@ -1187,9 +1207,6 @@ function Registry.iterScripts(base_path, exclude_folder)
         i = i + 1
         if i <= n then
             local full_path = result[i].full_path
-            if Mod then
-                full_path = Mod.info.path.."/"..full_path
-            end
             return full_path, result[i].path, unpack(result[i].out)
         end
     end
