@@ -65,7 +65,7 @@ function Jukebox:update()
 
         local song = self.menu:getPlayingEntry(music, true)
         -- TODO: multiply by pitch
-        local bpm = song and song.bpm or 100
+        local bpm = song and song.bpm or Kristal.getLibConfig("JukeboxMenu", "defaultBpm")
         if bpm >= 200 then
             bpm = bpm / 2
         end

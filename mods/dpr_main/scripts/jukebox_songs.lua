@@ -7,7 +7,7 @@ return {
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text",
-    bpm = 114.25
+    bpm = 114.245
   },
   {
     name = "demonic little grey cliffs",
@@ -34,7 +34,7 @@ return {
     released = "2024",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text",
-    bpm = 71.25
+    bpm = 95
   },
   {
     name = "Uwa!! So RETRO!",
@@ -87,7 +87,8 @@ return {
     composer = "Tritra Serpifeu",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 55.5
   },
   {
     name = "Enemy Approaching!",
@@ -96,7 +97,7 @@ return {
     released = "2015",
     origin = "Undertale",
     album = "undertale",
-    bpm = 114
+    bpm = 183
   },
   {
     name = "Determination",
@@ -104,7 +105,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 125
   },
   {
     name = "sans.",
@@ -121,7 +123,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 70
   },
   {
     name = "The Door",
@@ -129,7 +132,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 69
   },
   {
     name = "Rude Buster",
@@ -146,7 +150,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 123
   },
   {
     name = "Darkness Falls",
@@ -164,7 +169,7 @@ return {
     released = "2018",
     origin = "Deltarune",
     album = "dr_ch1",
-    bpm = 105
+    bpm = 105 * 0.9
   },
   {
     name = "Your Power",
@@ -172,7 +177,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 59
   },
   {
     name = "Before the Story",
@@ -208,7 +214,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 149.5
+    bpm = 149.55
   },
   {
     name = "WELCOME TO THE CITY (Alt)",
@@ -226,7 +232,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 115.21
+    bpm = 144
   },
   {
     name = "And Now For Today's Sponsors...!",
@@ -342,7 +348,7 @@ return {
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 79.24
+    bpm = 78
   },
   {
     name = "Catswing",
@@ -368,7 +374,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 108.8
   },
   {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload
@@ -421,7 +428,8 @@ return {
     composer = "Tritra Serpifeu",
     released = "2022",
     origin = "Doki Doki Festive Firework",
-    album = "starrune"
+    album = "starrune",
+    bpm = 100
   },
   {
     name = "Space Cover",
@@ -429,7 +437,8 @@ return {
     composer = "Tritra Serpifeu\nVia Midi by Theopold the Gamer",
     released = "2024",
     origin = "Snail Smite\nOriginal from: BABA IS YOU",
-    album = "snailsmite"
+    album = "snailsmite",
+    bpm = 115
   },
   {
     name = "Dreamed Death",
@@ -437,7 +446,8 @@ return {
     composer = "Tritra Serpifeu\nWith Help via Midi's by IronInvoker47",
     released = "2025",
     origin = "Deltarune: Loving Genesis",
-    album = "lovinggenesis"
+    album = "lovinggenesis",
+    bpm = 120
   },
   {
     name = "Really Good Showrunner Cover",
@@ -445,7 +455,8 @@ return {
     composer = "Hyperboid",
     released = "2025",
     origin = "Super Mario 64: Beyond The Cursed Mirror(?)",
-    album = "itsfuckingmike"
+    album = "itsfuckingmike",
+    bpm = 120
   },
   {
     name = "Get on the Bus",
@@ -453,7 +464,8 @@ return {
     composer = "Keiichi Suzuki, Hirokazu Tanaka",
     released = "1994",
     origin = "MOTHER 2/Earthbound",
-    album = "mother_2"
+    album = "mother_2",
+    bpm = 151
   },
   {
     name = "Undefeatable",
@@ -471,7 +483,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 87
+    bpm = 86
   },
   {
     name = "Face Down",
@@ -480,7 +492,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 80
+    bpm = 161
   },
   {
     name = "Wherever We Are Now",

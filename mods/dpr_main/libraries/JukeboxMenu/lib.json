@@ -16,6 +16,7 @@
         "albumArtDirectory": "albums/",
         "useSimpleModeByDefault": false,
         "rememberCollpaseState": true,
-        "enableMetronome": false
+        "enableMetronome": false,
+        "defaultBpm": 120
     }
 }
