@@ -164,7 +164,7 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
-    if self.load_complete then
+    if self.loading_state == Loading.States.DONE then
         if self.fools then
             love.graphics.setShader(self.shader_invert)
         end
