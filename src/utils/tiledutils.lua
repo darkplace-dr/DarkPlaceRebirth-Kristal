@@ -207,7 +207,7 @@ end
 ---@return string final_path # The final path with its extension, possibly unresolved if resolution failed. Used for debugging.
 ---
 function TiledUtils.relativePathToAssetId(target_dir, asset_path, source_dir)
-    local prefix = Mod.info.path .. "/" .. target_dir .. "/"
+    local prefix = target_dir .. "/"
 
     -- Split paths by seperator
     local base_parts = Utils.split(source_dir, "/")

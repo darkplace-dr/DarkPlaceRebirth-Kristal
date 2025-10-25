@@ -98,7 +98,15 @@ end
 
 function Tileset:loadTextureFromImagePath(filename)
     local image_dir = "assets/sprites"
-    local success, result, final_path = TiledUtils.relativePathToAssetId(image_dir, filename, self.base_dir)
+    local success, result, final_path = TiledUtils.relativePathToAssetId(Mod.info.path .. "/" .. image_dir, filename, self.base_dir)
+
+    if not success then
+        local g_success, g_result, _ = TiledUtils.relativePathToAssetId(image_dir, filename, self.base_dir)
+        if g_success then
+            success = true
+            result = g_result
+        end
+    end
 
     if not success then
         if result == "not under prefix" then

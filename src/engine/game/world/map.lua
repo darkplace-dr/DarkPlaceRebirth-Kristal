@@ -471,7 +471,15 @@ end
 
 function Map:loadTextureFromImagePath(filename)
     local image_dir = "assets/sprites"
-    local success, result, final_path = TiledUtils.relativePathToAssetId(image_dir, filename, self.full_map_path)
+    local success, result, final_path = TiledUtils.relativePathToAssetId(Mod.info.path .. "/" .. image_dir, filename, self.full_map_path)
+
+    if not success then
+        local g_success, g_result, _ = TiledUtils.relativePathToAssetId(image_dir, filename, self.full_map_path)
+        if g_success then
+            success = true
+            result = g_result
+        end
+    end
 
     if not success then
         if result == "not under prefix" then
@@ -866,7 +874,15 @@ end
 
 function Map:loadTilesetFromTilesetPath(filename)
     local tileset_dir = "scripts/world/tilesets"
-    local success, result, final_path = TiledUtils.relativePathToAssetId(tileset_dir, filename, self.full_map_path)
+    local success, result, final_path = TiledUtils.relativePathToAssetId(Mod.info.path .. "/" .. tileset_dir, filename, self.full_map_path)
+
+    if not success then
+        local g_success, g_result, _ = TiledUtils.relativePathToAssetId(tileset_dir, filename, self.full_map_path)
+        if g_success then
+            success = true
+            result = g_result
+        end
+    end
 
     if not success then
         if result == "not under prefix" then
