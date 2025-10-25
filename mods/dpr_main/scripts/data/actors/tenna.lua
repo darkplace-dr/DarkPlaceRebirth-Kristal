@@ -165,6 +165,10 @@ function actor:onWorldUpdate(chara)
     self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
 end
 
+function actor:onBattleUpdate(battler)
+    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+end
+
 function actor:onTextSound()
     if self.voice_timer == 0 then
         local rand = Utils.random(0, 8, 1) + 1

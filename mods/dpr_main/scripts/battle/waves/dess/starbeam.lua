@@ -129,6 +129,7 @@ function Starbeam:update()
 		end
 	end
 	Game.battle.arena.x = MathUtils.round(self.gt_x)
+	Game.battle.soul.x = math.min(Game.battle.soul.x, (Game.battle.arena.x + Game.battle.arena.width/2))
     super.update(self)
 end
 
