@@ -465,7 +465,7 @@ return {
     released = "1994",
     origin = "MOTHER 2/Earthbound",
     album = "mother_2",
-    bpm = 151
+    bpm = 151.36
   },
   {
     name = "Undefeatable",
