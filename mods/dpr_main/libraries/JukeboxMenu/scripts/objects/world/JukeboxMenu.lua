@@ -355,7 +355,7 @@ function JukeboxMenu:draw()
             love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_h)
         end
 
-        local duration_needle_percent = music_always:tell() / getDuration(music_always)
+        local duration_needle_percent = MathUtils.clamp(music_always:tell() / getDuration(music_always), 0, 1)
         local duration_needle_x = math.floor(duration_needle_percent * (duration_w - duration_h))
         Draw.setColor(COLORS.white)
         love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_h, duration_h + duration_needle_h_bump*2)
