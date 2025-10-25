@@ -342,7 +342,7 @@ return {
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 78
+    bpm = 79.24
   },
   {
     name = "Catswing",
