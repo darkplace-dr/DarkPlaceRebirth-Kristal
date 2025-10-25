@@ -5,20 +5,23 @@ local Jukebox, super = Class(Event)
 ---@param data table
 function Jukebox:init(data)
     super.init(self, data.x, data.y, data.width, data.height)
+    local properties = data and data.properties or {}
 
 	self.solid = true
 
     self:setSprite("world/events/jukebox")
     self:setOrigin(0.3, 0.5)
 
-    self.menu = JukeboxMenu() ---@type JukeboxMenu
+    self.simple = properties["simple"] or nil
+
+    self.menu = JukeboxMenu(self.simple) ---@type JukeboxMenu
     self.timer = self:addChild(Timer())
 
     self.animate_to_beat = Kristal.getLibConfig("JukeboxMenu", "animateToBeat")
 end
 
 function Jukebox:openMenu()
-    self.menu = JukeboxMenu() ---@type JukeboxMenu
+    self.menu = JukeboxMenu(self.simple) ---@type JukeboxMenu
     Game.world:openMenu(self.menu)
 end
 

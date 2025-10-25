@@ -77,7 +77,8 @@ JukeboxMenu.ENTRY_H = 40
 JukeboxMenu.SONGS_PER_PAGE = 7
 
 function JukeboxMenu:init(simple)
-    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, simple and self.MIN_WIDTH or self.MAX_WIDTH, self.MIN_HEIGHT)
+    if simple == nil then simple = Kristal.getLibConfig("JukeboxMenu", "useSimpleModeByDefault") end
+    super.init(self, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, self.MIN_HEIGHT)
 
     self.parallax_x = 0
     self.parallax_y = 0
@@ -90,10 +91,11 @@ function JukeboxMenu:init(simple)
         self.height = self.height + 40
     end
 
-    self.box = UIBox(0, 0, self.width, self.height)
+    self.box = UIBox(0, 0, 0, self.height)
     self.box.layer = -1
     self.box.debug_select = false
     self:addChild(self.box)
+    self:setWidth(simple and self.MIN_WIDTH or self.MAX_WIDTH)
 
     self.font = Assets.getFont("main")
     self.font_2 = Assets.getFont("plain")
@@ -166,8 +168,17 @@ function JukeboxMenu:_buildSongs()
     end
 end
 
+function JukeboxMenu:setWidth(w)
+    self.width = w
+    self.box.width = w
+end
+
 function JukeboxMenu:onAddToStage(stage)
     super.onAddToStage(self, stage)
+
+    if self.info_collpasible and Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
+        self:setWidth(Game:getFlag("jukebox_menu_collpased", false) and self.MIN_WIDTH or self.MAX_WIDTH)
+    end
 
     self.heart:setColor(Game:getSoulColor())
 
@@ -435,17 +446,19 @@ function JukeboxMenu:update()
             self.info_accordion_timer_handle = self.timer:approach(1/3.5,
                 self.width, dest_width,
                 function(value)
-                    value = math.floor(value)
-                    self.width = value
-                    self.box.width = value
+                    self:setWidth(math.floor(value))
                 end,
                 "out-sine",
                 function()
                     self.info_accordion_timer_handle = nil
                 end
             )
+            local collpased = dest_width == self.MIN_WIDTH
             ---@diagnostic disable-next-line: inject-field
-            self.info_accordion_timer_handle.direction = dest_width == self.MIN_WIDTH
+            self.info_accordion_timer_handle.direction = collpased
+            if Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
+                Game:setFlag("jukebox_menu_collpased", collpased)
+            end
         end
     end
 
