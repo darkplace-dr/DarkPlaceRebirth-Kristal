@@ -62,6 +62,7 @@ function Jukebox:update()
         if not music then goto anim_done end
 
         local song = self.menu:getPlayingEntry(music, true)
+        -- TODO: multiply by pitch
         local bpm = song and song.bpm or 100
         if bpm >= 200 then
             bpm = bpm / 2

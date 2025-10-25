@@ -6,7 +6,8 @@ return {
     composer = "J.A.R.U.",
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 114.25
   },
   {
     name = "demonic little grey cliffs",
@@ -14,7 +15,8 @@ return {
     composer = "SadDiamondMan",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 100
   },
   {
     name = "Our Castle Town",
@@ -22,7 +24,8 @@ return {
     composer = "Spunky Tunky",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 137
   },
   {
     name = "Uwa!! So STARRY!",
@@ -30,7 +33,8 @@ return {
     composer = "J.A.R.U.",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 71.25
   },
   {
     name = "Uwa!! So RETRO!",
@@ -38,7 +42,8 @@ return {
     composer = "J.A.R.U.",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 100
   },
   {
     name = "I'LL SHOW YOU THE POWER OF",
@@ -46,7 +51,8 @@ return {
     composer = "JustAnAverageChilly",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 132
   },
   {
     name = "Warp Zone",
@@ -54,7 +60,8 @@ return {
     composer = "Charbomber",
     released = "2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 117
   },
   {
     name = "Checkpoint",
@@ -62,7 +69,8 @@ return {
     composer = "BrendaK7200",
     released = "2023",
     origin = "Dark Place",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 96
   },
   {
     name = "BIGGEST SHOT",
@@ -70,7 +78,8 @@ return {
     composer = "BrendaK7200",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 140
   },
   {
     name = "TRITRALAND",
@@ -86,7 +95,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 114
   },
   {
     name = "Determination",
@@ -144,7 +154,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 86
   },
   {
     name = "THE HOLY",
@@ -152,7 +163,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 105
   },
   {
     name = "Your Power",
@@ -186,7 +198,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 115
   },
   {
     name = "WELCOME TO THE CITY",
