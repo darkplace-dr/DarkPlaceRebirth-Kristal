@@ -201,7 +201,7 @@ function Game:setBorder(border, time)
 end
 
 function Game:returnToMenu()
-    self.fader:fadeOut(Kristal.returnToMenu, {speed = 0.5, music = 10/30})
+    self.fader:fadeOut(Kristal.returnToMenu, { speed = 0.5, music = 10 / 30 })
     Kristal.hideBorder(0.5)
     self.state = "EXIT"
 end
@@ -542,6 +542,9 @@ function Game:load(data, index, fade)
         end
 
         for id,equipped in pairs(Kristal.getModOption("equipment") or {}) do
+            if not self.party_data[id] then
+                error("Attempted to set up equipment for non-existent member "..id)
+            end
             if equipped["weapon"] then
                 self.party_data[id]:setWeapon(equipped["weapon"] ~= "" and equipped["weapon"] or nil)
             end

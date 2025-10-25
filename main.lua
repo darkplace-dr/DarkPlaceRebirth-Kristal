@@ -50,6 +50,7 @@ Kristal = require("src.kristal")
 -- Ease of access for game variables
 Game = Kristal.States["Game"]
 MainMenu = Kristal.States["MainMenu"]
+LoadingState = Kristal.States["Loading"]
 
 Assets = require("src.engine.assets")
 Music = require("src.engine.music")
