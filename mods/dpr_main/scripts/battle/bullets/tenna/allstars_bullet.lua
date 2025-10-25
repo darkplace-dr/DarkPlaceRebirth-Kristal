@@ -26,7 +26,7 @@ function AllStarsBullet:update()
     super.update(self)
 
     self.laugh_timer = self.laugh_timer + 0.25 * DTMULT
-    if self.timer >= 140 and state == 0 then
+    if self.timer >= 140 and self.state == 0 then
         self.state = 1
     end
 
