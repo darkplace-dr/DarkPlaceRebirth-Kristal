@@ -10,7 +10,7 @@ function Jukebox:init(data)
 	self.solid = true
 
     self:setSprite("world/events/jukebox")
-    self:setOrigin(0.3, 0.5)
+    self:setOrigin(0.5, 1)
 
     self.simple = properties["simple"] or nil
 
@@ -44,15 +44,21 @@ function Jukebox:onInteract(chara, dir)
     return true
 end
 
+---@private
+function Jukebox:_getMusic()
+    return (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+end
+
 function Jukebox:onAdd(parent)
     super.onAdd(self, parent)
 
-    self.last_tell = {Game.world.music.current, Game.world.music:tell()}
+    local music = self:_getMusic()
+    self.last_tell = music and {music.current, music:tell() or 0} or {"none", 0}
 end
 
 function Jukebox:update()
     if self.animate_to_beat and self.menu then
-        local music = (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+        local music = self:_getMusic()
         if not music then goto anim_done end
 
         local song = self.menu:getPlayingEntry(music, true)
@@ -64,17 +70,14 @@ function Jukebox:update()
         local modulo = 1 / (bpm / 60)
         local tell = music:tell()
         local beat = false
-        if self.last_tell[1] ~= music.current then
-            self.last_tell[2] = 0 -- FIXME: this is weird
-        end
-        if (tell % modulo) < (self.last_tell[2] % modulo) then
+        if self.last_tell[1] == music.current and (tell % modulo) < (self.last_tell[2] % modulo) then
             beat = true
         end
         self.last_tell = {music.current, tell}
 
         if beat then
-            self:setScale(1.1)
-            self.timer:tween(12/30, self, {scale_x=1, scale_y=1}, "out-sine")
+            --[[self:setScale(1.1)
+            self.timer:tween(12/30, self, {scale_x=1, scale_y=1}, "out-sine")]]
 
             local note = self:addChild(Sprite("world/events/jukebox/music_note_small", 60 + love.math.random(10), 10))
             note:setLayer(10)
