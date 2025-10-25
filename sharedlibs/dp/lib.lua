@@ -13,6 +13,11 @@ function lib:postInit(new_file)
     if not new_file then
         self:checkSaveStatus()
     end
+
+    local date = os.date("*t")
+    if date.month == 10 then
+        Game.stage.timer:every(date.day == 31 and 30 or 60, self.tryForFunnySkeletonVideo)
+    end
 end
 
 function lib:checkSaveStatus()
@@ -589,6 +594,31 @@ function lib:shouldWeIncreaseTheRateAtWhichYouGainNightmaresOrNot()
         end
     end
     return false
+end
+
+function lib.tryForFunnySkeletonVideo()
+    local self = DP
+    if self.funnyskeletonvideo and not self.funnyskeletonvideo:isPlaying() then
+        self.funnyskeletonvideo:remove()
+        self.funnyskeletonvideo = nil
+        return false
+    elseif self.sawfunnyskeleton and self.funnyskeletonvideo == nil then
+        return false
+    end
+
+    if self.sawfunnyskeleton then return end
+    if MathUtils.randomInt(0, 100) >= 15 then return end
+
+    self.sawfunnyskeleton = true
+
+    self.funnyskeletonvideo = Video("whatwasthat", false, 0, 0, 640, 480)
+    self.funnyskeletonvideo.parallax_x, self.funnyskeletonvideo.parallax_y = 0, 0
+    self.funnyskeletonvideo:addFX(ShaderFX(Assets.getShader("chromakey"), {
+        ["keyColor"] = { 0.0, 1.0, 0.0, 1.0 }, -- Pure green (R=0, G=1, B=0)
+        ["threshold"] = 0.4,         -- Adjust the threshold for green color tolerance
+    }), 66)
+    self.funnyskeletonvideo:play()
+    Game.stage:addChild(self.funnyskeletonvideo)
 end
 
 return lib

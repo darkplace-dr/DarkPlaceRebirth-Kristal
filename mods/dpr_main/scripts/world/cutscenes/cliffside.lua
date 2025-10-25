@@ -1661,33 +1661,10 @@ local cliffside = {
     end,
 
     video = function (cutscene, event)
-        local cool = [[
-extern vec4 keyColor;    // The color to be made transparent (greenscreen color)
-extern float threshold;  // The tolerance for matching the key color
-
-vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) {
-    vec4 pixel = Texel(texture, texture_coords);  // Get the pixel color
-    float diff = distance(pixel.rgb, keyColor.rgb);  // Measure color difference
-
-    // If the difference between the pixel color and the key color is less than the threshold, make it transparent
-    if (diff < threshold) {
-        return vec4(0.0, 0.0, 0.0, 0.0);  // Transparent pixel
-    } else {
-        return pixel * color;  // Return the original color
-    }
-}
-]]
-
-
-
-
-
-        local cooler = love.graphics.newShader(cool)
-
         local video = Video("spongebob", true, 0, 0, 640, 480) -- assets/videos/video_here.ogv
         video.parallax_x, video.parallax_y = 0, 0
         video:play()
-        video:addFX(ShaderFX(cooler, {
+        video:addFX(ShaderFX(Assets.getShader("chromakey"), {
                         ["keyColor"] = { 0.0, 1.0, 0.0, 1.0 }, -- Pure green (R=0, G=1, B=0)
                         ["threshold"] = 0.4,         -- Adjust the threshold for green color tolerance
                     }), 66)
