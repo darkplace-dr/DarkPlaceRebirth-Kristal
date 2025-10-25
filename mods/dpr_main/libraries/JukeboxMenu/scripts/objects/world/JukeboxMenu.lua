@@ -51,7 +51,7 @@ local JukeboxMenu, super = Class(Object)
 ---@class JukeboxMenu.Song
 ---@field name string?
 ---@field file string?
----@field bpm number?
+---@field bpm number? # BPM for the song in 1x pitch
 ---@field composer string?
 ---@field released string?
 ---@field origin string?

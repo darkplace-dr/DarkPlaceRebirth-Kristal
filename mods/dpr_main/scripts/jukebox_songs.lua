@@ -214,7 +214,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 149.54
+    bpm = 152
   },
   {
     name = "WELCOME TO THE CITY (Alt)",
@@ -223,7 +223,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 75.9876 * 1.2
+    bpm = 95
   },
   {
     name = "Cool Mixtape",
