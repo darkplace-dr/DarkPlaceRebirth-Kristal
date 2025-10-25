@@ -15,6 +15,7 @@
         "animateToBeat": true,
         "albumArtDirectory": "albums/",
         "useSimpleModeByDefault": false,
-        "rememberCollpaseState": true
+        "rememberCollpaseState": true,
+        "enableMetronome": false
     }
 }

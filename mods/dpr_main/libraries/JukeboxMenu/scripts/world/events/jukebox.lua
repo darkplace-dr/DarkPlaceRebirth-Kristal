@@ -18,6 +18,8 @@ function Jukebox:init(data)
     self.timer = self:addChild(Timer())
 
     self.animate_to_beat = Kristal.getLibConfig("JukeboxMenu", "animateToBeat")
+    self.enable_metronome = Kristal.getLibConfig("JukeboxMenu", "enableMetronome")
+    self.metronome_sound = nil
 end
 
 function Jukebox:openMenu()
@@ -77,6 +79,15 @@ function Jukebox:update()
         self.last_tell = {music.current, tell}
 
         if beat then
+            if self.enable_metronome then
+                if not self.metronome_sound then
+                    self.metronome_sound = Assets.newSound("jukebox_metronome")
+                    self.metronome_sound:setVolume(0.8)
+                end
+                self.metronome_sound:stop()
+                self.metronome_sound:play()
+            end
+
             self:setScale(1.1)
             self.timer:tween(12/30, self, {scale_x=1, scale_y=1}, "out-sine")
 
