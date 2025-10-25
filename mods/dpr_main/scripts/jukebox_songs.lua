@@ -377,7 +377,7 @@ return {
     released = "March 21st, 2024",
     origin = "Kristal",
     album = "default",
-    bpm = 120
+    bpm = 180
   },
   {
     name = "Gimmie Your Wallet, Miss",
