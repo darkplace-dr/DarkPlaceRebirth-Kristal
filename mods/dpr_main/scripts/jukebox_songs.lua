@@ -7,7 +7,7 @@ return {
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
     album = "dark_place_with_text",
-    bpm = 114.245
+    bpm = 57.122
   },
   {
     name = "demonic little grey cliffs",
