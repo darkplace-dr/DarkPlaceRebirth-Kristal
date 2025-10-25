@@ -190,7 +190,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 65.297
+    bpm = 196
   },
   {
     name = "Faint Courage",
