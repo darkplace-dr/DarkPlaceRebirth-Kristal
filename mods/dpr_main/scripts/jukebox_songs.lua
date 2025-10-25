@@ -375,7 +375,7 @@ return {
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 108.8
+    bpm = 54.4
   },
   {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload
@@ -465,7 +465,7 @@ return {
     released = "1994",
     origin = "MOTHER 2/Earthbound",
     album = "mother_2",
-    bpm = 151
+    bpm = 151.36
   },
   {
     name = "Undefeatable",
