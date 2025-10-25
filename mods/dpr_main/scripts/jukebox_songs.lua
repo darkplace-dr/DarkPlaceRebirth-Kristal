@@ -375,7 +375,7 @@ return {
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 54.4
+    bpm = 108.8
   },
   {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload
