@@ -169,7 +169,7 @@ return {
     released = "2018",
     origin = "Deltarune",
     album = "dr_ch1",
-    bpm = 105 * 0.9
+    bpm = 70
   },
   {
     name = "Your Power",
@@ -214,7 +214,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 149.55
+    bpm = 149.54
   },
   {
     name = "WELCOME TO THE CITY (Alt)",
@@ -223,7 +223,7 @@ return {
     released = "2021",
     origin = "Deltarune",
     album = "dr_ch2",
-    bpm = 75.9876
+    bpm = 75.9876 * 1.2
   },
   {
     name = "Cool Mixtape",
@@ -492,7 +492,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 161
+    bpm = 161 -- has silence at start
   },
   {
     name = "Wherever We Are Now",
@@ -501,7 +501,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 105
+    bpm = 105 -- has silence at start
   },
   --{
   --  name = "WHATCHACALLITSNAME (Cover)",
