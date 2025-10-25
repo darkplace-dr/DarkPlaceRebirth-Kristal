@@ -177,7 +177,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 65.297
   },
   {
     name = "Faint Courage",
@@ -202,7 +203,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 75.9876
   },
   {
     name = "Cool Mixtape",
@@ -210,7 +212,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 115.21
   },
   {
     name = "And Now For Today's Sponsors...!",
@@ -326,7 +329,7 @@ return {
     released = "2025",
     origin = "Deltarune",
     album = "dr_ch3_4",
-    bpm = 156
+    bpm = 78
   },
   {
     name = "Catswing",
@@ -360,7 +363,8 @@ return {
     composer = "Nyako",
     released = "March 21st, 2024",
     origin = "Kristal",
-    album = "default"
+    album = "default",
+    bpm = 120
   },
   {
     name = "Gimmie Your Wallet, Miss",
@@ -368,7 +372,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 110
   },
   {
     name = "Batter Up!",
@@ -376,7 +381,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 150
   },
   {
     name = "Three Strikes, You're Out!",
@@ -384,7 +390,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 140
   },
   {
     name = "The House",
@@ -392,7 +399,8 @@ return {
     composer = "MasterSwordRemix",
     released = "2023",
     origin = "Undertale Yellow",
-    album = "uty"
+    album = "uty",
+    bpm = 65
   },
   {
     name = "Cyber Moon",
@@ -440,7 +448,8 @@ return {
     composer = "Tomoya Ohtani",
     released = "2022",
     origin = "Sonic Frontiers",
-    album = "sonic_frontiers_stillness_and_motion"
+    album = "sonic_frontiers_stillness_and_motion",
+    bpm = 100
   },
   {
     name = "Same Old Story",
@@ -448,7 +457,8 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 87
   },
   {
     name = "Face Down",
@@ -456,7 +466,8 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 80
   },
   {
     name = "Wherever We Are Now",
@@ -464,7 +475,8 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 105
   },
   --{
   --  name = "WHATCHACALLITSNAME (Cover)",
@@ -476,7 +488,7 @@ return {
   --},
   {
     name = "Silence",
-    file = "silence",
+    file = "none",
     composer = "N/A",
     released = "N/A",
     origin = "N/A",
