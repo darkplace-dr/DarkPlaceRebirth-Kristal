@@ -57,13 +57,13 @@ function Mizzle:init()
     self.lullaby = false
 end
 
-function Mizzle:setTired(bool)
+function Mizzle:setTired(bool, hide_message)
     local old_tired = self.tired
     self.tired = bool
     if self.tired then
         self:setAnimation("idle")
         self.comment = "(Tired)"
-        if not old_tired and Game:getConfig("tiredMessages") and self:shouldDisplayTiredMessage() then
+        if Game:getConfig("tiredMessages") and not old_tired and not hide_message then
             if self.parent then
                 self:statusMessage("msg", "tired")
                 Assets.playSound("spellcast", 0.5, 0.9)
@@ -72,7 +72,7 @@ function Mizzle:setTired(bool)
     else
         self:setAnimation("alarm")
         self.comment = ""
-        if old_tired and Game:getConfig("awakeMessages") and self:shouldDisplayAwakeMessage() then
+        if Game:getConfig("awakeMessages") and old_tired and not hide_message then
             if self.parent then self:statusMessage("msg", "awake") end
         end
     end
