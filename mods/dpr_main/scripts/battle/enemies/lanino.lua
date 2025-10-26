@@ -31,10 +31,6 @@ function Lanino:init()
     self.used_sunglasses = false
 end
 
-function Lanino:shouldDisplayTiredMessage()
-    return false
-end
-
 function Lanino:isXActionShort(battler)
     return true
 end
