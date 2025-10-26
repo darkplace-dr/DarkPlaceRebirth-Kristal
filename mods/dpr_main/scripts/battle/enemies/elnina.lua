@@ -31,10 +31,6 @@ function Elnina:init()
     self.used_warmhat = false
 end
 
-function Elnina:shouldDisplayTiredMessage()
-    return false
-end
-
 function Elnina:isXActionShort(battler)
     return true
 end
