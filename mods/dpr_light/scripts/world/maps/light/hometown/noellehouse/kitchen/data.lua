@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 40,
+  nextobjectid = 41,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -476,20 +476,6 @@ return {
           properties = {}
         },
         {
-          id = 33,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 176,
-          y = 106,
-          width = 56,
-          height = 32,
-          rotation = 0,
-          gid = 126,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 34,
           name = "interactable",
           type = "",
@@ -578,6 +564,20 @@ return {
           properties = {
             ["text"] = "* (It's a piano.)"
           }
+        },
+        {
+          id = 40,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 176,
+          y = 106,
+          width = 56,
+          height = 32,
+          rotation = 0,
+          gid = 127,
+          visible = true,
+          properties = {}
         }
       }
     },
