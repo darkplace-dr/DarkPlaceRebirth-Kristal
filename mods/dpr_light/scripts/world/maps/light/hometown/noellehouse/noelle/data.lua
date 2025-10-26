@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 41,
+  nextobjectid = 46,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -181,6 +181,202 @@ return {
           gid = 153,
           visible = true,
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 4,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 6,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 480,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["exit_sound"] = "doorclose",
+            ["facing"] = "down",
+            ["map"] = "light/hometown/noellehouse/main",
+            ["marker"] = "entrynoelle",
+            ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 10,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 464,
+          y = 392,
+          width = 42,
+          height = 74,
+          rotation = 0,
+          gid = 103,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 11,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 514,
+          y = 324,
+          width = 44,
+          height = 66,
+          rotation = 0,
+          gid = 105,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 12,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 198,
+          y = 440,
+          width = 230,
+          height = 68,
+          rotation = 0,
+          gid = 106,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 90,
+          y = 440,
+          width = 92,
+          height = 54,
+          rotation = 0,
+          gid = 104,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 96,
+          y = 254,
+          width = 104,
+          height = 77,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's Noelle's bed. There's ample space to hide underneath.)"
+          }
+        },
+        {
+          id = 35,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 102,
+          y = 414,
+          width = 68,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "noellehouse.noelle_computer"
+          }
+        },
+        {
+          id = 36,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 232,
+          y = 386,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a state of the art high-definition TV with old game consoles under it.)"
+          }
+        },
+        {
+          id = 37,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 244,
+          y = 210,
+          width = 218,
+          height = 54,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a couch,[wait:5] for watching the TV.)"
+          }
+        },
+        {
+          id = 38,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 354,
+          y = 390,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "noellehouse.noelle_plant"
+          }
+        },
+        {
+          id = 39,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 515,
+          y = 312,
+          width = 40,
+          height = 94,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's Noelle's homework desk.)"
+          }
+        },
+        {
+          id = 40,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 492,
+          y = 224,
+          width = 52,
+          height = 38,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (A clothes wardrobe. A pair of small angel wings are inside...[wait:5] worn out and tattered.)"
+          }
         }
       }
     },
@@ -384,202 +580,42 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 4,
-      name = "objects",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 6,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 440,
-          y = 480,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["exit_sound"] = "doorclose",
-            ["facing"] = "down",
-            ["map"] = "light/hometown/noellehouse/main",
-            ["marker"] = "entrynoelle",
-            ["sound"] = "dooropen"
-          }
         },
         {
-          id = 10,
+          id = 43,
           name = "",
           type = "",
-          shape = "rectangle",
-          x = 464,
-          y = 392,
-          width = 42,
-          height = 74,
+          shape = "polygon",
+          x = 216,
+          y = 408,
+          width = 0,
+          height = 0,
           rotation = 0,
-          gid = 103,
           visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -16, y = 32 },
+            { x = 0, y = 32 }
+          },
           properties = {}
         },
         {
-          id = 11,
+          id = 45,
           name = "",
           type = "",
-          shape = "rectangle",
-          x = 514,
-          y = 324,
-          width = 44,
-          height = 66,
+          shape = "polygon",
+          x = 412,
+          y = 408,
+          width = 0,
+          height = 0,
           rotation = 0,
-          gid = 105,
           visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 16, y = 32 },
+            { x = 0, y = 32 }
+          },
           properties = {}
-        },
-        {
-          id = 12,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 198,
-          y = 440,
-          width = 230,
-          height = 68,
-          rotation = 0,
-          gid = 106,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 13,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 90,
-          y = 440,
-          width = 92,
-          height = 54,
-          rotation = 0,
-          gid = 104,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 33,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 96,
-          y = 254,
-          width = 104,
-          height = 77,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's Noelle's bed. There's ample space to hide underneath.)"
-          }
-        },
-        {
-          id = 35,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 102,
-          y = 414,
-          width = 68,
-          height = 20,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "noellehouse.noelle_computer"
-          }
-        },
-        {
-          id = 36,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 232,
-          y = 386,
-          width = 100,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a state of the art high-definition TV with old game consoles under it.)"
-          }
-        },
-        {
-          id = 37,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 244,
-          y = 210,
-          width = 218,
-          height = 54,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a couch,[wait:5] for watching the TV.)"
-          }
-        },
-        {
-          id = 38,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 354,
-          y = 390,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "noellehouse.noelle_plant"
-          }
-        },
-        {
-          id = 39,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 515,
-          y = 312,
-          width = 40,
-          height = 94,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's Noelle's homework desk.)"
-          }
-        },
-        {
-          id = 40,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 492,
-          y = 224,
-          width = 52,
-          height = 38,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (A clothes wardrobe. A pair of small angel wings are inside...[wait:5] worn out and tattered.)"
-          }
         }
       }
     },

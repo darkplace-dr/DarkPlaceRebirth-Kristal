@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="13" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="40">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="34" height="13" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="41">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -55,7 +55,6 @@
   <object id="15" gid="100" x="1154" y="430" width="92" height="38"/>
   <object id="16" gid="99" x="1112" y="410" width="178" height="190"/>
   <object id="17" gid="101" x="1044" y="328" width="180" height="268"/>
-  <object id="33" gid="126" x="176" y="106" width="56" height="32"/>
   <object id="34" name="interactable" x="218" y="150" width="40" height="66">
    <properties>
     <property name="text">* (The fridge is packed with festive foods.)
@@ -87,6 +86,7 @@
     <property name="text" value="* (It's a piano.)"/>
    </properties>
   </object>
+  <object id="40" gid="127" x="176" y="106" width="56" height="32"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
   <object id="9" name="entry" x="278" y="496">

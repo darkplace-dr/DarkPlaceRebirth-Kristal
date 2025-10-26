@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 150,
+  tilecount = 151,
   tiles = {
     {
       id = 1,
@@ -864,6 +864,12 @@ return {
       image = "../../../assets/sprites/tilesets/objects/present_wide.png",
       width = 48,
       height = 36
+    },
+    {
+      id = 153,
+      image = "../../../assets/sprites/tilesets/objects/noellehouse_treat_catcher.png",
+      width = 49,
+      height = 43
     },
     {
       id = 142,
