@@ -461,6 +461,34 @@ function TennaActor:setShaking(amount)
     self.shakeamt = amount
 end
 
+function TennaActor:setTennaSprite(preset, spr, bounce, options)
+    local options = options or {}
+
+    self:setPreset(preset)
+    if spr then
+        self:setSprite(spr)
+    end
+    if bounce then
+        self:setBounce(bounce, (options["scaled"] or false))
+    end
+    self.reversal = options["reversal"] or 0
+    self:setShaking(options["shake"] or 0)
+end
+
+function TennaActor:setTennaAnim(preset, anim, bounce, options)
+    local options = options or {}
+
+    self:setPreset(preset)
+    if anim then
+        self:setAnimation(anim)
+    end
+    if bounce then
+        self:setBounce(bounce, (options["scaled"] or false))
+    end
+    self.reversal = options["reversal"] or 0
+    self:setShaking(options["shake"] or 0)
+end
+
 function TennaActor:update()
     if self.shakeamt > 0 then
         self.shaketimer = self.shaketimer - DTMULT
