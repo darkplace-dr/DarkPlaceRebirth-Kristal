@@ -18,7 +18,7 @@ function actor:init()
     self.default = "point_up"
 
     self.voice = "tenna"
-    self.portrait_path = nil
+    self.portrait_path = "face/tenna"
     self.portrait_offset = nil
 
     self.can_blush = false

@@ -28,9 +28,11 @@ function Tenna:init()
     self.check = "Isn't it about time you\ngot a new TV?"
 
     self.text = {
-        "* The dummy gives you a soft\nsmile.",
-        "* The power of fluffy boys is\nin the air.",
-        "* Smells like cardboard.",
+        "* CLAP AND CHEER, SMILE AND SCREAM! ENTERTAINMENT ON YOUR SCREEN!",
+        "* COWABUNGA-DERO! THAT'S THE SMOOTH TASTE OF TV TIME!",
+        "* FRESH FROM THE JUICE! FRESH FROM THE JUICE!",
+        "* HEAR THAT WHINE!? THAT'S YOUR CRT ASKING FOR A WALK!!",
+        "* DON'T TOUCH THAT DIAL! THINGS ARE HEATING UP!",
     }
     self.low_health_text = "* The dummy looks like it's\nabout to fall over."
 
@@ -63,6 +65,12 @@ end
 function Tenna:update()
 	super.update(self)
 	self.actor:onBattleUpdate(self)
+end
+
+function Tenna:getEncounterText()	
+	local text = super.getEncounterText(self)
+	Game.battle.battle_ui.encounter_text.battletimer = -1
+	return text, "battle", "tenna"
 end
 
 function Tenna:onAct(battler, name)
