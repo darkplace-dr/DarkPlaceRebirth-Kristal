@@ -69,6 +69,10 @@ function lib:load(data)
     if not MagicalGlassLib then
         self.mg_data_preserve = data.magical_glass
     end
+    
+    if string.upper(data.name) == "EUROPE" and tonumber(os.date("%m")) == 11 then
+        love.event.quit("restart")
+    end
 end
 
 function lib:preDraw()

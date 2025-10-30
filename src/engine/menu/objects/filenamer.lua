@@ -33,6 +33,10 @@ function FileNamer:init(options)
     self.deny_names    = options.deny_names    or mod["namesDeny"]     or {}
     self.name_messages = options.name_messages or mod["namesMessages"] or {}
     
+    if tonumber(os.date("%m")) == 11 then
+        table.insert(self.crash_names, "EUROPE")
+    end
+    
     self.keyboard_mode = options.keyboard_mode or mod["keyboardMode"] or "default"
 
     self.callback = options.on_confirm
