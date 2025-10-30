@@ -390,7 +390,7 @@ function TeevieQuiz:showResults()
 			self.dess_wrong_answer = nil
 			if self.result == true then
 				Assets.playSound("won")
-				if winpose[Game.party[1].i] ~= -1 then
+				if winpose[Game.party[1].id] ~= -1 then
 					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
 				end
 				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
