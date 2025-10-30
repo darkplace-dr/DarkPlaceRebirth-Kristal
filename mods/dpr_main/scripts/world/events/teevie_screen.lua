@@ -7,17 +7,14 @@ function TeevieScreen:init(properties)
 	
     self:setSprite("world/events/teevie_screen/screen")
 	self.sprite:setScale(1,1)
-	self.face = Sprite("world/events/teevie_screen/face", 40, 48)
-	self.face.scale_y = 0
-	self.face:setOrigin(0.5)
-	self.face:setLayer(self.layer + 0.01)
-	self:addChild(self.face)
+	self.face_tex = Assets.getTexture("world/events/teevie_screen/face")
 	self.frame = Sprite("world/events/teevie_screen/frame", 0, 0)
-	self.frame:setLayer(self.layer + 0.02)
+	self.frame:setLayer(self.layer + 0.01)
 	self:addChild(self.frame)
 
     self.turned_on = false
 	self.can_turn_on = true
+	self.face_scale_y = 0
 	local can_kill = Game:getFlag("can_kill", false)
 	if can_kill then
 		self.can_turn_on = false
@@ -29,7 +26,7 @@ end
 function TeevieScreen:turnOn()
 	if not self.turned_on and self.can_turn_on then
 		Assets.playSound("dtrans_square", 0.5, 3)
-		Game.world.timer:tween(24/30, self.face, {scale_y = 1}, "out-elastic")
+		Game.world.timer:lerpVar(self, "face_scale_y", 0, 1, 24, -2, "out")
 		self.turned_on = true
 	end
 end
@@ -46,6 +43,11 @@ function TeevieScreen:update()
     end
 
     super.update(self)
+end
+
+function TeevieScreen:draw()
+	super.draw(self)
+	Draw.draw(self.face_tex, 40, 48, 0, 1, self.face_scale_y, 21, 9)
 end
 
 return TeevieScreen

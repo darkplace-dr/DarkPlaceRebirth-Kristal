@@ -318,6 +318,8 @@ function actor:initChapter2()
         ["float/down"] = {0, 0},
 
         ["nuzzle"] = {-1, 0},
+        ["shocked_right"] = {14, -6},
+        ["shocked_left"] = {0, -6},
     }
 
     self.menu_anim = "pose"

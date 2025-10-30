@@ -26,7 +26,7 @@ function Tenna:init()
 	self.battle_timer = 400*20
 	self.battle_timer_max = self.battle_timer
 	self.timeloss_timer = 0
-	self.timeloss_max = 15
+	self.timeloss_max = 20
 	self.time_offy = 0
 	self.scrollx = 0
 	self.audience_y_pos = SCREEN_HEIGHT+80
@@ -68,7 +68,7 @@ function Tenna:update()
 				if self.addscore > 0 and not self.stop_counting_points then
 					self.addscore = self.addscore - 1
 					self.score = self.score + 1
-					self.timeloss_max = 15
+					self.timeloss_max = 20
 				end
 			end
 			rep = 10
@@ -79,7 +79,7 @@ function Tenna:update()
 				if self.addscore < 0 and (not self.stop_counting_points or self.addscorereason == "bet") then
 					self.addscore = self.addscore + 1
 					self.score = self.score - 1
-					self.timeloss_max = 15
+					self.timeloss_max = 20
 				end
 			end
 			self.scoretimer = 0
@@ -131,7 +131,7 @@ function Tenna:onStateChange(old,new)
     super.onStateChange(self, old, new)
 	if Utils.containsValue({"ACTIONSDONE", "ENEMYDIALOGUE", "DEFENDING", "SPARING", "USINGITEMS", "ATTACKING", "BATTLETEXT", "SHORTACTTEXT"}, new) then
 		self.stop_counting_points = true
-		self.timeloss_max = 15
+		self.timeloss_max = 20
 		if new == "ENEMYDIALOGUE" then
 			self.move_timer_offset = true
 			Game.battle.timer:tween(20/30, self, {audience_y_pos = 400}, "linear")
@@ -204,7 +204,7 @@ function Tenna:onStateChange(old,new)
         end
 
         local win_text = "* Time's up!\n* You earned "..self.score.." POINTs."
-
+		Game.battle.battle_ui:clearEncounterText()
         Game.battle:battleText(win_text, function()
             Game.battle:setState("TRANSITIONOUT")
             self:onBattleEnd()
