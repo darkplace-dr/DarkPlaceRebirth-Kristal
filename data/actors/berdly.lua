@@ -53,17 +53,26 @@ function actor:init()
 
         ["battle/act_end"]      = {"battle/actend", 1/15, false, next="battle/idle"},
 
-        ["battle/rude_buster"]  = {"battle/rudebuster", 1/15, false, next="battle/idle"},
+        ["battle/super_jump"]   = {"battle/super_jump", 1/15, false, next="battle/super_jump_loop"},
+        ["battle/super_jump_loop"] = {"battle/super_jump_loop", 1/15, true},
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
 
-        ["battle/transition"]   = {"sword_jump_down", 0.2, true},
+        ["battle/transition"]   = {"battle/transition", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
 
         -- Cutscene animations
         ["jump_ball"]           = {"ball", 1/15, true},
+    }
+
+    self.animations_serious = {
+        -- Battle animations
+        ["battle/idle"]         = {"battle_serious/idle", 0.2, true},
+
+        ["battle/super_jump"]   = {"battle_serious/super_jump", 1/15, false, next="battle/super_jump_loop"},
+        ["battle/super_jump_loop"] = {"battle_serious/super_jump_loop", 1/15, true},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -106,7 +115,8 @@ function actor:init()
         ["battle/actready"] = {-6, -6},
         ["battle/spell"] = {-30, -38},
         ["battle/spellready"] = {-25, -23},
-        ["battle/rudebuster"] = {-52, -60},
+        ["battle/super_jump"] = {-42, -61},
+        ["battle/super_jump_loop"] = {-42, -61},
         ["battle/item"] = {-20, -13},
         ["battle/itemready"] = {-20, -15},
         ["battle/defend"] = {-30, -20},
@@ -117,11 +127,22 @@ function actor:init()
         ["battle/intro"] = {-35, -35},
         ["battle/victory"] = {-37, -14},
 
-        -- Cutscene offsets
-        
+        ["battle_serious/idle"] = {-7, -4},
+
+        ["battle_serious/super_jump"] = {-42, -61},
+        ["battle_serious/super_jump_loop"] = {-42, -61},
     }
 
     self.menu_anim = "nerd"
+end
+
+function actor:getAnimation(anim)
+    -- If the serious flag is set and an animation is defined, use it instead
+    if Game:getPartyMember("berdly"):getFlag("serious", false) and self.animations_serious[anim] ~= nil then
+        return self.animations_serious[anim] or nil
+    else
+        return super.getAnimation(self, anim)
+    end
 end
 
 return actor
