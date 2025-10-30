@@ -67,7 +67,7 @@ function Tenna:update()
 	self.actor:onBattleUpdate(self)
 end
 
-function Tenna:getEncounterText()	
+function Tenna:getEncounterText()
 	local text = super.getEncounterText(self)
 	Game.battle.battle_ui.encounter_text.battletimer = -1
 	return text, "battle", "tenna"
