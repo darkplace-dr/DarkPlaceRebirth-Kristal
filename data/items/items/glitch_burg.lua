@@ -35,7 +35,9 @@ function item:init()
 
     self.reactions = {
         susie = "Hell yeah! I love eating air!!",
-        dess = "mmm nothing im not eating nothing",    }
+        dess = "mmm nothing im not eating nothing",
+        jamm = "Don't know what I just ate but okay..."
+    }
 end
 
 function item:onWorldUse(target)

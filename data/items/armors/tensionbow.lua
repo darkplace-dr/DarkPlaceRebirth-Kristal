@@ -49,6 +49,7 @@ function item:init()
     self.reactions = {
         noel = "I feel tense. Good...",
         ceroba = "Feels more tense than usual.",
+        jamm = "Tension's rising...",
     }
 end
 

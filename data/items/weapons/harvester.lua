@@ -55,6 +55,7 @@ function item:init()
         dess = "i hate stardew valley",
         noel = "Insufficent.",
         hero = "This thing is BUSTED!",
+        jamm = "I don't have a green thumb.",
     }
 end
 

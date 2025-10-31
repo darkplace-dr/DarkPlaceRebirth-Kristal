@@ -56,7 +56,7 @@ function item:init()
         noelle = "",
 		dess = "",
         brenda = "",
-		jamm = "",
+		jamm = "So, is this fresh from the lemon?",
 		noel = "",
         ceroba = "",
         hero = "",

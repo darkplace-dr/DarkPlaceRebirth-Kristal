@@ -53,6 +53,7 @@ function item:init()
 		dess = "this shit aint lucky",
         ceroba = "What is this, a toy?",
         suzy = "Let's a GO!",
+        jamm = "(It barely stays together...)",
     }
 end
 

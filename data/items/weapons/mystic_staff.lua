@@ -53,7 +53,7 @@ function item:init()
         noelle = "(It looks...)",
 		dess = "\"mystic\" my ass",
         brenda = "",
-        jamm = "",
+        jamm = "I'm not good with staffs.",
         ceroba = "Good fit for a hero. But not me.",
         nell = "Back to origins, eh?"
     }

@@ -58,6 +58,7 @@ function item:init()
         brenda = "Time to enact some justice!",
         ceroba = "(...Clover...)",
         noel = "(Pretty.)",
+        jamm = "Never been of a fan of 6-shooters.",
     }
 end
 

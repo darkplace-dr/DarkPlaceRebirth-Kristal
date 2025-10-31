@@ -54,7 +54,8 @@ function item:init()
     self.reactions = {
         susie = "Can't I eat it all at once?",
         ralsei = "NUTJOKE",
-        noelle = "Erm, maybe give Susie the rest?"
+        noelle = "Erm, maybe give Susie the rest?",
+        jamm = "It just keeps going...!"
     }
 end
 
