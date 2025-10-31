@@ -46,6 +46,7 @@ function item:init()
 end
 
 function item:onWorldUse(target)
+    -- TODO: Create some kind of code block guide for when anyone smart enough (in the coding department) is the player.
     return false
 end
 

@@ -30,6 +30,7 @@ function item:init()
         dess = "",
         ceroba = "I feel... Weird.",
         noel = "Just no",
+        jamm = "I've been meaning to read more...",
     }
 end
 

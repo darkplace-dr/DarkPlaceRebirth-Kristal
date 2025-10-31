@@ -41,7 +41,8 @@ function item:init()
         kris =  120,
         susie = 100,
         dess = 70,
-        noelle = 40
+        noelle = 40,
+        jamm = 70
     }
 end
 

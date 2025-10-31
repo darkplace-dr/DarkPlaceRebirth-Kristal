@@ -54,6 +54,7 @@ function item:init()
 		dess = ":)",
         ceroba = "How lovely...",
         noel = "blatant lie",
+        jamm = "I never was a good cheerleader...",
     }
 end
 
