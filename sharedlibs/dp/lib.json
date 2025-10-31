@@ -2,6 +2,7 @@
     "id": "dpcommon",
     "default": true,
     "dependencies": [
+        "questline2",
         "pausebutton"
     ],
     "optionalDependencies": [

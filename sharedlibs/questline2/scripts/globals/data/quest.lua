@@ -1,6 +1,6 @@
 ---@class Quest : Class
 ---@overload fun(): Class
-local Quest = Class()
+local Quest = Class(nil, "Quest")
 function Quest:init()
     self.name = "Untitled Quest " .. (self.id or "???")
     self.description = "No description."

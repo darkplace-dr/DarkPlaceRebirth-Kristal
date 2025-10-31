@@ -1,4 +1,4 @@
-local QuestMenu, super = Class(Object)
+local QuestMenu, super = Class(Object, "QuestMenu")
 
 function QuestMenu:init()
     super.init(self, 92, 112, 457, 240)
@@ -35,7 +35,7 @@ end
 ---@return Quest[]
 function QuestMenu:getVisibleQuests()
 	local quests = {}
-	for key, value in pairs(Game.quests_data) do
+	for key, value in pairs(QuestlineLib.quests_data) do
 		if value:isVisible() then
 			table.insert(quests, value)
 		end
