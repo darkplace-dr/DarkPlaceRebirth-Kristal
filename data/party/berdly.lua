@@ -34,7 +34,7 @@ function character:init()
     self.xact_name = "B-Action"
     
     -- Spells
-    self:addSpell("wavedash")
+    self:addSpell("spearblaster")
     self:addSpell("pacify")
 
     -- Current health (saved to the save file)
@@ -108,6 +108,10 @@ function character:init()
     self.gameover_message = nil
 	
 	self.tv_name = "BRD"
+
+    self.flags = {
+        ["serious"] = false,
+    }
 end
 
 function character:getGameOverMessage(main)
