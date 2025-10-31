@@ -163,6 +163,7 @@ function lib:rollShiny(id, force)
         if not Game:getFlag("SHINY") then
             Game:setFlag("SHINY", {})
         end
+        -- "󰌠 󰸭 󰺾  󰘦 󰫿 "- Gaster (translates to "CROSS MY PENUMBRA GRAND CHASM")
         if roller == 66 then
             Game:getFlag("SHINY")[id] = true
         else

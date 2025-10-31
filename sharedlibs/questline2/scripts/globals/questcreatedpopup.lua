@@ -1,6 +1,6 @@
 ---@class QuestCreatedPopup : Object
 ---@overload fun(...) : QuestCreatedPopup
-local QuestCreatedPopup, super = Class("Object")
+local QuestCreatedPopup, super = Class("Object", "QuestCreatedPopup")
 
 ---@param quest Quest
 function QuestCreatedPopup:init(quest)

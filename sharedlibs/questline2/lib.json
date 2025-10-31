@@ -1,9 +1,10 @@
 {
-    "id": "questline",
-    "version": "1.0.0",
-    "engineVersion": "0.8.0",
+    "id": "questline2",
+    "version": "2.0.0",
+    "engineVersion": "0.10.0-dev",
 	"authors": [
-		"AcousticJamm"
+		"AcousticJamm", // Original library
+        "Hyperboid", // DPR Rewrite
 	],
 	"keybinds": [
         {
