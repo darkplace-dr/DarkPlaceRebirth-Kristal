@@ -35,13 +35,18 @@ function Starbeam:onStart()
 		Assets.playSound("rocket_long", 1, 0.6)
 	end)
     local starsummoner
+	local count = 0
     self.timer:after(1.5, function()
         starsummoner = self.timer:every(1/7, function()
             Assets.playSound("stardrop", 0.5, 0.5)
-            local direction = love.math.random(135+20, 225-20)
-			local bullet = self:spawnBullet("dess/star", 430, 180, math.rad(direction), 7)
+            local direction = math.rad(love.math.random(135+20, 225-20))
+			if count % 4 == 0 then
+				direction = MathUtils.angle(430, 180, Game.battle.soul.x, Game.battle.soul.y)
+			end
+			local bullet = self:spawnBullet("dess/star", 430, 180, direction, 7)
 			bullet.wave_masked = true
 			bullet:addFX(MaskFX(self))
+			count = count + 1
         end)
     end)
     self.timer:after(5, function()
@@ -58,7 +63,7 @@ function Starbeam:update()
 		dess.y = MathUtils.lerp(dess.y, self.dess_orig_y, 0.15*DTMULT)
 	elseif self.tween < 1 then
 		self.tween = MathUtils.approach(self.tween, 1, 0.05*DTMULT)
-		dess.x = MathUtils.lerpEaseOut(self.dess_orig_x, 460, self.tween, 6)
+		dess.x = MathUtils.lerpEaseOut(self.dess_orig_x, 452, self.tween, 6)
 		dess.y = MathUtils.lerpEaseOut(self.dess_orig_y, 220, self.tween, 6)
 	end
 	if self.con <= 1 then
@@ -152,7 +157,7 @@ function Starbeam:draw()
 	end
 	if self.con == 3 and self.ftimer > 0 then
 		love.graphics.setBlendMode("add")
-		Draw.setColor(0.5, 0.5, 0.5, 1)
+		Draw.setColor(0.5*(self.ftimer/10), 0.5*(self.ftimer/10), 0.5*(self.ftimer/10), 1)
 		Draw.drawPart(self.bullet_flow_tex[3], 0, 180, (10 - self.ftimer) * 2, self.yoff - (10 - self.ftimer) * 4, 215, 1, 0, 2, 2)
 		Draw.drawPart(self.bullet_flow_tex[3], 0, 180, (10 - self.ftimer) * 2, self.yoff + (10 - self.ftimer) * 4, 215, 1, 0, 2, 2)
 		love.graphics.setBlendMode("alpha")

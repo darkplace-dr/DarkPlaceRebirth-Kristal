@@ -298,6 +298,12 @@ return {
             cutscene:hideNametag()
         end
     end,
+	
+    gouldensam_first = function(cutscene, event)
+        cutscene:showNametag("Goulden Sam")
+        cutscene:text("* (It's tough being the forgotten cage.)", nil, event)
+        cutscene:hideNametag()
+    end,
 
     maze_zapper = function(cutscene, event)
 		cutscene:showNametag("Zapper")

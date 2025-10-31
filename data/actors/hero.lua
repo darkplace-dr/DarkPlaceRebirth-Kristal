@@ -154,4 +154,15 @@ function actor:init()
 	self.shiny_id = "hero"
 end
 
+--[[function actor:getAnimation(anim)
+	if Game.battle and Game.battle.encounter.is_jackenstein and self.animations_jack[anim] ~= nil then
+		if anim == "battle/idle" then
+			self.animations_jack[anim].duration = TableUtils.pick({40/30, 75/30, 90/30})
+		end
+        return self.animations_jack[anim] or nil
+    else
+        return super.getAnimation(self, anim)
+    end
+end]]
+
 return actor

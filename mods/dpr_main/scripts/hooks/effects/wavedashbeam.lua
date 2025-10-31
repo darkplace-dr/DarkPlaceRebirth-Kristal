@@ -1,0 +1,65 @@
+local WavedashBeam, super = Utils.hookScript(WavedashBeam)
+
+function WavedashBeam:init(red, x, y, tx, ty, after)
+    super.init(self, red, x, y, tx, ty, after)
+    self.jackenstein = Game.battle.encounter.is_jackenstein or false
+	self.misswritercreated = false
+	if self.jackenstein then
+		self.physics.friction = -5
+		self.target_y = ty - 60
+	end
+end
+
+function WavedashBeam:update()
+    self.alpha = Utils.approach(self.alpha, 1, 0.25 * DTMULT)
+
+    local dir = Utils.angle(self.x, self.y, self.target_x, self.target_y)
+    self.rotation = self.rotation + (Utils.angleDiff(dir, self.rotation) / 4) * DTMULT
+
+    if Input.pressed("confirm") then
+        self.pressed = true
+    end
+
+	if self.x > SCREEN_WIDTH then
+		self:remove()
+        return
+	end
+    if self.jackenstein and Utils.dist(self.x, self.y, self.target_x, self.target_y) <= 200 and not self.misswritercreated then
+		self.after_func(self.pressed, true)
+		self.misswritercreated = true
+	end
+    if Utils.dist(self.x, self.y, self.target_x, self.target_y) <= 40 and not self.jackenstein then
+        if self.after_func then
+            self.after_func(self.pressed, false)
+        end
+        Assets.playSound("rudebuster_hit")
+        for i = 1, 8 do
+            local burst = WavedashBurst(self.red, self.target_x, self.target_y, math.rad(45 + ((i - 1) * 90)), i > 4)
+            burst.layer = self.layer + (0.01 * i)
+            self.parent:addChild(burst)
+        end
+        self:remove()
+        return
+    end
+
+    self.afterimg_timer = self.afterimg_timer + DTMULT
+    if self.afterimg_timer >= 1 then
+        self.afterimg_timer = 0
+
+        local sprite = Sprite(self.red and "effects/wavedash/arrow_s" or "effects/wavedash/arrow_s", self.x, self.y)
+        sprite:fadeOutSpeedAndRemove()
+        sprite:setOrigin(0.5, 0.5)
+        sprite:setScale(2, 1.8)
+        sprite.rotation = self.rotation
+        sprite.alpha = self.alpha - 0.2
+        sprite.layer = self.layer - 0.01
+        sprite.graphics.grow_y = -0.1
+        sprite.graphics.remove_shrunk = true
+        sprite:play(1/15, true)
+        self.parent:addChild(sprite)
+    end
+
+    super.super.update(self)
+end
+
+return WavedashBeam

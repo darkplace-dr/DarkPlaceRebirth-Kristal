@@ -46,7 +46,7 @@ end
 function Tenna:addScore(score, clamp, reason)
 	self.addscore = self.addscore + score
 	if clamp then
-		if self.score > 0 and self.score+self.addscore < 0 then
+		if self.score >= 0 and self.score+self.addscore < 0 then
 			self.addscore = -self.score
 		end
 	end
@@ -119,6 +119,8 @@ function Tenna:update()
 				Assets.playSound("coin")
 			end)
 			self.gameover = true
+			self.score = self.score + self.addscore
+			self.addscore = 0
 			Game:setFlag("tenna_battle_score", self.score)
 			Game.battle.music:stop()
 			Game.battle:setState("TIMEUP")
