@@ -202,7 +202,7 @@ end
 function MainMenuModConfig:registerOptions()
     self.options = {}
 
-    self:registerOption("enableStorage",          "Enable Storage",            "Extra 48-slot item storage",                                                         "selection", {nil, true, false})
+    self:registerOption("storageSlots",           "Storage Slots",             "The amount of storage slots in the dark world inventory",                            "selection", {nil, 0, 12, 24, 36}) -- unhardcode
     self:registerOption("enableRecruits",         "Enable Recruits",           "Enable recruit messages and menu",                                                   "selection", {nil, true, false})
     self:registerOption("recruitsProgressSpaces", "Recruits Progress Spaces",  "Whether the recruits progress in the menu will have spaces between the amounts",     "selection", {nil, true, false})
     self:registerOption("smallSaveMenu",          "Small Save Menu",           "Single-file save menu with no storage/recruits options",                             "selection", {nil, true, false})
@@ -216,6 +216,7 @@ function MainMenuModConfig:registerOptions()
     self:registerOption("oldUIPositions",         "Old UI Positions",          "Whether to use Chapter 1 positions of UI elements or not.",                          "selection", {nil, true, false})
     self:registerOption("oldGameOver",            "Old Game Over",             "Whether to use Chapter 1 game over or not.",                                         "selection", {nil, true, false})
     self:registerOption("oldRudeBuster",          "Old Rude Buster",           "Whether to use Chapter 1/2 Rude Buster damage calculation and effect.",              "selection", {nil, true, false})
+    self:registerOption("oldPacify",              "Old Pacify",                "Whether to remove the animation from the Pacify spell",                              "selection", {nil, true, false})
     self:registerOption("targetSystem",           "Targeting System",          "Whether battles should use the targeting system or not",                             "selection", {nil, true, false})
     self:registerOption("soulInvBetweenWaves",    "Keep Soul Invulnerability", "Whether the soul invulnerability will carry between waves in battles",               "selection", {nil, true, false})
     self:registerOption("speechBubble",           "Speech Bubble Style",       "The default style for enemy speech bubbles",                                         "selection", {nil, "round", "cyber"}) -- unhardcode

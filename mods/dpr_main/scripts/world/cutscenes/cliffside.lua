@@ -957,6 +957,7 @@ local cliffside = {
                     cutscene:hideNametag()
             
                     get_bus:stop()
+                    get_bus:remove()
 					
 					Game.world.music:pause()
                     local party_jingle = Music("deltarune/charjoined")

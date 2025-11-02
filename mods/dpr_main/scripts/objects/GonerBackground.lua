@@ -24,7 +24,11 @@ function GonerBackground:init(x, y, song, song_pitch_increases, music_obj)
         music_pitch = 1
         self.music_target_pitch = 1
     end
-    self.music = music_obj or Music()
+    self.music = music_obj
+    if not self.music then
+        self.music = Music()
+        self.delete_music = true
+    end
     self.music:play(song, 1, music_pitch)
 
     self.piece_depth = 0
@@ -51,6 +55,9 @@ function GonerBackground:onRemove(...)
     super.onRemove(self, ...)
 
     self.music:stop()
+    if self.delete_music then
+        self.music:remove()
+    end
 end
 
 return GonerBackground

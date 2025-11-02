@@ -34,6 +34,7 @@ end
 
 function Quicktime:endme()
     self.danceoff:stop()
+    self.danceoff:remove()
     Game.battle.music:fade(1, 0.25)
     Game.battle:finishAction()
     Assets.playSound("bookspin")
@@ -43,6 +44,7 @@ end
 
 function Quicktime:idiot()
     self.danceoff:stop()
+    self.danceoff:remove()
     Game.battle.music:fade(1, 0.25)
     Assets.playSound("explosion")
     Assets.playSound("badexplosion")
@@ -54,6 +56,7 @@ end
 
 function Quicktime:idiot2()
     self.danceoff:stop()
+    self.danceoff:remove()
     Game.battle.music:fade(1, 0.25)
     Assets.playSound("explosion")
     Assets.playSound("badexplosion")

@@ -46,6 +46,7 @@ return {
         Assets.playSound("step2")
         cutscene:wait(4)
         ocean:stop()
+        ocean:remove()
         Game.world.music:resume()
         Assets.playSound("ominous_cancel")
         Game:getQuest("wherethefuck"):unlock()

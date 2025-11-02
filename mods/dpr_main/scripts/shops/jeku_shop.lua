@@ -479,7 +479,7 @@ end
 function JekuShop:onRemoveFromStage(...)
 
     if self.noel_theme then
-        Game.shop.noel_theme:remove()
+        self.noel_theme:remove()
     end
     saveJekuMemory()
     super.onRemoveFromStage(self, ...)

@@ -411,6 +411,7 @@ return {
                 cutscene:hideNametag()
                 mus:fade(0, 1)
                 cutscene:wait(1)
+                mus:remove()
                 cutscene:showNametag("Berdly")
                 cutscene:text("* Anyways,[wait:5] we need a bomb if we want to get this door open.", "neutral", "berdly")
                 if Game.inventory:hasItem("bomb") then
@@ -436,7 +437,7 @@ return {
                     cutscene:text("* Let's go find that bomb!", "teeth_smile", "susie")
                 end
                 cutscene:hideNametag()
-                Music("deltarune/charjoined", 1, 1, false)
+                local charjoined_music = Music("deltarune/charjoined", 1, 1, false)
                 cutscene:text("* Berdly joined the party!", nil, nil, {skip=false})
                 Game.world.music:fade(1, 1)
                 Game:unlockPartyMember("berdly")
@@ -445,6 +446,7 @@ return {
                 cutscene:alignFollowers()
                 cutscene:attachFollowers()
                 cutscene:wait(1)
+                charjoined_music:remove()
                 Game:setFlag("berdly_inparty", true)
                 Game:setFlag("berdly_party", true)
                 if not Game:getFlag("drcastsplitup_known") then

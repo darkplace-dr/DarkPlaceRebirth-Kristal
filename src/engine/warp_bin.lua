@@ -106,6 +106,7 @@ local sonic_cd_message = {
         cutscene:fadeOut(0.5, { wait = true })
         cutscene:wait(1)
 		song:stop()
+		song:remove()
 		message:remove()
         cutscene:fadeIn(0.5, { music = true, wait = true })
     end,

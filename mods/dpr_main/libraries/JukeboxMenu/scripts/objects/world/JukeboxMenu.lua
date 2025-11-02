@@ -128,6 +128,7 @@ function JukeboxMenu:init(simple)
     self.timer = self:addChild(Timer())
     self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
     self.info_accordion_timer_handle = nil
+    self.info_accordion_timer_handle_direction = nil
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
     self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
@@ -293,44 +294,47 @@ function JukeboxMenu:draw()
     love.graphics.setFont(self.font)
 
     local info_area_sep_padding = 3
-    love.graphics.setLineWidth(info_area_sep_padding + 1)
     local info_area_sep_a = (self.width - self.SONG_INFO_AREA_X + info_area_sep_padding)/(self.MIN_WIDTH + info_area_sep_padding)
-    love.graphics.setColor(1, 1, 1, info_area_sep_a)
-    love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, self.HEAD_HR_START_Y, 1, self.MIN_HEIGHT - 4)
-    love.graphics.setColor(COLORS.white)
+    if info_area_sep_a > 0 then
+        love.graphics.setLineWidth(info_area_sep_padding + 1)
+        love.graphics.setColor(1, 1, 1, info_area_sep_a)
+        love.graphics.rectangle("line", self.SONG_INFO_AREA_X - info_area_sep_padding, self.HEAD_HR_START_Y, 1, self.MIN_HEIGHT - 4)
+        love.graphics.setColor(COLORS.white)
 
-    local song = page[self.page_cursor[self.cur_page]] or self.default_song
+        local song = page[self.page_cursor[self.cur_page]] or self.default_song
 
-    local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
-    local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
-    local album_art = Assets.getTexture(self.album_art_dir .. album_art_path) or self.default_album_art
-    local album_art_def_size = 250
-    local album_art_end_y = self.HEAD_HR_END_Y + 14 - 1 + album_art_def_size
-    love.graphics.draw(
-        album_art,
-        self.SONG_INFO_AREA_X + infosect_w/2 + 10, album_art_end_y - album_art_def_size/2,
-        0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
+        local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
+        local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
+        local album_art = Assets.getTexture(self.album_art_dir .. album_art_path) or self.default_album_art
+        local album_art_def_size = 250
+        local album_art_end_y = self.HEAD_HR_END_Y + 14 - 1 + album_art_def_size
+        love.graphics.draw(
+            album_art,
+            self.SONG_INFO_AREA_X + infosect_w/2 + 10, album_art_end_y - album_art_def_size/2,
+            0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
-    local info_font = self.font
-    local info_scale = 0.5
-    love.graphics.setFont(info_font)
-    local info_pad = 7
-    local info_w = (infosect_w - info_pad*2 - 1) / info_scale
-    local info = string.format(
-        "Composer: %s\nReleased: %s\nOrigin: %s",
-        song.composer or self.default_song.composer,
-        song.released or self.default_song.released,
-        song.origin or self.default_song.origin
-    )
-    local _, info_lines = info_font:getWrap(info, info_w)
-    local info_yoff = info_font:getHeight() * #info_lines * info_scale
-    love.graphics.printf(info, self.SONG_INFO_AREA_X + info_pad, album_art_end_y + 85 - info_yoff, info_w, "left", 0, info_scale, info_scale)
+        local info_font = self.font
+        local info_scale = 0.5
+        love.graphics.setFont(info_font)
+        local info_pad = 7
+        local info_w = (infosect_w - info_pad*2 - 1) / info_scale
+        local info = string.format(
+            "Composer: %s\nReleased: %s\nOrigin: %s",
+            song.composer or self.default_song.composer,
+            song.released or self.default_song.released,
+            song.origin or self.default_song.origin
+        )
+        local _, info_lines = info_font:getWrap(info, info_w)
+        local info_yoff = info_font:getHeight() * #info_lines * info_scale
+        love.graphics.printf(info, self.SONG_INFO_AREA_X + info_pad, album_art_end_y + 85 - info_yoff, info_w, "left", 0, info_scale, info_scale)
+    end
 
     if self.show_duration_bar then
         local music_always = Game.world.music
         local duration_hr_y = page_indicator_y + self.font_2:getHeight() + 20 + 1
         local duration_hr_h = 4
         love.graphics.setLineWidth(duration_hr_h)
+        love.graphics.setColor(COLORS.white)
         local duration_x, duration_y = 6, duration_hr_y + duration_hr_h + 12
         local duration_w, duration_h = self.width - duration_x * 2, 6
         local duration_needle_h_bump = 2
@@ -434,11 +438,8 @@ function JukeboxMenu:update()
         end
 
         if self.info_collpasible and Input.pressed("menu", false) then
-            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
+            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle_direction)
                 and self.MIN_WIDTH or self.MAX_WIDTH
-            --[[Log:print(self.width, self.width > self.MIN_WIDTH,
-                not not self.info_reveal_timer_handle, self.info_reveal_timer_handle and self.info_reveal_timer_handle.direction,
-                dest_width)]]
             Assets.stopAndPlaySound("wing")
             if self.info_accordion_timer_handle then
                 self.timer:cancel(self.info_accordion_timer_handle)
@@ -451,11 +452,11 @@ function JukeboxMenu:update()
                 "out-sine",
                 function()
                     self.info_accordion_timer_handle = nil
+                    self.info_accordion_timer_handle_direction = nil
                 end
             )
             local collpased = dest_width == self.MIN_WIDTH
-            ---@diagnostic disable-next-line: inject-field
-            self.info_accordion_timer_handle.direction = collpased
+            self.info_accordion_timer_handle_direction = collpased
             if Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
                 Game:setFlag("jukebox_menu_collpased", collpased)
             end
@@ -485,6 +486,8 @@ end
 function JukeboxMenu:onRemoveFromStage(_)
     if self.info_accordion_timer_handle then
         self.timer:cancel(self.info_accordion_timer_handle)
+        self.info_accordion_timer_handle = nil
+        self.info_accordion_timer_handle_direction = nil
     end
 end
 
