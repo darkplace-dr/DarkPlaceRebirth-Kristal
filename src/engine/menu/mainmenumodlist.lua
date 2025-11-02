@@ -589,6 +589,8 @@ function MainMenuModList:buildModList()
         self.list.active = false
         self.list.visible = false
     end
+
+    self.menu:buildInstalledDLCsString()
 end
 
 return MainMenuModList

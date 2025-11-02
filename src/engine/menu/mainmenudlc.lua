@@ -663,6 +663,7 @@ function MainMenuDLC:reloadMods(callback)
         Kristal.setDesiredWindowTitleAndIcon()
         self:buildModList()]]
         MOD_LOADING = false
+        self.menu:buildInstalledDLCsString()
         if callback then
         	callback()
         end

@@ -25,7 +25,7 @@ GITHUB_REPOS = {
 		"DPR_Dark_Pit",
 		"dlc_future"
 	},
-	polypoyo={
+	Hyperboid={
 		"dlc_test"
 	},
 	NelleMonelle={
