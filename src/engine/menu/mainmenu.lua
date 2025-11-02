@@ -479,13 +479,16 @@ function MainMenu:drawVersion()
 
     if not TARGET_MOD or TARGET_MOD == "dpr_main" then
         local ver_string = self.ver_string
+        if TARGET_MOD and self.selected_mod.version then
+            ver_string = self.selected_mod.version .. "\n" .. ver_string
+        end
         if self.version_outdated then
             ver_string = ver_string .. " (outdated!)"
         end
         --[[if self.state == "TITLE" and Kristal.Version.major == 0 then
             ver_string = ver_string .. " (Unstable)"
         end]]
-        if self.installed_dlcs_string then
+        if self.state == "TITLE" and self.installed_dlcs_string then
             ver_string = ver_string .. self.installed_dlcs_string
         end
         local _,ver_string_wrap = self.small_font:getWrap(ver_string, SCREEN_WIDTH)
