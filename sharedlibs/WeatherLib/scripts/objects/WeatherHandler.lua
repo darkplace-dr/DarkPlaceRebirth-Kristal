@@ -335,7 +335,13 @@ end
 
 function WeatherHandler:onRemove()
     self.weathersounds:stop()
+    self.weathersounds:remove()
     self.weathersounds = nil
+    if self.weathersounds_indoor then
+        self.weathersounds_indoor:stop()
+        self.weathersounds_indoor:remove()
+        self.weathersounds_indoor = nil
+    end
     for i, child in ipairs(self.addto.children) do
         child:removeFX("wave_fx")
     end

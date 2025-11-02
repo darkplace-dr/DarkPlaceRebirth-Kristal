@@ -67,6 +67,8 @@ function Debug:changeTextText()
 end
 
 function Debug:leave()
+    self.music:remove()
+
     love.quit = self.old_lovequit
     Kristal.Overlay.update = self.old_overlayupdate
     Kristal.Overlay.draw = self.old_overlaydraw

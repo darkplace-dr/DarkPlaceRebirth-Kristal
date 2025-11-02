@@ -255,6 +255,7 @@ local wake = function(cutscene, event)
 
 
         turncoat:stop()
+        turncoat:remove()
         Game.world.music:fade(1, 0.5)
 
     --cutscene:text("* The wall seems cracked.", "bruh", "noel")

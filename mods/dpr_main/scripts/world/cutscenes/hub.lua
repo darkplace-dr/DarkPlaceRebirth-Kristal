@@ -958,6 +958,7 @@ local hub = {
                 sans:setFacing("down")
                 Assets.playSound("dimbox")
                 cutscene:text("* (You can now use the Elevator!)")
+                music_cut:remove()
             end
         end
     end,
@@ -1939,6 +1940,7 @@ local hub = {
                     cutscene:textTagged("* Do you know what we do\nwith problems?", "smirk", "susie")
                     cutscene:textTagged("* We stomp.[wait:10] Them.[wait:10] Into.[wait:10]\nThe.[wait:10] Ground.", "smile", "susie")
                     cutscene_music:stop()
+                    cutscene_music:remove()
                 end
             else
                 cutscene:textTagged("* Oh[speed:0.5]...[wait:10][speed:1] am i?", "condescending", "dess")

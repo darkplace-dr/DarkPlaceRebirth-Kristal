@@ -193,7 +193,7 @@ function GameOverSF:cleanup()
     self.music:remove()
 end
 
-function GameOverSF:onRemove(parent)
+function GameOverSF:onRemoveFromStage(parent)
     super.onRemove(self, parent)
 
     self:cleanup()
