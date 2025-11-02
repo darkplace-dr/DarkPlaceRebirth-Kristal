@@ -144,6 +144,11 @@ function MainMenu:enter()
         if status < 200 or status >= 300 then return end
         local current_commit = GitFinder:fetchCurrentCommit()
         if current_commit ~= body then
+            --[[self.ver_string = "v" .. tostring(Kristal.Version)
+            if trimmed_commit then
+                self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
+            end
+            self.ver_string = self.ver_string .. " (outdated!)"]]
             self.version_outdated = true
         end
     end)
