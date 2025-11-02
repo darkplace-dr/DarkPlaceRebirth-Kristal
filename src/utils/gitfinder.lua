@@ -4,6 +4,9 @@ local GitFinder = {}
 
 -- Name of the repository containing Kristal on GitHub.
 GitFinder.GH_REPO = "KristalTeam/Kristal"
+if TARGET_MOD == "dpr_main" then
+    GitFinder.GH_REPO = "darkplace-dr/DarkPlaceRebirth-Kristal"
+end
 
 local git_file = love.filesystem.getInfo(".git")
 

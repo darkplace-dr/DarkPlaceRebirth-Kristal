@@ -117,24 +117,6 @@ function MainMenu:enter()
     if trimmed_commit then
         self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
     end
-    local dlc_ids = Utils.getKeys(Kristal.Mods.data)
-	for _,dlc in ipairs(dlc_ids) do
-		local our_mod = nil
-		for _,mod in ipairs(Kristal.Mods.list) do
-			if dlc == mod.id then
-				our_mod = mod
-				break
-			end
-		end
-		if our_mod.plugin_path then
-			Utils.removeFromTable(dlc_ids, dlc)
-		end
-	end
-    Utils.removeFromTable(dlc_ids, "dpr_main")
-    Utils.removeFromTable(dlc_ids, "dpr_light")
-    if #dlc_ids > 0 then
-        self.ver_string = self.ver_string .. "\nInstalled DLCs: " .. table.concat(dlc_ids, ", ")
-    end
 
     if not self.music:isPlaying() then
         self.music:play("mod_menu", 1, 0.95)
@@ -157,15 +139,12 @@ function MainMenu:enter()
         instance = 1
     })
 
+    self.version_outdated = false
     GitFinder:fetchLatestCommit(function(status, body, headers)
         if status < 200 or status >= 300 then return end
         local current_commit = GitFinder:fetchCurrentCommit()
         if current_commit ~= body then
-            self.ver_string = "v" .. tostring(Kristal.Version)
-            if trimmed_commit then
-                self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
-            end
-            self.ver_string = self.ver_string .. " (outdated!)"
+            self.version_outdated = true
         end
     end)
 
@@ -470,6 +449,20 @@ function MainMenu:drawAnimStrip(sprite, subimg, x, y, alpha)
     Draw.draw(sprite[index], math.floor(x), math.floor(y))
 end
 
+function MainMenu:buildInstalledDLCsString()
+    self.installed_dlcs_string = ""
+    local dlc_ids = {}
+    local builtin_dlcs = {"dpr_main", "dpr_light"}
+	for dlc_id,dlc in pairs(Kristal.Mods.data) do
+		if not TableUtils.contains(builtin_dlcs, dlc_id) and not dlc.plugin_path then
+			table.insert(dlc_ids, dlc_id)
+		end
+	end
+    if #dlc_ids > 0 then
+        self.installed_dlcs_string = "\nInstalled DLCs: " .. table.concat(dlc_ids, ", ")
+    end
+end
+
 function MainMenu:shouldDrawVersion()
     return
         self.state ~= "CONTROLS" and
@@ -484,17 +477,25 @@ function MainMenu:drawVersion()
 
     local ver_y = SCREEN_HEIGHT - self.small_font:getHeight()
 
-    if not TARGET_MOD then
+    if not TARGET_MOD or TARGET_MOD == "dpr_main" then
         local ver_string = self.ver_string
-        if self.state == "TITLE" and Kristal.Version.major == 0 then
-            ver_string = ver_string .. " (Unstable)"
+        if self.version_outdated then
+            ver_string = ver_string .. " (outdated!)"
         end
+        --[[if self.state == "TITLE" and Kristal.Version.major == 0 then
+            ver_string = ver_string .. " (Unstable)"
+        end]]
+        if self.installed_dlcs_string then
+            ver_string = ver_string .. self.installed_dlcs_string
+        end
+        local _,ver_string_wrap = self.small_font:getWrap(ver_string, SCREEN_WIDTH)
+        ver_y = SCREEN_HEIGHT - #ver_string_wrap * self.small_font:getHeight()
 
         love.graphics.setFont(self.small_font)
         Draw.setColor(1, 1, 1, 0.5)
         love.graphics.print(ver_string, 4, ver_y)
 
-        if self.selected_mod then
+        if self.selected_mod and not TARGET_MOD then
             local compatible, mod_version = self.mod_list:checkCompatibility()
             if not compatible then
                 Draw.setColor(1, 0.5, 0.5, 0.75)
