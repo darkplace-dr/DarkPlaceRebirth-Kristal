@@ -2,6 +2,9 @@
 -- it was cloned as a Git repo.
 local GitFinder = {}
 
+-- Name of the repository containing Kristal on GitHub.
+GitFinder.GH_REPO = "KristalTeam/Kristal"
+
 local git_file = love.filesystem.getInfo(".git")
 
 -- If true, the engine is cloned as a git repo, the otherwise if false.
@@ -68,7 +71,7 @@ function GitFinder:fetchLatestCommit(callback)
     end
 
     return Kristal.fetch(
-        "https://api.github.com/repos/KristalTeam/Kristal/commits/" .. tostring(ref),
+        "https://api.github.com/repos/" .. self.GH_REPO .. "/commits/" .. tostring(ref),
         {
             headers = {
                 ["Accept"] = "application/vnd.github.sha"
