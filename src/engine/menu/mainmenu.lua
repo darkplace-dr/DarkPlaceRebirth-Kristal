@@ -116,7 +116,7 @@ function MainMenu:enter()
     self.commit_string = ""
     local trimmed_commit = GitFinder:fetchTrimmedCommit()
     if trimmed_commit then
-        --self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
+        -- self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
         self.commit_string = " (" .. trimmed_commit .. ")"
     end
 
@@ -146,11 +146,13 @@ function MainMenu:enter()
         if status < 200 or status >= 300 then return end
         local current_commit = GitFinder:fetchCurrentCommit()
         if current_commit ~= body then
-            --[[self.ver_string = "v" .. tostring(Kristal.Version)
+            --[[
+            self.ver_string = "v" .. tostring(Kristal.Version)
             if trimmed_commit then
                 self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
             end
-            self.ver_string = self.ver_string .. " (outdated!)"]]
+            self.ver_string = self.ver_string .. " (outdated!)"
+            ]]
             self.version_outdated = true
         end
     end)
@@ -486,6 +488,7 @@ function MainMenu:drawVersion()
 
     if not TARGET_MOD or TARGET_MOD == "dpr_main" then
         local ver_string = self.ver_string
+
         local outdated_string = " (outdated!)"
         if TARGET_MOD and self.selected_mod.version then
             local mod_ver = self.selected_mod.version
@@ -495,12 +498,17 @@ function MainMenu:drawVersion()
         elseif self.version_outdated then
             ver_string = ver_string .. outdated_string
         end
-        --[[if self.state == "TITLE" and Kristal.Version.major == 0 then
+
+        --[[
+        if self.state == "TITLE" and Kristal.Version.major == 0 then
             ver_string = ver_string .. " (Unstable)"
-        end]]
+        end
+        ]]
+
         if self.state == "TITLE" and self.installed_dlcs_string then
             ver_string = ver_string .. self.installed_dlcs_string
         end
+
         local _,ver_string_wrap = self.small_font:getWrap(ver_string, SCREEN_WIDTH)
         ver_y = SCREEN_HEIGHT - #ver_string_wrap * self.small_font:getHeight()
 
