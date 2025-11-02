@@ -495,8 +495,9 @@ function MainMenu:drawVersion()
             if self.commit_string then mod_ver = mod_ver .. self.commit_string end
             if self.version_outdated then mod_ver = mod_ver .. outdated_string end
             ver_string = mod_ver .. "\nKristal " .. ver_string
-        elseif self.version_outdated then
-            ver_string = ver_string .. outdated_string
+        else
+            if self.commit_string then ver_string = ver_string .. self.commit_string end
+            if self.version_outdated then ver_string = ver_string .. outdated_string end
         end
 
         --[[
