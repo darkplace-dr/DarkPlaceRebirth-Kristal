@@ -113,9 +113,11 @@ function MainMenu:enter()
     self.mod_list:buildModList()
 
     self.ver_string = "Kristal v" .. tostring(Kristal.Version)
+    self.commit_string = ""
     local trimmed_commit = GitFinder:fetchTrimmedCommit()
     if trimmed_commit then
-        self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
+        --self.ver_string = self.ver_string .. "\nMonorepo commit: " .. trimmed_commit
+        self.commit_string = " (" .. trimmed_commit .. ")"
     end
 
     if not self.music:isPlaying() then
@@ -484,11 +486,14 @@ function MainMenu:drawVersion()
 
     if not TARGET_MOD or TARGET_MOD == "dpr_main" then
         local ver_string = self.ver_string
+        local outdated_string = " (outdated!)"
         if TARGET_MOD and self.selected_mod.version then
-            ver_string = self.selected_mod.version .. "\n" .. ver_string
-        end
-        if self.version_outdated then
-            ver_string = ver_string .. " (outdated!)"
+            local mod_ver = self.selected_mod.version
+            if self.commit_string then mod_ver = mod_ver .. self.commit_string end
+            if self.version_outdated then mod_ver = mod_ver .. outdated_string end
+            ver_string = mod_ver .. "\n" .. ver_string
+        elseif self.version_outdated then
+            ver_string = ver_string .. outdated_string
         end
         --[[if self.state == "TITLE" and Kristal.Version.major == 0 then
             ver_string = ver_string .. " (Unstable)"
