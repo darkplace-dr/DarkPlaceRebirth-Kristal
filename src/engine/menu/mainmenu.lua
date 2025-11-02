@@ -112,7 +112,7 @@ function MainMenu:enter()
 
     self.mod_list:buildModList()
 
-    self.ver_string = "Kristal v" .. tostring(Kristal.Version)
+    self.ver_string = "v" .. tostring(Kristal.Version)
     self.commit_string = ""
     local trimmed_commit = GitFinder:fetchTrimmedCommit()
     if trimmed_commit then
@@ -494,7 +494,7 @@ function MainMenu:drawVersion()
             local mod_ver = self.selected_mod.version
             if self.commit_string then mod_ver = mod_ver .. self.commit_string end
             if self.version_outdated then mod_ver = mod_ver .. outdated_string end
-            ver_string = mod_ver .. "\n" .. ver_string
+            ver_string = mod_ver .. "\nKristal " .. ver_string
         elseif self.version_outdated then
             ver_string = ver_string .. outdated_string
         end
