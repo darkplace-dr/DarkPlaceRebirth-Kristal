@@ -128,6 +128,7 @@ function JukeboxMenu:init(simple)
     self.timer = self:addChild(Timer())
     self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
     self.info_accordion_timer_handle = nil
+    self.info_accordion_timer_handle_direction = nil
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
     self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
@@ -434,11 +435,8 @@ function JukeboxMenu:update()
         end
 
         if self.info_collpasible and Input.pressed("menu", false) then
-            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle.direction)
+            local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle_direction)
                 and self.MIN_WIDTH or self.MAX_WIDTH
-            --[[Log:print(self.width, self.width > self.MIN_WIDTH,
-                not not self.info_reveal_timer_handle, self.info_reveal_timer_handle and self.info_reveal_timer_handle.direction,
-                dest_width)]]
             Assets.stopAndPlaySound("wing")
             if self.info_accordion_timer_handle then
                 self.timer:cancel(self.info_accordion_timer_handle)
@@ -451,11 +449,11 @@ function JukeboxMenu:update()
                 "out-sine",
                 function()
                     self.info_accordion_timer_handle = nil
+                    self.info_accordion_timer_handle_direction = nil
                 end
             )
             local collpased = dest_width == self.MIN_WIDTH
-            ---@diagnostic disable-next-line: inject-field
-            self.info_accordion_timer_handle.direction = collpased
+            self.info_accordion_timer_handle_direction = collpased
             if Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
                 Game:setFlag("jukebox_menu_collpased", collpased)
             end
@@ -485,6 +483,8 @@ end
 function JukeboxMenu:onRemoveFromStage(_)
     if self.info_accordion_timer_handle then
         self.timer:cancel(self.info_accordion_timer_handle)
+        self.info_accordion_timer_handle = nil
+        self.info_accordion_timer_handle_direction = nil
     end
 end
 
