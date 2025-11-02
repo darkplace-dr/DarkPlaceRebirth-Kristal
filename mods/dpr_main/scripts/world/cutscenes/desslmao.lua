@@ -706,7 +706,7 @@ local desslmao = {
                 end
             end
     
-            if Game:getFlag("desshere_kills") and Game:getPartyMember("dess").kills >= Game:getFlag("desshere_kills") + 9 then
+            if Game:getFlag("desshere_kills") and Game:getPartyMember("dess").kills >= Game:getFlag("desshere_kills") + 8 then
                 cutscene:wait(3)
                 cutscene:setSpeaker("dess")
                 cutscene:textTagged("* oh wait actually", "wtf", "dess")
