@@ -4,7 +4,7 @@
 local Kristal = {}
 
 if HOTSWAPPING then
-    Utils.copyInto(Kristal, _G.Kristal)
+    TableUtils.copyInto(Kristal, _G.Kristal)
 else
     Kristal.Config = {}
     Kristal.Mods = require("src.engine.mods")
@@ -230,7 +230,6 @@ function love.load(args)
 end
 
 function love.quit()
-
     if DISCORD_RPC_AVAILABLE and Kristal.Config["discordRPC"] then
         DiscordRPC.shutdown()
     end
@@ -291,7 +290,7 @@ function love.draw()
             love.graphics.circle("line", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
         elseif MOUSE_SPRITE and love.window.hasMouseFocus() then
             Draw.draw(MOUSE_SPRITE, love.mouse.getX() / Kristal.getGameScale(),
-                        love.mouse.getY() / Kristal.getGameScale())
+                      love.mouse.getY() / Kristal.getGameScale())
         end
     end
 
@@ -304,7 +303,7 @@ function love.draw()
         PERFORMANCE_TEST = nil
     end
 
-    local screenshot_size = Utils.lerp(20, 0, SCREENSHOT_DISPLAY)
+    local screenshot_size = MathUtils.lerp(20, 0, SCREENSHOT_DISPLAY)
     if screenshot_size > 0 and not TAKING_SCREENSHOT then
         local w = love.graphics.getWidth() / Kristal.getGameScale()
         local h = love.graphics.getHeight() / Kristal.getGameScale()
@@ -330,14 +329,16 @@ function Kristal.drawBorders()
 
         if border then
             -- ugly hack for a ternary with falsy value in the middle
-            local border_texture = (isClass(border) and {} or {Assets.getTexture("borders/" ..border)})[1]
+            local border_texture = (isClass(border) and {} or { Assets.getTexture("borders/" .. border) })[1]
 
             love.graphics.scale(Kristal.getGameScale())
             Draw.setColor(1, 1, 1, dynamic and BORDER_ALPHA or 1)
             love.graphics.push("all")
             love.graphics.translate(
-                ((love.graphics.getWidth()/Kristal.getGameScale())) / 2 + (((love.graphics.getHeight()/Kristal.getGameScale()) / -2) * (16/9)),
-                ((love.graphics.getHeight()/Kristal.getGameScale()) / 2) + ((love.graphics.getHeight()/Kristal.getGameScale()) / -2)
+                ((love.graphics.getWidth() / Kristal.getGameScale())) / 2 +
+                (((love.graphics.getHeight() / Kristal.getGameScale()) / -2) * (16 / 9)),
+                ((love.graphics.getHeight() / Kristal.getGameScale()) / 2) +
+                ((love.graphics.getHeight() / Kristal.getGameScale()) / -2)
             )
             if border_texture then
                 Draw.draw(border_texture, 0, 0, 0, BORDER_SCALE)
@@ -389,16 +390,23 @@ function love.update(dt)
     elseif BORDER_FADING == "IN" then
         BORDER_ALPHA = BORDER_ALPHA + (dt / BORDER_FADE_TIME)
     end
-    BORDER_ALPHA = Utils.clamp(BORDER_ALPHA, 0, 1)
+    BORDER_ALPHA = MathUtils.clamp(BORDER_ALPHA, 0, 1)
 
     if MOUSE_VISIBLE then
         local cursor_speed = (16 * (dt * 30))
         local thumb_x, thumb_y = Input.getLeftThumbstick()
         Input.gamepad_cursor_x = Input.gamepad_cursor_x + thumb_x * cursor_speed
         Input.gamepad_cursor_y = Input.gamepad_cursor_y + thumb_y * cursor_speed
-        Input.gamepad_cursor_x = Utils.clamp(Input.gamepad_cursor_x, 0, love.graphics.getWidth() / Kristal.getGameScale())
-        Input.gamepad_cursor_y = Utils.clamp(Input.gamepad_cursor_y, 0,
-                                             love.graphics.getHeight() / Kristal.getGameScale())
+        Input.gamepad_cursor_x = MathUtils.clamp(
+            Input.gamepad_cursor_x,
+            0,
+            love.graphics.getWidth() / Kristal.getGameScale()
+        )
+        Input.gamepad_cursor_y = MathUtils.clamp(
+            Input.gamepad_cursor_y,
+            0,
+            love.graphics.getHeight() / Kristal.getGameScale()
+        )
     end
 
     LibTimer.update()
@@ -408,7 +416,7 @@ function love.update(dt)
 
     Kristal.Stage:update()
 
-    SCREENSHOT_DISPLAY = Utils.approach(SCREENSHOT_DISPLAY, 1, 4 * dt)
+    SCREENSHOT_DISPLAY = MathUtils.approach(SCREENSHOT_DISPLAY, 1, 4 * dt)
 
     if Kristal.Loader.waiting > 0 then
         while Kristal.Loader.out_channel:getCount() > 0 do
@@ -459,7 +467,6 @@ function love.update(dt)
         PERFORMANCE_TEST_STAGE = "DRAW"
         PERFORMANCE_TEST = nil
     end
-
 end
 
 function love.textinput(key)
@@ -513,7 +520,7 @@ function Kristal.onKeyPressed(key, is_repeat)
     end
 
     if not TextInput.active and not (Input.gamepad_locked and Input.isGamepad(key)) then
-        if not Utils.startsWith(key, "gamepad:") then
+        if not StringUtils.startsWith(key, "gamepad:") then
             Input.active_gamepad = nil
         end
 
@@ -683,7 +690,7 @@ function Kristal.errorHandler(msg, trace_level)
                 end
             end
         elseif msg.msg then
-            local split = Utils.split(msg.msg, "\n")
+            local split = StringUtils.split(msg.msg, "\n")
             trace = table.concat(split, "\n", 2)
             msg = split[1]
         end
@@ -763,7 +770,7 @@ function Kristal.errorHandler(msg, trace_level)
 
     love.graphics.origin()
 
-    local split = Utils.split(msg, ": ")
+    local split = StringUtils.split(msg, ": ")
 
     local version_string = "Kristal v" .. tostring(Kristal.Version)
     local trimmed_commit = GitFinder:fetchTrimmedCommit()
@@ -778,7 +785,7 @@ function Kristal.errorHandler(msg, trace_level)
     local h = 18
     if Mod then
         mod_string = "Mod: " .. Mod.info.id .. " " .. (Mod.info.version or "v?.?.?")
-        if Utils.tableLength(Mod.libs) > 0 then
+        if TableUtils.getKeyCount(Mod.libs) > 0 then
             lib_string = "Libraries:"
             for _, lib in Kristal.iterLibraries() do
                 -- Very rare edge case where `lib` ends up being `nil`, we'll add an
@@ -813,10 +820,16 @@ function Kristal.errorHandler(msg, trace_level)
 
         local warp = window_width - pos * 2
         if not critical then
-            local header = "Error at " .. ( (#split - 1 > 0) and split[#split - 1] or "???").. " - " .. split[#split] --check if msg is one line long
+            local header = string.format(
+                "Error at %s - %s",
+                ((#split - 1 > 0) and split[#split - 1] or "???"),
+                split[#split]
+            )
+
             local _, lines = font:getWrap(header, warp)
             love.graphics.printf(
-                { "Error at ", { 0.6, 0.6, 0.6, 1 }, ( (#split - 1 > 0) and split[#split - 1] or "???"), { 1, 1, 1, 1 }, " - " .. split[#split] }, pos,
+                { "Error at ", { 0.6, 0.6, 0.6, 1 }, ((#split - 1 > 0) and split[#split - 1] or "???"), { 1, 1, 1, 1 },
+                    " - " .. split[#split] }, pos,
                 ypos,
                 window_width - pos)
             ypos = ypos + (32 * #lines)
@@ -849,7 +862,12 @@ function Kristal.errorHandler(msg, trace_level)
                 end
             end
         else
-            love.graphics.printf("Critical Error!\nTry replicating the bug, we might catch it next time...", pos, ypos, warp)
+            love.graphics.printf(
+                "Critical Error!\nTry replicating the bug, we might catch it next time...",
+                pos,
+                ypos,
+                warp
+            )
 
             love.graphics.setFont(font)
             love.graphics.printf("Known causes:", pos, ypos + 96, warp)
@@ -859,13 +877,19 @@ function Kristal.errorHandler(msg, trace_level)
         end
 
         if starwalker_error then
-            Draw.draw(starwalkertext, window_width - starwalkertext:getWidth() - 20,
-                      window_height - starwalkertext:getHeight() - (starwalker:getHeight() * 2))
+            Draw.draw(
+                starwalkertext,
+                window_width - starwalkertext:getWidth() - 20,
+                window_height - starwalkertext:getHeight() - (starwalker:getHeight() * 2)
+            )
 
             love.graphics.push()
             love.graphics.scale(2, 2)
-            Draw.draw(starwalker, (window_width / 2) - starwalker:getWidth(),
-                      (window_height / 2) - starwalker:getHeight())
+            Draw.draw(
+                starwalker,
+                (window_width / 2) - starwalker:getWidth(),
+                (window_height / 2) - starwalker:getHeight()
+            )
             love.graphics.pop()
         else
             anim_index = anim_index + (DT * 4)
@@ -918,7 +942,7 @@ function Kristal.errorHandler(msg, trace_level)
         draw()
     end
 
-    return function ()
+    return function()
         if love.graphics.isActive() and love.graphics.getCanvas() then
             love.graphics.setCanvas()
         end
@@ -1102,7 +1126,7 @@ end
 --- Sets the master volume to the given value and saves it to the config.
 ---@param volume number The volume to set.
 function Kristal.setVolume(volume)
-    Kristal.Config["masterVolume"] = Utils.clamp(volume, 0, 1)
+    Kristal.Config["masterVolume"] = MathUtils.clamp(volume, 0, 1)
     love.audio.setVolume(volume)
     Kristal.saveConfig()
 end
@@ -1255,11 +1279,11 @@ function Kristal.quickReload(mode)
 	-- Reload plugins
 	Kristal.loadAssets("", "plugins", "")
     -- Reload mods
-    Kristal.loadAssets("", "mods", "", function ()
+    Kristal.loadAssets("", "mods", "", function()
         Kristal.setDesiredWindowTitleAndIcon()
         -- Reload the current mod directly
         if mode ~= "save" then
-            Kristal.loadMod(mod_id, nil, nil, function ()
+            Kristal.loadMod(mod_id, nil, nil, function()
                 -- Pre-initialize the current mod
                 if Kristal.preInitMod(mod_id) then
                     Kristal.setDesiredWindowTitleAndIcon()
@@ -1387,7 +1411,7 @@ function Kristal.loadMod(id, save_id, save_name, after)
         Mod.libs[lib_id] = lib
     end
 
-    Kristal.loadModAssets(mod.id, "all", "", after or function ()
+    Kristal.loadModAssets(mod.id, "all", "", after or function()
         if Kristal.preInitMod(mod.id) then
             Kristal.setDesiredWindowTitleAndIcon()
             Kristal.setState("Game", save_id, save_name)
@@ -1645,7 +1669,7 @@ function Kristal.resetWindow()
 
     -- Force tilelayers to redraw, since resetWindow destroys their canvases
     if Game.world then
-        for _,tilelayer in ipairs(Game.world.stage:getObjects(TileLayer)) do
+        for _, tilelayer in ipairs(Game.world.stage:getObjects(TileLayer)) do
             tilelayer.drawn = false
         end
     end
@@ -1805,7 +1829,7 @@ function Kristal.getSoulColor()
     if Kristal.getState() == Game then
         return Game:getSoulColor()
     end
-    return unpack(COLORS.red)
+    return COLORS.red[1], COLORS.red[2], COLORS.red[3], COLORS.red[4]
 end
 
 --- Returns the soul facing direction which should be used.
@@ -1849,7 +1873,7 @@ function Kristal.loadConfig()
         brokenMenuBoxes = false
     }
     if love.filesystem.getInfo("settings.json") then
-        Utils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
+        TableUtils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
     end
     return config
 end
@@ -1974,13 +1998,13 @@ function Kristal.libCall(id, f, ...)
         local result = {}
         for _, lib in Kristal.iterLibraries() do
             if lib[f] and type(lib[f]) == "function" then
-                local lib_results = {lib[f](lib, ...)}
-                if(#lib_results > 0) then
+                local lib_results = { lib[f](lib, ...) }
+                if (#lib_results > 0) then
                     result = lib_results
                 end
             end
         end
-        return Utils.unpack(result)
+        return TableUtils.unpack(result)
     else
         local lib = Mod.libs[id]
         if lib and lib[f] and type(lib[f]) == "function" then
@@ -1995,16 +2019,16 @@ end
 ---@return any result The result of the function calls `or`'d together.
 function Kristal.callEvent(f, ...)
     if not Mod then return end
-    local lib_result = {Kristal.libCall(nil, f, ...)}
-    local mod_result = {Kristal.modCall(f, ...)}
-    local plugin_result = {Kristal.PluginLoader.pluginCall(f, ...)}
+    local lib_result = { Kristal.libCall(nil, f, ...) }
+    local mod_result = { Kristal.modCall(f, ...) }
+    local plugin_result = { Kristal.PluginLoader.pluginCall(f, ...) }
     --print("EVENT: "..tostring(f), #mod_result, #lib_result)
     if(#plugin_result > 0) then
-        return Utils.unpack(plugin_result)
+        return TableUtils.unpack(plugin_result)
     elseif(#mod_result > 0) then
-        return Utils.unpack(mod_result)
+        return TableUtils.unpack(mod_result)
     else
-        return Utils.unpack(lib_result)
+        return TableUtils.unpack(lib_result)
     end
 end
 
@@ -2062,7 +2086,7 @@ function Kristal.getLibConfig(lib_id, key, merge, deep_merge)
     elseif lib_value ~= nil and mod_value == nil then
         return lib_value
     elseif type(lib_value) == "table" and merge then
-        return Utils.merge(Utils.copy(lib_value, true), mod_value, deep_merge)
+        return TableUtils.merge(TableUtils.copy(lib_value, true), mod_value, deep_merge)
     else
         return mod_value
     end

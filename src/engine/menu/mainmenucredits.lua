@@ -34,6 +34,7 @@ function MainMenuCredits:init(menu)
             },
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Abbe",
                 "AcousticJamm",
                 "Agent 7",
                 "AlexGamingSW",
@@ -41,44 +42,44 @@ function MainMenuCredits:init(menu)
                 "Azrael",
                 "Bor",
                 "CosmicPikachu001",
-                "Dobby233Liu",
-                "Elioze"
+                "Dobby233Liu"
             }
         },
         {
             "Kristal Engine",
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Elioze",
                 "FireRainV",
                 "HUECYCLES",
+                "Hyperboid",
                 "isakube",
                 "J.A.R.U.",
                 "Lionmeow",
                 "Luna",
-                "MCdeDaxia",
-                "MrOinky",
-                "NelleMonelle"
+                "MCdeDaxia"
             },
             {
                 { "GitHub Contributors", COLORS.silver },
+                "MrOinky",
+                "NelleMonelle",
                 "Nextop",
                 "nightpool",
                 "prokube",
                 "Simbel",
                 "sjl057",
                 "skarph",
-                "SuperOfSrb2",
-                "TFLTV",
-                "Verozity"
+                "SuperOfSrb2"
             }
         },
         {
             "Kristal Engine",
             {
                 { "GitHub Contributors", COLORS.silver },
+                "TFLTV",
+                "Verozity",
                 "WIL-TZY",
                 "YeetusSnoopy",
-                "",
                 "",
                 "",
                 "",
@@ -210,7 +211,7 @@ function MainMenuCredits:onKeyPressed(key, is_repeat)
         page_dir = "right"
     end
 
-    page_now = Utils.clamp(page_now, 1, #self.pages)
+    page_now = MathUtils.clamp(page_now, 1, #self.pages)
 
     if page_now ~= self.selected_page then
         self.selected_page = page_now
@@ -224,7 +225,7 @@ end
 
 function MainMenuCredits:update()
     if self.scroll_timer > 0 then
-        self.scroll_timer = Utils.approach(self.scroll_timer, 0, DT)
+        self.scroll_timer = MathUtils.approach(self.scroll_timer, 0, DT)
     end
 end
 

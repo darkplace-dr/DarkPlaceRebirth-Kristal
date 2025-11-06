@@ -74,8 +74,8 @@ function ActionBox:createButtons()
     elseif self.battler.chara:hasSkills() then
         btn_types = { "fight", "skill", "item", "spare", "defend" }
     else
-        if not self.battler.chara:hasAct() then Utils.removeFromTable(btn_types, "act") end
-        if not self.battler.chara:hasSpells() then Utils.removeFromTable(btn_types, "magic") end
+        if not self.battler.chara:hasAct() then TableUtils.removeValue(btn_types, "act") end
+        if not self.battler.chara:hasSpells() then TableUtils.removeValue(btn_types, "magic") end
     end
 
     for lib_id, _ in Kristal.iterLibraries() do

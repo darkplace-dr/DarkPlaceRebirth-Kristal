@@ -103,7 +103,7 @@ function Tileset:loadTextureFromImagePath(filename)
     if not success then
         local g_success, g_result, _ = TiledUtils.relativePathToAssetId(image_dir, filename, self.base_dir)
         if g_success then
-            success = true
+            success = g_success
             result = g_result
         end
     end

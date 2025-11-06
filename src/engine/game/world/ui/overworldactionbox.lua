@@ -108,11 +108,11 @@ function OverworldActionBox:draw()
 
         local name = self.chara:getName():upper()
         local ox, oy = self.chara:getNameOffset()
-        local spacing = 5 - Utils.len(name)
+        local spacing = 5 - StringUtils.len(name)
 
         local off = 0
-        for i = 1, Utils.len(name) do
-            local letter = Utils.sub(name, i, i)
+        for i = 1, StringUtils.len(name) do
+            local letter = StringUtils.sub(name, i, i)
             love.graphics.print(letter, ox + 51 + off, oy + 16 - 1)
             off = off + font:getWidth(letter) + spacing
         end

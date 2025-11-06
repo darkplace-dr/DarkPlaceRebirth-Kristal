@@ -928,7 +928,7 @@ end
 function Utils.isPolygonClockwise(points)
     local edges = Utils.getPolygonEdges(points)
     local sum = 0
-    for _,edge in ipairs(edges) do
+    for _, edge in ipairs(edges) do
         sum = sum + ((edge[2][1] - edge[1][1]) * (edge[2][2] + edge[1][2]))
     end
     return sum > 0
@@ -1200,12 +1200,12 @@ end
 function Utils.pickMultiple(tbl, amount, sort, remove)
     local t = {}
     local indexes = {}
-    for i,v in ipairs(tbl) do
+    for i, v in ipairs(tbl) do
         if not sort or sort(v) then
             table.insert(indexes, i)
         end
     end
-    for _=1,amount do
+    for _ = 1, amount do
         local i = table.remove(indexes, love.math.random(#indexes))
         if remove then
             table.insert(t, table.remove(tbl, i))
@@ -1243,12 +1243,12 @@ function Utils.reverse(tbl, group)
         tbl = Utils.group(tbl, group)
     end
     -- Loop through the table backwards, and insert each value into the new table.
-    for i=#tbl,1,-1 do
+    for i = #tbl, 1, -1 do
         table.insert(t, tbl[i])
     end
     -- If the table was grouped, flatten it back into a single array.
     if group then
-        t = Utils.flatten(t)
+        t = TableUtils.flatten(t)
     end
     return t
 end
@@ -1698,14 +1698,14 @@ function Utils.getPointOnPath(path, t)
         local nx, ny = next_point.x or next_point[1], next_point.y or next_point[2]
 
         -- Get the length of the current line
-        local current_length = Utils.dist(cx, cy, nx, ny)
+        local current_length = MathUtils.dist(cx, cy, nx, ny)
 
         -- Using the distance we've traversed so far, and the length of the current line,
         -- check if the point we're looking for is on this line
         if traversed + current_length > t then
             -- Calculate the position of the point on the line
-            local progress = (t - traversed) / current_length
-            return Utils.lerp(cx, nx, progress), Utils.lerp(cy, ny, progress)
+            local progress = MathUtils.clamp((t - traversed) / current_length, 0, 1)
+            return MathUtils.lerp(cx, nx, progress), MathUtils.lerp(cy, ny, progress)
         end
 
         -- Remember the furthest point on the path so far
@@ -1784,7 +1784,7 @@ function Utils.colliderFromShape(parent, data, x, y, properties)
         local line_colliders = {}
 
         -- Loop through each pair of points in the polyline
-        for i = 1, #data.polyline-1 do
+        for i = 1, #data.polyline - 1 do
             local j = i + 1
             -- Create a LineCollider using the current and next point of the polyline
             local x1, y1 = x + data.polyline[i].x, y + data.polyline[i].y
@@ -1800,7 +1800,7 @@ function Utils.colliderFromShape(parent, data, x, y, properties)
 
         for i = 1, #data.polygon do
             -- Convert points from the format {[x] = x, [y] = y} to {x, y}
-            table.insert(points, {x + data.polygon[i].x, y + data.polygon[i].y})
+            table.insert(points, { x + data.polygon[i].x, y + data.polygon[i].y })
         end
 
         current_hitbox = PolygonCollider(parent, points, mode)
