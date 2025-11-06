@@ -26,8 +26,9 @@ function OmegaSpamton:init()
     self.spare_points = 1
 
     self.waves = {
-        --"omegaspamton/biglaser"
-        "omegaspamton/popuptest"
+        "omegaspamton/biglaser"
+        --"omegaspamton/popuptest"
+        --"omegaspamton/pipisdefusal"
     }
 
     self.dialogue = {}
@@ -40,7 +41,7 @@ function OmegaSpamton:init()
     self.low_health_text = "* Smoke is coming out of Omega Spamton's wounds.."
 	self.tired_percentage = 0
 
-    self:registerAct("Downgrade", "Lower\nstats.", nil, 25)
+    self:registerAct("Downgrade", "Lower\nstats", nil, 25)
 
     self.xaction_flag = false
 end

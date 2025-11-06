@@ -33,7 +33,7 @@ function scenes.talk(cutscene, battler, enemy)
 		enc.progress = 100
 	elseif spamton.attack <= 10 and spamton.xaction_flag ~= true then
 		spamton.xaction_flag = true
-		spamton:registerAct("X-Downgrade", "Lower\nstats+.", "all", 50)
+		spamton:registerAct("X-Downgrade", "Lower\nstats+", "all", 50)
 		cutscene:text("* Ugh,[wait:5] this is taking FOREVER!", "teeth", "susie")
 		if Game:hasPartyMember("berdly") then
 			cutscene:text("* Perhaps we should have level grinded beforehand?", "scared", "berdly")
