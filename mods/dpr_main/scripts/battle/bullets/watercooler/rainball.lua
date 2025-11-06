@@ -69,7 +69,7 @@ function RainBallBullet:update()
 		bullet.buldist = bullet.buldist - bullet.bulspeed*DTMULT
 		bullet.x = self.x + math.cos(bullet.bulangle) * bullet.buldist
 		bullet.y = self.y + math.sin(bullet.bulangle) * bullet.buldist
-		if bullet.buldist <= 8 + self.size*12 then
+		if bullet.buldist <= 10 + self.size*10 then
 			table.insert(to_remove, bullet)
 		end
 	end
