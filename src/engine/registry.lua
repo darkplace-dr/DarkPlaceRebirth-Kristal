@@ -1168,13 +1168,13 @@ function Registry.iterScripts(base_path, exclude_folder)
             parse("sharedscripts/" .. base_path, mod.script_chunks, Mod.info.path.."/")
         end
         for _,library in Kristal.iterLibraries() do
-            parse("scripts/" .. base_path, library.info.script_chunks, Mod.info.path.."/")
+            parse("scripts/" .. base_path, library.info.script_chunks, "")
         end
-        parse("scripts/" .. base_path, Mod.info.script_chunks, Mod.info.path.."/")
+        parse("scripts/" .. base_path, Mod.info.script_chunks, "")
         for plugin,_,_ in Kristal.PluginLoader.iterPlugins(true) do
             local value = Kristal.PluginLoader.script_chunks[plugin.id]
             if value then
-                parse(base_path, value, Mod.info.path .. "/")
+                parse(base_path, value, "")
             end
         end
     end
