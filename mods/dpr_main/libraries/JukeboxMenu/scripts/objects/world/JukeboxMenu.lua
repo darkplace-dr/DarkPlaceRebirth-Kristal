@@ -189,7 +189,7 @@ function JukeboxMenu:onAddToStage(stage)
     self.cur_page = 1
     ---@type integer[]
     self.page_cursor = {}
-    for page = 1, math.ceil(#self.songs / self.SONGS_PER_PAGE) do
+    for page = 1, math.max(math.ceil(#self.songs / self.SONGS_PER_PAGE), 1) do
         local start_index = 1 + (page-1) * self.SONGS_PER_PAGE
         self.pages[page] = {unpack(self.songs, start_index, math.min(start_index + self.SONGS_PER_PAGE - 1, #self.songs))}
         self.page_cursor[page] = 1
@@ -400,41 +400,37 @@ function JukeboxMenu:update()
             end
         end
 
-        --page left
-        if Input.pressed("left", true) then
-            if #self.pages == 1 then
-                Assets.playSound("ui_cant_select")
+        local page_move_dir = -(Input.pressed("left", true) and 1 or 0) + (Input.pressed("right", true) and 1 or 0)
+        if page_move_dir ~= 0 then
+            local last_page = self.cur_page
+
+            self.cur_page = MathUtils.wrapIndex(self.cur_page + page_move_dir, #self.pages)
+
+            if self.cur_page == last_page then
+                Assets.stopAndPlaySound("ui_cant_select")
             else
-                Assets.playSound("ui_move")
+                Assets.stopAndPlaySound("ui_move")
             end
-            self.cur_page = self.cur_page - 1
         end
-        --page right
-        if Input.pressed("right", true) then
-            if #self.pages == 1 then
-                Assets.playSound("ui_cant_select")
-            else
-                Assets.playSound("ui_move")
-            end
-            self.cur_page = self.cur_page + 1
-        end
-        self.cur_page = MathUtils.wrapIndex(self.cur_page, #self.pages)
 
         local page = self.pages[self.cur_page]
-        --move up
-        if Input.pressed("up", true) then
-            Assets.playSound("ui_move")
-            self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] - 1)
+        local cursor_move_dir = -(Input.pressed("up", true) and 1 or 0) + (Input.pressed("down", true) and 1 or 0)
+        if cursor_move_dir ~= 0 then
+            local last_cursor = self.page_cursor[self.cur_page]
+
+            self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] + cursor_move_dir)
             while not page[self.page_cursor[self.cur_page]] do
-                self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] - 1)
+                self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] + cursor_move_dir)
+                -- scuffed crash prevention
+                if self.page_cursor[self.cur_page] == 1 and not page[1] then
+                    break
+                end
             end
-        end
-        --move down
-        if Input.pressed("down", true) then
-            Assets.playSound("ui_move")
-            self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] + 1)
-            while not page[self.page_cursor[self.cur_page]] do
-                self.page_cursor[self.cur_page] = warpIndex(self.page_cursor[self.cur_page] + 1)
+
+            if self.page_cursor[self.cur_page] == last_cursor then
+                Assets.stopAndPlaySound("ui_cant_select")
+            else
+                Assets.stopAndPlaySound("ui_move")
             end
         end
 
