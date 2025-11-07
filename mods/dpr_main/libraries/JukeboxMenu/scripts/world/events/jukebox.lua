@@ -47,7 +47,11 @@ end
 
 ---@private
 function Jukebox:_getMusic()
-    return (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+    local music = Game.world.music
+    if not (music and music.current and music.current ~= "none" and music:isPlaying()) then
+        return nil
+    end
+    return music
 end
 
 function Jukebox:onAdd(parent)
