@@ -171,6 +171,11 @@ end
 
 -- horrific
 function Actor:parseSpriteOptions(full_sprite, ignore_frames)
+    -- HACK
+    if not full_sprite then
+        return {""}
+    end
+
     local prefix = self:getSpritePath().."/"
     local is_relative, relative_sprite = StringUtils.startsWith(full_sprite, prefix)
     if not is_relative and self:getSpritePath() ~= "" then
