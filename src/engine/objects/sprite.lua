@@ -208,6 +208,11 @@ function Sprite:setTextureExact(texture)
             self.height = self.texture:getHeight()
         end
     end
+
+    -- HACK
+    if not self.texture_path then
+        self.texture_path = Assets.getTextureID(self.texture)
+    end
 end
 
 --- Sets the frame of the current sprite. \
