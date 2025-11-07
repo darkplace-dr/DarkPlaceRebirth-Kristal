@@ -302,6 +302,7 @@ function JukeboxMenu:draw()
         love.graphics.setColor(COLORS.white)
 
         local song = page[self.page_cursor[self.cur_page]] or self.default_song
+        if song.locked then song = self.default_song end
 
         local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
         local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
