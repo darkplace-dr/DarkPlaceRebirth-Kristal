@@ -438,6 +438,75 @@ function Battle:_isEnemyByIndexSelectable(index)
 end
 
 
+--- Checks the current state on a state change. If waves shouldn't be active, stop them.
+---
+---@private
+---@param old BattleState # The old state.
+---@param new BattleState # The new state.
+---@param reason string? # The reason for the state change.
+function Battle:checkEndWave(old, new, reason)
+    -- List of states that should remove the arena.
+    -- A whitelist is better than a blacklist in case the modder adds more states.
+    -- And in case the modder adds more states and wants the arena to be removed, they can remove the arena themselves.
+
+    local remove_arena = {
+        "DEFENDINGEND", "TRANSITIONOUT", "ACTIONSELECT", "VICTORY", "INTRO", "ACTIONS", "ENEMYSELECT", "PARTYSELECT", "MENUSELECT", "ATTACKING"
+    }
+
+    local should_end = true
+    if TableUtils.contains(remove_arena, new) then
+        for _, wave in ipairs(self.waves) do
+            if wave:beforeEnd() then
+                should_end = false
+            end
+        end
+        if should_end then
+            self:returnSoul()
+            if self.arena then
+                self.arena:remove()
+                self.arena = nil
+            end
+            for _, battler in ipairs(self.party) do
+                battler.targeted = false
+            end
+        end
+    end
+
+    local ending_wave = self.state_reason == "WAVEENDED"
+
+    if old == "DEFENDING" and new ~= "DEFENDINGBEGIN" and should_end then
+        for _, wave in ipairs(self.waves) do
+            if not wave:onEnd(false) then
+                wave:clear()
+                wave:remove()
+            end
+        end
+
+        local function exitWaves()
+            for _, wave in ipairs(self.waves) do
+                wave:onArenaExit()
+            end
+            self.waves = {}
+        end
+
+        if self:hasCutscene() then
+            self.cutscene:after(function()
+                exitWaves()
+                if ending_wave then
+                    self:nextTurn()
+                end
+            end)
+        else
+            self.timer:after(15 / 30, function()
+                exitWaves()
+                if ending_wave then
+                    self:nextTurn()
+                end
+            end)
+        end
+    end
+end
+
 --- Called when the [`BattleState`](lua://BattleState) is set to INTRO.
 ---@private
 function Battle:onIntroState()
