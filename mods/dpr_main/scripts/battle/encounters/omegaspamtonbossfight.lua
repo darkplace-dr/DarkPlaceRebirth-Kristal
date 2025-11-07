@@ -23,6 +23,15 @@ function OmegaSpamton:init()
     if Game:getFlag("omegaspamton_defeated") == true then
         self.boss_rush = true
     end
+	
+	self.small_soul = false
+end
+
+function OmegaSpamton:createSoul(x, y)
+	if self.small_soul then
+		return JackensteinSoul(x, y)
+	end
+    return Soul(x, y)
 end
 
 function OmegaSpamton:onBattleInit()
