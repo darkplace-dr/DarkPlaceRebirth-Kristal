@@ -1068,7 +1068,8 @@ function EnemyBattler:defeat(reason, violent)
     end
     
     Game.battle.money = Game.battle.money + self.money
-    Game.battle.xp = Game.battle.xp + self.experience
+    -- TODO: Maybe add a getExperience method that takes the `reason, violent` params into upstream Kristal?
+    -- Game.battle.xp = Game.battle.xp + self.experience
 
     Game.battle:removeEnemy(self, true)
 end
