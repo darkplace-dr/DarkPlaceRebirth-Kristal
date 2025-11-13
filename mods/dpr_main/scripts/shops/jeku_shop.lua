@@ -125,10 +125,10 @@ saveJekuMemory()
 --
 --   *Unhook your hook*
 local function unhook(target, name)
-    for i, hook in ipairs(Utils.__MOD_HOOKS) do
+    for i, hook in ipairs(HookSystem.__MOD_HOOKS) do
         if hook.target == target and hook.name == name then
             hook.target[hook.name] = hook.orig
-            table.remove(Utils.__MOD_HOOKS, i)
+            table.remove(HookSystem.__MOD_HOOKS, i)
             return true
         end
     end
