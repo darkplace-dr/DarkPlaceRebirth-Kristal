@@ -143,7 +143,9 @@ function MainMenu:enter()
 
     self.version_outdated = false
     GitFinder:fetchLatestCommit(function(status, body, headers)
-        if status < 200 or status >= 300 then return end
+        if status == nil then return end -- request failed somehow (no SSL?)
+        if status < 200 or status >= 300 then return end -- non-success status code
+
         local current_commit = GitFinder:fetchCurrentCommit()
         if current_commit ~= body then
             --[[
