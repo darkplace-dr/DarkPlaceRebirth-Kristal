@@ -55,6 +55,7 @@ function actor:init()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 0.5, true},
+        ["battle/swooned"]      = {"battle/swooned", 1/15, false},
 
         ["battle/transition"]   = {"walk/right", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
@@ -86,6 +87,7 @@ function actor:init()
         ["battle/item"] = {-14, -15},
         ["battle/itemready"] = {-14, -15},
         ["battle/defend"] = {-14, -15},
+        ["battle/swooned"] = {0, 0},
 
         ["battle/defeat"] = {-14, -15},
         ["battle/hurt"] = {-14, -15},

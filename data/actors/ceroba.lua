@@ -12,7 +12,7 @@ function actor:init()
 
     self.soul_offset = {12.5, 28}
 
-    self.color = {1, 1, 0}
+    self.color = {237/255, 140/255, 36/255}
 
     self.path = "party/ceroba/light"
     self.default = "walk"
