@@ -120,8 +120,7 @@ function PartyMember:init()
         health = 100,
         attack = 10,
         defense = 2,
-        magic = 0,
-        health_def = 100 -- placeholder for true MHP, do not use
+        magic = 0
     }
 
 	-- Arc Completion Bonus Stats

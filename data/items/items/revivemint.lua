@@ -72,10 +72,6 @@ function item:onBattleUse(user, target)
     else
         heal_amount = math.ceil(target.chara:getStat("health") / 2)
     end
-    if target.chara:getStat("health") <= 0 then
-        target:restoreMaxHealth(math.abs(target.chara:getHealth()) + target.chara:getStat("health_def"))
-        return
-    end
     target:heal(Game.battle:applyHealBonuses(heal_amount, user.chara))
 end
 

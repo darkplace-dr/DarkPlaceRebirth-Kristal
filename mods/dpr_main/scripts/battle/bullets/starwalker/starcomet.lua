@@ -16,6 +16,10 @@ function Bullet:init(x, y)
     self.starwalker = Game.battle:getEnemyBattler("starwalker")
 end
 
+function Bullet:shouldSwoon(damage, target, soul)
+    return true
+end
+
 function Bullet:update()
     -- For more complicated bullet behaviours, code here gets called every update
 	
