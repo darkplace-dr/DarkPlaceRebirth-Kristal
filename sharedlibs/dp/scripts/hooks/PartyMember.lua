@@ -646,4 +646,14 @@ function PartyMember:doBattleDescision(battler)
     return true
 end
 
+function PartyMember:canAutohealSwoon()
+    return false
+end
+
+-- Should definitely return a small number. Should be single digit, if anything.
+-- Or it can be negative if you wanna be sadistic. Not judging.
+function PartyMember:autoHealSwoonAmount()
+    return 0
+end
+
 return PartyMember

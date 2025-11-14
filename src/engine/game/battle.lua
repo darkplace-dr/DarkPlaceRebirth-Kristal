@@ -2592,6 +2592,8 @@ function Battle:nextTurn()
         battler.hit_count = 0
         if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() and self.encounter:isAutoHealingEnabled(battler) then
             battler:heal(battler.chara:autoHealAmount(), nil, true)
+        elseif (battler.chara:getHealth() <= 0) and battler.chara:canAutohealSwoon() and not self.encounter:isAutoHealingEnabled(battler) then
+            battler:heal(battler.chara:autoHealSwoonAmount(), nil, true)
         end
         battler.action = nil
     end
