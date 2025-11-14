@@ -708,8 +708,6 @@ function Battle:onVictory()
         battler.action = nil
 
         battler.chara:resetBuffs()
-        -- TODO: Why is this treated specially? Why can't it just be a statbuff?
-        battler.chara:restoreMaxHealth()
 
         if battler.chara:getHealth() <= 0 then
             battler:revive()
@@ -2455,81 +2453,6 @@ function Battle:hurt(amount, exact, target, swoon)
     end
 end
 
---- TODO: Use negative statbuff instead
-function Battle:mhp_hurt(amount, exact, target)
-    -- If target is a numberic value, it will hurt the party battler with that index
-    -- "ANY" will choose the target randomly
-    -- "ALL" will hurt the entire party all at once
-    target = target or "ANY"
-
-    -- Alright, first let's try to adjust targets.
-
-    if type(target) == "number" then
-        target = self.party[target]
-    end
-
-    if isClass(target) and target:includes(PartyBattler) then
-        if (not target) or (target.chara:getHealth() <= 0) then -- Why doesn't this look at :canTarget()? Weird.
-            target = self:randomTargetOld()
-        end
-    end
-
-    if target == "ANY" then
-        target = self:randomTargetOld()
-
-        -- Calculate the average HP of the party.
-        -- This is "scr_party_hpaverage", which gets called multiple times in the original script.
-        -- We'll only do it once here, just for the slight optimization. This won't affect accuracy.
-
-        -- Speaking of accuracy, this function doesn't work at all!
-        -- It contains a bug which causes it to always return 0, unless all party members are at full health.
-        -- This is because of a random floor() call.
-        -- I won't bother making the code accurate; all that matters is the output.
-
-        local party_average_hp = 1
-
-        for _,battler in ipairs(self.party) do
-            if battler.chara:getStat("health") ~= battler.chara:getStat("health_def") then
-                party_average_hp = 0
-                break
-            end
-        end
-
-        -- Retarget... twice.
-        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
-            target = self:randomTargetOld()
-        end
-        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
-            target = self:randomTargetOld()
-        end
-
-        -- If we landed on Kris (or, well, the first party member), and their health is low, retarget (plot armor lol)
-        if (target == self.party[1]) and ((target.chara:getStat("health") / target.chara:getStat("health_def")) < 0.35) then
-            target = self:randomTargetOld()
-        end
-
-        -- They got hit, so un-darken them
-        target.should_darken = false
-        target.targeted = true
-    end
-
-    -- Now it's time to actually damage them!
-    if isClass(target) and target:includes(PartyBattler) then
-        target:mhp_hurt(amount, exact)
-        return {target}
-    end
-
-    if target == "ALL" then
-        Assets.playSound("hurt")
-        local alive_battlers = Utils.filter(self.party, function(battler) return not battler.is_down end)
-        for _,battler in ipairs(alive_battlers) do
-            battler:mhp_hurt(amount, exact, nil, {all = true})
-        end
-        -- Return the battlers who aren't down, aka the ones we hit.
-        return alive_battlers
-    end
-end
-
 --- Sets the waves table to what is specified by `waves`
 ---@param waves table<string|Wave>|string|Wave
 ---@param allow_duplicates? boolean If true, duplicate waves will coexist with each other
@@ -4096,59 +4019,6 @@ end
 
 function Battle:canDeepCopy()
     return false
-end
-
-function Battle:mhp_pierce(amount, exact, target)
-    target = target or "ANY"
-
-
-    if type(target) == "number" then
-        target = self.party[target]
-    end
-
-    if isClass(target) and target:includes(PartyBattler) then
-        if (not target) or (target.chara:getHealth() <= 0) then -- Why doesn't this look at :canTarget()? Weird.
-            target = self:randomTargetOld()
-        end
-    end
-
-    if target == "ANY" then
-        target = self:randomTargetOld()
-
-        local party_average_hp = 1
-
-        for _,battler in ipairs(self.party) do
-            if battler.chara:getStat("health") ~= battler.chara:getStat("health_def") then
-                party_average_hp = 0
-                break
-            end
-        end
-
-        if target.chara:getStat("health") / target.chara:getStat("health_def") < (party_average_hp / 2) then
-            target = self:randomTargetOld()
-        end
-
-        -- They got hit, so un-darken them
-        target.should_darken = false
-        target.targeted = true
-    end
-
-    -- Now it's time to actually damage them!
-    if isClass(target) and target:includes(PartyBattler) then
-        target:mhp_pierce(amount, exact)
-        return {target}
-    end
-
-    if target == "ALL" then
-        Assets.playSound("hurt")
-        for _,battler in ipairs(self.party) do
-            if not battler.is_down then
-                battler:mhp_pierce(amount, exact, nil, {all = true})
-            end
-        end
-        -- Return the battlers who aren't down, aka the ones we hit.
-        return Utils.filter(self.party, function(item) return not item.is_down end)
-    end
 end
 
 return Battle

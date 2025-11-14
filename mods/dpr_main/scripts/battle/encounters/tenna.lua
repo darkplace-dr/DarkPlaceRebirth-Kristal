@@ -191,8 +191,6 @@ function Tenna:onStateChange(old,new)
             battler.action = nil
 
             battler.chara:resetBuffs()
-            -- TODO: Why is this treated specially? Why can't it just be a statbuff?
-            battler.chara:restoreMaxHealth()
             
             if battler.chara:getHealth() <= 0 then
                 battler:revive()

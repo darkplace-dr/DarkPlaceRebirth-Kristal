@@ -13,6 +13,10 @@ function Bullet:init(x, y)
     self.destroy_on_hit = false
 end
 
+function Bullet:shouldSwoon(damage, target, soul)
+    return true
+end
+
 function Bullet:update()
     -- For more complicated bullet behaviours, code here gets called every update
 	

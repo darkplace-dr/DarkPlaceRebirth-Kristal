@@ -611,25 +611,16 @@ function BattleUI:drawState()
         for index = page_offset+1, math.min(page_offset+3, #Game.battle.party) do
             Draw.setColor(1, 1, 1, 1)
             love.graphics.print(Game.battle.party[index].chara:getName(), 80, 50 + ((index - page_offset - 1) * 30))
-            
-            local mhp_perc = Game.battle.party[index].chara:getStat("health") / Game.battle.party[index].chara:getStat("health_def")
-            if mhp_perc <= 0 then
-                Draw.setColor(1, 0, 0, 1)
-                love.graphics.print("(Fallen)", 400, 50 + ((index - page_offset - 1) * 30))
-            else
-                Draw.setColor(COLORS.dkgray)
-                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
 
-                Draw.setColor(PALETTE["action_health_bg"])
-                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(mhp_perc * 101), 16)
+            Draw.setColor(PALETTE["action_health_bg"])
+            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
 
-                local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
-                -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
-                -- Swooning is the only time you can ever see it this low
-                percentage = math.max(-1, percentage)
-                Draw.setColor(PALETTE["action_health"])
-                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * (math.ceil(mhp_perc * 101))), 16)
-            end
+            local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
+            -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
+            -- Swooning is the only time you can ever see it this low
+            percentage = math.max(-1, percentage)
+            Draw.setColor(PALETTE["action_health"])
+            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * 101), 16)
         end
 
         Draw.setColor(1, 1, 1, 1)

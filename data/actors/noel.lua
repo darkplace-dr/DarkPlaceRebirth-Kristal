@@ -144,6 +144,7 @@ function actor:init()
         ["battle/a"]         = {"battle/a", 0.2, true},
         ["battle/idle"]         = {"battle/idle", 0.2, true},
         ["battle/defeat"]         = {"battle/down", 0.2, false},
+        ["battle/swooned"]      = {"battle/down", 1/15, false},
         ["battle/attack_ready"] = {"battle/attack_ready", 1/60, false},
         ["battle/spell_ready"]  = {"battle/attack_ready", 1/8, false},
         ["battle/attack"]         = {"battle/attack", 1/35, false},
