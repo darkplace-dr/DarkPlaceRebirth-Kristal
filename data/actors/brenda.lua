@@ -55,6 +55,7 @@ function actor:init()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
         ["battle/intro"]        = {"battle/attackready", 0.1, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},

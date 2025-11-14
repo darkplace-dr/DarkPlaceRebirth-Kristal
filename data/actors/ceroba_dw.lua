@@ -12,7 +12,7 @@ function actor:init()
 
     self.soul_offset = {12.5, 28}
 
-    self.color = {1, 1, 0}
+    self.color = {253/255, 0, 85/255}
 
     self.path = "party/ceroba/dark"
     self.default = "walk"
@@ -53,6 +53,7 @@ function actor:init()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
