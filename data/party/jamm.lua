@@ -212,4 +212,13 @@ function character:getTVName()
 	return "JAM"
 end
 
+function character:canAutohealSwoon()
+    return Game:getFlag("marcy_joined", false)
+end
+
+function character:autoHealSwoonAmount()
+    return 1
+    -- If needed, I'll safeguard this, but I don't see that as necessary.
+end
+
 return character
