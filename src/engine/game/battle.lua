@@ -743,10 +743,7 @@ function Battle:onVictory()
     -- end
 
     Game.money = Game.money + self.money
-    -- SUPER DUPER OMEGA IMPORTANT:
-    -- UNDER NO CIRCUMSTANCES CHANGE THIS CODE UNLESS THOROUGH TESTING PROVES IT WONT BREAK EXPERIENCE
-    self.xp = self.xp/2
-    Game.xp = self.xp
+    Game.xp = Game.xp + self.xp
 
     if (Game.money < 0) then
         Game.money = 0
