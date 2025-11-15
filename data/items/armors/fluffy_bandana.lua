@@ -55,6 +55,18 @@ function item:init()
         noel = "This isn't stolen ... right?",
         ceroba = "Red's nice...",
     }
+    function self:pedestalUsed(cutscene)
+        if not Game:getQuest("delivering_a_bandana"):isCompleted() then
+            Game.inventory:removeItem(self)
+            Assets.playSound("charjoined")
+            Game:getQuest("delivering_a_bandana"):addProgress(1)
+            cutscene:text("[voice:none][noskip]* (You completed the quest)[wait:6]")
+        else
+            Assets.playSound("boowomp")
+            cutscene:text("[voice:none][noskip]* (But you already completed this quest...)[wait:6]")
+            cutscene:text("* (How do you even have this?)")
+        end
+    end
 end
 
 return item
