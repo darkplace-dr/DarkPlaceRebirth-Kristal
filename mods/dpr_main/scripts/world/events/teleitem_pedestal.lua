@@ -25,40 +25,49 @@ function TeleitemPedestal:draw()
     end
 end
 
-local function specialItem(item, cutscene)
-    if item == "fluffy_bandana" then
-        Assets.playSound("charjoined")
-        Game:getQuest("delivering_a_bandana"):addProgress(1)
-        cutscene:text("[voice:none][noskip](* You completed the quest)[wait:6]")
-    end
-end
-
 function TeleitemPedestal:onInteract(player, dir)
-    local specialItems = {"fluffy_bandana"}
-    local item
-    for _,v in pairs(specialItems) do
-        if Game.inventory:hasItem(v) then
-            Assets.playSound("celestial_hit")
-            Game.inventory:removeItem(v)
-            self.active = true
-            item = v
-            break
-        end
-    end
----@diagnostic disable-next-line: param-type-mismatch
+    local darkInventory = Game.inventory:getDarkInventory()
+    local items = darkInventory.stored_items
     Game.world:startCutscene(function(cutscene)
-        if self.active then
-            cutscene:text("(* Your " .. item .. " glided towards the pedestal!)")
-            cutscene:wait(2)
-            Game.world.music:pause()
-            specialItem(item, cutscene)
-            self.active = false
-            Game.world.music:play()
-        else
-            cutscene:text("(* Seems like you got ... [wait:1]\n nothing special...)")
+        for item,info in pairs(items) do
+            -- print("item = " .. v)
+            -- print("storage = " .. v.storage)
+            -- print("index = " .. v.index)
+            -- local item = Registry.createItem(itemName)
+            if type(item) == "table" then
+                if item.pedestalPreUse or item.pedestalUse or item.pedestalUsed then
+                    -- print("pedestal item found")
+                    Assets.playSound("celestial_hit")
+
+                    if item.pedestalPreUse then
+                        -- print("Preuse")
+                        item:pedestalPreUse(cutscene)
+                    end
+
+                    self.active = true
+                    cutscene:text("* (Your [color:yellow]" .. item.name .. "[color:reset] glided towards the pedestal!)")
+                    cutscene:wait(1)
+                    Game.world.music:pause()
+
+                    if item.pedestalUse then
+                        -- print("Use")
+                        item:pedestalUse(cutscene)
+                    end
+
+                    self.active = false
+
+                    if item.pedestalUsed then
+                        -- print("Used")
+                        item:pedestalUsed(cutscene)
+                    end
+
+                    Game.world.music:play()
+                    return
+                end
+            end
         end
+        cutscene:text("* (Seems like you got ... [wait:1]\n   nothing special...)")
     end)
-    return true
 end
 
 return TeleitemPedestal

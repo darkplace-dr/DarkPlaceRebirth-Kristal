@@ -22,19 +22,31 @@ function self:loadWarps(path)
         package.loaded[requirePath] = nil
         local warpData = require(requirePath)
         local warpID = warpData.id or warpName
-
-        local warpSetName = warpData.id or warpName
-        warpSetName = self:binifyString(warpSetName)
+        local warpSetName = self:binifyString(warpID)
         local warpTo = warpData.warp or warpName
-        local binWarpData = {result = (warpID .. "/".. warpTo), mod = warpData.mod or "dpr_main"}
-        print("Loading warp " .. warpName .. "= {result: " .. binWarpData.result .. ", mod: " .. binWarpData.mod .. "}")
+        local resultWarpID = warpName
+
+        if warpData.id then
+            resultWarpID = warpID .. "/".. warpTo
+        else
+            resultWarpID = warpTo
+        end
+
+        local binWarpData = {result = resultWarpID, mod = warpData.mod or "dpr_main"}
+
+        print("Loading warp \"" .. warpName .. "\" as \"" .. warpSetName .. "\"")
+
         loadedWarps[warpSetName] = binWarpData
+
         if warpData.variants then
+            local finalString = ""
             for _,id in pairs(warpData.variants) do
                 id = self:binifyString(id)
                 loadedWarps[id] = binWarpData
-                print("Loaded warp variant \"" .. id .. "\"")
+                finalString = finalString .. "\"" .. id .. "\", "
             end
+            
+            print("loaded warp variants " .. finalString)
         end
     end
 

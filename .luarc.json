@@ -42,6 +42,8 @@
     },
     "diagnostics.disable": [
         "duplicate-set-field",
-        "need-check-nil"
+        "need-check-nil",
+        "circle-doc-class",
+        "undefined-global"
     ]
 }

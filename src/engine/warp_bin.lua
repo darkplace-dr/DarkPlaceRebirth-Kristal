@@ -58,7 +58,7 @@ if warps then
     local loadedWarps = warps:loadWarps()
     for warpName,warpValue in pairs(loadedWarps) do
         Kristal.warp_bin_codes[warpName] = warpValue
-        -- a b c d
+        -- a b c d e f g
     end
 end
 local gray_area_info = {
