@@ -30,7 +30,7 @@ function PASpeaker:init(text, voice)
     self.siner = 0
     self.play = 0
     self.minchar = 1
-    self.yoff = 10
+    self.yoff = -4
     self.baralpha = 0
     self.open = false
     self.endtimer = 0
@@ -70,20 +70,21 @@ function PASpeaker:init(text, voice)
     self.add2 = 0.0;
     self.add3 = 0.0;
     self.add4 = 0.0;
+	self.drawtype = 0 
+	self.do_once = 0
 end
 
 function PASpeaker:update()
     if (self.play == 1) then
         self.play = 0;
-        -- self.scale_x = 2;
         self.sprite_index = Assets.getFramesOrTexture "paspeaker/tenna_on";
         self.image_speed = 0;
         self.maxfunny = 12;
         self.image_index = self.image_index+1;
-        -- scr_lerpvar("add1", add1, Utils.random(-self.maxfunny, self.maxfunny), rate - 1, 1, "out");
-        -- scr_lerpvar("add2", add2, Utils.random(-self.maxfunny, self.maxfunny), rate - 1, 1, "out");
-        -- scr_lerpvar("add3", add3, Utils.random(-self.maxfunny, self.maxfunny), rate - 1, 1, "out");
-        -- scr_lerpvar("add4", add4, Utils.random(-self.maxfunny, self.maxfunny), rate - 1, 1, "out");
+        self.tween_timer:lerpVar(self, "add1", self.add1, MathUtils.random(-self.maxfunny, self.maxfunny), self.rate - 1, 1, "out");
+        self.tween_timer:lerpVar(self, "add2", self.add2, MathUtils.random(-self.maxfunny, self.maxfunny), self.rate - 1, 1, "out");
+        self.tween_timer:lerpVar(self, "add3", self.add3, MathUtils.random(-self.maxfunny, self.maxfunny), self.rate - 1, 1, "out");
+        self.tween_timer:lerpVar(self, "add4", self.add4, MathUtils.random(-self.maxfunny, self.maxfunny), self.rate - 1, 1, "out");
         self.botpinch = Utils.random(10, 0);
         local soundid = math.random(1, #self.sounds);
         
@@ -111,42 +112,48 @@ function PASpeaker:update()
     end
 
     if (self.con == 0) then
-        self.timer = self.timer+1;
+        self.timer = self.timer + DTMULT
         
-        if (self.timer == 1) then
+        if (self.timer >= 1 and self.do_once == 0) then
             self.ypos = -20;
-            self.y = self.ypos;
-            self.tween_timer:tween(15/30, self, {ypos = 80}, "in-elastic");
+			self.tween_timer:lerpVar(self, "ypos", self.ypos, 80, 15, -1, "out")
+			self.do_once = 1
         end
 
-        if (self.timer == 20) then
+        if (self.timer >= 20 and self.do_once == 1) then
             self.baralpha = 0
             self.tween_timer:tween(15/30, self, {baralpha = 1}, "linear");
             self.schmactive = true;
+			self.do_once = 2
         end
 
         if (self.timer > 20 and not self.schmactive) then
             self.con = 1;
             self.timer = 0;
+			self.do_once = 0
         end
     end
 
     if (self.con == 1) then
-        self.timer = self.timer+1;
+        self.timer = self.timer + DTMULT
         
-        if (self.timer == 1) then
-            self.tween_timer:tween(15/30, self, {ypos = -120}, "linear");
+        if (self.timer >= 1 and self.do_once == 0) then
+			self.tween_timer:lerpVar(self, "ypos", self.ypos, -120, 30, 2, "out")
+			self.do_once = 1
         end
+        if (self.timer >= 31) then
+			self:remove()
+		end
     end
     super.update(self)
 end
 
 function PASpeaker:drawTexturePos(tex, x1, y1, x2, y2, x3, y3, x4, y4)
     self.mesh:setVertices({
-        {x4,y4,1,0},
-        {x1,y1,0,0},
-        {x2,y2,0,1},
-        {x3,y3,1,1},
+        {x1,y1,1,0},
+        {x2,y2,0,0},
+        {x3,y3,0,1},
+        {x4,y4,1,1},
     })
     self.mesh:setTexture(tex)
     Draw.draw(self.mesh)
@@ -158,7 +165,7 @@ end
 function PASpeaker:draw()
 --
     love.graphics.push("all")
-    love.graphics.translate(580, self.ypos+15)
+    love.graphics.translate(580, self.ypos)
     love.graphics.setColor(0,0,0, 0.3 * self.baralpha)
     love.graphics.rectangle("fill",    0,      0 - 10 - 4 - 4, -640, 40)
     love.graphics.setColor(0,0,0, 0.6 * self.baralpha)
@@ -168,8 +175,8 @@ function PASpeaker:draw()
     love.graphics.pop()
 
 
-    self.siner = self.siner+1;
-    self.strtimer = self.strtimer+1;
+    self.siner = self.siner + DTMULT;
+    self.strtimer = self.strtimer + DTMULT;
 
     if self.schmactive and (self.strtimer >= self.rate) then
         if (self.charindex < (self.strlength - 1)) then
@@ -191,7 +198,7 @@ function PASpeaker:draw()
             self.endtimer = 0;
             self.endevent = 0;
         else
-            self.endtimer = self.endtimer+1;
+            self.endtimer = self.endtimer + DTMULT;
             
             if (self.endtimer >= 10 and self.endtimer < 120) then
                 local __amt = (self.endtimer * 3) / 100;
@@ -204,28 +211,31 @@ function PASpeaker:draw()
             if (self.endtimer >= 120) then
                 if (self.endevent == 0) then
                     self.endevent = 1;
-                    -- scr_delay_var("schmactive", 0, 15);
-                    -- scr_lerpvar("botpinch", botpinch, 0, 14, -2, "out");
-                    -- TODO: Use tween type -2 (why is it negative wtf)
-                    self.tween_timer:tween(14/30, self, {add1=0,add2=0,add3=0,add4=0}, "linear")
-
+                    self.tween_timer.timer:after(15/30, function()
+						self.schmactive = false
+					end)
+                    self.tween_timer:lerpVar(self, "botpinch", self.botpinch, 0, 14, -2, "out");
+                    self.tween_timer:lerpVar(self, "add1", self.add1, 0, 14, -2, "out");
+                    self.tween_timer:lerpVar(self, "add2", self.add2, 0, 14, -2, "out");
+                    self.tween_timer:lerpVar(self, "add3", self.add3, 0, 14, -2, "out");
+                    self.tween_timer:lerpVar(self, "add4", self.add4, 0, 14, -2, "out");
                     self.tween_timer:tween(14/30, self, {baralpha=0}, "linear")
-                    -- scr_delay_var("charindex", 0, 16);
-                    -- scr_delay_var("charindex", 0, 16);
-                    -- scr_delay_var("textx", 8, 16);
+                    self.tween_timer.timer:after(16/30, function()
+						self.charindex = 0
+						self.textx = 8
+						self.strtimer = 0
+					end)
                     self.sprite_index = self.off_sprite;
-                    -- scr_delay_var("strtimer", 0, 16);
                 end
             end
         end
     end
 
-    self.textx = self.textx + (self.hspace / self.rate);
-    Draw.setColor(COLORS.yellow);
+    self.textx = self.textx + (self.hspace / self.rate) * DTMULT;
     love.graphics.setFont(Assets.getFont("main"));
     local smallamt = 6;
     local wobbleamount = 2;
-    Draw.setColor(COLORS.yellow, baralpha);
+    Draw.setColor(1,1,0,self.baralpha);
     local n = smallamt;
     local i = math.max(self.charindex - smallamt, self.minchar);
     love.graphics.setFont(Assets.getFont("main"));
@@ -245,7 +255,34 @@ function PASpeaker:draw()
     end
     love.graphics.pop()
 
+	local width = 80
+	local xoff = 20
+	local yoff = 25
+	local x1 = 580-xoff*2
+	local y1 = self.ypos-yoff*2
+	local x2 = 580-xoff*2 + width
+	local y2 = self.ypos-yoff*2
+	local x3 = 580-xoff*2 + width
+	local y3 = self.ypos-yoff*2 + width
+	local x4 = 580-xoff*2
+	local y4 = self.ypos-yoff*2 + width
+	local sprite
+	if #self.sprite_index then
+		sprite = self.sprite_index[(math.floor(self.image_index or 0) % #self.sprite_index) + 1]
+	else
+		sprite = self.sprite_index
+	end
     Draw.setColor(COLORS.white);
+	if self.drawtype == 0 then
+		x1 = x1 + self.add1
+		y1 = y1 + self.add2
+		x2 = x2 + self.add3
+		y2 = y2 + self.add4
+		self:drawTexturePos(sprite, x1, y1, x2, y2, x3, y3, x4, y4)
+	end
+	if self.drawtype == 1 then
+		Draw.draw(sprite, 580, self.ypos, 0, 2, 2, xoff, yoff)
+	end
 --
 end
 

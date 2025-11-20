@@ -36,7 +36,7 @@ return {
             cutscene:text("* Welcome to the TENNA ROOM!", nil, "tenna") -- TODO: "Tenna Room" should be a funnytext
             cutscene:text("* It's a FAMILY REUNION,[wait:5] and an invite has been sent to EVERY SINGLE ONE of my RELATIVES!", nil, "tenna")
             tenna.sprite:setTennaSprite(2, "whisper", 1)
-            cutscene:text("* I had Mike send them all out for me.", nil, "tenna") -- TODO: this should be like that whisper funnytext Tenna occasionally uses.
+            cutscene:text("* [funnytext:mike_send,nil,-10,5,192,32][wait:15]", nil, "tenna")
             tenna.sprite:setTennaSprite(1, nil, 1)
             cutscene:text("* Granted,[wait:5] he JUST did that,[wait:5] so it's only just ME,[wait:5] MYSELF,[wait:5] and I here!", nil, "tenna")
             tenna.sprite:setTennaSprite(21, nil, 1)
