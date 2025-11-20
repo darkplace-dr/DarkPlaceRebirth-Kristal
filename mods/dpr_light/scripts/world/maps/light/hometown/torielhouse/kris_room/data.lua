@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -241,8 +241,6 @@ return {
           visible = true,
           properties = {
             ["nighttext1"] = "* (It's a quiet night outside.)",
-            ["nighttext2"] = "* (...)",
-            ["nighttext3"] = "* (... It's late,[wait:5] you should go to bed.)[wait:5]\n* (But not here.)",
             ["solid"] = true,
             ["text1"] = "* (It's a beautiful day outside.)",
             ["text2"] = "* (...)",
