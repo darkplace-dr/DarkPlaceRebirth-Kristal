@@ -300,6 +300,7 @@ local cliffside = {
         local cat = cutscene:getCharacter("cat")
         if not cat then
             Game.world:spawnNPC("cat", 460, 160)
+            cat = cutscene:getCharacter("cat")
         end
 
         local player = Game.world.player
@@ -511,6 +512,9 @@ local cliffside = {
             cutscene:text("* YER [color:yellow]fun[color:reset] IS OFF THE CHARTS!!", nil, gus)
             cutscene:text("* EXPECT SUM GREAT THINGS COMIN' YER WAY, BUDDY!!!\n* AH-HA!!!", nil, gus)
         -- FUN ~= FUN in case it's NaN
+        -- Wait... doesn't FUN ~= FUN always return true?... oh wait this is the last elseif so its fiiine
+        -- I though of a fix but im too lazy (and scared) to replace it:
+        -- if type(FUN) ~= "number" then
         elseif FUN < 0 or FUN > 100 or FUN ~= FUN then
             cutscene:textTagged("* WOOAAH NELLY![wait:5]\n* THAT RIGHT THERE IS A [shake:4]WACKY[shake:0] \nPERCENTAGE!!", nil, gus)
             cutscene:textTagged("* ACCORDING TO MY SOURCES 'ERE THE AMOUNT RANGES FROM ONE TO A HUNDRED!", nil, gus)
