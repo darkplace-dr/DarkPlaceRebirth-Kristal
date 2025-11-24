@@ -1,5 +1,40 @@
 {
     "maps": [
+        {
+            "fileName": "maps/main_outdoors/tower_outside/tower_outside.tmx",
+            "height": 880,
+            "width": 1280,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/main_outdoors/tower_outside_right/tower_outside_right.tmx",
+            "height": 800,
+            "width": 1000,
+            "x": 1360,
+            "y": 40
+        },
+        {
+            "fileName": "maps/main_outdoors/tower_outside_rightmore/tower_outside_rightmore.tmx",
+            "height": 800,
+            "width": 1000,
+            "x": 2440,
+            "y": 40
+        },
+        {
+            "fileName": "maps/main_outdoors/tower_outskirts_1/tower_outskirts_1.tmx",
+            "height": 880,
+            "width": 1200,
+            "x": -800,
+            "y": 960
+        },
+        {
+            "fileName": "maps/main_outdoors/tower_outskirts_2/tower_outskirts_2.tmx",
+            "height": 880,
+            "width": 1360,
+            "x": -600,
+            "y": 1920
+        }
     ],
     "onlyShowAdjacentMaps": false,
     "type": "world"
