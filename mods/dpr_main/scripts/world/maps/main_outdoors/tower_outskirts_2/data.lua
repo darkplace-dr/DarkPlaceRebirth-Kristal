@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 85,
+  nextobjectid = 103,
   properties = {
     ["border"] = "tower_outside",
     ["music"] = "mainhub_outside"
@@ -19,25 +19,244 @@ return {
     {
       name = "blue_grass_lol",
       firstgid = 1,
-      filename = "../../../tilesets/blue_grass_lol.tsx"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 16,
+      image = "../../../../../assets/sprites/tilesets/blue_grass_lol.png",
+      imagewidth = 320,
+      imageheight = 260,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     },
     {
       name = "main_area",
       firstgid = 209,
-      filename = "../../../tilesets/main_area.tsx",
-      exportfilename = "../../../tilesets/main_area.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 13,
+      image = "../../../../../assets/sprites/tilesets/main_area.png",
+      imagewidth = 260,
+      imageheight = 320,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     },
     {
       name = "cliffs",
       firstgid = 417,
-      filename = "../../../tilesets/cliffs.tsx",
-      exportfilename = "../../../tilesets/cliffs.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      image = "../../../../../assets/sprites/tilesets/cliffs.png",
+      imagewidth = 180,
+      imageheight = 140,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 20,
+        height = 20
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 63,
+      tiles = {}
     },
     {
       name = "hub_objects",
       firstgid = 480,
-      filename = "../../../tilesets/hub_objects.tsx",
-      exportfilename = "../../../tilesets/hub_objects.lua"
+      class = "",
+      tilewidth = 130,
+      tileheight = 120,
+      spacing = 0,
+      margin = 0,
+      columns = 0,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 1,
+        height = 1
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 13,
+      tiles = {
+        {
+          id = 0,
+          image = "../../../../../assets/sprites/world/maps/hub/funfax_station.png",
+          width = 77,
+          height = 61
+        },
+        {
+          id = 1,
+          image = "../../../../../assets/sprites/world/events/money_hole.png",
+          width = 30,
+          height = 14
+        },
+        {
+          id = 2,
+          image = "../../../../../assets/sprites/world/maps/hub/desshouse.png",
+          width = 120,
+          height = 120
+        },
+        {
+          id = 3,
+          image = "../../../../../assets/sprites/world/maps/hub/plaque.png",
+          width = 130,
+          height = 66
+        },
+        {
+          id = 6,
+          image = "../../../../../assets/sprites/world/events/dark_stand.png",
+          width = 41,
+          height = 49
+        },
+        {
+          id = 7,
+          image = "../../../../../assets/sprites/world/events/light_stand.png",
+          width = 41,
+          height = 49
+        },
+        {
+          id = 9,
+          image = "../../../../../assets/sprites/world/events/mossy_stand.png",
+          width = 41,
+          height = 49
+        },
+        {
+          id = 10,
+          image = "../../../../../assets/sprites/world/events/void_fragment_1.png",
+          width = 32,
+          height = 32,
+          animation = {
+            {
+              tileid = 10,
+              duration = 200
+            },
+            {
+              tileid = 11,
+              duration = 200
+            },
+            {
+              tileid = 12,
+              duration = 200
+            },
+            {
+              tileid = 13,
+              duration = 200
+            },
+            {
+              tileid = 11,
+              duration = 200
+            },
+            {
+              tileid = 12,
+              duration = 200
+            },
+            {
+              tileid = 13,
+              duration = 200
+            },
+            {
+              tileid = 12,
+              duration = 200
+            },
+            {
+              tileid = 11,
+              duration = 200
+            },
+            {
+              tileid = 10,
+              duration = 200
+            },
+            {
+              tileid = 13,
+              duration = 200
+            },
+            {
+              tileid = 11,
+              duration = 200
+            }
+          }
+        },
+        {
+          id = 11,
+          image = "../../../../../assets/sprites/world/events/void_fragment_2.png",
+          width = 32,
+          height = 32
+        },
+        {
+          id = 12,
+          image = "../../../../../assets/sprites/world/events/void_fragment_3.png",
+          width = 32,
+          height = 32
+        },
+        {
+          id = 13,
+          image = "../../../../../assets/sprites/world/events/void_fragment_4.png",
+          width = 32,
+          height = 32
+        },
+        {
+          id = 14,
+          image = "../../../../../assets/sprites/world/events/blue_tree.png",
+          width = 60,
+          height = 60
+        },
+        {
+          id = 15,
+          image = "../../../../../assets/sprites/world/events/square_hole.png",
+          width = 40,
+          height = 30
+        }
+      }
     }
   },
   layers = {
@@ -156,9 +375,9 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 158, 159, 160, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 174, 175, 176, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 190, 191, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 158, 159, 160, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 158, 159, 160, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 174, 175, 176, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 190, 191, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -229,9 +448,61 @@ return {
           type = "",
           shape = "rectangle",
           x = 520,
-          y = 0,
+          y = -40,
+          width = 80,
+          height = 720,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 93,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 240,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 95,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 80,
           width = 40,
-          height = 680,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 96,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = -40,
+          width = 80,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 97,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 720,
+          y = -80,
+          width = 40,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {}
@@ -241,10 +512,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 320,
-          y = 0,
-          width = 40,
-          height = 560,
+          x = 200,
+          y = -40,
+          width = 160,
+          height = 600,
           rotation = 0,
           visible = true,
           properties = {}
@@ -255,8 +526,34 @@ return {
           type = "",
           shape = "rectangle",
           x = 120,
-          y = 520,
-          width = 200,
+          y = -80,
+          width = 40,
+          height = 640,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 90,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = -120,
+          width = 600,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 92,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = -40,
+          width = 160,
           height = 40,
           rotation = 0,
           visible = true,
@@ -371,9 +668,9 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 560,
+          x = 600,
           y = 640,
-          width = 320,
+          width = 280,
           height = 40,
           rotation = 0,
           visible = true,
@@ -403,6 +700,40 @@ return {
           height = 40,
           rotation = 0,
           visible = true,
+          properties = {}
+        },
+        {
+          id = 101,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 700,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 60, y = -60 }
+          },
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 600,
+          y = 140,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 60, y = -60 }
+          },
           properties = {}
         }
       }
@@ -488,6 +819,19 @@ return {
             ["dlc"] = "dlc_trials",
             ["solid"] = true
           }
+        },
+        {
+          id = 88,
+          name = "glowitem",
+          type = "",
+          shape = "point",
+          x = 705.818,
+          y = 137,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -626,7 +970,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
-          gid = 494,
+          gid = 2147484142,
           visible = true,
           properties = {}
         },
