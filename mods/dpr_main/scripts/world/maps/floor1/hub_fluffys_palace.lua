@@ -24,7 +24,7 @@ return {
       spacing = 0,
       margin = 0,
       columns = 13,
-      image = "../../../assets/sprites/tilesets/main_area.png",
+      image = "../../../../assets/sprites/tilesets/main_area.png",
       imagewidth = 260,
       imageheight = 320,
       objectalignment = "unspecified",
