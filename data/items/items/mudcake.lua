@@ -63,7 +63,8 @@ function item:init()
         nell = "Placeholder mud dialogue?", --Placeholder dialogue, please replace, Nell
         mario = "It's time for-a me to eat-a this M U D C A K E", --Placeholder dialogue, replace if you want
         apm = "unimplemented noises", --Placeholder dialogue, replace if you want
-        hero = "I'm placeholder dialogue." --Placeholder dialogue, replace if you want
+        hero = "I'm placeholder dialogue.", --Placeholder dialogue, replace if you want
+        lem = "I'm also placeholder dialogue" --Placehodler dialogue, pleace replace.
     }
 end
 
