@@ -481,10 +481,11 @@ function Mod:makeSpellsMissAgainstJackenstein()
 			return sprite
 		end
 
+        local x, y
 		if Game.battle.encounter.is_jackenstein then
-			local x, y = target:getRelativePos(target.width / 2, target.height / 2-60, Game.battle)
+			x, y = target:getRelativePos(target.width / 2, target.height / 2-60, Game.battle)
 		else
-			local x, y = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
+			x, y = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
 		end
 
 		local particles = {}
