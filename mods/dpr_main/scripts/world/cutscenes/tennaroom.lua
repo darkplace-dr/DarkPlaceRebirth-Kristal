@@ -174,12 +174,18 @@ return {
         end
         -- Game:setFlag("tenna_introduction_forecasted", true)
         local crude_c = true
-        local choice = cutscene:choicer({
+
+        local options = {
             "Money",
             "Authorities",
             "New Future!",
-            -- "Wings"
-        })
+        }
+
+        if math.random() <= 0.10 then
+            table.insert(options, "Identity")
+        end
+
+        local choice = cutscene:choicer(options)
         if choice == 1 then
             cutscene:text("* Oh MONEY you say??", "wink")
             cutscene:text("* Money? Are we sponsored by HONEY??", "troll")
@@ -194,18 +200,31 @@ return {
             cutscene:text("* With my lightspeedwings [font:main]sponsored all NEW FASHIONABLE[font:main_mono] pair of WINGS!", "smile")
         elseif choice == 3 then
             cutscene:text("* NEW Future!", "wink")
-            cutscene:text("* NEW like all MY shows! SOOOO relevant to the KIDS!", "smile")
+            cutscene:text("* NEW like all MY shows!\n* SOOOO relevant to the KIDS!", "smile")
             Assets.playSound("phone")
             cutscene:hideNametag()
             cutscene:wait(1)
             -- he recieves a call
             cutscene:showNametag("FC!Tenna")
-            cutscene:text("* Wait WHAT??? What are you SAYING???")
-            cutscene:text("* I'm... not... NEW?")
-            cutscene:text("* I'm in the OLD PAST?")
+            cutscene:text("* Wait, WHAT??? What are you SAYING???", "disapproving")
+            cutscene:text("* I'm... not... NEW?", "gasp")
+            cutscene:text("* I'm in the OLD PAST?", "gasp")
             cutscene:text("* ...", "sad")
             cutscene:text("* Sorry kids... I'm just gonna...", "sad")
             crude_c = false
+        elseif choice == 4 then
+            cutscene:text("* My IDENTITY!?", "gasp")
+            cutscene:text("* Well,[wait:5] that's an easy one!", "wink")
+            cutscene:text("* I'm deltarune", "smile_dated")
+            cutscene:hideNametag()
+            cutscene:wait(0.2)
+            cutscene:showNametag("FC!Tenna")
+            cutscene:text("* What's that face for?\n* Are you implying that...", "disapproving")
+            cutscene:text("* I'm... not... deltarune!?", "gasp")
+            cutscene:text("* ...", "smpte")
+            cutscene:text("* YOU'RE LYING![wait:5]\n* I'M DELTARUNE![wait:5]\n* I'M DELTARUNE!", "smile")
+            cutscene:text("* You're not DESERVING of my presence![wait:5]\n* I'm OUTTA HERE!", "troll")
+            crude_c = true
         end
         cutscene:hideNametag()
 
