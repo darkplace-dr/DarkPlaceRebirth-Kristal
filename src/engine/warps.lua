@@ -46,6 +46,9 @@ function self:loadWarps(path)
                 finalString = finalString .. "\"" .. id .. "\", "
             end
             
+            -- Remove last ","
+            finalString = string.sub(finalString,1,-3)
+            
             print("loaded warp variants " .. finalString)
         end
     end
