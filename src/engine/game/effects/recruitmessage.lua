@@ -49,8 +49,8 @@ function RecruitMessage:update()
 
     if (self.timer <= 5) then
         self.lerp_timer = self.lerp_timer + DTMULT
-        self.stretch_x = Utils.lerp(self.stretch_x, 1, (self.lerp_timer / 5))
-        self.stretch_y = Utils.lerp(self.stretch_y, 1, (self.lerp_timer / 5))
+        self.stretch_x = MathUtils.lerp(self.stretch_x, 1, (self.lerp_timer / 5))
+        self.stretch_y = MathUtils.lerp(self.stretch_y, 1, (self.lerp_timer / 5))
     end
 
     if (old_timer < 5 and self.timer >= 5) then
@@ -59,8 +59,8 @@ function RecruitMessage:update()
 
     if (self.timer >= 5 and self.timer <= 8) then
         self.lerp_timer = self.lerp_timer + DTMULT
-        self.stretch_x = Utils.lerp(self.stretch_x, 0.5, (self.lerp_timer / 3))
-        self.stretch_y = Utils.lerp(self.stretch_y, 2, (self.lerp_timer / 3))
+        self.stretch_x = MathUtils.lerp(self.stretch_x, 0.5, (self.lerp_timer / 3))
+        self.stretch_y = MathUtils.lerp(self.stretch_y, 2, (self.lerp_timer / 3))
     end
 
     if (old_timer < 8 and self.timer >= 8) then
@@ -69,8 +69,8 @@ function RecruitMessage:update()
 
     if (self.timer >= 8 and self.timer <= 10) then
         self.lerp_timer = math.min(self.lerp_timer + DTMULT, 2)
-        self.stretch_x = Utils.lerp(self.stretch_x, 1, (self.lerp_timer / 2))
-        self.stretch_y = Utils.lerp(self.stretch_y, 1, (self.lerp_timer / 2))
+        self.stretch_x = MathUtils.lerp(self.stretch_x, 1, (self.lerp_timer / 2))
+        self.stretch_y = MathUtils.lerp(self.stretch_y, 1, (self.lerp_timer / 2))
     end
 
     self.x = self.start_x + (self.width * self.stretch_x) / 2

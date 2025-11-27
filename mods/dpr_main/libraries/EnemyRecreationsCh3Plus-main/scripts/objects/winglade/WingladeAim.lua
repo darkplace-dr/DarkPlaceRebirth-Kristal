@@ -2,7 +2,7 @@
 local WingladeAim, super = Class(Object)
 
 local function approachCurve(val, target, amount)
-    return Utils.approach(val, target, math.max(0.1, math.abs(target - val) / amount) * DTMULT)
+    return MathUtils.approach(val, target, math.max(0.1, math.abs(target - val) / amount) * DTMULT)
 end
 
 function WingladeAim:init(attacker, wave)
@@ -80,7 +80,7 @@ function WingladeAim:update()
     end
 
     if self.reset then
-        self.attacker.rotation = Utils.lerp(self.attacker.rotation, 0, DTMULT * self.timer / 12) % math.rad(360)
+        self.attacker.rotation = MathUtils.lerp(self.attacker.rotation, 0, DTMULT * self.timer / 12) % math.rad(360)
     end
 
     local attackers = #Game.battle.enemies
@@ -103,15 +103,15 @@ function WingladeAim:update()
 
         if self.timer >= 24 and not self.code_1_executed then
             self.code_1_executed = true
-            self.temp_x = self.anchor_x + Utils.random(-20, 60, 1)
-            self.temp_y = self.anchor_y + Utils.random(-self.range, self.range, 1)
-            if wave_attackers < 2 or Utils.random(0, 2, 1) > 0 then
-                self.temp_angle = Utils.angle(self.temp_x, self.temp_y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(Utils.random(-6, 6, 1))
+            self.temp_x = self.anchor_x + MathUtils.roundToMultiple(MathUtils.random(-20, 60), 1)
+            self.temp_y = self.anchor_y + MathUtils.roundToMultiple(MathUtils.random(-self.range, self.range), 1)
+            if wave_attackers < 2 or MathUtils.roundToMultiple(MathUtils.random(0, 2), 1) > 0 then
+                self.temp_angle = MathUtils.angle(self.temp_x, self.temp_y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(MathUtils.roundToMultiple(MathUtils.random(-6, 6), 1))
             else
-                self.temp_angle = Utils.angle(self.temp_x, self.temp_y, Game.battle.arena.x - Game.battle.arena.width / 2, Game.battle.arena.y)
+                self.temp_angle = MathUtils.angle(self.temp_x, self.temp_y, Game.battle.arena.x - Game.battle.arena.width / 2, Game.battle.arena.y)
             end
             self.temp_angle = self.temp_angle % math.rad(360)
-            self.turn = Utils.lerp(self.attacker.rotation, self.temp_angle - math.rad(90), 10 * DTMULT) % math.rad(360)
+            self.turn = MathUtils.lerp(self.attacker.rotation, self.temp_angle - math.rad(90), 10 * DTMULT) % math.rad(360)
         end
         
         if self.timer >= 19 and not self.code_2_executed then
@@ -120,12 +120,12 @@ function WingladeAim:update()
         end
 
         if self.timer >= 19 and self.timer <= 24 and not self.first_turn then
-            self.attacker.rotation = Utils.lerp(self.attacker.rotation, self.save_angle + math.rad(30), (self.timer - 19) / 5 * DTMULT)
+            self.attacker.rotation = MathUtils.lerp(self.attacker.rotation, self.save_angle + math.rad(30), (self.timer - 19) / 5 * DTMULT)
         end
         
         if self.timer >= 24 and self.timer < 34 then
             self.first_turn = true
-            self.attacker.rotation = Utils.lerp(self.attacker.rotation, self.temp_angle - math.rad(90), (self.timer - 24) / 10 * DTMULT)
+            self.attacker.rotation = MathUtils.lerp(self.attacker.rotation, self.temp_angle - math.rad(90), (self.timer - 24) / 10 * DTMULT)
         end
 
         local fx = self.attacker.sprite:getFX('colormaskgreen')
@@ -145,8 +145,8 @@ function WingladeAim:update()
 
         if self.timer >= 39 and self.timer <= 42 then
             self.attacker.physics.speed = 0
-            self.attacker.x = Utils.lerp(self.save_x, self.target_x, (self.timer - 39) / 4)
-            self.attacker.y = Utils.lerp(self.save_y, self.target_y, (self.timer - 39) / 4)
+            self.attacker.x = MathUtils.lerp(self.save_x, self.target_x, (self.timer - 39) / 4)
+            self.attacker.y = MathUtils.lerp(self.save_y, self.target_y, (self.timer - 39) / 4)
             if fx then fx.amount = math.max(fx.amount - 0.4 * DTMULT, 0) end
             if not self.code_3_executed then
                 self.code_3_executed = true
@@ -167,9 +167,9 @@ function WingladeAim:update()
             local speed = (3.75 - (0.5 * attackers)) + (0.25 * wave_attackers)
             local friction = -0.035 + 0.015
             for i = -range, range do
-                local spawn_x = spawn_x_middle + math.cos(self.temp_angle + math.rad(155) * Utils.sign(i)) * math.abs(i) * 40
-                local spawn_y = spawn_y_middle + math.sin(self.temp_angle + math.rad(155) * Utils.sign(i)) * math.abs(i) * 40
-                local angle = self.attacker.rotation + math.rad(3 * math.abs(i) + (attackers * 3)) * Utils.sign(i)
+                local spawn_x = spawn_x_middle + math.cos(self.temp_angle + math.rad(155) * MathUtils.sign(i)) * math.abs(i) * 40
+                local spawn_y = spawn_y_middle + math.sin(self.temp_angle + math.rad(155) * MathUtils.sign(i)) * math.abs(i) * 40
+                local angle = self.attacker.rotation + math.rad(3 * math.abs(i) + (attackers * 3)) * MathUtils.sign(i)
                 local speed = (3.75 + math.abs(i) * 3.5 - (0.5 * attackers)) + (0.25 * wave_attackers)
                 local bullet = self:spawnBullet("winglade/batstab", spawn_x, spawn_y, angle, speed, friction)
                 bullet.physics.direction = self.attacker.physics.direction

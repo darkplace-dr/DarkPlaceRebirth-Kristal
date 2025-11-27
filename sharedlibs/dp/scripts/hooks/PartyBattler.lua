@@ -412,8 +412,8 @@ function PartyBattler:processJump()
         self.jump_timer = self.jump_timer + DT
         self.jump_speed = self.jump_speed - (self.fake_gravity * DTMULT)
         self.jump_arc_y = self.jump_arc_y - (self.jump_speed * DTMULT)
-        self.x = Utils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
-        self.real_y = Utils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
+        self.x = MathUtils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
+        self.real_y = MathUtils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
 
         self.x = self.x
         self.y = self.real_y + self.jump_arc_y

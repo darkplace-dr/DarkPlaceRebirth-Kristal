@@ -105,8 +105,8 @@ function OverworldSoul:update()
         progress = self.world.player.battle_alpha * 2
     end
 
-    self.x = Utils.lerp(sx, tx, progress * 1.5)
-    self.y = Utils.lerp(sy, ty, progress * 1.5)
+    self.x = MathUtils.lerp(sx, tx, progress * 1.5)
+    self.y = MathUtils.lerp(sy, ty, progress * 1.5)
     self.alpha = progress
 
     super.update(self)

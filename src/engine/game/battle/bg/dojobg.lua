@@ -16,7 +16,7 @@ function BG:update()
     super.update(self)
     self.fade = Game.battle.transition_timer / 10
     self.offset = self.offset + self.speed*DTMULT
-	self.discoball.y = Utils.lerp(-160, 0, self.fade)
+	self.discoball.y = MathUtils.lerp(-160, 0, self.fade)
     if self.offset >= 100 then
         self.offset = self.offset - 100
     end

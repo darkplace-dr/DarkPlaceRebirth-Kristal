@@ -22,7 +22,7 @@ function SharpshootHeart:init(x, y, cursor)
 
 	self.cursor = cursor or nil
 	
-	local angle = Utils.angle(self.x, self.y, cursor.x, cursor.y)
+	local angle = MathUtils.angle(self.x, self.y, cursor.x, cursor.y)
 	self.physics.direction = angle
 	self.physics.speed = 50
 	self.remove_offscreen = true
@@ -71,8 +71,8 @@ function SharpshootHeart:update()
 		end
 	end
 	for i = 0, 8 do
-		self.heart_afterimages[i+1].x = Utils.lerp((self.prevprevx-self.x)*(FPS/30), 0, i / 8)
-		self.heart_afterimages[i+1].y = Utils.lerp((self.prevprevy-self.y)*(FPS/30), 0, i / 8)
+		self.heart_afterimages[i+1].x = MathUtils.lerp((self.prevprevx-self.x)*(FPS/30), 0, i / 8)
+		self.heart_afterimages[i+1].y = MathUtils.lerp((self.prevprevy-self.y)*(FPS/30), 0, i / 8)
 		self.heart_afterimages[i+1].alpha = (0.1 + (i / 16)) * self.alpha
 	end
 	if self.timer >= 1 then
@@ -91,8 +91,8 @@ function SharpshootHeart:hitSomething()
 	effect.layer = BATTLE_LAYERS["top"]
 	effect:play(1/30, false, function(s) s:remove() end)
 	Game.battle:addChild(effect)
-	self.physics.speed_x = Utils.pick({2, -1, -2, 1})
-	self.physics.speed_y = -10 - Utils.random(3)
+	self.physics.speed_x = TableUtils.pick({2, -1, -2, 1})
+	self.physics.speed_y = -10 - MathUtils.random(3)
 	self.physics.gravity = 2
 	self.savey = self.y + 20
 end

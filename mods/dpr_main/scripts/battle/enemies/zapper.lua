@@ -81,7 +81,7 @@ function Zapper:update()
         end
 
         if self.changecolorcon == 0 then
-            self.colortarget2 = {self:HSV(Utils.random(0, 255, 1)/255, 250/255, 255/255)}
+            self.colortarget2 = {self:HSV(MathUtils.roundToMultiple(MathUtils.random(0, 255), 1)/255, 250/255, 255/255)}
 
             if self.changecolorcount == 5 then
                 self.colortarget2 = { 1, 1, 1 }
@@ -92,8 +92,8 @@ function Zapper:update()
         end
         if self.changecolorcon == 1 then
             self.changecolortimer = self.changecolortimer + (1 * DTMULT)
-            self:setColor(Utils.mergeColor(self.colortarget, self.colortarget2, self.changecolortimer / 3))
-            self.pitch = Utils.lerp(self.pitchtarget, self.pitchtarget2, self.changecolortimer / 3)
+            self:setColor(ColorUtils.mergeColor(self.colortarget, self.colortarget2, self.changecolortimer / 3))
+            self.pitch = MathUtils.lerp(self.pitchtarget, self.pitchtarget2, self.changecolortimer / 3)
             self.fountain_snd:setPitch(self.pitch)
 
             if self.changecolortimer == 3 then
@@ -125,7 +125,7 @@ function Zapper:onAct(battler, name)
             else
                 cutscene:text("* The bullets increased in\nvolume! Try getting close to\ngather TP!")
             end
-            self.dialogue_override = Utils.pick(self.dialogue_loud)
+            self.dialogue_override = TableUtils.pick(self.dialogue_loud)
             self.volumeturnups = self.volumeturnups + 1
         end)
         return
