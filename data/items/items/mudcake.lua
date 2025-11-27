@@ -22,6 +22,10 @@ function item:init()
 
     -- Amount healed (HealItem variable)
     self.heal_amount = 130
+    -- Amount this item heals for specific characters
+    self.heal_amounts = {
+        ["jamm"] = 0
+    }
 
     -- Default shop price (sell price is halved)
     self.price = 400
@@ -67,13 +71,6 @@ function item:init()
         hero = "I'm placeholder dialogue.", --Placeholder dialogue, replace if you want
         len = "I'm also placeholder dialogue" --Placehodler dialogue, pleace replace.
     }
-end
-
-function item:onWorldUse(target)
-    if TableUtils.contains({"jamm", "jamm+marcy"}, target.id) then  -- I don't fully remember how the assist party member system works
-        return false
-    end
-    return super.onWorldUse(self, target)
 end
 
 return item
