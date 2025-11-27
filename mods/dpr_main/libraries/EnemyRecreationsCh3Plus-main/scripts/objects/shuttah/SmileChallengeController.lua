@@ -13,10 +13,10 @@ function SmileChallengeController:init()
         local actor_sprite = ActorSprite('shuttahact')
 
         if i == 1 then
-            self.collider = Hitbox(actor_sprite, Utils.unpack(self.collider_properties))
+            self.collider = Hitbox(actor_sprite, TableUtils.unpack(self.collider_properties))
             actor_sprite:setSprite("smile")
         else
-            if Utils.random(1, 4, 1) == 1 then actor_sprite:setSprite("banana")
+            if MathUtils.roundToMultiple(MathUtils.random(1, 4), 1) == 1 then actor_sprite:setSprite("banana")
             else actor_sprite:setSprite("frown") end
         end
 
@@ -40,7 +40,7 @@ function SmileChallengeController:init()
         table.insert(self.color_sprites, color_sprite)
     end
 
-    self.sprite_rotation_orig = Utils.random(1, 360)
+    self.sprite_rotation_orig = MathUtils.random(1, 360+1)
     self.sprite_rotation = 0
     self.center_x = SCREEN_WIDTH / 2
     self.center_y = 220
@@ -60,14 +60,14 @@ function SmileChallengeController:update()
         local flip_speed = 15
         if self.flip_timer >= -180 / flip_speed then self.scale_timer = self.scale_timer + DTMULT * flip_speed
         else
-            self.scale_timer = Utils.round(self.scale_timer, 180)
+            self.scale_timer = MathUtils.round(self.scale_timer, 180)
             if math.floor(self.scale_timer / 180) % 2 == 1 then
                 self.flip_timer = 10
             else
                 if not self.flipped then
                     self.flip_timer = 30
                     self.flipped = true
-                else self.flip_timer = Utils.random(10, 40, 1) end
+                else self.flip_timer = MathUtils.roundToMultiple(MathUtils.random(10, 40), 1) end
             end
         end
     end
@@ -82,19 +82,19 @@ function SmileChallengeController:update()
         color_sprite:setLayer(math.sin(rotation) - 0.01)
         actor_sprite.scale_x = math.cos(math.rad(self.scale_timer)) * -2
         color_sprite.scale_x = math.cos(math.rad(self.scale_timer)) * -2
-        local x, y, width, height = Utils.unpack(self.collider_properties)
+        local x, y, width, height = TableUtils.unpack(self.collider_properties)
         local width_new = math.cos(math.rad(self.scale_timer)) * width
         local x_new = x + width / 2 - width_new / 2
         self.collider.x = x_new
         self.collider.width = width_new
 
-        local r1, g1, b1 = Utils.unpack(index == 1 and COLORS.lime or COLORS.red)
+        local r1, g1, b1 = TableUtils.unpack(index == 1 and COLORS.lime or COLORS.red)
         local r, g, b = 1/2, 1, 1
         local progress = (self.timer - 40) / 10
         color_sprite:getFX('colormask'):setColor(
-            Utils.lerp(r1, r, progress),
-            Utils.lerp(g1, g, progress),
-            Utils.lerp(b1, b, progress)
+            MathUtils.lerp(r1, r, progress),
+            MathUtils.lerp(g1, g, progress),
+            MathUtils.lerp(b1, b, progress)
         )
 
         if actor_sprite.scale_x < 0 then

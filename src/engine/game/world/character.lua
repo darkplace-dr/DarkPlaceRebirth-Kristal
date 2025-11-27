@@ -123,7 +123,7 @@ function Character:setFacing(dir)
 end
 
 function Character:faceTowards(target)
-    self:setFacing(Utils.facingFromAngle(Utils.angle(self.x, self.y, target.x, target.y)))
+    self:setFacing(Utils.facingFromAngle(MathUtils.angle(self.x, self.y, target.x, target.y)))
 end
 
 function Character:facePlayer()
@@ -197,7 +197,7 @@ function Character:doMoveAmount(type, amount, other_amount)
 
     local other = type == "x" and "y" or "x"
 
-    local sign = Utils.sign(amount)
+    local sign = MathUtils.sign(amount)
     for i = 1, math.ceil(math.abs(amount)) do
         local moved = sign
         if (i > math.abs(amount)) then
@@ -560,8 +560,8 @@ function Character:processJump()
         self.jump_timer = self.jump_timer + DT
         self.jump_speed = self.jump_speed - (self.fake_gravity * DTMULT)
         self.jump_arc_y = self.jump_arc_y - (self.jump_speed * DTMULT)
-        self.x = Utils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
-        self.real_y = Utils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
+        self.x = MathUtils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
+        self.real_y = MathUtils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
 
         self.x = self.x
         self.y = self.real_y + self.jump_arc_y

@@ -96,8 +96,8 @@ function Follower:getTargetPosition()
 
                 local t = (follow_delay - lower) / (upper - lower)
 
-                tx = Utils.lerp(prev.x, v.x, t)
-                ty = Utils.lerp(prev.y, v.y, t)
+                tx = MathUtils.lerp(prev.x, v.x, t)
+                ty = MathUtils.lerp(prev.y, v.y, t)
             end
             break
         end
@@ -138,7 +138,7 @@ function Follower:interpolateHistory()
     target.last_move_x = target.x
     target.last_move_y = target.y
 
-    local new_facing = Utils.facingFromAngle(Utils.angle(self.x, self.y, target.x, target.y))
+    local new_facing = Utils.facingFromAngle(MathUtils.angle(self.x, self.y, target.x, target.y))
     self.history = {
         {x = target.x, y = target.y, facing = target.facing, time = self.history_time, state = target.state, state_args = target.state_manager.args},
         {x = self.x, y = self.y, facing = new_facing, time = self.history_time - self:getFollowDelay(), state = self.state, state_args = target.state_manager.args}

@@ -302,8 +302,8 @@ function LightEnemyBattler:spare(pacify)
         Game.battle.spare_sound:play()
 
         for i = 0, 15 do
-            local x = ((Utils.random((self.width / 2)) + (self.width / 4))) - 8
-            local y = ((Utils.random((self.height / 2)) + (self.height / 4))) - 8
+            local x = ((MathUtils.random((self.width / 2)) + (self.width / 4))) - 8
+            local y = ((MathUtils.random((self.height / 2)) + (self.height / 4))) - 8
 
             local sx, sy = self:getRelativePos(x, y)
 
@@ -330,7 +330,7 @@ function LightEnemyBattler:getSpareText(battler, success)
     if success then
         return "* " .. battler.chara:getNameOrYou() .. " spared " .. self.name .. "."
     else
-        local text = "* " .. battler.chara:getNameOrYou() .. " spared " .. self.name .. ".\n* But its name wasn't [color:"..Utils.rgbToHex(MagicalGlassLib.spare_color).."]"..MagicalGlassLib.spare_color_name.."[color:reset]..."
+        local text = "* " .. battler.chara:getNameOrYou() .. " spared " .. self.name .. ".\n* But its name wasn't [color:"..ColorUtils.RGBToHex(TableUtils.unpack(MagicalGlassLib.spare_color)).."]"..MagicalGlassLib.spare_color_name.."[color:reset]..."
         if self.tired then
             local found_spell = nil
             for _,party in ipairs(Game.battle.party) do
@@ -425,7 +425,7 @@ function LightEnemyBattler:addTemporaryMercy(amount, play_sound, clamp, kill_con
     self.temporary_mercy = self.temporary_mercy + amount
 
     local min, max = clamp[1], clamp[2]
-    self.temporary_mercy = Utils.clamp(self.temporary_mercy, min, max)
+    self.temporary_mercy = MathUtils.clamp(self.temporary_mercy, min, max)
 
     if Kristal.getLibConfig("magical-glass", "mercy_messages") then
         if self.temporary_mercy == 0 then
@@ -504,10 +504,10 @@ function LightEnemyBattler:mercyFlash(color)
 
     local recolor = self:addFX(RecolorFX())
     Game.battle.timer:during(8/30, function()
-        recolor.color = Utils.lerp(recolor.color, color, 0.12 * DTMULT)
+        recolor.color = ColorUtils.mergeColor(recolor.color, color, 0.12 * DTMULT)
     end, function()
         Game.battle.timer:during(8/30, function()
-            recolor.color = Utils.lerp(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
+            recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
         end, function()
             self:removeFX(recolor)
         end)
@@ -545,7 +545,7 @@ function LightEnemyBattler:getEncounterText()
         return self.spareable_text
     end
 
-    return Utils.pick(self.text)
+    return TableUtils.pick(self.text)
 end
 
 function LightEnemyBattler:getTarget()
@@ -558,7 +558,7 @@ function LightEnemyBattler:getEnemyDialogue()
         self.dialogue_override = nil
         return dialogue
     end
-    return Utils.pick(self.dialogue)
+    return TableUtils.pick(self.dialogue)
 end
 
 function LightEnemyBattler:getNextWaves()
@@ -581,7 +581,7 @@ end
 function LightEnemyBattler:selectWave()
     local waves = self:getNextWaves()
     if waves and #waves > 0 then
-        local wave = Utils.pick(waves)
+        local wave = TableUtils.pick(waves)
         self.selected_wave = wave
         return wave
     end
@@ -590,7 +590,7 @@ end
 function LightEnemyBattler:selectMenuWave()
     local waves = self:getNextMenuWaves()
     if waves and #waves > 0 then
-        local wave = Utils.pick(waves)
+        local wave = TableUtils.pick(waves)
         self.selected_menu_wave = wave
         return wave
     end
@@ -648,7 +648,7 @@ function LightEnemyBattler:hurt(amount, battler, on_defeat, color, anim, show_st
     end
     if self.immune_to_damage then
         amount = 0
-        if attacked and (Game.battle:getCurrentAction() and not Utils.containsValue({"SPELL", "ATTACK", "AUTOATTACK"}, Game.battle:getCurrentAction().action) or not battler) then
+        if attacked and (Game.battle:getCurrentAction() and not TableUtils.contains({"SPELL", "ATTACK", "AUTOATTACK"}, Game.battle:getCurrentAction().action) or not battler) then
             self:onDodge(battler, true)
         end
     end
@@ -719,7 +719,7 @@ end
 function LightEnemyBattler:getAttackDamage(damage, lane, points, stretch)
     local crit = false
     local total_damage
-    if isClass(lane) and Utils.getClassName(lane) == "LightPartyBattler" then
+    if isClass(lane) and ClassUtils.getClassName(lane) == "LightPartyBattler" then
         if damage > 0 then
             return damage
         end
@@ -727,14 +727,14 @@ function LightEnemyBattler:getAttackDamage(damage, lane, points, stretch)
         local battler = lane
         
         if Game:isLight() then
-            total_damage = (battler.chara:getStat("attack") - self.defense) + Utils.random(0, 2, 1)
+            total_damage = (battler.chara:getStat("attack") - self.defense) + MathUtils.random(0, 2, 1)
         else
-            total_damage = (battler.chara:getStat("attack") * 3.375 - self.defense * 1.363) + Utils.random(0, 2, 1)
+            total_damage = (battler.chara:getStat("attack") * 3.375 - self.defense * 1.363) + MathUtils.random(0, 2, 1)
         end
         if points == 150 then
-            total_damage = Utils.round(total_damage * (battler.chara:getWeapon() and Utils.containsValue(battler.chara:getWeapon().tags, "crit_nerf") and 2.1 or 2.2))
+            total_damage = MathUtils.round(total_damage * (battler.chara:getWeapon() and TableUtils.contains(battler.chara:getWeapon().tags, "crit_nerf") and 2.1 or 2.2))
         else
-            total_damage = Utils.round((total_damage * stretch) * 2)
+            total_damage = MathUtils.round((total_damage * stretch) * 2)
         end
         
         if Game.battle:getActionBy(battler).critical then
@@ -763,7 +763,7 @@ function LightEnemyBattler:getAttackDamage(damage, lane, points, stretch)
             total_damage = (lane.battler.chara:getStat("attack") * 3.375 - self.defense * 1.363)
         end
         total_damage = total_damage * ((points / 160) * (4 / bolt_count))
-        total_damage = Utils.round(total_damage * (points > (400 * (bolt_count / 4)) and Utils.containsValue(lane.weapon.tags, "crit_nerf") and (21/22) or 1)) + Utils.random(0, 2, 1)
+        total_damage = MathUtils.round(total_damage * (points > (400 * (bolt_count / 4)) and TableUtils.contains(lane.weapon.tags, "crit_nerf") and (21/22) or 1)) + MathUtils.roundToMultiple(MathUtils.random(0, 2), 1)
 
         if points > (400 * (bolt_count / 4)) then
             crit = true
@@ -784,15 +784,15 @@ function LightEnemyBattler:getAttackDamage(damage, lane, points, stretch)
         end
 
         if Game:isLight() then
-            total_damage = (lane.battler.chara:getStat("attack") - self.defense) + Utils.random(0, 2, 1)
+            total_damage = (lane.battler.chara:getStat("attack") - self.defense) + MathUtils.roundToMultiple(MathUtils.random(0, 2), 1)
         else
-            total_damage = (lane.battler.chara:getStat("attack") * 3.375 - self.defense * 1.363) + Utils.random(0, 2, 1)
+            total_damage = (lane.battler.chara:getStat("attack") * 3.375 - self.defense * 1.363) + MathUtils.random(0, 2, 1)
         end
         if points <= 12 then
-            total_damage = Utils.round(total_damage * (lane.weapon and Utils.containsValue(lane.weapon.tags, "crit_nerf") and 2.1 or 2.2))
+            total_damage = MathUtils.round(total_damage * (lane.weapon and TableUtils.contains(lane.weapon.tags, "crit_nerf") and 2.1 or 2.2))
             crit = true
         else
-            total_damage = Utils.round((total_damage * stretch) * 2)
+            total_damage = MathUtils.round((total_damage * stretch) * 2)
         end
         
         if crit then
@@ -832,7 +832,7 @@ function LightEnemyBattler:onHurt(damage, battler)
     self.hurt_timer = 1
     self:toggleOverlay(true)
     if battler then
-        Game:giveTension(Utils.round(self:getAttackTension(battler.tp_gain or 0)))
+        Game:giveTension(MathUtils.round(self:getAttackTension(battler.tp_gain or 0)))
         battler.tp_gain = 0
     end
     if self.actor.use_light_battler_sprite then
@@ -1038,7 +1038,7 @@ function LightEnemyBattler:lightStatusMessage(type, arg, color, kill)
         self.light_hit_count = 0
     end
     
-    local offset_x, offset_y = Utils.unpack(self:getDamageOffset())
+    local offset_x, offset_y = TableUtils.unpack(self:getDamageOffset())
     
     local function y_msg_position()
         return y + (offset_y - 1) - (not kill and self.light_hit_count * 32 or 0)
@@ -1237,7 +1237,7 @@ function LightEnemyBattler:update()
     end
 
     if self.hurt_timer > 0 then
-        self.hurt_timer = Utils.approach(self.hurt_timer, 0, DT)
+        self.hurt_timer = MathUtils.approach(self.hurt_timer, 0, DT)
 
         if self.hurt_timer == 0 then
             self:onHurtEnd()
@@ -1245,7 +1245,7 @@ function LightEnemyBattler:update()
     end
     
     if self.temporary_mercy_percent and self.temporary_mercy_percent.kill_condition_succeed then
-        self.mercy = Utils.clamp(self.mercy + self.temporary_mercy, 0, 100)
+        self.mercy = MathUtils.clamp(self.mercy + self.temporary_mercy, 0, 100)
         self.temporary_mercy = 0
         self.temporary_mercy_percent = nil
     end

@@ -64,7 +64,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     table.insert(enemy.dmg_sprites, sprite)
     sprite:setScale(2)
     sprite:setOrigin(0.5)
-    local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
+    local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (TableUtils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
     sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
     sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
     sprite.color = {battler.chara:getLightMultiboltAttackColor()}
@@ -73,15 +73,15 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
     end
 
     Game.battle.timer:after(6/30, function()
         sprite:remove()
-        Utils.removeFromTable(enemy.dmg_sprites, sprite)
+        TableUtils.removeValue(enemy.dmg_sprites, sprite)
 
         local stars = {}
         for i = 0, 7 do
@@ -95,7 +95,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star.star_size = 0.5
             star.rotation = math.rad(20 * i)
             star.visible = false
-            local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
+            local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (TableUtils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
             star:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
             star.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
             star.init_x = star.x
@@ -103,9 +103,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star.color = {battler.chara:getLightMultiboltAttackColor()}
             if crit then
                 if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-                    star:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+                    star:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
                 else
-                    star:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+                    star:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
                 end
                 Assets.stopAndPlaySound("saber3")
             end
@@ -141,7 +141,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
                 if star.star_sine_amt <= 0.5 then
                     star:remove()
-                    Utils.removeFromTable(enemy.dmg_sprites, star)
+                    TableUtils.removeValue(enemy.dmg_sprites, star)
                 end
             end
         end)
@@ -156,7 +156,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             local ring_shots = 0
             ring:setScale(1)
             ring:setOrigin(0.5)
-            local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
+            local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (TableUtils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
             ring:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
             ring.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
             ring.color = {battler.chara:getLightMultiboltAttackColor()}
@@ -164,9 +164,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     
             if crit then
                 if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-                    ring:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+                    ring:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
                 else
-                    ring:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+                    ring:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
                 end
             end
     
@@ -186,7 +186,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
                     ring_size = ring_size - 0.3 * DTMULT
                     if ring.alpha < 0.1 then
                         ring:remove()
-                        Utils.removeFromTable(enemy.dmg_sprites, ring)
+                        TableUtils.removeValue(enemy.dmg_sprites, ring)
                     end
                 end
     

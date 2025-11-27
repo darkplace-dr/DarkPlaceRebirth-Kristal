@@ -87,22 +87,22 @@ function WingladeActorSprite:update()
     if anim == 'idle' or anim == 'spared' then
         self.eye_timer = self.eye_timer + DTMULT
         if self.eye_timer > 30 and not self.eye_target_set then
-            local eye_angle = 160 + Utils.random(0, 40, 1)
+            local eye_angle = 160 + MathUtils.roundToMultiple(MathUtils.random(0, 40), 1)
             self.eye_target_x = math.cos(math.rad(eye_angle)) * 3
             self.eye_target_y = math.sin(math.rad(eye_angle)) * 3
             self.eye_target_set = true
         end
         if self.eye_timer > 90 then
             self.eye_target_set = false
-            self.eye_timer = Utils.random(0, 8, 1) - Utils.random(0, 8, 1)
+            self.eye_timer = MathUtils.roundToMultiple(MathUtils.random(0, 8), 1) - MathUtils.roundToMultiple(MathUtils.random(0, 8), 1)
             self.eye_target_x = 0
             self.eye_target_y = 0
         end
         local eye_start_x, eye_start_y = self.eye_default_position[1], self.eye_default_position[2]
-        self.eye_white.x = Utils.lerp(self.eye_white.x, eye_start_x + self.eye_target_x / 5, 0.2 * DTMULT)
-        self.eye_white.y = Utils.lerp(self.eye_white.y, eye_start_y + self.eye_target_y / 5, 0.2 * DTMULT)
-        self.eye_pupil.x = Utils.lerp(self.eye_pupil.x, eye_start_x + self.eye_target_x, 0.2 * DTMULT)
-        self.eye_pupil.y = Utils.lerp(self.eye_pupil.y, eye_start_y + self.eye_target_y, 0.2 * DTMULT)
+        self.eye_white.x = MathUtils.lerp(self.eye_white.x, eye_start_x + self.eye_target_x / 5, 0.2 * DTMULT)
+        self.eye_white.y = MathUtils.lerp(self.eye_white.y, eye_start_y + self.eye_target_y / 5, 0.2 * DTMULT)
+        self.eye_pupil.x = MathUtils.lerp(self.eye_pupil.x, eye_start_x + self.eye_target_x, 0.2 * DTMULT)
+        self.eye_pupil.y = MathUtils.lerp(self.eye_pupil.y, eye_start_y + self.eye_target_y, 0.2 * DTMULT)
     end
     if anim == 'spared' then
         self.eye_pupil.visible = false
@@ -112,8 +112,8 @@ function WingladeActorSprite:update()
     if anim == 'retract' or anim == 'retract_shoot' then
         self.retract_timer = self.retract_timer + DTMULT
 
-        self.horn.scale_y = Utils.clamp(1 - self.retract_timer / 10, 0, 1)
-        self.sword.scale_y = Utils.clamp(1 - self.retract_timer / 10, 0, 1)
+        self.horn.scale_y = MathUtils.clamp(1 - self.retract_timer / 10, 0, 1)
+        self.sword.scale_y = MathUtils.clamp(1 - self.retract_timer / 10, 0, 1)
 
         self:addColorMask(self.left_wing, COLORS.black, 0.5, 'colormask')
         self:addColorMask(self.right_wing, COLORS.black, 0.5, 'colormask')
@@ -123,9 +123,9 @@ function WingladeActorSprite:update()
         self:addColorMask(self.eye_white, COLORS.white, 0, 'colormaskwhite')
         self:addColorMask(self.eye_pupil, COLORS.white, 0, 'colormaskwhite')
     else
-        self.retract_timer = Utils.clamp(self.retract_timer - DTMULT, 0, 10)
-        self.horn.scale_y = Utils.clamp(1 - self.retract_timer / 10, 0, 1)
-        self.sword.scale_y = Utils.clamp(1 - self.retract_timer / 10, 0, 1)
+        self.retract_timer = MathUtils.clamp(self.retract_timer - DTMULT, 0, 10)
+        self.horn.scale_y = MathUtils.clamp(1 - self.retract_timer / 10, 0, 1)
+        self.sword.scale_y = MathUtils.clamp(1 - self.retract_timer / 10, 0, 1)
         if self.retract_timer == 0 then
             if self.left_wing:getFX('colormask') then self.left_wing:removeFX('colormask') end
             if self.right_wing:getFX('colormask') then self.right_wing:removeFX('colormask') end
@@ -147,16 +147,16 @@ function WingladeActorSprite:update()
         local x_screen_pos, y_screen_pos = self:getScreenPos()
         x_screen_pos, y_screen_pos = x_screen_pos + self.eye_default_position[1], y_screen_pos + self.eye_default_position[2]
         local x_soul, y_soul = Game.battle.soul.x, Game.battle.soul.y
-        local eye_angle = Utils.angle(x_screen_pos + 27, y_screen_pos + 23, x_soul, y_soul)
+        local eye_angle = MathUtils.angle(x_screen_pos + 27, y_screen_pos + 23, x_soul, y_soul)
         self.eye_pupil.visible = true
         self.eye_white:setSprite(self:getTexturePath("eye_white"))
         local eye_start_x, eye_start_y = self.eye_default_position[1], self.eye_default_position[2]
         self.eye_target_x = math.cos(eye_angle) * 2
         self.eye_target_y = math.sin(eye_angle) * 2
-        self.eye_white.x = Utils.lerp(self.eye_white.x, eye_start_x + self.eye_target_x / 5, 0.2 * DTMULT)
-        self.eye_white.y = Utils.lerp(self.eye_white.y, eye_start_y + self.eye_target_y / 5, 0.2 * DTMULT)
-        self.eye_pupil.x = Utils.lerp(self.eye_pupil.x, eye_start_x + self.eye_target_x, 0.2 * DTMULT)
-        self.eye_pupil.y = Utils.lerp(self.eye_pupil.y, eye_start_y + self.eye_target_y, 0.2 * DTMULT)
+        self.eye_white.x = MathUtils.lerp(self.eye_white.x, eye_start_x + self.eye_target_x / 5, 0.2 * DTMULT)
+        self.eye_white.y = MathUtils.lerp(self.eye_white.y, eye_start_y + self.eye_target_y / 5, 0.2 * DTMULT)
+        self.eye_pupil.x = MathUtils.lerp(self.eye_pupil.x, eye_start_x + self.eye_target_x, 0.2 * DTMULT)
+        self.eye_pupil.y = MathUtils.lerp(self.eye_pupil.y, eye_start_y + self.eye_target_y, 0.2 * DTMULT)
     end
 end
 

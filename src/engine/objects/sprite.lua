@@ -183,7 +183,7 @@ function Sprite:setTextureExact(texture)
     self.texture_path = Assets.getTextureID(texture)
     if not self.texture then
         if texture ~= nil then
-            Kristal.Console:warn("Texture not found: " .. Utils.dump(texture))
+            Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
 
 			if not (self.disallow_replacement_texture or (self.actor and self.actor.disallow_replacement_texture)) then
 				self.texture = Assets.getTexture("ui/missing_texture")
@@ -296,7 +296,7 @@ function Sprite:setAnimation(anim)
         if anim.next then
             local next = anim.next
             if type(anim.next) == "table" then
-                next = Utils.pick(anim.next)
+                next = TableUtils.pick(anim.next)
             end
             local old_callback = self.anim_callback
             self.anim_callback = function(s)
@@ -528,10 +528,10 @@ function Sprite:draw()
     local r,g,b,a = self:getDrawColor()
     local function drawSprite(...)
         if self.crossfade_alpha > 0 and self.crossfade_texture ~= nil then
-            Draw.setColor(r, g, b, self.crossfade_out and Utils.lerp(a, 0, self.crossfade_alpha) or a)
+            Draw.setColor(r, g, b, self.crossfade_out and MathUtils.lerp(a, 0, self.crossfade_alpha) or a)
             Draw.draw(self.texture, ...)
 
-            Draw.setColor(r, g, b, Utils.lerp(0, a, self.crossfade_alpha))
+            Draw.setColor(r, g, b, MathUtils.lerp(0, a, self.crossfade_alpha))
             Draw.draw(self.crossfade_texture, ...)
         else
             Draw.setColor(r, g, b, a)

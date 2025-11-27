@@ -22,13 +22,13 @@ function ShadowguyTommyGun:update()
 	if Game.battle.wave_timer > Game.battle.wave_length - 13/30 then
 		self.guntimer = self.guntimer - DTMULT
 		for _, enemy in ipairs(self.enemies) do
-			enemy.x = Utils.lerp(enemy.x, enemy.xx, (12 - self.guntimer)/12)
+			enemy.x = MathUtils.lerp(enemy.x, enemy.xx, (12 - self.guntimer)/12)
 		end
 	elseif Game.battle.arena then
 		self.guntimer = self.guntimer + DTMULT
 		if self.guntimer < 14 then
 			for _, enemy in ipairs(self.enemies) do
-				enemy.x = Utils.lerp(enemy.x, Game.battle.arena.right + 122 + 62, 0.16*DTMULT)
+				enemy.x = MathUtils.lerp(enemy.x, Game.battle.arena.right + 122 + 62, 0.16*DTMULT)
 			end
 		else
 			self.guntimer = 12
@@ -87,10 +87,10 @@ function ShadowguyTommyGun:onStart()
 					maxbullets = 4
 				end
 				for i = 1, maxbullets do
-					Assets.stopAndPlaySound("gunshot_b", 0.7, 0.95 + (Utils.random(10) / 100))
-					local bullet_speed = 4 + Utils.random(2)
+					Assets.stopAndPlaySound("gunshot_b", 0.7, 0.95 + (MathUtils.random(10) / 100))
+					local bullet_speed = 4 + MathUtils.random(2)
 					if #Game.battle.waves >= 2 or self.sameattack >= 1 then
-						bullet_speed = 4 + Utils.random(1)
+						bullet_speed = 4 + MathUtils.random(1)
 					end
 					self.timer:script(function(wait)
 						actor.x = actor.x - 1
@@ -109,7 +109,7 @@ function ShadowguyTommyGun:onStart()
 					end
 					while self.rep > 0 do
 						local x, y = enemy.x - enemy.sprite.texture:getWidth() + 6 + (math.cos(actor.gun_rot) * actor.gunshake), enemy.y - 58*2 + 63 + (math.sin(actor.gun_rot) * actor.gunshake)
-						actor.gun_rot = Utils.angle(x, y, Game.battle.arena.x, Game.battle.arena.y) - math.rad(30) + math.rad(love.math.random(0,60))
+						actor.gun_rot = MathUtils.angle(x, y, Game.battle.arena.x, Game.battle.arena.y) - math.rad(30) + math.rad(love.math.random(0,60))
 						if self.type == 1 then
 							actor.gun_rot = math.rad(120 - love.math.random(0,90))
 						end
@@ -117,7 +117,7 @@ function ShadowguyTommyGun:onStart()
 						self.count = self.count + 1
 						if self.count == 5 and #Game.battle.waves < 3 then
 							self.count = -10
-							actor.gun_rot = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(6) - math.rad(love.math.random(0,12))
+							actor.gun_rot = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(6) - math.rad(love.math.random(0,12))
 						end
 						local x, y = enemy.x - enemy.sprite.texture:getWidth() + 6 + (math.cos(actor.gun_rot) * 60), enemy.y - 58*2 + 64 + (math.sin(actor.gun_rot) * 60)
 						--x, y = gun:getRelativePos(9, 32, Game.battle)

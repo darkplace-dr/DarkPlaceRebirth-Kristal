@@ -72,7 +72,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     local hit = false
     sprite:setOrigin(0.5)
     sprite:setScale(2)
-    local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (Utils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
+    local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (TableUtils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
     sprite:setPosition(relative_pos_x + enemy.dmg_sprite_offset[1], relative_pos_y + enemy.dmg_sprite_offset[2])
     sprite.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
     sprite.color = {battler.chara:getLightMultiboltAttackColor()}
@@ -80,9 +80,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(Utils.lerp(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(Utils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
     end
     
@@ -109,7 +109,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
                 if sprite.alpha < 0.1 then
                     sprite:remove()
-                    Utils.removeFromTable(enemy.dmg_sprites, sprite)
+                    TableUtils.removeValue(enemy.dmg_sprites, sprite)
                 end
             end
         end
@@ -117,7 +117,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     end,
     function(this)
         sprite:remove()
-        Utils.removeFromTable(enemy.dmg_sprites, sprite)
+        TableUtils.removeValue(enemy.dmg_sprites, sprite)
     end)
     
     Game.battle.timer:after(24/30, function()
