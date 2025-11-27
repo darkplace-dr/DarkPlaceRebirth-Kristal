@@ -53,7 +53,8 @@ function item:init()
         noelle = "C- can I not? Please?",
         --floyde = "Woah, this tastes horrid!", --This is a character in my mod which I have not added yet; uncomment when added -- Not gonna uncomment, but it doesn't break anything uncommented
         ceroba = "I guess if I have to eat it.", --Placeholder dialogue, replace if you want
-        jamm = "I mean, it's good for your skin, so...",
+        jamm = "Nope. I'm drawing the line here.",
+        ["jamm+marcy"] = "We're not eating this.",
         brenda = "Placeholder mud dialogue!",--Placeholder dialogue, please replace, Brenda
         berdly = "These are yummy worms.", --Placeholder dialogue, replace if you want
         dess = "Mmm yummy dirt",  --Placeholder dialogue, replace if you want
@@ -66,6 +67,13 @@ function item:init()
         hero = "I'm placeholder dialogue.", --Placeholder dialogue, replace if you want
         len = "I'm also placeholder dialogue" --Placehodler dialogue, pleace replace.
     }
+end
+
+function item:onWorldUse(target)
+    if TableUtils.contains({"jamm", "jamm+marcy"}, target.id) then  -- I don't fully remember how the assist party member system works
+        return false
+    end
+    return super.onWorldUse(self, target)
 end
 
 return item
