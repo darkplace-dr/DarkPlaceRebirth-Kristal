@@ -66,7 +66,7 @@ end
 
 --- Handles opening the chest and giving the player their items
 function GlowItem:onInteract(player, dir)
-    if not self:getFlag("grabbed") then return end
+    if self:getFlag("grabbed") == true then return end
 
     local name, success, result_text
     self.sprite.alpha = 0
@@ -99,7 +99,7 @@ function GlowItem:onInteract(player, dir)
             result_text})
     else
         local flavourtext = {
-            {"* (The glow dissipates and dies.\n taking its contents with it.)",
+            {"* (The glow dissipates and dies.\ntaking its contents with it.)",
             function() Assets.playSound("crowd_gasp") end},
             {"* (The item ran away.)",
             function() local snds = {"defeatrun","him_quick","hypnosis"} Assets.playSound(snds[love.math.random(1,#snds)]) end},
@@ -107,9 +107,8 @@ function GlowItem:onInteract(player, dir)
             function() Assets.playSound("crowd_crickets") end},
             {"* (You sneeze, [sound:]the item flies away.)",
             function() Assets.playSound("jackolantern_dizzy") end},
-            {"Hello? is anyone there?\nits soo dark...\ns o o . . . s o o . . . d a r k . . .",
-            -- H E L P  M E
-            function() print("Find her...") print("You have to find her") print("Before she finds YOU") end},
+            {"* You close your eyes...\nand when you open them again\n* What?!! the item its gone!",
+            function() Assets.playSound("board_text_end") end},
             {"* (The item cried away.)",
             function() Assets.playSound("closet_fall") end}
         }
@@ -122,10 +121,12 @@ function GlowItem:onInteract(player, dir)
             text = flavourtext[2]
         elseif rng >= 23 and rng < 27 then
             text = flavourtext[3]
-        elseif rng >= 32 and rng < 34 then
+        elseif rng >= 32 and rng < 35 then
             text = flavourtext[4]
-        elseif rng == 66 and Game:getFlag("FUN") == 6 then
-            text = flavourtext[5+love.math.random(0,100)] or flavourtext[6]
+        elseif rng >= 36 and rng < 38 then
+            text = flavourtext[5]
+        elseif rng > 38 then
+            text = flavourtext[6]
         end
         if type(text) == "table" then
             text[2]()
