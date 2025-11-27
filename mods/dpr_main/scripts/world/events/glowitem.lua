@@ -66,78 +66,77 @@ end
 
 --- Handles opening the chest and giving the player their items
 function GlowItem:onInteract(player, dir)
-    if not self:getFlag("grabbed") then
+    if not self:getFlag("grabbed") then return end
 
-        local name, success, result_text
-        self.sprite.alpha = 0
-        self:setFlag("grabbed", true)
-        if self.item then
-            local item = self.item
-            if type(item) == "string" then
-                item = Registry.createItem(self.item)
-            end
-            success, result_text = Game.inventory:tryGiveItem(item)
-            if success then
-                Assets.playSound(self.sound)
-            end
-            name = item:getName()
-        elseif self.money then
-            name = self.money.." "..Game:getConfig("darkCurrency")
-            success = true
-            result_text = "* ([color:yellow]"..name.."[color:reset] was added to your [color:yellow]MONEY HOLE[color:reset].)"
-            Game.money = Game.money + self.money
+    local name, success, result_text
+    self.sprite.alpha = 0
+    self:setFlag("grabbed", true)
+    if self.item then
+        local item = self.item
+        if type(item) == "string" then
+            item = Registry.createItem(self.item)
         end
+        success, result_text = Game.inventory:tryGiveItem(item)
+        if success then
+            Assets.playSound(self.sound)
+        end
+        name = item:getName()
+    elseif self.money then
+        name = self.money.." "..Game:getConfig("darkCurrency")
+        success = true
+        result_text = "* ([color:yellow]"..name.."[color:reset] was added to your [color:yellow]MONEY HOLE[color:reset].)"
+        Game.money = Game.money + self.money
+    end
 
-        print("Name = " .. tostring(name))
-        if name then
-            if not success then
-                self.sprite.alpha = 1
-                self:setFlag("grabbed", false)
-            end
-            self.world:showText({
-                "* (You picked the glowing\nitem.)[wait:5]\n* ([color:yellow]"..name.."[color:reset] was added to your ITEMS.)",
-                result_text})
-        else
-            local flavourtext = {
-                {"* (The glow dissipates and dies.\n taking its contents with it.)",
-                function() Assets.playSound("crowd_gasp") end},
-                {"* (The item ran away.)",
-                function() local snds = {"defeatrun","him_quick","hypnosis"} Assets.playSound(snds[love.math.random(1,#snds)]) end},
-                {"* (There's a fading note here:\n\"The item was the friends you made along the way.\")",
-                function() Assets.playSound("crowd_crickets") end},
-                {"* (You sneeze, [sound:]the item flies away.)",
-                function() Assets.playSound("jackolantern_dizzy") end},
-                {"Hello? is anyone there?\nits soo dark...\ns o o . . . s o o . . . d a r k . . .",
-                -- H E L P  M E
-                function() print("Find her...") print("You have to find her") print("Before she finds YOU") end},
-                {"* (The item cried away.)",
-                function() Assets.playSound("closet_fall") end}
-            }
-            local text = {"* (The glow dissipates on contact.)",
-            function() Assets.playSound("hypnosis") end}
-            local rng = love.math.random(1,40)
-            if rng >= 4 and rng < 7 then
-                text = flavourtext[1]
-            elseif rng >= 12 and rng < 15 then
-                text = flavourtext[2]
-            elseif rng >= 23 and rng < 27 then
-                text = flavourtext[3]
-            elseif rng >= 32 and rng < 34 then
-                text = flavourtext[4]
-            elseif rng == 66 and Game:getFlag("FUN") == 6 then
-                text = flavourtext[5+love.math.random(0,100)] or flavourtext[6]
-            end
-            if type(text) == "table" then
-                text[2]()
-                text = text[1]
-            end
-            self.world:showText(text)
-            success = true
+    print("Name = " .. tostring(name))
+    if name then
+        if not success then
+            self.sprite.alpha = 1
+            self:setFlag("grabbed", false)
         end
+        self.world:showText({
+            "* (You picked the glowing\nitem.)[wait:5]\n* ([color:yellow]"..name.."[color:reset] was added to your ITEMS.)",
+            result_text})
+    else
+        local flavourtext = {
+            {"* (The glow dissipates and dies.\n taking its contents with it.)",
+            function() Assets.playSound("crowd_gasp") end},
+            {"* (The item ran away.)",
+            function() local snds = {"defeatrun","him_quick","hypnosis"} Assets.playSound(snds[love.math.random(1,#snds)]) end},
+            {"* (There's a fading note here:\n\"The item was the friends you made along the way.\")",
+            function() Assets.playSound("crowd_crickets") end},
+            {"* (You sneeze, [sound:]the item flies away.)",
+            function() Assets.playSound("jackolantern_dizzy") end},
+            {"Hello? is anyone there?\nits soo dark...\ns o o . . . s o o . . . d a r k . . .",
+            -- H E L P  M E
+            function() print("Find her...") print("You have to find her") print("Before she finds YOU") end},
+            {"* (The item cried away.)",
+            function() Assets.playSound("closet_fall") end}
+        }
+        local text = {"* (The glow dissipates on contact.)",
+        function() Assets.playSound("hypnosis") end}
+        local rng = love.math.random(1,40)
+        if rng >= 4 and rng < 7 then
+            text = flavourtext[1]
+        elseif rng >= 12 and rng < 15 then
+            text = flavourtext[2]
+        elseif rng >= 23 and rng < 27 then
+            text = flavourtext[3]
+        elseif rng >= 32 and rng < 34 then
+            text = flavourtext[4]
+        elseif rng == 66 and Game:getFlag("FUN") == 6 then
+            text = flavourtext[5+love.math.random(0,100)] or flavourtext[6]
+        end
+        if type(text) == "table" then
+            text[2]()
+            text = text[1]
+        end
+        self.world:showText(text)
+        success = true
+    end
 
-        if success and self.set_flag then
-            Game:setFlag(self.set_flag, (self.set_value == nil and true) or self.set_value)
-        end
+    if success and self.set_flag then
+        Game:setFlag(self.set_flag, (self.set_value == nil and true) or self.set_value)
     end
 
     return true
