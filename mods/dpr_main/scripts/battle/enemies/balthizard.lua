@@ -15,7 +15,8 @@ function Balthizard:init()
     self.spare_points = 10
 
     self.waves = {
-        --"Balthizard/book_attack"
+        --"balthizard/incense_cloud_manager",
+        "balthizard/incense_censer",
     }
 
     self.dialogue = {
@@ -56,6 +57,9 @@ function Balthizard:init()
     self.lightuptime = false
 
     self.fires = {}
+
+    self.lightup = false
+    self.lightupmessage = false
 end
 
 function Balthizard:isXActionShort(battler)
@@ -154,8 +158,9 @@ function Balthizard:getEncounterText()
         return self.spareable_text
     end
 
-    if self.lightup then
-        self.lightup = false
+    if self.lightupmessage then
+        self.lightupmessage = false
+        --self.lightup = false
         return "* Balthizard burns with taco-scented excitement."
     end
 
@@ -201,10 +206,26 @@ function Balthizard:update()
             ralsei:setAnimation("battle/idle")
             Assets.playSound("rocket", 0.9, 0.9)
             self.lightup = true
+            self.lightupmessage = true
             self.sprite.lightup = true
         end
         self.lightuptimer = self.lightuptimer + 1 * DTMULT
     end
+end
+
+function Balthizard:getNextWaves()
+    local balthizards = TableUtils.filter(Game.battle:getActiveEnemies(), function(e) return e.id == "balthizard" end)
+    local enemys = TableUtils.filter(Game.battle:getActiveEnemies(), function(e) return e.id ~= "balthizard" end)
+    if #balthizards >= 2 then
+        return {"balthizard/incense_censer"}
+    elseif #balthizards == 1 and self.lightup == true then
+        return {"balthizard/incense_censer_only"}
+    elseif #balthizards == 1 and #enemys >= 1 then
+        return {"balthizard/incense_cloud_manager"}
+    elseif #balthizards == 1 then
+        return {"balthizard/incense_censer_only"}
+	end
+    return super.getNextWaves(self)
 end
 
 return Balthizard

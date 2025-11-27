@@ -1,5 +1,5 @@
 return function(cutscene)
-    local whirlwind = Whirlwind(120, 0)
+    local whirlwind = WingladeWhirlwind(120, 0)
     Game.battle:addChild(whirlwind)
 
     local kris = Game.battle:getPartyBattler('kris')

@@ -1,193 +1,68 @@
-local bullet, super = Class(Bullet)
+local Note, super = Class(Bullet)
 
--- scr_bullet_init();
--- spin = 0;
--- spinspeed = 0;
--- image_alpha = 1;
--- if (!instance_exists(obj_heart))
--- {
---     instance_destroy();
--- }
--- wall_destroy = 1;
--- bottomfade = 0;
--- green = 0;
--- highlight = 0;
--- greentimer = 0;
--- parentid = -4;
--- playpianosfx = 0;
--- touchingplayer = 0;
--- particletimer = 0;
--- chorus = 0;
--- grazepoints = 10;
--- with (obj_growtangle)
--- {
---     other.depth = depth - 2;
--- }
-
-
-function bullet:init(x, y, green)
-    super.init(self, x, y, "battle/bullets/organikk/bar_1")
-
-    self.wall_destroy = 1
-    self.bottom_fade = 0
-    self.green = green or false
-    self.highlight = 0
-    self.green_timer = 0
-    -- self.parent_id = -4
-    self.play_piano_sfx = false
-    self.touching_player = 0
-    self.particle_timer = 0
-    self.chorus = 0
-    self.tp = 10 / 2.5
+function Note:init(x, y, index, dir, alpha)
+    -- Last argument = sprite path
+    self.image_index = index
+    super.init(self, x, y, "battle/bullets/organikk/musical_notes_"..self.image_index)
+    self.sprite:stop()
+    --self.special = special
+    --self.remove_offscreen = false
+    self:setScale(1)
+    self.layer = 800
+	
+    self.timer = 0
+    self.go = false
+    self.go2 = false
+    self.siner = MathUtils.random(100)
+    self.siner2 = 1
+	
+    self.d = dir
+    self.ok = false
+    if alpha then
+        self:setScale(0)
+    end
 end
 
--- if (green == 1)
--- {
---     var a = 1;
---     if (chorus == 1)
---     {
---         a = 3;
---     }
---     if (i_ex(obj_organ_enemy) && obj_organ_enemy.wicabell_tuning)
---     {
---         a = 2;
---     }
---     repeat (a)
---     {
---         if (!i_ex(obj_dmgwriter_boogie))
---         {
---             with (obj_monsterparent)
---             {
---                 if (global.mercymod[myself] < 100)
---                 {
---                     snd_stop(snd_mercyadd);
---                     snd_play_x(snd_mercyadd, 0.8, 1.4);
---                     var mercygiven = 0;
---                     if (other.parentid == id)
---                     {
---                         mercygiven = 3;
---                     }
---                     else if (object_index == obj_organ_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     else if (object_index == obj_halo_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     else if (object_index == obj_bell_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     if ((global.mercymod[myself] + mercygiven) > 100)
---                     {
---                         mercygiven = 100 - global.mercymod[myself];
---                     }
---                     __mercydmgwriter = instance_create_depth(global.monsterx[myself], global.monstery[myself] + 40, depth - 99999, obj_dmgwriter_boogie);
---                     __mercydmgwriter.damage = mercygiven;
---                     __mercydmgwriter.type = 5;
---                     global.mercymod[myself] += mercygiven;
---                     global.hittarget[myself]++;
---                 }
---             }
---         }
---         else
---         {
---             with (obj_monsterparent)
---             {
---                 if (global.mercymod[myself] < 100)
---                 {
---                     var mercygiven = 0;
---                     if (other.parentid == id)
---                     {
---                         mercygiven = 3;
---                     }
---                     else if (object_index == obj_organ_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     else if (object_index == obj_halo_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     else if (object_index == obj_bell_enemy)
---                     {
---                         mercygiven = 1;
---                     }
---                     if ((global.mercymod[myself] + mercygiven) > 100)
---                     {
---                         mercygiven = 100 - global.mercymod[myself];
---                     }
---                     __mercydmgwriter.damage += mercygiven;
---                     __mercydmgwriter.init = 0;
---                     global.mercymod[myself] += mercygiven;
---                 }
---             }
---         }
---     }
---     with (obj_organ_enemy)
---     {
---         snd_volume(harmon_sound, 1, 6);
---     }
---     touchingplayer = 2;
--- }
--- else
--- {
---     with (obj_dmgwriter_boogie)
---     {
---         killtimer = 0;
---         killactive = 0;
---         kill = 0;
---     }
---     if (active == 1)
---     {
---         if (target != 3)
---         {
---             scr_damage();
---         }
---         if (target == 3)
---         {
---             scr_damage_all();
---         }
---         if (destroyonhit == 1)
---         {
---             instance_destroy();
---         }
---     }
--- }
-
-
-function bullet:update()
+function Note:update()
     super.update(self)
+    if self.go then
+        self.siner = self.siner + (1 / 6) * DTMULT
+        self.x = self.x + (math.sin(self.siner / 2)) * 3 * DTMULT
 
-    if self.green then
-        -- local a = 
+        self.timer = self.timer + (1 * DTMULT)
+        if self.timer >= 2 then
+            local aimg = AfterImage(self.sprite, 0.7, 0.07)
+            Game.battle:addChild(aimg)
+            self.timer = self.timer - 2
+        end
     end
 
-    self.touching_player = self.touching_player - DTMULT
-    if self.touching_player > 0 then
-        -- Stuff
-        self.highlight = self.highlight + 10 * DTMULT
-        local _highlight = self.highlight
-        if _highlight > 70 then
-            _highlight = 70
+    if self.go2 then
+        self.physics.direction = self.d
+        if self.scale_x <= 1 and not self.ok then
+            self.scale_x = self.scale_x + 0.2 * DTMULT
+            self.scale_y = self.scale_y + 0.2 * DTMULT
+        else
+            self.ok = true
+            self.scale_x = 1
+            self.scale_y = 1
+            if self.physics.speed <= 4 then
+                self.physics.speed = math.min(self.physics.speed + 0.5 * DTMULT, 4)
+            else
+                self.physics.speed = 4
+            end
         end
 
-        -- Stuff
-        self.particle_timer = self.particle_timer + DTMULT
-        if self.particle_timer >= 3 then
-            self.particle_timer = self.particle_timer - 3
-            -- Create particle
-            -- Set depth to Soul depth - 100
-            -- Set alpha to 1
+        self.siner2 = self.siner2 + (1 / 6) * DTMULT
+        self.y = self.y + (math.sin(self.siner2 / 1)) * 2 * DTMULT
+
+        self.timer = self.timer + (1 * DTMULT)
+        if self.timer >= 2 then
+            local aimg = AfterImage(self.sprite, 0.7, 0.07)
+            Game.battle:addChild(aimg)
+            self.timer = self.timer - 2
         end
-    elseif self.green then
-        self.highlight = 0
-        -- image_blend = c_lime
-        -- Assets.playSound("harmon_sound", 0, 10) 
-    else
-        -- Assets.playSound("harmon_sound", 0, 10)
     end
 end
 
-return bullet
+return Note

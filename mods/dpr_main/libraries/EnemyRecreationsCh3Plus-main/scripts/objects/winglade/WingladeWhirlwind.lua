@@ -1,15 +1,5 @@
 local Whirlwind, super = Class(Object)
 
-Kristal.Shaders["Pixelate"] = love.graphics.newShader [[
-    extern vec2 size;            // vector containing image size, like shader:send('size', {img:getWidth(), img:getHeight()})
-    extern number factor;        // number contains sample size, like shader:send('factor', 2), must be divisible by 2
-
-    vec4 effect(vec4 color, Image img, vec2 texture_coords, vec2 pixel_coords) {
-        vec2 tc = floor(texture_coords * size / factor) * factor / size;
-        return Texel(img, tc) * color;  // Multiplying by 'color' preserves the full RGBA information
-    }
-]]
-
 function Whirlwind:init(x, y)
     super.init(self, x, y)
 
@@ -41,7 +31,7 @@ function Whirlwind:init(x, y)
     self.canvas_1 = love.graphics.newCanvas(self.max_width, self.height)
     self.canvas_2 = love.graphics.newCanvas(self.max_width, self.height)
     self.texture = Assets.getTexture('textures/noise')
-    
+
     local vertexFormat = {
         {"VertexPosition", "float", 2},
         {"VertexTexCoord", "float", 2}
@@ -59,9 +49,9 @@ end
 
 function Whirlwind:getVertexAttributes(number)
     local percent = (number - 1) / (self.parts - 1)
-    local width = Utils.lerp(self.min_width, self.max_width, percent)
+    local width = MathUtils.lerp(self.min_width, self.max_width, percent)
     local middle_x = math.sin(number * 8 / 10 + self.timer * self.spin_speed / 10) * self.wave_length
-    local y = Utils.lerp(self.height, 0, percent)
+    local y = MathUtils.lerp(self.height, 0, percent)
     local v = percent
     local u_diff = 0.5 * (percent)
     return {middle_x - width / 2, y, 0, v},
@@ -73,24 +63,24 @@ function Whirlwind:update()
     self.timer = self.timer + DTMULT
 
     local tex_width, tex_height = self.texture:getDimensions()
-    self.whirl_x_offset = self.whirl_x_offset + ((Utils.clamp(self.spin_speed, 0, 1) * 0.5) + 0.5) / 40 * DTMULT
+    self.whirl_x_offset = self.whirl_x_offset + ((MathUtils.clamp(self.spin_speed, 0, 1) * 0.5) + 0.5) / 40 * DTMULT
     self.whirl_y_offset = self.whirl_y_offset + 0.4 * DTMULT
 
     for i = 1, self.mesh_1:getVertexCount(), 2 do
         local vertex_1, vertex_2 = self:getVertexAttributes(math.floor(i / 2) + 1)
-        self.mesh_1:setVertexAttribute(i, 1, Utils.unpack(vertex_1))
-        self.mesh_1:setVertexAttribute(i + 1, 1, Utils.unpack(vertex_2))
+        self.mesh_1:setVertexAttribute(i, 1, TableUtils.unpack(vertex_1))
+        self.mesh_1:setVertexAttribute(i + 1, 1, TableUtils.unpack(vertex_2))
     end
     for i = 1, self.mesh_2:getVertexCount(), 2 do
         local vertex_1, vertex_2 = self:getVertexAttributes(math.floor(i / 2) + 1)
-        self.mesh_2:setVertexAttribute(i, 1, Utils.unpack(vertex_1))
-        self.mesh_2:setVertexAttribute(i + 1, 1, Utils.unpack(vertex_2))
+        self.mesh_2:setVertexAttribute(i, 1, TableUtils.unpack(vertex_1))
+        self.mesh_2:setVertexAttribute(i + 1, 1, TableUtils.unpack(vertex_2))
     end
 
     if self.state == "SPINUP" then
         self.spin_speed = self.spin_speed + 0.05 * DTMULT
         if self.spin_speed > 0.2 then
-            self.alpha = Utils.clamp(self.alpha + 0.05 * DTMULT, 0, 1)
+            self.alpha = MathUtils.clamp(self.alpha + 0.05 * DTMULT, 0, 1)
         end
         if self.spin_speed >= 1.5 then
             self.spin_speed = 1.5
@@ -149,21 +139,20 @@ function Whirlwind:draw()
     self.mesh_1:setTexture(self.canvas_1)
     self.mesh_2:setTexture(self.canvas_2)
 
-    local last_shader = love.graphics.getShader()
-    local shader = Kristal.Shaders["Pixelate"]
-    love.graphics.setShader(shader)
     local width, height = self.canvas_1:getDimensions()
-    shader:send("size", {width, height})
-    shader:send("factor", 3)
-    local r1, g1, b1 = Utils.unpack(Utils.hexToRgb('#9E7FFF'))
+    Draw.pushShader("pixelate", {
+        size = {width, height},
+        factor = 3
+    })
+    local r1, g1, b1 = TableUtils.unpack(ColorUtils.hexToRGB('#9E7FFF'))
     Draw.setColor(r1, g1, b1, 0.6 * self.alpha)
     love.graphics.setBlendMode('add')
     Draw.draw(self.mesh_1, self.width / 2 - 1, -1)
-    local r2, g2, b2 = Utils.unpack(Utils.hexToRgb('#7FC2FF'))
+    local r2, g2, b2 = TableUtils.unpack(ColorUtils.hexToRGB('#7FC2FF'))
     Draw.setColor(r2, g2, b2, 0.6 * self.alpha)
     Draw.draw(self.mesh_2, self.width / 2)
     love.graphics.setBlendMode('alpha')
-    love.graphics.setShader(last_shader)
+    Draw.popShader()
 end
 
 return Whirlwind
