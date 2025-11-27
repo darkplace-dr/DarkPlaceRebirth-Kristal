@@ -20,4 +20,4 @@ function SmallBullet:update()
     super.update(self)
 end
 
-return SmallBullet
+return SmallBullet 

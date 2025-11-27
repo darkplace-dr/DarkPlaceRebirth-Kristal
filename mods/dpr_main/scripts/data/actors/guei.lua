@@ -8,19 +8,17 @@ function actor:init()
     self.width = 71
     self.height = 64
 
-    self.hitbox = {6, 46, 59, 18}
+    self.hitbox = {6, 46, self.width - 12, 18}
 
-    self.flip = nil
+    self.flip = "right"
 
     self.path = "battle/enemies/guei"
-    self.default = "idle"
-
-    self.talk_sprites = {}
+    self.default = "idle_nowisp_1"
 
     self.animations = {
-        ["idle_nowisp"] = {"idle_nowisp", 0.2, true},
-	    ["overworld"]   = {"overworld", 0.2, true},
-        ["hurt"]   = {"hurt", 1, true}
+	    ["idle_nowisp"] = {"idle_nowisp", 0.2, true},
+	    ["overworld"] = {"overworld", 0.2, true},
+        ["hurt"] = {"hurt", 1, true},
     }
 
     self.offsets = {}

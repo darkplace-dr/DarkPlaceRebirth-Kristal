@@ -1,6 +1,6 @@
-local SmallBullet, super = Class(Bullet)
+local HolyFire, super = Class(Bullet)
 
-function SmallBullet:init(x, y, angle, dist)
+function HolyFire:init(x, y, angle, dist)
     -- Last argument = sprite path
     super.init(self, x, y, "battle/bullets/guei/holyfire")
 
@@ -13,4 +13,4 @@ function SmallBullet:init(x, y, angle, dist)
     self:setHitbox(13, 16, 18-13, 23-16)
 end
 
-return SmallBullet
+return HolyFire

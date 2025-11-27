@@ -1,7 +1,9 @@
-local BalthizardFire, super = Class(Object)
+local BalthizardFire, super = Class(Sprite)
 
 function BalthizardFire:init(x, y)
-    super.init(self, x, y)
+    super.init(self, "battle/bullets/balthizard/toriel_flame", x, y)
+
+    self:play(1/15)
 
     self.alpha = 1.2
 end
@@ -12,14 +14,6 @@ function BalthizardFire:update()
     if self.alpha < 0 then
         self:remove()
     end
-end
-
-function BalthizardFire:draw()
-    local fire = Assets.getFrames("battle/bullets/toriel_flame")
-    local frame = math.floor(Kristal.getTime()) % #fire + 1
-    Draw.draw(fire[frame], 0, 0, 0, 1, 1, 8, 10)
-
-    super.draw(self)
 end
 
 return BalthizardFire
