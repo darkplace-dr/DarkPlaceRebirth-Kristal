@@ -51,6 +51,9 @@ function WingladeActorSprite:init(actor)
     self.eye_timer = 0
 
     self.retract_timer = 0
+
+    self.left_wing_frame = 0
+    self.right_wing_frame = 0
 end
 
 function WingladeActorSprite:getTexturePath(sprite_name)
@@ -75,6 +78,31 @@ function WingladeActorSprite:addColorMask(object, color, amount, id)
     end
 end
 
+function WingladeActorSprite:setAnimation(anim, callback, ignore_actor_callback)
+    if anim == 'blank' then
+        self.left_wing_frame = self.left_wing.frame
+        self.right_wing_frame = self.right_wing.frame
+
+        self.left_wing.anim_speed = 0
+        self.left_wing.frame = 0
+        self.right_wing.anim_speed = 0
+        self.right_wing.frame = 0
+        self.eye_pupil.visible = false
+    else
+        self.left_wing.frame = self.left_wing_frame
+        self.left_wing.anim_speed = 1
+        self.right_wing.frame = self.right_wing_frame
+        self.right_wing.anim_speed = 1
+        self.eye_pupil.visible = true
+
+        if anim == 'spared' then
+            self.eye_pupil.visible = false
+            self.eye_white:setSprite(self:getTexturePath("eye_white_spare"))
+        end
+    end
+    super.setAnimation(self, anim, callback, ignore_actor_callback)
+end
+
 function WingladeActorSprite:update()
     super.update(self)
 
@@ -84,17 +112,23 @@ function WingladeActorSprite:update()
     self.y = self.y + (math.sin(self.timer * speed) - math.sin((self.timer - 1) * speed)) * 3 * DTMULT
 
     local anim = self.anim or 'idle'
+
+    if anim == 'blank' then
+        self.eye_white.x = self.eye_default_position[1]
+        self.eye_white.y = self.eye_default_position[2]
+    end
+
     if anim == 'idle' or anim == 'spared' then
         self.eye_timer = self.eye_timer + DTMULT
         if self.eye_timer > 30 and not self.eye_target_set then
-            local eye_angle = 160 + MathUtils.roundToMultiple(MathUtils.random(0, 40), 1)
+            local eye_angle = 160 + MathUtils.randomInt(0, 40)
             self.eye_target_x = math.cos(math.rad(eye_angle)) * 3
             self.eye_target_y = math.sin(math.rad(eye_angle)) * 3
             self.eye_target_set = true
         end
         if self.eye_timer > 90 then
             self.eye_target_set = false
-            self.eye_timer = MathUtils.roundToMultiple(MathUtils.random(0, 8), 1) - MathUtils.roundToMultiple(MathUtils.random(0, 8), 1)
+            self.eye_timer = MathUtils.randomInt(0, 8) - MathUtils.randomInt(0, 8)
             self.eye_target_x = 0
             self.eye_target_y = 0
         end

@@ -14,10 +14,6 @@ function Mizzle:init()
     self.experience = 10
     self.spare_points = 10
 
-    self.waves = {
-        --"mizzle/idk",
-    }
-
     self.dialogue = {
         "Who's there?\nWho's there?",
         "Water you\ndoing?",
@@ -191,6 +187,16 @@ function Mizzle:onAct(battler, name)
     return super.onAct(self, battler, name)
 end
 
+function Mizzle:getNextWaves()
+    if self.tired == false then
+        return {"mizzle/spirals"}
+    else
+        --return {"mizzle/spotlights"}
+    end
+
+    return super.getNextWaves(self)
+end
+
 function Mizzle:getEnemyDialogue()
     if self.dialogue_override then
         local dialogue = self.dialogue_override
@@ -353,13 +359,13 @@ function Mizzle:update()
 
     if Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
         self.siner = self.siner + (1 / 6) * DTMULT
-        self.y = self.init_y + (math.sin(self.siner * 0.5)) * 5
+        self.sprite.y = (math.sin(self.siner * 0.5)) * 5
         if self.bubble then
+            local spr = self.sprite or self
+            local x, y = spr:getRelativePos(0, spr.height/2, Game.battle)
             if self.tired then
-                self.bubble.y = self.y-56
+                self.bubble.y = y - 8
             else
-                local spr = self.sprite or self
-                local x, y = spr:getRelativePos(0, spr.height/2, Game.battle)
                 self.bubble.y = y
             end
         end

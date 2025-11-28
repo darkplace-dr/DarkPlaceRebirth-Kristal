@@ -1,10 +1,6 @@
 -- Handles Winglade's aim attack separately
 local WingladeAim, super = Class(Object)
 
-local function approachCurve(val, target, amount)
-    return MathUtils.approach(val, target, math.max(0.1, math.abs(target - val) / amount) * DTMULT)
-end
-
 function WingladeAim:init(attacker, wave)
     super.init(self)
 
@@ -80,10 +76,15 @@ function WingladeAim:update()
     end
 
     if self.reset then
-        self.attacker.rotation = MathUtils.lerp(self.attacker.rotation, 0, DTMULT * self.timer / 12) % math.rad(360)
+        self.attacker.rotation = Utils.lerp(self.attacker.rotation, 0, DTMULT * self.timer / 12) % math.rad(360)
+        self.attacker.x = MathUtils.approachCurveDTMULT(self.attacker.x, self.attacker_init_x, 8)
+        self.attacker.y = MathUtils.approachCurveDTMULT(self.attacker.y, self.attacker_init_y, 8)
+        if self.attacker.x == self.attacker_init_x and self.attacker.y == self.attacker_init_y then
+            self:remove()
+        end
     end
 
-    local attackers = #Game.battle.enemies
+    local attackers = #Game.battle:getActiveEnemies()
     local wave_attackers = #self.wave:getAttackers()
     if not self.reset then
         if attackers == wave_attackers then
@@ -103,10 +104,10 @@ function WingladeAim:update()
 
         if self.timer >= 24 and not self.code_1_executed then
             self.code_1_executed = true
-            self.temp_x = self.anchor_x + MathUtils.roundToMultiple(MathUtils.random(-20, 60), 1)
-            self.temp_y = self.anchor_y + MathUtils.roundToMultiple(MathUtils.random(-self.range, self.range), 1)
-            if wave_attackers < 2 or MathUtils.roundToMultiple(MathUtils.random(0, 2), 1) > 0 then
-                self.temp_angle = MathUtils.angle(self.temp_x, self.temp_y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(MathUtils.roundToMultiple(MathUtils.random(-6, 6), 1))
+            self.temp_x = self.anchor_x + MathUtils.randomInt(-20, 60)
+            self.temp_y = self.anchor_y + MathUtils.randomInt(-self.range, self.range)
+            if wave_attackers < 2 or MathUtils.randomInt(0, 2) > 0 then
+                self.temp_angle = MathUtils.angle(self.temp_x, self.temp_y, Game.battle.soul.x, Game.battle.soul.y) + math.rad(Utils.random(-6, 6, 1))
             else
                 self.temp_angle = MathUtils.angle(self.temp_x, self.temp_y, Game.battle.arena.x - Game.battle.arena.width / 2, Game.battle.arena.y)
             end
@@ -179,19 +180,19 @@ function WingladeAim:update()
         local timer_limit
         if attackers == wave_attackers then
             if attackers == 1 then
-                timer_limit = 48
+                timer_limit = 48 * self:getEnemyRatio()
             else
-                timer_limit = 64
+                timer_limit = 40 + 24 * self:getEnemyRatio()
             end
         else
-            timer_limit = 48
+            timer_limit = 34 * self:getEnemyRatio()
         end
 
         if self.timer > timer_limit then
             self.attacker.physics.speed = 0
             self.timer = 20
             self.code_1_executed = false
-            self.code_2_executed = falses
+            self.code_2_executed = false
             self.code_3_executed = false
             self.code_4_executed = false
             self.code_5_executed = false
@@ -200,22 +201,11 @@ function WingladeAim:update()
 
     if self.attacker.physics.speed == 0 then
         if self.timer > 42 then
-            self.attacker.y = approachCurve(self.attacker.y, self.attacker.y + math.sin(self.timer / 10) * -0.8, 12)
+            self.attacker.y = MathUtils.approachCurveDTMULT(self.attacker.y, self.attacker.y + math.sin(self.timer / 10) * -0.8, 12)
         elseif self.timer < 34 then
-            self.attacker.x = approachCurve(self.attacker.x, self.temp_x, 8)
-            self.attacker.y = approachCurve(self.attacker.y, self.temp_y, 8)
+            self.attacker.x = MathUtils.approachCurveDTMULT(self.attacker.x, self.temp_x, 8)
+            self.attacker.y = MathUtils.approachCurveDTMULT(self.attacker.y, self.temp_y, 8)
         end
-    end
-
-    if
-        self.reset and
-        math.abs(self.attacker.x - self.attacker_init_x) <= 1 and
-        math.abs(self.attacker_init_y - self.attacker_init_y) <= 1 and
-        self.attacker.rotation == 0
-    then
-        self.attacker.x = self.attacker_init_x
-        self.attacker.y = self.attacker_init_y
-        self:remove()
     end
 end
 
@@ -224,6 +214,17 @@ function WingladeAim:beforeEnd()
     if self.attacker:canSpare() then self.attacker:onSpareable()
     else self.attacker:setAnimation("idle") end
     self.attacker:setLayer(self.original_layer)
+end
+
+function WingladeAim:getEnemyRatio()
+    local enemies = #Game.battle:getActiveEnemies()
+    if enemies <= 1 then
+        return 1
+    elseif enemies == 2 then
+        return 1.6
+    elseif enemies >= 3 then
+        return 2.3
+    end
 end
 
 return WingladeAim
