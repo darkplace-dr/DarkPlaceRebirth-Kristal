@@ -51,7 +51,7 @@ function item:init()
         ralsei = "... isn't Susie amazing?",
         noelle = "... Susie beat up an old man!?",
         jamm = "So you... robbed an old guy?",
-        ceroba = "How is it \"Justice\" Axe exactly?"
+        ceroba = "It's like from a history book..."
     }
 end
 

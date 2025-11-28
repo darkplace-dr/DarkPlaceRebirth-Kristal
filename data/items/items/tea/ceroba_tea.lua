@@ -26,11 +26,11 @@ function item:init()
     local tea_self = "ceroba"
     local placeholder = 50
     self.heal_amounts = {
-		["susie"] = 90,
-		["ralsei"] = 70,
-		["noelle"] = 60,
+		["susie"] = 100,
+		["ralsei"] = 80,
+		["noelle"] = 70,
 		["dess"] = 90,
-		["ceroba"] = 0,
+		["ceroba"] = 1,
         ["brenda"] = 200,
 		["jamm"] = 70,
     }
@@ -60,38 +60,37 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-	susie = {
-	    susie = "Dang, that's pretty good!",
-	    ceroba = "(Didn't expect that.)",
-	},
-	ralsei = {
-	    susie = "Cool.",
-	    ralsei = "It's good!",
-	    ceroba = "(I'm glad.)",
-	},
-	noelle = {
-	    noelle = "I think it's alright...",
-	    ceroba = "(Okay.)",
-	},
-    dess = {
-	    dess = "I feel Roba taste",
-	    susie = "(...what?)",
-	    ralsei = "(I don't get it)",
-	    noelle = "(Is that good?)",
-	    ceroba = "(What's that supposed to mean!?)",
-	},
-	ceroba = "Tasteless.",
-    brenda = {
-        brenda = "(Women... pretty...)",
-        ceroba = "... Why are you looking at me like that?",
-        dess = "Ah, I take it you are a resident of the island of Lesbos?",
-        susie = "Dude, you look like a tomato, haha!",
-        noel = "I thought cantalopes were GREEN, not RED."
-    },
-	jamm = {
-		jamm = "I get the taste...",
-		ceroba = "What did you mean by that...?"
-	},
+	    susie = {
+	        susie = "Hell yeah, orange juice!",
+	        ceroba = "(I thought it was tea?)",
+	    },
+	    ralsei = {
+	        ralsei = "A flower tea!",
+	        ceroba = "(I suppose that's accurate.)",
+	    },
+	    noelle = {
+	        noelle = "A pleasant balance of sweet and sour!",
+	        ceroba = "(That's nice to hear.)",
+	    },
+        dess = {
+	        dess = "I feel Roba taste",
+	        susie = "(...what?)",
+	        ralsei = "(I don't get it)",
+	        noelle = "(Is that good?)",
+	        ceroba = "(What's that supposed to mean!?)",
+	    },
+	    ceroba = "... sour.",
+        brenda = {
+            brenda = "(Women... pretty...)",
+            ceroba = "... Why are you looking at me like that?",
+            dess = "Ah, I take it you are a resident of the island of Lesbos?",
+            susie = "Dude, you look like a tomato, haha!",
+            noel = "I thought cantalopes were GREEN, not RED."
+        },
+	    jamm = {
+	    	jamm = "I get the taste...",
+	    	ceroba = "What do you mean by that...?"
+	    },
     }
 end
 

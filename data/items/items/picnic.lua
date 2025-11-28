@@ -51,7 +51,8 @@ function item:init()
         susie = "Woah...it's like a feast...",
         ralsei = "It's got cake!",
         noelle = "Isn't sharing food nice?",
-        jamm = "This... this brings me back."
+        jamm = "This... this brings me back.",
+        ceroba = "I wish Chujin and Kanako were here.",
     }
 end
 

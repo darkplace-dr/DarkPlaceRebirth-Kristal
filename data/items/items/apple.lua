@@ -54,10 +54,14 @@ function item:init()
         noelle = "It's really crunchy!",
 		dess = "sweet",
         brenda = "I love apples!",
-		jamm = "A doctor a day keeps the apple away. Wait...",
+		jamm = {
+            jamm = "A doctor a day keeps the apple away. Wait...",
+            berdly = "It's \"An apple a day keeps the doctor away.\", of course!" -- nerd (probably too long to see in game lol)
+        },
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Nom!",
-        ceroba = "Not a fan of sweet stuff, but it's good.",
+        ceroba = "Perfectly average in sweetness.",
+        berdly = "Susie really likes to throw these." -- why would he say that (idk myself)
     }
 end
 

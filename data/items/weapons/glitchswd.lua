@@ -45,6 +45,7 @@ function item:init()
     self.reactions = {
         susie = "... what are you trying to equip?",
         jamm = "Uh... what?",
+        ceroba = "Huh? What sword?"
     }
 end
 

@@ -54,7 +54,8 @@ function item:init()
             susie = "Hey, feed ME!!!"
         },
         noelle = "(This could grow a giant tree...)",
-        jamm = "Huh. Just like the baseball games..."
+        jamm = "Huh. Just like the baseball games...",
+        ceroba = "...hope that crunch wasn't my tooth.",
     }
 end
 

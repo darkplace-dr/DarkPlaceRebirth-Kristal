@@ -34,6 +34,7 @@ function item:init()
 		["mario"] = 10,
         ["pauling"] = 60,
         ["ceroba"] = 100,
+        ["berdly"] = 40,
 	}
 
     -- Default shop price (sell price is halved)
@@ -64,7 +65,8 @@ function item:init()
 		jamm = "I missed this... It's so good!",
         ["jamm+marcy"] = "Like your mother used to make, right, Marcy?",
 		mario = "Blech! That tastes like shit!",
-        ceroba = "Tastes really good!"
+        ceroba = "Tastes really good!",
+        berdly = "*visible discomfort*", -- he's eating another bird not a very great feeling probably
 	}
 	
 end
