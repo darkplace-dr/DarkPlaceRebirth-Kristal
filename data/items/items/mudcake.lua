@@ -64,10 +64,8 @@ function item:init()
         dess = "Mmm yummy dirt",  --Placeholder dialogue, replace if you want
         noel = "Mud!", --Placeholder dialogue, please replace
         osw = "I am the original         Mudcake.", --Placeholder dialogue, replace if you want
-        --I forgot if pauling ever says anything, so this is placeholder dialogue. -- She does not. Let's keep it this way.
         nell = "Placeholder mud dialogue?", --Placeholder dialogue, please replace, Nell
         mario = "It's time for-a me to eat-a this M U D C A K E",
-        --Placeholder dialogue, replace if you want -- APM literally can't speak, apart from a few pre-programmed lines.
         hero = "I'm placeholder dialogue.", --Placeholder dialogue, replace if you want
         len = "I'm also placeholder dialogue" --Placehodler dialogue, pleace replace.
     }
