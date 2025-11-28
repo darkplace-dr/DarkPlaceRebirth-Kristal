@@ -52,7 +52,7 @@ function item:init()
         ralsei = "You want to... pierce my ears...?",
         noelle = "(I'm not against using it, but...)",
         jamm = "Ow! Prickly...",
-        ceroba = "I'm not risking getting stabbed."
+        ceroba = "I'm not risking getting prickled."
     }
 end
 

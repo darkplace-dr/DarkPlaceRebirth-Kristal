@@ -36,7 +36,8 @@ function item:init()
     self.reactions = {
         susie = "Hell yeah! I love eating air!!",
         dess = "mmm nothing im not eating nothing",
-        jamm = "Don't know what I just ate but okay..."
+        jamm = "Don't know what I just ate but okay...",
+        ceroba = "You want me to eat... What, exactly?",
     }
 end
 

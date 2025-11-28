@@ -55,7 +55,8 @@ function item:init()
         susie = "Can't I eat it all at once?",
         ralsei = "NUTJOKE",
         noelle = "Erm, maybe give Susie the rest?",
-        jamm = "Oh, there's some left over!"
+        jamm = "Oh, there's some left over!",
+        ceroba = "Ah, there's another one...",
     }
 end
 

@@ -53,7 +53,7 @@ function item:init()
         noelle = "(Huh? I didn't know Kris liked this flavor.)",
 		dess = "yoo its got legos in it",
         jamm = "IT'S JUST SO GOOD!",
-        ceroba = "(That taste..! But how did they...?)",
+        ceroba = "(The taste takes me back...)",
     }
 end
 

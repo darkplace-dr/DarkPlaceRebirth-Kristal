@@ -145,7 +145,7 @@ function item:init()
 		jamm = "(You drink paint???)",
     },
 	ceroba = {
-		ceroba = "It's... Uh...",
+		ceroba = "It's, well... How do I put this...",
 	    susie = "Terrible?",
 	    brenda = "Disgusting?",
 	    dess = "Literally perfect?",

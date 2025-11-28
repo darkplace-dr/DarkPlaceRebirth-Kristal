@@ -69,7 +69,7 @@ function item:init()
         noelle = "(Wonder if they sell this in gallons?)",
         jamm = "Tastes like... Wine???",
         dess = "tastes like shit",
-        ceroba = "It's like an energy drink..."
+        ceroba = "Raspberry jam? ... anyone got a spoon?"
     }
 end
 

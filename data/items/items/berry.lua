@@ -60,11 +60,15 @@ function item:init()
     self.reactions = {
         susie = "Tastes like theft.",
         ralsei = "I feel really bad...",
-        noelle = "???",
+        noelle = {
+            noelle = "???",
+            dess = "say that again..."
+        },
 		dess = "do you get it",
 		jamm = "Not the first stolen food I ate.",
 		noel = "If this was green I would die.",
         ceroba = "What? It's STOLEN?",
+        berdly = "Don't worry, it's stolen from mere NPCs.",
     }
 	
 	--self.light_item = "light/gamerblood"

@@ -69,7 +69,10 @@ function item:init()
         noelle = "There's nothing in here!",
         jamm = "Tastes like... I don't know...",
         dess = "tastes like shit",
-        ceroba = "It's just milk."
+        ceroba = {
+            noelle = "I heard it helps to sleep well!",
+            ceroba = "Warm milk."
+        }
     }
 end
 
