@@ -107,7 +107,7 @@ function JukeboxMenu:init(simple)
     self.heart.x = self.ENTRY_START_X + self.ENTRY_HEART_START_X
     self:addChild(self.heart)
 
-    self.music_note = Assets.getTexture("ui/music_note")
+    self.musical_note = Assets.getTexture("world/events/jukebox/musical_note_small")
 
     ---@type JukeboxMenu.Song
     self.default_song = {
@@ -131,7 +131,7 @@ function JukeboxMenu:init(simple)
     self.info_accordion_timer_handle_direction = nil
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
-    self.show_music_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
+    self.show_musical_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
 end
 
 ---@private
@@ -271,13 +271,15 @@ function JukeboxMenu:draw()
         love.graphics.print(name, entry_start_x + entry_name_start, entry_start_y + entry_h * (i - 1) + 1 + 2, 0, entry_name_scale_x, 1)
         love.graphics.setColor(COLORS.white)
 
-        if self.show_music_note and is_being_played then
+        if self.show_musical_note and is_being_played then
             love.graphics.setColor(1, 1, 1, math.abs(self:calculateHeartTargetY(i) - self.heart.y) / entry_h)
-            love.graphics.draw(self.music_note,
+            local musical_note_sc = 2
+            love.graphics.draw(self.musical_note,
                 entry_start_x + self.ENTRY_HEART_START_X,
                 self:calculateHeartTargetY(i) + (math.sin(Kristal.getTime() * 4) * 2),
-                0, 1, 1,
-                self.music_note:getWidth()/2, self.music_note:getHeight()/2
+                0, musical_note_sc, musical_note_sc,
+                self.musical_note:getWidth()/2,
+                self.musical_note:getHeight()/2
             )
         end
 
