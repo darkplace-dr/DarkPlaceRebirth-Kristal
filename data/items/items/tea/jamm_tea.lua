@@ -78,7 +78,7 @@ function item:init()
 		},
         ceroba = {
             ceroba = "Usual black tea. Not that it's bad, though.",
-			jamm = "", -- 'kay Jamm if you'd be willing to write an accurate reaction here that'd be awesome thanks in advance :) -N
+			jamm = "...I'll take it.",
 		},
     }
 end
