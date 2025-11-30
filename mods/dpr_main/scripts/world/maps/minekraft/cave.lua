@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 55,
+  nextobjectid = 71,
   properties = {
     ["name"] = "Test Map - Room 1"
   },
@@ -174,21 +174,34 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 359.667,
+          x = 160,
           y = 362.667,
-          width = 320,
+          width = 720,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 39,
+          id = 60,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 681.333,
-          y = 322.667,
+          x = 680,
+          y = 240,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 720,
+          y = 240,
           width = 40,
           height = 40,
           rotation = 0,
@@ -196,27 +209,66 @@ return {
           properties = {}
         },
         {
-          id = 40,
+          id = 62,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 319.667,
-          y = 322.667,
-          width = 40,
+          x = 760,
+          y = 200,
+          width = 120,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 42,
+          id = 63,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 359.667,
-          y = 282.667,
-          width = 320,
-          height = 48.1164,
+          x = 880,
+          y = 400,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 59,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 320,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 240,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 56,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 320,
+          width = 160,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -294,6 +346,52 @@ return {
           properties = {
             ["skin"] = "main_hub"
           }
+        },
+        {
+          id = 64,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 1040,
+          y = 280,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "minekraft/cave_right1",
+            ["marker"] = "entry"
+          }
+        },
+        {
+          id = 69,
+          name = "minekraft",
+          type = "",
+          shape = "rectangle",
+          x = 500,
+          y = 320,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["gravity"] = true
+          }
+        },
+        {
+          id = 70,
+          name = "minekraft",
+          type = "",
+          shape = "rectangle",
+          x = 981,
+          y = 357,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["gravity"] = true
+          }
         }
       }
     },
@@ -318,6 +416,19 @@ return {
           shape = "point",
           x = 519.667,
           y = 355.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "entry2",
+          type = "",
+          shape = "point",
+          x = 1000,
+          y = 394,
           width = 0,
           height = 0,
           rotation = 0,

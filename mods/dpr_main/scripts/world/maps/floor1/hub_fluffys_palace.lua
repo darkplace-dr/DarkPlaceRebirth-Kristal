@@ -24,7 +24,7 @@ return {
       spacing = 0,
       margin = 0,
       columns = 13,
-      image = "../../../assets/sprites/tilesets/main_area.png",
+      image = "../../../../assets/sprites/tilesets/main_area.png",
       imagewidth = 260,
       imageheight = 320,
       objectalignment = "unspecified",
@@ -452,7 +452,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_hub",
+            ["map"] = "floor1/main",
             ["marker"] = "south"
           }
         },
@@ -481,7 +481,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["marker"] = "boat"
+            ["boat"] = { id = 35 }
           }
         },
         {

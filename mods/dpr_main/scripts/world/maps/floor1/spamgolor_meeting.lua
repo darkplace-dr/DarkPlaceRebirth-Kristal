@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -18,8 +18,31 @@ return {
     {
       name = "main_area",
       firstgid = 1,
-      filename = "../../tilesets/main_area.tsx",
-      exportfilename = "../../tilesets/main_area.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 13,
+      image = "../../../../assets/sprites/tilesets/main_area.png",
+      imagewidth = 260,
+      imageheight = 320,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     }
   },
   layers = {
@@ -50,7 +73,7 @@ return {
         0, 0, 0, 0, 14, 16, 92, 93, 93, 93, 93, 93, 93, 93, 93, 93, 94, 14, 16, 0, 0, 0, 0,
         0, 0, 0, 0, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 15, 16, 0, 0, 0, 0,
         0, 0, 0, 0, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 0, 0, 0, 0,
-        0, 0, 0, 0, 27, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 0, 0, 0, 0,
+        0, 0, 0, 0, 27, 28, 28, 28, 28, 28, 15, 15, 15, 28, 28, 28, 28, 28, 29, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
@@ -72,7 +95,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
@@ -85,7 +108,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 160,
@@ -98,11 +121,11 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 480,
+          x = 520,
           y = 400,
-          width = 280,
+          width = 240,
           height = 40,
           rotation = 0,
           visible = true,
@@ -111,9 +134,9 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 480,
+          x = 520,
           y = 440,
           width = 40,
           height = 80,
@@ -124,7 +147,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 440,
@@ -137,7 +160,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 400,
@@ -150,7 +173,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 240,
@@ -163,7 +186,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 120,
@@ -192,7 +215,7 @@ return {
         {
           id = 6,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 160,
@@ -208,23 +231,23 @@ return {
         {
           id = 20,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 520,
-          width = 80,
+          width = 120,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floor1/fluffys_palace",
+            ["map"] = "floor1/hub_fluffys_palace",
             ["marker"] = "entry"
           }
         },
         {
           id = 15,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 920,
           y = 160,
@@ -256,7 +279,7 @@ return {
         {
           id = 8,
           name = "west",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 200,
@@ -269,7 +292,7 @@ return {
         {
           id = 9,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 200,
           y = 200,
@@ -282,7 +305,7 @@ return {
         {
           id = 10,
           name = "east",
-          class = "",
+          type = "",
           shape = "point",
           x = 880,
           y = 200,

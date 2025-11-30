@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="20">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="22">
  <editorsettings>
   <export target="pregreatdoor.lua" format="lua"/>
  </editorsettings>
@@ -63,6 +63,12 @@
    <properties>
     <property name="map" value="floor1/benchroom"/>
     <property name="marker" value="west"/>
+   </properties>
+  </object>
+  <object id="21" name="lencheck" x="400" y="240" width="120" height="40">
+   <properties>
+    <property name="context" value="fountain"/>
+    <property name="dir" value="down"/>
    </properties>
   </object>
  </objectgroup>

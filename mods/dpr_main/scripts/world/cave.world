@@ -1,0 +1,20 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/minekraft/cave.tmx",
+            "height": 480,
+            "width": 1040,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/minekraft/cave_right1.tmx",
+            "height": 480,
+            "width": 1040,
+            "x": 1120,
+            "y": 40
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}
