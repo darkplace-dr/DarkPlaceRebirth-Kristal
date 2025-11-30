@@ -104,14 +104,16 @@ function actor:init()
         ["battle/victory"] = {-8, 0},
 
         -- Cutscene offsets
-        ["fall"] = {0, 0},
-        ["super_move"] = {-24, 0},
-        ["the_roba"] = {0, 0},
-        ["guard"] = {-17, -11},
+        ["ball"] = {-3, 0},
         ["dance"] = {-5, -1},
+        ["fall"] = {0, 0},
+        ["guard"] = {-17, -11},
+        ["right_down"] = {-1, -2},
+        ["right_down_more"] = {1, -2},
+        ["the_roba"] = {0, 0},
     }
 
-    --self.taunt_sprites = {"super_move", "the_roba"}
+    self.taunt_sprites = {"cool", "the_roba"}
 
     self.shiny_id = "ceroba"
 

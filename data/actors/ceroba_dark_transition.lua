@@ -14,6 +14,8 @@ function actor:init()
     self.path = "party/ceroba/dark_transition"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
     self.default = "run"
+
+    self.offsets = {["ball"] = {-3, 0}}
 end
 
 return actor
