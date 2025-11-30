@@ -23,7 +23,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#0000ff" id="2" name="collision" visible="0">
+ <objectgroup color="#0000ff" id="2" name="collision">
   <object id="1" x="0" y="240" width="160" height="160"/>
   <object id="2" x="240" y="160" width="440" height="120"/>
   <object id="3" x="520" y="400" width="240" height="40"/>
@@ -33,16 +33,16 @@
   <object id="4" x="760" y="240" width="160" height="160"/>
   <object id="5" x="0" y="120" width="920" height="40"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="3" name="objects" visible="0">
+ <objectgroup color="#ff00ff" id="3" name="objects">
   <object id="6" name="transition" x="-40" y="160" width="40" height="80">
    <properties>
     <property name="map" value="floor1/main"/>
     <property name="marker" value="east1"/>
    </properties>
   </object>
-  <object id="20" name="transition" x="400" y="520" width="80" height="40">
+  <object id="20" name="transition" x="400" y="520" width="120" height="40">
    <properties>
-    <property name="map" value="floor1/fluffys_palace"/>
+    <property name="map" value="floor1/hub_fluffys_palace"/>
     <property name="marker" value="entry"/>
    </properties>
   </object>
@@ -53,7 +53,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#7f00ff" id="4" name="markers" visible="0">
+ <objectgroup color="#7f00ff" id="4" name="markers">
   <object id="8" name="west" x="40" y="200">
    <point/>
   </object>

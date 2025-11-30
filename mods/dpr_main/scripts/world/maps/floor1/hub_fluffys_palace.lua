@@ -452,7 +452,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "main_hub",
+            ["map"] = "floor1/main",
             ["marker"] = "south"
           }
         },
@@ -481,7 +481,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["marker"] = "boat"
+            ["boat"] = { id = 35 }
           }
         },
         {

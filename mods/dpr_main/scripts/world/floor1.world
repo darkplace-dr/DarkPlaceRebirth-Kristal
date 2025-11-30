@@ -81,7 +81,14 @@
             "fileName": "maps/floor1/fluffys_palace.tmx",
             "height": 896,
             "width": 896,
-            "x": 1012,
+            "x": 2004,
+            "y": 2304
+        },
+        {
+            "fileName": "maps/floor1/hub_fluffys_palace.tmx",
+            "height": 1024,
+            "width": 1024,
+            "x": 928,
             "y": 2304
         }
     ],
