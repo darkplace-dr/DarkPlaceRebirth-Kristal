@@ -13,12 +13,12 @@ end
 function LakeBoat:updateRide(cutscene)
     if self.boarding then
         Game.world.music:pause()
-        self.music = Music("not_acid_lake")
-        print("marker = " .. self.properties.marker)
-        local boatMarker_X, boatMarker_Y = cutscene:getMarker(self.properties.marker)
+        print("marker = " .. self.sail)
+        local boatMarker_X, boatMarker_Y = self.sail.x, self.sail.y
         print(boatMarker_X)
         print(boatMarker_Y)
         self:slideTo(boatMarker_X, boatMarker_Y, 1)
+        self.music = Music("not_acid_lake")
     else
         Game.world.music:play()
         self.music:remove()
@@ -27,12 +27,18 @@ end
 
 function LakeBoat:init(data)
     super.init(self, data)
+
+    local properties = data.properties or {}
+    self.properties = properties or {}
     
     self.boarding = false
     self.active = false
     self.solid = true
     self.finished = false
-    self.properties = data.properties or {}
+
+    self.testing = properties["test"]
+    self.sail = properties["sail"]
+
     self:setScale(2)
     self:setOrigin(0.5, 1)
     self:updateBoat()
@@ -52,7 +58,7 @@ function LakeBoat:onInteract(player, dir)
 ---@diagnostic disable-next-line: param-type-mismatch
     Game.world:startCutscene(function(cutscene)
         if Game:getFlag("lakeboat_repaired") then
-            if self.finished then
+            if self.finished or self.testing then
                 Assets.playSound("jump")
                 cutscene:wait(1)
                 self.boarding = not self.boarding

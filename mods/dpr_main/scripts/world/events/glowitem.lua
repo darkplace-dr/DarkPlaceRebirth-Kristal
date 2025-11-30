@@ -34,9 +34,14 @@ function GlowItem:init(x, y, properties)
     self.sound = properties["sound"] or "item"
     self.item = properties["item"]
     self.money = properties["money"]
+    self.testing = properties["test"]
 
     self.set_flag = properties["setflag"]
     self.set_value = properties["setvalue"]
+
+    if self.testing and self:getFlag("grabbed") == true then
+        self:setFlag("grabbed", false)
+    end
 end
 
 function GlowItem:getDebugInfo()

@@ -41,6 +41,7 @@ end
 
 ---@param plr Player
 function LenCheck:onCollide(plr, dt)
+    if plr ~= Game.world.player then return end
     if not Game:hasPartyMember("len") or not self.active then return end
     self.active = false
     local plrChar = Game.world:getPartyCharacter(plr.actor.id)
@@ -78,7 +79,6 @@ function LenCheck:onCollide(plr, dt)
                 walkX = walkX - (newX * -500)
                 walkY = walkY - (newY * -500)
                 cutscene:wait(cutscene:walkTo("len",walkX,walkY,2,walkdir))
-                cutscene:wait(1)
                 LenCheck:handleFleeing(cutscene, tag)
             else
                 walkX = walkX + (newX * 4)
