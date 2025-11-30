@@ -241,9 +241,9 @@ end
 
 function Map:getShapes(layer_prefix)
     local result = {}
-    for k,v in pairs(self.shape_layers) do
+    for k, v in pairs(self.shape_layers) do
         if not layer_prefix or StringUtils.startsWith(k:lower(), layer_prefix) then
-            Utils.merge(result, v.objects)
+            TableUtils.merge(result, v.objects)
         end
     end
     return result
@@ -386,9 +386,7 @@ function Map:loadMapData(data)
     -- Set the tile layer depth to the closest tile layer below the object layer
     self.tile_layer = 0
     for _, depth in ipairs(tile_depths) do
-        if depth >= self.object_layer then
-            break
-        end
+        if depth >= self.object_layer then break end
 
         self.tile_layer = depth
     end
@@ -485,7 +483,7 @@ function Map:loadTextureFromImagePath(filename)
         if result == "not under prefix" then
             return false, "Image not found in \"" .. image_dir .. "\" (Got path \"" .. final_path .. "\")"
         elseif result == "path outside root" then
-            return false, "Image path located outside Kristal (Got path \"<kristal>/".. final_path .. "\")"
+            return false, "Image path located outside Kristal (Got path \"<kristal>/" .. final_path .. "\")"
         else
             return false, "Unknown reason"
         end
@@ -514,7 +512,7 @@ function Map:loadHitboxes(layer)
     local hitboxes = {}
     local ox, oy = layer.offsetx or 0, layer.offsety or 0
     for _, v in ipairs(layer.objects) do
-        local hitbox = Utils.colliderFromShape(self.world, v, v.x + ox, v.y + oy, v.properties)
+        local hitbox = TiledUtils.colliderFromShape(self.world, v, v.x + ox, v.y + oy, v.properties)
         if hitbox then
             table.insert(hitboxes, hitbox)
 
@@ -608,17 +606,15 @@ function Map:shouldLoadObject(data, layer)
     local skip_loading = false
     local uid = self:getUniqueID() .. "#" .. tostring(data.properties["uid"] or data.id)
     if data.properties["cond"] then
-        local env = setmetatable({}, {
-            __index = function(t, k)
-                return Game.flags[uid .. ":" .. k] or Game.flags[k] or _G[k]
-            end,
-        })
+        local env = setmetatable({}, {__index = function(t, k)
+            return Game:getFlag(uid .. ":" .. k) or Game:getFlag(k) or _G[k]
+        end})
         local chunk, _ = assert(loadstring("return " .. data.properties["cond"]))
         skip_loading = not setfenv(chunk, env)()
     elseif data.properties["flagcheck"] then
         local inverted, flag = StringUtils.startsWith(data.properties["flagcheck"], "!")
 
-        local result = Game.flags[uid .. ":" .. flag] or Game.flags[flag]
+        local result = Game:getFlag(uid .. ":" .. flag) or Game:getFlag(flag)
         local value = data.properties["flagvalue"]
         local is_true
         if value ~= nil then
@@ -889,7 +885,7 @@ function Map:loadTilesetFromTilesetPath(filename)
         if result == "not under prefix" then
             return false, "Tileset not found in \"" .. tileset_dir .. "\" (Got path \"" .. final_path .. "\")"
         elseif result == "path outside root" then
-            return false, "Tileset path located outside Kristal (Got path \"<kristal>/".. final_path .. "\")"
+            return false, "Tileset path located outside Kristal (Got path \"<kristal>/" .. final_path .. "\")"
         else
             return false, "Unknown reason"
         end
