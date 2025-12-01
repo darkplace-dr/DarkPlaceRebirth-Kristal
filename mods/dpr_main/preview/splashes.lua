@@ -102,4 +102,5 @@ return {
 	"See that heart? No shit!",
 	"That's right! I'm the\nRoaring Knight",
 	"Togore-tastic!",
+    "You just lost the game!",
 }
