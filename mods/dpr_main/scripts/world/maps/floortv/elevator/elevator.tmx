@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="19">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="1" x="160" y="240" width="40" height="120"/>
+  <object id="2" x="201" y="200" width="240" height="41"/>
+  <object id="3" x="440" y="240" width="40" height="120"/>
+  <object id="4" x="200" y="360" width="80" height="120"/>
+  <object id="5" x="360" y="360" width="80" height="120"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="11" name="elevator" x="0" y="0" width="40" height="40">
+   <properties>
+    <property name="color_1" type="color" value="#ff88bd8d"/>
+    <property name="color_2" type="color" value="#ff2e5432"/>
+    <property name="dest_1" value="floortv/dump_corridors"/>
+    <property name="dest_2" value="floortv/legacy/elevator_hall"/>
+    <property name="length_1" type="int" value="500"/>
+    <property name="length_2" type="int" value="500"/>
+    <property name="name_1" value="Green Room"/>
+    <property name="name_2" value="Abandoned Corridors"/>
+   </properties>
+  </object>
+  <object id="12" name="elevatorbuttons" x="360" y="200" width="40" height="40"/>
+  <object id="18" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/dump_corridors"/>
+    <property name="marker" value="entry_elevator"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="13" name="buttons" x="380" y="260">
+   <point/>
+  </object>
+  <object id="14" name="spawn" x="320" y="320">
+   <point/>
+  </object>
+  <object id="15" name="entry_up" x="320" y="260">
+   <point/>
+  </object>
+  <object id="17" name="entry" x="320" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

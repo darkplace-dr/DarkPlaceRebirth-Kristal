@@ -6,6 +6,24 @@
 local MainMenuDLC, super = Class(StateClass)
 
 local extractor = require("src.lib.extractor")
+FETCH_DEBUG_MSG = ""
+
+-- Try to attach repo_data to a mod entry by matching mod id to GITHUB_REPOS entries (case-insensitive)
+local function attachRepoDataIfPossible(mod)
+    if not mod or mod.repo_data then return mod end
+    if not GITHUB_REPOS then return mod end
+
+    local mid = tostring(mod.id or ""):lower()
+    for owner, repos in pairs(GITHUB_REPOS) do
+        for _, repo in ipairs(repos) do
+            if tostring(repo):lower() == mid then
+                mod.repo_data = { owner = owner, repo = repo }
+                return mod
+            end
+        end
+    end
+    return mod
+end
 
 function MainMenuDLC:init(menu)
     self.menu = menu
@@ -134,6 +152,11 @@ function MainMenuDLC:draw()
 
 	Draw.setColor(COLORS.red)
 	Draw.printShadow("Note: This thing is held together by hopes and dreams", 0, SCREEN_HEIGHT-16)
+	if FETCH_DEBUG_MSG ~= "" then
+		Draw.setColor(COLORS.red)
+		Draw.printShadow(FETCH_DEBUG_MSG, 0, SCREEN_HEIGHT - 40, 2, "left", 640)
+		Draw.setColor(COLORS.white)
+	end
 end
 
 function MainMenuDLC:onKeyPressed(key, is_repeat)
@@ -288,7 +311,7 @@ function MainMenuDLC:drawMain()
 	local mod = self.list:getSelectedMod()
 	if mod then
 		local top_rect_y = 240+48+10
-		love.graphics.print(mod.name.. " "..mod.version, 315, top_rect_y+5)
+		love.graphics.print((mod.name or "Unknown") .. " " .. (mod.version or ""), 315, top_rect_y+5)
 		love.graphics.print("Creator: "..(mod.creator or (mod.repo_data and mod.repo_data.owner and mod.repo_data.owner or "Unknown") or "Unknown"), 315, top_rect_y+16+5)
 
 		local desc = mod.description or mod.subtitle or ""
@@ -302,7 +325,7 @@ function MainMenuDLC:drawMain()
 		local bottom_rect_y = 310+SCREEN_HEIGHT-(240+48+10)-10
 		local d_text = Input.getText("confirm").." "
 		if Kristal.Mods.getMod(id) then
-			d_text = d_text.."Delete"
+			d_text = d_text.."Downloaded!"
 		elseif mod.repo_data then
 			d_text = d_text.."Download"
 		else
@@ -454,6 +477,28 @@ function MainMenuDLC:handleDataFile(body)
 	return Kristal.Mods.dlc_data[content.id]
 end
 
+function MainMenuDLC:findRepoDataForID(id)
+    local lower_id = id:lower():gsub("_", "-"):gsub(" ", "-")
+
+    for owner, repos in pairs(GITHUB_REPOS) do
+        for _, repo in ipairs(repos) do
+            local lower_repo = repo:lower()
+
+            -- allow underscores and hyphens to be treated equal
+            lower_repo = lower_repo:gsub("_", "-")
+
+            if lower_repo == lower_id then
+                return {
+                    owner = owner,
+                    repo  = repo
+                }
+            end
+        end
+    end
+
+    return nil
+end
+
 -- Handles what to do with images files once downloaded
 function MainMenuDLC:handleImageFile(body, filename, data)
 	local name = "cache/"..filename..".png"
@@ -489,6 +534,7 @@ function MainMenuDLC:handleContentDownload(data, index)
 	local content = data.contents
 	local file = content[index]
 	local link = "https://api.github.com/repos/"..data.owner.."/"..data.repo.."/contents/"..file
+	print("[DLC] Fetching URL: "..link)
 	local headers
 	if file:find(".png") then headers = {Accept="application/vnd.github.v3.raw"} end
 
@@ -504,13 +550,22 @@ function MainMenuDLC:handleContentDownload(data, index)
 					self:handleImageFile(body, name, self.temp_content)
 				end
 			else
-				self:handleError(data.owner, data.repo, "An error occured when downloading "..file..": "..JSON.decode(body).message, res)
+				local msg = "Error downloading "..file.." ("..tostring(res)..")"
+				local body_msg = ""
+				if type(body) == "string" and #body > 0 then
+					-- show short body if available
+					body_msg = ": "..(body:gsub("\n"," "):sub(1,600))
+				end
+				FETCH_DEBUG_MSG = msg .. (body_msg ~= "" and body_msg or "")
+				self:handleError(data.owner, data.repo, msg..(body_msg ~= "" and body_msg or ""), res)
 			end
 			self.send_request = false
 			self.content_index = self.content_index + 1
 		end
 	})
 	if not ok then
+		-- Kristal.fetch failed to start the request (TLS/HTTPS problem or similar)
+		FETCH_DEBUG_MSG = "[DLC] Kristal.fetch failed to start for: "..link
 		self:handleError(data.owner, data.repo, "The fetching request failed. Is HTTPS available?", nil)
 		self.content_index = self.content_index + 1
 		self.send_request = false
@@ -530,6 +585,7 @@ function MainMenuDLC:handleZipDownload(data)
 
 				extractor.extractZIP("mods/"..name, "mods", true, function()
 					self.send_request = false
+					FETCH_DEBUG_MSG = "[DLC] ZIP download error for "..data.owner.."/"..data.repo.." ("..tostring(res)..")"
 					self.loading_callback = function()
 						for i,dlc in ipairs(love.filesystem.getDirectoryItems("mods")) do
 							local s, _ = dlc:find(data.repo)
@@ -560,6 +616,7 @@ function MainMenuDLC:handleZipDownload(data)
 		end
 	})
 	if not ok then
+		FETCH_DEBUG_MSG = "[DLC] Kristal.fetch failed (zip) for: "..link
 		self:handleError(data.owner, data.repo, "The fetching request failed. Is HTTPS available?", nil)
 		self.content_index = self.content_index + 1
 		self.send_request = false
@@ -575,77 +632,135 @@ function MainMenuDLC:getState()
 end
 
 function MainMenuDLC:checkForNewDLCs()
+    local function inGitList(owner, repo)
+        if not owner or not repo then return false end
+        if not GITHUB_REPOS or not GITHUB_REPOS[owner] then return false end
+        for i, v in ipairs(GITHUB_REPOS[owner]) do
+            if v == repo then return true end
+        end
+        return false
+    end
 
-	local function inGitList(owner, repo)
-		if not GITHUB_REPOS[owner] then return false end
+    local new_dlcs = {}
+    local has_new = false
+    local dlc_table = Kristal.Mods.dlc_data or {}
 
-		for i,v in ipairs(GITHUB_REPOS[owner]) do
-			if v == repo then
-				return true
-			end
-		end
-		return false
-	end
+    for id, data in pairs(dlc_table) do
+        -- ensure table
+        if type(data) == "table" then
+            -- safely access field, even if it doesn't exist
+            if data.local_mode ~= nil then
+                if data.local_mode == true then
+                    has_new = true
+                    table.insert(new_dlcs, id)
+                end
+            end
 
-	local new_dlcs = {}
+        elseif type(data) == "string" then
+            -- if you actually want to store or use this result:
+            has_new = true
+            table.insert(new_dlcs, id)
 
-	for id,data in pairs(Kristal.Mods.dlc_data) do
-		if not data["local"] and not inGitList(data.repo_data.owner, data.repo_data.repo) then
-			if not new_dlcs[data.repo_data.owner] then
-				new_dlcs[data.repo_data.owner] = {}
-			end
-			table.insert(new_dlcs[data.repo_data.owner], data.repo_data.repo)
-		end
-	end
-	return #new_dlcs>0, new_dlcs
+        elseif type(data) == "number" then
+            -- same here
+            has_new = true
+            table.insert(new_dlcs, id)
+        end
+    end
+
+    return has_new, new_dlcs
 end
 
+
 function MainMenuDLC:REALbuildDLCList()
-	local dlcs = {}
-	for id,mod in pairs(Kristal.Mods.dlc_data) do
-		if not mod.id then
-			mod.id = id
-		end
-		if not mod.plugin_path then
-			table.insert(dlcs, mod)
-		end
-	end
+    local dlcs = {}
 
-	table.sort(dlcs, function(a, b)
-		local a_mod = Kristal.Mods.getMod(a.id)
-		local b_mod = Kristal.Mods.getMod(b.id)
-		return (
-			(a_mod and not b_mod)
-			or (a_mod == b_mod and a.name < b.name)
-		)
-	end)
+    for id, mod in pairs(Kristal.Mods.dlc_data) do
+        if not mod.id then
+            mod.id = id
+        end
+        if not mod.plugin_path then
+            table.insert(dlcs, mod)
+        end
+    end
 
-	for i,mod in ipairs(dlcs) do
-		local button = DLCButton(mod.name or mod.id, 424, 62, mod)
+    table.sort(dlcs, function(a, b)
+        local a_id = a.id or ""
+        local b_id = b.id or ""
+
+        local a_mod = Kristal.Mods.getMod(a_id)
+        local b_mod = Kristal.Mods.getMod(b_id)
+
+        local a_name = a.name or a_id
+        local b_name = b.name or b_id
+
+        return (
+            (a_mod and not b_mod)
+            or (a_mod == b_mod and a_name < b_name)
+        )
+    end)
+
+    for i, mod in ipairs(dlcs) do
+        local id = mod.id
+        local is_local = self:isModLocal(id)
+
+        local button = DLCButton(mod.name or id, 424, 62, mod)
         self.list:addMod(button)
 
-        if self:isModLocal(mod.id) then
-	        local path = Kristal.Mods.getMod(mod.id).path
-	        if not self.images.preview[mod.id] and love.filesystem.getInfo(path.."/preview.png") then
-	        	self.images.preview[mod.id] = love.graphics.newImage(path.."/preview.png")
-	        end
-	        if not self.images.banner[mod.id] then
-	        	if love.filesystem.getInfo(path.."/banner.png") then
-	        		self.images.banner[mod.id] = love.graphics.newImage(path.."/banner.png")
-	        	elseif love.filesystem.getInfo(path.."/button.png") then -- ??? Gonna have to make sure which one is the one we want to go with
-	        		self.images.banner[mod.id] = love.graphics.newImage(path.."/button.png")
-	        	end
-	        end
-	    end
+        ------------------------------------------------------------
+        -- LOCAL MOD: load preview/banner from the installed folder
+        ------------------------------------------------------------
+        if is_local then
+            local path = Kristal.Mods.getMod(id).path
 
-        if mod.preview and not self.images.preview[mod.id] then
-        	self.images.preview[mod.id] = love.graphics.newImage(mod.preview)
+            -- PREVIEW
+            if not self.images.preview[id] then
+                local local_prev = path .. "/preview.png"
+                if love.filesystem.getInfo(local_prev) then
+                    self.images.preview[id] = love.graphics.newImage(local_prev)
+                end
+            end
+
+            -- BANNER
+            if not self.images.banner[id] then
+                local banner = path .. "/banner.png"
+                local button_img = path .. "/button.png"
+
+                if love.filesystem.getInfo(banner) then
+                    self.images.banner[id] = love.graphics.newImage(banner)
+                elseif love.filesystem.getInfo(button_img) then
+                    self.images.banner[id] = love.graphics.newImage(button_img)
+                end
+            end
+
+        ------------------------------------------------------------
+        -- REMOTE MOD (downloaded from GitHub): load ONLY if exists
+        ------------------------------------------------------------
+        else
+            -- Remote preview shouldn't overwrite local files
+            if mod.preview and love.filesystem.getInfo(mod.preview) then
+                self.images.preview[id] = love.graphics.newImage(mod.preview)
+            else
+                self.images.preview[id] = nil
+            end
+
+            if mod.banner and love.filesystem.getInfo(mod.banner) then
+                self.images.banner[id] = love.graphics.newImage(mod.banner)
+            end
         end
-        button.button_texture = self.images.banner[mod.id]
-        if Kristal.Mods.getMod(mod.id) then
-        	table.insert(self.installed_dlcs, mod.id)
+
+        ------------------------------------------------------------
+        -- Button texture link
+        ------------------------------------------------------------
+        button.button_texture = self.images.banner[id]
+
+        ------------------------------------------------------------
+        -- Installed DLC bookkeeping
+        ------------------------------------------------------------
+        if Kristal.Mods.getMod(id) then
+            table.insert(self.installed_dlcs, id)
         end
-	end
+    end
 end
 
 function MainMenuDLC:reloadMods(callback)
@@ -673,15 +788,24 @@ end
 
 function MainMenuDLC:buildDLCList(reset_cache)
 	self.loading_list = {}
+	self.loading_queue_index = 0
 
-	local url_list = GITHUB_REPOS
+	self.images = {
+		preview = {},
+		banner = {}
+	}
 
-	if not self.list then
-		self.list = ModList(10, 48+4, 280, SCREEN_HEIGHT-(48-4)-10)
-		self.list.layer = 50
-    	self.menu.stage:addChild(self.list)
+    local url_list = GITHUB_REPOS
+
+    if not self.list then
+        self.list = ModList(10, 48+4, 280, SCREEN_HEIGHT-(48-4)-10)
+        self.list.layer = 50
+        self.menu.stage:addChild(self.list)
     else
-    	self.list:clearMods()
+        -- clear images
+        self.list:clearMods()
+        self.images.preview = {}
+        self.images.banner = {}
     end
 
     if reset_cache then
@@ -713,11 +837,18 @@ function MainMenuDLC:buildDLCList(reset_cache)
     			end
     		end
     		local data = JSON.decode(love.filesystem.read("cache/dlc_data.json"))
-    		for i,mod in pairs(data) do
-    			if not Kristal.Mods.dlc_data[mod.id] then
-    				Kristal.Mods.dlc_data[mod.id] = mod
-    			end
-    		end
+			for i,mod in pairs(data) do
+				if not Kristal.Mods.dlc_data[mod.id] then
+					-- attach repo_data if we can match mod.id to GITHUB_REPOS
+					mod = attachRepoDataIfPossible(mod)
+					Kristal.Mods.dlc_data[mod.id] = mod
+				else
+					-- even existing entries may need repo_data attached
+					if not Kristal.Mods.dlc_data[mod.id].repo_data then
+						Kristal.Mods.dlc_data[mod.id] = attachRepoDataIfPossible(Kristal.Mods.dlc_data[mod.id])
+					end
+				end
+			end
 
     		-- TODO: remake that better
     		local new, list = self:checkForNewDLCs()
@@ -739,11 +870,21 @@ function MainMenuDLC:buildDLCList(reset_cache)
     for owner,repos in pairs(url_list) do
     	for i,repo in ipairs(repos) do
     		print("Add repo "..repo)
-    		table.insert(self.loading_list, {
-    			owner=owner,
-    			repo=repo,
-    			contents={"mod.json", "preview.png", "banner.png"}
-    		})
+    		local owner = data.repo_data.owner
+			local repo  = data.repo_data.repo
+
+			-- Hard stop if repo data is incomplete.
+			-- This prevents: "Kristal.fetch failed (zip) for:" with no repo name.
+			if not owner or not repo then
+				Assets.playSound("ui_cant_select")
+				return
+			end
+
+			table.insert(self.loading_list, {
+				owner = owner,
+				repo  = repo,
+				zipball = true
+			})
     		self.loading_queue_index = self.loading_queue_index + 1
     	end
     end
@@ -771,37 +912,62 @@ function MainMenuDLC:buildDLCList(reset_cache)
 end
 
 function MainMenuDLC:handleMod(id)
-	print("Handle "..id)
-	local data = Kristal.Mods.dlc_data[id]
-	if not Kristal.Mods.getMod(id) then
-		table.insert(self.loading_list, {
-			owner=data.repo_data.owner,
-			repo=data.repo_data.repo,
-			zipball=true
-		})
-		self.loading_queue_index = self.loading_queue_index + 1
-		self:setState("DOWNLOAD")
-	else
-		local function recursivelyDelete(item)
-	        if love.filesystem.getInfo( item , "directory" ) then
-	            for _, child in ipairs( love.filesystem.getDirectoryItems( item )) do
-	                recursivelyDelete( item .. '/' .. child )
-	                love.filesystem.remove( item .. '/' .. child )
-	            end
-	        elseif love.filesystem.getInfo( item ) then
-	            love.filesystem.remove( item )
-	        end
-	        love.filesystem.remove( item )
-	    end
-    	if love.filesystem.getInfo((Kristal.Mods.getMod(id).path).."/.git") then
-            Assets.playSound("ui_cant_select")
-            return
+    print("Handle " .. id)
+
+    local data = Kristal.Mods.dlc_data[id]
+    if not data then
+        Assets.playSound("ui_cant_select")
+        return
+    end
+
+    -- repo_data may exist only for GitHub DLC entries
+    -- Add basic detection for entries in GITHUB_REPOS so repo_data can be created
+    if not data.repo_data then
+        data.repo_data = self:findRepoDataForID(id)
+    end
+
+    if not data.repo_data or not data.repo_data.owner or not data.repo_data.repo then
+        -- Still no repo info = Local-only or user-installed DLC without a GitHub source
+        Assets.playSound("ui_cant_select")
+        return
+    end
+
+    -- DLC NOT installed → download from GitHub
+    if not Kristal.Mods.getMod(id) then
+        table.insert(self.loading_list, {
+            owner   = data.repo_data.owner,
+            repo    = data.repo_data.repo,
+            zipball = true
+        })
+        self.loading_queue_index = self.loading_queue_index + 1
+        self:setState("DOWNLOAD")
+        return
+    end
+
+    -- DLC *is installed* → uninstall it
+    local function recursivelyDelete(item)
+        local info = love.filesystem.getInfo(item)
+        if not info then return end
+
+        if info.type == "directory" then
+            for _, child in ipairs(love.filesystem.getDirectoryItems(item)) do
+                recursivelyDelete(item .. "/" .. child)
+            end
         end
-    	recursivelyDelete(Kristal.Mods.getMod(id).path)
-		self:reloadMods(function()
-			self:buildDLCList(false)
-		end)
-	end
+
+        love.filesystem.remove(item)
+    end
+
+    if love.filesystem.getInfo(Kristal.Mods.getMod(id).path .. "/.git") then
+        Assets.playSound("ui_cant_select")
+        return
+    end
+
+    recursivelyDelete(Kristal.Mods.getMod(id).path)
+
+    self:reloadMods(function()
+        self:buildDLCList(false)
+    end)
 end
 
 return MainMenuDLC
