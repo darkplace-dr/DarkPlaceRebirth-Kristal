@@ -60,6 +60,7 @@ function Dess:update()
         elseif dess.health <= dess.max_health * 0.25 and self.phase < 4 then
             self.phase = 4
             self.bg.max_alpha = 0.75
+            self.bg.deltarune = true
             dess.phase4_start_text = true
         end
     end
