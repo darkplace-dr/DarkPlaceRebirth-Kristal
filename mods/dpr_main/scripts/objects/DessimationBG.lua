@@ -21,6 +21,12 @@ function DessimationBG:init(color, back_color, fill)
     self.dess_anim_frames = {7, 4, 3, 4}
     self.last_dess_anim = 1
     self.last_dess_anim_frame = 1
+
+    self.deltarune = false
+    self.delta_rune_fade = 0
+    self.dr_color = COLORS.red
+	self.dr_color_con = 0
+	self.dr_color_timer = 0
 end
 
 function DessimationBG:bgDess(x, y, reverse_movement)
@@ -28,9 +34,9 @@ function DessimationBG:bgDess(x, y, reverse_movement)
     local sprite = Sprite(path..self.dess_anims[self.last_dess_anim].."_"..self.last_dess_anim_frame, x, y)
     sprite:setScale(2)
     sprite:setOrigin(0.5)
-    sprite.layer = self.layer + 1
+    sprite.layer = BATTLE_LAYERS["below_battlers"]
     sprite.alpha = 0.5
-    self:addChild(sprite)
+    Game.battle:addChild(sprite)
     sprite:setPhysics({
         speed_x = reverse_movement and -10 or 10
     })
@@ -71,6 +77,37 @@ function DessimationBG:update()
     end
 
 	self.alpha_fx.alpha = Game.battle.transition_timer / 10
+
+    if self.deltarune and self.delta_rune_fade < 1 then
+        self.delta_rune_fade = self.delta_rune_fade + 0.1 * DTMULT
+    elseif not self.deltarune and self.delta_rune_fade > 0 then
+        self.delta_rune_fade = self.delta_rune_fade - 0.1 * DTMULT
+    end
+
+    if self.delta_rune_fade > 0 then
+        if self.dr_color_con == 0 then
+			self.dr_color = ColorUtils.mergeColor(COLORS.red, COLORS.yellow, self.dr_color_timer)
+			if self.dr_color_timer >= 1 then
+				self.dr_color_timer = 0
+				self.dr_color_con = 1
+			end
+		end
+		if self.dr_color_con == 1 then
+			self.dr_color = ColorUtils.mergeColor(COLORS.yellow, COLORS.blue, self.dr_color_timer)
+			if self.dr_color_timer >= 1 then
+				self.dr_color_timer = 0
+				self.dr_color_con = 2
+			end
+		end
+		if self.dr_color_con == 2 then
+			self.dr_color = ColorUtils.mergeColor(COLORS.blue, COLORS.red, self.dr_color_timer)
+			if self.dr_color_timer >= 1 then
+				self.dr_color_timer = 0
+				self.dr_color_con = 0
+			end
+		end
+		self.dr_color_timer = MathUtils.approach(self.dr_color_timer, 1, 0.05*DTMULT)
+    end
 end
 
 function DessimationBG:draw()
@@ -82,6 +119,9 @@ function DessimationBG:draw()
 
     Draw.setColor(0, 0, 0, Game.battle.background_fade_alpha)
     love.graphics.rectangle("fill", -20, -20, SCREEN_WIDTH + 40, SCREEN_HEIGHT + 40)
+    local r,g,b,a = unpack(self.dr_color)
+    love.graphics.setColor(r,g,b, self.delta_rune_fade)
+    love.graphics.draw(Assets.getTexture("battle/delta_rune"), 320, 240, 0, 2, 2, 60, 40)
 end
 
 function DessimationBG:drawFill()

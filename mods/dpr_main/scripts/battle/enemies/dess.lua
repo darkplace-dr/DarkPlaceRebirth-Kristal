@@ -63,6 +63,7 @@ end
 function Dess:onDefeat(damage, battler)
     Game.battle.encounter.bg.max_alpha = 0
     Game.battle.encounter.bg.desses = false
+    Game.battle.encounter.bg.deltarune = false
     Game.battle.encounter.afterimages = false
     self:defeat("KILLED", true)
 end
