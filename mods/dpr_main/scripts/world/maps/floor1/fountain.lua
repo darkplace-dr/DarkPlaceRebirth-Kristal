@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 20,
+  nextlayerid = 8,
+  nextobjectid = 30,
   properties = {},
   tilesets = {
     {
@@ -68,14 +68,29 @@ return {
       properties = {},
       objects = {
         {
-          id = 19,
-          name = "greatdoor",
+          id = 23,
+          name = "darkfountain",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["narrow"] = false
+          }
+        },
+        {
+          id = 24,
+          name = "fountainfloor",
           type = "",
           shape = "rectangle",
-          x = 134,
-          y = -30,
-          width = 360,
-          height = 310,
+          x = 200.009,
+          y = 280.488,
+          width = 240,
+          height = 200,
           rotation = 0,
           visible = true,
           properties = {}
@@ -166,6 +181,51 @@ return {
             ["map"] = "floor1/pregreatdoor",
             ["marker"] = "north"
           }
+        },
+        {
+          id = 28,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 199.5,
+          y = 366.5,
+          width = 240,
+          height = 33,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "fountain",
+            ["once"] = false
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "controllers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 22,
+          name = "fountainshadow",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -203,6 +263,45 @@ return {
           shape = "point",
           x = 320,
           y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "sealready_1",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "sealready_2",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "sealready_3",
+          type = "",
+          shape = "point",
+          x = 360,
+          y = 360,
           width = 0,
           height = 0,
           rotation = 0,

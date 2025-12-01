@@ -181,6 +181,7 @@ return function(cutscene)
             Kristal.showBorder(1)
             cutscene:interpolateFollowers()
             cutscene:attachFollowers()
+            Game.world:getEvent("script"):remove()
         end
     else
         showDialog("[speed:0.8](Do you want to return to the Light World?)")
