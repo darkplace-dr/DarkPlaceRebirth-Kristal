@@ -1231,6 +1231,8 @@ function Mod:initializeImportantFlags(new_file)
 
         -- Use "KR_" as a prefix to check for a Kristal Mod instead
         KR_frozen_heart = {item_id = "angelring"},
+        KR_wilter_boss_fight = {item_id = "bloombowtie"},
+        KR_plugged_dream = {item_id = "wirecracker"},
         KR_wii_bios = {item_id = "wiimote"},
         ["KR_acj_deoxynn/act1"] = {name = "Deoxynn Act 1", item_id = "victory_bell"}
     }
