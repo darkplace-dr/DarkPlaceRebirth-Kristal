@@ -113,5 +113,96 @@ local cyber = {
 			end
 		end
     end,
+    tea = function(cutscene, event)
+		local offpercent = Game:getFlag("FUN")
+		local cost = 200 - offpercent * 2 - 1
+	
+		cutscene:showShop()
+		cutscene:text("* This is the HOTTEST-EST tea shop! HOTTER, YET HOTTER!! ".. offpercent.. "% off!", nil, event)
+		cutscene:text("* Ever since moving to this city, the tea became EVEN HOTTER THAN HOT!!", nil, event)
+		cutscene:text("* For $".. cost.. ", Choose your OWN flavor!!", nil, event)
+	
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			if Game.money < cost then
+				cutscene:text("* You lack the money to choose a flavor!!", nil, event)
+			elseif not Game:hasPartyMember("hero") and
+			not Game:hasPartyMember("kris") and
+			not Game:hasPartyMember("susie") and
+			not Game:hasPartyMember("ralsei") and
+			not Game:hasPartyMember("noelle") and
+			not Game:hasPartyMember("dess") and
+			not Game:hasPartyMember("jamm") and
+			not Game:hasPartyMember("ceroba") and
+			not Game:hasPartyMember("mario") and
+			not Game:hasPartyMember("pauling") then
+				cutscene:text("* Sorry, we're not producing tea for someone like you!", nil, event)
+                cutscene:text("* If only you had friends with a taste...", nil, event)
+			else
+				local teas = {}
+				local tea_items = {}
+				Game.money = Game.money - cost
+				cutscene:text("* OK!! Choose your OWN flavor!!", nil, event)
+	
+				if Game:hasPartyMember("hero") then 
+					table.insert(teas, "Hero") 
+					table.insert(tea_items, "hero_tea") 
+				end
+				if Game:hasPartyMember("kris") then 
+					table.insert(teas, "Kris") 
+					table.insert(tea_items, "kris_tea") 
+				end
+				if Game:hasPartyMember("susie") then 
+					table.insert(teas, "Susie") 
+					table.insert(tea_items, "susie_tea") 
+				end
+				if Game:hasPartyMember("ralsei") then 
+					table.insert(teas, "Ralsei") 
+					table.insert(tea_items, "ralsei_tea") 
+				end
+				if Game:hasPartyMember("noelle") then 
+					table.insert(teas, "Noelle") 
+					table.insert(tea_items, "noelle_tea") 
+				end
+				if Game:hasPartyMember("dess") then 
+					table.insert(teas, "Dess") 
+					table.insert(tea_items, "dess_tea") 
+				end
+				if Game:hasPartyMember("jamm") then 
+					table.insert(teas, "Jamm") 
+					table.insert(tea_items, "jamm_tea") 
+				end
+				if Game:hasPartyMember("ceroba") then 
+					table.insert(teas, "Ceroba") 
+					table.insert(tea_items, "ceroba_tea") 
+				end
+				if Game:hasPartyMember("mario") then 
+					table.insert(teas, "Mario") 
+					table.insert(tea_items, "mario_tea") 
+				end
+				if Game:hasPartyMember("pauling") then 
+					table.insert(teas, "Pauling") 
+					table.insert(tea_items, "pauling_tea") 
+				end
+				local tea_choice = cutscene:choicer(teas)
+				
+				local item = tea_items[tea_choice]
+			    local possible_item = "hero_tea" or "kris_tea" or "susie_tea" or "ralsei_tea" or 
+			    "noelle_tea" or "dess_tea" or "jamm_tea" or "ceroba_tea" or 
+			    "mario_tea" or "pauling_tea"
+			    if not Game.inventory:addItem(item) then
+					Game.money = Game.money + cost
+				    cutscene:text("* Whoops!! No space to choose a flavor!!", nil, event)
+				else
+					cutscene:playSound("locker")
+					cutscene:text("* Okay, here you go!", nil, event)
+				end
+			end
+		else
+			cutscene:text("* But if you don't choose a flavor, who will!?!?", nil, event)
+		end
+	
+		cutscene:hideShop()
+	end,	
 }
 return cyber

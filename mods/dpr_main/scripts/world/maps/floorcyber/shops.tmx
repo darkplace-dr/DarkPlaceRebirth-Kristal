@@ -208,8 +208,8 @@
   <object id="65" name="npc" x="723" y="1020">
    <properties>
     <property name="actor" value="addison"/>
+    <property name="cutscene" value="cyber.tea"/>
     <property name="sprite" value="pink"/>
-    <property name="text" value="* I am stupid"/>
    </properties>
    <point/>
   </object>

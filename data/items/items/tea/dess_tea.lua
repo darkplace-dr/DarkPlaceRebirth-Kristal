@@ -30,7 +30,7 @@ function item:init()
         ["susie"] = 20,
         ["ralsei"] = 20,
         ["noelle"] = 50,
-
+        ["hero"] = 20,
         ["dess"] = 75,
         ["jamm"] = 15,
         ["mario"] = placeholder,

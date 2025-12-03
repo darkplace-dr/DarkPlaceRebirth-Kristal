@@ -1,10 +1,10 @@
-local item, super = Class(HealItem, "kris_tea")
+local item, super = Class(HealItem, "hero_tea")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Kris Tea"
+    self.name = "Hero Tea"
     -- Name displayed when used in battle (optional)
     self.use_name = nil
 
@@ -18,19 +18,23 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "It's own-flavored tea.\nThe flavor just says \"Kris.\""
-
+    self.description = "It's own-flavored tea.\nThe flavor just says \"Hero.\""
     -- Amount healed (HealItem variable)
     self.heal_amount = 50
     -- Amount this item heals for specific characters
+    -- Party member this tea is from
+    local tea_self = "hero"
+    local placeholder = 50
     self.heal_amounts = {
-        ["kris"] = 10,
-        ["susie"] = 120,
-        ["ralsei"] = 120,
-        ["noelle"] = 70,
-        ["dess"] = 100,
+        ["kris"] = placeholder,
+        ["susie"] = 70,
+        ["noelle"] = placeholder,
+        ["dess"] = 40,
         ["hero"] = 20,
-        ["ceroba"] = 40
+        ["jamm"] = 60,
+        ["mario"] = 40,
+        ["pauling"] = placeholder,
+        ["ceroba"] = placeholder,
     }
 
     -- Default shop price (sell price is halved)
@@ -58,22 +62,8 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-        kris = {
-            susie = "(No reaction?)",
-            noelle = "(... no reaction?)"
-        },
-        susie = {
-            susie = "Hell yeah, apple juice!!",
-            ralsei = "Don't drink so fast!!"
-        },
-        ralsei = {
-            ralsei = "Tastes like blueberries!",
-            susie = "Huh? Really?"
-        },
-        noelle = "Tastes like cinnamon! (What is this aftertaste...?)",
-        jamm = "It's... Alright.",
-        dess = "tastes like shit",
-        ceroba = "Slight taste of... Something sour?",
+		susie =  "It tastes like... what?",
+		dess =  "this tea sucks dude",
     }
 end
 
