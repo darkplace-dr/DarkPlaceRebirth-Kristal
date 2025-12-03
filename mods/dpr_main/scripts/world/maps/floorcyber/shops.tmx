@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="22" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="63">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="22" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="66">
  <editorsettings>
   <export target="shops.lua" format="lua"/>
  </editorsettings>
@@ -188,6 +188,30 @@
     <property name="map" value="floorcyber/electrodasher_encounter"/>
     <property name="marker" value="entry"/>
    </properties>
+  </object>
+  <object id="63" name="npc" x="460" y="230">
+   <properties>
+    <property name="actor" value="addison"/>
+    <property name="sprite" value="blue"/>
+    <property name="text" value="* I am stupid"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" name="npc" x="119" y="1020">
+   <properties>
+    <property name="actor" value="addison"/>
+    <property name="sprite" value="yellow"/>
+    <property name="text" value="* I am stupid"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="65" name="npc" x="723" y="1020">
+   <properties>
+    <property name="actor" value="addison"/>
+    <property name="sprite" value="pink"/>
+    <property name="text" value="* I am stupid"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
