@@ -472,7 +472,7 @@ local cliffside = {
                 cutscene:textTagged("* I MEAN, IT'S IT'S PRIME TIME TO HAVE SUM [color:yellow]fun[color:reset], AFTER ALL!", nul, gus)
                 Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares")
             end
-        elseif prime then
+        elseif prime and not FUN == 67 then
             -- Note the fact that nothing tells you that you got this. Isn't that such great game design?
             cutscene:textTagged("* HEEEY, S'POSE THAT MEANS IT'S PRIME TIME TO HAVE SUM [color:yellow]fun[color:reset], HUH?", nul, gus)
             Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares")
@@ -482,29 +482,55 @@ local cliffside = {
         elseif FUN >= 41 and FUN <= 59 then
             cutscene:textTagged("* ", nil, gus)
         elseif FUN >= 60 and FUN <= 80 then
-            cutscene:textTagged("* GOOOLLLY!![wait:5]\n* THAT'S A LOTTA [color:yellow]fun[color:reset]!", nil, gus)
-            if FUN >= 60 and FUN <= 69 then
-                cutscene:textTagged("* SAY, CAN I TELL YA A SECRET?", nil, gus)
-                cutscene:textTagged("* NUMBERS IN THE SIXTIES ARE MY FAAAVORITES!", nil, gus)
-                cutscene:textTagged("* YOU WANNA KNOW WHY?", nil, gus)
-
+            if FUN == 67 then
                 local darkness = Rectangle(0, 0, 640, 480)
                 darkness.layer = Game.world.player.layer - 0.1
+                darkness.alpha = 0
                 darkness:setScale(1)
                 darkness:setColor(0, 0, 0)
                 darkness:setParallax(0, 0)
                 Game.world:addChild(darkness)
 
-                Game.world.music:setPitch(0.25)
-                Assets.playSound("noise")
+                Game.world.timer:tween(3.5, Game.world.music, {pitch = 0.05})
+                Game.world.timer:tween(2.5, darkness, {alpha = 1})
                 gus:setSprite("spooky")
-                cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* Because there's a chance you'll meet someone special that way.")
+                cutscene:text("[spacing:2.5][speed:0.15][voice:nil][noskip]* .....[wait:5]")
+                cutscene:text("[voice:nil]* Funny number, ain't it?")
+                cutscene:text("[voice:nil]* Sometimes a joke don't stop...")
+                cutscene:text("[voice:nil]* And it keeps walking, right past the punchline.")
+                cutscene:text("[voice:nil]* And when it does... you'll see what follows.")
+                cutscene:text("[voice:nil]* Consider this as a threat, cruel chance.")
 
-                cutscene:wait(2)
+                Game.party[1].stats.health = 67
+                Game.party[1].health = 67
+                Game.party[1].stats.max_health = 67
                 darkness:remove()
-                Game.world.music:setPitch(1)
-                Assets.playSound("noise")
-                gus:setAnimation("idle")
+                Game.world.timer:tween(2.5, Game.world.music, {pitch = 1})
+            else
+                cutscene:textTagged("* GOOOLLLY!![wait:5]\n* THAT'S A LOTTA [color:yellow]fun[color:reset]!", nil, gus)
+                if FUN >= 60 and FUN <= 69 then
+                    cutscene:textTagged("* SAY, CAN I TELL YA A SECRET?", nil, gus)
+                    cutscene:textTagged("* NUMBERS IN THE SIXTIES ARE MY FAAAVORITES!", nil, gus)
+                    cutscene:textTagged("* YOU WANNA KNOW WHY?", nil, gus)
+    
+                    local darkness = Rectangle(0, 0, 640, 480)
+                    darkness.layer = Game.world.player.layer - 0.1
+                    darkness:setScale(1)
+                    darkness:setColor(0, 0, 0)
+                    darkness:setParallax(0, 0)
+                    Game.world:addChild(darkness)
+    
+                    Game.world.music:setPitch(0.25)
+                    Assets.playSound("noise")
+                    gus:setSprite("spooky")
+                    cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* Because there's a chance you'll meet someone special that way.")
+    
+                    cutscene:wait(2)
+                    darkness:remove()
+                    Game.world.music:setPitch(1)
+                    Assets.playSound("noise")
+                    gus:setAnimation("idle")
+                end
             end
         elseif FUN >= 81 and FUN <= 100 then
             cutscene:text("* HOLY SMOKES!!!", nil, gus)
@@ -538,9 +564,11 @@ local cliffside = {
             cutscene:textTagged("* AFTER ALL,[wait:5] THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
         end
 
-        cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
-        cutscene:textTagged("* CHECK BACK FOR HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE THE NEXT TIME!!", nil, gus)
-        cutscene:textTagged("* AH-HA!!!", nil, gus)
+        if not FUN == 67 then
+            cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
+            cutscene:textTagged("* CHECK BACK FOR HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE THE NEXT TIME!!", nil, gus)
+            cutscene:textTagged("* AH-HA!!!", nil, gus)
+        end
 
         Assets.playSound("mysterygo")
         gus:remove()

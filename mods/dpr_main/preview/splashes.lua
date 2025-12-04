@@ -103,4 +103,9 @@ return {
 	"That's right! I'm the\nRoaring Knight",
 	"Togore-tastic!",
     "You just lost the game!",
+    "Hello Mario.",
+    "NOT a Deltarune Mod!",
+    "Dessember Holiday.",
+    "Dessember Holidy?",
+    "Dessember Holidoy!",
 }
