@@ -396,7 +396,6 @@ return {
           visible = true,
           properties = {
             ["actor"] = "morshu",
-            ["cond"] = "Game:getFlag(\"FUN\") <= 20 or Game:getFlag(\"FUN\") >= 26",
             ["cutscene"] = "hub.morshu"
           }
         },
@@ -445,23 +444,6 @@ return {
             ["actor"] = "boxer",
             ["text1"] = "* (Shuffle  shuffle.)\n(I am a box. People put stuff on me.)",
             ["text2"] = "* (I eat that stuff. Such is the way of the box.)"
-          }
-        },
-        {
-          id = 61,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 381,
-          y = 220.1,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "handy",
-            ["cond"] = "Game:getFlag(\"FUN\") >= 21 and Game:getFlag(\"FUN\") <= 25",
-            ["cutscene"] = "hub.handyshop"
           }
         }
       }
