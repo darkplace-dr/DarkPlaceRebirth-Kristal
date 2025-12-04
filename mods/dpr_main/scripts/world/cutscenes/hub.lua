@@ -235,11 +235,6 @@ local hub = {
 
     local items_list = {
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
             result = "dd_burger",
             item1 = "darkburger",
             item2 = "darkburger"
@@ -269,6 +264,26 @@ local hub = {
             item1 = "silver_card",
             item2 = "silver_card",
         },
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "discarded_robe"
+        },
+        {
+            result = "chosen_ax",
+            item1 = "chosen_blade",
+            item2 = "mane_ax"
+        },
+		{
+			result = "nullsword",
+			item1 = "glitchswd",
+			item2 = "bin_weapon"
+		},
+		{
+			result = "memory_guts",
+			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
+			item2 = "mind_guts"
+		},
     }
     Kristal.callEvent("setItemsList", items_list)
 

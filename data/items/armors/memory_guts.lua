@@ -1,25 +1,25 @@
-local item, super = Class(Item, "glitchswd")
+local item, super = Class(Item, "memory_guts")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "GlitchSwd"
+    self.name = "Memory Guts"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "weapon"
+    self.type = "armor"
     -- Item icon (for equipment)
-    self.icon = "ui/menu/icon/sword"
+    self.icon = "ui/menu/icon/armor"
 
     -- Battle description
     self.effect = ""
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "What are you looking at? There's nothing there."
+    self.description = "For those whose dreams are nightmares."
 
     -- Default shop price (sell price is halved)
-    self.price = 0
+    self.price = 800
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -33,26 +33,26 @@ function item:init()
     self.instant = false
 
     -- Equip bonuses (for weapons and armor)
-    self.bonuses = {}
+    self.bonuses = {
+        defense = -3,
+        magic = 9,
+        attack = 0,
+    }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "Nothing"
-    self.bonus_icon = "ui/menu/icon/down"
+    self.bonus_name = "Fun"
+    self.bonus_icon = "ui/menu/icon/smile"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}
 
     -- Character reactions
     self.reactions = {
-        hero = "Wow. Really funny.",
-        susie = "... what are you trying to equip?",
-        jamm = "Uh... what?",
-        ceroba = "Huh? What sword?"
+
     }
 end
 
-function item:getShopDescription()
-    -- Don't automatically add item type
-    return self.shop
+function item:applyMoneyBonus(gold)
+    return gold * (1.11)
 end
 
 return item

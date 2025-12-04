@@ -564,7 +564,7 @@ local cliffside = {
             cutscene:textTagged("* AFTER ALL,[wait:5] THIS WORLD IS FULL INFINITE POSIBILITIES!!", nil, gus)
         end
 
-        if FUN < 67 and FUN > 67 then
+        if FUN ~= 67 then
             cutscene:textTagged("* WELP !\n* THAT'LL BE ALL FROM YER OL' PAL GUS 'ERE!", nil, gus)
             cutscene:textTagged("* CHECK BACK FOR HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE THE NEXT TIME!!", nil, gus)
             cutscene:textTagged("* AH-HA!!!", nil, gus)
