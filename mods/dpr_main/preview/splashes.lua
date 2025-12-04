@@ -105,6 +105,7 @@ return {
     "You just lost the game!",
     "Hello Mario.",
     "NOT a Deltarune Mod!",
+    "Requires arithmetics!",
     "Dessember Holiday.",
     "Dessember Holidy?",
     "Dessember Holidoy!",
