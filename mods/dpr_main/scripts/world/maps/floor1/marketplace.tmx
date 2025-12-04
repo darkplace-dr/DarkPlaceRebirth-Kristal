@@ -95,7 +95,6 @@
   <object id="33" name="npc" x="381" y="220">
    <properties>
     <property name="actor" value="morshu"/>
-    <property name="cond" value="Game:getFlag(&quot;FUN&quot;) &lt;= 20 or Game:getFlag(&quot;FUN&quot;) &gt;= 26"/>
     <property name="cutscene" value="hub.morshu"/>
    </properties>
    <point/>
@@ -114,14 +113,6 @@
     <property name="text1">* (Shuffle  shuffle.)
 (I am a box. People put stuff on me.)</property>
     <property name="text2" value="* (I eat that stuff. Such is the way of the box.)"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="61" name="npc" x="381" y="220.1">
-   <properties>
-    <property name="actor" value="handy"/>
-    <property name="cond" value="Game:getFlag(&quot;FUN&quot;) &gt;= 21 and Game:getFlag(&quot;FUN&quot;) &lt;= 25"/>
-    <property name="cutscene" value="hub.handyshop"/>
    </properties>
    <point/>
   </object>
