@@ -87,6 +87,7 @@
   <object id="29" name="npc" x="700" y="210">
    <properties>
     <property name="actor" value="sans"/>
+    <property name="cond" value="Game:getFlag(&quot;FUN&quot;) &gt; 1"/>
     <property name="cutscene" value="hub.sansshop"/>
    </properties>
    <point/>

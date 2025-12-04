@@ -379,6 +379,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "sans",
+            ["cond"] = "Game:getFlag(\"FUN\") > 1",
             ["cutscene"] = "hub.sansshop"
           }
         },
