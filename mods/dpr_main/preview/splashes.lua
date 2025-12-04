@@ -109,4 +109,5 @@ return {
     "Dessember Holiday.",
     "Dessember Holidy?",
     "Dessember Holidoy!",
+    "Two trains, Train A and Train B,\nsimultaneously depart Station A\nand Station B.\nStation A and Station B are 252.5 miles\napart from each other.\nTrain A is moving at 124.7mph towards\nStation B, and Train B is moving at\n253.5mph towards station A.\nIf both trains departed at 10:00AM and it\nis now 10:08, how much longer until\nboth trains pass each other?",
 }

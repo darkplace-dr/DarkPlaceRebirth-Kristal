@@ -1794,6 +1794,30 @@ local hub = {
         onPurchase()
 	end,
 
+    handyshop = function(cutscene, event)
+		cutscene:textTagged("* (You can't tell what it's trying to sell, but you feel bad about it.)")
+		cutscene:textTagged("* (Should you buy it for 20 D$?)")
+		
+        local choice = cutscene:choicer({ "Buy", "Do Not" })
+		
+        if choice == 2 then
+            cutscene:textTagged("* (For a weird reason, you felt bitter.)")
+            return
+        end
+        if Game.money < 20 then
+            cutscene:textTagged("* (Turns out you don't have enough money, you feel glad.)")
+            return
+        end
+		if not Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares") then
+            cutscene:textTagged("* (You don't have enough inventory space to buy it.)")
+            return
+		end
+		
+        Game.money = Game.money - 20
+        cutscene:playSound("locker")
+        cutscene:textTagged("* (Suddenly,[wait:5] a weird monochrome hat entered your [color:yellow]ARMORs[color:reset].)")
+	end,
+
     money_hole = function(cutscene, event)
         if Game:getFlag("money_hole") == 1 then
             cutscene:text("* (The hole is filled to the brim with cash.)")
