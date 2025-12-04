@@ -155,7 +155,7 @@ function item:getDescription()
         [99] = "",
         [100] = ""
     }
-    return s .. locations[Game:getFlag("FUN", 1)] .. "."
+    return s .. locations[FUN] .. "."
 end
 
 return item
