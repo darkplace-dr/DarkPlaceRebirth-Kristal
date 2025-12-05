@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="50">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="71">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -10,20 +10,24 @@
  </properties>
  <tileset firstgid="1" source="../../../tilesets/greenroom.tsx"/>
  <tileset firstgid="127" source="../../../tilesets/floor3-objects.tsx"/>
+ <tileset firstgid="170" source="../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
+ <imagelayer id="7" name="Image Layer 1" repeatx="1" repeaty="1">
+  <image source="../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png" width="1280" height="960"/>
+ </imagelayer>
  <layer id="1" name="Tile Layer 1" width="24" height="12">
   <data encoding="csv">
-0,0,0,0,0,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,10,10,10,10,10,10,1,2,1,2,1,2,1,2,1,2,1,2,1,
-0,0,0,0,0,10,10,10,10,10,10,8,9,8,9,8,9,8,9,8,9,8,9,8,
-0,0,0,0,0,10,10,10,10,10,10,15,16,15,16,15,16,15,16,15,16,15,16,15,
-0,0,0,0,0,10,10,10,10,10,10,3,3,4,5,5,17,14,18,5,5,19,3,3,
-0,0,0,0,0,10,10,10,10,10,10,10,11,12,12,13,20,7,12,12,6,10,10,10,
-0,0,0,0,0,10,10,10,10,10,10,11,12,12,13,20,7,12,12,6,10,10,10,10,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,521,522,522,205,206,522,522,521,205,206,522,522,522,
+21,21,21,21,21,0,0,0,0,0,0,482,234,234,236,237,234,234,486,240,241,242,243,244,
+21,21,21,21,21,0,0,0,0,0,0,544,265,265,265,265,265,265,517,271,272,273,274,275,
+21,21,21,21,21,0,0,0,0,0,0,575,327,327,327,327,328,327,579,333,333,333,333,333,
+21,21,21,21,21,0,0,0,0,0,0,361,361,361,361,361,361,361,361,361,0,0,361,361,
+21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21
 </data>
  </layer>
  <layer id="6" name="Tile Layer 2" width="24" height="12">
@@ -31,9 +35,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,29,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -42,12 +46,28 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="8" name="objects_bg">
+  <object id="63" name="changing_room_star" x="760" y="180">
+   <properties>
+    <property name="sinerindex" type="int" value="0"/>
+    <property name="starindex" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" name="changing_room_star" x="920" y="200">
+   <properties>
+    <property name="sinerindex" type="int" value="1"/>
+    <property name="starindex" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup color="#0000ff" id="2" name="collision">
   <object id="1" x="440" y="0" width="520" height="240"/>
   <object id="2" x="200" y="360" width="760" height="40"/>
   <object id="3" x="160" y="0" width="40" height="400"/>
   <object id="34" x="460" y="240" width="60" height="20"/>
-  <object id="35" x="540" y="240" width="60" height="20"/>
+  <object id="35" x="580" y="240" width="68" height="20"/>
   <object id="38" x="216" y="310" width="60" height="40"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="4" name="markers">
@@ -74,33 +94,35 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="9" gid="129" x="460" y="260" width="60" height="90"/>
-  <object id="10" gid="129" x="540" y="260" width="60" height="90"/>
-  <object id="11" gid="128" x="802" y="240" width="76" height="104"/>
-  <object id="33" gid="127" x="210" y="350" width="74" height="90"/>
   <object id="39" name="savepoint" x="680" y="240" width="40" height="40">
    <properties>
-    <property name="text1" value="* (This place looks like it hasn't been used in a long time.)"/>
-    <property name="text2" value="* (The power of the Abandoned Green Room fills you.)"/>
+    <property name="text1" value="* (The air is damp, the walls show their age...)[wait:5]"/>
+    <property name="text2" value="* (You are filled with unease...[wait:5] and the power of trespassing abandoned rooms.)"/>
    </properties>
   </object>
   <object id="40" name="interactable" x="800" y="200" width="80" height="40">
    <properties>
-    <property name="text1" value="* (The door isn't locked.)"/>
-    <property name="text2" value="* (However,[wait:5] there's mold inside.)"/>
-    <property name="text3" value="* (So there's no point to go in until the creator removes the mold.)"/>
+    <property name="text1" value="* (The door is rusted shut.)"/>
+    <property name="text2">* (Even after all these years,[wait:5]
+it seems you'll never know what's behind it...)</property>
    </properties>
   </object>
+  <object id="58" gid="152" x="210" y="350" width="74" height="90"/>
+  <object id="59" gid="153" x="802" y="240" width="76" height="104"/>
+  <object id="60" gid="155" x="460" y="260" width="60" height="90"/>
+  <object id="62" gid="157" x="580" y="260" width="68" height="72"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="5" name="objects_fg" locked="1">
-  <object id="13" gid="130" x="440" y="160" width="70" height="40"/>
-  <object id="14" gid="130" x="504" y="160" width="70" height="40"/>
-  <object id="15" gid="130" x="568" y="160" width="70" height="40"/>
-  <object id="16" gid="130" x="632" y="160" width="70" height="40"/>
-  <object id="29" gid="130" x="696" y="160" width="70" height="40"/>
-  <object id="30" gid="130" x="760" y="160" width="70" height="40"/>
-  <object id="31" gid="130" x="824" y="160" width="70" height="40"/>
-  <object id="32" gid="130" x="888" y="160" width="70" height="40"/>
-  <object id="44" name="greenroom_sparkles" x="440" y="120" width="520" height="40"/>
+ <objectgroup color="#ff0000" id="5" name="objects_fg">
+  <object id="50" gid="150" x="440" y="160" width="70" height="40"/>
+  <object id="51" gid="150" x="504" y="160" width="70" height="40"/>
+  <object id="52" gid="150" x="568" y="160" width="70" height="40"/>
+  <object id="53" gid="150" x="632" y="160" width="70" height="40"/>
+  <object id="54" gid="150" x="696" y="160" width="70" height="40"/>
+  <object id="55" gid="150" x="760" y="160" width="70" height="40"/>
+  <object id="56" gid="150" x="824" y="160" width="70" height="40"/>
+  <object id="57" gid="150" x="888" y="160" width="70" height="40"/>
  </objectgroup>
+ <imagelayer id="9" name="overlay" opacity="0.4" tintcolor="#000000" parallaxx="0" parallaxy="0">
+  <image source="../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png" width="640" height="480"/>
+ </imagelayer>
 </map>

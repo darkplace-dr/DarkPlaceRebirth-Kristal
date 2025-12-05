@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 30,
+  nextlayerid = 10,
+  nextobjectid = 38,
   properties = {
     ["border"] = "greenroomold",
     ["music"] = "lost_room"
@@ -27,9 +27,31 @@ return {
       firstgid = 127,
       filename = "../../../../tilesets/floor3-objects.tsx",
       exportfilename = "../../../../tilesets/floor3-objects.lua"
+    },
+    {
+      name = "bg_ch3_dw_changing_room_tileset",
+      firstgid = 170,
+      filename = "../../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx",
+      exportfilename = "../../../../tilesets/bg_ch3_dw_changing_room_tileset.lua"
     }
   },
   layers = {
+    {
+      type = "imagelayer",
+      image = "../../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png",
+      id = 7,
+      name = "Image Layer 1",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -49,17 +71,17 @@ return {
       encoding = "lua",
       data = {
         21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21,
-        21, 21, 21, 21, 0, 2, 1, 2, 1, 2, 1, 0, 21, 21, 21, 21,
-        21, 21, 21, 21, 0, 9, 8, 9, 8, 9, 8, 0, 21, 21, 21, 21,
-        21, 21, 21, 21, 0, 16, 15, 16, 15, 16, 15, 0, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 3, 3, 3, 3, 3, 3, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 10, 10, 10, 10, 10, 11, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 10, 10, 10, 10, 11, 12, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 10, 10, 10, 11, 12, 12, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 10, 10, 11, 12, 12, 12, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 10, 11, 12, 12, 12, 6, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 11, 12, 12, 12, 6, 10, 21, 21, 21, 21, 21,
-        21, 21, 21, 21, 21, 12, 12, 12, 6, 10, 10, 21, 21, 21, 21, 21
+        21, 21, 21, 21, 0, 238, 239, 234, 234, 236, 237, 0, 21, 21, 21, 21,
+        21, 21, 21, 21, 0, 269, 270, 265, 265, 265, 265, 0, 21, 21, 21, 21,
+        21, 21, 21, 21, 0, 330, 329, 330, 330, 330, 328, 0, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 361, 361, 0, 0, 361, 361, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21
       }
     },
     {
@@ -171,34 +193,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 4,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 200,
-          y = 200,
-          width = 74,
-          height = 90,
-          rotation = 0,
-          gid = 127,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 5,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 366,
-          y = 200,
-          width = 74,
-          height = 90,
-          rotation = 0,
-          gid = 127,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 11,
           name = "transition",
           type = "",
@@ -231,7 +225,7 @@ return {
           }
         },
         {
-          id = 27,
+          id = 35,
           name = "",
           type = "",
           shape = "rectangle",
@@ -240,7 +234,35 @@ return {
           width = 76,
           height = 104,
           rotation = 0,
-          gid = 134,
+          gid = 151,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 200,
+          width = 74,
+          height = 90,
+          rotation = 0,
+          gid = 152,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 366,
+          y = 200,
+          width = 74,
+          height = 90,
+          rotation = 0,
+          gid = 152,
           visible = true,
           properties = {}
         }
@@ -303,7 +325,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 20,
+          id = 30,
           name = "",
           type = "",
           shape = "rectangle",
@@ -312,12 +334,12 @@ return {
           width = 70,
           height = 40,
           rotation = 0,
-          gid = 130,
+          gid = 150,
           visible = true,
           properties = {}
         },
         {
-          id = 21,
+          id = 31,
           name = "",
           type = "",
           shape = "rectangle",
@@ -326,12 +348,12 @@ return {
           width = 70,
           height = 40,
           rotation = 0,
-          gid = 130,
+          gid = 150,
           visible = true,
           properties = {}
         },
         {
-          id = 22,
+          id = 32,
           name = "",
           type = "",
           shape = "rectangle",
@@ -340,12 +362,12 @@ return {
           width = 70,
           height = 40,
           rotation = 0,
-          gid = 130,
+          gid = 150,
           visible = true,
           properties = {}
         },
         {
-          id = 23,
+          id = 33,
           name = "",
           type = "",
           shape = "rectangle",
@@ -354,20 +376,7 @@ return {
           width = 70,
           height = 40,
           rotation = 0,
-          gid = 130,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 29,
-          name = "greenroom_sparkles",
-          type = "",
-          shape = "rectangle",
-          x = 200,
-          y = 40,
-          width = 240,
-          height = 40,
-          rotation = 0,
+          gid = 150,
           visible = true,
           properties = {}
         }
@@ -404,6 +413,23 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png",
+      id = 9,
+      name = "overlay",
+      class = "",
+      visible = true,
+      opacity = 0.4,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 0,
+      parallaxy = 0,
+      tintcolor = { 0, 0, 0 },
+      repeatx = false,
+      repeaty = false,
+      properties = {}
     }
   }
 }

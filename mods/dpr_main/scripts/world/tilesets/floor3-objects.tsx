@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="floor3_objects" tilewidth="1437" tileheight="480" tilecount="22" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="floor3_objects" tilewidth="1437" tileheight="480" tilecount="40" columns="0">
  <editorsettings>
   <export target="floor3-objects.lua" format="lua"/>
  </editorsettings>
@@ -69,5 +69,71 @@
  </tile>
  <tile id="22">
   <image width="140" height="50" source="../../../assets/sprites/world/maps/floor3/gr_couch_r.png"/>
+ </tile>
+ <tile id="25">
+  <image width="37" height="45" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_cacti.png"/>
+ </tile>
+ <tile id="26">
+  <image width="38" height="52" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_door.png"/>
+ </tile>
+ <tile id="24">
+  <image width="38" height="52" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_elevatordoor.png"/>
+ </tile>
+ <tile id="23">
+  <image width="35" height="20" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_wires.png"/>
+ </tile>
+ <tile id="27">
+  <image width="41" height="102" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_sidedoor.png"/>
+ </tile>
+ <tile id="28">
+  <image width="30" height="45" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_vending.png"/>
+ </tile>
+ <tile id="30">
+  <image width="34" height="36" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_vending_side.png"/>
+ </tile>
+ <tile id="31">
+  <image width="58" height="51" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_tv.png"/>
+ </tile>
+ <tile id="32">
+  <image width="40" height="23" source="../../../assets/sprites/world/maps/floor3/sloppy/sign.png"/>
+ </tile>
+ <tile id="33">
+  <image width="31" height="38" source="../../../assets/sprites/world/maps/floor3/nondescript_room/chair.png"/>
+ </tile>
+ <tile id="35">
+  <image width="40" height="43" source="../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_1.png"/>
+  <animation>
+   <frame tileid="35" duration="250"/>
+   <frame tileid="36" duration="250"/>
+   <frame tileid="37" duration="250"/>
+   <frame tileid="38" duration="250"/>
+  </animation>
+ </tile>
+ <tile id="36">
+  <image width="40" height="43" source="../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_2.png"/>
+ </tile>
+ <tile id="37">
+  <image width="40" height="43" source="../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_3.png"/>
+ </tile>
+ <tile id="38">
+  <image width="40" height="43" source="../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_4.png"/>
+ </tile>
+ <tile id="39">
+  <image width="35" height="39" source="../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_1.png"/>
+  <animation>
+   <frame tileid="39" duration="250"/>
+   <frame tileid="40" duration="250"/>
+   <frame tileid="41" duration="250"/>
+   <frame tileid="42" duration="250"/>
+  </animation>
+ </tile>
+ <tile id="40">
+  <image width="35" height="39" source="../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_2.png"/>
+ </tile>
+ <tile id="41">
+  <image width="35" height="39" source="../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_3.png"/>
+ </tile>
+ <tile id="42">
+  <image width="35" height="39" source="../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_4.png"/>
  </tile>
 </tileset>
