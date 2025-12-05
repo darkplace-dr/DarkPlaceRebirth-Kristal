@@ -766,7 +766,7 @@ return {
           type = "",
           shape = "point",
           x = 40,
-          y = 40,
+          y = 70,
           width = 0,
           height = 0,
           rotation = 0,
