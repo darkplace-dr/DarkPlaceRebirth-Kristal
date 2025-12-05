@@ -462,9 +462,8 @@ end
 function MainMenu:buildInstalledDLCsString()
     self.installed_dlcs_string = ""
     local dlc_ids = {}
-    local builtin_dlcs = {"dpr_main", "dpr_light"}
-	for dlc_id,dlc in pairs(Kristal.Mods.data) do
-		if not TableUtils.contains(builtin_dlcs, dlc_id) and not dlc.plugin_path then
+	for dlc_id, dlc in pairs(Kristal.Mods.data) do
+		if not TableUtils.contains(BUILTIN_DLCS, dlc_id) and not (dlc.plugin or dlc.plugin_path) then
 			table.insert(dlc_ids, dlc_id)
 		end
 	end
