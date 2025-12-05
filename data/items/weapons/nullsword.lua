@@ -1,10 +1,10 @@
-local item, super = Class(Item, "glitchswd")
+local item, super = Class(Item, "nullsword")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "GlitchSwd"
+    self.name = "NullSword"
 
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
@@ -16,12 +16,13 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "What are you looking at? There's nothing there."
+    self.description = "A phantasm given form in a sharp vessel.\nSometimes visible, sometimes not."
 
     -- Default shop price (sell price is halved)
-    self.price = 0
+    self.price = 1555
     -- Whether the item can be sold
     self.can_sell = true
+    self.sell_price = 155
 
     -- Consumable target mode (ally, party, enemy, enemies, or none)
     self.target = "none"
@@ -33,26 +34,34 @@ function item:init()
     self.instant = false
 
     -- Equip bonuses (for weapons and armor)
-    self.bonuses = {}
+    self.bonuses = {
+        attack = 11,
+        defense = 1,
+        magic = 2,
+    }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "Nothing"
-    self.bonus_icon = "ui/menu/icon/down"
+    self.bonus_name = "Corrupted"
+    self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        kris = true,
+        hero = true,
+    }
 
     -- Character reactions
     self.reactions = {
-        hero = "Wow. Really funny.",
-        susie = "... what are you trying to equip?",
-        jamm = "Uh... what?",
-        ceroba = "Huh? What sword?"
+        hero = "This is... weird.",
+        susie = "Looks sick... but kinda broken.",
+        ralsei = "It's unstable... are you sure?",
+        noelle = "W-where is it??",
+        dess = "am i blind or am i blind",
+        brenda = "Does it say something?",
+        noel = "no...",
+		jamm = "What did you say about Ania!?",
+        ceroba = "Don't ask me to equip that.",
+        mario = "I'm fucking Mario.",
     }
-end
-
-function item:getShopDescription()
-    -- Don't automatically add item type
-    return self.shop
 end
 
 return item

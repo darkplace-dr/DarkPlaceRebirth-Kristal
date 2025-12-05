@@ -257,6 +257,7 @@ function FuseMenu:draw()
 	love.graphics.setLineWidth(4)
 	love.graphics.rectangle("line", 30+2, 130+2, 580-3, 276-3)
 
+    love.graphics.setFont(Assets.getFont('main'))
 	love.graphics.print("Result", 114, 140)
 	love.graphics.print("Ingredients", 330, 140)
 

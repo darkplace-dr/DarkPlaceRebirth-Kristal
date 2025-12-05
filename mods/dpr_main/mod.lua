@@ -1092,16 +1092,16 @@ function Mod:postInit(new_file)
         DELTARUNE_SAVE_ID = nil
     end
     local items_list = {
-        {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
-            result = "dd_burger",
-            item1 = "darkburger",
-            item2 = "darkburger"
-        },
+		{
+			result = "soulmantle",
+			item1 = "flarewings",
+			item2 = "discarded_robe"
+		},
+		{
+			result = "dd_burger",
+			item1 = "darkburger",
+			item2 = "darkburger"
+		},
         {
             result = "silver_card",
             item1 = "amber_card",
