@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 109,
+  nextobjectid = 110,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
@@ -630,6 +630,22 @@ return {
           properties = {
             ["cutscene"] = "tvfloor.exit_rambs_room",
             ["once"] = false
+          }
+        },
+        {
+          id = 109,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 401,
+          y = 128.25,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.green_vending",
+            ["solid"] = false
           }
         }
       }

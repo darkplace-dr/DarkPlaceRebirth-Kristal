@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="109">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="110">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -139,6 +139,12 @@
    <properties>
     <property name="cutscene" value="tvfloor.exit_rambs_room"/>
     <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="109" name="interactable" x="401" y="128.25" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.green_vending"/>
+    <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

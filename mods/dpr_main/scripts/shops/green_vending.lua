@@ -32,10 +32,10 @@ function LegacyVending:init()
 
 	self.shop_music = nil
 
-    self:registerItem("tvslop")
-    self:registerItem("tvslop")
-    self:registerItem("tvslop")
-    self:registerItem("dark_candy", {name = "FROWN", description = "Show\nsadness at\nthe state\nof this\nroom", price = 0})
+    self:registerItem("tvdinner", {price = 150})
+    self:registerItem("deluxedinner", {price = 300})
+    self:registerItem("gingerguard", {price = 600})
+    self:registerItem("lodestone", {price = 400})
     
     self.hide_world = false
 	self.bg_cover.visible = false
@@ -60,7 +60,7 @@ function LegacyVending:onStateChange(old,new)
     self.buy_confirming = false
     self.sell_confirming = false
 	if new == "TALKMENU" then
-        self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (... it was quite unnoteworthy.)"}, "MAINMENU")
+        self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (It says: \"Thanks for visiting Green Room(TM)! Don't forget to visit the TENNA ROOM! All Tennas and non-Tennas are welcome!\".)"}, "MAINMENU")
 		return
 	elseif new == "DIALOGUE_FROWN" then
         self.dialogue_text.width = 598
