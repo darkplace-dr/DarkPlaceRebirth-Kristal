@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -547,7 +547,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
-          visible = true,
+          visible = false,
           properties = {
             ["solid"] = false,
             ["text1"] = "* (There's a lot of glass bottles.)"

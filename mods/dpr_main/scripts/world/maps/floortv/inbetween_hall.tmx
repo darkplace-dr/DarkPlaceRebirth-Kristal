@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="9">
+ <editorsettings>
+  <export target="inbetween_hall.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="green_room"/>
+  <property name="music" value="deltarune/tv_changingroom"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/ch3_dw_tvland_stage.tsx"/>
+ <objectgroup id="2" name="objects_floor">
+  <object id="3" name="greenroom_floor" x="0" y="0" width="40" height="40"/>
+ </objectgroup>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,236,236,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="5" name="collision">
+  <object id="1" x="240" y="80" width="40" height="400"/>
+  <object id="2" x="360" y="80" width="40" height="400"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="4" name="transition" x="240" y="40" width="160" height="39.4545">
+   <properties>
+    <property name="map" value="floortv/dump_corridors"/>
+    <property name="marker" value="entry_inbetween"/>
+   </properties>
+  </object>
+  <object id="5" name="script" x="240" y="480" width="160" height="40">
+   <properties>
+    <property name="cutscene" value="tvfloor.enter_rambs_room"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="3" name="markers">
+  <object id="7" name="entry_dump" x="320" y="112">
+   <point/>
+  </object>
+  <object id="8" name="entry_ramb" x="320" y="472">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
