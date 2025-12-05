@@ -831,7 +831,7 @@ function MainMenuDLC:buildDLCList(reset_cache)
     	if love.filesystem.getInfo("cache/dlc_data.json") then
     		--print("Cache found, loading...")
     		for i,mod in ipairs(Kristal.Mods.getMods()) do
-    			if not Utils.containsValue({"dpr_main", "dpr_light"}, mod.id) then
+    			if not TableUtils.contains(BUILTIN_DLCS, mod.id) then
     				Kristal.Mods.dlc_data[mod.id] = mod
     				Kristal.Mods.dlc_data[mod.id]['local'] = true
     			end
