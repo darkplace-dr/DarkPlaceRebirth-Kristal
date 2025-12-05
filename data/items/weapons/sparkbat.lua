@@ -1,22 +1,22 @@
-local item, super = Class(Item, "toxicaxe")
+local item, super = Class(Item, "sparkbat")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "ToxicAxe"
+    self.name = "SparkBat"
 
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = "ui/menu/icon/axe"
+    self.icon = "ui/menu/icon/bat"
 
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = "Smelly\nweapon"
+    self.shop = "25+ colors \nper second"
     -- Menu description
-    self.description = "An axe used to clear wastelands\nin a fetid swamp. Not poison, but gross."
+    self.description = "A bat that is flickering with many colors.\nMay cause epilepsy for some people."
 
     -- Default shop price (sell price is halved)
     self.price = 700
@@ -34,7 +34,8 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 6,
+        attack = 4,
+        magic = 2,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
@@ -42,18 +43,20 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        susie = true,
+        dess = true,
     }
 
     -- Character reactions
     self.reactions = {
-        hero =  "Ew.",
-        susie = "Eat dirt, losers.",
-        ralsei = "Could I wash it off first?",
-        noelle = "N-no way! Susie wouldn't use that!",
-        dess = "i wana eat dirt",
-        jamm = "How'd you even...",
-        ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
+        hero = "I don't wanna be blind.", 
+        susie = "This is AWESOME! Can I have it?", 
+        ralsei = "So many colors...",
+        noelle = "(That reminds me...)",
+        dess = {
+            susie = "(SHE gets a lightsaber?!)",
+            dess = "teehee"
+        },
+        jamm = "Shiny...",
     }
 end
 

@@ -561,6 +561,14 @@ return {
 			Game:enterShop("green_vending")
 		end
 	end,
+	
+    green_wvending = function(cutscene, event)
+        cutscene:text("* (It's the VENDING MACHINE (promoted by Tenna)!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("green_wvending")
+		end
+	end,
 
     legacy_vending = function(cutscene, event)
         cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)
