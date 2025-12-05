@@ -35,7 +35,7 @@ function LegacyVending:init()
     self:registerItem("tvslop")
     self:registerItem("tvslop")
     self:registerItem("tvslop")
-    self:registerItem("dark_candy", {name = "FROWN", description = "Show\nsadness at\nthe state\nof this\nroom", price = 0})
+    self:registerItem("dark_candy", {name = "FROWN", description = "Show\nsadness at\nthe state\nof this\nroom", price = 1})
     
     self.hide_world = false
 	self.bg_cover.visible = false
