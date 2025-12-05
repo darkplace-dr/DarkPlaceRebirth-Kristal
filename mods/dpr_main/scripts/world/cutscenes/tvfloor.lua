@@ -571,38 +571,63 @@ return {
 	end,
 	
     chair_room_chair = function(cutscene, event)
-		-- TODO: add rare FRIEND easter egg
         if not Game:getFlag("chair_room_darker") then
-			for _, mevent in ipairs(Game.world.map.events) do
-				if mevent.layer == Game.world.map.layers["objects_party"] then
-					mevent.collider.collidable = false
-					mevent.visible = false
-					mevent.layer = Game.world.map.layers["objects_nondistort"]
-				end
-				if mevent.layer == Game.world.map.layers["objects_distort"] then
-					mevent.collider.collidable = true
-					mevent.visible = true
-					mevent.layer = Game.world.map.layers["objects_party"]
-				end
-			end
-			Game.world.map:getImageLayer("bg_dark").visible = true
-			for _,chara in ipairs(Game.stage:getObjects(Character)) do
-				if not chara:getFX("dark") then
-					chara:addFX(RecolorFX(ColorUtils.mergeColor(COLORS.white, COLORS.black, 0.4)), "dark")
-					chara:addFX(DarkBlurFX(0, 0.3), "blur")
-				end
-			end
-			for _, party in ipairs(Game.party) do
-				for _, char in ipairs(Game.stage:getObjects(Character)) do
-					if char.actor and char.actor.id == party:getActor(true).id then
-						char:setActor(party:getActor(false))
+			if MathUtils.random() >= 0.95 then
+				Kristal.hideBorder(0)
+				Game.world.music:stop()
+				Assets.playSound("face")
+				love.window.setTitle("")
+				local black = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+				black:setParallax(0)
+				black:setColor(COLORS.black)
+				black.layer = WORLD_LAYERS["top"] - 2
+				Game.world:addChild(black)
+				local eyes = Sprite("world/maps/floor3/nondescript_room/___eyes", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+				eyes:setOrigin(0.5)
+				eyes:setScale(3)
+				eyes:setParallax(0)
+				eyes.layer = WORLD_LAYERS["top"] - 1
+				Game.world:addChild(eyes)
+				Game.world.timer:tween(0.5, eyes, {scale_x = 300, scale_y = 300}, "in-cubic")
+				cutscene:wait(0.5)
+				Assets.stopSound("face")
+				black:remove()
+				eyes:remove()
+				Game.world:loadMap("floortv/green_room", "spawn", "down")
+				Kristal.showBorder(0)
+				Kristal.setDesiredWindowTitleAndIcon()
+			else
+				for _, mevent in ipairs(Game.world.map.events) do
+					if mevent.layer == Game.world.map.layers["objects_party"] then
+						mevent.collider.collidable = false
+						mevent.visible = false
+						mevent.layer = Game.world.map.layers["objects_nondistort"]
+					end
+					if mevent.layer == Game.world.map.layers["objects_distort"] then
+						mevent.collider.collidable = true
+						mevent.visible = true
+						mevent.layer = Game.world.map.layers["objects_party"]
 					end
 				end
+				Game.world.map:getImageLayer("bg_dark").visible = true
+				for _,chara in ipairs(Game.stage:getObjects(Character)) do
+					if not chara:getFX("dark") then
+						chara:addFX(RecolorFX(ColorUtils.mergeColor(COLORS.white, COLORS.black, 0.4)), "dark")
+						chara:addFX(DarkBlurFX(0, 0.6, false), "blur")
+					end
+				end
+				for _, party in ipairs(Game.party) do
+					for _, char in ipairs(Game.stage:getObjects(Character)) do
+						if char.actor and char.actor.id == party:getActor(true).id then
+							char:setActor(party:getActor(false))
+						end
+					end
+				end
+				Game.world.music:play("deltarune/ambientwater_weird")
+				Game.world.music:setVolume(1)
+				Game:setFlag("chair_room_darker", true)
+				love.window.setTitle("... get darker than dark?")
 			end
-            Game.world.music:play("deltarune/ambientwater_weird")
-			Game.world.music:setVolume(1.1)
-			Game:setFlag("chair_room_darker", true)
-			love.window.setTitle("... get darker than dark?")
         else
 			for _, mevent in ipairs(Game.world.map.events) do
 			if mevent.layer == Game.world.map.layers["objects_party"] then

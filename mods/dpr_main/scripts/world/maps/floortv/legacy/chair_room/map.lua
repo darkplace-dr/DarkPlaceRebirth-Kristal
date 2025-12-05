@@ -29,7 +29,7 @@ function map:onEnter()
 	end
 	Game.world.map:getImageLayer("bg_dark").visible = false
 	Game.world.map:getImageLayer("bg_dark"):setColor(ColorUtils.mergeColor(COLORS.white, COLORS.black, 0.4))
-	Game.world.map:getImageLayer("bg_dark"):addFX(DarkBlurFX(2, 0.3), "blur")
+	Game.world.map:getImageLayer("bg_dark"):addFX(DarkBlurFX(2, 0.3, true), "blur")
 	Game:setFlag("chair_room_darker", false)
     love.window.setTitle("But what if it could...")
 end
