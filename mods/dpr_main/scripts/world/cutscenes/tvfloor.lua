@@ -561,12 +561,38 @@ return {
 			Game:enterShop("green_vending")
 		end
 	end,
+	
+    green_wvending = function(cutscene, event)
+        cutscene:text("* (It's the VENDING MACHINE (promoted by Tenna)!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("green_wvending")
+		end
+	end,
 
     legacy_vending = function(cutscene, event)
         cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)
         local choicer = cutscene:choicer({"Buy", "Don't Buy"})
         if choicer == 1 then
 			Game:enterShop("legacy_vending")
+		end
+	end,
+
+    legacy_freevending = function(cutscene, event)
+		cutscene:text("* (It's the VENDING MACHINE!)\n* (It seems to have stopped working for quite a while.)", nil)
+		cutscene:text("* (Borrow items from the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Borrow", "Don't"})
+        if choicer == 1 then
+			Game:enterShop("legacy_freevending")
+		end
+	end,
+
+    legacy_mikevending = function(cutscene, event)
+		cutscene:text("* (MIKE'S VENDING MACHINE!)\n* (It seems to have stopped working for quite a while.)", nil)
+		cutscene:text("* (Borrow items from the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Borrow", "Don't"})
+        if choicer == 1 then
+			Game:enterShop("legacy_mikevending")
 		end
 	end,
 	

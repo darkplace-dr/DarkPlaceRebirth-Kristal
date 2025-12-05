@@ -1,25 +1,25 @@
-local item, super = Class(Item, "red_scarf")
+local item, super = Class(Item, "sparkbat")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Red Scarf"
+    self.name = "SparkBat"
 
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = "ui/menu/icon/scarf"
+    self.icon = "ui/menu/icon/bat"
 
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = ""
+    self.shop = "25+ colors \nper second"
     -- Menu description
-    self.description = "A basic scarf made of lightly\nmagical fiber."
+    self.description = "A bat that is flickering with many colors.\nMay cause epilepsy for some people."
 
     -- Default shop price (sell price is halved)
-    self.price = 100
+    self.price = 700
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,7 +34,8 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 0,
+        attack = 4,
+        magic = 2,
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = nil
@@ -42,18 +43,20 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        ralsei = true,
+        dess = true,
     }
 
     -- Character reactions
     self.reactions = {
-        hero = "Already comfortable enough.",
-        susie = "No. Just... no.",
-        ralsei = "Comfy! Touch it, Kris!",
-        noelle = "Huh? No, I'm not cold.",
-        jamm = "Red is... not my color.",
-		dess = "fgdsfgsdfgsdf",
-        ceroba = "Cloth as a weapon? I'd rather not."
+        hero = "I don't wanna be blind.", 
+        susie = "This is AWESOME! Can I have it?", 
+        ralsei = "So many colors...",
+        noelle = "(That reminds me...)",
+        dess = {
+            susie = "(SHE gets a lightsaber?!)",
+            dess = "teehee"
+        },
+        jamm = "Shiny...",
     }
 end
 
