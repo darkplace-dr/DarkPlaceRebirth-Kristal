@@ -1,6 +1,6 @@
-local LegacyVending, super = Class(Shop)
+local GreenVending, super = Class(Shop)
 
-function LegacyVending:init()
+function GreenVending:init()
     super.init(self)
     self.encounter_text = "* (It's a vending machine.)"
     self.shop_text = "* (It's a vending machine.)"
@@ -47,30 +47,23 @@ function LegacyVending:init()
     }
 end
 
-function LegacyVending:postInit()
+function GreenVending:postInit()
     super.postInit(self)
 end
 
-function LegacyVending:onLeave()
+function GreenVending:onLeave()
     self:setState("LEAVING")
 end
 
-function LegacyVending:onStateChange(old,new)
+function GreenVending:onStateChange(old,new)
     Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
 	if new == "TALKMENU" then
         self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (It says: \"Thanks for visiting Green Room(TM)! Don't forget to visit the TENNA ROOM! All Tennas and non-Tennas are welcome!\".)"}, "MAINMENU")
 		return
-	elseif new == "DIALOGUE_FROWN" then
-        self.dialogue_text.width = 598
-        self:setRightText("")
-        self.large_box.visible = false
-        self.left_box.visible = true
-        self.right_box.visible = true
-        self.info_box.visible = false
-    end
+	end
 	super.onStateChange(self, old, self.state)
 end
 
-return LegacyVending
+return GreenVending
