@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 22,
+  tilecount = 40,
   tiles = {
     {
       id = 0,
@@ -156,6 +156,150 @@ return {
       image = "../../../assets/sprites/world/maps/floor3/gr_couch_r.png",
       width = 140,
       height = 50
+    },
+    {
+      id = 25,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_cacti.png",
+      width = 37,
+      height = 45
+    },
+    {
+      id = 26,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_door.png",
+      width = 38,
+      height = 52
+    },
+    {
+      id = 24,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_elevatordoor.png",
+      width = 38,
+      height = 52
+    },
+    {
+      id = 23,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_wires.png",
+      width = 35,
+      height = 20
+    },
+    {
+      id = 27,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_sidedoor.png",
+      width = 41,
+      height = 102
+    },
+    {
+      id = 28,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_vending.png",
+      width = 30,
+      height = 45
+    },
+    {
+      id = 30,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_vending_side.png",
+      width = 34,
+      height = 36
+    },
+    {
+      id = 31,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_tv.png",
+      width = 58,
+      height = 51
+    },
+    {
+      id = 32,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/sign.png",
+      width = 40,
+      height = 23
+    },
+    {
+      id = 33,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/chair.png",
+      width = 31,
+      height = 38
+    },
+    {
+      id = 35,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_1.png",
+      width = 40,
+      height = 43,
+      animation = {
+        {
+          tileid = 35,
+          duration = 250
+        },
+        {
+          tileid = 36,
+          duration = 250
+        },
+        {
+          tileid = 37,
+          duration = 250
+        },
+        {
+          tileid = 38,
+          duration = 250
+        }
+      }
+    },
+    {
+      id = 36,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_2.png",
+      width = 40,
+      height = 43
+    },
+    {
+      id = 37,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_3.png",
+      width = 40,
+      height = 43
+    },
+    {
+      id = 38,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/chair_distort_4.png",
+      width = 40,
+      height = 43
+    },
+    {
+      id = 39,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_1.png",
+      width = 35,
+      height = 39,
+      animation = {
+        {
+          tileid = 39,
+          duration = 250
+        },
+        {
+          tileid = 40,
+          duration = 250
+        },
+        {
+          tileid = 41,
+          duration = 250
+        },
+        {
+          tileid = 42,
+          duration = 250
+        }
+      }
+    },
+    {
+      id = 40,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_2.png",
+      width = 35,
+      height = 39
+    },
+    {
+      id = 41,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_3.png",
+      width = 35,
+      height = 39
+    },
+    {
+      id = 42,
+      image = "../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_4.png",
+      width = 35,
+      height = 39
     }
   }
 }

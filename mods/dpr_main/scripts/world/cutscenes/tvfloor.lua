@@ -544,10 +544,88 @@ return {
         end)
     end,
 
-    post_ralsei_impostor = function(cutscene, event)
-        cutscene:showNametag("Pippins")
-        cutscene:text("* Hey.\n[wait:5]* Just wanna say sorry for tricking you earlier.", nil, event)
-        cutscene:text("* You gotta admit that though.\n[wait:5]* That costume WAS pretty convincing,[wait:5] right?", nil, event)
-        cutscene:hideNametag()
+    enter_rambs_room = function(cutscene, event, chara)
+		Game:setFlag("in_rambs_room", true)
+		Game.world:mapTransition("floortv/green_room", "entry_ramb", chara.facing)
+	end,
+	
+    exit_rambs_room = function(cutscene, event, chara)
+		Game:setFlag("in_rambs_room", false)
+		Game.world:mapTransition("floortv/inbetween_hall", "entry_ramb", chara.facing)
+	end,
+	
+    legacy_vending = function(cutscene, event)
+        cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("legacy_vending")
+		end
+	end,
+	
+    chair_room_chair = function(cutscene, event)
+		-- TODO: add rare FRIEND easter egg
+        if not Game:getFlag("chair_room_darker") then
+			for _, mevent in ipairs(Game.world.map.events) do
+				if mevent.layer == Game.world.map.layers["objects_party"] then
+					mevent.collider.collidable = false
+					mevent.visible = false
+					mevent.layer = Game.world.map.layers["objects_nondistort"]
+				end
+				if mevent.layer == Game.world.map.layers["objects_distort"] then
+					mevent.collider.collidable = true
+					mevent.visible = true
+					mevent.layer = Game.world.map.layers["objects_party"]
+				end
+			end
+			Game.world.map:getImageLayer("bg_dark").visible = true
+			for _,chara in ipairs(Game.stage:getObjects(Character)) do
+				if not chara:getFX("dark") then
+					chara:addFX(RecolorFX(ColorUtils.mergeColor(COLORS.white, COLORS.black, 0.4)), "dark")
+					chara:addFX(DarkBlurFX(0, 0.3), "blur")
+				end
+			end
+			for _, party in ipairs(Game.party) do
+				for _, char in ipairs(Game.stage:getObjects(Character)) do
+					if char.actor and char.actor.id == party:getActor(true).id then
+						char:setActor(party:getActor(false))
+					end
+				end
+			end
+            Game.world.music:play("deltarune/ambientwater_weird")
+			Game.world.music:setVolume(1.1)
+			Game:setFlag("chair_room_darker", true)
+			love.window.setTitle("... get darker than dark?")
+        else
+			for _, mevent in ipairs(Game.world.map.events) do
+			if mevent.layer == Game.world.map.layers["objects_party"] then
+					mevent.collider.collidable = false
+					mevent.visible = false
+					mevent.layer = Game.world.map.layers["objects_distort"]
+				end
+				if mevent.layer == Game.world.map.layers["objects_nondistort"] then
+					mevent.collider.collidable = true
+					mevent.visible = true
+					mevent.layer = Game.world.map.layers["objects_party"]
+				end
+			end
+			Game.world.map:getImageLayer("bg_dark").visible = false
+			for _,chara in ipairs(Game.stage:getObjects(Character)) do
+				if chara:getFX("dark") then
+					chara:removeFX("dark")
+					chara:removeFX("blur")
+				end
+			end
+			for _, party in ipairs(Game.party) do
+				for _, char in ipairs(Game.stage:getObjects(Character)) do
+					if char.actor and char.actor.id == party:getActor(false).id then
+						char:setActor(party:getActor(true))
+					end
+				end
+			end
+			Game.world.music:stop()
+			Game.world.music:setVolume(1)
+			Game:setFlag("chair_room_darker", false)
+			love.window.setTitle("But what if it could...")
+        end
     end,
 }
