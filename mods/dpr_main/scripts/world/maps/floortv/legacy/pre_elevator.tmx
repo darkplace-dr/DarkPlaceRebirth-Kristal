@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="71">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="73">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -111,6 +111,18 @@ it seems you'll never know what's behind it...)</property>
   <object id="59" gid="153" x="802" y="240" width="76" height="104"/>
   <object id="60" gid="155" x="460" y="260" width="60" height="90"/>
   <object id="62" gid="157" x="580" y="260" width="68" height="72"/>
+  <object id="71" name="interactable" x="460" y="219.254" width="60" height="40.75">
+   <properties>
+    <property name="text">* (A vending machine in a rough state.)
+* (Unusable at this point.)</property>
+   </properties>
+  </object>
+  <object id="72" name="interactable" x="579.991" y="219.246" width="68" height="40.75">
+   <properties>
+    <property name="text">* (A vending machine in a rougher state.)
+* (Unusable at this point.)</property>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff0000" id="5" name="objects_fg">
   <object id="50" gid="150" x="440" y="160" width="70" height="40"/>

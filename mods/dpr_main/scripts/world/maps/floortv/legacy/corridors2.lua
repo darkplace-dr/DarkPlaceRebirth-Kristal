@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 105,
+  nextobjectid = 106,
   properties = {
     ["border"] = "greenroomold",
     ["music"] = "lost_room"
@@ -623,6 +623,21 @@ return {
           gid = 157,
           visible = true,
           properties = {}
+        },
+        {
+          id = 105,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 339.255,
+          width = 68,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (A vending machine in a rough state.)\n* (Unusable at this point.)"
+          }
         }
       }
     },

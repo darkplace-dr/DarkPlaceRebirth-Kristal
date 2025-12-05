@@ -577,6 +577,15 @@ return {
 			Game:enterShop("legacy_vending")
 		end
 	end,
+
+    legacy_freevending = function(cutscene, event)
+		cutscene:text("* (It's the VENDING MACHINE!)\n* (It seems to have stopped working for quite a while.)", nil)
+		cutscene:text("* (Borrow items from the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Borrow", "Don't"})
+        if choicer == 1 then
+			Game:enterShop("legacy_freevending")
+		end
+	end,
 	
     chair_room_chair = function(cutscene, event)
         if not Game:getFlag("chair_room_darker") then

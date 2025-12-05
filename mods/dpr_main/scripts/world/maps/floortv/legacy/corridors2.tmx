@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="105">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="106">
  <editorsettings>
   <export target="corridors2.lua" format="lua"/>
  </editorsettings>
@@ -143,6 +143,12 @@
    </properties>
   </object>
   <object id="102" gid="157" x="480" y="380" width="68" height="72"/>
+  <object id="105" name="interactable" x="480" y="339.255" width="68" height="40.75">
+   <properties>
+    <property name="text">* (A vending machine in a rough state.)
+* (Unusable at this point.)</property>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="31" name="entry" x="40" y="440">
