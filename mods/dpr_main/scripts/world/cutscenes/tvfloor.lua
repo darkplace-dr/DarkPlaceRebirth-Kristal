@@ -554,6 +554,14 @@ return {
 		Game.world:mapTransition("floortv/inbetween_hall", "entry_ramb", chara.facing)
 	end,
 	
+    green_vending = function(cutscene, event)
+        cutscene:text("* (It's the VENDING MACHINE!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("green_vending")
+		end
+	end,
+
     legacy_vending = function(cutscene, event)
         cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)
         local choicer = cutscene:choicer({"Buy", "Don't Buy"})

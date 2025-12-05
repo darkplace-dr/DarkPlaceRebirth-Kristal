@@ -261,18 +261,28 @@ local hub = {
         },
         {
             result = "gold_card",
-            item1 = "silver_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
+        },
+        {
+            result = "royalpin",
+            item1 = "mousetoken",
             item2 = "silver_card",
         },
         {
             result = "soulmantle",
             item1 = "flarewings",
-            item2 = "discarded_robe"
+            item2 = "shadowmantle"
         },
         {
             result = "chosen_ax",
             item1 = "chosen_blade",
             item2 = "mane_ax"
+        },
+        {
+            result = "powerbitter",
+            item1 = "powerring",
+            item2 = "harvester"
         },
 		{
 			result = "nullsword",
