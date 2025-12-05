@@ -1,25 +1,25 @@
-local item, super = Class(Item, "leadmaker")
+local item, super = Class(Item, "powerbitter")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Leadmaker"
+    self.name = "PowerBitter"
 
     -- Item type (item, key, weapon, armor)
-    self.type = "armor"
+    self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = "ui/menu/icon/armor"
+    self.icon = "ui/menu/icon/axe"
 
     -- Battle description
     self.effect = ""
     -- Shop description
-    self.shop = "Makes\nLead"
+    self.shop = ""
     -- Menu description
-    self.description = "A machine that makes lead.\nSell at the end of battles for $+25%!"
+    self.description = "A plastic scythe with flickering green and yellow colors. Heals you each time you FIGHT!"
 
     -- Default shop price (sell price is halved)
-    self.price = 750
+    self.price = 1000
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,38 +34,36 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = 1,
+        attack = -1,
+        magic = 5,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "$ +25%"
+    self.bonus_name = "AttackHeal"
     self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-		noelle = false,
-		dess = false,
-        brenda = false,
-        ceroba = false
-	}
+        susie = true,
+        suzy = true,
+        hero = true,
+    }
 
     -- Character reactions
     self.reactions = {
-        susie = "It's a humble job but it pays well.",
-        ralsei = "I'll work hard!",
-        noelle = "What? How do I use it?",
-		dess = "I hate work",
-        brenda = "How the hell does this work?",
-		jamm = "I could use some lead, but if I have to sell it...",
-        ["jamm+marcy"] = "That reminds me. Never eat Lunchables, Marcy.",
-        noel = "Eat Lead!",
-        ceroba = "Where would I even put it?",
-        suzy = "I am so good at this!",
-        hero = "Free cash.",
+        susie = "There goes my lightsaber! *nom*",
+        suzy = "Chomp, Chomp!",
+        ceroba = "I'm... Not a farmer.",
+        dess = "i hate stardew valley",
+        noel = "Insufficent.",
+        hero = "This thing is BUSTED!",
+        jamm = "I don't have a green thumb.",
     }
 end
 
-function item:applyMoneyBonus(gold)
-    return gold * 1.25
+function item:onAttackHit(battler, enemy, damage)
+    local heal_amount = math.ceil(battler.chara:getStat("health") * 0.15)
+
+    battler:heal(heal_amount)
 end
 
 return item
