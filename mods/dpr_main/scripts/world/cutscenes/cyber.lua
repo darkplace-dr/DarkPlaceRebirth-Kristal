@@ -113,6 +113,43 @@ local cyber = {
 			end
 		end
     end,
+	buster = function(cutscene, event)
+		cutscene:text("* Tired of bugs?[wait:5]\n* Computer lagging??[wait:5]\n* Antivirus NOT helping???", nil, event)
+		cutscene:text("* Worry not - the solution is here!", nil, event)
+		cutscene:text("* Get our \"Buster\" over here, and you'll start to clap and cheer!", nil, event)
+	
+		if Game:hasPartyMember("susie") then 
+			cutscene:text("* Hmm, sounds interesting.", "neutral_side", "susie")
+			cutscene:text("* How much?", "neutral", "susie")
+			cutscene:text("* Let's say...", nil, event)
+		end
+	
+		local cost = 2120
+		cutscene:text("* It'll cost " .. cost .. "D$!\n* How's that, eh?", nil, event)
+	
+		if Game:hasPartyMember("susie") and Game.money < cost then 
+			cutscene:text("*", "shock", "susie")
+			cutscene:text("* (We're not buying THAT, right?!)", "shy_b", "susie")
+		end
+	
+		cutscene:text("* (Buy it for " .. cost .. " D$?)")
+	
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			if Game.money < cost then
+				cutscene:text("* Hey, y'know you don't have enough money, right?", nil, event)
+				cutscene:text("* Guess we're not doing business today...", nil, event)
+			elseif not Game.inventory:addItem("virobuster") then
+				cutscene:text("* Whoops, no space to put it!", nil, event)
+				cutscene:text("* Guess we're not doing business today...", nil, event)
+			else
+				Game.money = Game.money - cost
+				cutscene:playSound("locker")
+				cutscene:text("* (You got [color:yellow]ViroBuster![color:reset])")
+				cutscene:text("* Pleasure doing business with ya.", nil, event)
+			end
+		end
+	end,
     tea = function(cutscene, event)
 		local offpercent = Game:getFlag("FUN")
 		local cost = 200 - offpercent * 2 - 1
