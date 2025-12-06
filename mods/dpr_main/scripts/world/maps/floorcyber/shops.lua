@@ -758,8 +758,9 @@ return {
           visible = true,
           properties = {
             ["actor"] = "addison",
-            ["sprite"] = "blue",
-            ["text"] = "* I am stupid"
+            ["cutscene"] = "cyber.shoes",
+            ["flagcheck"] = "!addisonsDEAD",
+            ["sprite"] = "blue"
           }
         },
         {

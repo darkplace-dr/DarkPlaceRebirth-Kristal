@@ -192,8 +192,9 @@
   <object id="63" name="npc" x="460" y="230">
    <properties>
     <property name="actor" value="addison"/>
+    <property name="cutscene" value="cyber.shoes"/>
+    <property name="flagcheck" value="!addisonsDEAD"/>
     <property name="sprite" value="blue"/>
-    <property name="text" value="* I am stupid"/>
    </properties>
    <point/>
   </object>
