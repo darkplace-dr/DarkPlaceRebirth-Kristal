@@ -32,9 +32,9 @@ function LegacyVending:init()
 
 	self.shop_music = nil
 
-    self:registerItem("tvslop")
-    self:registerItem("tvslop")
-    self:registerItem("tvslop")
+    self:registerItem("tvslop", {price = 100})
+    self:registerItem("tvslop", {price = 100})
+    self:registerItem("tvslop", {price = 100})
     self:registerItem("dark_candy", {name = "FROWN", description = "Show\nsadness at\nthe state\nof this\nroom", price = 1})
     
     self.hide_world = false

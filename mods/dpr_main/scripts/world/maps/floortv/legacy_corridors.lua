@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 75,
+  nextobjectid = 76,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -557,6 +557,22 @@ return {
             ["map"] = "floortv/hall_of_fame",
             ["marker"] = "entry_legacy",
             ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 75,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 169.248,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.green_sellding",
+            ["solid"] = false
           }
         }
       }

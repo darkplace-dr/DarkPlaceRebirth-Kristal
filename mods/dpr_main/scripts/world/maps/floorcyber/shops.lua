@@ -775,8 +775,8 @@ return {
           visible = true,
           properties = {
             ["actor"] = "addison",
-            ["sprite"] = "yellow",
-            ["text"] = "* I am stupid"
+            ["cutscene"] = "cyber.buster",
+            ["sprite"] = "yellow"
           }
         },
         {

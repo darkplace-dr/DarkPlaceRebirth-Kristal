@@ -569,6 +569,10 @@ return {
 			Game:enterShop("green_wvending")
 		end
 	end,
+	
+    green_sellding = function(cutscene, event)
+		Game:enterShop("green_sellding")
+	end,
 
     legacy_vending = function(cutscene, event)
         cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)

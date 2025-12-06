@@ -2,8 +2,8 @@ local GreenVending, super = Class(Shop)
 
 function GreenVending:init()
     super.init(self)
-    self.encounter_text = "* (It's a vending machine.)"
-    self.shop_text = "* (It's a vending machine.)"
+    self.encounter_text = "* (It's a reverse vending machine.)[wait:5]\n* (Put items in, DARK DOLLARS come out.)"
+    self.shop_text = "* (It's a reverse vending machine.)[wait:5]\n* (Put items in, DARK DOLLARS come out.)"
     self.leaving_text = ""
     self.buy_menu_text = "(Select\nan item.)"
     self.buy_confirmation_text = "Buy it for\n%s ?"
@@ -31,18 +31,13 @@ function GreenVending:init()
     self.sell_options_text["storage"] = "(Select\nITEM\nto sell.)"
 
 	self.shop_music = nil
-
-    self:registerItem("tvdinner", {price = 150})
-    self:registerItem("deluxedinner", {price = 300})
-    self:registerItem("lodestone", {price = 400})
-    self:registerItem("gingerguard", {price = 600})
     
     self.hide_world = false
 	self.bg_cover.visible = false
     self.menu_options = {
-        {"Buy",  "BUYMENU"},
         {"Sell", "SELLMENU"},
-        {"Check", "TALKMENU"},
+        {"Sell", "SELLMENU"},
+        {"Swell", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
 end
@@ -59,12 +54,8 @@ function GreenVending:onStateChange(old,new)
     Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
-	if new == "SELLMENU" then
-        self:startDialogue({"* (You tried to sell something, but you've forgot vending machines don't work like that.)"}, "MAINMENU")
-		return
-	end
 	if new == "TALKMENU" then
-        self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (It says: \"Thanks for visiting Green Room(TM)! Don't forget to visit the TENNA ROOM! All Tennas and non-Tennas are welcome!\".)"}, "MAINMENU")
+        self:startDialogue({"* (You felt glad.)"}, "MAINMENU")
 		return
 	end
 	super.onStateChange(self, old, self.state)

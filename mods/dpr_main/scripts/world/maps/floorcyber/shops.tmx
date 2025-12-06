@@ -200,8 +200,8 @@
   <object id="64" name="npc" x="119" y="1020">
    <properties>
     <property name="actor" value="addison"/>
+    <property name="cutscene" value="cyber.buster"/>
     <property name="sprite" value="yellow"/>
-    <property name="text" value="* I am stupid"/>
    </properties>
    <point/>
   </object>
