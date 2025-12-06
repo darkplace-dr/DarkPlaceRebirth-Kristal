@@ -113,6 +113,41 @@ local cyber = {
 			end
 		end
     end,
+	shoes = function(cutscene, event)
+		cutscene:text("* Oho, wandering out late at night, hm?", nil, event)
+        cutscene:text("* What's the occasion? A festival? Or is Christmas coming early?", nil, event)
+        cutscene:text("* If it snows, you'll need good shoes! Snowproof ones!", nil, event)
+        cutscene:text("* Care to try a sample pair? That'll cost " .. (Game.money + 1) .. " D$!", nil, event)
+		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then 
+			cutscene:text("* Yeah, about that.", "nervous", "susie")
+		end
+		if Game:hasPartyMember("dess") then
+			cutscene:text("* buddy we're [color:red]broke[color:reset] you know that", "mspaint", "dess")
+			cutscene:text("* why do we need snowproof shoes there's no snow here", "heckyeah", "dess")
+			cutscene:text("* you [color:red]stupid[color:reset]", "swag", "dess")
+			cutscene:text("* ...", nil, event)
+			cutscene:text("* I mean, you always need a pair of shoes once a day, am I right??", nil, event)
+            if Game:getFlag("can_kill") == true then
+				Game.world.music:pause()
+				cutscene:text("[noskip]* nuh uh get out[wait:5]", "dess.exe", "dess", {auto = true})
+				event:explode()
+				cutscene:wait(3)
+				cutscene:text("* (Dess became stronger!)")
+				cutscene:text("* lol", "smug", "dess")
+				Assets.playSound("ominous")
+				local dess_party = Game:getPartyMember("dess")
+				dess_party:increaseStat("health", 25)
+				dess_party:increaseStat("attack", 1)
+				dess_party:increaseStat("defense", 1)
+				dess_party:increaseStat("magic", 1)
+				Game.world.music:resume()
+				Game:setFlag("addisonsDEAD", true)
+            end
+		else
+			cutscene:text("* ...Ah, looks like you don't have enough.", nil, event)
+			cutscene:text("* Yeah, that's uhh...\n* That's a dealbreaker.[wait:5]\n* Forget about it.", nil, event)
+		end
+	end,
 	buster = function(cutscene, event)
 		cutscene:text("* Tired of bugs?[wait:5]\n* Computer lagging??[wait:5]\n* Antivirus NOT helping???", nil, event)
 		cutscene:text("* Worry not - the solution is here!", nil, event)
