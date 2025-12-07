@@ -35,7 +35,7 @@ function GreenVending:init()
     self:registerItem("dark_candy", {price = 40, description = "ITEM\nNot a badge,\nbut heals\n40HP"})
     self:registerItem("stellar_lens", {price = 150, description = "BADGE\nIncreases\nSTAR damage\nfor spells"})
     self:registerItem("less_ruder", {price = 350, description = "BADGE\nPaciBuster\ninto the\nPacify"})
-    self:registerItem("jackpot_jab", {price = 800, description = "BADGE\nScaling\ndamage\nfor Hero"})
+    self:registerItem("jackpot_jab", {price = 900, description = "BADGE\nScaling\ndamage\nfor Hero"})
     
     self.hide_world = false
 	self.bg_cover.visible = false
