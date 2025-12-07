@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 13,
+  tilecount = 14,
   tiles = {
     {
       id = 0,
@@ -152,6 +152,12 @@ return {
       image = "../../../assets/sprites/world/events/square_hole.png",
       width = 40,
       height = 30
+    },
+    {
+      id = 16,
+      image = "../../../assets/sprites/world/maps/hub/hub_vending.png",
+      width = 30,
+      height = 44
     }
   }
 }

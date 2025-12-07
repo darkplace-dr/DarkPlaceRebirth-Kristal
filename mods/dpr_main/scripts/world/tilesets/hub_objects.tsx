@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.11.2" name="hub_objects" tilewidth="130" tileheight="120" tilecount="13" columns="0">
+<tileset version="1.11" tiledversion="1.11.2" name="hub_objects" tilewidth="130" tileheight="120" tilecount="14" columns="0">
  <editorsettings>
   <export target="hub_objects.lua" format="lua"/>
  </editorsettings>
@@ -56,5 +56,8 @@
  </tile>
  <tile id="15">
   <image source="../../../assets/sprites/world/events/square_hole.png" width="40" height="30"/>
+ </tile>
+ <tile id="16">
+  <image source="../../../assets/sprites/world/maps/hub/hub_vending.png" width="30" height="44"/>
  </tile>
 </tileset>

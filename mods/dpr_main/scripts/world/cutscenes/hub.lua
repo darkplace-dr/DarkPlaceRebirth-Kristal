@@ -2276,5 +2276,13 @@ local hub = {
     missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")
     end,
+	
+    vending = function(cutscene, event)
+        cutscene:text("* (DARK DOLLARS to BADGES!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("hub_vending")
+		end
+	end,
 }
 return hub
