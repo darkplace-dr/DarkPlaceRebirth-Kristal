@@ -1,10 +1,10 @@
-local item, super = Class(Item, "tennatie")
+local item, super = Class(Item, "tensiontie")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "TennaTie"
+    self.name = "TensionTie"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"

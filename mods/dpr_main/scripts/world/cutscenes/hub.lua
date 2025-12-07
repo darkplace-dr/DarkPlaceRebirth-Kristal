@@ -275,6 +275,11 @@ local hub = {
             item2 = "silver_card",
         },
         {
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
+        },
+        {
             result = "soulmantle",
             item1 = "flarewings",
             item2 = "shadowmantle"
