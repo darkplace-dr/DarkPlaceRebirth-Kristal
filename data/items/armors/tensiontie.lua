@@ -1,10 +1,10 @@
-local item, super = Class(Item, "tensionbow")
+local item, super = Class(Item, "tennatie")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "TensionBow"
+    self.name = "TennaTie"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
@@ -16,10 +16,10 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Gain 10% more tension from\ngrazing bullets"
+    self.description = "Gain 15% more tension from\ngrazing bullets"
 
     -- Default shop price (sell price is halved)
-    self.price = 400
+    self.price = 600
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,15 +34,14 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 1,
-        defense = 1,
-        magic = 1,
+        defense = 5,
+        magic = -3,
 
-        graze_tp = 0.1,
+        graze_tp = 0.15,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "TPGain"
-    self.bonus_icon = "ui/menu/icon/up"
+    self.bonus_name = nil
+    self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}

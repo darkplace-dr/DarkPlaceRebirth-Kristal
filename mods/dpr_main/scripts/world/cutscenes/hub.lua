@@ -256,8 +256,13 @@ local hub = {
         },
         {
             result = "tensionbow",
-            item1 = "bshotbowtie",
+            item1 = "frayedbowtie",
             item2 = "tensionbit"
+        },
+        {
+            result = "tensiontie",
+            item1 = "tennatie",
+            item2 = "tentaser"
         },
         {
             result = "gold_card",
