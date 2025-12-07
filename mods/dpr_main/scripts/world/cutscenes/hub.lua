@@ -256,13 +256,18 @@ local hub = {
         },
         {
             result = "tensionbow",
-            item1 = "bshotbowtie",
+            item1 = "frayedbowtie",
             item2 = "tensionbit"
         },
         {
-            result = "gold_card",
-            item1 = "leadmaker",
-            item2 = "silver_card",
+            result = "tensiontie",
+            item1 = "tennatie",
+            item2 = "tentaser"
+        },
+        {
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
         },
         {
             result = "royalpin",
@@ -270,9 +275,14 @@ local hub = {
             item2 = "silver_card",
         },
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "shadowmantle"
+            result = "casino_card",
+            item1 = "hero_tea",
+            item2 = "amber_card",
+        },
+        {
+            result = "gold_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
         },
         {
             result = "chosen_ax",
@@ -294,6 +304,16 @@ local hub = {
 			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
 			item2 = "mind_guts"
 		},
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "shadowmantle"
+        },
+        {
+            result = "kindnessaxe",
+            item1 = "friend_buster",
+            item2 = "justiceaxe"
+        },
     }
     Kristal.callEvent("setItemsList", items_list)
 
@@ -2256,5 +2276,13 @@ local hub = {
     missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")
     end,
+	
+    vending = function(cutscene, event)
+        cutscene:text("* (DARK DOLLARS to BADGES!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("hub_vending")
+		end
+	end,
 }
 return hub

@@ -20,22 +20,7 @@ function item:init()
     -- Menu description
     self.description = "It's own-flavored tea.\nThe flavor just says \"Hero.\""
     -- Amount healed (HealItem variable)
-    self.heal_amount = 50
-    -- Amount this item heals for specific characters
-    -- Party member this tea is from
-    local tea_self = "hero"
-    local placeholder = 50
-    self.heal_amounts = {
-        ["kris"] = placeholder,
-        ["susie"] = 70,
-        ["noelle"] = placeholder,
-        ["dess"] = 40,
-        ["hero"] = 20,
-        ["jamm"] = 60,
-        ["mario"] = 40,
-        ["pauling"] = placeholder,
-        ["ceroba"] = placeholder,
-    }
+    self.heal_amount = Utils.pick{40,50,60,70,80,90,100}
 
     -- Default shop price (sell price is halved)
     self.price = 10

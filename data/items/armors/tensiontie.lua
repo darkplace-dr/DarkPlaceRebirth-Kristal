@@ -1,10 +1,10 @@
-local item, super = Class(Item, "white_ribbon")
+local item, super = Class(Item, "tensiontie")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "White Ribbon"
+    self.name = "TensionTie"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
@@ -16,10 +16,10 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "A crinkly hair ribbon that slightly\nincreases your defense."
+    self.description = "Gain 15% more tension from\ngrazing bullets"
 
     -- Default shop price (sell price is halved)
-    self.price = 90
+    self.price = 600
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,30 +34,23 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = 2
+        defense = 5,
+        magic = -3,
+
+        graze_tp = 0.15,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "Cuteness"
-    self.bonus_icon = "ui/menu/icon/up"
+    self.bonus_name = nil
+    self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {
-        susie = false,
-        dess = false,
-        ceroba = false
-    }
+    self.can_equip = {}
 
     -- Character reactions
     self.reactions = {
-        hero = "Whatever.",
-        susie = "I said NO! C'mon already!",
-        ralsei = "It's nice being dressed up...",
-        noelle = "... feels familiar.",
-        dess = "ew i hate cute things",
-        jamm = "How adorable!",
-        ["jamm+marcy"] = "It looks great on you, Marcy!",
-        noel = "I'm so FANCY",
-        ceroba = "A bit too small for my hair...",
+        noel = "I feel tense. Good...",
+        ceroba = "Feels more tense than usual.",
+        jamm = "Tension's rising...",
     }
 end
 
