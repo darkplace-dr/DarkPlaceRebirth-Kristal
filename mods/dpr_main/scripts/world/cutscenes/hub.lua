@@ -285,11 +285,6 @@ local hub = {
             item2 = "silver_card",
         },
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "shadowmantle"
-        },
-        {
             result = "chosen_ax",
             item1 = "chosen_blade",
             item2 = "mane_ax"
@@ -309,6 +304,16 @@ local hub = {
 			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
 			item2 = "mind_guts"
 		},
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "shadowmantle"
+        },
+        {
+            result = "kindnessaxe",
+            item1 = "friend_buster",
+            item2 = "justiceaxe"
+        },
     }
     Kristal.callEvent("setItemsList", items_list)
 
