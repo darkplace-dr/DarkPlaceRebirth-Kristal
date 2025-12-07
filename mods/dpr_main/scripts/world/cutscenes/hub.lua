@@ -265,9 +265,9 @@ local hub = {
             item2 = "tentaser"
         },
         {
-            result = "gold_card",
-            item1 = "leadmaker",
-            item2 = "silver_card",
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
         },
         {
             result = "royalpin",
@@ -275,9 +275,14 @@ local hub = {
             item2 = "silver_card",
         },
         {
-            result = "triribbon",
-            item1 = "twinribbon",
-            item2 = "princessrbn",
+            result = "casino_card",
+            item1 = "hero_tea",
+            item2 = "amber_card",
+        },
+        {
+            result = "gold_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
         },
         {
             result = "soulmantle",

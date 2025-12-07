@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = "Gamble\nafter battle"
     -- Menu description
-    self.description = "A unique card recieved in Gamblopolis.\nTurns every battle into a gamble."
+    self.description = "A unique casino-styled card.\nTurns every battle into a gamble."
 
     -- Default shop price (sell price is halved)
     self.price = 100
@@ -47,6 +47,10 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "Time to gamble!",
+        susie = "HELL YEAH!",
+        ralsei = "That's might not end well...",
+        noelle = "Y-yeah! Gambling!...",
         dess = "aw dang it",
         jamm = "No stranger to this.",
         ["jamm+marcy"] = "Gamble in moderation, Marcy.",
@@ -58,13 +62,17 @@ function item:applyMoneyBonus(gold)
     -- return -30
     ---@type {snd:string, n:number}[]
     local options = {
-        {n = -gold/2, snd = "error"},
-        {n = 1, snd = "awkward"},
-        {n = gold/8, snd = "boowomp"},
-        {n = gold, snd = "bump"},
-        {n = gold*1.2, snd = "boost"},
-        {n = gold*3, snd = "great_shine"},
-    }
+        {n = gold/6,   snd = "error"},      
+        {n = gold/4,   snd = "awkward"},
+        {n = gold/3,   snd = "boowomp"},         
+        {n = gold/2,   snd = "boowomp"},                 
+        {n = gold,   snd = "bump"},              
+        {n = gold*.25, snd = "boost"},             
+        {n = gold*.75, snd = "boost"},         
+        {n = gold*1.25, snd = "boost"},         
+        {n = gold*1.75, snd = "great_shine"},     
+        {n = gold*2.25, snd = "great_shine"},     
+    }     
     local choice = Utils.pick(options)
     Assets.playSound(choice.snd)
     return choice.n
