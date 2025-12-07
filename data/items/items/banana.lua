@@ -52,6 +52,7 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+        hero = "I MEAN, OKAY.",
         susie = "Ew, what the hell is this?!",
         ralsei = "A nice healthy snack to start the day!",
         noelle = "U-uh, sure..?",
