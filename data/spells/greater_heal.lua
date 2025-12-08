@@ -14,7 +14,7 @@ function spell:init()
     self.description = "Heals 1 party member to the\nbest of Susie's ability."
 
     -- TP cost
-    self.cost = 60
+    self.cost = 55
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "ally"
@@ -24,7 +24,7 @@ function spell:init()
 end
 
 function spell:onCast(user, target)
-    local base_heal = user.chara:getStat("magic") * 10 + user.chara:getStat("attack") * 3
+    local base_heal = user.chara:getStat("magic") * 10 + user.chara:getStat("attack") * 4
     local heal_amount = Game.battle:applyHealBonuses(base_heal, user.chara)
 
     target:heal(heal_amount)

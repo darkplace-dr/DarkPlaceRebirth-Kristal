@@ -43,7 +43,7 @@ function character:init()
 
     -- Spells
     self:addSpell("rude_buster")
-    self:addSpell("ultimate_heal")
+    self:addSpell("sick_heal")
     self:addSpell("pacibuster")
 
     -- Current health (saved to the save file)
@@ -183,7 +183,9 @@ function character:init()
     self.flags = {
         ["auto_attack"] = false,
         ["serious"] = false,
-        ["eyes"] = true
+        ["eyes"] = true,
+        ["kindness_heal"] = false,
+        ["susie_heal"] = 0,
     }
 
 	self.rage = false
