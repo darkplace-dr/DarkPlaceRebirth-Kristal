@@ -846,5 +846,15 @@ return {
     	end
     	cutscene:text("* has been launched towards this location.", "condescending", "dess", {skip=false})
     	cutscene:text("* Thankfully, [color:red]YOU[color:reset] can choose where it will hit.")
+
+    	local trolley = Game.world:spawnObject(DessBallisticTrolleyGame(320, 40), 999)
+    	trolley.y = -SCREEN_HEIGHT
+
+    	local tweenDone = false
+    	Game.world.timer:tween(2, trolley, {y = 0}, "outBounce", function() tweenDone = true end)
+
+    	cutscene:slideTo(dess, dess.x-60, dess.y, nil, "out-cubic")
+
+    	cutscene:wait(function() return tweenDone end)
     end
 }
