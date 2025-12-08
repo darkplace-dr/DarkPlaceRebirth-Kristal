@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="45">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="47">
  <editorsettings>
   <export target="main_1.lua" format="lua"/>
  </editorsettings>
@@ -146,6 +146,13 @@
     <property name="flagcheck" value="!arlee_quest"/>
    </properties>
    <point/>
+  </object>
+  <object id="45" gid="149" x="656.333" y="257" width="60" height="88"/>
+  <object id="46" name="interactable" x="656.337" y="216.257" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="devroom.vending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">

@@ -3,7 +3,7 @@ local spell, super = Class(Spell, "sick_heal")
 function spell:init()
     super.init(self)
 
-    if self.cost == 80 then
+    if Game:getFlag("susie_heal") == nil then
         Game:setFlag("susie_heal", 0)
     end
 

@@ -1,6 +1,6 @@
-local HubVending, super = Class(Shop)
+local DevVending, super = Class(Shop)
 
-function HubVending:init()
+function DevVending:init()
     super.init(self)
     self.encounter_text = "* (It's a vending machine.)"
     self.shop_text = "* (It's a vending machine.)"
@@ -32,42 +32,46 @@ function HubVending:init()
 
 	self.shop_music = nil
 
-    self:registerItem("dark_candy", {price = 40, description = "ITEM\nNot a badge,\nbut heals\n40HP"})
-    self:registerItem("stellar_lens", {price = 150, description = "BADGE\nIncreases\nSTAR damage\nfor spells"})
-    self:registerItem("less_ruder", {price = 350, description = "BADGE\nPaciBuster\ninto the\nPacify"})
-    self:registerItem("jackpot_jab", {price = 900, description = "BADGE\nScaling\ndamage\nfor Hero"})
+    self:registerItem("tensionbit", {description = "ITEM\nIncreases\nTP by 20%"})
+    self:registerItem("revivemint", {description = "ITEM\nRevives\n1 ally\nwhen DOWN"})
+    self:registerItem("execbuffet", {price = 700, description = "ITEM\nExtra\nglorious\ndish"})
+    self:registerItem("tensionmax", {description = "ITEM\nIncreases\nTP by 100%"})
     
     self.hide_world = false
 	self.bg_cover.visible = false
     self.menu_options = {
         {"Buy",  "BUYMENU"},
-        {"Sell", "SELLMENU"},
+        {"Smell", "SELLMENU"},
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
 end
 
-function HubVending:postInit()
+function DevVending:postInit()
     super.postInit(self)
 end
 
-function HubVending:onLeave()
+function DevVending:onLeave()
     self:setState("LEAVING")
 end
 
-function HubVending:onStateChange(old,new)
+function DevVending:onStateChange(old,new)
     Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
 	if new == "SELLMENU" then
-        self:startDialogue({"* (You wanted to sell something, but you've noticed that the shop on the left also can sell the items.)"}, "MAINMENU")
+        self:startDialogue({"* (Smells like mint and glory.)"}, "MAINMENU")
 		return
 	end
 	if new == "TALKMENU" then
-        self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (It says: \"Don't forget, the TV Floor!\".)"}, "MAINMENU")
+        if Game:getFlag("star_bits") == nil or Game:getFlag("star_bits") >= 5 then
+            self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (... There's a bunch of star stickers all around it.)"}, "MAINMENU")
+        else
+            self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (... There's a bunch of star stickers all around it. Only " .. 5 - Game:getFlag("star_bits") .." of them are shining.)"}, "MAINMENU")
+        end
 		return
 	end
 	super.onStateChange(self, old, self.state)
 end
 
-return HubVending
+return DevVending

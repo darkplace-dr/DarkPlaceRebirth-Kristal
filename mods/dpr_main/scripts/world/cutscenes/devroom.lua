@@ -275,6 +275,7 @@ local devroom = {
            cutscene:wait(4)
            Game:getQuest("stargazer"):unlock()
            Game:setFlag("arlee_quest", true)
+           Game:setFlag("star_bits", 0)
         else
             cutscene:text("* Wrong choice.")
             arlee:setAnimation({"idle", 0.045, true})
@@ -282,5 +283,13 @@ local devroom = {
         end
     end
     end,
+	
+    vending = function(cutscene, event)
+        cutscene:text("* (DARK DOLLARS to ITEMS!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("devroom_vending")
+		end
+	end,
 }
 return devroom
