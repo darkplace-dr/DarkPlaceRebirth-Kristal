@@ -115,6 +115,7 @@ return {
             cutscene:text("* Heh,[wait:5] but that's only if you WANT to play, of course!", nil, "tenna")
             tenna.sprite:setTennaSprite(0, "whisper_blush", 1)
             cutscene:text("* I've learned by now that forcing someone to play NEVER works well.", nil, "tenna")
+            Game:setFlag("ramb_games", true)
         elseif choice == 4 then
             if not Game:getFlag("tenna_physicalchallenge") then
                 tenna.sprite:setTennaSprite(2, "pose_podium_1", 1)
