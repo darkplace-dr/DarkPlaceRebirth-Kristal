@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 76,
+  nextobjectid = 77,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -573,6 +573,23 @@ return {
           properties = {
             ["cutscene"] = "tvfloor.green_sellding",
             ["solid"] = false
+          }
+        },
+        {
+          id = 76,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 720,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "dess",
+            ["cond"] = "not Game:hasPartyMember(\"dess\") and Game:hasUnlockedPartyMember(\"dess\")",
+            ["cutscene"] = "tvfloor.dess"
           }
         }
       }

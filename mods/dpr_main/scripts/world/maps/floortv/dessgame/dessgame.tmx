@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="2">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tilesets/ch3_dw_tvland_stage.tsx"/>
+ <objectgroup id="2" name="objects_floor">
+  <object id="1" name="greenroom_floor" x="-40" y="0" width="40" height="40"/>
+ </objectgroup>
+ <layer id="1" name="Calque de Tuiles 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,253,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236
+</data>
+ </layer>
+ <objectgroup id="3" name="objects_party"/>
+</map>

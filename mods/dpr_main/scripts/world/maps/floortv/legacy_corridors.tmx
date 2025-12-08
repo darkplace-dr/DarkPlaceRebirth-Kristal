@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="76">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="77">
  <editorsettings>
   <export target="legacy_corridors.lua" format="lua"/>
  </editorsettings>
@@ -183,6 +183,14 @@
     <property name="cutscene" value="tvfloor.green_sellding"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
+  </object>
+  <object id="76" name="npc" x="600" y="720">
+   <properties>
+    <property name="actor" value="dess"/>
+    <property name="cond" value="not Game:hasPartyMember(&quot;dess&quot;) and Game:hasUnlockedPartyMember(&quot;dess&quot;)"/>
+    <property name="cutscene" value="tvfloor.dess"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <layer id="6" name="above" width="24" height="30">
