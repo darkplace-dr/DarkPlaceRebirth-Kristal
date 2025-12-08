@@ -130,4 +130,5 @@ return {
     "Talk to Ramb for help!",
     "Talk to Sans for help!",
     "AN INTERESING CONUNDRUM.",
+    "I am in splashes.lua!",
 }

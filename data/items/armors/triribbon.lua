@@ -1,10 +1,10 @@
-local item, super = Class(Item, "white_ribbon")
+local item, super = Class(Item, "triribbon")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "White Ribbon"
+    self.name = "TriRibbon"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
@@ -16,10 +16,10 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "A crinkly hair ribbon that slightly\nincreases your defense."
+    self.description = "Three ribbons. Require bilateral hair division."
 
     -- Default shop price (sell price is halved)
-    self.price = 90
+    self.price = 1500
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -34,30 +34,33 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        defense = 2
+        attack = 2,
+        defense = 5,
+
+        graze_size = 0.25,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "Cuteness"
+    self.bonus_name = "GrazeArea"
     self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = false,
         dess = false,
-        ceroba = false
+		jamm = false
     }
 
     -- Character reactions
     self.reactions = {
-        hero = "Whatever.",
-        susie = "I said NO! C'mon already!",
-        ralsei = "It's nice being dressed up...",
-        noelle = "... feels familiar.",
-        dess = "ew i hate cute things",
-        jamm = "How adorable!",
-        ["jamm+marcy"] = "It looks great on you, Marcy!",
-        noel = "I'm so FANCY",
-        ceroba = "A bit too small for my hair...",
+        hero = "It's... kinda too much ribbons.",
+        susie = "... it gets worse and worse.",
+        ralsei = "Try around my horns!",
+        noelle = "... nostalgic, huh.",
+        dess = "why did you had to mix them",
+        jamm = "Woah! Pop idle much???",
+        ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
+        noel = "THREE bracelets??",
+        ceroba = "I think that's good enough.",
     }
 end
 

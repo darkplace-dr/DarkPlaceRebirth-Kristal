@@ -52,6 +52,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "Actually, it fits.",
         susie = "... it gets worse and worse.",
         ralsei = "Try around my horns!",
         noelle = "... nostalgic, huh.",
