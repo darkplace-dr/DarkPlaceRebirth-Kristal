@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Gain 10% more tension from\ngrazing bullets"
+    self.description = "Brings back it's lost defensive value.\nGain 10% more tension from grazing bullets"
 
     -- Default shop price (sell price is halved)
     self.price = 400
@@ -34,9 +34,7 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 1,
-        defense = 1,
-        magic = 1,
+        defense = 2,
 
         graze_tp = 0.1,
     }

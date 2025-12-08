@@ -58,8 +58,7 @@ end
 
 function item:onEquip(character, replacement)
     if character.id == "susie" then
-        character:removeSpell("ultimate_heal")
-        character:addSpell("greater_heal")
+        Game:setFlag("kindness_heal", true)
         self.bonus_name = "Kindness"
         self.bonus_icon = "ui/menu/icon/magic"
     end
@@ -68,8 +67,7 @@ end
 
 function item:onUnequip(character, replacement)
     if character.id == "susie" then
-        character:addSpell("ultimate_heal")
-        character:removeSpell("greater_heal")
+        Game:setFlag("kindness_heal", false)
         self.bonus_name = nil
         self.bonus_icon = nil
     end

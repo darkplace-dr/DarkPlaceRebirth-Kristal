@@ -1,6 +1,6 @@
-local GreenVending, super = Class(Shop)
+local HubVending, super = Class(Shop)
 
-function GreenVending:init()
+function HubVending:init()
     super.init(self)
     self.encounter_text = "* (It's a vending machine.)"
     self.shop_text = "* (It's a vending machine.)"
@@ -47,15 +47,15 @@ function GreenVending:init()
     }
 end
 
-function GreenVending:postInit()
+function HubVending:postInit()
     super.postInit(self)
 end
 
-function GreenVending:onLeave()
+function HubVending:onLeave()
     self:setState("LEAVING")
 end
 
-function GreenVending:onStateChange(old,new)
+function HubVending:onStateChange(old,new)
     Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
@@ -70,4 +70,4 @@ function GreenVending:onStateChange(old,new)
 	super.onStateChange(self, old, self.state)
 end
 
-return GreenVending
+return HubVending

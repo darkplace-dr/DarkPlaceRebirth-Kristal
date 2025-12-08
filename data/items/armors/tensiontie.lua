@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Gain 15% more tension from\ngrazing bullets"
+    self.description = "Decreases the magic value even more.\nGain 15% more tension from grazing bullets"
 
     -- Default shop price (sell price is halved)
     self.price = 600

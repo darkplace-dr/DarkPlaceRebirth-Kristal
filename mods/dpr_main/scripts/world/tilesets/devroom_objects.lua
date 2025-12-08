@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   name = "devroom_objects",
   class = "",
   tilewidth = 50,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 4,
+  tilecount = 5,
   tiles = {
     {
       id = 0,
@@ -48,6 +48,12 @@ return {
       image = "../../../assets/sprites/world/maps/devroom/closet_mono.png",
       width = 31,
       height = 52
+    },
+    {
+      id = 4,
+      image = "../../../assets/sprites/world/maps/devroom/dev_vending.png",
+      width = 30,
+      height = 44
     }
   }
 }
