@@ -283,13 +283,5 @@ local devroom = {
         end
     end
     end,
-	
-    vending = function(cutscene, event)
-        cutscene:text("* (DARK DOLLARS to ITEMS!)\n* (Use the vending machine?)", nil)
-        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
-        if choicer == 1 then
-			Game:enterShop("devroom_vending")
-		end
-	end,
 }
 return devroom
