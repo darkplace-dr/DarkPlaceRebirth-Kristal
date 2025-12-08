@@ -611,36 +611,6 @@ return {
             ["cutscene"] = "devroom.arlee",
             ["flagcheck"] = "!arlee_quest"
           }
-        },
-        {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 656.333,
-          y = 257,
-          width = 60,
-          height = 88,
-          rotation = 0,
-          gid = 149,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 46,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 656.337,
-          y = 216.257,
-          width = 60,
-          height = 40.75,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "devroom.vending",
-            ["solid"] = true
-          }
         }
       }
     },
