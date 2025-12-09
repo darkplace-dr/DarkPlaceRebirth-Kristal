@@ -748,13 +748,7 @@ return {
     end,
 
     dessgame = function(cutscene)
-
-    	Utils.hook(cutscene, "text", function(orig, self, text, portrait, actor, options)
-    		print("c:text ", text)
-    		orig(self, text, portrait, actor, options)
-    	end)
-
-    	Game.world.fader:fadeIn(nil, {speed=0.3})
+		Game.world.fader:fadeIn(nil, {speed=0.3})
     	Game.world.music:play("marioparty", 1, 1)
 
     	cutscene:detachFollowers()
@@ -847,14 +841,114 @@ return {
     	cutscene:text("* has been launched towards this location.", "condescending", "dess", {skip=false})
     	cutscene:text("* Thankfully, [color:red]YOU[color:reset] can choose where it will hit.")
 
-    	local trolley = Game.world:spawnObject(DessBallisticTrolleyGame(320, 40), 999)
+    	local trolley = Game.world:spawnObject(DessBallisticTrolleyGame(320, 40), WORLD_LAYERS["below_ui"])
     	trolley.y = -SCREEN_HEIGHT
 
     	local tweenDone = false
-    	Game.world.timer:tween(2, trolley, {y = 0}, "outBounce", function() tweenDone = true end)
+    	Game.world.timer:tween(2, trolley, {y = 0}, "in-bounce", function() tweenDone = true end)
 
     	cutscene:slideTo(dess, dess.x-60, dess.y, nil, "out-cubic")
 
     	cutscene:wait(function() return tweenDone end)
+
+    	cutscene:wait(0.4)
+
+    	cutscene:text("* Choose the top option and the missile will blow up our entire reality.")
+    	cutscene:text("* Choose the bottom option and it blows up absolutely nothing.")
+
+    	cutscene:wait(1)
+
+    	cutscene:text("* And why would we even choose the top option?")
+
+    	cutscene:text("* Why wouldn't you?")
+    	cutscene:text("* The bottom option? It's boring, predictable, dumb.")
+    	cutscene:text("* Nothing has no thrill. It's not even a nice-looking word.")
+    	cutscene:text("* Nothing is bad and bad things suck.")
+    	cutscene:text("* Destroying reality on the other end...")
+    	cutscene:text("* It sounds VERY cool. Very unique and badass.")
+    	cutscene:text("* It's a once-in-a-lifetime experience to check out.")
+    	cutscene:text("* And best of all, it solves all your problems!")
+    	cutscene:text("* No reality = no problems to have or solves.")
+    	cutscene:text("* Can't beat my maths here.\n* I graduated elementary school at 15.")
+
+    	cutscene:wait(0.5)
+
+    	cutscene:text("* ...")
+
+    	local leader_name = GeneralUtils.getLeader():getName()
+
+    	if susie then
+    		cutscene:text("* "..leader_name.."... You're not thinking on doing it?")
+    	end
+
+    	local voting_machine = Game.world:spawnObject(DessGameVoting(), dess:getLayer())
+    	voting_machine.y = -SCREEN_HEIGHT/4
+
+    	tweenDone = false
+    	Game.world.timer:tween(2, voting_machine, {y = 0}, "out-cubic", function() tweenDone = true end)
+
+    	if susie then
+    		susie:resetSprite()
+    		cutscene:look(susie, "up")
+    	end
+    	if hero then
+    		hero:resetSprite()
+    		cutscene:look(hero, "up")
+    	end
+
+    	cutscene:text(string.format("* %s this... %s that... How about everyone takes their own decision?", leader_name, leader_name))
+
+    	cutscene:wait(function() return tweenDone end)
+
+    	if susie then
+    		cutscene:look(susie, "right")
+    		cutscene:text("* Okay well I vote against it.")
+    		voting_machine:setChoice(susie, false)
+    	end
+
+    	if hero then
+    		cutscene:look(hero, "down")
+    		cutscene:text("* (Alright... I'll be honest, I don't really wanna do it but...)")
+    		cutscene:text("* (If you see a use for it, "..Game.save_name.."...)")
+    	end
+    	voting_machine:setChoice(GeneralUtils.getLeader().id, cutscene:choicer({"End\nReality", "No"}) == 1)
+
+    	dess:spin(0.5)
+    	local wait = cutscene:slideTo(dess, 320, 255, nil, "out-cubic")
+    	cutscene:during(function()
+    		if not wait() then
+    			dess:spin(0)
+    			return false
+    		end
+    	end)
+
+    	cutscene:text("* The results are iiiiiiiiiiiiin")
+    	cutscene:text("* Let's see who's based and who's cringe.")
+
+    	cutscene:wait(wait)
+
+    	cutscene:look(dess, "up")
+
+    	cutscene:wait(1)
+
+    	local votes = voting_machine:getResults()
+
+    	if votes <= 0 then
+    		cutscene:text("* Y'all are laaaame.")
+    		cutscene:text("* You don't understand the beauty of everything just dying in an instant.")
+    		cutscene:text("* Anyways you already know what I'm gonna vote for.")
+    	else
+    		cutscene:text("* Holy shit you guys actually wanna die")
+    		cutscene:text("* That's awesome dude let me join in. Like a blood pact.")
+    	end
+    	voting_machine:addVoter("dess")
+    	voting_machine:setChoice("dess", true)
+
+    	cutscene:wait(0.5)
+
+    	if susie then
+    		cutscene:text("* Wait, who said you could vote??")
+    		cutscene:text("* Uh, me? I'm the mod here, dumbass.")
+    	end
     end
 }
