@@ -275,6 +275,7 @@ local devroom = {
            cutscene:wait(4)
            Game:getQuest("stargazer"):unlock()
            Game:setFlag("arlee_quest", true)
+           Game:setFlag("star_bits", 0)
         else
             cutscene:text("* Wrong choice.")
             arlee:setAnimation({"idle", 0.045, true})
