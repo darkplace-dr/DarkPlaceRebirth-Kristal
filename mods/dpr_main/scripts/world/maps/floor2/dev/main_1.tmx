@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="45">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="47">
  <editorsettings>
   <export target="main_1.lua" format="lua"/>
  </editorsettings>
@@ -99,7 +99,7 @@
    <properties>
     <property name="facing" value="down"/>
     <property name="marker" value="shop"/>
-    <property name="shop" value="shadowsalesman"/>
+    <property name="shop" value="jaru"/>
    </properties>
   </object>
   <object id="14" name="transition" x="560" y="190" width="80" height="40">

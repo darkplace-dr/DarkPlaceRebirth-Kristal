@@ -1,12 +1,16 @@
-local UfoEncounter, super = Class(Encounter)
+local MimicBoss, super = Class(Encounter)
 
-function UfoEncounter:init()
+function MimicBoss:init()
     super.init(self)
 
     -- Battle music ("battle" is rude buster)
     if Game:isDessMode() then
-        self.music = nil
         self.text = "* Undefeatable."
+        if Game:getFlag("mimic_defeated") == false then
+            self.music = nil
+        else
+            self.music = "undefeatable"
+        end
     else
         self.music = "threestrikesyoureout"
         self.text = "* It's too easy!"
@@ -25,7 +29,6 @@ function UfoEncounter:init()
 	self.flee = false
 
     self.boss_rush = false
-	
     if Game:getFlag("mimic_defeated") == true then
         self.boss_rush = true
     end
@@ -33,7 +36,7 @@ function UfoEncounter:init()
     self.font = Assets.getFont("main")
 end
 
-function UfoEncounter:onBattleInit()
+function MimicBoss:onBattleInit()
     super.onBattleInit(self)
     if self.boss_rush == true then
         Game.battle.dojo_bg = DojoBG({1, 1, 1})
@@ -44,7 +47,7 @@ function UfoEncounter:onBattleInit()
     end
 end
 
-function UfoEncounter:draw()
+function MimicBoss:draw()
     local nrg = Game.battle.encounter.energy 
     super.draw(self)
     love.graphics.setFont(self.font)
@@ -67,7 +70,7 @@ function UfoEncounter:draw()
     --Game.battle.encounter.energy
 end
 
-function UfoEncounter:onActionsEnd()
+function MimicBoss:onActionsEnd()
     if (self.mimic.done_state == "VIOLENCE" or self.mimic.done_state == "KILLED")
         and not self.death_cine_played then
         self.death_cine_played = true
@@ -79,4 +82,4 @@ function UfoEncounter:onActionsEnd()
     end
 end
 
-return UfoEncounter
+return MimicBoss

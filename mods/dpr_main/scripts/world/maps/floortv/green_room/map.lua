@@ -7,18 +7,27 @@ function Room1:load()
 	self.vines_1:setScale(2,2)
 	self.vines_1.wrap_texture_x = true
 	self.vines_1:setLayer(Game.world:parseLayer("objects_below") + 0.36)
+	if Game:getFlag("in_rambs_room") then
+		self.vines_1:setLayer(Game.world:parseLayer("objects_barabove") + 0.36)
+	end
 	self.vines_1:addFX(ScissorFX(0, 0, 576-122, 32))
 	Game.world:addChild(self.vines_1)
 	self.vines_2 = Sprite("world/maps/tvland/green_room_vines", 930, 40)
 	self.vines_2:setScale(2,2)
 	self.vines_2.wrap_texture_x = true
 	self.vines_2:setLayer(Game.world:parseLayer("objects_below") + 0.36)
+	if Game:getFlag("in_rambs_room") then
+		self.vines_2:setLayer(Game.world:parseLayer("objects_barabove") + 0.36)
+	end
 	self.vines_2:addFX(ScissorFX(0, 0, 1120-930, 32))
 	Game.world:addChild(self.vines_2)
 	self.vines_3 = Sprite("world/maps/tvland/green_room_vines", 1212, 40)
 	self.vines_3:setScale(2,2)
 	self.vines_3.wrap_texture_x = true
 	self.vines_3:setLayer(Game.world:parseLayer("objects_below") + 0.36)
+	if Game:getFlag("in_rambs_room") then
+		self.vines_3:setLayer(Game.world:parseLayer("objects_barabove") + 0.36)
+	end
 	self.vines_3:addFX(ScissorFX(0, 0, 1320-1212, 32))
 	Game.world:addChild(self.vines_3)
 		
@@ -37,6 +46,9 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
 		end
 			
@@ -53,6 +65,9 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
 		end
 		for i = 0, 2 do
@@ -66,6 +81,9 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
 		end
 			
@@ -82,6 +100,9 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
 		end
 		for i = 0, 1 do
@@ -95,6 +116,9 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
 		end
 			
@@ -111,13 +135,45 @@ function Room1:load()
 			shine:play(1/2.4)
 			shine:setFrame(i)
 			shine:setLayer(Game.world:parseLayer("objects_below") + 0.37)
+			if Game:getFlag("in_rambs_room") then
+				shine:setLayer(Game.world:parseLayer("objects_barabove") + 0.37)
+			end
 			Game.world:addChild(shine)
+		end
+	end
+	if Game:getFlag("in_rambs_room") then
+		local door_rect = Rectangle(694, 54, 92, 60)
+		door_rect:setColor(COLORS.black)
+		door_rect:setLayer(Game.world:parseLayer("objects_below_2") + 0.01)
+		Game.world:addChild(door_rect)
+		for _, event in ipairs(Game.world.map.events) do
+			if event.layer == self.layers["objects_base"] then
+				event.collider.collidable = false
+			end
+		end
+	else
+		for _, event in ipairs(Game.world.map.events) do
+			if event.layer == self.layers["objects_barabove"] then
+				event.visible = false
+			end
 		end
 	end
 end
 
 function Room1:onExit()
     super.onExit(self)
+end
+
+function Room1:loadLayer(layer, depth)
+    if layer.type == "objectgroup" then
+        if StringUtils.startsWith(layer.name:lower(), "base_collision") and not Game:getFlag("in_rambs_room") then
+            self:loadCollision(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "ramb_collision") and Game:getFlag("in_rambs_room") then
+            self:loadCollision(layer)
+        end
+        self:loadShapes(layer)
+    end
+    super.loadLayer(self, layer, depth)
 end
 
 return Room1

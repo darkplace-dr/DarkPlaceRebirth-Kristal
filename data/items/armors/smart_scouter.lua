@@ -57,7 +57,7 @@ function item:init()
 		lancer = "Ohhhh! Fancy!",
 		dess = "IT'S OVER 9000!",
 		ostarwalker = "Doesn't    fits",
-		jamm = "So are they binoculers or something?",
+		jamm = "So are they binoculars or something?",
         ceroba = "Technology and I don't exactly mix well.",
     }
 end

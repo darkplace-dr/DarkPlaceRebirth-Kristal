@@ -14,12 +14,18 @@ function Loading:init()
     end
 end
 
+---@enum Loading.States
+Loading.States = {
+    WAITING = 0,
+    LOADING = 1,
+    DONE = 2,
+}
+
 function Loading:enter(from, dir)
     Mod = nil
     MOD_PATH = nil
 
-    self.loading = false
-    self.load_complete = false
+    self.loading_state = Loading.States.WAITING
 
     self.animation_done = false
 
@@ -71,11 +77,10 @@ end
 function Loading:beginLoad()
     Kristal.clearAssets(true)
 
-    self.loading = true
-    self.load_complete = false
+    self.loading_state = Loading.States.LOADING
 
     Kristal.loadAssets("", "all", "")
-    local paths = {}
+
     for _, name in ipairs(love.filesystem.getDirectoryItems("sharedlibs")) do
         local lib_full_path = "sharedlibs/"..name
         if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
@@ -85,14 +90,22 @@ function Loading:beginLoad()
             end
         end
     end
+
     Kristal.loadAssets("", "plugins", "")
-    Kristal.loadAssets("", "mods", "", function ()
-        self.loading = false
-        self.load_complete = true
+
+    Kristal.loadAssets("", "mods", "", function()
+        self.loading_state = Loading.States.DONE
 
         Assets.saveData()
 
         Kristal.setDesiredWindowTitleAndIcon()
+
+        -- Create the debug console
+        Kristal.Console = Kristal.Stage:addChild(Console())
+        -- Create the debug system
+        Kristal.DebugSystem = Kristal.Stage:addChild(DebugSystem())
+
+        REGISTRY_LOADED = true
     end)
 end
 
@@ -101,25 +114,18 @@ function Loading:update()
         return
     end
 
-    if self.load_complete and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
+    if (self.loading_state == Loading.States.DONE) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
         -- We're done loading! This should only happen once.
         self.done_loading = true
 
-        -- create a console
-        Kristal.Console = Console()
-        Kristal.Stage:addChild(Kristal.Console)
-        -- create the debug system
-        Kristal.DebugSystem = DebugSystem()
-        Kristal.Stage:addChild(Kristal.DebugSystem)
-        REGISTRY_LOADED = true
         if Kristal.Args["test"] then
-            Gamestate.switch(Kristal.States["Testing"])
+            Kristal.setState("Testing")
         elseif AUTO_MOD_START and TARGET_MOD then
             if not Kristal.loadMod(TARGET_MOD) then
                 error("Failed to load mod: " .. TARGET_MOD)
             end
         else
-            Gamestate.switch(Kristal.States["MainMenu"])
+            Kristal.setState("MainMenu")
         end
     end
 end
@@ -150,7 +156,7 @@ end
 
 function Loading:lerpSnap(a, b, m, snap_delta)
     if snap_delta == nil then snap_delta = 0.001 end
-    local result = Utils.lerp(a, b, m)
+    local result = MathUtils.lerp(a, b, m)
     if b - result <= snap_delta then
         return b
     end
@@ -158,9 +164,8 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
-    if self.load_complete then
-        local date = os.date("*t")
-        if date.month == 4 and date.day == 1 then
+    if self.loading_state == Loading.States.DONE then
+        if self.fools then
             love.graphics.setShader(self.shader_invert)
         end
 
@@ -205,7 +210,7 @@ function Loading:draw()
 
                 if i <= math.min(10, math.floor((self.text_timer + 4) / 4)) then
                     off.x = Utils.ease(-10, 10, off.alpha, "out-cubic")
-                    off.alpha = Utils.approach(off.alpha, 1, 0.05 * DTMULT)
+                    off.alpha = MathUtils.approach(off.alpha, 1, 0.05 * DTMULT)
                 end
             end
             for i = 1, 10 do
@@ -219,7 +224,7 @@ function Loading:draw()
             end
         end
         if (self.animation_phase >= 2) then
-            self.tagline_alpha = Utils.approach(self.tagline_alpha, 1, 0.01 * DTMULT)
+            self.tagline_alpha = MathUtils.approach(self.tagline_alpha, 1, 0.01 * DTMULT)
             if (self.animation_phase_timer >= 160) and not self.skipped and self.animation_phase == 2 then
                 self.skipped = true
                 self.animation_phase = 3

@@ -53,7 +53,10 @@ function item:init()
 		dess = "stardew sucks ass",
         jamm = "Ol' reliable.",
         noel = "Crumbling, Pathetic, Embarrassing...",
-        ceroba = "I thought only kids use these?"
+        ceroba = {
+            ceroba = "I thought only kids use these?",
+            jamm = "Nah. They're really good weapons."
+        }
     }
 end
 

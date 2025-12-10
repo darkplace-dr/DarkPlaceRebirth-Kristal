@@ -25,7 +25,7 @@ GITHUB_REPOS = {
 		"DPR_Dark_Pit",
 		"dlc_future"
 	},
-	polypoyo={
+	Hyperboid={
 		"dlc_test"
 	},
 	NelleMonelle={
@@ -40,6 +40,9 @@ GITHUB_REPOS = {
 	},
 	DiamondBor={
 		"dlc_trials"
+	},
+	SadDiamondMan={
+		"dlc_game"
 	}
 }
 

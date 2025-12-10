@@ -1,6 +1,6 @@
 ---@class Player : Player
 ---@field world World
-local Player, super = Utils.hookScript(Player)
+local Player, super = HookSystem.hookScript(Player)
 
 function Player:init(chara, x, y)
     super.init(self, chara, x, y)
@@ -13,6 +13,7 @@ function Player:init(chara, x, y)
     self.jumpchargesfx:setVolume(0.3)
     self.jumpchargecon = 0
     self.jumpchargetimer = 0
+	self.jumpchargeamount = 0
     self.charge_times = {
         10,
         22,
@@ -20,11 +21,33 @@ function Player:init(chara, x, y)
     self.draw_reticle = true
     self.onrotatingtower = false
     self.climb_speedboost = -1
+	self.climbmomentum = 0
+	self.forceclimb = false
+	self.recently_bumped = nil
+	self.previous_bump = nil
+	self.slip_delay = 0
+	self.upbuffer = 0
+	self.downbuffer = 0
+	self.leftbuffer = 0
+	self.rightbuffer = 0
+	self.currentdir = nil
+	self.neutralcon = 0
+	self.facing = "down"
+	self.drawoffsety = 0
+	self.falling = 0
+	self.fallingspeed = 0
+	self.fall_speed_cap = 10
+	self.grabon = true
+	self.graboncon = 0
+	self.grabontimer = 0
+	self.siner = 0
+	self.exitcon = 1
 end
 
 function Player:beginClimb(last_state)
     self:setSprite("climb/climb")
-    self.climb_speedboost = -1
+	self.climbmomentum = 0
+	self.neutralcon = 1
     self.world.can_open_menu = false
 end
 
@@ -36,7 +59,9 @@ end
 
 function Player:draw()
     -- Draw the player
+	love.graphics.translate(0, self.drawoffsety)
     super.draw(self)
+	love.graphics.translate(0, 0)
 
     if DEBUG_RENDER then
         self.climb_collider:drawFor(self, 1, 1, 0)
@@ -54,14 +79,258 @@ function Player:endClimb(next_state)
 end
 
 function Player:processClimbInputs()
+	self.siner = self.siner + DTMULT
+	local this_frame_directions = {}
+	local buffer_length = math.ceil(5 - (self.climbmomentum * 2))
+	if buffer_length >= 5 then
+		buffer_length = 4
+	end
+	buffer_length = 1
+	if (Input.down("up") or self.upbuffer > 0) or self.forceclimb then
+		if Input.down("up") and self.facing ~= "up" then
+			self.upbuffer = buffer_length
+			self.leftbuffer = 0
+			self.rightbuffer = 0
+			self.downbuffer = 0
+		end
+		table.insert(this_frame_directions, "up")
+	end
+	if (Input.down("down") or self.downbuffer > 0) and not self.forceclimb then
+		if Input.down("down") and self.facing ~= "down" then
+			self.upbuffer = 0
+			self.leftbuffer = 0
+			self.rightbuffer = 0
+			self.downbuffer = buffer_length
+		end
+		table.insert(this_frame_directions, "down")
+	end
+	if (Input.down("right") or self.rightbuffer > 0) and not self.forceclimb then
+		if Input.down("right") and self.facing ~= "right" then
+			self.upbuffer = 0
+			self.leftbuffer = 0
+			self.rightbuffer = buffer_length
+			self.downbuffer = 0
+		end
+		table.insert(this_frame_directions, "right")
+	end
+	if (Input.down("left") or self.leftbuffer > 0) and not self.forceclimb then
+		if Input.down("left") and self.facing ~= "left" then
+			self.upbuffer = 0
+			self.leftbuffer = buffer_length
+			self.rightbuffer = 0
+			self.downbuffer = 0
+		end
+		table.insert(this_frame_directions, "left")
+	end
+	local num_inputs = #this_frame_directions
+	local used_input = nil
+	local cancelled_slip = false
+	if num_inputs == 0 then
+		self.currentdir = nil
+	elseif num_inputs == 1 or self.currentdir == nil then
+		self.currentdir = this_frame_directions[1]
+		used_input = self.currentdir
+	else
+		for i = 1, #this_frame_directions do
+			if this_frame_directions[i] == self.currentdir or this_frame_directions[i] == self.recently_bumped then
+				if this_frame_directions[i] == self.recently_bumped then
+					cancelled_slip = true
+				end
+				table.remove(this_frame_directions, i)
+				i = i - 1
+			end
+		end
+		
+		if #this_frame_directions > 0 then
+			used_input = this_frame_directions[1]
+			if used_input == self.previous_bump then
+				cancelled_slip = true
+			else
+				cancelled_slip = false
+			end
+		elseif self.currentdir ~= self.previous_bump and self.currentdir ~= self.recently_bumped then
+			used_input = self.currentdir
+			cancelled_slip = false
+		else
+			used_input = self.currentdir
+			cancelled_slip = true
+		end
+	end
+	local lastdir = self.facing
+	if self.used_input ~= nil then
+		self.facing = used_input
+		self:setFacing(self.facing)
+	end
+	self.upbuffer = self.upbuffer - DTMULT
+	self.leftbuffer = self.leftbuffer - DTMULT
+	self.rightbuffer = self.rightbuffer - DTMULT
+	self.downbuffer = self.downbuffer - DTMULT
+    if self.falling > 0 then
+		if self.falling == 1 then			
+			self:setSprite("climb/slip_fall")
+            self.sprite:setFrame(1)
+			self.fallingspeed = 0
+			self.falling = 2
+			self.neutralcon = 0
+			self.jumpchargesfx:stop()
+			self.jumpchargecon = 0
+			self.climbmomentum = 0
+			self.remx = self.x
+			self.remy = self.y
+		end
+		if self.falling == 2 then
+			Object.startCache()
+			local climbarea
+			local trigger
+			for _, event in ipairs(self.world.stage:getObjects(Event)) do
+				---@cast event Event.climbarea|Event.climbentry
+				-- TODO: Find out where these numbers come from, because it sure isn't the actor
+				local x,y = -17, -37
+				x,y = x + self.x,y + self.y
+				if self.onrotatingtower then
+					x = MathUtils.wrap(x, 0, self.world.width+1)
+				end
+				self.climb_collider.parent = self.parent
+				self.climb_collider.x, self.climb_collider.y = x, y
+				if (event.climbFallLanding) and event:collidesWith(self.climb_collider) then
+					self.falling = 0
+					self.fallingspeed = 0
+					event:climbFallLanding(self)
+				end
+			end
+			self.fallingspeed = self.fallingspeed + 0.5 * DTMULT
+			if self.fallingspeed >= self.fall_speed_cap then
+				self.fallingspeed = self.fall_speed_cap
+			end
+			if self.fallingspeed >= 20 then
+				self.naturalybias = math.min(self.naturalybias + 2 * DTMULT, 80)
+			end
+			if self.falldir == "down" then
+				self.y = self.y + math.ceil(self.fallingspeed)
+			elseif self.falldir == "right" then
+				self.x = self.x + math.ceil(self.fallingspeed)
+			elseif self.falldir == "up" then
+				self.y = self.y - math.ceil(self.fallingspeed)
+			elseif self.falldir == "left" then
+				self.x = self.x - math.ceil(self.fallingspeed)
+			end
+			self.fallingtimer = self.fallingtimer - DTMULT
+			if self.fallingtimer <= 0 then
+				if self.grabon then
+					local allowed, obj = self:canClimb(0, 0)
+					if allowed and obj and self.y >= obj.y + 30 then
+						local grabx = self.x
+						local graby = self.y
+						self.grabx = (MathUtils.round(grabx / 40) * 40) - 20
+						self.graby = (MathUtils.round(graby / 40) * 40) + 2
+						self.grabontimer = 15
+						self.graboncon = 1
+						self.falling = 0
+					end
+				end
+			end
+			Object.endCache()
+		end
+		return
+	end
+	if self.graboncon > 0 then
+		if self.graboncon == 1 then	
+			self:setSprite("climb/charge/down")
+            self.sprite:setFrame(3)
+			self.graboncon = 2
+		end
+		if self.graboncon == 2 then
+			Assets.stopSound("wing")
+			Assets.playSound("wing", 0.7, 0.6 + MathUtils.random(0.3))
+			if Utils.round(self.siner) % 2 == 0 then
+				local dust = Sprite("effects/slide_dust")
+				dust:play(1 / 15, false, function () dust:remove() end)
+				dust:setOrigin(0.5, 0.5)
+				dust:setScale(2, 2)
+				dust:setPosition(self.x, self.y - 17)
+				dust.layer = self.layer - 0.01
+				dust.physics.speed_y = -3
+				dust.physics.speed_x = MathUtils.random(-1, 1)
+				self.world:addChild(dust)
+			end
+			if self.fallingspeed > 7 then
+				self.fallingspeed = 7
+			end
+			self.fallingspeed = self.fallingspeed - DTMULT
+			if self.falldir == "down" then
+				self.y = self.y + math.ceil(self.fallingspeed)
+			elseif self.falldir == "right" then
+				self.x = self.x + math.ceil(self.fallingspeed)
+			elseif self.falldir == "up" then
+				self.y = self.y - math.ceil(self.fallingspeed)
+			elseif self.falldir == "left" then
+				self.x = self.x - math.ceil(self.fallingspeed)
+			end
+			if self.fallingspeed <= 0 then
+				self.grabonclimbtimer = 0
+				self.graboncon = 3
+				self.remfalleny = self.y
+				self.remfallenx = self.x
+			end
+		end
+		if self.graboncon == 3 then	
+			self.grabonclimbtimer = self.grabonclimbtimer + DTMULT
+			local initwait = 7
+			local waittime = 8
+			if self.grabonclimbtimer >= initwait then
+				self:slideTo(self.grabx, self.graby, waittime/30, "in-out-quad")
+			end
+			if self.grabonclimbtimer >= initwait + waittime then
+				self.x = MathUtils.round(self.x / 10) * 10
+				self.y = MathUtils.round(self.y / 10) * 10
+				self.graboncon = 0  
+				if self.climb_ready_callback then
+					self:climb_ready_callback()
+					self.climb_ready_callback = nil
+				end
+				self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+				if self.sprite.sprite_options[2] ~= "climb/climb" then
+					self:setSprite("climb/climb")
+					self.sprite:setFrame(1)
+				end
+				self.neutralcon = 1
+			end
+		end
+		return
+	end
+    if self.slip_delay > 0 then
+		if self.slip_delay > 2/30 and not cancelled_slip and (used_input ~= nil and lastdir ~= used_input) or (Input.down("confirm") or Input.down("cancel")) then
+			self.slip_delay = math.min(self.slip_delay, 2/30)
+			self.climbmomentum = 0
+		end
+        self.slip_delay = MathUtils.approach(self.slip_delay, 0, DT) 
+		if self.slip_delay < 3/30 then
+			self.sprite:setFrame(1)
+        end
+        if self.slip_delay <= 0 then
+            if self.climb_ready_callback then
+                self:climb_ready_callback()
+                self.climb_ready_callback = nil
+            end
+            self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+			if self.falling <= 0 then
+				self.neutralcon = 1
+			end
+            if self.sprite.sprite_options[2] ~= "climb/climb" then
+                self:setSprite("climb/climb")
+                self.sprite:setFrame(1)
+            end
+        end
+        return
+    end
     if self.climb_delay > 0 then
-        self.climb_delay = Utils.approach(self.climb_delay, 0, DT)
+        self.climb_delay = MathUtils.approach(self.climb_delay, 0, DT)
         if self.climb_delay <= 0 then
             if self.climb_ready_callback then
                 self:climb_ready_callback()
                 self.climb_ready_callback = nil
             end
-            self.sprite:setFrame(Utils.clampWrap(self.sprite.frame + 1, 1, #self.sprite.frames))
+            self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
 
             if self.sprite.sprite_options[2] ~= "climb/climb" then
                 self:setSprite("climb/climb")
@@ -73,34 +342,47 @@ function Player:processClimbInputs()
     local dist
     if self.jumpchargecon >= 1 then
         if Input.released("confirm") then
+			self.jumpchargecon = 0
+            self.color = COLORS.white;
             self:doClimbJump(self.facing, self.jumpchargeamount)
         else
-            if Input.down("left") then
+            if self.currentdir == "left" then
                 self:setFacing("left")
-            elseif Input.down("right") then
+            elseif self.currentdir == "right" then
                 self:setFacing("right")
-            elseif Input.down("up") then
+            elseif self.currentdir == "up" then
                 self:setFacing("up")
-            elseif Input.down("down") then
+            elseif self.currentdir == "down" then
                 self:setFacing("down")
             end
         end
         return
     else
-        if Input.down("confirm") then
-            self.jumpchargecon = 1
-            return
-        end
+		if self.jumpchargecon == -1 then
+			if Input.released("confirm") then
+				self.jumpchargecon = 0
+			end
+		else
+			if Input.down("confirm") then
+				self.climbmomentum = 0
+				self.jumpchargecon = 1
+				return
+			end
+		end
     end
-    if Input.down("left") then
-        self:doClimbJump("left", dist)
-    elseif Input.down("right") then
-        self:doClimbJump("right", dist)
-    elseif Input.down("up") then
-        self:doClimbJump("up", dist)
-    elseif Input.down("down") then
-        self:doClimbJump("down", dist)
-    end
+	if self.neutralcon == 1 then
+		if self.currentdir == "left" then
+			self:doClimbJump("left", dist)
+		elseif self.currentdir == "right" then
+			self:doClimbJump("right", dist)
+		elseif self.currentdir == "up" then
+			self:doClimbJump("up", dist)
+		elseif self.currentdir == "down" then
+			self:doClimbJump("down", dist)
+		else
+			self.climbmomentum = self.climbmomentum * 0.5*DTMULT
+		end
+	end
 end
 
 function Player:processJumpCharge()
@@ -117,7 +399,7 @@ function Player:processJumpCharge()
         self.jumpchargecon = 2;
         self:setSprite("climb/charge/up")
         -- sprite_index = spr_kris_climb_new_charge;
-        -- image_index = 0;
+        -- image_index = 0;s
     end
 
     if (self.jumpchargecon == 2) then
@@ -127,7 +409,7 @@ function Player:processJumpCharge()
             docharge = 1;
         end
 
-        if (Input.pressed("confirm")) then
+        if (Input.pressed("cancel")) then
             docharge = 2;
         end
 
@@ -144,19 +426,19 @@ function Player:processJumpCharge()
 
             for i = 1, #self.charge_times-1 do
                 if (self.jumpchargetimer >= self.charge_times[i]) then
-                    self.sprite:setFrame(Utils.clamp(i+1, 1, #self.sprite.frames))
+                    self.sprite:setFrame(MathUtils.clamp(i+1, 1, #self.sprite.frames))
                     self.jumpchargesfx:setPitch(0.5 + (i-1)/10)
                     self.jumpchargeamount = i+1;
-                    self.color = Utils.lerp(COLORS.white, COLORS.teal, 0.2 + (math.floor(math.sin(self.jumpchargetimer / 2)) * 0.2));
+                    self.color = TableUtils.lerp(COLORS.white, COLORS.teal, 0.2 + (math.floor(math.sin(self.jumpchargetimer / 2)) * 0.2));
                 end
             end
 
 
             if (self.jumpchargetimer >= (self.charge_times[#self.charge_times] or math.huge)) then
-                self.sprite:setFrame(Utils.clamp(#self.charge_times+1, 1, #self.sprite.frames))
+                self.sprite:setFrame(MathUtils.clamp(#self.charge_times+1, 1, #self.sprite.frames))
                 self.jumpchargeamount = (#self.charge_times+1);
                 self.jumpchargesfx:setPitch(0.5 + (#self.charge_times)/10)
-                self.color = Utils.lerp(COLORS.white, COLORS.teal, 0.4 + (math.floor(math.sin(self.jumpchargetimer)) * 0.4));
+                self.color = TableUtils.lerp(COLORS.white, COLORS.teal, 0.4 + (math.floor(math.sin(self.jumpchargetimer)) * 0.4));
 
                 if ((self.jumpchargetimer % 8) == 0) then
                     self.draw_reticle = false
@@ -178,23 +460,24 @@ function Player:processJumpCharge()
 
         if (docharge == 0) then
             self.jumpchargecon = 0;
+            self.jumpchargetimer = 0;
             self.climb_jumping = 1;
             self.climbcon = 1;
-            self.color = COLORS.white
+            self.color = COLORS.white;
             self.jumpchargesfx:stop()
-            self.climb_speedboost = 0
         end
 
         if (docharge == 2) then
-            -- snd_play(182, 0.7, 0.4);
-            -- snd_play(181, 0.7, 0.4);
-            -- snd_play(401, 0.2, 1.8);
-            -- button2buffer = 10;
-            -- jumpchargecon = 0;
-            -- jumpchargetimer = 0;
-            -- neutralcon = 1;
+			self:setSprite("climb/climb")
+            Assets.playSound("txttor", 0.7, 0.4)
+            Assets.playSound("txtal", 0.7, 0.4)
+            Assets.playSound("dtrans_heavypassing", 0.2, 1.8)
+            self.button2buffer = 10;
+            self.jumpchargecon = -1;
+            self.jumpchargetimer = 0;
+            self.neutralcon = 1;
             self.color = COLORS.white;
-            -- snd_stop(jumpchargesfx);
+            self.jumpchargesfx:stop()
         end
     end
 end
@@ -212,7 +495,7 @@ function Player:canClimb(dx, dy)
         x,y = x + self.x,y + self.y
         x,y = x + (dx*40),y + (dy*40)
         if self.onrotatingtower then
-            x = Utils.clampWrap(x, 0, self.world.width)
+            x = MathUtils.wrap(x, 0, self.world.width+1)
         end
         self.climb_collider.parent = self.parent
         self.climb_collider.x, self.climb_collider.y = x, y
@@ -237,7 +520,8 @@ end
 function Player:doClimbJump(direction, distance)
     direction = direction or self.facing
     self:setFacing(direction)
-
+	self.neutralcon = 0
+	
     local charged = (distance ~= nil)
     distance = distance or 1
     if direction == "left" or direction == "right" then
@@ -249,17 +533,6 @@ function Player:doClimbJump(direction, distance)
         left = {-1, 0},
         right = {1, 0},
     })[direction])
-    -- Logic dictates that duration calc goes in the loop. Nope!
-    local duration = (8/30)
-    if self.climb_speedboost > 4 then
-        duration = (4/30)
-    elseif self.climb_speedboost > 0 then
-        duration = ((8-self.climb_speedboost)/30)
-    end
-    self.climb_speedboost = self.climb_speedboost - 1
-    if charged then
-        duration = (3/30) * distance
-    end
 
 
     Object.startCache()
@@ -267,62 +540,155 @@ function Player:doClimbJump(direction, distance)
     for dist = distance, 1, -1 do
         local allowed, obj = self:canClimb(dx*dist, dy*dist)
         if allowed then
+			self.recently_bumped = nil
+			self.previous_bump = nil
             Assets.playSound("wing", 0.6, 1.1 + (love.math.random()*0.1))
             if distance > 1 then
                 if self.facing == "left" then
-                    self:setSprite("climb/jump_left")
+                    self:setSprite("climb/slip_left")
                 elseif self.facing == "right" then
-                    self:setSprite("climb/jump_right")
+                    self:setSprite("climb/slip_right")
                 else
                     self:setSprite("climb/jump_up")
                 end
                 self.sprite:play(0.1, true)
             else
-                self.sprite:setFrame(Utils.clampWrap(Utils.floor(self.sprite.frame + 1, 2), 1, #self.sprite.frames))
+                self.sprite:setFrame(MathUtils.wrap(math.floor(self.sprite.frame + 1, 2), 1, #self.sprite.frames+1))
             end
-            self:slideTo(self.x + (dx*40*dist), self.y + (dy*40*dist), duration, "linear", function ()
-                if charged then
-                    if (self.jumpchargeamount == 3) then
-                        self.climb_speedboost = 18
-                    elseif (self.jumpchargeamount == 2) then
-                        self.climb_speedboost = 6
-                    elseif (self.jumpchargeamount == 1) then
-                        self.climb_speedboost = 3
-                    end
-                end
-                self.climb_delay = 2/30
-                if distance ~= 1 then
-                    self.climb_delay = 2/30
-                end
-                if self.sprite.sprite_options[2] ~= "climb/climb" then
-                    if self.facing == "left" then
-                        self:setSprite("climb/land_left")
-                    elseif self.facing == "right" then
-                        self:setSprite("climb/land_right")
-                    else
-                        self:setSprite("climb/jump_up")
-                    end
-                end
-                if self.climb_callback then
-                    self:climb_callback()
-                    self.climb_callback = nil
-                end
-                if obj and obj.onClimbEnter then
-                    obj:onClimbEnter(self)
-                    self.climb_speedboost = -1
-                end
-            end)
+
+			local dust_amount = 1
+			if charged then
+				dust_amount = 5
+			end
+			for i = 0, dust_amount do
+				local dust = Sprite("effects/climb_dust_small")
+				dust:play(1 / 15, false, function () dust:remove() end)
+				dust:setOrigin(0.5, 0)
+				dust:setScale(2, 2)
+				local dust_x = self.x
+				local dust_y = self.y - 17
+				if charged then
+					dust_x = dust_x + MathUtils.random(-10, 10)
+					dust_y = dust_y + MathUtils.random(-10, 10)
+				elseif self.facing == "up" then
+					dust_x = dust_x - self.sprite.width - 10 + 10 * self.sprite.frame-1
+				elseif self.facing == "down" then
+					dust_x = dust_x - self.sprite.width - 20 + 15 * self.sprite.frame-1
+				else
+					dust_y = dust_y + 10
+				end
+				dust:setPosition(dust_x, dust_y)
+				dust.layer = self.layer - 0.01
+				dust.physics.speed_y = -1
+				self.world:addChild(dust)
+			end
+			self.drawoffsety = 0
+			if charged then
+				duration = (6 + distance*2)/30
+				local clipamount = 4/30
+				if charged then
+					clipamount = 2/30
+				end
+				local prevx = self.x
+				local prevy = self.y
+				self:slideTo(self.x + (dx*40*dist), self.y + (dy*40*dist), duration, "out-sine")
+				self.climbtimer = 0
+				Game.world.timer:during(duration, function()
+					self.climbtimer = self.climbtimer + DT
+					self.drawoffsety = -math.sin((self.climbtimer / duration) * math.pi) * (2 * (self.jumpchargeamount - 1)) 
+					local afterimage = Sprite(self.sprite.texture, self.x, self.y + 16) -- for some reason the afterimage object insists on sticking directly to the player so i have to do this (sorry)
+					afterimage:setOrigin(0.5, 1)
+					afterimage:setScale(2,2)
+					afterimage.y = afterimage.y + self.drawoffsety
+					afterimage.alpha = 0.2
+					afterimage:fadeOutSpeedAndRemove()
+					afterimage:setLayer(self.layer - 0.1)
+					Game.world:addChild(afterimage)
+				end)
+				Game.world.timer:after(duration/2, function ()
+					if self.sprite.sprite_options[2] ~= "climb/climb" then
+						if self.facing == "left" then
+							self:setSprite("climb/land_left")
+						elseif self.facing == "right" then
+							self:setSprite("climb/land_right")
+						end
+					end
+				end)
+				Game.world.timer:after(duration-clipamount, function ()
+					self:resetPhysics()
+					self.x = prevx + (dx*40*dist)
+					self.y = prevy + (dy*40*dist)
+					self.climbmomentum = self.jumpchargeamount/2
+					if self.climb_ready_callback then
+						self:climb_ready_callback()
+						self.climb_ready_callback = nil
+					end
+					self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+
+					if self.sprite.sprite_options[2] ~= "climb/climb" then
+						self:setSprite("climb/climb")
+						self.sprite:setFrame(1)
+					end
+					if self.climb_callback then
+						self:climb_callback()
+						self.climb_callback = nil
+					end
+					self.neutralcon = 1
+					if obj and obj.onClimbEnter then
+						obj:onClimbEnter(self)
+					end
+				end)
+			else
+				local duration = (10)/(30*(1+self.climbmomentum))
+				self:slideTo(self.x + (dx*40*dist), self.y + (dy*40*dist), duration, "in-out-quad", function ()
+					if self.climb_ready_callback then
+						self:climb_ready_callback()
+						self.climb_ready_callback = nil
+					end
+					self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+
+					if self.sprite.sprite_options[2] ~= "climb/climb" then
+						self:setSprite("climb/climb")
+						self.sprite:setFrame(1)
+					end
+					if self.sprite.sprite_options[2] ~= "climb/climb" then
+						if self.facing == "left" then
+							self:setSprite("climb/land_left")
+						elseif self.facing == "right" then
+							self:setSprite("climb/land_right")
+						else
+							self:setSprite("climb/jump_up")
+						end
+					end
+					if self.climb_callback then
+						self:climb_callback()
+						self.climb_callback = nil
+					end
+					self.neutralcon = 1
+					if obj and obj.onClimbEnter then
+						obj:onClimbEnter(self)
+						self.climb_speedboost = -1
+					end
+				end)
+			end
         elseif dist == 1 and not obj then
             Assets.playSound("bump")
-            self.climb_speedboost = -1
             -- TODO: use the correct sprite
             if self.last_x_climb == "left" then
                 self:setSprite("climb/slip_left")
             else
                 self:setSprite("climb/slip_right")
             end
-            -- self.sprite:setFrame(2)
-            self.climb_delay = 4/30
+            self.sprite:setFrame(2)
+			if self.recently_bumped ~= self.facing then
+				self.previous_bump = self.recently_bumped
+				self.recently_bumped = self.facing
+			end
+			if charged then
+				self.slip_delay = (8+(distance*3))/30
+			else
+				self.slip_delay = (8+(self.climbmomentum*4))/30
+			end
         end
         if dist <= 1 and obj and obj.preClimbEnter then
             obj:preClimbEnter(self)
@@ -395,7 +761,7 @@ function Player:drawClimbReticle()
             end
         end
 
-        _alph = Utils.clamp(self.jumpchargetimer / 14, 0.1, 0.8);
+        _alph = MathUtils.clamp(self.jumpchargetimer / 14, 0.1, 0.8);
         local angle = 0;
         local xoff = 0;
         local yoff = 0;
@@ -452,9 +818,9 @@ function Player:drawClimbReticle()
                 0.85
             );
         ]]
-        -- local quad = Assets.getQuad(0, 0, 22, math.floor(Utils.clamp(self.jumpchargetimer / self.charge_times[2], 0, 1) * 62), 22, 62)
+        -- local quad = Assets.getQuad(0, 0, 22, math.floor(MathUtils.clamp(self.jumpchargetimer / self.charge_times[2], 0, 1) * 62), 22, 62)
         Draw.setColor(col)
-        local frame = Utils.clampWrap(math.floor(Kristal.getTime() * 15), 1,4)
+        local frame = MathUtils.wrap(math.floor(Kristal.getTime() * 15), 1,4)
         -- Draw.draw(Assets.getFrames("ui/climb/hint")[frame], quad, xoff/2, yoff/2, -math.rad(angle))
         love.graphics.push()
         love.graphics.translate(xoff/2, yoff/2)
@@ -469,7 +835,7 @@ function Player:drawClimbReticle()
                 id = "ui/climb/hint_end"
                 h = 21
             end
-            local quad = Assets.getQuad(0, 0, 22, math.floor(Utils.clamp(w - i, 0, 1) * h), 22, h)
+            local quad = Assets.getQuad(0, 0, 22, math.floor(MathUtils.clamp(w - i, 0, 1) * h), 22, h)
             Draw.draw(Assets.getFrames(id)[frame], quad)
             love.graphics.translate(0, h)
 
@@ -485,7 +851,7 @@ function Player:drawClimbReticle()
 
     local drawreticle = true;
 
-    if (drawreticle and self.jumpchargecon ~= 0 and found ~= 0) then
+    if (drawreticle and self.jumpchargecon > 0 and found ~= 0) then
         local px = 0 - 12;
         local py = 0 - 12;
 
@@ -505,7 +871,7 @@ function Player:drawClimbReticle()
             px = px - (20 * found);
         end
 
-        Draw.setColor(Utils.lerp(COLORS.yellow, COLORS.white, 0.4 + (math.sin(self.jumpchargetimer / 3) * 0.4)));
+        Draw.setColor(TableUtils.lerp({1,1,0,_alph}, {1,1,1,_alph}, 0.4 + (math.sin(self.jumpchargetimer / 3) * 0.4)));
         Draw.draw(Assets.getTexture("ui/climb/reticle"), px, py)
     end
     love.graphics.pop()
@@ -519,9 +885,6 @@ function Player:updateClimb()
         else
             self.jumpchargesfx:stop()
         end
-        if not (Input.down("left") or Input.down("up") or Input.down("right") or Input.down("down")) then
-            self.climb_speedboost = -1
-        end
     end
     -- Placeholder, obviously.
     local o_noclip = self.noclip
@@ -530,9 +893,12 @@ function Player:updateClimb()
     self.noclip = o_noclip
     if self.onrotatingtower and not self.physics.move_target then
         -- TODO: Find out why I have to put 1 here and not 0
-        self.x = Utils.clampWrap(self.x, 1, self.world.width)
+        self.x = MathUtils.wrap(self.x, 1, self.world.width)
     end
-
+	self.climbmomentum = self.climbmomentum - 0.03*DTMULT
+	if self.climbmomentum <= 0 then
+		self.climbmomentum = 0
+	end
     Object.startCache()
     Object.endCache()
 end

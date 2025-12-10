@@ -211,20 +211,13 @@ function LightItemMenu:draw()
     super.draw(self)
 
     -- Draw items as plain text, when on the "storage select" part of the menu
-    if Utils.containsValue(Input.component_stack, self.menu_storageselect) then
+    if TableUtils.contains(Input.component_stack, self.menu_storageselect) then
         Draw.setColor(COLORS.gray)
         for i, item in ipairs(self.storage) do
             if i > 8 then break end -- Can only fit 8 items, don't draw any more
             love.graphics.print(item:getName(), 28, 40 + 32 * (i-1))
         end
     end
-
-
-
-
-
-
-
 
     local font = love.graphics.getFont()
     love.graphics.setFont(Assets.getFont("main"))

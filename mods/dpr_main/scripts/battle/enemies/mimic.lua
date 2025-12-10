@@ -97,6 +97,14 @@ function Mimic:morph(actor_id)
     end)
 end
 
+function Mimic:getEncounterText()
+	if love.math.random(0, 100) < 3 then
+		return "* Smells like a broken mirror."
+	else
+        return super.getEncounterText(self)
+	end
+end
+
 function Mimic:onAct(battler, name)
     if name == "Mutate" then
 		Assets.playSound("sparkle_gem")

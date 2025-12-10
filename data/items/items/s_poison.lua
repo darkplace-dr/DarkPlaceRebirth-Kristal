@@ -50,7 +50,7 @@ function item:init()
         noelle = "(I'll... just pretend to drink it...)",
 		dess = "this sucks good",
         jamm = "Blech! What is this!?",
-        ceroba = "(Ugh... That tasted awful...)",
+        ceroba = "I'd... Rather not.",
     }
 
     -- Amount the poison damages in the world
@@ -72,7 +72,7 @@ function item:getBattleText(user, target)
 end
 
 function item:onWorldUse(target)
-	if target.id == "dess" and Game:getFlag("realDess") then
+	if target.id == "ceroba" or (target.id == "dess" and Game:getFlag("realDess")) then
 		return false
 	end
     if target.id == "noelle" then

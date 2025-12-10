@@ -55,7 +55,8 @@ function item:init()
         jamm = "Tastes... Dignified.",
         ["jamm+marcy"] = "Marcy, it's not THAT funny. ...*snrk*",
         noel = "Why is it fluctuating?",
-        ceroba = "Quite a nice tint. And taste."
+        ceroba = "What a magnificent glow...",
+        berdly = "Heh. I had huge amounts of that.",
     }
 end
 

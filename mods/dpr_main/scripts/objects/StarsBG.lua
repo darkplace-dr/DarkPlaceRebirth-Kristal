@@ -7,6 +7,7 @@ function StarsBG:init(color, back_color, fill)
     self.back_color = back_color or color
     self.fill = fill or {0, 0, 0}
 	self.offset = 0
+    self.fade = 0
     self.speed = 0.5
     self.size = 50
 	self.layer = BATTLE_LAYERS["bottom"]

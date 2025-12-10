@@ -61,6 +61,7 @@ function item:init()
         susie = "There's one extra for me! Sweet!",
         ralsei = "Delicious!",
         noelle = "I'm glad you like it Susie!",
+        jamm = "Huh. Tastes neat.",
     }
 end
 

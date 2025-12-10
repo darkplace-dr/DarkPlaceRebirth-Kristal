@@ -88,7 +88,7 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="19" name="jukebox" x="740" y="200">
+  <object id="19" name="jukebox" x="746.8" y="222">
    <point/>
   </object>
   <object id="65" name="interactable" x="220" y="200" width="62" height="20">

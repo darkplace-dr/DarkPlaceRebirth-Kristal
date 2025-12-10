@@ -48,6 +48,7 @@ function item:init()
     self.reactions = {
         noel = "(I don't think this is meant for me)",
         ceroba = "... so why only after battles?",
+        jamm = "For what it's worth... I like it.",
     }
 end
 

@@ -24,6 +24,97 @@ local desslmao = {
             cutscene:textTagged("* And I[wait:10] am\n\n              [wait:10][color:yellow]Starwalker[color:reset]", nil, "ostarwalker")
         end
 
+        if Game:getFlag("_heromode") then
+            cutscene:setSpeaker(nil) -- Perish, I hate this function so goddamn much >:c
+            cutscene:showNametag("Dess")
+            cutscene:text("* ...", "neutral_b", "dess")
+            cutscene:text("* okay my Dess Senses(tm) are acting up.", "annoyed", "dess")
+            cutscene:text("* I feel like there should be someone else here.", "angry", "dess")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Like who?", "annoyed", "hero")
+            cutscene:showNametag("Dess")
+            cutscene:text("* like oh idk [face:angy]the fuckin ourple dino", "calm_b", "dess")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Who?", "really", "hero")
+            cutscene:showNametag("Dess")
+            cutscene:text("* susie motherfuckin deltarune you dingus", "angry", "dess")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Oh,[wait:5] you mean one of the Delta Warriors.", "neutral_closed", "hero")
+            cutscene:text("* Yeah,[wait:5] I'm trying to find her.", "annoyed_b", "hero")
+            cutscene:showNametag("Dess")
+            cutscene:text("* well then we should totally team up", "condescending", "dess")
+            cutscene:text("* i sorta have a history of being lost and found", "teehee", "dess")
+            cutscene:showNametag("Hero")
+            cutscene:text("* Uh,[wait:5] no offense,[wait:5] but I don't think I need someone who speaks like-", "really", "hero", {auto = true})
+            cutscene:hideNametag()
+            Game.world.music:stop()
+            local fan = Music("deltarune/fanfare", 1, 0.9, false)
+
+            cutscene:detachFollowers()
+
+            for i, member in ipairs(Game.party) do
+                local char = cutscene:getCharacter(member.id)
+                char:slideTo(char.x - (40 + (i*10)), char.y, 2, "out-cubic")
+            end        
+
+            cutscene:walkTo("dess", dess.x - 50, dess.y + 10, 11, "left")
+            cutscene:text("[noskip][voice:none][speed:0.1]* (Dess joined the party!)[wait:70]\n\n[speed:1](Unfortunately)", {auto = true})
+            fan:remove()
+            Game.world.music:resume()
+            
+            cutscene:showNametag("Dess")
+            cutscene:text("* alr follow me i know the way around these parts", "thisremindsmeofthetimeiwasindarkplace", "dess")
+            cutscene:showNametag("Hero")
+            cutscene:text("* ...", "shocked", "hero")
+            cutscene:text("* (This is gonna suck...)", "really", "hero")
+            cutscene:hideNametag()
+            cutscene:wait(cutscene:fadeOut(.25))
+            cutscene:wait(0.25)
+
+            Game:addPartyMember("dess", 1)
+
+            local over_capacity = " "
+
+            if Game.party[4] then
+                over_capacity = Game.party[4].id 
+            end
+
+
+            if #Game.party == 4 then
+                Game:addFollower(Game.party[4].id)
+                Game:removePartyMember(Game.party[4].id)
+            end
+            local old_followers = {}
+            for _, value in ipairs(Game.world.followers) do
+                table.insert(old_followers, value)
+            end
+            Game.world.player:convertToFollower(2)
+            for i, follower in ipairs(old_followers) do
+                follower:convertToFollower(2+i)
+            end
+            cutscene:interpolateFollowers()
+            cutscene:attachFollowers()
+
+            cutscene:getCharacter("dess"):convertToPlayer()
+            cutscene:walkTo(Game.world.player, Game.world.player.x-200, Game.world.player.y, 2)
+            cutscene:wait(2.2)
+            cutscene:wait(cutscene:fadeIn(0.25))
+            if fullparty then
+                cutscene:showNametag("Dess")
+                cutscene:text("* oh yeah btw you can only have 3 party members at once", "neutral", "dess")
+                cutscene:text("* they had to nerf that shit from last time", "angry", "dess")
+                cutscene:text("* smth about it being too overpowered", "neutral_b", "dess")
+                cutscene:text("* anyways lets go", "heckyeah", "dess")
+            else
+                cutscene:showNametag("Dess")
+                cutscene:text("* ok lets go", "heckyeah", "dess")
+            end
+            cutscene:hideNametag()
+            Game:setFlag("gotDess", true)
+            Game:unlockPartyMember("dess")
+            return
+        end
+
         if susie then
             cutscene:setSpeaker("susie")
             cutscene:textTagged("[speed:0.5]* ...", "neutral_side", "susie")
@@ -706,7 +797,7 @@ local desslmao = {
                 end
             end
     
-            if Game:getFlag("desshere_kills") and Game:getPartyMember("dess").kills >= Game:getFlag("desshere_kills") + 9 then
+            if Game:getFlag("desshere_kills") and Game:getPartyMember("dess").kills >= Game:getFlag("desshere_kills") + 8 then
                 cutscene:wait(3)
                 cutscene:setSpeaker("dess")
                 cutscene:textTagged("* oh wait actually", "wtf", "dess")
@@ -879,7 +970,7 @@ local desslmao = {
                 susie_party:addOpinion("dess", -10)
             end
     
-            if Game:getPartyMember("dess").kills >= 9 then
+            if Game:getPartyMember("dess").kills >= 8 then
                 cutscene:wait(3)
                 cutscene:setSpeaker("dess")
                 cutscene:textTagged("* Hey actually wait", "genuine", "dess")

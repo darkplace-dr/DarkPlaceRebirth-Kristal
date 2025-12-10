@@ -22,7 +22,7 @@ function Web:onEnter(chara)
 	end
 	if precol == false then
 		if chara == Game.world.player then
-			Game.world.player.walk_speed = 2
+			Game.world.player.base_speed_multiplier = 1/2
 		elseif chara:includes(ChaserEnemy) then
 			chara.chase_speed = chara.chase_speed / 2
 		end
@@ -38,7 +38,7 @@ function Web:onExit(chara)
 	end
 	if precol == false then
 		if chara == Game.world.player then
-			Game.world.player.walk_speed = 4
+			Game.world.player.base_speed_multiplier = 1
 		elseif chara:includes(ChaserEnemy) then
 			chara.chase_speed = chara.chase_speed * 2
 		end

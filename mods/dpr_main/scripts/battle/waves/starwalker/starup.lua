@@ -32,7 +32,7 @@ function StarUp:onStart()
 
         Assets.playSound("spearrise")
         for i = arena_x - arena_width / 2, arena_x + arena_width / 2, 16 do
-            local star = self:spawnBulletTo(Game.battle.mask, "bullets/star", i + 8, arena_y + arena_height / 2 + 20)
+            local star = self:spawnBulletTo(Game.battle.mask, self.starwalker:makeBullet(i + 8, arena_y + arena_height / 2 + 20))
             star.grazed = true
             star.inv_timer = 10/30
             star.destroy_on_hit = false
@@ -53,7 +53,7 @@ function StarUp:onStart()
         self.warning.visible = false
         Assets.playSound("spearrise")
         for i = arena_x - arena_width / 2, arena_x + arena_width / 2, 16 do
-            local star = self:spawnBulletTo(Game.battle.mask, "battle/bullets/star", i + 8, (arena_y - arena_height / 2) - 20)
+            local star = self:spawnBulletTo(Game.battle.mask, self.starwalker:makeBullet(i + 8, (arena_y - arena_height / 2) - 20))
             star.grazed = true
             star.inv_timer = 10 / 30
             star.destroy_on_hit = false
@@ -73,7 +73,7 @@ function StarUp:onStart()
         self.warning.visible = false
         Assets.playSound("spearrise")
         for i = arena_x - arena_width / 2, arena_x + arena_width / 2, 16 do
-            local star = self:spawnBulletTo(Game.battle.mask, "battle/bullets/star", i + 8, arena_y + arena_height / 2 + 20)
+            local star = self:spawnBulletTo(Game.battle.mask, self.starwalker:makeBullet(i + 8, arena_y + arena_height / 2 + 20))
             star.grazed = true
             star.inv_timer = 1 / 30
             star.destroy_on_hit = false

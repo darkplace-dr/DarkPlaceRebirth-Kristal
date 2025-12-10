@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="150" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="151" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -423,6 +423,9 @@
  </tile>
  <tile id="141">
   <image width="48" height="36" source="../../../assets/sprites/tilesets/objects/present_wide.png"/>
+ </tile>
+ <tile id="153">
+  <image width="49" height="43" source="../../../assets/sprites/tilesets/objects/noellehouse_treat_catcher.png"/>
  </tile>
  <tile id="142">
   <image width="1758" height="1240" source="../../../assets/sprites/world/maps/hometown/church/main_night.png"/>

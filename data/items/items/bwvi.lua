@@ -62,6 +62,7 @@ function item:init()
 		dess = "throw it at a window instead",
 		jamm = "Remind me to visit the dentist after this.",
         ceroba = "I'm NOT eating the brick.",
+        berdly = "Afraid I'll have to leave the solid part.",
     }
 end
 

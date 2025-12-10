@@ -43,7 +43,7 @@ function LightEncounter:init()
     self.invincible = false
 
     -- Whether the flee command is available at the mercy button
-    self.can_flee = true
+    self.can_flee = Game:isLight()
 
     -- The chance of successful flee (increases by 10 every turn)
     self.flee_chance = 50
@@ -275,11 +275,15 @@ function LightEncounter:onFlee()
                 end
                 
                 for _,party in ipairs(Utils.removeDuplicates(party_to_lvl_up)) do
-                    Game.level_up_count = Game.level_up_count + 1
-                    party:onLevelUp(Game.level_up_count)
+                    party.level_up_count = party.level_up_count + 1
+                    party:onLevelUp(party.level_up_count)
                 end
 
-                self.used_flee_message = "* Ran away with " .. money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                if xp == 0 then
+                    self.used_flee_message = "* Ran away with " .. money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                else
+                    self.used_flee_message = "* Ran away with " .. xp .. " EXP\nand " .. money .. " " .. Game:getConfig("darkCurrencyShort") .. ".\n* "..stronger.." became stronger."
+                end
 
                 Assets.playSound("dtrans_lw", 0.7, 2)
                 --scr_levelup()
@@ -353,7 +357,10 @@ function LightEncounter:addEnemy(enemy, x, y, ...)
     if x and y then
         enemy_obj:setPosition(x, y)
     else
-        local x, y = SCREEN_WIDTH/2 - 1 + math.floor((#enemies + 1) / 2) * 152 * ((#enemies % 2 == 0) and -1 or 1), 244
+        for _,enemy in ipairs(enemies) do
+            enemy.x = enemy.x - 76
+        end
+        local x, y = SCREEN_WIDTH/2 - 1 + (76 * #enemies), 244
         enemy_obj:setPosition(x, y)
     end
 
@@ -460,6 +467,14 @@ function LightEncounter:getDefendTension(battler)
         return 2
     end
     return 16
+end
+
+function LightEncounter:isAutoHealingEnabled(battler)
+    return true
+end
+
+function LightEncounter:canSwoon(target)
+    return true
 end
 
 function LightEncounter:canDeepCopy()

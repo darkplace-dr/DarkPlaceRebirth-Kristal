@@ -55,6 +55,7 @@ function actor:init()
 
         ["battle/hurt"]         = {"battle_pirate/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle_pirate/defeat", 0.5, true},
+        ["battle/swooned"]      = {"battle_pirate/swooned", 1/15, false},
 
         ["battle/transition"]   = {"walk_pirate/right", 0.2, true},
         ["battle/intro"]        = {"battle_pirate/attack", 1/15, true},
@@ -87,6 +88,7 @@ function actor:init()
         ["battle_pirate/item"] = {-14, -15},
         ["battle_pirate/itemready"] = {-14, -15},
         ["battle_pirate/defend"] = {-14, -15},
+        ["battle_pirate/swooned"] = {0, 0},
 
         ["battle_pirate/defeat"] = {-14, -15},
         ["battle_pirate/hurt"] = {-14, -15},

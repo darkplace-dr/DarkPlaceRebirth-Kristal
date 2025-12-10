@@ -108,8 +108,8 @@ function actor:onSpriteDraw(sprite)
             sprite.resetsiner = true
 			
             if i == 2 or i == 3 or i == 4 then
-                sprite.partrot[i] = Utils.lerp(math.rad(0), 0, (0.25 * 2))
-                sprite.partx[i]   = Utils.lerp(sprite.partx[i], 0, (0.25 * 2))
+                sprite.partrot[i] = MathUtils.lerp(math.rad(0), 0, (0.25 * 2))
+                sprite.partx[i]   = MathUtils.lerp(sprite.partx[i], 0, (0.25 * 2))
                 if i == 3 then
                     sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
                     sprite.party[i]     = sprite.party[i] + (math.sin((sprite.partsiner[i] / 15)) * 1.5) * DTMULT
@@ -123,8 +123,8 @@ function actor:onSpriteDraw(sprite)
             else
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
                 sprite.partrot[i]   = math.rad(math.sin((sprite.partsiner[i] / 120)) * 15)
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i], 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i], 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i], 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i], 0, (0.25 * 2))
             end
         else
             sprite.resetsiner = false
@@ -138,13 +138,13 @@ function actor:onSpriteDraw(sprite)
                 sprite.partblend[i] = COLORS.black
             else
                 sprite.shadowtimer  = sprite.shadowtimer + 0.1 * DTMULT
-                sprite.partblend[i] = Utils.mergeColor(COLORS.black, COLORS.white, sprite.shadowtimer/30)
+                sprite.partblend[i] = ColorUtils.mergeColor(COLORS.black, COLORS.white, sprite.shadowtimer/30)
             end
 
             sprite.partsiner[i] = 0
-            sprite.partrot[i]   = Utils.lerp(sprite.partrot[i], 0, (0.25 * 2))
-            sprite.partx[i]     = Utils.lerp(sprite.partx[i], 0, (0.25 * 2))
-            sprite.party[i]     = Utils.lerp(sprite.party[i], 0, (0.25 * 2))
+            sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i], 0, (0.25 * 2))
+            sprite.partx[i]     = MathUtils.lerp(sprite.partx[i], 0, (0.25 * 2))
+            sprite.party[i]     = MathUtils.lerp(sprite.party[i], 0, (0.25 * 2))
         else
             sprite.resetsiner = false
         end
@@ -154,22 +154,22 @@ function actor:onSpriteDraw(sprite)
 			
             if i == 4 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(math.rad(60 - Utils.random(6)), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(math.rad(60 - MathUtils.random(6)), 0, (0.25 * 2))
                 sprite.partx[i]     = math.sin(((sprite.partsiner[i] / 2) * 2))
                 sprite.party[i]     = math.cos(((sprite.partsiner[i] / 2) * 2))
             elseif i == 3 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(math.rad(-10 - Utils.random(6)), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(math.rad(-10 - MathUtils.random(6)), 0, (0.25 * 2))
                 sprite.partx[i]     = math.sin(((sprite.partsiner[i] / 2) * 2))
                 sprite.party[i]     = math.cos(((sprite.partsiner[i] / 2) * 2))
             elseif i == 2 then
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(6))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(6))
                 sprite.partx[i]     = math.sin(((sprite.partsiner[i] / 2) * 2))
                 sprite.party[i]     = math.cos(((sprite.partsiner[i] / 2) * 2))
             else
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(6))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(6))
                 sprite.partx[i]     = math.sin(((sprite.partsiner[i] / 2) * 2))
                 sprite.party[i]     = math.cos(((sprite.partsiner[i] / 2) * 2))
             end
@@ -190,24 +190,24 @@ function actor:onSpriteDraw(sprite)
 			
             if i == 4 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(25 - Utils.random(6))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(25 - MathUtils.random(6))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             elseif i == 3 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(-10 - Utils.random(6))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 28), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(-10 - MathUtils.random(6))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 28), 0, (0.25 * 2))
             elseif i == 2 then
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(6))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(6))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             else
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(6))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(6))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             end
         else
             sprite.resetsiner = false
@@ -221,8 +221,8 @@ function actor:onSpriteDraw(sprite)
 				sprite.lasertimer = sprite.lasertimer + DTMULT
 				if sprite.lasertimer % 6 == 0 then
 					for j = 1, 3 do
-						local pxx = math.cos(math.rad(love.math.random(0, 40) + j * 40 + 120)) * Utils.random(52, 67)
-						local pyy = math.sin(math.rad(love.math.random(0, 40) + j * 40 + 120)) * Utils.random(52, 67)
+						local pxx = math.cos(math.rad(love.math.random(0, 40) + j * 40 + 120)) * MathUtils.random(52, 67)
+						local pyy = math.sin(math.rad(love.math.random(0, 40) + j * 40 + 120)) * MathUtils.random(52, 67)
 						table.insert(sprite.laser_particles, {max_radius = 3, radius = 3, xx = pxx, yy = pyy, x = pxx, y = pyy, timer = 0, lifetime = 12})
 					end
 				end
@@ -230,14 +230,14 @@ function actor:onSpriteDraw(sprite)
 			sprite.lastlasertimer = sprite.lasertimer
             if i == 4 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(6 - Utils.random(3))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(6 - MathUtils.random(3))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             elseif i == 3 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(-2 - Utils.random(3))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 7), 0, (0.25 * 2))	
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(-2 - MathUtils.random(3))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 7), 0, (0.25 * 2))	
 				local part_x = (((sprite.x + (sprite.partx[i])) + (sprite.partxoff[i])))
 				local part_y
 				if i == 3 or i == 4 then
@@ -249,9 +249,9 @@ function actor:onSpriteDraw(sprite)
 				sprite.laser_ellipse_y = part_y
             else
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(1))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(1))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             end
         else
             sprite.resetsiner = false
@@ -269,19 +269,19 @@ function actor:onSpriteDraw(sprite)
 			sprite.lastlasertimer = sprite.lasertimer
             if i == 4 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(25 - Utils.random(6))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(25 - MathUtils.random(6))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             elseif i == 3 then
                 sprite.partsiner[i] = sprite.partsiner[i] + DTMULT
-                sprite.partrot[i]   = Utils.lerp(sprite.partrot[i] + (math.rad(-10 - Utils.random(6))), 0, (0.25 * 2))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 28), 0, (0.25 * 2))
+                sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i] + (math.rad(-10 - MathUtils.random(6))), 0, (0.25 * 2))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2)) + 28), 0, (0.25 * 2))
             else
                 sprite.partsiner[i] = sprite.partsiner[i] + ((1 + (i / 5)) * 2) * DTMULT
-                sprite.partrot[i]   = math.rad(sprite.partrot[i] - Utils.random(6))
-                sprite.partx[i]     = Utils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
-                sprite.party[i]     = Utils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.partrot[i]   = math.rad(sprite.partrot[i] - MathUtils.random(6))
+                sprite.partx[i]     = MathUtils.lerp(sprite.partx[i] + (math.sin(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
+                sprite.party[i]     = MathUtils.lerp(sprite.party[i] + (math.cos(((sprite.partsiner[i] / 2) * 2))), 0, (0.25 * 2))
             end
         else
             sprite.resetsiner = false
@@ -300,13 +300,13 @@ function actor:onSpriteDraw(sprite)
                 sprite.partblend[i] = COLORS.black
             else
                 sprite.shadowtimer  = sprite.shadowtimer + 0.1 * DTMULT
-                sprite.partblend[i] = Utils.mergeColor(COLORS.black, COLORS.white, sprite.shadowtimer/30)
+                sprite.partblend[i] = ColorUtils.mergeColor(COLORS.black, COLORS.white, sprite.shadowtimer/30)
             end
 
             sprite.partsiner[i] = 0
-            sprite.partrot[i]   = Utils.lerp(sprite.partrot[i], 0, (0.25 * 2))
-            sprite.partx[i]     = Utils.lerp(sprite.partx[i], 0, (0.25 * 2))
-            sprite.party[i]     = Utils.lerp(sprite.party[i], 0, (0.25 * 2))
+            sprite.partrot[i]   = MathUtils.lerp(sprite.partrot[i], 0, (0.25 * 2))
+            sprite.partx[i]     = MathUtils.lerp(sprite.partx[i], 0, (0.25 * 2))
+            sprite.party[i]     = MathUtils.lerp(sprite.party[i], 0, (0.25 * 2))
         else
             sprite.resetsiner = false
 			if sprite.laser_fade > 0 then
@@ -338,23 +338,23 @@ function actor:onSpriteDraw(sprite)
 			for _,particle in ipairs(sprite.laser_particles) do
 				particle.timer = particle.timer + DTMULT
 				local progress = particle.timer / particle.lifetime
-				particle.x = Utils.lerp(particle.xx, -16, math.pow(progress, 2))
-				particle.y = Utils.lerp(particle.yy, 6, math.pow(progress, 2))
+				particle.x = MathUtils.lerp(particle.xx, -16, math.pow(progress, 2))
+				particle.y = MathUtils.lerp(particle.yy, 6, math.pow(progress, 2))
 				love.graphics.ellipse("fill", part_x+particle.x, part_y+particle.y, particle.radius, particle.radius)
-				particle.radius = Utils.lerp(particle.max_radius, 1, progress)
+				particle.radius = MathUtils.lerp(particle.max_radius, 1, progress)
 				if particle.timer > particle.lifetime then
 					table.insert(to_remove, particle)
 				end
 			end
 			for _,particle in ipairs(to_remove) do
-				Utils.removeFromTable(sprite.laser_particles, particle)
+				TableUtils.removeValue(sprite.laser_particles, particle)
 			end
 
 			love.graphics.ellipse("fill", part_x-16-sprite.lasertimer/2, part_y+6, sprite.lasertimer/2, sprite.lasertimer/2)
 		end
 		if sprite.anim == "laserfire" and i == 3 then
 			for _,particle in ipairs(sprite.laser_particles) do
-				Utils.removeFromTable(sprite.laser_particles, particle)
+				TableUtils.removeValue(sprite.laser_particles, particle)
 			end
 
 			love.graphics.ellipse("fill", sprite.laser_ellipse_x-16-sprite.lastlasertimer/2, sprite.laser_ellipse_y+6, sprite.lasertimer/2, sprite.lasertimer/2)

@@ -222,13 +222,59 @@ function TeevieQuiz:showResults()
 		if Game.party[3] then
 			party3 = cutscene:getCharacter(Game.party[3].id)
 		end
+		-- Defines win and loss poses for each party member
+		-- Defaults to the "default" id if the party member isn't specified
+		-- A value of -1 means the sprite doesn't change (like Kris)
+		local winpose = {
+			default = "pose",
+			dess = "sonic_adventure"
+		}
+		local losepose = {
+			default = "battle/hurt",
+			kris = -1,
+			susie = "shock_right",
+			ralsei = "shocked_left",
+			dess = "angreh"
+		}
 		if self.dess_wrong_answer ~= nil and (self.cur_correct_answer == "A" or self.cur_correct_answer == "B") then
+			winpose["dess"] = "teehee"
+			losepose["dess"] = "teehee"
+			if self.result == true then
+				if winpose[Game.party[1].id] ~= -1 then
+					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+				end
+				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
+					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				end
+				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
+					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				end
+			else
+				if losepose[Game.party[1].id] ~= -1 then
+					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+				end
+				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
+					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				end
+				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
+					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				end
+			end
 			Assets.playSound("won")
 			Assets.playSound("error")
 			cutscene:wait(45/30)
-			--add shock poses here
 			if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
 				Assets.playSound("wing")
+			end
+			player:resetSprite()
+			player:setFacing("up")
+			if Game.party[2] then
+				party2:resetSprite()
+				party2:setFacing("up")
+			end
+			if Game.party[3] then
+				party3:resetSprite()
+				party3:setFacing("up")
 			end
 			Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
 			Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
@@ -344,8 +390,29 @@ function TeevieQuiz:showResults()
 			self.dess_wrong_answer = nil
 			if self.result == true then
 				Assets.playSound("won")
-				--add win poses here
-				Assets.playSound("wing")
+				if winpose[Game.party[1].id] ~= -1 then
+					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+				end
+				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
+					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				end
+				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
+					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				end
+				cutscene:wait(45/30)
+				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
+					Assets.playSound("wing")
+				end
+				player:resetSprite()
+				player:setFacing("up")
+				if Game.party[2] then
+					party2:resetSprite()
+					party2:setFacing("up")
+				end
+				if Game.party[3] then
+					party3:resetSprite()
+					party3:setFacing("up")
+				end
 				Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
 				Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
 				if Game.party[2] then
@@ -454,10 +521,28 @@ function TeevieQuiz:showResults()
 				end
 			else
 				Assets.playSound("error")
+				if losepose[Game.party[1].id] ~= -1 then
+					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+				end
+				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
+					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				end
+				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
+					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				end
 				cutscene:wait(45/30)
-				--add shock poses here
 				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
 					Assets.playSound("wing")
+				end
+				player:resetSprite()
+				player:setFacing("up")
+				if Game.party[2] then
+					party2:resetSprite()
+					party2:setFacing("up")
+				end
+				if Game.party[3] then
+					party3:resetSprite()
+					party3:setFacing("up")
 				end
 				Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
 				Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
@@ -576,7 +661,7 @@ function TeevieQuiz:update()
 		for j,screen in ipairs(self.tv_screens[i]) do
 			local ii = i - 1
 			local jj = j - 1
-			screen.timer = screen.timer + 1
+			screen.timer = screen.timer + (1 * DTMULT)
 			if screen.con == 0 then
 				if math.abs(screen.timer) % 8 == 0 then
 					screen.frame = screen.frame + 1
@@ -978,7 +1063,7 @@ function TeevieQuiz:update()
 						party:setFacing("up")
 					end
 				end)
-				Game.world.camera:panToSpeed(self.x + self.width/2, self.y - 40, 8)
+				Game.world.camera:panToSpeed(self.x + self.width/2, self.y + self.height - 40, 8)
 			end
 		end
 	end

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -172,19 +172,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 20,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 680,
-          y = 140,
-          width = 400,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -214,7 +201,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["flagcheck"] = "recruited_shadowguys",
+            ["cond"] = "Game:hasRecruit(\"shadowguy\")",
             ["texture"] = "world/maps/floor2/queen_road"
           }
         }
@@ -297,7 +284,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["flagcheck"] = "recruited_shadowguys"
+            ["cond"] = "Game:hasRecruit(\"shadowguy\")"
           }
         },
         {
@@ -312,7 +299,23 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["flagcheck"] = "!recruited_shadowguys"
+            ["cond"] = "not Game:hasRecruit(\"shadowguy\")"
+          }
+        },
+        {
+          id = 20,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 680,
+          y = 140,
+          width = 400,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cond"] = "Game:hasRecruit(\"shadowguy\")",
+            ["solid"] = true
           }
         }
       }
@@ -372,24 +375,7 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 21,
-          name = "toggle",
-          type = "",
-          shape = "point",
-          x = 680,
-          y = 0,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["flag"] = "recruited_shadowguys",
-            ["target"] = { id = 20 }
-          }
-        }
-      }
+      objects = {}
     }
   }
 }

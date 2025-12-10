@@ -39,7 +39,7 @@ function enterdark.shelter(cutscene)
     transition.loading_callback = function(transition)
         -- Game.world:loadMap("light/hometown/apartments")
         DTRANS = transition.character_data
-        Game:swapIntoMod("dpr_main", false, "main_hub")
+        Game:swapIntoMod("dpr_main", false, "floor1/main")
         if Game.world.music then
             Game.world.music:stop()
         end

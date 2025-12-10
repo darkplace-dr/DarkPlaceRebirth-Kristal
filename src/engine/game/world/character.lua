@@ -2,6 +2,8 @@
 --- This class is not to be confused with the psuedo-event [`NPC`](lua://NPC.init) that is used for characters placed in the overworld.
 ---@class Character : Object
 ---@overload fun(actor: string|Actor, x?: number, y?: number) : Character
+---@field unique_id string?
+---@field object_id string?
 local Character, super = Class(Object)
 
 function Character:init(actor, x, y)
@@ -53,7 +55,9 @@ end
 
 function Character:onAdd(parent)
     if parent:includes(World) then
-        self.world = parent
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        local world = parent ---@type World
+        self.world = world
     end
 end
 
@@ -67,12 +71,12 @@ end
 
 function Character:setFlag(flag, value)
     local uid = self:getUniqueID()
-    Game:setFlag(uid..":"..flag, value)
+    Game:setFlag(uid .. ":" .. flag, value)
 end
 
 function Character:getFlag(flag, default)
     local uid = self:getUniqueID()
-    return Game:getFlag(uid..":"..flag, default)
+    return Game:getFlag(uid .. ":" .. flag, default)
 end
 
 function Character:getPartyMember()
@@ -80,7 +84,7 @@ function Character:getPartyMember()
         return Game:getPartyMember(self.party)
     end
 
-    for _,party in pairs(Game.party_data) do
+    for _, party in pairs(Game.party_data) do
         local actor = party:getActor()
         if actor and actor.id == self.actor.id then
             return party
@@ -105,21 +109,27 @@ function Character:setActor(actor)
     end
 
     self.sprite = self.actor:createSprite()
-    self.sprite.facing = self.facing
+    self.sprite:setFacing(self:getFacing())
     self.sprite.inherit_color = true
     self.sprite.on_footstep = function(s, n) self:onFootstep(n) end
     self:addChild(self.sprite)
 end
 
+--- Gets the character's current facing direction.
+---@return FacingDirection
+function Character:getFacing()
+    return self.facing
+end
+
 --- Makes the character face in the direction specified by `dir`.
----@param dir string The direction the character should face. Must be "up", "down", "left", or "right".
+---@param dir FacingDirection The direction the character should face. Must be "up", "down", "left", or "right".
 function Character:setFacing(dir)
     self.facing = dir
     self.sprite:setFacing(dir)
 end
 
 function Character:faceTowards(target)
-    self:setFacing(Utils.facingFromAngle(Utils.angle(self.x, self.y, target.x, target.y)))
+    self:setFacing(Utils.facingFromAngle(MathUtils.angle(self.x, self.y, target.x, target.y)))
 end
 
 function Character:facePlayer()
@@ -151,10 +161,10 @@ function Character:move(x, y, speed, keep_facing)
     end
 
     if not keep_facing and (movex ~= 0 or movey ~= 0) then
-        local dir = self.facing
+        local dir = self:getFacing()
         if self.sprite.directional then
             local angle = math.atan2(movey, movex)
-            if not Utils.isFacingAngle(self.facing, angle) then
+            if not Utils.isFacingAngle(dir, angle) then
                 dir = Utils.facingFromAngle(math.atan2(movey, movex))
             end
         else
@@ -169,8 +179,7 @@ function Character:move(x, y, speed, keep_facing)
             end
         end
 
-        self.facing = dir
-        self.sprite.facing = self.facing
+        self:setFacing(dir)
     end
 
     return moved
@@ -187,13 +196,13 @@ function Character:doMoveAmount(type, amount, other_amount)
     other_amount = other_amount or 0
 
     if amount == 0 then
-        self["last_collided_"..type] = false
+        self["last_collided_" .. type] = false
         return false, false
     end
 
     local other = type == "x" and "y" or "x"
 
-    local sign = Utils.sign(amount)
+    local sign = MathUtils.sign(amount)
     for i = 1, math.ceil(math.abs(amount)) do
         local moved = sign
         if (i > math.abs(amount)) then
@@ -235,12 +244,12 @@ function Character:doMoveAmount(type, amount, other_amount)
                     target:onCollide(self)
                 end
 
-                self["last_collided_"..type] = true
+                self["last_collided_" .. type] = true
                 return i > 1, target
             end
         end
     end
-    self["last_collided_"..type] = false
+    self["last_collided_" .. type] = false
     return true, false
 end
 
@@ -282,7 +291,7 @@ function Character:walkTo(x, y, time, facing, keep_facing, ease, after)
         end
         self.physics.move_target.move_func = function(_, dx, dy) self:doWalkToStep(dx, dy, keep_facing) end
         return true
-    elseif facing and self.facing ~= facing then
+    elseif facing and self:getFacing() ~= facing then
         self:setFacing(facing)
     end
     return false
@@ -319,7 +328,7 @@ function Character:walkToSpeed(x, y, speed, facing, keep_facing, after)
         end
         self.physics.move_target.move_func = function(_, dx, dy) self:doWalkToStep(dx, dy, keep_facing) end
         return true
-    elseif facing and self.facing ~= facing then
+    elseif facing and self:getFacing() ~= facing then
         self:setFacing(facing)
     end
     return false
@@ -416,9 +425,9 @@ function Character:alert(duration, options)
         Assets.stopAndPlaySound("alert")
     end
     local sprite_to_use = options["sprite"] or "effects/alert"
-    self.alert_timer = duration and duration*30 or 20
+    self.alert_timer = duration and duration * 30 or 20
     if self.alert_icon then self.alert_icon:remove() end
-    self.alert_icon = Sprite(sprite_to_use, (self.width/2)+(options["offset_x"] or 0), options["offset_y"] or 0)
+    self.alert_icon = Sprite(sprite_to_use, (self.width / 2) + (options["offset_x"] or 0), options["offset_y"] or 0)
     self.alert_icon:setOrigin(0.5, 1)
     self.alert_icon.layer = options["layer"] or 100
     self:addChild(self.alert_icon)
@@ -438,7 +447,7 @@ function Character:setWalkSprite(sprite)
     self.sprite:setWalkSprite(sprite)
 end
 
---- Resetss the character's to their default animation or sprite.
+--- Resets the character's to their default animation or sprite.
 function Character:resetSprite()
     self.sprite:resetSprite()
 end
@@ -448,7 +457,10 @@ function Character:setAnimation(animation, after)
 end
 
 function Character:play(speed, loop, reset, on_finished)
-    self.sprite:play(speed, loop, reset, on_finished)
+    self.sprite:play(speed, loop, function(sprite) ---@param sprite ActorSprite
+        if reset then sprite:resetSprite() end
+        if on_finished then on_finished(sprite) end
+    end)
 end
 
 --- Moves the character to a new position with a jumping arc motion.
@@ -497,7 +509,7 @@ end
 
 function Character:processJump()
     if (not self.init) then
-        self.fake_gravity = (self.jump_speed / ((self.jump_time*30) * 0.5))
+        self.fake_gravity = (self.jump_speed / ((self.jump_time * 30) * 0.5))
         self.init = true
 
         self.false_end_x = self.jump_x
@@ -544,7 +556,7 @@ function Character:processJump()
     end
     if (self.jump_progress == 1) then
         self.jump_sprite_timer = self.jump_sprite_timer + DT
-        if (self.jump_sprite_timer >= 5/30) then
+        if (self.jump_sprite_timer >= 5 / 30) then
             self.sprite:set(self.jump_sprite)
             self.jump_progress = 2
         end
@@ -553,8 +565,8 @@ function Character:processJump()
         self.jump_timer = self.jump_timer + DT
         self.jump_speed = self.jump_speed - (self.fake_gravity * DTMULT)
         self.jump_arc_y = self.jump_arc_y - (self.jump_speed * DTMULT)
-        self.x = Utils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
-        self.real_y = Utils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
+        self.x = MathUtils.lerp(self.jump_start_x, self.false_end_x, (self.jump_timer / self.jump_time))
+        self.real_y = MathUtils.lerp(self.jump_start_y, self.false_end_y, (self.jump_timer / self.jump_time))
 
         self.x = self.x
         self.y = self.real_y + self.jump_arc_y
@@ -572,9 +584,9 @@ function Character:processJump()
             self.sprite:set(self.land_sprite)
             self.jump_sprite_timer = self.jump_sprite_timer + DT
         else
-            self.jump_sprite_timer = 10/30
+            self.jump_sprite_timer = 10 / 30
         end
-        if (self.jump_sprite_timer >= 5/30) then
+        if (self.jump_sprite_timer >= 5 / 30) then
             self.sprite:resetSprite()
             self.jumping = false
         end
@@ -607,8 +619,8 @@ end
 function Character:convertToFollower(index, save)
     local follower = Follower(self.actor, self.x, self.y)
     follower.layer = self.layer
-    follower:setFacing(self.facing)
-    self.world:spawnFollower(follower, {index = index, party = self.party})
+    follower:setFacing(self:getFacing())
+    self.world:spawnFollower(follower, { index = index, party = self.party })
     if save then
         Game:addFollower(follower, index)
     end
@@ -620,7 +632,7 @@ function Character:convertToPlayer()
     self.world:spawnPlayer(self.x, self.y, self.actor, self.party)
     local player = self.world.player
     player:setLayer(self.layer)
-    player:setFacing(self.facing)
+    player:setFacing(self:getFacing())
     self:remove()
     return player
 end
@@ -629,7 +641,7 @@ function Character:convertToNPC(properties)
     local npc = NPC(self.actor, self.x, self.y, properties)
     npc.layer = self.layer
     npc.party = self.party
-    npc:setFacing(self.facing)
+    npc:setFacing(self:getFacing())
     self.world:addChild(npc)
     self:remove()
     return npc
@@ -639,7 +651,7 @@ function Character:convertToCharacter()
     local character = Character(self.actor, self.x, self.y)
     character.layer = self.layer
     character.party = self.party
-    character:setFacing(self.facing)
+    character:setFacing(self:getFacing())
     self.world:addChild(character)
     self:remove()
     return character
@@ -649,7 +661,7 @@ function Character:convertToEnemy(properties)
     local enemy = ChaserEnemy(self.actor, self.x, self.y, properties)
     enemy.layer = self.layer
     enemy.party = self.party
-    enemy:setFacing(self.facing)
+    enemy:setFacing(self:getFacing())
     self.world:addChild(enemy)
     self:remove()
     return enemy
@@ -684,20 +696,30 @@ function Character:update()
 
     if (self.spin_speed ~= 0) then
         self.spin_timer = self.spin_timer + (1 / self.spin_speed) * DTMULT
+        local facing = self:getFacing()
+
         if (self.spin_timer >= 1) then
-            if     (self.facing == "down")  then self:setFacing("left")
-            elseif (self.facing == "left")  then self:setFacing("up")
-            elseif (self.facing == "up")    then self:setFacing("right")
-            elseif (self.facing == "right") then self:setFacing("down")
+            if (facing == "down") then
+                self:setFacing("left")
+            elseif (facing == "left") then
+                self:setFacing("up")
+            elseif (facing == "up") then
+                self:setFacing("right")
+            elseif (facing == "right") then
+                self:setFacing("down")
             end
 
             self.spin_timer = 0
         end
         if (self.spin_timer <= -1) then
-            if     (self.facing == "down")  then self:setFacing("right")
-            elseif (self.facing == "left")  then self:setFacing("down")
-            elseif (self.facing == "up")    then self:setFacing("left")
-            elseif (self.facing == "right") then self:setFacing("up")
+            if (facing == "down") then
+                self:setFacing("right")
+            elseif (facing == "left") then
+                self:setFacing("down")
+            elseif (facing == "up") then
+                self:setFacing("left")
+            elseif (facing == "right") then
+                self:setFacing("up")
             end
 
             self.spin_timer = 0
@@ -707,7 +729,7 @@ function Character:update()
     end
 
     if self.alert_timer > 0 then
-        self.alert_timer = Utils.approach(self.alert_timer, 0, DTMULT)
+        self.alert_timer = MathUtils.approach(self.alert_timer, 0, DTMULT)
         if self.alert_timer == 0 then
             self.alert_icon:remove()
             self.alert_icon = nil
@@ -736,5 +758,9 @@ function Character:draw()
         self.collider:draw(0, 1, 0)
     end
 end
+
+---@param encounter Encounter
+---@param battler Battler
+function Character:onReturnFromBattle(encounter, battler) end
 
 return Character

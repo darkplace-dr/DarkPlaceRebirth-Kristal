@@ -235,11 +235,6 @@ local hub = {
 
     local items_list = {
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
             result = "dd_burger",
             item1 = "darkburger",
             item2 = "darkburger"
@@ -261,13 +256,63 @@ local hub = {
         },
         {
             result = "tensionbow",
-            item1 = "bshotbowtie",
+            item1 = "frayedbowtie",
             item2 = "tensionbit"
         },
         {
-            result = "gold_card",
-            item1 = "silver_card",
+            result = "tensiontie",
+            item1 = "tennatie",
+            item2 = "tentaser"
+        },
+        {
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
+        },
+        {
+            result = "royalpin",
+            item1 = "mousetoken",
             item2 = "silver_card",
+        },
+        {
+            result = "casino_card",
+            item1 = "hero_tea",
+            item2 = "amber_card",
+        },
+        {
+            result = "gold_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
+        },
+        {
+            result = "chosen_ax",
+            item1 = "chosen_blade",
+            item2 = "mane_ax"
+        },
+        {
+            result = "powerbitter",
+            item1 = "powerring",
+            item2 = "harvester"
+        },
+		{
+			result = "nullsword",
+			item1 = "glitchswd",
+			item2 = "bin_weapon"
+		},
+		{
+			result = "memory_guts",
+			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
+			item2 = "mind_guts"
+		},
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "shadowmantle"
+        },
+        {
+            result = "kindnessaxe",
+            item1 = "friend_buster",
+            item2 = "justiceaxe"
         },
     }
     Kristal.callEvent("setItemsList", items_list)
@@ -638,25 +683,111 @@ local hub = {
                     cutscene:hideNametag()
                 end]]
             elseif Game:isDessMode() and dessHasMetSans == false then
-                cutscene:showNametag("Dess")
-                cutscene:text("* holy shit is that the i remember you're genocides guy", "wtf_b", "dess")
-                cutscene:showNametag("sans.", {font = "sans"})
-                cutscene:text("[font:sans][speed:0.5]* ...", "look_left", "sans")
-                cutscene:text("[font:sans]* who?", "neutral", "sans")
-                cutscene:showNametag("Dess")
-                cutscene:text("* y'know,[wait:5] the funny bone man?", "eyebrow", "dess")
-                cutscene:text("* the megalovania guy[wait:10]\n* the bad time guy[wait:10]\n* the gaster blaster guy", "neutral_c", "dess")
-                cutscene:text("* i'm pretty sure the pope knows you exist btw", "neutral", "dess")
-                cutscene:showNametag("sans.", {font = "sans"})
-                cutscene:text("[font:sans]* hmm...", "look_left", "sans")
-                cutscene:text("[font:sans]* sorry kid,[wait:5] you must be thinkin' about someone else.", "wink", "sans")
-                cutscene:text("[font:sans]* after all,[wait:5] i'm nothin' more than a simple janitor.", "joking", "sans")
-                cutscene:showNametag("Dess")
-                cutscene:text("* damn", "neutral_b", "dess")
-                cutscene:showNametag("sans.", {font = "sans"})
-                cutscene:text("[font:sans]* anyways, what's up?", "neutral", "sans")
-                cutscene:hideNametag()
-                Game:setFlag("dessHasMetSans", true)
+                if Game:getFlag("can_kill") then
+                    cutscene:showNametag("sans.", {font = "sans"})
+                    cutscene:text("[font:sans]* hey.[wait:5] what's u", "wink", "sans", {auto=true, skip=false})
+                    cutscene:hideNametag()
+                    Game.world.music:pause()
+                    Assets.playSound("knight_cut2", 1, 0.06)
+                    Assets.playSound("knight_cut2", 1, 0.1)
+                    Assets.playSound("knight_cut2", 1, 0.12)
+                    Assets.playSound("knight_cut2", 1, 0.18)
+                    Assets.playSound("knight_cut2", 1, 0.24)
+                    local rect = Rectangle(Game.world.camera.x-SCREEN_WIDTH/2, Game.world.camera.y-SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT)
+                    rect.color = {0,0,0}
+                    rect.layer = WORLD_LAYERS["below_ui"]
+                    Game.world:addChild(rect)
+                    local slash = Sprite("world/cutscenes/floor1/roaringknight_slash_white_horizontal", sans.x, sans.y - 40)
+                    if Game.world.player.facing == "up" then
+                        slash:setOrigin(0.75, 0.5)
+                    else
+                        slash = Sprite("world/cutscenes/floor1/roaringknight_slash_white_horizontal", sans.x, sans.y + 80)
+                        slash:setOrigin(0.5, 0.5)
+                        slash.rotation = math.rad(-90)
+                    end
+                    slash:setScale(2)
+                    slash.layer = WORLD_LAYERS["below_ui"] + 0.1
+                    Game.world:addChild(slash)
+                    cutscene:wait(3)
+                    rect:remove()
+                    slash:remove()
+                    Game.world.camera:shake(6, 0)
+                    Assets.playSound("impact")
+                    Assets.playSound("closet_impact")
+                    Assets.playSound("closet_impact", 1, 0.5)
+                    Assets.playSound("bageldefeat", 0.8, 0.8)
+                    Assets.playSound("glassbreak", 0.8, 0.4)
+                    Assets.playSound("glassbreak", 0.6, 0.3)
+                    sans:setSprite("dead")
+                    if Game.world.player.facing == "up" then
+                        cutscene:slideToSpeed(sans, sans.x + 90, sans.y, 6)
+                    end
+                    cutscene:wait(3)
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* you pmo", "dess.exe", "dess")
+                    cutscene:hideNametag()
+                    cutscene:wait(2)
+                    Assets.playSound("vaporized", 1.2)
+                    local sprite = sans.sprite
+                    sprite.visible = false
+                    local death_x, death_y = sprite:getRelativePos(0, 0, sans)
+                    local death
+                    death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() sans:remove() end) -- broken :((((
+                    death:setColor(sprite:getDrawColor())
+                    death:setScale(sprite:getScale())
+                    sans:addChild(death)
+                    cutscene:wait(2)
+                    Game.world.music:resume()
+                    sans = Game.world:spawnNPC("sans", 940, 240)
+                    cutscene:wait(cutscene:walkToSpeed(sans, 660, sans.y, 6, "left"))
+                    Game.world.player:setFacing("right")
+                    Game.world.player:alert(nil, {play_sound=false})
+                    cutscene:showNametag("sans.", {font = "sans"})
+                    cutscene:text("[font:sans]* woah.[wait:5] sure glad i'm not that guy.", "look_left", "sans")
+                    cutscene:text("[font:sans]* anyways.", "neutral", "sans")
+                    cutscene:text("[font:sans]* since you seem like you [color:red]really [color:yellow]want to use this elevator[color:reset]...", "tired", "sans")
+                    cutscene:text("[font:sans]* i give you personal permission for it's use.", "neutral", "sans")
+                    cutscene:text("[font:sans]* ...", "eyes_closed", "sans")
+                    Game.world.music:pause()
+                    cutscene:text("[font:sans][speed:0.5][voice:none]* and hell if i'm showing up here again.", "serious", "sans")
+                    cutscene:hideNametag()
+                    Assets.playSound("noise")
+                    rect = Rectangle(Game.world.camera.x-SCREEN_WIDTH/2, Game.world.camera.y-SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT)
+                    rect.color = {0,0,0}
+                    rect.layer = WORLD_LAYERS["below_ui"]
+                    Game.world:addChild(rect)
+                    cutscene:wait(1.5)
+                    Assets.playSound("noise")
+                    sans:remove()
+                    rect:remove()
+                    cutscene:wait(2)
+                    Game.world.player:setFacing("down")
+                    Game.world.music:resume()
+                    Game:setFlag("hasPushedSans", true)
+                    Game:setFlag("dessTriedToKillSans", true)
+                    cutscene:text("* (You can now use the Elevator.)")
+                    return
+                else
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* holy shit is that the i remember you're genocides guy", "wtf_b", "dess")
+                    cutscene:showNametag("sans.", {font = "sans"})
+                    cutscene:text("[font:sans][speed:0.5]* ...", "look_left", "sans")
+                    cutscene:text("[font:sans]* who?", "neutral", "sans")
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* y'know,[wait:5] the funny bone man?", "eyebrow", "dess")
+                    cutscene:text("* the megalovania guy[wait:10]\n* the bad time guy[wait:10]\n* the gaster blaster guy", "neutral_c", "dess")
+                    cutscene:text("* i'm pretty sure the pope knows you exist btw", "neutral", "dess")
+                    cutscene:showNametag("sans.", {font = "sans"})
+                    cutscene:text("[font:sans]* hmm...", "look_left", "sans")
+                    cutscene:text("[font:sans]* sorry kid,[wait:5] you must be thinkin' about someone else.", "wink", "sans")
+                    cutscene:text("[font:sans]* after all,[wait:5] i'm nothin' more than a simple janitor.", "joking", "sans")
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* damn", "neutral_b", "dess")
+                    cutscene:showNametag("sans.", {font = "sans"})
+                    cutscene:text("[font:sans]* anyways, what's up?", "neutral", "sans")
+                    cutscene:hideNametag()
+                    Game:setFlag("dessHasMetSans", true)
+                end
             else
                 cutscene:showNametag("sans.", {font = "sans"})
                 cutscene:text("[font:sans]* 'sup?", "neutral", "sans")
@@ -817,21 +948,27 @@ local hub = {
                 sans.physics.speed_x = 0
                 sans.physics.speed_y = 0
 
-                sans.layer = 0.7
                 cutscene:wait(3)
                 music_cut:stop()
 
                 local elevator = Game.world:getEvent(65)
-                elevator:open()
-                cutscene:wait(0.01)
+                elevator.sprite_inside.visible = false
+
+                --hacky layering method, but it works
+                local elevator_inside = Sprite("world/events/elevatordoor/floor1/inside", elevator.x + 15, elevator.y - 65)
+                elevator_inside:setScale(2)
+                elevator_inside:setLayer(elevator.layer - 0.1)
+                Game.world:addChild(elevator_inside)
+
+                sans:setLayer(elevator_inside.layer + 0.01)
                 sans.x = 462
                 sans.y = 122
-				cutscene:wait(0.5)
+                elevator:open()
+                cutscene:wait(0.5)
                 dess:setFacing("up")
                 cutscene:wait(2.5)
                 cutscene:textTagged("* wait how the fu", "wtf", "dess", {auto = true})
 				
-
                 music_cut:play("deltarune/muscle")				
 				
                 local you_kids = #Game.party > 1 and "you kids" or "you"
@@ -844,10 +981,12 @@ local hub = {
 				
                 music_cut:stop()
                 Game.world.fader:fadeOut(nil, {alpha = 1, speed = 10})
+                elevator.sprite_inside.visible = true
                 elevator:close()
+                elevator_inside:remove()
                 sans.x = 545
                 sans.y = 150
-				dess:setFacing("down")
+                dess:setFacing("down")
 
                 Assets.playSound("noise")
                 cutscene:wait(1)
@@ -864,6 +1003,7 @@ local hub = {
                 sans:setFacing("down")
                 Assets.playSound("dimbox")
                 cutscene:text("* (You can now use the Elevator!)")
+                music_cut:remove()
             end
         end
     end,
@@ -1273,9 +1413,9 @@ local hub = {
 
     transition = function(cutscene, event)
         if love.math.random(1, 100) <= 5 then
-            cutscene:mapTransition("spamgolor_meeting", "west")
+            cutscene:mapTransition("floor1/spamgolor_meeting", "west")
             -- default wait func waits for the fade animation to end. movement should be allowed slightly before that
-            cutscene:wait(function () return Game.world.map.id == "spamgolor_meeting" end)
+            cutscene:wait(function () return Game.world.map.id == "floor1/spamgolor_meeting" end)
             local timeout = .5
             cutscene:during(function () timeout = timeout - DT end)
             -- prevent player from accidentally exiting the room
@@ -1283,7 +1423,7 @@ local hub = {
                 return Input.up("left") or (timeout <= 0)
             end)
         else
-            cutscene:mapTransition("hub_traininggrounds", "entry")
+            cutscene:mapTransition("floor1/traininggrounds", "entry")
         end
     end,
 
@@ -1299,7 +1439,7 @@ local hub = {
                 return Input.up("left") or (timeout <= 0)
             end)
         else
-            cutscene:mapTransition("hub_fuseroom", "entry")
+            cutscene:mapTransition("floor1/fuseroom", "entry")
         end
     end,
 
@@ -1699,6 +1839,30 @@ local hub = {
         onPurchase()
 	end,
 
+    handyshop = function(cutscene, event)
+		cutscene:textTagged("* (You can't tell what it's trying to sell, but you feel bad about it.)")
+		cutscene:textTagged("* (Should you buy it for 20 D$?)")
+		
+        local choice = cutscene:choicer({ "Buy", "Do Not" })
+		
+        if choice == 2 then
+            cutscene:textTagged("* (For a weird reason, you felt bitter.)")
+            return
+        end
+        if Game.money < 20 then
+            cutscene:textTagged("* (Turns out you don't have enough money, you feel glad.)")
+            return
+        end
+		if not Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares") then
+            cutscene:textTagged("* (You don't have enough inventory space to buy it.)")
+            return
+		end
+		
+        Game.money = Game.money - 20
+        cutscene:playSound("locker")
+        cutscene:textTagged("* (Suddenly,[wait:5] a weird monochrome hat entered your [color:yellow]ARMORs[color:reset].)")
+	end,
+
     money_hole = function(cutscene, event)
         if Game:getFlag("money_hole") == 1 then
             cutscene:text("* (The hole is filled to the brim with cash.)")
@@ -1845,6 +2009,7 @@ local hub = {
                     cutscene:textTagged("* Do you know what we do\nwith problems?", "smirk", "susie")
                     cutscene:textTagged("* We stomp.[wait:10] Them.[wait:10] Into.[wait:10]\nThe.[wait:10] Ground.", "smile", "susie")
                     cutscene_music:stop()
+                    cutscene_music:remove()
                 end
             else
                 cutscene:textTagged("* Oh[speed:0.5]...[wait:10][speed:1] am i?", "condescending", "dess")
@@ -2108,9 +2273,16 @@ local hub = {
         end
     end,
 
-
     missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")
     end,
+	
+    vending = function(cutscene, event)
+        cutscene:text("* (DARK DOLLARS to BADGES!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("hub_vending")
+		end
+	end,
 }
 return hub

@@ -78,7 +78,7 @@ function TeevieSneakZone:update()
 		if self.stealth_timer > 6 then
 			self.stealth_timer = 6
 		end
-		self.lerp_strength = Utils.lerp(self.lerp_strength, 0.5, 0.2*DTMULT)
+		self.lerp_strength = MathUtils.lerp(self.lerp_strength, 0.5, 0.2*DTMULT)
 		if Game.world.player:isMovementEnabled() then
 			local walk_x = 0
 			local walk_y = 0
@@ -115,22 +115,22 @@ function TeevieSneakZone:update()
 			su_xoff = -16
 			ra_xoff = 24
 		end
-		if Utils.dist(Game.world.player.x, Game.world.player.y, self.plx, self.ply) > 1 then
+		if MathUtils.dist(Game.world.player.x, Game.world.player.y, self.plx, self.ply) > 1 then
 			self.player_frame = self.player_frame + 0.125 * DTMULT
 		end
-		if Utils.dist(Game.world.player.x, Game.world.player.y, self.plx, self.ply) > 2 then
+		if MathUtils.dist(Game.world.player.x, Game.world.player.y, self.plx, self.ply) > 2 then
 			self.player_frame = self.player_frame + 0.0625 * DTMULT
 		end
 		Game.world.player.sprite:setFrame(1 + math.floor(self.player_frame))
 		self.plx = Game.world.player.x
 		self.ply = Game.world.player.y
 		if Game.world.followers[1] then
-			Game.world.followers[1].x = Utils.lerp(Game.world.followers[1].x, Game.world.player.x + su_xoff, self.lerp_strength*DTMULT)
-			Game.world.followers[1].y = Utils.lerp(Game.world.followers[1].y, Game.world.player.y + su_yoff, (self.lerp_strength*1.5)*DTMULT)
-			if Utils.dist(Game.world.followers[1].x, Game.world.followers[1].y, self.flx[1], self.fly[1]) > 1 then
+			Game.world.followers[1].x = MathUtils.lerp(Game.world.followers[1].x, Game.world.player.x + su_xoff, self.lerp_strength*DTMULT)
+			Game.world.followers[1].y = MathUtils.lerp(Game.world.followers[1].y, Game.world.player.y + su_yoff, (self.lerp_strength*1.5)*DTMULT)
+			if MathUtils.dist(Game.world.followers[1].x, Game.world.followers[1].y, self.flx[1], self.fly[1]) > 1 then
 				self.follower_frame[1] = self.follower_frame[1] + 0.125 * DTMULT
 			end
-			if Utils.dist(Game.world.followers[1].x, Game.world.followers[1].y, self.flx[1], self.fly[1]) > 2 then
+			if MathUtils.dist(Game.world.followers[1].x, Game.world.followers[1].y, self.flx[1], self.fly[1]) > 2 then
 				self.follower_frame[1] = self.follower_frame[1] + 0.0625 * DTMULT
 			end
 			Game.world.followers[1].sprite:setFrame(1 + math.floor(self.follower_frame[1]))
@@ -138,12 +138,12 @@ function TeevieSneakZone:update()
 			self.fly[1] = Game.world.followers[1].y
 		end
 		if Game.world.followers[2] then
-			Game.world.followers[2].x = Utils.lerp(Game.world.followers[2].x, Game.world.player.x + ra_xoff, self.lerp_strength*DTMULT)
-			Game.world.followers[2].y = Utils.lerp(Game.world.followers[2].y, Game.world.player.y + ra_yoff, (self.lerp_strength*1.5)*DTMULT)
-			if Utils.dist(Game.world.followers[2].x, Game.world.followers[2].y, self.flx[2], self.fly[2]) > 1 then
+			Game.world.followers[2].x = MathUtils.lerp(Game.world.followers[2].x, Game.world.player.x + ra_xoff, self.lerp_strength*DTMULT)
+			Game.world.followers[2].y = MathUtils.lerp(Game.world.followers[2].y, Game.world.player.y + ra_yoff, (self.lerp_strength*1.5)*DTMULT)
+			if MathUtils.dist(Game.world.followers[2].x, Game.world.followers[2].y, self.flx[2], self.fly[2]) > 1 then
 				self.follower_frame[2] = self.follower_frame[2] + 0.125 * DTMULT
 			end
-			if Utils.dist(Game.world.followers[2].x, Game.world.followers[2].y, self.flx[2], self.fly[2]) > 2 then
+			if MathUtils.dist(Game.world.followers[2].x, Game.world.followers[2].y, self.flx[2], self.fly[2]) > 2 then
 				self.follower_frame[2] = self.follower_frame[2] + 0.0625 * DTMULT
 			end
 			Game.world.followers[2].sprite:setFrame(1 + math.floor(self.follower_frame[2]))
@@ -151,7 +151,7 @@ function TeevieSneakZone:update()
 			self.fly[2] = Game.world.followers[2].y
 		end
 	else
-		self.lerp_strength = Utils.lerp(self.lerp_strength, 0.1, 0.1*DTMULT)
+		self.lerp_strength = MathUtils.lerp(self.lerp_strength, 0.1, 0.1*DTMULT)
 	end
 end
 

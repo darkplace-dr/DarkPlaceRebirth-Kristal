@@ -56,7 +56,6 @@ function item:init()
 		noelle = "Maybe we can replace the sleeve...",
         brenda = "Why do we have this?",
 		jamm = "I am not THAT desperate...",
-        ["jamm+marcy"] = "I am not THAT desperate...",
         ceroba = "No.",
         noel = "Soft, Sad, and Ineffective."
     }

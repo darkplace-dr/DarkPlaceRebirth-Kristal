@@ -54,7 +54,8 @@ function item:init()
 		dess = "ew i hate realism",
         brenda = "(I'm gonna regret this, aren't I?)",
         noel = "Just another hot piece of metal.",
-        ceroba = "I'm not good with firearms..."
+        ceroba = "I'm not good with firearms...",
+        jamm = "I don't know how to..."
     }
 end
 

@@ -47,9 +47,9 @@ function DigitalMagicGlass:update()
             end
         end
         if any_collided then
-            self.tile_alphas[i] = Utils.lerp(self.tile_alphas[i], 1, 0.4 * DTMULT)
+            self.tile_alphas[i] = MathUtils.lerp(self.tile_alphas[i], 1, 0.4 * DTMULT)
         else
-            self.tile_alphas[i] = Utils.lerp(self.tile_alphas[i], 0.5, 0.4 * DTMULT)
+            self.tile_alphas[i] = MathUtils.lerp(self.tile_alphas[i], 0.5, 0.4 * DTMULT)
         end
     end
     Object.endCache()

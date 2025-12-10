@@ -25,7 +25,7 @@ function MetalSonicPlush:update()
     end
 
     if self.sprite.scale_x > 2 then
-        self.sprite.scale_x = Utils.lerp(self.sprite.scale_x, 2, 0.3*DTMULT)
+        self.sprite.scale_x = MathUtils.lerp(self.sprite.scale_x, 2, 0.3*DTMULT)
     end
 	
     if self.sprite.scale_y < 2 then

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="21">
+ <editorsettings>
+  <export target="ralsei_imposter.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="teevie"/>
+  <property name="music" value="deltarune/tv_world"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/teevie_land.tsx"/>
+ <tileset firstgid="157" source="../../tilesets/ch3_dw_tvland_backstage.tsx"/>
+ <layer id="1" name="below" width="16" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,2,3,4,0,0,0,0,0,
+0,0,0,0,0,0,0,0,8,9,10,0,0,0,0,0,
+0,0,0,0,0,0,0,0,8,9,10,0,0,0,0,0,
+0,0,0,0,0,0,0,0,14,15,16,0,0,0,0,0,
+3,3,3,177,178,3,3,4,20,21,20,0,0,0,0,0,
+9,9,9,188,189,9,9,10,26,27,26,0,0,0,0,0,
+9,9,9,199,200,9,9,10,20,21,20,0,0,0,0,0,
+15,15,15,15,15,15,15,16,26,27,26,0,0,0,0,0,
+20,21,20,21,20,21,20,21,20,21,20,0,0,0,0,0,
+26,27,26,27,26,27,26,27,26,27,26,0,0,0,0,0,
+20,21,20,21,20,21,20,21,20,21,20,0,0,0,0,0,
+41,41,41,41,41,41,41,41,41,41,41,0,0,0,0,0,
+33,28,33,33,28,33,33,28,33,33,28,0,0,0,0,0,
+0,34,0,0,34,0,0,34,0,0,34,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="carpet" width="16" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,46,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,46,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,46,0,0,0,0,0,0,
+40,40,40,40,40,40,40,40,40,46,0,0,0,0,0,0,
+46,46,46,46,46,46,46,46,46,46,0,0,0,0,0,0,
+52,52,52,52,52,52,52,52,52,52,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="1" x="0" y="200" width="320" height="160"/>
+  <object id="2" x="320" y="160" width="120" height="40"/>
+  <object id="3" x="440" y="200" width="40" height="280"/>
+  <object id="4" x="0" y="480" width="440" height="40"/>
+ </objectgroup>
+ <objectgroup color="#55aaff" id="5" name="objects_below">
+  <object id="12" name="teevie_light" x="40" y="360" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="13" name="teevie_light" x="140" y="360" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="teevie_light" x="240" y="360" width="40" height="40">
+   <properties>
+    <property name="odd" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="11" name="interactable" x="120" y="320" width="80" height="40">
+   <properties>
+    <property name="text" value="* (It's a poster. It doesn't have any words on it.)"/>
+   </properties>
+  </object>
+  <object id="15" name="npc" x="380" y="240">
+   <properties>
+    <property name="actor" value="ralseiimpostor"/>
+    <property name="cond" value="not Game:getFlag(&quot;encounter#dpr_main/pippins_shuttah:done&quot;)"/>
+    <property name="facing" value="up"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="script" x="320" y="250" width="120" height="40">
+   <properties>
+    <property name="cutscene" value="tvfloor.ralsei_impostor"/>
+   </properties>
+  </object>
+  <object id="17" name="transition" x="-40" y="360" width="40" height="120">
+   <properties>
+    <property name="map" value="floortv/zapper_maze"/>
+    <property name="marker" value="entry_bottomright"/>
+   </properties>
+  </object>
+  <object id="20" name="npc" x="380" y="240">
+   <properties>
+    <property name="actor" value="pippins"/>
+    <property name="cond" value="Game:getFlag(&quot;encounter#dpr_main/pippins_shuttah:done&quot;) == true and Game:getFlag(&quot;pippins_shuttah_violence&quot;) == false"/>
+    <property name="cutscene" value="tvfloor.post_ralsei_impostor"/>
+    <property name="sprite" value="talk"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="6" name="markers">
+  <object id="18" name="entry" x="40" y="420">
+   <point/>
+  </object>
+  <object id="19" name="spawn" x="201.333" y="420">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

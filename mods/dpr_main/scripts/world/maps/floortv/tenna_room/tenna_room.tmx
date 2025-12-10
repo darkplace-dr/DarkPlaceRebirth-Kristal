@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="41" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="144">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="41" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="150">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -9,7 +9,8 @@
  </properties>
  <tileset firstgid="1" source="../../../tilesets/ch3_dw_tvland_stage.tsx"/>
  <tileset firstgid="370" source="../../../tilesets/floortv_objects.tsx"/>
- <tileset firstgid="397" source="../../../tilesets/ch3_dw_tvland_lights.tsx"/>
+ <tileset firstgid="403" source="../../../tilesets/ch3_dw_tvland_lights.tsx"/>
+ <tileset firstgid="475" source="../../../tilesets/floor3-objects.tsx"/>
  <objectgroup id="6" name="objects_floor">
   <object id="16" name="greenroom_floor" x="140" y="0" width="40" height="40"/>
  </objectgroup>
@@ -74,9 +75,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,420,421,422,0,0,0,0,0,0,0,420,421,422,0,0,0,0,0,0,0,420,421,422,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,420,421,422,0,0,418,419,0,0,0,420,421,422,0,0,0,418,419,0,0,420,421,422,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,429,430,431,0,0,427,428,0,0,0,429,430,431,0,0,0,427,428,0,0,429,430,431,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,426,427,428,0,0,0,0,0,0,0,426,427,428,0,0,0,0,0,0,0,426,427,428,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,426,427,428,0,0,424,425,0,0,0,426,427,428,0,0,0,424,425,0,0,426,427,428,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,435,436,437,0,0,433,434,0,0,0,435,436,437,0,0,0,433,434,0,0,435,436,437,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -85,11 +86,11 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,445,0,446,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,449,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,448,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,451,0,452,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,455,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,454,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,450,0,0,0,0,450,0,445,0,0,0,446,0,0,445,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,447,0,0,0,0,0,0,448,0,0,0,0,0,0,448,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,456,0,0,0,0,456,0,451,0,0,0,452,0,0,451,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,453,0,0,0,0,0,0,454,0,0,0,0,0,0,454,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -101,9 +102,9 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,407,407,407,407,407,407,407,407,407,407,406,407,407,406,407,406,406,406,406,406,406,406,406,406,406,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,424,452,426,452,426,453,425,451,425,453,417,452,424,435,425,433,416,435,416,433,417,434,417,434,415,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,461,0,461,0,462,0,460,0,462,0,461,0,444,0,442,0,444,0,442,0,443,0,443,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,413,413,413,413,413,413,413,413,413,413,412,413,413,412,413,412,412,412,412,412,412,412,412,412,412,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,430,458,432,458,432,459,431,457,431,459,423,458,430,441,431,439,422,441,422,439,423,440,423,440,421,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,467,0,467,0,468,0,466,0,468,0,467,0,450,0,448,0,450,0,448,0,449,0,449,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -129,11 +130,12 @@
   <object id="34" name="interactable" x="140" y="400" width="80" height="40">
    <properties>
     <property name="text1" value="* (Welcome to the TENNA ROOM!)"/>
-    <property name="text2" value="* (Feel free to add your Tennas here!)"/>
+    <property name="text2" value="* (All Tennas are welcome!)"/>
    </properties>
   </object>
   <object id="66" name="greenroom_wall" x="120" y="320" width="120" height="120"/>
   <object id="67" name="greenroom_wall" x="240" y="280" width="120" height="120"/>
+  <object id="148" gid="477" x="271" y="435" width="60" height="90"/>
  </objectgroup>
  <objectgroup id="16" name="objects_below_2">
   <object id="77" gid="370" x="38" y="520" width="82" height="204"/>
@@ -144,31 +146,61 @@
   <object id="79" gid="371" x="1360" y="840" width="116" height="102"/>
   <object id="80" gid="2147484024" x="350" y="750" width="70" height="94"/>
   <object id="81" gid="376" x="1540" y="750" width="70" height="94"/>
-  <object id="82" name="npc" x="980" y="370">
+  <object id="82" name="npc" x="1440" y="520">
    <properties>
     <property name="actor" value="tenna"/>
     <property name="cutscene" value="tennaroom.mranttenna"/>
    </properties>
    <point/>
   </object>
-  <object id="84" gid="436" x="480" y="560" width="40" height="40"/>
-  <object id="85" gid="437" x="560" y="560" width="40" height="40"/>
-  <object id="92" gid="438" x="720" y="720" width="40" height="40"/>
-  <object id="93" gid="441" x="840" y="680" width="40" height="40"/>
-  <object id="95" gid="436" x="920" y="680" width="40" height="40"/>
-  <object id="96" gid="439" x="1000" y="720" width="40" height="40"/>
-  <object id="97" gid="437" x="1080" y="680" width="40" height="40"/>
-  <object id="122" gid="438" x="1200" y="680" width="40" height="40"/>
-  <object id="123" gid="439" x="1280" y="720" width="40" height="40"/>
-  <object id="125" gid="440" x="1440" y="560" width="40" height="40"/>
-  <object id="138" gid="439" x="1360" y="600" width="40" height="40"/>
-  <object id="140" gid="437" x="640" y="696" width="40" height="40"/>
+  <object id="84" gid="442" x="480" y="560" width="40" height="40"/>
+  <object id="85" gid="443" x="560" y="560" width="40" height="40"/>
+  <object id="92" gid="444" x="720" y="720" width="40" height="40"/>
+  <object id="93" gid="447" x="840" y="680" width="40" height="40"/>
+  <object id="95" gid="442" x="920" y="680" width="40" height="40"/>
+  <object id="96" gid="445" x="1000" y="720" width="40" height="40"/>
+  <object id="97" gid="443" x="1080" y="680" width="40" height="40"/>
+  <object id="122" gid="444" x="1200" y="680" width="40" height="40"/>
+  <object id="123" gid="445" x="1280" y="720" width="40" height="40"/>
+  <object id="125" gid="446" x="1440" y="560" width="40" height="40"/>
+  <object id="138" gid="445" x="1360" y="600" width="40" height="40"/>
+  <object id="140" gid="443" x="640" y="696" width="40" height="40"/>
   <object id="142" name="transition" x="120" y="440">
    <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
     <property name="map" value="floortv/green_room"/>
     <property name="marker" value="entry_right"/>
+    <property name="sound" value="dooropen"/>
    </properties>
    <polygon points="0,0 -80,80 -80,40 0,-40"/>
+  </object>
+  <object id="144" name="npc" x="528" y="360">
+   <properties>
+    <property name="actor" value="tenna_wm"/>
+    <property name="animation" value="pose"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="145" name="npc" x="1050" y="830">
+   <properties>
+    <property name="actor" value="tenna_fc"/>
+    <property name="cutscene" value="tennaroom.forecastedtenna"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="147" name="npc" x="600" y="640">
+   <properties>
+    <property name="actor" value="tenna_ec"/>
+    <property name="cutscene" value="tennaroom.eclipsetenna"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="149" name="interactable" x="271" y="394" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.green_wvending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
  <layer id="7" name="above" width="41" height="24">

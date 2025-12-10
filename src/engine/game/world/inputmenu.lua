@@ -47,9 +47,9 @@ function WarpBinInputMenu:onAdd(...)
         end
     })
     TextInput.text_callback = function()
-        self.input[1] = Utils.sub(self.input[1], 1, self.code_len)
+        self.input[1] = StringUtils.sub(self.input[1], 1, self.code_len)
         if self.key_callback then
-            self.key_callback(Utils.sub(self.input[1],1,#self.input[1]-1), Utils.sub(self.input[1],#self.input[1]),self)
+            self.key_callback(StringUtils.sub(self.input[1],1,#self.input[1]-1), StringUtils.sub(self.input[1],#self.input[1]),self)
         end
     end
     TextInput.submit_callback = function()
@@ -70,7 +70,7 @@ function WarpBinInputMenu:draw()
     assert(actual_input_len <= self.code_len)
     for i = 1, self.code_len do
         if actual_input_len >= i then
-            local char = Utils.sub(self.input[1], i, i)
+            local char = StringUtils.sub(self.input[1], i, i)
             love.graphics.printf(char, draw_x, draw_y, self.char_w, "center")
         end
 
@@ -87,9 +87,8 @@ end
 
 function WarpBinInputMenu:update()
     if not OVERLAY_OPEN then
-        if self.cancellable
-            -- FIXME
-            and (Input.pressed("shift") or Input.pressed("gamepad:b")) then
+        if self.cancellable and
+            (Input.pressed("shift") or Input.pressed("gamepad:b")) then -- exclude X (FIXME)
             if self.finish_cb then
                 self.finish_cb(nil, nil)
             end
@@ -104,7 +103,7 @@ function WarpBinInputMenu:endInput()
     TextInput.endInput()
 end
 
-function WarpBinInputMenu:onRemove(parent)
+function WarpBinInputMenu:onRemoveFromStage(parent)
     super.onRemove(self, parent)
 
     self:endInput()

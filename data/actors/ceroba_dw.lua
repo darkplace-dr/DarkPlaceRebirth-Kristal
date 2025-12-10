@@ -12,7 +12,7 @@ function actor:init()
 
     self.soul_offset = {12.5, 28}
 
-    self.color = {1, 1, 0}
+    self.color = {253/255, 0, 85/255}
 
     self.path = "party/ceroba/dark"
     self.default = "walk"
@@ -53,6 +53,7 @@ function actor:init()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
@@ -103,14 +104,16 @@ function actor:init()
         ["battle/victory"] = {-8, 0},
 
         -- Cutscene offsets
-        ["fall"] = {0, 0},
-        ["super_move"] = {-24, 0},
-        ["the_roba"] = {0, 0},
-        ["guard"] = {-17, -11},
+        ["ball"] = {-3, 0},
         ["dance"] = {-5, -1},
+        ["fall"] = {0, 0},
+        ["guard"] = {-17, -11},
+        ["right_down"] = {-1, -2},
+        ["right_down_more"] = {1, -2},
+        ["the_roba"] = {0, 0},
     }
 
-    --self.taunt_sprites = {"super_move", "the_roba"}
+    self.taunt_sprites = {"cool", "the_roba"}
 
     self.shiny_id = "ceroba"
 

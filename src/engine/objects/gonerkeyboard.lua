@@ -25,7 +25,7 @@ GonerKeyboard.MODES = {
         keyboard = {
             {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
             {"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"},
-            {"U", "V", "W", "X", "Y", "Z", "<<", "<<", "<<", "<<"},
+            {"U", "V", "W", "X", "Y", "Z", "vv", "vv", "vv", "vv"},
             {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
             {"k", "l", "m", "n", "o", "p", "q", "r", "s", "t"},
             {"u", "v", "w", "x", "y", "z", "BACK", "<<", "END", "<<"}
@@ -93,7 +93,7 @@ function GonerKeyboard:setMode(mode)
     end
 
     -- Fill out defaults
-    self.mode = Utils.copy(GonerKeyboard.MODES["default"])
+    self.mode = TableUtils.copy(GonerKeyboard.MODES["default"])
     Utils.merge(self.mode, mode)
 
     local choices = self:createKeyboardChoices(self.mode)
@@ -133,7 +133,7 @@ function GonerKeyboard:onSelect(key, x, y)
         self:undoCharacter()
     elseif key == "END" then
         self:finish()
-    elseif Utils.len(key) > 1 then
+    elseif StringUtils.len(key) > 1 then
         Kristal.Console:warn("Unknown command: " .. key)
     else
         self:addCharacter(key)
@@ -149,13 +149,13 @@ function GonerKeyboard:onComplete(text)
 end
 
 function GonerKeyboard:undoCharacter()
-    if Utils.len(self.text) > 0 then
-        self.text = Utils.sub(self.text, 1, Utils.len(self.text) - 1)
+    if StringUtils.len(self.text) > 0 then
+        self.text = StringUtils.sub(self.text, 1, StringUtils.len(self.text) - 1)
     end
 end
 
 function GonerKeyboard:addCharacter(key)
-    if self.limit < 0 or Utils.len(self.text) < self.limit then
+    if self.limit < 0 or StringUtils.len(self.text) < self.limit then
         self.text = self.text .. key
     end
 end
@@ -174,7 +174,7 @@ function GonerKeyboard:draw()
 
     love.graphics.setFont(self.font)
 
-    if self.limit >= 0 and Utils.len(self.text) >= self.limit then
+    if self.limit >= 0 and StringUtils.len(self.text) >= self.limit then
         Draw.setColor(1, 1, 0, self.alpha)
     else
         Draw.setColor(1, 1, 1, self.alpha)

@@ -11,13 +11,52 @@ function Player:init(chara, x, y)
     self.old_song = ""
     self.so_gamer = Assets.getShader("so_gamer")
 
+    self.base_speed_multiplier = 1
+
     if DP.run_timer_hold then
         self.run_timer = DP.run_timer_hold
     end
 
-    if DP.walk_speed_hold then
-        self.walk_speed = DP.walk_speed_hold
+    self.run_toque_timer = 0
+    if DP.run_toque_timer_hold then
+        self.run_toque_timer = DP.run_toque_timer_hold
     end
+
+    ---@type love.Source?
+    self.toque_collide_sound = nil
+end
+
+function Player:getBaseWalkSpeed()
+    -- apparently this never worked even before the player speed refactor
+    --[[local override = self.actor.walk_speed_override
+    if override ~= nil then return override end]]
+
+    return super.getBaseWalkSpeed(self) * (self.base_speed_multiplier == nil and 1 or self.base_speed_multiplier)
+end
+
+function Player:getCurrentSpeed(running)
+    local speed = super.getCurrentSpeed(self, running)
+
+    -- Holding run with the Pizza Toque equipped (or if the file name is "PEPPINO")
+    -- will cause a gradual increase in speed.
+    if DP:isTauntingAvaliable()
+        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry")
+        and self.run_timer > 60 then
+        self.run_toque_timer = self.run_toque_timer + DT
+        speed = speed + self.run_toque_timer
+    else
+        self.run_toque_timer = 0
+    end
+
+    return speed
+end
+
+function Player:getDebugInfo()
+    local info = super.getDebugInfo(self)
+
+    table.insert(info, string.format("Toque timer: %f", self.run_toque_timer))
+
+    return info
 end
 
 function Player:isMovementEnabled()
@@ -26,38 +65,23 @@ function Player:isMovementEnabled()
 end
 
 function Player:handleMovement()
-    -- Holding run with the Pizza Toque equipped (or if the file name is "PEPPINO")
-    -- will cause a gradual increase in speed.
-    if DP:isTauntingAvaliable()
-        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry") then
-        if self.run_timer > 60 then
-            self.walk_speed = self.walk_speed + DT
-        elseif self.walk_speed > 4 then
-            self.walk_speed = 4
-        end
-    end
-
     super.handleMovement(self)
     assert(not self.disable_running, "What the hell is disable_running what is wrong with you why can't you just use force_walk why why why why")
     DP.run_timer_hold = self.run_timer
+    DP.run_toque_timer_hold = self.run_toque_timer
 end
 
 function Player:update()
     super.update(self)
-    if DP:isTauntingAvaliable() then
-        if self.last_collided_x or self.last_collided_y then
-            if self.walk_speed >= 10 then
-                self.world.player:shake(4, 0)
-                Assets.playSound("wing")
-            end
-        end
+    if DP:isTauntingAvaliable() and (self.last_collided_x or self.last_collided_y) and self.run_toque_timer >= 6 then
+        self:shake(4, 0)
+        if self.toque_collide_sound then self.toque_collide_sound:stop() end
+        self.toque_collide_sound = Assets.playSound("wing")
     end
 
     if self.invincible_colors then
         self:starman()
     end
-
-    DP.walk_speed_hold = self.walk_speed
 end
 
 function Player:starman()

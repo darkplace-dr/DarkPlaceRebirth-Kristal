@@ -224,7 +224,7 @@ return {
         cutscene:text("* (Play it?)")
         local opinion = cutscene:choicer({"Yes", "No"})
             if opinion == 1 then
-                Assets.playSound("piano")
+                Assets.playSound("pianonoise")
                 cutscene:text("* (Plink...)")
             else
                 cutscene:text("* (Your hands linger over the keys doing nothing.)")
@@ -271,12 +271,9 @@ return {
                 "ceroba",
                 "noel"
             }
-            local leader_id = Mod:getLeader().id
+            local leader_id = GeneralUtils:getLeader().id
             if leader_id == "kris" then
                 cutscene:text("* (A photo of your mother and father on their wedding day.)")
-            elseif leader_id == "YOU" then
-                cutscene:text("* (A photo of Toriel and a random goat man on a wedding day.)")
-                cutscene:text("* (Wait... Toriel was married??)")
             elseif Utils.containsValue(characters_who_knows_dreemurr, leader_id) then
                 cutscene:text("* (A photo of Toriel and Asgore on their wedding day.)")
             else
@@ -290,6 +287,42 @@ return {
         end
     end,
 
+    asgoretruck = function(cutscene, event)
+        local leader_id = GeneralUtils:getLeader().id
+        if leader_id == "kris" then
+            cutscene:text("* (It's your dad's truck.)")
+            cutscene:text("* (The floor of the front seat is littered with old papers and country CDs...)")
+        elseif leader_id == "dess" or Game:isDessMode() then
+            local dess = cutscene:getCharacter("dess")
+
+            cutscene:showNametag("Dess")
+            cutscene:text("* ...", "neutral", dess)
+            cutscene:text("* ...", "neutral_b", dess)
+	        dess:setFacing("down")
+            cutscene:text("* Oh you think you're REAL fuckin' funny, dont'cha", "angry", dess)
+            cutscene:text("* you think I DON'T know why you're making me look at the truck?", "annoyed", dess)
+            cutscene:text("* well guess wHAT", "angy", dess)
+            cutscene:hideNametag()
+
+            Game.world.timer:tween(3, Game.world.music, { pitch = 0.01 })
+            cutscene:wait(3)
+            Game.world.music:pause()
+
+            cutscene:showNametag("Dess")
+            cutscene:textTagged("* Hope ya saved yer game bitch", "wink", dess)
+            cutscene:hideNametag()
+
+            Game.world.fader:fadeOut(nil, {alpha = 1, speed = 10})
+            Assets.playSound("noise")
+            cutscene:wait(1)
+
+		    Kristal.returnToMenu() -- :]
+        else
+            cutscene:text("* (It's a blue pickup truck.)")
+            cutscene:text("* (The floor of the front seat is littered with old papers and country CDs...)")
+        end
+    end,
+
     librarybook1 = function(cutscene, event)
 
       cutscene:text("* How To Care For A Human")
@@ -300,11 +333,9 @@ return {
           cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
         else
             cutscene:text("* (There are photos of unfamiliar humans inside.)")
-            local leader_id = Mod:getLeader().id
+            local leader_id = GeneralUtils:getLeader().id
             if leader_id == "kris" then
                 cutscene:text("* (You shut the book quickly.)")
-            elseif leader_id == "YOU" then
-                cutscene:text("* (Unfortunately, there's no photos of frogs like you.)")
             end
         end
 

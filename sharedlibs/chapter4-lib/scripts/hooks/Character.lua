@@ -1,5 +1,5 @@
 ---@class Character : Character
-local Character, super = Utils.hookScript(Character)
+local Character, super = HookSystem.hookScript(Character)
 
 function Character:init(actor,x,y)
     super.init(self,actor,x,y)

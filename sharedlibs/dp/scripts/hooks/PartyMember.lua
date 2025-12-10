@@ -1,5 +1,5 @@
 ---@class PartyMember : PartyMember
-local PartyMember, super = Utils.hookScript(PartyMember)
+local PartyMember, super = HookSystem.hookScript(PartyMember)
 
 function PartyMember:init()
     super.init(self)
@@ -47,11 +47,6 @@ function PartyMember:init()
     self.opinions = {}
     self.default_opinion = 50
 
-    -- this fucking sucks but i don't care lol
-    -- based
-    --   -char
-    self.mhp_damage = 0
-
     -- protection points for soul shield mechanic
     self.pp = 0
 
@@ -67,8 +62,6 @@ function PartyMember:init()
     -- Whether or not this party member can be the leader.
     self.can_lead = true
 end
-
-function PartyMember:getSavedMHP() return self.saved_mhp end
 
 function PartyMember:getStarmanTheme() return "default" end
 
@@ -117,35 +110,12 @@ function PartyMember:onLoad(data)
     self:loadCombos(data.combos or {})
 end
 
-function PartyMember:getSavedMHP() return self.saved_mhp end
-
 function PartyMember:getStarmanTheme() return "default" end
 
 ---@return number x
 ---@return number y
 function PartyMember:getNameOffset() return unpack(self.name_offset or {0, 0}) end
 function PartyMember:getFleeText() return self.flee_text end
-
-function PartyMember:dealMaxHealthDamage(health)
-    self.mhp_damage = math.min(self:getStat("health_def"), self.mhp_damage + health)
-    self:setHealth(math.min(self:getStat("health"), self:getHealth()))
-end
-
-function PartyMember:setMaxHealthDamage(health)
-    self.mhp_damage = math.min(self:getStat("health_def"), health)
-    self:setHealth(math.min(self:getStat("health"), self:getHealth()))
-end
-
-function PartyMember:getMaxHealthDamage()
-    return self.mhp_damage
-end
-
-function PartyMember:restoreMaxHealth(health)
-    self.mhp_damage = 0
-    if self:getHealth() <= 0 then
-        self:setHealth(math.min(self:getStat("health"), health or 1))
-    end
-end
 
 --- Returns the min
 ---@return string?
@@ -162,23 +132,6 @@ function PartyMember:getReaction(item, user)
         return item:getReaction(user.id, self.id, self:getAssistID())
     end
 end
-
-function PartyMember:canAutoHeal()
-    if self:getMaxHealthDamage() >= self:getStat("health_def") then
-        return false
-    end
-    return super.canAutoHeal(self)
-end
-
-function PartyMember:getStat(name, default, light)
-    if name == "health" and self.mhp_damage > 0 then
-        return (self:getBaseStats(light)[name] or (default or 0)) + self:getEquipmentBonus(name) + self:getStatBuff(name) - self.mhp_damage
-    elseif name == "health_def" then -- this is probably a bad way to do it but whatever
-        return (self:getBaseStats(light)["health"] or (default or 0)) + self:getEquipmentBonus("health") + self:getStatBuff("health")
-    end
-    return (self:getBaseStats(light)[name] or (default or 0)) + self:getEquipmentBonus(name) + self:getStatBuff(name)
-end
-
 
 function PartyMember:getCombos()
     return self.combos
@@ -302,7 +255,7 @@ function PartyMember:getSkills()
                     ["data"] = spell,
                     ["callback"] = function(menu_item)
                         Game.battle.selected_xaction = spell
-                        Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                        Game.battle:setState("ENEMYSELECT", "XACT")
                     end
                 })
             end
@@ -326,7 +279,7 @@ function PartyMember:getSkills()
                         ["data"] = spell,
                         ["callback"] = function(menu_item)
                             Game.battle.selected_xaction = spell
-                            Game.battle:setState("XACTENEMYSELECT", "SPELL")
+                            Game.battle:setState("ENEMYSELECT", "XACT")
                         end
                     })
                 end
@@ -468,7 +421,7 @@ function PartyMember:getLightSkills()
 					["data"] = spell,
 					["callback"] = function(menu_item)
 						Game.battle.selected_xaction = spell
-						Game.battle:setState("XACTENEMYSELECT", "SPELL")
+						Game.battle:setState("ENEMYSELECT", "XACT")
 					end
 				})
 			end
@@ -492,7 +445,7 @@ function PartyMember:getLightSkills()
 						["data"] = spell,
 						["callback"] = function(menu_item)
 							Game.battle.selected_xaction = spell
-							Game.battle:setState("XACTENEMYSELECT", "SPELL")
+							Game.battle:setState("ENEMYSELECT", "XACT")
 						end
 					})
 				end
@@ -691,6 +644,16 @@ end
 
 function PartyMember:doBattleDescision(battler)
     return true
+end
+
+function PartyMember:canAutohealSwoon()
+    return false
+end
+
+-- Should definitely return a small number. Should be single digit, if anything.
+-- Or it can be negative if you wanna be sadistic. Not judging.
+function PartyMember:autoHealSwoonAmount()
+    return 0
 end
 
 return PartyMember

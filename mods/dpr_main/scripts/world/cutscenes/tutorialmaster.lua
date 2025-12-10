@@ -72,8 +72,7 @@ local tutorialmaster = {
         end
         master:setAnimation({ "idle" })
     end,
-    susie = function(cutscene)
-        local master = cutscene:getCharacter("susie_master")
+    susie = function(cutscene, master)
         master:setAnimation({ "bop" })
         cutscene:text("* I'm Susie Master.\n[wait:5]* Ask me about SUSIE's.")
 

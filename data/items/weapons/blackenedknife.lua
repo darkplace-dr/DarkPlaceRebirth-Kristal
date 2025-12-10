@@ -37,6 +37,7 @@ function item:init()
         ralsei = "...",
         noelle = "(It... reminds me of...)",
 	    dess = "aw yeah, evil villain time",
+	    jamm = "It feels... terrible...",
     }
 end
 

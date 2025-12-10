@@ -29,6 +29,7 @@ function item:init()
         ["ralsei"] = 120,
         ["noelle"] = 400,
         ["dess"] = 40,
+        ["hero"] = 20,
         ["ceroba"] = 75
     }
 
@@ -69,7 +70,7 @@ function item:init()
         noelle = "(Wonder if they sell this in gallons?)",
         jamm = "Tastes like... Wine???",
         dess = "tastes like shit",
-        ceroba = "It's like an energy drink..."
+        ceroba = "Raspberry jam? ... anyone got a spoon?"
     }
 end
 

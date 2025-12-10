@@ -10,6 +10,15 @@ local function h(hex)
     return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
 end
 
+function actor:normalUpdates(sprite)
+    if sprite.sprite.cust then
+        local fx = sprite.sprite:getFX(OutlineFX)
+        local col = sprite.sprite.cust.outline
+        fx:setColor(col[1], col[2], col[3])
+        sprite:setColor(sprite.sprite.cust.color)
+    end
+end
+
 function actor:onSpriteInit(sprite)
     sprite:addFX(OutlineFX(self.color))
     --print(sprite.sprite_options[1])
@@ -27,31 +36,30 @@ function actor:onSpriteInit(sprite)
         end
     else
         function self:onWorldDraw(chara)
+            self:normalUpdates(chara)
         end
         function self:onBattleDraw(chara)
         end
     end
 
+    local fun = Noel:getFlag("FUN")
+    if fun == 56 then
+        sprite.cust = {outline = {0, 0, 1}, color = {1, 0, 0}}
+    end
+
     if Game:getPartyMember("noel").kills >= 100 then
-    sprite:addFX(PaletteFX({
-        h '#585858',
-        h '#272727',
-    }, {
-        h '#a6504d',
-        h '#6a2020',
-    }))
+        sprite:addFX(PaletteFX({h '#585858', h '#272727',}, {h '#a6504d',h '#6a2020',}))
     end
 
     if Noel:isDess() then
         self.default = "dess_mode/walk"
-        
+        self.animations["battle/idle"] = {"dess_mode/battle/idle", 0.2, true}
         self.menu_anim = "dess_mode/walk/down_1"
     else
         self.default = "walk"
         
         self.menu_anim = "brella"
     end
-
 end
 
 --Up and down didnt look nice enough
@@ -135,9 +143,8 @@ function actor:init()
         ["stop"]         = {"stop/stop", 1/12, false},
         ["battle/a"]         = {"battle/a", 0.2, true},
         ["battle/idle"]         = {"battle/idle", 0.2, true},
-        ["battle/boo_you_suck"]         = {"battle/idle", 0.2, true},
         ["battle/defeat"]         = {"battle/down", 0.2, false},
-        ["you_gonna_hit_me"]         = {"battle/you_gonna_hit_me", 0.2, true},
+        ["battle/swooned"]      = {"battle/down", 1/15, false},
         ["battle/attack_ready"] = {"battle/attack_ready", 1/60, false},
         ["battle/spell_ready"]  = {"battle/attack_ready", 1/8, false},
         ["battle/attack"]         = {"battle/attack", 1/35, false},
@@ -156,6 +163,7 @@ function actor:init()
         ["battle/a"] = {-28, -18},
         ["stop/stop"] = {-28, -18},
         ["battle/idle"] = {-28, -18},
+        ["dess_mode/battle/idle"] = {-28, -18},
         ["battle/down"] = {-28, -18},
         ["battle/you_gonna_hit_me"] = {-28, -18},
         ["battle/boo_you_suck"] = {-28, -18},

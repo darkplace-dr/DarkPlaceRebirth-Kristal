@@ -37,14 +37,19 @@ local function draw_set_alpha(a)
     love.graphics.setColor(r,g,b,a)
 end
 
-local function scr_wave(arg0, arg1, arg2, arg3)
-    local a4 = (arg1 - arg0) * 0.5;
-    return arg0 + a4 + (math.sin((((Kristal.getTime() * 30 * 0.001) + (arg2 * arg3)) / arg2) * (2 * math.pi)) * a4);
+function ProphecyScrollFX:draw(texture)
+    self:drawPart(texture, 0, 0.5, Ch4Lib.scr_wave(0, 0.4, 4, 0))
+    self:drawPart(texture, 0.5, 1.0, 1 or Ch4Lib.scr_wave(0.4, 0.4, 4, 0))
 end
 
-function ProphecyScrollFX:draw(texture)
-    self:drawPart(texture, 0, 0.5, scr_wave(0, 0.4, 4, 0))
-    self:drawPart(texture, 0.5, 1.0, 1 or scr_wave(0.4, 0.4, 4, 0))
+local function oldHexToRgb(hex, value)
+    local color = ColorUtils.hexToRGB(hex)
+    return {
+        color[1],
+        color[2],
+        color[3],
+        color[4] * (value or 1),
+    }
 end
 
 function ProphecyScrollFX:drawPart(texture, min, max, alpha)
@@ -66,14 +71,14 @@ function ProphecyScrollFX:drawPart(texture, min, max, alpha)
     love.graphics.setColorMask(true, true, true, false);
     local pnl_tex = Assets.getTexture("backgrounds/perlin_noise_looping")
     local pnl_canvas = Draw.pushCanvas(pnl_tex:getDimensions())
-    draw_sprite_tiled_ext(pnl_tex, 0, 0, 0, 1, 1, Utils.hexToRgb"#42D0FF", alpha)
+    draw_sprite_tiled_ext(pnl_tex, 0, 0, 0, 1, 1, oldHexToRgb("#42D0FF", alpha))
     Draw.popCanvas(true)
     self.tick = self.tick + (((1/15) * self.scroll_speed) * DTMULT);
     local x, y = -((_cx * 2) + (self.tick * 15)) * 0.5, -((_cy * 2) + (self.tick * 15)) * 0.5
-    draw_sprite_tiled_ext(Assets.getTexture("backgrounds/IMAGE_DEPTH_EXTEND_MONO_SEAMLESS_BRIGHTER"), 0, x, y, 2, 2, Utils.hexToRgb"#42D0FF", 1);
+    draw_sprite_tiled_ext(Assets.getTexture("backgrounds/IMAGE_DEPTH_EXTEND_MONO_SEAMLESS_BRIGHTER"), 0, x, y, 2, 2, oldHexToRgb("#42D0FF", 1));
     local orig_bm, orig_am = love.graphics.getBlendMode()
     love.graphics.setBlendMode("add", "premultiplied");
-    draw_sprite_tiled_ext(pnl_canvas, 0, x, y, 2, 2, Utils.hexToRgb"#42D0FF", alpha);
+    draw_sprite_tiled_ext(pnl_canvas, 0, x, y, 2, 2, oldHexToRgb("#42D0FF", alpha));
     love.graphics.setBlendMode(orig_bm, orig_am);
     love.graphics.setColorMask(true, true, true, true);
     love.graphics.setColorMask(false, false, false, true);

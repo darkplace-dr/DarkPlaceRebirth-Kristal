@@ -48,18 +48,18 @@ local function saveJekuMemory()
 end
 
 if love.filesystem.getInfo(memfile) then
-    Mod.jeku_memory = Utils.merge(Mod.jeku_memory, JSON.decode(love.filesystem.read(memfile)))
+    Mod.jeku_memory = TableUtils.merge(Mod.jeku_memory, JSON.decode(love.filesystem.read(memfile)))
 end
 
 -- Mod won't exist when leaving the error screen, so we'll try to save the file before letting Kristal handle the error
-Utils.hook(Kristal, "errorHandler", function(orig, self, ...)
+HookSystem.hook(Kristal, "errorHandler", function(orig, self, ...)
     if not pcall(saveJekuMemory) then
         Kristal.Console:warn("A crash occured and a problem occured while saving Jeku's memory!!")
     end
 
     return orig(self, ...)
 end)
-Utils.hook(love, "quit", function(orig, self, ...)
+HookSystem.hook(love, "quit", function(orig, self, ...)
     saveJekuMemory()
     return orig(self, ...)
 end)
@@ -125,10 +125,10 @@ saveJekuMemory()
 --
 --   *Unhook your hook*
 local function unhook(target, name)
-    for i, hook in ipairs(Utils.__MOD_HOOKS) do
+    for i, hook in ipairs(HookSystem.__MOD_HOOKS) do
         if hook.target == target and hook.name == name then
             hook.target[hook.name] = hook.orig
-            table.remove(Utils.__MOD_HOOKS, i)
+            table.remove(HookSystem.__MOD_HOOKS, i)
             return true
         end
     end
@@ -382,17 +382,17 @@ function JekuShop:onEnter()
 
     self.timer:everyInstant(5, function()
         for i=1,10 do
-            local rad = Utils.random(1, 3)
-            local c = Ellipse(Utils.random(0, SCREEN_WIDTH), Utils.random(0, 240), rad, rad)
+            local rad = MathUtils.random(1, 3)
+            local c = Ellipse(MathUtils.random(0, SCREEN_WIDTH), MathUtils.random(0, 240), rad, rad)
             c.alpha = 0
             c.timer = 0
             c:setPhysics({
-                speed = Utils.random()*Utils.randomSign(),
-                direction = math.rad(Utils.random(360)),
-                friction = Utils.random()*0.01*Utils.randomSign()
+                speed = MathUtils.random()*Utils.randomSign(),
+                direction = math.rad(MathUtils.random(360)),
+                friction = MathUtils.random()*0.01*Utils.randomSign()
             })
             c:setGraphics({
-                grow = Utils.random()*0.001*Utils.randomSign()
+                grow = MathUtils.random()*0.001*Utils.randomSign()
             })
             c:setOrigin(0.5)
             c:setLayer(SHOP_LAYERS["background"]-1)
@@ -426,7 +426,7 @@ function JekuShop:onEnter()
         end
     else
         if self.noel and not Mod.jeku_memory["met_noel"] then
-            Utils.hook(self, "onKeyPressed", function() end)
+            HookSystem.hook(self, "onKeyPressed", function() end)
             Game.shop.timer:afterCond(function()
                 return self.dialogue_text.state.current_node > #self.dialogue_text.nodes/2
             end,
@@ -479,7 +479,7 @@ end
 function JekuShop:onRemoveFromStage(...)
 
     if self.noel_theme then
-        Game.shop.noel_theme:remove()
+        self.noel_theme:remove()
     end
     saveJekuMemory()
     super.onRemoveFromStage(self, ...)
@@ -494,8 +494,8 @@ function JekuShop:update()
         self.bubbles[4].y = self.bubbles_y[4] + math.sin(Kristal.getTime()*3)*20
 
         for i,bubble in ipairs(self.bubbles) do
-            bubble.x = Utils.approach(bubble.x, self.bubbles_pos[self.bubbles_state][i][1], 6 * DTMULT)
-            self.bubbles_y[i] = Utils.approach(self.bubbles_y[i], self.bubbles_pos[self.bubbles_state][i][2], 6 * DTMULT)
+            bubble.x = MathUtils.approach(bubble.x, self.bubbles_pos[self.bubbles_state][i][1], 6 * DTMULT)
+            self.bubbles_y[i] = MathUtils.approach(self.bubbles_y[i], self.bubbles_pos[self.bubbles_state][i][2], 6 * DTMULT)
         end
     end
 end
@@ -514,9 +514,9 @@ function JekuShop:drawBackground()
         universe.timer = universe.timer + DTMULT
         if universe.timer <= 300 then
             universe.timer = universe.timer - 0.1 * DTMULT
-            universe.alpha = Utils.lerp(0, 1, universe.timer/300)
+            universe.alpha = MathUtils.lerp(0, 1, universe.timer/300)
         elseif universe.timer >= 1000 then
-            universe.alpha = Utils.approach(universe.alpha, 0, 0.125*DTMULT)
+            universe.alpha = MathUtils.approach(universe.alpha, 0, 0.125*DTMULT)
             if universe.alpha <= 0 then
                 universe:remove()
                 table.remove(self.bg_universes, i)
@@ -534,19 +534,19 @@ function JekuShop:drawBackground()
 
         link.timer = link.timer + DTMULT
 
-        local alpha = Utils.clamp(link.universe2.alpha+link.universe1.alpha, 0, 1)
+        local alpha = MathUtils.clamp(link.universe2.alpha+link.universe1.alpha, 0, 1)
         love.graphics.setColor(1, 1, 1, alpha)
 
         if link.timer > 100 and link.timer < 200 then
             love.graphics.line(link.universe1.x, link.universe1.y, link.universe2.x, link.universe2.y)
         elseif link.timer >= 200 then
-            local timer = Utils.clamp((link.timer-200), 0, 100)
-            local x = Utils.lerp(link.universe2.x, link.universe1.x, 1-timer/100)
-            local y = Utils.lerp(link.universe2.y, link.universe1.y, 1-timer/100)
+            local timer = MathUtils.clamp((link.timer-200), 0, 100)
+            local x = MathUtils.lerp(link.universe2.x, link.universe1.x, 1-timer/100)
+            local y = MathUtils.lerp(link.universe2.y, link.universe1.y, 1-timer/100)
             love.graphics.line(link.universe2.x, link.universe2.y, x, y)
         elseif link.timer <= 100 then
-            local x = Utils.lerp(link.universe1.x, link.universe2.x, link.timer/100)
-            local y = Utils.lerp(link.universe1.y, link.universe2.y, link.timer/100)
+            local x = MathUtils.lerp(link.universe1.x, link.universe2.x, link.timer/100)
+            local y = MathUtils.lerp(link.universe1.y, link.universe2.y, link.timer/100)
             love.graphics.line(link.universe1.x, link.universe1.y, x, y)
         end
 
@@ -592,7 +592,7 @@ function JekuShop:startTalk(talk)
             "[emote:happy]* I was already there in [color:#000050]that other version of this world[color:reset]![wait:5] Before you abandoned it!",
             "[emote:crazy]* You know,[wait:2] it can hurt to just leave behind a world to rot,[wait:2] especially one as unstable as that place!",
             "[emote:wink_tongueout]* But oh well,[wait:2] that's just how it goes for fictionnal worlds,[wait:2] doesn't it?[wait:5]\n* It's not like we wouldn't do the same with our own fiction.",
-            "[emote:crazy]* So "..Utils.titleCase(Game.save_name)..",[wait:2] tell me...[wait:5] What is the purpose of THIS world now?",
+            "[emote:crazy]* So "..StringUtils.titleCase(Game.save_name)..",[wait:2] tell me...[wait:5] What is the purpose of THIS world now?",
             "* And will you let it fall into darkness too?"
         })
     elseif talk == "What is true?" then
@@ -652,7 +652,7 @@ function JekuShop:startTalk(talk)
                 "[emote:wink_tongueout]* But why would I do that? Your narrator doesn't even seem evil!",
                 "[emote:playful]* So I build this shop.",
                 "[emote:side]* And by build, I mean forcing this \"[color:#00ffff]Kristal[color:reset]\" engine to recognize me as a shop NPC.",
-                "[emote:happy]* I figured it was the best way to interact with you, "..Utils.titleCase(Game.save_name)..". As you need items for future bosses that might appear here.",
+                "[emote:happy]* I figured it was the best way to interact with you, "..StringUtils.titleCase(Game.save_name)..". As you need items for future bosses that might appear here.",
                 "[emote:wink]* And talking to shopkeepers is more interesting than talking to a random NPC on the map, I am right?",
                 "[emote:crazy]* EH HE HE! IT IS BUT SO EASY TO UNDERSTAND!"
             })
@@ -667,7 +667,7 @@ function JekuShop:startTalk(talk)
         else
             self:startDialogue({
                 "[emote:side]* So [color:#7000FF]that[color:reset]'s what breaking it,[wait:1] huh?[wait:2] How funny.",
-                "[emote:wink_tongueout]* As always,[wait:1] you impress me,[wait:1] "..Utils.titleCase(Game.save_name)..".",
+                "[emote:wink_tongueout]* As always,[wait:1] you impress me,[wait:1] "..StringUtils.titleCase(Game.save_name)..".",
                 "[emote:crazy]* Well you and every other guy I've met in my indecive lifetime that is!"
             })
         end
@@ -679,14 +679,14 @@ function JekuShop:startTalk(talk)
                         "[emote:crazy]* EH HE EH HE HE!!",
                         "[emote:crazy]* I'm sure you knew it was gonna happen![wait:5]\n* I already did this to you in the previous game!",
                         "[emote:side]* Seeing how fast you've loaded your save,[wait:2] I'm assuming you just wanted to do it just to say you've done it here.",
-                        "[emote:happy]* Then go on,[wait:2] "..Utils.titleCase(Game.save_name).."![wait:5] What's the next mighty step to take back the legacy you left behind?"
+                        "[emote:happy]* Then go on,[wait:2] "..StringUtils.titleCase(Game.save_name).."![wait:5] What's the next mighty step to take back the legacy you left behind?"
                     })
                 else
                     self:startDialogue({
                         "[emote:crazy]* EH HE EH HE HE!!",
                         "[emote:crazy]* I'm sure you knew it was gonna happen![wait:5]\n* I already did this to you in the previous game!",
                         "[emote:happy]* Did you perhaps think I would do something else?[wait:5] Or did you just want to do it again to say you did it in this \"reboot\"?",
-                        "[emote:playful]* People like you never stop being entertaining,[wait:2] "..Utils.titleCase(Game.save_name).."!"
+                        "[emote:playful]* People like you never stop being entertaining,[wait:2] "..StringUtils.titleCase(Game.save_name).."!"
                     })
                 end
             elseif Mod.jeku_memory["skipped_death"] then
@@ -835,7 +835,7 @@ function JekuShop:onStateChange(old, new)
                 self.orig_kristal_keys = Kristal.onKeyPressed
                 self.orig_textinput_keys = TextInput.onKeyPressed
                 Kristal.panic_reset = 0
-                Utils.hook(love, "keypressed", function(orig, love, key, scancode, is_repeat)
+                HookSystem.hook(love, "keypressed", function(orig, love, key, scancode, is_repeat)
                     if key == 'r' and not is_repeat then
                         Kristal.panic_reset = Kristal.panic_reset + 1
                         if Kristal.panic_reset > 5 then
@@ -967,7 +967,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
 
         if not self.empty then
             local shop = self
-            Utils.hook(self.dialogue_text, "playTextSound", function(orig, self, current_node)
+            HookSystem.hook(self.dialogue_text, "playTextSound", function(orig, self, current_node)
                 if self.state.skipping and (Input.down("cancel") or self.played_first_sound) then
                     return
                 end
@@ -978,7 +978,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
 
                 local no_sound = { "\n", " ", "^", "!", ".", "?", ",", ":", "/", "\\", "|", "*" }
 
-                if (Utils.containsValue(no_sound, current_node.character)) then
+                if (TableUtils.contains(no_sound, current_node.character)) then
                     return
                 end
 
@@ -991,7 +991,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                 end
             end)
 
-            Utils.hook(self.right_text, "playTextSound", function(orig, self, current_node)
+            HookSystem.hook(self.right_text, "playTextSound", function(orig, self, current_node)
                 if self.state.skipping and (Input.down("cancel") or self.played_first_sound) then
                     return
                 end
@@ -1002,7 +1002,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
 
                 local no_sound = { "\n", " ", "^", "!", ".", "?", ",", ":", "/", "\\", "|", "*" }
 
-                if (Utils.containsValue(no_sound, current_node.character)) then
+                if (TableUtils.contains(no_sound, current_node.character)) then
                     return
                 end
 
@@ -1024,10 +1024,10 @@ if Kristal.Shatter and Kristal.Shatter.active then
             -- I feel like I'm making a giant mess to keep things organized
             -- As if this whole file wasn't a mess already
         
-            Utils.hook(self, "update", function(orig, self)
+            HookSystem.hook(self, "update", function(orig, self)
                 orig(self)
 
-                if self.timer_pixel_check > 0 and Utils.containsValue({"crazy", "playful", "happy"}, self.shopkeeper.sprite.sprite) then
+                if self.timer_pixel_check > 0 and TableUtils.contains({"crazy", "playful", "happy"}, self.shopkeeper.sprite.sprite) then
                     self.timer_pixel_check = self.timer_pixel_check - DTMULT
 
                     -- How horrible can that be?
@@ -1038,7 +1038,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                             if self.state == "BUYMENU" then
                                 x = 250
                             end
-                            local screen_pixel = Utils.rgbToHex({SCREEN_CANVAS:newImageData():getPixel(x, 155)})
+                            local screen_pixel = ColorUtils.RGBToHex(SCREEN_CANVAS:newImageData():getPixel(x, 155))
                             local expected_pixel = "#E9E267"
 
                             --print(screen_pixel, expected_pixel)
@@ -1096,7 +1096,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                                     else
                                         table.insert(self.possible_mods, {
                                             name = v.id,
-                                            fake_chunk = Utils.dump(v):sub(1, 90) --Approximatively the number of character that can appear in the console history
+                                            fake_chunk = TableUtils.dump(v):sub(1, 90) --Approximatively the number of character that can appear in the console history
                                         })
                                     end
                                 end
@@ -1121,7 +1121,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                                         table.insert(i_choices, i)
                                     end
                                 end
-                                local index = Utils.pick(i_choices)
+                                local index = TableUtils.pick(i_choices)
                                 self.prev_index = index
                                 TextInput.insertString("= Kristal.Mods.getMod(\""..self.possible_mods[index].name.."\")")
                                 if self.loop_index%(#self.possible_mods>=10 and 5 or 15) == 0 then
@@ -1134,7 +1134,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                         if self.shatter_still_install then
                             TextInput.clear()
                             Kristal.Console:push("[color:gray]> = Kristal.Mods.getMod(\"shatter\")")
-                            Kristal.Console:push(Utils.dump(Kristal.Mods.getMod("shatter")):sub(1, 90))
+                            Kristal.Console:push(TableUtils.dump(Kristal.Mods.getMod("shatter")):sub(1, 90))
                             self.console_timer = -math.huge
                             self.timer:after(3, function()
                                 Kristal.Console:close()
@@ -1142,7 +1142,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                             end)
                         else
                             if self.console_timer >= 9999+150 then
-                                local str = self.sentence_step == 1 and "Where is it?" or "You always know how to amuse me "..Utils.titleCase(Game.save_name).."."
+                                local str = self.sentence_step == 1 and "Where is it?" or "You always know how to amuse me "..StringUtils.titleCase(Game.save_name).."."
                                 if self.console_timer%5==0 then 
                                     if TextInput.input[1] == "Where is it?" then TextInput.clear() end
                                     if self.char < #str then

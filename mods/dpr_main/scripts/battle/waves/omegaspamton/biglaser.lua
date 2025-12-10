@@ -99,7 +99,7 @@ function BigLaser:onStart()
 			self.laser_start = self:spawnObject(SpamtonLaserTriangle(0, 0, 0, 0, 64, arena.height/4, 0, arena.height/2), SCREEN_WIDTH-(omega_x+48), self.laser_y)
 			self.laser_start.color = {1, 1, 1}
 			self.laser_start.layer = omega.layer - 0.01
-			self.laser_rect = self:spawnObject(Rectangle(0, 0, SCREEN_WIDTH-(omega_x+48)-arena.left, arena.height/2), arena.left, self.laser_y)
+			self.laser_rect = self:spawnObject(Rectangle(0, 0, SCREEN_WIDTH-(omega_x+48), arena.height/2), 0, self.laser_y)
 			self.laser_rect.color = {1, 1, 1}
 			self.laser_rect.layer = BATTLE_LAYERS["bullets"]
 			self.laser_rect.y = self.laser_y+arena.height/4

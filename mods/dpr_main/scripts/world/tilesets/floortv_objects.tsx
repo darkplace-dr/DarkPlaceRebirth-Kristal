@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="25" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="30" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -78,5 +78,20 @@
  </tile>
  <tile id="26">
   <image width="66" height="30" source="../../../assets/sprites/world/maps/tvland/stealthzone.png"/>
+ </tile>
+ <tile id="28">
+  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/kris.png"/>
+ </tile>
+ <tile id="30">
+  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/susie.png"/>
+ </tile>
+ <tile id="29">
+  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/ralsei.png"/>
+ </tile>
+ <tile id="27">
+  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/best_inu.png"/>
+ </tile>
+ <tile id="32">
+  <image width="38" height="97" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png"/>
  </tile>
 </tileset>

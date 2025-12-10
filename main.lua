@@ -19,7 +19,6 @@ https = require("src.lib.https")
 utf8 = require("utf8")
 
 _Class = require("src.lib.hump.class")
-Gamestate = require("src.lib.hump.gamestate")
 Vector = require("src.lib.hump.vector-light")
 LibTimer = require("src.lib.hump.timer")
 JSON = require("src.lib.json")
@@ -32,8 +31,17 @@ NativeFS = require("src.lib.nativefs")
 Class = require("src.utils.class")
 require("src.utils.graphics")
 
-GitFinder = require("src.utils.gitfinder")
+ColorUtils = require("src.utils.colorutils")
+MathUtils = require("src.utils.mathutils")
+StringUtils = require("src.utils.stringutils")
+TableUtils = require("src.utils.tableutils")
+ClassUtils = require("src.utils.classutils")
+TiledUtils = require("src.utils.tiledutils")
+FileSystemUtils = require("src.utils.filesystemutils")
+HookSystem = require("src.utils.hooksystem")
 Utils = require("src.utils.utils")
+
+GitFinder = require("src.utils.gitfinder")
 CollisionUtil = require("src.utils.collision")
 Draw = require("src.utils.draw")
 GeneralUtils = require("src.utils.utils_general")
@@ -42,6 +50,7 @@ Kristal = require("src.kristal")
 -- Ease of access for game variables
 Game = Kristal.States["Game"]
 MainMenu = Kristal.States["MainMenu"]
+LoadingState = Kristal.States["Loading"]
 
 Assets = require("src.engine.assets")
 Music = require("src.engine.music")
@@ -136,8 +145,6 @@ TeaItem = require("src.engine.game.common.data.teaitem")
 TensionItem = require("src.engine.game.common.data.tensionitem")
 LightEquipItem = require("src.engine.game.common.data.lightequipitem")
 Recruit = require("src.engine.game.common.data.recruit")
-Quest = require("src.engine.game.common.data.quest")
-FallbackQuest = require("src.engine.game.common.data.fallbackquest")
 ButtonPrompt = require("src.engine.game.buttonprompt")
 Material = require("src.engine.game.common.data.material")
 
@@ -221,8 +228,6 @@ HealthBar = require("src.engine.game.world.ui.healthbar")
 OverworldActionBox = require("src.engine.game.world.ui.overworldactionbox")
 Shopbox = require("src.engine.game.world.ui.shopbox")
 RecruitMenu = require("src.engine.game.world.ui.recruitmenu")
-QuestMenu = require("src.engine.game.world.ui.questmenu")
-QuestCreatedPopup = require("src.engine.game.world.ui.questcreatedpopup")
 
 DarkMenu = require("src.engine.game.world.ui.dark.darkmenu")
 DarkItemMenu = require("src.engine.game.world.ui.dark.darkitemmenu")
@@ -302,6 +307,7 @@ ActionButton = require("src.engine.game.battle.ui.actionbutton")
 AttackBox = require("src.engine.game.battle.ui.attackbox")
 AttackBar = require("src.engine.game.battle.ui.attackbar")
 TensionBar = require("src.engine.game.battle.ui.tensionbar")
+TensionBarGlow = require("src.engine.game.battle.ui.tensionbarglow")
 SpeechBubble = require("src.engine.game.battle.ui.speechbubble")
 
 FlashFade = require("src.engine.game.effects.flashfade")
@@ -321,12 +327,12 @@ RudeBusterBeam = require("src.engine.game.effects.rudebusterbeam")
 RudeBusterBurst = require("src.engine.game.effects.rudebusterburst")
 RudeBusterBeamGreen = require("src.engine.game.effects.rudebusterbeamgreen")
 RudeBusterBurstGreen = require("src.engine.game.effects.rudebusterburstgreen")
-WavedashBeam = require("src.engine.game.effects.wavedashbeam")
-WavedashBurst = require("src.engine.game.effects.wavedashburst")
+SpearBlasterBullet = require("src.engine.game.effects.spearblasterbullet")
 IceBeamSpell = require("src.engine.game.effects.icebeamspell")
 IceBurst = require("src.engine.game.effects.iceburst")
 MirrorEffect = require("src.engine.game.effects.mirroreffect")
 MultiFlareFireball = require("src.engine.game.effects.multiflarefireball")
+PaciBusterBeam = require("src.engine.game.effects.pacibusterbeam")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
 DojoBG = require("src.engine.game.battle.bg.dojobg")
@@ -510,13 +516,15 @@ function love.run()
                 end
             end
         else
+            local err_msg_expose
             local success, result = xpcall(mainLoop, 
                 function(err_msg) 
                     --has a chance of failing due to a stack overflow. try and catch that, but this *also* might cause a stack overflow
-                    local ok, msg = pcall(Kristal.errorHandler, err_msg)
+                    local ok, msg = pcall(Kristal.errorHandler, err_msg, 4)
                     if(ok) then
                         return msg
                     else -- err_msg *might* contain a stack overflow error, pass it on if the kristal error handler fails
+                        err_msg_expose = err_msg
                         return debug.traceback() --somehow, this affects the above if statement? im so confused but it works...doesnt send err_msg through
                     end
                 end
@@ -529,7 +537,7 @@ function love.run()
                 --this should only happen when there's an internal error with the errorhandler or the callstack overflows
                 --the LUA_ERRERR state is set internally by the lua engine for both of these cases 
                 --see https://www.lua.org/source/5.4/ldo.c.html
-                error_result = Kristal.errorHandler({ critical = result })
+                error_result = Kristal.errorHandler({ critical = result, msg = err_msg_expose })
             end
         end
     end

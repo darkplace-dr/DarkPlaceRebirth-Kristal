@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -122,17 +122,10 @@ return {
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      properties = {},
       objects = {
         {
           id = 2,
           name = "spawn",
-          class = "",
-          shape = "point",
-          x = -200,
-          y = 280,
-          width = 0,
-          height = 0,
           rotation = 0,
           visible = true,
           properties = {}

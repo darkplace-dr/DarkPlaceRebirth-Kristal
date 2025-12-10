@@ -328,6 +328,8 @@ end
 
 function DarkPartyMenu:draw()
     super.draw(self)
+
+	love.graphics.setFont(self.font)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setLineWidth(6)
     local x = 230

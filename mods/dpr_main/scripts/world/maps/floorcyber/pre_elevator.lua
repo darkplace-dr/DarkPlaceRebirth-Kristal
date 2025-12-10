@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -82,7 +82,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 200,
@@ -95,7 +95,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 200,
@@ -108,7 +108,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 160,
@@ -121,7 +121,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 160,
@@ -150,7 +150,7 @@ return {
         {
           id = 17,
           name = "elevatordoor",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 260,
           y = 160,
@@ -182,7 +182,7 @@ return {
         {
           id = 13,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 140,
@@ -198,7 +198,7 @@ return {
         {
           id = 20,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 200,
           y = 640,
@@ -230,7 +230,7 @@ return {
         {
           id = 18,
           name = "entry_elevator",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 250,
@@ -243,7 +243,7 @@ return {
         {
           id = 19,
           name = "south",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 590,

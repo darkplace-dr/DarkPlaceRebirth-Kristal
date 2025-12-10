@@ -25,19 +25,19 @@ function TeevieCheerCrowd:update()
 	
 	if self.dess_moment == 0 then
 		if self.glitz_active then
-			self.current_y_pos = Utils.lerp(self.current_y_pos, 280, 0.6*DTMULT)
+			self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280, 0.6*DTMULT)
 			self.siner_speed = 0.4
 			self.anim_speed = 0.2
 		else
-			self.current_y_pos = Utils.lerp(self.current_y_pos, 280 + 180, 0.1*DTMULT)
-			self.siner_speed = Utils.lerp(self.siner_speed, 0, 0.01*DTMULT)
-			self.anim_speed = Utils.lerp(self.anim_speed, 0, 0.01*DTMULT)
+			self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 180, 0.1*DTMULT)
+			self.siner_speed = MathUtils.lerp(self.siner_speed, 0, 0.01*DTMULT)
+			self.anim_speed = MathUtils.lerp(self.anim_speed, 0, 0.01*DTMULT)
 		end
 	elseif self.dess_moment == 1 then
 		self.siner_speed = 0
 		self.anim_speed = 0
 	elseif self.dess_moment == 2 then
-		self.current_y_pos = Utils.lerp(self.current_y_pos, 280 + 180, 0.05*DTMULT)
+		self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 180, 0.05*DTMULT)
 		self.siner_speed = 0
 		self.anim_speed = 0
 	end

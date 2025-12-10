@@ -58,6 +58,12 @@ function DarkMenu:init()
     self.box = nil
     self.box_offset_x = 0
     self.box_offset_y = 0
+
+    if Game:getFlag("tension_storage") then
+        self.bar = TensionBar(-24, 100, true)
+        self:addChild(self.bar)
+    end
+
 end
 
 function DarkMenu:getButtonSpacing()
@@ -371,6 +377,12 @@ function DarkMenu:updateSelectedBoxes()
 end
 
 function DarkMenu:update()
+
+    if self.bar then
+        self.bar.x = (self.y/4) + 32
+        self.bar.rotation = self.y/-80
+    end
+
     self.animation_timer = self.animation_timer + DTMULT
 
     local max_time = self.animate_out and 3 or 8

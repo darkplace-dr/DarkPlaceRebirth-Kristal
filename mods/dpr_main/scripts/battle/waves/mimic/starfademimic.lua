@@ -15,7 +15,7 @@ function Basic:onStart()
 			local x = Utils.random(Game.battle.arena.left, Game.battle.arena.right)
 			local y = Utils.random(Game.battle.arena.top, Game.battle.arena.bottom)
 
-			local bullet = self:spawnBullet("starbulletfade", x, y)
+			local bullet = self:spawnBullet("ufos/starbulletfade", x, y)
 		end
 
         -- Dont remove the bullet offscreen, because we spawn it offscreen

@@ -54,7 +54,7 @@ function item:init()
 		susie = "You know what? Sure.",
 		noelle = "I'm not good at baseball!!",
 		brenda = "I don't play sports.",
-		jamm = "Don't want to hit a crotch again!",
+		jamm = "Don't want to hit a crotch again!", -- there's a true story behind this, it's kinda funny in hindsight
     ceroba = "Who's \"Casey\"?",
     noel = "It's fine...",
     }

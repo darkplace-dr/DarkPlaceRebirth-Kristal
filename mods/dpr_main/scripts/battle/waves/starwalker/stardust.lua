@@ -7,6 +7,8 @@ function Stardust:init()
     self.starwalker.layer = self.starwalker.layer + 500
 	
 	self:setArenaSize(240, 110)
+
+    self.spawn_bullets = true
 end
 
 function Stardust:onStart()
@@ -14,17 +16,22 @@ function Stardust:onStart()
 
     self.timer:after(0.1, function()
         self.timer:every(0.1, function()
-            local stardust = self:spawnBullet("starwalker/stardust", self.starwalker.x, self.starwalker.y - 20)
-            stardust.inv_timer = 10/30
+            if self.spawn_bullets then
+                local stardust = self:spawnBullet("starwalker/stardust", self.starwalker.x, self.starwalker.y - 20)
+                stardust.inv_timer = 10/30
+            end
         end)
-	
         self.timer:every(0.2, function()
-            Assets.playSound("sparkle_glock", 0.5, Utils.random(1.2, 1.5))
+            if self.spawn_bullets then
+                Assets.playSound("sparkle_glock", 0.5, Utils.random(1.2, 1.5))
+            end
         end)
     end)
 
     if not Game:isSpecialMode "BLUE" then
         self.timer:after(10, function()
+            self.spawn_bullets = false
+
             self.starwalker:setMode("still")
             self.starwalker.sprite:set("reaching")
             Assets.playSound("ui_select")
@@ -43,7 +50,10 @@ function Stardust:onStart()
                     Assets.playSound("great_shine")
                     Assets.playSound("closet_impact", 1, 1.5)
                     Game.battle:swapSoul(Soul())
-
+					local chara = Game:getSoulPartyMember()
+					if chara and chara.id == "pauling" and chara:getSoulPriority() >= 0 then
+						Game.battle.soul.color = {165/255, 86/255, 33/255}
+					end
                     local soulafterimage = AfterImage(Game.battle.soul.sprite, 1)
                     soulafterimage.graphics.grow_x = 0.2
                     soulafterimage.graphics.grow_y = 0.2

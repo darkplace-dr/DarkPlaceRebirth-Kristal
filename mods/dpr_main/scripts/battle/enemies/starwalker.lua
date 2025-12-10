@@ -1,3 +1,4 @@
+---@class Starwalker : EnemyBattler
 local Starwalker, super = Class(EnemyBattler)
 
 function Starwalker:init()
@@ -16,9 +17,9 @@ function Starwalker:init()
     self.defense = 2
     self.money = 420
     self.experience = --[[Mod:isInRematchMode() and 0 or]] 420
-	self.service_mercy = 0
-	
-	self.boss = true
+    self.service_mercy = 0
+    
+    self.boss = true
     self.milestone = true
 
     self.spare_points = 0
@@ -30,8 +31,10 @@ function Starwalker:init()
     self.movearound = true
 
     self.waves = {
-        "starwalker/starwingsfaster",
         "starwalker/starwings",
+        "starwalker/starwingsfaster",
+        "starwalker/starwingscomet",
+        "starwalker/starwingshyper",
         "starwalker/starcomets",
     }
 
@@ -45,7 +48,7 @@ function Starwalker:init()
         "* Smells like a subtle DeltaRaid reference."
     }
 
-    self.low_health_text = "* Star walker has      hurt"
+    self.low_health_text = "* Star walker is [color:yellow]Pissed[color:reset] off..."
 
     self:registerAct("Star walker", "")
 
@@ -77,6 +80,30 @@ function Starwalker:init()
     self:setTired(false)
 end
 
+function Starwalker:getHealthDisplay()
+    return math.ceil(100 + (100 - (self.health / self.max_health) * 100)) .. "%"
+end
+
+function Starwalker:getTarget()
+    return "ALL"
+end
+
+function Starwalker:makeBullet(x, y)
+    if (Utils.random() < 0.25) then
+        return Registry.createBullet("SW_FallenStarBullet", x, y)
+    end
+
+    return Registry.createBullet("SW_StarBullet", x, y)
+end
+
+function Starwalker:makeCometBullet(x, y)
+    if (Utils.random() < 0.25) then
+        return Registry.createBullet("SW_FallenStarComet", x, y)
+    end
+
+    return Registry.createBullet("SW_StarComet", x, y)
+end
+
 function Starwalker:getGrazeTension()
     return 0
 end
@@ -90,6 +117,7 @@ function Starwalker:onTurnEnd()
 end
 
 function Starwalker:getEncounterText()
+
     if (self.progress == 2) then
         return "* Star walker is preparing\n[color:blue]something [offset:0,-8][color:red][font:main_mono,48]!!"
     end
@@ -116,7 +144,7 @@ function Starwalker:getNextWaves()
         self.blue = true
         return {"starwalker/stardust"}
     elseif (self.progress == 7) then
-        return {"starwalker/starwingscomet"}
+        return {"starwalker/starwingshyper"}
     end
 
     return super.getNextWaves(self)

@@ -55,7 +55,7 @@ function DarkConfigMenu:registerKeybind()
     local alr_used = {}
 
     for _, keybind in ipairs(Input.order) do
-        if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+        if not (TableUtils.contains(Game:getConfig("bannedKeys"), keybind) or TableUtils.contains(alr_used, keybind)) then
             table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
             table.insert(alr_used, keybind)
         end
@@ -69,7 +69,7 @@ function DarkConfigMenu:registerKeybind()
             end
 
             for _, keybind in ipairs(keys) do
-                if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+                if not (TableUtils.contains(Game:getConfig("bannedKeys"), keybind) or TableUtils.contains(alr_used, keybind)) then
                     table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
                     table.insert(alr_used, keybind)
                 end
@@ -85,7 +85,7 @@ function DarkConfigMenu:registerKeybind()
         end
 
         for _, keybind in ipairs(keys) do
-            if not (Utils.containsValue(Game:getConfig("bannedKeys"), keybind) or Utils.containsValue(alr_used, keybind)) then
+            if not (TableUtils.contains(Game:getConfig("bannedKeys"), keybind) or TableUtils.contains(alr_used, keybind)) then
                 table.insert(self.keybinds, {keybind = keybind, name = (Input.getBindName(keybind) or keybind:gsub("_", " ")):upper()})
                 table.insert(alr_used, keybind)
             end
@@ -97,7 +97,7 @@ end
 function DarkConfigMenu:onKeyPressed(key)
     if self.state == "CONTROLS" then
         if self.rebinding then
-            local gamepad = Utils.startsWith(key, "gamepad:")
+            local gamepad = StringUtils.startsWith(key, "gamepad:")
             local key_rebind = self.keybinds[self.currently_selected + ((self.control_page - 1) * 7)]["keybind"]
 
             local worked = key ~= "escape" and
@@ -164,7 +164,7 @@ function DarkConfigMenu:onKeyPressed(key)
             end
         end
 
-        self.currently_selected = Utils.clamp(self.currently_selected, 1, 9)
+        self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 9)
 
         if old_selected ~= self.currently_selected then
             self.ui_move:stop()
@@ -179,7 +179,7 @@ function DarkConfigMenu:onKeyPressed(key)
             self.control_page = self.control_page + 1
         end
 
-        self.control_page = Utils.clamp(self.control_page, 1, self.max_control_page)
+        self.control_page = MathUtils.clamp(self.control_page, 1, self.max_control_page)
 
         if old_page ~= self.control_page then
             self.ui_move:stop()
@@ -253,9 +253,9 @@ function DarkConfigMenu:update()
         end
 
         if self.current_config_page == 1 then
-            self.currently_selected = Utils.clamp(self.currently_selected, 1, 7)
+            self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 7)
         elseif self.current_config_page == 2 then
-            self.currently_selected = Utils.clamp(self.currently_selected, 1, 3)
+            self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 3)
         end
 		
         local old_page = self.current_config_page
@@ -266,7 +266,7 @@ function DarkConfigMenu:update()
             self.current_config_page = self.current_config_page + 1
         end
 
-        self.current_config_page = Utils.clamp(self.current_config_page, 1, self.max_config_pages)
+        self.current_config_page = MathUtils.clamp(self.current_config_page, 1, self.max_config_pages)
 
         if old_page ~= self.current_config_page then
             self.ui_move:stop()
@@ -458,11 +458,11 @@ function DarkConfigMenu:draw()
                     if type(alias) == "table" then
                         local title_cased = {}
                         for _, word in ipairs(alias) do
-                            table.insert(title_cased, Utils.titleCase(word))
+                            table.insert(title_cased, StringUtils.titleCase(word))
                         end
                         love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * (index - offset)))
                     elseif alias ~= nil then
-                        love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * (index - offset)))
+                        love.graphics.print(StringUtils.titleCase(alias), 243, 0 + (28 * (index - offset)))
                     end
                 end
 

@@ -70,7 +70,7 @@ function item:init()
         brenda = "Never really been a fan.",
 		jamm = "Alright. I punched it. What next?",
         noel = "I AM WHO IS ALL YET NONE!!!",
-        ceroba = "So many fruit tastes...",
+        ceroba = "So many fruit flavors...",
     }
 end
 

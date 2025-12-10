@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="20">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="22">
  <editorsettings>
   <export target="cliffside_pcv.lua" format="lua"/>
  </editorsettings>
@@ -20,8 +20,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36
+0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,36,0,
+0,0,0,0,0,0,0,0,0,36,0,0,0,0,0,36,0
 </data>
  </layer>
  <layer id="1" name="Tile Layer 1" width="17" height="12">
@@ -33,18 +33,21 @@
 0,0,0,0,0,0,0,0,0,0,40,36,36,36,42,0,0,
 0,0,0,0,0,0,0,0,0,0,40,36,36,36,42,0,0,
 0,0,0,0,0,0,0,0,0,0,49,36,36,36,51,0,0,
-5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,
-16,14,14,8,14,7,14,14,14,8,14,14,14,17,14,7,15,
-14,7,14,14,17,14,14,16,14,14,17,14,7,14,14,8,15,
-23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,24,
-50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,51
+0,0,0,0,0,0,0,0,0,4,5,5,5,5,5,6,0,
+0,0,0,0,0,0,0,0,0,13,14,14,14,17,14,15,0,
+0,0,0,0,0,0,0,0,0,22,23,23,23,23,23,24,0,
+0,0,0,0,0,0,0,0,0,31,32,32,32,32,32,33,0,
+0,0,0,0,0,0,0,0,0,49,50,50,50,50,50,51,0
 </data>
  </layer>
+ <objectgroup id="7" name="objects_glass">
+  <object id="20" name="magicglass" x="0" y="280" width="360" height="120"/>
+ </objectgroup>
  <objectgroup color="#5500ff" id="3" name="collision">
-  <object id="3" x="680" y="240" width="40" height="200"/>
-  <object id="4" x="0" y="440" width="720" height="40"/>
+  <object id="3" x="640" y="240" width="40" height="200"/>
+  <object id="4" x="0" y="400" width="640" height="40"/>
   <object id="6" x="0" y="240" width="440" height="40"/>
-  <object id="7" x="560" y="240" width="120" height="40"/>
+  <object id="7" x="560" y="240" width="80" height="40"/>
  </objectgroup>
  <objectgroup color="#ff007f" id="4" name="objects">
   <object id="8" name="transition" x="440" y="240" width="120" height="40">
@@ -54,7 +57,7 @@
    </properties>
   </object>
   <object id="9" gid="65" x="400" y="80" width="180" height="168"/>
-  <object id="10" name="transition" x="-40" y="280" width="40" height="160">
+  <object id="10" name="transition" x="-40" y="280" width="40" height="120">
    <properties>
     <property name="map" value="grey_cliffside/dead_room1"/>
     <property name="marker" value="entry_3"/>
@@ -66,7 +69,7 @@
   <object id="11" name="entry_2" x="500" y="320">
    <point/>
   </object>
-  <object id="12" name="entry" x="40" y="360">
+  <object id="12" name="entry" x="40" y="350">
    <point/>
   </object>
   <object id="13" name="spawn" x="360" y="360">

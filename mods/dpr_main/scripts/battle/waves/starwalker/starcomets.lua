@@ -12,7 +12,7 @@ function Starwings:onStart()
 
     self.timer:every(1, function()
         Assets.playSound("stardrop")
-        local star = self:spawnBullet("starwalker/starcomet", self.starwalker.x, self.starwalker.y - 20)
+        local star = self:spawnBullet(self.starwalker:makeCometBullet(self.starwalker.x, self.starwalker.y - 20))
         star.inv_timer = 10/30
     end)
 end

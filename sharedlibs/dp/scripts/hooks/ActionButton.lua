@@ -107,7 +107,7 @@ function ActionButton:select()
 
         Game.battle:setState("MENUSELECT", "SKILL")
     elseif self.type == "tension" then
-        Game.battle:pushAction("TENSION", nil, {tp = -32})
+        Game.battle:pushAction("TENSION", nil, {tp = -Game.battle:getDefendTension(self.battler)*2})
     else
         return super.select(self)
     end

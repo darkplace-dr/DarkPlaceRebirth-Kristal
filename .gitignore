@@ -1,15 +1,15 @@
 .vscode/
 .DS_Store
 
-build/
-output/
-
-*.tiled-session
-
 # Ignore all DLCs except dpr_main and dpr_light
 mods/*
 !/mods/dpr_main/
 !/mods/dpr_light/
+
+build/
+output/
+
+*.tiled-session
 
 DarkPlaceREBIRTH.lnk
 open.bat

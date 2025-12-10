@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="70">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="76">
  <editorsettings>
   <export target="legacy_corridors.lua" format="lua"/>
  </editorsettings>
@@ -160,6 +160,30 @@
    </properties>
    <point/>
   </object>
+  <object id="70" name="npc" x="680" y="580">
+   <properties>
+    <property name="actor" value="shuttah"/>
+    <property name="cond" value="Game:hasRecruit(&quot;shuttah&quot;)"/>
+    <property name="cutscene" value="recruits.shuttah"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="72" name="transition" x="120" y="560">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/hall_of_fame"/>
+    <property name="marker" value="entry_legacy"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+   <polygon points="0,0 -80,80 -80,40 0,-40"/>
+  </object>
+  <object id="75" name="interactable" x="160" y="169.248" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.green_sellding"/>
+    <property name="solid" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="6" name="above" width="24" height="30">
   <data encoding="csv">
@@ -214,9 +238,6 @@
   <object id="44" x="840" y="560">
    <polygon points="0,0 80,80 80,0"/>
   </object>
-  <object id="45" x="40" y="640">
-   <polygon points="0,0 80,-80 0,-80"/>
-  </object>
   <object id="53" x="370" y="560" width="40" height="30"/>
   <object id="56" x="230" y="560" width="40" height="30"/>
   <object id="57" x="530" y="900" width="310" height="20"/>
@@ -224,6 +245,9 @@
  </objectgroup>
  <objectgroup color="#7f00ff" id="8" name="markers">
   <object id="65" name="entry_greenroom" x="820" y="1080">
+   <point/>
+  </object>
+  <object id="74" name="entry_hall_of_fame" x="140" y="600">
    <point/>
   </object>
  </objectgroup>

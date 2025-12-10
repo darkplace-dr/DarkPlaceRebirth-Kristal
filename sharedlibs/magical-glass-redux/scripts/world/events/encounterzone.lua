@@ -70,6 +70,7 @@ function EncounterZone:draw()
         love.graphics.push()
         love.graphics.origin()
 
+        love.graphics.setFont(Assets.getFont("main"))
         love.graphics.print({{1,0,0},"Encounter Zone!",{1,1,0},"\nSteps Until Encounter: ",{1,1,1},not MagicalGlassLib.initiating_random_encounter and (MagicalGlassLib.steps_until_encounter or "N\\A") or 0}, 8, 0, 0, 1.25)
 
         love.graphics.pop()

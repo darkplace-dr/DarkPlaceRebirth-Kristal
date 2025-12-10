@@ -150,9 +150,9 @@ function LightSaveMenu:update()
             print(self.selected_x, self.selected_file)
         end
 
-        self.selected_file = Utils.clamp(self.selected_file, 1, 4)
-        self.selected_x = Utils.clamp(self.selected_x, 1, 2)
-        self.selected_y = Utils.clamp(self.selected_y, 1, 3)
+        self.selected_file = MathUtils.clamp(self.selected_file, 1, 4)
+        self.selected_x = MathUtils.clamp(self.selected_x, 1, 2)
+        self.selected_y = MathUtils.clamp(self.selected_y, 1, 3)
         if Input.pressed("confirm") then
             self.ui_select:stop()
             self.ui_select:play()

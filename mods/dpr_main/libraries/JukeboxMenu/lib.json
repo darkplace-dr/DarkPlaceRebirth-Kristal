@@ -5,12 +5,18 @@
         "Dobby233Liu"
     ],
     "version": "v2.0.0",
-    "engineVer": "v0.9.0-dev",
+    "engineVer": "v0.10.0-dev",
     "config": {
         "navigateToPlayingSongAtInit": true,
         "indicatePlayingSongWithNameColor": true,
         "indicatePlayingSongWithMusicNote": true,
         "infoCollapsible": true,
-        "showDurationBar": true
+        "showDurationBar": true,
+        "animateToBeat": true,
+        "albumArtDirectory": "albums/",
+        "useSimpleModeByDefault": false,
+        "rememberCollpaseState": true,
+        "enableMetronome": false,
+        "defaultBpm": 120
     }
 }

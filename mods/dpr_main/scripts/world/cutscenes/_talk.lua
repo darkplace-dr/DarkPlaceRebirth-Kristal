@@ -3,37 +3,37 @@ return {
     main = function(cutscene, map, partyleader)
         if Game:isDessMode() or Game.world.player:getName() == "Dess" then
             cutscene:showNametag("Dess")
-            if map == "hub_dess_house" then
+            if map == "floor1/dess_house" then
                 cutscene:text("* this is where i'd put my house", "genuine", "dess")
                 cutscene:text("* IF I HAD ONE", "doom_AURGHHHHHH", "dess")
-            elseif map == "main_hub_south" then
+            elseif map == "floor1/main_south" then
                 cutscene:text("* the start of a new adventure", "condescending", "dess")
                 cutscene:text("* its filling me with DESSTERMINATION", "calm_b", "dess")
             elseif map == "main_outdoors/tower_outside" then
                 cutscene:text("* wow who knew the tower looked so ugly on the outside", "condescending", "dess")
                 cutscene:text("* its almost like this is some king of...[wait:10]\n* [color:red]unfinished map", "mspaint", "dess")
-            elseif map == "main_hub" then -- Might use this dialogue for the Cliffside deadrooms, but I can't think of anything better rn
+            elseif map == "floor1/main" then -- Might use this dialogue for the Cliffside deadrooms, but I can't think of anything better rn
                 cutscene:text("* wow this place looks so familiar", "neutral_b", "dess")
                 cutscene:text("* this reminds me of the time i was in Dark Place Legacy", "thisremindsmeofthetimeiwasindarkplace", "dess")
-            elseif map == "hub_fuseroom" then
+            elseif map == "floor1/fuseroom" then
                 cutscene:text("* dude when are they adding crafting", "angry", "dess")
-            elseif map == "hub_traininggrounds" then
+            elseif map == "floor1/traininggrounds" then
                 cutscene:text("* Aw yeah, its the place where i use my fists", "challenging", "dess")
                 cutscene:text("* feeling evil think ill kill them all", "dess.exe", "dess")
-            elseif map == "spamgolor_meeting" then
+            elseif map == "floor1/spamgolor_meeting" then
                 cutscene:text("* hey breloom when are you gonna stop being lazy and port over spamgolor", "angry", "dess")
                 cutscene:showNametag("BrendaK7200")
                 cutscene:text("* Shut the fuck up, Dess.[wait:10]\n* I'll add him eventually.", nil, "brenda")
                 cutscene:showNametag("Dess")
                 cutscene:text("* ", "wtf_b", "dess")
                 cutscene:text("* kk swag", "smug", "dess")
-            elseif map == "hub_marketplace" then
+            elseif map == "floor1/marketplace" then
                 cutscene:text("* cant wait to spend my totally not stollen money on some swag items", "swag", "dess")
-            elseif map == "hub_tutorialmasters" then
+            elseif map == "floor1/tutorialmasters" then
                 cutscene:text("* ew tutorials", "annoyed", "dess")
-            elseif map == "hub_prefountain" then
+            elseif map == "floor1/pregreatdoor" then
                 cutscene:text("* ...", "neutral_b", "dess")
-            elseif map == "hub_fountain" then
+            elseif map == "floor1/greatdoor" then
                 cutscene:hideNametag()
                 cutscene:text("* (But you couldn't think of anything to say.)")
             elseif map == "hub_elevator" then

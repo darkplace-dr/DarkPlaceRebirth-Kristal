@@ -28,7 +28,7 @@ function character:init()
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = -1
     -- The color of this character's soul (optional, defaults to red)
-    self.soul_color = {1, 1, 1}
+    self.soul_color = { 1, 1, 1 }
     -- In which direction will this character's soul face (optional, defaults to facing up)
     self.soul_facing = "down"
 
@@ -62,7 +62,7 @@ function character:init()
             health = 70,
             attack = 8,
             defense = 2,
-            magic = 7
+            magic = 7,
         }
     elseif Game.chapter == 2 then
         self.stats = {
@@ -89,35 +89,45 @@ function character:init()
     -- Max stats from level-ups
     if Game.chapter == 1 then
         self.max_stats = {
-            health = 100
+            health = 100,
         }
     elseif Game.chapter == 2 then
         self.max_stats = {
-            health = 140
+            health = 140,
         }
     elseif Game.chapter == 3 then
         self.max_stats = {
-            health = 180
+            health = 180,
         }
     else
         self.max_stats = {
-            health = 210
+            health = 210,
         }
     end
     -- For some reason, we emptied the max_stats table. This preserves that old behavior.
     self.max_stats = {}
-    
+
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
-    self.stronger_absent = {"kris","susie","ralsei"}
+    self.stronger_absent = { "kris", "susie", "ralsei" }
 
     -- Weapon icon in equip menu
     self.weapon_icon = "ui/menu/equip/scarf"
 
     -- Equipment (saved to the save file)
-    self:setWeapon("red_scarf")
-    if Game.chapter >= 2 then
+    if Game.chapter <= 2 then
+        self:setWeapon("red_scarf")
+        if Game.chapter == 2 then
+            self:setArmor(1, "amber_card")
+            self:setArmor(2, "white_ribbon")
+        end
+    elseif Game.chapter == 3 then
+        self:setWeapon("fiberscarf")
         self:setArmor(1, "amber_card")
-        self:setArmor(2, "white_ribbon")
+        self:setArmor(2, "glowwrist")
+    elseif Game.chapter >= 4 then
+        self:setWeapon("flexscarf")
+        self:setArmor(1, "gingerguard")
+        self:setArmor(2, "glowwrist")
     end
 
     -- Default light world equipment item IDs (saves current equipment)
@@ -125,18 +135,18 @@ function character:init()
     self.lw_armor_default = "light/bandage"
 
     -- Character color (for action box outline and hp bar)
-    self.color = {0, 1, 0}
+    self.color = { 0, 1, 0 }
     -- Damage color (for the number when attacking enemies) (defaults to the main color)
-    self.dmg_color = {0.5, 1, 0.5}
+    self.dmg_color = { 0.5, 1, 0.5 }
     -- Attack bar color (for the target bar used in attack mode) (defaults to the main color)
-    self.attack_bar_color = {181/255, 230/255, 29/255}
+    self.attack_bar_color = { 181 / 255, 230 / 255, 29 / 255 }
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
-    self.attack_box_color = {0, 0.5, 0}
+    self.attack_box_color = { 0, 0.5, 0 }
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
-    self.xact_color = {0.5, 1, 0.5}
+    self.xact_color = { 0.5, 1, 0.5 }
 
-    self.icon_color = {181/255, 230/255, 29/255}
-	
+    self.icon_color = { 181 / 255, 230 / 255, 29 / 255 }
+
     -- Head icon in the equip / power menu
     if ralsei_style == 1 then
         self.menu_icon = "party/ralsei/head_ch1"
@@ -156,7 +166,7 @@ function character:init()
     self.attack_pitch = 1.15
 
     -- Battle position offset (optional)
-    self.battle_offset = {2, 6}
+    self.battle_offset = { 2, 6 }
     -- Head icon position offset (optional)
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
@@ -165,16 +175,16 @@ function character:init()
     -- Message shown on gameover (optional)
     self.gameover_message = {
         "This is not\nyour fate...!",
-        "Please,[wait:5]\ndon't give up!"
+        "Please,[wait:5]\ndon't give up!",
     }
 end
 
 function character:getTitle()
     if Game.chapter == 1 then
         if self:checkWeapon("ragger") then
-            return "LV"..self.level.." Prickly Prince\nDeals damage with\nhis rugged scarf."
+            return "LV" .. self.level .. " Prickly Prince\nDeals damage with\nhis rugged scarf."
         elseif self:checkWeapon("daintyscarf") then
-            return "LV"..self.level.." Fluffy Prince\nWeak, but has nice\nhealing powers."
+            return "LV" .. self.level .. " Fluffy Prince\nWeak, but has nice\nhealing powers."
         end
     end
     return super.getTitle(self)
@@ -189,7 +199,7 @@ function character:onLevelUp(level)
 end
 
 function character:onPowerSelect(menu)
-    if Utils.random() <= 0.03 then
+    if MathUtils.random() <= 0.03 then
         menu.ralsei_dog = true
     else
         menu.ralsei_dog = false
@@ -202,43 +212,43 @@ function character:drawPowerStat(index, x, y, menu)
             -- Chapter 1 Ralsei "Kindness" stat (doggable)
             if not menu.ralsei_dog then
                 local icon = Assets.getTexture("ui/menu/icon/smile")
-                Draw.draw(icon, x-26, y+6, 0, 2, 2)
+                Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
                 love.graphics.print("Kindness", x, y)
-                love.graphics.print("100", x+130, y)
+                love.graphics.print("100", x + 130, y)
             else
                 local icon = Assets.getTexture("ui/menu/icon/smile_dog")
-                Draw.draw(icon, x-26, y+6, 0, 2, 2)
+                Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
                 love.graphics.print("Dogness", x, y)
-                love.graphics.print("1", x+130, y)
+                love.graphics.print("1", x + 130, y)
             end
         elseif Game.chapter == 2 then
             -- Chapter 2 Ralsei "Sweetness" stat (non-doggable)
             local icon = Assets.getTexture("ui/menu/icon/lollipop")
-            Draw.draw(icon, x-26, y+6, 0, 2, 2)
+            Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
             love.graphics.print("Sweetness", x, y)
-            love.graphics.print("97", x+130, y)
+            love.graphics.print("97", x + 130, y)
         else
             return
         end
         return true
     elseif index == 2 then
         local icon = Assets.getTexture("ui/menu/icon/fluff")
-        Draw.draw(icon, x-26, y+6, 0, 2, 2)
+        Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
         love.graphics.print("Fluffiness", x, y, 0, 0.8, 1)
 
-        Draw.draw(icon, x+130, y+6, 0, 2, 2)
+        Draw.draw(icon, x + 130, y + 6, 0, 2, 2)
         -- Ralsei loses bonus fluffiness in Chapter 3
         if Game.chapter == 2 then
-            Draw.draw(icon, x+150, y+6, 0, 2, 2)
+            Draw.draw(icon, x + 150, y + 6, 0, 2, 2)
         end
         return true
     elseif index == 3 then
         local icon = Assets.getTexture("ui/menu/icon/fire")
-        Draw.draw(icon, x-26, y+6, 0, 2, 2)
+        Draw.draw(icon, x - 26, y + 6, 0, 2, 2)
         love.graphics.print("Guts:", x, y)
         -- Ralsei has Guts (Chapter 3 only...)
         if Game.chapter == 3 then
-            Draw.draw(icon, x+90, y+6, 0, 2, 2)
+            Draw.draw(icon, x + 90, y + 6, 0, 2, 2)
         end
         return true
     end

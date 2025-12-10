@@ -15,11 +15,13 @@
 ---@field lock_movement     boolean
 ---@field key_repeat        boolean
 ---@field started           boolean
----@field border            Border
+---@field border            string|Border
 ---
 ---@field previous_state    string
 ---@field state             string
 ---@field music             Music
+---
+---@field encounter_enemies Character[]|string[]
 ---
 ---@field chapter           integer
 ---@field save_name         string
@@ -34,7 +36,7 @@
 ---@field lw_money          integer
 ---@field level_up_count    integer
 ---@field temp_followers    table<[string, number]|string>
----@field flags             table<[string, any]>
+---@field flags             table<string, any>
 ---@field party             PartyMember[]
 ---@field party_data        PartyMember[]
 ---@field recruits_data     Recruit[]
@@ -43,6 +45,8 @@
 ---@field fader             Fader
 ---@field max_followers     integer
 ---@field is_new_file       boolean
+---
+---@field died_once         boolean?
 local Game = {}
 
 function Game:clear()
@@ -98,7 +102,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
 
     fade = fade ~= false
     if type(save_id) == "table" then
-        local save = save_id
+        local save = save_id ---@type SaveData
         save_id = save_name
         save_name = nil
         self:load(save, save_id, fade)
@@ -197,7 +201,7 @@ function Game:setBorder(border, time)
 end
 
 function Game:returnToMenu()
-    self.fader:fadeOut(Kristal.returnToMenu, {speed = 0.5, music = 10/30})
+    self.fader:fadeOut(Kristal.returnToMenu, { speed = 0.5, music = 10 / 30 })
     Kristal.hideBorder(0.5)
     self.state = "EXIT"
 end
@@ -324,6 +328,7 @@ function Game:save(x, y)
     end
     
     data.default_equip_slots = self.default_equip_slots
+    data.default_storage_slots = self.default_storage_slots
 
     data.inventory = self.inventory:save()
     data.light_inventory = self.light_inventory:save()
@@ -337,11 +342,6 @@ function Game:save(x, y)
     data.recruits_data = {}
     for k,v in pairs(self.recruits_data) do
         data.recruits_data[k] = v:save()
-    end
-
-    data.quests_data = {}
-    for k,v in pairs(self.quests_data) do
-        data.quests_data[k] = v:save()
     end
 
     Kristal.callEvent(KRISTAL_EVENT.save, data)
@@ -391,7 +391,7 @@ function Game:load(data, index, fade)
     self.max_followers = Kristal.getModOption("maxFollowers") or 10
 
     self.light = false
-    
+
     -- Used to carry the soul invulnerability frames between waves
     self.old_soul_inv_timer = 0
 
@@ -434,16 +434,6 @@ function Game:load(data, index, fade)
             end
         end
     end
-    self:initQuests()
-    if data.quests_data then
-        for k,v in pairs(data.quests_data) do
-            if self.quests_data[k] then
-                self.quests_data[k]:load(v)
-            else
-                self.quests_data[k] = FallbackQuest(v)
-            end
-        end
-    end
 
     if data.temp_followers then
         self.temp_followers = data.temp_followers
@@ -483,9 +473,26 @@ function Game:load(data, index, fade)
     end
     if Game.reset_map then Game.reset_map = nil end
     
-    self.default_equip_slots = data.default_equip_slots or 48
-    if self.is_new_file and Game:getConfig("lessEquipments") then
+    self.default_equip_slots = data.default_equip_slots or 0
+    if Game:getConfig("lessEquipments") and self.default_equip_slots <= 12 then
         self.default_equip_slots = 12
+    else
+        self.default_equip_slots = 48
+    end
+    
+    self.default_storage_slots = data.default_storage_slots or 0
+    -- Check if a mod is still using the deprecated "enableStorage" config
+    if Game:getConfig("enableStorage") ~= nil then
+        Kristal.Console:warn("Using deprecated mod option 'enableStorage', switch to 'storageSlots' option instead")
+        if Game:getConfig("enableStorage") or self.default_storage_slots > 0 then
+            self.default_storage_slots = 24
+        else
+            self.default_storage_slots = 0
+        end
+    else
+        if Game:getConfig("storageSlots") > self.default_storage_slots then
+            self.default_storage_slots = Game:getConfig("storageSlots")
+        end
     end
 
     if self.light then
@@ -538,6 +545,9 @@ function Game:load(data, index, fade)
         end
 
         for id,equipped in pairs(Kristal.getModOption("equipment") or {}) do
+            if not self.party_data[id] then
+                error("Attempted to set up equipment for non-existent member "..id)
+            end
             if equipped["weapon"] then
                 self.party_data[id]:setWeapon(equipped["weapon"] ~= "" and equipped["weapon"] or nil)
             end
@@ -549,7 +559,7 @@ function Game:load(data, index, fade)
                         if not main_armor:includes(LightEquipItem) then
                             error("Cannot set 2nd armor, 1st armor must be a LightEquipItem")
                         end
-                        main_armor:setArmor(2, armors[i])
+                        self.party_data[id]:setArmor(2, armors[i])
                     else
                         self.party_data[id]:setArmor(i, armors[i] ~= "" and armors[i] or nil)
                     end
@@ -586,13 +596,12 @@ function Game:load(data, index, fade)
     Kristal.DebugSystem:refresh()
 
     self.started = true
-    
-    self.nothing_warn = true
+
     if self.is_new_file then
         if Kristal.getModOption("encounter") then
             self:encounter(Kristal.getModOption("encounter"), false)
         elseif Kristal.getModOption("shop") then
-            self:enterShop(Kristal.getModOption("shop"), {menu = true})
+            self:enterShop(Kristal.getModOption("shop"), { menu = true })
         end
     elseif self.bossrush_encounters then
         self:setBorder("battle")
@@ -743,7 +752,7 @@ end
 
 ---@param ... unknown
 function Game:saveQuick(...)
-    self.quick_save = Utils.copy(self:save(...), true)
+    self.quick_save = TableUtils.copy(self:save(...), true)
 end
 
 ---@param fade? boolean
@@ -927,13 +936,6 @@ function Game:initRecruits()
     end
 end
 
-function Game:initQuests()
-    self.quests_data = {}
-    for id,_ in pairs(Registry.quests) do
-        self.quests_data[id] = Registry.createQuest(id)
-    end
-end
-
 ---@param id string
 ---@return PartyMember?
 function Game:getPartyMember(id)
@@ -991,7 +993,7 @@ function Game:removePartyMember(chara)
     if type(chara) == "string" then
         chara = self:getPartyMember(chara)
     end
-    Utils.removeFromTable(self.party, chara)
+    TableUtils.removeValue(self.party, chara)
     return chara
 end
 
@@ -1037,7 +1039,7 @@ function Game:movePartyMember(chara, index)
 end
 
 ---@param chara string|PartyMember
----@return integer
+---@return integer?
 function Game:getPartyIndex(chara)
     if type(chara) == "string" then
         chara = self:getPartyMember(chara)
@@ -1169,7 +1171,7 @@ function Game:giveTension(amount)
     local start = self:getTension()
     self:setTension(self:getTension() + amount)
     if self:getTension() > self:getMaxTension() then
-        Game:setTension(self:getMaxTension())
+        self:setTension(self:getMaxTension())
     end
     self:setTensionPreview(0)
     return self:getTension() - start
@@ -1197,7 +1199,7 @@ end
 ---@param amount        number
 ---@param dont_clamp?   boolean
 function Game:setTension(amount, dont_clamp)
-    Game.tension = dont_clamp and amount or Utils.clamp(amount, 0, Game:getMaxTension())
+    Game.tension = dont_clamp and amount or MathUtils.clamp(amount, 0, Game:getMaxTension())
 end
 
 ---@return number
@@ -1244,7 +1246,7 @@ function Game:update()
     end
 
     if (self.state == "BATTLE" and self.battle and self.battle:isWorldHidden()) or
-       (self.state == "SHOP"   and self.shop) then
+       (self.state == "SHOP" and self.shop and self.shop:isWorldHidden()) then
         self.world.active = false
         self.world.visible = false
     else
@@ -1255,19 +1257,6 @@ function Game:update()
     self.playtime = self.playtime + DT
 
     self.stage:update()
-
-    if Gamestate.current() == self then -- HACK
-        if not self.shop and not self.battle and not (self.world and self.world.map and self.world.map.id) then
-            if self.nothing_warn then Kristal.Console:warn("No map, shop nor encounter were loaded") end
-            if Kristal.getModOption("hardReset") then
-                love.event.quit("restart")
-            else
-                Kristal.returnToMenu()
-            end
-        else
-            self.nothing_warn = false
-        end
-    end
 
     Kristal.callEvent(KRISTAL_EVENT.postUpdate, DT)
 

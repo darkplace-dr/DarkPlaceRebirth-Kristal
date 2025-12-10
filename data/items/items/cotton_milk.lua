@@ -51,7 +51,9 @@ function item:init()
         susie = "*Munch*",
         suzy = "*Munch*",
         ralsei = "Why, thank you!",
-        noelle = "It's not liquid..."
+        noelle = "It's not liquid...",
+        jamm = "I mean... Can't really complain.",
+        ceroba = "I just hope it's not really cotton.",
     }
 end
 

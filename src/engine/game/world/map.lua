@@ -11,7 +11,7 @@ function Map:init(world, data)
 
     if data and data.full_path then
         local map_path = data.full_path
-        map_path = Utils.split(map_path, "/")
+        map_path = StringUtils.split(map_path, "/")
         map_path = table.concat(map_path, "/", 1, #map_path - 1)
         self.full_map_path = map_path
     else
@@ -34,9 +34,9 @@ function Map:init(world, data)
 
     if data and data.backgroundcolor then
         local bgc = data.backgroundcolor
-        self.bg_color = {bgc[1]/255, bgc[2]/255, bgc[3]/255, (bgc[4] or 255)/255}
+        self.bg_color = { bgc[1] / 255, bgc[2] / 255, bgc[3] / 255, (bgc[4] or 255) / 255 }
     else
-        self.bg_color = {0, 0, 0, 0}
+        self.bg_color = { 0, 0, 0, 0 }
     end
 
     self.tilesets = {}
@@ -89,7 +89,7 @@ function Map:load()
     else
         self:addTileLayer(0)
     end
-    for _,event in ipairs(self.events) do
+    for _, event in ipairs(self.events) do
         if event.onLoad then
             event:onLoad()
         end
@@ -115,22 +115,22 @@ function Map:getBorder(dark_transition)
 end
 
 function Map:getUniqueID()
-    return "#"..self.id
+    return "#" .. self.id
 end
 
 function Map:setFlag(flag, value)
     local uid = self:getUniqueID()
-    Game:setFlag(uid..":"..flag, value)
+    Game:setFlag(uid .. ":" .. flag, value)
 end
 
 function Map:getFlag(flag, default)
     local uid = self:getUniqueID()
-    return Game:getFlag(uid..":"..flag, default)
+    return Game:getFlag(uid .. ":" .. flag, default)
 end
 
 function Map:addFlag(flag, amount)
     local uid = self:getUniqueID()
-    return Game:addFlag(uid..":"..flag, amount)
+    return Game:addFlag(uid .. ":" .. flag, amount)
 end
 
 --- Gets a specific marker from the current map.
@@ -139,7 +139,8 @@ end
 ---@return number y The y-coordinate of the marker's center.
 function Map:getMarker(name)
     local marker = self.markers[name]
-    return marker and marker.center_x or (self.width * self.tile_width/2), marker and marker.center_y or (self.height * self.tile_height/2)
+    return marker and marker.center_x or (self.width * self.tile_width / 2),
+        marker and marker.center_y or (self.height * self.tile_height / 2)
 end
 
 function Map:hasMarker(name)
@@ -155,10 +156,10 @@ function Map:addTileset(id)
     if tileset then
         table.insert(self.tilesets, tileset)
         self.tileset_gids[tileset] = self.max_gid + 1
-        self.max_gid = self.max_gid + tileset.tilecount
+        self.max_gid = self.max_gid + tileset.tile_count
         return tileset
     else
-        error("No tileset with id '"..id.."'")
+        error("No tileset with id '" .. id .. "'")
     end
 end
 
@@ -173,7 +174,7 @@ function Map:getTile(x, y, layer)
 end
 
 function Map:setTile(x, y, tileset, ...)
-    local args = {...}
+    local args = { ... }
 
     local tile_layer
     if type(args[#args]) == "string" then
@@ -188,7 +189,7 @@ end
 
 --- Gets a specific event present in the current map.
 ---@param id string|number  The unique numerical id of an event OR the text id of an event type to get the first instance of.
----@return Event event The event instnace, or `nil` if it was not found. 
+---@return Event? event The event instnace, or `nil` if it was not found.
 function Map:getEvent(id)
     if type(id) == "number" then
         return self.events_by_id[id]
@@ -240,9 +241,9 @@ end
 
 function Map:getShapes(layer_prefix)
     local result = {}
-    for k,v in pairs(self.shape_layers) do
-        if not layer_prefix or Utils.startsWith(k:lower(), layer_prefix) then
-            Utils.merge(result, v.objects)
+    for k, v in pairs(self.shape_layers) do
+        if not layer_prefix or StringUtils.startsWith(k:lower(), layer_prefix) then
+            TableUtils.merge(result, v.objects)
         end
     end
     return result
@@ -250,7 +251,7 @@ end
 
 function Map:getTileLayer(name)
     if name then
-        for _,layer in ipairs(self.tile_layers) do
+        for _, layer in ipairs(self.tile_layers) do
             if layer.name == name then
                 return layer
             end
@@ -286,8 +287,12 @@ function Map:loadMapData(data)
         if layer.type ~= "group" then
             table.insert(layers, layer)
         else
-            for _,sublayer in ipairs(layer.layers) do
-                local sublayer_copy = Utils.copy(sublayer)
+            for i, sublayer in ipairs(layer.layers) do
+                local sublayer_copy = TableUtils.copy(sublayer)
+                sublayer_copy.properties = TableUtils.mergeMany(layer.properties, sublayer_copy.properties)
+                if i == #layer.layers then
+                    sublayer_copy.properties.thin = sublayer.properties.thin
+                end
                 sublayer_copy.offsetx = (sublayer.offsetx or 0) + (layer.offsetx or 0)
                 sublayer_copy.offsety = (sublayer.offsety or 0) + (layer.offsety or 0)
                 sublayer_copy.parallaxx = (sublayer.parallaxx or 1) * (layer.parallaxx or 1)
@@ -297,31 +302,33 @@ function Map:loadMapData(data)
         end
     end
 
-    for _,layer in ipairs(data.layers or {}) do
-        loadLayer(Utils.copy(layer))
+    for _, layer in ipairs(data.layers or {}) do
+        loadLayer(TableUtils.copy(layer))
     end
 
-    for i,layer in ipairs(layers) do
+    for i, layer in ipairs(layers) do
         self.layers[layer.name] = self.next_layer
         indexed_layers[i] = self.next_layer
-        self.next_layer = self.next_layer + self.depth_per_layer
+        if not (layer.properties and layer.properties.thin) then
+            self.next_layer = self.next_layer + self.depth_per_layer
+        end
     end
 
     self.object_layer = nil
-    for i,layer in ipairs(layers) do
+    for i, layer in ipairs(layers) do
         local name = layer.name:lower()
         local depth = indexed_layers[i]
-        if not has_battle_border and Utils.startsWith(name, "battleborder") then
-            self.battle_fader_layer = depth - (self.depth_per_layer/2)
+        if not has_battle_border and StringUtils.startsWith(name, "battleborder") then
+            self.battle_fader_layer = depth - (self.depth_per_layer / 2)
             has_battle_border = true
         end
-        if layer.type == "objectgroup" and Utils.startsWith(name, "objects") then
+        if layer.type == "objectgroup" and StringUtils.startsWith(name, "objects") then
             table.insert(object_depths, depth)
             if layer.properties["spawn"] then
                 self.object_layer = depth
             end
         end
-        if layer.type == "tilelayer" and not Utils.startsWith(name, "battleborder") then
+        if layer.type == "tilelayer" and not StringUtils.startsWith(name, "battleborder") then
             table.insert(tile_depths, depth)
         end
         if not Kristal.callEvent(KRISTAL_EVENT.loadLayer, self, layer, depth) then
@@ -334,11 +341,11 @@ function Map:loadMapData(data)
         self.object_layer = 1
         local priority_object_layer = nil
         local has_markers_layer = false
-        for i,layer in ipairs(layers) do
+        for i, layer in ipairs(layers) do
             local name = layer.name:lower()
             local depth = indexed_layers[i]
             if layer.type == "objectgroup" then
-                if Utils.startsWith(name, "markers") then
+                if StringUtils.startsWith(name, "markers") then
                     has_markers_layer = true
                     priority_object_layer = nil
                     if #object_depths == 0 then
@@ -347,7 +354,7 @@ function Map:loadMapData(data)
                     else
                         -- Otherwise, set the object depth to the closest object layer's depth
                         local closest
-                        for _,obj_depth in ipairs(object_depths) do
+                        for _, obj_depth in ipairs(object_depths) do
                             if not closest then
                                 closest = obj_depth
                             elseif math.abs(depth - obj_depth) <= math.abs(depth - closest) then
@@ -378,7 +385,7 @@ function Map:loadMapData(data)
 
     -- Set the tile layer depth to the closest tile layer below the object layer
     self.tile_layer = 0
-    for _,depth in ipairs(tile_depths) do
+    for _, depth in ipairs(tile_depths) do
         if depth >= self.object_layer then break end
 
         self.tile_layer = depth
@@ -386,7 +393,7 @@ function Map:loadMapData(data)
 
     -- If no battleborder layer, set the battle fader layer depth to be below the object layer
     if not has_battle_border then
-        self.battle_fader_layer = self.object_layer - (self.depth_per_layer/2)
+        self.battle_fader_layer = self.object_layer - (self.depth_per_layer / 2)
     end
 end
 
@@ -396,21 +403,21 @@ function Map:loadLayer(layer, depth)
     elseif layer.type == "imagelayer" then
         self:loadImage(layer, depth)
     elseif layer.type == "objectgroup" then
-        if Utils.startsWith(layer.name:lower(), "objects") then
+        if StringUtils.startsWith(layer.name:lower(), "objects") then
             self:loadObjects(layer, depth, "events")
-        elseif Utils.startsWith(layer.name:lower(), "controllers") then
+        elseif StringUtils.startsWith(layer.name:lower(), "controllers") then
             self:loadObjects(layer, depth, "controllers")
-        elseif Utils.startsWith(layer.name:lower(), "markers") then
+        elseif StringUtils.startsWith(layer.name:lower(), "markers") then
             self:loadMarkers(layer)
-        elseif Utils.startsWith(layer.name:lower(), "collision") then
+        elseif StringUtils.startsWith(layer.name:lower(), "collision") then
             self:loadCollision(layer)
-        elseif Utils.startsWith(layer.name:lower(), "enemycollision") then
+        elseif StringUtils.startsWith(layer.name:lower(), "enemycollision") then
             self:loadEnemyCollision(layer)
-        elseif Utils.startsWith(layer.name:lower(), "blockcollision") then
+        elseif StringUtils.startsWith(layer.name:lower(), "blockcollision") then
             self:loadBlockCollision(layer)
-        elseif Utils.startsWith(layer.name:lower(), "paths") then
+        elseif StringUtils.startsWith(layer.name:lower(), "paths") then
             self:loadPaths(layer)
-        elseif Utils.startsWith(layer.name:lower(), "battleareas") then
+        elseif StringUtils.startsWith(layer.name:lower(), "battleareas") then
             self:loadBattleAreas(layer)
         end
         self:loadShapes(layer)
@@ -423,22 +430,22 @@ function Map:loadTiles(layer, depth)
     tilelayer.layer = depth
     self.world:addChild(tilelayer)
     table.insert(self.tile_layers, tilelayer)
-    if Utils.startsWith(layer.name:lower(), "battleborder") then
+    if StringUtils.startsWith(layer.name:lower(), "battleborder") then
         table.insert(self.battle_borders, tilelayer)
     end
 end
 
 function Map:loadImage(layer, depth)
-    local texture = Utils.absoluteToLocalPath("assets/sprites/", layer.image, self.full_map_path)
-    if not texture then
-        error("Invalid image location for layer " .. layer.name)
+    local success, texture_result = self:loadTextureFromImagePath(layer.image)
+    if not success then
+        error("Map \"" .. self.data.id .. "\" failed to load image layer \"" .. layer.name .. "\"\n" .. texture_result)
     end
-    local sprite = Sprite(texture, layer.offsetx, layer.offsety)
+    local sprite = Sprite(texture_result, layer.offsetx, layer.offsety)
     sprite:setParallax(layer.parallaxx, layer.parallaxy)
     sprite.alpha = layer.opacity
     sprite.layer = depth
     if layer.tintcolor then
-        sprite:setColor(layer.tintcolor[1]/255, layer.tintcolor[2]/255, layer.tintcolor[3]/255)
+        sprite:setColor(layer.tintcolor[1] / 255, layer.tintcolor[2] / 255, layer.tintcolor[3] / 255)
     end
     sprite:setSpeed(layer.properties["speedx"] or 0, layer.properties["speedy"] or 0)
     if layer.repeatx or layer.properties["wrapx"] then
@@ -454,33 +461,58 @@ function Map:loadImage(layer, depth)
     sprite:setScale(layer.properties["scalex"] or 1, layer.properties["scaley"] or 1)
     self.world:addChild(sprite)
     self.image_layers[layer.name] = sprite
-    if Utils.startsWith(layer.name:lower(), "battleborder") then
+    if StringUtils.startsWith(layer.name:lower(), "battleborder") then
         sprite.alpha = 0
         table.insert(self.battle_borders, sprite)
     end
 end
 
+function Map:loadTextureFromImagePath(filename)
+    local image_dir = "assets/sprites"
+    local success, result, final_path = TiledUtils.relativePathToAssetId(Mod.info.path .. "/" .. image_dir, filename, self.full_map_path)
+
+    if not success then
+        local g_success, g_result, _ = TiledUtils.relativePathToAssetId(image_dir, filename, self.full_map_path)
+        if g_success then
+            success = true
+            result = g_result
+        end
+    end
+
+    if not success then
+        if result == "not under prefix" then
+            return false, "Image not found in \"" .. image_dir .. "\" (Got path \"" .. final_path .. "\")"
+        elseif result == "path outside root" then
+            return false, "Image path located outside Kristal (Got path \"<kristal>/" .. final_path .. "\")"
+        else
+            return false, "Unknown reason"
+        end
+    end
+
+    return true, result
+end
+
 function Map:loadCollision(layer)
-    Utils.merge(self.collision, self:loadHitboxes(layer))
+    TableUtils.merge(self.collision, self:loadHitboxes(layer))
 end
 
 function Map:loadEnemyCollision(layer)
-    Utils.merge(self.enemy_collision, self:loadHitboxes(layer))
+    TableUtils.merge(self.enemy_collision, self:loadHitboxes(layer))
 end
 
 function Map:loadBlockCollision(layer)
-    Utils.merge(self.block_collision, self:loadHitboxes(layer))
+    TableUtils.merge(self.block_collision, self:loadHitboxes(layer))
 end
 
 function Map:loadBattleAreas(layer)
-    Utils.merge(self.battle_areas, self:loadHitboxes(layer))
+    TableUtils.merge(self.battle_areas, self:loadHitboxes(layer))
 end
 
 function Map:loadHitboxes(layer)
     local hitboxes = {}
     local ox, oy = layer.offsetx or 0, layer.offsety or 0
-    for _,v in ipairs(layer.objects) do
-        local hitbox = Utils.colliderFromShape(self.world, v, v.x+ox, v.y+oy, v.properties)
+    for _, v in ipairs(layer.objects) do
+        local hitbox = TiledUtils.colliderFromShape(self.world, v, v.x + ox, v.y + oy, v.properties)
         if hitbox then
             table.insert(hitboxes, hitbox)
 
@@ -496,7 +528,7 @@ end
 function Map:loadShapes(layer)
     self.shape_layers[layer.name] = layer
 
-    for _,v in ipairs(layer.objects) do
+    for _, v in ipairs(layer.objects) do
         self.shapes_by_id[v.id] = v
 
         self.shapes_by_name[v.name] = self.shapes_by_name[v.name] or {}
@@ -505,13 +537,13 @@ function Map:loadShapes(layer)
 end
 
 function Map:loadMarkers(layer)
-    for _,v in ipairs(layer.objects) do
+    for _, v in ipairs(layer.objects) do
         v.width = v.width or 0
         v.height = v.height or 0
-        v.center_x = v.x + v.width/2
-        v.center_y = v.y + v.height/2
+        v.center_x = v.x + v.width / 2
+        v.center_y = v.y + v.height / 2
 
-        local marker = Utils.copy(v, true)
+        local marker = TableUtils.copy(v, true)
 
         v.x = v.x + (layer.offsetx or 0)
         v.y = v.y + (layer.offsety or 0)
@@ -525,25 +557,31 @@ end
 
 function Map:loadPaths(layer)
     local ox, oy = layer.offsetx or 0, layer.offsety or 0
-    for _,v in ipairs(layer.objects) do
+    for _, v in ipairs(layer.objects) do
         local path = {}
         if v.shape == "ellipse" then
             path.shape = "ellipse"
-            path.x = v.x + v.width/2 + ox
-            path.y = v.y + v.height/2 + oy
-            path.rx = v.width/2 + ox
-            path.ry = v.height/2 + oy
+            path.x = v.x + v.width / 2 + ox
+            path.y = v.y + v.height / 2 + oy
+            path.rx = v.width / 2 + ox
+            path.ry = v.height / 2 + oy
 
             -- Roughly calculte ellipse perimeter bc the actual calculation is hard
-            path.length = 2*math.pi*((path.rx + path.ry)/2)
+            path.length = 2 * math.pi * ((path.rx + path.ry) / 2)
             path.closed = true
         else
             path.shape = "line"
             path.x = v.x
             path.y = v.y
-            local points = Utils.copy(v.polygon or v.polyline or {})
+            local points = TableUtils.copy(v.polygon or v.polyline or {})
             if v.shape == "rectangle" then
-                points = {{x = 0, y = 0}, {x = v.width, y = 0}, {x = v.width, y = v.height}, {x = 0, y = v.height}, {x = 0, y = 0}}
+                points = {
+                    { x = 0, y = 0 },
+                    { x = v.width, y = 0 },
+                    { x = v.width, y = v.height },
+                    { x = 0, y = v.height },
+                    { x = 0, y = 0 },
+                }
                 path.closed = true
             else
                 if v.shape ~= "polyline" then
@@ -551,13 +589,13 @@ function Map:loadPaths(layer)
                     path.closed = true
                 end
             end
-            for i,point in ipairs(points) do
-                points[i] = {x = v.x + point.x + ox, y = v.y + point.y + oy}
+            for i, point in ipairs(points) do
+                points[i] = { x = v.x + point.x + ox, y = v.y + point.y + oy }
             end
             path.points = points
             path.length = 0
-            for i = 1, #points-1 do
-                path.length = path.length + Utils.dist(points[i].x, points[i].y, points[i+1].x, points[i+1].y)
+            for i = 1, #points - 1 do
+                path.length = path.length + MathUtils.dist(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y)
             end
         end
         self.paths[v.name] = path
@@ -566,17 +604,17 @@ end
 
 function Map:shouldLoadObject(data, layer)
     local skip_loading = false
-    local uid = self:getUniqueID().."#"..tostring(data.properties["uid"] or data.id)
+    local uid = self:getUniqueID() .. "#" .. tostring(data.properties["uid"] or data.id)
     if data.properties["cond"] then
         local env = setmetatable({}, {__index = function(t, k)
-            return Game.flags[uid..":"..k] or Game.flags[k] or _G[k]
+            return Game:getFlag(uid .. ":" .. k) or Game:getFlag(k) or _G[k]
         end})
-        local chunk, _ = assert(loadstring("return "..data.properties["cond"]))
+        local chunk, _ = assert(loadstring("return " .. data.properties["cond"]))
         skip_loading = not setfenv(chunk, env)()
     elseif data.properties["flagcheck"] then
-        local inverted, flag = Utils.startsWith(data.properties["flagcheck"], "!")
+        local inverted, flag = StringUtils.startsWith(data.properties["flagcheck"], "!")
 
-        local result = Game.flags[uid..":"..flag] or Game.flags[flag]
+        local result = Game:getFlag(uid .. ":" .. flag) or Game:getFlag(flag)
         local value = data.properties["flagvalue"]
         local is_true
         if value ~= nil then
@@ -600,11 +638,11 @@ function Map:loadObjects(layer, depth, layer_type)
     local parent = layer_type == "controllers" and self.world.controller_parent or self.world
 
     self.events_by_layer[layer.name] = {}
-    for _,v in ipairs(layer.objects) do
+    for _, v in ipairs(layer.objects) do
         v.width = v.width or 0
         v.height = v.height or 0
-        v.center_x = v.x + v.width/2
-        v.center_y = v.y + v.height/2
+        v.center_x = v.x + v.width / 2
+        v.center_y = v.y + v.height / 2
 
         -- Get width/height of the full polygon (usable when a polygon is not supported on an object)
         if v.polygon then
@@ -618,14 +656,14 @@ function Map:loadObjects(layer, depth, layer_type)
 
             v.width = max_x - min_x
             v.height = max_y - min_y
-            v.center_x = v.x - min_x + v.width/2
-            v.center_y = v.y - min_y + v.height/2
+            v.center_x = v.x - min_x + v.width / 2
+            v.center_y = v.y - min_y + v.height / 2
         end
 
         if v.gid then
-            local tx,ty,tw,th = self:getTileObjectRect(v)
-            v.center_x = tx + tw/2
-            v.center_y = ty + th/2
+            local tx, ty, tw, th = self:getTileObjectRect(v)
+            v.center_x = tx + tw / 2
+            v.center_y = ty + th / 2
         end
 
         local obj_type = v.type or v.class
@@ -633,8 +671,8 @@ function Map:loadObjects(layer, depth, layer_type)
             obj_type = v.name
         end
 
-        local uid = self:getUniqueID().."#"..tostring(v.properties["uid"] or v.id)
-        if not Game:getFlag(uid..":dont_load") then
+        local uid = self:getUniqueID() .. "#" .. tostring(v.properties["uid"] or v.id)
+        if not Game:getFlag(uid .. ":dont_load") then
             if self:shouldLoadObject(v, layer) then
                 local obj
                 if layer_type == "controllers" then
@@ -645,6 +683,7 @@ function Map:loadObjects(layer, depth, layer_type)
                 if obj then
                     obj.x = obj.x + (layer.offsetx or 0)
                     obj.y = obj.y + (layer.offsety or 0)
+                    obj:setParallax((obj.parallax_x or 1) * layer.parallaxx, (obj.parallax_y or 1) * layer.parallaxy)
                     if not obj.object_id then
                         obj.object_id = v.id
                     end
@@ -695,7 +734,7 @@ function Map:loadObject(name, data)
         return Registry.createEvent(name, data)
     end
     -- Library object loading
-    for id,lib in Kristal.iterLibraries() do
+    for id, lib in Kristal.iterLibraries() do
         local obj = Kristal.libCall(id, "loadObject", self.world, name, data)
         if obj then
             return obj
@@ -707,14 +746,14 @@ function Map:loadObject(name, data)
     end
     local chara_x, chara_y = data.center_x, data.center_y
     if data.gid then
-        local tx,ty,tw,th = self:getTileObjectRect(data)
-        chara_x = tx + tw/2
+        local tx, ty, tw, th = self:getTileObjectRect(data)
+        chara_x = tx + tw / 2
         chara_y = ty + th
     end
 
-    local shape_data = {data.width, data.height, data.polygon}
+    local shape_data = { data.width, data.height, data.polygon }
 
-    local rect_data = Utils.copy(shape_data)
+    local rect_data = TableUtils.copy(shape_data)
     rect_data[3] = nil
 
     -- Kristal object loading
@@ -759,7 +798,7 @@ function Map:loadObject(name, data)
     elseif name:lower() == "warpdoor" then
         return WarpDoor(data.x, data.y, data.properties)
     elseif name:lower() == "darkfountain" then
-        return DarkFountain(data.x, data.y)
+        return DarkFountain(data.x, data.y, data.properties)
     elseif name:lower() == "fountainfloor" then
         return FountainFloor(data.x, data.y, rect_data)
     elseif name:lower() == "quicksave" then
@@ -791,7 +830,7 @@ function Map:loadController(name, data)
         return Registry.createController(name, data)
     end
     -- Library object loading
-    for id,lib in Kristal.iterLibraries() do
+    for id, lib in Kristal.iterLibraries() do
         local obj = Kristal.libCall(id, "loadController", self.world, name, data)
         if obj then
             return obj
@@ -811,18 +850,17 @@ end
 
 function Map:populateTilesets(data)
     self.tilesets = {}
-    for _,tileset_data in ipairs(data) do
+    for _, tileset_data in ipairs(data) do
         local tileset
         local filename = tileset_data.exportfilename or tileset_data.filename
         if filename then
-            local tileset_path = Utils.absoluteToLocalPath("scripts/world/tilesets/", filename, self.full_map_path)
-            local backup_name = GeneralUtils:breakString("../../tilesets/", filename, ".lua")
-            tileset = Registry.getTileset(tileset_path or backup_name)
-            if not tileset then
-                error("Failed to load map \""..self.data.id.."\", tileset not found: \""..filename.."\"")
+            local success, result = self:loadTilesetFromTilesetPath(filename)
+            if not success then
+                error("Map \"" .. self.data.id .. "\" failed to load tileset \"" .. tostring(tileset_data.name) .. "\"\n" .. result)
             end
+            tileset = result
         else
-            tileset = Tileset(tileset_data, self.full_map_path.."/"..self.data.id, self.full_map_path)
+            tileset = Tileset(tileset_data, self.full_map_path .. "/" .. self.data.id, self.full_map_path)
         end
         table.insert(self.tilesets, tileset)
         local gid = tileset_data.firstgid or (self.max_gid + 1)
@@ -831,9 +869,40 @@ function Map:populateTilesets(data)
     end
 end
 
+function Map:loadTilesetFromTilesetPath(filename)
+    local tileset_dir = "scripts/world/tilesets"
+    local success, result, final_path = TiledUtils.relativePathToAssetId(Mod.info.path .. "/" .. tileset_dir, filename, self.full_map_path)
+
+    if not success then
+        local g_success, g_result, _ = TiledUtils.relativePathToAssetId(tileset_dir, filename, self.full_map_path)
+        if g_success then
+            success = true
+            result = g_result
+        end
+    end
+
+    if not success then
+        if result == "not under prefix" then
+            return false, "Tileset not found in \"" .. tileset_dir .. "\" (Got path \"" .. final_path .. "\")"
+        elseif result == "path outside root" then
+            return false, "Tileset path located outside Kristal (Got path \"<kristal>/" .. final_path .. "\")"
+        else
+            return false, "Unknown reason"
+        end
+    end
+
+    local tileset = Registry.getTileset(result)
+
+    if not tileset then
+        return false, "No tileset found with id \"" .. result .. "\""
+    end
+
+    return true, tileset
+end
+
 function Map:getTileset(id)
     if type(id) == "number" then
-        id = Utils.parseTileGid(id)
+        id = TiledUtils.parseTileGid(id)
         for i = 1, #self.tilesets do
             local tileset = self.tilesets[i]
             local first_id = self.tileset_gids[tileset]
@@ -846,7 +915,7 @@ function Map:getTileset(id)
             end
         end
     elseif type(id) == "string" then
-        for _,v in ipairs(self.tilesets) do
+        for _, v in ipairs(self.tilesets) do
             if v.name == id then
                 return v, self.tileset_gids[v]
             end
@@ -856,7 +925,7 @@ function Map:getTileset(id)
 end
 
 function Map:getTileObjectRect(data)
-    local gid = Utils.parseTileGid(data.gid)
+    local gid = TiledUtils.parseTileGid(data.gid)
     local tileset = self:getTileset(gid)
 
     local origin = Tileset.ORIGINS[tileset.object_alignment] or Tileset.ORIGINS["unspecified"]
@@ -866,9 +935,19 @@ end
 
 function Map:createTileObject(data, x, y, width, height)
     if data.gid then
-        local gid, flip_x, flip_y = Utils.parseTileGid(data.gid)
+        local gid, flip_x, flip_y = TiledUtils.parseTileGid(data.gid)
         local tileset, tile_id = self:getTileset(gid)
-        return TileObject(tileset, tile_id, x or data.x, y or data.y, width or data.width, height or data.height, math.rad(data.rotation or 0), flip_x, flip_y)
+        return TileObject(
+            tileset,
+            tile_id,
+            x or data.x,
+            y or data.y,
+            width or data.width,
+            height or data.height,
+            math.rad(data.rotation or 0),
+            flip_x,
+            flip_y
+        )
     end
 end
 

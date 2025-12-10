@@ -41,7 +41,7 @@ function StorageBox:onTextEnd()
 
     if self.should_open_menu then
         Game.world:closeMenu()
-        Game.world:openMenu(LightStorageMenu("items", self.inventory))
+        Game.world:openMenu(LightStorageMenu("items", "box_a"))
     end
 end
 

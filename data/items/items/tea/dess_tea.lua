@@ -30,7 +30,7 @@ function item:init()
         ["susie"] = 20,
         ["ralsei"] = 20,
         ["noelle"] = 50,
-
+        ["hero"] = 20,
         ["dess"] = 75,
         ["jamm"] = 15,
         ["mario"] = placeholder,
@@ -145,7 +145,7 @@ function item:init()
 		jamm = "(You drink paint???)",
     },
 	ceroba = {
-		ceroba = "It's... Uh...",
+		ceroba = "It's, well... How do I put this...",
 	    susie = "Terrible?",
 	    brenda = "Disgusting?",
 	    dess = "Literally perfect?",

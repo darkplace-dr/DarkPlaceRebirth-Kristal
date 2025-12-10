@@ -168,11 +168,13 @@
     "config": {
         "seqwaves": {},
         "chapter4lib": {},
+        "offseteditor": {},
         "kristal": {
             "growStronger": false,
 			"pacifyGlow": true,
 			"tiredMessages": true,
 			"awakeMessages": true,
+			"oldRudeBuster": false
 		},
     }
 }

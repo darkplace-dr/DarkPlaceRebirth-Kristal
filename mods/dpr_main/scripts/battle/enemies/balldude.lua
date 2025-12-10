@@ -103,4 +103,12 @@ function BallDude:onAct(battler, name)
     return super.onAct(self, battler, name)
 end
 
+function BallDude:getEncounterText()
+    if love.math.random(0, 100) < 3 then
+        return "* Smells like a tennis ball canister."
+    else
+        return super.getEncounterText(self)
+    end
+end
+
 return BallDude

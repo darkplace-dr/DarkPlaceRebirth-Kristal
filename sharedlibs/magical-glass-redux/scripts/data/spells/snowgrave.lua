@@ -6,11 +6,19 @@ function spell:init()
     self.check = "Deals the fatal damage to all of the enemies."
 end
 
-function spell:getDamage(user, target)
+function spell:getPrimaryDamage(user, target)
     if Game:isLight() then
         return math.ceil((user.chara:getStat("magic") * 35) + 560)
     else
-        return super.getDamage(self, user, target)
+        return super.getPrimaryDamage(self, user, target)
+    end
+end
+
+function spell:getSecondaryDamage(user, target)
+    if Game:isLight() then
+        return Utils.random(0, 50, 1)
+    else
+        return super.getSecondaryDamage(self, user, target)
     end
 end
 

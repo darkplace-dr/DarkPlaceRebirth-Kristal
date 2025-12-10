@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 120,
+  nextobjectid = 123,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -1250,6 +1250,20 @@ return {
           gid = 129,
           visible = true,
           properties = {}
+        },
+        {
+          id = 120,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 988,
+          y = 978,
+          width = 98,
+          height = 86,
+          rotation = 0,
+          gid = 154,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -1370,6 +1384,21 @@ return {
           visible = true,
           properties = {
             ["text"] = "* (It's a tree that would potentially fall down if you climbed it.)"
+          }
+        },
+        {
+          id = 122,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 1010,
+          y = 960,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (The auto-treat-catcher is ready to nab anything in range.)"
           }
         }
       }

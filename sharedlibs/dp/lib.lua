@@ -13,6 +13,11 @@ function lib:postInit(new_file)
     if not new_file then
         self:checkSaveStatus()
     end
+
+    local date = os.date("*t")
+    if date.month == 10 then
+        Game.stage.timer:every(date.day == 31 and 30 or 60, self.tryForFunnySkeletonVideo)
+    end
 end
 
 function lib:checkSaveStatus()
@@ -63,6 +68,10 @@ end
 function lib:load(data)
     if not MagicalGlassLib then
         self.mg_data_preserve = data.magical_glass
+    end
+    
+    if data and data.name and string.upper(data.name) == "EUROPE" and tonumber(os.date("%m")) == 11 then
+        love.event.quit("restart")
     end
 end
 
@@ -154,6 +163,7 @@ function lib:rollShiny(id, force)
         if not Game:getFlag("SHINY") then
             Game:setFlag("SHINY", {})
         end
+        -- "󰌠 󰸭 󰺾  󰘦 󰫿 "- Gaster (translates to "CROSS MY PENUMBRA GRAND CHASM")
         if roller == 66 then
             Game:getFlag("SHINY")[id] = true
         else
@@ -448,19 +458,7 @@ function lib:updateTaunt()
         and (Game.state == "OVERWORLD" and Game.world.state == "GAMEPLAY"
             and not Game.world:hasCutscene() and not Game.lock_movement)
     then
-        -- awesome workaround for run_anims
-        Game.world.player:setState("WALK")
-        Game.world.player.running = false
-        for _, follower in ipairs(Game.world.followers) do
-            if follower:getTarget() == Game.world.player and follower.state == "RUN" then
-                follower.state_manager:setState("WALK")
-                follower.running = false
-            end
-        end
-        Game.world.player:resetFollowerHistory()
-        self.taunt_lock_movement = true
-
-        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+        local any_taunted = false
 
         for _,chara in ipairs(Game.stage:getObjects(Character)) do
             if not chara.actor or not chara.visible then goto continue end
@@ -468,6 +466,8 @@ function lib:updateTaunt()
             -- workaround due to actors being loaded first by registry
             local sprites = chara.actor.getTauntSprites and chara.actor:getTauntSprites() or chara.actor.taunt_sprites
             if not sprites or #sprites <= 0 then goto continue end
+
+            any_taunted = true
 
             local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
             shine:setOrigin(0.5, 0.5)
@@ -486,9 +486,25 @@ function lib:updateTaunt()
             ::continue::
         end
 
-        Game.world.timer:after(1/3, function()
-            self.taunt_lock_movement = false
-        end)
+        if any_taunted then
+            -- awesome workaround for run_anims
+            Game.world.player:setState("WALK")
+            Game.world.player.running = false
+            for _, follower in ipairs(Game.world.followers) do
+                if follower:getTarget() == Game.world.player and follower.state == "RUN" then
+                    follower.state_manager:setState("WALK")
+                    follower.running = false
+                end
+            end
+            Game.world.player:resetFollowerHistory()
+
+            self.taunt_lock_movement = true
+            Game.world.timer:after(1/3, function()
+                self.taunt_lock_movement = false
+            end)
+
+            Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+        end
     end
 end
 
@@ -583,6 +599,31 @@ function lib:shouldWeIncreaseTheRateAtWhichYouGainNightmaresOrNot()
         end
     end
     return false
+end
+
+function lib.tryForFunnySkeletonVideo()
+    local self = DP
+    if self.funnyskeletonvideo and not self.funnyskeletonvideo:isPlaying() then
+        self.funnyskeletonvideo:remove()
+        self.funnyskeletonvideo = nil
+        return false
+    elseif self.sawfunnyskeleton and self.funnyskeletonvideo == nil then
+        return false
+    end
+
+    if self.sawfunnyskeleton then return end
+    if MathUtils.randomInt(0, 100) >= 15 then return end
+
+    self.sawfunnyskeleton = true
+
+    self.funnyskeletonvideo = Video("whatwasthat", false, 0, 0, 640, 480)
+    self.funnyskeletonvideo.parallax_x, self.funnyskeletonvideo.parallax_y = 0, 0
+    self.funnyskeletonvideo:addFX(ShaderFX(Assets.getShader("chromakey"), {
+        ["keyColor"] = { 0.0, 1.0, 0.0, 1.0 }, -- Pure green (R=0, G=1, B=0)
+        ["threshold"] = 0.4,         -- Adjust the threshold for green color tolerance
+    }), 66)
+    self.funnyskeletonvideo:play()
+    Game.stage:addChild(self.funnyskeletonvideo)
 end
 
 return lib

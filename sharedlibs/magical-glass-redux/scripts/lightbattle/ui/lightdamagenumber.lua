@@ -84,6 +84,11 @@ function LightDamageNumber:init(msg_type, arg, x, y, color, enemy)
     self.kill_timer = 0
     self.do_once = false
     self.kill_others = false
+    self.kill_condition = function ()
+        return true
+    end
+    self.kill_condition_succeed = false
+    self.gauge = nil
 end
 
 function LightDamageNumber:onAdd(parent)
@@ -134,6 +139,10 @@ function LightDamageNumber:update()
         self:remove()
         self.enemy.active_msg = self.enemy.active_msg - 1
         return
+    end
+    
+    if self.kill_condition_succeed or self.kill_condition() then
+        self.kill_condition_succeed = true
     end
 end
 

@@ -9,9 +9,9 @@ function MicController:init()
 	self.mic_names = {}
 	for i = 1, #self.mic_inputs do
 		local mic_name = self.mic_inputs[i]:getName() or "Microphone "..tostring(i)
-		if mic_name and Utils.split(mic_name, "(", true)[2] then
-			mic_name = Utils.split(mic_name, "(", true)[2]
-			mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+		if mic_name and StringUtils.split(mic_name, "(", true)[2] then
+			mic_name = StringUtils.split(mic_name, "(", true)[2]
+			mic_name = StringUtils.sub(mic_name, 1, utf8.len(mic_name)-1)
 		end
 		self.mic_names[i] = mic_name
 	end
@@ -133,11 +133,11 @@ function MicController:update()
 				end
 				us = (alpha * us) + ((1 - alpha) * self.us_old)
 				self.us_old = us
-				self.lerp_mic_volume = Utils.clamp(us * math.max(0.01, self.mic_sensitivity) * 0.05, 0, 100)
+				self.lerp_mic_volume = MathUtils.clamp(us * math.max(0.01, self.mic_sensitivity) * 0.05, 0, 100)
 			end
 			self.mic_timer = 0
 		end
-		self.mic_volume = Utils.lerp(self.mic_volume, self.lerp_mic_volume, DTMULT)
+		self.mic_volume = MathUtils.lerp(self.mic_volume, self.lerp_mic_volume, DTMULT)
 	end
 	self.mic_volume_real = self.mic_volume_real + ((self.mic_volume - self.mic_volume_real) * 0.25*DTMULT)
 end
@@ -165,9 +165,9 @@ function MicController:initMics()
 		end
 		for i = 1, #self.mic_inputs do
 			local mic_name = self.mic_inputs[i]:getName() or "Microphone"..tostring(i)
-			if mic_name and Utils.split(mic_name, "(", true)[2] then
-				mic_name = Utils.split(mic_name, "(", true)[2]
-				mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name)-1)
+			if mic_name and StringUtils.split(mic_name, "(", true)[2] then
+				mic_name = StringUtils.split(mic_name, "(", true)[2]
+				mic_name = StringUtils.sub(mic_name, 1, utf8.len(mic_name)-1)
 			end
 			self.mic_names[i] = mic_name
 		end
@@ -228,13 +228,13 @@ function MicController:draw()
 	end
 	if DEBUG_RENDER and (self.mic_recording or self.right_click_mic ~= 0) then
 		love.graphics.setLineWidth(4)
-		love.graphics.setColor(Utils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))
 		love.graphics.line(20, 20, 20+(200*0.1), 20)
-		love.graphics.setColor(Utils.mergeColor(COLORS["lime"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS["lime"], COLORS["black"], 0.5))
 		love.graphics.line(20+(200*0.1), 20, 20+(200*0.6), 20)
-		love.graphics.setColor(Utils.mergeColor(COLORS["yellow"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS["yellow"], COLORS["black"], 0.5))
 		love.graphics.line(20+(200*0.6), 20, 20+(200*0.9), 20)
-		love.graphics.setColor(Utils.mergeColor(COLORS["red"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS["red"], COLORS["black"], 0.5))
 		love.graphics.line(20+(200*0.9), 20, 20+200, 20)
 		love.graphics.setColor(COLORS["aqua"])
 		if self.mic_volume > 10 then

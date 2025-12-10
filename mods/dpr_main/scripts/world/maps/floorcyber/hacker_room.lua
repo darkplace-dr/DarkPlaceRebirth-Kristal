@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,9 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {
-    ["border"] = "cyber"
+    ["border"] = "cyber",
+    ["music"] = "deltarune/alley_ambience"
   },
   tilesets = {},
   layers = {
@@ -65,7 +66,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 360,
@@ -78,7 +79,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -91,7 +92,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 360,
@@ -104,7 +105,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 360,
@@ -117,7 +118,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 480,
           y = 280,
@@ -130,7 +131,7 @@ return {
         {
           id = 17,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 240,
@@ -143,7 +144,7 @@ return {
         {
           id = 18,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 120,
           y = 280,
@@ -172,7 +173,7 @@ return {
         {
           id = 12,
           name = "digitalmg",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 360,
@@ -185,7 +186,7 @@ return {
         {
           id = 13,
           name = "digitalmg",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 280,
@@ -214,7 +215,7 @@ return {
         {
           id = 2,
           name = "digital_bg",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -227,7 +228,7 @@ return {
         {
           id = 11,
           name = "npc",
-          type = "",
+          class = "",
           shape = "point",
           x = 320,
           y = 300,
@@ -243,7 +244,7 @@ return {
         {
           id = 19,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 480,
@@ -252,8 +253,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floorcyber/street_1",
-            ["marker"] = "elevator"
+            ["map"] = "floorcyber/shops",
+            ["marker"] = "entry_hacker"
           }
         }
       }
@@ -275,7 +276,20 @@ return {
         {
           id = 5,
           name = "spawn",
-          type = "",
+          class = "",
+          shape = "point",
+          x = 320,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 20,
+          name = "entry",
+          class = "",
           shape = "point",
           x = 320,
           y = 440,

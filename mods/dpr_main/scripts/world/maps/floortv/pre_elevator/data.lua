@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,10 +10,11 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 50,
+  nextobjectid = 52,
   properties = {
     ["border"] = "teevie",
-    ["music"] = "deltarune/tv_world"
+    ["music"] = "deltarune/tv_world",
+    ["name"] = "TV Floor - Lobby"
   },
   tilesets = {
     {
@@ -46,7 +47,7 @@ return {
         {
           id = 30,
           name = "teevie_bg",
-          type = "",
+          class = "",
           shape = "point",
           x = 0,
           y = 0,
@@ -171,7 +172,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -184,7 +185,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -197,7 +198,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 120,
@@ -210,7 +211,7 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 120,
@@ -223,7 +224,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 400,
           y = 120,
@@ -236,7 +237,7 @@ return {
         {
           id = 16,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 520,
           y = 120,
@@ -249,7 +250,7 @@ return {
         {
           id = 28,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 734,
           y = 240,
@@ -262,7 +263,7 @@ return {
         {
           id = 29,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 166,
           y = 240,
@@ -291,7 +292,7 @@ return {
         {
           id = 38,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 860,
           y = 240,
@@ -304,7 +305,7 @@ return {
         {
           id = 39,
           name = "teevie_light",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 60,
           y = 240,
@@ -317,7 +318,7 @@ return {
         {
           id = 40,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 40,
           y = 120,
@@ -330,7 +331,7 @@ return {
         {
           id = 41,
           name = "teevie_screen",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 840,
           y = 120,
@@ -359,7 +360,7 @@ return {
         {
           id = 22,
           name = "elevatordoor",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 420,
           y = 120,
@@ -391,7 +392,7 @@ return {
         {
           id = 9,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 240,
           y = 209,
@@ -404,7 +405,7 @@ return {
         {
           id = 11,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 314,
@@ -419,7 +420,7 @@ return {
         {
           id = 12,
           name = "funny_stanchion",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 209,
@@ -432,7 +433,7 @@ return {
         {
           id = 21,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 440,
           y = 100,
@@ -448,7 +449,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 280,
@@ -462,7 +463,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 720,
           y = 280,
@@ -476,7 +477,7 @@ return {
         {
           id = 37,
           name = "teevie_marquee",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 420,
           y = 20,
@@ -491,7 +492,7 @@ return {
         {
           id = 43,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 960,
           y = 240,
@@ -507,7 +508,7 @@ return {
         {
           id = 48,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 240,
@@ -519,6 +520,19 @@ return {
             ["map"] = "floortv/stealthzone",
             ["marker"] = "entry_right"
           }
+        },
+        {
+          id = 51,
+          name = "savepoint",
+          class = "",
+          shape = "rectangle",
+          x = 808,
+          y = 236,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -539,7 +553,7 @@ return {
         {
           id = 32,
           name = "entry_elevator",
-          type = "",
+          class = "",
           shape = "point",
           x = 480,
           y = 190,
@@ -552,7 +566,7 @@ return {
         {
           id = 45,
           name = "entry_right",
-          type = "",
+          class = "",
           shape = "point",
           x = 920,
           y = 300,
@@ -565,7 +579,7 @@ return {
         {
           id = 46,
           name = "entry_left",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 300,

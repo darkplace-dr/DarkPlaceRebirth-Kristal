@@ -61,7 +61,7 @@ function Sprite:init(texture, x, y, width, height, path)
     self.anim_duration = -1
     self.anim_callback = nil
     self.anim_waiting = 0
-    self.anim_wait_func = function(s) self.anim_waiting = s or 0; coroutine.yield() end
+    self.anim_wait_func = function(s) self.anim_waiting = self.anim_waiting + (s or 0); coroutine.yield() end
 
     self:resetCrossFade()
 end
@@ -183,7 +183,7 @@ function Sprite:setTextureExact(texture)
     self.texture_path = Assets.getTextureID(texture)
     if not self.texture then
         if texture ~= nil then
-            Kristal.Console:warn("Texture not found: " .. Utils.dump(texture))
+            Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
 
 			if not (self.disallow_replacement_texture or (self.actor and self.actor.disallow_replacement_texture)) then
 				self.texture = Assets.getTexture("ui/missing_texture")
@@ -207,6 +207,11 @@ function Sprite:setTextureExact(texture)
             self.width = self.texture:getWidth()
             self.height = self.texture:getHeight()
         end
+    end
+
+    -- HACK
+    if not self.texture_path then
+        self.texture_path = Assets.getTextureID(self.texture)
     end
 end
 
@@ -264,6 +269,7 @@ end
 ---@overload fun(self: Sprite, anim: {[1]: string|table, [2]: function, callback: fun(self: Sprite), duration: number, frames: (number|string)[], next: string|table})
 ---@overload fun(self: Sprite, anim: {[1]: function, callback: fun(self: Sprite), duration: number, frames: (number|string)[], next: string|table})
 ---@overload fun(self: Sprite, anim: fun(wait: fun(time: number)))
+---@overload fun(self: Sprite, anim: string)
 function Sprite:setAnimation(anim)
     self:stop(true)
     self.anim_duration = -1
@@ -290,7 +296,7 @@ function Sprite:setAnimation(anim)
         if anim.next then
             local next = anim.next
             if type(anim.next) == "table" then
-                next = Utils.pick(anim.next)
+                next = TableUtils.pick(anim.next)
             end
             local old_callback = self.anim_callback
             self.anim_callback = function(s)
@@ -471,7 +477,7 @@ end
 function Sprite:onClone(src)
     super.onClone(self, src)
 
-    self.anim_wait_func = function(s) self.anim_waiting = s or 0; coroutine.yield() end
+    self.anim_wait_func = function(s) self.anim_waiting = self.anim_waiting + (s or 0); coroutine.yield() end
     if self.anim_routine and coroutine.status(self.anim_routine) ~= "dead" then
         self.anim_routine = coroutine.create(self.anim_routine_func)
         coroutine.resume(self.anim_routine, self, self.anim_wait_func)
@@ -483,16 +489,16 @@ function Sprite:update()
         self:stop(true)
     end
     if self.crossfade_speed ~= 0 and self.crossfade_alpha ~= 1 then
-        self.crossfade_alpha = Utils.approach(self.crossfade_alpha, 1, self.crossfade_speed*DTMULT)
+        self.crossfade_alpha = MathUtils.approach(self.crossfade_alpha, 1, self.crossfade_speed * DTMULT)
         if self.crossfade_alpha == 1 and self.crossfade_after then
             self.crossfade_after(self)
         end
     end
     if self.playing then
         if self.anim_waiting > 0 then
-            self.anim_waiting = Utils.approach(self.anim_waiting, 0, DT * self.anim_speed)
+            self.anim_waiting = self.anim_waiting - (DT * self.anim_speed)
         end
-        if self.anim_waiting == 0 and coroutine.status(self.anim_routine) == "suspended" then
+        if self.anim_waiting <= 0 and coroutine.status(self.anim_routine) == "suspended" then
             coroutine.resume(self.anim_routine, self, self.anim_wait_func)
         end
         if coroutine.status(self.anim_routine) == "dead" then
@@ -505,7 +511,7 @@ function Sprite:update()
     end
     if self.anim_callback then
         if self.anim_duration > 0 then
-            self.anim_duration = Utils.approach(self.anim_duration, 0, DT)
+            self.anim_duration = MathUtils.approach(self.anim_duration, 0, DT)
         elseif self.anim_duration == 0 then
             self:stop(true)
 
@@ -522,10 +528,10 @@ function Sprite:draw()
     local r,g,b,a = self:getDrawColor()
     local function drawSprite(...)
         if self.crossfade_alpha > 0 and self.crossfade_texture ~= nil then
-            Draw.setColor(r, g, b, self.crossfade_out and Utils.lerp(a, 0, self.crossfade_alpha) or a)
+            Draw.setColor(r, g, b, self.crossfade_out and MathUtils.lerp(a, 0, self.crossfade_alpha) or a)
             Draw.draw(self.texture, ...)
 
-            Draw.setColor(r, g, b, Utils.lerp(0, a, self.crossfade_alpha))
+            Draw.setColor(r, g, b, MathUtils.lerp(0, a, self.crossfade_alpha))
             Draw.draw(self.crossfade_texture, ...)
         else
             Draw.setColor(r, g, b, a)

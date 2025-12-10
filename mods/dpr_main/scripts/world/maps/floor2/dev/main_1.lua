@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 45,
+  nextobjectid = 47,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev",
@@ -429,7 +429,7 @@ return {
           properties = {
             ["facing"] = "down",
             ["marker"] = "shop",
-            ["shop"] = "shadowsalesman"
+            ["shop"] = "jaru"
           }
         },
         {

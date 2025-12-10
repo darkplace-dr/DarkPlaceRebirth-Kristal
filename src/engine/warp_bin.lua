@@ -40,7 +40,7 @@ Kristal.warp_bin_codes = {
             cutscene:text("* test uwu.")
         end,
     },
-    ["FLOORONE"] = { result = "main_hub", mod = "dpr_main" },
+    ["FLOORONE"] = { result = "floor1/main", mod = "dpr_main" },
     ["GIMMICK"] = { result = "gimmick_test/gimmick_test1", mod = "dpr_main" },
     ["SLIDER"] = { result = "slider_start", mod = "dpr_main" },
     ["WIFIDOWN"] = { result = "googlefield", mod = "dpr_main" },
@@ -51,6 +51,16 @@ Kristal.warp_bin_codes = {
         end,
     },
 }
+-- i refuse to lower my softcoding standarts
+package.loaded["src/engine/warps"] = nil
+local warps = require("src/engine/warps")
+if warps then
+    local loadedWarps = warps:loadWarps()
+    for warpName,warpValue in pairs(loadedWarps) do
+        Kristal.warp_bin_codes[warpName] = warpValue
+        -- a b c d e f g
+    end
+end
 local gray_area_info = {
     result = function(cutscene)
         Game:setFlag("greyarea_exit_to", {Game.world.map.id, Game.world.player.x, Game.world.player.y})
@@ -96,6 +106,7 @@ local sonic_cd_message = {
         cutscene:fadeOut(0.5, { wait = true })
         cutscene:wait(1)
 		song:stop()
+		song:remove()
 		message:remove()
         cutscene:fadeIn(0.5, { music = true, wait = true })
     end,

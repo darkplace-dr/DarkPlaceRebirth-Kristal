@@ -1,0 +1,17 @@
+{
+    "id": "pippins",
+    "authors": [
+        "mofo:jp",     // original creator of the library
+        "J.A.R.U.",    // slightly modified the library for DPR
+    ],
+
+    "version": "v1.0.0",
+    "engineVer": "v0.10.0-dev",
+	
+    "config": {
+        // Sets Pippins' stats to how they are in Chapter 4's code (8 AT and 30 D$).
+        // Also removes the "Bribe" ACT as it doesn't exist in Chapter 4's code.
+        // Defaults to "false".
+        "ch4_stats": false,
+    }
+}

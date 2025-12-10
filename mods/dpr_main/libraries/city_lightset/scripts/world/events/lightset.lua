@@ -24,15 +24,15 @@ function Lightset:init(data)
         sp:setScaleOrigin(0, 1)
         self:addChild(sp)
 
-        sp.barsiner     = Utils.random(4600)
-        sp.scale_y      = Utils.random(1) * self.scale_y
-        local r, g, b   = Utils.hsvToRgb((i * 255 / self.l)/255, 128/255, 255/255)
+        sp.barsiner     = MathUtils.random(4600)
+        sp.scale_y      = MathUtils.random(1) * self.scale_y
+        local r, g, b   = ColorUtils.HSVToRGB((i * 255 / self.l)/255, 128/255, 255/255)
         sp.color        = {r, g, b}
     end
 end
 
 function Lightset:getDebugInfo()
-    local info = super:getDebugInfo(self)
+    local info = super.getDebugInfo(self)
     for i, spr in pairs(self.sprites) do
         table.insert(info, "sprite ".. i .. " y_scale: " .. spr.scale_y)
     end
@@ -48,7 +48,7 @@ function Lightset:draw()
     for i=0, math.ceil(self.l - 1) do
         local sp = self.sprites[i]
         if self.mode < 2 then
-            sp.scale_y = Utils.lerp(sp.scale_y, 0, 0.06 * DTMULT)
+            sp.scale_y = MathUtils.lerp(sp.scale_y, 0, 0.06 * DTMULT)
             if sp.scale_y > 0 then
                 sp.scale_y = sp.scale_y - (0.02 * DTMULT)
             end
@@ -59,14 +59,14 @@ function Lightset:draw()
         end
         if self.mode == 0 then
             if sp.scale_y < (0.8 * self.h) then
-                if math.floor(Utils.random(12)) == 0 then
+                if MathUtils.randomInt(12) == 0 then
                     sp.scale_y = self.h
                 end
             end
         end
         if self.mode == 1 then
             if self.timer >= self.timerthreshold then
-                sp.scale_y = math.min(sp.scale_y + Utils.random(0.5 * self.h), self.h)
+                sp.scale_y = math.min(sp.scale_y + MathUtils.random(0.5 * self.h), self.h)
             end
         end
 

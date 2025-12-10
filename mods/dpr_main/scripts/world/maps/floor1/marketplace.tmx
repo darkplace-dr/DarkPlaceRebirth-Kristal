@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="65">
+ <editorsettings>
+  <export target="marketplace.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="mainhub"/>
+  <property name="music" value="mainhub"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/main_area.tsx"/>
+ <tileset firstgid="209" source="../../tilesets/other-objects.tsx"/>
+ <tileset firstgid="213" source="../../tilesets/hub_objects.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="31" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,67,67,67,67,67,67,67,67,67,67,67,67,67,67,67,0,0,0,0,0,0,0,0,
+0,0,0,0,0,54,55,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,53,54,0,0,0,0,0,
+0,0,0,0,55,67,68,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,66,67,53,54,54,54,54,
+67,67,67,67,68,80,81,0,93,93,93,93,93,93,93,93,93,93,93,93,93,93,93,0,79,80,66,67,67,67,67,
+80,80,80,80,81,93,94,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,7,92,93,79,80,80,80,80,
+93,93,93,93,94,4,2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,5,92,93,93,93,93,
+2,2,2,2,2,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,2,2,2,2,2,
+28,28,28,28,28,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,28,28,28,28,28,
+0,0,0,0,0,27,28,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,28,29,0,0,0,0,0,
+0,0,0,0,0,0,0,19,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,20,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="31" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,134,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,131,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,147,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,144,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,160,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,157,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,170,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,186,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,183,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="2" x="1040" y="240" width="200" height="40"/>
+  <object id="6" x="649" y="180" width="100" height="40"/>
+  <object id="21" x="0" y="240" width="200" height="40"/>
+  <object id="37" x="320" y="40" width="600" height="160"/>
+  <object id="39" x="960" y="120" width="80" height="120"/>
+  <object id="40" x="200" y="120" width="80" height="120"/>
+  <object id="46" x="280" y="240">
+   <polygon points="0,0 40,-40 40,-160 0,-160"/>
+  </object>
+  <object id="48" x="920" y="200">
+   <polygon points="0,0 40,40 40,-120 0,-120"/>
+  </object>
+  <object id="54" x="320" y="440" width="600" height="40"/>
+  <object id="55" x="320" y="440">
+   <polygon points="0,0 -120,0 -120,-40 -40,-40 0,0"/>
+  </object>
+  <object id="56" x="920" y="440">
+   <polygon points="0,0 40,-40 120,-40 120,0"/>
+  </object>
+  <object id="57" x="0" y="360" width="200" height="40"/>
+  <object id="58" x="1040" y="360" width="200" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="14" name="transition" x="1240" y="280" width="40" height="80">
+   <properties>
+    <property name="map" value="floor1/main"/>
+    <property name="marker" value="west2"/>
+   </properties>
+  </object>
+  <object id="26" name="transition" x="-40" y="280" width="40" height="80">
+   <properties>
+    <property name="marker" value="exit_shop"/>
+    <property name="shop" value="mousehole"/>
+   </properties>
+  </object>
+  <object id="28" name="npc" x="539" y="220">
+   <properties>
+    <property name="actor" value="magolor"/>
+    <property name="cutscene" value="hub.magshop"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="29" name="npc" x="700" y="210">
+   <properties>
+    <property name="actor" value="sans"/>
+    <property name="cond" value="Game:getFlag(&quot;FUN&quot;) &gt; 1"/>
+    <property name="cutscene" value="hub.sansshop"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="33" name="npc" x="381" y="220">
+   <properties>
+    <property name="actor" value="morshu"/>
+    <property name="cutscene" value="hub.morshu"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="34" name="npc" x="859" y="220">
+   <properties>
+    <property name="actor" value="lemonade_stand"/>
+    <property name="cutscene" value="hub.lemonade"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="53" gid="211" x="642" y="220" width="114" height="140"/>
+  <object id="59" name="npc" x="1000" y="280">
+   <properties>
+    <property name="actor" value="boxer"/>
+    <property name="text1">* (Shuffle  shuffle.)
+(I am a box. People put stuff on me.)</property>
+    <property name="text2" value="* (I eat that stuff. Such is the way of the box.)"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="63" gid="229" x="210" y="270" width="60" height="88"/>
+  <object id="64" name="interactable" x="210.005" y="229.253" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="hub.vending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers" visible="0">
+  <object id="15" name="entry" x="1200" y="320">
+   <point/>
+  </object>
+  <object id="16" name="spawn" x="630" y="360">
+   <point/>
+  </object>
+  <object id="27" name="exit_shop" x="40" y="320">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

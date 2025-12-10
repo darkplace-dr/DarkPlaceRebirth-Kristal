@@ -197,6 +197,20 @@ function preview:draw()
     end
     love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
+    love.graphics.setColor(1, 1, 1, self.fade)
+	
+    if self.naming_video then
+        local vid_alpha = Utils.approach(0, 0.5, self.naming_video_fade_timer)
+
+        love.graphics.setColor(0, 0, 0, vid_alpha * 0.8 * self.fade)
+        love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        love.graphics.setColor(1, 1, 1, vid_alpha * self.fade)
+        local vid_w, vid_h = self.naming_video:getWidth(), self.naming_video:getHeight()
+        local vid_scale = math.min(SCREEN_WIDTH/vid_w, SCREEN_HEIGHT/vid_h)
+        love.graphics.draw(self.naming_video, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0, vid_scale, vid_scale, vid_w/2, vid_h/2)
+	end
+
     -- gradient background ported over from Asgore's fight in UT
     local gradient_weave = 1.5 + math.sin(self.bg_gradient_siner / 20)
     for i = 0, 10 do
@@ -213,18 +227,6 @@ function preview:draw()
     end
 
     love.graphics.setColor(1, 1, 1, self.fade)
-
-    if self.naming_video then
-        local vid_alpha = Utils.approach(0, 0.5, self.naming_video_fade_timer)
-
-        love.graphics.setColor(0, 0, 0, vid_alpha * 0.8 * self.fade)
-        love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-
-        love.graphics.setColor(1, 1, 1, vid_alpha * self.fade)
-        local vid_w, vid_h = self.naming_video:getWidth(), self.naming_video:getHeight()
-        local vid_scale = math.min(SCREEN_WIDTH/vid_w, SCREEN_HEIGHT/vid_h)
-        love.graphics.draw(self.naming_video, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0, vid_scale, vid_scale, vid_w/2, vid_h/2)
-	end
 
     for _,particle in ipairs(self.particles) do
         love.graphics.setColor(1, 1, 1, particle.radius / particle.max_radius * self.fade)
@@ -286,7 +288,7 @@ end
 
 function preview:drawSplashText()
     love.graphics.setColor(1, 1, 0, self.fade)
-    local font = Assets.getFont("main")
+    local font = Assets.getFont("plain")
     love.graphics.setFont(font)
     local scale = 1 + math.sin(self.splash_timer) / 10
     local splash_angle, splash_x, splash_y
@@ -310,6 +312,18 @@ function preview:drawSplashText()
         love.graphics.rectangle("fill", -font:getWidth(self.splash)/2*scale, 0, font:getWidth(self.splash)*scale, font:getHeight()*scale)
         love.graphics.pop()
     end
+    --text border
+    love.graphics.setColor(0, 0, 0, self.fade)
+    love.graphics.print(self.splash, splash_x - 2, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x - 2, splash_y - 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x - 2, splash_y + 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x + 2, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x + 2, splash_y - 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x + 2, splash_y + 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x, splash_y - 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    love.graphics.print(self.splash, splash_x, splash_y + 2, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
+    --
     love.graphics.setColor(not self.april_fools and {1, 1, 0} or {0, 0, 1}, self.fade)
     love.graphics.print(self.splash, splash_x, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
 end
@@ -344,7 +358,10 @@ function preview:require(module, ...)
 end
 
 function preview:resetDessSpawn()
-    if os.date("*t").month == 12 then
+    local date = os.date("*t")
+    if date.month == 12 and date.day == 25 then
+        self.particle_interval_dess = Utils.random(0.05, 0.2, 0.01)
+    elseif date.month == 12 then
         self.particle_interval_dess = Utils.random(1*2.2, 6.9, 0.25)
     else
         self.particle_interval_dess = Utils.random(1*2.2, 6.9*4*20*3, 0.25)

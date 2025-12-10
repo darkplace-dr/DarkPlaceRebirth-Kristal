@@ -1,0 +1,27 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/floorchurch/pre_elevator.tmx",
+            "height": 800,
+            "width": 2000,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/floorchurch/pianos.tmx",
+            "height": 480,
+            "width": 1200,
+            "x": 400,
+            "y": 880
+        },
+        {
+            "fileName": "maps/floorchurch/guei_stairs.tmx",
+            "height": 1600,
+            "width": 1120,
+            "x": 2080,
+            "y": -1040
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

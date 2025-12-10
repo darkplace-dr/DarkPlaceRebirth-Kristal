@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="77">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="87">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -69,12 +69,17 @@
  </layer>
  <objectgroup id="6" name="objects_glass">
   <object id="29" name="voidglass" x="120" y="540" width="120" height="40"/>
-  <object id="61" name="magicglass" x="560" y="200" width="240" height="120"/>
   <object id="76" name="voidglass" x="80" y="540" width="40" height="40">
    <properties>
     <property name="broken" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="81" name="voidglass" x="560" y="280" width="160" height="40"/>
+  <object id="82" name="magicglass" x="640" y="240" width="160" height="40"/>
+  <object id="83" name="voidglass" x="560" y="200" width="120" height="40"/>
+  <object id="84" name="voidglass" x="560" y="240" width="80" height="40"/>
+  <object id="85" name="magicglass" x="720" y="280" width="80" height="40"/>
+  <object id="86" name="magicglass" x="680" y="200" width="120" height="40"/>
  </objectgroup>
  <objectgroup id="11" name="objects_crystal">
   <object id="49" name="neocrystal" x="244" y="70" width="112" height="160">

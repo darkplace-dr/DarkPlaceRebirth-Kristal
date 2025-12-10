@@ -6,15 +6,15 @@ function Basic:init()
 end
 
 function Basic:onStart()
-    self:spawnBullet("soulmarker", 320, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 320, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 370, 220, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 170, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 120, math.rad(180), 0)
-    self:spawnBullet("soulmarker", 270, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 320, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 370, 220, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 170, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 120, math.rad(180), 0)
+    self:spawnBullet("annabelle/soulmarker", 270, 220, math.rad(180), 0)
     self.timer:every(0.3, function()
         -- Get all enemies that selected this wave as their attack
         local attackers = self:getAttackers()
@@ -32,10 +32,10 @@ function Basic:onStart()
             self.animation.sprite:set("attack")
             Assets.playSound("wing")
             if Input.down("up") and not Input.down("down") then 
-                self:spawnBullet("arrow_long", x, y, angle, 12, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 120)
             else if not Input.down("up") and Input.down("down") then 
-                    self:spawnBullet("arrow_long", x, y, angle, 12, 220)
-                else self:spawnBullet("arrow_long", x, y, angle, 12, 170) end
+                    self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 220)
+                else self:spawnBullet("annabelle/arrow_long", x, y, angle, 12, 170) end
             end
         end
     end)
@@ -54,10 +54,10 @@ function Basic:onStart()
 
             -- Spawn arrow_short angled towards the player with speed 8 (see scripts/battle/bullets/arrow_short.lua)
             if Input.down("up") and not Input.down("down") then 
-                self:spawnBullet("arrow_long", x, y, angle, 6, 120)
+                self:spawnBullet("annabelle/arrow_long", x, y, angle, 6, 120)
             else if not Input.down("up") and Input.down("down") then 
-                    self:spawnBullet("arrow_long", x, y, angle, 6, 220)
-                else self:spawnBullet("arrow_long", x, y, angle, 6, 170) end
+                    self:spawnBullet("annabelle/arrow_long", x, y, angle, 6, 220)
+                else self:spawnBullet("annabelle/arrow_long", x, y, angle, 6, 170) end
             end
         end
     end)

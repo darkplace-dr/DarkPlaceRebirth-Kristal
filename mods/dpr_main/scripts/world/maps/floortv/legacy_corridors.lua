@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 70,
+  nextobjectid = 76,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -516,6 +516,64 @@ return {
             ["actor"] = "ramb",
             ["cutscene"] = "tvfloor.ramb"
           }
+        },
+        {
+          id = 70,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 680,
+          y = 580,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "shuttah",
+            ["cond"] = "Game:hasRecruit(\"shuttah\")",
+            ["cutscene"] = "recruits.shuttah"
+          }
+        },
+        {
+          id = 72,
+          name = "transition",
+          type = "",
+          shape = "polygon",
+          x = 120,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -80, y = 80 },
+            { x = -80, y = 40 },
+            { x = 0, y = -40 }
+          },
+          properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
+            ["map"] = "floortv/hall_of_fame",
+            ["marker"] = "entry_legacy",
+            ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 75,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 169.248,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.green_sellding",
+            ["solid"] = false
+          }
         }
       }
     },
@@ -797,24 +855,6 @@ return {
           properties = {}
         },
         {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 40,
-          y = 640,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 80, y = -80 },
-            { x = 0, y = -80 }
-          },
-          properties = {}
-        },
-        {
           id = 53,
           name = "",
           type = "",
@@ -889,6 +929,19 @@ return {
           shape = "point",
           x = 820,
           y = 1080,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 74,
+          name = "entry_hall_of_fame",
+          type = "",
+          shape = "point",
+          x = 140,
+          y = 600,
           width = 0,
           height = 0,
           rotation = 0,

@@ -52,6 +52,7 @@ function actor:init()
 
         ["battle/hurt"]          = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]        = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]       = {"battle/defeat", 1/15, false},
 
 		["battle/transition"]    = {"battle/transition", 1/15, false},
         ["battle/intro"]   		 = {"battle/intro", 1/15, false},
@@ -110,8 +111,10 @@ function actor:init()
         ["angreh"] = {-20, -10},
         ["oc"] = {-20, -10},
         ["paneton"] = {-20, -10},
+        ["dab"] = {-20, -10},
         ["sneak/left"] = {-5, 3},
         ["sneak/right"] = {7, 3},
+        ["teehee"] = {-4, 0},
     }
 
     self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}

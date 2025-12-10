@@ -42,10 +42,10 @@ function test:doCutscene(cutscene, target)
 	local jamm_input_2 = false
 	local miss = false
 	local dess_damage = ((Game:getPartyMember("dess"):getStat("attack") * 170) / 20) - (target.defense * 3)
-	local jamm_damage = ((Game:getPartyMember("jamm"):getStat("attack") * 170) / 20) - (target.defense * 3)
+	local jamm_damage = math.max((((Game:getPartyMember("jamm"):getStat("attack") * 170) / 20) - (target.defense * 3)), 50)
 	local marcy
 	if Game:getFlag("marcy_joined") then
-		marcy = Sprite("world/npcs/marcy/right_1", jamm.x-30, jamm.y)
+		marcy = Sprite("world/npcs/marcy/walk/right_1", jamm.x-30, jamm.y)
 		marcy:setScale(2,2)
 		marcy:setOrigin(0.5,1)
 		Game.battle:addChild(marcy)
@@ -85,13 +85,13 @@ function test:doCutscene(cutscene, target)
 			cutscene:slideTo(dess, dess_sx, dess_sy, 0.5)
 			cutscene:wait(cutscene:slideTo(jamm, jamm_sx, jamm_sy, 0.5))
 			if Game:getFlag("marcy_joined") then
-				marcy:remove()
-				jamm:setActor("jammarcy")
-				Game.battle.timer:after(1/30, function()
-					cutscene:setAnimation(jamm, "battle/idle")
-				end)
-				cutscene:wait(1/30)
-			end
+                jamm:setActor("jammarcy")
+                marcy:remove()
+                Game.battle.timer:after(2/30, function()
+                    jamm:setSprite("battle/idle", 0.2, true)
+                end)
+                cutscene:wait(2/30)
+            end
 			return
 		end
 	end
@@ -132,13 +132,13 @@ function test:doCutscene(cutscene, target)
 		end)
 		cutscene:wait(function() return can_proceed end)
 		if Game:getFlag("marcy_joined") then
-			marcy:remove()
-			jamm:setActor("jammarcy")
-			Game.battle.timer:after(1/30, function()
-				cutscene:setAnimation(jamm, "battle/idle")
-			end)
-			cutscene:wait(1/30)
-		end
+            jamm:setActor("jammarcy")
+            marcy:remove()
+            Game.battle.timer:after(2/30, function()
+                jamm:setSprite("battle/idle", 0.2, true)
+            end)
+            cutscene:wait(2/30)
+        end
 		return
 	end
 	cutscene:during(function()
@@ -190,13 +190,13 @@ function test:doCutscene(cutscene, target)
 		cutscene:wait(cutscene:moveTo(jamm, jamm_sx, jamm_sy, 8))
 		cutscene:wait(function() return dess.y == dess_sy end)
 		if Game:getFlag("marcy_joined") then
-			marcy:remove()
-			jamm:setActor("jammarcy")
-			Game.battle.timer:after(1/30, function()
-				cutscene:setAnimation(jamm, "battle/idle")
-			end)
-			cutscene:wait(1/30)
-		end
+            jamm:setActor("jammarcy")
+            marcy:remove()
+            Game.battle.timer:after(2/30, function()
+                jamm:setSprite("battle/idle", 0.2, true)
+            end)
+            cutscene:wait(2/30)
+        end
 		return
 	end
 	cutscene:setAnimation(dess, "battle/attack")
@@ -270,12 +270,12 @@ function test:doCutscene(cutscene, target)
 	cutscene:wait(cutscene:slideTo(jamm, jamm_sx, jamm_sy, 0.5))
 	cutscene:wait(function() return dess.y == dess_sy end)
 	if Game:getFlag("marcy_joined") then
-		marcy:remove()
 		jamm:setActor("jammarcy")
-		Game.battle.timer:after(1/30, function()
-			cutscene:setAnimation(jamm, "battle/idle")
+		marcy:remove()
+		Game.battle.timer:after(2/30, function()
+			jamm:setSprite("battle/idle", 0.2, true)
 		end)
-		cutscene:wait(1/30)
+		cutscene:wait(2/30)
 	end
 end
 

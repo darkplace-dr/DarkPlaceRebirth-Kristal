@@ -18,6 +18,7 @@ function item:init()
         ["susie"] = 90,
         ["dess"] = 50,
         ["ceroba"] = nil,
+        ["jamm"] = 20,
     }
 
     self.price = 35
@@ -41,6 +42,7 @@ function item:init()
         hero = "Better than nothing.",
         dess = "mmm yummy rocks",
         ceroba = "That's. A rock.",
+        jamm = "I think I chipped my tooth...",
     }
 end
 

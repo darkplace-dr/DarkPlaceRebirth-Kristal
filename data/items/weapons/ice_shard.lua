@@ -48,7 +48,9 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        bor = "This one looks pretty cool!"
+        bor = "This one looks pretty cool!",
+        jamm = "It keeps slipping from my hand!",
+        ceroba = "\"Shard\"? Isn't that just ice?",
     }
 end
 

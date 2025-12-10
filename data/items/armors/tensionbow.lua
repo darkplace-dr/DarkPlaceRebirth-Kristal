@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Gain 10% more tension from\ngrazing bullets"
+    self.description = "Brings back it's lost defensive value.\nGain 10% more tension from grazing bullets"
 
     -- Default shop price (sell price is halved)
     self.price = 400
@@ -49,6 +49,7 @@ function item:init()
     self.reactions = {
         noel = "I feel tense. Good...",
         ceroba = "Feels more tense than usual.",
+        jamm = "Tension's rising...",
     }
 end
 

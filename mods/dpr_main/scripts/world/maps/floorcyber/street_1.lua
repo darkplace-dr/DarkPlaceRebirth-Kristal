@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 47,
+  nextobjectid = 46,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity"
@@ -122,7 +122,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -135,7 +135,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 0,
@@ -148,7 +148,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 680,
           y = 0,
@@ -161,7 +161,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1080,
           y = 0,
@@ -174,7 +174,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 360,
@@ -187,7 +187,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 360,
           y = 360,
@@ -200,7 +200,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1080,
           y = 360,
@@ -213,7 +213,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = -40,
@@ -226,7 +226,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 880,
           y = -40,
@@ -239,7 +239,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 520,
@@ -252,7 +252,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 880,
           y = 520,
@@ -281,7 +281,7 @@ return {
         {
           id = 8,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 560,
           y = 100,
@@ -297,7 +297,7 @@ return {
         {
           id = 17,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 370,
           y = 180,
@@ -310,7 +310,7 @@ return {
         {
           id = 18,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 790,
           y = 180,
@@ -323,7 +323,7 @@ return {
         {
           id = 19,
           name = "traffic_car_generator",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 220,
           y = -40,
@@ -341,7 +341,7 @@ return {
         {
           id = 20,
           name = "traffic_car_generator",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 940,
           y = -40,
@@ -359,7 +359,7 @@ return {
         {
           id = 21,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 390,
           y = 80,
@@ -375,7 +375,7 @@ return {
         {
           id = 22,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 810,
           y = 80,
@@ -391,7 +391,7 @@ return {
         {
           id = 36,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1280,
           y = 160,
@@ -407,7 +407,7 @@ return {
         {
           id = 38,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1090,
           y = 180,
@@ -420,7 +420,7 @@ return {
         {
           id = 39,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 1110,
           y = 80,
@@ -436,7 +436,7 @@ return {
         {
           id = 42,
           name = "traffic_marker",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 90,
           y = 180,
@@ -449,7 +449,7 @@ return {
         {
           id = 43,
           name = "traffic_switch",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 110,
           y = 80,
@@ -465,7 +465,7 @@ return {
         {
           id = 44,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 160,
@@ -476,22 +476,6 @@ return {
           properties = {
             ["map"] = "floorcyber/fireworks",
             ["marker"] = "right"
-          }
-        },
-        {
-          id = 46,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 520,
-          y = 175,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "charjar",
-            ["text1"] = "* I'm overflowing with ENERGY!\nThis area is POWERFUL!"
           }
         }
       }
@@ -513,7 +497,7 @@ return {
         {
           id = 9,
           name = "elevator",
-          type = "",
+          class = "",
           shape = "point",
           x = 620,
           y = 180,
@@ -526,7 +510,7 @@ return {
         {
           id = 25,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 620,
           y = 280,
@@ -539,7 +523,7 @@ return {
         {
           id = 37,
           name = "west",
-          type = "",
+          class = "",
           shape = "point",
           x = 1240,
           y = 280,
@@ -552,7 +536,7 @@ return {
         {
           id = 45,
           name = "left",
-          type = "",
+          class = "",
           shape = "point",
           x = 40,
           y = 280,
@@ -581,7 +565,7 @@ return {
         {
           id = 14,
           name = "trafficarea",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 0,
@@ -594,7 +578,7 @@ return {
         {
           id = 15,
           name = "trafficarea",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 880,
           y = 0,

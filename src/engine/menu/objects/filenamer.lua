@@ -33,6 +33,10 @@ function FileNamer:init(options)
     self.deny_names    = options.deny_names    or mod["namesDeny"]     or {}
     self.name_messages = options.name_messages or mod["namesMessages"] or {}
     
+    if tonumber(os.date("%m")) == 11 then
+        table.insert(self.crash_names, "EUROPE")
+    end
+    
     self.keyboard_mode = options.keyboard_mode or mod["keyboardMode"] or "default"
 
     self.callback = options.on_confirm
@@ -246,7 +250,7 @@ function FileNamer:update()
 
     if self.name_preview then
         if self.state == "CONFIRM" and self.name_zoom < 100 then
-            self.name_zoom = Utils.approach(self.name_zoom, 100, 2 * DTMULT)
+            self.name_zoom = MathUtils.approach(self.name_zoom, 100, 2 * DTMULT)
         end
 
         self.name_preview:setScale(1 + self.name_zoom/100, 1 + self.name_zoom/100)

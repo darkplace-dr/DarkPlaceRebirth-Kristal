@@ -12,9 +12,9 @@ function LightGauge:init(type, amount, x, y, enemy, color)
 
     if not color then
         if self.type == "damage" then
-            self.color = MG_PALETTE["gauge_health"]
+            self.color = PALETTE["action_health"]
         elseif self.type == "mercy" then
-            self.color = MG_PALETTE["gauge_mercy"]
+            self.color = COLORS["yellow"]
         end
     else
         self.color = color
@@ -81,9 +81,9 @@ end
 function LightGauge:draw()
     super.draw(self)
     
-    Draw.setColor(MG_PALETTE["gauge_outline"])
+    Draw.setColor(COLORS["black"])
     love.graphics.rectangle("fill", -1, 7, self.max_value * self.extra_width + 2, self.height + 2)
-    Draw.setColor(MG_PALETTE["gauge_bg"])
+    Draw.setColor(64 / 255, 64 / 255, 64 / 255)
     love.graphics.rectangle("fill", 0, 8, self.max_value * self.extra_width, self.height)
     if self.value > 0 then
         Draw.setColor(self.color)

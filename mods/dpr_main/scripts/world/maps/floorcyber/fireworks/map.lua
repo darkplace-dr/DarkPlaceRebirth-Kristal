@@ -30,7 +30,7 @@ function Room1:update()
 	if self.can_kill then return end
 	self.fireworks_timer = self.fireworks_timer + DTMULT
 	if self.fireworks_timer >= 60 and Game.world.player.x >= 640 and Game.world.player.x <= 2560 then
-		local xpos = Game.world.player.x - 240 + Utils.random(480)
+		local xpos = Game.world.player.x - 240 + MathUtils.random(480)
 		local ypos = self.room_height * 0.5
 		local shape = {"default"}
 		local actor = Game.world.player.actor
@@ -38,10 +38,16 @@ function Room1:update()
 		for _, party in ipairs(Game.world.followers) do
 			local actor = party.actor
 			if actor and actor.id then
-				table.insert(shape, actor.id) 
+				table.insert(shape, actor.id)
 			end
 		end
-		local firework = Firework(xpos, ypos, "world/firework/shape_"..Utils.pick(shape), Utils.pick({0,2,1}))
+		for _, party in ipairs(Game.party) do
+			local assist = party:getAssistID() or nil
+			if assist then
+				table.insert(shape, assist)
+			end
+		end
+		local firework = Firework(xpos, ypos, "world/firework/shape_"..TableUtils.pick(shape), TableUtils.pick({0,2,1})) -- why not .random???
 		firework.layer = Game.world:parseLayer("objects_bg")+1
 		Game.world:addChild(firework)
 		self.fireworks_timer = 0
@@ -59,13 +65,13 @@ function Room1:update()
 				self.fw_shadows_timer = 0
 				self.fw_shadows_active = false
 			else
-				self.fw_shadows_alpha = Utils.lerp(0.6, 0, (self.fw_shadows_timer-25)/15)
+				self.fw_shadows_alpha = MathUtils.lerp(0.6, 0, (self.fw_shadows_timer-25)/15)
 			end
 		else
 			if self.fw_shadows_alpha >= 0.6 then
 				self.fw_shadows_alpha = 0.6
 			else
-				self.fw_shadows_alpha = Utils.lerp(0, 0.6, self.fw_shadows_timer/5)
+				self.fw_shadows_alpha = MathUtils.lerp(0, 0.6, self.fw_shadows_timer/5)
 			end
 		end
 		self:getTileLayer("tiles"):getFX("shadow").amount = self.fw_shadows_alpha

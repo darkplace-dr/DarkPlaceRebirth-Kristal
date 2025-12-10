@@ -124,22 +124,6 @@ function character:getTitle()
     end
 end
 
-function character:getActor(light)
-    if light == nil then
-        light = Game.light
-    end
-    local map = Game.world.map
-    if map.data and map.data.properties.blue_skies then
-        return "hero_sfb"
-    end
-
-    if light then
-        return self.lw_actor or self.actor
-    else
-        return self.actor
-    end
-end
-
 function character:addKarma(ammount)
     local newkarma = self:getFlag("karma") + ammount
     if newkarma > 100 then newkarma = 100 end
@@ -150,6 +134,14 @@ end
 function character:onTurnStart(battler)
     if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
         self:heal(9)
+    end
+    if Game:getFlag("LastTurnJJ") then
+        Game:setFlag("LastTurnJJ", false)
+    else
+        Game:setFlag("JJS1", false)
+        Game:setFlag("JJS2", false)
+        Game:setFlag("JJS3", false)
+        Game:setFlag("JJS4", false)
     end
 end
 

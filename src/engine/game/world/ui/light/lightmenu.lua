@@ -19,7 +19,7 @@ function LightMenu:init()
     self.current_selecting = Game.world.current_selecting or 1
 
     -- Make sure that we're not selecting a menu that doesn't exist...
-    self.current_selecting = Utils.clamp(self.current_selecting, 1, self:getMaxSelecting())
+    self.current_selecting = MathUtils.clamp(self.current_selecting, 1, self:getMaxSelecting())
 
     self.item_selected = 1
 
@@ -85,9 +85,9 @@ function LightMenu:onKeyPressed(key)
 
     if self.state == "MAIN" then
         local old_selected = self.current_selecting
-        if Input.is("up", key)    then self.current_selecting = self.current_selecting - 1 end
+        if Input.is("up", key) then self.current_selecting = self.current_selecting - 1 end
         if Input.is("down", key) then self.current_selecting = self.current_selecting + 1 end
-        self.current_selecting = Utils.clamp(self.current_selecting, 1, self:getMaxSelecting())
+        self.current_selecting = MathUtils.clamp(self.current_selecting, 1, self:getMaxSelecting())
         if old_selected ~= self.current_selecting then
             self.ui_move:stop()
             self.ui_move:play()
@@ -186,14 +186,9 @@ function LightMenu:draw()
     love.graphics.print(chara:getName(), 46, 60 + offset)
 
     love.graphics.setFont(self.font_small)
-    love.graphics.print("LV  "..chara:getLightLV(), 46, 100 + offset)
-    love.graphics.print("HP  "..chara:getHealth().."/"..chara:getStat("health"), 46, 118 + offset)
-    if MagicalGlassLib and Kristal.getLibConfig("magical-glass", "undertale_menu_display") then
-        love.graphics.print(Game:getConfig("lightCurrencyShort"), 46, 136 + offset)
-        love.graphics.print(Game.lw_money, 82, 136 + offset)
-    else
-        love.graphics.print(Utils.padString(Game:getConfig("lightCurrencyShort"), 4)..Game.lw_money, 46, 136 + offset)
-    end
+    love.graphics.print("LV  " .. chara:getLightLV(), 46, 100 + offset)
+    love.graphics.print("HP  " .. chara:getHealth() .. "/" .. chara:getStat("health"), 46, 118 + offset)
+    love.graphics.print(StringUtils.pad(Game:getConfig("lightCurrencyShort"), 4) .. Game.lw_money, 46, 136 + offset)
 
     love.graphics.setFont(self.font)
     if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then

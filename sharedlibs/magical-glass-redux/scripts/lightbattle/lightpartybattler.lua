@@ -33,8 +33,8 @@ function LightPartyBattler:calculateDamage(amount)
     local hp = self.chara:getHealth()
     
     if Game:isLight() then
-        local bonus = MagicalGlassLib.bonus_damage ~= false and hp > 20 and math.min(1 + math.floor((hp - 20) / 10), 8) or 0
-        amount = Utils.round(amount / 5 + bonus - def / 5)
+        local bonus = (MagicalGlassLib.bonus_damage ~= false and self.bonus_damage ~= false) and hp > 20 and math.min(1 + math.floor((hp - 20) / 10), 8) or 0
+        amount = Utils.round(amount + bonus - def / 5)
     else
         local threshold_a = (max_hp / 5)
         local threshold_b = (max_hp / 8)
@@ -57,7 +57,11 @@ function LightPartyBattler:calculateDamage(amount)
 end
 
 function LightPartyBattler:calculateDamageSimple(amount)
-    return math.ceil(amount - (self.chara:getStat("defense")))
+    if Game:isLight() then
+        return math.ceil(amount - (self.chara:getStat("defense") / 5))
+    else
+        return math.ceil(amount - (self.chara:getStat("defense") * 3))
+    end
 end
 
 function LightPartyBattler:getElementReduction(element)
@@ -83,7 +87,14 @@ function LightPartyBattler:getElementReduction(element)
 end
 
 function LightPartyBattler:hurt(amount, exact, color, options)
+    if type(exact) == "string" then
+        exact = false
+        self.bonus_damage = false
+    end
+    
     options = options or {}
+    
+    local swoon = options["swoon"]
     
     self:setSleeping(false)
     Game.battle:shakeCamera(2, 2, 0.35)
@@ -99,7 +110,7 @@ function LightPartyBattler:hurt(amount, exact, color, options)
             amount = math.ceil((amount * self:getElementReduction(element)))
         end
 
-        self:removeHealth(amount)
+        self:removeHealth(amount, swoon)
     else
         if not exact then
             amount = self:calculateDamage(amount)
@@ -111,18 +122,22 @@ function LightPartyBattler:hurt(amount, exact, color, options)
             end
         end
         
-        self:removeHealthBroken(amount)
+        self:removeHealthBroken(amount, swoon)
     end
+    
+    self.bonus_damage = nil
 end
 
-function LightPartyBattler:removeHealth(amount)
+function LightPartyBattler:removeHealth(amount, swoon)
     if (self.chara:getHealth() <= 0) then
         amount = Utils.round(amount / 4)
         self.chara:setHealth(self.chara:getHealth() - amount)
     else
         self.chara:setHealth(self.chara:getHealth() - amount)
         if (self.chara:getHealth() <= 0) then
-            if not Game.battle.multi_mode then
+            if swoon then
+                self.chara:setHealth(-999)
+            elseif not Game.battle.multi_mode then
                 self.chara:setHealth(0)
             else
                 amount = math.abs((self.chara:getHealth() - (self.chara:getStat("health") / 2)))
@@ -130,20 +145,22 @@ function LightPartyBattler:removeHealth(amount)
             end
         end
     end
-    self:checkHealth()
+    self:checkHealth(swoon)
 end
 
-function LightPartyBattler:removeHealthBroken(amount)
+function LightPartyBattler:removeHealthBroken(amount, swoon)
     self.chara:setHealth(self.chara:getHealth() - amount)
     if (self.chara:getHealth() <= 0) then
-        if not Game.battle.multi_mode then
+        if swoon then
+            self.chara:setHealth(-999)
+        elseif not Game.battle.multi_mode then
             self.chara:setHealth(0)
         else
             -- BUG: Use Kris' max health...
             self.chara:setHealth(Utils.round(((-Game.party[1]:getStat("health")) / 2)))
         end
     end
-    self:checkHealth()
+    self:checkHealth(swoon)
 end
 
 function LightPartyBattler:down()
@@ -153,6 +170,10 @@ function LightPartyBattler:down()
         Game.battle:removeAction(Game.battle:getPartyIndex(self.chara.id))
     end
     Game.battle:checkGameOver()
+end
+
+function LightPartyBattler:swoon()
+    self:down()
 end
 
 function LightPartyBattler:setSleeping(sleeping)
@@ -184,12 +205,16 @@ function LightPartyBattler:heal(amount, playsound)
         self.chara:setHealth(math.min(self.chara:getStat("health"), self.chara:getHealth() + amount))
     end
     
-    self:checkHealth()
+    self:checkHealth(false)
 end
 
-function LightPartyBattler:checkHealth()
+function LightPartyBattler:checkHealth(swoon)
     if (not self.is_down) and self.chara:getHealth() <= 0 then
-        self:down()
+        if swoon then
+            self:swoon()
+        else
+            self:down()
+        end
     elseif (self.is_down) and self.chara:getHealth() > 0 then
         self:revive()
     end
@@ -208,12 +233,17 @@ function LightPartyBattler:addKarma(amount)
 end
 
 function LightPartyBattler:toggleSaveButton(value)
-    self.has_save = value and true or false
+    if value == nil then
+        self.has_save = not self.has_save
+        value = self.has_save
+    else
+        self.has_save = value
+    end
     for _,action_box in ipairs(Game.battle.battle_ui.action_boxes) do
         if action_box.battler == self then
             for _,button in ipairs(action_box.buttons or {}) do
                 if button.type == "act" then
-                    button.rainbow = value and true or false
+                    button.rainbow = value
                     if value then
                         button.tex = Assets.getTexture("ui/lightbattle/btn/save")
                         button.hover_tex = Assets.getTexture("ui/lightbattle/btn/save_h")

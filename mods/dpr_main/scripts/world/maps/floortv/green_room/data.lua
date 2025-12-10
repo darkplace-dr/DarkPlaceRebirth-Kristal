@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 94,
+  nextlayerid = 12,
+  nextobjectid = 110,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
@@ -314,8 +314,39 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 11,
+      name = "objects_base",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 106,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 550,
+          y = 120,
+          width = 390,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (Doesn't seem like anyone's here...)"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 5,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -474,8 +505,8 @@ return {
           name = "interactable",
           type = "",
           shape = "rectangle",
-          x = 1001,
-          y = 120,
+          x = 1000,
+          y = 80,
           width = 76,
           height = 40,
           rotation = 0,
@@ -496,22 +527,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* (It's the cooler door.)[wait:5]\n* (It's also locked.)"
-          }
-        },
-        {
-          id = 84,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 550,
-          y = 120,
-          width = 390,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (Doesn't seem like anyone's here...)"
+            ["text"] = "* (It's the cooler door.)[wait:5]\n* (It's currently locked.)"
           }
         },
         {
@@ -532,8 +548,11 @@ return {
             { x = 0, y = -40 }
           },
           properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
             ["map"] = "floortv/legacy_corridors",
-            ["marker"] = "entry_greenroom"
+            ["marker"] = "entry_greenroom",
+            ["sound"] = "dooropen"
           }
         },
         {
@@ -554,8 +573,11 @@ return {
             { x = 0, y = -40 }
           },
           properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
             ["map"] = "floortv/tenna_room",
-            ["marker"] = "entry_greenroom"
+            ["marker"] = "entry_greenroom",
+            ["sound"] = "dooropen"
           }
         },
         {
@@ -574,6 +596,87 @@ return {
             ["text1"] = "* (The room is quiet,[wait:5] with nobody left to enjoy it...)",
             ["text2"] = "* (You feel a sense of emptiness.)"
           }
+        },
+        {
+          id = 95,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 1000.75,
+          y = 123.67,
+          width = 76.0384,
+          height = 39.4545,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
+            ["map"] = "floortv/dump_corridors",
+            ["marker"] = "entry_greenroom",
+            ["sound"] = "dooropen"
+          }
+        },
+        {
+          id = 103,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 694,
+          y = 62,
+          width = 92,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.exit_rambs_room",
+            ["once"] = false
+          }
+        },
+        {
+          id = 109,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 401,
+          y = 128.25,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.green_vending",
+            ["solid"] = false
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "objects_barabove",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 105,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 550,
+          y = 160,
+          width = 390,
+          height = 120,
+          rotation = 0,
+          gid = 379,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -595,7 +698,7 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -613,7 +716,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 7,
-      name = "collision",
+      name = "base_collision",
       class = "",
       visible = true,
       opacity = 1,
@@ -823,6 +926,87 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 9,
+      name = "ramb_collision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 97,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 574,
+          y = 72,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 98,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 784,
+          y = 72,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 99,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 142,
+          width = 360,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 100,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 592,
+          y = 90,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 101,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 904,
+          y = 90,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 8,
       name = "markers",
       class = "",
@@ -854,6 +1038,32 @@ return {
           shape = "point",
           x = 1260,
           y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 96,
+          name = "entry_dump",
+          type = "",
+          shape = "point",
+          x = 1040,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 108,
+          name = "entry_ramb",
+          type = "",
+          shape = "point",
+          x = 739,
+          y = 138,
           width = 0,
           height = 0,
           rotation = 0,

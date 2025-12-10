@@ -52,7 +52,8 @@ function item:init()
         ralsei = "It's a little heavy...",
         noelle = "I prefer jingle bells...",
         ostarwalker = "The original                   bell",
-        ceroba = "Hits with a jingle?"
+        ceroba = "Hits with a jingle?",
+        jamm = "...You're kidding, right?"
     }
 end
 

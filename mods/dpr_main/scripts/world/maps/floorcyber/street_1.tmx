@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="47">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="46">
  <editorsettings>
   <export target="street_1.lua" format="lua"/>
  </editorsettings>
@@ -118,14 +118,6 @@
     <property name="map" value="floorcyber/fireworks"/>
     <property name="marker" value="right"/>
    </properties>
-  </object>
-  <object id="46" name="npc" x="520" y="175">
-   <properties>
-    <property name="actor" value="charjar"/>
-    <property name="text1">* I'm overflowing with ENERGY!
-This area is POWERFUL!</property>
-   </properties>
-   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="6" name="markers">

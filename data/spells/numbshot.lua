@@ -80,10 +80,10 @@ function spell:onCast(user, target)
 		else
 			local recolor = target:addFX(RecolorFX())
 			Game.battle.timer:during(8/30, function()
-				recolor.color = Utils.lerp(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
+				recolor.color = ColorUtils.mergeColor(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
 			end, function()
 				Game.battle.timer:during(8/30, function()
-					recolor.color = Utils.lerp(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
+					recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
 				end, function()
 					target:removeFX(recolor)
 				end)
@@ -114,13 +114,6 @@ function spell:onLightCast(user, target)
 	end
 end
 
-function spell:isUsable(chara) return not chara:getFlag("disarmed") end
-
-function spell:getBattleDescription()
-    if chara:getFlag("disarmed") then
-        return "Disarmed"
-    end
-    return self.effect
-end
+function spell:isUsable(chara) return not chara.disarmed end
 
 return spell

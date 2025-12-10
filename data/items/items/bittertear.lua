@@ -37,7 +37,8 @@ function item:init()
         susie = "... Isn't that rain?",
         noelle = "It's like when we ate snow.",
         ceroba = "Not much difference from water.",
-        jamm = "So... it's water."
+        jamm = "So... it's water.",
+        berdly = "Quite a creative water rebrand, I must say.",
     }
 end
 

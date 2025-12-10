@@ -1,14 +1,9 @@
 local GameNotOver, super = Class(Object, "GameNotOver")
 
-function GameNotOver:init(x, y, reload)
+function GameNotOver:init(x, y)
     super.init(self, 0, 0)
 
-    self.font = Assets.getFont("main")
-    self.soul_blur = Assets.getTexture("player/heart_blur")
-
-    if not Game:isLight() then
-        self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
-    end
+    self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
 
     self.music = Music()
 
@@ -26,7 +21,13 @@ function GameNotOver:init(x, y, reload)
     self.timer = 0
     self.shake_timer = 0
     
-    self.reload = reload
+    local encounter = Game.battle and Game.battle.encounter and Game.battle.encounter.id
+    local shop = Game.shop and Game.shop.id
+    if encounter then
+        self.reload = {"BATTLE", encounter}
+    elseif shop then
+        self.reload = {"SHOP", shop}
+    end
 
     if Game:isLight() then
         self.timer = 28 -- We only wanna show one frame if we're in Undertale mode
@@ -34,10 +35,8 @@ function GameNotOver:init(x, y, reload)
     
     if Game.battle then -- Battle type correction
         if Game.battle.light then
-            self.screenshot = nil
             self.timer = 28
         else
-            self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
             self.timer = 0
         end
     end
@@ -89,10 +88,10 @@ function GameNotOver:update()
     if (self.timer >= 270) and (self.current_stage == 4) or (self.timer >= 110) and (self.current_stage == 12) then
         self.fader_alpha = self.fader_alpha + 0.03 * DTMULT
     end
-    if (self.timer >= 290) and (self.current_stage == 4) then
+    if (self.timer >= 287) and (self.current_stage == 4) and self.dialogue.parent then
         self.dialogue:remove()
     end
-    if (self.timer >= 324) and (self.current_stage == 4) or (self.timer >= 144) and (self.current_stage == 12) then
+    if (self.timer >= 308) and (self.current_stage == 4) or (self.timer >= 148) and (self.current_stage == 12) then
         MagicalGlassLib.revived_once = true
         for _,party in pairs(Game.party_data) do
             party:heal(math.huge, false)
@@ -125,7 +124,7 @@ function GameNotOver:update()
                 Game:enterShop(self.reload[2])
             end
         end
-        Game.fader:fadeIn(nil, {alpha = 1, speed = 1, color = {1, 1, 1}})
+        Game.fader:fadeIn(nil, {alpha = 1, speed = 1.2, color = {1, 1, 1}})
     end
 end
 

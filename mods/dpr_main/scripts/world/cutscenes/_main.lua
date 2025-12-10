@@ -202,7 +202,7 @@ return {
             cutscene:after(function()
                 Game:setGlobalFlag("Intro_seen", true)
                 Game.tutorial = true
-                Game.world:mapTransition("hub_dess_house", nil, "down")
+                Game.world:mapTransition("floor1/dess_house", nil, "down")
                 Game.world:startCutscene("dessmode.intro")
             end)
         else
@@ -353,7 +353,7 @@ return {
                 cutscene:wait(0.5)
                 gonerText("NOW...[wait:20]")
                 cutscene:wait(0.5)
-                gonerText("ALLOW ME TO\nEXPLAIN[wait:40]WHY YOU ARE\nHERE.[wait:20]")
+                gonerText("ALLOW ME TO\nEXPLAIN[wait:40] WHY YOU ARE\nHERE.[wait:20]")
     
                 cutscene:wait(0.75)
             else
@@ -481,6 +481,7 @@ return {
             --Game.fader:fadeOut {speed = 0}
     
             cutscene:after(function()
+                Game:rollShiny("hero")
                 Game:setGlobalFlag("Intro_seen", true)
                 Game.tutorial = true
                 Game.world:mapTransition("grey_cliffside/cliffside_start", nil, "down")

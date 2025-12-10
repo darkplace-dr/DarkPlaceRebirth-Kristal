@@ -10,7 +10,7 @@ function UFOOfDoom:init()
     self.recruit_amount = 7
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 3
+    self.index = 38
 
     -- Selection Display
     self.description = "A UFO just like from those\nmovies about aliens."

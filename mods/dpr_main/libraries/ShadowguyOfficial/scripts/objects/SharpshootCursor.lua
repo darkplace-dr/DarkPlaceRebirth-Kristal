@@ -82,11 +82,11 @@ function SharpshootCursor:update()
 	end
 	if self.con == 0 then
 		self.timer = self.timer + DTMULT
-		self.alpha = Utils.lerp(0, 1, self.timer/12)
-		self:setScale(Utils.lerp(self.scale_x, 1, self.timer/12),Utils.lerp(self.scale_y, 1, self.timer/12))
-		self.rotation = Utils.lerp(self.rotation, math.rad(394), 0.08*DTMULT)
-		local xx = Utils.lerp(300, 0, self.timer/12)
-		self.x = Utils.lerp(self.xstart, self.xstart + 280 + xx, self.timer/12)
+		self.alpha = MathUtils.lerp(0, 1, self.timer/12)
+		self:setScale(MathUtils.lerp(self.scale_x, 1, self.timer/12),MathUtils.lerp(self.scale_y, 1, self.timer/12))
+		self.rotation = MathUtils.lerp(self.rotation, math.rad(394), 0.08*DTMULT)
+		local xx = MathUtils.lerp(300, 0, self.timer/12)
+		self.x = MathUtils.lerp(self.xstart, self.xstart + 280 + xx, self.timer/12)
 		if self.timer >= 12 then
 			self.rotation = 0
 			self.timer = 0

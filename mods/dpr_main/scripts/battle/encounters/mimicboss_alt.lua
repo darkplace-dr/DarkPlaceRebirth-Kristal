@@ -5,8 +5,12 @@ function UfoEncounter:init()
 
     -- Battle music ("battle" is rude buster)
     if Game:isDessMode() then
-        self.music = nil
         self.text = "* Undefeatable."
+        if Game:getFlag("mimic_defeated") == false then
+            self.music = nil
+        else
+            self.music = "undefeatable"
+        end
     else
         self.music = "threestrikesyoureout"
         self.text = "* It's too easy!"
@@ -25,7 +29,6 @@ function UfoEncounter:init()
 	self.flee = false
 
     self.boss_rush = false
-	
     if Game:getFlag("mimic_defeated") == true then
         self.boss_rush = true
     end

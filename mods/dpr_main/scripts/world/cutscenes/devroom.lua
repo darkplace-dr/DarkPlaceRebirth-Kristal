@@ -86,7 +86,11 @@ local devroom = {
                 local kristal, start = gift:find("KR_")
                 local game_name = gifts[gift].name
                 if not game_name then
-                    game_name = kristal and Utils.titleCase(gift:sub(start+1):gsub("_", " ")) or gift
+                    if gift == "KR_wilter_boss_fight" then
+                        game_name = "Wilter's Wonderland"
+                    else
+                        game_name = kristal and Utils.titleCase(gift:sub(start+1):gsub("_", " ")) or gift
+                    end
                 end
                 local item
                 local item_name
@@ -271,6 +275,7 @@ local devroom = {
            cutscene:wait(4)
            Game:getQuest("stargazer"):unlock()
            Game:setFlag("arlee_quest", true)
+           Game:setFlag("star_bits", 0)
         else
             cutscene:text("* Wrong choice.")
             arlee:setAnimation({"idle", 0.045, true})

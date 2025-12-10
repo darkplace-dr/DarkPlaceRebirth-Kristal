@@ -1,3 +1,4 @@
+---@type JukeboxMenu.Song[]
 return {
   {
     name = "WELCOME AGAIN",
@@ -5,7 +6,8 @@ return {
     composer = "J.A.R.U.",
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 57.122
   },
   {
     name = "demonic little grey cliffs",
@@ -13,7 +15,8 @@ return {
     composer = "SadDiamondMan",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 100
   },
   {
     name = "Our Castle Town",
@@ -21,7 +24,8 @@ return {
     composer = "Spunky Tunky",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 137
   },
   {
     name = "Uwa!! So STARRY!",
@@ -29,7 +33,8 @@ return {
     composer = "J.A.R.U.",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 95
   },
   {
     name = "Uwa!! So RETRO!",
@@ -37,7 +42,8 @@ return {
     composer = "J.A.R.U.",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 100
   },
   {
     name = "I'LL SHOW YOU THE POWER OF",
@@ -45,7 +51,8 @@ return {
     composer = "JustAnAverageChilly",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 132
   },
   {
     name = "Warp Zone",
@@ -53,7 +60,8 @@ return {
     composer = "Charbomber",
     released = "2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 117
   },
   {
     name = "Checkpoint",
@@ -61,7 +69,8 @@ return {
     composer = "BrendaK7200",
     released = "2023",
     origin = "Dark Place",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 96
   },
   {
     name = "BIGGEST SHOT",
@@ -69,7 +78,8 @@ return {
     composer = "BrendaK7200",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 140
   },
   {
     name = "TRITRALAND",
@@ -77,7 +87,8 @@ return {
     composer = "Tritra Serpifeu",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text"
+    album = "dark_place_with_text",
+    bpm = 55.5
   },
   {
     name = "Enemy Approaching!",
@@ -85,7 +96,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 183
   },
   {
     name = "Determination",
@@ -93,7 +105,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 125
   },
   {
     name = "sans.",
@@ -101,7 +114,8 @@ return {
     composer = "Toby Fox",
     released = "2015",
     origin = "Undertale",
-    album = "undertale"
+    album = "undertale",
+    bpm = 128
   },
   {
     name = "Susie",
@@ -109,15 +123,17 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 70
   },
   {
     name = "The Door",
-    file = "deltarune/door",
+    file = "deltarune/creepydoor",
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 69
   },
   {
     name = "Rude Buster",
@@ -125,7 +141,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 140
   },
   {
     name = "Fanfare (from \"Rose of Winter\")",
@@ -133,7 +150,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 123
   },
   {
     name = "Darkness Falls",
@@ -141,7 +159,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 86
   },
   {
     name = "THE HOLY",
@@ -149,7 +168,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 70
   },
   {
     name = "Your Power",
@@ -157,7 +177,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 59
   },
   {
     name = "Before the Story",
@@ -165,7 +186,8 @@ return {
     composer = "Toby Fox",
     released = "2018",
     origin = "Deltarune",
-    album = "dr_ch1"
+    album = "dr_ch1",
+    bpm = 65
   },
   {
     name = "Berdly",
@@ -173,7 +195,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 196
   },
   {
     name = "Faint Courage",
@@ -181,7 +204,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 115
   },
   {
     name = "WELCOME TO THE CITY",
@@ -189,7 +213,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 152
   },
   {
     name = "WELCOME TO THE CITY (Alt)",
@@ -197,7 +222,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 95
   },
   {
     name = "Cool Mixtape",
@@ -205,7 +231,8 @@ return {
     composer = "Toby Fox",
     released = "2021",
     origin = "Deltarune",
-    album = "dr_ch2"
+    album = "dr_ch2",
+    bpm = 144
   },
   {
     name = "And Now For Today's Sponsors...!",
@@ -213,7 +240,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 145
   },
   {
     name = "Ruder Buster",
@@ -221,7 +249,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 130
   },
   {
     name = "Welcome to the Green Room",
@@ -229,7 +258,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 85
   },
   {
     name = "Vapor Buster",
@@ -237,7 +267,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 100
   },
   {
     name = "Glowing Snow",
@@ -253,7 +284,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 145
   },
   {
     name = "It's TV Time!",
@@ -261,7 +293,17 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 148
+  },
+  {
+    name = "Hall of Fame",
+    file = "deltarune/tv_hall_of_fame",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3_4",
+    bpm = 140.75
   },
   {
     name = "Castle Funk",
@@ -269,7 +311,17 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 125
+  },
+  {
+    name = "Dark Sanctuary",
+    file = "deltarune/church_wip",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "DELTARUNE Chapter 4",
+    album = "dr_ch3_4",
+    bpm = 190
   },
   {
     name = "From Now On (Battle 2)",
@@ -277,7 +329,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 265
   },
   {
     name = "Hammer of Justice",
@@ -285,7 +338,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 160
   },
   {
     name = "Volume Adjustment",
@@ -293,7 +347,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 78
   },
   {
     name = "Catswing",
@@ -301,7 +356,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 130
   },
   {
     name = "AIRWAVES",
@@ -309,7 +365,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 140
   },
   {
     name = "Man 2",
@@ -317,7 +374,8 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3_4",
+    bpm = 108.8
   },
   {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload
@@ -325,7 +383,8 @@ return {
     composer = "Nyako",
     released = "March 21st, 2024",
     origin = "Kristal",
-    album = "default"
+    album = "default",
+    bpm = 180
   },
   {
     name = "Gimmie Your Wallet, Miss",
@@ -333,7 +392,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 110
   },
   {
     name = "Batter Up!",
@@ -341,7 +401,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 150
   },
   {
     name = "Three Strikes, You're Out!",
@@ -349,7 +410,8 @@ return {
     composer = "Charbomber",
     released = "TBA",
     origin = "Deltarune: The Stars",
-    album = "dr_ts"
+    album = "dr_ts",
+    bpm = 140
   },
   {
     name = "The House",
@@ -357,7 +419,8 @@ return {
     composer = "MasterSwordRemix",
     released = "2023",
     origin = "Undertale Yellow",
-    album = "uty"
+    album = "uty",
+    bpm = 65
   },
   {
     name = "Cyber Moon",
@@ -365,7 +428,8 @@ return {
     composer = "Tritra Serpifeu",
     released = "2022",
     origin = "Doki Doki Festive Firework",
-    album = "starrune"
+    album = "starrune",
+    bpm = 100
   },
   {
     name = "Space Cover",
@@ -373,7 +437,8 @@ return {
     composer = "Tritra Serpifeu\nVia Midi by Theopold the Gamer",
     released = "2024",
     origin = "Snail Smite\nOriginal from: BABA IS YOU",
-    album = "snailsmite"
+    album = "snailsmite",
+    bpm = 115
   },
   {
     name = "Dreamed Death",
@@ -381,7 +446,8 @@ return {
     composer = "Tritra Serpifeu\nWith Help via Midi's by IronInvoker47",
     released = "2025",
     origin = "Deltarune: Loving Genesis",
-    album = "lovinggenesis"
+    album = "lovinggenesis",
+    bpm = 120
   },
   {
     name = "Really Good Showrunner Cover",
@@ -389,7 +455,8 @@ return {
     composer = "Hyperboid",
     released = "2025",
     origin = "Super Mario 64: Beyond The Cursed Mirror(?)",
-    album = "itsfuckingmike"
+    album = "itsfuckingmike",
+    bpm = 120
   },
   {
     name = "Get on the Bus",
@@ -397,7 +464,8 @@ return {
     composer = "Keiichi Suzuki, Hirokazu Tanaka",
     released = "1994",
     origin = "MOTHER 2/Earthbound",
-    album = "mother_2"
+    album = "mother_2",
+    bpm = 151.36
   },
   {
     name = "Undefeatable",
@@ -405,7 +473,8 @@ return {
     composer = "Tomoya Ohtani",
     released = "2022",
     origin = "Sonic Frontiers",
-    album = "sonic_frontiers_stillness_and_motion"
+    album = "sonic_frontiers_stillness_and_motion",
+    bpm = 100
   },
   {
     name = "Same Old Story",
@@ -413,7 +482,8 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 86
   },
   {
     name = "Face Down",
@@ -421,7 +491,8 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 161 -- has silence at start
   },
   {
     name = "Wherever We Are Now",
@@ -429,11 +500,20 @@ return {
     composer = "Joel Baylis",
     released = "2023",
     origin = "Casette Beasts",
-    album = "casette_beasts"
+    album = "casette_beasts",
+    bpm = 105 -- has silence at start
   },
+  --{
+  --  name = "WHATCHACALLITSNAME (Cover)",
+  --  file = "whatchacallitsname_notsuki_cover",
+  --  composer = "Original by decoyman120\nCover by Notsuki",
+  --  released = "2025",
+  --  origin = "Youtube, go give the original a listen! I did this song an injustice.",
+  --  album = "whatchacallitsname"
+  --},
   {
     name = "Silence",
-    file = "silence",
+    file = "none",
     composer = "N/A",
     released = "N/A",
     origin = "N/A",

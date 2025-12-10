@@ -52,6 +52,18 @@ function GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_ap
         return false
     end
 
+    local path = ""
+    local function directoryExists(file)
+        local ok, err, code = os.rename(file, file)
+        if not ok then
+            if code == 13 then
+                -- Permission denied, but it exists
+                return true
+            end
+        end
+        return ok, err
+    end
+
     if love.system.getOS() == "Windows" then
         local function unixizePathSep(path)
             return string.gsub(path, "\\", "/")
@@ -69,7 +81,7 @@ function GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_ap
         if not try_wine_route then
             -- don't ask why %
             name = string.gsub(name, "%XDG_CONFIG_HOME%", os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config")
-            local starts_at_root, _ = Utils.startsWith(name, "/")
+            local starts_at_root, _ = StringUtils.startsWith(name, "/")
             if not starts_at_root then
                 path = os.getenv("HOME").."/"..name
             else
@@ -112,7 +124,7 @@ end
 function GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
     local file = GeneralUtils:openExternalFileUnsafe(name, try_wine_route, wine_steam_appid)
     if not file then return false end
-    content = {}
+    local content = {}
     for l in file:lines() do
         table.insert(content, l)
     end
@@ -124,10 +136,10 @@ end
 -- This function handles closing the file handle and decode the file data assuming it's JSON
 ---@param try_wine_route? boolean # If true, an attempt to check wineprefixs for the file will be made on Linux. In this case name should be a path for Windows.
 ---@param wine_steam_appid? number # The Steam AppID of the game to check for; if specified, wine route will also check the wineprefix corresponding to that AppID.
---- @return table content
+---@return table? content
 function GeneralUtils:openExternalJSONFile(name, try_wine_route, wine_steam_appid)
     local file = GeneralUtils:openExternalFileSafe(name, try_wine_route, wine_steam_appid)
-    if not file then return false end
+    if not file then return end
     return JSON.decode(Utils.getCombinedText(file))
 end
 
@@ -169,7 +181,7 @@ function GeneralUtils:fileExists(name, try_wine_route, wine_steam_appid)
         if not try_wine_route then
             -- don't ask why %
             name = string.gsub(name, "%XDG_CONFIG_HOME%", os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME").."/.config")
-            local starts_at_root, _ = Utils.startsWith(name, "/")
+            local starts_at_root, _ = StringUtils.startsWith(name, "/")
             if not starts_at_root then
                 path = os.getenv("HOME").."/"..name
             else
@@ -274,7 +286,7 @@ function GeneralUtils:evaluateCond(data, ...)
     if data.cond then
         result = data.cond(...)
     elseif data.flagcheck then
-        local inverted, flag = Utils.startsWith(data.flagcheck, "!")
+        local inverted, flag = StringUtils.startsWith(data.flagcheck, "!")
 
         local flag_value = Game.flags[flag]
         local expected_value = data.flagvalue
@@ -309,11 +321,11 @@ function GeneralUtils:setPresenceState(details)
 end
 
 -- Gets the index of an item in a 2D table
----@return integer|nil i
----@return integer|nil j
+---@return any? i
+---@return any? j
 function GeneralUtils:getIndex2D(t, value)
-    for i,r in ipairs(t) do
-        local j = Utils.getIndex(r, value)
+    for i,r in pairs(t) do
+        local j = TableUtils.getIndex(r, value)
         if j then
             return i, j
         end
@@ -342,7 +354,7 @@ end
 ---@return number
 function GeneralUtils:lerpSnap(a, b, m, snap_delta)
     if snap_delta == nil then snap_delta = 0.001 end
-    local result = Utils.lerp(a, b, m)
+    local result = MathUtils.lerp(a, b, m)
     if b - result <= snap_delta then
         return b
     end

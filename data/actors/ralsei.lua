@@ -44,7 +44,7 @@ function actor:initChapter1()
     -- Table of sprite animations
     self.animations = {
         -- Battle animations
-        ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle"]         = {"battle/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
@@ -62,6 +62,7 @@ function actor:initChapter1()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"walk/right_1", 1/15, false},
         ["battle/intro"]        = {"battle/intro", 1/15, false},
@@ -179,7 +180,7 @@ function actor:initChapter2()
         ["slide"]               = {"slide", 4/30, true},
 
         -- Battle animations
-        ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle"]         = {"battle/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
@@ -197,6 +198,7 @@ function actor:initChapter2()
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"walk/right_1", 1/15, false},
         ["battle/intro"]        = {"battle/intro", 1/15, false},
@@ -212,7 +214,15 @@ function actor:initChapter2()
         ["hug_stop"]            = {"hug_stop", 2/9, false},
 
         ["wave_start"]          = {"wave_start", 5/30, false, next="wave_down"},
-        ["wave_down"]           = {"wave_down", 5/30, true}
+        ["wave_down"]           = {"wave_down", 5/30, true},
+
+        ["dance"]               = {"dance", 1/6, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
+
+        ["nuzzle"]              = {"nuzzle", 1/10, false},
+
+        ["sing"]                = {"sing", 1/5, true},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -262,6 +272,7 @@ function actor:initChapter2()
         ["battle/actend"] = {-2, -6},
         ["battle/actready"] = {-2, -6},
         ["battle/spell"] = {-11, -6},
+        ["battle/spellend"] = {-11, -6}, -- it was missing????????
         ["battle/spellready"] = {-11, -6},
         ["battle/item"] = {-7, -14},
         ["battle/itemready"] = {-7, -14},
@@ -305,6 +316,10 @@ function actor:initChapter2()
         ["float/right"] = {-6, -6},
         ["float/up"] = {0, 0},
         ["float/down"] = {0, 0},
+
+        ["nuzzle"] = {-1, 0},
+        ["shocked_right"] = {14, -6},
+        ["shocked_left"] = {0, -6},
     }
 
     self.menu_anim = "pose"
