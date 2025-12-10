@@ -72,6 +72,9 @@ function PartyMember:getTVName()
 end
 
 function PartyMember:onTurnStart(battler)
+    if not self.equipped.weapon then
+        return
+    end
     -- Turn start healing
     local turnHealing = 0
     turnHealing = turnHealing + self.equipped.weapon.turn_heal
