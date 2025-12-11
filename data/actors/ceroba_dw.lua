@@ -8,7 +8,7 @@ function actor:init()
     self.width = 25
     self.height = 52
 
-    self.hitbox = {3, 38, 19, 14}
+    self.hitbox = {3, 40, 19, 14}
 
     self.soul_offset = {12.5, 28}
 
@@ -65,14 +65,14 @@ function actor:init()
 
     self.offsets = {
         -- Movement offsets
-        ["talk/down"] = {0, 0},
-        ["talk/right"] = {-2, -1},
-        ["talk/left"] = {2, -1},
-        ["talk/up"] = {0, 0},
+        ["talk/down"] = {-1, -1},
+        ["talk/right"] = {-2, -3},
+        ["talk/left"] = {2, -3},
+        ["talk/up"] = {-1, -1},
 
-        ["walk/down"] = {0, 0},
-        ["walk/right"] = {-2, -2},
-        ["walk/left"] = {1, -2},
+        ["walk/down"] = {-1, -1},
+        ["walk/right"] = {-2, -3},
+        ["walk/left"] = {2, -3},
         ["walk/up"] = {-1, -1},
 
         ["run/down"] = {-1, 2},
