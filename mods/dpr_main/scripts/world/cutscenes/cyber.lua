@@ -276,5 +276,89 @@ local cyber = {
 	
 		cutscene:hideShop()
 	end,	
+	falseral = function(cutscene, event, chara)
+		local falseral = cutscene:getCharacter("falseral")
+		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then
+			cutscene:text("* Ralsei?!", "shock", "susie")
+			falseral:setAnimation("falseral_d")
+			cutscene:text("* Who's ralsei, and what do you want.", nil)
+			cutscene:text("* Sorry, I thought you were[wait:5].[wait:5].[wait:5].[wait:7] Someone else.", "nervous_side", "susie")
+			cutscene:text("* Go away.", nil)
+			falseral:setAnimation("idle")
+			elseif Game:hasPartyMember("dess") and not Game:hasPartyMember("susie") then
+				if Game:getFlag("can_kill") == true then
+					falseral:setAnimation("falseral_d")
+					cutscene:text("* What do you want.", nil)
+					
+				cutscene:text("* screw you you suck", "dess.exe", "dess")
+				falseral:setAnimation("falseral_s")
+				cutscene:text("[noskip]* Wait wh[wait:5]", nil, {auto = true})
+				event:explode()
+				cutscene:wait(3)
+				cutscene:text("[noskip]* (Dess became weaker)[wait:3]\n* (Dess's health went down by", {auto = true})
+				cutscene:text("* oh hell no.", "mspaint", "dess")
+				cutscene:text("* (Dess became stronger!)\n* (Dess's health went up by 5!)\n * (Dess's defense went up by 1!)")
+				cutscene:text("* yay", "swag", "dess")
+				Assets.playSound("ominous")
+				local dess_party = Game:getPartyMember("dess")
+				dess_party:increaseStat("health", 5)
+				dess_party:increaseStat("defense", 1)
+				cutscene:text("* Anyways", "heckyeah", "dess")
+				
+					Game:setFlag("falseraldead", true)
+				else
+					falseral:setAnimation("falseral_d")
+				cutscene:text("* What do you want.", nil, event)
+				cutscene:text("* Nothing.", "teehee", "dess")
+				cutscene:text("* Go away.", nil, event)
+				falseral:setAnimation("idle")
+				end
+			elseif Game:hasPartyMember("susie") and Game:hasPartyMember("dess") then
+				cutscene:text("* Ralsei?!", "shock", "susie")
+				falseral:setAnimation("falseral_d")
+				cutscene:text("* Who's ralsei, and what do you want.", nil, event)
+				cutscene:text("[noskip]* Sorry, I thought", "nervous_side", "susie", {auto=true})
+				cutscene:text("* Oh they're nobody lmao you suck.", "teehee", "dess")
+				cutscene:text("* Go away.", nil, event)
+				falseral:setAnimation("idle")
+				
+			else
+		
+		falseral:setAnimation("falseral_d")
+		cutscene:text("* What do you want.", nil, event)
+		local choice = cutscene:choicer({"Who are you","Nothing"})
+		if choice == 1 then
+			cutscene:text("* Why do you want to know.", nil, event)
+		elseif choice == 2 then
+			cutscene:text("* Then go away.", nil, event)
+		end
+	end
+		falseral:setAnimation("idle")
+	end,
+charjar = function(cutscene, event)
+	if Game:hasPartyMember("dess") then
+		if Game:getFlag("can_kill") == true then
+			cutscene:text("* THIS AREA IS POWERFUL.", nil)
+			cutscene:text("[noskip]* IT FILLS ME WITH.", nil, {auto = true})
+			cutscene:text("* no shut up", "calm", "dess")
+			event:explode()
+			cutscene:text("* (Dess became stronger!)")
+			cutscene:text("* sick", "smug", "dess")
+			Assets.playSound("ominous")
+			local dess_party = Game:getPartyMember("dess")
+			dess_party:increaseStat("attack", 1)
+			Game:setFlag("charjarDEAD", true)
+		else
+			cutscene:text("* THIS AREA IS POWERFUL.", nil)
+			cutscene:text("* IT FILLS ME WITH POWER.\n[wait:5]* DO YOU LIKE POWER?", nil)
+			cutscene:text("* No lol", "neutral", "dess")
+		end
+	else
+		cutscene:text("* THIS AREA IS POWERFUL.")
+		cutscene:text("* IT FILLS ME WITH POWER.")
+	end
+					
+end,
+
 }
 return cyber

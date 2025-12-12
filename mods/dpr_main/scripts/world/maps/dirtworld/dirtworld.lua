@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 43,
+  nextobjectid = 45,
   properties = {
     ["music"] = "dirtworld"
   },
@@ -412,6 +412,32 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 43,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 440,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 44,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 440,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -534,32 +560,6 @@ return {
             ["map"] = "hub_elevator",
             ["marker"] = "entry"
           }
-        },
-        {
-          id = 40,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 480,
-          y = 440,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 41,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 200,
-          y = 440,
-          width = 40,
-          height = 200,
-          rotation = 0,
-          visible = true,
-          properties = {}
         },
         {
           id = 42,

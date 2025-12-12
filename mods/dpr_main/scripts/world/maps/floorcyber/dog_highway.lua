@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 27,
+  nextobjectid = 28,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity",
@@ -152,7 +152,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 680,
@@ -165,7 +165,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 680,
@@ -178,7 +178,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -191,7 +191,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 0,
@@ -204,7 +204,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = -40,
@@ -217,7 +217,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 1160,
@@ -246,7 +246,7 @@ return {
         {
           id = 6,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 420,
@@ -259,7 +259,7 @@ return {
         {
           id = 7,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 400,
@@ -275,7 +275,7 @@ return {
         {
           id = 12,
           name = "traffic_car_generator",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 508,
           y = -40,
@@ -293,7 +293,7 @@ return {
         {
           id = 15,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 560,
@@ -308,7 +308,7 @@ return {
         {
           id = 16,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 520,
@@ -323,7 +323,7 @@ return {
         {
           id = 17,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 480,
@@ -338,7 +338,7 @@ return {
         {
           id = 18,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 440,
@@ -353,7 +353,7 @@ return {
         {
           id = 19,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 400,
@@ -368,7 +368,7 @@ return {
         {
           id = 20,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 600,
@@ -383,7 +383,7 @@ return {
         {
           id = 21,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 640,
@@ -398,7 +398,7 @@ return {
         {
           id = 22,
           name = "traffic_marker",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -411,7 +411,7 @@ return {
         {
           id = 23,
           name = "traffic_switch",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 380,
           y = 320,
@@ -427,7 +427,7 @@ return {
         {
           id = 24,
           name = "traffic_marker",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 400,
@@ -440,7 +440,7 @@ return {
         {
           id = 25,
           name = "traffic_switch",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 740,
           y = 320,
@@ -456,7 +456,7 @@ return {
         {
           id = 26,
           name = "traffic_car_generator",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 572,
           y = 1160,
@@ -469,6 +469,23 @@ return {
             ["gen_speed"] = 15,
             ["group"] = 0,
             ["walkdir"] = "up"
+          }
+        },
+        {
+          id = 27,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1000,
+          y = 420,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "falseral",
+            ["cutscene"] = "cyber.falseral",
+            ["flagcheck"] = "!falseraldead"
           }
         }
       }
@@ -490,7 +507,7 @@ return {
         {
           id = 8,
           name = "east",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 560,
@@ -503,7 +520,7 @@ return {
         {
           id = 14,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 260,
           y = 430,
