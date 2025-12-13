@@ -72,8 +72,59 @@ function DessGameVoting:addVoter(member)
 		index = self:getNextIndex(),
 		timerMove = nil
 	}
+	local new_box = self.data[member.id].box
+	new_box.width = self.data[member.id].head:getWidth()*2
+	self:addChild(new_box)
 
-	for member,data in pairs(self.data) do
+	-- I can't mathematically center shit to save my life
+
+	local sorted_data = {}
+	for k,v in pairs(self.data) do
+		table.insert(sorted_data, v)
+	end
+
+	table.sort(sorted_data, function(a, b) return a.index < b.index end)
+
+	local mid_index = math.ceil(#sorted_data/2)
+	local center_x = SCREEN_WIDTH/2
+	local box_in_center = #sorted_data%2 ~= 0
+
+	local spacing = 200-(25*(#sorted_data-1))
+
+	if box_in_center then
+		for i,data in ipairs(sorted_data) do
+			box = data.box
+
+			local new_x = center_x-box.width/2
+			if i < mid_index then
+				new_x = center_x - spacing*i
+			elseif i > mid_index then
+				new_x = center_x + spacing*(i-mid_index)
+			end
+
+			data.timeMove = Game.world.timer:tween(1, box, {x=new_x}, "out-cubic", function()
+	    		data.timeMove = nil
+	    	end)
+		end
+	else
+		for i,data in ipairs(sorted_data) do
+			box = data.box
+
+			local new_x
+			if i < mid_index then
+				new_x = center_x - (spacing*mid_index-i)/2
+			else
+			end
+
+			data.timeMove = Game.world.timer:tween(1, box, {x=center_x}, "out-cubic", function()
+	    		data.timeMove = nil
+	    	end)
+		end
+	end
+
+
+
+	--[[for member,data in pairs(self.data) do
 		if data.timeMove then
 			Game.world.timer:cancel(data.timeMove)
 			data.timeMove = nil
@@ -83,17 +134,17 @@ function DessGameVoting:addVoter(member)
 
 		box.width = data.head:getWidth()*2
 
-		local center_x = (SCREEN_WIDTH/2)-25
+		local center_x = (SCREEN_WIDTH/2)
 		local spacing = box.width+200
 
 	    local index = (#self.data + 1) / 2
-	    new_x = center_x + (data.index - index) * spacing
-	    print(data.name, data.index, new_x)
+	    new_x = center_x + ((data.index-1) - index) * spacing
+	    print(data.name, data.index-1, index, center_x, new_x)
 
 	    data.timeMove = Game.world.timer:tween(1, box, {x=new_x}, "out-cubic", function()
 	    	data.timeMove = nil
 	    end)
-	end
+	end]]
 end
 
 function DessGameVoting:getChoiceText(choice)
