@@ -93,6 +93,10 @@ function DessGameVoting:addVoter(member)
 
 	if box_in_center then
 		for i,data in ipairs(sorted_data) do
+			if data.timeMove then
+				Game.world.timer:cancel(data.timeMove)
+				data.timeMove = nil
+			end
 			box = data.box
 
 			local new_x = center_x-box.width/2
@@ -103,20 +107,25 @@ function DessGameVoting:addVoter(member)
 			end
 
 			data.timeMove = Game.world.timer:tween(1, box, {x=new_x}, "out-cubic", function()
-	    		data.timeMove = nil
-	    	end)
+				data.timeMove = nil
+			end)
 		end
 	else
 		for i,data in ipairs(sorted_data) do
+			if data.timeMove then
+				Game.world.timer:cancel(data.timeMove)
+				data.timeMove = nil
+			end
 			box = data.box
 
 			local new_x
 			if i < mid_index then
-				new_x = center_x - (spacing*mid_index-i)/2
+				new_x = center_x - (spacing/2) - (spacing*i)
 			else
+				new_x = center_x + (spacing/2) + (spacing*i-mid_index)
 			end
 
-			data.timeMove = Game.world.timer:tween(1, box, {x=center_x}, "out-cubic", function()
+			data.timeMove = Game.world.timer:tween(1, box, {x=new_x}, "out-cubic", function()
 	    		data.timeMove = nil
 	    	end)
 		end
