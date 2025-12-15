@@ -8,7 +8,7 @@ function self:load()
     local date = os.date("*t")
     if date.month == 12 then
         return true
-    elseif dae.month == 1 and date.day <= 6 then
+    elseif date.month == 1 and date.day <= 6 then
         return true
     end
     return false
