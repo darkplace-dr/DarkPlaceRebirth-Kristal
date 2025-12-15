@@ -75,7 +75,7 @@ function item:init()
         jamm = "AcousticJAMM.",
         ["jamm+marcy"] = "AcousticJAMM. // MarcyJAMM.",
         noel = "Chewy!",
-        ceroba = "That's jam. (And a good one.)"
+        ceroba = "What kind of jam is this? Cherry?"
     }
 end
 

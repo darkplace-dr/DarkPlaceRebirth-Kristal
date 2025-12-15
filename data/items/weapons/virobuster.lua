@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "An axe designed specifically to kill corrupted programs.\nBuster spells deal 2x damage to foes under half health"
+    self.description = "An axe designed specifically to kill corrupted programs. Buster spells deal 2x damage to foes."
 
     -- Default shop price (sell price is halved)
     self.price = 0

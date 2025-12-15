@@ -1,4 +1,4 @@
-local Soul, super = Utils.hookScript(Soul)
+local Soul, super = HookSystem.hookScript(Soul)
 
 function Soul:update()	
     if self.transitioning and Game.battle.encounter.jackenstein then
@@ -15,8 +15,8 @@ function Soul:update()
             end
         else
             self:setExactPosition(
-                Utils.lerp(self.original_x, self.target_x, self.timer / 7),
-                Utils.lerp(self.original_y, self.target_y, self.timer / 7)
+                MathUtils.lerp(self.original_x, self.target_x, self.timer / 7),
+                MathUtils.lerp(self.original_y, self.target_y, self.timer / 7)
             )
 			
             if self.transition_destroy then

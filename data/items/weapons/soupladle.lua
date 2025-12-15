@@ -51,6 +51,7 @@ function item:init()
         ralsei = "(Is this cauldron safe?)",
         noelle = "(How old is this soup???)",
 	    jamm = "Guys, I'm not a cook!",
+        ceroba = "That's a COOKING. UTENSIL."
     }
 end
 

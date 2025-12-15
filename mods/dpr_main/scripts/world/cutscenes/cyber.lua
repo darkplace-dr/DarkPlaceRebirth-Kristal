@@ -113,5 +113,252 @@ local cyber = {
 			end
 		end
     end,
+	shoes = function(cutscene, event)
+		cutscene:text("* Oho, wandering out late at night, hm?", nil, event)
+        cutscene:text("* What's the occasion? A festival? Or is Christmas coming early?", nil, event)
+        cutscene:text("* If it snows, you'll need good shoes! Snowproof ones!", nil, event)
+        cutscene:text("* Care to try a sample pair? That'll cost " .. (Game.money + 1) .. " D$!", nil, event)
+		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then 
+			cutscene:text("* Yeah, about that.", "nervous", "susie")
+		end
+		if Game:hasPartyMember("dess") then
+			cutscene:text("* buddy we're [color:red]broke[color:reset] you know that", "mspaint", "dess")
+			cutscene:text("* why do we need snowproof shoes there's no snow here", "heckyeah", "dess")
+			cutscene:text("* you [color:red]stupid[color:reset]", "swag", "dess")
+			cutscene:text("* ...", nil, event)
+			cutscene:text("* I mean, you always need a pair of shoes once a day, am I right??", nil, event)
+            if Game:getFlag("can_kill") == true then
+				Game.world.music:pause()
+				cutscene:text("[noskip]* nuh uh get out[wait:5]", "dess.exe", "dess", {auto = true})
+				event:explode()
+				cutscene:wait(3)
+				cutscene:text("* (Dess became stronger!)")
+				cutscene:text("* lol", "smug", "dess")
+				Assets.playSound("ominous")
+				local dess_party = Game:getPartyMember("dess")
+				dess_party:increaseStat("health", 25)
+				dess_party:increaseStat("attack", 1)
+				dess_party:increaseStat("defense", 1)
+				dess_party:increaseStat("magic", 1)
+				Game.world.music:resume()
+				Game:setFlag("addisonsDEAD", true)
+            end
+		else
+			cutscene:text("* ...Ah, looks like you don't have enough.", nil, event)
+			cutscene:text("* Yeah, that's uhh...\n* That's a dealbreaker.[wait:5]\n* Forget about it.", nil, event)
+		end
+	end,
+	buster = function(cutscene, event)
+		cutscene:text("* Tired of bugs?[wait:5]\n* Computer lagging??[wait:5]\n* Antivirus NOT helping???", nil, event)
+		cutscene:text("* Worry not - the solution is here!", nil, event)
+		cutscene:text("* Get our \"Buster\" over here, and you'll start to clap and cheer!", nil, event)
+	
+		if Game:hasPartyMember("susie") then 
+			cutscene:text("* Hmm, sounds interesting.", "neutral_side", "susie")
+			cutscene:text("* How much?", "neutral", "susie")
+			cutscene:text("* Let's say...", nil, event)
+		end
+	
+		local cost = 2120
+		cutscene:text("* It'll cost " .. cost .. "D$!\n* How's that, eh?", nil, event)
+	
+		if Game:hasPartyMember("susie") and Game.money < cost then 
+			cutscene:text("*", "shock", "susie")
+			cutscene:text("* (We're not buying THAT, right?!)", "shy_b", "susie")
+		end
+	
+		cutscene:text("* (Buy it for " .. cost .. " D$?)")
+	
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			if Game.money < cost then
+				cutscene:text("* Hey, y'know you don't have enough money, right?", nil, event)
+				cutscene:text("* Guess we're not doing business today...", nil, event)
+			elseif not Game.inventory:addItem("virobuster") then
+				cutscene:text("* Whoops, no space to put it!", nil, event)
+				cutscene:text("* Guess we're not doing business today...", nil, event)
+			else
+				Game.money = Game.money - cost
+				cutscene:playSound("locker")
+				cutscene:text("* (You got [color:yellow]ViroBuster![color:reset])")
+				cutscene:text("* Pleasure doing business with ya.", nil, event)
+			end
+		end
+	end,
+    tea = function(cutscene, event)
+		local offpercent = Game:getFlag("FUN")
+		local cost = 200 - offpercent * 2 - 1
+	
+		cutscene:showShop()
+		cutscene:text("* This is the HOTTEST-EST tea shop! HOTTER, YET HOTTER!! ".. offpercent.. "% off!", nil, event)
+		cutscene:text("* Ever since moving to this city, the tea became EVEN HOTTER THAN HOT!!", nil, event)
+		cutscene:text("* For $".. cost.. ", Choose your OWN flavor!!", nil, event)
+	
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			if Game.money < cost then
+				cutscene:text("* You lack the money to choose a flavor!!", nil, event)
+			elseif not Game:hasPartyMember("hero") and
+			not Game:hasPartyMember("kris") and
+			not Game:hasPartyMember("susie") and
+			not Game:hasPartyMember("ralsei") and
+			not Game:hasPartyMember("noelle") and
+			not Game:hasPartyMember("dess") and
+			not Game:hasPartyMember("jamm") and
+			not Game:hasPartyMember("ceroba") and
+			not Game:hasPartyMember("mario") and
+			not Game:hasPartyMember("pauling") then
+				cutscene:text("* Sorry, we're not producing tea for someone like you!", nil, event)
+                cutscene:text("* If only you had friends with a taste...", nil, event)
+			else
+				local teas = {}
+				local tea_items = {}
+				Game.money = Game.money - cost
+				cutscene:text("* OK!! Choose your OWN flavor!!", nil, event)
+	
+				if Game:hasPartyMember("hero") then 
+					table.insert(teas, "Hero") 
+					table.insert(tea_items, "hero_tea") 
+				end
+				if Game:hasPartyMember("kris") then 
+					table.insert(teas, "Kris") 
+					table.insert(tea_items, "kris_tea") 
+				end
+				if Game:hasPartyMember("susie") then 
+					table.insert(teas, "Susie") 
+					table.insert(tea_items, "susie_tea") 
+				end
+				if Game:hasPartyMember("ralsei") then 
+					table.insert(teas, "Ralsei") 
+					table.insert(tea_items, "ralsei_tea") 
+				end
+				if Game:hasPartyMember("noelle") then 
+					table.insert(teas, "Noelle") 
+					table.insert(tea_items, "noelle_tea") 
+				end
+				if Game:hasPartyMember("dess") then 
+					table.insert(teas, "Dess") 
+					table.insert(tea_items, "dess_tea") 
+				end
+				if Game:hasPartyMember("jamm") then 
+					table.insert(teas, "Jamm") 
+					table.insert(tea_items, "jamm_tea") 
+				end
+				if Game:hasPartyMember("ceroba") then 
+					table.insert(teas, "Ceroba") 
+					table.insert(tea_items, "ceroba_tea") 
+				end
+				if Game:hasPartyMember("mario") then 
+					table.insert(teas, "Mario") 
+					table.insert(tea_items, "mario_tea") 
+				end
+				if Game:hasPartyMember("pauling") then 
+					table.insert(teas, "Pauling") 
+					table.insert(tea_items, "pauling_tea") 
+				end
+				local tea_choice = cutscene:choicer(teas)
+				
+				local item = tea_items[tea_choice]
+			    local possible_item = "hero_tea" or "kris_tea" or "susie_tea" or "ralsei_tea" or 
+			    "noelle_tea" or "dess_tea" or "jamm_tea" or "ceroba_tea" or 
+			    "mario_tea" or "pauling_tea"
+			    if not Game.inventory:addItem(item) then
+					Game.money = Game.money + cost
+				    cutscene:text("* Whoops!! No space to choose a flavor!!", nil, event)
+				else
+					cutscene:playSound("locker")
+					cutscene:text("* Okay, here you go!", nil, event)
+				end
+			end
+		else
+			cutscene:text("* But if you don't choose a flavor, who will!?!?", nil, event)
+		end
+	
+		cutscene:hideShop()
+	end,	
+	falseral = function(cutscene, event, chara)
+		local falseral = cutscene:getCharacter("falseral")
+		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then
+			cutscene:text("* Ralsei?!", "shock", "susie")
+			falseral:setAnimation("falseral_d")
+			cutscene:text("* Who's ralsei, and what do you want.", nil)
+			cutscene:text("* Sorry, I thought you were[wait:5].[wait:5].[wait:5].[wait:7] Someone else.", "nervous_side", "susie")
+			cutscene:text("* Go away.", nil)
+			falseral:setAnimation("idle")
+			elseif Game:hasPartyMember("dess") and not Game:hasPartyMember("susie") then
+				if Game:getFlag("can_kill") == true then
+					falseral:setAnimation("falseral_d")
+					cutscene:text("* What do you want.", nil)
+					
+				cutscene:text("* screw you you suck", "dess.exe", "dess")
+				falseral:setAnimation("falseral_s")
+				cutscene:text("[noskip]* Wait wh[wait:5]", nil, {auto = true})
+				event:explode()
+				cutscene:wait(3)
+				cutscene:text("[noskip]* (Dess became weaker)[wait:3]\n* (Dess's health went down by", {auto = true})
+				cutscene:text("* oh hell no.", "mspaint", "dess")
+				cutscene:text("* (Dess became stronger!)\n* (Dess's health went up by 5!)\n * (Dess's defense went up by 1!)")
+				cutscene:text("* yay", "swag", "dess")
+				Assets.playSound("ominous")
+				local dess_party = Game:getPartyMember("dess")
+				dess_party:increaseStat("health", 5)
+				dess_party:increaseStat("defense", 1)
+				cutscene:text("* Anyways", "heckyeah", "dess")
+				
+					Game:setFlag("falseraldead", true)
+				else
+					falseral:setAnimation("falseral_d")
+				cutscene:text("* What do you want.", nil, event)
+				cutscene:text("* Nothing.", "teehee", "dess")
+				cutscene:text("* Go away.", nil, event)
+				falseral:setAnimation("idle")
+				end
+			elseif Game:hasPartyMember("susie") and Game:hasPartyMember("dess") then
+				cutscene:text("* Ralsei?!", "shock", "susie")
+				falseral:setAnimation("falseral_d")
+				cutscene:text("* Who's ralsei, and what do you want.", nil, event)
+				cutscene:text("[noskip]* Sorry, I thought", "nervous_side", "susie", {auto=true})
+				cutscene:text("* Oh they're nobody lmao you suck.", "teehee", "dess")
+				cutscene:text("* Go away.", nil, event)
+				falseral:setAnimation("idle")
+				
+			else
+		
+		falseral:setAnimation("falseral_d")
+		cutscene:text("* What do you want.", nil, event)
+		local choice = cutscene:choicer({"Who are you","Nothing"})
+		if choice == 1 then
+			cutscene:text("* Why do you want to know.", nil, event)
+		elseif choice == 2 then
+			cutscene:text("* Then go away.", nil, event)
+		end
+	end
+		falseral:setAnimation("idle")
+	end,
+charjar = function(cutscene, event)
+	if Game:hasPartyMember("dess") then
+		if Game:getFlag("can_kill") == true then
+			cutscene:text("* THIS AREA IS POWERFUL.", nil)
+			cutscene:text("[noskip]* IT FILLS ME WITH.", nil, {auto = true})
+			cutscene:text("* no shut up", "calm", "dess")
+			event:explode()
+			cutscene:text("* (Dess became stronger!)")
+			cutscene:text("* sick", "smug", "dess")
+			Assets.playSound("ominous")
+			local dess_party = Game:getPartyMember("dess")
+			dess_party:increaseStat("attack", 1)
+			Game:setFlag("charjarDEAD", true)
+		else
+			cutscene:text("* THIS AREA IS POWERFUL.", nil)
+			cutscene:text("* IT FILLS ME WITH POWER.\n[wait:5]* DO YOU LIKE POWER?", nil)
+			cutscene:text("* No lol", "neutral", "dess")
+		end
+	else
+		cutscene:text("* THIS AREA IS POWERFUL.")
+		cutscene:text("* IT FILLS ME WITH POWER.")
+	end
+					
+end,
+
 }
 return cyber

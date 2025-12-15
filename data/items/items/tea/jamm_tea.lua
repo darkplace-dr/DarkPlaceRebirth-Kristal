@@ -30,6 +30,7 @@ function item:init()
         ["susie"] = placeholder,
         ["noelle"] = placeholder,
         ["dess"] = 60,
+        ["hero"] = 20,
         ["jamm"] = 40,
         ["mario"] = 65,
         ["pauling"] = 40,
@@ -62,6 +63,7 @@ function item:init()
     -- Character reactions (key = party member id)
     self.reactions = {
 		jamm = {
+            susie = "It tastes like color?! Gimme some!",
 			jamm = "Orange flavored. Neat.",
 		},
 		noel = {
@@ -76,8 +78,8 @@ function item:init()
 			jamm = "(She gave it a thumbs up...!)",
 		},
         ceroba = {
-            ceroba = "Good coffee.",
-			jamm = "(Coffee?)",
+            ceroba = "Usual black tea. Not that it's bad, though.",
+			jamm = "...I'll take it.",
 		},
     }
 end

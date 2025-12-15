@@ -24,7 +24,7 @@ function TeevieSneakLight:init(data)
 	self.can_catch = properties["catch"] ~= false
 	self.catch_type = properties["catchtype"] or 1
 	self.cutscene = properties["cutscene"]
-	self.color = properties["color"] or Utils.hexToRgb("#B35B2D")
+	self.color = properties["color"] or ColorUtils.hexToRGB("#B35B2D")
 	self.lamp = properties["lamp"] ~= true
 	self.lightpos = properties["lamppos"] or 180
 	self.particles_on = properties["particles"] or self.lamp
@@ -122,7 +122,7 @@ function TeevieSneakLight:update()
 				if path.closed then
 					self.progress = self.progress % 1
 				elseif self.progress > 1 or self.progress < 0 then
-					self.progress = Utils.clamp(self.progress, 0, 1)
+					self.progress = MathUtils.clamp(self.progress, 0, 1)
 					self.reverse_progress = not self.reverse_progress
 				end
 
@@ -139,10 +139,10 @@ function TeevieSneakLight:update()
 			local effect = Sprite("bubbles/fill")
 			effect:setScale(2)
 			effect:setColor(COLORS["maroon"])
-			effect:setPosition(Utils.random(self.x - self.light_width*2 - 10, self.x + self.light_width*2 + 10), self.y - Utils.random(200))
+			effect:setPosition(MathUtils.random(self.x - self.light_width*2 - 10, self.x + self.light_width*2 + 10), self.y - MathUtils.random(200))
 			effect.physics.speed_y = -2
 			effect.physics.friction = 0.07
-			effect.physics.speed_x = -1 + Utils.random(2)
+			effect.physics.speed_x = -1 + MathUtils.random(2)
 			effect.layer = self.layer - 0.01
 			effect:fadeOutAndRemove(1.5)
 			Game.world:addChild(effect)
@@ -176,7 +176,7 @@ function TeevieSneakLight:update()
 									end
 									self.give_points = false
 									Assets.playSound("barrel_jump", 0.8, 2)
-									self.color = Utils.mergeColor(self.color, COLORS["blue"], 0.1)
+									self.color = ColorUtils.mergeColor(self.color, COLORS["blue"], 0.1)
 									-- todo: points-like reward? i don't know
 								end
 							end
@@ -207,15 +207,15 @@ function TeevieSneakLight:snapToPath()
             local current_dist = 0
 
             for i = 1, #path.points-1 do
-                local next_dist = Utils.dist(path.points[i].x, path.points[i].y, path.points[i+1].x, path.points[i+1].y)
+                local next_dist = MathUtils.dist(path.points[i].x, path.points[i].y, path.points[i+1].x, path.points[i+1].y)
 
                 if current_dist + next_dist > dist then
-                    local x = Utils.lerp(path.points[i].x, path.points[i+1].x, (dist - current_dist) / next_dist)
-                    local y = Utils.lerp(path.points[i].y, path.points[i+1].y, (dist - current_dist) / next_dist)
+                    local x = MathUtils.lerp(path.points[i].x, path.points[i+1].x, (dist - current_dist) / next_dist)
+                    local y = MathUtils.lerp(path.points[i].y, path.points[i+1].y, (dist - current_dist) / next_dist)
 
                     if self.debug_x and self.debug_y and Kristal.DebugSystem.last_object == self then
-                        x = Utils.ease(self.debug_x, x, Kristal.DebugSystem.release_timer, "outCubic")
-                        y = Utils.ease(self.debug_y, y, Kristal.DebugSystem.release_timer, "outCubic")
+                        x = MathUtils.ease(self.debug_x, x, Kristal.DebugSystem.release_timer, "outCubic")
+                        y = MathUtils.ease(self.debug_y, y, Kristal.DebugSystem.release_timer, "outCubic")
                         if Kristal.DebugSystem.release_timer >= 1 then
                             self.debug_x = nil
                             self.debug_y = nil

@@ -1,10 +1,6 @@
 -- Handles Winglade's arena circling attack separately
 local WingladeCircle, super = Class(Object)
 
-local function approachCurve(val, target, amount)
-    return Utils.approach(val, target, math.max(0.1, math.abs(target - val) / amount) * DTMULT)
-end
-
 function WingladeCircle:init(attacker, wave)
     super.init(self)
 
@@ -63,7 +59,7 @@ function WingladeCircle:update()
     
     self.timer = self.timer + DTMULT
 
-    self.move_factor = approachCurve(self.move_factor, 0, 15)
+    self.move_factor = MathUtils.approachCurveDTMULT(self.move_factor, 0, 15)
     self.target_angle = self.target_angle + self.turn_rate * DTMULT
 
     if self.reset then
@@ -77,8 +73,8 @@ function WingladeCircle:update()
 
     if self.action == 2 then self.move_factor = 4 end
 
-    self.attacker.x = approachCurve(self.attacker.x, self.target_x, self.move_factor)
-    self.attacker.y = approachCurve(self.attacker.y, self.target_y, self.move_factor)
+    self.attacker.x = MathUtils.approachCurveDTMULT(self.attacker.x, self.target_x, self.move_factor)
+    self.attacker.y = MathUtils.approachCurveDTMULT(self.attacker.y, self.target_y, self.move_factor)
 
     local sprite = self.attacker.sprite
     local halo_fx, eye_white_fx, eye_pupil_fx = sprite.halo:getFX('colormaskwhite'), sprite.eye_white:getFX('colormaskwhite'), sprite.eye_pupil:getFX('colormaskwhite')
@@ -92,9 +88,9 @@ function WingladeCircle:update()
         if halo_fx then halo_fx.amount = 1.4 end
         if eye_white_fx then eye_white_fx.amount = 1.4 end
         if eye_pupil_fx then eye_pupil_fx.amount = 1.4 end
-        Assets.playSound('bell_bounce_short', 0.5)
+        Assets.playSound("bell_bounce_short", 0.5)
     end
-    local total_enemies = #Game.battle.enemies
+    local total_enemies = #Game.battle:getActiveEnemies()
     if self.timer >= math.floor(self.timer_shoot / (total_enemies == 1 and 2 or 2/3)) and remaining_time >= 18/30 and not self.reset then
         Assets.playSound('motor_swing_down')
         local x_pos, y_pos = self.attacker.x, self.attacker.y - 16
@@ -103,12 +99,11 @@ function WingladeCircle:update()
         if total_enemies == 1 and ((self.shoot_counter > 0 and Utils.random(0, 2, 1) > 0) or self.shoot_counter > 2) then
             angle = angle + math.rad(Utils.pick({-35, -20, 20, 35}))
             self.shoot_counter = self.shoot_counter - 1
-        else
-            self.shoot_counter = self.shoot_counter + 1
         end
         local bullet = self:spawnBullet("winglade/ring", x_pos, y_pos, angle, 7.5)
         bullet:setLayer(self.attacker.layer - 0.01)
         self.timer = 0
+        self.shoot_counter = self.shoot_counter + 1
         self.alpha_set = false
     end
 

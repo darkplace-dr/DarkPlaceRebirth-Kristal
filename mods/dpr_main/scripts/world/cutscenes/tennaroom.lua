@@ -36,7 +36,7 @@ return {
             cutscene:text("* Welcome to the TENNA ROOM!", nil, "tenna") -- TODO: "Tenna Room" should be a funnytext
             cutscene:text("* It's a FAMILY REUNION,[wait:5] and an invite has been sent to EVERY SINGLE ONE of my RELATIVES!", nil, "tenna")
             tenna.sprite:setTennaSprite(2, "whisper", 1)
-            cutscene:text("* I had Mike send them all out for me.", nil, "tenna") -- TODO: this should be like that whisper funnytext Tenna occasionally uses.
+            cutscene:text("* [funnytext:mike_send,nil,-10,5,192,32][wait:15]", nil, "tenna")
             tenna.sprite:setTennaSprite(1, nil, 1)
             cutscene:text("* Granted,[wait:5] he JUST did that,[wait:5] so it's only just ME,[wait:5] MYSELF,[wait:5] and I here!", nil, "tenna")
             tenna.sprite:setTennaSprite(21, nil, 1)
@@ -115,6 +115,7 @@ return {
             cutscene:text("* Heh,[wait:5] but that's only if you WANT to play, of course!", nil, "tenna")
             tenna.sprite:setTennaSprite(0, "whisper_blush", 1)
             cutscene:text("* I've learned by now that forcing someone to play NEVER works well.", nil, "tenna")
+            Game:setFlag("ramb_games", true)
         elseif choice == 4 then
             if not Game:getFlag("tenna_physicalchallenge") then
                 tenna.sprite:setTennaSprite(2, "pose_podium_1", 1)
@@ -174,12 +175,18 @@ return {
         end
         -- Game:setFlag("tenna_introduction_forecasted", true)
         local crude_c = true
-        local choice = cutscene:choicer({
+
+        local options = {
             "Money",
             "Authorities",
             "New Future!",
-            -- "Wings"
-        })
+        }
+
+        if math.random() <= 0.10 then
+            table.insert(options, "Identity")
+        end
+
+        local choice = cutscene:choicer(options)
         if choice == 1 then
             cutscene:text("* Oh MONEY you say??", "wink")
             cutscene:text("* Money? Are we sponsored by HONEY??", "troll")
@@ -194,18 +201,31 @@ return {
             cutscene:text("* With my lightspeedwings [font:main]sponsored all NEW FASHIONABLE[font:main_mono] pair of WINGS!", "smile")
         elseif choice == 3 then
             cutscene:text("* NEW Future!", "wink")
-            cutscene:text("* NEW like all MY shows! SOOOO relevant to the KIDS!", "smile")
+            cutscene:text("* NEW like all MY shows!\n* SOOOO relevant to the KIDS!", "smile")
             Assets.playSound("phone")
             cutscene:hideNametag()
             cutscene:wait(1)
             -- he recieves a call
             cutscene:showNametag("FC!Tenna")
-            cutscene:text("* Wait WHAT??? What are you SAYING???")
-            cutscene:text("* I'm... not... NEW?")
-            cutscene:text("* I'm in the OLD PAST?")
+            cutscene:text("* Wait, WHAT??? What are you SAYING???", "disapproving")
+            cutscene:text("* I'm... not... NEW?", "gasp")
+            cutscene:text("* I'm in the OLD PAST?", "gasp")
             cutscene:text("* ...", "sad")
             cutscene:text("* Sorry kids... I'm just gonna...", "sad")
             crude_c = false
+        elseif choice == 4 then
+            cutscene:text("* My IDENTITY!?", "gasp")
+            cutscene:text("* Well,[wait:5] that's an easy one!", "wink")
+            cutscene:text("* I'm deltarune", "smile_dated")
+            cutscene:hideNametag()
+            cutscene:wait(0.2)
+            cutscene:showNametag("FC!Tenna")
+            cutscene:text("* What's that face for?\n* Are you implying that...", "disapproving")
+            cutscene:text("* I'm... not... deltarune!?", "gasp")
+            cutscene:text("* ...", "smpte")
+            cutscene:text("* YOU'RE LYING![wait:5]\n* I'M DELTARUNE![wait:5]\n* I'M DELTARUNE!", "smile")
+            cutscene:text("* You're not DESERVING of my presence![wait:5]\n* I'm OUTTA HERE!", "troll")
+            crude_c = true
         end
         cutscene:hideNametag()
 

@@ -37,7 +37,7 @@ function QueenRoom:update()
 			end
 			self.car_con = 1
 		end
-		self.car_x_target = Utils.lerp(self.car_x_target, self.car_x_target_temp, math.pow(self.car_timer / 20, 3))
+		self.car_x_target = MathUtils.lerp(self.car_x_target, self.car_x_target_temp, math.pow(self.car_timer / 20, 3))
 		self.car.x = self.car_x_target
 		if self.car_timer >= 17 and self.car_con == 1 then
 			Assets.playSound("impact", 0.5, 1.5)

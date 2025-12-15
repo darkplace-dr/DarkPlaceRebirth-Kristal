@@ -365,7 +365,7 @@ return {
                 ramb:setAnimation("turned")
                 cutscene:text("* At least to some extent,[wait:5] haha.")
                 ramb:setAnimation("surprised")
-                cutscene:text("* Wait hold on,[wait:5] I think I recognize you!")
+                cutscene:text("* Hold on,[wait:5] I think I recognize you!")
                 ramb:setAnimation("happy")
                 cutscene:text("* You must be Susie,[wait:5] right?\n[wait:5]* One of Kris' friends?")
                 cutscene:showNametag("Susie")
@@ -386,14 +386,62 @@ return {
                 cutscene:text("* Well, [wait:5]guess we can have a little chit-chat right now.")
                 ramb:setAnimation("turn")
                 cutscene:text("* As long as ol' Tenna's busy having fun somewhere else.")
-                cutscene:text("* Anything you wanna talk about,[wait:5] luv?")
+			end
+			if Game:getFlag("ramb_games") ~= nil then
+				Game:setFlag("ramb_games", nil)
+                ramb:setAnimation("surprised")
+				cutscene:text("* Huh?[wait:5] Whaddya say?")
+				cutscene:text("* Tenna's planning a big comeback? Bringing back these games?")
+                ramb:setAnimation("turned")
+				cutscene:text("* Boy, this guy never learns.")
+                ramb:setAnimation("happy_nostalgic")
+				cutscene:text("* Gotta admit,[wait:5] I'd like to see you play 'em.")
+                ramb:setAnimation("surprised")
+				cutscene:text("* But alas,[wait:5] I've run into a bit of a snag.")
+                ramb:setAnimation("annoyed")
+				cutscene:text("* Y'see,[wait:5] the controllers are missing.")
+                ramb:setAnimation("turned")
+				cutscene:text("* And you know you can't boot up the game without those, aren't I?")
+                ramb:setAnimation("turn")
+				cutscene:text("* So,[wait:5] how about a little favour, luv?")
+				cutscene:text("* Since we've been moving,[wait:5] we got a small elevator near my gift shop.")
+                ramb:setAnimation("turned")
+				cutscene:text("* Maybe you'll find enough controllers there to get started.")
+                ramb:setAnimation("turn")
+			end
+			if susie then
+                cutscene:text("* Anything you wanna talk about now,[wait:5] luv?")
             else
                 ramb:setAnimation("turn_subtle")
                 cutscene:text("* Anything you wanna talk about? [wait:5]\n* I'm free for now.")
             end
         else
             cutscene:showNametag("Ramb")
-            cutscene:text("* Good day, luv.\n* Anything you want to ask?")
+			if Game:getFlag("ramb_games") ~= nil then
+				Game:setFlag("ramb_games", nil)
+                ramb:setAnimation("surprised")
+				cutscene:text("* Huh?[wait:5] Whaddya say?")
+				cutscene:text("* Tenna's planning a big comeback? Bringing back these games?")
+                ramb:setAnimation("turned")
+				cutscene:text("* Boy, this guy never learns.")
+                ramb:setAnimation("happy_nostalgic")
+				cutscene:text("* Gotta admit,[wait:5] I'd like to see you play 'em.")
+                ramb:setAnimation("surprised")
+				cutscene:text("* But alas,[wait:5] I've run into a bit of a snag.")
+                ramb:setAnimation("annoyed")
+				cutscene:text("* Y'see,[wait:5] the controllers are missing.")
+                ramb:setAnimation("turned")
+				cutscene:text("* And you know you can't boot up the game without those, aren't I?")
+                ramb:setAnimation("turn")
+				cutscene:text("* So,[wait:5] how about a little favour, luv?")
+				cutscene:text("* Since we've been moving,[wait:5] we got a small elevator near my gift shop.")
+                ramb:setAnimation("turned")
+				cutscene:text("* Maybe you'll find enough controllers there to get started.")
+                ramb:setAnimation("turn")
+				cutscene:text("* Either way,[wait:5] fancy a little chit-chat for now?")
+			else
+				cutscene:text("* Good day, luv.\n* Anything you want to ask?")
+			end
         end
         ramb:setAnimation("idle")
         cutscene:hideNametag()
@@ -544,10 +592,151 @@ return {
         end)
     end,
 
-    post_ralsei_impostor = function(cutscene, event)
-        cutscene:showNametag("Pippins")
-        cutscene:text("* Hey.\n[wait:5]* Just wanna say sorry for tricking you earlier.", nil, event)
-        cutscene:text("* You gotta admit that though.\n[wait:5]* That costume WAS pretty convincing,[wait:5] right?", nil, event)
-        cutscene:hideNametag()
+    enter_rambs_room = function(cutscene, event, chara)
+		Game:setFlag("in_rambs_room", true)
+		Game.world:mapTransition("floortv/green_room", "entry_ramb", chara.facing)
+	end,
+	
+    exit_rambs_room = function(cutscene, event, chara)
+		Game:setFlag("in_rambs_room", false)
+		Game.world:mapTransition("floortv/inbetween_hall", "entry_ramb", chara.facing)
+	end,
+	
+    green_vending = function(cutscene, event)
+        cutscene:text("* (It's the VENDING MACHINE!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("green_vending")
+		end
+	end,
+	
+    green_wvending = function(cutscene, event)
+        cutscene:text("* (It's the VENDING MACHINE (promoted by Tenna)!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("green_wvending")
+		end
+	end,
+	
+    green_sellding = function(cutscene, event)
+		Game:enterShop("green_sellding")
+	end,
+
+    legacy_vending = function(cutscene, event)
+        cutscene:text("* (It's the FORGOTTEN VENDING MACHINE!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("legacy_vending")
+		end
+	end,
+
+    legacy_freevending = function(cutscene, event)
+		cutscene:text("* (It's the VENDING MACHINE!)\n* (It seems to have stopped working for quite a while.)", nil)
+		cutscene:text("* (Borrow items from the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Borrow", "Don't"})
+        if choicer == 1 then
+			Game:enterShop("legacy_freevending")
+		end
+	end,
+
+    legacy_mikevending = function(cutscene, event)
+		cutscene:text("* (MIKE'S VENDING MACHINE!)\n* (It seems to have stopped working for quite a while.)", nil)
+		cutscene:text("* (Borrow items from the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Borrow", "Don't"})
+        if choicer == 1 then
+			Game:enterShop("legacy_mikevending")
+		end
+	end,
+	
+    chair_room_chair = function(cutscene, event)
+        if not Game:getFlag("chair_room_darker") then
+			if MathUtils.random() >= 0.95 then
+				Kristal.hideBorder(0)
+				Game.world.music:stop()
+				Assets.playSound("face")
+				love.window.setTitle("")
+				local black = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+				black:setParallax(0)
+				black:setColor(COLORS.black)
+				black.layer = WORLD_LAYERS["top"] - 2
+				Game.world:addChild(black)
+				local eyes = Sprite("world/maps/floor3/nondescript_room/___eyes", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+				eyes:setOrigin(0.5)
+				eyes:setScale(3)
+				eyes:setParallax(0)
+				eyes.layer = WORLD_LAYERS["top"] - 1
+				Game.world:addChild(eyes)
+				Game.world.timer:tween(0.5, eyes, {scale_x = 300, scale_y = 300}, "in-cubic")
+				cutscene:wait(0.5)
+				Assets.stopSound("face")
+				black:remove()
+				eyes:remove()
+				Game.world:loadMap("floortv/green_room", "spawn", "down")
+				Kristal.showBorder(0)
+				Kristal.setDesiredWindowTitleAndIcon()
+			else
+				for _, mevent in ipairs(Game.world.map.events) do
+					if mevent.layer == Game.world.map.layers["objects_party"] then
+						mevent.collider.collidable = false
+						mevent.visible = false
+						mevent.layer = Game.world.map.layers["objects_nondistort"]
+					end
+					if mevent.layer == Game.world.map.layers["objects_distort"] then
+						mevent.collider.collidable = true
+						mevent.visible = true
+						mevent.layer = Game.world.map.layers["objects_party"]
+					end
+				end
+				Game.world.map:getImageLayer("bg_dark").visible = true
+				for _,chara in ipairs(Game.stage:getObjects(Character)) do
+					if not chara:getFX("dark") then
+						chara:addFX(RecolorFX(ColorUtils.mergeColor(COLORS.white, COLORS.black, 0.4)), "dark")
+						chara:addFX(DarkBlurFX(0, 0.6, false), "blur")
+					end
+				end
+				for _, party in ipairs(Game.party) do
+					for _, char in ipairs(Game.stage:getObjects(Character)) do
+						if char.actor and char.actor.id == party:getActor(true).id then
+							char:setActor(party:getActor(false))
+						end
+					end
+				end
+				Game.world.music:play("deltarune/ambientwater_weird")
+				Game.world.music:setVolume(1)
+				Game:setFlag("chair_room_darker", true)
+				love.window.setTitle("... get darker than dark?")
+			end
+        else
+			for _, mevent in ipairs(Game.world.map.events) do
+			if mevent.layer == Game.world.map.layers["objects_party"] then
+					mevent.collider.collidable = false
+					mevent.visible = false
+					mevent.layer = Game.world.map.layers["objects_distort"]
+				end
+				if mevent.layer == Game.world.map.layers["objects_nondistort"] then
+					mevent.collider.collidable = true
+					mevent.visible = true
+					mevent.layer = Game.world.map.layers["objects_party"]
+				end
+			end
+			Game.world.map:getImageLayer("bg_dark").visible = false
+			for _,chara in ipairs(Game.stage:getObjects(Character)) do
+				if chara:getFX("dark") then
+					chara:removeFX("dark")
+					chara:removeFX("blur")
+				end
+			end
+			for _, party in ipairs(Game.party) do
+				for _, char in ipairs(Game.stage:getObjects(Character)) do
+					if char.actor and char.actor.id == party:getActor(false).id then
+						char:setActor(party:getActor(true))
+					end
+				end
+			end
+			Game.world.music:stop()
+			Game.world.music:setVolume(1)
+			Game:setFlag("chair_room_darker", false)
+			love.window.setTitle("But what if it could...")
+        end
     end,
 }

@@ -95,7 +95,7 @@ function ProofreadController:init(enemy, iseasy)
     local x = SCREEN_WIDTH / 2
     local y = SCREEN_HEIGHT / 2 - 70
 
-    self.clock = Sprite('ui/clock', 200, 300)
+    self.clock = Sprite("ui/clock", 200, 300)
     self.clock.debug_select = false
     self.clock:setOrigin(0.5, 0.5)
     self.clock:setScale(2, 2)
@@ -273,6 +273,7 @@ function ProofreadController:draw()
     Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y - 80, 0, 1, 0.62, 68, 43)
     Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y, 0, 1, 0.62, 68, 43)
     Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y + 80, 0, 1, 0.62, 68, 43)
+
     if not self.timeout then
         love.graphics.setFont(self.font)
         love.graphics.setColor(COLORS["black"])

@@ -1,5 +1,5 @@
 ---@class TensionBar : TensionBar
-local TensionBar, super = Utils.hookScript(TensionBar)
+local TensionBar, super = HookSystem.hookScript(TensionBar)
 
 function TensionBar:init(x, y, dont_animate, volume_mode)
 	super.init(self, x, y, dont_animate)
@@ -37,7 +37,7 @@ function TensionBar:drawText()
 		Draw.setColor(1, 1, 1, 1)
 		Draw.draw(self.tp_text, -30, 30)
 
-		local tamt = Utils.round(self.mic.mic_volume_real)
+		local tamt = MathUtils.round(self.mic.mic_volume_real)
 		self.maxed = false
 		love.graphics.setFont(self.font)
 		if (tamt < 100) then
@@ -57,11 +57,11 @@ function TensionBar:drawText()
 				lx, ly = -14 - 14, -37
 				rx, ry = -14 + 32, -37
 			end
-			Draw.setColor(Utils.mergeColor(COLORS["gray"], COLORS["white"], Utils.clamp(self.mic.mic_volume_real/50, 0, 1)))
+			Draw.setColor(ColorUtils.mergeColor(COLORS["gray"], COLORS["white"], MathUtils.clamp(self.mic.mic_volume_real/50, 0, 1)))
 			if self.right_shoulder_display then
-				Draw.draw(Input.getButtonTexture("gamepad:rightshoulder"), Utils.lerp(lx, rx, 0.5), ly, 0, 2, 2)
+				Draw.draw(Input.getButtonTexture("gamepad:rightshoulder"), MathUtils.lerp(lx, rx, 0.5), ly, 0, 2, 2)
 			elseif self.left_shoulder_display then
-				Draw.draw(Input.getButtonTexture("gamepad:leftshoulder"), Utils.lerp(lx, rx, 0.5), ly, 0, 2, 2)
+				Draw.draw(Input.getButtonTexture("gamepad:leftshoulder"), MathUtils.lerp(lx, rx, 0.5), ly, 0, 2, 2)
 			end
 			Draw.setColor(1, 1, 1, 1)
 		end
@@ -72,25 +72,25 @@ end
 
 function TensionBar:drawBack()
 	if self.volume_bar_mode then
-		Draw.setColor(Utils.mergeColor(COLORS["red"], COLORS["black"], 0.75))
+		Draw.setColor(ColorUtils.mergeColor(COLORS["red"], COLORS["black"], 0.75))
 		Draw.pushScissor()
 		Draw.scissorPoints(0, 0, 25, (196 * 0.1) + 1)
 		Draw.draw(self.tp_bar_fill, 0, 0)
 		Draw.popScissor()
 		
-		Draw.setColor(Utils.mergeColor(COLORS["yellow"], COLORS["black"], 0.75))
+		Draw.setColor(ColorUtils.mergeColor(COLORS["yellow"], COLORS["black"], 0.75))
 		Draw.pushScissor()
 		Draw.scissorPoints(0, (196 * 0.1), 25, (196 * 0.4) + 1)
 		Draw.draw(self.tp_bar_fill, 0, 0)
 		Draw.popScissor()
 		
-		Draw.setColor(Utils.mergeColor(COLORS["green"], COLORS["black"], 0.75))
+		Draw.setColor(ColorUtils.mergeColor(COLORS["green"], COLORS["black"], 0.75))
 		Draw.pushScissor()
 		Draw.scissorPoints(0, (196 * 0.4), 25, (196 * 0.9) + 1)
 		Draw.draw(self.tp_bar_fill, 0, 0)
 		Draw.popScissor()
 		
-		Draw.setColor(Utils.mergeColor(COLORS["aqua"], COLORS["black"], 0.75))
+		Draw.setColor(ColorUtils.mergeColor(COLORS["aqua"], COLORS["black"], 0.75))
 		Draw.pushScissor()
 		Draw.scissorPoints(0, (196 * 0.9), 25, 196 + 1)
 		Draw.draw(self.tp_bar_fill, 0, 0)

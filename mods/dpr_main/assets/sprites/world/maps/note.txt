@@ -1,0 +1,1 @@
+floor 3 means legacy green room floor, it is very hard to change all those names to legacy.

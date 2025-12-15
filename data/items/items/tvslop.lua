@@ -37,10 +37,12 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+        hero = "Yikes. This sucks.",
         susie = "Like my old school.",
         ralsei = "Is this legal?",
         noelle = "Here, I refreezed it!",
         ceroba = "It's not bad, actually.",
+        dess = "i am the great mighty poo",
         jamm = "...School food. Yuck."
     }
 end

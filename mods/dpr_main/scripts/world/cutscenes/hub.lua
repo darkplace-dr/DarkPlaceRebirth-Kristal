@@ -235,11 +235,6 @@ local hub = {
 
     local items_list = {
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
             result = "dd_burger",
             item1 = "darkburger",
             item2 = "darkburger"
@@ -261,13 +256,63 @@ local hub = {
         },
         {
             result = "tensionbow",
-            item1 = "bshotbowtie",
+            item1 = "frayedbowtie",
             item2 = "tensionbit"
         },
         {
-            result = "gold_card",
-            item1 = "silver_card",
+            result = "tensiontie",
+            item1 = "tennatie",
+            item2 = "tentaser"
+        },
+        {
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
+        },
+        {
+            result = "royalpin",
+            item1 = "mousetoken",
             item2 = "silver_card",
+        },
+        {
+            result = "casino_card",
+            item1 = "hero_tea",
+            item2 = "amber_card",
+        },
+        {
+            result = "gold_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
+        },
+        {
+            result = "chosen_ax",
+            item1 = "chosen_blade",
+            item2 = "mane_ax"
+        },
+        {
+            result = "powerbitter",
+            item1 = "powerring",
+            item2 = "harvester"
+        },
+		{
+			result = "nullsword",
+			item1 = "glitchswd",
+			item2 = "bin_weapon"
+		},
+		{
+			result = "memory_guts",
+			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
+			item2 = "mind_guts"
+		},
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "shadowmantle"
+        },
+        {
+            result = "kindnessaxe",
+            item1 = "friend_buster",
+            item2 = "justiceaxe"
         },
     }
     Kristal.callEvent("setItemsList", items_list)
@@ -1794,6 +1839,30 @@ local hub = {
         onPurchase()
 	end,
 
+    handyshop = function(cutscene, event)
+		cutscene:textTagged("* (You can't tell what it's trying to sell, but you feel bad about it.)")
+		cutscene:textTagged("* (Should you buy it for 20 D$?)")
+		
+        local choice = cutscene:choicer({ "Buy", "Do Not" })
+		
+        if choice == 2 then
+            cutscene:textTagged("* (For a weird reason, you felt bitter.)")
+            return
+        end
+        if Game.money < 20 then
+            cutscene:textTagged("* (Turns out you don't have enough money, you feel glad.)")
+            return
+        end
+		if not Game.inventory:addItem("the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares") then
+            cutscene:textTagged("* (You don't have enough inventory space to buy it.)")
+            return
+		end
+		
+        Game.money = Game.money - 20
+        cutscene:playSound("locker")
+        cutscene:textTagged("* (Suddenly,[wait:5] a weird monochrome hat entered your [color:yellow]ARMORs[color:reset].)")
+	end,
+
     money_hole = function(cutscene, event)
         if Game:getFlag("money_hole") == 1 then
             cutscene:text("* (The hole is filled to the brim with cash.)")
@@ -2207,5 +2276,13 @@ local hub = {
     missinfo = function(cutscene, event)
         cutscene:text("* YOU,[wait:5] looks like you're in the need of some,[wait:5] MISSINFORMATION!", nil, "miss_info")
     end,
+	
+    vending = function(cutscene, event)
+        cutscene:text("* (DARK DOLLARS to BADGES!)\n* (Use the vending machine?)", nil)
+        local choicer = cutscene:choicer({"Buy", "Don't Buy"})
+        if choicer == 1 then
+			Game:enterShop("hub_vending")
+		end
+	end,
 }
 return hub

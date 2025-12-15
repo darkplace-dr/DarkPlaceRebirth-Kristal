@@ -48,12 +48,28 @@ function BalthizardShakeController:onShake()
     Assets.stopAndPlaySound("damage")
     if self.shakelastpress == 1 then
         local smoke = BalthizardSmoke(self.enemy.sprite.x + 13 + self.enemy.sprite.headoffsetx - 7, self.enemy.sprite.y + 28 + self.enemy.sprite.headoffsety)
-        smoke.physics.speed = TableUtils.pick({-3, -4, -5})
+        smoke.physics.speed = (TableUtils.pick({-3, -4, -5}))/2
         self.enemy.sprite:addChild(smoke)
     else
         local smoke = BalthizardSmoke(self.enemy.sprite.x + 13 + self.enemy.sprite.headoffsetx + 10, self.enemy.sprite.y + 28 + self.enemy.sprite.headoffsety)
-        smoke.physics.speed = TableUtils.pick({3, 4, 5})
+        smoke.physics.speed = (TableUtils.pick({3, 4, 5}))/2
         self.enemy.sprite:addChild(smoke)
+    end
+end
+
+function BalthizardShakeController:addMercyCustom(amount)
+    if not self.enemy.temp_mercy then
+        self.enemy.temp_mercy = amount
+    else
+        self.enemy.temp_mercy = self.enemy.temp_mercy + amount
+    end
+    self.enemy.temp_mercy = MathUtils.clamp(self.enemy.temp_mercy, 0, self.mercylimit)
+    if not self.enemy.temp_mercy_percent and Game:getConfig("mercyMessages") then
+        Assets.playSound("mercyadd", 0.8, 1.4)
+        self.enemy.temp_mercy_percent = self.enemy:statusMessage("mercy", self.enemy.temp_mercy)
+        self.enemy.temp_mercy_percent.kill_condition = function() return self.enemy.sprite.shaking == false end
+    else
+        self.enemy.temp_mercy_percent:setDisplay("mercy", self.enemy.temp_mercy)
     end
 end
 
@@ -76,14 +92,14 @@ function BalthizardShakeController:update()
             if self.shakemercystart >= 100 then
                 self.shakemaxmercyhp = self.shakemaxmercyhp - 8
             else
-                self.enemy:addTemporaryMercy(8, true, {0, self.mercylimit}, (function() return self.enemy.sprite.shaking == false end))
+                self:addMercyCustom(8)
             end
         else
             self.mercygained = self.mercygained + 4
             if self.shakemercystart >= 100 then
                 self.shakemaxmercyhp = self.shakemaxmercyhp - 4
             else
-                self.enemy:addTemporaryMercy(4, true, {0, self.mercylimit}, (function() return self.enemy.sprite.shaking == false end))
+                self:addMercyCustom(4)
             end
         end
         self.shakelastpress = -1
@@ -99,14 +115,14 @@ function BalthizardShakeController:update()
             if self.shakemercystart >= 100 then
                 self.shakemaxmercyhp = self.shakemaxmercyhp - 8
             else
-                self.enemy:addTemporaryMercy(8, true, {0, self.mercylimit}, (function() return self.enemy.sprite.shaking == false end))
+                self:addMercyCustom(8)
             end
-        else                      -- why 3, Toby? WHY
+        else -- why 3, Toby's coders? WHY
             self.mercygained = self.mercygained + 3
             if self.shakemercystart >= 100 then
                 self.shakemaxmercyhp = self.shakemaxmercyhp - 3
             else
-                self.enemy:addTemporaryMercy(3, true, {0, self.mercylimit}, (function() return self.enemy.sprite.shaking == false end))
+                self:addMercyCustom(3)
             end
         end
         self.shakelastpress = 1
@@ -115,6 +131,13 @@ function BalthizardShakeController:update()
 
     if (self.mercygained >= self.mercylimit and self.shakemercystart < 100) or (self.shakemercystart >= 100 and self.shakemaxmercyhp < 1) or self.shaketimer >= 180 then
         self.enemy.sprite.shaking = false
+        if self.enemy.temp_mercy then
+            self.enemy.mercy = self.enemy.mercy + self.enemy.temp_mercy
+            self.enemy.temp_mercy = nil
+            if self.enemy.temp_mercy_percent then
+                self.enemy.temp_mercy_percent = nil
+            end
+        end
         if self.shakemercystart >= 100 then
             self.enemy:spare()
         end

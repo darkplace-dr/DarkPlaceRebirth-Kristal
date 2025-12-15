@@ -298,3 +298,5 @@ KRISTAL_EVENT = {
     onDPWarpBinUsed = "onDPWarpBinUsed", -- player used the warp bin / in: Game:unlockPartyMember(member) / passes: string:code, WarpBinCodeInfo?:action / returns: NONE
     drawScreen = "drawScreen", -- overrides drawing SCREEN_CANVAS and border / in: [HOOK]love.draw(...)J\love.load(args) / passes: Canvas:canvas / returns: bool
 }
+
+BUILTIN_DLCS = {"dpr_main", "dpr_light"}

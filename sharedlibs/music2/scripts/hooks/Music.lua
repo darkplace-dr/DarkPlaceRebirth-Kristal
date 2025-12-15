@@ -148,6 +148,7 @@ function Music:playFile(paths, volume, pitch, loop, name)
 end
 
 function Music:setVolume(volume)
+    assert(type(volume) == "number", "Bad argument #1 on setVolume (expected number, got "..type(volume)..")")
     self.volume = volume
 
     if self.source_intro then
@@ -159,6 +160,7 @@ function Music:setVolume(volume)
 end
 
 function Music:setPitch(pitch)
+    assert(type(pitch) == "number", "Bad argument #1 on setPitch (expected number, got "..type(pitch)..")")
     self.pitch = pitch
 
     if self.source_intro then

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="38">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="greenroomold"/>
+  <property name="music" value="lost_room"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/greenroom.tsx"/>
+ <tileset firstgid="127" source="../../../../tilesets/floor3-objects.tsx"/>
+ <tileset firstgid="170" source="../../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
+ <imagelayer id="7" name="Image Layer 1">
+  <image source="../../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png" width="1280" height="960"/>
+ </imagelayer>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+21,21,21,21,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,0,238,239,234,234,236,237,0,21,21,21,21,
+21,21,21,21,0,269,270,265,265,265,265,0,21,21,21,21,
+21,21,21,21,0,330,329,330,330,330,328,0,21,21,21,21,
+21,21,21,21,21,361,361,0,0,361,361,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="3" x="206" y="160" width="60" height="40"/>
+  <object id="6" x="372" y="160" width="60" height="40"/>
+  <object id="7" x="200" y="120" width="80" height="40"/>
+  <object id="8" x="360" y="120" width="80" height="40"/>
+  <object id="9" x="160" y="160" width="40" height="320"/>
+  <object id="10" x="440" y="160" width="40" height="320"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="11" name="transition" x="280" y="145" width="80" height="5">
+   <properties>
+    <property name="map" value="floortv/elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="24" name="transition" x="200" y="470" width="240" height="40">
+   <properties>
+    <property name="map" value="floortv/legacy/pre_elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="35" gid="151" x="282" y="160" width="76" height="104"/>
+  <object id="36" gid="152" x="200" y="200" width="74" height="90"/>
+  <object id="37" gid="152" x="366" y="200" width="74" height="90"/>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="25" name="entry" x="320" y="440">
+   <point/>
+  </object>
+  <object id="26" name="entry_elevator" x="320" y="210">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff0000" id="5" name="objects_fg">
+  <object id="30" gid="150" x="194" y="80" width="70" height="40"/>
+  <object id="31" gid="150" x="258" y="80" width="70" height="40"/>
+  <object id="32" gid="150" x="322" y="80" width="70" height="40"/>
+  <object id="33" gid="150" x="386" y="80" width="70" height="40"/>
+ </objectgroup>
+ <layer id="6" name="Tile Layer 2" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,21,21,21,21,21,21,21,21,0,0,0,0,
+0,0,0,0,21,0,0,0,0,0,0,21,0,0,0,0,
+0,0,0,0,21,0,0,0,0,0,0,21,0,0,0,0,
+0,0,0,0,21,0,0,0,0,0,0,21,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <imagelayer id="9" name="overlay" opacity="0.4" tintcolor="#000000" parallaxx="0" parallaxy="0">
+  <image source="../../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png" width="640" height="480"/>
+ </imagelayer>
+</map>

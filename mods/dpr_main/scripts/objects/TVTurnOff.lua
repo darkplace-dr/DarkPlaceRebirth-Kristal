@@ -87,25 +87,25 @@ function TVTurnOff:draw()
 	end
 	love.graphics.setColor(1,1,1,1)
 	if self.con == 0 then
-		local alpha1 = Utils.lerp(0, 1, self.timer/5)
+		local alpha1 = MathUtils.lerp(0, 1, self.timer/5)
 		love.graphics.setColor(1,1,1,alpha1)
 		Draw.draw(self.texture_1, 320, 240, 0, 6, 10, 70, 119)
 		love.graphics.setColor(1,1,1,1)
 	elseif self.con == 1 then
-		self.yscale1 = Utils.lerp(self.yscale1, 0.05, self.timer/8)
+		self.yscale1 = MathUtils.lerp(self.yscale1, 0.05, self.timer/8)
 		Draw.draw(self.texture_1, 320, 240, 0, 6, self.yscale1, 70, 119)
 		Draw.draw(self.texture_2, 320, 240, 0, 0.1, 0.1, 198, 193)
 	elseif self.con == 2 then
 		if self.timer <= 10 then
-			self.xscale1 = Utils.lerp(self.xscale1, 0, self.timer/10)
-			self.yscale1 = Utils.lerp(self.yscale1, 0.01, self.timer/10)
+			self.xscale1 = MathUtils.lerp(self.xscale1, 0, self.timer/10)
+			self.yscale1 = MathUtils.lerp(self.yscale1, 0.01, self.timer/10)
 		end
 		if self.timer2 <= 5 then
-			self.xscale2 = Utils.lerp(self.xscale2, 0.4, self.timer2/5)
-			self.yscale2 = Utils.lerp(self.yscale2, 0.4, self.timer2/5)
+			self.xscale2 = MathUtils.lerp(self.xscale2, 0.4, self.timer2/5)
+			self.yscale2 = MathUtils.lerp(self.yscale2, 0.4, self.timer2/5)
 		else		
-			self.xscale2 = Utils.lerp(self.xscale2, 0, (self.timer2-5)/5)
-			self.yscale2 = Utils.lerp(self.yscale2, 0, (self.timer2-5)/5)
+			self.xscale2 = MathUtils.lerp(self.xscale2, 0, (self.timer2-5)/5)
+			self.yscale2 = MathUtils.lerp(self.yscale2, 0, (self.timer2-5)/5)
 		end
 		Draw.draw(self.texture_1, 320, 240, 0, self.xscale1, self.yscale1, 70, 119)
 		Draw.draw(self.texture_2, 320, 240, 0, self.xscale2, self.yscale2, 198, 193)

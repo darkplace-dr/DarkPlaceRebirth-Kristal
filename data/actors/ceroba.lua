@@ -8,7 +8,7 @@ function actor:init()
     self.width = 25
     self.height = 52
 
-    self.hitbox = {3, 38, 19, 14}
+    self.hitbox = {3, 40, 19, 14}
 
     self.soul_offset = {12.5, 28}
 
@@ -31,7 +31,12 @@ function actor:init()
     }
 
     self.animations = {
-        ["jump_ball"]           = {"ball", 1/15, true},
+        ["deflect"] = {"deflect", 1/15, false},
+        ["guard"] = {"guard", 1/10, false},
+        ["picture"] = {"picture", 1/10, false},
+        ["picture_reverse"] = {"picture", 1/10, false, nil, frames={10,9,8,7,6,5,4,3,2,1}},
+        ["staff"] = {"staff", 1/10, false},
+        ["unguard"] = {"unguard", 1/10, false},
     }
 
     self.offsets = {
@@ -52,12 +57,18 @@ function actor:init()
         ["run/up"] = {-1, 2},
 
         -- Cutscene offsets
+        ["deflect"] = {-9, -7},
         ["fall"] = {0, 0},
-        ["super_move"] = {-24, 0},
+        ["guard"] = {-17, -11},
+        ["picture"] = {-17, -9},
+        ["right_down"] = {-1, -2},
+        ["right_down_more"] = {1, -2},
+        ["staff"] = {-19, -1},
         ["the_roba"] = {0, 0},
+        ["unguard"] = {-17, -11},
     }
 
-    self.taunt_sprites = {"super_move", "the_roba"}
+    self.taunt_sprites = {"cool", "the_roba"}
 
     self.shiny_id = "ceroba"
 end

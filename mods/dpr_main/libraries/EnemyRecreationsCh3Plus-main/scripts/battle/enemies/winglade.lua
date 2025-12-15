@@ -47,6 +47,22 @@ function Winglade:init()
     self:registerAct("Spin", "Spin\n50%\nmercy")
     self:registerAct("SpinS", "60%\nMercy\nto all", {"susie"})
     self:registerAct("Whirl", "SPARE\nall!", {"susie", "ralsei"}, 64)
+
+    self.transition_ended = false
+end
+
+function Winglade:onAdd(parent)
+    super.onAdd(self, parent)
+    self:setAnimation("blank")
+end
+
+function Winglade:update()
+    super.update(self)
+
+    if not self.transition_ended and Game.battle.state ~= 'TRANSITION' and Game.battle.state ~= 'INTRO' then
+        self.transition_ended = true
+        self:setAnimation("idle")
+    end
 end
 
 function Winglade:spawnSpeechBubble(text)
@@ -65,14 +81,14 @@ end
 function Winglade:onAct(battler, name)
     if name == "Spin" then
         self:addMercy(50)
-        for _, enemy in ipairs(Game.battle.enemies) do
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             if enemy ~= self then enemy:addMercy(10) end
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         battler:setAnimation('pirouette')
         return "* You spun masterfully!"
     elseif name == "SpinS" then
-        for _, enemy in ipairs(Game.battle.enemies) do
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             if enemy.id == 'winglade' then enemy:addMercy(60) end
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
@@ -103,7 +119,7 @@ function Winglade:onShortAct(battler, name)
         battler:setAnimation('pirouette')
         if battler.chara.id == "ralsei" then
             self:addMercy(50)
-            for _, enemy in ipairs(Game.battle.enemies) do
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
                 if enemy ~= self then enemy:addMercy(10) end
             end
             return "* Ralsei rotates like a gyro!"
@@ -117,6 +133,21 @@ function Winglade:onShortAct(battler, name)
     end
 
     return super.onShortAct(self, battler, name)
+end
+
+function Winglade:onHurt(...)
+    self:setAnimation("blank")
+    super.onHurt(self, ...)
+end
+
+function Winglade:onHurtEnd()
+    if self:canSpare() then self:onSpareable()
+    else self:setAnimation("idle") end
+    super.onHurtEnd(self)
+end
+
+function Winglade:onSpared()
+    self:setAnimation("blank")
 end
 
 function Winglade:getEnemyDialogue()

@@ -1,5 +1,4 @@
-local warp = {}
-local self = warp
+local self = {}
 
 self.name = "Palace"
 self.warp = "floor1/hub_fluffys_palace"

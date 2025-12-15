@@ -47,9 +47,11 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero =  "Ew.",
         susie = "Eat dirt, losers.",
         ralsei = "Could I wash it off first?",
         noelle = "N-no way! Susie wouldn't use that!",
+        dess = "i wana eat dirt",
         jamm = "How'd you even...",
         ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
     }

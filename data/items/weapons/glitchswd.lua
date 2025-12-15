@@ -43,8 +43,10 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "Wow. Really funny.",
         susie = "... what are you trying to equip?",
         jamm = "Uh... what?",
+        ceroba = "Huh? What sword?"
     }
 end
 

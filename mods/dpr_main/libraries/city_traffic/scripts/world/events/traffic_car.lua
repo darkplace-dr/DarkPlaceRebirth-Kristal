@@ -47,7 +47,7 @@ function TrafficCar:init(data)
         self.walklerp       = 0
         self.walkx          = 0
         self.walky          = 0
-        self.freshness = #Utils.filter(Game.world.children, function (v)
+        self.freshness = #TableUtils.filter(Game.world.children, function (v)
             return isClass(v) and v:includes(Registry.events["traffic_car"]) 
         end) - 1
 
@@ -295,18 +295,18 @@ function TrafficCar:update()
     if self.speedadjust then
         local sx, sy = self:getPosition()
         local px, py = Game.world.player:getPosition()
-        local chardist = Utils.dist(sx, sy, px, py)
+        local chardist = MathUtils.dist(sx, sy, px, py)
 
         if chardist >= self.speedadjust_proximity then
             self.idealspeed = self.speedadjust_max
         else
             self.idealspeed = math.max((chardist / 16), self.speedadjust_min)
         end
-        self.speed = Utils.approach(self.speed, self.idealspeed, 1)
+        self.speed = MathUtils.approach(self.speed, self.idealspeed, 1)
         -- This should be the equivalent of what instance_place is doing in DELTARUNE
         local carcheck
         Object.startCache()
-        for _, car in ipairs(Utils.filter(Game.world.children, function (v)
+        for _, car in ipairs(TableUtils.filter(Game.world.children, function (v)
             return isClass(v) and v:includes(Registry.events["traffic_car"]) 
         end)) do
             -- DELTARUNE inaccuracy (this was unimplemented so whether you can even call it that depends...)
@@ -322,7 +322,7 @@ function TrafficCar:update()
             if carcheck.freshness > self.freshness then
                 self.y = self.y - 12
                 self.speed = self.speed - 12
-                self.speed = Utils.clamp(self.speed, 0, 24)
+                self.speed = MathUtils.clamp(self.speed, 0, 24)
             end
         end
     end
@@ -394,7 +394,7 @@ function TrafficCar:draw()
         end
     end
     self.walkx = ((math.sin((self.animsiner / 4)) * self.walklerp) * 2)
-    self.walky = Utils.lerp(0, self.walklerp, -26, true)
+    self.walky = MathUtils.lerp(0, self.walklerp, -26, true)
     if self.alwayswalking then
         self.walky = -26
     end

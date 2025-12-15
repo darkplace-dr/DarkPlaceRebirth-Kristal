@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="110">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -58,7 +58,14 @@
   <object id="78" gid="389" x="1120" y="160" width="92" height="146"/>
   <object id="80" gid="390" x="1001" y="160" width="76" height="104"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="5" name="objects">
+ <objectgroup color="#ff007f" id="11" name="objects_base">
+  <object id="106" name="interactable" x="550" y="120" width="390" height="40">
+   <properties>
+    <property name="text" value="* (Doesn't seem like anyone's here...)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="objects_party">
   <object id="7" gid="371" x="520" y="440" width="116" height="102"/>
   <object id="8" gid="371" x="804" y="440" width="116" height="102"/>
   <object id="9" gid="377" x="640" y="440" width="160" height="40"/>
@@ -80,7 +87,7 @@
    </properties>
   </object>
   <object id="77" name="greenroom_platter" x="670" y="368" width="100" height="88"/>
-  <object id="81" name="interactable" x="1001" y="120" width="76" height="40">
+  <object id="81" name="interactable" x="1000" y="80" width="76" height="40">
    <properties>
     <property name="text">* (It's a door.)[wait:5]
 * (It's locked.)</property>
@@ -89,12 +96,7 @@
   <object id="83" name="interactable" x="1120" y="120" width="90" height="40">
    <properties>
     <property name="text">* (It's the cooler door.)[wait:5]
-* (It's also locked.)</property>
-   </properties>
-  </object>
-  <object id="84" name="interactable" x="550" y="120" width="390" height="40">
-   <properties>
-    <property name="text" value="* (Doesn't seem like anyone's here...)"/>
+* (It's currently locked.)</property>
    </properties>
   </object>
   <object id="89" name="transition" x="120" y="160">
@@ -124,10 +126,34 @@
     <property name="text2" value="* (You feel a sense of emptiness.)"/>
    </properties>
   </object>
+  <object id="95" name="transition" x="1000.75" y="123.67" width="76.0384" height="39.4545">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/dump_corridors"/>
+    <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="103" name="script" x="694" y="62" width="92" height="40">
+   <properties>
+    <property name="cutscene" value="tvfloor.exit_rambs_room"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="109" name="interactable" x="401" y="128.25" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.green_vending"/>
+    <property name="solid" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="objects_barabove">
+  <object id="105" gid="379" x="550" y="160" width="390" height="120"/>
  </objectgroup>
  <layer id="6" name="above" width="36" height="12">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,36,36,36,36,36,36,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -141,7 +167,7 @@
 0,0,0,0,0,0,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,36,36,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#0000ff" id="7" name="collision">
+ <objectgroup color="#0000ff" id="7" name="base_collision">
   <object id="40" x="40" y="240" width="240" height="40"/>
   <object id="41" x="240" y="280" width="40" height="160"/>
   <object id="42" x="280" y="440" width="880" height="40"/>
@@ -158,11 +184,24 @@
   <object id="68" x="800" y="400" width="120" height="40"/>
   <object id="85" x="401" y="160" width="60" height="9"/>
  </objectgroup>
+ <objectgroup color="#5500ff" id="9" name="ramb_collision">
+  <object id="97" x="574" y="72" width="120" height="40"/>
+  <object id="98" x="784" y="72" width="120" height="40"/>
+  <object id="99" x="560" y="142" width="360" height="40"/>
+  <object id="100" x="592" y="90" width="40" height="40"/>
+  <object id="101" x="904" y="90" width="40" height="40"/>
+ </objectgroup>
  <objectgroup color="#7f00ff" id="8" name="markers">
   <object id="86" name="entry_left" x="140" y="200">
    <point/>
   </object>
   <object id="92" name="entry_right" x="1260" y="200">
+   <point/>
+  </object>
+  <object id="96" name="entry_dump" x="1040" y="200">
+   <point/>
+  </object>
+  <object id="108" name="entry_ramb" x="739" y="138">
    <point/>
   </object>
  </objectgroup>

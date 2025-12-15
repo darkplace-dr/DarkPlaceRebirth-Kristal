@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = "Makes\nLead"
     -- Menu description
-    self.description = "A machine that makes lead.\nSell at the end of battles for $ +25%!"
+    self.description = "A machine that makes lead.\nSell at the end of battles for $+25%!"
 
     -- Default shop price (sell price is halved)
     self.price = 750

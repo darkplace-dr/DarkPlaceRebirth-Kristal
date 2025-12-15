@@ -358,7 +358,10 @@ function preview:require(module, ...)
 end
 
 function preview:resetDessSpawn()
-    if os.date("*t").month == 12 then
+    local date = os.date("*t")
+    if date.month == 12 and date.day == 25 then
+        self.particle_interval_dess = Utils.random(0.05, 0.2, 0.01)
+    elseif date.month == 12 then
         self.particle_interval_dess = Utils.random(1*2.2, 6.9, 0.25)
     else
         self.particle_interval_dess = Utils.random(1*2.2, 6.9*4*20*3, 0.25)

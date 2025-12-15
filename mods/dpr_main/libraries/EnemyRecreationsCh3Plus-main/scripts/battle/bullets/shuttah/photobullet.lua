@@ -94,9 +94,9 @@ function PhotoBullet:canCaptureBullet(bullet)
     local use_whitelist, blacklist, whitelist = config.use_whitelist, config.blacklist, config.whitelist
     local first_condition = bullet:includes(Bullet) and bullet.active and self.bullet_collider:collidesWith(bullet.collider)
     if use_whitelist then
-        return first_condition and Utils.containsValue(whitelist, bullet.id)
+        return first_condition and TableUtils.contains(whitelist, bullet.id)
     else
-        return first_condition and not Utils.containsValue(blacklist, bullet.id)
+        return first_condition and not TableUtils.contains(blacklist, bullet.id)
     end
 end
 
@@ -108,8 +108,8 @@ function PhotoBullet:update()
         local start_distance = self.hand_distance + self.start_change
         local distance = Ease.outQuad(progress, self.start_change, -self.start_change, 1)
         local distance_x_left, distance_y_left, distance_x_right, distance_y_right = self:getHandDistances(distance)
-        self.left_hand.alpha = Utils.lerp(0, 1, progress)
-        self.right_hand.alpha = Utils.lerp(0, 1, progress)
+        self.left_hand.alpha = MathUtils.lerp(0, 1, progress)
+        self.right_hand.alpha = MathUtils.lerp(0, 1, progress)
         self.left_hand:setPosition(-distance_x_left, -distance_y_left)
         self.right_hand:setPosition(distance_x_right, distance_y_right)
     elseif not self.easing_done then
@@ -155,16 +155,16 @@ function PhotoBullet:update()
         if self.total_rotation ~= 0 then rotation_per_frame = math.rad(self.total_rotation / self.lifetime * DT)
         elseif self.rotation_per_second ~= 0 then rotation_per_frame = math.rad(self.rotation_per_second * DT) end
         if self.rotation_windup then
-            rotation_per_frame = Utils.lerp(0, rotation_per_frame, (self.timer - 18 - 12) / 30 * 4)
+            rotation_per_frame = MathUtils.lerp(0, rotation_per_frame, MathUtils.clamp((self.timer - 18 - 12) / 30 * 4, 0, 1))
         end
         self.rotation = self.rotation + rotation_per_frame
         self.reticle.rotation = -self.rotation
         for index, bullet in ipairs(self.captured_bullets) do
             bullet.rotation = self.bullet_original_rotation[index] + self.rotation
             local self_x, self_y = self:getScreenPos()
-            local bullet_x, bullet_y = Utils.unpack(self.bullet_original_position[index])
-            local rotation = Utils.angle(self_x, self_y, bullet_x, bullet_y) + self.rotation
-            local distance = Utils.dist(self_x, self_y, bullet_x, bullet_y)
+            local bullet_x, bullet_y = TableUtils.unpack(self.bullet_original_position[index])
+            local rotation = MathUtils.angle(self_x, self_y, bullet_x, bullet_y) + self.rotation
+            local distance = MathUtils.dist(self_x, self_y, bullet_x, bullet_y)
             
             local new_x, new_y = math.cos(rotation) * distance + self.x, math.sin(rotation) * distance + self.y
             bullet.x = new_x
@@ -185,9 +185,9 @@ function PhotoBullet:update()
         local end_distance = self.hand_distance + self.end_change
         local distance = Ease.inQuad(progress, self.end_change, -self.end_change, 1)
         local distance_x_left, distance_y_left, distance_x_right, distance_y_right = self:getHandDistances(distance)
-        self.left_hand.alpha = Utils.lerp(1, 0, 1 - progress)
-        self.right_hand.alpha = Utils.lerp(1, 0, 1 - progress)
-        if self.total_rotation ~= 0 then self.reticle.alpha = Utils.lerp(1, 0, 1 - progress) end
+        self.left_hand.alpha = MathUtils.lerp(1, 0, 1 - progress)
+        self.right_hand.alpha = MathUtils.lerp(1, 0, 1 - progress)
+        if self.total_rotation ~= 0 then self.reticle.alpha = MathUtils.lerp(1, 0, 1 - progress) end
         self.left_hand:setPosition(-distance_x_left, -distance_y_left)
         self.right_hand:setPosition(distance_x_right, distance_y_right)
     elseif remaining < -15 then
@@ -200,7 +200,7 @@ end
 function PhotoBullet:draw()
     local fadeout = 12
     if self.screenshot and self.timer < 18 + fadeout then
-        Draw.setColor(1, 1, 1, Utils.lerp(1, 0, (self.timer - 18) / fadeout))
+        Draw.setColor(1, 1, 1, MathUtils.lerp(1, 0, (self.timer - 18) / fadeout))
         local x, y = self:getScreenPos()
         local image = self.screenshot
         local img_width, img_height = image:getDimensions()
@@ -232,8 +232,8 @@ function PhotoBullet:draw()
     end
 
     if self.timer > 18 then
-        local alpha = Utils.clamp(1 + self:getRemainingLifetime() / 15, 0, 1)
-        local r, g, b = Utils.unpack(self.color)
+        local alpha = MathUtils.clamp(1 + self:getRemainingLifetime() / 15, 0, 1)
+        local r, g, b = TableUtils.unpack(self.color)
         local width = self.capture_width
         Draw.setColor(r, g, b, alpha)
         love.graphics.setLineWidth(1)

@@ -93,7 +93,7 @@ function Jukebox:update()
             self:setScale(1.1)
             self.timer:tween(12/30, self, {scale_x=1, scale_y=1}, "out-sine")
 
-            local note = self:addChild(Sprite("world/events/jukebox/music_note_small", 60 + love.math.random(10), 10))
+            local note = self:addChild(Sprite("world/events/jukebox/musical_note_small", 60 + love.math.random(10), 10))
             note:setLayer(10)
             note:setScale(2)
             note.alpha = 0
