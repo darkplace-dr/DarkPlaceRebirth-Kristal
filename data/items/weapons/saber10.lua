@@ -19,7 +19,7 @@ function item:init()
     self.description = "A saber made of 10 cactus needles.\nFortunately, can deal more than 10 damage."
 
     -- Default shop price (sell price is halved)
-    self.price = 710
+    self.price = 700
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -48,11 +48,13 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "Now THAT is cool.",
         susie = "Nah, I'd snap it.",
         ralsei = "You want to... pierce my ears...?",
         noelle = "(I'm not against using it, but...)",
+        dess = "this is too op for me",
         jamm = "Ow! Prickly...",
-        ceroba = "I'm not risking getting stabbed."
+        ceroba = "I'm not risking getting prickled."
     }
 end
 

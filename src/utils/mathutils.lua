@@ -448,4 +448,35 @@ function MathUtils.lerpEaseInOut(from, to, value, ease_type)
     return MathUtils.lerp(from, to, easeInOut(value, ease_type))
 end
 
+function MathUtils.lengthDirX(length, dir)
+    return math.cos(-dir) * length
+end
+
+function MathUtils.lengthDirY(length, dir)
+    return math.sin(-dir) * length
+end
+
+function MathUtils.approachCurve(val, target, amount)
+    local t = 0.1
+    return MathUtils.approach(val, target, math.max(t, math.abs(target - val) / amount))
+end
+
+function MathUtils.approachCurveDTMULT(val, target, amount)
+    return MathUtils.approach(val, target, math.max(0.1, math.abs(target - val) / amount) * DTMULT)
+end
+
+function MathUtils.rotateTowards(a, b, t)
+    local diff = MathUtils.angleDiff(b, a)
+    if (math.abs(diff) > t) then
+        return a + (MathUtils.sign(diff) * t)
+    else
+        return b
+    end
+end
+
+function MathUtils.angleLerp(a, b, t)
+    local diff = MathUtils.angleDiff(b, a)
+    return a + MathUtils.lerp(0, diff, t)
+end
+
 return MathUtils

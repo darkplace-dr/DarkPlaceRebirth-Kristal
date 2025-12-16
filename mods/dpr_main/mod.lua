@@ -481,10 +481,11 @@ function Mod:makeSpellsMissAgainstJackenstein()
 			return sprite
 		end
 
+        local x, y
 		if Game.battle.encounter.is_jackenstein then
-			local x, y = target:getRelativePos(target.width / 2, target.height / 2-60, Game.battle)
+			x, y = target:getRelativePos(target.width / 2, target.height / 2-60, Game.battle)
 		else
-			local x, y = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
+			x, y = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
 		end
 
 		local particles = {}
@@ -1027,10 +1028,10 @@ function Mod:makeSpellsMissAgainstJackenstein()
 				else
 					local recolor = target:addFX(RecolorFX())
 					Game.battle.timer:during(8/30, function()
-						recolor.color = Utils.lerp(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
+						recolor.color = ColorUtils.mergeColor(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
 					end, function()
 						Game.battle.timer:during(8/30, function()
-							recolor.color = Utils.lerp(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
+							recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
 						end, function()
 							target:removeFX(recolor)
 						end)
@@ -1091,16 +1092,16 @@ function Mod:postInit(new_file)
         DELTARUNE_SAVE_ID = nil
     end
     local items_list = {
-        {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
-            result = "dd_burger",
-            item1 = "darkburger",
-            item2 = "darkburger"
-        },
+		{
+			result = "soulmantle",
+			item1 = "flarewings",
+			item2 = "discarded_robe"
+		},
+		{
+			result = "dd_burger",
+			item1 = "darkburger",
+			item2 = "darkburger"
+		},
         {
             result = "silver_card",
             item1 = "amber_card",
@@ -1230,6 +1231,8 @@ function Mod:initializeImportantFlags(new_file)
 
         -- Use "KR_" as a prefix to check for a Kristal Mod instead
         KR_frozen_heart = {item_id = "angelring"},
+        KR_wilter_boss_fight = {item_id = "bloombowtie"},
+        KR_plugged_dream = {item_id = "wirecracker"},
         KR_wii_bios = {item_id = "wiimote"},
         ["KR_acj_deoxynn/act1"] = {name = "Deoxynn Act 1", item_id = "victory_bell"}
     }

@@ -1,9 +1,7 @@
-local warp = {}
-local self = warp
+local self = {}
 
-self.id = "minekraft"
-self.variants = {"minecraft","deltacraft", "runecraft", "blockrune", "suscraft", "kricraft"}
 self.name = "Minekraft"
+self.variants = {"minecraft","deltacraft", "runecraft", "blockrune", "suscraft", "kricraft"}
 self.warp = "cave"
 
 return self

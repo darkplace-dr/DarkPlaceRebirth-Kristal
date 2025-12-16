@@ -3,14 +3,13 @@ local WingladeSpeechBubble, super = Class(Object)
 function WingladeSpeechBubble:init(text, speaker)
     super.init(self, speaker.x, speaker.y)
 
+    self.done = false
     self.speaker = speaker
-    self.rotation = math.rad(Utils.random(0, math.rad(360)))
+    self.rotation = math.rad(MathUtils.random(0, math.rad(360)))
     self.physics.spin = math.rad(1)
     self.physics.match_rotation = true
     self.text = text
-    self.text_time = 90
-    self.timer = 0
-    self.advanced = false
+    self.wait_timer = 15/30
 end
 
 function WingladeSpeechBubble:setStyle(style) end
@@ -26,61 +25,38 @@ function WingladeSpeechBubble:onRemoveFromStage(stage)
 end
 
 function WingladeSpeechBubble:advance()
-    self.advanced = true
+    if self.wait_timer == 0 then
+        self.done = true
+        self:remove()
+    end
 end
 
-function WingladeSpeechBubble:setText(text, callback, line_callback) end
-
-function WingladeSpeechBubble:setAuto(auto) end
-
-function WingladeSpeechBubble:setAdvance(advance) end
-
-function WingladeSpeechBubble:setSkippable(skippable) end
-
-function WingladeSpeechBubble:setCallback(callback) end
-
-function WingladeSpeechBubble:setLineCallback(callback) end
-
-function WingladeSpeechBubble:setRight(right) end
-
 function WingladeSpeechBubble:isTyping()
-    return not self:isDone()
+    return false
 end
 
 function WingladeSpeechBubble:isDone()
-    return (self.timer > self.text_time or self.advanced) and self.timer > 30
+    return self.done
 end
 
 function WingladeSpeechBubble:update()
     super.update(self)
-    self.y = self.speaker.sprite.y + self.speaker.y
-    if self.timer > 30 and Input.pressed("confirm") then self.advanced = true end
-    self.timer = self.timer + DTMULT
-    if self:isDone() then
-        self:onRemoveFromStage()
+    local height = self.speaker:getScaledHeight()
+    local _, y = self.speaker.sprite:getRelativePosFor(self.parent)
+    self.y = y + height * 0.5
+    self.wait_timer = MathUtils.approach(self.wait_timer, 0, DT)
+
+    if Input.pressed("confirm") or Input.down("menu") then
+        self:advance()
     end
 end
-
-function WingladeSpeechBubble:getBorder() end
-
-function WingladeSpeechBubble:getDebugRectangle()
-    return super.getDebugRectangle(self)
-end
-
-function WingladeSpeechBubble:getSprite(name) end
-
-function WingladeSpeechBubble:getSpriteSize(name) end
-
-function WingladeSpeechBubble:getTailWidth() end
-
-function WingladeSpeechBubble:updateSize() end
 
 function WingladeSpeechBubble:drawText(rotation)
     local radius = 80
     for i = 1, #self.text do
-        local rotation = math.rad(i * 8) + rotation
-        local x, y = math.cos(rotation) * radius, math.sin(rotation) * radius
-        love.graphics.print(self.text[i], x, y, rotation + math.rad(90), 1, 1)
+        local char_rotation = math.rad(i * 8) + rotation
+        local x, y = math.cos(char_rotation) * radius, math.sin(char_rotation) * radius
+        love.graphics.print(self.text[i], x, y, char_rotation + math.rad(90), 1, 1)
     end
 end
 

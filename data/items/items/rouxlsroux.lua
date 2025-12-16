@@ -58,7 +58,7 @@ function item:init()
         noelle = "Tastes like... jumprope?",
         jamm = "Huh. Roux... Not bad.",
 		dess = "(does a very realistic depiction of dance move titled 'the worm')",
-        ceroba = "A good sauce. (Wait, there's worms?!)",
+        ceroba = "It's like sauce. (Wait, what's that in it?!)",
     }
 end
 

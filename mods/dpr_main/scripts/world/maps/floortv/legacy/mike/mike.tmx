@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="89">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="greenroomold"/>
+  <property name="music" value="lost_room"/>
+  <property name="name" value="Abndnd Grn Rm. - Mike Room"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/greenroom.tsx"/>
+ <tileset firstgid="127" source="../../../../tilesets/floor3-objects.tsx"/>
+ <tileset firstgid="170" source="../../../../tilesets/greenroom_b.tsx"/>
+ <tileset firstgid="511" source="../../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
+ <imagelayer id="11" name="Image Layer 1">
+  <image source="../../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png" width="1280" height="960"/>
+ </imagelayer>
+ <layer id="1" name="Tile Layer 1" width="32" height="24">
+  <data encoding="csv">
+21,21,21,21,21,21,21,21,21,21,21,862,546,547,863,863,863,863,863,2147484195,2147484194,863,863,863,865,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,862,865,581,582,583,584,585,586,860,860,860,860,860,860,860,649,650,862,865,21,21,21,21,
+21,21,21,21,21,21,21,21,21,578,857,612,613,614,615,616,617,891,891,891,891,891,891,891,680,681,854,579,21,21,21,21,
+21,21,21,21,21,21,21,21,21,609,888,921,922,922,922,922,922,922,922,922,922,922,922,922,711,712,885,610,21,21,21,21,
+21,21,21,21,21,21,21,21,21,669,919,702,702,702,702,702,702,702,702,702,702,702,702,702,702,702,916,670,21,21,21,21,
+21,21,21,21,21,21,21,21,21,702,702,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,702,702,21,21,21,21,
+21,21,21,21,21,21,21,862,865,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,863,863,864,865,643,861,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,579,580,606,857,643,892,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,637,610,611,637,888,674,923,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,668,669,670,668,919,702,702,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,0,702,702,702,702,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21
+</data>
+ </layer>
+ <objectgroup color="#ff0000" id="5" name="objects_bg">
+  <object id="62" gid="154" x="40" y="520" width="82" height="204"/>
+  <object id="80" name="changing_room_star" x="520" y="90">
+   <properties>
+    <property name="sinerindex" type="int" value="0"/>
+    <property name="starindex" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="81" name="changing_room_star" x="580" y="100">
+   <properties>
+    <property name="sinerindex" type="int" value="1"/>
+    <property name="starindex" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="82" name="changing_room_star" x="650" y="90">
+   <properties>
+    <property name="sinerindex" type="int" value="2"/>
+    <property name="starindex" type="int" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="83" name="changing_room_star" x="720" y="110">
+   <properties>
+    <property name="sinerindex" type="int" value="3"/>
+    <property name="starindex" type="int" value="4"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="84" name="changing_room_star" x="760" y="130">
+   <properties>
+    <property name="sinerindex" type="int" value="4"/>
+    <property name="starindex" type="int" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="85" name="changing_room_star" x="830" y="80">
+   <properties>
+    <property name="sinerindex" type="int" value="5"/>
+    <property name="starindex" type="int" value="6"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="86" name="changing_room_star" x="890" y="100">
+   <properties>
+    <property name="sinerindex" type="int" value="6"/>
+    <property name="starindex" type="int" value="7"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="87" name="changing_room_star" x="960" y="90">
+   <properties>
+    <property name="sinerindex" type="int" value="7"/>
+    <property name="starindex" type="int" value="8"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="8" name="Tile Layer 3" width="32" height="24">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,346,347,348,349,350,351,352,353,354,355,346,347,348,349,350,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,346,347,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,346,347,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,346,347,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,347,348,349,350,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="7" x="40" y="520">
+   <polygon points="0,0 80,-80 0,-80"/>
+  </object>
+  <object id="8" x="40" y="320" width="240" height="120"/>
+  <object id="9" x="280" y="280" width="80" height="120"/>
+  <object id="10" x="320" y="80" width="40" height="200"/>
+  <object id="11" x="360" y="80" width="80" height="120"/>
+  <object id="13" x="1040" y="80" width="80" height="120"/>
+  <object id="14" x="1120" y="200" width="40" height="600"/>
+  <object id="15" x="1080" y="800" width="40" height="40"/>
+  <object id="16" x="400" y="840" width="680" height="40"/>
+  <object id="17" x="360" y="800" width="40" height="40"/>
+  <object id="18" x="280" y="600" width="80" height="200"/>
+  <object id="19" x="40" y="560" width="240" height="40"/>
+  <object id="20" x="0" y="440" width="40" height="120"/>
+  <object id="24" x="440" y="800" width="116" height="40"/>
+  <object id="26" x="920" y="800" width="116" height="40"/>
+  <object id="29" x="290" y="400" width="60" height="20"/>
+  <object id="61" x="440" y="120" width="600" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="27" name="transition" x="60" y="440" width="40" height="120">
+   <properties>
+    <property name="map" value="floortv/legacy/corridors1"/>
+    <property name="marker" value="entry2"/>
+   </properties>
+  </object>
+  <object id="35" name="interactable" x="180" y="367" width="80" height="73">
+   <properties>
+    <property name="text1" value="* (Welcome to the MIKE ROOM!)"/>
+    <property name="text2" value="* (Feel free to"/>
+    <property name="text3" value="* (... the rest is too illegible to make out.)"/>
+   </properties>
+  </object>
+  <object id="75" gid="155" x="290" y="420" width="60" height="90"/>
+  <object id="79" gid="159" x="180" y="410" width="80" height="46"/>
+  <object id="88" name="interactable" x="290.002" y="379.253" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.legacy_mikevending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="31" name="entry" x="140" y="520">
+   <point/>
+  </object>
+  <object id="33" name="spawn" x="740" y="600">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffaaff" id="6" name="objects_fg">
+  <object id="77" gid="158" x="440" y="840" width="116" height="102"/>
+  <object id="78" gid="158" x="920" y="840" width="116" height="102"/>
+ </objectgroup>
+ <imagelayer id="12" name="overlay" opacity="0.4" tintcolor="#000000" parallaxx="0" parallaxy="0">
+  <image source="../../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png" width="640" height="480"/>
+ </imagelayer>
+</map>

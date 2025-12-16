@@ -40,6 +40,9 @@ GITHUB_REPOS = {
 	},
 	DiamondBor={
 		"dlc_trials"
+	},
+	SadDiamondMan={
+		"dlc_game"
 	}
 }
 

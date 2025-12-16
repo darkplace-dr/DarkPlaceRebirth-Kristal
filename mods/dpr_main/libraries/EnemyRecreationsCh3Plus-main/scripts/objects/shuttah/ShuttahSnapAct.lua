@@ -238,7 +238,7 @@ function ShuttahSnapAct:update()
 
     if self.state == "PAUSE" and self.text then
         self.text.y = Utils.ease(280, 230, (self.pause_time - 15) / 10, 'outBack')
-        self.text.alpha = Utils.lerp(0, 1, (self.pause_time - 15) / 8 )
+        self.text.alpha = MathUtils.lerp(0, 1, (self.pause_time - 15) / 8 )
     end
 
     if self.state == "PAUSE" and not Game.battle.battle_ui.encounter_text:isTyping() and Input.pressed("confirm") then

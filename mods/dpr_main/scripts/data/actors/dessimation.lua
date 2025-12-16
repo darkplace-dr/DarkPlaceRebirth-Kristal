@@ -31,14 +31,17 @@ function actor:init()
     }
 
     self.offsets = {
-        ["idle"] = {3, 0},
-        ["hurt"] = {9, 0},
-        ["hurt_defeat"] = {9, 0},
-        ["defeat"] = {9, 0},
-        ["defeat_smirk"] = {9, 0},
-        ["attack"] = {4, 0},
-        ["spell"] = {3, 0},
+        ["idle"] = {-3, 0},
+        ["hurt"] = {-3, 0},
+        ["hurt_defeat"] = {-3, 0},
+        ["defeat"] = {-3, 0},
+        ["defeat_smirk"] = {-3, 0},
+        ["attack"] = {-14, 0},
+        ["attackready"] = {-14, 0},
+        ["spell"] = {-3, 0},
         ["spellsuper"] = {0, 0},
+        ["spellsuperend"] = {0, 0},
+        ["point"] = {-3, 0},
     }
 end
 

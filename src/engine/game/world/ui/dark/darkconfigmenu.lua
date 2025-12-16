@@ -164,7 +164,7 @@ function DarkConfigMenu:onKeyPressed(key)
             end
         end
 
-        self.currently_selected = MathMathUtils.clamp(self.currently_selected, 1, 9)
+        self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 9)
 
         if old_selected ~= self.currently_selected then
             self.ui_move:stop()
@@ -179,7 +179,7 @@ function DarkConfigMenu:onKeyPressed(key)
             self.control_page = self.control_page + 1
         end
 
-        self.control_page = MathMathUtils.clamp(self.control_page, 1, self.max_control_page)
+        self.control_page = MathUtils.clamp(self.control_page, 1, self.max_control_page)
 
         if old_page ~= self.control_page then
             self.ui_move:stop()

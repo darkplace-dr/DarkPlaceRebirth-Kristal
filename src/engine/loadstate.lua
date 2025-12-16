@@ -156,7 +156,7 @@ end
 
 function Loading:lerpSnap(a, b, m, snap_delta)
     if snap_delta == nil then snap_delta = 0.001 end
-    local result = Utils.lerp(a, b, m)
+    local result = MathUtils.lerp(a, b, m)
     if b - result <= snap_delta then
         return b
     end
@@ -210,7 +210,7 @@ function Loading:draw()
 
                 if i <= math.min(10, math.floor((self.text_timer + 4) / 4)) then
                     off.x = Utils.ease(-10, 10, off.alpha, "out-cubic")
-                    off.alpha = Utils.approach(off.alpha, 1, 0.05 * DTMULT)
+                    off.alpha = MathUtils.approach(off.alpha, 1, 0.05 * DTMULT)
                 end
             end
             for i = 1, 10 do
@@ -224,7 +224,7 @@ function Loading:draw()
             end
         end
         if (self.animation_phase >= 2) then
-            self.tagline_alpha = Utils.approach(self.tagline_alpha, 1, 0.01 * DTMULT)
+            self.tagline_alpha = MathUtils.approach(self.tagline_alpha, 1, 0.01 * DTMULT)
             if (self.animation_phase_timer >= 160) and not self.skipped and self.animation_phase == 2 then
                 self.skipped = true
                 self.animation_phase = 3

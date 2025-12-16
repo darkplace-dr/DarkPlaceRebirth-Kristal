@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 63,
+  nextobjectid = 66,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity",
@@ -182,7 +182,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 485,
           y = 480,
@@ -195,7 +195,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -208,7 +208,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 400,
@@ -221,7 +221,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -234,7 +234,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 480,
@@ -247,7 +247,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 200,
@@ -260,7 +260,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 0,
@@ -273,7 +273,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 280,
           y = 160,
@@ -286,7 +286,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 560,
@@ -299,7 +299,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 520,
@@ -312,7 +312,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 0,
@@ -325,7 +325,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 720,
@@ -338,7 +338,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1160,
@@ -367,7 +367,7 @@ return {
         {
           id = 59,
           name = "virovirokun",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 320,
           y = 360,
@@ -402,7 +402,7 @@ return {
         {
           id = 20,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 880,
           y = 360,
@@ -418,7 +418,7 @@ return {
         {
           id = 21,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 110,
@@ -434,7 +434,7 @@ return {
         {
           id = 30,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1120,
@@ -449,7 +449,7 @@ return {
         {
           id = 31,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1080,
@@ -464,7 +464,7 @@ return {
         {
           id = 32,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1040,
@@ -479,7 +479,7 @@ return {
         {
           id = 33,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 1000,
@@ -494,7 +494,7 @@ return {
         {
           id = 38,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 410,
@@ -507,7 +507,7 @@ return {
         {
           id = 39,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 640,
@@ -520,7 +520,7 @@ return {
         {
           id = 40,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 560,
@@ -535,7 +535,7 @@ return {
         {
           id = 41,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 560,
@@ -548,7 +548,7 @@ return {
         {
           id = 42,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 640,
@@ -563,7 +563,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 640,
@@ -577,7 +577,7 @@ return {
         {
           id = 47,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 720,
@@ -591,7 +591,7 @@ return {
         {
           id = 48,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 720,
@@ -605,7 +605,7 @@ return {
         {
           id = 49,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 600,
@@ -618,7 +618,7 @@ return {
         {
           id = 50,
           name = "parallax_window",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 600,
@@ -633,7 +633,7 @@ return {
         {
           id = 51,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 680,
           y = 680,
@@ -647,7 +647,7 @@ return {
         {
           id = 52,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 680,
@@ -661,7 +661,7 @@ return {
         {
           id = 54,
           name = "enemy",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 360,
@@ -680,7 +680,7 @@ return {
         {
           id = 55,
           name = "city_screen",
-          class = "",
+          type = "",
           shape = "point",
           x = 640,
           y = 120,
@@ -693,7 +693,7 @@ return {
         {
           id = 56,
           name = "city_screen",
-          class = "",
+          type = "",
           shape = "point",
           x = 160,
           y = 200,
@@ -706,7 +706,7 @@ return {
         {
           id = 57,
           name = "city_screen",
-          class = "",
+          type = "",
           shape = "point",
           x = 760,
           y = 160,
@@ -719,7 +719,7 @@ return {
         {
           id = 60,
           name = "city_screen",
-          class = "",
+          type = "",
           shape = "point",
           x = 680,
           y = 800,
@@ -732,7 +732,7 @@ return {
         {
           id = 62,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 1000,
@@ -743,6 +743,58 @@ return {
           properties = {
             ["map"] = "floorcyber/electrodasher_encounter",
             ["marker"] = "entry"
+          }
+        },
+        {
+          id = 63,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 460,
+          y = 230,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "addison",
+            ["cutscene"] = "cyber.shoes",
+            ["flagcheck"] = "!addisonsDEAD",
+            ["sprite"] = "blue"
+          }
+        },
+        {
+          id = 64,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 119,
+          y = 1020,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "addison",
+            ["cutscene"] = "cyber.buster",
+            ["sprite"] = "yellow"
+          }
+        },
+        {
+          id = 65,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 723,
+          y = 1020,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "addison",
+            ["cutscene"] = "cyber.tea",
+            ["sprite"] = "pink"
           }
         }
       }
@@ -764,7 +816,7 @@ return {
         {
           id = 22,
           name = "entry_hacker",
-          class = "",
+          type = "",
           shape = "point",
           x = 120,
           y = 200,
@@ -777,7 +829,7 @@ return {
         {
           id = 23,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 840,
           y = 480,
@@ -790,7 +842,7 @@ return {
         {
           id = 24,
           name = "entry_bottomleft",
-          class = "",
+          type = "",
           shape = "point",
           x = 80,
           y = 1080,
@@ -803,7 +855,7 @@ return {
         {
           id = 25,
           name = "entry_bottomright",
-          class = "",
+          type = "",
           shape = "point",
           x = 800,
           y = 1080,
@@ -816,7 +868,7 @@ return {
         {
           id = 53,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 460,
           y = 480,

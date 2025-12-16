@@ -16,10 +16,10 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "A golden charm that increases\ndropped money by 20%"
+    self.description = "A golden charm that increases\ndropped money by 25%"
 
     -- Default shop price (sell price is halved)
-    self.price = 800
+    self.price = 1000
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -37,7 +37,7 @@ function item:init()
         defense = 4,
     }
     -- Bonus name and icon (displayed in equip menu)
-    self.bonus_name = "$ +20%"
+    self.bonus_name = "$ +25%"
     self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
@@ -56,7 +56,7 @@ function item:init()
 end
 
 function item:applyMoneyBonus(gold)
-    return gold * 1.20
+    return gold * 1.25
 end
 
 return item

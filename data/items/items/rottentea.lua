@@ -40,7 +40,7 @@ function item:init()
         susie = "Yuck.",
         ralsei = "Um?",
         noelle = "No flavor... anymore.",
-        ceroba = "I wouldn't even call that a tea anymore.",
+        ceroba = "You sure that's still a tea?",
         jamm = "It's all chunky..."
     }
 end

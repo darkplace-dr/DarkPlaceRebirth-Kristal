@@ -49,7 +49,7 @@ function MagicGlass:update()
         if any_collided then
             self.tile_alphas[i] = 1
         else
-            self.tile_alphas[i] = Utils.lerp(self.tile_alphas[i], 0, 0.125 * DTMULT)
+            self.tile_alphas[i] = MathUtils.lerp(self.tile_alphas[i], 0, 0.125 * DTMULT)
         end
     end
     Object.endCache()

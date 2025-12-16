@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -70,7 +70,7 @@ return {
         {
           id = 19,
           name = "greatdoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 134,
           y = -30,
@@ -99,7 +99,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 240,
@@ -112,7 +112,7 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 240,
@@ -125,7 +125,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 240,
@@ -154,7 +154,7 @@ return {
         {
           id = 8,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 480,
@@ -186,7 +186,7 @@ return {
         {
           id = 3,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 400,
@@ -199,7 +199,7 @@ return {
         {
           id = 7,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 440,

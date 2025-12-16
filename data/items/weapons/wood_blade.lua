@@ -48,6 +48,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "No. Not equipping that.",
         susie = "What's this!? A CHOPSTICK?",
         ralsei = "That's yours, Kris...",
         noelle = "(It has bite marks...)",

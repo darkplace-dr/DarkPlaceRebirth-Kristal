@@ -63,22 +63,4 @@ function Winglade:onSetAnimation(sprite, anim, ...)
     end
 end
 
--- function Winglade:onSpriteInit(sprite)
---     sprite.timer = 0
--- end
-
--- function Winglade:onSpriteUpdate(sprite)
---     sprite.timer = sprite.timer + DTMULT
--- end
-
--- function Winglade:getTexture(sprite_path)
---     return Assets.getTexture(self:getSpritePath() .. '/' .. self.parts[sprite_path][1])
--- end
-
--- function Winglade:onSpriteDraw(sprite)
---     -- Kristal.Console:log(Utils.dump(sprite))
---     local sprite = self:getTexture("halo")
---     Draw.draw(sprite, 0, 10)
--- end
-
 return Winglade

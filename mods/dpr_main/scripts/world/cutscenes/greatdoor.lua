@@ -2,6 +2,7 @@
 return function(cutscene)
     local door = Game.world:getEvent("greatdoor")
     cutscene:text("* Do you want to go to the Light World?")
+    cutscene:text("* (Note: Your items may disappear after re-entering the Dark World.)")
     local choice = cutscene:choicer({"Yes", "No"})
     if choice == 1 then
         door:open()
