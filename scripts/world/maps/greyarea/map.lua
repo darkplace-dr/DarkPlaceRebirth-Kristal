@@ -14,6 +14,52 @@ function greyarea:onEnter()
 
 
 
+        -- have to remember if your dumb or not somehow
+        local f = "greyareastubborness"
+        local stub = Game:getFlag(f)
+
+        -- if you're on you're own then i don't care
+        local me = Game:getPartyMember("len")
+        if me then
+            -- gotta make sure to override whatever the host intended, even if its inmoral
+            love.window.showMessageBox("???", error_message, buttonlist)
+            love.window.showMessageBox("???", "* Goodbye.", buttonlist)
+
+            -- pushing code
+            love.window.showMessageBox("Len", "* ...", buttonlist)
+            if not stub then
+                love.window.showMessageBox("Len", "* Look i don't know how you got here but...", buttonlist)
+                love.window.showMessageBox("Len", "* I refuse to die because of your curiosity", buttonlist)
+                love.window.showMessageBox("Len", "* Please don't try it again", buttonlist)
+            elseif stub == 1 then
+                love.window.showMessageBox("Len", "* Are you doing it on purpose?", buttonlist)
+                love.window.showMessageBox("Len", "* I already told you to not do it again", buttonlist)
+                love.window.showMessageBox("Len", "* Please, PLEASE don't try it again", buttonlist)
+            elseif stub == 2 then
+                love.window.showMessageBox("Len", "* ...", buttonlist)
+                love.window.showMessageBox("Len", "* ...Please stop", buttonlist)
+                love.window.showMessageBox("Len", "* ...PLEASE JUST STOP", buttonlist)
+            elseif stub == 3 then
+                love.window.showMessageBox("Len", "* STOP", buttonlist)
+            elseif stub >= 4 and stub <= 10 then
+                love.window.showMessageBox("Len", "* Don't you have anything better to do?", buttonlist)
+            elseif stub == 100 then
+                love.window.showMessageBox("Len", "* You either have the most patience in the world or put up a macro", buttonlist)
+                love.window.showMessageBox("Len", "* Either way, you're wasting your time here", buttonlist)
+                love.window.showMessageBox("Len", "* The game just closes by itself", buttonlist)
+                love.window.showMessageBox("Len", "* You'll lose all your data if you're debugging", buttonlist)
+                love.window.showMessageBox("Len", "* So please...", buttonlist)
+                love.window.showMessageBox("Len", "* Just stop.", buttonlist)
+            end
+            if stub == 5 then
+                love.window.showMessageBox("Len", "* ...Yes, i took that one from Flowey", buttonlist)
+                love.window.showMessageBox("Len", "* ...Seriosly tho, stop, please, PLEASE", buttonlist)
+            end
+            Game:addFlag(f, 1)
+            Game:swapIntoMod("dpr_main", false, "floor1/main")
+            -- Note to self: Don't forget to return (very important)
+            return
+        end
         love.event.quit()
     end
 

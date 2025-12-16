@@ -1,5 +1,5 @@
 ---@class WorldCutscene : WorldCutscene
-local WorldCutscene, super = Utils.hookScript(WorldCutscene)
+local WorldCutscene, super = HookSystem.hookScript(WorldCutscene)
 
 local function waitForTextbox(self) return not self.textbox or self.textbox:isDone() end
 
@@ -146,7 +146,7 @@ function WorldCutscene:warpBinInput(options)
 end
 
 function WorldCutscene:getUserText(length, mode, wait, fade, options)
-    options = Utils.merge({
+    options = TableUtils.merge({
         length = length or -1,
         mode = mode or "default",
         wait = wait ~= false,
