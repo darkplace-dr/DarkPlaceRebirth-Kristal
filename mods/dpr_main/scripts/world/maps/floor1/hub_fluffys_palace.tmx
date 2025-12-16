@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="36">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="39">
  <editorsettings>
   <export target="hub_fluffys_palace.lua" format="lua"/>
  </editorsettings>
@@ -153,11 +153,18 @@
   </object>
   <object id="32" name="lake_boat" x="512" y="800">
    <properties>
-    <property name="boat" type="object" value="35"/>
+    <property name="sail" type="object" value="35"/>
+    <property name="test" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
   <object id="34" name="savepoint" x="576" y="384" width="40" height="40"/>
+  <object id="37" name="lake_dock" x="448" y="832" width="128" height="32">
+   <properties>
+    <property name="boat" type="object" value="32"/>
+    <property name="dock" type="object" value="36"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="26" name="entry" x="512" y="32">
@@ -166,7 +173,10 @@
   <object id="33" name="spawn" x="512" y="416">
    <point/>
   </object>
-  <object id="35" name="boat" x="512" y="864">
+  <object id="35" name="sail" x="512" y="960">
+   <point/>
+  </object>
+  <object id="36" name="dock" x="512" y="760">
    <point/>
   </object>
  </objectgroup>

@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 7,
-  nextobjectid = 36,
+  nextobjectid = 39,
   properties = {
     ["music"] = "fluffy_palace"
   },
@@ -481,7 +481,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["boat"] = { id = 35 }
+            ["sail"] = { id = 35 },
+            ["test"] = true
           }
         },
         {
@@ -496,6 +497,22 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 37,
+          name = "lake_dock",
+          type = "",
+          shape = "rectangle",
+          x = 448,
+          y = 832,
+          width = 128,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["boat"] = { id = 32 },
+            ["dock"] = { id = 36 }
+          }
         }
       }
     },
@@ -541,11 +558,24 @@ return {
         },
         {
           id = 35,
-          name = "boat",
+          name = "sail",
           type = "",
           shape = "point",
           x = 512,
-          y = 864,
+          y = 960,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "dock",
+          type = "",
+          shape = "point",
+          x = 512,
+          y = 760,
           width = 0,
           height = 0,
           rotation = 0,
