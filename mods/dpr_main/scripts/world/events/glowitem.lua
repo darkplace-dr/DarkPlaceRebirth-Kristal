@@ -16,10 +16,11 @@
 ---@overload fun(...) : GlowItem
 local GlowItem, super = Class(Event, "glowitem")
 
-function GlowItem:init(x, y, properties)
-    super.init(self, x, y)
+function GlowItem:init(data)
+    super.init(self, data)
 
-    properties = properties or {}
+    local properties = data.properties or {}
+    self.properties = properties
 
     self:setOrigin(0.5, 0.5)
     self:setScale(2)
@@ -74,9 +75,11 @@ function GlowItem:onInteract(player, dir)
     if self:getFlag("grabbed") == true then return end
 
     local name, success, result_text
-    self.sprite.alpha = 0
-    self:setFlag("grabbed", true)
-    if self.item then
+    if self.testing ~= true then
+        self.sprite.alpha = 0
+        self:setFlag("grabbed", true)
+    end
+    if self.item and self.item ~= "" then
         local item = self.item
         if type(item) == "string" then
             item = Registry.createItem(self.item)
@@ -100,7 +103,7 @@ function GlowItem:onInteract(player, dir)
             self:setFlag("grabbed", false)
         end
         self.world:showText({
-            "* (You picked the glowing\nitem.)[wait:5]\n* ([color:yellow]"..name.."[color:reset] was added to your ITEMS.)",
+            "* (You pick up the glowing\nitem.)",
             result_text})
     else
         local flavourtext = {

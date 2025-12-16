@@ -81,8 +81,8 @@ function LenCheck:onCollide(plr, dt)
                 cutscene:wait(cutscene:walkTo("len",walkX,walkY,2,walkdir))
                 LenCheck:handleFleeing(cutscene, tag)
             else
-                walkX = walkX + (newX * 4)
-                walkY = walkY + (newY * 4)
+                walkX = walkX + (newX * 49)
+                walkY = walkY + (newY * 49)
                 cutscene:wait(cutscene:walkTo(plrChar,walkX,walkY,1,walkdir))
             end
         end
