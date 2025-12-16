@@ -55,6 +55,9 @@ function item:init()
 		
 		-- Bat
         dess = true,
+
+        -- Wiimote (but dark)
+        len = true,
     }
 
     -- Character reactions
@@ -67,7 +70,8 @@ function item:init()
 			noel = "It's not like it's a weapon or anything."
 		},
 	    noel = "I don't need control.",
-        ceroba = "Doesn't this need a console?"
+        ceroba = "Doesn't this need a console?",
+        len = "Perfect for my Wii... if i had it",
 	}
 end
 

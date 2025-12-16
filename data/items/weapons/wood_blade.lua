@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,18 @@ function item:init()
         brenda = "How do you even hurt someone with this?",
 	    jamm = "Ow! Splinter...",
         noel = "you can only get one of these...",
-        ceroba = "Looks like just a big toy."
+        ceroba = "Looks like just a big toy.",
+        len = {
+            len = "I know i wield anything but cmon!",
+            susie = "Uh what?",
+            ralsei = "But that's from Kris!",
+            noelle = "(What?)",
+            dess = "lol",
+            brenda = "Wait whut?",
+            jamm = "What?",
+            noel = "What?",
+            ceroba = "Who are you talking to??",
+        },
     }
 end
 

@@ -39,12 +39,15 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/down"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
         susie = "... what are you trying to equip?",
         jamm = "Uh... what?",
+        len = "Better than anything",
     }
 end
 

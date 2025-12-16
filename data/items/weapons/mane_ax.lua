@@ -41,7 +41,9 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -52,7 +54,8 @@ function item:init()
         brenda = "I can't carry THAT.",
 	    jamm = "I mean, I'm not THAT strong...",
         noel = "I'm gonna pull a [Rude Buster]!",
-        ceroba = "(It's not THAT heavy...)"
+        ceroba = "(It's not THAT heavy...)",
+        len = "*pfft*... heavy, but its a start",
     }
 end
 
