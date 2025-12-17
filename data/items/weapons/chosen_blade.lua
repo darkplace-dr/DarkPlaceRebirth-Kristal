@@ -48,6 +48,7 @@ function item:init()
         kris = true,
         hero = true,
         suzy = true,
+        len = true,
     }
 
     -- Character reactions
@@ -62,6 +63,7 @@ function item:init()
         jamm = "What do I look like, the main character?",
         ceroba = "There's no way I can wield THAT.",
         noel = "Overhyped, Underused, yet VERY Interesting...",
+        len = "Im the main character now!",
     }
 end
 

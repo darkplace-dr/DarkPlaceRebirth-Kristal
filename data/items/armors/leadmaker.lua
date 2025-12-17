@@ -61,6 +61,7 @@ function item:init()
         ceroba = "Where would I even put it?",
         suzy = "I am so good at this!",
         hero = "Free cash.",
+        len = "Time to make lead!... that's what this does, right?",
     }
 end
 

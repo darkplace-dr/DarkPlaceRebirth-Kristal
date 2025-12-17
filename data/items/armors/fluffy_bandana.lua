@@ -54,6 +54,7 @@ function item:init()
         mario = "Lets a go!",
         noel = "This isn't stolen ... right?",
         ceroba = "Red's nice...",
+        len = "Fluffy, and somehow comforting",
     }
     function self:pedestalUsed(cutscene)
         if not Game:getQuest("delivering_a_bandana"):isCompleted() then

@@ -53,7 +53,8 @@ function item:init()
         ceroba = "(Are those... Asgore's kids?)",
         noel = "oh... you found it...",
         jamm = "It's just like...",
-        ["jamm+marcy"] = "Just like yours, Marcy..."
+        ["jamm+marcy"] = "Just like yours, Marcy...",
+        len = "This is strangely familiar...",
     }
 
     self.light_item = "undertale/heart_locket"

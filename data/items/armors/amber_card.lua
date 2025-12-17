@@ -55,6 +55,7 @@ function item:init()
         mario = "Tastes like glue!",
         noel = "Seam sells these ... right?",
         ceroba = "Hope it won't get stuck on me...",
+        len = "Better than nothing.",
     }
 end
 
