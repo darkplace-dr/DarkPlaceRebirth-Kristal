@@ -44,6 +44,20 @@ function MainMenuTitle:init(menu)
         self.logo = Assets.getTexture("kristal/title_logo_sun")
     else
         self.star = Assets.getTexture("kristal/title/big_star")
+        local scale = 1
+        local opacity = 0.4
+        self.backstar = {
+            image = Assets.getTexture("kristal/title/big_star"),
+            startScaleX = scale,
+            startScaleY = scale,
+            scaleX = scale,
+            scaleY = scale,
+            speed = 1,
+            amplitude = 0.3,
+            time = 0,
+            startOpacity = opacity,
+            opacity = opacity,
+        }
         self.tagline = Assets.getTexture("kristal/title/tagline")
         letters = "dark place"
     end
@@ -61,6 +75,24 @@ end
 
 function MainMenuTitle:update()
     -- Do something!
+    local star = self.star
+    if star then
+        local backstar = self.backstar
+        if backstar then
+            local time = backstar.time + DT * backstar.speed
+            local change = math.sin(time) * backstar.amplitude
+            local changeOpacity = change
+            local limit = 0.05
+            if change < limit then
+                change = limit
+            end
+            backstar.scaleX = backstar.startScaleX + change
+            backstar.scaleY = backstar.startScaleY + change
+            backstar.opacity = backstar.startOpacity + changeOpacity
+            backstar.time = time
+        end
+    end
+
     for _, letter in ipairs(self.letters) do
         local time = letter.time + DT * letter.speed
         letter.y = letter.startY + math.sin(time) * letter.amplitude
@@ -188,9 +220,22 @@ function MainMenuTitle:draw()
     end
     --Draw.draw(self.selected_mod and self.selected_mod.logo or self.logo, 160, 70)
 
+
     local star = self.star
     if star then
-        Draw.draw(star, SCREEN_WIDTH/2 - star:getWidth()/2, 105 - star:getHeight()/2)
+        local starX, starY = SCREEN_WIDTH/2 - star:getWidth()/2, 105 - star:getHeight()/2
+        local backstar = self.backstar
+        if backstar then
+            local image = backstar.image
+            love.graphics.push()
+
+            love.graphics.setColor(1,1,1,backstar.opacity)
+            Draw.draw(backstar.image, starX + image:getWidth()/2, starY + image:getHeight()/2, 0, backstar.scaleX, backstar.scaleY, image:getWidth()/2, image:getHeight()/2)
+            love.graphics.setColor(1,1,1,1)
+
+            love.graphics.pop()
+        end
+        Draw.draw(star, starX, starY)
     end
 
     for i, option in ipairs(self.options) do
