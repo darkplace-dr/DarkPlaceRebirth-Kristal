@@ -1,5 +1,5 @@
 ---@class Battle : Battle
-local Battle, super = Utils.hookScript(Battle)
+local Battle, super = HookSystem.hookScript(Battle)
 
 function Battle:init()
     super.init(self)
@@ -11,11 +11,6 @@ function Battle:init()
     self.superpower = false
 
     self.super_timer = 0
-    
-    -- Base pitch for the music to return to when not using timeslow.
-    -- This must be changed along with music.pitch in order to correctly change the music's pitch.
-    -- TODO: Relocate 
-    self.music.basepitch = self.music.pitch
 
     if Game:getSoulPartyMember().pp > 0 then
         self.no_buff_loop = true
@@ -84,13 +79,7 @@ end
 
 function Battle:breakSoulShield()
     Assets.playSound("mirrorbreak")
-    local souleffect = Sprite("player/heart_dodge")
-    souleffect:setOrigin(0.5, 0.5)
-    souleffect.layer = self.soul.layer + 0.1
-    souleffect:setParent(self.soul)
-    souleffect.graphics.grow = 0.1
-    souleffect.alpha = 0.5
-    souleffect:fadeOutAndRemove(0.5)
+    self.soul:addChild(SoulExpandEffect())
     local shard_x_table = {-2, 0, 2, 8, 10, 12}
     local shard_y_table = {0, 3, 6}
     self.soul.shards = {}
@@ -98,7 +87,7 @@ function Battle:breakSoulShield()
         local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
         local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
         local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
-        shard.physics.direction = math.rad(Utils.random(360))
+        shard.physics.direction = math.rad(MathUtils.random(360))
         shard.physics.speed = 7
         shard.physics.gravity = 0.2
         shard.layer = self.soul.layer
