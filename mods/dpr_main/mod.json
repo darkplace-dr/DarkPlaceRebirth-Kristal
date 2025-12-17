@@ -123,12 +123,6 @@
             "keys": ["v"],
             "gamepad": []
         },
-        {
-            "name": "Focus",
-            "id": "focus_placebo",
-            "keys": ["a"],
-            "gamepad": []
-        },
     ],
 
     // Equipment for your party. Not specifying equipment defaults to the following.

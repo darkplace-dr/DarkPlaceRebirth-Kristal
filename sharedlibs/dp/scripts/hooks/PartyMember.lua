@@ -42,8 +42,6 @@ function PartyMember:init()
 
     self.future_heals = {}
 
-    self.ribbit = false
-
     self.opinions = {}
     self.default_opinion = 50
 

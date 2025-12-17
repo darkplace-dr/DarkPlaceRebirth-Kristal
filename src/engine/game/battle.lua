@@ -1182,13 +1182,6 @@ function Battle:swapSoul(object)
     object.layer = self.soul.layer
     self.soul = object
     self:addChild(object)
-	
-    --Timeslow/Focus placebo stuff
-    Game.stage.timescale = 1
-	Game.battle.music.pitch = Game.battle.music.basepitch
-	Game.battle.soul.vhsfx.active = false
-	Game.battle.soul.outlinefx.active = false
-	Input.clear("focus_placebo")
 end
 
 function Battle:resetAttackers()

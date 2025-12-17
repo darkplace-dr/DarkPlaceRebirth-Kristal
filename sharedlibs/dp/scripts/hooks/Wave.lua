@@ -1,5 +1,5 @@
 ---@class Wave : Wave
-local Wave, super = Utils.hookScript(Wave)
+local Wave, super = HookSystem.hookScript(Wave)
 
 function Wave:onArenaEnter()
     super.onArenaEnter(self)
@@ -14,7 +14,7 @@ function Wave:onArenaEnter()
             diamond:setScale(2, 2)
             diamond.layer = Game.battle.soul.layer + 1
             Assets.playSound("trap")
-            diamond:play(1/15, false, function(s) s:fadeOutAndRemove(0.5) end)
+            diamond:play(1/15, false, function() diamond:fadeOutAndRemove(0.5) end)
             diamond:setParent(Game.battle.soul)
             Game.battle.timer:after(0.46, function()
                 Assets.playSound("equip_armor")
