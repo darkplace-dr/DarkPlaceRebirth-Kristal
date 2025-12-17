@@ -11,21 +11,63 @@
 ---@overload fun(menu:MainMenu) : MainMenuTitle
 local MainMenuTitle, super = Class(StateClass)
 
+function MainMenuTitle:makeTitleLetter(image, x, y)
+    x = x or 0
+    y = y or 0
+
+    if not self.letters then self.letters = {} end
+    local letters = self.letters
+    local offset = 0.4
+    local letter = {
+        image = Assets.getTexture(image),
+        x = x,
+        y = y,
+        startX = x,
+        startY = y,
+        speed = 1,
+        amplitude = 20,
+        time = 0 + (offset * #letters),
+    }
+
+    table.insert(letters, letter)
+end
+
 function MainMenuTitle:init(menu)
     self.menu = menu
 
-    self.logo = Assets.getTexture("kristal/title_logo_shadow")
-    
+    -- self.logo = Assets.getTexture("kristal/title_logo_shadow")
+    local skin = ""
+    local letters
+    local spacing = 50
     local date = os.date("*t")
     if date.month == 4 and date.day == 1 then
         self.logo = Assets.getTexture("kristal/title_logo_sun")
+    else
+        self.star = Assets.getTexture("kristal/title/big_star")
+        self.tagline = Assets.getTexture("kristal/title/tagline")
+        letters = "dark place"
+    end
+
+    if letters then
+        for i = 1,string.len(letters) do
+            local l = string.sub(letters, i, i)
+            -- print(i)
+            self:makeTitleLetter("kristal/title_logo_shadow/" .. skin .. l, 76 + (spacing * (i - 1)), 60)
+        end
     end
 
     self.selected_option = 1
 end
 
 function MainMenuTitle:update()
-    -- Do nothing?
+    -- Do something!
+    for _, letter in ipairs(self.letters) do
+        local time = letter.time + DT * letter.speed
+        letter.y = letter.startY + math.sin(time) * letter.amplitude
+        letter.time = time
+        -- print(letter.y)
+        -- print(letter.time)
+    end
 end
 
 function MainMenuTitle:registerEvents()
@@ -141,8 +183,15 @@ end
 function MainMenuTitle:draw()
     local logo_img = self.menu.selected_mod and self.menu.selected_mod.logo or self.logo
 
-    Draw.draw(logo_img, SCREEN_WIDTH/2 - logo_img:getWidth()/2, 105 - logo_img:getHeight()/2)
+    if logo_img then
+        Draw.draw(logo_img, SCREEN_WIDTH/2 - logo_img:getWidth()/2, 105 - logo_img:getHeight()/2)
+    end
     --Draw.draw(self.selected_mod and self.selected_mod.logo or self.logo, 160, 70)
+
+    local star = self.star
+    if star then
+        Draw.draw(star, SCREEN_WIDTH/2 - star:getWidth()/2, 105 - star:getHeight()/2)
+    end
 
     for i, option in ipairs(self.options) do
         local date = os.date("*t")
@@ -151,6 +200,20 @@ function MainMenuTitle:draw()
             Draw.printLight(option[2], 215, 219 + 32 * (i - 1))
         else
             Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
+        end
+    end
+
+    local tagline = self.tagline
+    if tagline then
+        Draw.draw(tagline, 206, 150)
+    end
+
+    local letters = self.letters
+    if letters then
+        for _, letter in ipairs(letters) do
+            if letter.image then
+                Draw.draw(letter.image, letter.x, letter.y)
+            end
         end
     end
 end
