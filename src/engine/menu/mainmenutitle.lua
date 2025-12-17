@@ -70,6 +70,13 @@ function MainMenuTitle:init(menu)
         end
     end
 
+    local rng = love.math.random(1,10)
+    -- rng = 1
+    if rng == 1 then
+        self.catframe = 1
+        self.uiiai = Assets.getFrames("kristal/uiiai")
+    end
+
     self.selected_option = 1
 end
 
@@ -260,6 +267,23 @@ function MainMenuTitle:draw()
                 Draw.draw(letter.image, letter.x, letter.y)
             end
         end
+    end
+
+    local uiiai = self.uiiai
+    if uiiai then
+        local catframe = self.catframe
+        local catframes = uiiai
+        local offset = 20
+        local setframe = math.ceil(self.catframe)
+        catframe = catframe + 3 * DT
+        if setframe > #catframes then
+            if catframe >= #catframes + 1 then
+                catframe = 1
+            end
+            setframe = 1
+        end
+        Draw.draw(catframes[setframe], offset, offset, 0, 2, 2)
+        self.catframe = catframe
     end
 end
 
