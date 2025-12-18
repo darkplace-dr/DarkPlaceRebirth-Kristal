@@ -100,12 +100,15 @@ function MainMenuTitle:update()
         end
     end
 
-    for _, letter in ipairs(self.letters) do
-        local time = letter.time + DT * letter.speed
-        letter.y = letter.startY + math.sin(time) * letter.amplitude
-        letter.time = time
-        -- print(letter.y)
-        -- print(letter.time)
+    local letters = self.letters
+    if letters then
+        for _, letter in ipairs(letters) do
+            local time = letter.time + DT * letter.speed
+            letter.y = letter.startY + math.sin(time) * letter.amplitude
+            letter.time = time
+            -- print(letter.y)
+            -- print(letter.time)
+        end
     end
 end
 
