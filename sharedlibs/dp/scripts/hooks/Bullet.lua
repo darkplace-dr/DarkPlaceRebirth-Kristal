@@ -10,8 +10,8 @@ end
 function Bullet:onDamage(soul)
     local damage = self:getDamage()
     if damage > 0 then
-        if Game:getSoulPartyMember().pp > 0 then
-            Game:getSoulPartyMember().pp = Game:getSoulPartyMember().pp - 1
+        if Game.pp > 0 then
+            Game.pp = Game.pp - 1
             Game.battle:breakSoulShield()
         else
             local target = self:getTarget()

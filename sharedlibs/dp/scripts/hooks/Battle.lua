@@ -12,7 +12,7 @@ function Battle:init()
 
     self.super_timer = 0
 
-    if Game:getSoulPartyMember().pp > 0 then
+    if Game.pp > 0 then
         self.no_buff_loop = true
     else
         self.no_buff_loop = false
@@ -94,6 +94,16 @@ function Battle:breakSoulShield()
         shard:play(5/30)
         table.insert(self.soul.shards, shard)
         self.soul.stage:addChild(shard)
+    end
+end
+
+function Battle:update()
+    super.update(self)
+
+    -- Ceroba's shield on turn start
+    if self:getPartyBattler("ceroba") and self.state == "DEFENDING" and not self.no_buff_loop then
+        self.no_buff_loop = true
+        self.soul:addChild(CerobaDiamondBuff())
     end
 end
 
