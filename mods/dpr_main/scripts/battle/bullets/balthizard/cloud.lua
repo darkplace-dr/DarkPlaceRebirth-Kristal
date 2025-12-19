@@ -150,25 +150,44 @@ function Cloud:getBattlerTarget()
 end
 
 function Cloud:onDamage(soul)
-    for i = 1, math.max(DT / self.inv_timer, 1) do
-        local battler = self:getBattlerTarget()
-        if battler.chara:getHealth() > 1 then
-            battler.chara:setHealth(battler.chara:getHealth() - 1)
-        else
-            Game.battle:hurt(1, false, battler, self:shouldSwoon(1, battler, soul))
-        end
-    end
+    if Game.pp > 0 then
+		for i = 1, math.max(DT / self.inv_timer, 1) do
+			Game.pp = Game.pp - 0.02
+		end
 
-    soul.inv_timer = self.inv_timer
+		soul.inv_timer = self.inv_timer
 
-    if self.manager then
-        self.manager.hurt_notify_timer = self.manager.hurt_notify_timer - DTMULT
-        if self.manager.hurt_notify_timer <= 0 then
-            self.manager.hurt_notify_timer = 20
-            Assets.playSound("hurt")
-            Game.battle.camera:shake(4)
-        end
-    end
+		if self.manager then
+			self.manager.hurt_notify_timer = self.manager.hurt_notify_timer - DTMULT
+			if self.manager.hurt_notify_timer <= 0 then
+				self.manager.hurt_notify_timer = 5
+				Assets.playSound("break1", 1, 1.2)
+			end
+		end
+		if Game.pp <= 0 then
+			Game.battle:breakSoulShield()
+		end
+    else
+		for i = 1, math.max(DT / self.inv_timer, 1) do
+			local battler = self:getBattlerTarget()
+			if battler.chara:getHealth() > 1 then
+				battler.chara:setHealth(battler.chara:getHealth() - 1)
+			else
+				Game.battle:hurt(1, false, battler, self:shouldSwoon(1, battler, soul))
+			end
+		end
+
+		soul.inv_timer = self.inv_timer
+
+		if self.manager then
+			self.manager.hurt_notify_timer = self.manager.hurt_notify_timer - DTMULT
+			if self.manager.hurt_notify_timer <= 0 then
+				self.manager.hurt_notify_timer = 20
+				Assets.playSound("hurt")
+				Game.battle.camera:shake(4)
+			end
+		end
+	end
 
     -- This should return all battlers that were hit
     -- But I checked the code and it doesn't seem like this is

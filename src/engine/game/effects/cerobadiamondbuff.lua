@@ -2,16 +2,29 @@
 ---@overload fun(...) : CerobaDiamondBuff
 local CerobaDiamondBuff, super = Class(Sprite)
 
-function CerobaDiamondBuff:init(x, y)
+function CerobaDiamondBuff:init(x, y, callback)
     super.init(self, "effects/spells/ceroba/diamond", x or 0, y or 0)
 
     self:setOriginExact(24, 24) -- accuracy
     self:setScale(2)
-    self:setColor(Game:getSoulColor())
+	if Game.battle.soul.color ~= Game:getSoulColor() then -- awful color fix hack
+		self:setColor(Game.battle.soul.color)
+	else
+		self:setColor(Game:getSoulColor())
+	end
     self:play(1/15, false, function() self.fade_out = true end)
     self.buff_applied = false
     self.fade_out = false
     Assets.playSound("ceroba_trap")
+	self.callback_function = callback or nil
+end
+
+function CerobaDiamondBuff:onRemove(parent)
+	super.onRemove(self, parent)
+	if self.callback_function then
+        self.callback_function()
+		self.callback_function = nil
+    end
 end
 
 function CerobaDiamondBuff:update()

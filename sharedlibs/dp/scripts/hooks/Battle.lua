@@ -97,14 +97,27 @@ function Battle:breakSoulShield()
     end
 end
 
-function Battle:update()
-    super.update(self)
-
+function Battle:onDefendingState()
     -- Ceroba's shield on turn start
-    if self:getPartyBattler("ceroba") and self.state == "DEFENDING" and not self.no_buff_loop then
+    if self:getPartyBattler("ceroba") and not self.no_buff_loop then
+		self.wave_length = 0
+		self.wave_timer = 0
+
         self.no_buff_loop = true
-        self.soul:addChild(CerobaDiamondBuff())
-    end
+        self.soul:addChild(CerobaDiamondBuff(0, 0, function()
+			for _, wave in ipairs(self.waves) do
+				wave.encounter = self.encounter
+
+				self.wave_length = math.max(self.wave_length, wave.time)
+
+				wave:onStart()
+
+				wave.active = true
+			end
+		end))
+		return
+	end
+	super.onDefendingState(self)
 end
 
 return Battle
