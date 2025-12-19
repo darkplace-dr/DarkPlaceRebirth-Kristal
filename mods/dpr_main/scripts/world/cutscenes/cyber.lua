@@ -360,5 +360,24 @@ charjar = function(cutscene, event)
 					
 end,
 
+snowtree = function(cutscene, event)
+	if Game:getFlag("snowtreetalk") == true then
+		cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+	else
+cutscene:text("* Well[wait:3], there is a man here.", nil, event)
+cutscene:text("* He seems to be offering you something.", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("egg")
+			cutscene:text("* You got the spaghetti.", nil, event)
+			Game.inventory:addItem("special_spaghetti")
+		elseif choice == 2 then
+			cutscene:text("* He appears to be saddened by this.", nil, event)
+			cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+		end
+		Game:setFlag("snowtreetalk", true)
+		end
+end,
+
 }
 return cyber

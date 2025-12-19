@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="18" height="10" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="10">
+ <editorsettings>
+  <export target="backroom.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../tilesets/dw_cybershop.tsx"/>
+ <tileset firstgid="82" source="../../tilesets/dither_overlay.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="18" height="10">
+  <data encoding="csv">
+0,0,0,0,0,52,53,53,53,53,53,53,54,0,0,0,0,0,
+0,0,0,0,0,61,62,62,62,62,62,62,63,0,0,0,0,0,
+0,0,0,0,0,70,71,71,71,71,71,71,72,0,0,0,0,0,
+0,0,0,0,0,44,44,45,45,45,44,45,45,0,0,0,0,0,
+0,0,0,0,0,45,45,44,45,43,45,45,44,0,0,0,0,0,
+0,0,0,0,0,45,43,44,43,43,44,45,44,0,0,0,0,0,
+0,0,0,0,0,45,44,45,36,36,45,43,45,0,0,0,0,0,
+0,0,0,0,0,45,45,45,36,36,44,45,45,0,0,0,0,0,
+0,0,0,0,0,0,0,0,36,36,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="18" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,91,91,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="3" name="collisions">
+  <object id="1" x="520" y="120" width="40" height="200"/>
+  <object id="2" x="200" y="80" width="320" height="40"/>
+  <object id="3" x="160" y="120" width="40" height="200"/>
+  <object id="4" x="200" y="320" width="120" height="40"/>
+  <object id="7" x="400" y="320" width="120" height="40"/>
+ </objectgroup>
+ <objectgroup id="4" name="objects">
+  <object id="8" name="chest" x="360" y="160">
+   <properties>
+    <property name="item" value="speedbadge"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="transition" x="320" y="320" width="80" height="40">
+   <properties>
+    <property name="map" value="floorcyber/cyber_store"/>
+    <property name="marker" value="entry3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="markers">
+  <object id="5" name="entry1" x="360" y="280">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
