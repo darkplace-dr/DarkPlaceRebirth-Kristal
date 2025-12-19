@@ -45,9 +45,6 @@ function PartyMember:init()
     self.opinions = {}
     self.default_opinion = 50
 
-    -- protection points for soul shield mechanic
-    self.pp = 0
-
     -- whether or not the next attack should be reflected
     self.reflectNext = false
 

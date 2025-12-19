@@ -3,7 +3,8 @@
 local SoulExapndEffect, super = Class(Sprite)
 
 function SoulExapndEffect:init(x, y, sprite_override)
-    super.init(self, Game:isLight() and "player/"..Game:getSoulPartyMember():getSoulFacing().."/heart" or "player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_dodge", x or 0, y or 0)
+    local sprite
+    super.init(self, sprite_override or (Game:isLight() and "player/"..Game:getSoulPartyMember():getSoulFacing().."/heart") or "player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_dodge", x or 0, y or 0)
 
     self:setOrigin(0.5, 0.5)
 end
