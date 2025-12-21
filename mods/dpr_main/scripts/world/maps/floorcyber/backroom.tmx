@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="18" height="10" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="10">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="18" height="10" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="10">
  <editorsettings>
   <export target="backroom.lua" format="lua"/>
  </editorsettings>
@@ -22,6 +22,21 @@
  <layer id="2" name="Tile Layer 2" width="18" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,79,80,80,80,80,81,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,4,91,91,2,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="6" name="Tile Layer 3" width="18" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,73,74,75,76,77,78,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -29,7 +44,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,91,91,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
@@ -41,9 +55,11 @@
   <object id="7" x="400" y="320" width="120" height="40"/>
  </objectgroup>
  <objectgroup id="4" name="objects">
-  <object id="8" name="chest" x="360" y="160">
+  <object id="8" name="npc" x="425" y="60">
    <properties>
-    <property name="item" value="speedbadge"/>
+    <property name="actor" value="itemsparkle"/>
+    <property name="cutscene" value="cyber.speedbadge"/>
+    <property name="flagcheck" value="!speedbadge"/>
    </properties>
    <point/>
   </object>

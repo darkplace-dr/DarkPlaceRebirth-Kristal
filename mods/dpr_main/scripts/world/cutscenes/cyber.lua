@@ -379,5 +379,21 @@ cutscene:text("* He seems to be offering you something.", nil, event)
 		end
 end,
 
+speedbadge = function(cutscene, event)
+cutscene:text("* There's an item on the wall.", nil, event)
+cutscene:text("* Grab it and never let go of it?", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("item")
+			cutscene:text("* You got the [color:yellow]SpeedUp[color:white]!", nil, event)
+			Game:setFlag("speedbadge", true)
+			event:remove()
+			Game.inventory:addItem("speedbadge")
+		elseif choice == 2 then
+			cutscene:text("* You don't take it.", nil, event)
+		end
+end,
+
+
 }
 return cyber
