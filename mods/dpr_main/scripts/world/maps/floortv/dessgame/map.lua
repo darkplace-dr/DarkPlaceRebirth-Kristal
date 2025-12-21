@@ -1,12 +1,17 @@
 local DESSBABY, super = Class(Map)
 
 function DESSBABY:onEnter()
+	local textures = Assets.getFramesOrTexture("ui/tv_starbgtile/rainbow/starbgtile")
+	if not textures then
+		print("Problem here with self.starbg")
+		return
+	end
+
 	self.starbg = Object(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 	self.starbg:setLayer(Game.world:parseLayer("floor")-self.depth_per_layer/10)
 
-	self.starbg.textures = Assets.getFramesOrTexture("ui/tv_starbgtile/rainbow/starbgtile")
+	self.starbg.textures = textures
 	self.starbg.timer = 0
-
 	self.starbg.alpha = 1
 	self.starbg.starbg_height = 150
 
@@ -23,10 +28,6 @@ function DESSBABY:onEnter()
 		Draw.drawWrapped(self.starbg.textures[frame], true, true, self.starbg.timer, self.starbg.timer, 0, 2, 2)
 		Draw.popScissor()
 	end)
-
-	if not self.starbg.textures then
-		print("Problem here with self.starbg")
-	end
 
 	Game.world:addChild(self.starbg)
 end
