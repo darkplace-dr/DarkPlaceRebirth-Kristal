@@ -44,7 +44,9 @@ end
 function DessGameVoting:getResults()
 	local votes = 0
 	for member,data in pairs(self.data) do
-		votes = votes + (data.agree and 1 or -1)
+		if data.agree ~= nil then
+			votes = votes + (data.agree and 1 or -1)
+		end
 	end
 	return votes
 end
