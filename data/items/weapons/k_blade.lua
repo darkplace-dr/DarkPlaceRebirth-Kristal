@@ -36,7 +36,7 @@ function item:init()
         noelle = "",
 		dess = "not on my ninja shit rn srry",
         noel = "",
-        ceroba = "Slice there, here, ",
+        ceroba = "",
         jamm = ""
     }
 end
