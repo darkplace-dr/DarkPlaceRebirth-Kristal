@@ -104,7 +104,11 @@ function Soul:init(x, y, color)
     self.target_y = y
     self.timer = 0
     self.transitioning = false
-    self.speed = 4
+    if Game:getFlag("speed_up") then
+        self.speed = 5.5
+    else
+        self.speed = 4
+    end
 
     self.inv_timer = 0
     self.inv_flash_timer = 0
