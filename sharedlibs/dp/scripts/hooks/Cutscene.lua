@@ -18,4 +18,10 @@ function Cutscene:waitMultiple(...)
     return coroutine.yield()
 end
 
+function Cutscene:runIf(cond, func)
+    if cond then
+        func(self)
+    end
+end
+
 return Cutscene

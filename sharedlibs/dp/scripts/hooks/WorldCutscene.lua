@@ -597,10 +597,4 @@ function WorldCutscene:textCond(cond, ...)
     if cond then return self:text(...) end
 end
 
-function WorldCutscene:runIf(cond, func)
-    if cond then
-        func(self)
-    end
-end
-
 return WorldCutscene
