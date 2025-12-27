@@ -1,7 +1,20 @@
 ---@class WorldCutscene : WorldCutscene
 local WorldCutscene, super = Utils.hookScript(WorldCutscene)
 
+function WorldCutscene:init(...)
+    super.init(self, ...)
+
+    self.force_texttagged = false
+end
+
 local function waitForTextbox(self) return not self.textbox or self.textbox:isDone() end
+
+function WorldCutscene:text(...)
+    if self.force_texttagged then
+        return self:textTagged(...)
+    end
+    return super.text(self, ...)
+end
 
 function WorldCutscene:showNametag(text, options)
     options = options or {}
@@ -36,8 +49,6 @@ end
 local function waitForGame(self) return (Game.minigame == nil) end
 function WorldCutscene:startMinigame(game)
     Game:startMinigame(game)
-
-
     return self:wait(waitForGame)
 end
 
@@ -248,7 +259,6 @@ function WorldCutscene:getUserText(length, mode, wait, fade, options)
     end
 end
 
-
 function WorldCutscene:doki_text(text, actor, options)
     if type(actor) == "table" and not isClass(actor) then
         options = actor
@@ -423,6 +433,10 @@ end
 
 function WorldCutscene:resetBoardText()
 	self.board_texted = false
+end
+
+function WorldCutscene:forceTextTagged(bool)
+    self.force_texttagged = bool
 end
 
 return WorldCutscene
