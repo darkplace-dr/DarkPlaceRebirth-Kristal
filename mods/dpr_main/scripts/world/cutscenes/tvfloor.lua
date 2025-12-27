@@ -1136,7 +1136,10 @@ return {
     		cutscene:wait(0.2)
     		i = 0
     		print("Crash!")
-    		love.filesystem.write("saves/file_dessyoufuckingpretzel.json", JSON.encode(Game:save()))
+    		local save = Game:save()
+    		save.save_id = Game.save_id
+    		save.room_id = "floortv/legacy_corridors"
+    		love.filesystem.write("saves/file_dessyoufuckingpretzel.json", JSON.encode(save))
     		while i < 50000 do
     			i = i + 1
     		end

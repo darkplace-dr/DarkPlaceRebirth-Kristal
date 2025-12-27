@@ -171,8 +171,20 @@ function love.load(args)
     Kristal.ChapterConfigs[4] = JSON.decode(love.filesystem.read("configs/chapter4.json"))
     Kristal.ExtraConfigs = JSON.decode(love.filesystem.read("configs/extra.json"))
 
+    -- If a certain save file exists, Dess destroyed reality with her trolley problem
+    Kristal.DessYouFuckingIdiot = love.filesystem.getInfo("saves/file_dessyoufuckingpretzel.json", "file") ~= nil
+
     -- initialize overlay
     Kristal.Overlay:init()
+
+    -- Do some ugly stuff so the Overlay doesn't appear
+    if Kristal.DessYouFuckingIdiot then
+        Kristal.__OVERLAY_DRAW = Kristal.Overlay.draw
+        Kristal.Overlay.draw = function() end
+
+        love.window.setTitle("")
+        love.window.setIcon(love.image.newImageData(1, 1))
+    end
 
     -- global stage
     Kristal.Stage = Stage()
@@ -1563,6 +1575,12 @@ end
 --- Called internally. Sets the title and icon of the game window
 --- to either what mod requests to be or the defaults.
 function Kristal.setDesiredWindowTitleAndIcon()
+    if Kristal.DessYouFuckingIdiot then
+        love.window.setTitle("")
+        love.window.setIcon(love.image.newImageData(1, 1))
+        return
+    end
+
     local mod = shouldWindowUseModBranding()
     love.window.setIcon(mod and mod.window_icon_data or Kristal.icon)
     love.window.setTitle(mod and mod.name or Kristal.game_default_name)

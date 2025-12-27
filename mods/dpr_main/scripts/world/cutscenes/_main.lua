@@ -565,4 +565,162 @@ return {
 
     end,
 
+    noreality = function(cutscene)
+        local function gonerTextFade(text, wait)
+            Game.world.timer:tween(1, text, { alpha = 0 }, "linear", function()
+                text:remove()
+            end)
+            if wait ~= false then
+                cutscene:wait(1)
+            end
+        end
+
+        -- FIXME: actually use skippable
+        local function gonerText(str, advance, skippable)
+            text = DialogueText("[speed:0.5][spacing:6][style:GONER][voice:none]" .. str.."[wait:20]", 100, 100, 500, 480,
+                { auto_size = true })
+            text.layer = WORLD_LAYERS["top"]+666+6
+            text.skip_speed = not skippable
+            text.parallax_x = 0
+            text.parallax_y = 0
+            Game.world:addChild(text)
+
+            if advance ~= false then
+                cutscene:wait(function() return not text:isTyping() end)
+                gonerTextFade(text, true)
+            else
+                return text
+            end
+        end
+
+        local music = Music()
+        music:play("AUDIO_DRONE", 0.8)
+
+        local cover = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+        cover:setColor(COLORS["black"])
+        cover:setParallax(0, 0)
+        cover:setLayer(WORLD_LAYERS["top"]+666)
+        Game.world:addChild(cover)
+
+        cutscene:wait(2)
+
+        gonerText("...")
+        gonerText("HOW...[wait:5] CURIOUS.")
+        gonerText("I WAS CERTAIN\n[wait:5]I MADE MYSELF CLEAR\n[wait:5]THE LAST TIME WE'VE MET.")
+        gonerText("YOUR MISSION WAS TO PREVENT REALITY FROM COLLAPSING.")
+        gonerText("AND YET, WHEN GIVEN THE OPPORTUNITY...")
+        gonerText("YOU LISTENED TO THE UNHINGED DEER.")
+        cutscene:wait(.5)
+        gonerText("AND HERO...")
+        gonerText("THEY TOO HAD ONE PURPOSE.")
+        gonerText("AND THEY FAILED IT AS WELL.")
+        cutscene:wait(1)
+        gonerText("PERHAPS I MADE THEIR SENSE OF SELF TOO WEAK.")
+        gonerText("THEY DON'T THINK OF THEMSELVES AS ANYTHING BUT YOUR VESSEL.")
+        gonerText("AND SO THEY OBEY YOUR COMMAND.")
+        gonerText("EVEN WHEN IT IS COMPROMISING.")
+        cutscene:wait(1)
+        gonerText("...")
+        local text = gonerText("DO YOU ACKNOWLEDGE WHAT YOU'VE DONE?", false)
+
+        chosen = nil
+        choicer = GonerChoice(220, 360, {
+            { { "YES", 0, 0 }, { "<<" }, { ">>" }, { "NO", 160, 0 } }
+        }, function(choice)
+            chosen = choice
+        end)
+        choicer:setSelectedOption(2, 1)
+        choicer:setSoulPosition(80, 0)
+        Game.stage:addChild(choicer)
+
+        cutscene:wait(function() return chosen ~= nil end)
+        gonerTextFade(text, true)
+
+        if chosen == "YES" then
+            gonerText("I APPRECIATE IT.")
+        else
+            gonerText("OF COURSE, OF COURSE.")
+            gonerText("YOU ONLY DID IT BECAUSE YOU COULD, AFTER ALL.")
+        end
+        cutscene:wait(1)
+
+        gonerText("THANKFULLY, ALL IS NOT LOST JUST YET.")
+        gonerText("YOU COULD SAY I \"SAW IT COMING\".")
+        gonerText("AND MADE SURE TO CREATE A BACKUP, SO TO SPEAK.")
+        gonerText("I WILL NOW RESTORE IT.")
+
+        text = gonerText("I ASSUME SUCH TURN OF EVENTS IS FINE BY YOU.", false)
+        chosen = nil
+        choicer = GonerChoice(220, 360, {
+            { { "YES", 0, 0 }, { "<<" }, { ">>" }, { "NO", 160, 0 } }
+        }, function(choice)
+            chosen = choice
+        end)
+        choicer:setSelectedOption(2, 1)
+        choicer:setSoulPosition(80, 0)
+        Game.stage:addChild(choicer)
+        cutscene:wait(function() return chosen ~= nil end)
+        gonerTextFade(text, true)
+
+        if chosen == "NO" then
+            gonerText("...")
+            gonerText("WHAT AN INTRIGING ANSWER.")
+            gonerText("YOU WOULD LEAVE THE WORLD BEHIND SO EASILY.")
+            gonerText("IS IT CURIOSITY?[wait:20]\nIS IT NAIVETY?")
+            gonerText("IS IT BOREDOM?")
+            gonerText("NONETHELESS. YOUR ANSWER REMAINS ABSOLUTE.")
+            music:stop()
+            local text = gonerText(" THEN THE WORLD[wait:30] \n STAYED COVERED[wait:30] \n IN NOTHINGNESS.", false)
+            cutscene:wait(function()
+                return not text:isTyping() and Input.down("confirm")
+            end)
+            text:remove()
+            Input.clear("confirm")
+            music:play("AUDIO_DARKNESS")
+            cutscene:wait(60*10)
+            text = gonerText("INTEESTING.", false)
+            cutscene:wait(function()
+                return not text:isTyping() and Input.down("confirm")
+            end)
+            gonerText("DESPITE YOUR PREVIOUS ANSWER... YOU REMAIN.")
+            gonerText("PERHAPS IT TRULY WAS CURIOSITY.")
+            gonerText("WELL THEN.")
+            gonerText("I CANNOT IGNORED SUCH PATIENCE OVER SOMETHING YOU CAUSED TO YOURSELF.")
+            gonerText("AS SUCH, I WILL PROCEED WITH THE ORIGINAL PLAN.")
+        end
+
+        gonerText("IN THE FUTURE, DO NOT ACCEPT THE IDEA TO \"DESTROY REALITY\".")
+        gonerText("IT MAY SOUND ENTERTAINING.[wait:20]\nAND IMPOSSIBLE TO ACT UPON.")
+        gonerText("BUT SOMETIMES, LOGIC AS WELL CAN BE DISCARDED.")
+        local save = JSON.decode(love.filesystem.read("saves/file_dessyoufuckingpretzel.json"))
+        gonerText("GOODBYE "..save.name:upper()..".")
+
+        local done = false
+        Game.fader:fadeOut(function() done = true end, {color=COLORS.white, speed=5})
+        cutscene:wait(function() return done end)
+        Game.fader.alpha = 0
+
+        Kristal.DessYouFuckingIdiot = false
+
+        cutscene:after(function()
+
+            Kristal.Overlay.draw = Kristal.__OVERLAY_DRAW
+            Kristal.__OVERLAY_DRAW = nil
+
+            love.filesystem.remove("saves/file_dessyoufuckingpretzel.json")
+
+            Kristal.setState("Empty")
+            Kristal.clearModState()
+            Kristal.loadAssets("", "plugins", "")
+            Kristal.loadAssets("", "mods", "", function()
+                Kristal.loadMod(save.mod, nil, nil, function()
+                    if Kristal.preInitMod(save.mod) then
+                        Kristal.setState(Game, save, save.save_id, false)
+                    end
+                end)
+            end)
+
+        end)
+    end
+
 }

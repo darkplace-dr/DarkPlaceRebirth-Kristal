@@ -1085,6 +1085,11 @@ function Mod:makeSpellsMissAgainstJackenstein()
 end
 
 function Mod:postInit(new_file)
+	if Game.save_id == 666 then
+		Game.world:startCutscene("_main.noreality")
+		return
+	end
+
     if DELTARUNE_SAVE_ID then
         local save = DeltaruneLoader.getCompletion(2,DELTARUNE_SAVE_ID)
         self:loadDeltaruneFile(save)
