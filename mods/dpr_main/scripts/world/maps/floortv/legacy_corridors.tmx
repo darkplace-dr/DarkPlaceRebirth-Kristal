@@ -189,6 +189,7 @@
     <property name="actor" value="dess"/>
     <property name="cond" value="(not Game:hasPartyMember(&quot;dess&quot;) and Game:hasUnlockedPartyMember(&quot;dess&quot;)) and (not Game:getGlobalFlag(&quot;DessDestroyedReality_&quot;..Game.save_id) and not Game:getFlag(&quot;playedDessGame&quot;))"/>
     <property name="cutscene" value="tvfloor.dess"/>
+    <property name="turn" type="bool" value="true"/>
    </properties>
    <point/>
   </object>

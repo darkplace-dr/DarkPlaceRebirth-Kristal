@@ -589,7 +589,8 @@ return {
           properties = {
             ["actor"] = "dess",
             ["cond"] = "(not Game:hasPartyMember(\"dess\") and Game:hasUnlockedPartyMember(\"dess\")) and (not Game:getGlobalFlag(\"DessDestroyedReality_\"..Game.save_id) and not Game:getFlag(\"playedDessGame\"))",
-            ["cutscene"] = "tvfloor.dess"
+            ["cutscene"] = "tvfloor.dess",
+            ["turn"] = true
           }
         }
       }

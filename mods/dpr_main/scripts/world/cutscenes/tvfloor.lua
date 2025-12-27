@@ -1089,14 +1089,15 @@ return {
     				tenna.sprite:setPreset(7)
     				tenna.sprite:setSprite("sad_turned_a")
 
-    				fade = cutscene:fadeOut(nil, {speed=2})
+    				Game.world.timer:after(1, function()
+    					fade = cutscene:fadeOut(nil, {speed=2})
+    				end)
     			end)
 
     			cutscene:wait(function()
     				local wait = false
     				for i,v in ipairs(walks) do
     					if v() then
-    						print("Done")
     						wait = true
     						break
     					end
@@ -1144,8 +1145,8 @@ return {
     		save.save_id = Game.save_id
     		save.room_id = "floortv/legacy_corridors"
     		love.filesystem.write("saves/file_dessyoufuckingpretzel.json", JSON.encode(save))
-    		while i < 50000 do
-    			i = i + 1
+    		while i < 90000 do
+    			i = i + DTMULT
     		end
     		love = nil
     	end
