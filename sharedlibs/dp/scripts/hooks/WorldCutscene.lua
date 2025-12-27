@@ -40,27 +40,27 @@ function WorldCutscene:startMinigame(game)
     return self:wait(waitForGame)
 end
 
--- This thing needs to be exploded
----@deprecated Not really deprecated but basically doesn't work like how a cutscene function is supposed to. So unstable and not recommended.
---- Wrapper for [WorldCutscene:text](lua://WorldCutscene.text) that adds a nametag
+--- A version of [WorldCutscene.text] that also creates a nametag alongside it.
 ---@overload fun(self: WorldCutscene, text: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
 ---@overload fun(self: WorldCutscene, text: string, portrait?: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
 ---@param text      string                      The text to be typed.
 ---@param portrait? string|nil                  The name of the character portrait to use for this textbox.
 ---@param actor?    Character|Actor|string|nil  The Character/Actor to be used for voice bytes and portraits, overriding the active cutscene speaker.
 ---@param options?  table                       A table definining additional properties to control the textbox.
----|"talk"      # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world. 
----|"top"       # Override for the default textbox position, defining whether the textbox should appear at the top of the screen.
----|"x"         # The x-offset of the dialgoue portrait.
----|"y"         # The y-offset of the dialogue portrait.
----|"reactions" # A table of tables that define "reaction" dialogues. Each table defines the dialogue, x and y position of the face, actor and face sprite, in that order. x and y can be strings as well, referring to existing positions; x can be left, leftmid, mid, middle, rightmid, or right, and y can be top, mid, middle, bottommid, and bottom. Must be used in combination with a react text command.
----|"functions" # A table defining additional functions that can be used in the text with the `func` text command. Each key, value pair will form the id to use with `func` and the function to be called, respectively.
----|"font"      # The font to be used for this text. Can optionally be defined as a table {font, size} to also set the text size.
----|"align"     # Sets the alignment of the text.
----|"skip"      # If false, the player will be unable to skip the textbox with the cancel key.
----|"advance"   # When `false`, the player cannot advance the textbox, and the cutscene will no longer suspend itself on the dialogue by default.
----|"auto"      # When `true`, the text will auto-advance after the last character has been typed.
----|"nametag"   # If set, use this for the nametag instead of the actor's name.
+---|"talk"         # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world. 
+---|"top"          # Override for the default textbox position, defining whether the textbox should appear at the top of the screen.
+---|"x"            # The x-offset of the dialgoue portrait.
+---|"y"            # The y-offset of the dialogue portrait.
+---|"reactions"    # A table of tables that define "reaction" dialogues. Each table defines the dialogue, x and y position of the face, actor and face sprite, in that order. x and y can be strings as well, referring to existing positions; x can be left, leftmid, mid, middle, rightmid, or right, and y can be top, mid, middle, bottommid, and bottom. Must be used in combination with a react text command.
+---|"functions"    # A table defining additional functions that can be used in the text with the `func` text command. Each key, value pair will form the id to use with `func` and the function to be called, respectively.
+---|"font"         # The font to be used for this text. Can optionally be defined as a table {font, size} to also set the text size.
+---|"align"        # Sets the alignment of the text.
+---|"skip"         # If false, the player will be unable to skip the textbox with the cancel key.
+---|"advance"      # When `false`, the player cannot advance the textbox, and the cutscene will no longer suspend itself on the dialogue by default.
+---|"auto"         # When `true`, the text will auto-advance after the last character has been typed.
+---|"nametag"      # If set, use this for the nametag instead of the actor's name.
+---|"nametag_font" # The font used by the nametag. Defaults to the actor's set font.
+---@see WorldCutscene.text
 function WorldCutscene:textTagged(text, portrait, actor, options)
     if type(actor) == "table" and not isClass(actor) then
         options = actor
@@ -70,22 +70,110 @@ function WorldCutscene:textTagged(text, portrait, actor, options)
         options = portrait
         portrait = nil
     end
+
     options = options or {}
-    if type(actor) == "string" then
-        actor = self:getCharacter(actor) or Registry.createActor(actor)
-    end
-    if actor == nil then
-        actor = self.textbox_actor
+
+    self:closeText()
+
+    local width, height = 529, 103
+    if Game:isLight() then
+        width, height = 530, 104
     end
 
-    if options.nametag or actor then
-        self:showNametag(options.nametag or actor:getName(), {font = options.nametag_font or ((actor and isClass(actor)) and actor:getFont())})
+    self.textbox = Textbox(56, 344, width, height)
+    self.textbox.layer = WORLD_LAYERS["textbox"]
+    self.world:addChild(self.textbox)
+    self.textbox:setParallax(0, 0)
+
+    if type(actor) == "string" then
+        actor = self:getCharacter(actor) or (Registry.getActor(actor) and Registry.createActor(actor)) or actor
     end
-    self:text(text, portrait, actor, options)
-    self:hideNametag()
+
+    local speaker = self.textbox_speaker
+    if not speaker and isClass(actor) and actor:includes(Character) then
+        speaker = actor.sprite
+    end
+
+    if options["talk"] ~= false then
+        self.textbox.text.talk_sprite = speaker
+    end
+
+    actor = actor or self.textbox_actor
+    if isClass(actor) and actor:includes(Character) then
+        actor = actor.actor
+    end
+    if actor then
+        self.textbox:setActor(actor)
+    end
+
+    if options.nametag or (actor and isClass(actor)) then
+        self:showNametag(options.nametag or actor:getName(), {font = options.nametag_font or actor:getFont()})
+    end
+
+    if options["top"] == nil and self.textbox_top == nil then
+        local _, player_y = self.world.player:localToScreenPos()
+        options["top"] = player_y > 260
+    end
+    if options["top"] or (options["top"] == nil and self.textbox_top) then
+       local bx, by = self.textbox:getBorder()
+       self.textbox.y = by + 2
+    end
+
+    self.textbox.active = true
+    self.textbox.visible = true
+    self.textbox:setFace(portrait, options["x"], options["y"])
+
+    if options["reactions"] then
+        for id,react in pairs(options["reactions"]) do
+            self.textbox:addReaction(id, react[1], react[2], react[3], react[4], react[5])
+        end
+    end
+
+    if options["functions"] then
+        for id,func in pairs(options["functions"]) do
+            self.textbox:addFunction(id, func)
+        end
+    end
+
+    if options["font"] then
+        if type(options["font"]) == "table" then
+            -- {font, size}
+            self.textbox:setFont(options["font"][1], options["font"][2])
+        else
+            self.textbox:setFont(options["font"])
+        end
+    end
+
+    if options["align"] then
+        self.textbox:setAlign(options["align"])
+    end
+
+    self.textbox:setSkippable(options["skip"] or options["skip"] == nil)
+    self.textbox:setAdvance(options["advance"] or options["advance"] == nil)
+    self.textbox:setAuto(options["auto"])
+
+    self.textbox:setText(text, function()
+        self:hideNametag()
+        self.textbox:remove()
+        self:tryResume()
+    end)
+
+    local wait = options["wait"] or options["wait"] == nil
+    if not self.textbox.text.can_advance then
+        wait = options["wait"] -- By default, don't wait if the textbox can't advance
+    end
+
+    if wait then
+        return self:wait(waitForTextbox)
+    else
+        return waitForTextbox, self.textbox
+    end
 end
 
-
+function WorldCutscene:closeText()
+    super.closeText(self)
+    self:hideNametag()
+end
 
 function WorldCutscene:gonerKeyboard(options)
     local chosen_text
