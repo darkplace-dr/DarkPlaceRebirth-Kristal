@@ -682,6 +682,8 @@ return {
             cutscene:wait(function()
                 return not text:isTyping() and Input.down("confirm")
             end)
+            Input.clear("confirm")
+            gonerTextFade(text, true)
             gonerText("DESPITE YOUR PREVIOUS ANSWER... YOU REMAIN.")
             gonerText("PERHAPS IT TRULY WAS CURIOSITY.")
             gonerText("WELL THEN.")

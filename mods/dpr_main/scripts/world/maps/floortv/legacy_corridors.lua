@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.10.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -588,7 +588,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "dess",
-            ["cond"] = "not Game:hasPartyMember(\"dess\") and Game:hasUnlockedPartyMember(\"dess\")",
+            ["cond"] = "(not Game:hasPartyMember(\"dess\") and Game:hasUnlockedPartyMember(\"dess\")) and (not Game:getGlobalFlag(\"DessDestroyedReality_\"..Game.save_id) and not Game:getFlag(\"playedDessGame\"))",
             ["cutscene"] = "tvfloor.dess"
           }
         }

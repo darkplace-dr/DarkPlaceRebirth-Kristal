@@ -1085,17 +1085,18 @@ return {
     			end
 
     			local fade
-    			Game.world.timer:after(0.4, function()
+    			Game.world.timer:after(1.2, function()
     				tenna.sprite:setPreset(7)
     				tenna.sprite:setSprite("sad_turned_a")
 
-    				fade = cutscene:fadeOut()
+    				fade = cutscene:fadeOut(nil, {speed=2})
     			end)
 
     			cutscene:wait(function()
     				local wait = false
     				for i,v in ipairs(walks) do
-    					if not v() then
+    					if v() then
+    						print("Done")
     						wait = true
     						break
     					end
@@ -1111,8 +1112,9 @@ return {
     				return fade()
     			end)
     		end
+    		Game:setFlag("playedDessGame", true)
     		cutscene:loadMap("floortv/legacy_corridors")
-    		cutscene:fadeIn()
+    		cutscene:fadeIn(nil, {speed=1})
     	else
     		cutscene:text("* Hell yeah you guys made the right choice.", "genuine_b", "dess")
     		cutscene:text("* Now let's all enjoy our last seconds of living.", "heckyeah", "dess")
@@ -1136,6 +1138,8 @@ return {
     		cutscene:wait(0.2)
     		i = 0
     		print("Crash!")
+    		Game:setFlag("playedDessGame", true)
+    		Game:setGlobalFlag("DessDestroyedReality_"..Game.save_id, true)
     		local save = Game:save()
     		save.save_id = Game.save_id
     		save.room_id = "floortv/legacy_corridors"
