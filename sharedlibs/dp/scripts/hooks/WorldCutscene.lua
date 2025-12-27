@@ -19,6 +19,7 @@ function WorldCutscene:showNametag(text, options)
        self.nametag.y = 185
     end
     Game.world:addChild(self.nametag)
+    return self.nametag
 end
 
 function WorldCutscene:changeNametag(text)
