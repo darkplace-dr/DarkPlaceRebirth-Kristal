@@ -693,7 +693,8 @@ return {
         gonerText("IT MAY SOUND ENTERTAINING.[wait:20]\nAND IMPOSSIBLE TO ACT UPON.")
         gonerText("BUT SOMETIMES, LOGIC AS WELL CAN BE DISCARDED.")
         local save = JSON.decode(love.filesystem.read("saves/file_dessyoufuckingpretzel.json"))
-        gonerText("GOODBYE "..save.name:upper()..".")
+        music:stop()
+        gonerText("GOODBYE[wait:20] "..save.name:upper()..".")
 
         local done = false
         Game.fader:fadeOut(function() done = true end, {color=COLORS.white, speed=5})
