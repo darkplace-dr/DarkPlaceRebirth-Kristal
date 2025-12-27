@@ -439,4 +439,168 @@ function WorldCutscene:forceTextTagged(bool)
     self.force_texttagged = bool
 end
 
+function WorldCutscene:getPartyCharacterAtIndex(index)
+    return self:getCharacter(Game.party[index].id)
+end
+
+function WorldCutscene:getPartyCharacters()
+    local t = {}
+    for i,v in ipairs(Game.party) do
+        table.insert(t, self:getCharacter(v.id))
+    end
+    return t
+end
+
+function WorldCutscene:walkPartyTo(callback)
+    local walks = {}
+    for i,v in ipairs(self:getPartyCharacters()) do
+        local x, y, time, facing, keep_facing, ease, after = callback(v, i)
+        table.insert(walks, self:walkTo(v, x, y, time, facing, keep_facing, ease, after))
+    end
+    return function()
+        for i,v in ipairs(walks) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
+
+function WorldCutscene:slidePartyTo(callback)
+    local slides = {}
+    for i,v in ipairs(self:getPartyCharacters()) do
+        local x, y, time, facing, keep_facing, ease, after = callback(v, i)
+        table.insert(slides, self:slideTo(v, x, y, time, facing, keep_facing, ease, after))
+    end
+    return function()
+        for i,v in ipairs(slides) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
+
+function WorldCutscene:partyLook(dir)
+    if not dir then dir = "down" end
+    for i,v in ipairs(self:getPartyCharacters()) do
+        v:setFacing(dir)
+    end
+end
+
+function WorldCutscene:setPartySprites(sprites, speeds)
+    for i,v in ipairs(Game.party) do
+        if sprites[v.id] then
+            self:setSprite(v.id, sprites[v.id], speeds and speeds[v.id])
+        end
+    end
+end
+
+function WorldCutscene:setPartyAnimations(anims)
+    local all_anims = {}
+    for i,v in ipairs(Game.party) do
+        if anims[v.id] then
+            table.insert(all_anims, self:setAnimation(v.id, anims[v.id]))
+        end
+    end
+    return function()
+        for i,v in ipairs(all_anims) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
+
+function WorldCutscene:resetPartySprites()
+    self:resetSprites()
+end
+
+function WorldCutscene:spinParty(speed)
+    for i,v in ipairs(Game.party) do
+        if type(speed) == "table" then
+            self:spin(v, speed[v.id])
+        else
+            self:spin(v, speed)
+        end
+    end
+end
+
+function WorldCutscene:alertParty(duration, options)
+    local waits = {}
+    local options = options or {}
+    local only_once = options.only_once
+    for i,v in ipairs(self:getPartyCharacters()) do
+        if only_once and i > 1 then
+            options.play_sound = false
+        end
+        local _, w = self:alert(v, duration, options)
+        table.insert(waits, w)
+    end
+    return function()
+        for i,v in ipairs(waits) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
+
+--[[
+
+cutscene:textVariant("* Are you sure?", {
+    susie = "genuine",
+    dess = "condescending"
+}, {
+    priority={"susie", "dess"}
+})
+
+]]
+function WorldCutscene:textVariant(text, portraits, options)
+    local options = options or {}
+    local priority = options.priority or {}
+    if #priority == 0 then
+        for actor,portrait in pairs(portraits) do
+            table.insert(priority, actor)
+        end
+    end
+
+    local possible_actors = {}
+    for i,actor in ipairs(priority) do
+        if portraits[actor] then
+            table.insert(possible_actors, {actor=actor, portrait=portraits[actor]})
+        end
+    end
+
+    for i,data in ipairs(possible_actors) do
+        local actor = data.actor
+        local portrait = data.portrait
+
+        if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
+            return self:text(text, portrait, actor, options)
+        end
+    end
+end
+
+function WorldCutscene:textIfExists(text, portrait, actor, options)
+    local options = options or {}
+    if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
+        return self:text(text, portrait, actor, options)
+    end
+end
+
+function WorldCutscene:textCond(cond, ...)
+    if cond then self:text(...) end
+end
+
+function WorldCutscene:runIf(cond, func)
+    if cond then
+        func(self)
+    end
+end
+
 return WorldCutscene
