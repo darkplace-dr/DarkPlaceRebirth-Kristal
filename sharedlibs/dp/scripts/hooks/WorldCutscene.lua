@@ -594,7 +594,7 @@ function WorldCutscene:textIfExists(text, portrait, actor, options)
 end
 
 function WorldCutscene:textCond(cond, ...)
-    if cond then self:text(...) end
+    if cond then return self:text(...) end
 end
 
 function WorldCutscene:runIf(cond, func)
