@@ -55,7 +55,8 @@ function item:init()
         jamm = "So what decides these songs?",
         noel = "I'm seeing stars.",
         ceroba = "Sounds like memories...",
-        brenda = "Sounds like home."
+        brenda = "Sounds like home.",
+        len = "Fits me.",
     }
 
     self.sounds = {
@@ -65,6 +66,7 @@ function item:init()
         ["noelle"] = "cd_bagel/noelle",
 		["jamm"] = "cd_bagel/jamm",
 		["noel"] = "cd_bagel/noel",
+        ["len"] = "cd_bagel/len",
     }
 end
 

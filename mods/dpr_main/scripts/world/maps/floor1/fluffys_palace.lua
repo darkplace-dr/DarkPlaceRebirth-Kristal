@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -18,8 +18,31 @@ return {
     {
       name = "main_area",
       firstgid = 1,
-      filename = "../../tilesets/main_area.tsx",
-      exportfilename = "../../tilesets/main_area.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 13,
+      image = "../../../../assets/sprites/tilesets/main_area.png",
+      imagewidth = 260,
+      imageheight = 320,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     }
   },
   layers = {
@@ -173,7 +196,7 @@ return {
       id = 4,
       name = "collision",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -184,7 +207,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 0,
@@ -197,7 +220,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 480,
           y = 0,
@@ -210,7 +233,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 352,
@@ -223,7 +246,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 352,
@@ -236,7 +259,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 384,
           y = 672,
@@ -255,7 +278,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 192,
           y = 480,
@@ -274,7 +297,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 576,
           y = 480,
@@ -293,7 +316,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 96,
           y = 384,
@@ -306,7 +329,7 @@ return {
         {
           id = 25,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 384,
@@ -319,7 +342,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 768,
@@ -332,7 +355,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "polyline",
           x = 128,
           y = 512,
@@ -349,7 +372,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "polyline",
           x = 512,
           y = 768,
@@ -382,7 +405,7 @@ return {
         {
           id = 27,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 416,
           y = -32,
@@ -398,7 +421,7 @@ return {
         {
           id = 29,
           name = "teleitem_pedestal",
-          class = "",
+          type = "",
           shape = "point",
           x = 448,
           y = 544,
@@ -427,7 +450,7 @@ return {
         {
           id = 26,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 448,
           y = 32,

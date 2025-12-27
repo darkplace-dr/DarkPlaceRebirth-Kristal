@@ -55,6 +55,7 @@ function item:init()
 		jamm = "Ooh! Spine tingling, I love it!",
 		noel = "The Meat Factory.",
         ceroba = "Huh? That sounds familiar...",
+        len = "I think mine is broken...",
     }
 
     self.sounds = {
@@ -67,6 +68,7 @@ function item:init()
 		["dess"] = "synthsoda/dess",
 		["jamm"] = "synthsoda/jamm",
 		["noel"] = "synthsoda/noel",
+        ["len"] = "synthsoda/len",
     }
 end
 

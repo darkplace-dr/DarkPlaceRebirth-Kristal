@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="34" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="85">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="34" height="22" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="103">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -78,9 +78,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,158,159,160,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,174,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,190,191,192,0,0,0,0,0,0,0,0,0,0,158,159,160,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,158,159,160,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,190,191,192,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -116,9 +116,15 @@
 </data>
  </layer>
  <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
-  <object id="42" x="520" y="0" width="40" height="680"/>
-  <object id="43" x="320" y="0" width="40" height="560"/>
-  <object id="44" x="120" y="520" width="200" height="40"/>
+  <object id="42" x="520" y="-40" width="80" height="720"/>
+  <object id="93" x="600" y="240" width="120" height="40"/>
+  <object id="95" x="760" y="80" width="40" height="120"/>
+  <object id="96" x="600" y="-40" width="80" height="120"/>
+  <object id="97" x="720" y="-80" width="40" height="160"/>
+  <object id="43" x="200" y="-40" width="160" height="600"/>
+  <object id="44" x="120" y="-80" width="40" height="640"/>
+  <object id="90" x="160" y="-120" width="600" height="40"/>
+  <object id="92" x="360" y="-40" width="160" height="40"/>
   <object id="45" x="80" y="560" width="40" height="120"/>
   <object id="46" x="120" y="680" width="240" height="40"/>
   <object id="47" x="320" y="720" width="40" height="160"/>
@@ -127,9 +133,15 @@
   <object id="50" x="1040" y="320" width="40" height="480"/>
   <object id="51" x="920" y="280" width="120" height="40"/>
   <object id="52" x="880" y="320" width="40" height="360"/>
-  <object id="53" x="560" y="640" width="320" height="40"/>
+  <object id="53" x="600" y="640" width="280" height="40"/>
   <object id="71" x="160" y="600" width="40" height="40"/>
   <object id="72" x="680" y="680" width="40" height="40"/>
+  <object id="101" x="700" y="240">
+   <polyline points="0,0 60,-60"/>
+  </object>
+  <object id="102" x="600" y="140">
+   <polyline points="0,0 60,-60"/>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="56" name="transition" x="360" y="-20" width="160" height="40">
@@ -159,6 +171,9 @@
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="88" name="glowitem" x="705.818" y="137">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="57" name="entry" x="440" y="80">
@@ -187,7 +202,7 @@
     <property name="dlc" value="dlc_trials"/>
    </properties>
   </object>
-  <object id="80" gid="494" x="120" y="640" width="120" height="120"/>
+  <object id="80" gid="2147484142" x="120" y="640" width="120" height="120"/>
   <object id="81" gid="494" x="640" y="720" width="120" height="120"/>
  </objectgroup>
  <layer id="7" name="Tile Layer 4" width="34" height="22">

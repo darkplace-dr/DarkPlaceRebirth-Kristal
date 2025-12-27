@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 20,
+  nextobjectid = 22,
   properties = {
     ["border"] = "mainhub"
   },
@@ -18,13 +18,82 @@ return {
     {
       name = "main_area",
       firstgid = 1,
-      filename = "../../tilesets/main_area.tsx",
-      exportfilename = "../../tilesets/main_area.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 13,
+      image = "../../../../assets/sprites/tilesets/main_area.png",
+      imagewidth = 260,
+      imageheight = 320,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 208,
+      tiles = {}
     },
     {
       name = "greenpath",
       firstgid = 209,
-      filename = "../../tilesets/greenpath.tsx"
+      class = "",
+      tilewidth = 40,
+      tileheight = 40,
+      spacing = 0,
+      margin = 0,
+      columns = 4,
+      image = "../../../../assets/sprites/tilesets/greenpath.png",
+      imagewidth = 160,
+      imageheight = 160,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 16,
+      tiles = {
+        {
+          id = 4,
+          animation = {
+            {
+              tileid = 4,
+              duration = 200
+            },
+            {
+              tileid = 5,
+              duration = 200
+            },
+            {
+              tileid = 6,
+              duration = 200
+            },
+            {
+              tileid = 7,
+              duration = 200
+            }
+          }
+        }
+      }
     }
   },
   layers = {
@@ -252,6 +321,22 @@ return {
           properties = {
             ["map"] = "floor1/benchroom",
             ["marker"] = "west"
+          }
+        },
+        {
+          id = 21,
+          name = "lencheck",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 240,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["context"] = "fountain",
+            ["dir"] = "down"
           }
         }
       }
