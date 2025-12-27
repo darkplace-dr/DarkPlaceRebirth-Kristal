@@ -167,7 +167,7 @@ function WorldCutscene:textTagged(text, portrait, actor, options)
     if wait then
         return self:wait(waitForTextbox)
     else
-        return waitForTextbox, self.textbox
+        return waitForTextbox, self.textbox, self.nametag
     end
 end
 
