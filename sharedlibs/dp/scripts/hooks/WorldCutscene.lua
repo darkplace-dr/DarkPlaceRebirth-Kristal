@@ -591,10 +591,12 @@ function WorldCutscene:textIfExists(text, portrait, actor, options)
     if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
         return self:text(text, portrait, actor, options)
     end
+    return false
 end
 
 function WorldCutscene:textCond(cond, ...)
     if cond then return self:text(...) end
+    return false
 end
 
 return WorldCutscene
