@@ -522,9 +522,9 @@ end
 function WorldCutscene:spinParty(speed)
     for i,v in ipairs(Game.party) do
         if type(speed) == "table" then
-            self:spin(v, speed[v.id])
+            self:spin(v.id, speed[v.id])
         else
-            self:spin(v, speed)
+            self:spin(v.id, speed)
         end
     end
 end
@@ -589,13 +589,13 @@ end
 function WorldCutscene:textIfExists(text, portrait, actor, options)
     local options = options or {}
     if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
-        return self:text(text, portrait, actor, options)
+        return true, self:text(text, portrait, actor, options)
     end
-    return false
+    return false, function() return true end
 end
 
 function WorldCutscene:textCond(cond, ...)
-    if cond then return self:text(...) end
+    if cond then return true, self:text(...) end
     return false
 end
 
