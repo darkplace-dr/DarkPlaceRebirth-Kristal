@@ -451,6 +451,12 @@ function WorldCutscene:getPartyCharacters()
     return t
 end
 
+function WorldCutscene:forEachPartyCharacter(callback)
+    for i,v in ipairs(self:getPartyCharacters()) do
+        callback(i, v)
+    end
+end
+
 function WorldCutscene:walkPartyTo(callback)
     local walks = {}
     for i,v in ipairs(self:getPartyCharacters()) do
