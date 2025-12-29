@@ -602,7 +602,7 @@ end
 
 function WorldCutscene:textCond(cond, ...)
     if cond then return true, self:text(...) end
-    return false
+    return false, function() return true end
 end
 
 return WorldCutscene
