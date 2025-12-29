@@ -69,6 +69,8 @@ function actor:init()
 		["sit"]               	= {"sit", 4/30, true},
 
 		["dance"]               = {"dance", 1/10, true},
+
+        ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
     self.animations_dk = {
@@ -122,44 +124,46 @@ function actor:init()
         ["slide_hurt"] = {0, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-5, -1},
+        ["battle/idle"] = {-9, -3},
 
-        ["battle/attack"] = {-5, -1},
-        ["battle/attackready"] = {-5, -1},
-        ["battle/act"] = {-5, -1},
-        ["battle/actend"] = {-5, -1},
-        ["battle/actready"] = {-5, -1},
-        ["battle/item"] = {-5, -1},
-        ["battle/itemready"] = {-5, -1},
-        ["battle/defend"] = {-5, -1},
+        ["battle/attack"] = {-9, -3},
+        ["battle/attackready"] = {-9, -3},
+        ["battle/act"] = {-9, -3},
+        ["battle/actend"] = {-9, -3},
+        ["battle/actready"] = {-9, -3},
+        ["battle/spell"] = {-9, -3},
+        ["battle/item"] = {-9, -3},
+        ["battle/itemready"] = {-9, -3},
+        ["battle/defend"] = {-9, -3},
         ["battle/swooned"] = {0, 0},
 
-        ["battle/defeat"] = {-8, -5},
-        ["battle/hurt"] = {-5, -1},
+        ["battle/defeat"] = {-8, -3},
+        ["battle/hurt"] = {-9, -3},
 
         ["battle/intro"] = {-8, -9},
-        ["battle/victory"] = {-3, 0},
+        ["battle/victory"] = {-9, -3},
 
-        ["battle/tactic_freeze"] = {-5, -1},
-        ["battle/tactic_freeze_shiny"] = {-5, -1},
+        ["battle/tactic_freeze"] = {-9, -3},
+        ["battle/tactic_freeze_shiny"] = {-9, -3},
 
         -- Dungeonkiller battle offsets
-        ["battle_dungeonkiller/idle"] = {-5, -1},
+        ["battle_dungeonkiller/idle"] = {-9, -3},
 
-        ["battle_dungeonkiller/attack"] = {-5, -1},
-        ["battle_dungeonkiller/attackready"] = {-5, -1},
-        ["battle_dungeonkiller/act"] = {-5, -1},
-        ["battle_dungeonkiller/actend"] = {-5, -1},
-        ["battle_dungeonkiller/actready"] = {-5, -1},
-        ["battle_dungeonkiller/item"] = {-5, -1},
-        ["battle_dungeonkiller/itemready"] = {-5, -1},
-        ["battle_dungeonkiller/defend"] = {-5, -1},
+        ["battle_dungeonkiller/attack"] = {-9, -3},
+        ["battle_dungeonkiller/attackready"] = {-9, -3},
+        ["battle_dungeonkiller/act"] = {-9, -3},
+        ["battle_dungeonkiller/actend"] = {-9, -3},
+        ["battle_dungeonkiller/actready"] = {-9, -3},
+        ["battle_dungeonkiller/spell"] = {-9, -3},
+        ["battle_dungeonkiller/item"] = {-9, -3},
+        ["battle_dungeonkiller/itemready"] = {-9, -3},
+        ["battle_dungeonkiller/defend"] = {-9, -3},
 
-        ["battle_dungeonkiller/defeat"] = {-8, -5},
-        ["battle_dungeonkiller/hurt"] = {-5, -1},
+        ["battle_dungeonkiller/defeat"] = {-8, -3},
+        ["battle_dungeonkiller/hurt"] = {-9, -3},
 
         ["battle_dungeonkiller/intro"] = {-8, -9},
-        ["battle_dungeonkiller/victory"] = {-3, 0},
+        ["battle_dungeonkiller/victory"] = {-9, -3},
 
 		["sit"] = {4, -8},
 
@@ -170,6 +174,8 @@ function actor:init()
         ["talk_to_marcy_relate"] = {-7, 13},
 
         ["dance"] = {-4, 0},
+
+        ["pirouette"] = {-4, 0},
 
         ["sneak/left"] = {-6, 3},
         ["sneak/right"] = {2, 3},

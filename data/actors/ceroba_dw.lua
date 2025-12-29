@@ -104,7 +104,7 @@ function actor:init()
         ["battle/victory"] = {-8, 0},
 
         -- Cutscene offsets
-        ["ball"] = {-3, 0},
+        ["ball"] = {-2, 10},
         ["dance"] = {-5, -1},
         ["fall"] = {0, 0},
         ["guard"] = {-17, -11},
