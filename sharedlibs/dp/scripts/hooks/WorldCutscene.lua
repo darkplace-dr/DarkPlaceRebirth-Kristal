@@ -528,8 +528,28 @@ end
 
 function WorldCutscene:setPartySprites(sprites, speeds)
     for i,v in ipairs(Game.party) do
-        if sprites[v.id] then
-            self:setSprite(v.id, sprites[v.id], speeds and speeds[v.id])
+        local speed
+        if speeds then
+            if type(speeds) == "table" then
+                speed = speeds[v.id] or speeds.default
+            else
+                speed = speeds
+            end
+        end
+
+        local sprite
+        if type(sprites) == "table" then
+            sprite = sprites[v.id] or sprites.default
+            if type(sprites) == "table" and not isClass(sprite) then
+                speed = sprite[2]
+                sprite = sprite[1]
+            end
+        else
+            sprite = sprites
+        end
+
+        if sprite then
+            self:setSprite(v.id, sprite, speed)
         end
     end
 end
@@ -537,8 +557,14 @@ end
 function WorldCutscene:setPartyAnimations(anims)
     local all_anims = {}
     for i,v in ipairs(Game.party) do
-        if anims[v.id] then
-            table.insert(all_anims, self:setAnimation(v.id, anims[v.id]))
+        local anim
+        if type(anims) == "table" then
+            anim = anims[v.id] or anims.default
+        else
+            anim = anims
+        end
+        if anim then
+            table.insert(all_anims, self:setAnimation(v.id, anim))
         end
     end
     return function()
