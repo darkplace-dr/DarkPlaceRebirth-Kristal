@@ -120,4 +120,10 @@ function Battle:onDefendingState()
 	super.onDefendingState(self)
 end
 
+--- Gets a table that contains all battlers in the battle.
+---@return table<PartyBattler|EnemyBattler> battlers A table containing all PartyBattler and EnemyBattler currently in the battle
+function Battle:getBattlers()
+    return TableUtils.mergeMany(Game.battle.party, Game.battle.enemies)
+end
+
 return Battle
