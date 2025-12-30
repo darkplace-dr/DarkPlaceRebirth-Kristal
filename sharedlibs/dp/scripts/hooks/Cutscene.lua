@@ -24,4 +24,9 @@ function Cutscene:runIf(cond, func)
     end
 end
 
+function Cutscene:explode(obj)
+    local e = obj:explode()
+    return function() return e.parent == nil end
+end
+
 return Cutscene

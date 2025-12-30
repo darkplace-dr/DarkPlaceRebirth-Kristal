@@ -82,6 +82,8 @@ return {
 
 		local ran, wait, textbox = cutscene:textIfExists("* Yep.", "happy", "hero", {wait=false})
 		print("BETWEEN WAIT AAAAAAAAA", ran, wait, textbox)
+		Assets.playSound("noise")
+		Game.world.camera:shake()
 		cutscene:wait(wait)
 
 		cutscene:text("* Last check: only runs if Dess exists.")
@@ -91,9 +93,8 @@ return {
 			cutscene:text("* Today I'm blowing myself up.", "condescending", dess)
 			cutscene:text("* Promo code: reving my wife 2nite", "swag", dess)
 
-			local e = dess:explode()
 			Game:removePartyMember("dess")
-			cutscene:wait(function() return e.parent == nil end)
+			cutscene:wait(cutscene:explode(dess))
 		end)
 
 		cutscene:text("* Okay nice. Thanks.")
