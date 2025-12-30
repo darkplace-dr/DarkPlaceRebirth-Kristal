@@ -472,12 +472,42 @@ function WorldCutscene:walkPartyTo(callback)
         return true
     end
 end
+function WorldCutscene:walkPartyToSpeed(callback)
+    local walks = {}
+    for i,v in ipairs(self:getPartyCharacters()) do
+        local x, y, speed, facing, keep_facing, after = callback(v, i)
+        table.insert(walks, self:walkToSpeed(v, x, y, speed, facing, keep_facing, after))
+    end
+    return function()
+        for i,v in ipairs(walks) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
 
 function WorldCutscene:slidePartyTo(callback)
     local slides = {}
     for i,v in ipairs(self:getPartyCharacters()) do
-        local x, y, time, facing, keep_facing, ease, after = callback(v, i)
-        table.insert(slides, self:slideTo(v, x, y, time, facing, keep_facing, ease, after))
+        local x, y, time, ease = callback(v, i)
+        table.insert(slides, self:slideTo(v, x, y, time, ease))
+    end
+    return function()
+        for i,v in ipairs(slides) do
+            if not v() then
+                return false
+            end
+        end
+        return true
+    end
+end
+function WorldCutscene:slidePartyToSpeed(callback)
+    local slides = {}
+    for i,v in ipairs(self:getPartyCharacters()) do
+        local x, y, speed = callback(v, i)
+        table.insert(slides, self:slideToSpeed(v, x, y, speed))
     end
     return function()
         for i,v in ipairs(slides) do
