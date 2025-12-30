@@ -1,9 +1,23 @@
 ---@class WorldCutscene : WorldCutscene
-local WorldCutscene, super = Utils.hookScript(WorldCutscene)
+local WorldCutscene, super = HookSystem.hookScript(WorldCutscene)
+
+-- The idea here would be to fill this with sprites (and speeds?)
+-- that can then be used in WorldCutscene:setPartySprites()
+-- instead of always manually having to remember each correct sprite
+-- for each correct situation.
+-- Of course I'm too lazy to actually look for every fitting sprite
+-- right now so if anyone wanna try that, feel free to make Dark Place
+-- a better place for cutscenes
+WorldCutscene.SPRITES_HELPER = {
+    SHOCK = {},
+    JUMP = {},
+    FELL = {}
+}
 
 function WorldCutscene:init(...)
     super.init(self, ...)
 
+    ---@type boolean
     self.force_texttagged = false
 end
 
@@ -52,7 +66,7 @@ function WorldCutscene:startMinigame(game)
     return self:wait(waitForGame)
 end
 
---- A version of [WorldCutscene.text] that also creates a nametag alongside it.
+--- A version of [WorldCutscene.text](lua://WorldCutscene.text) that also creates a nametag alongside it.
 ---@overload fun(self: WorldCutscene, text: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
 ---@overload fun(self: WorldCutscene, text: string, portrait?: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
 ---@param text      string                      The text to be typed.
@@ -443,6 +457,8 @@ function WorldCutscene:getPartyCharacterAtIndex(index)
     return self:getCharacter(Game.party[index].id)
 end
 
+--- Get all Character instances linked to the PartyMember in Game.party
+---@return table<Character> characters All characters in the party
 function WorldCutscene:getPartyCharacters()
     local t = {}
     for i,v in ipairs(Game.party) do
@@ -451,12 +467,19 @@ function WorldCutscene:getPartyCharacters()
     return t
 end
 
-function WorldCutscene:forEachPartyCharacter(callback)
+--- Runs a func for each Character in the party, passing the index and the Character to the function
+---@param func fun(number, Character) A lamba function that will be called for each Character
+function WorldCutscene:forEachPartyCharacter(func)
     for i,v in ipairs(self:getPartyCharacters()) do
-        callback(i, v)
+        func(i, v)
     end
 end
 
+---@alias WalkPartyCallback fun(chara:Character, index:number):x:number, y:number, time:number, facing:string, keep_facing:boolean, ease:easetype, after:fun()
+--- Walks each Character **in the party** to a new `x` and `y` over `time` seconds.
+---@param callback WalkPartyCallback A function called for each Character that will determinate the arguments of each [walkTo](lua://WorldCutscene.walkTo).
+---@return fun():boolean finished Returns true once all characters have walked to their destination
+---@see WorldCutscene.walkTo
 function WorldCutscene:walkPartyTo(callback)
     local walks = {}
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -472,6 +495,11 @@ function WorldCutscene:walkPartyTo(callback)
         return true
     end
 end
+---@alias WalkSpeedPartyCallback fun(chara:Character, index:number):x:number, y:number, speed:number, facing:string, keep_facing:boolean, after:fun()
+--- Walks each Character **in the party** to a new `x` and `y` at `speed` pixels per frame.
+---@param callback WalkSpeedPartyCallback A function called for each Character that will determinate the arguments of each [walkToSpeed](lua://WorldCutscene.walkToSpeed).
+---@return fun(): boolean finished A function that returns `true` once all characters have finished walking.
+---@see WorldCutscene.walkToSpeed
 function WorldCutscene:walkPartyToSpeed(callback)
     local walks = {}
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -488,6 +516,11 @@ function WorldCutscene:walkPartyToSpeed(callback)
     end
 end
 
+---@alias SlidePartyCallback fun(chara:Character, index:number):x:number, y:number, time:number, ease:easetype
+--- Moves each Character **in the party**'s `x` and `y` values to the new specified position over `time` seconds.
+---@param callback SlidePartyCallback A function called for each Character that will determinate the arguments of each [slideTo](lua://WorldCutscene.slideTo).
+---@return fun():boolean finished A function that returns `true` once all characters has reached their destination.
+---@see WorldCutscene.slideTo
 function WorldCutscene:slidePartyTo(callback)
     local slides = {}
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -503,6 +536,11 @@ function WorldCutscene:slidePartyTo(callback)
         return true
     end
 end
+---@alias SlidePartySpeedCallback fun(chara:Character, index:number):x:number, y:number, speed:number
+--- Moves each Character **in the party**'s `x` and `y` values to the new specified position at a speed of `speed` pixels per frame.
+---@param callback SlidePartySpeedCallback A function called for each Character that will determinate the arguments of each [slideToSpeed](lua://WorldCutscene.slideToSpeed).
+---@return fun():boolean finished A function that returns `true` once all characters has reached their destination.
+---@see WorldCutscene.slideToSpeed
 function WorldCutscene:slidePartyToSpeed(callback)
     local slides = {}
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -519,6 +557,9 @@ function WorldCutscene:slidePartyToSpeed(callback)
     end
 end
 
+--- Makes all characters in the party look in a specific direction.
+---@param dir? string The direction all characters should face. Must be either "up", "dowm", "left", or "right". (Defaults to "down")
+---@see WorldCutscene.look
 function WorldCutscene:partyLook(dir)
     if not dir then dir = "down" end
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -526,6 +567,11 @@ function WorldCutscene:partyLook(dir)
     end
 end
 
+
+---@alias SpriteAndSpeed { [1]: string, [2]: number }
+---@param sprites string|table|SpriteAndSpeed
+---@param speeds number|table
+---@return nil
 function WorldCutscene:setPartySprites(sprites, speeds)
     for i,v in ipairs(Game.party) do
         local speed
@@ -554,6 +600,8 @@ function WorldCutscene:setPartySprites(sprites, speeds)
     end
 end
 
+---@param anims string|table All animations for the party. Can be a single `string` for everyone or a defined `table` of animations with a default value
+---@return fun():boolean finished Returns `true` when all animations finished playing.
 function WorldCutscene:setPartyAnimations(anims)
     local all_anims = {}
     for i,v in ipairs(Game.party) do
@@ -577,10 +625,15 @@ function WorldCutscene:setPartyAnimations(anims)
     end
 end
 
+--- Resets the sprites of the player and all their followers to their defaults. (alias to WorldCutscene.resetSprites)
+---@see WorldCutscene.resetSprites
 function WorldCutscene:resetPartySprites()
     self:resetSprites()
 end
 
+--- Causes all characters in the party to spin
+---@param speed table<string, number>|number
+---@see WorldCutscene.spin
 function WorldCutscene:spinParty(speed)
     for i,v in ipairs(Game.party) do
         if type(speed) == "table" then
@@ -591,8 +644,20 @@ function WorldCutscene:spinParty(speed)
     end
 end
 
+--- Creates an alert bubble (tiny !) above all characters in the party.
+---@param duration?     number  The number of frames to show the bubble for. (Defaults to `20`)
+---@param options?      table   A table defining additional properties to control the bubble.
+---|"play_sound"    # Whether the alert sound will be played. (Defaults to `true`)
+---|"sprite"        # The sprite to use for the alert bubble. (Defaults to `"effects/alert"`)
+---|"offset_x"      # The x-offset of the icon.
+---|"offset_y"      # The y-offset of the icon.
+---|"layer"         # The layer to put the icon on. (Defaults to `100`)
+---|"callback"      # A callback that is run when the alert finishes.
+---|"only_once"     # If `true`, the alert sound will only play once. (Defaults to `true`)
+---@see WorldCutscene.alert
 function WorldCutscene:alertParty(duration, options)
     local waits = {}
+    ---@diagnostic disable-next-line: redefined-local
     local options = options or {}
     local only_once = options.only_once
     for i,v in ipairs(self:getPartyCharacters()) do
@@ -622,11 +687,12 @@ cutscene:textVariant("* Are you sure?", {
 })
 
 ]]
+---@see WorldCutscene.text
 function WorldCutscene:textVariant(text, portraits, options)
     local options = options or {}
     local priority = options.priority or {}
     if #priority == 0 then
-        for actor,portrait in pairs(portraits) do
+        for actor,_ in pairs(portraits) do
             table.insert(priority, actor)
         end
     end
@@ -658,6 +724,26 @@ function WorldCutscene:textVariant(text, portraits, options)
     end
 end
 
+--- Runs [WorldCutscene.text](lua://WorldCutscene.text) if `actor` exists in the world.
+---@overload fun(self: WorldCutscene, text: string|string[], options?: table) : (finished:(fun():boolean), textbox: Textbox?)
+---@overload fun(self: WorldCutscene, text: string|string[], portrait?: string, options?: table) : (finished:(fun():boolean), textbox: Textbox?)
+---@param text      string|string[]             The text to be typed.
+---@param portrait? string|nil                  The name of the character portrait to use for this textbox.
+---@param actor?    Character|Actor|string|nil  The Character/Actor to be used for voice bytes and portraits, overriding the active cutscene speaker.
+---@param options?  table                       A table definining additional properties to control the textbox.
+---|"talk"      # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world. 
+---|"top"       # Override for the default textbox position, defining whether the textbox should appear at the top of the screen.
+---|"x"         # The x-offset of the dialgoue portrait.
+---|"y"         # The y-offset of the dialogue portrait.
+---|"reactions" # A table of tables that define "reaction" dialogues. Each table defines the dialogue, x and y position of the face, actor and face sprite, in that order. x and y can be strings as well, referring to existing positions; x can be left, leftmid, mid, middle, rightmid, or right, and y can be top, mid, middle, bottommid, and bottom. Must be used in combination with a react text command.
+---|"functions" # A table defining additional functions that can be used in the text with the `func` text command. Each key, value pair will form the id to use with `func` and the function to be called, respectively.
+---|"font"      # The font to be used for this text. Can optionally be defined as a table {font, size} to also set the text size.
+---|"align"     # Sets the alignment of the text.
+---|"skip"      # If false, the player will be unable to skip the textbox with the cancel key.
+---|"advance"   # When `false`, the player cannot advance the textbox, and the cutscene will no longer suspend itself on the dialogue by default.
+---|"auto"      # When `true`, the text will auto-advance after the last character has been typed.
+---|"wait"      # Whether the cutscene should automatically suspend itself until the textbox advances. (Defaults to `true`, unless `advance` is false.)
+---|"inparty"   # When `true`, `actor` will also be required to be **in** the party.
 function WorldCutscene:textIfExists(text, portrait, actor, options)
     local options = options or {}
 
@@ -674,11 +760,20 @@ function WorldCutscene:textIfExists(text, portrait, actor, options)
     return false, function() return true end
 end
 
+--- Runs WorldCutscene.text if `cond` is true.
+---@param cond boolean
+---@param ... any Arguments passed to [WorldCutscene.text](lua://WorldCutscene.text)
+---@see WorldCutscene.text
 function WorldCutscene:textCond(cond, ...)
     if cond then return true, self:text(...) end
     return false, function() return true end
 end
 
+--- Runs a function `func` only if the character `id` exists
+---@param id string|Character|PartyMember The character to check the existence of.
+---@param func fun(self:WorldCutscene, char:Character, ...) The function to run if `id` character exists
+---@param inparty boolean? If true, `func` will only run if the character exists and is **in** the party
+---@param ... any Supplementary arguments for `func`
 function WorldCutscene:runIfExists(id, func, inparty, ...)
     if inparty == nil then inparty = false end
     if inparty and (type(id) == "table" and id:includes(Character)) then
