@@ -607,7 +607,17 @@ function WorldCutscene:textVariant(text, portraits, options)
 
     local possible_actors = {}
     for i,actor in ipairs(priority) do
-        if portraits[actor] then
+        local ok = true
+
+        if options.inparty then
+            if type(actor) == "string" or (type(actor) == "table" and actor:includes(PartyMember)) then
+                ok = Game:hasPartyMember(actor)
+            elseif type(actor) == "table" and actor:includes(Character) then
+                ok = Game:hasPartyMember(actor.party)
+            end
+        end
+
+        if ok and portraits[actor] then
             table.insert(possible_actors, {actor=actor, portrait=portraits[actor]})
         end
     end
@@ -616,7 +626,7 @@ function WorldCutscene:textVariant(text, portraits, options)
         local actor = data.actor
         local portrait = data.portrait
 
-        if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
+        if self:getCharacter(actor) then
             return self:text(text, portrait, actor, options)
         end
     end
@@ -624,7 +634,15 @@ end
 
 function WorldCutscene:textIfExists(text, portrait, actor, options)
     local options = options or {}
-    if (options["inparty"] and Game:hasPartyMember(actor)) or self:getCharacter(actor) then
+
+    local pm_check = Game:hasPartyMember(actor)
+    if options.inparty and (type(actor) == "table" and actor:includes(Character)) then
+        if Game:hasPartyMember(actor.party) then
+            pm_check = true
+        end
+    end
+
+    if (options.inparty and pm_check) or (not options.inparty and self:getCharacter(actor)) then
         return true, self:text(text, portrait, actor, options)
     end
     return false, function() return true end
@@ -637,6 +655,9 @@ end
 
 function WorldCutscene:runIfExists(id, func, inparty, ...)
     if inparty == nil then inparty = false end
+    if inparty and (type(id) == "table" and id:includes(Character)) then
+        id = id.party
+    end
     if (inparty and not Game:hasPartyMember(id)) then
         return false, function() return true end
     end

@@ -6,6 +6,11 @@ return {
 		cutscene:text("* Everyone! Place yourself.")
 		cutscene:wait(wait)
 
+		local npc
+		if not Game:hasPartyMember("noelle") then
+			npc = cutscene:spawnNPC("noelle", 100, (SCREEN_HEIGHT/2)-100)
+		end
+
 		cutscene:detachFollowers()
 		cutscene:wait(cutscene:walkPartyTo(function(chara, i)
 			print("Moving "..cutscene:getPartyCharacterAtIndex(i))
@@ -97,7 +102,27 @@ return {
 			cutscene:wait(cutscene:explode(dess))
 		end)
 
+		cutscene:text("* Laster check: only runs if Noelle exists IN the party.")
+
+		cutscene:textIfExists("* Noelle's here.", "smile_closed", "noelle", {inparty=true})
+		cutscene:textVariant("* No.", {
+			hero = "smug_b",
+			noelle = "upset_down"
+		}, {inparty=true, priority={"noelle", "hero"}})
+		cutscene:runIfExists("noelle", function(cutscene, noelle, choice1, choice2)
+			cutscene:text("* Wa-Wait, what do I do??", "shock", noelle)
+			if cutscene:choicer({choice1, choice2}) == 1 then
+				cutscene:text("* Fah[wait:5] ha[wait:5] ha.[wait:10] Very funny.", "upset", noelle)
+			else
+				cutscene:text("* ok?????", "what_smile", noelle)
+			end
+		end, true, "Proceed", "idk")
+
 		cutscene:text("* Okay nice. Thanks.")
+
+		if npc then
+			npc:explode()
+		end
 
 		cutscene:wait(cutscene:attachFollowers())
 		cutscene:wait(cutscene:walkTo(cutscene:getPartyCharacterAtIndex(1), x, y))
