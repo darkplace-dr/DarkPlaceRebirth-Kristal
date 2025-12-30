@@ -46,7 +46,7 @@ return {
 			dess = "condescending",
 			ceroba = "wat",
 			jamm = "troll"
-		}, {priority={ -- <-- order of piority
+		}, {priority={ -- --> order of piority
 			"hero", "susie", "ceroba", "jamm", "dess"
 		}})
 
