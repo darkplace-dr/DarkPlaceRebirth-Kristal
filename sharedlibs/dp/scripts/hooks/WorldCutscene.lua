@@ -605,4 +605,16 @@ function WorldCutscene:textCond(cond, ...)
     return false, function() return true end
 end
 
+function WorldCutscene:runIfExists(id, func, inparty, ...)
+    if inparty == nil then inparty = false end
+    if (inparty and not Game:hasPartyMember(id)) then
+        return false, function() return true end
+    end
+    local char = self:getCharacter(id)
+    if char then
+        return true, func(self, char, ...)
+    end
+    return false, function() return true end
+end
+
 return WorldCutscene

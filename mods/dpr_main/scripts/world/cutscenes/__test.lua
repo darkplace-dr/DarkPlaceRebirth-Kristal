@@ -9,7 +9,8 @@ return {
 		cutscene:detachFollowers()
 		cutscene:wait(cutscene:walkPartyTo(function(chara, i)
 			print("Moving "..cutscene:getPartyCharacterAtIndex(i))
-			return 120+50*(i-1), SCREEN_HEIGHT/2, i, "down"
+			local id = Game:getPartyMember(chara.party).id
+			return 120+50*(i-1), SCREEN_HEIGHT/2, id == "dess" and 10 or i, "down"
 		end))
 
 		cutscene:text("* Looook to the left!")
@@ -41,7 +42,7 @@ return {
 			ceroba = "wat",
 			jamm = "troll"
 		}, {priority={ -- <-- order of piority
-			"dess", "hero", "susie", "ceroba", "jamm"
+			"hero", "susie", "ceroba", "jamm", "dess"
 		}})
 
 		cutscene:text("* Now slide.")
@@ -82,6 +83,18 @@ return {
 		local ran, wait, textbox = cutscene:textIfExists("* Yep.", "happy", "hero", {wait=false})
 		print("BETWEEN WAIT AAAAAAAAA", ran, wait, textbox)
 		cutscene:wait(wait)
+
+		cutscene:text("* Last check: only runs if Dess exists.")
+
+		cutscene:runIfExists("dess", function(cutscene, dess)
+			cutscene:text("* What's up losers?", "genuine", dess)
+			cutscene:text("* Today I'm blowing myself up.", "condescending", dess)
+			cutscene:text("* Promo code: reving my wife 2nite", "swag", dess)
+
+			local e = dess:explode()
+			Game:removePartyMember("dess")
+			cutscene:wait(function() return e.parent == nil end)
+		end)
 
 		cutscene:text("* Okay nice. Thanks.")
 
