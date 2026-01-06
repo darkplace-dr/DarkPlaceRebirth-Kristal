@@ -10,6 +10,7 @@ function Basic:init()
 	self.time = 10
 	
 	self.num = 0
+	self.buff_freeze = true
 end
 
 function Basic:onStart()
