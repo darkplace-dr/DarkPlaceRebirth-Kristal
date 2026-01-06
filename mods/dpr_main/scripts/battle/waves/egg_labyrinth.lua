@@ -10,6 +10,7 @@ function Basic:init()
     self.soul_start_x = 300
 	
 	self.time = 10
+	self.buff_freeze = true
 end
 
 function Basic:onStart()
