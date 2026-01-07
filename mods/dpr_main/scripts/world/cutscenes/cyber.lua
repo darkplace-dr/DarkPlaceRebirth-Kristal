@@ -360,5 +360,40 @@ charjar = function(cutscene, event)
 					
 end,
 
+snowtree = function(cutscene, event)
+	if Game:getFlag("snowtreetalk") == true then
+		cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+	else
+cutscene:text("* Well[wait:3], there is a man here.", nil, event)
+cutscene:text("* He seems to be offering you something.", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("egg")
+			cutscene:text("* You got the spaghetti.", nil, event)
+			Game.inventory:addItem("special_spaghetti")
+		elseif choice == 2 then
+			cutscene:text("* He appears to be saddened by this.", nil, event)
+			cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+		end
+		Game:setFlag("snowtreetalk", true)
+		end
+end,
+
+speedbadge = function(cutscene, event)
+cutscene:text("* There's an item on the wall.", nil, event)
+cutscene:text("* Grab it and never let go of it?", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("item")
+			cutscene:text("* You got the [color:yellow]SpeedUp[color:white]!", nil, event)
+			Game:setFlag("speedbadge", true)
+			event:remove()
+			Game.inventory:addItem("speedbadge")
+		elseif choice == 2 then
+			cutscene:text("* You don't take it.", nil, event)
+		end
+end,
+
+
 }
 return cyber
