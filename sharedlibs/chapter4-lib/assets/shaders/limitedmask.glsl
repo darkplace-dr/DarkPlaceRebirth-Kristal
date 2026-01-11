@@ -1,6 +1,5 @@
-// Cool thing about GLSL is you can just do this lol
-uniform float min;
-uniform float max = 1.0;
+uniform float minvalue;
+uniform float maxvalue;
 
 vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
     vec4 pix = Texel(tex, texture_coords);
@@ -9,10 +8,10 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
         // a discarded pixel wont be applied as the stencil.
         discard;
     }
-    if (luma < min) {
+    if (luma < minvalue) {
         discard;
     }
-    if (luma > max) {
+    if (luma > maxvalue) {
         discard;
     }
     return vec4(1.0);
