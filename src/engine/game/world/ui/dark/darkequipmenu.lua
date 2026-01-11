@@ -7,6 +7,9 @@ function DarkEquipMenu:init()
 
     self.draw_children_below = 0
 
+    if #Game.party == 4 then
+		self.y = self.y - 12
+	end
     self.font = Assets.getFont("main")
 
     self.ui_move = Assets.newSound("ui_move")
@@ -43,6 +46,9 @@ function DarkEquipMenu:init()
 
     self.party = DarkMenuPartySelect(8, 48)
     self.party.focused = true
+	if #Game.party == 4 then
+		self.party.x = -14
+	end
     self:addChild(self.party)
 
     -- PARTY, SLOTS, ITEMS

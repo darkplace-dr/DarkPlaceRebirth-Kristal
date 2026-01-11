@@ -1,3 +1,4 @@
 {
-    "defaultSize": 32
+    "defaultSize": 30,
+    "lineSpacing": 36
 }
