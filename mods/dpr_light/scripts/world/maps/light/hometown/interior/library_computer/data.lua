@@ -362,7 +362,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digicomputer",
+            ["cutscene"] = "hometown_digi.computer",
             ["flagcheck"] = "hometown_digisetup"
           }
         },

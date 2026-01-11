@@ -66,7 +66,7 @@
   </object>
   <object id="41" name="script" x="279.667" y="421.333" width="81" height="29.3333">
    <properties>
-    <property name="cutscene" value="hometown.digicomputer"/>
+    <property name="cutscene" value="hometown_digi.computer"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
   </object>
