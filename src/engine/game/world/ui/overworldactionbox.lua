@@ -101,15 +101,9 @@ function OverworldActionBox:draw()
 		Draw.setColor(color)
 		love.graphics.print(self.chara:getStat("health"), 147 - string_width, 11)
 
-		local reaction_x = -1
-
-		if self.x == 0 then -- lazy check for leftmost party member
-			reaction_x = 3
-		end
-
 		love.graphics.setFont(self.main_font)
 		Draw.setColor(1, 1, 1, self.reaction_alpha / 6)
-		love.graphics.printf(self.reaction_text, reaction_x, 43, 146*2, "left", 0, 0.5, 0.5)
+		love.graphics.printf(self.reaction_text, 5, 43, 146*2, "left", 0, 0.5, 0.5)
 	else
 		love.graphics.setLineWidth(2)
 		love.graphics.line(0, 1, 213, 1)
