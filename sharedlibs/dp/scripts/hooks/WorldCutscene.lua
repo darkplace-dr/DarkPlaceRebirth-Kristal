@@ -21,6 +21,11 @@ function WorldCutscene:init(...)
     self.force_texttagged = false
 end
 
+function WorldCutscene:onEnd()
+    super.onEnd(self)
+    self:hideNametag()
+end
+
 local function waitForTextbox(self) return not self.textbox or self.textbox:isDone() end
 
 function WorldCutscene:text(...)
@@ -194,11 +199,6 @@ function WorldCutscene:textTagged(text, portrait, actor, options)
     else
         return waitForTextbox, self.textbox, self.nametag
     end
-end
-
-function WorldCutscene:closeText()
-    super.closeText(self)
-    self:hideNametag()
 end
 
 function WorldCutscene:gonerKeyboard(options)
