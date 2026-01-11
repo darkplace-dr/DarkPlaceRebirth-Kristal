@@ -1,4 +1,4 @@
----@class AcJQuest : Quest
+---@class MyQuest : Quest
 local NoelleQuest, super = Class(Quest, "noellemissing")
 
 function NoelleQuest:init()

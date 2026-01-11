@@ -1370,13 +1370,6 @@ function Mod:getGlobalNextLv()
     return Utils.clamp(Kristal.callEvent("getGlobalNextLvRequiredEXP") - Game:getFlag("library_experience"), 0, 99999)
 end
 
-function Mod:unlockQuest(quest, silent)
-    if not silent and Game.stage then
-        local popup = Game.stage:addChild(QuestCreatedPopup(quest))
-        popup.layer = 1500
-    end
-end
-
 function Mod:onMapMusic(map, music)
     -- Diner music
     local cur_song = Game:getFlag("curJukeBoxSong")
