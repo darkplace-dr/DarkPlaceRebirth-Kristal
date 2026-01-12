@@ -18,6 +18,7 @@ function event:climbFallLanding(player)
             Assets.stopAndPlaySound("noise")
             player.sprite:set("landed")
 			player:shake()
+            cutscene:wait(16/30)
             local id = "climb_fade"
             for i,follower in ipairs(self.world.followers) do
                 local mask = follower:getFX(id)
@@ -32,7 +33,6 @@ function event:climbFallLanding(player)
             end
             cutscene:interpolateFollowers()
             cutscene:attachFollowers()
-            cutscene:wait(16/30)
             player:resetSprite()
         end)
     end

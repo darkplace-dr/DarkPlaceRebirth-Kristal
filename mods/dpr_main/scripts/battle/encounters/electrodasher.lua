@@ -1,6 +1,6 @@
-local Dummy, super = Class(Encounter)
+local Electrodasher, super = Class(Encounter)
 
-function Dummy:init()
+function Electrodasher:init()
     super.init(self)
 
     self.text = "* Electrodasher drove in!"
@@ -13,19 +13,19 @@ function Dummy:init()
         self.music = "battle"
         self.background = true
     end
-
+	self.speed_up = false
     self:addEnemy("electrodasher")
     --self:addEnemy("electrodasher")
 end
 
-function Dummy:onBattleInit()
+function Electrodasher:onBattleInit()
     if Game:isDessMode() then
         self.bg = StarsBG({1, 1, 1})
         Game.battle:addChild(self.bg)
     end
 end
 
-function Dummy:onReturnToWorld(events)
+function Electrodasher:onReturnToWorld(events)
     -- check whether the enemies were killed
     if Game.battle.killed then
         -- run this code for each event in the table
@@ -39,4 +39,14 @@ function Dummy:onReturnToWorld(events)
     end
 end
 
-return Dummy
+function Electrodasher:createSoul(x, y, color)
+	local soul = Soul(x, y, color)
+	if self.speed_up then
+		soul.speed = 6
+	elseif self.slow_down then
+		soul.speed = 2
+	end
+    return soul
+end
+
+return Electrodasher

@@ -7,6 +7,9 @@ function DarkPowerMenu:init()
 
     self.draw_children_below = 0
 
+    if #Game.party == 4 then
+		self.y = self.y - 12
+	end
     self.font = Assets.getFont("main")
 
     self.ui_move = Assets.newSound("ui_move")
@@ -39,6 +42,9 @@ function DarkPowerMenu:init()
     self.party = DarkMenuPartySelect(8, 48)
     self.party.focused = true
     self.party.highlight_party = false
+	if #Game.party == 4 then
+		self.party.x = -6
+	end
     self:addChild(self.party)
 
     self.party.on_select = function(new, old)

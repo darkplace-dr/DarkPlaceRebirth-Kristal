@@ -54,6 +54,12 @@ function Soul:init(x,y,color)
     -- Taunt variables end here
 end
 
+function Soul:onAddToStage()
+    if Game.pp > 0 then
+        self:addChild(SoulGlowEffect())
+    end
+end
+
 function Soul:onRemove(parent)
     super.onRemove(self, parent)
 

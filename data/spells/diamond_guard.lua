@@ -18,7 +18,7 @@ function spell:init()
 end
 
 function spell:getCastMessage(user, target)
-    if Game:getSoulPartyMember().pp > 0 then
+    if Game.pp > 0 then
         return "* But the SOUL was already protected."
     elseif not Game.battle.no_buff_loop then
         return "* But the SOUL was already about\nto be protected."
@@ -28,7 +28,7 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:getLightCastMessage(user, target)
-    if Game:getSoulPartyMember().pp > 0 then
+    if Game.pp > 0 then
         return "* But the SOUL was already protected."
     elseif not Game.battle.no_buff_loop then
         return "* But the SOUL was already about\nto be protected."
@@ -38,7 +38,7 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-	if Game:getSoulPartyMember().pp > 0 or not Game.battle.no_buff_loop then
+	if Game.pp > 0 or not Game.battle.no_buff_loop then
         Game:giveTension(self.cost)
     else
         Game.battle.no_buff_loop = false
@@ -46,7 +46,7 @@ function spell:onCast(user, target)
 end
 
 function spell:onLightCast(user, target)
-	if Game:getSoulPartyMember().pp > 0 or not Game.battle.no_buff_loop then
+	if Game.pp > 0 or not Game.battle.no_buff_loop then
         Game:giveTension(self.cost)
     else
         Game.battle.no_buff_loop = false
@@ -54,7 +54,7 @@ function spell:onLightCast(user, target)
 end
 
 function spell:hasWorldUsage(chara)
-    if Game:getSoulPartyMember().pp > 0 then
+    if Game.pp > 0 then
         return false
     else
         return true
@@ -62,8 +62,8 @@ function spell:hasWorldUsage(chara)
 end
 
 function spell:onWorldCast(chara)
-    Game:getSoulPartyMember().pp = 1
-    Assets.playSound("trap")
+    Game.pp = 1
+    Assets.playSound("ceroba_trap")
     Game.world.timer:after(0.46, function()
         Assets.playSound("equip_armor")
     end)
