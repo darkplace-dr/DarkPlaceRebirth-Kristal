@@ -18,19 +18,18 @@ function Electrodasher:init()
     self.spare_points = 10
 
     self.waves = {
-        "basic",
-        "aiming",
-        "movingarena"
+        "electrodasher/hoopwaves"
     }
 
-    self.check = "AT 8 DF 0\n* Cotton heart and button eye\n* Looks just like a fluffy guy."
+    self.check = "AT 9 DF 5\n* Always loves to go fast, which often results in speeding tickets."
 
     self.text = {}
 
-    self.low_health_text = "* The Electrodasher looks like it's\nabout to fall over."
+    self.low_health_text = "* Electrodasher is in need of repairs."
 
-    self:registerAct("Smile")
-    self:registerAct("Tell Story", "", {"ralsei"})
+    self:registerAct("Outrace", "25%\nand\nSPEED up")
+    self:registerAct("SlowDown", "TIRE by\nslowing\ndown")
+    self:registerAct("PhotoPose", "35%\nMercy", "all")
 
     self.killable = true
 end
@@ -40,20 +39,17 @@ function Electrodasher:update()
 end
 
 function Electrodasher:onAct(battler, name)
-    if name == "Smile" then
-        self:addMercy(100)
-        self.dialogue_override = "... ^^"
-        return {
-            "* You smile.[wait:5]\n* The Electrodasher smiles back.",
-            "* It seems the Electrodasher just wanted\nto see you happy."
-        }
-
-    elseif name == "Tell Story" then
-        for _, enemy in ipairs(Game.battle.enemies) do
-            enemy:setTired(true)
-        end
-        return "* You and Ralsei told the Electrodasher\na bedtime story.\n* The enemies became [color:blue]TIRED[color:reset]..."
-
+    if name == "Outrace" then
+        self:addMercy(35)
+		Assets.playSound("cardrive", 1, 1.5)
+		Game.battle.encounter.slow_down = false
+		Game.battle.encounter.speed_up = true
+        return "* You flare up with adrenaline and\ntry to outrace Electrodasher![wait:5]\n* The SOUL moves way faster now!"
+    elseif name == "SlowDown" then
+        self:setTired(true)
+		Game.battle.encounter.speed_up = false
+		Game.battle.encounter.slow_down = true
+        return "* You tell Electrodasher to slow it down a notch.\n* Electrodasher became TIRED..."
     elseif name == "Standard" then --X-Action
         self:addMercy(50)
         if battler.chara.id == "ralsei" then
@@ -75,6 +71,15 @@ function Electrodasher:onHurt(damage, battler)
     end)
 
     return super.onHurt(self)
+end
+
+function Electrodasher:onTurnEnd()
+    if Game.battle.encounter.speed_up then
+		Game.battle.encounter.speed_up = false
+    end
+    if Game.battle.encounter.slow_down then
+		Game.battle.encounter.slow_down = false
+    end
 end
 
 function Electrodasher:getEncounterText()

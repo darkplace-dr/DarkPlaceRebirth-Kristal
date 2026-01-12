@@ -104,11 +104,21 @@ function Battle:onDefendingState()
 		self.wave_timer = 0
 
         self.no_buff_loop = true
+		local prev_can_move = self.soul.can_move
+		for _, wave in ipairs(self.waves) do
+			if self.soul.buff_freeze or wave.buff_freeze then
+				self.soul.can_move = false
+			end
+		end
         self.soul:addChild(CerobaDiamondBuff(0, 0, function()
 			for _, wave in ipairs(self.waves) do
 				wave.encounter = self.encounter
 
 				self.wave_length = math.max(self.wave_length, wave.time)
+
+				if self.soul.buff_freeze or wave.buff_freeze then
+					self.soul.can_move = prev_can_move
+				end
 
 				wave:onStart()
 
@@ -118,6 +128,12 @@ function Battle:onDefendingState()
 		return
 	end
 	super.onDefendingState(self)
+end
+
+--- Gets a table that contains all battlers in the battle.
+---@return table<PartyBattler|EnemyBattler> battlers A table containing all PartyBattler and EnemyBattler currently in the battle
+function Battle:getBattlers()
+    return TableUtils.mergeMany(Game.battle.party, Game.battle.enemies)
 end
 
 return Battle

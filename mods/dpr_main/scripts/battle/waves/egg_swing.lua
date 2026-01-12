@@ -6,6 +6,7 @@ function Basic:init()
 	self.arena_width = 130
 	
 	self.time = 10
+	self.buff_freeze = true
 end
 
 function Basic:onStart()

@@ -739,4 +739,464 @@ return {
 			love.window.setTitle("But what if it could...")
         end
     end,
+
+    dess = function(cutscene, event)
+    	cutscene:text("* Yoo guys what's up.", "heckyeah", "dess")
+    	cutscene:text("* What are you doing here...?", "annoyed", "susie")
+    	cutscene:text("* Actually wait, I don't want to know.", "nervous_side", "susie")
+    	cutscene:text("* I broke in.", "teehee", "dess")
+    	cutscene:text("* ...", "suspicious", "susie")
+    	cutscene:text("* Anyways, my gentlebeauties and gentleuglies...", "condescending", "dess")
+    	cutscene:text("* We're on a TV Floor aren't we?", "condescending", "dess")
+    	cutscene:text("* You know what that means, right?", "challenging", "dess")
+    	cutscene:text("* ...We get to play a game?", "sus_nervous", "susie")
+    	Game.world.music:pause()
+    	cutscene:text("* [speed:0.1]y e s", "dess.exe", "dess")
+    	Game.world.music:resume()
+    	cutscene:text("* After all, what's TV without those shows where you do stupid stuff for money?", "genuine", "dess")
+    	cutscene:text("* I have a very very evy ery rvy very yver yrev challenge for ya.", "smug", "dess")
+    	cutscene:text("* You should totally play it.", "teehee", "dess")
+    	cutscene:text("* (Totally play her game?)")
+    	if cutscene:choicer({"Yes", "No"}) == 2 then
+    		cutscene:text("* Fuck you.", "mspaint", "dess")
+    		event:explode()
+    		return
+    	end
+    	cutscene:text("* Ebic, let's go.", "swag", "dess")
+    	cutscene:detachCamera()
+    	cutscene:detachFollowers()
+    	Game.world.music:fade(0, 1)
+    	local start_values = {}
+    	start_values[event] = event.y
+    	event:spin(1)
+    	for _,member in ipairs(Game.party) do
+    		local chara = cutscene:getCharacter(member.id)
+    		chara:spin(1)
+    		start_values[member.id] = chara.y
+    	end
+    	--cutscene:fadeOut(0.5, {color=COLORS.white})
+    	Game.world.fader.fade_color = {1, 1, 1}
+    	local snd = Assets.playSound("marioparty")
+    	local timer = 0
+    	cutscene:wait(function()
+    		timer = timer + DTMULT*0.02
+    		for _,member in ipairs(Game.party) do
+	    		local chara = cutscene:getCharacter(member.id)
+	    		chara.y = Utils.ease(start_values[member.id], start_values[member.id]-SCREEN_HEIGHT-10, timer, "inCubic")
+	    	end
+	    	event.y = Utils.ease(start_values[event], start_values[event]-SCREEN_HEIGHT-10, timer, "inCubic")
+	    	Game.world.fader.alpha = timer+0.1
+	    	return timer >= 1
+    	end)
+    	cutscene:loadMap("floortv/dessgame")
+    	cutscene:after(function()
+    		Game.world:startCutscene("tvfloor.dessgame")
+    	end, true)
+    	--Game.world.music:play("marioparty", 1, 1)
+    end,
+
+    dessgame = function(cutscene)
+		Game.world.fader:fadeIn(nil, {speed=0.3})
+    	Game.world.music:play("marioparty", 1, 1)
+
+    	cutscene:detachFollowers()
+
+    	if #Game.party == 1 then
+    		Game.world.player:setPosition(150, 265)
+    	elseif #Game.party == 2 then
+    		Game.world.player:setPosition(200, 265)
+    		Game.world.followers[1]:setPosition(100, 265)
+    	elseif #Game.party == 3 then
+    		Game.world.player:setPosition(250, 265)
+    		Game.world.followers[1]:setPosition(150, 265)
+    		Game.world.followers[2]:setPosition(50, 265)
+    	end
+
+    	local hero = cutscene:getCharacter("hero")
+    	local susie = cutscene:getCharacter("susie")
+
+    	local susie_timer
+    	if susie then
+    		susie_timer = Game.world.timer:every(0.5, function()
+    			local faces = {"left", "right", "up", "down"}
+    			TableUtils.removeValue(faces, susie.facing)
+    			cutscene:look(susie, TableUtils.pick(faces))
+    		end)
+    	end
+
+    	local dess = cutscene:spawnNPC("dess", 480, 225)
+
+    	cutscene:wait(1.5)
+
+    	cutscene:text("* Welcome losers!", "swag", dess)
+
+    	if susie then
+    		cutscene:wait(1)
+
+    		Game.world.timer:cancel(susie_timer)
+
+    		susie:setSprite("exasperated_right")
+    		Assets.playSound("whip_crack_only")
+    		susie:shake()
+
+    		cutscene:text("* WHAT IS THIS??", "teeth", "susie")
+    		cutscene:text("* Where did you get this room??", "teeth", "susie")
+    		cutscene:text("* How did you teleport us here??", "teeth_b", "susie")
+
+    		cutscene:text("* Well obviously it's because the Tenna guy loves me.", "condescending", "dess")
+    		cutscene:text("* TV folks loves idiots like me.[react:1]", "swag", "dess", {reactions={
+    			{"That's not\na good thing!!", "right", "bottom", "teeth_b", "susie"}
+    		}})
+    		cutscene:text("* Didn't you say you broke in though?", "suspicious", hero and "hero" or "susie")
+
+    		cutscene:text("* Details are annoying.", "calm", "dess")
+
+    		cutscene:text("* Anyway back to my COOL game", "condescending", "dess")
+
+    		susie:resetSprite()
+    		cutscene:look(susie, "down")
+    	end
+    	cutscene:text("* The goal is actually kinda simple.", "kind", "dess")
+
+    	if susie then
+    		susie:setSprite("shock_right")
+    	end
+
+    	-- Thanks to Vikram Rahul Abishek Pranav Rajesh for his Tennison Gambit Intercontinental Ballistic Missile Variation
+    	-- https://youtu.be/E2xNlzsnPCQ
+    	local str_obvious_choice = "A RT-2PM2 \"Topol-M\" cold-launched three-stage solid propellant silo-based intercontinental ballistic missile"
+    	local str_beginner_choice = "A BGM-71 TOW anti-tank missile launched from an M3 Bradley Cavalry Fighting Vehicle tracked armored reconnaissance vehicle"
+
+    	local chosen_str = StringUtils.splitFast(MathUtils.random() < 0.7 and str_obvious_choice or str_beginner_choice, " ")
+
+    	local font = Assets.getFont("main_mono")
+    	while #chosen_str > 0 do
+    		local ok = true
+    		local text = ""
+    		while ok do
+    			local new_word = table.remove(chosen_str, 1)
+    			if not new_word then
+    				break
+    			end
+    			text = text..(#text == 0 and "" or " ")..new_word
+
+    			-- 355 is a magic number. It makes a good result with both strings
+    			local _, lines = font:getWrap(text, 355)
+    			if #lines > 3 then
+    				ok = false
+    				table.insert(chosen_str, 1, new_word)
+    				text = text:sub(0, text:find(new_word, 0, true)-2)
+    			end
+    		end
+    		cutscene:text("* "..text, "condescending", "dess", {skip=false, auto=true})
+    	end
+    	cutscene:text("* has been launched towards this location.", "condescending", "dess", {skip=false})
+    	cutscene:text("* Thankfully, [color:red]YOU[color:reset] can choose where it will hit.", "challenging", "dess")
+
+    	local trolley = Game.world:spawnObject(DessBallisticTrolleyGame(320, 40), WORLD_LAYERS["below_ui"])
+    	trolley.y = -SCREEN_HEIGHT
+
+    	local tweenDone = false
+    	Game.world.timer:tween(2, trolley, {y = 0}, "in-bounce", function() tweenDone = true end)
+
+    	cutscene:slideTo(dess, dess.x-60, dess.y, nil, "out-cubic")
+
+    	cutscene:wait(function() return tweenDone end)
+
+    	cutscene:wait(0.4)
+
+    	cutscene:text("* Choose the top option and the missile will blow up our reality.", "teehee", "dess")
+    	cutscene:text("* Choose the bottom option and it blows up absolutely nothing.", "neutral_c", "dess")
+
+    	cutscene:wait(1)
+
+    	if susie then
+    		susie:resetSprite()
+    		cutscene:look(susie, "right")
+    	end
+
+    	cutscene:text("* And why would we even choose the top option?", "neutral_side", "susie")
+
+    	cutscene:text("* Why wouldn't you?", "reverse", "dess")
+    	cutscene:text("* The bottom option? It's boring, predictable, dumb.", "calm", "dess")
+    	cutscene:text("* Nothing has no thrill. It's not even a nice-looking word.", "angry", "dess")
+    	cutscene:text("* Nothing is bad and bad things suck.", "neutral_b", "dess")
+    	cutscene:text("* Destroying reality on the other end...", "smug", "dess")
+    	cutscene:text("* It sounds VERY cool. Very unique and badass.", "swag", "dess")
+    	cutscene:text("* It's a once-in-a-lifetime experience to check out.", "genuine_b", "dess")
+    	cutscene:text("* And best of all, it solves all your problems!", "eurika", "dess")
+    	cutscene:text("* No reality = no problems to have or solves.", "wink", "dess")
+    	cutscene:text("* Can't beat my maths here.", "condescending", "dess")
+    	cutscene:text("* I graduated elementary school at 15.", "condescending", "dess")
+
+    	cutscene:wait(0.5)
+
+    	local leader_name = GeneralUtils.getLeader():getName()
+
+    	local dessDial = "* How about everyone takes their own decision for once?"
+
+    	if susie then
+    		dessDial = "* {leader} this... {leader} that... How about y'all take your own decision?"
+    		cutscene:text("* ...", "nervous_side", "susie")
+    		cutscene:text("* "..leader_name.."... You're not thinking on doing it, right?", "nervous_side", "susie")
+    	end
+
+    	local votingMachine = Game.world:spawnObject(DessGameVoting(), dess:getLayer())
+    	votingMachine.y = -SCREEN_HEIGHT/4
+
+    	tweenDone = false
+    	Game.world.timer:tween(2, votingMachine, {y = 0}, "out-cubic", function() tweenDone = true end)
+
+    	if susie then
+    		susie:resetSprite()
+    		cutscene:look(susie, "up")
+    	end
+    	if hero then
+    		hero:resetSprite()
+    		cutscene:look(hero, "up")
+    	end
+
+    	cutscene:text(StringUtils.format(dessDial, {leader=leader_name}), "neutral_b", "dess")
+
+    	cutscene:wait(function() return tweenDone end)
+
+    	cutscene:wait(1)
+
+    	if susie then
+    		cutscene:look(susie, "right")
+    		cutscene:text("* Okay well I vote against it.", "sus_nervous", "susie")
+    		votingMachine:setChoice(susie, false)
+    	end
+
+    	if hero then
+    		cutscene:look(hero, "down")
+    		cutscene:text("* (...)", "neutral_closed", "hero")
+    		cutscene:text("* (Preventing reality from being destroyed IS our main goal...)", "really", "hero")
+    		cutscene:text("* (But if you see a use for it, "..Game.save_name.."...)", "pout", "hero")
+    		cutscene:text("* (It's not like she can ACTUALLY do that, right?)", "suspicious", "hero")
+    	end
+    	votingMachine:setChoice(GeneralUtils.getLeader().id, cutscene:choicer({"End\nReality", "No"}) == 1)
+
+    	dess:spin(0.5)
+    	local wait = cutscene:slideTo(dess, 320, 255, nil, "out-cubic")
+    	cutscene:during(function()
+    		if wait() then
+    			dess:spin(0)
+    			return false
+    		end
+    	end)
+
+    	cutscene:text("* The results are iiiiiiiiiiiiin", "swag", "dess")
+    	cutscene:text("* Let's see who's based and who's cringe.", "swag", "dess")
+
+    	cutscene:wait(wait)
+
+    	cutscene:look(dess, "up")
+
+    	cutscene:wait(0.5)
+
+    	local votes = votingMachine:getResults()
+
+    	if votes <= 0 then
+    		cutscene:text("* Y'all are laaaame.", "neutral_c", "dess")
+    		cutscene:text("* You don't understand the beauty of everything just dying.", "condescending", "dess")
+    		cutscene:text("* Anyways you already know what I'm gonna vote for.", "teehee", "dess")
+    	else
+    		cutscene:text("* Holy shit you guys actually wanna die", "wtf_b", "dess")
+    		cutscene:text("* That's awesome dude let me join in. Like a blood pact.", "teehee", "dess")
+    	end
+    	votingMachine:addVoter("dess")
+    	votingMachine:setChoice("dess", true)
+
+    	cutscene:wait(0.5)
+
+    	if susie then
+    		cutscene:text("* Wait, who said you could vote??", "teeth_b", "susie")
+    		cutscene:text("* Uh, me? I'm the mod here, dumbass.", "neutral", "dess")
+    	end
+
+    	votes = votingMachine:getResults()
+    	cutscene:wait(1)
+
+    	if votes <= 0 then
+
+    		Game.world.music:stop()
+
+    		cutscene:text("* God fucking damn it it wasn't enough.", "mspaint", "dess")
+    		cutscene:text("* Guess we'll have to keep living after all.", "mspaint", "dess")
+    		cutscene:text("* Bummer.", "mspaint", "dess")
+
+    		local e = votingMachine:explode()
+    		e.y = e.y - 200
+    		trolley:explode()
+
+    		cutscene:wait(1)
+
+    		cutscene:text("* Alright game's done. Fuck you. I'll see you tomorrow. Bye bye.", "genuine", "dess")
+
+    		dess:explode()
+
+    		cutscene:enableMovement()
+
+    		cutscene:wait(3)
+
+    		if susie then
+    			cutscene:text("* Wait... How do we even get out of here?", "sus_nervous", "susie")
+
+    			cutscene:disableMovement()
+
+    			dess = cutscene:spawnNPC("dess", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    			dess.visible = false
+
+    			Assets.playSound("badexplosion_r")
+    			local e = Sprite("misc/realistic_explosion", dess.x-dess.width, dess.y-dess.height*2)
+    			e:setAnimation({nil, 0.1, false, frames={"17-1"}})
+    			e:setLayer(dess:getLayer()+0.001)
+    			dess.parent:addChild(e)
+
+    			cutscene:wait(function()
+    				return e.frame == 7
+    			end)
+    			dess.visible = true
+    			cutscene:wait(function()
+    				return not e.playing
+    			end)
+    			e:remove()
+
+    			cutscene:text("* Oh yeah I forgot about that.", "genuine", "dess")
+    			cutscene:text("* There's none.", "condescending", "dess")
+
+    			cutscene:text("* What??", "surprise_frown", "susie")
+
+    			cutscene:text("* Yeah.", "genuine", "dess")
+    			cutscene:text("* Also remember how I got this room from Tenna or something?", "genuine_b", "dess")
+    			cutscene:text("* Yeah I got it from one of the mafia Tennas.", "mspaint", "dess")
+    			cutscene:text("* And I didn't provide any entertaiment so now we're all gonna die.", "mspaint", "dess")
+    			cutscene:text("* Hope y'all don't mind that.", "wink", "dess")
+
+    			dess:explode()
+    			cutscene:enableMovement()
+
+    			cutscene:wait(1.5)
+
+    			cutscene:text("* ...", "suspicious", "susie")
+    			cutscene:text("* Even dealing with the Knight was better.", "suspicious", "susie")
+
+    			local exTimerMax = 30
+    			local exTimer = exTimerMax
+    			cutscene:during(function()
+    				if exTimer < 0 then
+    					return false
+    				end
+    				exTimer = MathUtils.approach(exTimer, exTimerMax, DTMULT)
+
+    				if exTimer >= exTimerMax then
+    					Game.world:spawnObject(Explosion(MathUtils.random(30, SCREEN_WIDTH-30), MathUtils.random(30, SCREEN_HEIGHT-30)))
+    					exTimer = 0
+    					exTimerMax = math.max(exTimerMax-1,5)
+    				end
+    			end)
+
+    			cutscene:wait(1)
+
+    			cutscene:text("* Damn it!!", "sad_frown", "susie")
+
+    			cutscene:text("* Dess!! Come back HERE Dess!!", "teeth_b", "susie")
+    			cutscene:text("* There has to be an exit here!", "shy_b", "susie")
+
+    			cutscene:disableMovement()
+
+    			local tenna = cutscene:spawnNPC("tenna", SCREEN_WIDTH+20, 330)
+    			tenna.sprite:setTennaSprite(9, "point_left", 1)
+
+    			local player = Game.world.player
+    			if player.x > SCREEN_WIDTH/2 then
+    				cutscene:walkTo(player, SCREEN_WIDTH/2-100, player.y, 0.8, "right", true)
+    			end
+
+    			cutscene:wait(cutscene:slideTo(tenna, 460, tenna.y, 1, "out-elastic"))
+
+    			cutscene:text("* There is one!!", nil, tenna)
+    			cutscene:text("* The exit is hidden behind this wall, Susie!!", nil, tenna)
+
+    			cutscene:text("* Te-Tenna???", "surprise", "susie")
+    			cutscene:text("* Thanks man!", "surprise_smile", "susie")
+
+    			tenna.sprite:setTennaAnim(0, "laugh", 1)
+
+    			cutscene:text("* Anything for my favorite showstar!", nil, tenna)
+
+    			local walks = {}
+    			for i, member in ipairs(Game.party) do
+    				local chara = cutscene:getCharacter(member.id)
+    				table.insert(walks, cutscene:walkTo(chara, chara.x-SCREEN_WIDTH/2, chara.y))
+    			end
+
+    			local fade
+    			Game.world.timer:after(1.2, function()
+    				tenna.sprite:setPreset(7)
+    				tenna.sprite:setSprite("sad_turned_a")
+
+    				Game.world.timer:after(1, function()
+    					fade = cutscene:fadeOut(nil, {speed=2})
+    				end)
+    			end)
+
+    			cutscene:wait(function()
+    				local wait = false
+    				for i,v in ipairs(walks) do
+    					if v() then
+    						wait = true
+    						break
+    					end
+    				end
+
+    				return wait
+    			end)
+
+    			cutscene:wait(function()
+    				if fade == nil then
+    					return false
+    				end
+    				return fade()
+    			end)
+    		end
+    		Game:setFlag("playedDessGame", true)
+    		cutscene:loadMap("floortv/legacy_corridors")
+    		cutscene:fadeIn(nil, {speed=1})
+    	else
+    		cutscene:text("* Hell yeah you guys made the right choice.", "genuine_b", "dess")
+    		cutscene:text("* Now let's all enjoy our last seconds of living.", "heckyeah", "dess")
+
+    		cutscene:look(dess, "down")
+
+    		local missile = Sprite("world/cutscenes/dessmissile", 0, 320)
+    		missile:setOrigin(1, 0)
+    		missile:setRotationOrigin(0.9) --???
+    		missile:setScale(0.3, 0.5)
+    		Game.world:addChild(missile)
+    		missile:setLayer(999999)
+
+    		cutscene:wait(cutscene:slideTo(missile, 400, missile.y))
+    		missile.rotation = math.rad(-45)
+    		cutscene:wait(cutscene:slideTo(missile, 505, 210))
+    		missile.rotation = 0
+    		missile.y = 240
+    		cutscene:wait(cutscene:slideTo(missile, 610, 205))
+    		missile:explode()
+    		cutscene:wait(0.2)
+    		i = 0
+    		print("Crash!")
+    		Game:setFlag("playedDessGame", true)
+    		Game:setGlobalFlag("DessDestroyedReality_"..Game.save_id, true)
+    		local save = Game:save()
+    		save.save_id = Game.save_id
+    		save.room_id = "floortv/legacy_corridors"
+    		love.filesystem.write("saves/file_dessyoufuckingpretzel.json", JSON.encode(save))
+    		while i < 90000 do
+    			i = i + DTMULT
+    		end
+    		love = nil
+    	end
+    end
 }

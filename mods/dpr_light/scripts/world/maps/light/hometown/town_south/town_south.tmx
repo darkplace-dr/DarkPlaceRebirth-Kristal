@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="66" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="23" nextobjectid="54">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="66" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="23" nextobjectid="54">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -225,21 +225,21 @@
   </object>
   <object id="50" name="script" x="1480" y="200" width="40" height="240">
    <properties>
-    <property name="cutscene" value="hometown.digiwrongway_b"/>
+    <property name="cutscene" value="hometown_digi.wrongway_b"/>
     <property name="flagcheck" value="!digi_complete"/>
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
   <object id="51" name="script" x="2440" y="200" width="40" height="240">
    <properties>
-    <property name="cutscene" value="hometown.digiwrongway_c"/>
+    <property name="cutscene" value="hometown_digi.wrongway_c"/>
     <property name="flagcheck" value="!digi_complete"/>
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
   <object id="52" name="script" x="1600" y="80" width="200" height="40">
    <properties>
-    <property name="cutscene" value="hometown.digiwrongway_d"/>
+    <property name="cutscene" value="hometown_digi.wrongway_d"/>
     <property name="flagcheck" value="!digi_complete"/>
     <property name="once" type="bool" value="false"/>
    </properties>

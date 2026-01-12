@@ -1,4 +1,4 @@
----@class AcJQuest : Quest
+---@class MyQuest : Quest
 local BerdlyQuest, super = Class(Quest, "berdlymissing")
 
 function BerdlyQuest:init()

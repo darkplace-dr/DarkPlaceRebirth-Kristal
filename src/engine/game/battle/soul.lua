@@ -136,6 +136,7 @@ function Soul:init(x, y, color)
 
     self.can_move = true
     self.allow_focus = true
+	self.buff_freeze = false
 
     self.target_alpha = nil
 end

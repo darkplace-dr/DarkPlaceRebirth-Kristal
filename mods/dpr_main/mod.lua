@@ -1085,6 +1085,11 @@ function Mod:makeSpellsMissAgainstJackenstein()
 end
 
 function Mod:postInit(new_file)
+	if Game.save_id == 666 then
+		Game.world:startCutscene("_main.noreality")
+		return
+	end
+
     if DELTARUNE_SAVE_ID then
         local save = DeltaruneLoader.getCompletion(2,DELTARUNE_SAVE_ID)
         self:loadDeltaruneFile(save)
@@ -1363,13 +1368,6 @@ end
 
 function Mod:getGlobalNextLv()
     return Utils.clamp(Kristal.callEvent("getGlobalNextLvRequiredEXP") - Game:getFlag("library_experience"), 0, 99999)
-end
-
-function Mod:unlockQuest(quest, silent)
-    if not silent and Game.stage then
-        local popup = Game.stage:addChild(QuestCreatedPopup(quest))
-        popup.layer = 1500
-    end
 end
 
 function Mod:onMapMusic(map, music)

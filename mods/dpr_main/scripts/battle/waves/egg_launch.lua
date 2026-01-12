@@ -4,6 +4,7 @@ function Basic:init()
 	super.init(self)
 	
 	self.time = 10
+	self.buff_freeze = true
 end
 
 function Basic:onStart()
