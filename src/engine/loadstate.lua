@@ -70,6 +70,13 @@ function Loading:enter(from, dir)
 
     self.fader_alpha = 0
 
+    if Kristal.DessYouFuckingIdiot then
+        self.animation_done = true
+        self.logo_alpha = 0
+        self.logo_alpha_2 = 0
+        self.skipped = true
+    end
+
     self.done_loading = false
     self:beginLoad()
 end
@@ -118,7 +125,12 @@ function Loading:update()
         -- We're done loading! This should only happen once.
         self.done_loading = true
 
-        if Kristal.Args["test"] then
+        if Kristal.DessYouFuckingIdiot then
+            local saveData = JSON.decode(love.filesystem.read("saves/file_dessyoufuckingpretzel.json"))
+            if not Kristal.loadMod("dpr_main", 666, saveData.name) then
+                error("Failed to load dpr_main")
+            end
+        elseif Kristal.Args["test"] then
             Kristal.setState("Testing")
         elseif AUTO_MOD_START and TARGET_MOD then
             if not Kristal.loadMod(TARGET_MOD) then
@@ -164,6 +176,7 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
+    if Kristal.DessYouFuckingIdiot then return end
     if self.loading_state == Loading.States.DONE then
         if self.fools then
             love.graphics.setShader(self.shader_invert)

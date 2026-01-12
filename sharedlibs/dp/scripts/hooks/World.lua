@@ -64,4 +64,23 @@ function World:loadMap(...)
     super.loadMap(self, ...)
 end
 
+function World:breakSoulShield()
+    Assets.playSound("mirrorbreak")
+    self.soul:addChild(SoulExpandEffect())
+    local shard_x_table = {-2, 0, 2, 8, 10, 12}
+    local shard_y_table = {0, 3, 6}
+    for i = 1, 6 do
+        local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
+        local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
+        local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
+        shard.physics.direction = math.rad(MathUtils.random(360))
+        shard.physics.speed = 7
+        shard.physics.gravity = 0.2
+        shard.layer = self.soul.layer
+        shard:play(5/30)
+        self.soul.stage:addChild(shard)
+        shard:fadeOutAndRemove(1)
+    end
+end
+
 return World

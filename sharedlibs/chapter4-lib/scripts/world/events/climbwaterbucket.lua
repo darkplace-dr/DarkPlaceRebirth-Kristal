@@ -25,6 +25,7 @@ function event:init(data)
 	if self.generator then
 		self:setScale(self.scale_x, -self.scale_y)
 	end
+	self.stoptimerconds = nil
 end
 
 function event:update()
@@ -37,41 +38,55 @@ function event:update()
 			if self.remote then
 				waterspawntype = 2
 			end
-			if waterspawntype == 1 then
-				if MathUtils.round(self.timer) == self.waittime - 6 then
-					local splash = Sprite("world/events/climbwater/climb_waterbucket_splash")
-					splash:play(3 / 30, false, function () splash:remove() end)
-					splash:setOrigin(0, 1)
-					splash:setScale(2, -2)
-					splash:setPosition(0, 20)
-					splash.layer = self.layer + 0.1
-					self:addChild(splash)
+			if self.stoptimerconds == nil then
+				if waterspawntype == 1 then
+					if MathUtils.round(self.timer) == self.waittime - 6 then
+						local splash = Sprite("world/events/climbwater/climb_waterbucket_splash")
+						splash:play(3 / 30, false, function () splash:remove() end)
+						splash:setOrigin(0, 1)
+						splash:setScale(2, -2)
+						splash:setPosition(0, 20)
+						splash.layer = self.layer + 0.1
+						self:addChild(splash)
+						if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+							self.stoptimerconds = self.timer
+						end
+					end
+					if MathUtils.round(self.timer) == self.waittime then
+						local water = ClimbWater(self.x, self.y, 1, self.watermovetimer,
+						self.watermoverate, self.watertilelimit, self.waterfallingtimer,
+						self.waterdir, self.spawnrate, self.activetime)
+						water.layer = self.layer + 0.1
+						self.world:addChild(water)
+						if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+							self.stoptimerconds = self.timer
+						end
+					end
 				end
-				if MathUtils.round(self.timer) == self.waittime then
-					local water = ClimbWater(self.x, self.y, 1, self.watermovetimer,
-					self.watermoverate, self.watertilelimit, self.waterfallingtimer,
-					self.waterdir, self.spawnrate, self.activetime)
-					water.layer = self.layer + 0.1
-					self.world:addChild(water)
-				end
-			end
-			if waterspawntype == 2 then
-				self.makewater = self.makewater - DTMULT
-				if MathUtils.round(self.makewater) == 6 then
-					local splash = Sprite("world/events/climbwater/climb_waterbucket_splash")
-					splash:play(3 / 30, false, function () splash:remove() end)
-					splash:setOrigin(0, 1)
-					splash:setScale(2, 2)
-					splash:setPosition(0, 20)
-					splash.layer = self.layer + 0.1
-					self:addChild(splash)
-				end
-				if Utils.round(self.makewater) == 0 then
-					local water = ClimbWater(self.x, self.y, 2, self.watermovetimer,
-					self.watermoverate, self.watertilelimit, self.waterfallingtimer,
-					self.waterdir, self.spawnrate, self.activetime)
-					water.layer = self.layer + 0.1
-					self.world:addChild(water)
+				if waterspawntype == 2 then
+					self.makewater = self.makewater - DTMULT
+					if MathUtils.round(self.makewater) == 6 then
+						local splash = Sprite("world/events/climbwater/climb_waterbucket_splash")
+						splash:play(3 / 30, false, function () splash:remove() end)
+						splash:setOrigin(0, 1)
+						splash:setScale(2, 2)
+						splash:setPosition(0, 20)
+						splash.layer = self.layer + 0.1
+						self:addChild(splash)
+						if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+							self.stoptimerconds = self.timer
+						end
+					end
+					if Utils.round(self.makewater) == 0 then
+						local water = ClimbWater(self.x, self.y, 2, self.watermovetimer,
+						self.watermoverate, self.watertilelimit, self.waterfallingtimer,
+						self.waterdir, self.spawnrate, self.activetime)
+						water.layer = self.layer + 0.1
+						self.world:addChild(water)
+						if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+							self.stoptimerconds = self.timer
+						end
+					end
 				end
 			end
 			if self.timer >= self.waittime + self.activetime then
@@ -101,6 +116,9 @@ function event:update()
 			splash.layer = splash.layer + 0.01
 			self:addChild(splash)
 		end
+	end
+	if self.stoptimerconds ~= nil and self.timer >= self.stoptimerconds+0.6 then
+		self.stoptimerconds = nil
 	end
 end
 

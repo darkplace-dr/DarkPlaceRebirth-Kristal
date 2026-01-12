@@ -282,7 +282,7 @@
   </object>
   <object id="51" name="script" x="360" y="680" width="40" height="200">
    <properties>
-    <property name="cutscene" value="hometown.digiwrongway_b"/>
+    <property name="cutscene" value="hometown_digi.wrongway_b"/>
     <property name="flagcheck" value="!digi_complete"/>
     <property name="once" type="bool" value="false"/>
    </properties>

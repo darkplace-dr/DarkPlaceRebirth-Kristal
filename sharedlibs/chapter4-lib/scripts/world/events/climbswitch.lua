@@ -16,6 +16,7 @@ function event:init(data)
     self.timber = 0
     self.canceltimer = 0
     self.tickcount = 0
+	self.stoptimerconds = nil
     self.timeout_script = properties["timeout_script"]
     self.script = properties["script"]
     -- TODO: Actually implement this
@@ -83,13 +84,16 @@ function event:update()
             if self.timber < 15 then
                 tickrate = 1
             end
-            if MathUtils.round(self.timber - 1) % tickrate == 0 then
+            if MathUtils.round(self.timber - 1) % tickrate == 0 and self.stoptimerconds == nil then
                 self.tickcount = self.tickcount + 1
                 local pitch = 0.75
                 if self.tickcount % 2 == 0 then
                     pitch = 1
                 end
                 Assets.playSound("ui_move", 0.7, pitch)
+				if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+					self.stoptimerconds = self.timer
+				end
             end
             if self.timber <= 0 then
                 if self.timeout_script then
@@ -100,7 +104,10 @@ function event:update()
                     self.complexsnd:play()
                 end
                 self.con = 0
-            end
+			end
+			if self.stoptimerconds ~= nil and self.timber <= self.stoptimerconds-0.4 then
+				self.stoptimerconds = nil
+			end
         else
             if not self.stay then
                 Object.startCache()

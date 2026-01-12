@@ -83,7 +83,7 @@ function actor:init()
         ["slide"] = {-1, 1},
 
         -- Battle offsets
-        ["battle/idle"] = {-8, 0},
+        ["battle/idle"] = {-12, 1},
 
         ["battle/attack"] = {-6, -4},
         ["battle/attackready"] = {-6, -7},
@@ -98,13 +98,13 @@ function actor:init()
         ["battle/defend"] = {2, 4},
 
         ["battle/defeat"] = {-4, 6},
-        ["battle/hurt"] = {-8, 0},
+        ["battle/hurt"] = {-12, 1},
 
         ["battle/intro"] = {-10, 0},
         ["battle/victory"] = {-8, 0},
 
         -- Cutscene offsets
-        ["ball"] = {-3, 0},
+        ["ball"] = {-2, 10},
         ["dance"] = {-5, -1},
         ["fall"] = {0, 0},
         ["guard"] = {-17, -11},

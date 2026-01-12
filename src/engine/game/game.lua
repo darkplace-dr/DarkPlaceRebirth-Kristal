@@ -80,6 +80,7 @@ function Game:clear()
     self.border = "simple"
     self.swap_into_mod = nil
     self.total_bp = nil
+    self.pp = nil
 end
 
 ---@overload fun(self: Game, previous_state: string, save_data: SaveData, save_id: number)
@@ -310,6 +311,8 @@ function Game:save(x, y)
         total_bp = self.total_bp,
 
         bossrush_encounters = self.bossrush_encounters,
+
+        pp = self.pp,
     }
 
     if x then
@@ -457,6 +460,8 @@ function Game:load(data, index, fade)
     self.total_bp = data.total_bp or 3
 
     self.lw_money = data.lw_money or 2
+
+    self.pp = data.pp or 0
 
     self.border = data.border
     if not self.border then

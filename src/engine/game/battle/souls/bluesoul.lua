@@ -19,6 +19,7 @@ function BlueSoul:init(x, y)
     self.jump_count = 1 		-- How much can the blue soul double jump? [real] (any number) | default: 2
     self.direction = "down" 	-- What directiion is the soul facing and falling? [string] ("down"; "left"; "up"; "right") | default: "down"
     self:setFacing("up")        -- Sets the soul sprite to face up
+	self.buff_freeze = true     -- Don't allow movement if a buff (like Ceroba's diamond shield) is activating
 	self.pauling_mode = false   -- Overtime-style autojump when Pauling is the leader
     local chara = Game:getSoulPartyMember()
     

@@ -85,7 +85,7 @@ function Player:processClimbInputs()
 	if buffer_length >= 5 then
 		buffer_length = 4
 	end
-	buffer_length = 1
+	buffer_length = DTMULT
 	if (Input.down("up") or self.upbuffer > 0) or self.forceclimb then
 		if Input.down("up") and self.facing ~= "up" then
 			self.upbuffer = buffer_length
@@ -199,11 +199,11 @@ function Player:processClimbInputs()
 				end
 			end
 			self.fallingspeed = self.fallingspeed + 0.5 * DTMULT
-			if self.fallingspeed >= self.fall_speed_cap then
-				self.fallingspeed = self.fall_speed_cap
+			if self.fallingspeed >= self.fall_speed_cap * DTMULT then
+				self.fallingspeed = self.fall_speed_cap * DTMULT
 			end
-			if self.fallingspeed >= 20 then
-				self.naturalybias = math.min(self.naturalybias + 2 * DTMULT, 80)
+			if self.fallingspeed >= 20 * DTMULT then
+				self.naturalybias = math.min(self.naturalybias + 2 * DTMULT, 80 * DTMULT)
 			end
 			if self.falldir == "down" then
 				self.y = self.y + math.ceil(self.fallingspeed)
@@ -253,8 +253,8 @@ function Player:processClimbInputs()
 				dust.physics.speed_x = MathUtils.random(-1, 1)
 				self.world:addChild(dust)
 			end
-			if self.fallingspeed > 7 then
-				self.fallingspeed = 7
+			if self.fallingspeed > 7 * DTMULT then
+				self.fallingspeed = 7 * DTMULT
 			end
 			self.fallingspeed = self.fallingspeed - DTMULT
 			if self.falldir == "down" then

@@ -11,10 +11,15 @@ function RoomGlow:init(data)
     self.tint = TiledUtils.parseColorProperty(properties["tint"]) or ColorUtils.hexToRGB("#2A39FFFF")
     self.highlight = TiledUtils.parseColorProperty(properties["highlight"]) or ColorUtils.hexToRGB("#42D0FFFF")
     self.darkcol = TiledUtils.parseColorProperty(properties["darkness"]) or ColorUtils.hexToRGB("#404040FF")
-	self.glowactive = false
-	self.actind = 0
+	self.glowactive = properties["active"] or false
+	self.actind = properties["alpha"] or 0
 	self.lerpstrength = 0.125
-	self.init = true
+end
+
+function RoomGlow:onAdd(parent)
+    super.onAdd(self, parent)
+	-- Gotta love Kristal updates
+    self:setParallax(0, 0)
 end
 
 function RoomGlow:postLoad()
@@ -49,12 +54,10 @@ function RoomGlow:update()
 			end
 		end
 	end
-	if self.init then
-		if self.glowactive then
-			self.actind = MathUtils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
-		else
-			self.actind = MathUtils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
-		end
+	if self.glowactive then
+		self.actind = MathUtils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
+	else
+		self.actind = MathUtils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
 	end
 	if self.tile_dark and self.tile_dark:getFX("shadow") then
 		self.tile_dark:getFX("shadow").alpha = self.actind
@@ -73,8 +76,9 @@ function RoomGlow:update()
 			local sfx = chara:getFX("shadow")
 			if hfx then
 				hfx.alpha = self.actind
+                hfx.color = self.highlight
 			else
-				chara:addFX(ChurchHighlightFX(0, self.highlight, {darkcol = self.darkcol}), "highlight")
+				chara:addFX(ChurchHighlightFX(0, self.highlight, {darkcol = self.darkcol}, 1), "highlight")
 			end
 			if sfx then
 				sfx.scale = self.actind*2

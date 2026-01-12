@@ -34,15 +34,12 @@ function item:init()
         magic = 2,
     }
 
-    self.dark_item = "cerobas_staff"
-
     self.light_bolt_speed = 13.75
     self.light_bolt_direction = "random"
-
 end
 
 function item:convertToDarkEquip(chara)
-    return "cerobas_staff"
+    return "k_blade"
 end
 
 function item:showEquipText(target)
