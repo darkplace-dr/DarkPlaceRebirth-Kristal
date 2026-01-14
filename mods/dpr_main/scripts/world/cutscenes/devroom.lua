@@ -283,5 +283,240 @@ local devroom = {
         end
     end
     end,
+    starbeans = function(cutscene, event)
+        cutscene:showNametag("Alexa")
+		cutscene:text("[voice:alexa]* Oh,[wait:5] hello![wait:5]\n* Welcome to the Starbeans Cafe!")
+		if not Game:getFlag("starbeans_first") then
+			Game:setFlag("starbeans_first", true)
+			for k,v in pairs(Game.party) do -- TODO: rewrite this entire thing lol
+				if v.id == "YOU" then
+					cutscene:hideNametag()
+					cutscene:wait(Game.world.music:fade(0, 0.5))
+					cutscene:wait(1)
+					Assets.playSound("croak")
+					cutscene:wait(1)
+					cutscene:wait(Game.world.music:fade(1, 0.5))
+					cutscene:wait(1)
+					cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* Okay...?")
+				elseif v.id == "kris" then
+				
+				elseif v.id == "susie" then
+				
+				elseif v.id == "noelle" then
+				
+				elseif v.id == "dess" then
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* Holy fuck is that Alexa Greene from hit indie game Deoxynn??????", "wtf", "dess")
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* ... What.")
+                    cutscene:showNametag("Dess")
+                    cutscene:text("* yeah can I get uhhhhhhhhhhhhhhhh", "calm", "dess")
+                    cutscene:showNametag("Dess", {top = true, right = false})
+                    -- noskip because fuck you >:]
+                    cutscene:text("[noskip]* large double double frappechino mocha extra sugar cappichino with frosting and sprinkles with a cherry on top and a boston cream donut with extra frosting and a chocolate chip muffin and a raisin oatmeal cookie", "kind", "dess", {top = true})
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* ... We serve coffee here,[wait:5] ma'am.")
+				elseif v.id == "brenda" then
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* Well this is kinda awkward.", "shock", "brenda")
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* Hm?[wait:10]\n* What do you mean?")
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* Well I mean I made you kill a bunch of people,[wait:5] remember?", "neutral_side", "brenda")
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* Uh,[wait:5] no????")
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* Ah so that's not canon in this mod?[wait:10] Cool.", "neutral", "brenda")
+                    cutscene:showNametag("Alexa")
+                    cutscene:text("[voice:alexa]* What???")
+                    cutscene:text("[voice:alexa]* Are you okay ma'am?")
+                    cutscene:showNametag("Brenda")
+                    cutscene:text("* I have absolutely zero clue myself.", "grin", "brenda")
+                    cutscene:showNametag("Alexa")
+                    cutscene:text("[voice:alexa]* Oooookay then.")
+				elseif v.id == "noel" then
+                                    cutscene:showNametag("Noel")
+                                    cutscene:text("* ...", "...", "noel")
+                                    local text = "* Holy water please..."
+                                    local text2 = "* Hi,[wait:10] there.[wait:10]\n[speed:0.5][voice:susie]* Is [voice:noelle]it [voice:dess]okay [voice:berdly]if [voice:ralsei]I [voice:jamm]just [voice:mario]order [voice:alexa]milk?"  
+                                    local speaker = "noel" 
+                                    local texts = {"I", "FORGOT", "THAT", "THIS", "WAS", "A", "CAFE"}                                     
+                                    local faces = {"excusemebutwhatthefuck", "oh", "loud_2", "c_neutral", "madloud_1"}
+                                    cutscene:setTextboxTop(true)
+									local function undoMyFuckup(text, text2, speaker, texts, faces) -- SDM what the fuck were you doing here
+										local len = string.len(text2)
+										local len2 = string.len(text)
+
+										local dif = Noel:findDifferenceIndex(text, text2)
+
+										local fin2 = string.sub(text2, dif, len)
+
+										local currentIndex = 1
+
+										local function nextTag()
+											local nextText = texts[currentIndex]
+											currentIndex = (currentIndex % #texts) + 1
+											return nextText
+										end
+
+										-- I feel like there should be a better way to do this.
+										local isU = true
+										local function toggleCase(text)
+											if isU then
+												isU = false
+												return string.lower(text)
+											else
+												isU = true
+												return string.upper(text)
+											end
+										end
+
+										cutscene:text(text, "neutral", speaker, {auto = true})
+
+										for i = 1, len2 do
+											local rface = faces[math.random(1, #faces)]
+
+											local current = string.sub(text, 1, dif - 1)
+											local current2 = string.sub(text, dif, len2 - i)
+											if i == len2 then
+												cutscene:showNametag("Noel", { top = true, right = false})
+												cutscene:text("[instant]"..current.."[stopinstant]"..fin2, "neutral", speaker)
+											else
+												cutscene:showNametag(nextTag(), { top = true, right = false})
+												--I use speed instead of instant because of the funny sound it makes.
+												cutscene:text("[speed:30]"..toggleCase(current).."[shake:5]"..current2, rface, speaker, {auto = true})
+											end
+										end
+									end
+                                    undoMyFuckup(text, text2, speaker, texts, faces)
+                                    cutscene:setTextboxTop(false)
+                                    cutscene:showNametag("Alexa")
+                                    cutscene:text("[voice:alexa]* Sure-[wait:30]\n* Wait, [wait:10]just milk?")
+                                    cutscene:showNametag("Noel")
+                                    cutscene:text("* [speed:0.5]Yeah...[wait:5]\n* I don't drink coffee much...", "bruh", "noel")
+                                    cutscene:showNametag("Alexa")
+                                    cutscene:text("[voice:alexa]* Umm, sure?")
+                                    cutscene:showNametag("Noel")
+                                    cutscene:text("* oh...[wait:5][face:...]\n[voice:marcy]* Good.", "oh", "noel")
+			            cutscene:hideNametag()
+                                    Game.world.music:fade(0, 0.25)
+                                    cutscene:wait(1)
+                                    local milk = Sprite("milk")
+                                    Game.world:spawnObject(milk, "above_events")
+                                    milk.x = 480
+                                    milk.y = 135
+                                    Assets.playSound("item", 1, 1)
+
+                                    cutscene:wait(2)
+                                    local wobblything = Music("wobblything_loop", 1.5, 1)
+		                    cutscene:wait(cutscene:slideTo(milk, 480, 225, 10))
+                                    
+                                    wobblything:stop()
+                                    Game.world.music:fade(1, 0.5)
+                                    cutscene:wait(2)
+                                    Assets.playSound("boowomp", 1, 1)
+                                    milk.x = -100
+                                    milk.y = -100
+                                    cutscene:wait(2)
+                                    cutscene:showNametag("Noel")
+                                    cutscene:text("* Good milk.", "bruh", "noel")
+			            cutscene:hideNametag()
+                                    cutscene:wait(2)
+                                    cutscene:text("* Noel either drank the milk or forced it to stop existing.")
+                                    
+				elseif v.id == "dumbie" then
+				
+				elseif v.id == "ostarwalker" then
+				
+				elseif v.id == "berdly" then
+				
+				elseif v.id == "bor" then
+				
+				elseif v.id == "robo_susie" then
+				
+				elseif v.id == "nonyo" then
+				
+				elseif v.id == "iphone" then
+				
+				elseif v.id == "frisk2" then
+				
+				elseif v.id == "alseri" then
+				
+				elseif v.id == "jamm" then
+					if not Game:getFlag("dungeonkiller") then
+						cutscene:showNametag("Jamm")
+						cutscene:text("* Wait,[wait:5] Alexa?[wait:5]\n* You work here?", "neutral", "jamm")
+						cutscene:showNametag("Alexa")
+						cutscene:text("[voice:alexa]* Actually,[wait:5] Director,[wait:5] I own this cafe!")
+						cutscene:text("[voice:alexa]* Remember how I've been telling you I need more money for stuff?")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* Vaguely,[wait:5] if anything.", "nervous_left", "jamm")
+						cutscene:showNametag("Alexa")
+						cutscene:text("[voice:alexa]* Well,[wait:5] it turns out D$ can be converted to Coins!")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* Good for you,[wait:5] Alexa!", "happy", "jamm")
+						cutscene:text("* But...[wait:5]\n* What about this room?", "neutral", "jamm")
+						cutscene:showNametag("Alexa")
+						cutscene:text("[voice:alexa]* The shopkeeper outside is letting me run the place.")
+						cutscene:text("[voice:alexa]* I don't really get how the current model is sustaining money...")
+						cutscene:text("[voice:alexa]* But I'm happy as long as I make money from it!")
+					else
+						cutscene:showNametag("Alexa")
+						cutscene:text("[voice:alexa]* Wait,[wait:5] Director,[wait:5] is that you?")
+						cutscene:text("[voice:alexa]* Gosh,[wait:5] you look terrible...[wait:5]\n* What the fleck happened?")
+						cutscene:showNametag("Jamm")
+						cutscene:text("* ...Just get me a brew please.", "shaded_pissed", "jamm")
+						cutscene:showNametag("Alexa")
+						cutscene:text("[voice:alexa]* R-right...")
+					end
+				elseif v.id == "mario" then
+                    cutscene:showNametag("Mario")
+					cutscene:text("* Do you have any spaghetti here?", "main", "mario")
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* Um,[wait:5] no.[wait:5]\n* We only serve coffee.")
+                    cutscene:showNametag("Mario")
+					cutscene:text("* Where's my spaghetti!?", "main", "mario")
+                    cutscene:showNametag("Alexa")
+					cutscene:text("[voice:alexa]* I told you we don't have that stuff here!")
+				end
+			end
+			cutscene:showNametag("Alexa")
+		end
+		if #Game.party == 1 then
+			cutscene:text("[voice:alexa]* So![wait:5] How may I blend up your day?")
+		else
+			cutscene:text("[voice:alexa]* So![wait:5] How may I blend up your days?")
+		end
+		cutscene:hideNametag()
+		local choice = cutscene:choicer({"Blend", "Nevermind"})
+		if choice == 1 then
+			cutscene:showNametag("Alexa")
+			cutscene:text("[voice:alexa]* Sounds good![wait:5]\n* I'll get your blend ready soon!")
+			cutscene:text("[voice:alexa]* Oh,[wait:5] but first,[wait:5] I'm required to ask something.")
+			cutscene:text("[voice:alexa]* Want me to tell you about our StarB System?")
+			cutscene:hideNametag()
+			if cutscene:choicer({"Yes", "No need"}) == 1 then
+				cutscene:showNametag("Alexa")
+				cutscene:text("[voice:alexa]* Okay, here goes...")
+				cutscene:text("[voice:alexa]* At Starbeans Cafe,[wait:5] you don't have to pay a cent for a blend!")
+				cutscene:text("[voice:alexa]* Instead,[wait:5] you provide the ingredients for them.")
+				cutscene:text("[voice:alexa]* ...Well,[wait:5] it's mostly beans,[wait:5] but...")
+				cutscene:text("[voice:alexa]* Dig for beans and bring them here,[wait:5] and I'll blend them.")
+				cutscene:text("[voice:alexa]* Simple enough,[wait:5] right?")
+			end
+			cutscene:showNametag("Alexa")
+			cutscene:text("[voice:alexa]* So,[wait:5] what'll be your blend today?")
+			cutscene:hideNametag()
+			
+			cutscene:after(function()
+				Game.world:openMenu(BlendMenu())
+			end)
+		end
+		cutscene:hideNametag()
+    end,
+    blend_invfull = function(cutscene, event)
+		cutscene:text("* You don't have enough space.\n* (TODO: Make Alexa say this)")
+	end,
 }
 return devroom

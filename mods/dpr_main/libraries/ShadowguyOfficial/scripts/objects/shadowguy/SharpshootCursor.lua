@@ -1,6 +1,6 @@
 local SharpshootCursor, super = Class(Object)
 
-function SharpshootCursor:init(x, y)
+function SharpshootCursor:init(x, y, controller)
     super.init(self, x, y)
 	
 	self.x = 200
@@ -11,9 +11,8 @@ function SharpshootCursor:init(x, y)
 	self.timer = 0
 	self.siner = 66
 	self.con = 0
-	self.ammo = 30
+	self.controller = controller or nil
 	self.shoottimer = 0
-	self.stopshooting = 0
 	
 	self.shoot_target = nil
 	
@@ -39,17 +38,6 @@ function SharpshootCursor:init(x, y)
 	self.fired_heart = false
 	self.shoot_x = 0
 	self.shoot_y = 0
-	self.font = Assets.getFont("main")
-	self.heart = Assets.getTexture("player/sharpshoot_heart")
-	self.hourglass = Assets.getTexture("ui/hourglass")
-	self.hud = SharpshootHud()
-	self.hud.layer = BATTLE_LAYERS["ui"]
-	Game.battle:addChild(self.hud)
-end
-
-function SharpshootCursor:onRemove()
-	super.onRemove(self)
-	self.hud:remove()
 end
 
 function SharpshootCursor:update()
@@ -96,7 +84,7 @@ function SharpshootCursor:update()
 	end
 	if self.con == 1 then
 		self.shoottimer = self.shoottimer + DTMULT
-		if Input.down("menu") and self.shoottimer > 0 and self.ammo > 0 and self.stopshooting == 0 then
+		if Input.down("menu") and self.shoottimer > 0 and self.controller.ammo > 0 and self.controller.state == "SHARPSHOOT" then
 			self.shoottimer = -3
 			if Game.party[1]:getHealth() > 0 then
 				local x, y = Game.battle.party[1].heart_point_x, Game.battle.party[1].heart_point_y
@@ -110,7 +98,7 @@ function SharpshootCursor:update()
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
 				Game.battle:addChild(heart)
-				self.ammo = self.ammo - 1
+				self.controller.ammo = self.controller.ammo - 1
 			end
 			if (#Game.party == 2 or #Game.party == 3) and Game.party[2]:getHealth() > 0 then
 				local x, y = Game.battle.party[2].heart_point_x, Game.battle.party[2].heart_point_y
@@ -124,7 +112,7 @@ function SharpshootCursor:update()
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
 				Game.battle:addChild(heart)
-				self.ammo = self.ammo - 1
+				self.controller.ammo = self.controller.ammo - 1
 			end
 			if #Game.party == 3 and Game.party[3]:getHealth() > 0 then
 				local x, y = Game.battle.party[3].heart_point_x, Game.battle.party[3].heart_point_y
@@ -138,13 +126,19 @@ function SharpshootCursor:update()
                 effect:play(1/30, false, function(s) s:remove() end)
 				local heart = SharpshootHeart(x, y, self)
 				Game.battle:addChild(heart)
-				self.ammo = self.ammo - 1
+				self.controller.ammo = self.controller.ammo - 1
 			end
 			Assets.playSound("noise", 0.8, 1.2)
 			self.fired_heart = true
 		end
-		if self.ammo < 1 or self.stopshooting == 2 then
-			self.ammo = 0
+		local no_targets = 0
+		for _,target in ipairs(Game.stage:getObjects(SharpshootTarget)) do
+			if target:isRemoved() then
+				no_targets = no_targets + 1
+			end
+		end
+		if self.controller.ammo < 1 or no_targets == #Game.stage:getObjects(SharpshootTarget) then
+			self.controller.ammo = 0
 			self:fadeOutAndRemove(10/30)
 			self.con = 2
 		end
@@ -157,9 +151,6 @@ function SharpshootCursor:update()
 	self.target[3]:setScale(self.scale_x - 0.5, self.scale_y - 0.5)
 	self.target[1].x = math.sin(self.siner / 4) * 2
 	self.target[1].y = math.cos(self.siner / 4) * 2
-	self.hud.ammo = self.ammo
-	self.hud.sharpshootlength = self.sharpshootlength
-	self.hud.stopshooting = self.stopshooting
 end
 
 return SharpshootCursor
