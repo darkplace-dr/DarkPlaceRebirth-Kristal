@@ -353,4 +353,129 @@ return {
             cutscene:text("* It's nothing but garbage noise.")
         end
 	end,
+	bean_spot = function(cutscene, event, bean_color, bean_star_color, bean_sprite)
+		local bean_color = bean_color or COLORS.white
+		local bean_star_color = bean_star_color or bean_color
+		local bean_sprite = bean_sprite or "world/events/beans/beam"
+		if not Game.inventory:hasItem("lancer") then
+			cutscene:text("* It seems you can't dig without a spade.")
+            return
+		end
+
+        cutscene:detachFollowers()
+        cutscene:detachCamera()
+
+        Assets.playSound("ui_cancel")
+        local player = Game.world.player
+		local dx, dy = Utils.getFacingVector(player:getFacing())
+		if dx == -1 or dy == -1 then
+			if player.actor:getAnimation("battle/act") then
+				player.flip_x = true
+			end
+		end
+        cutscene:setAnimation(player, "battle/act")
+        cutscene:wait(cutscene:slideTo(player, player.x - (dx * 80), player.y - (dy * 40), 0.5, "out-cubic"))
+        Assets.playSound("lancerwhistle")
+        local lancer = NPC("lancer", player.x, player.y, {facing = "down"})
+        lancer.layer = player.layer - 0.01
+        Game.world:addChild(lancer)
+        event.layer = lancer.layer - 0.01
+		if dy == 1 then
+			lancer.layer = player.layer + 0.03
+			event.layer = lancer.layer - 0.02
+		end
+        
+        cutscene:wait(cutscene:slideTo(lancer, event.x, event.y, 0.5, "out-cubic"))
+        Assets.playSound("ui_cancel_small")
+        Assets.playSound("lancercough")
+        cutscene:setAnimation(lancer, "wave")
+		local smoke_puff = Sprite("world/events/beans/smokepuff", event.x, event.y)
+		smoke_puff:stop()
+		smoke_puff.layer = event.layer
+		smoke_puff:setOrigin(0.5, 0.5)
+		smoke_puff:setScale(2)
+		smoke_puff.color = event.color
+		Game.world:addChild(smoke_puff)
+		local smoke_time = 0
+        local smoke_timer = Game.world.timer:during(8/30, function()
+			if smoke_puff then
+				smoke_time = smoke_time + (1 * DTMULT)
+				smoke_puff:setFrame(math.floor(Utils.ease(0, #smoke_puff.frames, smoke_time / 8, "outCubic")) + 1)
+				if smoke_time >= 8 then
+					smoke_puff:remove()
+					smoke_puff = nil
+				end
+			end
+		end)
+        Game:addFlag(event.flag_inc, 1)
+        event:setFlag("dont_load", true)        
+        event:remove()
+        local bean = Sprite(bean_sprite, event.x, event.y)
+        bean:setScale(2)
+		bean:setOrigin(0.5, 0.5)
+		bean.color = bean_color
+        bean.layer = lancer.layer - 0.01
+        Game.world:addChild(bean)
+        Game.world.timer:tween(0.5, bean, {y = event.y - 120}, "out-cubic")
+        cutscene:wait(0.5)
+		local bean_stars = 0
+		local star_timer = Game.world.timer:every(2/30, function()
+			if bean_stars < 8 then
+				bean_stars = bean_stars + 1
+				local star = Sprite("world/events/beans/star", bean.x, bean.y)
+				star.layer = bean.layer - 0.01
+				star:setOrigin(0.5, 0.5)
+				star:setScale(2)
+				star.physics.direction = math.rad(bean_stars * 40)
+				star.physics.speed = 5
+				star.physics.friction = 0.25
+				star.color = bean_star_color
+				Game.world.timer:after(MathUtils.random(13, 16)/30, function()
+					star:remove()
+				end)
+				Game.world:addChild(star)
+				
+				local star2 = Sprite("world/events/beans/star", bean.x, bean.y)
+				star2.layer = bean.layer - 0.01
+				star2:setOrigin(0.5, 0.5)
+				star2:setScale(2)
+				star2.physics.direction = math.rad((bean_stars * 40) + 180)
+				star2.physics.speed = 5
+				star2.physics.friction = 0.25
+				star2.color = bean_star_color
+				Game.world.timer:after(MathUtils.random(13, 16)/30, function()
+					star2:remove()
+				end)
+				Game.world:addChild(star2)
+			end
+		end)
+        Assets.playSound("lancerbeanget")
+        cutscene:text("* Lancer dug up a " .. event.name .. "!")
+		Game.world.timer:cancel(star_timer)
+		Game.world.timer:cancel(smoke_timer)
+        Assets.stopSound("lancer_bean")
+        
+        cutscene:resetSprite(player)
+		if dx == -1 or dy == -1 then
+			if player.flip_x then
+				player.flip_x = false
+			end
+		end
+        cutscene:resetSprite(lancer)
+        lancer.layer = player.layer - 0.01
+        cutscene:look(lancer, "down")
+        cutscene:wait(cutscene:walkTo(player, lancer.x, lancer.y, 0.5))
+        lancer:remove()
+        bean.layer = player.layer - 0.01
+		local px, py = player:getRelativePos(player.width/2, player.height/2)
+        Game.world.timer:tween(0.5, bean, {x = px, y = py}, "in-cubic", function()
+			Assets.playSound("item")
+			bean:remove()
+		end)
+        
+        cutscene:attachFollowers()
+        cutscene:attachCamera(0.5)
+        cutscene:wait(0.5)
+	end,
+
 }

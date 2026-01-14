@@ -1,8 +1,10 @@
 local ShadowguySaxWarning, super = Class(Object)
 
-function ShadowguySaxWarning:init()
-    super.init(self)
+function ShadowguySaxWarning:init(xx, yy)
+    super.init(self, 0, 0)
 	
+	self.xx = xx or 0
+	self.yy = yy or 0
 	self:setScale(1)
 	self.path = GMPath()
 	self.path:init({type = GMPath.TYPE_CURVED, closed = false, precision = 4})
@@ -23,14 +25,20 @@ function ShadowguySaxWarning:init()
 	self.color_progress = 0
 	self.alpha = 1
 	self.started = false
+	self.attacker = nil
 end
 
 function ShadowguySaxWarning:update()
 	super.update(self)
 	
-	--if (self.anim_change == 1 & self.progress_loop) > self.attack_wait_time + 1 then
-	--	self.anim_change = 0
-	--end
+	-- I think this is broken in DELTARUNE cause it uses a bitwise AND operation for some reason???
+	-- It was probably supposed to be a && instead of a & lol
+	--[[if self.anim_change == 1 and self.progress_loop > self.attack_wait_time + 1 then
+		local frame = self.attacker.sprite.frame
+		self.attacker.sprite:play(1/5)
+		self.attacker.sprite:setFrame(frame)
+		self.anim_change = 0
+	end]]
 	
 	self.loop_start = self.progress_loop
 	
@@ -49,9 +57,19 @@ function ShadowguySaxWarning:update()
 		self.progress_loop = self.progress_loop + self.grow_speed * DTMULT
 		self.alpha = 1
 	end
+	if self.fired_shots >= self.bullet_count then
+		self.timer2 = self.timer2 + DTMULT
+		if self.timer2 >= self.destroy_time then
+			self:remove()
+		end
+		return
+	end
 	if self.progress_loop > self.attack_wait_time then
 		if self.timer2 >= self.shoot_speed then
 			if self.anim_change == 0 then
+				local frame = self.attacker.sprite.frame
+				self.attacker.sprite:play(1/10)
+				self.attacker.sprite:setFrame(frame)
 				self.anim_change = 1
 				Assets.stopSound("shadowman_sax_long_1")
 				Assets.stopSound("shadowman_sax_long_2")
@@ -59,18 +77,15 @@ function ShadowguySaxWarning:update()
 				Assets.stopSound("shadowman_sax_long_4")
 				Assets.stopSound("shadowman_sax_long_solo_note")
 				Assets.playSound(TableUtils.pick({"shadowman_sax_long_1", "shadowman_sax_long_2", "shadowman_sax_long_3", "shadowman_sax_long_4", "shadowman_sax_long_solo_note"}))
-				local dir = MathUtils.angle(self.x, self.y, self.path:getPosition(0.02).x, self.path:getPosition(0.02).y)			
-				self.wave.timer:script(function(wait)
-					for i = 1, self.bullet_count do
-						local d = self.wave:spawnBullet("shadowguy/saxnote", -20, -20)
-						d.xx = self.x
-						d.yy = self.y
-						d.direction = dir
-						d.path = self.path
-						wait(0.05)
-					end
-				end)
 			end
+			local d = self.wave:spawnBullet("shadowguy/saxnote", self.xx, self.yy)
+			d.physics.direction = MathUtils.angle(self.xx, self.yy, self.path:getPosition(0.02).x, self.path:getPosition(0.02).y)
+			d.rotation = d.physics.direction - math.rad(180)
+			d.path = self.path
+			self.fired_shots = self.fired_shots + 1
+			self.timer2 = 0
+		else
+			self.timer2 = self.timer2 + DTMULT
 		end
 	end
 end
@@ -79,11 +94,11 @@ end
 function ShadowguySaxWarning:startSax()
 	self.path:clear()
 	local relative_y = 0
-	self.path:addPoint(self.x, self.y, 100)
-	self.path:addPoint(self.x - 30, self.y - 20, 100)
-	local boxy = Game.battle.arena.top-70 -- evil boxy boo
-	for i = 1, 5 do
-		local xpoint = (-150 * i) + self.x
+	self.path:addPoint(self.xx, self.yy, 100)
+	self.path:addPoint(self.xx - 30, self.yy - 20, 100)
+	local boxy = Game.battle.arena.y -- evil boxy boo
+	for i = 1, 4 do
+		local xpoint = (-150 * i) + self.xx
 		if self.aim_at_player and relative_y == 0 and (xpoint - Game.battle.soul.x) <= 150 then
 			relative_y = MathUtils.random(-80 * i, 80 * i) + boxy
 			self.path:addPoint(xpoint, relative_y, 100)
@@ -93,13 +108,13 @@ function ShadowguySaxWarning:startSax()
 			self.path:addPoint(xpoint, MathUtils.clamp(relative_y, (-80 * i) + boxy, (80 * i) + boxy), 100)
 			relative_y = 0
 		else		
-			self.path:addPoint(xpoint, MathUtils.random((-80 * i) + boxy, (80 * i) + boxy), 100)
+			self.path:addPoint(xpoint, MathUtils.random((-100 * i) + boxy, (100 * i) + boxy), 100)
 		end
 	end
 	self.started = true
 end
 
-function ShadowguySaxWarning:inverseLerp(a, b, t, oob)
+function ShadowguySaxWarning:inverseLerp(a, b, t)
     if (b == a) then
         return 0
     end
@@ -113,7 +128,7 @@ function ShadowguySaxWarning:draw()
 	
 	local i = math.min(self.loop_start, 1)
 	while i > 0 do
-		local first_color = ColorUtils.mergeColor(COLORS["red"], COLORS["gray"], self.loop_start+0.5-i)
+		local first_color = ColorUtils.mergeColor(COLORS["red"], COLORS["gray"], MathUtils.clamp(self.loop_start+0.5-i, 0, 1))
 		if self.color_progress < 1 then
 			self.color_progress = self.color_progress + 0.05 * DTMULT
 		end

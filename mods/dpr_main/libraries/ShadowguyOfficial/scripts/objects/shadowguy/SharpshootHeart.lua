@@ -51,22 +51,19 @@ function SharpshootHeart:update()
 	end
 	for _,target in ipairs(Game.stage:getObjects(SharpshootTarget)) do
 		if self:collidesWith(target) then
-			if self.con == 0 and target.hittable and not target.enemy.spare_after_sharpshoot then
-				self.con = 1
-				self.savey = target.enemy.y + 70 + love.math.random(0, 35)
-				self:hitSomething()
-				target.shake = 6
-				target.enemy.sharpshootmercy = target.enemy.sharpshootmercy + 10
-				target.sparehp = target.sparehp - 1
-				if (target.spare == false and target.enemy.mercy + target.enemy.sharpshootmercy >= 100) or (target.spare == true and target.sparehp <= 0) then
-					if target.already_spared then
-						target.enemy:sharpshootSpare()
-						target:reset()
-					else
+			if target.type == "shadowguy_socks" or target.type == "shadowguy_hat" then
+				if self.con == 0 and target.hittable and not target.enemy.spare_after_sharpshoot then
+					self.con = 1
+					self.savey = target.enemy.y + 70 + love.math.random(0, 35)
+					self:hitSomething()
+					target.shake = 6
+					target.enemy.sharpshootmercy = target.enemy.sharpshootmercy + 10
+					target.sparehp = target.sparehp - 1
+					if (target.spare == false and target.enemy.mercy + target.enemy.sharpshootmercy >= 100) or (target.spare == true and target.sparehp <= 0) then
 						target:doSpare()
 					end
+					Assets.stopAndPlaySound("bump")
 				end
-				Assets.stopAndPlaySound("bump")
 			end
 		end
 	end

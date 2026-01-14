@@ -17,6 +17,7 @@ function GMPath:init(options)
     self.type = options["type"] or GMPath.TYPE_LINEAR
     self.closed = options["closed"] or false
     self.precision = options["precision"] or 4
+	self.length = 0
     -- Initialize points and internal points.
     self:clear()
 end
@@ -40,6 +41,7 @@ function GMPath:createPoint(x, y, speed)
         x = x or 0,
         y = y or 0,
         speed = speed or 0,
+		l = 0
     }
 end
 
@@ -122,6 +124,22 @@ function GMPath:processInternal()
     else
         self:createLinear()
     end
+	
+	self:processLength()
+end
+
+function GMPath:processLength()
+	self.length = 0
+	if #self.intpoints < 0 then
+		return
+	end
+	self.intpoints[1].l = 0
+	if #self.intpoints > 0 then
+		for i = 2, #self.intpoints do
+			self.length = self.length + math.sqrt(((self.intpoints[i].x - self.intpoints[i - 1].x) ^ 2) + ((self.intpoints[i].y - self.intpoints[i - 1].y) ^ 2))
+			self.intpoints[i].l = self.length
+		end
+	end
 end
 
 --- Create internal points for a linear path.
@@ -218,17 +236,26 @@ function GMPath:getPosition(pos)
         return self.intpoints[#self.intpoints]
     end
 
-    local idx = math.floor(pos * (#self.intpoints - 1))
-    pos = (pos * (#self.intpoints - 1)) % 1
+	local l = self.length * pos
+    pos = 0
+	
+	while ((pos < #self.intpoints - 2) and (l >= self.intpoints[pos + 1].l)) do
+		pos = pos + 1
+	end
 
-    local point_a = self.intpoints[idx + 1]
-    local point_b = self.intpoints[idx + 2]
+	local point = self.intpoints[pos]
+	l = l - point.l
+	local w = self.intpoints[pos + 1].l - point.l
 
-    return self:createPoint(
-        point_a.x + pos * (point_b.x - point_a.x),
-        point_a.y + pos * (point_b.y - point_a.y),
-        point_a.speed + pos * (point_b.speed - point_a.speed)
-    )
+	if w ~= 0 then
+		pos = pos + 1
+		return self:createPoint(
+			point.x + l * (self.intpoints[pos].x - point.x) / w,
+			point.y + l * (self.intpoints[pos].y - point.y) / w,
+			point.speed + l * (self.intpoints[pos].speed - point.speed) / w
+		)
+	end
+    return point
 end
 
 --- Get the center point of the path.

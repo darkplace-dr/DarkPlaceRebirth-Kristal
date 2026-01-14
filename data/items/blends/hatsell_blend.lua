@@ -12,7 +12,7 @@ function item:init()
     self.icon = nil
 
     -- Battle description
-    self.effect = ""
+    self.effect = "Use\nout of\nbattle"
     -- Shop description
     self.shop = nil
     -- Menu description
@@ -49,6 +49,25 @@ end
 
 function item:onWorldUse(target)
 	target:increaseStat("attack", 1)
+	Assets.playSound("swallow")
+	local drinksnd = Assets.newSound("straw_drink_long", 0.8, 1.2)
+	drinksnd:play()
+	Game.world.timer:after(0.3, function()
+		drinksnd:stop()
+	end)
+    for _, actionbox in ipairs(Game.world.healthbar.action_boxes) do
+        if actionbox.chara.id == target.id then
+			local xx = 69
+			if #Game.party == 4 then
+				xx = 49
+			end
+            local text = HPText("AT +1", Game.world.healthbar.x + actionbox.x + xx, Game.world.healthbar.y + actionbox.y + 15)
+            text.layer = WORLD_LAYERS["ui"] + 1
+			text.color = COLORS.orange
+            Game.world:addChild(text)
+            return
+        end
+    end
 end
 
 return item
