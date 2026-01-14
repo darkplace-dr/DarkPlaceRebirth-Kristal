@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -688,14 +688,12 @@ return {
           visible = true,
           properties = {
             ["fade"] = true,
+            ["fade_edges"] = true,
             ["no_back"] = true,
-            ["offx"] = -20,
-            ["offy"] = -200,
-            ["spr_offx"] = 40,
-            ["spr_offy"] = 0,
+            ["offy"] = -110,
             ["text"] = "BUT LO, A NEW LEGEND,\nHAD BEGUN TO SHOW.",
             ["texture"] = "dark_place",
-            ["txt_offx"] = 20
+            ["txt_offy"] = "-56"
           }
         },
         {

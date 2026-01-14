@@ -1,5 +1,5 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -611,13 +611,12 @@ return {
           visible = true,
           properties = {
             ["fade"] = true,
+            ["fade_edges"] = true,
             ["no_back"] = true,
-            ["offx"] = 40,
-            ["offy"] = -200,
-            ["spr_offx"] = 36,
-            ["spr_offy"] = 0,
+            ["offy"] = -130,
             ["text"] = "THE LEGEND OF THIS WORLD.\nNOW FRACTURED AND FAUX.",
-            ["texture"] = "end"
+            ["texture"] = "end",
+            ["txt_offy"] = "-32"
           }
         },
         {
