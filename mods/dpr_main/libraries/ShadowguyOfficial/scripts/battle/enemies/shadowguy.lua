@@ -105,9 +105,6 @@ function Shadowguy:onAct(battler, name)
         self:addTemporaryMercy(5, true, {0, 100}, (function() return self.showtempmercy == false end))
         return string.format("* %s boogies past bullets!\n* SHADOWGUY gains mercy until you get hit!", battler.chara:getName())
 	elseif name == "Standard" then
-        if battler.chara.id == "jamm" and Game:getFlag("dungeonkiller") then
-            return "* Jamm didn't feel like doing anything."
-        end
 		self:setAnimation("sax_b")
 		battler:setAnimation("dance")
 		battler:flash()
@@ -137,9 +134,6 @@ end
 
 function Shadowguy:onShortAct(battler, name)
     if name == "Standard" then
-        if battler.chara.id == "jamm" and Game:getFlag("dungeonkiller") then
-            return "* Jamm didn't feel like doing anything."
-        end
 		self:setAnimation("sax_b")
 		battler:setAnimation("dance")
 		battler:flash()
@@ -160,7 +154,7 @@ function Shadowguy:isXActionShort(battler)
 	if battler.chara.id == "brenda" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_bd") then
 		return false
 	end
-	if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") and not Game:getFlag("dungeonkiller") then
+	if battler.chara.id == "jamm" and Game:hasPartyMember("dess") and not Game:getFlag("shadowguy_jd") then
 		return false
 	end
     return true

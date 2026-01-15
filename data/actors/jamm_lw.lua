@@ -78,11 +78,4 @@ function actor:init()
 	self.shiny_id = "jamm"
 end
 
-function actor:getDefault()
-    if Game:getFlag("dungeonkiller") then
-        return "walk_shadowed"
-    end
-    return self.default
-end
-
 return actor

@@ -33,11 +33,7 @@ function character:init()
     self.has_xact = true
     self.xact_name = "J-Action"
 
-    if Game:getFlag("dungeonkiller") then
-        self.lw_portrait = "face/jamm/shaded_neutral"
-    else
-        self.lw_portrait = "face/jamm/neutral"
-    end
+    self.lw_portrait = "face/jamm/neutral"
 
     self:addSpell("supersling")
     self:addSpell("darksling")
@@ -98,9 +94,7 @@ function character:getName()
 end
 
 function character:getMenuIcon()
-    if Game:getFlag("dungeonkiller", false) then
-        return "party/jamm/head_shadowed"
-    elseif Game:getFlag("marcy_joined", false) then
+    if Game:getFlag("marcy_joined", false) then
         return "party/jamm/withmarcy/head"
     end
     return self.menu_icon
