@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 28,
+  nextobjectid = 33,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity",
@@ -183,7 +183,7 @@ return {
           x = 0,
           y = 0,
           width = 440,
-          height = 400,
+          height = 360,
           rotation = 0,
           visible = true,
           properties = {}
@@ -222,6 +222,32 @@ return {
           x = 440,
           y = 1160,
           width = 280,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 360,
+          width = 200,
           height = 40,
           rotation = 0,
           visible = true,
@@ -487,6 +513,22 @@ return {
             ["cutscene"] = "cyber.falseral",
             ["flagcheck"] = "!falseraldead"
           }
+        },
+        {
+          id = 32,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 360,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/cyber_store",
+            ["marker"] = "entry1"
+          }
         }
       }
     },
@@ -524,6 +566,19 @@ return {
           shape = "point",
           x = 260,
           y = 430,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "store",
+          type = "",
+          shape = "point",
+          x = 200,
+          y = 440,
           width = 0,
           height = 0,
           rotation = 0,
