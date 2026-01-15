@@ -146,25 +146,6 @@ function actor:init()
         ["battle/tactic_freeze"] = {-9, -3},
         ["battle/tactic_freeze_shiny"] = {-9, -3},
 
-        -- Dungeonkiller battle offsets
-        ["battle_dungeonkiller/idle"] = {-9, -3},
-
-        ["battle_dungeonkiller/attack"] = {-9, -3},
-        ["battle_dungeonkiller/attackready"] = {-9, -3},
-        ["battle_dungeonkiller/act"] = {-9, -3},
-        ["battle_dungeonkiller/actend"] = {-9, -3},
-        ["battle_dungeonkiller/actready"] = {-9, -3},
-        ["battle_dungeonkiller/spell"] = {-9, -3},
-        ["battle_dungeonkiller/item"] = {-9, -3},
-        ["battle_dungeonkiller/itemready"] = {-9, -3},
-        ["battle_dungeonkiller/defend"] = {-9, -3},
-
-        ["battle_dungeonkiller/defeat"] = {-8, -3},
-        ["battle_dungeonkiller/hurt"] = {-9, -3},
-
-        ["battle_dungeonkiller/intro"] = {-8, -9},
-        ["battle_dungeonkiller/victory"] = {-9, -3},
-
 		["sit"] = {4, -8},
 
 		["ball"] = {0, 18},
@@ -210,9 +191,7 @@ function actor:init()
     }
 
     self.taunt_sprites = {"box", "bs_win", "maid", "bt"}
-    if Game:getFlag("dungeonkiller") then
-        self.taunt_sprites = nil
-    elseif Game:getFlag("jamm_closure") then
+    if Game:getFlag("jamm_closure") then
 		self.taunt_sprites = {"box", "ghost_bs", "maid", "bt"}
 	end
 
@@ -222,21 +201,6 @@ function actor:init()
 	end
 
 	self.shiny_id = "jamm"
-end
-
-function actor:getDefault()
-    if Game:getFlag("dungeonkiller") then
-        return "walk_shadowed"
-    end
-    return self.default
-end
-
-function actor:getAnimation(anim)
-    if Game:getFlag("dungeonkiller", false) and self.animations_dk[anim] ~= nil then
-        return self.animations_dk[anim] or nil
-    else
-        return super.getAnimation(self, anim)
-    end
 end
 
 return actor
