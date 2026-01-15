@@ -89,7 +89,7 @@ function Winglade:onAct(battler, name)
         return "* You spun masterfully!"
     elseif name == "SpinS" then
         for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
-            if enemy.id == 'winglade' then enemy:addMercy(60) end
+            enemy:addMercy(60)
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
         battler:setAnimation('pirouette')

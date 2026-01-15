@@ -138,7 +138,6 @@ function ShadowguyTommyGun:onStart()
 						local x, y = xx + 6 + (math.cos(actor.gun_rot) * 60), yy + 64 + (math.sin(actor.gun_rot) * 60)
 						--x, y = gun:getRelativePos(9, 32, Game.battle)
 						local bullet = self:spawnBullet("shadowguy/tommygun_bullet", x, y)
-						bullet.physics.direction = actor.gun_rot
 						bullet.physics.speed = bullet_speed
 						bullet.rotation = actor.gun_rot
 						self.rep = self.rep - 1
