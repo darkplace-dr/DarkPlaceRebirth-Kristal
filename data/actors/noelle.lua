@@ -63,6 +63,8 @@ function actor:init()
 
         -- Cutscene animations
         ["laugh"]               = {"laugh", 4/30, true},
+
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     -- Alternate animations to use for Noelle weird mode (false to disable the animation)

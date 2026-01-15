@@ -58,6 +58,8 @@ function actor:init()
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
 
+        ["jump_ball"]           = {"ball", 1/15, true},
+
         ["guard"]               = {"guard", 1/10, false},
 
         ["dance"]               = {"dance", 1/10, true},

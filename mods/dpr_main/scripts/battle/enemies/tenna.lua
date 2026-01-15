@@ -34,7 +34,8 @@ function Tenna:init()
         "* HEAR THAT WHINE!? THAT'S YOUR CRT ASKING FOR A WALK!!",
         "* DON'T TOUCH THAT DIAL! THINGS ARE HEATING UP!",
     }
-    self.low_health_text = "* The dummy looks like it's\nabout to fall over."
+
+    self.tired_percentage = 0
 
     self:registerAct("ILoveTV", "Earn\nscore")
     self:registerAct("SpinWheel", "Random\nTenna", "all", 50)
@@ -44,6 +45,8 @@ function Tenna:init()
     end
 
     self.killable = true
+
+    self.healthphase = 1
 
     --for SpadeCheat ACT
     --[[
@@ -70,6 +73,17 @@ end
 function Tenna:getEncounterText()
 	local text = super.getEncounterText(self)
 	Game.battle.battle_ui.encounter_text.battletimer = -1
+
+    if self.healthphase == 1 and self.health < (self.max_health * 0.5) then
+        self.healthphase = 2
+        text = "* OUCH! H-HEY! WATCH WHERE YOU, UH, SWING THOSE THINGS! HAHA!"
+    elseif self.healthphase == 2 and self.health < (self.max_health * 0.25) then
+        self.healthphase = 3
+        text = "* H-HEY, ANYONE NOTICED MY HP IS GOING DOWN!? ANYONE!?"
+    elseif self.healthphase == 3 and self.health < (self.max_health * 0.166) then
+        self.healthphase = 4
+        text = "* WHAT AN EVENT!! THE CONTESTANTS APPEAR TO BE KILLING ME!!"
+    end
 	return text, "battle", "tenna"
 end
 
