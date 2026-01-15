@@ -1620,6 +1620,7 @@ Kristal.funny_titles = {
     "Undertale Yellow: The Roba Edition",
     "Power Star",
     "Doki Doki Literature Club!",
+    "Need a hand!?",
 }
 -- Sets a random title and icon to the game window.
 function Kristal.funnytitle(force_icon)

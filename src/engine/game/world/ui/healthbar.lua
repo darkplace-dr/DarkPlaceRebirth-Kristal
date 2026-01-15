@@ -45,7 +45,9 @@ function HealthBar:init()
 		action_box.four_party_mode = four_party_mode
 		if four_party_mode then
 			action_box.hp_sprite.x = 51
-			action_box.name_sprite.visible = false
+			if action_box.name_sprite then
+				action_box.name_sprite.visible = false
+			end
 			if Game:getFlag("SHINY", {})[action_box.chara.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
 				action_box.shiny_sprite = Sprite("ui/mini_shiny_icon", 53, 10)
 				action_box:addChild(action_box.shiny_sprite)

@@ -100,7 +100,7 @@ return {
 				cutscene:text("* There was a first time?", "main", "mario")
 			end
 			
-			if Game:hasPartyMember("jamm") and not Game:getFlag("dungeonkiller") and leader_id ~= "jamm" then
+			if Game:hasPartyMember("jamm") and leader_id ~= "jamm" then
 				cutscene:showNametag("Jamm")
 				cutscene:text("* (Don't take anything he says or does to heart.)", "nervous", "jamm")
 				cutscene:text("* (He's a good guy.)[wait:5]\n* (Just really stupid.)", "neutral", "jamm")
