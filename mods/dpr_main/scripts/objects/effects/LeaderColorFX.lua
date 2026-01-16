@@ -89,7 +89,7 @@ function LeaderColorFX:update()
 end
 
 function LeaderColorFX:draw(texture)
-	if #Game.party == 1 then
+	if Kristal.Config["simplifyVFX"] or #Game.party == 1 then
 		Draw.setColor(Game.party[1]:getColor())
 	else
 		Draw.setColor(self.fx_color)
@@ -98,7 +98,7 @@ function LeaderColorFX:draw(texture)
 end
 
 function LeaderColorFX:getColor()
-	if #Game.party == 1 then
+	if Kristal.Config["simplifyVFX"] or #Game.party == 1 then
 		return Game.party[1]:getColor()
 	end
     return self.fx_color
