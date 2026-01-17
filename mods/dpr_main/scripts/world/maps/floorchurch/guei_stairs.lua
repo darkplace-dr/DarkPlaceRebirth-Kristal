@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 55,
+  nextobjectid = 56,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip"
@@ -759,6 +759,25 @@ return {
             ["locky"] = true,
             ["marker"] = "targ",
             ["time"] = 1
+          }
+        },
+        {
+          id = 55,
+          name = "gueienemy",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "guei",
+            ["animation"] = "chase",
+            ["chase"] = true,
+            ["chasedist"] = 400,
+            ["encounter"] = "guei"
           }
         }
       }

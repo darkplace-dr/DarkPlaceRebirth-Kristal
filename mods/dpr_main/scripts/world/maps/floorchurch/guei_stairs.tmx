@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="55">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="56">
  <editorsettings>
   <export target="guei_stairs.lua" format="lua"/>
  </editorsettings>
@@ -302,6 +302,16 @@ HAD BEGUN TO SHOW.</property>
     <property name="marker" value="targ"/>
     <property name="time" type="float" value="1"/>
    </properties>
+  </object>
+  <object id="55" name="gueienemy" x="240" y="280">
+   <properties>
+    <property name="actor" value="guei"/>
+    <property name="animation" value="chase"/>
+    <property name="chase" type="bool" value="true"/>
+    <property name="chasedist" type="int" value="400"/>
+    <property name="encounter" value="guei"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="6" name="markers">
