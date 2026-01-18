@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 19,
+  nextobjectid = 21,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
@@ -292,6 +292,36 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 19,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 280,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
+        },
+        {
+          id = 20,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 1160,
+          y = 280,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
+          }
         }
       }
     },

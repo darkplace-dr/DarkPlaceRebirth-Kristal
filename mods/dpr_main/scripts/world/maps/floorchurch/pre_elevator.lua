@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.11.2",
   class = "",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 13,
-  nextobjectid = 47,
+  nextobjectid = 48,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
@@ -650,6 +650,21 @@ return {
             ["locky"] = true,
             ["marker"] = "targ",
             ["time"] = 1
+          }
+        },
+        {
+          id = 47,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
           }
         }
       }

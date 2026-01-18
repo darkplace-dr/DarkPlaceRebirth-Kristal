@@ -12,7 +12,7 @@ function Guei:init()
     self.attack = 13
     self.defense = 0
     self.money = 120
-    self.experience = 0
+    self.experience = 15
     self.spare_points = 10
 
     self.waves = {
@@ -110,15 +110,15 @@ function Guei:getEncounterText()
 		if v.tired then
 			if Game.tension >= 16 then
 				if Game:hasPartyMember("jamm") then
-					return "* Guei looks [color:blue]TIRED[color:reset]. Try using Ralsei's [color:blue]PACIFY[color:reset] or Jamm's [color:blue]NUMBSHOT[color:reset]!"
+					return "* Guei looks [color:blue]TIRED[color:reset]. Try using Jamm's [color:blue]NUMBSHOT[color:reset]!"
 				else
-					return "* Guei looks [color:blue]TIRED[color:reset]. Perhaps Ralsei's MAGIC, [color:blue]PACIFY[color:reset] would be effective..."
+					return "* Guei looks [color:blue]TIRED[color:reset]."
 				end
 			else
 				if Game:hasPartyMember("jamm") then
-					return "* Guei looks [color:blue]TIRED[color:reset]. [color:yellow]DEFEND[color:reset] to gain [color:yellow]TP[color:reset], then try Ralsei's [color:blue]PACIFY[color:reset] or Jamm's [color:blue]NUMBSHOT[color:reset]...!"
+					return "* Guei looks [color:blue]TIRED[color:reset]. [color:yellow]DEFEND[color:reset] to gain [color:yellow]TP[color:reset], then try Jamm's [color:blue]NUMBSHOT[color:reset]...!"
 				else
-					return "* Guei looks [color:blue]TIRED[color:reset]. [color:yellow]DEFEND[color:reset] to gain [color:yellow]TP[color:reset], then try Ralsei's MAGIC, [color:blue]PACIFY[color:reset]...!"
+					return "* Guei looks [color:blue]TIRED[color:reset]."
 				end
 			end
 		end

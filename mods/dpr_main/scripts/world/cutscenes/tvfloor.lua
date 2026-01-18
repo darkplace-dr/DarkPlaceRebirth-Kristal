@@ -570,7 +570,7 @@ return {
             cutscene:text("* Had ya fooled,[wait:5] didn't I?")
             if dess or Game:isDessMode() then
                 cutscene:showNametag("Dess")
-                cutscene:text("* No not really tbh", "", "dess")
+                cutscene:text("* No not really tbh", "calm", "dess")
             end
         end
         cutscene:hideNametag()

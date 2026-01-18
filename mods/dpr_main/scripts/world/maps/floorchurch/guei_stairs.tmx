@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="56">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="57">
  <editorsettings>
   <export target="guei_stairs.lua" format="lua"/>
  </editorsettings>
@@ -312,6 +312,11 @@ HAD BEGUN TO SHOW.</property>
     <property name="encounter" value="guei"/>
    </properties>
    <point/>
+  </object>
+  <object id="56" name="dogconegroup" x="880" y="0" width="80" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="6" name="markers">
