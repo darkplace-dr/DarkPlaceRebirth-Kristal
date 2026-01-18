@@ -43,6 +43,9 @@ function actor:init()
         -- Battle animations
         ["battle/idle"]         = {"battle/idle", 0.2, true},
 
+        ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        ["battle/swooned"]      = {"battle/swooned", 1/15, false},
+
         --[[["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
         ["battle/spell"]        = {"battle/act", 1/15, false},
@@ -108,6 +111,7 @@ function actor:init()
 
         ["battle/defeat"] = {-8, 5},
         ["battle/hurt"] = {-5, -6},
+        ["battle/swooned"] = {-14, 1},
 
         ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-3, 0},
