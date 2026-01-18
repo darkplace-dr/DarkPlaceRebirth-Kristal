@@ -41,6 +41,9 @@ function TutorialMasterSprite:update()
     end
 end
 
+-- Required to make the tutorial master room not crash
+function TutorialMasterSprite:setFacing() end
+
 function TutorialMasterSprite:setAnimation(animation)
     self.face:setPosition(0,0)
     self.hat:setPosition(0,0)
