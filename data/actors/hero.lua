@@ -58,7 +58,7 @@ function actor:init()
         ["battle/act_end"]      = {"battle/actend", 1/15, false, next="battle/idle"},
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
-        ["battle/defeat"]       = {"battle/defeat", 1/15, false},
+        
 
         ["battle/transition"]   = {"sword_jump_down", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
@@ -106,7 +106,7 @@ function actor:init()
         ["battle/itemready"] = {-6, -6},
         ["battle/defend"] = {-5, -3},
 
-        ["battle/defeat"] = {-8, -5},
+        ["battle/defeat"] = {-8, 5},
         ["battle/hurt"] = {-5, -6},
 
         ["battle/intro"] = {-8, -9},

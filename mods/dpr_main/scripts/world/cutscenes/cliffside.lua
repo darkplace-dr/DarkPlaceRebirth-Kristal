@@ -1093,16 +1093,10 @@ local cliffside = {
         local encounter = cutscene:startEncounter("pebblin_tutorial", true, {{"pebblin", pebblin}})
         local defeated_enemies = encounter:getDefeatedEnemies()
         local done_state = defeated_enemies[1].done_state
-        -- TODO: Make the Pebblin & Cat spawning happen before the fade in so it doesn't look jank
         if done_state ~= "KILLED" then
             Game:getPartyMember("hero"):addKarma(1)
         end
-        pebblin:remove()
         local cat = cutscene:getCharacter("cat")
-        if not cat then
-            Game.world:spawnNPC("cat", 340, 60)
-            cat = cutscene:getCharacter("cat")
-        end
         Game.world.music:fade(1, 0.5)
         cutscene:wait(1)
         cutscene:showNametag("Cat")
