@@ -4,8 +4,6 @@ if OrigGlobal then
     chunk()
 end
 
-require("src.engine.tweaks")
-
 require("src.engine.vars")
 require("src.engine.statevars")
 require("src.engine.vendcust")
