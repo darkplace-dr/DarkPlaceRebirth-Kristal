@@ -22,7 +22,7 @@ function Pebblin:init()
     self.spare_points = 20
 
     self.waves = {
-        --"pebblin/pebbledrop",
+        "pebblin/pebbledrop",
         "pebblin/club"
     }
 
