@@ -118,7 +118,7 @@ function TeevieQuiz:onLoad()
 			self.spikes[i][j]:setScale(2, 2)
 			self:addChild(self.spikes[i][j])
 		end
-		self.spikessolid[i] = Registry.createEvent("teevie_quizsolid", {x = self.x - 80 + i*200, y = self.y + self.height})
+		self.spikessolid[i] = Registry.createLegacyEvent("teevie_quizsolid", {x = self.x - 80 + i*200, y = self.y + self.height})
 		self.spikessolid[i]:setScale(1, self.spike_height)
 		self.spikessolid[i].solid = false
 		self.spikessolid[i].visible = false
@@ -743,14 +743,14 @@ function TeevieQuiz:update()
 					end
 					cutscene:wait(20/30)
 					if Game.world.player then
-						self.button[1] = Registry.createEvent("teevie_keyboardtile", {x = player.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[1] = Registry.createLegacyEvent("teevie_keyboardtile", {x = player.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[1].letter = "A"
 						self.button[1]:setLetter()
 						self.button[1].layer = self.layer + 10
 						self.button[1].spawn_order = 2
 						Game.world.timer:tween((2*5)/30, self.button[1], {y = self.y + self.height + 40}, "out-quart")
 						Game.world:spawnObject(self.button[1])
-						self.button[2] = Registry.createEvent("teevie_keyboardtile", {x = player.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[2] = Registry.createLegacyEvent("teevie_keyboardtile", {x = player.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[2].letter = "B"
 						self.button[2]:setLetter()
 						self.button[2].layer = self.layer + 10
@@ -759,14 +759,14 @@ function TeevieQuiz:update()
 						Game.world:spawnObject(self.button[2])
 					end
 					if Game.party[2] then
-						self.button[3] = Registry.createEvent("teevie_keyboardtile", {x = party2.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[3] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party2.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[3].letter = "A"
 						self.button[3]:setLetter()
 						self.button[3].layer = self.layer + 10
 						self.button[3].spawn_order = 3
 						Game.world.timer:tween((3*5)/30, self.button[3], {y = self.y + self.height + 40}, "out-quart")
 						Game.world:spawnObject(self.button[3])
-						self.button[4] = Registry.createEvent("teevie_keyboardtile", {x = party2.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[4] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party2.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[4].letter = "B"
 						self.button[4]:setLetter()
 						self.button[4].layer = self.layer + 10
@@ -775,14 +775,14 @@ function TeevieQuiz:update()
 						Game.world:spawnObject(self.button[4])
 					end
 					if Game.party[3] then
-						self.button[5] = Registry.createEvent("teevie_keyboardtile", {x = party3.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[5] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party3.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[5].letter = "A"
 						self.button[5]:setLetter()
 						self.button[5].layer = self.layer + 1010
 						self.button[5].spawn_order = 1
 						Game.world.timer:tween((1*5)/30, self.button[5], {y = self.y + self.height + 40}, "out-quart")
 						Game.world:spawnObject(self.button[5])
-						self.button[6] = Registry.createEvent("teevie_keyboardtile", {x = party3.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[6] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party3.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[6].letter = "B"
 						self.button[6]:setLetter()
 						self.button[6].layer = self.layer + 1010
