@@ -1,4 +1,3 @@
-local if = require("sharedlibs.dp.scripts.codeblocks.if")
 ---@class FileNamer : Object
 ---@overload fun(options?:table) : FileNamer
 local FileNamer, super = Class(Object)
@@ -59,6 +58,8 @@ function FileNamer:init(options)
     else
         self:setState("KEYBOARD")
     end
+
+    self.dess = 0
 end
 
 function FileNamer:checkTransition(old, new)
