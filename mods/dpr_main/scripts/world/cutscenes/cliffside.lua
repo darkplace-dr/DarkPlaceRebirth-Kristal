@@ -1041,10 +1041,7 @@ local cliffside = {
                     
                     Game.world.music:play("demonic_little_grey_cliffs", 1, 1)
                 end
-                if Game:getFlag("claimb_cat") == true then
-                    Game:setFlag("suscla", true)
-                    cutscene:getEvent(65):remove()
-                end
+                cutscene:getEvent(65):remove()
                 Game:setFlag(crystal.flag, true)
             else
                 --cutscene:text("* You can't break a seal from the side you[color:yellow][wait:5] dummy[color:reset]!")
@@ -1286,9 +1283,9 @@ local cliffside = {
         cutscene:hideNametag()
     end,
 
-    force_suscla = function(cutscene, event)
+    force_susie = function(cutscene, event)
         local hero = cutscene:getCharacter("hero")
-        cutscene:text("* You cannot leave just yet.")
+        cutscene:text("* (You cannot leave just yet.)")
         cutscene:hideNametag()
         hero:walkTo(hero.x + 20, hero.y, 0.5, "right")
         cutscene:wait(0.5)

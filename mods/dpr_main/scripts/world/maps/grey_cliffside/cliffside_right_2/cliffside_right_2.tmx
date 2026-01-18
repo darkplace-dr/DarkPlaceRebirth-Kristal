@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="35" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="90">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="35" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="90">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,7 +7,7 @@
   <property name="music" value="demonic_little_grey_cliffs"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/cliffs.tsx"/>
- <tileset firstgid="90" source="../../../tilesets/cliffs_objs.tsx"/>
+ <tileset firstgid="64" source="../../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="10" name="objects_bg"/>
  <layer id="8" name="Tile Layer 2" width="30" height="35">
   <data encoding="csv">
@@ -165,14 +165,13 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="79" gid="90" x="480" y="120" width="70" height="136"/>
-  <object id="80" gid="90" x="1000" y="640" width="70" height="136"/>
-  <object id="81" gid="91" x="200" y="1400" width="120" height="150"/>
-  <object id="82" gid="90" x="680" y="1200" width="70" height="136"/>
-  <object id="83" gid="91" x="640" y="280" width="180" height="168"/>
-  <object id="84" gid="91" x="520" y="536" width="180" height="168"/>
-  <object id="85" gid="91" x="280" y="280" width="180" height="168"/>
-  <object id="86" gid="90" x="120" y="400" width="70" height="136"/>
+  <object id="79" gid="64" x="480" y="120" width="70" height="136"/>
+  <object id="80" gid="64" x="1000" y="640" width="70" height="136"/>
+  <object id="81" gid="65" x="200" y="1400" width="120" height="150"/>
+  <object id="82" gid="64" x="680" y="1200" width="70" height="136"/>
+  <object id="83" gid="65" x="640" y="280" width="180" height="168"/>
+  <object id="84" gid="65" x="520" y="536" width="180" height="168"/>
+  <object id="85" gid="65" x="280" y="280" width="180" height="168"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="7" name="markers">
   <object id="15" name="entry" x="240" y="40">
