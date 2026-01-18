@@ -141,7 +141,7 @@ function Registry.initialize(preload)
         Registry.initEventScripts()
         Registry.initTilesets()
         Registry.initMaps()
-        Registry.initEvents()
+        Registry.initLegacyEvents()
         Registry.initControllers()
         Registry.initShops()
         Registry.initBorders()
@@ -486,14 +486,14 @@ end
 
 ---@param id string
 ---@return Event|Object|nil
-function Registry.getEvent(id)
+function Registry.getLegacyEvent(id)
     return self.events[id]
 end
 
 ---@param id string
 ---@param ... any
 ---@return Event|Object
-function Registry.createEvent(id, ...)
+function Registry.createLegacyEvent(id, ...)
     if self.events[id] then
         return self.events[id](...)
     else
@@ -714,7 +714,7 @@ end
 
 ---@param id string
 ---@param class Event|Object
-function Registry.registerEvent(id, class)
+function Registry.registerLegacyEvent(id, class)
     self.events[id] = class
 end
 
@@ -988,13 +988,13 @@ function Registry.initMaps()
     Kristal.callEvent(KRISTAL_EVENT.onRegisterMaps)
 end
 
-function Registry.initEvents()
+function Registry.initLegacyEvents()
     self.events = {}
 
     for _, path, event in self.iterScripts(Registry.paths["events"]) do
         assert(event ~= nil, '"events/' .. path .. '.lua" does not return value')
         event.id = event.id or path
-        self.registerEvent(event.id, event)
+        self.registerLegacyEvent(event.id, event)
     end
 
     Kristal.callEvent(KRISTAL_EVENT.onRegisterEvents)

@@ -153,10 +153,11 @@ function Encounter:getVictoryText(text, money, xp) end
 
 function Encounter:update() end
 
---- *(Override)* Called before anything has been rendered each frame. Usable to draw custom backgrounds for specific encounters.
+--- *(Override)* Called after everything has been rendered each frame. Usable to draw custom effects for specific encounters.
 ---@param fade number   The opacity of the background when fading in/out of the world.
 function Encounter:draw(fade) end
---- *(Override)* Called after everything has been rendered each frame. Usable to draw custom effects for specific encounters.
+
+--- *(Override)* Called before anything has been rendered each frame. Usable to draw custom backgrounds for specific encounters.
 ---@param fade number   The opacity of the background when fading in/out of the world.
 function Encounter:drawBackground(fade) end
 
@@ -308,8 +309,8 @@ function Encounter:getSoulSpawnLocation()
         local battler = Game.battle.party[Game.battle:getPartyIndex(main_chara.id)]
 
         if battler then
-            if main_chara.actor:getSoulOffset() then
-                return battler:localToScreenPos(main_chara.actor:getSoulOffset())
+            if main_chara:getActor():getSoulOffset() then
+                return battler:localToScreenPos(main_chara:getActor():getSoulOffset())
             else
                 return battler:localToScreenPos((battler.sprite.width / 2) - 4.5, battler.sprite.height / 2)
             end
