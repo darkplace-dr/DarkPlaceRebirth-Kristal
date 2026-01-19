@@ -146,7 +146,7 @@ function actor:init(style)
         ["battle/defeat"]       = {"battle_eyes/defeat", 1/15, false},
 
         ["battle/transition"]   = {self.default.."/right_1", 1/15, false},
-        ["battle/intro"]        = {"battle_eyes/attack", 1/15, true},
+        ["battle/intro"]        = {"battle_eyes/attack", 1/15, false},
         ["battle/victory"]      = {"battle_eyes/victory", 1/10, false},
 
         ["battle/rude_buster"]  = {"battle_eyes/rudebuster", 1/15, false, next="battle/idle"},
