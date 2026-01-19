@@ -291,6 +291,10 @@ function Encounter:getPartyPosition(index)
     return x, y
 end
 
+function Encounter:getBackRowPosition()
+    return 42, 324
+end
+
 ---@return integer
 ---@return integer
 ---@return integer
