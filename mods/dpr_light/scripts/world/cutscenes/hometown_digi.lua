@@ -386,7 +386,7 @@ return {
         cutscene:showNametag("Dess", {top = true})
         cutscene:text("* hm yes i appear to be in immense pain right now", "mspaint", "dess", {top = true})
         cutscene:hideNametag()
-        ceroba:setSprite("flashback/worried")
+        ceroba:setSprite("worried")
         ceroba.flip_x = true
         Game.world:shake(5)
         Assets.playSound("closet_impact")
@@ -412,5 +412,6 @@ return {
         cutscene:wait(cutscene:fadeOut(3, {color = {1,1,1}}))
         Game.world.music:fade(0, 1)
         cutscene:wait(2)
+        Game:swapIntoMod("dlc_digimon", false)
     end,
 }
