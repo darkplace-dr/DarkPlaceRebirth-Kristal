@@ -45,7 +45,8 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
-        kangel = true
+        kangel = true,
+        len = true,
     }
 
     -- Character reactions
@@ -63,19 +64,21 @@ function item:init()
             kangel = "DON'T EAT THAT!!",
             noel = "WHY IS EVERYONE YELLING?!",
             dess = "lol",
+            len = "DON'T WASTE THAT!!"
         },
         brenda = "A ring... for a ring?",
         noel = "Angel...? No...",
         noelle = "It's beautiful...!",
         kangel = "It goes with my outfit!",
 		jamm = "I'm... Already taken...",
-        ceroba = "I'm nowhere close to an angel..."
+        ceroba = "I'm nowhere close to an angel...",
+        len = "Im no angel... but i'll take it!",
     }
 end
 
 function item:getReaction(user_id, reactor_id)
     if user_id == "mario" and reactor_id == "mario" then
-        local dess_party = Utils.containsValue(Game.party, Game:getPartyMember("dess"))
+        local dess_party = TableUtils.contains(Game.party, Game:getPartyMember("dess"))
         if dess_party then
             local yummy = true
             for i,member in ipairs(Game.party) do
@@ -85,7 +88,7 @@ function item:getReaction(user_id, reactor_id)
                 end
             end
             if yummy then
-                print(Game.inventory:removeItem(self))
+                print((Game.inventory:removeItem(self) and "yummy") or "no yummy :(")
                 Game.world:heal(user_id, 10)
             end
         end
