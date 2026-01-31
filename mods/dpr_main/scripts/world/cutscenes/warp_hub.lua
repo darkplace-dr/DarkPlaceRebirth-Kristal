@@ -12,6 +12,8 @@ return {
 		
         cutscene:text("* (Do you have horrible internet? Visit \"[color:black]WIFIDOWN[color:reset]\" now to resolve all of your network troubles!)")
 
+        cutscene:text("* (Want to fight bosses you've previously fought?[wait:10]\nGo to \"[color:yellow]BOSSRUSH[color:reset]\"!)")
+		
         cutscene:text("* It looks like until someone posts another ad,[wait:10] that's all there is here.")
 
     end,
