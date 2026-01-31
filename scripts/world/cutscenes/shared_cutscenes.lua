@@ -454,7 +454,7 @@ return {
         cutscene:text("* Lancer dug up a " .. event.name .. "!")
 		Game.world.timer:cancel(star_timer)
 		Game.world.timer:cancel(smoke_timer)
-        Assets.stopSound("lancer_bean")
+        Assets.stopSound("lancerbeanget")
         
         cutscene:resetSprite(player)
 		if dx == -1 or dy == -1 then

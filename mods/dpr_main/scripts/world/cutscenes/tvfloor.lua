@@ -65,6 +65,157 @@ return {
 
 	end,
 
+	greenroomracingtv = function(cutscene, event)
+		local function startRace()
+			local racing_end_state = "NO_MOVE"
+			local racing_game = nil
+			for _,follower in ipairs(Game.world.followers) do
+				if follower.actor.id ~= "susie" then
+					follower.visible = false
+				end
+			end
+			local player = Game.world.player
+			local susie = cutscene:getCharacter("susie")
+			--START GAME
+			cutscene:walkTo(player, 555, 388, 10/30)
+			cutscene:walkTo(susie, 607, 386, 10/30)
+			cutscene:wait(10/30)
+			cutscene:walkTo(susie, susie.x, susie.y + 16, 4/30)
+			cutscene:wait(4/30)
+			susie:setSprite("racing/walk")
+			susie.sprite:stop()
+			Assets.playSound("noise")
+			cutscene:walkTo(susie, susie.x, susie.y - 16, 4/30)
+			cutscene:walkTo(player, player.x, player.y + 16, 4/30)
+			cutscene:wait(4/30)
+			player:setSprite("racing/walk")
+			player.sprite:stop()
+			Assets.playSound("noise")
+			cutscene:walkTo(player, player.x, player.y - 16, 4/30)
+			cutscene:wait(4/30)
+			player.sprite:play(1/5)
+			susie.sprite:play(1/5)
+			cutscene:walkTo(player, 577, 333, 20/30)
+			cutscene:walkTo(susie, 637, 326, 20/30)
+			cutscene:wait(20/30)
+			player.sprite:stop()
+			susie.sprite:stop()
+			Assets.playSound("wing")
+			Game.world.timer:after(8/30, function()
+				player:setSprite("racing/play")
+				susie:setSprite("racing/play")
+				player.sprite:stop()
+				susie.sprite:stop()
+			end)
+			cutscene:jumpTo(player, 573, 316, 26, 8/30, nil, nil)
+			cutscene:wait(cutscene:jumpTo(susie, 641, 325, 26, 8/30, nil, nil))
+			player:setSprite("racing/play")
+			susie:setSprite("racing/play")
+			player.sprite:stop()
+			susie.sprite:play(1/5)
+			
+			racing_game = GreenRoomRacingGame()
+			Game.world:addChild(racing_game)
+			racing_game.init = true
+			racing_game.car.can_move = true
+			cutscene:wait(function()
+				if racing_game then
+					if racing_game.car:isMoving() and not player.sprite.playing then
+						player.sprite:play(1/5)
+					elseif not racing_game.car:isMoving() and player.sprite.playing then
+						player.sprite:stop()
+					end
+					if racing_game.finish then
+						racing_end_state = racing_game.end_state
+						racing_game:remove()
+						return true
+					end
+				end
+				return false
+			end)
+			
+			--END GAME
+			player.sprite:stop()
+			susie.sprite:stop()
+			susie:setSprite("racing/look")
+			cutscene:wait(2)
+			if racing_end_state == "NO_MOVE" then
+				cutscene:textTagged("* ...[wait:5] you've gotta press the buttons,[wait:5] dumbass.", "nervous_side", "susie")
+			elseif racing_end_state == "LOSE" then
+				cutscene:textTagged("* Man,[wait:5] it's like you're not even looking at the screen.", "nervous_side", "susie")
+			elseif racing_end_state == "WIN" then
+				cutscene:textTagged("* How the heck...[wait:5] alright,[wait:5] we're done.", "blush", "susie")
+			end
+			cutscene:hideNametag()
+			Game.world.timer:after(8/30, function()
+				player:setSprite("racing/walk")
+				susie:setSprite("racing/walk")
+				player.sprite:stop()
+				susie.sprite:stop()
+			end)
+			cutscene:jumpTo(player, 577, 333, 26, 8/30, nil, nil)
+			cutscene:wait(cutscene:jumpTo(susie, 637, 326, 26, 8/30, nil, nil))
+			player:setSprite("racing/walk")
+			susie:setSprite("racing/walk")
+			player.sprite:play(1/5)
+			susie.sprite:play(1/5)
+			cutscene:walkTo(player, 555, 388, 10/30)
+			cutscene:walkTo(susie, 607, 386, 10/30)
+			cutscene:wait(10/30)
+			cutscene:walkTo(susie, susie.x, susie.y + 16, 4/30)
+			cutscene:wait(4/30)
+			susie:resetSprite()
+			susie:setFacing("down")
+			Assets.playSound("noise")
+			cutscene:walkTo(susie, susie.x, susie.y - 16, 4/30, "down", true)
+			cutscene:walkTo(player, player.x, player.y + 16, 4/30)
+			cutscene:wait(4/30)
+			player:resetSprite()
+			player:setFacing("down")
+			Assets.playSound("noise")
+			cutscene:walkTo(player, player.x, player.y - 16, 4/30, "down", true)
+			cutscene:wait(4/30)
+			player:resetSprite()
+			susie:resetSprite()
+			for _,follower in ipairs(Game.world.followers) do
+				if follower.actor.id ~= "susie" then
+					follower.visible = true
+				end
+			end
+			cutscene:interpolateFollowers()
+		end
+		cutscene:detachCamera()
+		cutscene:detachFollowers()
+		if Game:hasPartyMember("susie") then			
+			if event.interact_count == 1 then
+				cutscene:text("* (A game system is set up,[wait:5] but strictly,[wait:5] and rules are written down...)")
+				cutscene:textTagged("* Wanna race?", "smile", "susie")
+				local choicer = cutscene:choicer({"Yes", "No"})
+				if choicer == 1 then
+					cutscene:hideNametag()
+					startRace()
+				else
+					cutscene:textTagged("* Okay,[wait:5] no one is any fun apparently.", "nervous_side", "susie")
+					cutscene:hideNametag()
+				end
+			else
+				cutscene:textTagged("* Wanna race?", "smile", "susie")
+				local choicer = cutscene:choicer({"Yes", "No"})
+				if choicer == 1 then
+					cutscene:hideNametag()
+					startRace()
+				else
+					cutscene:textTagged("* Okay,[wait:5] no one is any fun apparently.", "nervous_side", "susie")
+					cutscene:hideNametag()
+				end
+			end
+		else
+			cutscene:text("* (A game system is set up,[wait:5] but you need at least two people willing to play...)")
+		end
+		cutscene:attachCamera()
+		cutscene:attachFollowersImmediate()
+	end,
+	
 	funnytexttest = function(cutscene)
 		cutscene:text("* Wow,[wait:5] what an [funnytext:amazing_01,ftext_prize,8,-58,204,61]\n                 performance!!!")
 		cutscene:text("* The audience has been brought to [funnytext:tears/tears,splat,0,0,98,31],[wait:5] folks!")
@@ -1198,5 +1349,53 @@ return {
     		end
     		love = nil
     	end
-    end
+    end,
+	
+	dessimation_tenna_door = function(cutscene)
+		cutscene:text("* (The door is sealed with tape.)[wait:5]\n* (Written all over it are the words \"NO ENTRY\"...)")
+		if not Game:hasPartyMember("dess") then return end
+		cutscene:detachFollowers()
+		local dess = cutscene:getCharacter("dess")
+		cutscene:text("* like that's gonna stop US", "challenging", "dess")
+		local player = Game.world.player
+		if player.actor.id ~= "dess" then
+			player:slideTo(player.x - 80, player.y, 0.4)
+		end
+		for _, follower in ipairs(Game.world.followers) do
+			if follower.actor.id ~= "dess" then
+				follower:slideTo(follower.x - 80, follower.y, 0.4)
+			end
+        end
+    	cutscene:wait(cutscene:walkTo(dess, 1320, 200, 0.8, "right", true))
+		cutscene:setAnimation(dess, "battle/attack")
+		cutscene:wait(0.2)
+		local explosion = Explosion(1350, 140)
+		explosion.layer = WORLD_LAYERS["above_events"]
+		Game.world:addChild(explosion)
+		cutscene:wait(0.2)
+		Game:setFlag("locked_tenna_door_opened", true)
+		for _, event in ipairs(Game.world.map.events) do
+			if event.layer == Game.world.map.layers["objects_dessim_door_b"] then
+				event.visible = true
+			elseif event.layer == Game.world.map.layers["objects_dessim_door_a"] then
+				event.visible = false
+				event.collider.collidable = false			
+			end
+		end
+		Game.world.map:getEvent(113).collider.collidable = false
+		Game.world.map:getEvent(117).collider.collidable = true
+		cutscene:wait(0.5)
+		dess:resetSprite()
+		cutscene:interpolateFollowers()
+		cutscene:attachFollowersImmediate()
+		cutscene:wait(0.25)
+		player:setFacing("down")
+	end,
+
+	dessimation_tenna_scene = function(cutscene)
+		Assets.playSound("dooropen")
+		cutscene:wait(cutscene:fadeOut(0.25, {music = true}))
+		cutscene:wait(1)
+		cutscene:wait(cutscene:fadeIn(1))
+	end,
 }
