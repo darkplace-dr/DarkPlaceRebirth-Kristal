@@ -339,7 +339,7 @@ function Battle:postInit(state, encounter)
         end
     end
     self.back_row_target = {self.encounter:getBackRowPosition()}
-    if state ~= "TRANSITION" then
+    if state ~= "TRANSITION" and self.back_row then
         self.back_row:setPosition(self.back_row_target[1], self.back_row_target[2])
     end
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="floor3_objects" tilewidth="1437" tileheight="480" tilecount="40" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="floor3_objects" tilewidth="1437" tileheight="480" tilecount="47" columns="0">
  <editorsettings>
   <export target="floor3-objects.lua" format="lua"/>
  </editorsettings>
@@ -135,5 +135,26 @@
  </tile>
  <tile id="42">
   <image width="35" height="39" source="../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_4.png"/>
+ </tile>
+ <tile id="43">
+  <image width="195" height="60" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_storage.png"/>
+ </tile>
+ <tile id="44">
+  <image width="280" height="100" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_couch_l.png"/>
+ </tile>
+ <tile id="45">
+  <image width="140" height="50" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_couch_r.png"/>
+ </tile>
+ <tile id="46">
+  <image width="60" height="36" source="../../../assets/sprites/world/maps/floor3/sloppy/gr_table.png"/>
+ </tile>
+ <tile id="47">
+  <image width="120" height="72" source="../../../assets/sprites/world/maps/floor3/sloppy/greenroom_platter_b.png"/>
+ </tile>
+ <tile id="48">
+  <image width="63" height="80" source="../../../assets/sprites/world/maps/floor3/sloppy/greenroom_cactusleft.png"/>
+ </tile>
+ <tile id="49">
+  <image width="60" height="80" source="../../../assets/sprites/world/maps/floor3/sloppy/greenroom_cactusright.png"/>
  </tile>
 </tileset>
