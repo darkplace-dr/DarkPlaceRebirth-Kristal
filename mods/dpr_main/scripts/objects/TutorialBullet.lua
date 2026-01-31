@@ -18,7 +18,7 @@ function TutorialBullet:update()
 	end
 	if self.fade then
 		self.fade_timer = self.fade_timer + DTMULT
-		if self.fade_timer >= 1 then
+		if self.fade_timer >= 1 then -- TODO: figure out how to actually make this framerate independant
 			self.alpha = self.alpha * 0.6
 			if self.alpha < 0.01 then
 				self:remove()

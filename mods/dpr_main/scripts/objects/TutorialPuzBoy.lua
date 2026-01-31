@@ -26,7 +26,7 @@ end
 function TutorialPuzBoy:update()
 	if self.fade then
 		self.fade_timer = self.fade_timer + DTMULT
-		if self.fade_timer >= 1 then
+		if self.fade_timer >= 1 then -- TODO: figure out how to actually make this framerate independant
 			self.alpha = self.alpha * 0.9
 			self.scale_x = self.scale_x * 0.8
 			self.scale_y = self.scale_y * 0.8
