@@ -13,6 +13,7 @@ function TutorialPuzBoy:init(x, y)
     self.graze_sprite:setOrigin(0.5, 0.5)
 	self.graze_sprite.alpha = 0
     Game.world:addChild(self.graze_sprite)
+	self.fade_timer = 0
 end
 
 function TutorialPuzBoy:onRemove(parent)
@@ -24,11 +25,15 @@ end
 
 function TutorialPuzBoy:update()
 	if self.fade then
-		self.alpha = self.alpha * (0.9 * DTMULT)
-		self.scale_x = self.scale_x * (0.8 * DTMULT)
-		self.scale_y = self.scale_y * (0.8 * DTMULT)
-		if self.alpha < 0.01 then
-			self:remove()
+		self.fade_timer = self.fade_timer + DTMULT
+		if self.fade_timer >= 1 then
+			self.alpha = self.alpha * 0.9
+			self.scale_x = self.scale_x * 0.8
+			self.scale_y = self.scale_y * 0.8
+			if self.alpha < 0.01 then
+				self:remove()
+			end
+			self.fade_timer = 0
 		end
 	end
 	if self.con == 0 then

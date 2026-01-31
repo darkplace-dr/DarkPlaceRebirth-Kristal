@@ -8,6 +8,7 @@ function TutorialBullet:init(x, y, puzboy)
 	self.fade = false
 	self.puzboy = puzboy or nil
 	self.ticked = false
+	self.fade_timer = 0
 end
 
 function TutorialBullet:update()
@@ -16,9 +17,13 @@ function TutorialBullet:update()
 		self.fade = true
 	end
 	if self.fade then
-		self.alpha = self.alpha * (0.6 * DTMULT)
-		if self.alpha < 0.01 then
-			self:remove()
+		self.fade_timer = self.fade_timer + DTMULT
+		if self.fade_timer >= 1 then
+			self.alpha = self.alpha * 0.6
+			if self.alpha < 0.01 then
+				self:remove()
+			end
+			self.fade_timer = 0
 		end
 	end
 	if not self.ticked and self.puzboy then
