@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 55,
+  nextlayerid = 8,
+  nextobjectid = 60,
   properties = {
     ["border"] = "battle",
     ["music"] = "arena"
@@ -33,9 +33,50 @@ return {
       firstgid = 337,
       filename = "../tilesets/arena_objects.tsx",
       exportfilename = "../tilesets/arena_objects.lua"
+    },
+    {
+      name = "cc_throneroom_tiles",
+      firstgid = 339,
+      filename = "../tilesets/cc_throneroom_tiles.tsx"
     }
   },
   layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 24,
+      height = 16,
+      id = 7,
+      name = "bed",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 15,
+      offsety = -10,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 389, 390, 391, 392, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 395, 396, 397, 398, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 401, 402, 403, 404, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 407, 408, 409, 410, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -321,6 +362,58 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 55,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 119,
+          y = 420,
+          width = 68,
+          height = 34,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 56,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 189,
+          y = 468,
+          width = 24,
+          height = 58,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 84,
+          y = 454,
+          width = 105,
+          height = 102,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 189,
+          y = 458,
+          width = 16,
+          height = 10,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -425,6 +518,21 @@ return {
           properties = {
             ["actor"] = "jigsaw_joe",
             ["cutscene"] = "thearena.jigsaw_joe"
+          }
+        },
+        {
+          id = 59,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 79,
+          y = 438,
+          width = 124,
+          height = 122,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (It's a bed for three people,[wait:5] or one three-headed person.)"
           }
         }
       }
