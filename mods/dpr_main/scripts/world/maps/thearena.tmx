@@ -4,6 +4,7 @@
   <export target="thearena.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="border" value="battle"/>
   <property name="music" value="arena"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/castle_dojo.tsx"/>

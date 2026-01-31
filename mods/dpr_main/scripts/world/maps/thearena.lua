@@ -12,6 +12,7 @@ return {
   nextlayerid = 7,
   nextobjectid = 55,
   properties = {
+    ["border"] = "battle",
     ["music"] = "arena"
   },
   tilesets = {
