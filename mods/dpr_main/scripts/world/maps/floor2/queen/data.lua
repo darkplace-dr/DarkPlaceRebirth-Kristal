@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 25,
+  nextobjectid = 26,
   properties = {
     ["border"] = "castle",
     ["music"] = "deltarune/queen_car_radio"
@@ -348,6 +348,21 @@ return {
           properties = {
             ["cutscene"] = "floor2.queen_speakers",
             ["solid"] = true
+          }
+        },
+        {
+          id = 25,
+          name = "queen_trafficlight",
+          type = "",
+          shape = "rectangle",
+          x = 690,
+          y = 70,
+          width = 40,
+          height = 104,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cond"] = "Game:hasRecruit(\"shadowguy\")"
           }
         }
       }
