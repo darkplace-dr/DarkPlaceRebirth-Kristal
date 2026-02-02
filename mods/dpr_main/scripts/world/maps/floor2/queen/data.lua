@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 23,
+  nextobjectid = 25,
   properties = {
     ["border"] = "castle",
     ["music"] = "deltarune/queen_car_radio"
@@ -315,6 +315,38 @@ return {
           visible = true,
           properties = {
             ["cond"] = "Game:hasRecruit(\"shadowguy\")",
+            ["solid"] = true
+          }
+        },
+        {
+          id = 23,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 174,
+          y = 44,
+          width = 104,
+          height = 186,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.queen_speakers",
+            ["solid"] = true
+          }
+        },
+        {
+          id = 24,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 376,
+          y = 44,
+          width = 104,
+          height = 186,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.queen_speakers",
             ["solid"] = true
           }
         }
