@@ -111,55 +111,82 @@ return {
 
     queen_sip = function(cutscene, event)
         cutscene:showNametag("Queen")
-		
-        Assets.playSound("queen/queensip_1")
-        cutscene:text("[noskip]*[wait:3s]", "sip", "queen", {auto = true})
-		
-        if Game:hasPartyMember("hero") and Game:hasPartyMember("susie") then
-            cutscene:text("* Susie How Do You Like My:", "smile", "queen")
-        elseif Game:hasPartyMember("kris") and Game:hasPartyMember("susie") then
-            cutscene:text("* Kris Susie How Do You Like My:", "smile", "queen")
-		elseif #Game.party == 1 then
-            cutscene:text("* Greetings How Do You Like My:", "smile", "queen")
-		else
-            cutscene:text("* Greetings Everyone How Do You Like My:", "smile", "queen")
-        end
-		
-        Assets.playSound("queen/queensip_2")
-        cutscene:text("[noskip]*[wait:1s]", "sip", "queen", {auto = true})
-        cutscene:text("* Room", "smile", "queen")
-		
-        Assets.playSound("queen/queensip_3")
-        cutscene:text("[noskip]*[wait:2s]", "sip", "queen", {auto = true})
-        cutscene:text("* Do You Want A Sip", "smile", "queen")
-		
-        cutscene:hideNametag()
+		if not Game.world.map.queen_dialogue then
+            Assets.playSound("queen/queensip_1")
+            cutscene:text("[noskip]*[wait:3s]", "sip", "queen", {auto = true})
 
-        if cutscene:getCharacter("susie") then
-            cutscene:showNametag("Susie")
-            cutscene:text("* Uhh...[wait:3] that's acid. We'd die.", "nervous_side", "susie")
-            cutscene:hideNametag()
-		
-            if cutscene:getCharacter("jamm") then
-                cutscene:showNametag("Jamm")
-                cutscene:text("* Correction, Susie. YOU'd die.", "smug", "jamm")
-                cutscene:text("* Wait, why's everyone looking at me like that?", "neutral", "jamm")
-                cutscene:hideNametag()
+            if Game:hasPartyMember("hero") and Game:hasPartyMember("susie") then
+                cutscene:text("* Susie How Do You Like My:", "smile", "queen")
+            elseif Game:hasPartyMember("kris") and Game:hasPartyMember("susie") then
+                cutscene:text("* Kris Susie How Do You Like My:", "smile", "queen")
+		    elseif #Game.party == 1 then
+                cutscene:text("* Greetings How Do You Like My:", "smile", "queen")
+		    else
+                cutscene:text("* Greetings Everyone How Do You Like My:", "smile", "queen")
             end
 
-            cutscene:showNametag("Queen")
-            cutscene:text("* Oh Dear First You Don't Want To Swim In The Free Pool", "smile", "queen")
-            cutscene:text("* Now You Don't Want To Drink The Free Pool Water", "pout", "queen")
-            cutscene:text("* More For Me I Suppose", "smile_side_l", "queen")
+            Assets.playSound("queen/queensip_2")
+            cutscene:text("[noskip]*[wait:1s]", "sip", "queen", {auto = true})
+            cutscene:text("* Room", "smile", "queen")
+
+            Assets.playSound("queen/queensip_3")
+            cutscene:text("[noskip]*[wait:2s]", "sip", "queen", {auto = true})
+            cutscene:text("* Do You Want A Sip", "smile", "queen")
+
             cutscene:hideNametag()
+
+            if cutscene:getCharacter("susie") then
+                cutscene:showNametag("Susie")
+                cutscene:text("* Uhh...[wait:3] that's acid. We'd die.", "nervous_side", "susie")
+                cutscene:hideNametag()
+
+                if cutscene:getCharacter("jamm") then
+                    cutscene:showNametag("Jamm")
+                    cutscene:text("* Correction, Susie. YOU'd die.", "smug", "jamm")
+                    cutscene:text("* Wait, why's everyone looking at me like that?", "neutral", "jamm")
+                    cutscene:hideNametag()
+                end
+
+                cutscene:showNametag("Queen")
+                cutscene:text("* Oh Dear First You Don't Want To Swim In The Free Pool", "smile", "queen")
+                cutscene:text("* Now You Don't Want To Drink The Free Pool Water", "pout", "queen")
+                cutscene:text("* More For Me I Suppose", "smile_side_l", "queen")
+                cutscene:hideNametag()
+            else
+                cutscene:text("* (You decline without hesitation.)")
+                cutscene:showNametag("Queen")
+                cutscene:text("* Oh Well More For Me I Suppose", "smile_side_l", "queen")
+                cutscene:hideNametag()
+            end
+            Game.world.map.queen_dialogue = true
         else
-            cutscene:text("* (You decline without hesitation.)")
-            cutscene:showNametag("Queen")
-            cutscene:text("* Oh Well More For Me I Suppose", "smile_side_l", "queen")
-            cutscene:hideNametag()
+            cutscene:text("* And Look On The Right Check That Out", "smile_side_r", "queen")
+            cutscene:text("* I Built A New City With The Free Space I Found In: The Wall", "smile_side_l", "queen")
+            -- "* Umm, it's not free?" Ralsei would've said but it's not his Castle so
         end
+        cutscene:hideNametag()
     end,
-	
+
+    queen_speakers = function(cutscene, event)
+        cutscene:showNametag("Queen")
+        if not Game.world.map.queen_speakers_dialogue then
+            cutscene:text("* Wow This Tune Is Bangin' Who Made It[react:1]", "@@", "queen", {reactions={
+                {"I Made It", 392, 71, "big_smile", "queen"}
+            }})
+            Game.world.map.queen_speakers_dialogue = true
+        else
+            if Game:hasPartyMember("ralsei") then
+                cutscene:text("* State Of The Art 32kbps Bitrate For Audio Files[react:1][react:2]", "nice", "queen", {reactions={
+                    {"Audiophiles?", 212, 61, "surprise_confused", "ralsei"},
+                    {"Audio Files", 392, 71, "smile", "queen"}
+                }})
+            else
+                cutscene:text("* State Of The Art 32kbps Bitrate For Audio Files", "nice", "queen")
+            end
+        end
+        cutscene:hideNametag()
+    end,
+
     rouxls = function(cutscene, event)
         local rouxls = cutscene:getCharacter("rouxls")
 
