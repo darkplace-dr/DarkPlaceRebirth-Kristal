@@ -4,7 +4,6 @@ function actor:init(style)
     super.init(self)
 
     TableUtils.merge(self.animations, {
-        ["dance"]            = {"dance", 1/6, true},
         ["sing"]             = {"sing", 1/5, true},
         ["pirouette"]        = {"pirouette", 4/30, true},
         ["attack_unarmed"]   = {"battle/attack_unarmed", 1/15, false},
@@ -17,7 +16,6 @@ function actor:init(style)
     TableUtils.merge(self.offsets, {
         ["crouch"] = {-3, 10},
 
-        ["dance"] = {-3, -1},
         ["sing"] = {-21, -7},
         ["pirouette"] = {-3, -1},
         ["battle/attack_unarmed"] = {-21, -24},

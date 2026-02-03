@@ -56,7 +56,7 @@ function WingladeSpeechBubble:drawText(rotation)
     for i = 1, #self.text do
         local char_rotation = math.rad(i * 8) + rotation
         local x, y = math.cos(char_rotation) * radius, math.sin(char_rotation) * radius
-        love.graphics.print(self.text[i], x, y, char_rotation + math.rad(90), 1, 1)
+        love.graphics.print(string.sub(self.text, i, i), x, y, char_rotation + math.rad(90), 1, 1)
     end
 end
 
