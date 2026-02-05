@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 30,
+  tilecount = 32,
   tiles = {
     {
       id = 0,
@@ -204,6 +204,18 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png",
       width = 38,
       height = 97
+    },
+    {
+      id = 33,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_tape.png",
+      width = 41,
+      height = 102
+    },
+    {
+      id = 34,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png",
+      width = 41,
+      height = 102
     }
   }
 }

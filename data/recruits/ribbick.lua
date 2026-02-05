@@ -31,7 +31,7 @@ function Ribbick:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/ribbick/idle", -3, 29, 1/8}
+    self.box_sprite = {"recruits/ribbick/idle", -3, 29, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

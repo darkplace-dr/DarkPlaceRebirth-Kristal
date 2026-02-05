@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="30" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="32" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -93,5 +93,11 @@
  </tile>
  <tile id="32">
   <image width="38" height="97" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png"/>
+ </tile>
+ <tile id="33">
+  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape.png"/>
+ </tile>
+ <tile id="34">
+  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png"/>
  </tile>
 </tileset>

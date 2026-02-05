@@ -353,10 +353,11 @@ return {
             cutscene:text("* It's nothing but garbage noise.")
         end
 	end,
-	bean_spot = function(cutscene, event, bean_color, bean_star_color, bean_sprite)
+	bean_spot = function(cutscene, event, bean_color, bean_star_color, bean_sprite, bean_star_sprite)
 		local bean_color = bean_color or COLORS.white
 		local bean_star_color = bean_star_color or bean_color
 		local bean_sprite = bean_sprite or "world/events/beans/beam"
+		local bean_star_sprite = bean_star_sprite or "world/events/beans/star"
 		if not Game.inventory:hasItem("lancer") then
 			cutscene:text("* It seems you can't dig without a spade.")
             return
@@ -422,7 +423,7 @@ return {
 		local star_timer = Game.world.timer:every(2/30, function()
 			if bean_stars < 8 then
 				bean_stars = bean_stars + 1
-				local star = Sprite("world/events/beans/star", bean.x, bean.y)
+				local star = Sprite(bean_star_sprite, bean.x, bean.y)
 				star.layer = bean.layer - 0.01
 				star:setOrigin(0.5, 0.5)
 				star:setScale(2)
@@ -435,7 +436,7 @@ return {
 				end)
 				Game.world:addChild(star)
 				
-				local star2 = Sprite("world/events/beans/star", bean.x, bean.y)
+				local star2 = Sprite(bean_star_sprite, bean.x, bean.y)
 				star2.layer = bean.layer - 0.01
 				star2:setOrigin(0.5, 0.5)
 				star2:setScale(2)
@@ -453,7 +454,7 @@ return {
         cutscene:text("* Lancer dug up a " .. event.name .. "!")
 		Game.world.timer:cancel(star_timer)
 		Game.world.timer:cancel(smoke_timer)
-        Assets.stopSound("lancer_bean")
+        Assets.stopSound("lancerbeanget")
         
         cutscene:resetSprite(player)
 		if dx == -1 or dy == -1 then

@@ -22,10 +22,11 @@ function Pebblin:init()
     self.spare_points = 20
 
     self.waves = {
-        "pebbledrop"
+        "pebblin/pebbledrop",
+        "pebblin/club"
     }
 
-    self.dialogue = { -- Placeholder
+    self.dialogue = {
         "..."
     }
 
@@ -38,33 +39,32 @@ function Pebblin:init()
     }
     self.low_health_text = "* Pebblin is starting to errode."
 
-    self:registerAct("Smile") -- Placeholder
-    self:registerAct("Tell Story", "", {"susie"}) -- Placeholder
+    self:registerAct("Polish")
+    self:registerAct("X-Polish", "", {"susie"})
 end
 
 function Pebblin:onAct(battler, name)
-    if name == "Smile" then
+    if name == "Polish" then
         self:addMercy(100)
-        self.dialogue_override = "... ^^"
-        return {
-            "* You smile.[wait:5]\n* The dummy smiles back.",
-            "* It seems the dummy just wanted\nto see you happy."
-        }
+        self.dialogue_override = "Dziekuje!"
+        return "* You cooked some Perogis for Pebblin.\n* It looks like they were just hungry."
 
-    elseif name == "Tell Story" then
+    elseif name == "X-Polish" then
         for _, enemy in ipairs(Game.battle.enemies) do
-            enemy:setTired(true)
+            if enemy.id == "pebblin" then
+                enemy:setTired(true)
+                enemy.attack = enemy.attack + 2
+                enemy.dialogue_override = "...?!"
+            end
         end
-        return "* You and Ralsei told the dummy\na bedtime story.\n* The enemies became [color:blue]TIRED[color:reset]..."
+        return {
+            "* Susie said some Polish swear words.",
+            "* The Pebblin became angry!\n* Their attack increased, but they became [color:blue]TIRED[color:reset]!"
+        }
 
     elseif name == "Standard" then --X-Action
         self:addMercy(50)
-        if battler.chara.id == "susie" then
-            Game.battle:startActCutscene("dummy", "susie_punch")
-            return
-        else
-            return "* "..battler.chara:getName().." straightened the\ndummy's hat."
-        end
+        return "* "..battler.chara:getName().." tried to polish Pebblin's club."
     end
 
     -- If the act is none of the above, run the base onAct function

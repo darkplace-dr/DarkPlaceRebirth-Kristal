@@ -31,7 +31,7 @@ function Guei:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/guei/npc", -3, 6, 1/10}
+    self.box_sprite = {"recruits/guei/npc", -3, 6, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

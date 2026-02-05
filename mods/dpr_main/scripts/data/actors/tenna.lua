@@ -162,19 +162,19 @@ function actor:onResetSprite(sprite)
 end
 
 function actor:onWorldUpdate(chara)
-    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+    self.voice_timer = MathUtils.approach(self.voice_timer, 0, DTMULT)
 end
 
 function actor:onBattleUpdate(battler)
-    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+    self.voice_timer = MathUtils.approach(self.voice_timer, 0, DTMULT)
 end
 
 function actor:onTextSound()
     if self.voice_timer == 0 then
-        local rand = Utils.random(0, 8, 1) + 1
+        local rand = MathUtils.random(0, 8, 1) + 1
 	
         local serious_voice = Game:getFlag("tennaSeriousVoice", 1)
-        local pitchrandom = (0.86 + Utils.random(0.35)) * serious_voice
+        local pitchrandom = (0.86 + MathUtils.random(0.35)) * serious_voice
         local soundindex = "voice/tenna/tv_voice_short_"..rand
 
         Assets.stopAndPlaySound(soundindex, 0.7, pitchrandom)
