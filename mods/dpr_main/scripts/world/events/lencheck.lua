@@ -54,18 +54,38 @@ function LenCheck:onCollide(plr, dt)
     ---@diagnostic disable-next-line: param-type-mismatch
     Game.world:startCutscene(function(cutscene)
         cutscene:after(function() self.active = true end)
+
         local sus = cutscene:getCharacter("susie")
+        local des = cutscene:getCharacter("dess")
         local tag = "len"
+        
         if context == "fountain" then
             cutscene:setSpeaker("len")
             if plr.actor == lenParty.actor then
                 cutscene:text("* ... [wait:1]We're not going there.","neutral_opened_b",tag)
                 walkX = walkX + (newX * 40)
                 walkY = walkY + (newY * 40)
-                if Game:hasPartyMember("susie") then
-                    cutscene:setSpeaker("susie")
-                    cutscene:text("* ...", "sus_nervous", sus)
-                    cutscene:text("* okay", "smirk", sus)
+
+                local hasSusie = Game:hasPartyMember("susie")
+                local hasDess = Game:hasPartyMember("dess")
+
+                if not hasDess then
+                    if hasSusie then
+                        cutscene:setSpeaker("susie")
+                        cutscene:text("* ...", "sus_nervous", sus)
+                        cutscene:text("* okay", "smirk", sus)
+                    end
+                else
+                    cutscene:setSpeaker("dess")
+                    cutscene:text("* why not? lmao", "eyebrow", des)
+                    cutscene:setSpeaker("len")
+                    cutscene:text("* I haven't finished my light world sprites yet", "neutral_opened", tag)
+                    cutscene:setSpeaker("dess")
+                    cutscene:text("* lmao", "neutral", des)
+                    if hasSusie then
+                        cutscene:setSpeaker("susie")
+                        cutscene:text("* (???)", "sus_nervous", sus)
+                    end
                 end
                 cutscene:wait(cutscene:walkTo("len",walkX,walkY,1,walkdir))
                 return
