@@ -4,8 +4,6 @@ if OrigGlobal then
     chunk()
 end
 
-require("src.engine.tweaks")
-
 require("src.engine.vars")
 require("src.engine.statevars")
 require("src.engine.vendcust")
@@ -244,6 +242,8 @@ LightMenu = require("src.engine.game.world.ui.light.lightmenu")
 LightItemMenu = require("src.engine.game.world.ui.light.lightitemmenu")
 LightStatMenu = require("src.engine.game.world.ui.light.lightstatmenu")
 LightCellMenu = require("src.engine.game.world.ui.light.lightcellmenu")
+
+EventRegistry = require("src.engine.game.world.eventregistry")
 
 Event = require("src.engine.game.world.event")
 Script = require("src.engine.game.world.events.script")

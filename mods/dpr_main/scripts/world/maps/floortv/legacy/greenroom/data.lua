@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 19,
-  nextobjectid = 190,
+  nextlayerid = 25,
+  nextobjectid = 224,
   properties = {
     ["border"] = "greenroomold",
     ["music"] = "lost_room",
@@ -28,14 +28,20 @@ return {
       firstgid = 127,
       filename = "../../../../tilesets/floor3-objects.tsx",
       exportfilename = "../../../../tilesets/floor3-objects.lua"
+    },
+    {
+      name = "bg_ch3_dw_changing_room_tileset",
+      firstgid = 177,
+      filename = "../../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx",
+      exportfilename = "../../../../tilesets/bg_ch3_dw_changing_room_tileset.lua"
     }
   },
   layers = {
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 10,
-      name = "objects_bg",
+      type = "imagelayer",
+      image = "../../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png",
+      id = 19,
+      name = "Image Layer 1",
       class = "",
       visible = true,
       opacity = 1,
@@ -43,23 +49,9 @@ return {
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 68,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 480,
-          width = 1437,
-          height = 480,
-          rotation = 0,
-          gid = 147,
-          visible = true,
-          properties = {}
-        }
-      }
+      repeatx = true,
+      repeaty = false,
+      properties = {}
     },
     {
       type = "tilelayer",
@@ -79,18 +71,144 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 243, 244, 303, 245, 246, 554, 309, 309, 309, 317, 318, 0, 0, 0, 0, 0, 0, 0, 0, 0, 247, 248, 249, 250, 251, 309, 309, 309, 315, 316, 21, 21, 21,
+        21, 21, 0, 274, 275, 303, 276, 277, 554, 309, 309, 309, 348, 349, 0, 0, 0, 0, 0, 0, 0, 0, 0, 278, 279, 280, 281, 282, 309, 309, 309, 346, 347, 0, 21, 21,
+        21, 0, 0, 334, 334, 335, 334, 336, 585, 340, 340, 340, 379, 380, 0, 0, 0, 0, 0, 0, 0, 0, 0, 340, 340, 340, 340, 340, 340, 340, 340, 377, 378, 0, 0, 21,
+        21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21,
+        21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21,
+        21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 21, 21, 21, 21, 21, 21,
+        21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 20,
+      name = "objects_storage",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 196,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 550,
+          y = 160,
+          width = 390,
+          height = 120,
+          rotation = 0,
+          gid = 170,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 197,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 380,
+          y = 100,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 0,
+            ["starindex"] = 1
+          }
+        },
+        {
+          id = 198,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 500,
+          y = 120,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 1,
+            ["starindex"] = 2
+          }
+        },
+        {
+          id = 199,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 980,
+          y = 90,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 2,
+            ["starindex"] = 3
+          }
+        },
+        {
+          id = 200,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 1100,
+          y = 110,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 3,
+            ["starindex"] = 4
+          }
+        },
+        {
+          id = 201,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 1160,
+          y = 90,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 4,
+            ["starindex"] = 5
+          }
+        },
+        {
+          id = 202,
+          name = "changing_room_star",
+          type = "",
+          shape = "point",
+          x = 1240,
+          y = 100,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["sinerindex"] = 5,
+            ["starindex"] = 6
+          }
+        }
       }
     },
     {
@@ -328,8 +446,8 @@ return {
       properties = {},
       objects = {
         {
-          id = 161,
-          name = "hiddendoor",
+          id = 193,
+          name = "",
           type = "",
           shape = "rectangle",
           x = 40,
@@ -337,7 +455,21 @@ return {
           width = 82,
           height = 204,
           rotation = 0,
-          gid = 139,
+          gid = 154,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 194,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1320,
+          y = 240,
+          width = 82,
+          height = 204,
+          rotation = 0,
+          gid = 2147483802,
           visible = true,
           properties = {}
         }
@@ -426,118 +558,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 69,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 760,
-          y = 340,
-          width = 280,
-          height = 100,
-          rotation = 0,
-          gid = 149,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 70,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 400,
-          y = 340,
-          width = 280,
-          height = 100,
-          rotation = 0,
-          gid = 148,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 71,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 800,
-          y = 440,
-          width = 116,
-          height = 102,
-          rotation = 0,
-          gid = 133,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 72,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 520,
-          y = 440,
-          width = 116,
-          height = 102,
-          rotation = 0,
-          gid = 133,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 73,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1100,
-          y = 440,
-          width = 60,
-          height = 80,
-          rotation = 0,
-          gid = 138,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 74,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 280,
-          y = 440,
-          width = 63,
-          height = 80,
-          rotation = 0,
-          gid = 137,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 75,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 660,
-          y = 440,
-          width = 120,
-          height = 72,
-          rotation = 0,
-          gid = 143,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 76,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 660,
-          y = 440,
-          width = 120,
-          height = 72,
-          rotation = 0,
-          gid = 144,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 175,
           name = "interactable",
           type = "",
@@ -550,7 +570,7 @@ return {
           visible = false,
           properties = {
             ["solid"] = false,
-            ["text1"] = "* (There's a lot of glass bottles.)"
+            ["text1"] = "* (An empty shelf, devoid of glass bottles.)"
           }
         },
         {
@@ -566,7 +586,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a green sofa.[wait:10] It looks soft and comfortable.)"
+            ["text1"] = "* (Once green and comfortable,[wait:5] now a husk of its former self.)"
           }
         },
         {
@@ -582,7 +602,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a green sofa.[wait:10] It looks soft and comfortable.)"
+            ["text1"] = "* (Once green and comfortable,[wait:5] now a husk of its former self.)"
           }
         },
         {
@@ -598,7 +618,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a rugged sofa.[wait:10] It doesn't look too comfortable,[wait:5] but it does its job.)"
+            ["text1"] = "* (The sofa lies in disuse.)[wait:5]\n* (It almost certainly is a cockroach home.)"
           }
         },
         {
@@ -614,7 +634,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a rugged sofa.[wait:10] It doesn't look too comfortable,[wait:5] but it does its job.)"
+            ["text1"] = "* (The sofa lies in disuse.)[wait:5]\n* (It almost certainly is a cockroach home.)"
           }
         },
         {
@@ -630,7 +650,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a TV. It's turned off.)"
+            ["text1"] = "* (The TV's screen has been smashed in.)[wait:5]\n* (It's completely unusable.)"
           }
         },
         {
@@ -646,7 +666,7 @@ return {
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text1"] = "* (It's a TV. It's turned off.)"
+            ["text1"] = "* (The TV's screen has been smashed in.)[wait:5]\n* (It's completely unusable.)"
           }
         },
         {
@@ -663,22 +683,8 @@ return {
           properties = {
             ["once"] = false,
             ["solid"] = true,
-            ["text1"] = "* The platter has been permanently emptied."
+            ["text1"] = "* (The platter has been permanently emptied.)"
           }
-        },
-        {
-          id = 180,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 400,
-          y = 170,
-          width = 62,
-          height = 88,
-          rotation = 0,
-          gid = 129,
-          visible = true,
-          properties = {}
         },
         {
           id = 182,
@@ -711,6 +717,161 @@ return {
             ["map"] = "floortv/legacy/corridors3",
             ["marker"] = "entry_greenroom"
           }
+        },
+        {
+          id = 204,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1000,
+          y = 160,
+          width = 76,
+          height = 104,
+          rotation = 0,
+          gid = 153,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 205,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 440,
+          width = 116,
+          height = 102,
+          rotation = 0,
+          gid = 158,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 206,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 440,
+          width = 116,
+          height = 102,
+          rotation = 0,
+          gid = 158,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 211,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 340,
+          width = 280,
+          height = 100,
+          rotation = 0,
+          gid = 171,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 212,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 340,
+          width = 280,
+          height = 100,
+          rotation = 0,
+          gid = 172,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 213,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 660,
+          y = 440,
+          width = 120,
+          height = 72,
+          rotation = 0,
+          gid = 173,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 214,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 660,
+          y = 440,
+          width = 120,
+          height = 72,
+          rotation = 0,
+          gid = 174,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 219,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 170,
+          width = 62,
+          height = 88,
+          rotation = 0,
+          gid = 155,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 220,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 130,
+          width = 62,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* (A vending machine in a rough state.)\n* (Unusable at this point.)"
+          }
+        },
+        {
+          id = 222,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 440,
+          width = 63,
+          height = 80,
+          rotation = 0,
+          gid = 175,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 223,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1100,
+          y = 440,
+          width = 60,
+          height = 80,
+          rotation = 0,
+          gid = 176,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -727,23 +888,7 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 177,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 720,
-          y = 440,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ch3_platter"
-          }
-        }
-      }
+      objects = {}
     },
     {
       type = "objectgroup",
@@ -758,34 +903,24 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 185,
-          name = "greenroom_sparkles",
-          type = "",
-          shape = "rectangle",
-          x = 940,
-          y = 40,
-          width = 380,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 187,
-          name = "greenroom_sparkles",
-          type = "",
-          shape = "rectangle",
-          x = 120,
-          y = 40,
-          width = 430,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
+      objects = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png",
+      id = 24,
+      name = "overlay",
+      class = "",
+      visible = true,
+      opacity = 0.4,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 0,
+      parallaxy = 0,
+      tintcolor = { 0, 0, 0 },
+      repeatx = false,
+      repeaty = false,
+      properties = {}
     }
   }
 }

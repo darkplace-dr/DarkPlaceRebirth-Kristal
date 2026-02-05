@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 10,
-  nextobjectid = 55,
+  nextobjectid = 57,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip"
@@ -688,14 +688,12 @@ return {
           visible = true,
           properties = {
             ["fade"] = true,
+            ["fade_edges"] = true,
             ["no_back"] = true,
-            ["offx"] = -20,
-            ["offy"] = -200,
-            ["spr_offx"] = 40,
-            ["spr_offy"] = 0,
+            ["offy"] = -110,
             ["text"] = "BUT LO, A NEW LEGEND,\nHAD BEGUN TO SHOW.",
             ["texture"] = "dark_place",
-            ["txt_offx"] = 20
+            ["txt_offy"] = "-56"
           }
         },
         {
@@ -761,6 +759,40 @@ return {
             ["locky"] = true,
             ["marker"] = "targ",
             ["time"] = 1
+          }
+        },
+        {
+          id = 55,
+          name = "gueienemy",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "guei",
+            ["animation"] = "chase",
+            ["chase"] = true,
+            ["chasedist"] = 400,
+            ["encounter"] = "guei"
+          }
+        },
+        {
+          id = 56,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 0,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
           }
         }
       }

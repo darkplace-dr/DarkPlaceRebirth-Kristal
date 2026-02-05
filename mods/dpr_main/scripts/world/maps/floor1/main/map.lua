@@ -14,6 +14,8 @@ function MainHub:onEnter()
             sans.x = 465
         end
     end
+    
+    Game:rollShiny("dess")
 end
 
 return MainHub

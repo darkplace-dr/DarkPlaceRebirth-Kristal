@@ -120,6 +120,8 @@ function love.load(args)
     -- load the keybinds
     Input.loadBinds()
 
+    TextInput.init()
+
     -- Save the defaults so if we do setWindowTitle for a mod we're able to revert it
     -- Unfortunate variable names
     Kristal.icon = love.window.getIcon()
@@ -1620,6 +1622,7 @@ Kristal.funny_titles = {
     "Undertale Yellow: The Roba Edition",
     "Power Star",
     "Doki Doki Literature Club!",
+    "Need a hand!?",
 }
 -- Sets a random title and icon to the game window.
 function Kristal.funnytitle(force_icon)
@@ -1676,13 +1679,22 @@ function Kristal.resetWindow()
         window_height                     = window_height + border_height
     end
 
-    love.window.setMode(
+    local properties = {
+        fullscreen = Kristal.Config["fullscreen"],
+        vsync = Kristal.Config["vSync"],
+    }
+
+    local major, _, _, _ = love.getVersion()
+
+    if major < 12 then
+        properties.highdpi = true
+        properties.usedpiscale = false
+    end
+
+    love.window.updateMode(
         love.window.fromPixels(window_width),
         love.window.fromPixels(window_height),
-        {
-            fullscreen = Kristal.Config["fullscreen"],
-            vsync = Kristal.Config["vSync"]
-        }
+        properties
     )
 
     -- Force tilelayers to redraw, since resetWindow destroys their canvases

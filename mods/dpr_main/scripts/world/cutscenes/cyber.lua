@@ -118,10 +118,10 @@ local cyber = {
         cutscene:text("* What's the occasion? A festival? Or is Christmas coming early?", nil, event)
         cutscene:text("* If it snows, you'll need good shoes! Snowproof ones!", nil, event)
         cutscene:text("* Care to try a sample pair? That'll cost " .. (Game.money + 1) .. " D$!", nil, event)
-		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then 
+		if Game:hasPartyMember("susie") then
 			cutscene:text("* Yeah, about that.", "nervous", "susie")
 		end
-		if Game:hasPartyMember("dess") then
+		if Game:isDessMode() then
 			cutscene:text("* buddy we're [color:red]broke[color:reset] you know that", "mspaint", "dess")
 			cutscene:text("* why do we need snowproof shoes there's no snow here", "heckyeah", "dess")
 			cutscene:text("* you [color:red]stupid[color:reset]", "swag", "dess")
@@ -285,7 +285,7 @@ local cyber = {
 			cutscene:text("* Sorry, I thought you were[wait:5].[wait:5].[wait:5].[wait:7] Someone else.", "nervous_side", "susie")
 			cutscene:text("* Go away.", nil)
 			falseral:setAnimation("idle")
-			elseif Game:hasPartyMember("dess") and not Game:hasPartyMember("susie") then
+			elseif Game:isDessMode() then
 				if Game:getFlag("can_kill") == true then
 					falseral:setAnimation("falseral_d")
 					cutscene:text("* What do you want.", nil)
@@ -336,7 +336,7 @@ local cyber = {
 		falseral:setAnimation("idle")
 	end,
 charjar = function(cutscene, event)
-	if Game:hasPartyMember("dess") then
+	if Game:isDessMode() then
 		if Game:getFlag("can_kill") == true then
 			cutscene:text("* THIS AREA IS POWERFUL.", nil)
 			cutscene:text("[noskip]* IT FILLS ME WITH.", nil, {auto = true})

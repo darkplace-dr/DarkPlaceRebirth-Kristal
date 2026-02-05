@@ -31,7 +31,7 @@ function Shadowguy:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/shadowguy/idle_a", -3, 11, 1/10}
+    self.box_sprite = {"recruits/shadowguy/idle_a", -3, 11, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

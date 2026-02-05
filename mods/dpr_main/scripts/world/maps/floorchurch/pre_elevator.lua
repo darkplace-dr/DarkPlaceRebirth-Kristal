@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 13,
-  nextobjectid = 47,
+  nextobjectid = 48,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
@@ -611,13 +611,12 @@ return {
           visible = true,
           properties = {
             ["fade"] = true,
+            ["fade_edges"] = true,
             ["no_back"] = true,
-            ["offx"] = 40,
-            ["offy"] = -200,
-            ["spr_offx"] = 36,
-            ["spr_offy"] = 0,
+            ["offy"] = -130,
             ["text"] = "THE LEGEND OF THIS WORLD.\nNOW FRACTURED AND FAUX.",
-            ["texture"] = "end"
+            ["texture"] = "end",
+            ["txt_offy"] = "-32"
           }
         },
         {
@@ -651,6 +650,21 @@ return {
             ["locky"] = true,
             ["marker"] = "targ",
             ["time"] = 1
+          }
+        },
+        {
+          id = 47,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["default_state"] = true
           }
         }
       }

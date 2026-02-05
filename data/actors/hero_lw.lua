@@ -63,6 +63,8 @@ function actor:init()
 
         ["sit"] = {-4, -8},
 
+        ["fell"] = {-14, 1},
+
         ["ghostwalk_lf"] = {-4, 3},
         ["ghostwalk_lu"] = {-4, 3},
         ["ghostwalk_rf"] = {-4, 3},

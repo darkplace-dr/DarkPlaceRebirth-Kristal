@@ -396,12 +396,8 @@ return {
 		local dess = cutscene:getCharacter("dess")
 		
 		cutscene:showNametag("Jamm")
-		if Game:getFlag("dungeonkiller") then
-			cutscene:text("* Oh,[wait:5] hey.", "neutral", "jamm")
-		else
-			cutscene:text("* Oh,[wait:5] hey,[wait:5] guys![wait:5] Nice seeing you again!", "smile", "jamm")
-			cutscene:text("* Did you want to talk about something?", "smile", "jamm")
-		end
+		cutscene:text("* Oh,[wait:5] hey,[wait:5] guys![wait:5] Nice seeing you again!", "smile", "jamm")
+		cutscene:text("* Did you want to talk about something?", "smile", "jamm")
 		cutscene:hideNametag()
 		
 		local list = {"Wife", "Marcy", Game:getFlag("latest_jamm_adventure", "Forest")}
@@ -412,10 +408,7 @@ return {
 		end
 		
 		local choice = cutscene:choicer(list, {color=colors})
-		if Game:getFlag("dungeonkiller") then
-			cutscene:showNametag("Jamm")
-			cutscene:text("* ...", "shaded_neutral", "jamm")
-		elseif choice == 1 then
+		if choice == 1 then
 			cutscene:showNametag("Jamm")
 			cutscene:text("* You want to know about my wife?", "neutral", "jamm")
 			cutscene:text("* Ania was an amazing woman,[wait:5] that's for sure.", "smile", "jamm")
@@ -643,10 +636,6 @@ return {
                     cutscene:hideNametag()
                     Game:setFlag("jamm_closet_available", true)
                 end
-				if Game:getFlag("dungeonkiller") then
-					cutscene:text("* But...[wait:10]\n* Marcy sees papa is concerned...", "sad", "marcy")
-					cutscene:text("* Marcy is worried...[wait:10]\n* Did something happen to papa?", "sad", "marcy")
-				end
 			end
 		elseif choice == 3 then
 			cutscene:showNametag("Marcy")

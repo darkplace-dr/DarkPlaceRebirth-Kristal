@@ -11,10 +11,6 @@ function actor:init()
     self.path = "world/events/pickup_plush"
 
     self.default = "jamm_plush"
-	
-    if Game:getFlag("dungeonkiller") and Game:getFlag("jamm_closure") then
-        self.default = "jamm_plush_nowife"
-    end
 
     self.animations = {}
 end

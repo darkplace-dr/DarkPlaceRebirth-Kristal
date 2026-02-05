@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="55">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="28" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="57">
  <editorsettings>
   <export target="guei_stairs.lua" format="lua"/>
  </editorsettings>
@@ -269,15 +269,13 @@
   <object id="25" name="prophecy" x="760" y="1200" width="280" height="80">
    <properties>
     <property name="fade" type="bool" value="true"/>
+    <property name="fade_edges" type="bool" value="true"/>
     <property name="no_back" type="bool" value="true"/>
-    <property name="offx" type="float" value="-20"/>
-    <property name="offy" type="float" value="-200"/>
-    <property name="spr_offx" type="float" value="40"/>
-    <property name="spr_offy" type="float" value="0"/>
+    <property name="offy" type="float" value="-110"/>
     <property name="text">BUT LO, A NEW LEGEND,
 HAD BEGUN TO SHOW.</property>
     <property name="texture" value="dark_place"/>
-    <property name="txt_offx" type="float" value="20"/>
+    <property name="txt_offy" value="-56"/>
    </properties>
   </object>
   <object id="26" name="roomglow" x="0" y="0" width="40" height="40">
@@ -303,6 +301,21 @@ HAD BEGUN TO SHOW.</property>
     <property name="locky" type="bool" value="true"/>
     <property name="marker" value="targ"/>
     <property name="time" type="float" value="1"/>
+   </properties>
+  </object>
+  <object id="55" name="gueienemy" x="240" y="280">
+   <properties>
+    <property name="actor" value="guei"/>
+    <property name="animation" value="chase"/>
+    <property name="chase" type="bool" value="true"/>
+    <property name="chasedist" type="int" value="400"/>
+    <property name="encounter" value="guei"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="56" name="dogconegroup" x="880" y="0" width="80" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

@@ -31,7 +31,7 @@ function Mizzle:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/mizzle/idle", -3, 22, 1/10}
+    self.box_sprite = {"recruits/mizzle/idle", -3, 22, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

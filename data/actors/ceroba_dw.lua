@@ -58,6 +58,8 @@ function actor:init()
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
 
+        ["jump_ball"]           = {"ball", 1/15, true},
+
         ["guard"]               = {"guard", 1/10, false},
 
         ["dance"]               = {"dance", 1/10, true},
@@ -75,7 +77,7 @@ function actor:init()
         ["walk/left"] = {2, -3},
         ["walk/up"] = {-1, -1},
 
-        ["run/down"] = {-1, 2},
+        ["run/down"] = {-1, 1},
         ["run/right"] = {-14, -7},
         ["run/left"] = {-9, -7},
         ["run/up"] = {-1, 2},

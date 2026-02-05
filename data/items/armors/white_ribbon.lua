@@ -48,17 +48,27 @@ function item:init()
     }
 
     -- Character reactions
-    self.reactions = {
+    if Game.chapter == 2 then
+        self.reactions = {
+            susie = "I said NO! C'mon already!",
+            ralsei = "It's nice being dressed up...",
+            noelle = "... feels familiar.",
+        }
+    else
+        self.reactions = {
+            susie = "Nope. Not in 1st grade anymore.",
+            ralsei = "Um... D-do I look cute...?",
+            noelle = "... feels familiar.",
+        }
+    end
+    TableUtils.merge(self.reactions, {
         hero = "Whatever.",
-        susie = "I said NO! C'mon already!",
-        ralsei = "It's nice being dressed up...",
-        noelle = "... feels familiar.",
         dess = "ew i hate cute things",
         jamm = "How adorable!",
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "I'm so FANCY",
         ceroba = "A bit too small for my hair...",
-    }
+    })
 end
 
 return item

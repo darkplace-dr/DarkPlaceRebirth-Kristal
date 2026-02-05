@@ -4,20 +4,20 @@ local Tileset = Class()
 
 Tileset.ORIGINS = {
     ["unspecified"] = { 0, 1 },
-    ["topleft"] = { 0, 0 },
-    ["top"] = { 0.5, 0 },
-    ["topright"] = { 1, 0 },
-    ["left"] = { 0, 0.5 },
-    ["center"] = { 0.5, 0.5 },
-    ["right"] = { 1, 0.5 },
-    ["bottomleft"] = { 0, 1 },
-    ["bottom"] = { 0.5, 1 },
+    ["topleft"]     = { 0, 0 },
+    ["top"]         = { 0.5, 0 },
+    ["topright"]    = { 1, 0 },
+    ["left"]        = { 0, 0.5 },
+    ["center"]      = { 0.5, 0.5 },
+    ["right"]       = { 1, 0.5 },
+    ["bottomleft"]  = { 0, 1 },
+    ["bottom"]      = { 0.5, 1 },
     ["bottomright"] = { 1, 1 },
 }
 
 function Tileset:init(data, path, base_dir)
     self.path = path
-    self.base_dir = base_dir or Utils.getDirname(self.path)
+    self.base_dir = base_dir or FileSystemUtils.getDirname(self.path)
 
     self.id = data.id
     self.name = data.name
@@ -32,8 +32,6 @@ function Tileset:init(data, path, base_dir)
     self.preserve_aspect_fit = data.fillmode == "preserve-aspect-fit"
 
     self.id_count = self.tile_count
-
-    local sprite_dir = "assets/sprites"
 
     self.tile_info = {}
     for _, tile in ipairs(data.tiles or {}) do
@@ -112,7 +110,7 @@ function Tileset:loadTextureFromImagePath(filename)
         if result == "not under prefix" then
             return false, "Image not found in \"" .. image_dir .. "\" (Got path \"" .. final_path .. "\")"
         elseif result == "path outside root" then
-            return false, "Image path located outside Kristal (Got path \"<kristal>/".. final_path .. "\")"
+            return false, "Image path located outside Kristal (Got path \"<kristal>/" .. final_path .. "\")"
         else
             return false, "Unknown reason"
         end
@@ -191,7 +189,7 @@ function Tileset:drawGridTile(id, x, y, gw, gh, flip_x, flip_y, flip_diag)
         sx = gw / w
         sy = gh / h
         if self.preserve_aspect_fit then
-            sx = Utils.absMin(sx, sy)
+            sx = MathUtils.absMin(sx, sy)
             sy = sx
         end
     end
@@ -201,41 +199,12 @@ function Tileset:drawGridTile(id, x, y, gw, gh, flip_x, flip_y, flip_diag)
     local info = self.tile_info[draw_id]
     if info and info.texture then
         if not info.quad then
-            Draw.draw(
-                info.texture,
-                (x or 0) + ox,
-                (y or 0) + oy,
-                rot,
-                flip_x and -sx or sx,
-                flip_y and -sy or sy,
-                w / 2,
-                h / 2
-            )
+            Draw.draw(info.texture, (x or 0) + ox, (y or 0) + oy, rot, flip_x and -sx or sx, flip_y and -sy or sy, w / 2, h / 2)
         else
-            Draw.draw(
-                info.texture,
-                info.quad,
-                (x or 0) + ox,
-                (y or 0) + oy,
-                rot,
-                flip_x and -sx or sx,
-                flip_y and -sy or sy,
-                w / 2,
-                h / 2
-            )
+            Draw.draw(info.texture, info.quad, (x or 0) + ox, (y or 0) + oy, rot, flip_x and -sx or sx, flip_y and -sy or sy, w / 2, h / 2)
         end
     else
-        Draw.draw(
-            self.texture,
-            self.quads[draw_id],
-            (x or 0) + ox,
-            (y or 0) + oy,
-            rot,
-            flip_x and -sx or sx,
-            flip_y and -sy or sy,
-            w / 2,
-            h / 2
-        )
+        Draw.draw(self.texture, self.quads[draw_id], (x or 0) + ox, (y or 0) + oy, rot, flip_x and -sx or sx, flip_y and -sy or sy, w / 2, h / 2)
     end
 end
 
