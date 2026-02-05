@@ -154,6 +154,102 @@ return {
     ostarwalker = function(cutscene, event)
         cutscene:text("* This party room is[wait:10]\n       pissing me off")
     end,
+    len = function(cutscene, event)
+        cutscene:showNametag("Len")
+        cutscene:text("* Hello")
+        cutscene:text("* Need anything?")
+        cutscene:hideNametag()
+        local player = Game.party[1].id
+        local kris = player == "kris"
+        local choices = {"This Place", "You", "No"}
+        if not kris then
+            table.insert(choices, "YOU")
+        end
+        local c = cutscene:choicer(choices)
+        if c == 1 then
+            cutscene:showNametag("Len")
+            cutscene:text("* This place has grown a lot bigger since i last got here")
+            cutscene:text("* Last time i checked there was none of this...")
+            cutscene:text("* I wished i could say more")
+        elseif c == 2 then
+            cutscene:showNametag("Len")
+            cutscene:text("* Im just another side character, [wait:5]really that's it")
+            cutscene:text("* if you expected something different... then you're with the wrong guy")
+        elseif c == 3 then
+            cutscene:text("* Alright then")
+            cutscene:text("* Try not to die out there")
+            if not kris then
+                cutscene:text("* (Seriosly tho, [wait:5]YOU [wait:5]don't die out there)")
+            end
+        elseif c == 4 then
+            cutscene:showNametag("Len")
+            cutscene:text("* (Alright, lets cut to the real deal)")
+            local gm = Game.world.music
+            gm:pause()
+            local black = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+			black:setParallax(0)
+			black:setColor(COLORS.black)
+			black.alpha = 1
+			black.layer = math.huge * -1
+            Game.world:addChild(black)
+            cutscene:wait(2)
+            local leave = false
+            while not leave do
+                cutscene:text("* (Ask me anything)")
+                local action_raw = cutscene:getUserText(8)
+                action_raw = string.lower(action_raw)
+                print(action_raw)
+                -- Prepare for the most messy code you'll ever see
+                local questions = {
+                    life = function()
+                        cutscene:text("* (Life in this place isn't too bad...)")
+                        cutscene:text("* (Well ignoring the fact that there's nothing to do)")
+                        cutscene:text("* (But overall, it is quite the place)")
+                    end,
+                    who = function()
+                        cutscene:text("* (Who am i?[wait:5] honestly im not quite sure myself)")
+                        cutscene:text("* (I think im like some kind of dark-creature thing)")
+                        cutscene:text("* (But im not a darkner tho![wait:5]\ni can still be in light worlds and such)")
+                    end
+                }
+                local exitquestions = {"exit", "leave", "bye", "goodbye", "seeya", "getout"}
+                for _,eq in ipairs(exitquestions) do
+                    exitquestions[eq] = true
+                end
+
+                local helpquestions = {"what", "huh", "hello", "wtf", "huhh", "help"}
+                for _,hq in ipairs(helpquestions) do
+                    helpquestions[hq] = true
+                end
+                
+                local response = questions[action_raw]
+                if response then
+                    response()
+                else
+                    local exitresponse = exitquestions[action_raw]
+                    if exitresponse then
+                        leave = true
+                    else
+                        local helpquestion = helpquestions[action_raw]
+                        if helpquestion then
+                            local squestions = table.concat(questions)
+                            cutscene:text("* (You can ask me several questions, these include:")
+                            cutscene:text("* (" .. squestions .. ")")
+                        else
+                            cutscene:text("* (Im not awsnering that)")
+                            cutscene:text("* ((I can't awsner that yet))")
+                            cutscene:text("* (((Its not on my list...)))")
+                            cutscene:text("* (Try something else)")
+                        end
+                    end
+                end
+            end
+            cutscene:wait(2)
+            black:remove()
+            gm:resume()
+        end
+        cutscene:hideNametag()
+    end,
 
 -- keep this at the bottom
 -- and type a face every time you edit this file
@@ -163,6 +259,8 @@ return {
 -- :)
 -- :P
 -- :/
+-- :3
+-- ¿.
     party = function(cutscene, event)
         cutscene:after(function()
            Game.world:openMenu(DarkCharacterMenu())    

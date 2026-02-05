@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 11,
-  nextobjectid = 76,
+  nextlayerid = 12,
+  nextobjectid = 103,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev"
@@ -19,20 +19,117 @@ return {
     {
       name = "devroom_mono",
       firstgid = 1,
-      filename = "../../../../tilesets/devroom_mono.tsx",
-      exportfilename = "../../../../tilesets/devroom_mono.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 12,
+      image = "../../../../../../assets/sprites/tilesets/devroom_mono.png",
+      imagewidth = 240,
+      imageheight = 240,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 20,
+        height = 20
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 144,
+      tiles = {}
     },
     {
       name = "devroom_objects",
       firstgid = 145,
-      filename = "../../../../tilesets/devroom_objects.tsx",
-      exportfilename = "../../../../tilesets/devroom_objects.lua"
+      class = "",
+      tilewidth = 50,
+      tileheight = 52,
+      spacing = 0,
+      margin = 0,
+      columns = 0,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 1,
+        height = 1
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 5,
+      tiles = {
+        {
+          id = 0,
+          image = "../../../../../../assets/sprites/world/maps/devroom/table.png",
+          width = 50,
+          height = 35
+        },
+        {
+          id = 1,
+          image = "../../../../../../assets/sprites/world/maps/devroom/table_mono.png",
+          width = 50,
+          height = 35
+        },
+        {
+          id = 2,
+          image = "../../../../../../assets/sprites/world/maps/devroom/coffee_table.png",
+          width = 40,
+          height = 30
+        },
+        {
+          id = 3,
+          image = "../../../../../../assets/sprites/world/maps/devroom/closet_mono.png",
+          width = 31,
+          height = 52
+        },
+        {
+          id = 4,
+          image = "../../../../../../assets/sprites/world/maps/devroom/dev_vending.png",
+          width = 30,
+          height = 44
+        }
+      }
     },
     {
       name = "cctiles",
-      firstgid = 149,
-      filename = "../../../../tilesets/cctiles.tsx",
-      exportfilename = "../../../../tilesets/cctiles.lua"
+      firstgid = 150,
+      class = "",
+      tilewidth = 40,
+      tileheight = 40,
+      spacing = 0,
+      margin = 0,
+      columns = 6,
+      image = "../../../../../../assets/sprites/tilesets/bg_cctiles.png",
+      imagewidth = 240,
+      imageheight = 960,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 40,
+        height = 40
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 144,
+      tiles = {}
     }
   },
   layers = {
@@ -758,6 +855,23 @@ return {
           gid = 148,
           visible = true,
           properties = {}
+        },
+        {
+          id = 102,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 310,
+          y = 220,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "len",
+            ["cutscene"] = "partyroom.len",
+            ["facing"] = "down"
+          }
         }
       }
     },

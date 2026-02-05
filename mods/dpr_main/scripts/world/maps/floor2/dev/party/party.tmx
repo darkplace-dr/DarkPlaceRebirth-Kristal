@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="103">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -9,7 +9,7 @@
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/devroom_mono.tsx"/>
  <tileset firstgid="145" source="../../../../tilesets/devroom_objects.tsx"/>
- <tileset firstgid="149" source="../../../../tilesets/cctiles.tsx"/>
+ <tileset firstgid="150" source="../../../../tilesets/cctiles.tsx"/>
  <layer id="1" name="Tile Layer 1" width="24" height="16">
   <data encoding="csv">
 17,17,17,17,37,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,38,17,17,17,
@@ -188,6 +188,14 @@
    <point/>
   </object>
   <object id="66" gid="148" x="220" y="220" width="62" height="104"/>
+  <object id="102" name="npc" x="310" y="220">
+   <properties>
+    <property name="actor" value="len"/>
+    <property name="cutscene" value="partyroom.len"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="3" name="main" x="760" y="600">
