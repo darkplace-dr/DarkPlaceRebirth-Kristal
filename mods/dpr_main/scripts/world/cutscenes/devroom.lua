@@ -42,7 +42,7 @@ local devroom = {
             cutscene:text(t_c.."* [Alright,[wait:2] let's see what we have for you today...]")
             devroom_pc:setAnimation("loading")
             cutscene:text(t_c.."* [speed:0.1][...]")
-            if love.system.getOS() == "Android" or love.system.getOS() == "iOS" then
+            if love.system.getOS() == "Android" or love.system.getOS() == "iOS" or love.system.getOS() == "Wii" then
                 cutscene:text(t_c.."* [Unfortunately,[wait:2] I cannot check for save files on a "..love.system.getOS().." system.]")
                 nothingText()
                 goto turnoff
@@ -89,7 +89,7 @@ local devroom = {
                     if gift == "KR_wilter_boss_fight" then
                         game_name = "Wilter's Wonderland"
                     else
-                        game_name = kristal and Utils.titleCase(gift:sub(start+1):gsub("_", " ")) or gift
+                        game_name = kristal and StringUtils.titleCase(gift:sub(start+1):gsub("_", " ")) or gift
                     end
                 end
                 local item
