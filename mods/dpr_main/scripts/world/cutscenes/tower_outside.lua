@@ -80,5 +80,45 @@ return {
                     cutscene:text("* (You received an Egg.)")
                     Game:setFlag("egg_h", true)
             end
+    end,
+
+    glassbridge = function(cutscene, event)
+        local Dlc = "dlc_acidlake"
+        local hasDlc = Game:hasDLC(Dlc)
+
+        if not hasDlc then
+            local fun = Game:getFlag("FUN")
+            local chance = MathUtils.randomInt(1,666)
+            local probs = {66, 55, 44, 33, 22, 11}
+            local flag = "abnormalGlassbridgeDLCVision"
+            local seen = Game:getFlag(flag)
+
+            for _,v in pairs(probs) do
+                probs[v] = true
+            end
+
+            cutscene:text("* (Something is stopping you from going further)")
+
+            local check = (fun >= 6 and fun < 21) and probs[chance] and not seen
+            if check then
+                cutscene:text("* (For some reason...[wait:5] just for a brief moment...)")
+                cutscene:text("* (You think you see a blue hoodied figure blocking the path...)")
+                Game:setFlag(flag, true)
+            else
+                cutscene:text("* (Are you missing the \"" .. Dlc .. "\" dlc?)")
+            end
+
+            return
+        end
+
+        cutscene:text("* (Do you want to travel?)[wait:5]\n* (This may take a while...)")
+
+        local c = cutscene:choicer({"Yes", "No"})
+        if c == 2 then
+            cutscene:text("* (You travelen't)")
+            return
+        end
+
+        Game:swapIntoMod(Dlc, false, "main/entrance")
     end
 }
