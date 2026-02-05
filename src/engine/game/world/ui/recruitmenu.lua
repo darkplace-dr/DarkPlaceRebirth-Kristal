@@ -299,6 +299,12 @@ function RecruitMenu:draw()
     love.graphics.rectangle("line", self.recruit_box.x, self.recruit_box.y, self.recruit_box.width + 1, self.recruit_box.height + 1)
 
     super.draw(self)
+
+    if self.recruits[self.selected].id == "werewire" then
+        Draw.setColor(1, 1, 1, 1)
+        Draw.draw(Assets.getTexture("recruits/werewire/wire_curve"), self.recruit_box.x + 24, self.recruit_box.y + 31, 0, 2, 2)
+        Draw.draw(Assets.getTexture("recruits/werewire/wire_vertical"), self.recruit_box.x + 24, self.recruit_box.y, 0, 2, 8)
+    end
 end
 
 return RecruitMenu

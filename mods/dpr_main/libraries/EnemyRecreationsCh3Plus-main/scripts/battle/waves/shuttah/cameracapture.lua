@@ -2,6 +2,7 @@ local CameraCapture, super = Class(Wave)
 
 function CameraCapture:onStart()
     self.time = 8
+	self.shuttah_bubble = nil
     local attackers = self:getAttackers()
 
     for _, attacker in ipairs(attackers) do
@@ -10,7 +11,20 @@ function CameraCapture:onStart()
 
     if #attackers == #Game.battle.enemies then
         local bullet_wave = Utils.random(1, 3, 1)
+		local ax, ay = attackers[1]:getRelativePos(0, 0)
+		ax = ax + 70
+		ay = ay - 10
         if bullet_wave == 1 then
+            self.timer:after(20/30, function()
+				self.shuttah_bubble = ShuttahSpeechBubble("Aaannd\nTURN!", ax, ay, nil, attackers[1])
+				Game.battle:addChild(self.shuttah_bubble)
+				self.shuttah_bubble:setAdvance(false)
+				self.shuttah_bubble:setAuto(false)
+			end)
+            self.timer:after(60/30, function()
+				self.shuttah_bubble:remove()
+				self.shuttah_bubble = nil
+			end)
             local black_bullets = {}
             local white_bullets = {}
             local function spawnDiamondBullet()
@@ -63,6 +77,16 @@ function CameraCapture:onStart()
                 self.timer:every(2/3, spawnDiamondBullet)
             end)
         elseif bullet_wave == 2 then
+            self.timer:after(20/30, function()
+				self.shuttah_bubble = ShuttahSpeechBubble("Hold it\na sec!", ax, ay, nil, attackers[1])
+				Game.battle:addChild(self.shuttah_bubble)
+				self.shuttah_bubble:setAdvance(false)
+				self.shuttah_bubble:setAuto(false)
+			end)
+            self.timer:after(60/30, function()
+				self.shuttah_bubble:remove()
+				self.shuttah_bubble = nil
+			end)
             self.timer:every(6/30, function()
                 local x, y = Game.battle.arena.x, 10
                 local direction = math.rad(Utils.random(-35, 35) + 90)
@@ -77,6 +101,16 @@ function CameraCapture:onStart()
                 bullet.lifetime = 1
             end)
         elseif bullet_wave == 3 then
+            self.timer:after(20/30, function()
+				self.shuttah_bubble = ShuttahSpeechBubble("A lil'\nturn?", ax, ay, nil, attackers[1])
+				Game.battle:addChild(self.shuttah_bubble)
+				self.shuttah_bubble:setAdvance(false)
+				self.shuttah_bubble:setAuto(false)
+			end)
+            self.timer:after(60/30, function()
+				self.shuttah_bubble:remove()
+				self.shuttah_bubble = nil
+			end)
             local function spawnBullets()
                 local side = Utils.random(1, 4, 1)
                 local direction = math.rad(90 * (side - 1))
@@ -116,6 +150,15 @@ function CameraCapture:onStart()
             end)
         end
     else
+		local pippins_case = 0
+		for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+			if enemy.id == "pippins" then
+				pippins_case = pippins_case + 1
+			end
+		end
+		if pippins_case == #Game.battle:getActiveEnemies() - 1 then
+			self.time = 7
+		end
         local function snap()
             local x, y = self:getOriginPosition(40)
 
@@ -123,11 +166,19 @@ function CameraCapture:onStart()
             bullet.lifetime = 1
             bullet.total_rotation = Utils.pick({-45, 45})
         end
-        self.timer:after(1.5, function()
+        self.timer:after(1.5 + ((pippins_case - 1) * 0.75), function()
             snap()
-            self.timer:every(3, snap)
+			if pippins_case ~= #Game.battle:getActiveEnemies() - 1 then
+				self.timer:every(3, snap)
+			end
         end)
     end
+end
+
+function CameraCapture:onEnd()
+    if self.shuttah_bubble then
+		self.shuttah_bubble:remove()
+	end
 end
 
 function CameraCapture:update()

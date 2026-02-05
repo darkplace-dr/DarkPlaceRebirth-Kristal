@@ -152,7 +152,7 @@ function Pippins:getEnemyDialogue()
             "YEAH! Touch\nthese 4's and\ntaste the THRILL!",
             "Put it all on\nGreen 4! Alright!!"
         }
-    elseif self.cheated then
+    elseif self.cheat then
         dialogue = {
             "(You do know\nthat makes my\nattack stronger...)",
             "(This girl...\nshe boggles\nthe mind.)",

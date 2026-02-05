@@ -1042,10 +1042,7 @@ local cliffside = {
                     
                     Game.world.music:play("demonic_little_grey_cliffs", 1, 1)
                 end
-                if Game:getFlag("claimb_cat") == true then
-                    Game:setFlag("suscla", true)
-                    cutscene:getEvent(65):remove()
-                end
+                cutscene:getEvent(65):remove()
                 Game:setFlag(crystal.flag, true)
             else
                 --cutscene:text("* You can't break a seal from the side you[color:yellow][wait:5] dummy[color:reset]!")
@@ -1094,16 +1091,10 @@ local cliffside = {
         local encounter = cutscene:startEncounter("pebblin_tutorial", true, {{"pebblin", pebblin}})
         local defeated_enemies = encounter:getDefeatedEnemies()
         local done_state = defeated_enemies[1].done_state
-        -- TODO: Make the Pebblin & Cat spawning happen before the fade in so it doesn't look jank
         if done_state ~= "KILLED" then
             Game:getPartyMember("hero"):addKarma(1)
         end
-        pebblin:remove()
         local cat = cutscene:getCharacter("cat")
-        if not cat then
-            Game.world:spawnNPC("cat", 340, 60)
-            cat = cutscene:getCharacter("cat")
-        end
         Game.world.music:fade(1, 0.5)
         cutscene:wait(1)
         cutscene:showNametag("Cat")
@@ -1293,9 +1284,9 @@ local cliffside = {
         cutscene:hideNametag()
     end,
 
-    force_suscla = function(cutscene, event)
+    force_susie = function(cutscene, event)
         local hero = cutscene:getCharacter("hero")
-        cutscene:text("* You cannot leave just yet.")
+        cutscene:text("* (You cannot leave just yet.)")
         cutscene:hideNametag()
         hero:walkTo(hero.x + 20, hero.y, 0.5, "right")
         cutscene:wait(0.5)

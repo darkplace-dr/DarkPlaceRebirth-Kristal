@@ -5,11 +5,11 @@ function Shuttah:init()
 
     self.name = "Shuttah"
 
-    self.width = 45
-    self.height = 67
+    self.width = 50
+    self.height = 68
 
     self.hitbox = {12, 49, 40, 20}
-    
+
     self.color = {1, 0, 0}
 
     self.flip = nil
@@ -31,20 +31,19 @@ function Shuttah:init()
 
     -- Table of sprite animations
     self.animations = {
-        ["idle"] = {"idle/idle", 1/3, true},
-        ["pose"] = {"pose/pose", 1/15, false},
-        ["posereturn"] = {"pose_return/pose_return", 1/15, false},
-        ["sharpshoot"] = {"sharpshoot/sharpshoot", 1/3, true},
-        ["spared"] = {"spare/spare", 1/3, true}
+        ["idle"] = {"idle", 1/3, true},
+        ["hurt"] = {"idle_1", 1, true},
+        ["pose"] = {"pose", 1/15, false},
+        ["posereturn"] = {"pose_return", 1/15, false},
+        ["spared"] = {"spare", 1/3, true}
     }
-    
+
     -- WHY DOES IT NEED THE SPRITE PATH INSTEAD OF THE SPRITE NAME????????
     self.offsets = {
-        ["idle/idle"] = {0, 0},
-        ["pose/pose"] = {-48, -11},
-        ["pose_return/pose_return"] = {-48, -11},
-        ["sharpshoot/sharpshoot"] = {0, 12},
-        ["spare/spare"] = {14, 0}
+        ["idle"] = {0, 0},
+        ["pose"] = {-48, -11},
+        ["pose_return"] = {-48, -11},
+        ["spare"] = {14, 0}
     }
 end
 

@@ -47,9 +47,8 @@ function item:init()
     }
 
     -- Character reactions
-	-- !! NOTE: Jamm should be the only one to have a reaction to this weapon. !!
     self.reactions = {
-        jamm = "..."
+        jamm = "I've got a terrible feeling about this..."
     }
 end
 

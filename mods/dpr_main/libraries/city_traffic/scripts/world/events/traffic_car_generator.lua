@@ -89,7 +89,7 @@ function TrafficCarGenerator:makeCar(x, y)
     if Kristal.callEvent("beforeTrafficCarGeneratorMakeCar") then
         return
     end
-    local car = Registry.createEvent("traffic_car", {x = x, y = y})
+    local car = Registry.createLegacyEvent("traffic_car", {x = x, y = y})
     car.alwayswalking   = self.always_walking
     car.car_path        = self.car_sprite
     car.group           = self.group

@@ -36,7 +36,7 @@ local cyber = {
 				local poses = {"beatbox", "bup", "dab", "sonic_adventure"}
 				cutscene:getCharacter("dess"):setSprite(TableUtils.pick(poses))
 			end
-			if cutscene:getCharacter("jamm") and not Game:getFlag("dungeonkiller") then
+			if cutscene:getCharacter("jamm") then
 				local poses = {"bs_win", "bt"}
 				if Game:getFlag("jamm_closure") then
 					poses = {"ghost_bs", "bt"}

@@ -37,7 +37,7 @@ function item:init()
 		dess = "not on my ninja shit rn srry",
         noel = "",
         ceroba = "",
-        jamm = ""
+        jamm = "I respect the samurai, but..."
     }
 end
 

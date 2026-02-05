@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 90,
+      firstgid = 64,
       filename = "../../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../../tilesets/cliffs_objs.lua"
     }
@@ -521,7 +521,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 90,
+          gid = 64,
           visible = true,
           properties = {}
         },
@@ -535,7 +535,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 90,
+          gid = 64,
           visible = true,
           properties = {}
         },
@@ -549,7 +549,7 @@ return {
           width = 120,
           height = 150,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         },
@@ -563,7 +563,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 90,
+          gid = 64,
           visible = true,
           properties = {}
         },
@@ -577,7 +577,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         },
@@ -591,7 +591,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
+          gid = 65,
           visible = true,
           properties = {}
         },
@@ -605,21 +605,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 91,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 86,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 120,
-          y = 400,
-          width = 70,
-          height = 136,
-          rotation = 0,
-          gid = 90,
+          gid = 65,
           visible = true,
           properties = {}
         }

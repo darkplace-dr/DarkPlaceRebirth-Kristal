@@ -9,8 +9,8 @@ function ShadowguySneaking:init()
     self.background = true
 
     self.shadows = {
-        self:addEnemy("shadowguy"),
-        self:addEnemy("shadowguy")
+        self:addEnemy("shadowguy", 476 + 58, 70 + 59*2),
+        self:addEnemy("shadowguy", 454 + 58, 168 + 59*2)
     }
 	
 	self.flee = false

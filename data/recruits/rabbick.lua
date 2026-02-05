@@ -31,7 +31,7 @@ function rabbick:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/rabbick/idle", 0, 12, 4/30}
+    self.box_sprite = {"recruits/rabbick/clean", -3, 29}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

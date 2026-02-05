@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 12,
-  nextobjectid = 110,
+  nextlayerid = 14,
+  nextobjectid = 119,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
@@ -308,6 +308,110 @@ return {
           gid = 390,
           visible = true,
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "objects_dessim_door_a",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 110,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1320,
+          y = 240,
+          width = 82,
+          height = 204,
+          rotation = 0,
+          gid = 403,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 113,
+          name = "interactable",
+          type = "",
+          shape = "polygon",
+          x = 1320,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 80, y = 80 },
+            { x = 80, y = 40 },
+            { x = 0, y = -40 }
+          },
+          properties = {
+            ["cutscene"] = "tvfloor.dessimation_tenna_door",
+            ["solid"] = true
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 13,
+      name = "objects_dessim_door_b",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 111,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1320,
+          y = 240,
+          width = 82,
+          height = 204,
+          rotation = 0,
+          gid = 404,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 117,
+          name = "script",
+          type = "",
+          shape = "polygon",
+          x = 1320,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 80, y = 80 },
+            { x = 80, y = 40 },
+            { x = 0, y = -40 }
+          },
+          properties = {
+            ["cutscene"] = "tvfloor.dessimation_tenna_scene",
+            ["once"] = false
+          }
         }
       }
     },
@@ -647,6 +751,22 @@ return {
             ["cutscene"] = "tvfloor.green_vending",
             ["solid"] = false
           }
+        },
+        {
+          id = 118,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 400,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.greenroomracingtv",
+            ["solid"] = true
+          }
         }
       }
     },
@@ -877,19 +997,6 @@ return {
           x = 1120,
           y = 400,
           width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 66,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 520,
-          y = 400,
-          width = 120,
           height = 40,
           rotation = 0,
           visible = true,
