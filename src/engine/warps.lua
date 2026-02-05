@@ -39,10 +39,13 @@ function self:loadWarps(path)
         end
 
         if warpData.loadbin then
-            resultwarp = warpData.loadbin
+            resultWarp = warpData.loadbin
         end
 
         local binWarpData = {result = resultWarp, mod = warpData.mod or "dpr_main"}
+
+        -- print("r = " .. binWarpData.result .. "\nm = " .. binWarpData.mod)
+
         local loadWarp = true
         if warpData.load then
             loadWarp = warpData:load()
@@ -56,8 +59,11 @@ function self:loadWarps(path)
 
             if warpData.variants then
                 local finalString = ""
-                for _,id in pairs(warpData.variants) do
-                    id = self:binifyString(id)
+                for _,rawID in pairs(warpData.variants) do
+                    id = self:binifyString(rawID)
+
+                    -- print("id = " .. id .. "\nr = " .. binWarpData.result .. "\nm = " .. binWarpData.mod)
+                    
                     loadedWarps[id] = binWarpData
                     finalString = finalString .. "\"" .. id .. "\", "
                 end
