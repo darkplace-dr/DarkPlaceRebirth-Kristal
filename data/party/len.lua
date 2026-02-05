@@ -156,7 +156,10 @@ function character:init()
     self.menu_icon_offset = nil
 
     -- Message shown on gameover (optional)
-    self.gameover_message = "I can't say i didn't\nsee that coming..." -- "The tank ran out of bullets\ngive up!"
+    self.gameover_message = {
+        "I can't say i didn't\nsee that coming...", -- "The tank ran out of bullets\ngive up!"
+        "Don't give up!",
+    }
 end
 
 function character:onLevelUp(level)

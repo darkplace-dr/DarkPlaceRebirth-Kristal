@@ -14,4 +14,12 @@ function badge:init()
     self.price = 180
 end
 
+function badge:onBadgeEquipped()
+    Game:setFlag("stellarLensEquipped", true)
+end
+
+function badge:onBadgeRemoved()
+    Game:setFlag("stellarLensEquipped", false)
+end
+
 return badge
