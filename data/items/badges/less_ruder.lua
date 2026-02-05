@@ -19,20 +19,24 @@ function badge:init()
 end
 
 function badge:update(equipped)
-    if equipped and Game:hasPartyMember("susie") then
-        if Game:getPartyMember("susie"):hasSpell("pacibuster") then
-            Game:getPartyMember("susie"):removeSpell("pacibuster")
-        end
-        if not Game:getPartyMember("susie"):hasSpell("pacify") then
-            Game:getPartyMember("susie"):addSpell("pacify")
-        end
-    end
-    if not equipped and Game:hasPartyMember("susie") then
-        if Game:getPartyMember("susie"):hasSpell("pacify") then
-            Game:getPartyMember("susie"):removeSpell("pacify")
-        end
-        if not Game:getPartyMember("susie"):hasSpell("pacibuster") then
-            Game:getPartyMember("susie"):addSpell("pacibuster")
+    local name = "susie"
+    local hassus = Game:hasPartyMember(name)
+    if hassus then
+        local sus = Game:getPartyMember(name)
+        if equipped then
+            if sus:hasSpell("pacibuster") then
+                sus:removeSpell("pacibuster")
+            end
+            if not sus:hasSpell("pacify") then
+                sus:addSpell("pacify")
+            end
+        else
+            if sus:hasSpell("pacify") then
+                sus:removeSpell("pacify")
+            end
+            if not sus:hasSpell("pacibuster") then
+                sus:addSpell("pacibuster")
+            end
         end
     end
 end

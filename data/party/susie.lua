@@ -259,7 +259,12 @@ function character:onAttackHit(enemy, damage)
         Game.battle:shakeCamera(4)
     end
 	
-	if self:getWeapon().id == "decayaxe" then
+    if not self.getWeapon then return end
+    local weapon = self:getWeapon()
+    if not weapon then return end
+    local id = weapon.id
+    if not id then return end
+    if id == "decayaxe" then
 		self:addStatBuff("attack", -2)
 	end
 end
