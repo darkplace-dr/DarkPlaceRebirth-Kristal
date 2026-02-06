@@ -1,17 +1,14 @@
-local id = "shadowguy_car"
-local actor, super = Class(Actor, id)
+local actor, super = Class(Actor, "shadowguy_car")
 
 function actor:init()
     super.init(self)
-    self.name = "Shadowguy"
+    self.name = "Shadowguy Band"
 
     -- Width and height for this actor, used to determine its center
     self.width = 95
     self.height = 75
 
-	local xoffset = self.width * .25
-
-    self.hitbox = {xoffset, 0, self.width - (xoffset * 2), self.height}
+    self.hitbox = {0, 0, 95, 75}
 
     -- Whether this actor flips horizontally (optional, values are "right" or "left", indicating the flip direction)
     self.flip = nil
