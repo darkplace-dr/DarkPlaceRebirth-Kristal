@@ -1424,6 +1424,14 @@ local hub = {
             end)
         else
             cutscene:mapTransition("floor1/traininggrounds", "entry")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floor1/traininggrounds" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
         end
     end,
 
@@ -1436,10 +1444,18 @@ local hub = {
             cutscene:during(function () timeout = timeout - DT end)
             -- prevent player from accidentally exiting the room
             cutscene:wait(function ()
-                return Input.up("left") or (timeout <= 0)
+                return Input.up("right") or (timeout <= 0)
             end)
         else
             cutscene:mapTransition("floor1/fuseroom", "entry")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floor1/fuseroom" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
         end
     end,
 

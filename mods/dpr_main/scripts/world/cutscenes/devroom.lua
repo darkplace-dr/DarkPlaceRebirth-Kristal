@@ -171,8 +171,24 @@ local devroom = {
     between1 = function(cutscene, event)
         if love.math.random(1, 100) <= 5 then
             Game.world:mapTransition("floor2/dev/rooms/in_between/in_between", "spawn")
+            -- default wait func waits for the fade animation to end. movement should be allowed slightly before that
+            cutscene:wait(function () return Game.world.map.id == "floor2/dev/rooms/in_between/in_between" end)
+            local timeout = .5
+            cutscene:during(function () timeout = timeout - DT end)
+            -- prevent player from accidentally exiting the room
+            cutscene:wait(function ()
+                return Input.up("left") or (timeout <= 0)
+            end)
         else
             Game.world:mapTransition("floor2/dev/main_1", "pre_elevator")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floor2/dev/main_1" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
         end
     end,
     
