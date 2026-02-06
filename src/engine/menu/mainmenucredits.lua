@@ -150,6 +150,7 @@ function MainMenuCredits:init(menu)
                 {"Contributors", COLORS.silver},
                 "TritraSerpifeu",
                 "vamp",
+                "CharaCterDreemurr",
                 "",
                 "",
                 "",

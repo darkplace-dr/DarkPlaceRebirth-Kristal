@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
+ <editorsettings>
+  <export target="snowtree.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="forgottenbone"/>
+ </properties>
+ <layer id="1" name="Tile Layer 1" width="20" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="objects">
+  <object id="1" name="npc" x="360" y="400">
+   <properties>
+    <property name="actor" value="snowtree"/>
+    <property name="cutscene" value="cyber.snowtree"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="interactable" x="360" y="420" width="80" height="20">
+   <properties>
+    <property name="flagcheck" value="!snowtreetalk"/>
+    <property name="text" value="* He is behind the tree."/>
+   </properties>
+  </object>
+  <object id="17" name="transition" x="320" y="0" width="160" height="40">
+   <properties>
+    <property name="map" value="floorcyber/cyber_store"/>
+    <property name="marker" value="marker2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="collisions">
+  <object id="2" x="0" y="0" width="320" height="120"/>
+  <object id="3" x="480" y="0" width="320" height="120"/>
+  <object id="4" x="600" y="120">
+   <polygon points="0,0 120,120 200,120 200,0"/>
+  </object>
+  <object id="6" x="720" y="240" width="80" height="400"/>
+  <object id="7" x="200" y="120">
+   <polygon points="0,0 -120,120 -200,120 -200,0"/>
+  </object>
+  <object id="8" x="0" y="240" width="80" height="400"/>
+  <object id="9" x="80" y="480">
+   <polygon points="0,0 80,80 80,160 0,160"/>
+  </object>
+  <object id="10" x="160" y="560" width="480" height="80"/>
+  <object id="11" x="720" y="480">
+   <polygon points="0,0 -80,80 -80,160 0,160"/>
+  </object>
+  <object id="16" x="340" y="380" width="120" height="60"/>
+ </objectgroup>
+ <objectgroup id="4" name="markers">
+  <object id="14" name="entry" x="400" y="80">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

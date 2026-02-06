@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="29" height="29" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="28">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="29" height="29" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="33">
  <editorsettings>
   <export target="dog_highway.lua" format="lua"/>
  </editorsettings>
@@ -80,10 +80,12 @@
  <objectgroup color="#0000ff" id="4" name="collision">
   <object id="1" x="0" y="680" width="440" height="480"/>
   <object id="2" x="720" y="680" width="440" height="480"/>
-  <object id="3" x="0" y="0" width="440" height="400"/>
+  <object id="3" x="0" y="0" width="440" height="360"/>
   <object id="4" x="720" y="0" width="440" height="400"/>
   <object id="9" x="440" y="-40" width="280" height="40"/>
   <object id="10" x="440" y="1160" width="280" height="40"/>
+  <object id="29" x="0" y="360" width="160" height="40"/>
+  <object id="30" x="240" y="360" width="200" height="40"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="objects">
   <object id="6" name="savepoint" x="320" y="420"/>
@@ -166,12 +168,21 @@
    </properties>
    <point/>
   </object>
+  <object id="32" name="transition" x="160" y="360" width="80" height="40">
+   <properties>
+    <property name="map" value="floorcyber/cyber_store"/>
+    <property name="marker" value="entry1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="6" name="markers">
   <object id="8" name="east" x="40" y="560">
    <point/>
   </object>
   <object id="14" name="spawn" x="260" y="430">
+   <point/>
+  </object>
+  <object id="31" name="store" x="200" y="440">
    <point/>
   </object>
  </objectgroup>
