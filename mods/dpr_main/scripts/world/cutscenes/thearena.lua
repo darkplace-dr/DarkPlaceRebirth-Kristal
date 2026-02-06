@@ -1,5 +1,6 @@
 return {
     jigsaw_joe = function(cutscene, event)
+        cutscene:setSpeaker(event)
 		cutscene:showNametag("Jigsaw Joe")
         cutscene:text("* How can I help ya!?")
 		cutscene:hideNametag()

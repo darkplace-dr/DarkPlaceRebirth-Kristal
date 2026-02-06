@@ -171,7 +171,7 @@ end
 
 function actor:onTextSound()
     if self.voice_timer == 0 then
-        local rand = MathUtils.random(0, 8, 1) + 1
+        local rand = MathUtils.randomInt(8) + 1
 	
         local serious_voice = Game:getFlag("tennaSeriousVoice", 1)
         local pitchrandom = (0.86 + MathUtils.random(0.35)) * serious_voice
