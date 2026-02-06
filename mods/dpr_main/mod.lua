@@ -1141,6 +1141,7 @@ function Mod:postInit(new_file)
     Kristal.callEvent("setItemsList", items_list)
 
     if new_file then
+		local no_cutscene = false
         Game:setFlag("library_love", 1)
         Game:setFlag("library_experience", 0)
         Game:setFlag("library_kills", 0)
@@ -1156,12 +1157,17 @@ function Mod:postInit(new_file)
             Game:setFlag("_unlockedPartyMembers", baseParty)
             Game:addPartyMember("dess")
             Game:removePartyMember("hero")
+        elseif Game:isSpecialMode "WOODS" then
+            Game:setPartyMembers("kris")
+            Game.world:loadMap("woods/spawn")
+			no_cutscene = true
         else
             table.insert(baseParty, "hero") -- should be just Hero for now
             Game:setFlag("_unlockedPartyMembers", baseParty)
         end
-
-        Game.world:startCutscene("_main.introcutscene")
+		if not no_cutscene then
+			Game.world:startCutscene("_main.introcutscene")
+		end
     end
     
     if not Game:getFlag("FUN") then
