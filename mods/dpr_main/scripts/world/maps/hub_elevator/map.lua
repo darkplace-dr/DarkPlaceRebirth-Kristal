@@ -76,6 +76,23 @@ function Elevator:onEnter()
         
         else ELEVATOR_TRANSITION = nil
         end
+		-- Tea rotting
+		local tea_items = {
+			"hero_tea", "kris_tea", "susie_tea",
+			"ralsei_tea", "noelle_tea", "dess_tea",
+			"jamm_tea", "ceroba_tea", "mario_tea",
+			"pauling_tea"
+		}
+		local show_tea_message = false
+		for _, tea in ipairs(tea_items) do
+			if Game.inventory:hasItem(tea) then
+				show_tea_message = true
+			end
+			Game.inventory:replaceItem(tea, "rottentea")
+		end
+		if show_tea_message then
+			Game.world:showText("* (The flavored tea you bought seems to have deteriorated...)")
+		end
     end)
 end
 

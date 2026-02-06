@@ -335,6 +335,22 @@ local cyber = {
 	end
 		falseral:setAnimation("idle")
 	end,
+    transition = function(cutscene, event)
+        if love.math.random(1, 100) <= 5 then
+            cutscene:mapTransition("floorcyber/ddelta_dream", "entry")
+        else
+            cutscene:mapTransition("floorcyber/street_1", "west")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floorcyber/street_1" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
+        end
+    end,
+
 charjar = function(cutscene, event)
 	if Game:isDessMode() then
 		if Game:getFlag("can_kill") == true then

@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -284,7 +284,7 @@ return {
         },
         {
           id = 7,
-          name = "transition",
+          name = "script",
           type = "",
           shape = "rectangle",
           x = -40,
@@ -294,8 +294,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floorcyber/street_1",
-            ["marker"] = "west"
+            ["cutscene"] = "cyber.transition",
+            ["once"] = false
           }
         },
         {
