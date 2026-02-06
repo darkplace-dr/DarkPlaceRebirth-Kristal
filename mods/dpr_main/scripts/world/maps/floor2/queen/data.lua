@@ -304,7 +304,7 @@ return {
         },
         {
           id = 20,
-          name = "interactable",
+          name = "solid",
           type = "",
           shape = "rectangle",
           x = 680,
@@ -314,8 +314,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cond"] = "Game:hasRecruit(\"shadowguy\")",
-            ["solid"] = true
+            ["cond"] = "Game:hasRecruit(\"shadowguy\")"
           }
         },
         {
