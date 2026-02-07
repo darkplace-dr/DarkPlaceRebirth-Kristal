@@ -8,6 +8,9 @@ end
 function Room1:onEnter()
     super.onEnter(self)
 	self.diamond = self:getEvent("diamonds_symbol")
+	for _, follower in ipairs(Game.world.followers) do
+		follower.visible = false
+	end
 end
 
 function Room1:update()

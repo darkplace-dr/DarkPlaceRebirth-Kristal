@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="18">
  <editorsettings>
-  <export target="snowtree.lua" format="lua"/>
+  <export target="../snowtree.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="music" value="forgottenbone"/>
