@@ -258,7 +258,7 @@ function SaveMenuCrack:draw()
         local playtime  = data.playtime  or 0
 
         local hours = math.floor(playtime / 3600)
-        local minutes = math.floor(playtime / 60)
+        local minutes = math.floor(playtime / 60 % 60)
         local seconds = math.floor(playtime % 60)
         local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
         
@@ -447,7 +447,7 @@ function SaveMenuCrack:draw()
             love.graphics.print("LV "..data.level, x, y)
 
             local hours = math.floor(data.playtime / 3600)
-            local minutes = math.floor(data.playtime / 60)
+            local minutes = math.floor(data.playtime / 60 % 60)
             local seconds = math.floor(data.playtime % 60)
             local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
             love.graphics.print(time_text, x + w - self.font:getWidth(time_text), y)
