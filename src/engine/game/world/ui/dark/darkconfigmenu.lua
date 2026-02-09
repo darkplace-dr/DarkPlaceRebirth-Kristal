@@ -12,16 +12,9 @@ function DarkConfigMenu:init()
 	end
     self.font = Assets.getFont("main")
 
-    self.ui_move = Assets.newSound("ui_move")
-    self.ui_select = Assets.newSound("ui_select")
-    self.ui_cant_select = Assets.newSound("ui_cant_select")
-    self.ui_cancel_small = Assets.newSound("ui_cancel_small")
-
     self.heart_sprite = Assets.getTexture("player/heart")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
     self.flat_arrow_sprite = Assets.getTexture("ui/flat_arrow_right")
-
-    self.tp_sprite = Assets.getTexture("ui/menu/caption_tp")
 
     self.bg = UIBox(0, 0, self.width, self.height)
     self.bg.layer = -1
@@ -109,21 +102,16 @@ function DarkConfigMenu:onKeyPressed(key)
             self.rebinding = false
 
             if worked then
-                self.ui_select:stop()
-                self.ui_select:play()
-
-                if Game:getConfig("saveAfterModification") then Input.saveBinds() end
+                Assets.stopAndPlaySound("ui_select")
             else
-                self.ui_cant_select:stop()
-                self.ui_cant_select:play()
+                Assets.stopAndPlaySound("ui_cant_select")
             end
 
             return
         end
         if Input.pressed("confirm") then
             if self.currently_selected < 8 then
-                self.ui_select:stop()
-                self.ui_select:play()
+                Assets.stopAndPlaySound("ui_select")
                 self.rebinding = true
                 return
             end
@@ -146,8 +134,9 @@ function DarkConfigMenu:onKeyPressed(key)
                 self.reset_flash_timer = 0
                 self.state = "MAIN"
                 self.currently_selected = 2
-                self.ui_select:stop()
-                self.ui_select:play()
+
+                Assets.stopAndPlaySound("ui_select")
+
                 Input.clear("confirm", true)
             end
             return
@@ -170,8 +159,7 @@ function DarkConfigMenu:onKeyPressed(key)
         self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 9)
 
         if old_selected ~= self.currently_selected then
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
         end
 
         local old_page = self.control_page
@@ -202,8 +190,7 @@ end
 function DarkConfigMenu:update()
     if self.state == "MAIN" then
         if Input.pressed("confirm") then
-            self.ui_select:stop()
-            self.ui_select:play()
+            Assets.stopAndPlaySound("ui_select")
 			
             if self.current_config_page == 1 then
                 if self.currently_selected == 1 then
@@ -238,21 +225,18 @@ function DarkConfigMenu:update()
         end
 
         if Input.pressed("cancel") then
-            self.ui_cancel_small:stop()
-            self.ui_cancel_small:play()
+            Assets.stopAndPlaySound("ui_cancel_small")
             Game.world.menu:closeBox()
             return
         end
 
         if Input.pressed("up") then
             self.currently_selected = self.currently_selected - 1
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
         end
         if Input.pressed("down") then
             self.currently_selected = self.currently_selected + 1
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
         end
 
         if self.current_config_page == 1 then
@@ -277,9 +261,10 @@ function DarkConfigMenu:update()
         end
     elseif self.state == "VOLUME" then
         if Input.pressed("cancel") or Input.pressed("confirm") then
-            Kristal.setVolume(Utils.round(Kristal.getVolume() * 100) / 100)
-            self.ui_select:stop()
-            self.ui_select:play()
+            Kristal.setVolume(MathUtils.round(Kristal.getVolume() * 100) / 100)
+
+            Assets.stopAndPlaySound("ui_select")
+
             self.state = "MAIN"
             return
         end

@@ -687,6 +687,7 @@ function Map:loadObjects(layer, depth, layer_type)
                         obj.unique_id = v.properties["uid"]
                     end
                     obj.layer = depth
+                    obj.layer_name = layer.name
                     obj.data = v
 
                     if v.properties["usetile"] and v.gid and obj.applyTileObject then
