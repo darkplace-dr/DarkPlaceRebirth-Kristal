@@ -173,8 +173,7 @@ function DarkConfigMenu:onKeyPressed(key)
         self.control_page = MathUtils.clamp(self.control_page, 1, self.max_control_page)
 
         if old_page ~= self.control_page then
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
 
             if not self.keybinds[self.currently_selected + 7*(self.control_page - 1)] and self.currently_selected <= 7 then
                 if self.currently_selected <= (#self.keybinds - 7*self.control_page)/2 + 7 then
@@ -256,8 +255,7 @@ function DarkConfigMenu:update()
         self.current_config_page = MathUtils.clamp(self.current_config_page, 1, self.max_config_pages)
 
         if old_page ~= self.current_config_page then
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
         end
     elseif self.state == "VOLUME" then
         if Input.pressed("cancel") or Input.pressed("confirm") then
@@ -300,10 +298,9 @@ function DarkConfigMenu:update()
         end
     elseif self.state == "BORDER" then
         if Input.pressed("cancel") or Input.pressed("confirm") then
-                self.state = "MAIN"
-				self.currently_selected = 1
-                self.ui_select:stop()
-                self.ui_select:play()
+            self.state = "MAIN"
+            self.currently_selected = 1
+            Assets.stopAndPlaySound("ui_select")
         end
         local border_index = -1
         for current_index, border in ipairs(self.border_types) do
@@ -322,8 +319,7 @@ function DarkConfigMenu:update()
             border_index = math.min(border_index + 1, #self.border_types)
         end
         if old_index ~= border_index then
-            self.ui_move:stop()
-            self.ui_move:play()
+            Assets.stopAndPlaySound("ui_move")
             Kristal.Config["borders"] = self.border_types[border_index][1]
             if self.border_types[border_index][1] == "off" then
                 Kristal.resetWindow()
