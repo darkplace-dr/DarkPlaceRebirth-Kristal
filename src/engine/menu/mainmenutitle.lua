@@ -66,7 +66,7 @@ function MainMenuTitle:onEnter(old_state)
         self.menu.selected_mod_button = nil
     end
 
-    self.menu.heart_target_x = 229
+    self.menu.heart_target_x = 196
     self.menu.heart_target_y = 238 + 32 * (self.selected_option - 1)
 end
 
@@ -82,7 +82,7 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
                 if MainMenu.mod_list:getSelectedMod() and MainMenu.mod_list:getSelectedMod().soulColor then
                     MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
                 end
-            elseif self.has_target_saves then
+            elseif self.has_target_saves or MainMenu.mod_list:getSelectedMod().useSaves then
                 self.menu:setState("FILESELECT")
             else
                 if not Kristal.loadMod(TARGET_MOD, 1) then
@@ -129,7 +129,7 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
         Assets.stopAndPlaySound("ui_move")
     end
 
-    self.menu.heart_target_x = 229
+    self.menu.heart_target_x = 196
     self.menu.heart_target_y = 238 + (self.selected_option - 1) * 32
 end
 
@@ -159,7 +159,7 @@ function MainMenuTitle:selectOption(id)
         if options[1] == id then
             self.selected_option = i
 
-            self.menu.heart_target_x = 229
+            self.menu.heart_target_x = 196
             self.menu.heart_target_y = 238 + (self.selected_option - 1) * 32
 
             return true
