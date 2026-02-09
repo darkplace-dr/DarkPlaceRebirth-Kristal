@@ -82,6 +82,20 @@ function actor:onSpriteInit(sprite)
     sprite.e_2:setOrigin(0.5, 1)
     sprite:addChild(sprite.e_2)
 
+    sprite.e_1_b = Sprite(self.path.."/eye_bright_shadow")
+    sprite.e_1_b.x = 58
+    sprite.e_1_b.y = 66
+	sprite.e_1_b.visible = false
+    sprite.e_1_b:setOrigin(0.5, 1)
+    sprite:addChild(sprite.e_1_b)
+
+    sprite.e_2_b = Sprite(self.path.."/eye_bright_shadow")
+    sprite.e_2_b.x = 98
+    sprite.e_2_b.y = 66
+	sprite.e_2_b.visible = false
+    sprite.e_2_b:setOrigin(0.5, 1)
+    sprite:addChild(sprite.e_2_b)
+
     sprite.torso = Sprite(self.path.."/torso")
     sprite.torso.x = -3
     sprite.torso.y = 90 - 3
@@ -90,19 +104,18 @@ function actor:onSpriteInit(sprite)
     sprite.timer = 0
     sprite.next_time = (os.date("%S") + self:pickRandomDigit())
 
-	sprite.circle = Assets.getTexture(self.path.."/circle")
-	sprite.eye_bright_shadow = Assets.getTexture(self.path.."/eye_bright_shadow")
 	sprite.eye_tween_1 = nil
 	sprite.eye_tween_2 = nil
 	sprite.blinked = false
 	sprite.talky_1 = 0
-	sprite.talktimer_1 = 0
+	sprite.talktimer_1 = -DT
 	sprite.talkcon_1 = 0
 	sprite.talk_tween_1 = nil
 	sprite.talky_2 = 0
-	sprite.talktimer_2 = 0
+	sprite.talktimer_2 = -DT
 	sprite.talkcon_2 = 0
-	sprite.talk_tween_1 = nil
+	sprite.talk_tween_2 = nil
+	sprite.talk_ended = true
 	sprite.transition_timer = 1
 end
 
@@ -116,8 +129,41 @@ function actor:onSetSprite(sprite, texture, keep_anim)
 	sprite.transition_timer = 0
 end
 
-function actor:onSpriteDraw(sprite)
-    super.onSpriteDraw(sprite)
+local function undoBlink(s)
+    local e1 = s.e_1
+    local e2 = s.e_2
+	if s.blinked then
+		if s.eye_tween_1 then
+			Game.shop.timer:cancel(s.eye_tween_1)
+			s.eye_tween_1 = nil
+		end
+		if s.eye_tween_2 then
+			Game.shop.timer:cancel(s.eye_tween_2)
+			s.eye_tween_2 = nil
+		end
+		s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
+		s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
+	end
+end
+
+local function doBlink(s)
+    local e1 = s.e_1
+    local e2 = s.e_2
+    e1:setScale(2, 0.2)
+    e2:setScale(2, 0.2)
+	if s.eye_tween_1 then
+		Game.shop.timer:cancel(s.eye_tween_1)
+		s.eye_tween_1 = nil
+	end
+	if s.eye_tween_2 then
+		Game.shop.timer:cancel(s.eye_tween_2)
+		s.eye_tween_2 = nil
+	end
+	s.blinked = true
+end
+
+function actor:onSpriteUpdate(sprite)
+    super.onSpriteUpdate(sprite)
     local h = sprite.head
     local max = 0.09
     local s = sprite
@@ -144,63 +190,90 @@ function actor:onSpriteDraw(sprite)
     local sp = spx
     if sp > 0 then sp = sp*-1 end
 	
-	s.transition_timer = MathUtils.approach(s.transition_timer, 1, 0.25*DTMULT)
+	s.transition_timer = MathUtils.lerpEaseOut(s.transition_timer, 1, 0.25*DTMULT, 1)
 
     if s.anim == "talk" or s.anim == "talk_huh" or s.anim == "talk_blink" or s.anim == "talk_look_left" or s.anim == "talk_lookdown" then
-		s.talktimer_1 = sprite.talktimer_1 + DT
-		s.talktimer_2 = sprite.talktimer_2 + DT
-		if s.talktimer_1 >= 0.35*2 then
+		if s.talk_tween_end then
+			Game.shop.timer:cancel(s.talk_tween_end)
+			s.talk_tween_end = nil
+		end
+		if s.talktimer_1 >= 0.25*2 then
 			s.talktimer_1 = 0
 			s.talkcon_1 = 0
-		elseif s.talktimer_1 >=  0.35 and s.talkcon_1 == 1 then
+		elseif s.talktimer_1 >= 0.25 and s.talkcon_1 == 1 then
 			if s.talk_tween_1 then
 				Game.shop.timer:cancel(s.talk_tween_1)
 				s.talk_tween_1 = nil
 			end
-			s.talk_tween_1 = Game.shop.timer:tween(0.35, s, {talky_1 = 0}, "in-sine")
+			s.talk_tween_1 = Game.shop.timer:tween(0.25, s, {talky_1 = 0}, "in-sine")
 			s.talkcon_1 = 2
-		elseif s.talkcon_1 == 0 then
+		elseif s.talktimer_1 >= 0 and s.talkcon_1 == 0 then
 			if s.talk_tween_1 then
 				Game.shop.timer:cancel(s.talk_tween_1)
 				s.talk_tween_1 = nil
 			end
-			s.talk_tween_1 = Game.shop.timer:tween(0.35, s, {talky_1 = -6}, "out-cubic")
+			s.talk_tween_1 = Game.shop.timer:tween(0.25, s, {talky_1 = -6}, "out-cubic")
 			s.talkcon_1 = 1
 		end	
-		if s.talktimer_2 >= 0.075 + 0.35*2 then
+		if s.talktimer_2 >= 0.075 + 0.25*2 then
 			s.talktimer_2 = 0.075
 			s.talkcon_2 = 0
-		elseif s.talktimer_2 >= 0.075 + 0.35 and s.talkcon_2 == 1 then
+		elseif s.talktimer_2 >= 0.075 + 0.25 and s.talkcon_2 == 1 then
 			if s.talk_tween_2 then
 				Game.shop.timer:cancel(s.talk_tween_2)
 				s.talk_tween_2 = nil
 			end
-			s.talk_tween_2 = Game.shop.timer:tween(0.35, s, {talky_2 = 0}, "in-sine")
+			s.talk_tween_2 = Game.shop.timer:tween(0.25, s, {talky_2 = 0}, "in-sine")
 			s.talkcon_2 = 2
 		elseif s.talktimer_2 >= 0.075 and s.talkcon_2 == 0 then
 			if s.talk_tween_2 then
 				Game.shop.timer:cancel(s.talk_tween_2)
 				s.talk_tween_2 = nil
 			end
-			s.talk_tween_2 = Game.shop.timer:tween(0.35, s, {talky_2 = -10}, "out-cubic")
+			s.talk_tween_2 = Game.shop.timer:tween(0.25, s, {talky_2 = -10}, "out-cubic")
 			s.talkcon_2 = 1
 		end
 		s.talktimer_1 = sprite.talktimer_1 + DT
 		s.talktimer_2 = sprite.talktimer_2 + DT
+		s.talk_ended = false
 	else
-		if s.talk_tween_1 then
-			Game.shop.timer:cancel(s.talk_tween_1)
-			s.talk_tween_1 = nil
+		if not s.talk_ended then
+			if s.talktimer_1 >= 0.25 and s.talkcon_1 == 1 then
+				if s.talk_tween_1 then
+					Game.shop.timer:cancel(s.talk_tween_1)
+					s.talk_tween_1 = nil
+				end
+				s.talk_tween_1 = Game.shop.timer:tween(0.25, s, {talky_1 = 0}, "in-sine")
+				s.talkcon_1 = 2
+			end	
+			if s.talktimer_2 >= 0.075 + 0.25*2 then
+				s.talk_ended = true
+			elseif s.talktimer_2 >= 0.075 + 0.25 and s.talkcon_2 == 1 then
+				if s.talk_tween_2 then
+					Game.shop.timer:cancel(s.talk_tween_2)
+					s.talk_tween_2 = nil
+				end
+				s.talk_tween_2 = Game.shop.timer:tween(0.25, s, {talky_2 = 0}, "in-sine")
+				s.talkcon_2 = 2
+			end
+			s.talktimer_1 = sprite.talktimer_1 + DT
+			s.talktimer_2 = sprite.talktimer_2 + DT
+		else
+			if s.talk_tween_1 then
+				Game.shop.timer:cancel(s.talk_tween_1)
+				s.talk_tween_1 = nil
+			end
+			if s.talk_tween_2 then
+				Game.shop.timer:cancel(s.talk_tween_2)
+				s.talk_tween_2 = nil
+			end
+			s.talky_1 = 0
+			s.talky_2 = 0
+			s.talktimer_1 = -DT
+			s.talkcon_1 = 0
+			s.talktimer_2 = -DT
+			s.talkcon_2 = 0
 		end
-		if s.talk_tween_2 then
-			Game.shop.timer:cancel(s.talk_tween_2)
-			s.talk_tween_2 = nil
-		end
-		s.talk_tween_1 = Game.shop.timer:tween(0.35, s, {talky_1 = 0, talky_2 = 0}, "in-sine")
-		s.talktimer_1 = 0
-		s.talkcon_1 = 0
-		s.talktimer_2 = 0
-		s.talkcon_2 = 0
 	end
 	s.head.y = s.talky_2 + 92 - 3
 	s.torso.y = s.talky_1 + 90 - 3
@@ -215,22 +288,12 @@ function actor:onSpriteDraw(sprite)
     
     local e1 = s.e_1
     local e2 = s.e_2
+    local e1b = s.e_1_b
+    local e2b = s.e_2_b
     if s.anim == "huh" or s.anim == "talk_huh" then
 		e1:setSprite(self.path.."/eye_huh_1")
 		e2:setSprite(self.path.."/eye_huh_2")
-		if s.blinked then
-			if s.eye_tween_1 then
-				Game.shop.timer:cancel(s.eye_tween_1)
-				s.eye_tween_1 = nil
-			end
-			if s.eye_tween_2 then
-				Game.shop.timer:cancel(s.eye_tween_2)
-				s.eye_tween_2 = nil
-			end
-			s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
-			s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
-			s.blinked = false
-		end
+		undoBlink(s)
 		e1.rotation = MathUtils.angleLerp(e1.rotation, spx*1.1, s.transition_timer)
 		e1.x = MathUtils.lerp(e1.x, 60 + spx*40, s.transition_timer)
 		e1.y = MathUtils.lerp(e1.y, s.talky_2 + 66 - sp*25, s.transition_timer)
@@ -238,20 +301,18 @@ function actor:onSpriteDraw(sprite)
 		e2.rotation = MathUtils.angleLerp(e2.rotation, spx*1.1, s.transition_timer)
 		e2.x = MathUtils.lerp(e2.x, 98 + spx*40, s.transition_timer)
 		e2.y = MathUtils.lerp(e2.y, s.talky_2 + 66 - sp*25, s.transition_timer)
+		
+		e1b.rotation = MathUtils.angleLerp(e1b.rotation, spx*1.1, s.transition_timer)
+		e1b.x = MathUtils.lerp(e1b.x, 60 + spx*40, s.transition_timer)
+		e1b.y = MathUtils.lerp(e1b.y, s.talky_2 + 66 - sp*25, s.transition_timer)
+
+		e2b.rotation = MathUtils.angleLerp(e2b.rotation, spx*1.1, s.transition_timer)
+		e2b.x = MathUtils.lerp(e2b.x, 98 + spx*40, s.transition_timer)
+		e2b.y = MathUtils.lerp(e2b.y, s.talky_2 + 66 - sp*25, s.transition_timer)
 	elseif s.anim == "blink" or s.anim == "talk_blink" then
 		e1:setSprite(self.path.."/eye")
-        e1:setScale(2, 0.2)
 		e2:setSprite(self.path.."/eye")
-        e2:setScale(2, 0.2)
-		if s.eye_tween_1 then
-			Game.shop.timer:cancel(s.eye_tween_1)
-			s.eye_tween_1 = nil
-		end
-		if s.eye_tween_2 then
-			Game.shop.timer:cancel(s.eye_tween_2)
-			s.eye_tween_2 = nil
-		end
-		s.blinked = true
+		doBlink(s)
 		e1.rotation = MathUtils.angleLerp(e1.rotation, spx*1.5, s.transition_timer)
 		e1.x = MathUtils.lerp(e1.x, 60 + spx*40, s.transition_timer)
 		e1.y = MathUtils.lerp(e1.y, s.talky_2 + 66 - sp*25, s.transition_timer)
@@ -259,22 +320,18 @@ function actor:onSpriteDraw(sprite)
 		e2.rotation = MathUtils.angleLerp(e2.rotation, spx*1.5, s.transition_timer)
 		e2.x = MathUtils.lerp(e2.x, 98 + spx*40, s.transition_timer)
 		e2.y = MathUtils.lerp(e2.y, s.talky_2 + 66 - sp*25, s.transition_timer)
+		
+		e1b.rotation = MathUtils.angleLerp(e1b.rotation, spx*1.5, s.transition_timer)
+		e1b.x = MathUtils.lerp(e1b.x, 60 + spx*40, s.transition_timer)
+		e1b.y = MathUtils.lerp(e1b.y, s.talky_2 + 66 - sp*25, s.transition_timer)
+
+		e2b.rotation = MathUtils.angleLerp(e2b.rotation, spx*1.5, s.transition_timer)
+		e2b.x = MathUtils.lerp(e2b.x, 98 + spx*40, s.transition_timer)
+		e2b.y = MathUtils.lerp(e2b.y, s.talky_2 + 66 - sp*25, s.transition_timer)
 	elseif s.anim == "lookdown" or s.anim == "talk_lookdown" then
 		e1:setSprite(self.path.."/eye")
 		e2:setSprite(self.path.."/eye")
-		if s.blinked then
-			if s.eye_tween_1 then
-				Game.shop.timer:cancel(s.eye_tween_1)
-				s.eye_tween_1 = nil
-			end
-			if s.eye_tween_2 then
-				Game.shop.timer:cancel(s.eye_tween_2)
-				s.eye_tween_2 = nil
-			end
-			s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
-			s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
-			s.blinked = false
-		end
+		undoBlink(s)
 		e1.rotation = MathUtils.angleLerp(e1.rotation, spx*1.5, s.transition_timer)
 		e1.x = MathUtils.lerp(e1.x, 60 + spx*40, s.transition_timer)
 		e1.y = MathUtils.lerp(e1.y, s.talky_2 + 71 - sp*25, s.transition_timer)
@@ -282,22 +339,18 @@ function actor:onSpriteDraw(sprite)
 		e2.rotation = MathUtils.angleLerp(e2.rotation, spx*1.5, s.transition_timer)
 		e2.x = MathUtils.lerp(e2.x, 98 + spx*40, s.transition_timer)
 		e2.y = MathUtils.lerp(e2.y, s.talky_2 + 71 - sp*25, s.transition_timer)
+		
+		e1.rotation = MathUtils.angleLerp(e1b.rotation, spx*1.5, s.transition_timer)
+		e1.x = MathUtils.lerp(e1b.x, 60 + spx*40, s.transition_timer)
+		e1.y = MathUtils.lerp(e1b.y, s.talky_2 + 71 - sp*25, s.transition_timer)
+
+		e2b.rotation = MathUtils.angleLerp(e2b.rotation, spx*1.5, s.transition_timer)
+		e2b.x = MathUtils.lerp(e2b.x, 98 + spx*40, s.transition_timer)
+		e2b.y = MathUtils.lerp(e2b.y, s.talky_2 + 71 - sp*25, s.transition_timer)
 	elseif s.anim == "look_left" or s.anim == "talk_look_left" then
 		e1:setSprite(self.path.."/eye")
 		e2:setSprite(self.path.."/eye")
-		if s.blinked then
-			if s.eye_tween_1 then
-				Game.shop.timer:cancel(s.eye_tween_1)
-				s.eye_tween_1 = nil
-			end
-			if s.eye_tween_2 then
-				Game.shop.timer:cancel(s.eye_tween_2)
-				s.eye_tween_2 = nil
-			end
-			s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
-			s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
-			s.blinked = false
-		end
+		undoBlink(s)
 		e1.rotation = MathUtils.angleLerp(e1.rotation, spx*1.25, s.transition_timer)
 		e1.x = MathUtils.lerp(e1.x, 70 + sp*20, s.transition_timer)
 		e1.y = MathUtils.lerp(e1.y, s.talky_2 + 74 - sp*25, s.transition_timer)
@@ -305,22 +358,18 @@ function actor:onSpriteDraw(sprite)
 		e2.rotation = MathUtils.angleLerp(e2.rotation, spx*1.25, s.transition_timer)
 		e2.x = MathUtils.lerp(e2.x, 109 + sp*20, s.transition_timer)
 		e2.y = MathUtils.lerp(e2.y, s.talky_2 + 74 - sp*25, s.transition_timer)
+		
+		e1b.rotation = MathUtils.angleLerp(e1b.rotation, spx*1.25, s.transition_timer)
+		e1b.x = MathUtils.lerp(e1b.x, 70 + sp*20, s.transition_timer)
+		e1b.y = MathUtils.lerp(e1b.y, s.talky_2 + 74 - sp*25, s.transition_timer)
+
+		e2b.rotation = MathUtils.angleLerp(e2b.rotation, spx*1.25, s.transition_timer)
+		e2b.x = MathUtils.lerp(e2b.x, 109 + sp*20, s.transition_timer)
+		e2b.y = MathUtils.lerp(e2b.y, s.talky_2 + 74 - sp*25, s.transition_timer)
 	else
 		e1:setSprite(self.path.."/eye")
 		e2:setSprite(self.path.."/eye")
-		if s.blinked then
-			if s.eye_tween_1 then
-				Game.shop.timer:cancel(s.eye_tween_1)
-				s.eye_tween_1 = nil
-			end
-			if s.eye_tween_2 then
-				Game.shop.timer:cancel(s.eye_tween_2)
-				s.eye_tween_2 = nil
-			end
-			s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
-			s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
-			s.blinked = false
-		end
+		undoBlink(s)
 		e1.rotation = MathUtils.angleLerp(e1.rotation, spx*1.5, s.transition_timer)
 		e1.x = MathUtils.lerp(e1.x, 60 + spx*40, s.transition_timer)
 		e1.y = MathUtils.lerp(e1.y, s.talky_2 + 66 - sp*25, s.transition_timer)
@@ -329,22 +378,17 @@ function actor:onSpriteDraw(sprite)
 		e2.x = MathUtils.lerp(e2.x, 98 + spx*40, s.transition_timer)
 		e2.y = MathUtils.lerp(e2.y, s.talky_2 + 66 - sp*25, s.transition_timer)
 	end
-	
-    Draw.setColor(1, 1, 1)
-	
-    if s.anim ~= "huh" and s.anim ~= "talk_huh" then
-		love.graphics.stencil(function()
-			local last_shader = love.graphics.getShader()
-			love.graphics.setShader(Kristal.Shaders["Mask"])
-			Draw.draw(s.circle, s.c_1.x, s.c_1.y, s.c_1.rotation, 1, 1, 8.5, 8.5)
-			Draw.draw(s.circle, s.c_2.x, s.c_2.y, s.c_2.rotation, 1, 1, 8.5, 8.5)
-			love.graphics.setShader(last_shader)
-		end, "replace", 1)
-		love.graphics.setStencilTest("greater", 0)
-		Draw.draw(s.eye_bright_shadow, e1.x, e1.y, e1.rotation, e1.scale_x, e1.scale_y, 8.5, 27)
-		Draw.draw(s.eye_bright_shadow, e2.x, e2.y, e2.rotation, e2.scale_x, e2.scale_y, 8.5, 27)
-		love.graphics.setStencilTest()
-	end
+	e1b.rotation = e1.rotation
+	e1b.scale_x = e1.scale_x
+	e1b.scale_y = e1.scale_y
+	e1b.x = e1.x
+	e1b.y = e1.y
+
+	e2b.rotation = e2.rotation
+	e2b.scale_x = e2.scale_x
+	e2b.scale_y = e2.scale_y
+	e2b.x = e2.x
+	e2b.y = e2.y
 	
     s.second = os.date("%S") + 0
     if s.next_time <= s.second then
@@ -355,20 +399,33 @@ function actor:onSpriteDraw(sprite)
 		s.head:setSprite(self.path.."/shine")
 		s.head:play(1/15, false, function(ss) ss:setSprite(self.path.."/head") end)
 		if s.anim ~= "blink" and s.anim ~= "talk_blink" then
-			if s.eye_tween_1 then
-				Game.shop.timer:cancel(s.eye_tween_1)
-				s.eye_tween_1 = nil
-			end
-			if s.eye_tween_2 then
-				Game.shop.timer:cancel(s.eye_tween_2)
-				s.eye_tween_2 = nil
-			end
-			e1:setScale(2, 0.2)
-			s.eye_tween_1 = Game.shop.timer:tween(0.1, e1, {scale_x = 1, scale_y = 1})
-			e2:setScale(2, 0.2)
-			s.eye_tween_2 = Game.shop.timer:tween(0.1, e2, {scale_x = 1, scale_y = 1})
+			doBlink(s)
+			undoBlink(s)
 		end
     end
+end
+
+function actor:onSpriteDraw(sprite)
+    local s = sprite
+    local c1 = s.c_1
+    local c2 = s.c_2
+    local e1b = s.e_1_b
+    local e2b = s.e_2_b
+    Draw.setColor(1, 1, 1)
+	
+    if s.anim ~= "huh" and s.anim ~= "talk_huh" then
+		love.graphics.stencil(function()
+			local last_shader = love.graphics.getShader()
+			love.graphics.setShader(Kristal.Shaders["Mask"])
+			c1:fullDraw()
+			c2:fullDraw()
+			love.graphics.setShader(last_shader)
+		end, "replace", 1)
+		love.graphics.setStencilTest("greater", 0)
+		e1b:fullDraw()
+		e2b:fullDraw()
+		love.graphics.setStencilTest()
+	end
 end
 
 return actor
