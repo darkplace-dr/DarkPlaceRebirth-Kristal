@@ -2,6 +2,29 @@
 ---@overload fun(...) : DogCheck
 local DogCheck, super = Class(Rectangle, "dogcheck") -- lmao
 
+local FFI = require "ffi"
+local BLEND_OPERATIONS = {
+    add = 0x8006,             -- GL_FUNC_ADD
+    subtract = 0x800A,        -- GL_FUNC_SUBTRACT
+    reversesubtract = 0x800B, -- GL_FUNC_REVERSE_SUBTRACT
+    min = 0x8007,             -- GL_MIN
+    max = 0x8008,             -- GL_MAX
+}
+
+local BLEND_FACTORS = {
+    zero = 0,                   -- GL_ZERO
+    one = 1,                    -- GL_ONE
+    srccolor = 0x0300,          -- GL_SRC_COLOR
+    oneminussrccolor = 0x0301,  -- GL_ONE_MINUS_SRC_COLOR
+    srcalpha = 0x0302,          -- GL_SRC_ALPHA
+    oneminussrcalpha = 0x0303,  -- GL_ONE_MINUS_SRC_ALPHA
+    dstcolor = 0x0306,          -- GL_DST_COLOR
+    oneminusdstcolor = 0x0307,  -- GL_ONE_MINUS_DST_COLOR
+    dstalpha = 0x0304,          -- GL_DST_ALPHA
+    oneminusdstalpha = 0x0305,  -- GL_ONE_MINUS_DST_ALPHA
+    srcalphasaturated = 0x0308, -- GL_SRC_ALPHA_SATURATE
+}
+
 function DogCheck:init(variant)
     super.init(self, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 	self.color = COLORS.black
@@ -38,6 +61,9 @@ function DogCheck:init(variant)
     self.prophecy_siner = 0
 
     love.window.setTitle("Dog Place: REBIRTH")
+	self.font = Assets.getFont("main")
+	self.fade_alpha = 0
+	self.prophecy_accurate_blending = false
 end
 
 function DogCheck:onAdd(parent)
@@ -83,7 +109,7 @@ function DogCheck:start()
         pitch_rand_max = pitch_rand_max or pitch_rand_min
 
         self.song = path
-        self.song_pitch = Utils.random(pitch_rand_min, pitch_rand_max)
+        self.song_pitch = MathUtils.random(pitch_rand_min, pitch_rand_max)
         if self.music then
             self.music:play(path, nil, self.song_pitch)
         end
@@ -105,7 +131,7 @@ function DogCheck:start()
         if month == 10 and day == 31 then
             table.insert(variant_choices, "halloween")
         end
-        self.variant = Utils.pick(variant_choices)
+        self.variant = TableUtils.pick(variant_choices)
     end
 
     local cust_sprites_base = "kristal/dogcheck"
@@ -116,11 +142,11 @@ function DogCheck:start()
         playSong(song_path.."dance_of_dog", 0.95, 1.05)
     elseif self.variant == "sleep" then
         createDog("misc/dog_sleep", 0.8)
-        local song_here = Utils.pick({song_path.."dogcheck", "deltarune/tv_results_screen", song_path.."sigh_of_dog", song_path.."dogcheck_anniversary"})
+        local song_here = TableUtils.pick({song_path.."dogcheck", "deltarune/tv_results_screen", song_path.."sigh_of_dog", song_path.."dogcheck_anniversary"})
         local song_is_sog = song_here == song_path.."sigh_of_dog"
 
         if song_here == song_path.."dogcheck" then
-            playSong(song_here, (0.9 + Utils.random(0.1)))
+            playSong(song_here, (0.9 + MathUtils.random(0.1)))
         elseif song_here == "deltarune/tv_results_screen" then
             playSong(song_here, 2.5)
 		else
@@ -131,7 +157,7 @@ function DogCheck:start()
         playSong(song_path.."baci_perugina2")
     elseif self.variant == "piano" then
         createDog(cust_sprites_base.."/dog_piano", 0.5)
-        local song_here = Utils.pick({song_path.."legend_piano", song_path.."snowdin_piano", song_path.."home_piano", song_path.."5_4_improv", song_path.."bowser_piano_victory"})
+        local song_here = TableUtils.pick({song_path.."legend_piano", song_path.."snowdin_piano", song_path.."home_piano", song_path.."5_4_improv", song_path.."bowser_piano_victory"})
         playSong(song_here)
     elseif self.variant == "spring" then
         createDog(cust_sprites_base.."/dog_spring", 0.2, -2, -13)
@@ -159,8 +185,38 @@ function DogCheck:start()
     elseif self.variant == "chapter3" then
         createDog(cust_sprites_base.."/dog_board", 0.2, 0, 0, 8)
         playSong(song_path.."ch3_board3")
-    elseif self.variant == "chapter4" then -- WIP. sleeping dog sprite is a placeholder until we have the actual dog prophecy object ready lol
-        playSong(song_path.."annoying_prophecy")
+    elseif self.variant == "chapter4" then
+		self.prophecy_accurate_blending = true
+		local major, minor, revision = love.getVersion()
+		if major < 12 then
+			local STD = FFI.C
+			if FFI.os == "Windows" then
+				STD = FFI.load("SDL2")
+			end
+
+			FFI.cdef([[
+				void* GL_GetProcAddress(const char *proc) asm("SDL_GL_GetProcAddress");
+			]])
+
+			local convention = (FFI.os == "Windows") and "__stdcall" or ""
+
+			local function gl_func(name, signature)
+				local proc = STD.GL_GetProcAddress(name)
+				assert(proc ~= nil, "Failed to load GL function: " .. name)
+				return FFI.cast(signature, proc)
+			end
+
+			local glBlendEquationSeparateSignature = ("void(%s*)(uint32_t,uint32_t)"):format(convention)
+			local glBlendFuncSeparateSignature = ("void(%s*)(uint32_t,uint32_t,uint32_t,uint32_t)"):format(convention)
+
+			self._glBlendEquationSeparate = gl_func("glBlendEquationSeparate", glBlendEquationSeparateSignature)
+			self._glBlendFuncSeparate = gl_func("glBlendFuncSeparate", glBlendFuncSeparateSignature)
+			if self._glBlendEquationSeparate == nil or self._glBlendFuncSeparate == nil then
+				print("WARN: setBlendState implementation is not available on this system. Disabling...")
+				self.prophecy_accurate_blending = false
+			end
+		end
+		playSong(song_path.."annoying_prophecy")
     elseif self.variant == "montypython" then
         playSong(song_path.."intermission")
     elseif self.variant == "house" then
@@ -188,7 +244,7 @@ function DogCheck:update()
         and Input.pressed("confirm")
     then
         self.state = "EXITING"
-        Game.fader:fadeOut(nil, { speed = 0.5 })
+        self.timer:tween(0.5, self, {fade_alpha = 1})
         if self.music then self.music:fade(0, 20/30) end
         self.timer:after(1, function ()
             self:remove()
@@ -196,6 +252,7 @@ function DogCheck:update()
             love.window.setTitle(mod and mod.name or Kristal.game_default_name)
         end)
     end
+	
 
     if self.variant == "summer" then
         self.stretch_ex_start = self.stretch_ex_start + DTMULT
@@ -259,7 +316,7 @@ function DogCheck:makeBGPumpkin(axis, y, x)
         self.siner = self.siner + DTMULT
         self.alpha_siner = self.alpha_siner + DTMULT
         local alpha_base = self.id % 2 == 0 and math.sin((self.alpha_siner)/10) or math.cos((self.alpha_siner)/10),0,1
-        self.alpha = Utils.clampMap(alpha_base, -0.9, 0.9, 0.1, 1)
+        self.alpha = MathUtils.rangeMap(alpha_base, -0.9, 0.9, 0.1, 1)
         if axis > 0 then
             self.y = self.start_y + math.sin((self.siner)/5)*6
             if self.x < -70 then
@@ -273,6 +330,82 @@ function DogCheck:makeBGPumpkin(axis, y, x)
         end
     end)
     self:addChild(pumpkin_sprite)
+end
+
+function DogCheck:setBlendState(operationRGB, operationAlpha, srcRGB, srcAlpha, dstRGB, dstAlpha)
+	if not self.prophecy_accurate_blending then
+		return
+	end
+    if (srcAlpha == nil and dstRGB == nil and dstAlpha == nil) then
+        -- Handle 3-param overload
+        local operation = operationRGB --[[@as BlendOperation]]
+        local srcFactor = operationAlpha --[[@as BlendFactor]]
+        local dstFactor = srcRGB --[[@as BlendFactor]]
+
+        operationRGB, operationAlpha = operation, operation
+        srcRGB, srcAlpha = srcFactor, srcFactor
+        dstRGB, dstAlpha = dstFactor, dstFactor
+    end
+
+    local major, minor, revision = love.getVersion()
+    if major >= 12 then
+        -- Use built-in functionality in LÖVE 12+
+        love.graphics.setBlendState(operationRGB, operationAlpha, srcRGB, srcAlpha, dstRGB, dstAlpha)
+        return
+    end
+
+    if self._glBlendEquationSeparate == nil or self._glBlendFuncSeparate == nil then
+        error("setBlendState implementation is not available on this system.")
+    end
+
+    love.graphics.flushBatch()
+	
+    self:assertOperationArgument(operationRGB)
+    self:assertOperationArgument(operationAlpha)
+    self:assertFactorArgument(srcRGB)
+    self:assertFactorArgument(srcAlpha)
+    self:assertFactorArgument(dstRGB)
+    self:assertFactorArgument(dstAlpha)
+
+    self._glBlendEquationSeparate(
+        BLEND_OPERATIONS[operationRGB],
+        BLEND_OPERATIONS[operationAlpha]
+    )
+
+    self._glBlendFuncSeparate(
+        BLEND_FACTORS[srcRGB],
+        BLEND_FACTORS[dstRGB],
+        BLEND_FACTORS[srcAlpha],
+        BLEND_FACTORS[dstAlpha]
+    )
+end
+
+function DogCheck:assertOperationArgument(arg)
+	if not self.prophecy_accurate_blending then
+		return
+	end
+    if BLEND_OPERATIONS[arg] == nil then
+        error(
+            string.format(
+                "Invalid blend operation '%s', expected one of: 'add', 'subtract', 'reversesubtract', 'min', 'max'",
+                arg
+            )
+        )
+    end
+end
+
+function DogCheck:assertFactorArgument(arg)
+	if not self.prophecy_accurate_blending then
+		return
+	end
+    if BLEND_FACTORS[arg] == nil then
+        error(
+            string.format(
+                "Invalid blend factor '%s', expected one of: 'zero', 'one', 'srccolor', 'oneminussrccolor', 'srcalpha', 'oneminussrcalpha', 'dstcolor', 'oneminusdstcolor', 'dstalpha', 'oneminusdstalpha', 'srcalphasaturated'",
+                arg
+            )
+        )
+    end
 end
 
 local function draw_sprite_tiled_ext(tex, _, x, y, sx, sy, color, alpha)
@@ -319,11 +452,13 @@ function DogCheck:draw()
     end
 
     if self.variant == "montypython" then
-        Draw.setColor({Utils.hsvToRgb(((self.color_siner) % 255)/255, 255/255, 255/255)})
+        Draw.setColor({ColorUtils.HSVToRGB(((self.color_siner) % 255)/255, 255/255, 255/255)})
         Draw.drawWrapped(Assets.getTexture(cust_sprites_base.."/intermission_bg"), true, true, 0, 0, 0, 1, 1)
 
-        Draw.setColor({Utils.hsvToRgb(((self.color_siner) % 255)/255, (60 + (math.sin((self.color_siner / 10)) * 15))/255, 255/255)})		
-        love.graphics.printf("Intermission", -320, 200, SCREEN_WIDTH, "center", 0, 2, 2, 0.5, 0.5)
+        Draw.setColor({ColorUtils.HSVToRGB(((self.color_siner) % 255)/255, (60 + (math.sin((self.color_siner / 10)) * 15))/255, 255/255)})		
+        
+		love.graphics.setFont(self.font)
+		love.graphics.printf("Intermission", -320, 200, SCREEN_WIDTH, "center", 0, 2, 2, 0.5, 0.5)
     end
 
     -- Ported the sun out of boredom, uncomment this if you want. - Agent 7
@@ -343,49 +478,107 @@ function DogCheck:draw()
 		local yoff = 0
 		local xsin = 0
 		local ysin = math.cos(self.prophecy_siner / 12) * 4
-		local sprite_canvas = Draw.pushCanvas(320, 240)
-		love.graphics.stencil(function()
-			local last_shader = love.graphics.getShader()
+		local propblue = ColorUtils.hexToRGB("#42D0FFFF")
+		local last_shader = love.graphics.getShader()
+		local base_sprite_canvas = Draw.pushCanvas(320, 240)
+		love.graphics.push()
+		love.graphics.origin()
+		love.graphics.clear()
+		if self.prophecy_accurate_blending then
+			love.graphics.clear(COLORS.black, 0)
+			Draw.setColor(1,1,1,1)
+			Draw.rectangle("fill", 0, 0, 320, 240)
+			love.graphics.setColorMask(false, false, false, true)
+			self:setBlendState("add", "oneminusdstalpha", "zero")
 			love.graphics.setShader(Kristal.Shaders["Mask"])
-			Draw.draw(Assets.getTexture(cust_sprites_base.."/uz"), 75, 80, 0, 1, 1, 11, 80)
+			Draw.setColor(1,1,1,1)
+		end
+		Draw.setColor(0,0,0,1)
+		Draw.draw(Assets.getTexture(cust_sprites_base.."/uz"), 99.5, 122, 0, 1, 1, 11, 80)
+		if self.prophecy_accurate_blending then
 			love.graphics.setShader(last_shader)
-		end, "replace", 1)
-		love.graphics.setStencilTest("greater", 0)
-		draw_sprite_tiled_ext(tilespr, 0, math.ceil(self.prophecy_siner / 2), math.ceil(self.prophecy_siner / 2), 1, 1, Utils.hexToRgb("#42D0FF"))
-		love.graphics.setStencilTest()
+			love.graphics.setColorMask(true, true, true, true)
+			self:setBlendState("add", "srcalpha", "oneminussrcalpha")
+		end
+		love.graphics.pop()
+		Draw.popCanvas(true)
+		local sprite_canvas = Draw.pushCanvas(320, 240)
+		if self.prophecy_accurate_blending then
+			love.graphics.push()
+			self:setBlendState("add", "srcalpha", "oneminussrcalpha")
+			draw_sprite_tiled_ext(tilespr, 0, math.ceil(self.prophecy_siner / 2), math.ceil(self.prophecy_siner / 2), 1, 1, propblue)
+			love.graphics.setBlendMode("alpha", "premultiplied")
+			self:setBlendState("add", "zero", "oneminussrccolor")
+			Draw.setColor(0,0,0,1)
+			Draw.draw(base_sprite_canvas, w/2, 28, 0, 1, 1, 199/2, 124/2)
+			love.graphics.pop()
+		else
+			love.graphics.stencil(function()
+				local last_shader = love.graphics.getShader()
+				love.graphics.setShader(Kristal.Shaders["Mask"])
+				Draw.draw(base_sprite_canvas, w/2, 28, 0, 1, 1, 199/2, 124/2)
+				love.graphics.setShader(last_shader)
+			end, "replace", 1)
+			love.graphics.setStencilTest("greater", 0)
+			draw_sprite_tiled_ext(tilespr, 0, math.ceil(self.prophecy_siner / 2), math.ceil(self.prophecy_siner / 2), 1, 1, propblue)
+			love.graphics.setStencilTest()
+		end
+		Draw.popCanvas(true)
 
 		local back_canvas = Draw.pushCanvas(w, h)
-		local ogbg = Utils.hexToRgb("#A3F8FF")
-		ogbg = COLORS["black"]
-		local linecol = Utils.mergeColor(Utils.hexToRgb("#8BE9EF"), Utils.hexToRgb("#17EDFF"), 0.5 + (math.sin(self.prophecy_siner / 120) * 0.5))
+		love.graphics.push()
+		local ogbg = ColorUtils.hexToRGB("#A3F8FFFF")
+		local linecol = ColorUtils.mergeColor(ColorUtils.hexToRGB("#8BE9EFFF"), ColorUtils.hexToRGB("#17EDFFFF"), 0.5 + (math.sin(self.prophecy_siner / 120) * 0.5))
 		local gradalpha = 1
-		Draw.setColor(ogbg, gradalpha*0.5)
+		love.graphics.setBlendMode("alpha")
+		if self.prophecy_accurate_blending then
+			Draw.setColor(ogbg[1], ogbg[2], ogbg[3], gradalpha)
+			self:setBlendState("add", "srcalpha", "oneminussrcalpha")
+		else
+			Draw.setColor(ogbg[1], ogbg[2], ogbg[3], gradalpha*0.45)
+		end
 		Draw.rectangle("fill", 0, 0, 320, 240)
-		love.graphics.setBlendMode("add")
 		draw_sprite_tiled_ext(tiletex, 0, math.ceil(-self.prophecy_siner / 2), math.ceil(-self.prophecy_siner / 2), 1, 1, linecol, 1)
 		love.graphics.setBlendMode("alpha")
-		local gradcol = COLORS["black"]
+		local gradcol = COLORS.black
 		Draw.setColor(gradcol, gradalpha)
 		Draw.draw(grad20, 0, 0, 0, w/20, -3, 0, 20)
 		Draw.draw(grad20, 0, h, 0, w/20, 3, 0, 20)
 		Draw.draw(grad20, 0, 0, math.rad(90), h/20, 3, 0, 20)
 		Draw.draw(grad20, w, 0, math.rad(90), h/20, -3, 0, 20)
+		if self.prophecy_accurate_blending then
+			Draw.setColor(1,1,1)
+		else
+			Draw.setColor(0.7,0.7,0.7)
+		end
+		love.graphics.setBlendMode("add", "alphamultiply")
+		if self.prophecy_accurate_blending then
+			self:setBlendState("add", "srcalpha", "one")
+		end
+		Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
+		Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
+		Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
 		love.graphics.setBlendMode("alpha")
-		love.graphics.setBlendMode("add")
-		Draw.setColor(1,1,1)
-		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
-		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
-		Draw.draw(sprite_canvas, offx, offy, 0, 1, 1)
-		love.graphics.setBlendMode("alpha")
-		Draw.popCanvas()
-		Draw.popCanvas()
+		love.graphics.pop()
+		Draw.popCanvas(true)
 		for i = 1, 2 do	
-			Draw.setColor(1,1,1,0.5) -- The alpha isn't accurate to DR's code but fuck it
+			if self.prophecy_accurate_blending then
+				Draw.setColor(1,1,1,1/4)
+			else		
+				Draw.setColor(1,1,1,0.7/4)
+			end
 			Draw.draw(back_canvas, SCREEN_WIDTH/2 + ysin * (2 * i), SCREEN_HEIGHT/2 + ysin * (2 * i), 0, 4, 4, w/2, h/2)
 		end
-		Draw.setColor(1,1,1,1)
+		if self.prophecy_accurate_blending then
+			Draw.setColor(1,1,1,1)
+		else
+			Draw.setColor(1,1,1,0.7)
+		end
 		Draw.draw(back_canvas, SCREEN_WIDTH/2 + xsin, SCREEN_HEIGHT/2 + ysin, 0, 4, 4, w/2, h/2)
 	end
+	Draw.setColor(0,0,0,self.fade_alpha)
+	love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+	Draw.setColor(1,1,1,1)
 end
 
 function DogCheck:chapter2Script(wait)
@@ -420,7 +613,7 @@ function DogCheck:chapter2Script(wait)
             end
             small_dog.flip_x = axis > 0
             small_dog.physics.speed = axis * love.math.random(10, 16)
-            small_dog.physics.friction = Utils.random(0.01, -0.01)
+            small_dog.physics.friction = MathUtils.random(0.01, -0.01)
             local anim_speed = (1 + (small_dog.physics.speed / 4)) * 0.25
             small_dog:play(anim_speed, true)
             -- auto-cleanup
