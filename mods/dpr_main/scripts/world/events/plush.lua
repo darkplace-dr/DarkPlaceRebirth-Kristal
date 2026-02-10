@@ -1,8 +1,8 @@
----@class you_plush : Pickup
----@overload fun(...) : plush
-local you_plush, super = Class(Event, "plush")
+---@class PickupPlush : Pickup
+---@overload fun(...) : PickupPlush
+local PickupPlush, super = Class(Event, "plush")
 
-function you_plush:init(data)
+function PickupPlush:init(data)
     super.init(self, data.x, data.y, {data.w, data.h})
 
     local properties = data.properties or {}
@@ -33,17 +33,20 @@ function you_plush:init(data)
     end
 end
 
-function you_plush:postLoad()
+function PickupPlush:postLoad()
 	self.old_parent = self.parent
 end
 
-function you_plush:onInteract(player, dir)
-
-    if self.char == "you" then
-	Assets.playSound("croak")
+function PickupPlush:playPickupSound()
+    if self.char == "hero" then
+	    Assets.playSound("voice/hero")
     elseif self.char == "dess" then
-	Assets.playSound("voice/dess")
+	    Assets.playSound("voice/dess")
     end
+end
+
+function PickupPlush:onInteract(player, dir)
+	self:playPickupSound()
     self:setParent(player)
 	self.x = player.width/2
 	self.y = -6
@@ -55,11 +58,11 @@ function you_plush:onInteract(player, dir)
     return true
 end
 
-function you_plush:update()
+function PickupPlush:update()
 	super.update(self)
 	
 	if self.held and Input.pressed("confirm") and self:canPlace(Game.world.player) then
-		Assets.playSound("croak")
+		self:playPickupSound()
 		self:setParent(Game.world)
 		self.held = false
 		Game.world.player.holding = nil
@@ -72,15 +75,15 @@ function you_plush:update()
     end
 end
 
-function you_plush:canPlace(player)
+function PickupPlush:canPlace(player)
 	return not Game.world:checkCollision(player.interact_collider[player.facing])
 end
 
-function you_plush:onRemove(parent)
+function PickupPlush:onRemove(parent)
 	self.data = nil
     if parent:includes(World) or parent.world then
         self.world = nil
     end
 end
 
-return you_plush
+return PickupPlush

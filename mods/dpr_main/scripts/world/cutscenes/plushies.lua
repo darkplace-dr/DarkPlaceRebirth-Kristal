@@ -19,4 +19,12 @@ return {
         dess_plush:remove()
         Game:setFlag("dess_plush", true)
     end,
+    hero_plush = function(cutscene)
+        local hero_plush = cutscene:getCharacter("hero_plush")
+        Assets.playSound("achievement")
+        cutscene:text("* You found the Hero Plush!")
+        Assets.playSound("item")
+        hero_plush:remove()
+        Game:setFlag("hero_plush", true)
+    end,
 }

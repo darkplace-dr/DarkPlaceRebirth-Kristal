@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 73,
+  nextobjectid = 74,
   properties = {
     ["border"] = "glow",
     ["music"] = "warphub"
@@ -517,6 +517,21 @@ return {
           gid = 513,
           visible = true,
           properties = {}
+        },
+        {
+          id = 73,
+          name = "plush",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 220,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["character"] = "hero"
+          }
         }
       }
     },

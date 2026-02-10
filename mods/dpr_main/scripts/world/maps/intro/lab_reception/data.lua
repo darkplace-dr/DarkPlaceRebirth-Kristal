@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 74,
+  nextobjectid = 75,
   properties = {},
   tilesets = {
     {
@@ -133,7 +133,25 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 74,
+          name = "npc",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 380,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "hero_plush",
+            ["cond"] = "not Game:getFlag(\"hero_plush\")",
+            ["cutscene"] = "plushies.hero_plush"
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
