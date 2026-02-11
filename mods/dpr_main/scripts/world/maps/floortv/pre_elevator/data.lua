@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -47,7 +47,7 @@ return {
         {
           id = 30,
           name = "teevie_bg",
-          class = "",
+          type = "",
           shape = "point",
           x = 0,
           y = 0,
@@ -172,7 +172,7 @@ return {
         {
           id = 6,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -185,7 +185,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 200,
@@ -198,7 +198,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 120,
@@ -211,7 +211,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 120,
@@ -224,7 +224,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 120,
@@ -237,7 +237,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 120,
@@ -250,7 +250,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 734,
           y = 240,
@@ -263,7 +263,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 166,
           y = 240,
@@ -292,7 +292,7 @@ return {
         {
           id = 38,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 860,
           y = 240,
@@ -305,7 +305,7 @@ return {
         {
           id = 39,
           name = "teevie_light",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 60,
           y = 240,
@@ -318,7 +318,7 @@ return {
         {
           id = 40,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 120,
@@ -331,7 +331,7 @@ return {
         {
           id = 41,
           name = "teevie_screen",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 120,
@@ -360,7 +360,7 @@ return {
         {
           id = 22,
           name = "elevatordoor",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 420,
           y = 120,
@@ -392,7 +392,7 @@ return {
         {
           id = 9,
           name = "funny_stanchion",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 240,
           y = 209,
@@ -405,7 +405,7 @@ return {
         {
           id = 11,
           name = "funny_stanchion",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 314,
@@ -420,7 +420,7 @@ return {
         {
           id = 12,
           name = "funny_stanchion",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 209,
@@ -433,7 +433,7 @@ return {
         {
           id = 21,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 100,
@@ -449,7 +449,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 280,
@@ -463,7 +463,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 280,
@@ -477,7 +477,7 @@ return {
         {
           id = 37,
           name = "teevie_marquee",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 420,
           y = 20,
@@ -492,7 +492,7 @@ return {
         {
           id = 43,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 240,
@@ -508,7 +508,7 @@ return {
         {
           id = 48,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 240,
@@ -524,7 +524,7 @@ return {
         {
           id = 51,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 808,
           y = 236,
@@ -553,7 +553,7 @@ return {
         {
           id = 32,
           name = "entry_elevator",
-          class = "",
+          type = "",
           shape = "point",
           x = 480,
           y = 190,
@@ -566,7 +566,7 @@ return {
         {
           id = 45,
           name = "entry_right",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 300,
@@ -579,7 +579,7 @@ return {
         {
           id = 46,
           name = "entry_left",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 300,

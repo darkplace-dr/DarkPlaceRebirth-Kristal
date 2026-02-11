@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 119,
+  nextobjectid = 121,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
@@ -1171,6 +1171,19 @@ return {
           shape = "point",
           x = 739,
           y = 138,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 120,
+          name = "spawn",
+          type = "",
+          shape = "point",
+          x = 424,
+          y = 390,
           width = 0,
           height = 0,
           rotation = 0,
