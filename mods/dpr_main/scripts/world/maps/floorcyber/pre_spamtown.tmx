@@ -4,7 +4,9 @@
   <export target="pre_spamtown.lua" format="lua"/>
  </editorsettings>
  <properties>
+  <property name="alwayspipis" type="bool" value="true"/>
   <property name="border" value="city"/>
+  <property name="fastpipis" type="bool" value="true"/>
   <property name="music" value="deltarune/alley_ambience"/>
   <property name="name" value="Cyber Floor - ???"/>
  </properties>

@@ -7,6 +7,7 @@
   <property name="border" value="teevie"/>
   <property name="music" value="deltarune/greenroom_detune"/>
   <property name="name" value="TV Floor - Green Room Entrance"/>
+  <property name="quietpipis" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/teevie_land.tsx"/>
  <tileset firstgid="157" source="../../tilesets/floortv_objects.tsx"/>

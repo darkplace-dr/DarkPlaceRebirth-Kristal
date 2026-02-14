@@ -12,7 +12,9 @@ return {
   nextlayerid = 6,
   nextobjectid = 18,
   properties = {
+    ["alwayspipis"] = true,
     ["border"] = "city",
+    ["fastpipis"] = true,
     ["music"] = "deltarune/alley_ambience",
     ["name"] = "Cyber Floor - ???"
   },
