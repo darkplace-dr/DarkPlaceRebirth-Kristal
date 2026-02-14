@@ -12,7 +12,8 @@ return {
   nextlayerid = 14,
   nextobjectid = 33,
   properties = {
-    ["border"] = ""
+    ["border"] = "",
+    ["nopipis"] = true
   },
   tilesets = {
     {

@@ -5,6 +5,7 @@
  </editorsettings>
  <properties>
   <property name="border" value=""/>
+  <property name="nopipis" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/floor3-objects.tsx"/>
  <imagelayer id="3" name="bg">

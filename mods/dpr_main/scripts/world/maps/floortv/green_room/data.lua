@@ -14,7 +14,8 @@ return {
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
-    ["name"] = "TV Floor - Green Room"
+    ["name"] = "TV Floor - Green Room",
+    ["quietpipis"] = true
   },
   tilesets = {
     {

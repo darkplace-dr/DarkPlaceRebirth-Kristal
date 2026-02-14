@@ -6,6 +6,7 @@
  <properties>
   <property name="border" value="green_room"/>
   <property name="music" value="deltarune/greenroom_detune"/>
+  <property name="quietpipis" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/ch3_dw_tvland_stage.tsx"/>
  <tileset firstgid="370" source="../../tilesets/floortv_objects.tsx"/>
