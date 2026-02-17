@@ -4,7 +4,7 @@ return {
   tiledversion = "1.10.2",
   name = "tvland_objects",
   class = "",
-  tilewidth = 195,
+  tilewidth = 426,
   tileheight = 160,
   spacing = 0,
   margin = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 30,
+  tilecount = 34,
   tiles = {
     {
       id = 0,
@@ -170,6 +170,12 @@ return {
       height = 37
     },
     {
+      id = 35,
+      image = "../../../assets/sprites/world/maps/tvland/interstitial_poster_green_left.png",
+      width = 37,
+      height = 37
+    },
+    {
       id = 26,
       image = "../../../assets/sprites/world/maps/tvland/stealthzone.png",
       width = 66,
@@ -204,6 +210,24 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png",
       width = 38,
       height = 97
+    },
+    {
+      id = 33,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_tape.png",
+      width = 41,
+      height = 102
+    },
+    {
+      id = 34,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png",
+      width = 41,
+      height = 102
+    },
+    {
+      id = 38,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_building.png",
+      width = 426,
+      height = 140
     }
   }
 }

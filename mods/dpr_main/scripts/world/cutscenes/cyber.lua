@@ -118,10 +118,10 @@ local cyber = {
         cutscene:text("* What's the occasion? A festival? Or is Christmas coming early?", nil, event)
         cutscene:text("* If it snows, you'll need good shoes! Snowproof ones!", nil, event)
         cutscene:text("* Care to try a sample pair? That'll cost " .. (Game.money + 1) .. " D$!", nil, event)
-		if Game:hasPartyMember("susie") and not Game:hasPartyMember("dess") then 
+		if Game:hasPartyMember("susie") then
 			cutscene:text("* Yeah, about that.", "nervous", "susie")
 		end
-		if Game:hasPartyMember("dess") then
+		if Game:isDessMode() then
 			cutscene:text("* buddy we're [color:red]broke[color:reset] you know that", "mspaint", "dess")
 			cutscene:text("* why do we need snowproof shoes there's no snow here", "heckyeah", "dess")
 			cutscene:text("* you [color:red]stupid[color:reset]", "swag", "dess")
@@ -285,7 +285,7 @@ local cyber = {
 			cutscene:text("* Sorry, I thought you were[wait:5].[wait:5].[wait:5].[wait:7] Someone else.", "nervous_side", "susie")
 			cutscene:text("* Go away.", nil)
 			falseral:setAnimation("idle")
-			elseif Game:hasPartyMember("dess") and not Game:hasPartyMember("susie") then
+			elseif Game:isDessMode() then
 				if Game:getFlag("can_kill") == true then
 					falseral:setAnimation("falseral_d")
 					cutscene:text("* What do you want.", nil)
@@ -335,8 +335,24 @@ local cyber = {
 	end
 		falseral:setAnimation("idle")
 	end,
+    transition = function(cutscene, event)
+        if love.math.random(1, 100) <= 5 then
+            cutscene:mapTransition("floorcyber/ddelta_dream", "entry")
+        else
+            cutscene:mapTransition("floorcyber/street_1", "west")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floorcyber/street_1" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
+        end
+    end,
+
 charjar = function(cutscene, event)
-	if Game:hasPartyMember("dess") then
+	if Game:isDessMode() then
 		if Game:getFlag("can_kill") == true then
 			cutscene:text("* THIS AREA IS POWERFUL.", nil)
 			cutscene:text("[noskip]* IT FILLS ME WITH.", nil, {auto = true})
@@ -359,6 +375,41 @@ charjar = function(cutscene, event)
 	end
 					
 end,
+
+snowtree = function(cutscene, event)
+	if Game:getFlag("snowtreetalk") == true then
+		cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+	else
+cutscene:text("* Well[wait:3], there is a man here.", nil, event)
+cutscene:text("* He seems to be offering you something.", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("egg")
+			cutscene:text("* You got the spaghetti.", nil, event)
+			Game.inventory:addItem("special_spaghetti")
+		elseif choice == 2 then
+			cutscene:text("* He appears to be saddened by this.", nil, event)
+			cutscene:text("* Well[wait:3], there is not a man here.", nil, event)
+		end
+		Game:setFlag("snowtreetalk", true)
+		end
+end,
+
+speedbadge = function(cutscene, event)
+cutscene:text("* There's an item on the wall.", nil, event)
+cutscene:text("* Grab it and never let go of it?", nil, event)
+		local choice = cutscene:choicer({"Yes","No"})
+		if choice == 1 then
+			Assets.playSound("item")
+			cutscene:text("* You got the [color:yellow]SpeedUp[color:white]!", nil, event)
+			Game:setFlag("speedbadge", true)
+			event:remove()
+			Game.inventory:addItem("speedbadge")
+		elseif choice == 2 then
+			cutscene:text("* You don't take it.", nil, event)
+		end
+end,
+
 
 }
 return cyber

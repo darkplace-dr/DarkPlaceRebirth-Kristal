@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.1",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 77,
+  nextobjectid = 81,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -80,7 +80,7 @@ return {
           x = 440,
           y = 1040,
           width = 480,
-          height = 80,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {
@@ -136,8 +136,8 @@ return {
         36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 334, 336, 259, 259, 259, 259, 259, 259, 259, 259, 259, 36, 36,
         36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 236, 236, 236, 236, 236, 236, 236, 236, 236, 236, 236, 36, 36,
         36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 236, 236, 236, 236, 236, 236, 236, 236, 236, 236, 236, 236, 36,
-        36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
-        36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36
+        36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 236, 236, 236, 36, 36, 36, 36, 36, 36,
+        36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 236, 236, 236, 36, 36, 36, 36, 36, 36
       }
     },
     {
@@ -497,8 +497,11 @@ return {
             { x = 0, y = -40 }
           },
           properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
             ["map"] = "floortv/green_room",
-            ["marker"] = "entry_left"
+            ["marker"] = "entry_left",
+            ["sound"] = "dooropen"
           }
         },
         {
@@ -591,6 +594,25 @@ return {
             ["cond"] = "(not Game:hasPartyMember(\"dess\") and Game:hasUnlockedPartyMember(\"dess\")) and (not Game:getGlobalFlag(\"DessDestroyedReality_\"..Game.save_id) and not Game:getFlag(\"playedDessGame\"))",
             ["cutscene"] = "tvfloor.dess",
             ["turn"] = true
+          }
+        },
+        {
+          id = 78,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 600,
+          y = 1200,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
+            ["map"] = "floortv/green_room_entrance",
+            ["marker"] = "entry_greenroom",
+            ["sound"] = "dooropen"
           }
         }
       }
@@ -820,10 +842,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 440,
+          x = 720,
           y = 1120,
-          width = 480,
-          height = 40,
+          width = 200,
+          height = 80,
           rotation = 0,
           visible = true,
           properties = {}
@@ -836,7 +858,7 @@ return {
           x = 400,
           y = 640,
           width = 40,
-          height = 480,
+          height = 560,
           rotation = 0,
           visible = true,
           properties = {}
@@ -923,6 +945,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 79,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 440,
+          y = 1120,
+          width = 160,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -960,6 +995,32 @@ return {
           shape = "point",
           x = 140,
           y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 77,
+          name = "entry_tvfloor",
+          type = "",
+          shape = "point",
+          x = 660,
+          y = 1190,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 80,
+          name = "spawn",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 760,
           width = 0,
           height = 0,
           rotation = 0,

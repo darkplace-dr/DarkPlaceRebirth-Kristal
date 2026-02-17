@@ -20,7 +20,7 @@ function DarkPowerMenu:init()
     self.heart_sprite = Assets.getTexture("player/heart")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
-    self.tp_sprite = Game:getConfig("oldUIPositions") and Assets.getTexture("ui/menu/caption_tp_old") or Assets.getTexture("ui/menu/caption_tp")
+    self.tp_sprite = Assets.getTexture("ui/menu/caption_tp")
 
     self.caption_sprites = {
           ["char"] = Assets.getTexture("ui/menu/caption_char"),
@@ -189,9 +189,9 @@ function DarkPowerMenu:update()
             local spell = self:getSpells()[self.selected_spell]
             if self:canCast(spell) then
                 self.state = "USE"
-                if spell.target == "ally" or spell.target == "party" then
+                if spell:getTarget() == "ally" or spell:getTarget() == "party" then
 
-                    local target_type = spell.target == "ally" and "SINGLE" or "ALL"
+                    local target_type = spell:getTarget() == "ally" and "SINGLE" or "ALL"
 
                     self:selectParty(target_type, spell)
                 else
@@ -278,9 +278,9 @@ function DarkPowerMenu:draw()
     Draw.setColor(PALETTE["world_border"])
     love.graphics.rectangle("fill", -24, 104, 525, 6)
     if Game:getConfig("oldUIPositions") then
-        love.graphics.rectangle("fill", 212, 104, 6, 196)
+        love.graphics.rectangle("fill", 212, 104, 6, 191)
     else
-        love.graphics.rectangle("fill", 212, 104, 6, 200)
+        love.graphics.rectangle("fill", 212, 104, 6, 193)
     end
 
     Draw.setColor(1, 1, 1, 1)

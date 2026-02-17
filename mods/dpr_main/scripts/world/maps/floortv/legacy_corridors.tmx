@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="77">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="81">
  <editorsettings>
   <export target="legacy_corridors.lua" format="lua"/>
  </editorsettings>
@@ -17,7 +17,7 @@
     <property name="paray" type="float" value="-280"/>
    </properties>
   </object>
-  <object id="15" name="greenroom_floor_area" x="440" y="1040" width="480" height="80">
+  <object id="15" name="greenroom_floor_area" x="440" y="1040" width="480" height="160">
    <properties>
     <property name="parax" type="float" value="-100"/>
     <property name="paray" type="float" value="130"/>
@@ -54,8 +54,8 @@
 36,36,36,36,36,36,36,36,36,36,36,334,336,259,259,259,259,259,259,259,259,259,36,36,
 36,36,36,36,36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,36,36,
 36,36,36,36,36,36,36,36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,36,
-36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
-36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,236,236,236,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,236,236,236,36,36,36,36,36,36
 </data>
  </layer>
  <layer id="13" name="floor_2" width="24" height="30">
@@ -148,8 +148,11 @@
   <object id="24" gid="376" x="210" y="580" width="70" height="94"/>
   <object id="68" name="transition" x="920" y="1120">
    <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
     <property name="map" value="floortv/green_room"/>
     <property name="marker" value="entry_left"/>
+    <property name="sound" value="dooropen"/>
    </properties>
    <polygon points="0,0 -80,-80 -80,-120 0,-40"/>
   </object>
@@ -192,6 +195,15 @@
     <property name="turn" type="bool" value="true"/>
    </properties>
    <point/>
+  </object>
+  <object id="78" name="transition" x="600" y="1200" width="120" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/green_room_entrance"/>
+    <property name="marker" value="entry_greenroom"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
   </object>
  </objectgroup>
  <layer id="6" name="above" width="24" height="30">
@@ -241,8 +253,8 @@
   <object id="38" x="640" y="440" width="280" height="120"/>
   <object id="39" x="840" y="640" width="80" height="280"/>
   <object id="40" x="520" y="920" width="320" height="120"/>
-  <object id="41" x="440" y="1120" width="480" height="40"/>
-  <object id="42" x="400" y="640" width="40" height="480"/>
+  <object id="41" x="720" y="1120" width="200" height="80"/>
+  <object id="42" x="400" y="640" width="40" height="560"/>
   <object id="43" x="40" y="640" width="360" height="40"/>
   <object id="44" x="840" y="560">
    <polygon points="0,0 80,80 80,0"/>
@@ -251,12 +263,19 @@
   <object id="56" x="230" y="560" width="40" height="30"/>
   <object id="57" x="530" y="900" width="310" height="20"/>
   <object id="59" x="160" y="200" width="60" height="10"/>
+  <object id="79" x="440" y="1120" width="160" height="80"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="8" name="markers">
   <object id="65" name="entry_greenroom" x="820" y="1080">
    <point/>
   </object>
   <object id="74" name="entry_hall_of_fame" x="140" y="600">
+   <point/>
+  </object>
+  <object id="77" name="entry_tvfloor" x="660" y="1190">
+   <point/>
+  </object>
+  <object id="80" name="spawn" x="600" y="760">
    <point/>
   </object>
  </objectgroup>

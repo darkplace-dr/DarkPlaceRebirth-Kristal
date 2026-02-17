@@ -1,6 +1,6 @@
 --- Events are used as the base class for objects in the Overworld (in most cases)
 --- Custom events should be defined in `scripts/world/events` and extend from this class. They will receive an id based on their filepath from this location.
---- Custom events only ever recieve a `data` argument in their `init()` function that contains all of the data about the object in the map. 
+--- Custom events only ever recieve a `data` argument in their `init()` function that contains all of the data about the object in the map.
 --- Included in the `data` table is the `properties` table, which contains every property in the object's `Custom Properties` in Tiled.
 --- Events can be placed in maps by placing a shape on any `objects` layer and setting its name to the id of the event that should be created.
 ---
@@ -14,6 +14,7 @@
 ---@field unique_id         string
 ---@field world             World       The world that this event is contained in
 ---@field data              table
+---@field layer_name        string
 ---
 ---@overload fun(x: number, y: number, shape: table) : Event
 ---@overload fun(data: table) : Event
@@ -68,7 +69,7 @@ function Event:init(x, y, width, height)
     self.interact_buffer = (5 / 30)
 end
 
---- The below callbacks are set back to `nil` to ensure collision checks are 
+--- The below callbacks are set back to `nil` to ensure collision checks are
 --- only run on objects that define collision code
 
 --- *(Override)* Called whenever the player interacts with this event
@@ -125,12 +126,18 @@ end
 --- Called when the event is removed
 ---@param parent World|Event
 function Event:onRemove(parent)
-    if self.data then
-        if self.world.map.events_by_name[self.data.name] then
-            TableUtils.removeValue(self.world.map.events_by_name[self.data.name], self)
+    if self.world then
+        TableUtils.removeValue(self.world.map.events, self)
+        if self.data then
+            if self.world.map.events_by_name[self.data.name] then
+                TableUtils.removeValue(self.world.map.events_by_name[self.data.name], self)
+            end
+            if self.world.map.events_by_id[self.data.id] then
+                TableUtils.removeValue(self.world.map.events_by_id[self.data.id], self)
+            end
         end
-        if self.world.map.events_by_id[self.data.id] then
-            TableUtils.removeValue(self.world.map.events_by_id[self.data.id], self)
+        if self.layer_name and self.world.map.events_by_layer[self.layer_name] then
+            TableUtils.removeValue(self.world.map.events_by_layer[self.layer_name], self)
         end
     end
     if parent:includes(World) or parent.world then

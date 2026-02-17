@@ -39,7 +39,7 @@ function texturescroller:draw()
     love.graphics.setColorMask(true, true, true, true);
     love.graphics.setColorMask(false, false, false, true);
 
-    for index, value in ipairs(self.stage:getObjects(Registry.getEvent("tile_oscillate"))) do
+    for index, value in ipairs(self.stage:getObjects(Registry.getLegacyEvent("tile_oscillate"))) do
         love.graphics.push()
         love.graphics.replaceTransform(value:getFullTransform())
         love.graphics.rectangle("fill", 0, 0, value.width, value.height)

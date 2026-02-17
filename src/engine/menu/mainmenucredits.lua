@@ -143,12 +143,14 @@ function MainMenuCredits:init(menu)
                 "Diamond Deltahedron",
                 "Science2048",
             },
+        },
+        {
+            "Dark Place",
             {
                 {"Contributors", COLORS.silver},
                 "TritraSerpifeu",
-                "",
-                "",
-                "",
+                "vamp",
+                "CharaCterDreemurr",
                 "",
                 "",
                 "",
@@ -156,7 +158,20 @@ function MainMenuCredits:init(menu)
                 "",
                 "",
             },
-        }
+            {
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            }
+        },
     }
     self.selected_page = 1
 

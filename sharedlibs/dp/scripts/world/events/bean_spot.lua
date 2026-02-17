@@ -9,6 +9,7 @@ function BeanSpot:init(data)
 	self.bean_color = data.properties["bean_col"] and TiledUtils.parseColorProperty(data.properties["bean_col"]) or COLORS.white
 	self.bean_star_color = data.properties["bean_starcol"] and TiledUtils.parseColorProperty(data.properties["bean_starcol"]) or self.bean_color
 	self.bean_sprite = data.properties["bean_spr"] or "world/events/beans/bean"
+	self.bean_star_sprite = data.properties["bean_starspr"] or "world/events/beans/star"
 
     self:setOrigin(0.5, 0.5)
     self:setSprite("world/events/bean_spot")
@@ -22,7 +23,7 @@ function BeanSpot:getDebugInfo()
 end
 
 function BeanSpot:onInteract(chara, dir)
-	Game.world:startCutscene("shared_cutscenes.bean_spot", self, self.bean_color, self.bean_star_color, self.bean_sprite)
+	Game.world:startCutscene("shared_cutscenes.bean_spot", self, self.bean_color, self.bean_star_color, self.bean_sprite, self.bean_star_sprite)
     return true
 end
 

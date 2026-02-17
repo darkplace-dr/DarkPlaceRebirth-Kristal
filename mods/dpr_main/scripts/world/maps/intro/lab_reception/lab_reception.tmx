@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="74">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="75">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -26,7 +26,15 @@
   <object id="71" x="0" y="480" width="640" height="40"/>
   <object id="72" x="640" y="0" width="40" height="480"/>
  </objectgroup>
- <objectgroup id="5" name="objects_bg"/>
+ <objectgroup id="5" name="objects_bg">
+  <object id="74" name="npc" x="360" y="380" width="40" height="40">
+   <properties>
+    <property name="actor" value="hero_plush"/>
+    <property name="cond" value="not Game:getFlag(&quot;hero_plush&quot;)"/>
+    <property name="cutscene" value="plushies.hero_plush"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#ff00ff" id="3" name="objects">
   <object id="73" name="interactable" x="300" y="80" width="40" height="40">
    <properties>

@@ -18,7 +18,7 @@ function Watercooler:init()
     -- Enemy reward
     self.money = 200
 
-    self.experience = 10
+    self.experience = 25
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 8

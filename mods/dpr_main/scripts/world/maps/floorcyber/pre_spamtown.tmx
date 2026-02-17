@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="18">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="18">
  <editorsettings>
   <export target="pre_spamtown.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="border" value="cyber"/>
+  <property name="border" value="city"/>
   <property name="music" value="deltarune/alley_ambience"/>
   <property name="name" value="Cyber Floor - ???"/>
  </properties>

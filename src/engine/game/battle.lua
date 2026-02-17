@@ -85,6 +85,7 @@ local Battle, super = Class(Object)
 ---| "DEFENDINGEND" # The state used after defending ends.
 ---| "VICTORY"  # The state used when the player has won the battle.
 ---| "TRANSITIONOUT"  # The state used when transitioning out of battle.
+---| "CUTSCENE" # The state used when a battle cutscene is active.
 
 function Battle:init()
     super.init(self)
@@ -101,11 +102,14 @@ function Battle:init()
     self.spare_sound = Assets.newSound("spare")
 
     self.party_beginning_positions = {} -- Only used in TRANSITION, but whatever
+    self.back_row_beginning_position = {}
     self.enemy_beginning_positions = {}
 
     self.party_world_characters = {}
+    self.back_row_world_character = nil
     self.enemy_world_characters = {}
     self.battler_targets = {}
+    self.back_row_target = {}
 
     self.encounter_context = nil
 
@@ -262,10 +266,30 @@ function Battle:createPartyBattlers()
         end
     end
 
-    if Game.party[4] then
-        self.back_row = PartyBattler(Game.party[4], 42, 324)
-        self:addChild(self.back_row)
-        --self:addChild(ActionBox(0, 0, 4, self.battle.back_row))
+    local back_row = Game.party[4]
+    if back_row then
+        local found = false
+        for _, follower in ipairs(Game.world.followers) do
+            if follower.visible and follower.actor.id == back_row:getActor().id then
+                local chara_x, chara_y = follower:getScreenPos()
+                self.back_row = PartyBattler(back_row, chara_x, chara_y)
+                self:addChild(self.back_row)
+                self.back_row:setAnimation("battle/transition")
+                self.back_row_beginning_position = {chara_x, chara_y}
+                self.back_row_world_character = follower
+
+                follower.visible = false
+
+                found = true
+                break
+            end
+        end
+        if not found then
+            self.back_row = PartyBattler(back_row, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+            self:addChild(self.back_row)
+            self.back_row:setAnimation("battle/transition")
+            self.back_row_beginning_position = {self.back_row.x, self.back_row.y}
+        end
     end
 
 end
@@ -313,6 +337,10 @@ function Battle:postInit(state, encounter)
         if state ~= "TRANSITION" then
             battler:setPosition(target_x, target_y)
         end
+    end
+    self.back_row_target = {self.encounter:getBackRowPosition()}
+    if state ~= "TRANSITION" and self.back_row then
+        self.back_row:setPosition(self.back_row_target[1], self.back_row_target[2])
     end
 
     for _, enemy in ipairs(self.enemies) do
@@ -488,6 +516,7 @@ function Battle:onIntroState()
     for _, battler in ipairs(self.party) do
         battler:setAnimation("battle/intro")
     end
+    if self.back_row then self.back_row:setAnimation("battle/intro") end
 
     self.encounter:onBattleStart()
 end
@@ -719,6 +748,7 @@ function Battle:onVictory()
         local box = self.battle_ui.action_boxes[self:getPartyIndex(battler.chara.id)]
         box:resetHeadIcon()
     end
+    if self.back_row then self.back_row:setAnimation("battle/victory") end
 
     self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
 
@@ -844,7 +874,23 @@ function Battle:onFlee()
         local box = self.battle_ui.action_boxes[self:getPartyIndex(battler.chara.id)]
         box:resetHeadIcon()
     end
-    
+    if self.back_row then
+        self.back_row:setAnimation("battle/hurt")
+
+        local sweat = Sprite("effects/defeat/sweat")
+        sweat:setOrigin(0.5, 0.5)
+        sweat:setScale(0.5, 0.5)
+        sweat:play(5/30, true)
+        sweat.layer = 100
+        self.back_row:addChild(sweat)
+
+        Game.battle.timer:after(15/30, function()
+            sweat:remove()
+            self.back_row:getActiveSprite().run_away_2 = true
+            flee_complete = true
+        end)
+    end
+
     -- self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
 
     for _,battler in ipairs(self.party) do
@@ -1892,13 +1938,13 @@ function Battle:powerAct(spell, battler, user, target)
     }
 
     if target == nil then
-        if spell.target == "ally" then
+        if spell:getTarget() == "ally" then
             target = user_battler
-        elseif spell.target == "party" then
+        elseif spell:getTarget() == "party" then
             target = self.party
-        elseif spell.target == "enemy" then
+        elseif spell:getTarget() == "enemy" then
             target = self:getActiveEnemies()[1]
-        elseif spell.target == "enemies" then
+        elseif spell:getTarget() == "enemies" then
             target = self:getActiveEnemies()
         end
     end
@@ -2713,12 +2759,12 @@ function Battle:returnToWorld()
         self.encounter:setFlag("violenced", true)
     end
     self.transition_timer = 0
-    if self.back_row then self.party[4] = self.back_row end
     for _, battler in ipairs(self.party) do
         if self.party_world_characters[battler.chara.id] then
             self.party_world_characters[battler.chara.id].visible = true
         end
     end
+    if self.back_row and self.back_row_world_character then self.back_row_world_character.visible = true end
     ---@type EnemyBattler[]
     local all_enemies = {}
     TableUtils.merge(all_enemies, self.defeated_enemies)
@@ -3061,6 +3107,7 @@ function Battle:updateIntro()
         for _, v in ipairs(self.party) do
             v:setAnimation("battle/idle")
         end
+        if self.back_row then self.back_row:setAnimation("battle/idle") end
 		self.seen_encounter_text = false
 		if Mod.back_attack then
 			self:setState("ENEMYDIALOGUE", "INTRO")
@@ -3088,6 +3135,21 @@ function Battle:updateTransition()
             battler.x = battler_x
             battler.y = battler_y
         end
+        if self.back_row then
+            local target_x, target_y = unpack(self.back_row_target)
+
+            local battler_x = self.back_row.x
+            local battler_y = self.back_row.y
+
+            self.back_row.x = MathUtils.lerp(self.back_row_beginning_position[1], target_x, (self.afterimage_count + 1) / 10)
+            self.back_row.y = MathUtils.lerp(self.back_row_beginning_position[2], target_y, (self.afterimage_count + 1) / 10)
+
+            local afterimage = AfterImage(self.back_row, 0.5)
+            self:addChild(afterimage)
+
+            self.back_row.x = battler_x
+            self.back_row.y = battler_y
+        end
         self.afterimage_count = self.afterimage_count + 1
     end
 
@@ -3103,6 +3165,12 @@ function Battle:updateTransition()
 
         battler.x = MathUtils.lerp(self.party_beginning_positions[index][1], target_x, self.transition_timer / 10)
         battler.y = MathUtils.lerp(self.party_beginning_positions[index][2], target_y, self.transition_timer / 10)
+    end
+    if self.back_row then
+        local target_x, target_y = unpack(self.back_row_target)
+
+        self.back_row.x = MathUtils.lerp(self.back_row_beginning_position[1], target_x, self.transition_timer / 10)
+        self.back_row.y = MathUtils.lerp(self.back_row_beginning_position[2], target_y, self.transition_timer / 10)
     end
     for _, enemy in ipairs(self.enemies) do
         enemy.x = MathUtils.lerp(self.enemy_beginning_positions[enemy][1], enemy.target_x, self.transition_timer / 10)
@@ -3136,6 +3204,12 @@ function Battle:updateTransitionOut()
 
         battler.x = MathUtils.lerp(self.party_beginning_positions[index][1], target_x, self.transition_timer / 10)
         battler.y = MathUtils.lerp(self.party_beginning_positions[index][2], target_y, self.transition_timer / 10)
+    end
+    if self.back_row then
+        local target_x, target_y = unpack(self.back_row_target)
+
+        self.back_row.x = MathUtils.lerp(self.back_row_beginning_position[1], target_x, self.transition_timer / 10)
+        self.back_row.y = MathUtils.lerp(self.back_row_beginning_position[2], target_y, self.transition_timer / 10)
     end
 
     for _, enemy in ipairs(all_enemies) do
@@ -3555,15 +3629,15 @@ end
 ---@param default_enemy?    EnemyBattler
 ---@return PartyBattler[]|EnemyBattler[]|nil
 function Battle:getTargetForItem(item, default_ally, default_enemy)
-    if not item.target or item.target == "none" then
+    if not item:getTarget() or item:getTarget() == "none" then
         return nil
-    elseif item.target == "ally" then
+    elseif item:getTarget() == "ally" then
         return default_ally or self.party[1]
-    elseif item.target == "enemy" then
+    elseif item:getTarget() == "enemy" then
         return default_enemy or self:getActiveEnemies()[1]
-    elseif item.target == "party" then
+    elseif item:getTarget() == "party" then
         return self.party
-    elseif item.target == "enemies" then
+    elseif item:getTarget() == "enemies" then
         return self:getActiveEnemies()
     end
 end

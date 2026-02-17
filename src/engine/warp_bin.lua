@@ -50,6 +50,8 @@ Kristal.warp_bin_codes = {
             cutscene:text("* This isn't legacy you [shake:5]idiot[shake:1].")
         end,
     },
+    ["BOSSRUSH"] = { result = "thearena", mod = "dpr_main" },
+    ["THEARENA"] = { result = "thearena", mod = "dpr_main" },
 }
 -- i refuse to lower my softcoding standarts
 package.loaded["src/engine/warps"] = nil

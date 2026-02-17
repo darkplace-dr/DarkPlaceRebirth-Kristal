@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="28">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="28">
  <editorsettings>
   <export target="first_chr_encounter.lua" format="lua"/>
  </editorsettings>
@@ -92,7 +92,7 @@
   </object>
   <object id="20" name="savepoint" x="400" y="280" width="40" height="40"/>
   <object id="22" name="footstep" x="600" y="40" width="40" height="40"/>
-  <object id="23" name="interactable" x="440" y="200" width="40" height="40">
+  <object id="23" name="interactable" x="440" y="240" width="40" height="40">
    <properties>
     <property name="text1" value="* Wait,[wait:5] then go."/>
    </properties>
