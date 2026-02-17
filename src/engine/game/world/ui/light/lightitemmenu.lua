@@ -210,6 +210,9 @@ end
 function LightItemMenu:draw()
     super.draw(self)
 
+    local font = love.graphics.getFont()
+    love.graphics.setFont(Assets.getFont("main"))
+
     -- Draw items as plain text, when on the "storage select" part of the menu
     if TableUtils.contains(Input.component_stack, self.menu_storageselect) then
         Draw.setColor(COLORS.gray)
@@ -219,8 +222,6 @@ function LightItemMenu:draw()
         end
     end
 
-    local font = love.graphics.getFont()
-    love.graphics.setFont(Assets.getFont("main"))
     if self.party_select_bg.visible then
         local item = Game.inventory:getItem(self.storage, self.selected_item)
         love.graphics.printf("Use " .. item:getName() .. " on", -45, 233, 400, "center")
