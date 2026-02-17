@@ -1,0 +1,9 @@
+{
+    "id": "CandyTree",
+    "authors": [
+        "BrendaK7200", // Original library creator
+		"Diamond Deltahedron" // Accuracy updates
+    ],
+    "version": "v1.0.0",
+    "engineVer": "v0.8.1-dev"
+}

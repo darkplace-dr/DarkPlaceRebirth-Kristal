@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -25,34 +25,37 @@
   <object id="29" name="elevator" x="0" y="0" width="40" height="40">
    <properties>
     <property name="color_1" type="color" value="#ff321fc3"/>
-    <property name="color_10" type="color" value="#ff00c800"/>
-    <property name="color_11" type="color" value="#ffffb15e"/>
-    <property name="color_12" type="color" value="#ffb18779"/>
+    <property name="color_10" type="color" value="#ffffff00"/>
+    <property name="color_11" type="color" value="#ff00c800"/>
+    <property name="color_12" type="color" value="#ffffb15e"/>
+    <property name="color_13" type="color" value="#ffb18779"/>
     <property name="color_2" type="color" value="#ff4429ff"/>
     <property name="color_3" type="color" value="#ff97caf7"/>
-    <property name="color_4" type="color" value="#ff2368b8"/>
-    <property name="color_5" type="color" value="#ff913645"/>
-    <property name="color_6" type="color" value="#ff6aadff"/>
-    <property name="color_7" type="color" value="#ff373887"/>
-    <property name="color_8" type="color" value="#ff4429ff"/>
-    <property name="color_9" type="color" value="#ffffff00"/>
-    <property name="cutscene_7" value="broken_elevator"/>
+    <property name="color_4" type="color" value="#ff47128f"/>
+    <property name="color_5" type="color" value="#ff2368b8"/>
+    <property name="color_6" type="color" value="#ff913645"/>
+    <property name="color_7" type="color" value="#ff6aadff"/>
+    <property name="color_8" type="color" value="#ff373887"/>
+    <property name="color_9" type="color" value="#ff4429ff"/>
+    <property name="cutscene_8" value="broken_elevator"/>
     <property name="dest_1" value="intro/lab_reception"/>
-    <property name="dest_10" value="deoxtest"/>
-    <property name="dest_11" value="evergroves/start"/>
-    <property name="dest_12" value="dirtworld/dirtworld"/>
+    <property name="dest_10" value="tritraland/entrance"/>
+    <property name="dest_11" value="deoxtest"/>
+    <property name="dest_12" value="evergroves/start"/>
+    <property name="dest_13" value="dirtworld/dirtworld"/>
     <property name="dest_2" value="floor1/main"/>
     <property name="dest_3" value="floor2/main_1"/>
-    <property name="dest_4" value="floorcyber/pre_elevator"/>
-    <property name="dest_5" value="floortv/pre_elevator"/>
-    <property name="dest_6" value="floorchurch/pre_elevator"/>
-    <property name="dest_7" value="nothing"/>
-    <property name="dest_8" value="seal_room/seal_room_1"/>
-    <property name="dest_9" value="tritraland/entrance"/>
+    <property name="dest_4" value="floorcard/pre_elevator"/>
+    <property name="dest_5" value="floorcyber/pre_elevator"/>
+    <property name="dest_6" value="floortv/pre_elevator"/>
+    <property name="dest_7" value="floorchurch/pre_elevator"/>
+    <property name="dest_8" value="nothing"/>
+    <property name="dest_9" value="seal_room/seal_room_1"/>
     <property name="length_1" type="int" value="140"/>
     <property name="length_10" type="int" value="40"/>
     <property name="length_11" type="int" value="40"/>
-    <property name="length_12" type="int" value="38"/>
+    <property name="length_12" type="int" value="40"/>
+    <property name="length_13" type="int" value="38"/>
     <property name="length_2" type="int" value="40"/>
     <property name="length_3" type="int" value="40"/>
     <property name="length_4" type="int" value="40"/>
@@ -63,17 +66,18 @@
     <property name="length_9" type="int" value="40"/>
     <property name="mod_1" value="dpr_pit_dlc"/>
     <property name="name_1" value="The Dark Pit"/>
-    <property name="name_10" value="Deoxtest"/>
-    <property name="name_11" value="Evergroves"/>
-    <property name="name_12" value="Dirt World"/>
+    <property name="name_10" value="TritraLand"/>
+    <property name="name_11" value="Deoxtest"/>
+    <property name="name_12" value="Evergroves"/>
+    <property name="name_13" value="Dirt World"/>
     <property name="name_2" value="Floor 1"/>
     <property name="name_3" value="Floor 2"/>
-    <property name="name_4" value="Cyber Floor"/>
-    <property name="name_5" value="TV Floor"/>
-    <property name="name_6" value="Sanctuary Floor"/>
-    <property name="name_7" value="Nowhere"/>
-    <property name="name_8" value="Room"/>
-    <property name="name_9" value="TritraLand"/>
+    <property name="name_4" value="Card Floor"/>
+    <property name="name_5" value="Cyber Floor"/>
+    <property name="name_6" value="TV Floor"/>
+    <property name="name_7" value="Sanctuary Floor"/>
+    <property name="name_8" value="Nowhere"/>
+    <property name="name_9" value="Room"/>
    </properties>
   </object>
  </objectgroup>

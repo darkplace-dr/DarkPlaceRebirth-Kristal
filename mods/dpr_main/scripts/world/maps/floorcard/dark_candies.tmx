@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="19">
+ <editorsettings>
+  <export target="dark_candies.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="field"/>
+  <property name="music" value="deltarune/field_of_hopes"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/darkfield_tiles.tsx"/>
+ <tileset firstgid="73" source="../../tilesets/other-objects.tsx"/>
+ <layer id="1" name="tiles" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,15,1,1,1,13,0,0,
+0,0,0,0,0,0,0,0,0,15,1,1,1,13,0,0,
+0,0,0,0,0,0,0,0,0,15,1,1,1,13,0,0,
+0,0,0,0,0,0,0,0,0,15,1,1,1,13,0,0,
+0,0,0,0,0,0,0,0,0,15,1,1,1,13,0,0,
+0,0,0,20,20,20,20,20,20,21,1,1,1,13,0,0,
+0,0,15,1,1,1,1,1,1,1,1,1,1,13,0,0,
+0,0,15,1,1,1,1,1,1,1,1,1,1,13,0,0,
+0,0,15,1,1,1,1,1,1,1,1,1,1,13,0,0,
+0,0,15,1,1,1,1,1,1,1,1,1,1,13,0,0,
+0,0,0,8,8,8,8,8,8,8,8,8,8,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#ff0000" id="2" name="objects_bg" locked="1">
+  <object id="2" name="candytree" x="160" y="60" width="140" height="164"/>
+  <object id="8" name="purplegrass" x="120" y="240" width="400" height="160"/>
+  <object id="9" name="purplegrass" x="400" y="0" width="120" height="240"/>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="3" x="360" y="0" width="40" height="240"/>
+  <object id="4" x="80" y="200" width="40" height="200"/>
+  <object id="5" x="80" y="400" width="480" height="40"/>
+  <object id="6" x="520" y="0" width="40" height="400"/>
+  <object id="7" x="120" y="200" width="240" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="5" name="objects">
+  <object id="14" name="transition" x="400" y="-40" width="120" height="40">
+   <properties>
+    <property name="map" value="floorcard/junction_1"/>
+    <property name="marker" value="entry_up"/>
+   </properties>
+  </object>
+  <object id="17" gid="77" x="320" y="240" width="40" height="40"/>
+  <object id="18" name="interactable" x="320" y="200" width="40" height="40">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text1" value="* (These types of trees DON'T contain an item that can heal you.)"/>
+    <property name="text2" value="* (Whatever you do,[wait:5] DON'T check the tree and use [bind:menu] to open your menu!)"/>
+    <property name="text3">* (You got it!?)
+* (SIGNED,[wait:5] LANCER)</property>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="4" name="markers">
+  <object id="12" name="spawn" x="440" y="320">
+   <point/>
+  </object>
+  <object id="13" name="entry_down" x="460" y="80">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

@@ -12,7 +12,7 @@ return {
   nextlayerid = 12,
   nextobjectid = 97,
   properties = {
-    ["border"] = "teevie",
+    ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune",
     ["name"] = "TV Floor - Green Room Entrance",
     ["quietpipis"] = true
