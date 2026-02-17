@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="25" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="30">
+ <editorsettings>
+  <export target="pre_elevator.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="field"/>
+  <property name="music" value="deltarune/bird"/>
+  <property name="name" value="Card Floor - Elevator"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/darkfield_tiles.tsx"/>
+ <tileset firstgid="73" source="../../tilesets/tree_objects.tsx"/>
+ <layer id="1" name="tiles" width="16" height="25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,20,20,20,20,0,0,0,0,0,0,
+0,0,0,0,20,21,1,1,1,1,19,20,0,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,15,1,1,1,1,1,1,1,1,13,0,0,0,
+0,0,0,0,8,9,1,1,1,1,7,8,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,13,0,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,13,0,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,13,0,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,13,0,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,13,0,0,0,0,0,
+0,0,0,0,0,15,1,1,1,1,19,20,20,20,20,20,
+0,0,0,0,0,15,1,1,1,1,1,1,1,1,1,1,
+0,0,0,0,0,15,1,1,1,1,1,1,1,1,1,1,
+0,0,0,0,0,15,1,1,1,1,1,1,1,1,1,1,
+0,0,0,0,0,0,8,8,8,8,8,8,8,8,8,8
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="4" name="collision">
+  <object id="12" x="200" y="160" width="80" height="40"/>
+  <object id="13" x="360" y="160" width="80" height="40"/>
+  <object id="14" x="160" y="200" width="80" height="40"/>
+  <object id="15" x="120" y="200" width="40" height="360"/>
+  <object id="16" x="400" y="200" width="80" height="40"/>
+  <object id="17" x="480" y="200" width="40" height="360"/>
+  <object id="18" x="120" y="560" width="120" height="40"/>
+  <object id="19" x="400" y="560" width="120" height="40"/>
+  <object id="20" x="200" y="600" width="40" height="360"/>
+  <object id="21" x="200" y="960" width="440" height="40"/>
+  <object id="22" x="400" y="600" width="40" height="200"/>
+  <object id="23" x="400" y="800" width="240" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="3" name="objects_elevator">
+  <object id="9" name="elevatordoor" x="260" y="160" width="120" height="40">
+   <properties>
+    <property name="double_doors" value="true"/>
+    <property name="type" value="great"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="2" name="objects">
+  <object id="1" gid="74" x="410" y="270" width="210" height="182"/>
+  <object id="2" gid="75" x="380" y="140" width="210" height="136"/>
+  <object id="3" gid="73" x="20" y="270" width="210" height="182"/>
+  <object id="4" gid="76" x="50" y="140" width="210" height="136"/>
+  <object id="5" gid="73" x="10" y="480" width="210" height="182"/>
+  <object id="6" gid="74" x="420" y="480" width="210" height="182"/>
+  <object id="7" gid="73" x="60" y="710" width="210" height="182"/>
+  <object id="8" gid="74" x="370" y="710" width="210" height="182"/>
+  <object id="11" name="transition" x="280" y="140" width="80" height="40">
+   <properties>
+    <property name="map" value="hub_elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="26" name="transition" x="640" y="840" width="40" height="120">
+   <properties>
+    <property name="map" value="floorcard/first_rudinn"/>
+    <property name="marker" value="entry_left"/>
+   </properties>
+  </object>
+  <object id="27" name="savepoint" x="300" y="400" width="40" height="40"/>
+  <object id="28" gid="73" x="60" y="950" width="210" height="182"/>
+  <object id="29" name="footstep" x="0" y="0" width="40" height="40">
+   <properties>
+    <property name="player" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="5" name="markers">
+  <object id="24" name="entry_elevator" x="320" y="250">
+   <point/>
+  </object>
+  <object id="25" name="entry_right" x="600" y="900">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="48">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="48">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -159,7 +159,12 @@
   <object id="26" x="920" y="400" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="objects_elevator">
-  <object id="22" name="elevatordoor" x="940" y="400" width="120" height="40"/>
+  <object id="22" name="elevatordoor" x="940" y="400" width="120" height="40">
+   <properties>
+    <property name="double_doors" value="true"/>
+    <property name="type" value="church"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="objects" opacity="0.99">
   <object id="15" name="transition" x="2000" y="360" width="40" height="80">

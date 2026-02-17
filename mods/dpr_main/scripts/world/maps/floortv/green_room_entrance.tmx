@@ -4,7 +4,7 @@
   <export target="green_room_entrance.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="border" value="teevie"/>
+  <property name="border" value="green_room"/>
   <property name="music" value="deltarune/greenroom_detune"/>
   <property name="name" value="TV Floor - Green Room Entrance"/>
   <property name="quietpipis" type="bool" value="true"/>
