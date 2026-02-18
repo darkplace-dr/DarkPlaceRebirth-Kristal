@@ -20,18 +20,12 @@ end
 function DiamondBlack:update()
 	super.update(self)
 
-	if (self.scale_x <= 1) or (self.scale_y <= 1) then
-		self.graphics.grow = 0
-	else
-		self.graphics.grow = -0.1
-	end
-
     if self.collidable == false then
-        self.rotation = Utils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+        self.rotation = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
 
         if self.alpha < 1 then
         else
-            self.physics.direction = Utils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+            self.physics.direction = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
             self.rotation = self.physics.direction
             self.collidable = true
             self.physics.speed = 0
@@ -62,6 +56,23 @@ function DiamondBlack:update()
 	if self.y < 40 then
 	    self.y = 40
 	end
+end
+
+function DiamondBlack:draw()
+	if self.dont == 0 then
+		if self.collidable == false then
+			local futuredir = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+			Draw.setColor(1,1,1,1 - self.alpha)
+			love.graphics.push()
+			love.graphics.origin()
+			Draw.draw(self.sprite.texture, self.x, self.y, futuredir, 3 - (self.alpha * 2), 3 - (self.alpha * 2), 16, 15)
+			love.graphics.pop()
+		end
+	end
+	Draw.setColor(1,1,1,self.alpha)
+	self.scale_x = 2 - self.alpha
+	self.scale_y = 2 - self.alpha
+	super.draw(self)
 end
 
 return DiamondBlack
