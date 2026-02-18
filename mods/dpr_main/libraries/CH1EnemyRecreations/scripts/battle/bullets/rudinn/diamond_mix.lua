@@ -17,12 +17,6 @@ function DiamondMix:init(x, y, dir)
 end
 
 function DiamondMix:update()
-	if (self.scale_x <= 1) or (self.scale_y <= 1) then
-		self.graphics.grow = 0
-	else
-		self.graphics.grow = -0.1
-	end
-
     if self.collidable == false then
         if self.alpha < 1 then
             if self.type == 1 then
@@ -58,6 +52,19 @@ function DiamondMix:update()
     end
 
 	super.update(self)
+end
+
+function DiamondMix:draw()
+	if self.collidable == false then
+		love.graphics.push()
+		love.graphics.origin()
+		Draw.draw(self.sprite.texture, self.x, self.y, 0, 3 - (self.alpha * 2), 3 - (self.alpha * 2), 16, 16)
+		love.graphics.pop()
+	end
+	Draw.setColor(1,1,1,self.alpha)
+	self.scale_x = 2 - self.alpha
+	self.scale_y = 2 - self.alpha
+	super.draw(self)
 end
 
 return DiamondMix
