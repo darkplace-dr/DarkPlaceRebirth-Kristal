@@ -58,6 +58,9 @@ function field:onEnter()
 		"I hope this all won't be for nothing.",
 		"I dream about creating something meaningful.",
 		"I hope Nelle will be okay.",
+        "Please let my loved ones be okay.",
+        "I hope I can make a difference.",
+        "I want to better my community."
 		--"", -- Please, add more.
 		--"", -- All I ask for are your Hopes and Dreams.
 		--"", --       -Charbomber
