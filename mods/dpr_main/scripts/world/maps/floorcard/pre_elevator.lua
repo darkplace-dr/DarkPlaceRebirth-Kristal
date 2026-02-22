@@ -9,10 +9,10 @@ return {
   height = 25,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 6,
+  nextlayerid = 7,
   nextobjectid = 30,
   properties = {
-    ["border"] = "field",
+    ["border"] = "castle",
     ["music"] = "deltarune/bird",
     ["name"] = "Card Floor - Elevator"
   },
@@ -62,8 +62,8 @@ return {
         0, 0, 0, 15, 1, 1, 1, 1, 1, 1, 1, 1, 13, 0, 0, 0,
         0, 0, 0, 15, 1, 1, 1, 1, 1, 1, 1, 1, 13, 0, 0, 0,
         0, 0, 0, 15, 1, 1, 1, 1, 1, 1, 1, 1, 13, 0, 0, 0,
+        0, 0, 0, 15, 1, 1, 1, 1, 1, 1, 1, 1, 13, 0, 0, 0,
         0, 0, 0, 0, 8, 9, 1, 1, 1, 1, 7, 8, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 15, 1, 1, 1, 1, 13, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 15, 1, 1, 1, 1, 13, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 15, 1, 1, 1, 1, 13, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 15, 1, 1, 1, 1, 13, 0, 0, 0, 0, 0,
@@ -136,7 +136,7 @@ return {
           x = 120,
           y = 200,
           width = 40,
-          height = 360,
+          height = 400,
           rotation = 0,
           visible = true,
           properties = {}
@@ -162,7 +162,7 @@ return {
           x = 480,
           y = 200,
           width = 40,
-          height = 360,
+          height = 400,
           rotation = 0,
           visible = true,
           properties = {}
@@ -173,7 +173,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 120,
-          y = 560,
+          y = 600,
           width = 120,
           height = 40,
           rotation = 0,
@@ -186,7 +186,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 400,
-          y = 560,
+          y = 600,
           width = 120,
           height = 40,
           rotation = 0,
@@ -199,9 +199,9 @@ return {
           type = "",
           shape = "rectangle",
           x = 200,
-          y = 600,
+          y = 640,
           width = 40,
-          height = 360,
+          height = 320,
           rotation = 0,
           visible = true,
           properties = {}
@@ -225,9 +225,9 @@ return {
           type = "",
           shape = "rectangle",
           x = 400,
-          y = 600,
+          y = 640,
           width = 40,
-          height = 200,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {}
@@ -284,6 +284,67 @@ return {
       draworder = "topdown",
       id = 2,
       name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 140,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "hub_elevator",
+            ["marker"] = "entry"
+          }
+        },
+        {
+          id = 26,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 840,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcard/first_rudinn",
+            ["marker"] = "entry_left"
+          }
+        },
+        {
+          id = 27,
+          name = "savepoint",
+          type = "",
+          shape = "rectangle",
+          x = 300,
+          y = 400,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "objects_trees",
       class = "",
       visible = true,
       opacity = 1,
@@ -406,51 +467,6 @@ return {
           properties = {}
         },
         {
-          id = 11,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 280,
-          y = 140,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "hub_elevator",
-            ["marker"] = "entry"
-          }
-        },
-        {
-          id = 26,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 640,
-          y = 840,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "floorcard/first_rudinn",
-            ["marker"] = "entry_left"
-          }
-        },
-        {
-          id = 27,
-          name = "savepoint",
-          type = "",
-          shape = "rectangle",
-          x = 300,
-          y = 400,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 28,
           name = "",
           type = "",
@@ -463,21 +479,6 @@ return {
           gid = 73,
           visible = true,
           properties = {}
-        },
-        {
-          id = 29,
-          name = "footstep",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 0,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["player"] = true
-          }
         }
       }
     },

@@ -9,7 +9,7 @@ return {
   height = 17,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
+  nextlayerid = 9,
   nextobjectid = 51,
   properties = {
     ["border"] = "field",
