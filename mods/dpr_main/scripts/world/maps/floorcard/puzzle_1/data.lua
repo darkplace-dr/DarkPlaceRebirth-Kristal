@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 64,
+  nextobjectid = 66,
   properties = {
     ["border"] = "field",
     ["music"] = "deltarune/field_of_hopes"
@@ -20,6 +20,12 @@ return {
       name = "darkfield_tiles",
       firstgid = 1,
       filename = "../../../tilesets/darkfield_tiles.tsx"
+    },
+    {
+      name = "tree_objects",
+      firstgid = 73,
+      filename = "../../../tilesets/tree_objects.tsx",
+      exportfilename = "../../../tilesets/tree_objects.lua"
     }
   },
   layers = {
@@ -695,6 +701,34 @@ return {
             ["pacespeed"] = 6,
             ["pacetype"] = "wander"
           }
+        },
+        {
+          id = 64,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 250,
+          width = 210,
+          height = 182,
+          rotation = 0,
+          gid = 73,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1310,
+          y = 250,
+          width = 210,
+          height = 182,
+          rotation = 0,
+          gid = 74,
+          visible = true,
+          properties = {}
         }
       }
     },
