@@ -3390,6 +3390,25 @@ function Battle:draw()
 
     self.encounter:draw(self.transition_timer / 10)
 
+    -- Temperature display
+    if Game:getBadgeEquipped("thermometer") then
+        local temperature = self.temperature - 30
+        local temp_symbol = "C"
+        if Kristal.Config["temperatureDisplay"] == false then
+            temperature = ((9/5) * temperature) + 32
+            temp_symbol = "F"
+        end
+        Draw.setColor(1,1,1)
+        if self.temperature < 50 then
+            Draw.setColor(self.temperature/50, self.temperature/50, 1)
+        elseif self.temperature > 50 then
+            local color_mult = ((100-self.temperature)/50)
+            Draw.setColor(1, color_mult, color_mult)
+        end
+        love.graphics.setFont(Assets.getFont("main"))
+        love.graphics.print(temperature..temp_symbol, 10, 0)
+    end
+
     if DEBUG_RENDER then
         self:drawDebug()
     end
