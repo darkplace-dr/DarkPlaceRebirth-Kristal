@@ -22,6 +22,8 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
+    Game.battle:incTemp(12)
+    
     user:setAnimation("battle/multiflare")
 
     Game.battle.timer:after(1/4, function()

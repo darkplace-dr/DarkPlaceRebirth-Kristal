@@ -27,6 +27,7 @@ end
 
 function spell:onCast(user, target)
     target:addShield(math.huge)
+    Game.battle:decTemp(4)
 end
 
 function spell:hasWorldUsage(chara)

@@ -28,6 +28,8 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(30)
+    
     local target_x, target_y = target:getRelativePos(target.width/2, target.height/2, Game.battle)
 
     local function finishAnim()

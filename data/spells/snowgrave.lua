@@ -34,6 +34,8 @@ function spell:getTPCost(chara)
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(math.huge)
+    
     local object = SnowGraveSpell(user)
     object.damage = self:getDamage(user, target)
     object.layer = BATTLE_LAYERS["above_ui"]

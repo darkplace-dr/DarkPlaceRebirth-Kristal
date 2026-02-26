@@ -24,6 +24,8 @@ function spell:init()
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(4)
+    
     local count = 0
     for _, enemy in ipairs(target) do
         if enemy.done_state == nil then

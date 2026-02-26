@@ -32,6 +32,7 @@ function spell:onCast(user, target)
 	
 	target:hurt(damage, user)
 	Assets.playSound("damage")
+    Game.battle:incTemp(15)
 end
 
 return spell
