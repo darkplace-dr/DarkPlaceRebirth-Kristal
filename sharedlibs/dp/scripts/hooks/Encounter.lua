@@ -12,6 +12,8 @@ function Encounter:init()
     ---@type boolean
     -- Prevents the Dojo background from being added on Boss Rushes and Boss Refights
     self.no_dojo_bg = false
+    
+    self.temperature = 50
 end
 
 ---@return "up"|"down"|"left"|"right"?

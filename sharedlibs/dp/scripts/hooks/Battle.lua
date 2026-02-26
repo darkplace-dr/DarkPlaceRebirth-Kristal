@@ -67,6 +67,10 @@ function Battle:init()
             end
         end
     end
+    
+    self.temperature = 50
+    self.max_temperature = 100
+    self.min_temperature = 0
 end
 
 function Battle:postInit(state, encounter)
@@ -75,6 +79,18 @@ function Battle:postInit(state, encounter)
     if Game.bossrush_encounters and not self.encounter.no_dojo_bg then
         self.dojobg = self:addChild(DojoBG())
     end
+    
+    self.temperature = self.encounter.temperature
+    
+    Kristal.Console:log(self.temperature)
+end
+
+function Battle:incTemp(amount)
+    self.temperature = math.min(self.max_temperature, self.temperature + amount)
+end
+
+function Battle:decTemp(amount)
+    self.temperature = math.max(self.min_temperature, self.temperature - amount)
 end
 
 function Battle:breakSoulShield()

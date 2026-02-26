@@ -32,6 +32,8 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
+    Game.battle:incTemp(30)
+    
     local buster_finished = false
     local anim_finished = false
     local function finishAnim()

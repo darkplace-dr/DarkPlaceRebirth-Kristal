@@ -510,6 +510,8 @@ function Mod:makeSpellsMissAgainstJackenstein()
     end)
     local spell = Registry.getSpell("red_buster")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target) 
+        Game.battle:incTemp(30)
+        
         local buster_finished = false
         local anim_finished = false
         local function finishAnim()
@@ -553,7 +555,9 @@ function Mod:makeSpellsMissAgainstJackenstein()
         return false
     end)
     local spell = Registry.getSpell("ice_beam")
-    HookSystem.hook(spell, "onCast", function (orig, self, user, target) 
+    HookSystem.hook(spell, "onCast", function (orig, self, user, target)
+        Game.battle:decTemp(30)
+        
         local target_x, target_y = target:getRelativePos(target.width/2, target.height/2, Game.battle)
         if Game.battle.encounter.is_jackenstein then
             target_y = target_y - 60
@@ -916,6 +920,8 @@ function Mod:makeSpellsMissAgainstJackenstein()
     end)
     local spell = Registry.getSpell("ice_shock")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)
+        Game.battle:decTemp(16)
+        
         user.chara:addFlag("iceshocks_used", 1)
 
         local function createParticle(x, y)
@@ -1121,6 +1127,8 @@ function Mod:makeSpellsMissAgainstJackenstein()
     end)
     local spell = Registry.getSpell("multiflare")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)
+        Game.battle:incTemp(12)
+        
         user:setAnimation("battle/multiflare")
 
         Game.battle.timer:after(1/4, function()
@@ -1316,6 +1324,7 @@ function Mod:makeSpellsMissAgainstJackenstein()
             target:hurt(damage, user)
             Assets.playSound("damage")
         end
+        Game.battle:incTemp(15)
     end)
     local spell = Registry.getSpell("electric_havoc")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)
@@ -1416,7 +1425,7 @@ function Mod:makeSpellsMissAgainstJackenstein()
             target:hurt(damage, user)
         end
     end)
-    local spell = Registry.getSpell("darksling")
+    local spell = Registry.getSpell("numbshot") -- Don't know why this was Darkshot before
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)
         local damage = math.floor((((user.chara:getStat("attack") * 4)) - 3 * target.defense))
 

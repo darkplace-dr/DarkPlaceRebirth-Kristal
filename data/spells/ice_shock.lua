@@ -34,6 +34,8 @@ function spell:getTPCost(chara)
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(16)
+    
     user.chara:addFlag("iceshocks_used", 1)
 
     local function createParticle(x, y)
