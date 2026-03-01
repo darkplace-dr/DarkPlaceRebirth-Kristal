@@ -427,13 +427,6 @@ local loaders = {
             data.assets.music[id] = full_path
         end
     end },
-    ["shaders"] = { "assets/shaders", function(base_dir, path, full_path)
-        local id = checkExtension(path, "glsl")
-        if id then
-            -- TODO: load the shader source code, maybe?
-            data.assets.shader_paths[id] = full_path
-        end
-    end },
     ["videos"] = { "assets/videos", function(base_dir, path, full_path)
         local id = checkExtension(path, "ogg", "ogv")
         if id then
