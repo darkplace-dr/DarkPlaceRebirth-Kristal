@@ -34,12 +34,10 @@ function AssetBucket:startLoading(paths)
     for _, asset_search_path in ipairs(self.paths) do
         for asset_type, loader in pairs(AssetLoaders.loaders) do
             for _, subfolder in ipairs(loader.valid_subfolders) do
-                print("path / subfolder", asset_search_path .. "/" .. subfolder)
                 for i, subpath in ipairs(FileSystemUtils.getFilesRecursive(asset_search_path .. "/" .. subfolder)) do
                     local full_path = asset_search_path .. "/" .. subfolder .. "/" .. subpath
                     local filepath = FilePath(asset_search_path .. "/" .. subfolder, full_path)
                     loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
-                    print(filepath.identifier, filepath.extension, filepath.full_path)
                 end
             end
         end

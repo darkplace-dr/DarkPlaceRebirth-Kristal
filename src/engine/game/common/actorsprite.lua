@@ -358,10 +358,10 @@ end
 ---@return boolean? directional
 ---@return string? separator
 function ActorSprite:isDirectional(texture)
-    if not Assets.getTexture(texture) and not Assets.getFrames(texture) then
-        if Assets.getTexture(texture .. "_left") or Assets.getFrames(texture .. "_left") then
+    if not Assets.hasSprite(texture) then
+        if Assets.hasSprite(texture .. "_left") then
             return true, "_"
-        elseif Assets.getTexture(texture .. "/left") or Assets.getFrames(texture .. "/left") then
+        elseif Assets.hasSprite(texture .. "/left") then
             return true, "/"
         end
     end

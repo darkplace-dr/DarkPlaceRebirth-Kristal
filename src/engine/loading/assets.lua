@@ -147,6 +147,20 @@ function Assets.internalGet(asset_type, asset_id, error_level)
     error(string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id), 2)
 end
 
+---@private
+---@param asset_type string
+---@param asset_id string
+---@return boolean found
+function Assets.internalHas(asset_type, asset_id)
+    for i = #self.buckets, 1, -1 do
+        if self.buckets[i]:has(asset_type, asset_id) then
+            return true
+        end
+    end
+    return false
+    
+end
+
 ---@param bucket_id string
 ---@return AssetBucket bucket
 function Assets.getBucket(bucket_id)
@@ -362,14 +376,14 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
-    if not Kristal.Config["lazySprites"] or self.data.texture[path] then goto done end
-    do
-        local data = Assets.getTextureData(path)
-        self.data.texture[path] = data and love.graphics.newImage(data)
-    end
-    ::found::
-    ::done::
-    return self.data.texture[path]
+    local identifier_split = StringUtils.split(path, "_")
+    local split_frame = (#identifier_split > 1 and ( tonumber(identifier_split[#identifier_split]) and tonumber(table.remove(identifier_split, #identifier_split)))) or nil
+    local identifier = table.concat(identifier_split, "_")
+    return self.getFramesOrTexture(identifier)[split_frame or 1]
+end
+
+function Assets.hasSprite(asset_id)
+    return Assets.internalHas("sprite", asset_id)
 end
 
 Utils.hook(Assets, "getTexture", function (orig, path)
@@ -464,12 +478,7 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFramesOrTexture(path)
-    local texture = Assets.getTexture(path)
-    if texture then
-        return { texture }
-    else
-        return Assets.getFrames(path)
-    end
+    return self.get("sprite", path)
 end
 
 ---@param x number
