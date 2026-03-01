@@ -50,7 +50,12 @@ Game = Kristal.States["Game"]
 MainMenu = Kristal.States["MainMenu"]
 LoadingState = Kristal.States["Loading"]
 
-Assets = require("src.engine.assets")
+AssetBucket = require("src.engine.loading.AssetBucket")
+AssetLoader = require("src.engine.loading.AssetLoader")
+ShaderAssetLoader = require("src.engine.loading.loaders.ShaderAssetLoader")
+AssetLoaders = require('src.engine.loading.AssetLoaders')
+
+Assets = require("src.engine.loading.assets")
 Music = require("src.engine.music")
 Input = require("src.engine.input")
 TextInput = require("src.engine.textinput")

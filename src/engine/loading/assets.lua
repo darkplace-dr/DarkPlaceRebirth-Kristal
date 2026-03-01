@@ -46,7 +46,30 @@ local self = Assets
 
 Assets.saved_data = nil
 
+---@internal
+---@return any task
+function Assets.getQueue(bucket_id, asset_type)
+    if not self.queued_tasks[bucket_id] then
+        self.queued_tasks[bucket_id] = {}
+    end
+    if not self.queued_tasks[bucket_id][asset_type] then
+        self.queued_tasks[bucket_id][asset_type] = {}
+    end
+    return self.queued_tasks[bucket_id][asset_type]
+end
+
+function Assets.init()
+    Assets.clear()
+    AssetLoaders.init()
+    ---@type AssetBucket[]
+    self.buckets = {
+        AssetBucket("engine", { "assets" }),
+        AssetBucket("project", { "assets" }),
+    }
+end
+
 function Assets.clear()
+    self.queued_tasks = {}
     self.loaded = false
     self.data = {
         texture = {},
@@ -95,6 +118,40 @@ function Assets.loadData(data)
     self.loaded = true
 end
 
+---@param asset_type string
+---@param asset_id string
+---@return any asset
+function Assets.get(asset_type, asset_id)
+    if not AssetLoaders.exists(asset_type) then
+        error(string.format("Attempt to get unknown asset type '%s' with id '%s'", asset_type, asset_id), 2)
+    end
+    return Assets.internalGet(asset_type, asset_id, 2)
+end
+
+---@private
+---@param asset_type string
+---@param asset_id string
+---@return any asset
+function Assets.internalGet(asset_type, asset_id, error_level)
+    for i = #self.buckets, 1, -1 do
+        if self.buckets[i]:has(asset_type, asset_id) then
+            return self.buckets[i]:get(asset_type, asset_id)
+        end
+    end
+    error(string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id), 2)
+end
+
+---@param bucket_id string
+---@return AssetBucket bucket
+function Assets.getBucket(bucket_id)
+    for i = 1, #self.buckets do
+        if self.buckets[i].bucket_id == bucket_id then
+            return self.buckets[i]
+        end
+    end
+    error(string.format("Attempt to get non-existent bucket '%s'", bucket_id))
+end
+
 function Assets.saveData()
     self.saved_data = {
         data = TableUtils.copy(self.data, true),
@@ -106,6 +163,7 @@ end
 
 ---@return boolean
 function Assets.restoreData()
+    Assets.getBucket("project"):unload()
     if self.saved_data then
         Assets.clear()
         for k, v in pairs(self.saved_data) do
@@ -538,13 +596,11 @@ function Assets.newVideo(video, load_audio)
 end
 
 function Assets.getShader(id)
-    return self.data.shaders[id]
+    return self.get("shader", id)
 end
 
 function Assets.newShader(id)
     return love.graphics.newShader(self.data.shader_paths[id])
 end
-
-Assets.clear()
 
 return Assets

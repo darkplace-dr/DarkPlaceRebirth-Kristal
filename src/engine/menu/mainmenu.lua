@@ -1,25 +1,9 @@
 ---@class MainMenu : StateManagedClass
 local MainMenu = {}
 
-MainMenu.BACKGROUND_SHADER = love.graphics.newShader([[
-    extern number bg_sine;
-    extern number bg_mag;
-    extern number wave_height;
-    extern number sine_mul;
-    extern vec2 texsize;
-    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
-    {
-        number i = texture_coords.y * texsize.y;
-        number bg_minus = ((bg_mag * (i / wave_height)) * 1.3);
-        number wave_mag = max(0.0, bg_mag - bg_minus);
-        vec2 coords = vec2(max(0.0, min(1.0, texture_coords.x + (sine_mul * sin((i / 8.0) + (bg_sine / 30.0)) * wave_mag) / texsize.x)), max(0.0, min(1.0, texture_coords.y + 0.0)));
-        return Texel(texture, coords) * color;
-    }
-]])
-
 function MainMenu:init()    
-    self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
-    self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
+    self.border_back = Assets.getTexture("kristal/title/border_back")
+    self.border_front = Assets.getTexture("kristal/title/border_front")
     
     local date = os.date("*t")
     if date.month == 4 and date.day == 1 then
@@ -30,6 +14,8 @@ function MainMenu:init()
     self.border_scroll = 0
     
     self.splash_list = self:require("splashes")
+
+    MainMenu.BACKGROUND_SHADER = Assets.getShader("kristal/main_menu_background")
 end
 
 function MainMenu:enter()
