@@ -53,6 +53,7 @@ LoadingState = Kristal.States["Loading"]
 AssetBucket = require("src.engine.loading.AssetBucket")
 AssetLoader = require("src.engine.loading.AssetLoader")
 ShaderAssetLoader = require("src.engine.loading.loaders.ShaderAssetLoader")
+SpriteAssetLoader = require("src.engine.loading.loaders.SpriteAssetLoader")
 AssetLoaders = require('src.engine.loading.AssetLoaders')
 
 Assets = require("src.engine.loading.assets")
