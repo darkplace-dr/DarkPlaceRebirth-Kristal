@@ -9,6 +9,7 @@ function AssetLoader:init(valid_subfolders, valid_extensions)
     self.valid_extensions = valid_extensions
 end
 
+---@param file FilePath
 ---@param queue table<string, TTask>
 function AssetLoader:beginLoad(file, queue) end
 

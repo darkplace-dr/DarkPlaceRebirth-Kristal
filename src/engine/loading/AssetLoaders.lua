@@ -11,6 +11,7 @@ end
 ---@private
 function AssetLoaders.registerDefaults()
     AssetLoaders.register("shader", ShaderAssetLoader({ "shaders" }, { "glsl" }))
+    AssetLoaders.register("sprite", SpriteAssetLoader({ "sprites" }, { "png" }))
 end
 
 ---@generic T : AssetLoader
