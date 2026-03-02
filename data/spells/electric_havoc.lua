@@ -13,8 +13,9 @@ function spell:init()
     -- Check description
     self.check = "Bolts an enemy\n3 times.\n* Extremely powerful."
 
-    -- TP cost
+    -- Resource costs
     self.cost = 100
+    self.mana_cost = 100
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"

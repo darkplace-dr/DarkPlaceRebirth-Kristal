@@ -3,7 +3,8 @@
     "default": true,
     "dependencies": [
         "questline2",
-        "pausebutton"
+        "pausebutton",
+		"ManaHealthResources"
     ],
     "optionalDependencies": [
         "magical-glass"

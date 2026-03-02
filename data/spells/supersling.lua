@@ -13,8 +13,9 @@ function spell:init()
     -- Check description
     self.check = "Slingshot healing bullets to an enemy, making\nthem more likely to spare us."
 
-    -- TP cost
+    -- Resource costs
     self.cost = 32
+    self.mana_cost = 32
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"
