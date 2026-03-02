@@ -1596,5 +1596,20 @@ function Game:isSpecialMode(name)
     return Game.save_name:upper() == name:upper()
 end
 
+--- Depending on the element, runs a multiplier value through several factors and returns the final multiplier.
+--- Usually for elemental damage multipliers for spells
+---@param element string -- the element to check multipliers for
+function Game:getElementMult(element)
+    local mult = 1
+    if element == "STAR" then
+        -- Stellar Lens
+        mult = mult + (0.2 * Game:getBadgeEquipped("stellar_lens"))
+
+        return mult
+    else
+        return mult
+    end
+end
+
 
 return Game
