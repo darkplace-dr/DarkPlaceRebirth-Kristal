@@ -152,7 +152,7 @@ function Sprite:setSprite(texture, keep_anim)
     if type(texture) == "string" then
         texture = self:getPath(texture)
     end
-    if type(texture) == "table" or (type(texture) == "string" and Assets.getFrames(texture)) then
+    if type(texture) == "table" or (type(texture) == "string" and Assets.hasSprite(texture)) then
         self:setFrames(texture, keep_anim)
     else
         self:setTexture(texture, keep_anim)

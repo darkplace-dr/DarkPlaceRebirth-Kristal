@@ -61,6 +61,7 @@ end
 function Assets.init()
     Assets.clear()
     AssetLoaders.init()
+    self.queued_tasks = {}
     ---@type AssetBucket[]
     self.buckets = {
         AssetBucket("engine", { "assets" }),
@@ -69,7 +70,6 @@ function Assets.init()
 end
 
 function Assets.clear()
-    self.queued_tasks = {}
     self.loaded = false
     self.data = {
         texture = {},
@@ -128,6 +128,12 @@ function Assets.get(asset_type, asset_id)
     return Assets.internalGet(asset_type, asset_id, 2)
 end
 
+function Assets.tryGet(asset_type, asset_id)
+    if Assets.internalHas(asset_type, asset_id) then
+        return Assets.internalGet(asset_type, asset_id)
+    end
+end
+
 ---@private
 ---@param asset_type string
 ---@param asset_id string
@@ -177,7 +183,6 @@ end
 
 ---@return boolean
 function Assets.restoreData()
-    Assets.getBucket("project"):unload()
     if self.saved_data then
         Assets.clear()
         for k, v in pairs(self.saved_data) do
@@ -374,7 +379,8 @@ function Assets.getTexture(path)
     local identifier_split = StringUtils.split(path, "_")
     local split_frame = (#identifier_split > 1 and ( tonumber(identifier_split[#identifier_split]) and tonumber(table.remove(identifier_split, #identifier_split)))) or nil
     local identifier = table.concat(identifier_split, "_")
-    return self.getFramesOrTexture(identifier)[split_frame or 1]
+    local texture = self.getFramesOrTexture(identifier)[split_frame or 1] or error(string.format(""))
+    return texture
 end
 
 function Assets.hasSprite(asset_id)
