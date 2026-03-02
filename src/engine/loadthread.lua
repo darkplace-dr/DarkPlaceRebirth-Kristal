@@ -427,7 +427,6 @@ local loaders = {
 
 function loadPath(baseDir, loader, path, pre)
     if path_loaded[loader][path] then return end
-    if kristal_config["borders"] == "off" and loader == "sprites" and path:sub(1,#("borders")) == "borders" then end
 
     if verbose then
         out_channel:push({ status = "loading", loader = loader, path = path })

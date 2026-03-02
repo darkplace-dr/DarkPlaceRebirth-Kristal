@@ -482,27 +482,22 @@ end
 ---@param sound string
 ---@return Sound
 function Assets.getSound(sound)
-    return self.sounds[sound]
+    return self.get("sound", sound)
 end
 
 ---@param sound string
 ---@return Sound
 function Assets.newSound(sound)
-    return self.sounds[sound]:clone()
+    return self.getSound(sound):clone()
 end
 
 ---@param sound string
 ---@return Sound
 function Assets.startSound(sound)
-    if self.sounds[sound] then
-        self.sounds[sound]:stop()
-        self.sounds[sound]:play()
-        return self.sounds[sound]
-    else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
-    end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
+    local src = self.get("sound", sound)
+    src:stop()
+    src:play()
+    return src
 end
 
 ---@param sound string
@@ -528,9 +523,11 @@ end
 ---@param pitch? number
 ---@return Sound
 function Assets.playSound(sound, volume, pitch)
-    if self.sounds[sound] then
+    ---@type Sound?
+    local sound_to_clone = self.getSound(sound)
+    if sound_to_clone then
         self.sound_instances[sound] = self.sound_instances[sound] or {}
-        local src = self.sounds[sound]:clone()
+        local src = sound_to_clone:clone()
 
         if volume then
             src:setVolume(volume)
@@ -548,8 +545,6 @@ function Assets.playSound(sound, volume, pitch)
     else
         Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
 end
 
 ---@param sound string

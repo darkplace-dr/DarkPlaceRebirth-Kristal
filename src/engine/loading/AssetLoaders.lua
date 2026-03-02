@@ -12,6 +12,7 @@ end
 function AssetLoaders.registerDefaults()
     AssetLoaders.register("shader", ShaderAssetLoader({ "shaders" }, { "glsl" }))
     AssetLoaders.register("sprite", SpriteAssetLoader({ "sprites" }, { "png" }))
+    AssetLoaders.register("sound", SoundAssetLoader({ "sounds" }, { "wav", "ogg" }))
 end
 
 ---@generic T : AssetLoader
