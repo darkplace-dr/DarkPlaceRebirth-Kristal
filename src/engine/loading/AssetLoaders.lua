@@ -1,3 +1,4 @@
+local PathAssetLoader = require("src.engine.loading.loaders.PathAssetLoader")
 ---@class AssetLoaders
 ---@field loaders table<string, AssetLoader>
 local AssetLoaders = {}
@@ -13,6 +14,18 @@ function AssetLoaders.registerDefaults()
     AssetLoaders.register("shader", ShaderAssetLoader({ "shaders" }, { "glsl" }))
     AssetLoaders.register("sprite", SpriteAssetLoader({ "sprites" }, { "png" }))
     AssetLoaders.register("sound", SoundAssetLoader({ "sounds" }, { "wav", "ogg" }))
+    AssetLoaders.register("music", PathAssetLoader({ "music" }, { 
+        -- AUDIO FORMATS
+        "mp3", "wav", "ogg",
+        -- TRACKER FORMATS
+        "mod", "s3m", "xm", "it", "669", "amf", "ams", "dbm", "dmf", "dsm", "far",
+        "mdl", "med", "mtm", "okt", "ptm", "stm", "ult", "umx", "mt2", "psm",
+        -- COMPRESSED TRACKER FORMATS
+        "mdz", "s3z", "xmz", "itz", "zip",
+        "mdr", "s3r", "xmr", "itr", "rar",
+        "mdgz", "s3gz", "xmgz", "itgz", "gz"
+    }))
+    AssetLoaders.register("video", PathAssetLoader({ "videos" }, { "ogg", "ogv" }))
 end
 
 ---@generic T : AssetLoader

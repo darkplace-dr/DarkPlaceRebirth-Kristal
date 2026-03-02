@@ -564,23 +564,20 @@ end
 ---@param music string
 ---@return string
 function Assets.getMusicPath(music)
-    return self.data.music[music]
+    return self.get("music", music)
 end
 
 ---@param video string
 ---@return string
 function Assets.getVideoPath(video)
-    return self.data.videos[video]
+    return self.get("video", video)
 end
 
 ---@param video string
 ---@param load_audio? boolean
 ---@return love.Video
 function Assets.newVideo(video, load_audio)
-    if not self.data.videos[video] then
-        error("No video found: " .. video)
-    end
-    return love.graphics.newVideo(self.data.videos[video], { audio = load_audio })
+    return love.graphics.newVideo(self.getVideoPath(video), { audio = load_audio })
 end
 
 function Assets.getShader(id)
