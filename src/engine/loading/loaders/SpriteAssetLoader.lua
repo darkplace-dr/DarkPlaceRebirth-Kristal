@@ -67,12 +67,6 @@ function SpriteAssetLoader:beginLoad(file, queue)
 
         self:logDebug(string.format("Queued load for sprite '%s'", identifier))
     end
-
-    -- For some god damn reason, heart_blur occasionally fails to load unless I
-    -- put this print here. I'm scared.
-    if TableUtils.contains({ "player/heart.png", "player/heart_menu.png", "player/heart_blur.png" }, file.relative_path) then
-        print(file.full_path, identifier, frame_index, TableUtils.dump(task))
-    end
 end
 
 function SpriteAssetLoader:load(asset_id, task)
