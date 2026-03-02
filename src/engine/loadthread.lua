@@ -352,29 +352,6 @@ local loaders = {
 
     -- Asset Loaders
 
-    ["sprites"] = { "assets/sprites", function(base_dir, path, full_path)
-        local id = checkExtension(path, "png", "jpg")
-        if id then
-            local ok = pcall(function() data.assets.texture_data[id] = love.image.newImageData(full_path) end)
-            if not ok then
-                error("Image \"" .. path .. "\" is invalid or corrupted!")
-            end
-            for i = 3, 1, -1 do
-                local num = tonumber(id:sub(-i))
-                local bad_index = (num ~= num) or --NaN check
-                    (num == 1 / 0) or (num == -1 / 0)
-                if num and (not bad_index) then
-                    local frame_name = id:sub(1, -i - 1)
-                    if frame_name:sub(-1, -1) == "_" then
-                        frame_name = frame_name:sub(1, -2)
-                    end
-                    data.assets.frame_ids[frame_name] = data.assets.frame_ids[frame_name] or {}
-                    data.assets.frame_ids[frame_name][num] = id
-                    break
-                end
-            end
-        end
-    end },
     ["fonts"] = { "assets/fonts", function(base_dir, path, full_path)
         local id = checkExtension(path, "ttf")
         if id then
