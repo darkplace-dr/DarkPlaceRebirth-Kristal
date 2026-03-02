@@ -13,8 +13,9 @@ function spell:init()
     -- Check description
     self.check = "Deals massive damage to non-boss enemies."
 
-    -- TP cost
+    -- Resource costs
     self.cost = 55
+    self.mana_cost = 55
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"

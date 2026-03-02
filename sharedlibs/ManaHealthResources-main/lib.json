@@ -1,0 +1,45 @@
+{
+    "id": "ManaHealthResources",
+	
+    //"default": true,
+    
+    "version": "v2.0.0",
+    "engineVer": "v0.10.0-dev",
+    
+    "authors": [
+        "delunimbus"
+        //Thx to the Kristal discord for helping me make the MP bars for the built-in UI
+    ],
+	
+    "config": {
+
+        //Extra keys for when debugging
+        "debug_keys": {
+            "full_mana_all":    "i",
+            "zero_mana_all":    "l",
+            "zero_tension":     "u"
+        },
+
+        //Whether to allow mana to go negative
+        "negative_mana":            false,
+
+        //Whether to keep mana at negative values after battle
+        "keep_negative_mana":       false,
+
+        //Whether to omit the hurt message and animation when selecting an action that costs health
+        "omit_hurt_effects_from_hp_cost": true,
+
+        //Whether to use the lib's own DarkPowerMenu overworld spell usability changes
+        //Only set to `false` if planning to do your own criteria
+        "use_propietary_darkpowermenu_spell_usability_changes":    true,
+
+        //Whether to use the lib's built-in UI
+        //Set `false` to not use the lib's UI (only if custom UI will be used)
+        "use_propietary_ui": {
+            "OverworldActionBox":   false,
+            "DarkPowerMenu":        true,
+            "ActionBox":            true,
+            "BattleUI":             true,   //Only affects the "MENUSELECT" state
+        },
+	}
+}

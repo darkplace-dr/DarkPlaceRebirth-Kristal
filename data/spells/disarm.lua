@@ -13,8 +13,9 @@ function spell:init()
     -- Check description
     self.check = "Attempts to disarm an enemy. Depends on their weapon grip."
 
-    -- TP cost
+    -- Resource costs
     self.cost = 72
+    self.mana_cost = 72
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"

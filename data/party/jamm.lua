@@ -40,12 +40,14 @@ function character:init()
     self:addSpell("numbshot")
 
     self.health = 120
+    self.mana = 15
 
     self.stats = {
         health = 120,
         attack = 10,
         defense = 2,
-        magic = 3
+        magic = 3,
+        mana = 30
     }
 
     self.weapon_icon = "ui/menu/equip/sling"
@@ -84,6 +86,23 @@ function character:init()
     self.flags = {
         ["disarmed"] = false
     }
+    
+    self.default_spell_resource = "tension"
+    self.uses_mana = false
+end
+
+function character:usesMana()
+    if (true) then
+        return true
+    end
+    return false
+end
+
+function character:getDefaultSpellResourceType()
+    if (true) then
+        return "mana"
+    end
+    return "tension"
 end
 
 function character:getName()

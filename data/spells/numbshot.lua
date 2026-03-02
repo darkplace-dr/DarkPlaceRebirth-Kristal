@@ -13,8 +13,9 @@ function spell:init()
     -- Check description
     self.check = "Shoots a sedative-laced shot at an enemy to induce SLEEP."
 
-    -- TP cost
+    -- Resource costs
     self.cost = 16
+    self.mana_cost = 16
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"
