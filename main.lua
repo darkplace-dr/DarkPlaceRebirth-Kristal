@@ -54,6 +54,7 @@ AssetBucket = require("src.engine.loading.AssetBucket")
 AssetLoader = require("src.engine.loading.AssetLoader")
 ShaderAssetLoader = require("src.engine.loading.loaders.ShaderAssetLoader")
 SpriteAssetLoader = require("src.engine.loading.loaders.SpriteAssetLoader")
+SoundAssetLoader = require("src.engine.loading.loaders.SoundAssetLoader")
 AssetLoaders = require('src.engine.loading.AssetLoaders')
 
 Assets = require("src.engine.loading.assets")
