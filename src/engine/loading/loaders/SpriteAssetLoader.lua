@@ -92,7 +92,7 @@ function SpriteAssetLoader:load(asset_id, task)
         result.texture_paths[frame_data.frame] = frame_data.path
     end
 
-    assert(#result.texture_data == #task.frames, "Unexpected gap between frame indexes")
+    assert(#result.texture_data == #task.frames, string.format("Unexpected gap between frame indexes for '%s'", asset_id))
 
     self:logDebug(string.format(
         "Loaded %d frame(s) for sprite '%s'",
