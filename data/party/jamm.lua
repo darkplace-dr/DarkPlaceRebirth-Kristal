@@ -92,14 +92,14 @@ function character:init()
 end
 
 function character:usesMana()
-    if (true) then
+    if (false) then
         return true
     end
     return false
 end
 
 function character:getDefaultSpellResourceType()
-    if (true) then
+    if (false) then
         return "mana"
     end
     return "tension"
