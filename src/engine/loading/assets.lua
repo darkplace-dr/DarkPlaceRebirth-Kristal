@@ -419,38 +419,21 @@ end
 ---@param texture love.Image|string
 ---@return string
 function Assets.getTextureID(texture)
-    if type(texture) == "string" then
-        return texture
-    else
-        return self.texture_ids[texture]
+    for bucket_n = #Assets.buckets, 1, -1 do
+        for sprite_id, sprite in pairs(Assets.buckets[bucket_n].loaded_assets.sprite or {}) do
+            for frame_n = 1, #sprite do
+                if texture == sprite[frame_n] then
+                    return sprite_id .. "_" .. frame_n
+                end
+            end
+        end
     end
 end
 
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
-    if not Kristal.Config["lazySprites"] or self.data.frames[path] then goto done end
-    do
-        local frames = {}
-        if Assets.getTexture(path.."_1") then
-            local i = 1
-            while Assets.getTexture(path .. "_"..i) do
-                table.insert(frames, Assets.getTexture(path .. "_"..i))
-                i = i + 1
-            end
-        elseif Assets.getTexture(path.."_01") then
-            local i = 1
-            while Assets.getTexture(path .. string.format("_%.2d", i)) do
-                table.insert(frames, Assets.getTexture(path .. string.format("_%.2d", i)))
-                i = i + 1
-            end
-        end
-        if #frames > 0 then
-            self.data.frames[path] = frames
-        end
-    end
-    ::done::
-    return self.data.frames[path]
+    return self.getFramesOrTexture(path)
 end
 
 Utils.hook(Assets, "getFrames", function (orig, path)
