@@ -477,27 +477,22 @@ end
 ---@param sound string
 ---@return love.Source
 function Assets.getSound(sound)
-    return self.sounds[sound]
+    return self.get("sound", sound)
 end
 
 ---@param sound string
 ---@return love.Source
 function Assets.newSound(sound)
-    return self.sounds[sound]:clone()
+    return self.getSound(sound):clone()
 end
 
 ---@param sound string
 ---@return love.Source
 function Assets.startSound(sound)
-    if self.sounds[sound] then
-        self.sounds[sound]:stop()
-        self.sounds[sound]:play()
-        return self.sounds[sound]
-    else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
-    end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
+    local src = self.get("sound", sound)
+    src:stop()
+    src:play()
+    return src
 end
 
 ---@param sound string
@@ -523,36 +518,30 @@ end
 ---@param pitch? number
 ---@return love.Source
 function Assets.playSound(sound, volume, pitch)
-    if self.sounds[sound] then
-        self.sound_instances[sound] = self.sound_instances[sound] or {}
-        local src
-        local function play(v)
-            src = self.sounds[sound]:clone()
-            if v then
-                src:setVolume(v)
-            end
-            if pitch then
-                src:setPitch(pitch)
-            end
-            src:play()
-            table.insert(self.sound_instances[sound], src)
+    self.sound_instances[sound] = self.sound_instances[sound] or {}
+    local src
+    local function play(v)
+        src = self.newSound(sound)
+        if v then
+            src:setVolume(v)
         end
-        if volume and volume > 1 then
-            for _ = 1, math.floor(volume) do
-                play(1)
-            end
-            if volume % 1 > 0 then
-                play(volume % 1)
-            end
-        else
-            play(volume)
+        if pitch then
+            src:setPitch(pitch)
         end
-        return src
-    else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
+        src:play()
+        table.insert(self.sound_instances[sound], src)
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
+    if volume and volume > 1 then
+        for _ = 1, math.floor(volume) do
+            play(1)
+        end
+        if volume % 1 > 0 then
+            play(volume % 1)
+        end
+    else
+        play(volume)
+    end
+    return src
 end
 
 ---@param sound string
