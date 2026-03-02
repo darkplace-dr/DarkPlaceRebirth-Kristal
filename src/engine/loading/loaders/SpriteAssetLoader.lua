@@ -32,8 +32,7 @@ function SpriteAssetLoader:init(valid_subfolders, valid_extensions)
 end
 
 function SpriteAssetLoader:beginLoad(file, queue)
-    -- Split an asset id like `"idle.01"` into `"idle", "01"`
-    -- Not exactly the intended use of splitExtension but it works
+    -- Split an asset id like `"idle_01"` into `"idle", "01"`
     local identifier_split = StringUtils.split(file.identifier, "_")
     local split_frame = (#identifier_split > 1 and ( tonumber(identifier_split[#identifier_split]) and table.remove(identifier_split, #identifier_split))) or nil
     local identifier = table.concat(identifier_split, "_")
@@ -51,7 +50,6 @@ function SpriteAssetLoader:beginLoad(file, queue)
 
     -- All textures are frame 1 of the sprite unless otherwise specified
     frame_index = frame_index or 1
-
     
     for i = #task.frames, 1, -1 do
         if task.frames[i].frame == frame_index then
@@ -68,6 +66,12 @@ function SpriteAssetLoader:beginLoad(file, queue)
         queue[identifier] = task
 
         self:logDebug(string.format("Queued load for sprite '%s'", identifier))
+    end
+
+    -- For some god damn reason, heart_blur occasionally fails to load unless I
+    -- put this print here. I'm scared.
+    if TableUtils.contains({ "player/heart.png", "player/heart_menu.png", "player/heart_blur.png" }, file.relative_path) then
+        print(file.full_path, identifier, frame_index, TableUtils.dump(task))
     end
 end
 
