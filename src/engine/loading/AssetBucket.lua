@@ -22,6 +22,7 @@ function AssetBucket:init(id, paths)
 end
 
 function AssetBucket:unload()
+    Assets.queued_tasks[self.bucket_id] = {}
     self.loaded_assets = {}
     self.state = AssetBucket.State.UNLOADED
 end
@@ -33,8 +34,10 @@ function AssetBucket:startLoading(paths)
     self.paths = paths or self.paths
     for _, asset_search_path in ipairs(self.paths) do
         for asset_type, loader in pairs(AssetLoaders.loaders) do
-            for _, subfolder in ipairs(loader.valid_subfolders) do
-                for i, subpath in ipairs(FileSystemUtils.getFilesRecursive(asset_search_path .. "/" .. subfolder)) do
+            for _, subfolder in ipairs(loader.valid_subfolders or error(TableUtils.dump(loader))) do
+                local files = FileSystemUtils.getFilesRecursive(asset_search_path .. "/" .. subfolder)
+                table.sort(files)
+                for i, subpath in ipairs(files) do
                     local full_path = asset_search_path .. "/" .. subfolder .. "/" .. subpath
                     local filepath = FilePath(asset_search_path .. "/" .. subfolder, full_path)
                     loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
@@ -58,6 +61,14 @@ function AssetBucket:has(asset_type, asset_id)
     end
 end
 
+--[[
+
+for k, v in pairs(Assets.getQueue("engine", "sprite")) do
+    Assets.getFrames(k)
+end
+
+--]]
+
 ---@internal
 ---@param asset_type string
 ---@param asset_id string
@@ -73,6 +84,7 @@ function AssetBucket:get(asset_type, asset_id)
         local result = loader:load(asset_id, Assets.getQueue(self.bucket_id, asset_type)[asset_id])
         local final = loader:apply(asset_id, result)
         self.loaded_assets[asset_type][asset_id] = final
+        Assets.getQueue(self.bucket_id, asset_type)[asset_id] = nil
         return final
     else
         error(string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id), 2)
