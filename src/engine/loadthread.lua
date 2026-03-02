@@ -375,44 +375,6 @@ local loaders = {
             data.assets.font_settings[id] = loaded_data
         end
     end },
-    ["sounds"] = { "assets/sounds", function(base_dir, path, full_path)
-        local id = checkExtension(path, "wav", "ogg")
-        if id then
-            pcall(function() data.assets.sound_data[id] = love.sound.newSoundData(full_path) end)
-        end
-        id = checkExtension(path, "json")
-        if id then
-            local ok, loaded_data = pcall(json.decode, love.filesystem.read(full_path))
-            if not ok then
-                error("Sound \"" .. path .. "\" has an invalid json file!")
-            end
-            data.assets.sound_settings[id] = loaded_data
-        end
-    end },
-    ["music"] = { "assets/music", function(base_dir, path, full_path)
-        local id = checkExtension(
-            path, "mp3", "wav", "ogg",
-            -- TRACKER FORMATS
-            "mod", "s3m", "xm", "it", "669", "amf", "ams", "dbm", "dmf", "dsm", "far",
-            "mdl", "med", "mtm", "okt", "ptm", "stm", "ult", "umx", "mt2", "psm",
-            -- COMPRESSED TRACKER FORMATS
-            "mdz", "s3z", "xmz", "itz", "zip",
-            "mdr", "s3r", "xmr", "itr", "rar",
-            "mdgz", "s3gz", "xmgz", "itgz", "gz"
-        )
-        if id then
-            data.assets.music[id] = full_path
-        end
-    end },
-    ["videos"] = { "assets/videos", function(base_dir, path, full_path)
-        local id = checkExtension(path, "ogg", "ogv")
-        if id then
-            data.assets.videos[id] = full_path
-        end
-        if checkExtension(path, "mp4", "mov", "wmv", "flv", "avi", "webm", "mkv") then
-            error("\"" .. path .. "\" unsupported - must use Ogg Theora videos.")
-        end
-    end },
     ["bubbles"] = { "assets/bubbles", function(base_dir, path, full_path)
         local id = checkExtension(path, "json")
         if id then
