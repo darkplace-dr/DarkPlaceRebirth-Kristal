@@ -3391,7 +3391,7 @@ function Battle:draw()
     self.encounter:draw(self.transition_timer / 10)
 
     -- Temperature display
-    if Game:getBadgeEquipped("thermometer") then
+    if Game:getBadgeEquipped("thermometer") == 1 then
         local temperature = self.temperature - 30
         local temp_symbol = "C"
         if Kristal.Config["temperatureDisplay"] == false then
