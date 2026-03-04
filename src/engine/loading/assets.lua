@@ -34,7 +34,7 @@ local self = Assets
 
 --- Settings for a font asset, paired with the actual font data as a .json file.
 ---@class Assets.font_settings
----@field defaultSize number? # The default size of the font.
+---@field defaultSize integer? # The default size of the font.
 ---@field autoScale boolean? # Whether to scale the default-sized font to fit requested sizes. This is true by default for image and BMFont fonts.
 ---@field glyphs string? # (Image fonts only) Characters in the font, in order from left to right.
 ---@field hinting love.HintingMode? # (TrueType fonts only) The hinting mode to load the font with.
@@ -265,30 +265,6 @@ function Assets.parseData(data)
         end
     end
 
-    -- create single-instance audio sources
-    for key, sound_data in pairs(data.sound_data) do
-        local src = love.audio.newSource(sound_data)
-        self.sounds[key] = src
-    end
-
-    -- create single-instance shaders
-    ---@type {id:string,error:string}[]
-    local errors = {}
-    for key, shader_path in pairs(data.shader_paths) do
-        local ok, res = love.graphics.validateShader(true, shader_path)
-        if ok then
-            self.data.shaders[key] = love.graphics.newShader(shader_path)
-        else
-            errors[#errors + 1] = { id = key, error = res }
-        end
-    end
-    if #errors >= 1 then
-        local error_str = {}
-        for i, err in ipairs(errors) do
-            error_str[i] = string.format("%s:\n%s", data.shader_paths[err.id], err.error)
-        end
-        error({ msg = "Shader compilation errors:\n" .. table.concat((error_str), "\n\n") .. "\n" })
-    end
     -- may be a memory hog, we clone the existing source so we dont need the sound data anymore
     --self.data.sound_data = {}
 end
@@ -313,47 +289,50 @@ function Assets.getBubbleData(path)
     return self.data.bubble_settings[path] or {}
 end
 
+---@return FontAssetLoader.Font
+function Assets.getFontInfo(asset_id)
+    return self.get("font", asset_id)
+end
+
 ---@param path string
 ---@param size? number
 ---@return love.Font
 function Assets.getFont(path, size)
-    local font = self.data.fonts[path]
-    if font then
-        local settings = self.data.font_settings[path] or {}
-        if type(font) == "table" then
-            if settings.autoScale then
-                size = font.default
-            else
-                size = size or font.default
-            end
-            if not font[size] then
-                ---@diagnostic disable-next-line: param-type-mismatch
-                font[size] = love.graphics.newFont(self.data.font_data[path], size, settings.hinting or "mono")
-
-                if settings.fallbacks then
-                    local fallbacks = {}
-
-                    for _, fallback in ipairs(settings.fallbacks) do
-                        local fb_font = self.data.fonts[fallback.font]
-
-                        if type(fb_font) ~= "table" then
-                            error("Attempt to use image or BMFont fallback on TTF font: " .. path)
-                        else
-                            local ratio = (fallback.size or fb_font.default) / font.default
-                            table.insert(fallbacks, self.getFont(fallback.font, size * ratio))
-                        end
-                    end
-
-                    font[size]:setFallbacks(unpack(fallbacks))
-                end
-            end
-            return font[size]
+    local font = self.getFontInfo(path)
+    local font_cache = self.data.fonts[path] or {}
+    self.data.fonts[path] = font_cache
+    local settings = self.data.font_settings[path] or {}
+    if not font.font then
+        if settings.autoScale then
+            size = font.default
         else
-            return font
+            size = size or font.default
         end
+        if not font_cache[size] then
+            ---@diagnostic disable-next-line: param-type-mismatch
+            font_cache[size] = love.graphics.newFont(font.font_data --[[@as string]], size, settings.hinting or "mono")
+
+            if settings.fallbacks then
+                local fallbacks = {}
+
+                for _, fallback in ipairs(settings.fallbacks) do
+                    local fb_font = self.data.fonts[fallback.font]
+
+                    if type(fb_font) ~= "table" then
+                        error("Attempt to use image or BMFont fallback on TTF font: " .. path)
+                    else
+                        local ratio = (fallback.size or fb_font.default) / font.default
+                        table.insert(fallbacks, self.getFont(fallback.font, size * ratio))
+                    end
+                end
+
+                font_cache[size]:setFallbacks(unpack(fallbacks))
+            end
+        end
+        return font_cache[size]
+    else
+        return font.font
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
 end
 
 ---@param path string
