@@ -1,5 +1,6 @@
 local PathAssetLoader = require("src.engine.loading.loaders.PathAssetLoader")
 local FontAssetLoader = require("src.engine.loading.loaders.FontAssetLoader")
+local BubbleAssetLoader = require("src.engine.loading.loaders.BubbleAssetLoader")
 ---@class AssetLoaders
 ---@field loaders table<string, AssetLoader>
 local AssetLoaders = {}
@@ -28,6 +29,7 @@ function AssetLoaders.registerDefaults()
     }))
     AssetLoaders.register("video", PathAssetLoader({ "videos" }, { "ogg", "ogv" }))
     AssetLoaders.register("font", FontAssetLoader({ "fonts" }, { "png", "ttf", "json", "fnt" }))
+    AssetLoaders.register("bubble", BubbleAssetLoader({ "bubbles" }, { "json" }))
 end
 
 ---@generic T : AssetLoader
