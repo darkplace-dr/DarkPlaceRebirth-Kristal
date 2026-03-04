@@ -1,4 +1,5 @@
 local PathAssetLoader = require("src.engine.loading.loaders.PathAssetLoader")
+local FontAssetLoader = require("src.engine.loading.loaders.FontAssetLoader")
 ---@class AssetLoaders
 ---@field loaders table<string, AssetLoader>
 local AssetLoaders = {}
@@ -26,6 +27,7 @@ function AssetLoaders.registerDefaults()
         "mdgz", "s3gz", "xmgz", "itgz", "gz"
     }))
     AssetLoaders.register("video", PathAssetLoader({ "videos" }, { "ogg", "ogv" }))
+    AssetLoaders.register("font", FontAssetLoader({ "fonts" }, { "png", "ttf", "json", "fnt" }))
 end
 
 ---@generic T : AssetLoader
