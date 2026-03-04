@@ -1,6 +1,10 @@
----@class ShaderAssetLoader : AssetLoader<love.Shader, string, string>
+---@class ShaderAssetLoader : AssetLoader<ShaderAssetLoader.Result, string, string>
 ---@overload fun(valid_subfolders: string[], valid_extensions: string[]) : ShaderAssetLoader
 local ShaderAssetLoader, super = Class(AssetLoader, "ShaderAssetLoader"), AssetLoader
+
+---@class ShaderAssetLoader.Result
+---@field shader love.Shader
+---@field source string
 
 function ShaderAssetLoader:init(valid_subfolders, valid_extensions)
     super.init(self, valid_subfolders, valid_extensions)
@@ -19,8 +23,13 @@ function ShaderAssetLoader:load(asset_id, task)
 end
 
 function ShaderAssetLoader:apply(asset_id, output)
+    -- Ensure the shader doesn't contain any errors
+    assert(love.graphics.validateShader(true, output))
     -- Finally, the shader can be created on the main thread
-    return love.graphics.newShader(output)
+    return {
+        shader = love.graphics.newShader(output);
+        source = output
+    }
 end
 
 return ShaderAssetLoader
