@@ -1,5 +1,4 @@
 ---@class FontAssetLoader : AssetLoader< Partial< FontAssetLoader.Font >, FontAssetLoader.Task, FontAssetLoader.Output >
---- An asset loader that just forwards the full path of the asset. Yeah it's pretty brilliant
 ---@overload fun(valid_subfolders: string[], valid_extensions: string[]) : FontAssetLoader
 local FontAssetLoader, super = Class(AssetLoader, "PathAssetLoader"), AssetLoader
 
