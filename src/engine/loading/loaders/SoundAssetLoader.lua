@@ -39,7 +39,7 @@ end
 
 function SoundAssetLoader:apply(asset_id, output)
     -- Finally, the shader can be created on the main thread
-    return Sound(love.audio.newSource(output.sound_data), output.metadata)
+    return Sound(output.sound_data, output.metadata)
 end
 
 return SoundAssetLoader
