@@ -543,6 +543,11 @@ end
 ---@param music string
 ---@return string
 function Assets.getMusicPath(music)
+    -- TODO: Make this error once Music2 is updated.
+    if not self.internalHas("music", music) then
+        ---@diagnostic disable-next-line
+        return nil, string.format("Attempt to fetch missing music '%s'", music)
+    end
     return self.get("music", music)
 end
 
