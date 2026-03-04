@@ -564,12 +564,14 @@ function Assets.newVideo(video, load_audio)
     return love.graphics.newVideo(self.getVideoPath(video), { audio = load_audio })
 end
 
+---@param id string
+---@return love.Shader
 function Assets.getShader(id)
-    return self.get("shader", id)
+    return self.get("shader", id).shader
 end
 
 function Assets.newShader(id)
-    return love.graphics.newShader(self.data.shader_paths[id])
+    return love.graphics.newShader(self.get("shader", id).source)
 end
 
 return Assets
