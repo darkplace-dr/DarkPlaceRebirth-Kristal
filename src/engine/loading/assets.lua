@@ -292,7 +292,7 @@ end
 ---@param path string
 ---@return table
 function Assets.getBubbleData(path)
-    return self.data.bubble_settings[path] or {}
+    return self.get("bubble", path)
 end
 
 ---@return FontAssetLoader.Font
