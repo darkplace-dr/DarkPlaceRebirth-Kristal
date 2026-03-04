@@ -352,16 +352,7 @@ local loaders = {
 
     -- Asset Loaders
 
-    ["bubbles"] = { "assets/bubbles", function(base_dir, path, full_path)
-        local id = checkExtension(path, "json")
-        if id then
-            local ok, loaded_data = pcall(json.decode, love.filesystem.read(full_path))
-            if not ok then
-                error("Bubble \"" .. path .. "\" has an invalid json file!")
-            end
-            data.assets.bubble_settings[id] = loaded_data
-        end
-    end },
+    -- ..they all use the new system now.
 }
 
 function loadPath(baseDir, loader, path, pre)
