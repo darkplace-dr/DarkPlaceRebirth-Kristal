@@ -352,28 +352,6 @@ local loaders = {
 
     -- Asset Loaders
 
-    ["fonts"] = { "assets/fonts", function(base_dir, path, full_path)
-        local id = checkExtension(path, "ttf")
-        if id then
-            pcall(function() data.assets.font_data[id] = love.filesystem.newFileData(full_path) end)
-        end
-        id = checkExtension(path, "fnt")
-        if id then
-            pcall(function() data.assets.font_bmfont_data[id] = full_path end)
-        end
-        id = checkExtension(path, "png")
-        if id then
-            pcall(function() data.assets.font_image_data[id] = love.image.newImageData(full_path) end)
-        end
-        id = checkExtension(path, "json")
-        if id then
-            local ok, loaded_data = pcall(json.decode, love.filesystem.read(full_path))
-            if not ok then
-                error("Font \"" .. path .. "\" has an invalid json file!")
-            end
-            data.assets.font_settings[id] = loaded_data
-        end
-    end },
     ["bubbles"] = { "assets/bubbles", function(base_dir, path, full_path)
         local id = checkExtension(path, "json")
         if id then
