@@ -281,6 +281,24 @@ function Assets.update()
     for _, sound in ipairs(sounds_to_remove) do
         TableUtils.removeValue(self.sound_instances[sound.key], sound.value)
     end
+    -- TODO: Make background loading happen on loadthread. Currently this can cause stutters when loading large assets
+    local time = love.timer.getTime()
+    for _,bucket in ipairs(self.buckets) do
+        for asset_type, queue in pairs(self.queued_tasks[bucket.bucket_id] or {}) do
+            for asset_id in pairs(queue) do
+                bucket:get(asset_type, asset_id)
+                if (love.timer.getTime() - time) + love.timer.getDelta() > 0.5/30 then
+                    if Kristal.Config["verboseLoader"] then
+                        Kristal.Loader.message = string.format("%s/%s: %s", bucket.bucket_id, asset_type, asset_id)
+                    end
+                    Kristal.Overlay.setLoading(true)
+                    return
+                end
+            end
+        end
+    end
+    Kristal.Loader.message = ""
+    Kristal.Overlay.setLoading(false)
 end
 
 ---@param path string
