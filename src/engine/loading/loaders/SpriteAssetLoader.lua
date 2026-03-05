@@ -1,3 +1,4 @@
+local spell = require("src.engine.game.common.data.spell")
 
 ---@class SpriteAssetLoader : AssetLoader<love.Image[], SpriteAssetLoader.Task, SpriteAssetLoader.TaskResult>
 ---
@@ -31,11 +32,21 @@ function SpriteAssetLoader:init(valid_subfolders, valid_extensions)
     end
 end
 
+---@return string identifier
+---@return integer? split_frame
+function SpriteAssetLoader.splitIdentifier(full_identifier)
+    local identifier_split = StringUtils.split(full_identifier, "_")
+    local split_frame
+    if tonumber(identifier_split[#identifier_split]) and tonumber(identifier_split[#identifier_split]) ~= math.huge then
+        split_frame = tonumber(table.remove(identifier_split, #identifier_split))
+    end
+    local identifier = table.concat(identifier_split, "_")
+    return identifier, split_frame
+end
+
 function SpriteAssetLoader:beginLoad(file, queue)
     -- Split an asset id like `"idle_01"` into `"idle", "01"`
-    local identifier_split = StringUtils.split(file.identifier, "_")
-    local split_frame = (#identifier_split > 1 and ( tonumber(identifier_split[#identifier_split]) and table.remove(identifier_split, #identifier_split))) or nil
-    local identifier = table.concat(identifier_split, "_")
+    local identifier, split_frame = SpriteAssetLoader.splitIdentifier(file.identifier)
 
     -- Sprite frames and metadata all form the same asset, so the task table is modified
     local task = queue[identifier] or { frames = {} }
