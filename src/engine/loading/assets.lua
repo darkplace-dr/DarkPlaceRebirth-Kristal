@@ -356,8 +356,7 @@ end
 ---@return love.Image
 function Assets.getTexture(path)
     local identifier_split = StringUtils.split(path, "_")
-    local split_frame = (#identifier_split > 1 and ( tonumber(identifier_split[#identifier_split]) and tonumber(table.remove(identifier_split, #identifier_split)))) or nil
-    local identifier = table.concat(identifier_split, "_")
+    local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
     local texture = self.getFramesOrTexture(identifier)[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
     return texture
 end
