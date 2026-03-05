@@ -40,7 +40,9 @@ function AssetBucket:startLoading(paths)
                 for i, subpath in ipairs(files) do
                     local full_path = asset_search_path .. "/" .. subfolder .. "/" .. subpath
                     local filepath = FilePath(asset_search_path .. "/" .. subfolder, full_path)
-                    loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
+                    if TableUtils.contains(loader.valid_extensions, filepath.extension) then
+                        loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
+                    end
                 end
             end
         end
