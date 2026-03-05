@@ -301,7 +301,7 @@ function Assets.getFont(path, size)
     local font = self.getFontInfo(path)
     local font_cache = self.data.fonts[path] or {}
     self.data.fonts[path] = font_cache
-    local settings = self.data.font_settings[path] or {}
+    local settings = font.settings or {}
     if not font.font then
         if settings.autoScale then
             size = font.default
@@ -316,7 +316,7 @@ function Assets.getFont(path, size)
                 local fallbacks = {}
 
                 for _, fallback in ipairs(settings.fallbacks) do
-                    local fb_font = self.data.fonts[fallback.font]
+                    local fb_font = self.get("font", fallback.font).settings
 
                     if type(fb_font) ~= "table" then
                         error("Attempt to use image or BMFont fallback on TTF font: " .. path)
