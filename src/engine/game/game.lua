@@ -31,6 +31,7 @@
 ---@field light             boolean
 ---@field money             integer
 ---@field xp                integer
+---@field sp                integer
 ---@field tension           number
 ---@field max_tension       number
 ---@field lw_money          integer
@@ -385,6 +386,8 @@ function Game:save(x, y)
         bossrush_encounters = self.bossrush_encounters,
 
         pp = self.pp,
+
+        sp = self.sp,
     }
 
     if x then
@@ -534,6 +537,8 @@ function Game:load(data, index, fade)
     self.lw_money = data.lw_money or 2
 
     self.pp = data.pp or 0
+
+    self.sp = data.sp or 0
 
     self.border = data.border
     if not self.border then
@@ -1609,6 +1614,11 @@ function Game:getElementMult(element)
     else
         return mult
     end
+end
+
+function Game:addSP(ammount)
+    self.sp = self.sp + ammount
+    if self.sp < 0 then self.sp = 0 end
 end
 
 

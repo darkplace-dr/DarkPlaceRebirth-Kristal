@@ -1061,6 +1061,7 @@ function EnemyBattler:defeat(reason, violent)
         end
         if self:getRecruitStatus() >= Game:getRecruit(self.id):getRecruitAmount() then
             self:setRecruitStatus(true)
+            Game:addSP(1)
             if Game:hasPartyMember("hero") then
                 Game:getPartyMember("hero"):addKarma(1)
             end
