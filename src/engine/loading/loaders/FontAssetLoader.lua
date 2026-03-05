@@ -50,7 +50,7 @@ function FontAssetLoader:beginLoad(file, queue)
         task.settings_path = file.full_path
     elseif file.extension == "ttf" then
         task.font_path = file.full_path
-    elseif file.extension == "png" then
+    elseif file.extension == "png" and not love.filesystem.getInfo(file.base_path .. "/" .. file.identifier:sub(1, -3) .. ".fnt") then
         task.image_path = file.full_path
     elseif file.extension == "fnt" then
         task.bmfont_path = file.full_path
@@ -87,7 +87,7 @@ function FontAssetLoader:apply(asset_id, output)
         font = (
             nil
             or (output.bmfont_path and love.graphics.newFont(output.bmfont_path))
-            or (output.image_data and love.graphics.newImageFont(output.image_data, assert(output.settings.glyphs) ))
+            or (output.image_data and output.settings and love.graphics.newImageFont(output.image_data, assert(output.settings.glyphs)))
         );
         font_data = output.font_data;
     } 
