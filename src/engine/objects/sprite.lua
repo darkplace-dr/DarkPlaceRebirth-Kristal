@@ -182,19 +182,22 @@ end
 function Sprite:setTextureExact(texture)
 
     if type(texture) == "string" then
-        self.texture = Assets.getTexture(texture)
+        if texture == "" then
+            self.texture = nil
+            self.texture_path = ""
+            return
+        else
+            self.texture = Assets.getTexture(texture)
+        end
     else
         self.texture = texture
     end
     if (not self.texture) and (texture ~= nil) then
         Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
     end
-    self.texture_path = Assets.getTextureID(texture) or (type(texture_in) == "string" and texture_in) or ( texture_in and error(string.format("What the helly.. %s", texture_in)) or nil)
+    self.texture_path = Assets.getTextureID(texture) or (type(texture_in) == "string" and texture_in)
     if self.use_texture_size then
         if self.texture then
-            if type(self.texture) ~= "userdata" then
-                error(string.format("Somehow self.texture is a %q??", self.texture))
-            end
             self.width = self.texture:getWidth()
             self.height = self.texture:getHeight()
         else
