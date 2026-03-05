@@ -45,7 +45,9 @@ function SpriteAssetLoader:beginLoad(file, queue)
 
     if split_frame then
         assert(frame_index, string.format("Invalid frame separator '%s', expected number", split_frame))
-        assert(frame_index > 0, string.format("Frame index must begin at 1 (%s)", file.relative_path))
+        if (frame_index <= 0) then
+            self:logWarn(string.format("Frame index must begin at 1 (%s)", file.relative_path))
+        end
     end
 
     -- All textures are frame 1 of the sprite unless otherwise specified

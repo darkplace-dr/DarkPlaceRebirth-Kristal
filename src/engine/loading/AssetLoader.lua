@@ -30,4 +30,10 @@ end
 ---@protected
 function AssetLoader:logDebug(message) end
 
+---@protected
+function AssetLoader:logWarn(message)
+    -- TODO: How the hell will this work on a seperate thread?
+    Kristal.Console:warn(message)
+end
+
 return AssetLoader
