@@ -574,12 +574,12 @@ function DarkPowerMenu:canCast(spell)
     local resource = spell:getResourceType(self.party:getSelected())
         --print(resource)
     if resource == "tension" then
-        if Game:getTension() <= spell:getTPCost(self.party:getSelected()) then return false end
+        if Game:getTension() < spell:getTPCost(self.party:getSelected()) then return false end
     elseif resource == "mana" then
-        if self.party:getSelected():getMana() <= spell:getMPCost(self.party:getSelected()) then return false end
+        if self.party:getSelected():getMana() < spell:getMPCost(self.party:getSelected()) then return false end
             --print("huhh")
     elseif resource == "health" then
-        if self.party:getSelected():getHealth() < spell:getHPCost(self.party:getSelected()) then return false end
+        if self.party:getSelected():getHealth() <= spell:getHPCost(self.party:getSelected()) then return false end
     end
 
     return (spell:hasWorldUsage(self.party:getSelected()))
