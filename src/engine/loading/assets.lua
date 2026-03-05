@@ -447,13 +447,8 @@ end
 ---@param texture string
 ---@return string texture, number frame
 function Assets.getFramesFor(texture)
-    if self.frames_for[texture] then
-        -- annoying type annotations
-        ---@diagnostic disable-next-line: redundant-return-value
-        return unpack(self.frames_for[texture])
-    end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil, nil
+    local identifier, frame = SpriteAssetLoader.splitIdentifier(texture)
+    return identifier, frame or 1
 end
 
 ---@param path string
