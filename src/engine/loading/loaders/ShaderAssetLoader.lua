@@ -24,7 +24,10 @@ end
 
 function ShaderAssetLoader:apply(asset_id, output)
     -- Ensure the shader doesn't contain any errors
-    assert(love.graphics.validateShader(true, output))
+    local ok, error_msg = love.graphics.validateShader(true, output)
+    if not ok then
+        error(string.format("Shader compilation error for %s:\n%s", asset_id, error_msg))
+    end
     -- Finally, the shader can be created on the main thread
     return {
         shader = love.graphics.newShader(output);
