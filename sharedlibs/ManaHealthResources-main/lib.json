@@ -31,13 +31,13 @@
 
         //Whether to use the lib's own DarkPowerMenu overworld spell usability changes
         //Only set to `false` if planning to do your own criteria
-        "use_propietary_darkpowermenu_spell_usability_changes":    true,
+        "use_propietary_darkpowermenu_spell_usability_changes":    false,
 
         //Whether to use the lib's built-in UI
         //Set `false` to not use the lib's UI (only if custom UI will be used)
         "use_propietary_ui": {
             "OverworldActionBox":   false,
-            "DarkPowerMenu":        true,
+            "DarkPowerMenu":        false,
             "ActionBox":            true,
             "BattleUI":             true,   //Only affects the "MENUSELECT" state
         },
