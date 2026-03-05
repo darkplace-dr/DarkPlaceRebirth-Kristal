@@ -79,6 +79,10 @@ function Mimic:init()
         ["wave_height"] = 2,
         ["texsize"] = { SCREEN_WIDTH, SCREEN_HEIGHT }
     }), "funky_mode")
+
+    if Mod:isInRematchMode() then
+        self.experience = 0
+    end
 end
 
 function Mimic:getFXWaveMag()
@@ -158,12 +162,11 @@ function Mimic:onDefeat(damage, battler)
 
     -- mark us as defeated first
     -- sprite is not destroyed yet
-    --[[if not Mod:isInRematchMode() then
+    if not Mod:isInRematchMode() then
         self:defeat("KILLED", true)
     else
         self:defeat("VIOLENCE", true)
-    end]]
-    self:defeat("KILLED", true)
+    end
 end
 
 return Mimic

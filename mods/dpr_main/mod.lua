@@ -1538,3 +1538,10 @@ function Mod:makeSpellsMissAgainstJackenstein()
         return false
     end)
 end
+
+function Mod:isInRematchMode()
+    if Game.world.map.id == "thearena" then
+        return true
+    end
+    return false
+end
