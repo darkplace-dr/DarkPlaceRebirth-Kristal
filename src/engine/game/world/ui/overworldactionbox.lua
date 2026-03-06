@@ -8,7 +8,7 @@ function OverworldActionBox:init(x, y, index, chara)
     self.index = index
     self.chara = chara
 
-    self.head_sprite = Sprite(chara:getHeadIcons().."/head", 13, 13)
+    self.head_sprite = Sprite(chara:getHeadIcons() .. "/head", 13, 13)
 
     local ox, oy = chara:getNameOffset()
     if chara:getNameSprite() then
@@ -43,7 +43,7 @@ function OverworldActionBox:init(x, y, index, chara)
 end
 
 function OverworldActionBox:setHeadIcon(icon)
-    self.head_sprite:setSprite(self.chara:getHeadIcons().."/"..icon)
+    self.head_sprite:setSprite(self.chara:getHeadIcons() .. "/" .. icon)
 end
 
 function OverworldActionBox:react(text, display_time)

@@ -15,7 +15,7 @@ function MainMenuTitle:init(menu)
     self.menu = menu
 
     self.logo = Assets.getTexture("kristal/title_logo_shadow")
-    
+
     local date = os.date("*t")
     if date.month == 4 and date.day == 1 then
         self.logo = Assets.getTexture("kristal/title_logo_sun")
@@ -64,6 +64,11 @@ function MainMenuTitle:onEnter(old_state)
     if not TARGET_MOD then
         self.menu.selected_mod = nil
         self.menu.selected_mod_button = nil
+    else
+        local mod = Kristal.Mods.getMod(TARGET_MOD)
+        if mod and mod.soulColor then
+            self.menu.heart:setColor(mod.soulColor)
+        end
     end
 
     self.menu.heart_target_x = 196
@@ -79,14 +84,15 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
         if option == "play" then
             if not TARGET_MOD then
                 self.menu:setState("MODSELECT")
-                if MainMenu.mod_list:getSelectedMod() and MainMenu.mod_list:getSelectedMod().soulColor then
-                    MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
-                end
-            elseif self.has_target_saves or MainMenu.mod_list:getSelectedMod().useSaves then
-                self.menu:setState("FILESELECT")
             else
-                if not Kristal.loadMod(TARGET_MOD, 1) then
-                    error("Failed to load mod: " .. TARGET_MOD)
+                local mod = Kristal.Mods.getMod(TARGET_MOD)
+
+                if (mod["useSaves"] == true) or (mod["useSaves"] == nil and self.has_target_saves) then
+                    self.menu:setState("FILESELECT")
+                elseif (mod["useSaves"] == false) or (mod["useSaves"] == nil and not self.has_target_saves) then
+                    if not Kristal.loadMod(TARGET_MOD, 1) then
+                        error("Failed to load mod: " .. TARGET_MOD)
+                    end
                 end
             end
 

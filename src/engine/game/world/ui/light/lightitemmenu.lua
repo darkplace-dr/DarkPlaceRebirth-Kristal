@@ -20,7 +20,7 @@ function LightItemMenu:init()
     self.box = BoxComponent(FixedSizing(298))
     self.box.x = -32
     self.box.y = -32
-    
+
     self:addChild(self.bg)
     self:addChild(self.box)
     self.box.box.visible = false
@@ -38,7 +38,7 @@ function LightItemMenu:init()
     for i, page in ipairs(self.item_pages) do
         local index = i
         local storage = page.storage
-        local option = self.menu_storageselect:addChild(SoulMenuItemComponent(Text(page.name), function () 
+        local option = self.menu_storageselect:addChild(SoulMenuItemComponent(Text(page.name), function ()
             if #Game.inventory.storages[page.storage] > 0 then
                 Assets.playSound("ui_select")
                 self:createItemList(Game.inventory:getStorage(storage))
@@ -48,7 +48,7 @@ function LightItemMenu:init()
                 Assets.playSound("ui_cant_select")
             end
         end))
-        
+
         function option:onHovered(hovered, from_focused)
             self.selected = hovered
             self.children[1]:setColor(COLORS.white)
@@ -69,7 +69,7 @@ function LightItemMenu:init()
         Game.world.menu.state = "MAIN"
         self:remove()
     end)
-    
+
     self.box:addChild(self.menu_storageselect)
     self.menu_storageselect:setFocused()
 
@@ -254,7 +254,7 @@ function LightItemMenu:useItem(item)
     elseif item.target == "party" or item.target == "none" then
         result = item:onWorldUse(Game.party)
     end
-        
+
     if result then
         if item:hasResultItem() then
             Game.inventory:replaceItem(item, item:createResultItem())

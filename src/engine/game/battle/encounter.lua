@@ -258,7 +258,7 @@ end
 ---@return Wave[]
 function Encounter:getNextWaves()
     local waves = {}
-    for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+    for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
         local wave = enemy:selectWave()
         if wave then
             table.insert(waves, wave)
@@ -356,14 +356,14 @@ end
 ---@param flag  string
 ---@param value any
 function Encounter:setFlag(flag, value)
-    Game:setFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, value)
+    Game:setFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, value)
 end
 
 ---@param flag      string
 ---@param default?  any
 ---@return any
 function Encounter:getFlag(flag, default)
-    return Game:getFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, default)
+    return Game:getFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, default)
 end
 
 --- Increments a numerical flag by `amount`.
@@ -371,7 +371,7 @@ end
 ---@param amount?   number  (Defaults to `1`)
 ---@return number
 function Encounter:addFlag(flag, amount)
-    return Game:addFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, amount)
+    return Game:addFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, amount)
 end
 
 --- Checks if the encounter has reduced tension.

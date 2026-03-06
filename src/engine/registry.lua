@@ -1096,9 +1096,8 @@ function Registry.iterScripts(base_path, exclude_folder)
     local chunks = nil
     local parsed = {}
     local queued_parse = {}
-    local addChunk, parse
 
-    addChunk = function(path, chunk, file, full_path)
+    local function addChunk(path, chunk, file, full_path)
         local success, a, b, c, d, e, f = xpcall(chunk, function(msg)
             if type(msg) == "table" then
                 return msg
@@ -1126,7 +1125,7 @@ function Registry.iterScripts(base_path, exclude_folder)
             return true
         end
     end
-    parse = function(path, _chunks, full_path_prefix)
+    local function parse(path, _chunks, full_path_prefix)
         chunks = _chunks
         parsed = {}
         queued_parse = {}

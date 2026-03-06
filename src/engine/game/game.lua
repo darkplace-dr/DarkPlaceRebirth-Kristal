@@ -226,7 +226,7 @@ function Game:registerBuiltInEvents()
     registry:register("forcefield", function(data) return Forcefield(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("pushblock", function(data) return PushBlock(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("tilebutton", function(data) return TileButton(data.x, data.y, getRectData(data), data.properties) end)
-    registry:register("magicglass", function(data) return MagicGlass(data.x, data.y, getRectData(data)) end)
+    registry:register("magicglass", function(data) return MagicGlass(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("warpdoor", function(data) return WarpDoor(data.x, data.y, data.properties) end)
     registry:register("darkfountain", function(data) return DarkFountain(data.x, data.y, data.properties) end)
     registry:register("fountainfloor", function(data) return FountainFloor(data.x, data.y, getRectData(data)) end)
@@ -554,6 +554,11 @@ function Game:load(data, index, fade)
         self.light = map.light or false
     end
     if Game.reset_map then Game.reset_map = nil end
+
+    self.border = data.border
+    if not self.border then
+        self.border = self.light and "leaves" or "castle"
+    end
 
     self.default_equip_slots = data.default_equip_slots or 0
     if Game:getConfig("lessEquipments") and self.default_equip_slots <= 12 then

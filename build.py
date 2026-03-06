@@ -11,6 +11,7 @@ from pe_tools.version_info import parse_version_info, VersionInfo
 ver_str = "0.1.0"
 windows_ver = "0, 1, 0, 0"
 file_description = "Leading Brand DELTARUNE-type Software"
+is_standalone = True # Set this to true if you are building Kristal as a standalone fangame
 
 # Contains code from https://github.com/avast/pe_tools/blob/master/pe_tools/peresed.py
 
@@ -56,15 +57,15 @@ def setInfo(key, value):
             ver_data = resources[RT_VERSION][name][lang]
             ver_name = name
             ver_lang = lang
-    
+
     if ver_data is None:
         ver_data = VersionInfo()
-    
+
     params = {}
     params[key] = _IdentityReplace(value)
-    
+
     vi = parse_version_info(ver_data)
-    
+
     fvi = vi.get_fixed_info()
     if 'FileVersion' in params:
         ver = Version(params['FileVersion'](None))
@@ -73,7 +74,7 @@ def setInfo(key, value):
         ver = Version(params['ProductVersion'](None))
         fvi.dwProductVersionMS, fvi.dwProductVersionLS = ver.get_ms_ls()
     vi.set_fixed_info(fvi)
-    
+
     sfi = vi.string_file_info()
     for _, strings in sfi.items():
         for k, fn in params.items():
@@ -143,6 +144,10 @@ ignorefiles = [
     "build",
     "output"
 ]
+
+# Ignore mods folder if not building as a standalone fangame
+if not is_standalone:
+    ignorefiles.append("mods")
 
 try:
     for file in os.listdir(kristal_path):

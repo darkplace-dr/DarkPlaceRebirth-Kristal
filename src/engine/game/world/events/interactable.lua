@@ -23,10 +23,10 @@
 ---@overload fun(...) : Interactable
 local Interactable, super = Class(Event)
 
----@param x?            number
----@param y?            number
----@param shape?        { [1]: number, [2]: number, [3]: table? }
----@param properties?   table
+---@param x number?
+---@param y number?
+---@param shape EventShape?
+---@param properties table?
 function Interactable:init(x, y, shape, properties)
     shape = shape or { TILE_WIDTH, TILE_HEIGHT }
     super.init(self, x, y, shape)
@@ -49,8 +49,8 @@ end
 
 function Interactable:getDebugInfo()
     local info = super.getDebugInfo(self)
-    if self.cutscene then table.insert(info, "Cutscene: " .. self.cutscene) end
-    if self.script then table.insert(info, "Script: " .. self.script) end
+    if self.cutscene then table.insert(info, "Cutscene: " .. tostring(self.cutscene)) end
+    if self.script then table.insert(info, "Script: " .. tostring(self.script)) end
     if self.set_flag then table.insert(info, "Set Flag: " .. self.set_flag) end
     if self.set_value then table.insert(info, "Set Value: " .. self.set_value) end
     table.insert(info, "Once: " .. (self.once and "True" or "False"))

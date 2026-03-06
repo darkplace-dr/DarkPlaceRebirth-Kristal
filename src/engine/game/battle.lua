@@ -1483,6 +1483,7 @@ function Battle:processAction(action)
         local attacksound = battler.chara:getWeapon() and battler.chara:getWeapon():getAttackSound(battler, enemy, action.points) or battler.chara:getAttackSound()
         local attackpitch  = battler.chara:getWeapon() and battler.chara:getWeapon():getAttackPitch(battler, enemy, action.points) or battler.chara:getAttackPitch()
         local src = Assets.stopAndPlaySound(attacksound or "laz_c")
+        assert(src, "Attempted to play non-existent attack sound \"" .. (attacksound or "laz_c") .. "\" for " .. battler.chara:getName())
         src:setPitch(attackpitch or 1)
 
         self.actions_done_timer = 1.2
@@ -1949,12 +1950,12 @@ function Battle:powerAct(spell, battler, user, target)
         end
     end
 
-    local name = user_battler.chara:getName()
-    if name == "Ralsei" then
+    local name = user_battler.chara:getName():upper()
+    if name == "SUSIE" then
         -- deltarune inconsistency lol
-        name = "RALSEI"
+        name = "Susie"
     end
-    self:setActText("* Your soul shined its power on\n" .. name .. "!", true)
+    self:setActText("* Your SOUL shined its power on\n" .. name .. "!", true)
 
     self.timer:after(7 / 30, function()
         Assets.playSound("boost")

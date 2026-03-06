@@ -552,13 +552,23 @@ function Text:isModifier(command)
     return TableUtils.contains(Text.COMMANDS, command) or self.custom_commands[command]
 end
 
+function Text:getModifierColor(color)
+    local event = Kristal.callEvent(KRISTAL_EVENT.onTextColor, color, self)
+    if event ~= nil then
+        return event
+    end
+
+    return Text.COLORS[string.lower(color)]
+end
+
 function Text:processModifier(node, dry)
     if self.custom_commands[node.command] then
         self:processCustomCommand(node, dry)
     elseif node.command == "color" then
-        if Text.COLORS[node.arguments[1]] then
+        local color = self:getModifierColor(node.arguments[1])
+        if color ~= nil then
             -- Did they input a valid color name? Let's use it.
-            self.state.color = Text.COLORS[node.arguments[1]]
+            self.state.color = color
         elseif node.arguments[1] == "reset" then
             -- They want to reset the color.
             self.state.color = self.text_color
@@ -687,7 +697,7 @@ function Text:getCharPosition(node, state)
     -- Shake and wave overriding setting state.offset_x/y is intentional, as these effects aren't supposed to stack
 
     if state.shake > 0 then
-        if self.timer - state.last_shake >= (1 * DTMULT) then
+        if (self.timer - state.last_shake) >= 1 then
             state.last_shake = self.timer
             state.offset_x = MathUtils.round(MathUtils.random(-state.shake, state.shake))
             state.offset_y = MathUtils.round(MathUtils.random(-state.shake, state.shake))
