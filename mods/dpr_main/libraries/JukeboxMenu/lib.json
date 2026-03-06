@@ -15,8 +15,11 @@
         "animateToBeat": true,
         "albumArtDirectory": "albums/",
         "useSimpleModeByDefault": false,
-        "rememberCollpaseState": true,
+        "rememberCollapseState": true,
         "enableMetronome": false,
-        "defaultBpm": 120
+        "defaultBpm": 120,
+        "showCollapseButtonHint": false,
+        "indicatePausedSongWithNameColor": true,
+        "confirmButtonTogglesSong": true
     }
 }
