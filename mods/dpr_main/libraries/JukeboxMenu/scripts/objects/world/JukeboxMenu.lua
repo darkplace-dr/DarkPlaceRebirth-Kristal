@@ -339,14 +339,14 @@ function JukeboxMenu:draw()
         love.graphics.setLineWidth(duration_hr_h)
         love.graphics.setColor(COLORS.white)
         local duration_x, duration_y = 6, duration_hr_y + duration_hr_h + 12
-        local duration_w, duration_h = self.width - duration_x * 2, 6
+        local duration_w, duration_size = self.width - duration_x * 2, 6
         local duration_needle_h_bump = 2
-        local duration_loop_mark_w = duration_h / 2
+        local duration_loop_mark_w = duration_size / 2
 
         love.graphics.rectangle("line", -padding_size, duration_hr_y, self.width + (padding_size*2), 1)
 
         love.graphics.setColor(COLORS.dkgray)
-        love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_h)
+        love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_size)
 
         local function getDuration(_music) -- too pussy to make this an actual extension
             return (_music.source_intro and _music.source_intro:getDuration() or 0) + _music.source:getDuration()
@@ -355,17 +355,15 @@ function JukeboxMenu:draw()
         if music_always.source_intro then
             local duration_loop_mark_percent = music_always.source_intro:getDuration() / getDuration(music_always)
             -- i hate doing math
-            local duration_loop_mark_x = duration_loop_mark_percent * (duration_w - duration_loop_mark_w)
-            duration_loop_mark_x = duration_loop_mark_x + (duration_h - duration_loop_mark_w) / 2
-            duration_loop_mark_x = math.floor(duration_loop_mark_x)
+            local duration_loop_mark_x = math.floor(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
             Draw.setColor(COLORS.gray)
-            love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_h)
+            love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_size)
         end
 
         local duration_needle_percent = MathUtils.clamp(music_always:tell() / getDuration(music_always), 0, 1)
-        local duration_needle_x = math.floor(duration_needle_percent * (duration_w - duration_h))
+        local duration_needle_x = math.floor(duration_needle_percent * duration_w - (duration_size / 2))
         Draw.setColor(COLORS.white)
-        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_h, duration_h + duration_needle_h_bump*2)
+        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_size, duration_size + duration_needle_h_bump*2)
     end
 
     Draw.popScissor()
