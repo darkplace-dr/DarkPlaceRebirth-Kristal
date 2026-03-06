@@ -132,6 +132,18 @@ function JukeboxMenu:init(simple)
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
     self.show_musical_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
+
+    if Kristal.getLibConfig("JukeboxMenu", "showCollpaseButtonHint") and self.info_collpasible then
+        self.menu_button_hint = self:addChild(Text("", self.width + 16, 16, self.width, self.height, {
+            font = "main",
+            font_size = 16,
+            color = COLORS.gray,
+            auto_size = true
+        }))
+        self.menu_button_hint:setOrigin(1, 1)
+        local collpased = self.width == self.MIN_WIDTH
+        self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
+    end
 end
 
 ---@private
@@ -172,13 +184,18 @@ end
 function JukeboxMenu:setWidth(w)
     self.width = w
     self.box.width = w
+    if self.menu_button_hint then
+        self.menu_button_hint.x = self.width + 16
+    end
 end
 
 function JukeboxMenu:onAddToStage(stage)
     super.onAddToStage(self, stage)
 
     if self.info_collpasible and Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
-        self:setWidth(Game:getFlag("jukebox_menu_collpased", false) and self.MIN_WIDTH or self.MAX_WIDTH)
+        local collpased = Game:getFlag("jukebox_menu_collpased", false)
+        self:setWidth(collpased and self.MIN_WIDTH or self.MAX_WIDTH)
+        self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
     end
 
     self.heart:setColor(Game:getSoulColor())
@@ -456,6 +473,9 @@ function JukeboxMenu:update()
             self.info_accordion_timer_handle_direction = collpased
             if Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
                 Game:setFlag("jukebox_menu_collpased", collpased)
+            end
+            if self.menu_button_hint then
+                self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
             end
         end
     end

@@ -17,6 +17,7 @@
         "useSimpleModeByDefault": false,
         "rememberCollpaseState": true,
         "enableMetronome": false,
-        "defaultBpm": 120
+        "defaultBpm": 120,
+        "showCollpaseButtonHint": false
     }
 }
