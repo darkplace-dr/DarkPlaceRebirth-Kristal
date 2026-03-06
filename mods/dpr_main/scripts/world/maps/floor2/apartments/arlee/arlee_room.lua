@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -142,7 +142,9 @@ return {
           height = 28,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["cutscene"] = "apartments/arlee.computer"
+          }
         }
       }
     },
@@ -215,7 +217,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "arlee.computer"
+            ["cutscene"] = "apartments/arlee.computer"
           }
         },
         {
