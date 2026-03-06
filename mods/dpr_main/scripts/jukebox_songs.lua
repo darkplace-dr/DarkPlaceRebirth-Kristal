@@ -240,7 +240,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 145
   },
   {
@@ -249,7 +249,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 130
   },
   {
@@ -258,7 +258,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 85
   },
   {
@@ -267,7 +267,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 100
   },
   {
@@ -276,7 +276,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3n4"
   },
   {
     name = "TV WORLD",
@@ -284,7 +284,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 145
   },
   {
@@ -293,7 +293,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 148
   },
   {
@@ -302,7 +302,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 140.75
   },
   {
@@ -311,7 +311,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 125
   },
   {
@@ -320,7 +320,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "DELTARUNE Chapter 4",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 190
   },
   {
@@ -329,7 +329,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 265
   },
   {
@@ -338,7 +338,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 160
   },
   {
@@ -347,7 +347,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 78
   },
   {
@@ -356,7 +356,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 130
   },
   {
@@ -365,7 +365,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 140
   },
   {
@@ -374,7 +374,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 108.8
   },
   {
@@ -464,7 +464,7 @@ return {
     composer = "Keiichi Suzuki, Hirokazu Tanaka",
     released = "1994",
     origin = "MOTHER 2/Earthbound",
-    album = "mother_2",
+    album = "mother_two",
     bpm = 151.36
   },
   {
