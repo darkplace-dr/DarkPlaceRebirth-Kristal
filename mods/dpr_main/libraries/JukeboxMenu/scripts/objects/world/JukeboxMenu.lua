@@ -123,7 +123,6 @@ function JukeboxMenu:init(simple)
     self:_buildSongs()
 
     self.album_art_dir = Kristal.getLibConfig("JukeboxMenu", "albumArtDirectory")
-    self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
 
     self.timer = self:addChild(Timer())
     self.info_collapsible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
@@ -339,21 +338,21 @@ function JukeboxMenu:draw()
         local song = page[self.page_cursor[self.cur_page]] or self.default_song
         if song.locked then song = self.default_song end
 
-        local infosect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
-        local album_art_path = (song.file and song.album and not song.locked) and song.album or self.default_song.album
-        local album_art = Assets.getTexture(self.album_art_dir .. album_art_path) or self.default_album_art
+        local info_sect_w = self.MAX_WIDTH - self.SONG_INFO_AREA_X - info_area_sep_padding
+        local album_art_path = song.album or self.default_song.album
+        local album_art = Assets.getTexture(self.album_art_dir .. album_art_path)
         local album_art_def_size = 250
         local album_art_end_y = self.HEAD_HR_END_Y + 14 - 1 + album_art_def_size
         love.graphics.draw(
             album_art,
-            self.SONG_INFO_AREA_X + infosect_w/2 + 10, album_art_end_y - album_art_def_size/2,
+            self.SONG_INFO_AREA_X + info_sect_w/2 + 10, album_art_end_y - album_art_def_size/2,
             0, 1, 1, album_art:getWidth()/2, album_art:getHeight()/2)
 
         local info_font = self.font
         local info_scale = 0.5
         love.graphics.setFont(info_font)
         local info_pad = 7
-        local info_w = (infosect_w - info_pad*2 - 1) / info_scale
+        local info_w = (info_sect_w - info_pad*2 - 1) / info_scale
         local info = string.format(
             "Composer: %s\nReleased: %s\nOrigin: %s",
             song.composer or self.default_song.composer,
@@ -361,8 +360,8 @@ function JukeboxMenu:draw()
             song.origin or self.default_song.origin
         )
         local _, info_lines = info_font:getWrap(info, info_w)
-        local info_yoff = info_font:getHeight() * #info_lines * info_scale
-        love.graphics.printf(info, self.SONG_INFO_AREA_X + info_pad, album_art_end_y + 85 - info_yoff, info_w, "left", 0, info_scale, info_scale)
+        local info_y_off = info_font:getHeight() * #info_lines * info_scale
+        love.graphics.printf(info, self.SONG_INFO_AREA_X + info_pad, album_art_end_y + 85 - info_y_off, info_w, "left", 0, info_scale, info_scale)
     end
 
     if self.show_duration_bar then
