@@ -238,10 +238,11 @@ return {
 		cutscene:text("* Oh man, i have FANS???", "heckyeah", "dess")
 		cutscene:text("* ALWAYS KNEW people liked me", "wink", "dess")
 		cutscene:hideNametag()
-		crowd.target_volume = 0
 		crowd.sound_volume = 0
 		crowd.dess_moment = 1
 		crowd.cheer_crowd.dess_moment = 1
+		crowd.cheer_crowd.anim_speed = 0
+		crowd.cheer_crowd.siner_speed = 0
 		Game.world.music:pause()
 		Assets.stopSound("crowd_aah")
 		Assets.stopSound("crowd_ooh")
@@ -258,6 +259,7 @@ return {
 		Game.world.music:resume()
 		crowd.dess_moment = 0
 		crowd.cheer_crowd.dess_moment = 0
+		Game.world.timer:lerpVar(crowd, "sound_volume", crowd.sound_volume, 1, 8)
 		crowd:showCrowd()
 		cutscene:attachCamera()
 		for _,follower in ipairs(Game.world.followers) do
@@ -437,7 +439,34 @@ return {
 		light:remove()
 	end,
 	
-    pippins_first = function(cutscene, event)
+    pippins_pre_elevator = function(cutscene, event)
+		cutscene:showShop()
+        if event.interact_count == 1 then
+            cutscene:text("* Hey hey,[wait:5] welcome to TV FLOOR![wait:5]\n* Just a reminder,[wait:5] we still use POINTs here.", nil, event)
+            cutscene:text("* (... Hey,[wait:5] don't tell Tenna,[wait:5] but I still have some offers for your $$$...)", nil, event)
+        else
+            cutscene:text("* (Need a TV Dinner?)", nil, event)
+        end
+        local choicer = cutscene:choicer({"Buy TV\nDinner\nfor $250", "Don't"}, {offset_y_1 = -32})
+        if choicer == 1 then
+			local can_afford = Game.money >= 250
+			if can_afford then
+				local success, result_text = Game.inventory:tryGiveItem("tvdinner")
+				if success then
+					Game.money = Game.money - 250
+					Assets.playSound("item")
+					cutscene:text(result_text)
+				else
+					cutscene:text("* ...[wait:5] you already have too much stuff!")
+				end
+			else
+				cutscene:text("* ...[wait:5] wait,[wait:5] you don't have any money anyway.")
+			end
+		end
+		cutscene:hideShop()
+    end,
+	
+    pippins_stealth_1 = function(cutscene, event)
         if event.interact_count == 1 then
             cutscene:showNametag("Pippins")
             cutscene:text("* This is Punishment Cage D.", nil, event)
@@ -477,11 +506,11 @@ return {
         if event.interact_count == 1 then
             cutscene:text("* You seem lost. Do youse need assistance?", nil, event)
             cutscene:text("* Well, TOO BAD!![wait:5]\n* I'm not working in dis place!", nil, event)
-            if not Game:getFlag("#floortv/zapper_maze#105:opened") then
+            if not Game:getFlag("#floortv/zapper_maze#127:opened") then
                 cutscene:text("* I'm here for da free water, \n[wait:5]not for helping cheaters like youse!", nil, event)
             end
         else
-            if Game:getFlag("#floortv/zapper_maze#105:opened") then
+            if Game:getFlag("#floortv/zapper_maze#127:opened") then
                 cutscene:text("* Water...[wait:5] is scarce now cause of youse...", nil, event)
             else
                 cutscene:text("* Besides,[wait:5] none of these guys have any buttons that match up with mine!!", nil, event)
@@ -800,6 +829,66 @@ return {
 		end
 	end,
 	
+    atm_vending = function(cutscene, event)
+		Game:enterShop("atm_vending")
+	end,
+
+    atm_vending_exchange = function(cutscene, event)
+		cutscene:showPoints()
+		cutscene:text("* Exchange POINTs into $?")
+        local choicer = cutscene:choicer({"50 PTs -> $50", "200 PTs -> $250", "1000 PTs -> $1500", "Don't exchange"})
+        if choicer ~= 4 then
+			local cost = 50
+			local dollars = 50
+			if choicer == 2 then
+				cost = 200
+				dollars = 250
+			elseif choicer == 3 then
+				cost = 1000
+				dollars = 1500
+			end
+			local can_afford = Game:getFlag("points", 0) >= cost
+			if can_afford then
+				Game.money = Game.money + dollars
+				Game:addFlag("points", -cost)
+				Assets.playSound("equip")
+				cutscene:text("* (Points exchanged.)")
+			else
+				cutscene:text("* (Not enough points.)")
+			end
+		end
+		cutscene:hidePoints()
+		Game:enterShop("atm_vending")
+	end,
+
+    legacy_vending_exchange = function(cutscene, event)
+		cutscene:showPoints()
+		cutscene:text("* Exchange $ into POINTs?")
+        local choicer = cutscene:choicer({"$50 -> 10 PTs", "$250 -> 60 PTs", "$1000 -> 250 PTs", "Don't exchange"})
+        if choicer ~= 4 then
+			local cost = 50
+			local points = 10
+			if choicer == 2 then
+				cost = 250
+				points = 60
+			elseif choicer == 3 then
+				cost = 1000
+				points = 250
+			end
+			local can_afford = Game.money >= cost
+			if can_afford then
+				Game.money = Game.money - cost
+				Game:addFlag("points", points)
+				Assets.playSound("equip")
+				cutscene:text("* (Points exchanged.)")
+			else
+				cutscene:text("* (Not enough money.)")
+			end
+		end
+		cutscene:hidePoints()
+		Game:enterShop("legacy_vending")
+	end,
+
     chair_room_chair = function(cutscene, event)
         if not Game:getFlag("chair_room_darker") then
 			if MathUtils.random() >= 0.95 then

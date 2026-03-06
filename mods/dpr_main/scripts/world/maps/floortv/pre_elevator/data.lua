@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 52,
+  nextobjectid = 61,
   properties = {
     ["border"] = "teevie",
     ["music"] = "deltarune/tv_world",
@@ -390,19 +390,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 9,
-          name = "funny_stanchion",
-          type = "",
-          shape = "rectangle",
-          x = 240,
-          y = 209,
-          width = 160,
-          height = 46,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 11,
           name = "funny_stanchion",
           type = "",
@@ -533,6 +520,53 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 57,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 330,
+          y = 230,
+          width = 60,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.atm_vending",
+            ["solid"] = true
+          }
+        },
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 330,
+          y = 270,
+          width = 60,
+          height = 88,
+          rotation = 0,
+          gid = 197,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 60,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 270,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "pippins",
+            ["animation"] = "idle",
+            ["cutscene"] = "tvfloor.pippins_pre_elevator"
+          }
         }
       }
     },

@@ -136,16 +136,19 @@ function TeevieSneakLight:update()
 		
 		self.particle_timer = self.particle_timer + DTMULT
 		if self.particle_timer >= 8 and self.particles_on then
-			local effect = Sprite("bubbles/fill")
-			effect:setScale(2)
-			effect:setColor(COLORS["maroon"])
-			effect:setPosition(MathUtils.random(self.x - self.light_width*2 - 10, self.x + self.light_width*2 + 10), self.y - MathUtils.random(200))
-			effect.physics.speed_y = -2
-			effect.physics.friction = 0.07
-			effect.physics.speed_x = -1 + MathUtils.random(2)
-			effect.layer = self.layer - 0.01
-			effect:fadeOutAndRemove(1.5)
-			Game.world:addChild(effect)
+			local vanparticlepresentsjohnnybravogoestobollywood = Sprite("bubbles/fill")
+			vanparticlepresentsjohnnybravogoestobollywood:setScale(2)
+			vanparticlepresentsjohnnybravogoestobollywood:setColor(COLORS["maroon"])
+			vanparticlepresentsjohnnybravogoestobollywood:setPosition(MathUtils.random(self.x - self.light_width*2 - 10, self.x + self.light_width*2 + 10), self.y - MathUtils.random(200))
+			vanparticlepresentsjohnnybravogoestobollywood.physics.speed_y = -2
+			vanparticlepresentsjohnnybravogoestobollywood.physics.friction = 0.07
+			vanparticlepresentsjohnnybravogoestobollywood.physics.speed_x = -1 + MathUtils.random(2)
+			vanparticlepresentsjohnnybravogoestobollywood.layer = self.layer - 0.01
+			if self.type == 1 then
+				vanparticlepresentsjohnnybravogoestobollywood.layer = self.layer
+			end
+			vanparticlepresentsjohnnybravogoestobollywood:fadeOutAndRemove(1.5)
+			Game.world:addChild(vanparticlepresentsjohnnybravogoestobollywood)
 			self.particle_timer = 0
 		end
 		
@@ -177,7 +180,21 @@ function TeevieSneakLight:update()
 									self.give_points = false
 									Assets.playSound("barrel_jump", 0.8, 2)
 									self.color = ColorUtils.mergeColor(self.color, COLORS["blue"], 0.1)
-									-- todo: points-like reward? i don't know
+									local px, py = self.world.player:getRelativePos(0, 0)
+									local points = Sprite("world/events/teevie_sneaklight/plus1", self.x, py - 40)
+									points.layer = WORLD_LAYERS["above_events"]
+									points:setOrigin(0.5, 0)
+									points.alpha = 0.8
+									points:setScale(2)
+									points.physics.speed_y = -8
+									self.world.timer:after(5/30, function()
+										points.physics.speed_y = 0
+									end)
+									self.world.timer:after(10/30, function()
+										points:remove()
+									end)
+									self.world:addChild(points)
+									Game:addFlag("points", 1)
 								end
 							end
 						else

@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 34,
+  tilecount = 36,
   tiles = {
     {
       id = 0,
@@ -228,6 +228,18 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/green_room_building.png",
       width = 426,
       height = 140
+    },
+    {
+      id = 40,
+      image = "../../../assets/sprites/world/maps/tvland/tvland_preview_vending.png",
+      width = 30,
+      height = 44
+    },
+    {
+      id = 39,
+      image = "../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png",
+      width = 30,
+      height = 44
     }
   }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="34" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="36" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -105,5 +105,11 @@
  </tile>
  <tile id="38">
   <image width="426" height="140" source="../../../assets/sprites/world/maps/tvland/green_room_building.png"/>
+ </tile>
+ <tile id="40">
+  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/tvland_preview_vending.png"/>
+ </tile>
+ <tile id="39">
+  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png"/>
  </tile>
 </tileset>

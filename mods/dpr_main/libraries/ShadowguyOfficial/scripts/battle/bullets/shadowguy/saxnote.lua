@@ -14,6 +14,10 @@ function SaxNoteBullet:init(x, y)
 	self.x_start = self.x
 	self.y_start = self.y
 	self.timer = 0
+	if Game.battle.encounter.volume_up then
+		self:setScale(1.5)
+		self.tp = 2.4
+	end
 end
 
 function SaxNoteBullet:update()
@@ -31,7 +35,7 @@ function SaxNoteBullet:update()
 		local xsp, ysp = newx - self.x, newy - self.y
 		self.x = newx
 		self.y = newy
-		self.physics.direction = Utils.angle(0, 0, xsp, ysp)
+		self.physics.direction = MathUtils.angle(0, 0, xsp, ysp)
 		self.rotation = self.physics.direction - math.rad(180)
 		if self.x < Game.battle.arena.x - 140 and not self.removing then
 			self:fadeOutAndRemove(10/30)

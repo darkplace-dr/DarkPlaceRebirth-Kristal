@@ -13,6 +13,12 @@ function Shockwave:init(x, y)
     self.physics.direction = self.physics.direction
     self.scale_x = 1
     self.scale_y = 1
+	self.damage = 55
+	self.tp = 1.6
+	if Game.battle.encounter.volume_up then
+		self:setScale(2.5)
+		self.tp = 9.6 -- Normally always overriden to 1.6 in DELTARUNE, but that's lame
+	end
 end
 
 function Shockwave:update()
