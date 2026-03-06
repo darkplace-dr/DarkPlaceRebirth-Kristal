@@ -67,6 +67,17 @@ function Assets.init()
         AssetBucket("engine", { "assets" }),
         AssetBucket("project", { "assets" }),
     }
+    self.getBucket("engine"):startLoading({ "assets" })
+end
+
+function Assets.getAssetCount()
+    local asset_total = 0
+    local asset_loaded = 0
+    for _, bucket in pairs(self.buckets) do
+        asset_loaded = asset_loaded + bucket.assets_loaded
+        asset_total = asset_total + bucket.assets_total
+    end
+    return asset_loaded, asset_total
 end
 
 function Assets.clear()
@@ -299,8 +310,8 @@ function Assets.update()
                         return
                     end
                 end
-                bucket.state = AssetBucket.State.LOADED
             end
+            bucket.state = AssetBucket.State.LOADED
         end
     end
     Kristal.Loader.message = ""
