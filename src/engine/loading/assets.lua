@@ -135,6 +135,9 @@ function Assets.get(asset_type, asset_id)
 end
 
 function Assets.tryGet(asset_type, asset_id)
+    if not AssetLoaders.exists(asset_type) then
+        error(string.format("Attempt to get unknown asset type '%s' with id '%s'", asset_type, asset_id), 2)
+    end
     if Assets.internalHas(asset_type, asset_id) then
         return Assets.internalGet(asset_type, asset_id)
     end
@@ -381,7 +384,11 @@ end
 function Assets.getTexture(path)
     local identifier_split = StringUtils.split(path, "_")
     local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
-    local texture = self.getFramesOrTexture(identifier)[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
+    local frames = self.getFramesOrTexture(identifier)
+    if not frames then
+        return
+    end
+    local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
     return texture
 end
 
@@ -447,7 +454,12 @@ end)
 ---@param path string
 ---@return string[]
 function Assets.getFrameIds(path)
-    return self.data.frame_ids[Assets.checkSpritesOverride(path)] or self.data.frame_ids[path]
+    local sprite_length = #self.getFrames(path)
+    local sprite_frame_ids = {}
+    for i = 1, sprite_length do
+        sprite_frame_ids[i] = path .. "_" .. i
+    end
+    return sprite_frame_ids
 end
 
 ---@param texture string
