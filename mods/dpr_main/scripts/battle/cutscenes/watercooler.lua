@@ -39,7 +39,7 @@ return {
     end,
 
     flirt = function(cutscene, battler, enemy)
-        local chance = love.math.random(1,3)
+        local chance = MathUtils.randomInt(1,3)
         if chance == 1 then
             cutscene:text("* You told the watercooler it should actually be called a watercoolest.")
         end

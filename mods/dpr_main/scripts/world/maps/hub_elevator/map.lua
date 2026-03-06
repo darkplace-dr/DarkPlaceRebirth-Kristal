@@ -93,6 +93,7 @@ function Elevator:onEnter()
 		if show_tea_message then
 			Game.world:showText("* (The flavored tea you bought seems to have deteriorated...)")
 		end
+		Game:setFlag("pointsDisplay", false)
     end)
 end
 

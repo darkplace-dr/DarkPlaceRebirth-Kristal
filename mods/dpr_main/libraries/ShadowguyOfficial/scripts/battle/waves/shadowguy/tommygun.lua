@@ -140,6 +140,11 @@ function ShadowguyTommyGun:onStart()
 						local bullet = self:spawnBullet("shadowguy/tommygun_bullet", x, y)
 						bullet.physics.speed = bullet_speed
 						bullet.rotation = actor.gun_rot
+						if Game.battle.encounter.volume_up then
+							bullet:setScale(1.3)
+							bullet.tp = 6.4
+							bullet.x = bullet.x + 30
+						end
 						self.rep = self.rep - 1
 					end
 					if #Game.battle.waves == 3 or self.sameattack >= 2 then

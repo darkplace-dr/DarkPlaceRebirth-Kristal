@@ -177,7 +177,10 @@ function actor:onTextSound()
         local pitchrandom = (0.86 + MathUtils.random(0.35)) * serious_voice
         local soundindex = "voice/tenna/tv_voice_short_"..rand
 
-        Assets.stopAndPlaySound(soundindex, 0.7, pitchrandom)
+		for i = 1, 10 do
+			Assets.stopSound("voice/tenna/tv_voice_short_"..i)
+		end
+		Assets.playSound(soundindex, 0.7, pitchrandom)
 
         self.voice_timer = 3
     end

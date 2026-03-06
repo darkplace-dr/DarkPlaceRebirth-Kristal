@@ -17,7 +17,6 @@ function TeevieCameras:init(data)
 	
 	self.siner = 0
 	self.sound_volume = 0
-	self.target_volume = 0
 	self.siner_speed = 0
 	self.glitz_active = false
 	self.target_y_pos = 0
@@ -32,7 +31,6 @@ function TeevieCameras:init(data)
 	self.ooaatimer = 0
 	self.timer_max = 30
 	self.ooaa_max = 60
-	self.flashes = {}
 	self.lerp_speed = 0.2
 	
 	self:initCrowd()
@@ -40,6 +38,7 @@ function TeevieCameras:init(data)
 	
 	self.disable = false
 	self.can_kill = Game:getFlag("can_kill", false)
+	self.cheer_timer = nil
 end
 
 function TeevieCameras:onLoad()
@@ -77,17 +76,29 @@ function TeevieCameras:showCrowd()
 	self.target_y_pos = self.top_pos
 	self.glitz_active = true
 	self.cheer_crowd.glitz_active = true
-	self.target_volume = 1
 	self.lerp_speed = 0.4
 	self.siner_speed = 0.4
+	self.cheer_crowd.anim_speed = 0.2
+	self.cheer_crowd.siner_speed = 0.4
+	if self.cheer_timer then
+		Game.world.timer:cancel(self.cheer_timer)
+		self.cheer_timer = nil
+	end
+	self.cheer_timer = Game.world.timer:lerpVar(self.cheer_crowd, "current_y_pos", 500, 280, 15, -1, "out")
 end
 
 function TeevieCameras:hideCrowd()
 	self.target_y_pos = self.bottom_pos
 	self.glitz_active = false
 	self.cheer_crowd.glitz_active = false
-	self.target_volume = 0
 	self.lerp_speed = 0.2
+	self.cheer_crowd.anim_speed = 0
+	self.cheer_crowd.siner_speed = 0
+	if self.cheer_timer then
+		Game.world.timer:cancel(self.cheer_timer)
+		self.cheer_timer = nil
+	end
+	Game.world.timer:lerpVar(self.cheer_crowd, "current_y_pos", 280, 500, 15)
 end
 
 function TeevieCameras:hideCrowdDess()
@@ -95,6 +106,13 @@ function TeevieCameras:hideCrowdDess()
 	self.glitz_active = false
 	self.dess_moment = 2
 	self.cheer_crowd.dess_moment = 2
+	self.cheer_crowd.anim_speed = 0
+	self.cheer_crowd.siner_speed = 0
+	if self.cheer_timer then
+		Game.world.timer:cancel(self.cheer_timer)
+		self.cheer_timer = nil
+	end
+	Game.world.timer:lerpVar(self.cheer_crowd, "current_y_pos", 280, 500, 30)
 	self.lerp_speed = 0.05
 end
 
@@ -113,14 +131,13 @@ function TeevieCameras:update()
 	if not Game.world or not Game.world.player then
 		return
 	end
+	local px, py = Game.world.player:getRelativePos(0, 0)
 	
 	local true_siner_speed = self.siner_speed
 	if Game.world:hasCutscene() or Game.world.encountering_enemy or Game.world.state == "MENU" or Game.state ~= "OVERWORLD" or self.dess_moment ~= 0 then
 		true_siner_speed = 0
 	end
 	self.siner = self.siner + true_siner_speed * DTMULT
-	self.timer = self.timer + DTMULT
-	self.ooaatimer = self.ooaatimer + DTMULT
 	self.current_y_pos = MathUtils.lerp(self.current_y_pos, self.target_y_pos, self.lerp_speed*DTMULT)
 	if self.top_crowd then
 		self.cheer_audience[1].x = MathUtils.round(self.x + (math.cos(self.siner / 4) * 8) - 80)
@@ -130,25 +147,28 @@ function TeevieCameras:update()
 	end
 	
 	local in_range = false
-	if Game.world.player.x >= self.threshold_left and Game.world.player.x <= self.threshold_right then
-		if Game.world.player.y >= self.threshold_top and Game.world.player.y <= self.threshold_bottom then
+	if px >= self.threshold_left and px <= self.threshold_right then
+		if py >= self.threshold_top and py <= self.threshold_bottom then
 			in_range = true
 		end
 	end
 	if self.glitz_active and self.dess_moment == 0 then
-		if in_range == false or self.disable or self.can_kill then
+		if not in_range or self.disable or self.can_kill then
 			self.glitz_active = false
+			Game.world.timer:lerpVar(self, "sound_volume", self.sound_volume, 0, 8)
 			self:hideCrowd()
 		else
-			if Game.world.player.y >= self.y and Game.world.player.x >= self.threshold_left and Game.world.player.x <= self.threshold_right then
+			self.timer = self.timer + DTMULT
+			self.ooaatimer = self.ooaatimer + DTMULT
+			if py >= self.y and px >= self.threshold_left and px <= self.threshold_right then
 				if self.ooaatimer > self.ooaa_max then
 					Assets.playSound(TableUtils.pick({"crowd_aah", "crowd_ooh"}), 1, MathUtils.random(0.75, 1.5))
 					self.ooaatimer = 0
-					self.ooaa_max = love.math.random(0, 140) + 30
+					self.ooaa_max = MathUtils.randomInt(0, 140) + 30
 				end
 			end
-			if Game.world.player.y >= self.y and self.timer > self.timer_max and self.top_crowd then
-				local rand_x = self.threshold_left + love.math.random(self.threshold_right - self.threshold_left) - 80
+			if py >= self.y and self.timer > self.timer_max and self.top_crowd then
+				local rand_x = self.threshold_left + MathUtils.randomInt(0, self.threshold_right - self.threshold_left) - 80
 				local rand_y = self.y - 40 + love.math.random(0, 40)
 				local flash_scale = MathUtils.random(1.5, 2)
 				local flash_scale_x = MathUtils.random(1.75, 2.5)
@@ -159,55 +179,45 @@ function TeevieCameras:update()
 				flash.timer = 0
 				flash.faded = false
 				flash:play(1.5/30, false)
-				table.insert(self.flashes, flash)
+				Game.world.timer:after(6/30, function()
+					Game.world.timer:lerpVar(flash, "alpha", 1, 0, 8)
+				end)
+				Game.world.timer:after((self.timer_max + 16)/30, function()
+					flash:remove()
+				end)
 				Game.world:addChild(flash)
-				self.timer_max = love.math.random(0, 3) + 10
+				self.timer_max = MathUtils.randomInt(0, 3) + 10
 				self.timer = 0
 			end
-			local min_x_pos = -1
-			local max_x_pos = -1
-			local min_y_pos = -1
-			local max_y_pos = -1
-			local audio_pos = 0
-			if Game.world.player.y >= self.y - 40 then
-				if Game.world.player.x < self.threshold_left then
-					min_x_pos = self.threshold_left
-					max_x_pos = min_x_pos - 280
-					audio_pos = MathUtils.clamp(((Game.world.player.x - min_x_pos) * 100) / (max_x_pos - min_x_pos), 0, 100)/100
-				elseif Game.world.player.x >= self.threshold_right then
-					min_x_pos = self.threshold_right
-					max_x_pos = min_x_pos + 280
-					audio_pos = MathUtils.clamp(((Game.world.player.x - min_x_pos) * 100) / (max_x_pos - min_x_pos), 0, 100)/100
+			-- I don't even think this code works lol
+			if py >= self.y - 40 then
+				if px < self.threshold_left then
+					local min_x_pos = self.threshold_left
+					local max_x_pos = min_x_pos - 280
+					local audio_pos = MathUtils.clamp(((px - min_x_pos) * 100) / (max_x_pos - min_x_pos), 0, 100)/100
+					self.sound_volume = 1 - audio_pos
+				elseif px >= self.threshold_right then
+					local min_x_pos = self.threshold_right
+					local max_x_pos = min_x_pos + 280
+					local audio_pos = MathUtils.clamp(((px - min_x_pos) * 100) / (max_x_pos - min_x_pos), 0, 100)/100
+					self.sound_volume = 1 - audio_pos
 				end
-				self.target_volume = 1 - audio_pos
 			else
-				min_y_pos = self.y - 40
-				max_y_pos = self.y - 180
-				audio_pos = MathUtils.clamp(((Game.world.player.y - min_y_pos) * 100) / (max_y_pos - min_y_pos), 0, 100)/100
-				self.target_volume = 1 - audio_pos
+				local min_y_pos = self.y - 40
+				local max_y_pos = self.y - 180
+				local audio_pos = MathUtils.clamp(((py - min_y_pos) * 100) / (max_y_pos - min_y_pos), 0, 100)/100
+				self.sound_volume = 1 - audio_pos
 			end
 		end
-		self.sound_volume = MathUtils.lerp(self.sound_volume, self.target_volume, 0.6*DTMULT)
 	else
-		if in_range == true and self.dess_moment == 0 and not self.disable and not self.can_kill  then
-			if Game.world.player.y >= self.y then
+		if in_range and self.dess_moment == 0 and not self.disable and not self.can_kill then
+			if py >= self.y then
 				self.glitz_active = true
+				Game.world.timer:lerpVar(self, "sound_volume", self.sound_volume, 1, 8)
 				self:showCrowd()
 			end
 		end
 		self.siner_speed = MathUtils.lerp(self.siner_speed, 0, 0.01*DTMULT)
-		self.sound_volume = MathUtils.lerp(self.sound_volume, 0, 0.6*DTMULT)
-	end
-	for i,flash in ipairs(self.flashes) do
-		flash.timer = flash.timer + DTMULT
-		if flash.timer >= 6 and not flash.faded then
-			flash:fadeToSpeed(0, 8/30)
-			flash.faded = true
-		end
-		if flash.timer >= flash.lifetime then
-			flash:remove()
-			table.remove(self.flashes, i)
-		end
 	end
 	self.audience_sfx:setVolume(self.sound_volume)
 end

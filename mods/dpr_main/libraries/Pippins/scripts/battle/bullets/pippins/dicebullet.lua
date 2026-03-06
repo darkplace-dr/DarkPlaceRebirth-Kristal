@@ -1,13 +1,14 @@
 local DiceBullet, super = Class(Bullet)
 
 function DiceBullet:init(x, y, special)
-	self.image_index = Utils.pick{1,5,8,12}-- 0 > 4 12 > 3
+	self.image_index = TableUtils.pick{1,5,8,12}-- 0 > 4 12 > 3
     self.setsprite = "bullets/pippins/dice_bullet_"
     super.init(self, x, y, self.setsprite..self.image_index)
 	--self:setOrigin(0.5) --固定
     self:setHitbox(6, 7, 8, 8)
 	self.destroy_on_hit = false --タマシイに被弾した場合消えるかどうか destroyonhit
-	self.tp = 1.2 --grazepoints
+	self.damage = 66
+	self.tp = 9.6 --grazepoints
 	self.owner = -4
 	self.updateimageangle = false
 	self.alpha = 0 --image_alpha
@@ -45,6 +46,10 @@ function DiceBullet:init(x, y, special)
     self.owari = 0
     self.owarimax = 0
     self.noda = false
+	if Game.battle.encounter.volume_up then
+		self:setScale(2.5)
+		self.tp = 10.4
+	end
 end
 
 function DiceBullet:update()
@@ -76,7 +81,7 @@ function DiceBullet:update()
         end
 
         if(pips == 0) then
-            local angle = Utils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+            local angle = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
             self.wave:spawnBullet("pippins/smallbullet", self.x, self.y, angle, 4)
             if(self.sndcon == 0) then
                 Assets.playSound("gunshot_b", 1, 1.3)
@@ -148,11 +153,11 @@ function DiceBullet:update()
     end
 
 	if(self.decel == -1) then
-	   self.physics.speed_y = Utils.approach(self.physics.speed_y,self.max_speed,0.4)
+	   self.physics.speed_y = MathUtils.approach(self.physics.speed_y,self.max_speed,0.4*DTMULT)
     elseif (self.decel > 0) then
-		self.physics.speed_y = DiceBullet:scr_approach_curve(self.physics.speed_y, 0, self.decel)
-        self.physics.speed_x = DiceBullet:scr_approach_curve(self.physics.speed_x, 0, self.decel *self.decel)
-        self.rot_speed = DiceBullet:scr_approach_curve(self.rot_speed, 0, self.decel)
+		self.physics.speed_y = DiceBullet:scr_approach_curve(self.physics.speed_y, 0, self.decel*DTMULT)
+        self.physics.speed_x = DiceBullet:scr_approach_curve(self.physics.speed_x, 0, (self.decel *self.decel)*DTMULT)
+        self.rot_speed = DiceBullet:scr_approach_curve(self.rot_speed, 0, self.decel*DTMULT)
         self.decel = self.decel - (1 * DTMULT)
         if (self.decel == 10) then
             self.queue_lock = true
@@ -165,7 +170,7 @@ function DiceBullet:update()
     end
 
     if((self.y + self.physics.speed_y) > (Game.battle.arena.y + 58) and self.physics.speed_y > 0) then
-        self.physics.speed_y = self.physics.speed_y * (Utils.pick{-0.3,-0.6,-0.8,-1} ^ DTMULT)
+        self.physics.speed_y = self.physics.speed_y * (TableUtils.pick{-0.3,-0.6,-0.8,-1} ^ DTMULT)
 
         Assets.playSound("bump", 1)
 
@@ -218,7 +223,7 @@ function DiceBullet:draw()
     for _, attacker in ipairs(self.wave:getAttackers()) do
         if(attacker.bet == true) then
             if (self.image_index >= 10 and self.image_index < 14.5 and self.con <= 1) then
-                self:setColor(Utils.mergeColor(self.color, COLORS.lime, 0.2 * DTMULT))
+                self:setColor(ColorUtils.mergeColor(self.color, COLORS.lime, 0.2 * DTMULT))
             else
                 self:setColor(1,1,1)
             end
@@ -230,7 +235,7 @@ end
 function DiceBullet:scr_approach_curve(arg0, arg1, arg2)
     local diff = math.abs(arg1 - arg0)
     local step = math.max(0.1, diff / arg2)
-    return Utils.approach(arg0, arg1, step)
+    return MathUtils.approach(arg0, arg1, step)
 end
 
 function DiceBullet:onCollide(soul)

@@ -789,4 +789,48 @@ function WorldCutscene:runIfExists(id, func, inparty, ...)
     return false, function() return true end
 end
 
+--- Shows the mini points UI.
+function WorldCutscene:showPoints()
+    if self.pointsbox then self.pointsbox:remove() end
+
+    self.pointsbox = Pointsbox()
+    self.pointsbox.layer = WORLD_LAYERS["textbox"]
+    self.world:addChild(self.pointsbox)
+    self.pointsbox:setParallax(0, 0)
+end
+
+--- Hides the mini points UI.
+function WorldCutscene:hidePoints()
+    if self.pointsbox then
+        self.pointsbox:remove()
+        self.pointsbox = nil
+    end
+end
+
+--- Adds points and shows the mini points counting UI.
+function WorldCutscene:showPointsAdd(points, x, y)
+    if self.pointsaddbox then self.pointsaddbox:remove() end
+
+	Game:addFlag("points", points or 0)
+    self.pointsaddbox = PointsAddBox(points or 0, x or nil, y or nil)
+    self.pointsaddbox.layer = WORLD_LAYERS["textbox"]
+    self.world:addChild(self.pointsaddbox)
+    self.pointsaddbox:setParallax(0, 0)
+end
+
+--- Visually adds the points to the mini points counting UI.
+function WorldCutscene:countPointsAdd()
+    if self.pointsaddbox then
+        self.pointsaddbox.increase_points = true
+    end
+end
+
+--- Hides the mini points counting UI.
+function WorldCutscene:hidePointsAdd()
+    if self.pointsaddbox then
+        self.pointsaddbox:remove()
+        self.pointsaddbox = nil
+    end
+end
+
 return WorldCutscene

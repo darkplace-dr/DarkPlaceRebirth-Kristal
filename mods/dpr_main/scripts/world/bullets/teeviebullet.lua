@@ -16,6 +16,7 @@ function TeevieBullet:init(x, y)
     self:fadeToSpeed(1, 0.1)
 
 	self.timer = 0
+	self.battle_fade = false
 end
 
 function TeevieBullet:update()
