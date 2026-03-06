@@ -126,14 +126,14 @@ function JukeboxMenu:init(simple)
     self.default_album_art = Assets.getTexture(self.album_art_dir .. self.default_song.album)
 
     self.timer = self:addChild(Timer())
-    self.info_collpasible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
+    self.info_collapsible = not simple and Kristal.getLibConfig("JukeboxMenu", "infoCollapsible")
     self.info_accordion_timer_handle = nil
     self.info_accordion_timer_handle_direction = nil
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
     self.show_musical_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
 
-    if Kristal.getLibConfig("JukeboxMenu", "showCollpaseButtonHint") and self.info_collpasible then
+    if Kristal.getLibConfig("JukeboxMenu", "showCollapseButtonHint") and self.info_collapsible then
         self.menu_button_hint = self:addChild(Text("", self.width + 16, 16, self.width, self.height, {
             font = "main",
             font_size = 16,
@@ -141,8 +141,8 @@ function JukeboxMenu:init(simple)
             auto_size = true
         }))
         self.menu_button_hint:setOrigin(1, 1)
-        local collpased = self.width == self.MIN_WIDTH
-        self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
+        local collapsed = self.width == self.MIN_WIDTH
+        self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
     end
 end
 
@@ -192,10 +192,12 @@ end
 function JukeboxMenu:onAddToStage(stage)
     super.onAddToStage(self, stage)
 
-    if self.info_collpasible and Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
-        local collpased = Game:getFlag("jukebox_menu_collpased", false)
-        self:setWidth(collpased and self.MIN_WIDTH or self.MAX_WIDTH)
-        self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
+    if self.info_collapsible and Kristal.getLibConfig("JukeboxMenu", "rememberCollapseState") then
+        local collapsed = Game:getFlag("jukebox_menu_collpased", false)
+        self:setWidth(collapsed and self.MIN_WIDTH or self.MAX_WIDTH)
+        if self.menu_button_hint then
+            self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
+        end
     end
 
     self.heart:setColor(Game:getSoulColor())
@@ -451,7 +453,7 @@ function JukeboxMenu:update()
             end
         end
 
-        if self.info_collpasible and Input.pressed("menu", false) then
+        if self.info_collapsible and Input.pressed("menu", false) then
             local dest_width = MathUtils.xor(self.width > self.MIN_WIDTH, self.info_accordion_timer_handle and self.info_accordion_timer_handle_direction)
                 and self.MIN_WIDTH or self.MAX_WIDTH
             Assets.stopAndPlaySound("wing")
@@ -469,13 +471,13 @@ function JukeboxMenu:update()
                     self.info_accordion_timer_handle_direction = nil
                 end
             )
-            local collpased = dest_width == self.MIN_WIDTH
-            self.info_accordion_timer_handle_direction = collpased
-            if Kristal.getLibConfig("JukeboxMenu", "rememberCollpaseState") then
-                Game:setFlag("jukebox_menu_collpased", collpased)
+            local collapsed = dest_width == self.MIN_WIDTH
+            self.info_accordion_timer_handle_direction = collapsed
+            if Kristal.getLibConfig("JukeboxMenu", "rememberCollapseState") then
+                Game:setFlag("jukebox_menu_collpased", collapsed)
             end
             if self.menu_button_hint then
-                self.menu_button_hint:setText("[bind:menu]: " .. (collpased and "Show" or "Hide") .. " Info")
+                self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
             end
         end
     end
