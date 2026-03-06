@@ -286,6 +286,116 @@ return {
         end
     end,
 
+    lancer = function(cutscene, event)
+        Game:setFlag("lancer_obtained", true)
+        Game.world.music:fade(0, 2)
+
+        cutscene:wait(0.5)
+        local lancer = cutscene:getCharacter("lancer")
+        local susie = cutscene:getCharacter("susie")
+        lancer:alert()
+        cutscene:wait(0.5)
+        lancer:setFacing("down")
+
+        if susie then
+            cutscene:showNametag("Susie", {top = false})
+            cutscene:text("* Lancer?!", "surprise_frown", "susie", {top = false})
+            cutscene:hideNametag()
+
+            cutscene:wait(cutscene:walkTo(susie, 320, 280, 0.5, "up"))
+            cutscene:wait(cutscene:walkTo(susie, lancer.x + 60, lancer.y, 0.5, "left"))
+            lancer:setFacing("right")
+            cutscene:text("insert the susie and lancer high fiving animation here")
+            Game.world.music:play("deltarune/lancer", 1, 1)
+            cutscene:showNametag("Lancer", {top = false})
+            cutscene:text("* Susie!", "smile", "lancer", {top = false})
+            cutscene:text("* How's my favorite purple person doing?", "tongue_b", "lancer", {top = false})
+            cutscene:showNametag("Susie", {top = false})
+            cutscene:text("* Yeah, uh,[wait:5] I'm doing great, but...", "shy", "susie", {top = false})
+            cutscene:text("* How the hell'd you get here??", "surprise_frown", "susie", {top = false})
+            cutscene:showNametag("Lancer", {top = false})
+            cutscene:text("* Why,[wait:5] via Kris's spacious pants hole of course.", "handsome", "lancer", {top = false})
+            cutscene:showNametag("Susie", {top = false})
+            cutscene:text("* Oh,[wait:5] right.", "suspicious", "susie", {top = false})
+            cutscene:text("* Hey,[wait:5] you should totally come along with us!", "surprise_smile", "susie", {top = false})
+            cutscene:showNametag("Lancer", {top = false})
+            cutscene:text("* Another adventure?", "tongue_b", "lancer", {top = false})
+            cutscene:text("* Well sign me and my digging certification up!", "smile_tongue", "lancer", {top = false})
+            cutscene:showNametag("Susie", {top = false})
+            cutscene:text("* Your what now?", "nervous_side", "susie", {top = false})
+            cutscene:hideNametag()
+            lancer:setFacing("up")
+            Game.world.music:fade(0, 0.5)
+            cutscene:slideTo(lancer, lancer.x, lancer.y + 60, 0.5)
+            cutscene:wait(0.75)
+            Game.world.music:play("beans_tutorial", 1, 1)
+            cutscene:showNametag("Lancer", {top = false})
+            cutscene:text("* You may have seen these spots in the ground all over the place.", "tongue_c", "lancer", {top = false})
+            lancer:setFacing("right")
+            cutscene:text("* These are known as [color:yellow]BEAN SPOTS[color:reset],[wait:5] and each one contains their own [color:yellow]BEAN[color:reset].", "tongue_b", "lancer", {top = false})
+            cutscene:text("* Unfortunately,[wait:5] the ground is too hard for most people to dig up...", "flat", "lancer", {top = false})
+            lancer:setFacing("down")
+            cutscene:text("* That's where I come in!", "smile", "lancer", {top = false})
+            lancer:setFacing("up")
+            cutscene:text("* If I'm in your inventory,[wait:5] then if you interact with these...", "tongue_a", "lancer", {top = false})
+            lancer:setFacing("down")
+            cutscene:text("* Then I'll dig it up for you!", "tongue_b", "lancer", {top = false})
+            cutscene:text("* How about we give it a try?", "smile", "lancer", {top = false})
+            if not cutscene:getCharacter("kris") then
+                cutscene:text("* ...", "tongue_c", "lancer", {top = false})
+                lancer:setFacing("right")
+                cutscene:text("* Hey, Susie...[wait:10] where's Kris?", "flat", "lancer", {top = false})
+                if not Game:hasUnlockedPartyMember("kris") then
+                    cutscene:showNametag("Susie", {top = false})
+                    cutscene:text("* Oh,[wait:5] uh...", "surprise", "susie", {top = false})
+                    cutscene:text("* We're still trying to find them.", "shy_b", "susie", {top = false})
+                end
+                cutscene:text("* So in the meantime,[wait:5] we'll be taking care of inventory stuff.", "smirk", "susie", {top = false})
+                cutscene:showNametag("Lancer", {top = false})
+                cutscene:text("* Ohhh, okay!", "smile", "lancer", {top = false})
+            end
+            cutscene:hideNametag()
+            local lancer_speen = true
+            Game.world.music:play("deltarune/board_lancer_dig", 1, 1)
+            cutscene:slideTo(lancer, Game.world.player.x, Game.world.player.y, 6.8)
+            while lancer_speen do
+                lancer:setFacing("down")
+                cutscene:wait(1/15)
+                lancer:setFacing("left")
+                cutscene:wait(1/15)
+                lancer:setFacing("up")
+                cutscene:wait(1/15)
+                lancer:setFacing("right")
+                cutscene:wait(1/15)
+                if lancer.x == Game.world.player.x and lancer.y == Game.world.player.y then
+                    lancer_speen = false
+                end
+            end
+            Game.world.music:play("beans_tutorial", 1, 1)
+            lancer:remove()
+            Assets.playSound("item")
+            Game.inventory:tryGiveItem("lancer")
+            cutscene:text("* (Lancer has re-entered your KEY ITEMs!)")
+            cutscene:interpolateFollowers()
+        end
+    end,
+
+    beans_forcer = function(cutscene, event)
+        if Game:getFlag("darkess_beans") ~= 1 then
+            cutscene:showNametag("Lancer")
+            cutscene:text("* Hey,[wait:5] we still gotta dig up that bean!", "flat", "lancer")
+            cutscene:hideNametag()
+            cutscene:wait(cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y - 20, 0.5))
+        else
+            cutscene:showNametag("Lancer")
+            cutscene:text("* Nice going!", "smile", "lancer")
+            cutscene:text("* Be sure to give me a call if you need any more bean digging.", "tongue_b", "lancer")
+            cutscene:text("* I heard you can use them for something really cool on this floor!", "smile_tongue", "lancer")
+            cutscene:hideNametag()
+            event:remove()
+        end
+    end,
+
     spamgolor = function(cutscene, event)
         cutscene:text("* It's a door.")
         if not Game:getFlag("spamgolor_fight") then
