@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 13,
-  nextobjectid = 48,
+  nextobjectid = 51,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
@@ -669,6 +669,45 @@ return {
           properties = {
             ["default_state"] = true
           }
+        },
+        {
+          id = 48,
+          name = "cameratarget",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 360,
+          width = 400,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["lockx"] = true,
+            ["locky"] = true,
+            ["marker"] = "targ2",
+            ["time"] = 1
+          }
+        },
+        {
+          id = 50,
+          name = "prophecy",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 360,
+          width = 400,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["fade"] = true,
+            ["fade_edges"] = true,
+            ["no_back"] = true,
+            ["offy"] = -130,
+            ["text"] = "THE MORONIC DEER WILL SAY\n\"HECK\" AND THEN \"YEAH\"",
+            ["texture"] = "heckyeah",
+            ["txt_offy"] = "-32"
+          }
         }
       }
     },
@@ -757,6 +796,19 @@ return {
           type = "",
           shape = "point",
           x = 1680,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "targ2",
+          type = "",
+          shape = "point",
+          x = 320,
           y = 280,
           width = 0,
           height = 0,
