@@ -131,7 +131,9 @@ function JukeboxMenu:init(simple)
     self.info_accordion_timer_handle_direction = nil
 
     self.color_playing_song = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithNameColor")
+    self.color_paused_song = Kristal.getLibConfig("JukeboxMenu", "indicatePausedSongWithNameColor")
     self.show_musical_note = Kristal.getLibConfig("JukeboxMenu", "indicatePlayingSongWithMusicNote")
+    self.confirm_toggles_song = Kristal.getLibConfig("JukeboxMenu", "confirmButtonTogglesSong")
 
     if Kristal.getLibConfig("JukeboxMenu", "showCollapseButtonHint") and self.info_collapsible then
         self.menu_button_hint = self:addChild(Text("", self.width + 16, 16, self.width, self.height, {
@@ -266,7 +268,8 @@ function JukeboxMenu:draw()
     local entry_w = self.ENTRY_W
     local entry_h = self.ENTRY_H
     love.graphics.rectangle("line", entry_start_x, entry_start_y, entry_w, 1)
-    local playing_song = self:getPlayingEntry((Game.world.music and Game.world.music:isPlaying()) and Game.world.music)
+    local playing_music = (Game.world.music and Game.world.music:isPlaying()) and Game.world.music
+    local playing_song = self:getPlayingEntry(playing_music)
     for i = 1, self.SONGS_PER_PAGE do
         local song = page[i] or self.default_song
 
@@ -278,9 +281,17 @@ function JukeboxMenu:draw()
         if not song.file or song.locked then
             love.graphics.setColor(COLORS.gray)
         elseif song == playing_song then
-            is_being_played = true
+            if self.color_playing_song and self.color_paused_song then
+                is_being_played = playing_music and playing_music:isPlaying()
+            else
+                is_being_played = true
+            end
             if self.color_playing_song then
-                love.graphics.setColor(COLORS.yellow)
+                if self.color_paused_song and not is_being_played then
+                    love.graphics.setColor(COLORS.lime)
+                else
+                    love.graphics.setColor(COLORS.yellow)
+                end
             end
         end
 
@@ -412,8 +423,17 @@ function JukeboxMenu:update()
             end
 
             if not song.locked and song.file then
-                Game.world.music:play(song.file, 1)
-                Kristal.callEvent("onJukeboxPlay", song)
+                local music = Game.world.music
+                if self.confirm_toggles_song and music.current == song.file then
+                    if music:isPlaying() then
+                        music:pause()
+                    else
+                        music:resume()
+                    end
+                else
+                    music:play(song.file, 1)
+                    Kristal.callEvent("onJukeboxPlay", song)
+                end
             else
                 Assets.playSound("error")
             end

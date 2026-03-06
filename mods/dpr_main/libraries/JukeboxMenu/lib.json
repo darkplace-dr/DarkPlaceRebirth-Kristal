@@ -18,6 +18,8 @@
         "rememberCollapseState": true,
         "enableMetronome": false,
         "defaultBpm": 120,
-        "showCollapseButtonHint": false
+        "showCollapseButtonHint": false,
+        "indicatePausedSongWithNameColor": true,
+        "confirmButtonTogglesSong": true
     }
 }
