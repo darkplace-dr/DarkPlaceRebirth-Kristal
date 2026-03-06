@@ -200,7 +200,15 @@ return{
                             cutscene:text("* ...Right...", "suspicious", "hero")
                         end
                         cutscene:showNametag("Susie")
-                        cutscene:text("* (Nice save,[wait:5] Jamm...)", "annoyed", "susie")
+                        if Game:getPartyMember("jamm"):checkArmor("resistance_band") then
+                            cutscene:text("* (You're wearing the arm band,[wait:5] dumbass!)", "annoyed", "susie")
+                        else
+                            cutscene:text("* (Nice save,[wait:5] Jamm...)", "annoyed", "susie")
+                            if Game:getPartyMember("susie"):checkArmor("resistance_band") then
+                                cutscene:showNametag("Jamm")
+                                cutscene:text("* (Susie,[wait:5] take the arm band off.)", "stern", "jamm")
+                            end
+                        end
                     else
                         cutscene:text("* It's insane,[wait:5] but...[wait:10] I think I'm having fun.", "happy", "jamm")
                         cutscene:text("* Even if what's coming up is...", "worried", "jamm")
