@@ -355,13 +355,13 @@ function JukeboxMenu:draw()
         if music_always.source_intro then
             local duration_loop_mark_percent = music_always.source_intro:getDuration() / getDuration(music_always)
             -- i hate doing math
-            local duration_loop_mark_x = math.floor(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
+            local duration_loop_mark_x = MathUtils.round(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
             Draw.setColor(COLORS.gray)
             love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_size)
         end
 
         local duration_needle_percent = MathUtils.clamp(music_always:tell() / getDuration(music_always), 0, 1)
-        local duration_needle_x = math.floor(duration_needle_percent * duration_w - (duration_size / 2))
+        local duration_needle_x = MathUtils.round(duration_needle_percent * duration_w - (duration_size / 2))
         Draw.setColor(COLORS.white)
         love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_size, duration_size + duration_needle_h_bump*2)
     end
@@ -444,7 +444,7 @@ function JukeboxMenu:update()
             self.info_accordion_timer_handle = self.timer:approach(1/3.5,
                 self.width, dest_width,
                 function(value)
-                    self:setWidth(math.floor(value))
+                    self:setWidth(MathUtils.round(value))
                 end,
                 "out-sine",
                 function()
