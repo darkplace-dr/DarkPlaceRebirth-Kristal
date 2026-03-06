@@ -54,7 +54,7 @@
   <object id="18" name="npc" x="440" y="240">
    <properties>
     <property name="actor" value="arlee"/>
-    <property name="cutscene" value="arlee.starbits"/>
+    <property name="cutscene" value="apartments/arlee.starbits"/>
     <property name="flagcheck" value="arlee_quest"/>
    </properties>
    <point/>

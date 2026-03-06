@@ -267,7 +267,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "arlee",
-            ["cutscene"] = "arlee.starbits",
+            ["cutscene"] = "apartments/arlee.starbits",
             ["flagcheck"] = "arlee_quest"
           }
         }
