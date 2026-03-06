@@ -75,9 +75,6 @@ function Starwalker:init()
     self.progress = 0
 
     self.blue = false
-
-    self:setTired(true)
-    self:setTired(false)
 end
 
 function Starwalker:getHealthDisplay()
@@ -89,7 +86,7 @@ function Starwalker:getTarget()
 end
 
 function Starwalker:makeBullet(x, y)
-    if (Utils.random() < 0.25) then
+    if (MathUtils.random() < 0.25) then
         return Registry.createBullet("SW_FallenStarBullet", x, y)
     end
 
@@ -97,7 +94,7 @@ function Starwalker:makeBullet(x, y)
 end
 
 function Starwalker:makeCometBullet(x, y)
-    if (Utils.random() < 0.25) then
+    if (MathUtils.random() < 0.25) then
         return Registry.createBullet("SW_FallenStarComet", x, y)
     end
 
@@ -278,6 +275,49 @@ function Starwalker:getEnemyDialogue()
         }
     end
     return dialogue[math.random(#dialogue)]
+end
+
+function Starwalker:spare(pacify)
+    if not self.exit_on_defeat then
+        self:defeat(pacify and "PACIFIED" or "SPARED", false)
+    else
+        Game.battle.spare_sound:stop()
+        Game.battle.spare_sound:play()
+
+        local spare_flash = self:addFX(ColorMaskFX())
+        spare_flash.amount = 0
+
+        local sparkle_timer = 0
+        local parent = self.parent
+
+        Game.battle.timer:during(
+            5 / 30,
+            function()
+                spare_flash.amount = spare_flash.amount + 0.2 * DTMULT
+                sparkle_timer = sparkle_timer + DTMULT
+                if sparkle_timer >= 0.5 then
+                    local x, y = MathUtils.random(0, self.width), MathUtils.random(0, self.height)
+                    local sparkle = SpareSparkle(self:getRelativePos(x, y))
+                    sparkle.layer = self.layer + 0.001
+                    parent:addChild(sparkle)
+                    sparkle_timer = sparkle_timer - 0.5
+                end
+            end, function()
+                spare_flash.amount = 1
+                local img1 = AfterImage(self, 0.7, (1 / 25) * 0.7)
+                local img2 = AfterImage(self, 0.4, (1 / 30) * 0.4)
+                img1:addFX(ColorMaskFX())
+                img2:addFX(ColorMaskFX())
+                img1.physics.speed_x = 4
+                img2.physics.speed_x = 8
+                parent:addChild(img1)
+                parent:addChild(img2)
+                self:remove()
+            end
+        )
+        self:defeat(pacify and "PACIFIED" or "SPARED", false)
+    end
+    self:onSpared()
 end
 
 function Starwalker:onSpared()
