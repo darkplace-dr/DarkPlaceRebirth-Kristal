@@ -19,12 +19,16 @@ function AssetBucket:init(id, paths)
     self.paths = paths
     self.loaded_assets = {}
     self.state = AssetBucket.State.UNLOADED
+    self.assets_total = 0
+    self.assets_loaded = 0
 end
 
 function AssetBucket:unload()
     Assets.queued_tasks[self.bucket_id] = {}
     self.loaded_assets = {}
     self.state = AssetBucket.State.UNLOADED
+    self.assets_total = 0
+    self.assets_loaded = 0
 end
 
 ---@param paths string[]?
@@ -46,6 +50,10 @@ function AssetBucket:startLoading(paths)
                 end
             end
         end
+    end
+    for asset_type, _ in pairs(Assets.queued_tasks[self.bucket_id]) do
+        
+        self.assets_total = self.assets_total + TableUtils.getKeyCount(Assets.getQueue(self.bucket_id, asset_type))
     end
 end
 
@@ -87,6 +95,7 @@ function AssetBucket:get(asset_type, asset_id)
         local final = loader:apply(asset_id, result)
         self.loaded_assets[asset_type][asset_id] = final
         Assets.getQueue(self.bucket_id, asset_type)[asset_id] = nil
+        self.assets_loaded = self.assets_loaded + 1
         return final
     else
         error(string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id), 2)

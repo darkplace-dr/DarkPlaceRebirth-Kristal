@@ -79,26 +79,19 @@ function Loading:enter(from, dir)
 
     self.done_loading = false
     self:beginLoad()
+    self.stage = Stage()
+    self.dog = LoadingDog()
+    self.stage:addChild(self.dog)
+    -- Create the debug console
+    Kristal.Console = Kristal.Stage:addChild(Console())
+    -- Create the debug system
+    Kristal.DebugSystem = Kristal.Stage:addChild(DebugSystem())
 end
 
 function Loading:beginLoad()
     Kristal.clearAssets(true)
 
     self.loading_state = Loading.States.LOADING
-
-    Kristal.loadAssets("", "all", "")
-
-    for _, name in ipairs(love.filesystem.getDirectoryItems("sharedlibs")) do
-        local lib_full_path = "sharedlibs/"..name
-        if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
-            local data = JSON.decode(love.filesystem.read(lib_full_path.."/lib.json"))
-            if data.preload_assets then
-                Kristal.loadAssets(lib_full_path, "all", "")
-            end
-        end
-    end
-
-    Kristal.loadAssets("", "plugins", "")
 
     Kristal.loadAssets("", "mods", "", function()
         self.loading_state = Loading.States.DONE
@@ -107,10 +100,6 @@ function Loading:beginLoad()
 
         Kristal.setDesiredWindowTitleAndIcon()
 
-        -- Create the debug console
-        Kristal.Console = Kristal.Stage:addChild(Console())
-        -- Create the debug system
-        Kristal.DebugSystem = Kristal.Stage:addChild(DebugSystem())
 
         REGISTRY_LOADED = true
     end)
@@ -121,7 +110,11 @@ function Loading:update()
         return
     end
 
-    if (self.loading_state == Loading.States.DONE) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
+    local loaded, total = Assets.getAssetCount()
+    self.dog:setProgress(loaded / total)
+    self.stage:update()
+
+    if (self.loading_state == Loading.States.DONE) and loaded >= total and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
         -- We're done loading! This should only happen once.
         self.done_loading = true
 
@@ -189,6 +182,7 @@ function Loading:draw()
             love.graphics.scale(1, 1)
             self:drawSprite(self.logo, 0, 0, 1)
             love.graphics.pop()
+            self.stage:draw()
             return
         end
 
