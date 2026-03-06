@@ -84,6 +84,7 @@ Callback = require("src.engine.objects.callback")
 Video = require("src.engine.objects.video")
 GonerChoice = require("src.engine.objects.gonerchoice")
 GonerKeyboard = require("src.engine.objects.gonerkeyboard")
+LoadingDog = require("src.engine.objects.LoadingDog")
 
 MainMenuTitle = require("src.engine.menu.mainmenutitle")
 MainMenuSubtitle = require("src.engine.menu.mainmenusubtitle")
