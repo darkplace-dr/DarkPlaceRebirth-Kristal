@@ -299,6 +299,7 @@ function Assets.update()
                 end
             end
         end
+        bucket.state = AssetBucket.State.LOADED
     end
     Kristal.Loader.message = ""
     Kristal.Overlay.setLoading(false)
