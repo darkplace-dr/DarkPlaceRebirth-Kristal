@@ -22,7 +22,7 @@ function BG:init(color, fill)
 	end
     self.draw_party_lights = Game.battle.encounter.draw_party_lights or true
     self.draw_enemy_lights = Game.battle.encounter.draw_enemy_lights or true
-    self.grad_tex = Assets.getTexture("effects/whitegradientdown_40")
+    self.grad_tex = Assets.getTexture("effects/whitegradientdown")
     self.vertices = {
         {0,0,0,0},
         {1,0,1,0},

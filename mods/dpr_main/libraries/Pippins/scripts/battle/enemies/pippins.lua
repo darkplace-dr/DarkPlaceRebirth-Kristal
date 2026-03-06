@@ -10,7 +10,7 @@ function Pippins:init()
 		"pippins/dice"
 	}
 	
-	self.check = "AT[image:ui/dice_6b, 6,0] DF[image:ui/dice_3, 6,0]\n* This crooked gambler from Card Castle always bets it all!"
+	self.check = "AT[image:ui/dice_6b, 6,0] DF[image:ui/dice_3a, 6,0]\n* This crooked gambler from Card Castle always bets it all!"
 	
 	self.prev_wave = nil
 	
