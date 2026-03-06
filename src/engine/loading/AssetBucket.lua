@@ -91,8 +91,12 @@ function AssetBucket:get(asset_type, asset_id)
         return self.loaded_assets[asset_type][asset_id]
     elseif Assets.getQueue(self.bucket_id, asset_type)[asset_id] then
         local loader = AssetLoaders.get(asset_type)
-        local result = loader:load(asset_id, Assets.getQueue(self.bucket_id, asset_type)[asset_id])
-        local final = loader:apply(asset_id, result)
+        local result, final
+        local ok, traceback = xpcall(function()
+            result = loader:load(asset_id, Assets.getQueue(self.bucket_id, asset_type)[asset_id])
+            final = loader:apply(asset_id, result)
+        end, debug.traceback)
+        if not ok then error({ msg = string.format("While loading %s %s:\n%s", asset_type, asset_id, traceback) }) end
         self.loaded_assets[asset_type][asset_id] = final
         Assets.getQueue(self.bucket_id, asset_type)[asset_id] = nil
         self.assets_loaded = self.assets_loaded + 1
