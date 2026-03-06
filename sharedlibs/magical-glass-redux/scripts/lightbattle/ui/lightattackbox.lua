@@ -10,7 +10,7 @@ function LightAttackBox:init(x, y)
     self.target_sprite:setPosition(self.arena:getRelativePos(self.arena.width / 2, self.arena.height / 2))
     self.target_sprite.layer = LIGHT_BATTLE_LAYERS["above_arena"]
     if not Game:isLight() then
-        self.target_sprite:addFX(ShaderFX("hsv", {hue_shift = 180}))
+        self.target_sprite:addFX(ShaderFX("hsv", {hue_shift = 180, saturation = 0, value = 0}))
     end
     Game.battle:addChild(self.target_sprite)
 
@@ -106,7 +106,7 @@ function LightAttackBox:evaluateHit(battler, close)
     elseif close < 2 then
         value = value + 90
     elseif close < 3 then
-        value = value + 80 
+        value = value + 80
     elseif close < 4 then
         value = value + 70
     elseif close < 5 then
@@ -130,11 +130,11 @@ function LightAttackBox:checkAttackEnd(battler, score, bolts, close)
     if #bolts == 0 then
         if battler.attack_type == "shoe" then
             self.shoe_finished = self.shoe_finished + 1
-            
+
             if battler.weapon and battler.weapon:getLightBoltCount() > 4 then
                 score = score / battler.weapon:getLightBoltCount() * 4
             end
-            
+
             if score > 430 then
                 score = score * 1.8
             end
@@ -160,7 +160,7 @@ function LightAttackBox:hit(battler)
         local close = math.floor(math.abs(self:getClose(battler)) * (Game.battle.multi_mode and self:getClose(battler) <= -20 and 3 or 1))
 
         local eval = self:evaluateHit(battler, close)
-        
+
         if battler.weapon and battler.weapon.scoreHit then
             battler.score = battler.weapon:scoreHit(battler, battler.score, eval, close)
         else
@@ -198,7 +198,7 @@ function LightAttackBox:hit(battler)
 
         bolt:flash()
         battler.attacked = true
-    
+
         return battler.score, battler.stretch
     end
 end
@@ -231,15 +231,15 @@ end
 
 function LightAttackBox:update()
     super.update(self)
-    
+
     if Game.battle == nil then return end -- prevents a crash
-    
+
     self.timer = self.timer + DTMULT
-    
+
     if self.timer >= 7 and #self.lanes == 0 then
         self:createBolts()
     end
-    
+
     if #self.lanes ~= 0 or #self.attackers == #Game.battle.auto_attackers then
 
         self.done = true
@@ -304,7 +304,7 @@ function LightAttackBox:update()
                 end
             end
         end
-        
+
         if Game.battle.cancel_attack or self.fading then
             if self.shoe_finished < #self.attackers or #self.attackers == 0 then
                 self.target_sprite.scale_x = self.target_sprite.scale_x - 0.06 * DTMULT
