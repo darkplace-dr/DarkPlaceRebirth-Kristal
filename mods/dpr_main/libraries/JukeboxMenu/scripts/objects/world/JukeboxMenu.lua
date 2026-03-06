@@ -143,8 +143,7 @@ function JukeboxMenu:init(simple)
             auto_size = true
         }))
         self.menu_button_hint:setOrigin(1, 1)
-        local collapsed = self.width == self.MIN_WIDTH
-        self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
+        self:setMenuButtonHintText(self.width == self.MIN_WIDTH)
     end
 end
 
@@ -191,15 +190,19 @@ function JukeboxMenu:setWidth(w)
     end
 end
 
+function JukeboxMenu:setMenuButtonHintText(collapsed)
+    if self.menu_button_hint then
+        self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
+    end
+end
+
 function JukeboxMenu:onAddToStage(stage)
     super.onAddToStage(self, stage)
 
     if self.info_collapsible and Kristal.getLibConfig("JukeboxMenu", "rememberCollapseState") then
         local collapsed = Game:getFlag("jukebox_menu_collpased", false)
         self:setWidth(collapsed and self.MIN_WIDTH or self.MAX_WIDTH)
-        if self.menu_button_hint then
-            self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
-        end
+        self:setMenuButtonHintText(collapsed)
     end
 
     self.heart:setColor(Game:getSoulColor())
@@ -496,9 +499,7 @@ function JukeboxMenu:update()
             if Kristal.getLibConfig("JukeboxMenu", "rememberCollapseState") then
                 Game:setFlag("jukebox_menu_collpased", collapsed)
             end
-            if self.menu_button_hint then
-                self.menu_button_hint:setText("[bind:menu]: " .. (collapsed and "Show" or "Hide") .. " Info")
-            end
+            self:setMenuButtonHintText(collapsed)
         end
     end
 
