@@ -364,7 +364,7 @@ end
 
 ---@param path string
 function Assets.getFontData(path)
-    return self.data.font_settings[path] or {}
+    return self.getFontInfo(path).settings or {}
 end
 
 ---@param path string
