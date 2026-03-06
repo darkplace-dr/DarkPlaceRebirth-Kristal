@@ -16,6 +16,7 @@ return{
         local hero = cutscene:getCharacter("hero")
         local susie = cutscene:getCharacter("susie")
         local dess = cutscene:getCharacter("dess")
+        local jamm = cutscene:getCharacter("jamm") or cutscene:getCharacter("jammarcy")
 
         local dess_speen = false
         local hero_karma = Game:getPartyMember("hero"):getFlag("karma")
@@ -37,6 +38,17 @@ return{
                     if susie.x == 223 then
                         susie:setSprite("wall_right")
                         susie:shake()
+                        Assets.playSound("wing")
+                        return false
+                    end
+                end)
+            end
+            if jamm then
+                cutscene:walkTo(jamm, 223, 357, 1, "right")
+                cutscene:during(function()
+                    if jamm.x == 223 then
+                        jamm:setSprite("sit")
+                        jamm:shake()
                         Assets.playSound("wing")
                         return false
                     end
@@ -150,6 +162,61 @@ return{
                 cutscene:hideNametag()
                 cutscene:wait(5)
             end
+            
+            if jamm then
+                cutscene:showNametag("Jamm")
+                cutscene:text("* You know...", "look_left", "jamm")
+                cutscene:text("* I've been on quite a few journeys myself.", "neutral", "jamm")
+                cutscene:text("* Dunno why I stopped,[wait:5] but I'm glad you all brought me along.", "nostalgia", "jamm")
+                if susie then
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* Yeah,[wait:5] I guess we're that awesome,[wait:5] huh?", "closed_grin", "susie")
+                    cutscene:showNametag("Jamm")
+                    cutscene:text("* ...You know what?", "look_left", "jamm")
+                    cutscene:text("* I think...[wait:10] we all are.", "relief", "jamm")
+                    cutscene:text("* Here we are,[wait:5] going to fight the Knight...", "neutral", "jamm")
+                    if Game:getFlag("future_variable") then
+                        cutscene:text("* And...[wait:10] to prevent that dark future...", "shaded_neutral", "jamm")
+                        cutscene:hideNametag()
+                        cutscene:wait(2)
+                        if Game:getFlag("marcy_joined") then
+                            cutscene:showNametag("Marcy")
+                            cutscene:text("* ...What do you mean,[wait:5] papa?", "confused", "marcy")
+                        else
+                            cutscene:showNametag("Hero")
+                            cutscene:text("* ...What \"dark future\",[wait:5] exactly?", "neutral_closed", "hero")
+                        end
+                        cutscene:showNametag("Jamm")
+                        cutscene:text("* D-don't worry about it...", "speechless_smile", "jamm")
+                        cutscene:text("* (Can't tell anyone about that...)", "nervous_left", "jamm")
+                        cutscene:text("* It's just...[wait:10] we don't know what the Knight will do,[wait:5] haha...", "nervous_left", "jamm")
+                        if Game:getFlag("marcy_joined") then
+                            cutscene:showNametag("Marcy")
+                            cutscene:text("* Marcy gets that...[react:1]", "neutral", "marcy", {reactions={
+                                {"Close one...", 160, 61, "speechless", "jamm"},
+                            }})
+                        else
+                            cutscene:showNametag("Hero")
+                            cutscene:text("* ...Right...", "suspicious", "hero")
+                        end
+                        cutscene:showNametag("Susie")
+                        cutscene:text("* (Nice save,[wait:5] Jamm...)", "annoyed", "susie")
+                    else
+                        cutscene:text("* It's insane,[wait:5] but...[wait:10] I think I'm having fun.", "happy", "jamm")
+                        cutscene:text("* Even if what's coming up is...", "worried", "jamm")
+                        cutscene:text("* ...You know what?[wait:10] Let's not worry about it.", "relief", "jamm")
+                        cutscene:text("* I'm sure we'll get through this.", "smirk", "jamm")
+                    end
+                else
+                    cutscene:text("* And here we are,[wait:5] going to fight the Knight...", "neutral", "jamm")
+                    cutscene:text("* It's insane,[wait:5] but...[wait:10] I think I'm having fun.", "happy", "jamm")
+                    cutscene:text("* Even if what's coming up is...", "worried", "jamm")
+                    cutscene:text("* ...You know what?[wait:10] Let's not worry about it.", "relief", "jamm")
+                    cutscene:text("* I'm sure we'll get through this.", "smirk", "jamm")
+                end
+                cutscene:hideNametag()
+                cutscene:wait(5)
+            end
 
             elevator.volcount = 0
             elevator.rectspeed = 0
@@ -203,6 +270,9 @@ return{
             if dess then
                 dess:setSprite("battle/defeat_1")
             end
+            if jamm then
+                jamm:setSprite("battle/swooned_1")
+            end
 
             cutscene:wait(2)
             cutscene:wait(cutscene:fadeIn(2))
@@ -226,6 +296,8 @@ return{
             cutscene:showNametag("hero")
             cutscene:text("* ... Is everyone alright?", "shocked", "hero")
             cutscene:hideNametag()
+            
+            if jamm then jamm:setFacing("down") end
 
             for _, follower in ipairs(Game.world.followers) do
                 follower:shake()
@@ -237,6 +309,7 @@ return{
             end
 
             if susie then susie:setFacing("right") end
+            if jamm then jamm:setFacing("right") end
             if dess then dess:setFacing("up") end
 
             cutscene:wait(1)
