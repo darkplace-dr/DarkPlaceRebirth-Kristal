@@ -9,7 +9,7 @@ function item:init()
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
     -- Item icon (for equipment)
-    self.icon = nil
+    self.icon = "ui/menu/icon/wiimote"
 
     -- Battle description
     self.effect = ""
