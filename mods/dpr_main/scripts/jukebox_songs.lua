@@ -483,7 +483,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 86
+    bpm = 174
   },
   {
     name = "Face Down",
@@ -492,7 +492,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 161 -- has silence at start
+    bpm = 160
   },
   {
     name = "Wherever We Are Now",
@@ -501,7 +501,7 @@ return {
     released = "2023",
     origin = "Casette Beasts",
     album = "casette_beasts",
-    bpm = 105 -- has silence at start
+    bpm = 105
   },
   --{
   --  name = "WHATCHACALLITSNAME (Cover)",
