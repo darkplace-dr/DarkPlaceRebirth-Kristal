@@ -1,6 +1,6 @@
 local spell = require("src.engine.game.common.data.spell")
 
----@class SpriteAssetLoader : AssetLoader<love.Image[], SpriteAssetLoader.Task, SpriteAssetLoader.TaskResult>
+---@class SpriteAssetLoader : AssetLoader<{textures: love.Image[], data: love.ImageData[] }, SpriteAssetLoader.Task, SpriteAssetLoader.TaskResult>
 ---
 ---@field protected image_extensions string[]
 ---
@@ -111,29 +111,31 @@ end
 
 function SpriteAssetLoader:apply(asset_id, output)
     local textures = {}
-    local texture_data = {}
+    local texture_datas = {}
 
     -- Now on the main thread, create textures from the loaded data
     for i, data in ipairs(output.texture_data) do
-        local texture = love.graphics.newImage(data)
-
-        if self.mario_texture == nil then
-            textures[i] = texture
-        else
-            textures[i] = self:generateMario(texture)
+        local texture_data = data
+        if self.mario_texture ~= nil then
+            texture_data = self:generateMario(data)
         end
+        local texture = love.graphics.newImage(texture_data)
 
-        texture_data[i] = data
+        textures[i] = texture
+
+        texture_datas[i] = texture_data
     end
 
-    -- Build the final sprite
-    return textures -- Sprite(asset_id, textures, output.meta, texture_data, output.texture_paths)
+    return {
+        textures = textures,
+        data = texture_datas,
+    }
 end
 
 --- Mario mode image creation
 ---@internal
----@param texture love.Image
----@return love.Image
+---@param texture love.ImageData
+---@return love.ImageData
 function SpriteAssetLoader:generateMario(texture)
     local target_width, target_height = texture:getWidth(), texture:getHeight()
     local mario_width, mario_height = self.mario_texture:getWidth(), self.mario_texture:getHeight()
@@ -147,7 +149,7 @@ function SpriteAssetLoader:generateMario(texture)
     Draw.popCanvas()
     local new_mario_data = new_mario:newImageData()
     new_mario:release()
-    return love.graphics.newImage(new_mario_data)
+    return new_mario_data
 end
 
 return SpriteAssetLoader
