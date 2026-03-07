@@ -481,27 +481,27 @@ return {
     file = "Same Old Story",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 86
+    bpm = 174
   },
   {
     name = "Face Down",
     file = "facedown",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 161 -- has silence at start
+    bpm = 160
   },
   {
     name = "Wherever We Are Now",
     file = "whereverwearenow",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 105 -- has silence at start
+    bpm = 105
   },
   --{
   --  name = "WHATCHACALLITSNAME (Cover)",
