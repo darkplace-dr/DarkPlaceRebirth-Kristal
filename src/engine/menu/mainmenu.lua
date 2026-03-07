@@ -515,7 +515,7 @@ function MainMenu:drawVersion()
 
         love.graphics.setFont(self.small_font)
         Draw.setColor(1, 1, 1, 0.5)
-        love.graphics.print(ver_string, 4, ver_y)
+        love.graphics.printf(ver_string, 4, ver_y, SCREEN_WIDTH, "left")
 
         if self.selected_mod and not TARGET_MOD then
             local compatible, mod_version = self.mod_list:checkCompatibility()

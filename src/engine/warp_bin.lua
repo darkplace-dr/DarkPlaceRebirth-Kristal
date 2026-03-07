@@ -25,7 +25,7 @@
 ---@field marker? string in case result is a string, the name of the marker you want to teleport the player to
 
 -- I'm going to cause pain and suffering with one weird trick:
--- here's the table containing any and all warp codes for the 
+-- here's the table containing any and all warp codes for the
 -- warp bin.
 -- have fun :]   -Char                 (well its NOT that bad) \
 -- to add new codes you'd add new entries of "type" WarpBinCodeInfo to the table below.
@@ -77,9 +77,10 @@ Kristal.warp_bin_codes["GRAYAREA"] = gray_area_info
 Kristal.warp_bin_codes["GREYAREA"] = gray_area_info
 
 --Sonic CD-inspired secret screens
-local song = Music()
-local message
 local function createSonicCDMessage(sprite_id, music_id, scale)
+    local song = Music()
+    local message
+
     message = Sprite(sprite_id)
     message.x, message.y = 0, 0
 	if scale ~= nil then
@@ -90,18 +91,21 @@ local function createSonicCDMessage(sprite_id, music_id, scale)
     message:setLayer(WORLD_LAYERS["above_ui"] - 1)
     message:setParallax(0, 0)
     Game.world:addChild(message)
-	
-	if music_id ~= nil then
-	    song:play(music_id)
-    end 
-end 
+
+    if music_id ~= nil then
+        song:play(music_id)
+    end
+
+    return song, message
+end
 local sonic_cd_message = {
     result = function(cutscene)
         Assets.playSound("special_warp")
         cutscene:fadeOut(0.5, { color = { 1, 1, 1}, music = true })
         cutscene:wait(1)
+        local song, message
 		if Kristal.warp_bin_codes["461225"] then
-		    createSonicCDMessage("misc/fun_is_infinite", "sonic_cd_boss")
+		    song, message = createSonicCDMessage("misc/fun_is_infinite", "sonic_cd_boss")
 		end
         cutscene:fadeIn(0.5, { music = false, wait = true })
 		cutscene:wait(function () return Input.pressed("confirm") end)
