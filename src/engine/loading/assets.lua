@@ -164,7 +164,8 @@ function Assets.internalGet(asset_type, asset_id, error_level)
             return self.buckets[i]:get(asset_type, asset_id)
         end
     end
-    error(string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id), 2)
+    local errstring = string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id)
+    error(errstring, error_level)
 end
 
 ---@private
@@ -486,7 +487,7 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFramesOrTexture(path)
-    return self.get("sprite", path)
+    return self.tryGet("sprite", path) or Kristal.Console:error(string.format("Attempt to get missing sprite with ID '%s", path))
 end
 
 ---@param x number
