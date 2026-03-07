@@ -426,8 +426,8 @@ end
 function Assets.getTextureID(texture)
     for bucket_n = #Assets.buckets, 1, -1 do
         for sprite_id, sprite in pairs(Assets.buckets[bucket_n].loaded_assets.sprite or {}) do
-            for frame_n = 1, #sprite do
-                if texture == sprite[frame_n] then
+            for frame_n = 1, #sprite.textures do
+                if texture == sprite.textures[frame_n] then
                     return sprite_id .. "_" .. frame_n
                 end
             end
