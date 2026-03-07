@@ -481,7 +481,7 @@ return {
     file = "Same Old Story",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
     bpm = 174
   },
@@ -490,7 +490,7 @@ return {
     file = "facedown",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
     bpm = 160
   },
@@ -499,7 +499,7 @@ return {
     file = "whereverwearenow",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
     bpm = 105
   },
