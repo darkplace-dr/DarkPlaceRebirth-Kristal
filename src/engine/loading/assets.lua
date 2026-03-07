@@ -414,27 +414,11 @@ end)
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
-    if not Kristal.Config["lazySprites"] or self.data.texture_data[path] then goto done end
-    if love.filesystem.getInfo("/assets/sprites/"..path..".png") then
-        self.data.texture_data[path] = love.image.newImageData("/assets/sprites/"..path..".png")
-        self.texture_ids[self.data.texture_data[path]] = path
-    end
-    if Mod then
-        if love.filesystem.getInfo(Mod.info.path .. "/assets/sprites/"..path..".png") then
-            self.data.texture_data[path] = love.image.newImageData(Mod.info.path .. "/assets/sprites/"..path..".png")
-            self.texture_ids[self.data.texture_data[path]] = path
-            goto found
-        end
-        for id,lib in Kristal.iterLibraries() do
-            if love.filesystem.getInfo(lib.info.path .. "/assets/sprites/"..path..".png") then
-                self.data.texture_data[path] = love.image.newImageData(lib.info.path .. "/assets/sprites/"..path..".png")
-                self.texture_ids[self.data.texture_data[path]] = path
-            end
-        end
-    end
-    ::found::
-    ::done::
-    return self.data.texture_data[path]
+    local identifier_split = StringUtils.split(path, "_")
+    local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
+    local frames = self.get("sprite", identifier).data
+    local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
+    return texture
 end
 
 ---@param texture love.Image|string
@@ -482,7 +466,10 @@ end
 ---@param path string
 ---@return love.Image[]
 function Assets.getFramesOrTexture(path)
-    return self.tryGet("sprite", path) or Kristal.Console:error(string.format("Attempt to get missing sprite with ID '%s", path))
+    if not self.hasSprite(path) then
+        return Kristal.Console:error(string.format("Attempt to get missing sprite with ID '%s", path))
+    end
+    return self.get("sprite", path).textures
 end
 
 ---@param x number
