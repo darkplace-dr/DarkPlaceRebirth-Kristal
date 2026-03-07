@@ -543,9 +543,8 @@ function Registry.createBorder(id, ...)
     if self.borders[id] then
         return self.borders[id](...)
     else
-        local texture = Assets.getTexture("borders/" .. id)
-        if texture then
-            return ImageBorder(texture, id)
+        if Assets.hasSprite("borders/" .. id) then
+            return ImageBorder(Assets.getTexture("borders/" .. id), id)
         end
         local border = Border()
         border.id = id
