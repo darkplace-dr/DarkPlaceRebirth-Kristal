@@ -37,7 +37,8 @@ end
 function SpriteAssetLoader.splitIdentifier(full_identifier)
     local identifier_split = StringUtils.split(full_identifier, "_")
     local split_frame
-    if tonumber(identifier_split[#identifier_split]) and tonumber(identifier_split[#identifier_split]) ~= math.huge then
+    local try_frame_number = tonumber(identifier_split[#identifier_split])
+    if try_frame_number and try_frame_number ~= math.huge and try_frame_number > 0 then
         split_frame = tonumber(table.remove(identifier_split, #identifier_split))
     end
     local identifier = table.concat(identifier_split, "_")
