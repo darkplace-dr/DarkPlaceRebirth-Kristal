@@ -10,7 +10,7 @@ function badge:init()
 
     -- Menu description
     self.description = "Converts tension into HP."
-    self.shop = "Turns tension\ninto HP."
+    self.shop = "Turns tension\ninto HP"
     -- The cost of putting it on
     self.badge_points = 4
 

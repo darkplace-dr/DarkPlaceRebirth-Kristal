@@ -40,6 +40,7 @@ function GreenVending:init()
         {"Swell", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	self.hide_main_menu_currency = true
 end
 
 function GreenVending:postInit()
@@ -59,25 +60,6 @@ function GreenVending:onStateChange(old,new)
 		return
 	end
 	super.onStateChange(self, old, self.state)
-end
-
-function GreenVending:draw()
-    if self.state ~= "MAINMENU" then
-		super.draw(self)
-	else
-		-- Don't draw money
-		self:drawBackground()
-		super.super.draw(self)
-		love.graphics.setFont(self.font)
-        Draw.setColor(COLORS.white)
-        for i = 1, #self.menu_options do
-            love.graphics.print(self.menu_options[i][1], 480, 220 + (i * 40))
-        end
-        Draw.setColor(Game:getSoulColor())
-        Draw.draw(self.heart_sprite, 450, 230 + (self.main_current_selecting * 40))
-		Draw.setColor(0, 0, 0, self.fade_alpha)
-		love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-	end
 end
 
 return GreenVending
