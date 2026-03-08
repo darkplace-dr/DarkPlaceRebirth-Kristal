@@ -11,6 +11,7 @@ function badge:init()
     -- Menu description
     self.description = "Allow Susie to use Friend Buster,\na different form of Rude Buster."
 
+    self.shop = "A different\nform of Rude\nBuster"
     -- The cost of putting it on
     self.badge_points = 0
 

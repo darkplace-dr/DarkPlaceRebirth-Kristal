@@ -166,7 +166,13 @@ function Diamond_Store:postInit()
     self.right_box:remove()
     self.info_box:remove()
     self.bg_cover:remove()
-
+    self.ui_hold_sprite = Assets.getTexture("ui/shop/ui_hold_alpha")
+    self.ui_storage_sprite = Assets.getTexture("ui/shop/ui_storage_alpha")
+    self.ui_armor_sprite = Assets.getTexture("ui/shop/ui_armor_alpha")
+    self.ui_weapon_sprite = Assets.getTexture("ui/shop/ui_weapon_alpha")
+    self.ui_pocket_sprite = Assets.getTexture("ui/shop/ui_pocket_alpha")
+    self.ui_badge_sprite = Assets.getTexture("ui/shop/ui_badge_alpha")
+    self.ui_bp_sprite = Assets.getTexture("ui/shop/ui_bp_alpha")
 end
 
 function Diamond_Store:setDialogueText(text)
@@ -449,6 +455,13 @@ function Diamond_Store:draw()
 
                     self:drawTextureOutlined(head_path, offset_x + 426, offset_y + 132 + top)
                 end
+            elseif current_item.item.type == "badge" then
+                local bp_text = current_item.item:getBadgePoints() .. " BP"
+                Draw.setColor(COLORS.orange)
+                if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                    Draw.setColor(COLORS.gray)
+                end
+                self:printOutline(bp_text, left + width - 32 - self.font:getWidth(bp_text), top + 20)
             end
 
             Draw.popScissor()
@@ -456,16 +469,57 @@ function Diamond_Store:draw()
             Draw.setColor(COLORS.white)
 
             if not self.hide_storage_text then
-                love.graphics.setFont(self.plain_font)
-
                 local current_storage = Game.inventory:getDefaultStorage(current_item.item)
-                local space = Game.inventory:getFreeSpace(current_storage)
+                if not Game:getConfig("newShopSpaceUI") then
+					local space = Game.inventory:getFreeSpace(current_storage)
+					love.graphics.setFont(self.plain_font)
 
-                if space <= 0 then
-                    self:printOutline("NO SPACE", 521, 430)
-                else
-                    self:printOutline("Space:" .. space, 521, 430)
-                end
+					if space <= 0 then
+						self:printOutline("NO SPACE", 521, 430)
+					else
+						self:printOutline("Space:" .. space, 521, 430)
+					end
+				else
+                    local item_type = current_item.item.type
+                    
+                    local space = Game.inventory:getFreeSpace(current_storage, false)
+                    local space_count = Game.inventory:getItemCount(current_storage, false)
+                    local total_space = space + space_count
+                    
+                    local storage_space = Game.inventory:getFreeSpace("storage")
+                    local storage_space_count = Game.inventory:getItemCount("storage")
+                    local storage_total_space = storage_space + storage_space_count
+                    
+                    love.graphics.setFont(self.space_font)
+                    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" and item_type ~= "badge" then
+                        self:drawTextureOutlined(self.ui_hold_sprite, 555, 398)
+                        self:printOutline(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 412, 0, 0.5, 0.5)
+                        self:drawTextureOutlined(self.ui_storage_sprite, 555, 430)
+                        self:printOutline(string.format("%02d", storage_space_count) .. "/" .. string.format("%02d", storage_total_space), 556, 444, 0, 0.5, 0.5)
+                    else
+                        if item_type == "badge" then
+                            self:drawTextureOutlined(self.ui_badge_sprite, 555, 398)
+                            self:drawTextureOutlined(self.ui_hold_sprite, 555, 410)
+                            self:printOutline(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 424, 0, 0.5, 0.5)
+                            self:drawTextureOutlined(self.ui_bp_sprite, 555, 444)
+                            if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                                Draw.setColor(COLORS.gray)
+                            end
+                            self:printOutline(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), 576, 444, 0, 0.5, 0.5)
+                            Draw.setColor(COLORS.white)
+                        else
+                            self:printOutline(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 436, 0, 0.5, 0.5)
+                            self:drawTextureOutlined(self.ui_hold_sprite, 555, 422)
+                            if item_type == "armor" then
+                                self:drawTextureOutlined(self.ui_armor_sprite, 555, 410)
+                            elseif item_type == "weapon" then
+                                self:drawTextureOutlined(self.ui_weapon_sprite, 555, 410)
+                            elseif item_type == "key" then
+                                self:drawTextureOutlined(self.ui_pocket_sprite, 555, 410)
+                            end
+                        end
+                    end
+				end
             end
         end
     elseif self.state == "SELLMENU" then
