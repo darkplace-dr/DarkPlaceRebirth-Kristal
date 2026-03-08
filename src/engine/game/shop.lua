@@ -228,6 +228,7 @@ function Shop:init()
     self.ui_weapon_sprite = Assets.getTexture("ui/shop/ui_weapon")
     self.ui_pocket_sprite = Assets.getTexture("ui/shop/ui_pocket")
     self.ui_badge_sprite = Assets.getTexture("ui/shop/ui_badge")
+    self.ui_bp_sprite = Assets.getTexture("ui/shop/ui_bp")
 
     self.stat_icons = {
         ["attack"] = Assets.getTexture("ui/shop/icon_attack"),
@@ -943,6 +944,10 @@ function Shop:draw()
 
                     Draw.draw(head_path, offset_x + 426, offset_y + 132 + top)
                 end
+            elseif current_item.item.type == "badge" then
+                local bp_text = current_item.item:getBadgePoints() .. " BP"
+                Draw.setColor(COLORS.orange)
+                love.graphics.print(bp_text, left + width - 32 - self.font:getWidth(bp_text), top + 20)
             end
 
             Draw.popScissor()
@@ -978,16 +983,26 @@ function Shop:draw()
                         Draw.draw(self.ui_storage_sprite, 555, 430)
                         love.graphics.print(string.format("%02d", storage_space_count) .. "/" .. string.format("%02d", storage_total_space), 556, 444, 0, 0.5, 0.5)
                     else
-                        love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 436, 0, 0.5, 0.5)
-                        Draw.draw(self.ui_hold_sprite, 555, 422)
-                        if item_type == "armor" then
-                            Draw.draw(self.ui_armor_sprite, 555, 410)
-                        elseif item_type == "weapon" then
-                            Draw.draw(self.ui_weapon_sprite, 555, 410)
-                        elseif item_type == "key" then
-                            Draw.draw(self.ui_pocket_sprite, 555, 410)
-                        elseif item_type == "badge" then
-                            Draw.draw(self.ui_badge_sprite, 555, 410)
+                        if item_type == "badge" then
+                            Draw.draw(self.ui_badge_sprite, 555, 398)
+                            Draw.draw(self.ui_hold_sprite, 555, 410)
+                            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 424, 0, 0.5, 0.5)
+                            Draw.draw(self.ui_bp_sprite, 555, 444)
+                            if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                                Draw.setColor(COLORS.red)
+                            end
+                            love.graphics.print(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), 576, 444, 0, 0.5, 0.5)
+                            Draw.setColor(COLORS.white)
+                        else
+                            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 436, 0, 0.5, 0.5)
+                            Draw.draw(self.ui_hold_sprite, 555, 422)
+                            if item_type == "armor" then
+                                Draw.draw(self.ui_armor_sprite, 555, 410)
+                            elseif item_type == "weapon" then
+                                Draw.draw(self.ui_weapon_sprite, 555, 410)
+                            elseif item_type == "key" then
+                                Draw.draw(self.ui_pocket_sprite, 555, 410)
+                            end
                         end
                     end
                 end
