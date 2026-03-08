@@ -227,6 +227,7 @@ function Shop:init()
     self.ui_armor_sprite = Assets.getTexture("ui/shop/ui_armor")
     self.ui_weapon_sprite = Assets.getTexture("ui/shop/ui_weapon")
     self.ui_pocket_sprite = Assets.getTexture("ui/shop/ui_pocket")
+    self.ui_badge_sprite = Assets.getTexture("ui/shop/ui_badge")
 
     self.stat_icons = {
         ["attack"] = Assets.getTexture("ui/shop/icon_attack"),
@@ -971,7 +972,7 @@ function Shop:draw()
                     local storage_total_space = storage_space + storage_space_count
                     
                     love.graphics.setFont(self.space_font)
-                    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" then
+                    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" and item_type ~= "badge" then
                         Draw.draw(self.ui_hold_sprite, 555, 398)
                         love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 412, 0, 0.5, 0.5)
                         Draw.draw(self.ui_storage_sprite, 555, 430)
@@ -985,6 +986,8 @@ function Shop:draw()
                             Draw.draw(self.ui_weapon_sprite, 555, 410)
                         elseif item_type == "key" then
                             Draw.draw(self.ui_pocket_sprite, 555, 410)
+                        elseif item_type == "badge" then
+                            Draw.draw(self.ui_badge_sprite, 555, 410)
                         end
                     end
                 end

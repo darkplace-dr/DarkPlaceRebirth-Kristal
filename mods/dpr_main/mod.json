@@ -170,7 +170,9 @@
 			"pacifyGlow": true,
 			"tiredMessages": true,
 			"awakeMessages": true,
-			"oldRudeBuster": false
+			"oldRudeBuster": false,
+			"newShopSpaceUI": true,
+			"shopSpaceUIFont": "8bit"
 		},
     }
 }
