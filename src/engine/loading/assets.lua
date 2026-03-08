@@ -148,6 +148,28 @@ function Assets.tryGet(asset_type, asset_id)
     end
 end
 
+--- Iterate over assets of a particular type.
+---@param asset_type string
+---@param id_prefix string?
+---@return fun(): string
+function Assets.iterate(asset_type, id_prefix)
+    id_prefix = id_prefix or ""
+    return coroutine.wrap(function()
+        for _, bucket in ipairs(self.buckets) do
+            for id in pairs(Assets.getQueue(bucket.bucket_id, asset_type)) do
+                if StringUtils.startsWith(id, id_prefix) then
+                    coroutine.yield(id)
+                end
+            end
+            for id in pairs(bucket.loaded_assets[asset_type] or {}) do
+                if StringUtils.startsWith(id, id_prefix) then
+                    coroutine.yield(id)
+                end
+            end
+        end
+    end)
+end
+
 ---@private
 ---@param asset_type string
 ---@param asset_id string
