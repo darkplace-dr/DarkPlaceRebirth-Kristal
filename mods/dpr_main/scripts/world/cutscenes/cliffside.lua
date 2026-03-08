@@ -494,12 +494,12 @@ local cliffside = {
                 Game.world.timer:tween(3.5, Game.world.music, {pitch = 0.05})
                 Game.world.timer:tween(2.5, darkness, {alpha = 1})
                 gus:setSprite("spooky")
-                cutscene:text("[spacing:2.5][speed:0.15][voice:nil][noskip]* .....[wait:5]")
-                cutscene:text("[voice:nil]* Funny number, ain't it?")
-                cutscene:text("[voice:nil]* Sometimes a joke don't stop...")
-                cutscene:text("[voice:nil]* And it keeps walking, right past the punchline.")
-                cutscene:text("[voice:nil]* And when it does... you'll see what follows.")
-                cutscene:text("[voice:nil]* Consider this as a threat, cruel chance.")
+                cutscene:text("[spacing:2.5][speed:0.15][voice:none][noskip]* .....[wait:5]")
+                cutscene:text("[voice:none]* Funny number, ain't it?")
+                cutscene:text("[voice:none]* Sometimes a joke don't stop...")
+                cutscene:text("[voice:none]* And it keeps walking, right past the punchline.")
+                cutscene:text("[voice:none]* And when it does... you'll see what follows.")
+                cutscene:text("[voice:none]* Consider this as a threat, cruel chance.")
 
                 Game.party[1].stats.health = 67
                 Game.party[1].health = 67
@@ -523,7 +523,7 @@ local cliffside = {
                     Game.world.music:setPitch(0.25)
                     Assets.playSound("noise")
                     gus:setSprite("spooky")
-                    cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* Because there's a chance you'll meet someone special that way.")
+                    cutscene:text("[spacing:2.5][speed:0.3][voice:none][noskip]* Because there's a chance you'll meet someone special that way.")
     
                     cutscene:wait(2)
                     darkness:remove()
@@ -552,7 +552,7 @@ local cliffside = {
             Game.world.music:setPitch(0.25)
             Assets.playSound("noise")
             gus:setSprite("spooky")
-            cutscene:text("[spacing:2.5][speed:0.3][voice:nil][noskip]* ...or you're one of those good-for-nothin' hackers.")
+            cutscene:text("[spacing:2.5][speed:0.3][voice:none][noskip]* ...or you're one of those good-for-nothin' hackers.")
 
             cutscene:wait(2)
             darkness:remove()

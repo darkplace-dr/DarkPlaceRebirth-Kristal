@@ -1959,7 +1959,7 @@ local hub = {
         if event.interact_count == 1 then
             cutscene:showNametag("Trash Rudinn")
             music_inst:play("voiceover/garbage", 1, 1, false)
-            cutscene:text("[noskip][voice:nil]* Hellooo...[wait:1.5]", nil, garbage, { auto = true })
+            cutscene:text("[noskip][voice:none]* Hellooo...[wait:1.5]", nil, garbage, { auto = true })
             cutscene:hideNametag()
             genBigText("I'm", 240, 40)
             genBigText("a", 360, 40, 2, false, 0.1)
@@ -1971,7 +1971,7 @@ local hub = {
         else
             cutscene:showNametag("Trash Rudinn")
             music_inst:play("voiceover/stillgarbage", 1, 1, false)
-            cutscene:text("[noskip][voice:nil]* Oh hi,[wait:1] thanks for checking in.[wait:2]\n* I'm...", nil, garbage, { auto = true })
+            cutscene:text("[noskip][voice:none]* Oh hi,[wait:1] thanks for checking in.[wait:2]\n* I'm...", nil, garbage, { auto = true })
             cutscene:hideNametag()
             genBigText("still", 210, 40)
             genBigText("a", 380, 40, 2, false, 0.1)
@@ -2248,7 +2248,7 @@ local hub = {
         elseif Game:isDessMode() then
             Game.world.music:pause()
             Assets.playSound("no_fuck_off")
-            cutscene:textTagged("[noskip][voice:nil]* no,[wait:2.5] fuck off[wait:7.5]", "dess.exe", "dess", {auto = true})
+            cutscene:textTagged("[noskip][voice:none]* no,[wait:2.5] fuck off[wait:7.5]", "dess.exe", "dess", {auto = true})
 
             local beam_of_death = Rectangle(diagonal_mario.x, 0, 1, diagonal_mario.y)
             beam_of_death = Rectangle(diagonal_mario.x, 0, 1, diagonal_mario.y)

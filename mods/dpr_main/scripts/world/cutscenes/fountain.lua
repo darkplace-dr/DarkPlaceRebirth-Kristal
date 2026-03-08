@@ -11,7 +11,7 @@ return function(cutscene)
         cutscene:look(chara, dir)
     end)
     local function showDialog(text)
-        local style = "[noskip][speed:0.3][voice:nil]"
+        local style = "[noskip][speed:0.3][voice:none]"
         local _text
         if type(text) == "string" then
             _text = style .. text
@@ -96,7 +96,7 @@ return function(cutscene)
                     showDialog("[voice:susie][speed:0.5]Let's go home.")
                 end
             end
-            cutscene:text("[voice:nil][speed:0.5][noskip]* (It was as if your very SOUL was glowing...)", nil, nil, {top = true})
+            cutscene:text("[voice:none][speed:0.5][noskip]* (It was as if your very SOUL was glowing...)", nil, nil, {top = true})
 
             Game.world.music:stop()
     

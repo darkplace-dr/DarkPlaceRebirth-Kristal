@@ -52,11 +52,11 @@ return {
         end
     
         local function pacematchingMsg(text, wait, portrait, actor)
-            cutscene:text("[noskip][voice:nil]" .. text .. string.format("[wait:%g]", wait), portrait, actor, { auto = true })
+            cutscene:text("[noskip][voice:none]" .. text .. string.format("[wait:%g]", wait), portrait, actor, { auto = true })
         end
         local pmMsg = pacematchingMsg
         --[[local function textForTime(text, time, portrait, actor)
-            cutscene:text("[noskip][voice:nil]" .. text, portrait, actor, { advance = false })
+            cutscene:text("[noskip][voice:none]" .. text, portrait, actor, { advance = false })
             cutscene:wait(time)
             cutscene:closeText()
         end]]

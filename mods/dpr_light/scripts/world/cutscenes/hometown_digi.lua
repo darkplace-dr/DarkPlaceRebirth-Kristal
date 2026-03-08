@@ -30,7 +30,7 @@ return {
             cutscene:text("* Your destiny awaits,[wait:5] Hero.")
             cutscene:hideNametag()
             Assets.playSound("item")
-            cutscene:text("[voice:nil]* (Click)")
+            cutscene:text("[voice:none]* (Click)")
             cutscene:showNametag("Hero")
             cutscene:text("* ...", "shocked", "hero")
             cutscene:text("* What WAS that...?", "shocked", "hero")
