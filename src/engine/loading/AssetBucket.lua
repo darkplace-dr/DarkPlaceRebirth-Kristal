@@ -42,8 +42,7 @@ function AssetBucket:startLoading(paths)
                 local files = FileSystemUtils.getFilesRecursive(asset_search_path .. "/" .. subfolder)
                 table.sort(files)
                 for i, subpath in ipairs(files) do
-                    local full_path = asset_search_path .. "/" .. subfolder .. "/" .. subpath
-                    local filepath = FilePath(asset_search_path .. "/" .. subfolder, full_path)
+                    local filepath = FilePath(asset_search_path .. "/" .. subfolder, subpath)
                     if TableUtils.contains(loader.valid_extensions, filepath.extension) then
                         loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
                     end
