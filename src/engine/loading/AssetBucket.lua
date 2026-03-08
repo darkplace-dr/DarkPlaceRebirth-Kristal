@@ -37,7 +37,7 @@ function AssetBucket:startLoading(paths)
     self.state = AssetBucket.State.LOADING
     self.paths = paths or self.paths
     for _, asset_search_path in ipairs(self.paths) do
-        for asset_type, loader in pairs(AssetLoaders.loaders) do
+        for asset_type, loader in AssetLoaders.iterLoaders() do
             for _, subfolder in ipairs(loader.valid_subfolders or error(TableUtils.dump(loader))) do
                 local files = FileSystemUtils.getFilesRecursive(asset_search_path .. "/" .. subfolder)
                 table.sort(files)

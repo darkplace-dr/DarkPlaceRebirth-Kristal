@@ -32,6 +32,11 @@ function AssetLoaders.registerDefaults()
     AssetLoaders.register("bubble", BubbleAssetLoader({ "bubbles" }, { "json" }))
 end
 
+---@return fun(): string, AssetLoader
+function AssetLoaders.iterLoaders()
+    return pairs(AssetLoaders.loaders)
+end
+
 ---@generic T : AssetLoader
 ---@param asset_type string
 ---@param loader T
