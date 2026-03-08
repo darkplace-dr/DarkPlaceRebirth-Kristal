@@ -947,6 +947,9 @@ function Shop:draw()
             elseif current_item.item.type == "badge" then
                 local bp_text = current_item.item:getBadgePoints() .. " BP"
                 Draw.setColor(COLORS.orange)
+                if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                    Draw.setColor(COLORS.gray)
+                end
                 love.graphics.print(bp_text, left + width - 32 - self.font:getWidth(bp_text), top + 20)
             end
 
@@ -989,7 +992,7 @@ function Shop:draw()
                             love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 424, 0, 0.5, 0.5)
                             Draw.draw(self.ui_bp_sprite, 555, 444)
                             if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
-                                Draw.setColor(COLORS.red)
+                                Draw.setColor(COLORS.gray)
                             end
                             love.graphics.print(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), 576, 444, 0, 0.5, 0.5)
                             Draw.setColor(COLORS.white)
