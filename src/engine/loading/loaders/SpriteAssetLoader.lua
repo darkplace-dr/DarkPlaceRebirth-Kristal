@@ -26,6 +26,8 @@ function SpriteAssetLoader:init(valid_subfolders, valid_extensions)
 
     self.image_extensions = valid_extensions
 
+    self.placeholder = love.image.newImageData(1,1)
+
     -- Mario mode support
     if love.graphics and love.filesystem.getInfo("mario.png") and Kristal.Args["mario-mode"] then
         self.mario_texture = love.graphics.newImage("mario.png")
@@ -100,7 +102,13 @@ function SpriteAssetLoader:load(asset_id, task)
         result.texture_paths[frame_data.frame] = frame_data.path
     end
 
-    assert(#result.texture_data == #task.frames, string.format("Unexpected gap between frame indexes for '%s'", asset_id))
+    -- HACK: Allow gaps in frame indecies by inserting a placeholder ImageData. Ideally should not be used.
+    if #result.texture_data ~= #task.frames then
+        for i=1, table.maxn(result.texture_data) do
+            result.texture_data[i] = result.texture_data[i] or self.placeholder
+        end
+        self:logError(string.format("Unexpected gap between frame indexes for '%s'", asset_id))
+    end
 
     self:logDebug(string.format(
         "Loaded %d frame(s) for sprite '%s'",
