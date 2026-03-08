@@ -193,7 +193,6 @@ function MikeVending:draw()
 
             Draw.setColor(COLORS.white)
 
-
             if not self.hide_storage_text then
                 local current_storage = Game.inventory:getDefaultStorage(current_item.item)
                 if not Game:getConfig("newShopSpaceUI") then
