@@ -159,8 +159,7 @@ function Assets.internalGet(asset_type, asset_id, error_level)
         end
     end
     local errstring = string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id)
-    Kristal.Console:error(errstring)
-    -- error(errstring, error_level)
+    error(errstring, error_level)
 end
 
 ---@private
