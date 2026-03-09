@@ -48,6 +48,18 @@ function ElevatorDoor:init(data)
     self.sprite_inside.x = 15
     self.sprite_inside.y = -65
 
+    if self.type == "topfloor" then
+        self.sprite_frame.x = -4
+        self.sprite_frame.y = -160
+
+        self.sprite_inside.x = -4
+        self.sprite_inside.y = -160
+
+        self.sprite_door_left.x = 2
+        self.sprite_door_left.y = -134
+        self.sprite_door_right.x = 60
+        self.sprite_door_right.y = -134
+    end
 
 end
 
@@ -63,22 +75,42 @@ function ElevatorDoor:onInteract()
 end
 
 function ElevatorDoor:open()
-    Assets.playSound("elecdoor_open")
-    self.sprite_door_left:slideTo(-20, self.sprite_door_left.y, 0.3)
-    self.sprite_door_right:slideTo(104, self.sprite_door_right.y, 0.3)
+    if self.type == "topfloor" then
+        Assets.playSound("elecdoor_open", 1, 0.8)
+        self.sprite_door_left:slideTo(-54, self.sprite_door_left.y, 0.5)
+        self.sprite_door_right:slideTo(116, self.sprite_door_right.y, 0.5)
+    else
+        Assets.playSound("elecdoor_open")
+        self.sprite_door_left:slideTo(-20, self.sprite_door_left.y, 0.3)
+        self.sprite_door_right:slideTo(104, self.sprite_door_right.y, 0.3)
+    end
 end
 
 function ElevatorDoor:close()
-    Assets.playSound("elecdoor_close")
-    self.sprite_door_left:slideTo(23, self.sprite_door_left.y, 0.3)
-    self.sprite_door_right:slideTo(61, self.sprite_door_right.y, 0.3)
+    if self.type == "topfloor" then
+        Assets.playSound("elecdoor_close", 1, 0.8)
+        self.sprite_door_left:slideTo(2, self.sprite_door_left.y, 0.5)
+        self.sprite_door_right:slideTo(60, self.sprite_door_right.y, 0.5)
+    else
+        Assets.playSound("elecdoor_close")
+        self.sprite_door_left:slideTo(23, self.sprite_door_left.y, 0.3)
+        self.sprite_door_right:slideTo(61, self.sprite_door_right.y, 0.3)
+    end
 end
 
 function ElevatorDoor:draw()
-    Draw.scissor(self.sprite_frame.x, self.sprite_frame.y, self.sprite_frame.width*2-20, self.sprite_frame.height*2)
+    if self.type == "topfloor" then
+        Draw.scissor(self.sprite_frame.x+4, self.sprite_frame.y, self.sprite_frame.width*2-8, self.sprite_frame.height*2)
+    else
+        Draw.scissor(self.sprite_frame.x, self.sprite_frame.y, self.sprite_frame.width*2-20, self.sprite_frame.height*2)
+    end
     super.draw(self)
     love.graphics.setScissor()
-    love.graphics.draw(Assets.getTexture("world/events/elevatordoor/"..self.type.."/frame"), 15, -65, 0, 2, 2)
+    if self.type == "topfloor" then
+        love.graphics.draw(Assets.getTexture("world/events/elevatordoor/"..self.type.."/frame"), -4, -160, 0, 2, 2)
+    else
+        love.graphics.draw(Assets.getTexture("world/events/elevatordoor/"..self.type.."/frame"), 15, -65, 0, 2, 2)
+    end
 end
 
 return ElevatorDoor
