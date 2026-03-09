@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="11">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="67">
  <editorsettings>
   <export target="elevator.lua" format="lua"/>
  </editorsettings>
@@ -8,9 +8,12 @@
   <property name="music" value="topfloor"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/topfloor.tsx"/>
- <imagelayer id="7" name="Image Layer 1" parallaxx="0.8" parallaxy="0.9" repeatx="1" repeaty="1">
-  <image source="../../../../assets/sprites/world/cutscenes/intro/DEPTH.png" width="320" height="240"/>
- </imagelayer>
+ <tileset firstgid="37" source="../../tilesets/topfloor_objects.tsx"/>
+ <objectgroup id="10" name="objects_bg">
+  <object id="24" name="topfloor_bg" x="0" y="0">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="1" name="Tile Layer 1" width="16" height="12">
   <data encoding="csv">
 26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
@@ -49,6 +52,18 @@
   <object id="3" x="40" y="400" width="600" height="40"/>
   <object id="4" x="400" y="200" width="240" height="40"/>
  </objectgroup>
+ <objectgroup id="8" name="objects_window_floor" opacity="0.2" tintcolor="#aa00ff">
+  <object id="58" gid="38" x="50" y="360" width="100" height="120"/>
+  <object id="60" gid="41" x="50" y="400" width="100" height="40"/>
+  <object id="61" gid="38" x="490" y="360" width="100" height="120"/>
+  <object id="62" gid="41" x="490" y="400" width="100" height="40"/>
+ </objectgroup>
+ <objectgroup id="9" name="objects_window_wall" opacity="0.3" tintcolor="#ff00ff">
+  <object id="50" gid="38" x="50" y="240" width="100" height="40"/>
+  <object id="54" gid="38" x="490" y="240" width="100" height="40"/>
+  <object id="65" gid="42" x="50" y="200" width="100" height="40"/>
+  <object id="66" gid="42" x="490" y="200" width="100" height="40"/>
+ </objectgroup>
  <objectgroup id="4" name="objects_elevator">
   <object id="5" name="elevatordoor" x="280" y="200" width="120" height="40">
    <properties>
@@ -68,6 +83,13 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="31" name="topfloor_windowdraw" x="40" y="0">
+   <point/>
+  </object>
+  <object id="42" name="topfloor_highlight" x="470" y="240" width="140" height="160"/>
+  <object id="43" name="topfloor_highlight" x="30" y="240" width="140" height="160"/>
+  <object id="63" name="topfloor_windoweye" x="70" y="150" width="60" height="20"/>
+  <object id="64" name="topfloor_windoweye" x="510" y="150" width="60" height="20"/>
  </objectgroup>
  <objectgroup id="6" name="markers">
   <object id="9" name="entry_elevator" x="340" y="290">
