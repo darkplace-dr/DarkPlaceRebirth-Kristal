@@ -38,10 +38,13 @@ end
 ---@return integer? split_frame
 function SpriteAssetLoader.splitIdentifier(full_identifier)
     local identifier, split_frame = full_identifier, 1
-    local _, _, reverse_frame, reverse_identifier = string.find(string.reverse(full_identifier), "^(%d+)_?(.+)")
+    local _, _, reverse_frame, reverse_identifier = string.find(string.reverse(full_identifier), "^(%d+)_?([^/]+.*)")
     if reverse_frame and reverse_identifier then
         identifier = string.reverse(reverse_identifier)
         split_frame = math.floor(assert(tonumber(string.reverse(reverse_frame))))
+    end
+    if split_frame < 1 then
+        return full_identifier
     end
     return identifier, split_frame
 end
