@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 11,
+  nextlayerid = 11,
+  nextobjectid = 67,
   properties = {
     ["border"] = "titan",
     ["music"] = "topfloor"
@@ -19,26 +19,44 @@ return {
     {
       name = "topfloor",
       firstgid = 1,
-      filename = "../../tilesets/topfloor.tsx",
-      exportfilename = "../../tilesets/topfloor.lua"
+      filename = "../../tilesets/topfloor.tsx"
+    },
+    {
+      name = "topfloor_objects",
+      firstgid = 37,
+      filename = "../../tilesets/topfloor_objects.tsx",
+      exportfilename = "../../tilesets/topfloor_objects.lua"
     }
   },
   layers = {
     {
-      type = "imagelayer",
-      image = "../../../../assets/sprites/world/cutscenes/intro/DEPTH.png",
-      id = 7,
-      name = "Image Layer 1",
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "objects_bg",
       class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      parallaxx = 0.8,
-      parallaxy = 0.9,
-      repeatx = true,
-      repeaty = true,
-      properties = {}
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 24,
+          name = "topfloor_bg",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "tilelayer",
@@ -175,6 +193,152 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 8,
+      name = "objects_window_floor",
+      class = "",
+      visible = true,
+      opacity = 0.2,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      tintcolor = { 170, 0, 255 },
+      properties = {},
+      objects = {
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 50,
+          y = 360,
+          width = 100,
+          height = 120,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 60,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 50,
+          y = 400,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 41,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 490,
+          y = 360,
+          width = 100,
+          height = 120,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 490,
+          y = 400,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 41,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "objects_window_wall",
+      class = "",
+      visible = true,
+      opacity = 0.3,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      tintcolor = { 255, 0, 255 },
+      properties = {},
+      objects = {
+        {
+          id = 50,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 50,
+          y = 240,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 54,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 490,
+          y = 240,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 50,
+          y = 200,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 42,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 66,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 490,
+          y = 200,
+          width = 100,
+          height = 40,
+          rotation = 0,
+          gid = 42,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 4,
       name = "objects_elevator",
       class = "",
@@ -247,6 +411,71 @@ return {
           properties = {
             ["default_state"] = true
           }
+        },
+        {
+          id = 31,
+          name = "topfloor_windowdraw",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "topfloor_highlight",
+          type = "",
+          shape = "rectangle",
+          x = 470,
+          y = 240,
+          width = 140,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 43,
+          name = "topfloor_highlight",
+          type = "",
+          shape = "rectangle",
+          x = 30,
+          y = 240,
+          width = 140,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "topfloor_windoweye",
+          type = "",
+          shape = "rectangle",
+          x = 70,
+          y = 150,
+          width = 60,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "topfloor_windoweye",
+          type = "",
+          shape = "rectangle",
+          x = 510,
+          y = 150,
+          width = 60,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
