@@ -256,7 +256,7 @@ function Mod:openMicMenu()
 end
 
 function Mod:preUpdate()
-    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+    self.voice_timer = MathUtils.approach(self.voice_timer, 0, DTMULT)
     local pipistracker = false
     local map_properties = Game.world.map.data and Game.world.map.data.properties or nil
     if Game.inventory:hasItem("pipis") then
@@ -448,13 +448,6 @@ end
 function Mod:onTextSound(voice, node, text)
     if voice == "noel" and Game.shop then
         Assets.playSound("voice/noel/"..string.lower(node.character), 1, 1)
-        return true
-    end
-    if voice == "rx1" then
-        if self.voice_timer == 0 then
-            local snd = Assets.playSound(Utils.pick{"voice/rx1", "voice/rx2", "voice/rx3"})
-            self.voice_timer = 2
-        end
         return true
     end
 end
