@@ -37,13 +37,12 @@ end
 ---@return string identifier
 ---@return integer? split_frame
 function SpriteAssetLoader.splitIdentifier(full_identifier)
-    local identifier_split = StringUtils.split(full_identifier, "_")
-    local split_frame
-    local try_frame_number = tonumber(identifier_split[#identifier_split])
-    if try_frame_number and try_frame_number ~= math.huge and try_frame_number > 0 then
-        split_frame = tonumber(table.remove(identifier_split, #identifier_split))
+    local identifier, split_frame = full_identifier, 1
+    local _, _, reverse_frame, reverse_identifier = string.find(string.reverse(full_identifier), "^(%d+)_?(.+)")
+    if reverse_frame and reverse_identifier then
+        identifier = string.reverse(reverse_identifier)
+        split_frame = math.floor(assert(tonumber(string.reverse(reverse_frame))))
     end
-    local identifier = table.concat(identifier_split, "_")
     return identifier, split_frame
 end
 
