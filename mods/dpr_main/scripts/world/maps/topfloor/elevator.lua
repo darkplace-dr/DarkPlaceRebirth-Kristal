@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,10 +10,11 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 67,
+  nextobjectid = 71,
   properties = {
     ["border"] = "titan",
-    ["music"] = "topfloor"
+    ["music"] = "topfloor",
+    ["name"] = "Top Floor - Elevator"
   },
   tilesets = {
     {
@@ -476,6 +477,37 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 68,
+          name = "savepoint",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 300,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "* (The wind howls,[wait:5] the eyes watch.)",
+            ["text2"] = "* (You are filled with the power of nearing the end of this tower.)"
+          }
+        },
+        {
+          id = 69,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 200,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "topfloor.sign1"
+          }
         }
       }
     },
