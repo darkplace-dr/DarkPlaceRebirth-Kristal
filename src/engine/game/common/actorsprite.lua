@@ -110,6 +110,11 @@ end
 function ActorSprite:setTextureExact(texture)
     super.setTextureExact(self, texture)
 
+    -- TODO: Why in the capital F HELL is this needed!?!?
+    if not self.texture_path and type(texture) == "string" then
+        Kristal.Console:warn(string.format("Setting texture to %s somehow caused texture path to be nil", texture))
+        self.texture_path = texture
+    end
     self.sprite_options = self.actor:parseSpriteOptions(self.texture_path)
 end
 
