@@ -42,7 +42,7 @@ function MainMenuTitle:onEnter(old_state)
     end
     
     self.menu.kristal_stage_title = TitleLogo(320, 180, self.menu.splash)
-    MainMenu.Stage:addChild(self.menu.kristal_stage_title)
+    MainMenu.stage:addChild(self.menu.kristal_stage_title)
     
     self.debounce = false
 end
