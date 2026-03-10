@@ -21,6 +21,12 @@ function MainMenu:init()
     self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
     self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
     
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.border_back = love.graphics.newImage("assets/sprites/kristal/title/fool_back.png")
+        self.border_front = love.graphics.newImage("assets/sprites/kristal/title/fool_front.png")
+    end
+    
     self.border_scroll = 0
     
     self.splash_list = self:require("splashes")
