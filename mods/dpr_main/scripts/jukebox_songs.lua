@@ -6,7 +6,7 @@ return {
     composer = "J.A.R.U.",
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 57.122
   },
   {
@@ -15,7 +15,7 @@ return {
     composer = "SadDiamondMan",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 100
   },
   {
@@ -24,7 +24,7 @@ return {
     composer = "Spunky Tunky",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 137
   },
   {
@@ -33,7 +33,7 @@ return {
     composer = "J.A.R.U.",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 95
   },
   {
@@ -42,7 +42,7 @@ return {
     composer = "J.A.R.U.",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 100
   },
   {
@@ -51,7 +51,7 @@ return {
     composer = "JustAnAverageChilly",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 132
   },
   {
@@ -60,7 +60,7 @@ return {
     composer = "Charbomber",
     released = "2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 117
   },
   {
@@ -69,7 +69,7 @@ return {
     composer = "BrendaK7200",
     released = "2023",
     origin = "Dark Place",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 96
   },
   {
@@ -78,7 +78,7 @@ return {
     composer = "BrendaK7200",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 140
   },
   {
@@ -87,7 +87,7 @@ return {
     composer = "Tritra Serpifeu",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 55.5
   },
   {
