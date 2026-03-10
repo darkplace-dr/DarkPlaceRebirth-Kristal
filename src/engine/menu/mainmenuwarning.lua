@@ -72,7 +72,6 @@ end
 function MainMenuWarning:update()
     if self.animation_clock > 2 then
         self.menu:setState("TITLE")
-        self.menu.title_screen:selectOption("play")
         return
     elseif self.animation_clock >= 0 then
         self.animation_clock = self.animation_clock + DT

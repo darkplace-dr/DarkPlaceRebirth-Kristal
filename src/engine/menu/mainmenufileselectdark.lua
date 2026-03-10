@@ -107,6 +107,8 @@ function MainMenuFileSelect:onEnter(old_state)
     self.noel2.y = angle*4 + self.noel.y
     self.noel2.x = self.noel.x 
     ]]
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuFileSelect:onLeave(new_state)
@@ -245,8 +247,8 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
                     MainMenu.heart:setSprite("player/"..MainMenu.mod_list:getSelectedMod().soulFacing.."/heart_menu")
                 end
             else
-                self.menu:setState("TITLE")
-                self.menu.title_screen:selectOption("play")
+                self.menu:setState("SUBTITLE")
+                self.menu.subtitle:selectOption("play")
             end
             Assets.stopAndPlaySound("ui_cancel")
             return true

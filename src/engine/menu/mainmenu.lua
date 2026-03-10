@@ -17,7 +17,13 @@ MainMenu.BACKGROUND_SHADER = love.graphics.newShader([[
     }
 ]])
 
-function MainMenu:init()
+function MainMenu:init()    
+    self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
+    self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
+    
+    self.border_scroll = 0
+    
+    self.splash_list = self:require("splashes")
 end
 
 function MainMenu:enter()
@@ -40,6 +46,7 @@ function MainMenu:enter()
 
     -- Initialize all states
     self.title_screen = MainMenuTitle(self)
+    self.subtitle = MainMenuSubtitle(self)
     self.options = MainMenuOptions(self)
     self.credits = MainMenuCredits(self)
     self.mod_list = MainMenuModList(self)
@@ -60,6 +67,7 @@ function MainMenu:enter()
     self.state = "NONE"
     self.state_manager = StateManager("NONE", self, true)
     self.state_manager:addState("TITLE", self.title_screen)
+    self.state_manager:addState("SUBTITLE", self.subtitle)
     self.state_manager:addState("OPTIONS", self.options)
     self.state_manager:addState("CREDITS", self.credits)
     self.state_manager:addState("MODSELECT", self.mod_list)
@@ -163,6 +171,14 @@ function MainMenu:enter()
         self.selected_mod = self.mod_list:getSelectedMod()
         self.selected_mod_button = self.mod_list:getSelectedButton()
     end
+    
+    self.border_scroll = 0
+    
+    self.splash = Utils.pick(self.splash_list)
+end
+
+function MainMenu:require(module, ...)
+    return love.filesystem.load("mods/dpr_main/preview/" .. module:gsub("%.", "/") .. ".lua")(...)
 end
 
 function MainMenu:leave()
@@ -332,11 +348,20 @@ function MainMenu:update()
             Kristal.Shatter.active = false
         end
     end
+    
+    self.border_scroll = self.border_scroll + DT
 end
 
 function MainMenu:draw()
     -- Draw the menu background
     self:drawBackground()
+    
+    Draw.setColor(1, 1, 1, 1)
+    Draw.drawWrapped(self.border_back, true, false, self.border_scroll * 10, 15)
+    Draw.drawWrapped(self.border_front, true, false, self.border_scroll * 8, 0)
+    
+    Draw.drawWrapped(self.border_back, true, false, -self.border_scroll * 10, 465, math.rad(180))
+    Draw.drawWrapped(self.border_front, true, false, -self.border_scroll * 8, 480, math.rad(180))
 
     love.graphics.setFont(self.menu_font)
 

@@ -63,6 +63,8 @@ function MainMenuFileSelect:onEnter(old_state)
     end
 
     self.bottom_row_heart = { 80, 250, 440 }
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuFileSelect:onLeave(new_state)
@@ -190,8 +192,8 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
 					MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
 				end
             else
-                self.menu:setState("TITLE")
-                self.menu.title_screen:selectOption("play")
+                self.menu:setState("SUBTITLE")
+                self.menu.subtitle:selectOption("play")
             end
             Assets.stopAndPlaySound("ui_cancel")
             return true

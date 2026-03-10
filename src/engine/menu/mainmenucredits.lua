@@ -98,7 +98,7 @@ function MainMenuCredits:init(menu)
                 "J.A.R.U.",
                 "BrendaK7200",
                 "",
-                {"Name Idea", COLORS.silver},
+                {"Name Idea, Title Screen", COLORS.silver},
                 "AccousticJamm",
             },
             {
@@ -199,11 +199,13 @@ function MainMenuCredits:onEnter(old_state)
 
     self.menu.heart_target_x = 320 - 32 - 16 + 1
     self.menu.heart_target_y = 480 - 16 + 1
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuCredits:onKeyPressed(key, is_repeat)
     if Input.isCancel(key) or Input.isConfirm(key) then
-        self.menu:setState("TITLE")
+        self.menu:setState("SUBTITLE")
 
         if Input.isCancel(key) then
             Assets.stopAndPlaySound("ui_move")
@@ -211,7 +213,7 @@ function MainMenuCredits:onKeyPressed(key, is_repeat)
             Assets.stopAndPlaySound("ui_select")
         end
 
-        self.menu.title_screen:selectOption("credits")
+        self.menu.subtitle:selectOption("credits")
     end
 
     local page_dir = "right"
