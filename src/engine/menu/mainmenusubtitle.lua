@@ -14,12 +14,12 @@ local MainMenuSubTitle, super = Class(StateClass)
 function MainMenuSubTitle:init(menu)
     self.menu = menu
 
-    self.logo = Assets.getTexture("kristal/title_logo_shadow")
+    -- self.logo = Assets.getTexture("kristal/title_logo_shadow")
 
-    local date = os.date("*t")
-    if date.month == 4 and date.day == 1 then
-        self.logo = Assets.getTexture("kristal/title_logo_sun")
-    end
+    -- local date = os.date("*t")
+    -- if date.month == 4 and date.day == 1 then
+        -- self.logo = Assets.getTexture("kristal/title_logo_sun")
+    -- end
 
     self.selected_option = 1
 end
@@ -147,7 +147,7 @@ function MainMenuSubTitle:draw()
                 Draw.setColor(0, 0, 0, 1)
             end
             Draw.drawMenuRectangle(395 - (64 * (i-1)), 89 + (64 * (i-1)), 220, 50)
-            Draw.printShadow(option[2], 435 - (64 * (i-1)), 98 + (64 * (i-1)))
+            Draw.printLight(option[2], 435 - (64 * (i-1)), 98 + (64 * (i-1)))
         else
             if i == self.selected_option then
                 Draw.setColor(1, 1, 0, 1)

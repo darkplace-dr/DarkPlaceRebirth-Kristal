@@ -8,6 +8,11 @@ function TitleLogo:init(x, y, splash)
     self.logo = love.graphics.newImage("assets/sprites/kristal/title_logo_shadow.png")
     self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/text.png")
     
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.logo_text = love.graphics.newImage("assets/sprites/kristal/title/fool.png")
+    end
+    
     self.logo_big_star = Sprite("kristal/title/big_star")
     self.logo_big_star:setOrigin(0.5)
     self.logo_big_star.x = 0
