@@ -25,7 +25,7 @@ function actor:init()
     self.default = "idle"
 
     -- Sound to play when this actor speaks (optional)
-    self.voice = "rx1"
+    self.voice = "rouxls"
     -- Path to this actor's portrait for dialogue (optional)
     self.portrait_path = "face/rouxls"
     -- Offset position for this actor's portrait (optional)
@@ -45,6 +45,20 @@ function actor:init()
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {}
+
+    self.voice_timer = 0
+end
+
+function actor:onWorldUpdate(chara)
+    self.voice_timer = MathUtils.approach(self.voice_timer, 0, DTMULT)
+end
+
+function actor:onTextSound()
+    if self.voice_timer == 0 then
+        local snd = Assets.playSound(Utils.pick{"voice/rx1_fixed", "voice/rx2_fixed", "voice/rx3_fixed"})
+        self.voice_timer = 3
+    end
+    return true
 end
 
 return actor

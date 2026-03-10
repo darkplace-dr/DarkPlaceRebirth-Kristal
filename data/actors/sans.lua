@@ -65,7 +65,7 @@ function actor:init()
 end
 
 function actor:onWorldUpdate(chara)
-    self.voice_timer = Utils.approach(self.voice_timer, 0, DTMULT)
+    self.voice_timer = MathUtils.approach(self.voice_timer, 0, DTMULT)
 end
 
 function actor:onTextSound()

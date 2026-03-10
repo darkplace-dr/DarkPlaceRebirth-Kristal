@@ -155,6 +155,8 @@ function MainMenuOptions:update()
     self.menu.heart_target_x, self.menu.heart_target_y = self:getHeartPos()
 
     self.state_manager:update()
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuOptions:draw()
@@ -292,8 +294,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
         self:remove_noel_char()
 
-        self.menu:setState("TITLE")
-        self.menu.title_screen:selectOption("options")
+        self.menu:setState("SUBTITLE")
+        self.menu.subtitle:selectOption("options")
         return
     end
 
@@ -347,8 +349,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
             self:remove_noel_char()
 
-            self.menu:setState("TITLE")
-            self.menu.title_screen:selectOption("options")
+            self.menu:setState("SUBTITLE")
+            self.menu.subtitle:selectOption("options")
         else
             options[self.selected_option].callback()
         end
