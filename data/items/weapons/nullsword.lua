@@ -58,7 +58,7 @@ function item:init()
         dess = "am i blind or am i blind",
         brenda = "Does it say something?",
         noel = "no...",
-		jamm = "What did you say about Ania!?",
+		jamm = "You know corruption spreads, right?",
         ceroba = "Don't ask me to equip that.",
         mario = "I'm fucking Mario.",
     }
