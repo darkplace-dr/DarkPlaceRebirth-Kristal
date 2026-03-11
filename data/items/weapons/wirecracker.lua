@@ -55,7 +55,8 @@ function item:init()
         ralsei = "... Is cheating allowed?",
         noelle = "(It... fits?)",
         dess = "can i eat it",
-        ceroba = "Don't even try it."
+        ceroba = "Don't even try it.",
+        jamm = "It won't even go on my hand!"
     }
 end
 

@@ -49,7 +49,7 @@ function item:init()
         ralsei = "",
         noelle = "",
         dess = "man i love debt",
-        jamm = "",
+        jamm = "I GUESS I could take another.",
         noel = "",
         ceroba = "",
     }

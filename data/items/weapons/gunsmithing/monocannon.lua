@@ -38,6 +38,7 @@ function item:init()
         noelle = "",
 		dess = "",
         brenda = "",
+        jamm = "First time I've ever seen a gun made from stone.",
     }
 end
 

@@ -49,6 +49,7 @@ function item:init()
     self.reactions = {
 		susie =  "It tastes like... what?",
 		dess =  "this tea sucks dude",
+        jamm = "Is this just... water?",
     }
 end
 

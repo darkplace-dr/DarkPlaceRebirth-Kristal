@@ -51,6 +51,7 @@ function item:init()
         noelle = "(Seems... familiar?)",
         dess = "this STINKS",
         mario = "So long-a, Wilter!",
+        jamm = "Huh... neat.",
     }
 end
 

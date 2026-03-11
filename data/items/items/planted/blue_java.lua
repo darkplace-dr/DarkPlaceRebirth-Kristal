@@ -25,6 +25,7 @@ function item:init()
     self.can_equip = {}
 
     self.reactions = {
+        jamm = "The taste is deceptive...",
     }
 end
 
