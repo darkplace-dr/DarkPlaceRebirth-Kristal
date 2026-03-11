@@ -756,6 +756,7 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("gameplay", "Descriptive Loading", "dLoad")
     self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
     self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
+    self:registerConfigOption("gameplay", "Silly RTX Mode", "silly_mode")
 
 end
 

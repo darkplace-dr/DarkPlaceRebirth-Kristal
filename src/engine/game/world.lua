@@ -116,6 +116,10 @@ function World:init(map)
     if map then
         self:loadMap(map)
     end
+
+    if Kristal.Config["silly_mode"] then
+        self:addFX(ShaderFX("bloom"), "bloom")
+    end
 end
 
 --- Heals a member of the party

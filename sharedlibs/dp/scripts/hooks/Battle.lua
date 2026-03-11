@@ -71,6 +71,10 @@ function Battle:init()
     self.temperature = 50
     self.max_temperature = 100
     self.min_temperature = 0
+
+    if Kristal.Config["silly_mode"] then
+        self:addFX(ShaderFX("bloom"), "bloom")
+    end
 end
 
 function Battle:postInit(state, encounter)
