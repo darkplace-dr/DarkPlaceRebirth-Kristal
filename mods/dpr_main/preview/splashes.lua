@@ -131,4 +131,5 @@ return {
     "Talk to Sans for help!",
     "AN INTERESING CONUNDRUM.",
     "I am in splashes.lua!",
+    "An overdue face lift",
 }
