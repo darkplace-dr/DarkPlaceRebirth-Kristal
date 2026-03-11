@@ -41,9 +41,7 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {
-        jamm = "How does it duplicate...?",
-    }
+    self.can_equip = {}
 end
 
 function item:onWorldUse(target)
