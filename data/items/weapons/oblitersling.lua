@@ -39,7 +39,7 @@ function item:init()
     }
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = "Regret"
-    self.bonus_icon = "sword"
+    self.bonus_icon = "ui/menu/icon/sword"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
@@ -48,7 +48,8 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        jamm = "I've got a terrible feeling about this..."
+        jamm = "I've got a terrible feeling about this...",
+        ceroba = "No. Not a good idea.",
     }
 end
 

@@ -15,17 +15,17 @@ function item:init()
     self.icon = nil
 
     -- Battle description
-    self.effect = "self.heal_amount = love.math.random(-100,100)"
+    self.effect = "self.heal_amount = MathUtils.randomInt(-100,100)"
     -- Shop description
     self.shop = "🕆︎☠︎☞︎✋︎☠︎✋︎💧︎☟︎☜︎👎︎\n☟︎☜︎✌︎☹︎✋︎❄︎☜︎💣︎\n🖃︎✍︎✍︎ ☟︎🏱︎"
     -- Menu description
     self.description = "🕆︎☠︎☞︎✋︎☠︎✋︎💧︎☟︎☜︎👎︎\n☟︎☜︎✌︎☹︎✋︎❄︎☜︎💣︎\n🖃︎✍︎✍︎ ☟︎🏱︎"
 
     -- Amount healed (HealItem variable) (It's "broken" on purpose)
-    self.heal_amount = love.math.random(-100,100)
+    self.heal_amount = MathUtils.randomInt(-100,100)
 
     -- Default shop price (sell price is halved)
-    self.price = love.math.random(-100,100)
+    self.price = MathUtils.randomInt(-100,100)
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -55,6 +55,7 @@ function item:init()
         dess = "lmao it hurts",
 		jamm = "What exactly is this...?",
         ceroba = "Is this safe to consume?",
+        berdly = "Smells like typical RNG.",
     }
 end
 

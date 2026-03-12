@@ -48,6 +48,7 @@ function item:init()
     self.reactions = {
         suzy = "Look! It's my hard work!",
 		jamm = "Well, what did I expect?",
+        ceroba = "Well that's trash now."
     }
 end
 

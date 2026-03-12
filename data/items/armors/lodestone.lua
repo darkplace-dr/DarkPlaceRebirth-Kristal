@@ -53,7 +53,7 @@ function item:init()
         noelle = "Did your mom eat the non-shell part?",
         dess = "sn ail",
         jamm = "Slow and steady wins the race.",
-        ceroba = "Snails are... Peculiar creatures."
+        ceroba = "\"Snail snail...\""
     }
 end
 

@@ -49,6 +49,7 @@ function item:init()
         ralsei = false,
         noelle = false,
         noel = false,
+        ceroba = false,
     }
 
     -- Character reactions
@@ -60,7 +61,7 @@ function item:init()
         brenda = "Uhh... This isn't gonna kill me, is it?",
         noel = "(I would consume it.)",
         jamm = "It's a little warm still...",
-        ceroba = "I once had a fire magic...",
+        ceroba = "I'm not risking it.",
     }
 end
 

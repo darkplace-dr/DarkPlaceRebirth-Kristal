@@ -39,6 +39,7 @@ function item:init()
 		dess = "",
         brenda = "",
         jamm = "First time I've ever seen a gun made from stone.",
+        ceroba = "How.", -- Axis reference
     }
 end
 

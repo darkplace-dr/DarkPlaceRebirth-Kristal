@@ -41,9 +41,7 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/dice"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {
-        ceroba = false
-    }
+    self.can_equip = {}
 
     -- Character reactions
     self.reactions = {
@@ -54,7 +52,7 @@ function item:init()
         dess = "aw dang it",
         jamm = "No stranger to this.",
         ["jamm+marcy"] = "I gamble in moderation, Marcy.",
-        ceroba = "You want me to wear... A card?"
+        ceroba = "Gambling is bad, children." -- but she'll do it anyway lol
     }
 end
 
@@ -62,18 +60,18 @@ function item:applyMoneyBonus(gold)
     -- return -30
     ---@type {snd:string, n:number}[]
     local options = {
-        {n = gold/6,   snd = "error"},      
+        {n = gold/6,   snd = "error"},
         {n = gold/4,   snd = "awkward"},
-        {n = gold/3,   snd = "boowomp"},         
-        {n = gold/2,   snd = "boowomp"},                 
-        {n = gold,   snd = "bump"},              
-        {n = gold*.25, snd = "boost"},             
-        {n = gold*.75, snd = "boost"},         
-        {n = gold*1.25, snd = "boost"},         
-        {n = gold*1.75, snd = "great_shine"},     
-        {n = gold*2.25, snd = "great_shine"},     
-    }     
-    local choice = Utils.pick(options)
+        {n = gold/3,   snd = "boowomp"},
+        {n = gold/2,   snd = "boowomp"},
+        {n = gold,   snd = "bump"},
+        {n = gold*.25, snd = "boost"},
+        {n = gold*.75, snd = "boost"},
+        {n = gold*1.25, snd = "boost"},
+        {n = gold*1.75, snd = "great_shine"},
+        {n = gold*2.25, snd = "great_shine"},
+    }
+    local choice = TableUtils.pick(options)
     Assets.playSound(choice.snd)
     return choice.n
 end

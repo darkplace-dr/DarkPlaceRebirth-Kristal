@@ -50,7 +50,7 @@ function item:init()
         noelle = "(I'll... just pretend to drink it...)",
 		dess = "this sucks good",
         jamm = "Blech! What is this!?",
-        ceroba = "I'd... Rather not.",
+        ceroba = "Yeah, uh... No.",
     }
 
     -- Amount the poison damages in the world

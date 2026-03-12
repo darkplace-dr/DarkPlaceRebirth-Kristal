@@ -38,6 +38,7 @@ function item:init()
         noelle = "(It... reminds me of...)",
 	    dess = "aw yeah, evil villain time",
 	    jamm = "It feels... terrible...",
+        ceroba = "No way I'm taking THAT!",
     }
 end
 

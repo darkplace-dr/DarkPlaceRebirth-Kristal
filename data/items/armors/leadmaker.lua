@@ -58,7 +58,7 @@ function item:init()
 		jamm = "I could use some lead, but if I have to sell it...",
         ["jamm+marcy"] = "That reminds me. Never eat Lunchables, Marcy.",
         noel = "Eat Lead!",
-        ceroba = "Where would I even put it?",
+        ceroba = "The heck do I do with that?",
         suzy = "I am so good at this!",
         hero = "Free cash.",
     }

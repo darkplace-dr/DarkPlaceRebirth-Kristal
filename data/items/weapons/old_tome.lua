@@ -53,7 +53,7 @@ function item:init()
 		dess = "I'm REALLY not a fucking nerd",
         brenda = "Ooo, I love books!",
 		jamm = "They don't pay me enough for this!",
-        ceroba = "This language doesn't look familiar to me..."
+        ceroba = "Looks older than me..."
     }
 end
 

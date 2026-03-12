@@ -52,7 +52,7 @@ function item:init()
     self.reactions = {
         susie = "There goes my lightsaber! *nom*",
         suzy = "Chomp, Chomp!",
-        ceroba = "I'm... Not a farmer.",
+        ceroba = "I'm... Not a farmer. AND it's plastic.",
         dess = "i hate stardew valley",
         noel = "Insufficent.",
         hero = "This thing is BUSTED!",

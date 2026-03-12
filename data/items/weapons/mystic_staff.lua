@@ -42,19 +42,18 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        ceroba = true,
         nell = true,
     }
 
     -- Character reactions
     self.reactions = {
-        susie = "Well, if I have to.",
+        susie = "Do I look like a wizard?",
         ralsei = "Not my type of magic...",
-        noelle = "(It looks...)",
+        noelle = "(Just like from a childern's book.)",
 		dess = "\"mystic\" my ass",
         brenda = "",
         jamm = "I'm not good with staffs.",
-        ceroba = "Good fit for a hero. But not me.",
+        ceroba = "Not exactly MY type of staff...",
         nell = "Back to origins, eh?"
     }
 end

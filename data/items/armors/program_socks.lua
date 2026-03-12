@@ -56,7 +56,7 @@ function item:init()
         brenda = "D-do I look cute?",
 		jamm = "For (i = 0, i < 2, i++), equip socks.", -- he doesn't get it
         noel = "*wears like gloves* Same stats...",
-        ceroba = "I, uh... Okay???",
+        ceroba = "I mean, those are just socks, so...",
     }
 end
 

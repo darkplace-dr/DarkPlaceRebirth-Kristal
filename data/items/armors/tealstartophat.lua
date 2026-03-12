@@ -46,7 +46,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
         bor = "Cool Design",
-        jamm = "And for my next trick, my student loans wil disappear!"
+        jamm = "And for my next trick, my student loans wil disappear!",
+        ceroba = "Ace would like that one.",
     }
 end
 

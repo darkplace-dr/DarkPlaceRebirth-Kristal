@@ -52,7 +52,7 @@ function item:init()
         noelle = "Okay! ...? What do you mean, unused!?",
         jamm = "I'm not a billboard!",
 		dess = "unused item alert",
-        ceroba = "It just shines with luck!",
+        ceroba = "Lucky charm?",
     }
 end
 

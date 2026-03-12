@@ -60,7 +60,7 @@ function item:init()
         brenda = "I can't carry THAT.",
 	    jamm = "I mean, I'm not THAT strong...",
         noel = "Now, I'm gonna pull a [Red Buster]!",
-        ceroba = "(It's not THAT heavy...)"
+        ceroba = "Definitely not my type of weapon."
     }
 end
 

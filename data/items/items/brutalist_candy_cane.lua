@@ -50,6 +50,8 @@ function item:init()
     self.reactions = {
         noel = "I am fucking dead now.",
         jamm = "I... don't know what I was expecting.",
+        ceroba = "",
+        berdly = "",
     }
 end
 

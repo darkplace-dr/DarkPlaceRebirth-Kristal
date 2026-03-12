@@ -31,12 +31,12 @@ function item:init()
     }
 
     self.reactions = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
+        susie = "I mean, I'd prefer something heavier.",
+        ralsei = "It's like a sword, but... Thinner?",
+        noelle = "Hey, it's sorta like mom's...",
 		dess = "not on my ninja shit rn srry",
         noel = "",
-        ceroba = "",
+        ceroba = "A perfect fit.",
         jamm = "I respect the samurai, but..."
     }
 end

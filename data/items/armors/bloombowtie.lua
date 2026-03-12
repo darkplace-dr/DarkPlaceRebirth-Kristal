@@ -52,6 +52,7 @@ function item:init()
         dess = "this STINKS",
         mario = "So long-a, Wilter!",
         jamm = "Huh... neat.",
+        ceroba = "What a color combination.",
     }
 end
 

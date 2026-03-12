@@ -49,7 +49,7 @@ function item:init()
         ralsei = "Behold! Heal Prayer!",
         noelle = "(The other flavor is better)",
         jamm = "Here we go, DarkSling!",
-        ceroba = "Let there be flowers."
+        ceroba = "Flower Barrage, don't let me down."
     }
 end
 

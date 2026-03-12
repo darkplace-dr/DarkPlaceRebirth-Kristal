@@ -52,7 +52,7 @@ function item:init()
         noelle = "It's... kind of scary...",
         jamm = "How do I even use this?",
 		dess = "love the clickbait on this", -- ping me when this becomes outdated in chapter 3 & 4 or whatever -- it didn't
-        ceroba = "It's appearance is... Frightning."
+        ceroba = "That's supposed to be a SWORD?"
     }
 end
 

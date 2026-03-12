@@ -39,7 +39,7 @@ function item:init()
 	
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = "Devil's Bow"
-    self.bonus_icon = "minus"
+    self.bonus_icon = "ui/menu/icon/down"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}

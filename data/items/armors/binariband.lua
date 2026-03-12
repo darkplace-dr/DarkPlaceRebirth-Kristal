@@ -50,11 +50,12 @@ function item:init()
         ralsei = "It... doesn't feel right...",
         noelle = "I don't understand...",
 		jamm = "Nice! This looks great!",
+        ceroba = "Isn't this computer stuff?", -- she means code, she's so stupid (in a nice way :) )
     }
 end
 
 function item:onEquip(character, replacement)
-    if Utils.containsValue({"jamm", "brenda", "bor", "ddelta", "nell"}, character.id) then
+    if TableUtils.contains({"jamm", "brenda", "bor", "ddelta", "nell"}, character.id) then
         character:increaseStat("attack", 4)
         self.bonus_name = "Coded"
         self.bonus_icon = "ui/menu/icon/magic"
@@ -63,7 +64,7 @@ function item:onEquip(character, replacement)
 end
 
 function item:onUnequip(character, replacement)
-    if Utils.containsValue({"jamm", "brenda", "bor", "ddelta", "nell"}, character.id) then
+    if TableUtils.contains({"jamm", "brenda", "bor", "ddelta", "nell"}, character.id) then
         character:increaseStat("attack", -4)
         self.bonus_name = nil
         self.bonus_icon = nil

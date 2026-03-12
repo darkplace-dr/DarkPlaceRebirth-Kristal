@@ -46,7 +46,6 @@ function item:init()
     self.can_equip = {
         susie = false,
         dess = false,
-        ceroba = false
     }
 
     -- Character reactions
@@ -68,7 +67,7 @@ function item:init()
         jamm = "How adorable!",
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "More tension?",
-        ceroba = "A bit too small.",
+        ceroba = "Just like the one I had...",
         hero = "Whatever.",
     })
 end

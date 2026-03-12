@@ -50,7 +50,8 @@ function item:init()
     self.reactions = {
         susie = "This looks like torture...",
         ralsei = "....",
-        jamm = "Jeez! What even IS this ring!?"
+        jamm = "Jeez! What even IS this ring!?",
+        ceroba = "Not even gonna touch that.",
     }
 end
 

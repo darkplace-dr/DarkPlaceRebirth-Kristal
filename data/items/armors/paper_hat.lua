@@ -63,7 +63,7 @@ function item:init()
         brenda = "Its too weak!",
         mario = "Mari-no",
         noel = "...",
-        ceroba = "...?",
+        ceroba = "That's just childish.",
     }
 end
 

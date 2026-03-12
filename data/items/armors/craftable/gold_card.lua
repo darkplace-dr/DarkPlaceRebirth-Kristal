@@ -45,13 +45,13 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
+        susie = "I'M RICH!!",
+        ralsei = "So shiny, haha!",
+        noelle = "I think I had a few jewels like that?", -- maybe I'm overestimating the Holidays' riches but I mean if she get tired of eating CAVIAR...
         dess = "man i love debt",
         jamm = "I GUESS I could take another.",
         noel = "",
-        ceroba = "",
+        ceroba = "Is that... Real gold?",
     }
 end
 
