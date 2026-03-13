@@ -48,6 +48,11 @@ function Watercooler:init()
     self.killable = true
 	
 	self.last_text = "* A strong aura emanates from the Watercooler."
+
+    self.resistances = {
+        ICE = 1.5,
+        FIRE = 1.5,
+    }
 end
 
 function Watercooler:isXActionShort(battler)

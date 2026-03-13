@@ -150,6 +150,18 @@ function EnemyBattler:init(actor, use_overlay)
     self.temporary_mercy_percent = nil
 
     self.graze_tension = 1.6 -- (1/10 of a defend, or cheap spell)
+
+    -- An enemies elemental resistances.
+    self.resistances = {
+        ELEC = 1,
+        FIRE = 1,
+        STAR = 1,
+        DARK = 1,
+        RUDE = 1,
+        RED = 1,
+        ICE = 1,
+        HOLY = 1,
+    }
 end
 
 --- *(Override)* Get what this enemy's HP should display in the enemy select menu.
@@ -1145,6 +1157,15 @@ end
 ---@return number new_value
 function EnemyBattler:addFlag(flag, amount)
     return Game:addFlag("enemy#" .. self.id .. ":" .. flag, amount)
+end
+
+function EnemyBattler:getResistance(element)
+    for i, resist in pairs(self.resistances) do
+        if i == element then
+            return resist
+        end
+    end
+    return 1
 end
 
 return EnemyBattler

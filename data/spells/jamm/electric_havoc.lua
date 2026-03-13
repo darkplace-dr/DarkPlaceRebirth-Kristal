@@ -35,6 +35,8 @@ function spell:onCast(user, target)
 		damage = 0
 	end
 
+	damage = math.ceil(damage/target:getResistance("ELEC"))
+
 	local function shock(scale_x)
 		local cutAnim = Sprite("party/jamm/dark/special/shock")
 		cutAnim:setOrigin(0.5, 1)

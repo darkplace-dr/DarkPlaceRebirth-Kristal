@@ -29,6 +29,11 @@ function Lanino:init()
 
     self.used_telescope = false
     self.used_sunglasses = false
+
+    self.resistances = {
+        FIRE = 2,
+        ICE = 1.5,
+    }
 end
 
 function Lanino:isXActionShort(battler)

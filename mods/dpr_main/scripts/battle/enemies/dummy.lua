@@ -54,6 +54,11 @@ function Dummy:init()
     self:registerAct("Tell Story", "", {"ralsei"})
 
     self.killable = true
+
+    self.resistances = {
+        FIRE = 0.75,
+        ICE = 1.5
+    }
 end
 
 function Dummy:onAct(battler, name)

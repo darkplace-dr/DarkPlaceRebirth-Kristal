@@ -32,6 +32,10 @@ function Electrodasher:init()
     self:registerAct("PhotoPose", "35%\nMercy", "all")
 
     self.killable = true
+
+    self.resistances = {
+        ELEC = 2
+    }
 end
 
 function Electrodasher:update()

@@ -46,6 +46,12 @@ function UFOOfDoom:init()
     self.low_health_text = "* The UFO Of Doom is almost done for."
 
     self:registerAct("SUPER ACT", "", {"dess"})
+
+    self.resistances = {
+        STAR = 1.5,
+        DARK = 1.5,
+        HOLY = 0.75
+    }
 end
 
 function UFOOfDoom:onAct(battler, name)

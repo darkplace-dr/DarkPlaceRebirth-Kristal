@@ -41,6 +41,10 @@ function Pebblin:init()
 
     self:registerAct("Polish")
     self:registerAct("X-Polish", "", {"susie"})
+
+    self.resistances = {
+        DARK = 0.5,
+    }
 end
 
 function Pebblin:onAct(battler, name)

@@ -32,15 +32,15 @@ function spell:onCast(user, target)
 	user:setAnimation("battle/spellsuper")
 
 	Game.battle.timer:every(0.01, function(wait)
-		local random = Utils.random(0, 2, 1)
+		local random = MathUtils.random(0, 2, 1)
 
 		local starparticle = nil
 		if random == 0 then
-			starparticle = Sprite("effects/spells/dess/starstorm_big", Utils.random(SCREEN_WIDTH), Utils.random(SCREEN_HEIGHT))
+			starparticle = Sprite("effects/spells/dess/starstorm_big", MathUtils.random(SCREEN_WIDTH), MathUtils.random(SCREEN_HEIGHT))
 		elseif random == 1 then
-			starparticle = Sprite("effects/spells/dess/starstorm_medium", Utils.random(SCREEN_WIDTH), Utils.random(SCREEN_HEIGHT))
+			starparticle = Sprite("effects/spells/dess/starstorm_medium", MathUtils.random(SCREEN_WIDTH), MathUtils.random(SCREEN_HEIGHT))
 		else
-			starparticle = Sprite("effects/spells/dess/starstorm_small", Utils.random(SCREEN_WIDTH), Utils.random(SCREEN_HEIGHT))
+			starparticle = Sprite("effects/spells/dess/starstorm_small", MathUtils.random(SCREEN_WIDTH), MathUtils.random(SCREEN_HEIGHT))
 		end
 
 		starparticle:setOrigin(0.5, 0.5)
@@ -54,13 +54,13 @@ function spell:onCast(user, target)
 
 	Game.battle.timer:after(3, function(wait)
 		local mult = Game:getElementMult("STAR")
-		local damage = math.ceil(((user.chara:getStat("magic") * 20) + 130 + (Utils.random(10) * 4)) * mult)
+		local damage = math.ceil((((user.chara:getStat("magic") * 20) + 130 + (MathUtils.random(10) * 4)) * mult))
 		local i = 1
 
 		Game.battle.timer:every(0.1, function()
 			Assets.playSound("celestial_hit", 1.0, 1.4)
 			Assets.playSound("damage")
-			target[i]:hurt(damage, user)
+			target[i]:hurt(math.ceil(damage/((target[i]:getResistance("DARK") + target[i]:getResistance("STAR"))/2)), user)
 			target[i]:flash()
 			target[i]:shake(6, 0, 0.5)
 

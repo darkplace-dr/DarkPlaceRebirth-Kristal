@@ -76,6 +76,7 @@ end
 
 function spell:getDamage(user, target, damage_bonus)
     local damage = math.ceil((user.chara:getStat("magic") * 5) + (user.chara:getStat("attack") * 11) - (target.defense * 3)) + damage_bonus
+    damage = math.ceil(damage/target:getResistance("RUDE"))
     return damage
 end
 
