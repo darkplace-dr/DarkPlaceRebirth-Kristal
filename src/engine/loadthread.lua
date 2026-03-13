@@ -352,103 +352,11 @@ local loaders = {
 
     -- Asset Loaders
 
-    ["sprites"] = { "assets/sprites", function(base_dir, path, full_path)
-        local id = checkExtension(path, "png", "jpg")
-        if id then
-            local ok = pcall(function() data.assets.texture_data[id] = love.image.newImageData(full_path) end)
-            if not ok then
-                error("Image \"" .. path .. "\" is invalid or corrupted!")
-            end
-            for i = 3, 1, -1 do
-                local num = tonumber(id:sub(-i))
-                local bad_index = (num ~= num) or --NaN check
-                    (num == 1 / 0) or (num == -1 / 0)
-                if num and (not bad_index) then
-                    local frame_name = id:sub(1, -i - 1)
-                    if frame_name:sub(-1, -1) == "_" then
-                        frame_name = frame_name:sub(1, -2)
-                    end
-                    data.assets.frame_ids[frame_name] = data.assets.frame_ids[frame_name] or {}
-                    data.assets.frame_ids[frame_name][num] = id
-                    break
-                end
-            end
-        end
-    end },
-    ["fonts"] = { "assets/fonts", function(base_dir, path, full_path)
-        local id = checkExtension(path, "ttf")
-        if id then
-            pcall(function() data.assets.font_data[id] = love.filesystem.newFileData(full_path) end)
-        end
-        id = checkExtension(path, "fnt")
-        if id then
-            pcall(function() data.assets.font_bmfont_data[id] = full_path end)
-        end
-        id = checkExtension(path, "png")
-        if id then
-            pcall(function() data.assets.font_image_data[id] = love.image.newImageData(full_path) end)
-        end
-        id = checkExtension(path, "json")
-        if id then
-            local ok, loaded_data = pcall(json.decode, love.filesystem.read(full_path))
-            if not ok then
-                error("Font \"" .. path .. "\" has an invalid json file!")
-            end
-            data.assets.font_settings[id] = loaded_data
-        end
-    end },
-    ["sounds"] = { "assets/sounds", function(base_dir, path, full_path)
-        local id = checkExtension(path, "wav", "ogg")
-        if id then
-            pcall(function() data.assets.sound_data[id] = love.sound.newSoundData(full_path) end)
-        end
-    end },
-    ["music"] = { "assets/music", function(base_dir, path, full_path)
-        local id = checkExtension(
-            path, "mp3", "wav", "ogg",
-            -- TRACKER FORMATS
-            "mod", "s3m", "xm", "it", "669", "amf", "ams", "dbm", "dmf", "dsm", "far",
-            "mdl", "med", "mtm", "okt", "ptm", "stm", "ult", "umx", "mt2", "psm",
-            -- COMPRESSED TRACKER FORMATS
-            "mdz", "s3z", "xmz", "itz", "zip",
-            "mdr", "s3r", "xmr", "itr", "rar",
-            "mdgz", "s3gz", "xmgz", "itgz", "gz"
-        )
-        if id then
-            data.assets.music[id] = full_path
-        end
-    end },
-    ["shaders"] = { "assets/shaders", function(base_dir, path, full_path)
-        local id = checkExtension(path, "glsl")
-        if id then
-            -- TODO: load the shader source code, maybe?
-            data.assets.shader_paths[id] = full_path
-        end
-    end },
-    ["videos"] = { "assets/videos", function(base_dir, path, full_path)
-        local id = checkExtension(path, "ogg", "ogv")
-        if id then
-            data.assets.videos[id] = full_path
-        end
-        if checkExtension(path, "mp4", "mov", "wmv", "flv", "avi", "webm", "mkv") then
-            error("\"" .. path .. "\" unsupported - must use Ogg Theora videos.")
-        end
-    end },
-    ["bubbles"] = { "assets/bubbles", function(base_dir, path, full_path)
-        local id = checkExtension(path, "json")
-        if id then
-            local ok, loaded_data = pcall(json.decode, love.filesystem.read(full_path))
-            if not ok then
-                error("Bubble \"" .. path .. "\" has an invalid json file!")
-            end
-            data.assets.bubble_settings[id] = loaded_data
-        end
-    end },
+    -- ..they all use the new system now.
 }
 
 function loadPath(baseDir, loader, path, pre)
     if path_loaded[loader][path] then return end
-    if kristal_config["borders"] == "off" and loader == "sprites" and path:sub(1,#("borders")) == "borders" then end
 
     if verbose then
         out_channel:push({ status = "loading", loader = loader, path = path })

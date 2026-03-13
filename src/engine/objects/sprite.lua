@@ -152,7 +152,7 @@ function Sprite:setSprite(texture, keep_anim)
     if type(texture) == "string" then
         texture = self:getPath(texture)
     end
-    if type(texture) == "table" or (type(texture) == "string" and Assets.getFrames(texture)) then
+    if type(texture) == "table" or (type(texture) == "string" and Assets.hasSprite(texture)) then
         self:setFrames(texture, keep_anim)
     else
         self:setTexture(texture, keep_anim)
@@ -174,34 +174,27 @@ end
 --- *(Called internally)* Sets the current sprite to a single texture. \
 --- **Note**: *Only for internal overrides. Use `Sprite:setSprite()` instead.*
 function Sprite:setTextureExact(texture)
-
+    local texture_in = texture
     if type(texture) == "string" then
-        self.texture = Assets.getTexture(texture)
+        if texture == "" then
+            self.texture = nil
+            self.texture_path = ""
+            return
+        else
+            self.texture = Assets.getTexture(texture)
+        end
     else
         self.texture = texture
     end
     if (not self.texture) and (texture ~= nil) then
         Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
     end
-    self.texture_path = Assets.getTextureID(texture)
-    if not self.texture then
-        if texture ~= nil then
-            Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
-
-			if not (self.disallow_replacement_texture or (self.actor and self.actor.disallow_replacement_texture)) then
-				self.texture = Assets.getTexture("ui/missing_texture")
-				self.texture_path = self.texture_path or Assets.getTextureID(self.texture)
-				if self.width > 0 and self.height > 0 then
-					local resized_texture_canvas = Draw.pushCanvas(self.width, self.height)
-					Draw.draw(self.texture, 0, 0, 0, self.width/self.texture:getWidth(), self.height/self.texture:getHeight())
-					Draw.popCanvas()
-					self.texture = love.graphics.newImage(resized_texture_canvas:newImageData())
-				else
-					self.width = self.texture:getWidth()
-					self.height = self.texture:getHeight()
-				end
-			end
-        elseif self.use_texture_size then
+    self.texture_path = Assets.getTextureID(texture) or (type(texture_in) == "string" and texture_in)
+    if self.use_texture_size then
+        if self.texture then
+            self.width = self.texture:getWidth()
+            self.height = self.texture:getHeight()
+        else
             self.width = 0
             self.height = 0
         end

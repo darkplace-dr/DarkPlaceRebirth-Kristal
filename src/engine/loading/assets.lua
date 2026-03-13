@@ -34,7 +34,7 @@ local self = Assets
 
 --- Settings for a font asset, paired with the actual font data as a .json file.
 ---@class Assets.font_settings
----@field defaultSize number? # The default size of the font.
+---@field defaultSize integer? # The default size of the font.
 ---@field autoScale boolean? # Whether to scale the default-sized font to fit requested sizes. This is true by default for image and BMFont fonts.
 ---@field glyphs string? # (Image fonts only) Characters in the font, in order from left to right.
 ---@field hinting love.HintingMode? # (TrueType fonts only) The hinting mode to load the font with.
@@ -45,6 +45,40 @@ local self = Assets
 ---@field size number? # (TrueType fonts only) The default size of the fallback font.
 
 Assets.saved_data = nil
+
+---@internal
+---@return any task
+function Assets.getQueue(bucket_id, asset_type)
+    if not self.queued_tasks[bucket_id] then
+        self.queued_tasks[bucket_id] = {}
+    end
+    if not self.queued_tasks[bucket_id][asset_type] then
+        self.queued_tasks[bucket_id][asset_type] = {}
+    end
+    return self.queued_tasks[bucket_id][asset_type]
+end
+
+function Assets.init()
+    Assets.clear()
+    AssetLoaders.init()
+    self.queued_tasks = {}
+    ---@type AssetBucket[]
+    self.buckets = {
+        AssetBucket("engine", { "assets" }),
+        AssetBucket("project", { "assets" }),
+    }
+    self.getBucket("engine"):startLoading({ "assets" })
+end
+
+function Assets.getAssetCount()
+    local asset_total = 0
+    local asset_loaded = 0
+    for _, bucket in pairs(self.buckets) do
+        asset_loaded = asset_loaded + bucket.assets_loaded
+        asset_total = asset_total + bucket.assets_total
+    end
+    return asset_loaded, asset_total
+end
 
 function Assets.clear()
     self.loaded = false
@@ -93,6 +127,86 @@ function Assets.loadData(data)
     self.parseData(data)
 
     self.loaded = true
+end
+
+---@param asset_type string
+---@param asset_id string
+---@return any asset
+function Assets.get(asset_type, asset_id)
+    if not AssetLoaders.exists(asset_type) then
+        error(string.format("Attempt to get unknown asset type '%s' with id '%s'", asset_type, asset_id), 2)
+    end
+    return Assets.internalGet(asset_type, asset_id, 2)
+end
+
+function Assets.tryGet(asset_type, asset_id)
+    if not AssetLoaders.exists(asset_type) then
+        error(string.format("Attempt to get unknown asset type '%s' with id '%s'", asset_type, asset_id), 2)
+    end
+    if Assets.internalHas(asset_type, asset_id) then
+        return Assets.internalGet(asset_type, asset_id)
+    end
+end
+
+--- Iterate over assets of a particular type.
+---@param asset_type string
+---@param id_prefix string?
+---@return fun(): string
+function Assets.iterate(asset_type, id_prefix)
+    id_prefix = id_prefix or ""
+    return coroutine.wrap(function()
+        for _, bucket in ipairs(self.buckets) do
+            for id in pairs(Assets.getQueue(bucket.bucket_id, asset_type)) do
+                if StringUtils.startsWith(id, id_prefix) then
+                    coroutine.yield(id)
+                end
+            end
+            for id in pairs(bucket.loaded_assets[asset_type] or {}) do
+                if StringUtils.startsWith(id, id_prefix) then
+                    coroutine.yield(id)
+                end
+            end
+        end
+    end)
+end
+
+---@private
+---@param asset_type string
+---@param asset_id string
+---@return any asset
+function Assets.internalGet(asset_type, asset_id, error_level)
+    for i = #self.buckets, 1, -1 do
+        if self.buckets[i]:has(asset_type, asset_id) then
+            return self.buckets[i]:get(asset_type, asset_id)
+        end
+    end
+    local errstring = string.format("Attempt to get missing asset of type '%s' with ID '%s'", asset_type, asset_id)
+    error(errstring, error_level)
+end
+
+---@private
+---@param asset_type string
+---@param asset_id string
+---@return boolean found
+function Assets.internalHas(asset_type, asset_id)
+    for i = #self.buckets, 1, -1 do
+        if self.buckets[i]:has(asset_type, asset_id) then
+            return true
+        end
+    end
+    return false
+    
+end
+
+---@param bucket_id string
+---@return AssetBucket bucket
+function Assets.getBucket(bucket_id)
+    for i = 1, #self.buckets do
+        if self.buckets[i].bucket_id == bucket_id then
+            return self.buckets[i]
+        end
+    end
+    error(string.format("Attempt to get non-existent bucket '%s'", bucket_id))
 end
 
 function Assets.saveData()
@@ -188,30 +302,6 @@ function Assets.parseData(data)
         end
     end
 
-    -- create single-instance audio sources
-    for key, sound_data in pairs(data.sound_data) do
-        local src = love.audio.newSource(sound_data)
-        self.sounds[key] = src
-    end
-
-    -- create single-instance shaders
-    ---@type {id:string,error:string}[]
-    local errors = {}
-    for key, shader_path in pairs(data.shader_paths) do
-        local ok, res = love.graphics.validateShader(true, shader_path)
-        if ok then
-            self.data.shaders[key] = love.graphics.newShader(shader_path)
-        else
-            errors[#errors + 1] = { id = key, error = res }
-        end
-    end
-    if #errors >= 1 then
-        local error_str = {}
-        for i, err in ipairs(errors) do
-            error_str[i] = string.format("%s:\n%s", data.shader_paths[err.id], err.error)
-        end
-        error({ msg = "Shader compilation errors:\n" .. table.concat((error_str), "\n\n") .. "\n" })
-    end
     -- may be a memory hog, we clone the existing source so we dont need the sound data anymore
     --self.data.sound_data = {}
 end
@@ -228,60 +318,84 @@ function Assets.update()
     for _, sound in ipairs(sounds_to_remove) do
         TableUtils.removeValue(self.sound_instances[sound.key], sound.value)
     end
+    -- TODO: Make background loading happen on loadthread. Currently this can cause stutters when loading large assets
+    local time = love.timer.getTime()
+    for _,bucket in ipairs(self.buckets) do
+        if bucket.state == AssetBucket.State.LOADING then
+            for asset_type, queue in pairs(self.queued_tasks[bucket.bucket_id] or {}) do
+                for asset_id in pairs(queue) do
+                    bucket:get(asset_type, asset_id)
+                    if (love.timer.getTime() - time) + love.timer.getDelta() > 0.5/30 then
+                        if Kristal.Config["verboseLoader"] then
+                            Kristal.Loader.message = string.format("%s/%s: %s", bucket.bucket_id, asset_type, asset_id)
+                        end
+                        Kristal.Overlay.setLoading(true)
+                        return
+                    end
+                end
+            end
+            bucket.state = AssetBucket.State.LOADED
+        end
+    end
+    Kristal.Loader.message = ""
+    Kristal.Overlay.setLoading(false)
 end
 
 ---@param path string
 ---@return table
 function Assets.getBubbleData(path)
-    return self.data.bubble_settings[path] or {}
+    return self.get("bubble", path)
+end
+
+---@return FontAssetLoader.Font
+function Assets.getFontInfo(asset_id)
+    return self.get("font", asset_id)
 end
 
 ---@param path string
 ---@param size? number
 ---@return love.Font
 function Assets.getFont(path, size)
-    local font = self.data.fonts[path]
-    if font then
-        local settings = self.data.font_settings[path] or {}
-        if type(font) == "table" then
-            if settings.autoScale then
-                size = font.default
-            else
-                size = size or font.default
-            end
-            if not font[size] then
-                ---@diagnostic disable-next-line: param-type-mismatch
-                font[size] = love.graphics.newFont(self.data.font_data[path], size, settings.hinting or "mono")
-
-                if settings.fallbacks then
-                    local fallbacks = {}
-
-                    for _, fallback in ipairs(settings.fallbacks) do
-                        local fb_font = self.data.fonts[fallback.font]
-
-                        if type(fb_font) ~= "table" then
-                            error("Attempt to use image or BMFont fallback on TTF font: " .. path)
-                        else
-                            local ratio = (fallback.size or fb_font.default) / font.default
-                            table.insert(fallbacks, self.getFont(fallback.font, size * ratio))
-                        end
-                    end
-
-                    font[size]:setFallbacks(unpack(fallbacks))
-                end
-            end
-            return font[size]
+    local font = self.getFontInfo(path)
+    local font_cache = self.data.fonts[path] or {}
+    self.data.fonts[path] = font_cache
+    local settings = font.settings or {}
+    if not font.font then
+        if settings.autoScale then
+            size = font.default
         else
-            return font
+            size = size or font.default
         end
+        if not font_cache[size] then
+            ---@diagnostic disable-next-line: param-type-mismatch
+            font_cache[size] = love.graphics.newFont(font.font_data --[[@as string]], size, settings.hinting or "mono")
+
+            if settings.fallbacks then
+                local fallbacks = {}
+
+                for _, fallback in ipairs(settings.fallbacks) do
+                    local fb_font = self.get("font", fallback.font).settings
+
+                    if type(fb_font) ~= "table" then
+                        error("Attempt to use image or BMFont fallback on TTF font: " .. path)
+                    else
+                        local ratio = (fallback.size or fb_font.default) / font.default
+                        table.insert(fallbacks, self.getFont(fallback.font, size * ratio))
+                    end
+                end
+
+                font_cache[size]:setFallbacks(unpack(fallbacks))
+            end
+        end
+        return font_cache[size]
+    else
+        return font.font
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
 end
 
 ---@param path string
 function Assets.getFontData(path)
-    return self.data.font_settings[path] or {}
+    return self.getFontInfo(path).settings or {}
 end
 
 ---@param path string
@@ -299,14 +413,19 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
-    if not Kristal.Config["lazySprites"] or self.data.texture[path] then goto done end
-    do
-        local data = Assets.getTextureData(path)
-        self.data.texture[path] = data and love.graphics.newImage(data)
+    local identifier_split = StringUtils.split(path, "_")
+    local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
+    local frames = self.getFramesOrTexture(identifier)
+    if not frames then
+        return
     end
-    ::found::
-    ::done::
-    return self.data.texture[path]
+    local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
+    return texture
+end
+
+---@return boolean
+function Assets.hasSprite(asset_id)
+    return Assets.internalHas("sprite", asset_id)
 end
 
 Utils.hook(Assets, "getTexture", function (orig, path)
@@ -316,64 +435,31 @@ end)
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
-    if not Kristal.Config["lazySprites"] or self.data.texture_data[path] then goto done end
-    if love.filesystem.getInfo("/assets/sprites/"..path..".png") then
-        self.data.texture_data[path] = love.image.newImageData("/assets/sprites/"..path..".png")
-        self.texture_ids[self.data.texture_data[path]] = path
-    end
-    if Mod then
-        if love.filesystem.getInfo(Mod.info.path .. "/assets/sprites/"..path..".png") then
-            self.data.texture_data[path] = love.image.newImageData(Mod.info.path .. "/assets/sprites/"..path..".png")
-            self.texture_ids[self.data.texture_data[path]] = path
-            goto found
-        end
-        for id,lib in Kristal.iterLibraries() do
-            if love.filesystem.getInfo(lib.info.path .. "/assets/sprites/"..path..".png") then
-                self.data.texture_data[path] = love.image.newImageData(lib.info.path .. "/assets/sprites/"..path..".png")
-                self.texture_ids[self.data.texture_data[path]] = path
-            end
-        end
-    end
-    ::found::
-    ::done::
-    return self.data.texture_data[path]
+    local identifier_split = StringUtils.split(path, "_")
+    local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
+    local frames = self.get("sprite", identifier).data
+    local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
+    return texture
 end
 
 ---@param texture love.Image|string
 ---@return string
 function Assets.getTextureID(texture)
-    if type(texture) == "string" then
-        return texture
-    else
-        return self.texture_ids[texture]
+    for bucket_n = #Assets.buckets, 1, -1 do
+        for sprite_id, sprite in pairs(Assets.buckets[bucket_n].loaded_assets.sprite or {}) do
+            for frame_n = 1, #sprite.textures do
+                if texture == sprite.textures[frame_n] then
+                    return sprite_id .. "_" .. frame_n
+                end
+            end
+        end
     end
 end
 
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
-    if not Kristal.Config["lazySprites"] or self.data.frames[path] then goto done end
-    do
-        local frames = {}
-        if Assets.getTexture(path.."_1") then
-            local i = 1
-            while Assets.getTexture(path .. "_"..i) do
-                table.insert(frames, Assets.getTexture(path .. "_"..i))
-                i = i + 1
-            end
-        elseif Assets.getTexture(path.."_01") then
-            local i = 1
-            while Assets.getTexture(path .. string.format("_%.2d", i)) do
-                table.insert(frames, Assets.getTexture(path .. string.format("_%.2d", i)))
-                i = i + 1
-            end
-        end
-        if #frames > 0 then
-            self.data.frames[path] = frames
-        end
-    end
-    ::done::
-    return self.data.frames[path]
+    return self.getFramesOrTexture(path)
 end
 
 Utils.hook(Assets, "getFrames", function (orig, path)
@@ -383,30 +469,28 @@ end)
 ---@param path string
 ---@return string[]
 function Assets.getFrameIds(path)
-    return self.data.frame_ids[Assets.checkSpritesOverride(path)] or self.data.frame_ids[path]
+    local sprite_length = #self.getFrames(path)
+    local sprite_frame_ids = {}
+    for i = 1, sprite_length do
+        sprite_frame_ids[i] = path .. "_" .. i
+    end
+    return sprite_frame_ids
 end
 
 ---@param texture string
 ---@return string texture, number frame
 function Assets.getFramesFor(texture)
-    if self.frames_for[texture] then
-        -- annoying type annotations
-        ---@diagnostic disable-next-line: redundant-return-value
-        return unpack(self.frames_for[texture])
-    end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil, nil
+    local identifier, frame = SpriteAssetLoader.splitIdentifier(texture)
+    return identifier, frame or 1
 end
 
 ---@param path string
 ---@return love.Image[]
 function Assets.getFramesOrTexture(path)
-    local texture = Assets.getTexture(path)
-    if texture then
-        return { texture }
-    else
-        return Assets.getFrames(path)
+    if not self.hasSprite(path) then
+        return Kristal.Console:error(string.format("Attempt to get missing sprite with ID '%s", path))
     end
+    return self.get("sprite", path).textures
 end
 
 ---@param x number
@@ -427,27 +511,22 @@ end
 ---@param sound string
 ---@return love.Source
 function Assets.getSound(sound)
-    return self.sounds[sound]
+    return self.get("sound", sound)
 end
 
 ---@param sound string
 ---@return love.Source
 function Assets.newSound(sound)
-    return self.sounds[sound]:clone()
+    return self.getSound(sound):clone()
 end
 
 ---@param sound string
 ---@return love.Source
 function Assets.startSound(sound)
-    if self.sounds[sound] then
-        self.sounds[sound]:stop()
-        self.sounds[sound]:play()
-        return self.sounds[sound]
-    else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
-    end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
+    local src = self.get("sound", sound)
+    src:stop()
+    src:play()
+    return src
 end
 
 ---@param sound string
@@ -473,36 +552,30 @@ end
 ---@param pitch? number
 ---@return love.Source
 function Assets.playSound(sound, volume, pitch)
-    if self.sounds[sound] then
-        self.sound_instances[sound] = self.sound_instances[sound] or {}
-        local src
-        local function play(v)
-            src = self.sounds[sound]:clone()
-            if v then
-                src:setVolume(v)
-            end
-            if pitch then
-                src:setPitch(pitch)
-            end
-            src:play()
-            table.insert(self.sound_instances[sound], src)
+    self.sound_instances[sound] = self.sound_instances[sound] or {}
+    local src
+    local function play(v)
+        src = self.newSound(sound)
+        if v then
+            src:setVolume(v)
         end
-        if volume and volume > 1 then
-            for _ = 1, math.floor(volume) do
-                play(1)
-            end
-            if volume % 1 > 0 then
-                play(volume % 1)
-            end
-        else
-            play(volume)
+        if pitch then
+            src:setPitch(pitch)
         end
-        return src
-    else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
+        src:play()
+        table.insert(self.sound_instances[sound], src)
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return nil
+    if volume and volume > 1 then
+        for _ = 1, math.floor(volume) do
+            play(1)
+        end
+        if volume % 1 > 0 then
+            play(volume % 1)
+        end
+    else
+        play(volume)
+    end
+    return src
 end
 
 ---@param sound string
@@ -518,33 +591,35 @@ end
 ---@param music string
 ---@return string
 function Assets.getMusicPath(music)
-    return self.data.music[music]
+    -- TODO: Make this error once Music2 is updated.
+    if not self.internalHas("music", music) then
+        ---@diagnostic disable-next-line
+        return nil, string.format("Attempt to fetch missing music '%s'", music)
+    end
+    return self.get("music", music)
 end
 
 ---@param video string
 ---@return string
 function Assets.getVideoPath(video)
-    return self.data.videos[video]
+    return self.get("video", video)
 end
 
 ---@param video string
 ---@param load_audio? boolean
 ---@return love.Video
 function Assets.newVideo(video, load_audio)
-    if not self.data.videos[video] then
-        error("No video found: " .. video)
-    end
-    return love.graphics.newVideo(self.data.videos[video], { audio = load_audio })
+    return love.graphics.newVideo(self.getVideoPath(video), { audio = load_audio })
 end
 
+---@param id string
+---@return love.Shader
 function Assets.getShader(id)
-    return self.data.shaders[id]
+    return self.get("shader", id).shader
 end
 
 function Assets.newShader(id)
-    return love.graphics.newShader(self.data.shader_paths[id])
+    return love.graphics.newShader(self.get("shader", id).source)
 end
-
-Assets.clear()
 
 return Assets
