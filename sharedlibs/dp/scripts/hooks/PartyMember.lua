@@ -502,6 +502,15 @@ function PartyMember:getLightSkills()
     }
 end
 
+function PartyMember:getStat(name, default, light)
+    local stat = super.getStat(self, name, default, light)
+    if name == "attack" then
+        local success, amount = self:checkArmor("master_medallion")
+        stat = stat * (2^amount)
+    end
+    return stat
+end
+
 function PartyMember:getLevel()
     return self.level
 end

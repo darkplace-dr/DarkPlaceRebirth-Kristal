@@ -25,34 +25,38 @@ function PartyBattler:hurt(amount, exact, color, options)
     options = options or {}
 
     local swoon = options["swoon"]
-
-    if self.chara.reflectNext then
-        -- ok, remove the reflect thingy
-        self.chara.reflectNext = false
-        -- calculate the amount
-        amount = self:calculateDamage(amount)
-        -- pick a random one
-        -- I would do the attacker but like god am I lazy and I hate the process for this mechanic so much for some reason
-        -- like a disproportionate amount
-        -- so im picking a random one instead of any other bullshit
-        local attackedEnemy = TableUtils.pick(Game.battle.enemies)
-        -- if the damage is over the character's max HP, set it to that
-        if amount > self.chara:getHealth() then
-            amount = self.chara:getHealth()
+    
+    if self.chara:checkArmor("master_medallion") then
+        amount = math.huge
+    else
+        if self.chara.reflectNext then
+            -- ok, remove the reflect thingy
+            self.chara.reflectNext = false
+            -- calculate the amount
+            amount = self:calculateDamage(amount)
+            -- pick a random one
+            -- I would do the attacker but like god am I lazy and I hate the process for this mechanic so much for some reason
+            -- like a disproportionate amount
+            -- so im picking a random one instead of any other bullshit
+            local attackedEnemy = TableUtils.pick(Game.battle.enemies)
+            -- if the damage is over the character's max HP, set it to that
+            if amount > self.chara:getHealth() then
+                amount = self.chara:getHealth()
+            end
+            -- also, the damage can never kill the enemy outright (for da pacifists)
+            --   ...and also kinda so cheese isn't as possible
+            if amount >= attackedEnemy.health then
+                amount = attackedEnemy.health-1
+            end
+            -- hurt em'
+            attackedEnemy:hurt(amount, self)
+            return
         end
-        -- also, the damage can never kill the enemy outright (for da pacifists)
-        --   ...and also kinda so cheese isn't as possible
-        if amount >= attackedEnemy.health then
-            amount = attackedEnemy.health-1
-        end
-        -- hurt em'
-        attackedEnemy:hurt(amount, self)
-        return
-    end
 
-    if MathUtils.random(1,101) < self.guard_chance then
-        self:statusMessage("msg", "guard")
-        amount = math.ceil(amount * self.guard_mult)
+        if MathUtils.random(1,101) < self.guard_chance then
+            self:statusMessage("msg", "guard")
+            amount = math.ceil(amount * self.guard_mult)
+        end
     end
 
     if not options["all"] then
