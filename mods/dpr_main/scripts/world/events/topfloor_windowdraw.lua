@@ -39,7 +39,7 @@ function TopFloorWindowDrawer:draw()
     local bg = Game.world.map.topfloorbg
 	local canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_HEIGHT)
 	if bg then
-		love.graphics.translate(Game.world.camera.x - SCREEN_WIDTH/2, Game.world.camera.y - SCREEN_HEIGHT/2)
+		love.graphics.translate(-(Game.world.camera.x - SCREEN_WIDTH/2), -(Game.world.camera.y - SCREEN_HEIGHT/2))
 		self.siner = self.siner + DTMULT
 		love.graphics.stencil(function()
 			local last_shader = love.graphics.getShader()
