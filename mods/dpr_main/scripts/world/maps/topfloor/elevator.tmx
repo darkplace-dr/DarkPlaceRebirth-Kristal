@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="71">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="72">
  <editorsettings>
   <export target="elevator.lua" format="lua"/>
  </editorsettings>
@@ -7,6 +7,7 @@
   <property name="border" value="titan"/>
   <property name="music" value="topfloor"/>
   <property name="name" value="Top Floor - Elevator"/>
+  <property name="serious" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/topfloor.tsx"/>
  <tileset firstgid="37" source="../../tilesets/topfloor_objects.tsx"/>
@@ -17,7 +18,7 @@
  </objectgroup>
  <layer id="1" name="Tile Layer 1" width="16" height="12">
   <data encoding="csv">
-26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
+26,26,26,26,26,26,9,26,26,26,7,26,26,26,26,26,
 9,20,2,20,2,20,3,8,8,8,1,20,2,20,2,20,
 9,8,8,8,28,8,9,26,26,26,7,8,8,8,30,8,
 9,4,5,6,8,8,9,8,8,8,7,8,4,5,6,8,
@@ -79,9 +80,10 @@
     <property name="marker" value="entry"/>
    </properties>
   </object>
-  <object id="8" name="dogconegroup" x="600" y="240" width="40" height="160">
+  <object id="8" name="transition" x="640" y="240" width="40" height="160">
    <properties>
-    <property name="default_state" type="bool" value="true"/>
+    <property name="map" value="topfloor/ambush"/>
+    <property name="marker" value="west"/>
    </properties>
   </object>
   <object id="31" name="topfloor_windowdraw" x="40" y="0">
@@ -108,6 +110,9 @@
    <point/>
   </object>
   <object id="10" name="spawn" x="340" y="340">
+   <point/>
+  </object>
+  <object id="71" name="east" x="600" y="320">
    <point/>
   </object>
  </objectgroup>

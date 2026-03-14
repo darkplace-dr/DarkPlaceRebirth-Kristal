@@ -30,6 +30,8 @@ function Map:init(world, data)
 
     self.border = data and data.properties and data.properties["border"]
 
+    self.serious = data and data.properties and data.properties["serious"]
+
     if data and data.backgroundcolor then
         local bgc = data.backgroundcolor
         self.bg_color = { bgc[1] / 255, bgc[2] / 255, bgc[3] / 255, (bgc[4] or 255) / 255 }

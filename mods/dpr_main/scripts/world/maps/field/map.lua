@@ -9,8 +9,8 @@ function field:onEnter()
     --      - Charbomber
 	-- \
 	-- Another update to the Field. This time, it's dedicated to Racckoon, this mod's creator and my wonderful girlfriend. \
-	-- She's been really sick lately, likely due to malnutrition, and as of writing this, she hasn't been online in over a day. \
-	-- I know it sounds like I'm worrying too much, but I, and many others, care a lot about her. \
+	-- While she wasn't hospitalized like I first thought, her living situation isn't really all that great either. \
+	-- I wish I could do more for her, but all I can really do is be there for her, I just hope one day that everything will go well for her. \
 	-- For anyone else reading this, feel free to leave your own messages wishing her well. \
 	-- I love you, Lizzie. \
     --      - BrendaK7200
