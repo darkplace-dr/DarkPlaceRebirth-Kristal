@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -619,7 +619,7 @@ return {
         },
         {
           id = 39,
-          name = "npc",
+          name = "voidenemy",
           type = "",
           shape = "point",
           x = 500,
@@ -630,6 +630,12 @@ return {
           visible = true,
           properties = {
             ["actor"] = "voidspawn",
+            ["chase"] = true,
+            ["chaseaccel"] = 1.075,
+            ["chasemax"] = 100,
+            ["chasespeed"] = 2,
+            ["chasetype"] = "multiplier",
+            ["encounter"] = "voidspawn",
             ["flagcheck"] = "!topfloor_ambush"
           }
         }

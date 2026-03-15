@@ -29,8 +29,11 @@ function Voidspawn:init()
 
     self.parts = {
         ["body"] = {"body"},
+        ["squash"] = {"squash"},
         ["eye"] = {"eye"},
-        ["iris"] = {"iris"}
+        ["iris"] = {"iris"},
+        ["fountain_ball"] = {"fountain_ball"},
+        ["fountain_ball_dissolve"] = {"fountain_ball_dissolve"}
     }
 
     self.disallow_replacement_texture = true
@@ -38,15 +41,6 @@ end
 
 function Voidspawn:createSprite()
     return VoidspawnActor(self)
-end
-
-function Voidspawn:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == 'table' then anim = anim[1] end
-	
-    if anim == "overworld" or anim == "hurt" then
-        sprite:setPartVisible(false)
-    end
 end
 
 return Voidspawn

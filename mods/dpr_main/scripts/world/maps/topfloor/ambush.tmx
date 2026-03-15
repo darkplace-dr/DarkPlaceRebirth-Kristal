@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="18" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="40">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="18" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="40">
  <editorsettings>
   <export target="ambush.lua" format="lua"/>
  </editorsettings>
@@ -106,9 +106,15 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="39" name="npc" x="500" y="320">
+  <object id="39" name="voidenemy" x="500" y="320">
    <properties>
     <property name="actor" value="voidspawn"/>
+    <property name="chase" type="bool" value="true"/>
+    <property name="chaseaccel" type="float" value="1.075"/>
+    <property name="chasemax" type="float" value="100"/>
+    <property name="chasespeed" type="float" value="2"/>
+    <property name="chasetype" value="multiplier"/>
+    <property name="encounter" value="voidspawn"/>
     <property name="flagcheck" value="!topfloor_ambush"/>
    </properties>
    <point/>
