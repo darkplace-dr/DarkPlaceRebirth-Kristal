@@ -1619,33 +1619,7 @@ local cliffside = {
         return
     end
 
-    local resolved_as_instant = false
-    local input_menu = nil
-    local action_raw = cutscene:getUserText(8, "warpbin", nil, nil, {
-        ---@type fun(text:string,key:string,object:WarpBinInputMenu|GonerKeyboard)
-        key_callback = function (text, key, object, fade_rect)
-            local code = Kristal:getBinCode(text..key)
-            if code and code.instant then
-                resolved_as_instant = true
-                Assets.playSound("bell")
-                fade_rect:remove()
-                if object:includes(GonerKeyboard) then
-                    ---@cast object GonerKeyboard
-                    object:finish()
-                else
-                    ---@cast object WarpBinInputMenu
-                    object.finish_cb(code, text .. key)
-                    object:endInput()
-                    input_menu = object
-                end
-            end
-        end
-    })
-    if resolved_as_instant then
-        cutscene:wait(0.5)
-        if input_menu then input_menu:remove() end
-    end
-
+    local action_raw = cutscene:getUserText(8, "warpbin")
     if action_raw == "THETOWER" then
         cutscene:wait(0.2)
         Game.world.music:stop()
