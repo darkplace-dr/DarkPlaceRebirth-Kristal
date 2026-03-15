@@ -28,8 +28,6 @@ function WarpBinInputMenu:init(length)
 
     self.cancellable = true
 
-    -- affects whether we query the bincode list or not
-    self.as_warp_bin_ui = true
     self.finish_cb = nil
     self.key_callback = nil
 end
@@ -74,7 +72,7 @@ function WarpBinInputMenu:draw()
             love.graphics.printf(char, draw_x, draw_y, self.char_w, "center")
         end
 
-        if i ~= math.min(TextInput.cursor_x + 1, self.code_len) or TextInput.flash_timer < 0.5 then
+        if not TextInput.active or (i ~= math.min(TextInput.cursor_x + 1, self.code_len) or TextInput.flash_timer < 0.5) then
             local line_y = draw_y + self.char_h + 2
             love.graphics.line(draw_x, line_y, draw_x + self.char_w, line_y)
         end

@@ -12,22 +12,33 @@ return function(cutscene, event)
         return
     end
 
+    local resolved_as_instant = false
+    local input_menu = nil
     local action_raw = cutscene:getUserText(8, "warpbin", nil, nil, {
         ---@type fun(text:string,key:string,object:WarpBinInputMenu|GonerKeyboard)
         key_callback = function (text, key, object, fade_rect)
-            -- Kristal.Console.log(text..key)
             local code = Kristal:getBinCode(text..key)
             if code and code.instant then
-                if object.__includes_all[GonerKeyboard] then
-                    object.callback(text..key)
-                else
-                    object:finish_cb(text..key)
-                end
+                resolved_as_instant = true
+                Assets.playSound("bell")
                 fade_rect:remove()
-                object:remove()
+                if object:includes(GonerKeyboard) then
+                    ---@cast object GonerKeyboard
+                    object:finish()
+                else
+                    ---@cast object WarpBinInputMenu
+                    object.finish_cb(code, text .. key)
+                    object:endInput()
+                    input_menu = object
+                end
             end
         end
     })
+    if resolved_as_instant then
+        cutscene:wait(0.5)
+        if input_menu then input_menu:remove() end
+    end
+
     ---@type WarpBinCodeInfo
     local action = Kristal:getBinCode(action_raw)
 
