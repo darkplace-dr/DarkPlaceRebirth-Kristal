@@ -24,6 +24,13 @@ function spell:init()
     self.tags = {"Heal"}
 end
 
+function spell:getName()
+    if Game:getFlag("healsling_plus") then
+        return "HealSling+"
+    end
+    return self.name
+end
+
 function spell:getCastMessage(user, target)
     return "* "..user.chara:getName().." used "..self:getCastName().."!"
 end
@@ -34,6 +41,9 @@ end
 
 function spell:onCast(user, target)
 	local damage = math.floor((user.chara:getStat("attack") * 15))
+    if Game:getFlag("healsling_plus") then
+        damage = math.floor((user.chara:getStat("attack") * 30))
+    end
 
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
