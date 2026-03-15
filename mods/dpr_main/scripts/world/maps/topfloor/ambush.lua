@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 40,
+  nextobjectid = 41,
   properties = {
     ["border"] = "titan",
     ["music"] = "topfloor",
@@ -637,6 +637,22 @@ return {
             ["chasetype"] = "multiplier",
             ["encounter"] = "voidspawn",
             ["flagcheck"] = "!topfloor_ambush"
+          }
+        },
+        {
+          id = 40,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 280,
+          width = 40,
+          height = 160,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "topfloor.ambush",
+            ["once"] = true
           }
         }
       }

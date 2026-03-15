@@ -9,55 +9,54 @@ function Voidspawn:init()
     self:setActor("voidspawn")
 
     -- Enemy health
-    self.max_health = 450
-    self.health = 450
+    self.max_health = 15000
+    self.health = 15000
     -- Enemy attack (determines bullet damage)
-    self.attack = 4
+    self.attack = 30
     -- Enemy defense (usually 0)
-    self.defense = 0
+    self.defense = 10
     -- Enemy reward
-    self.money = 100
+    self.money = 500
 
-    self.experience = 5
+    self.experience = 200
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
-    self.spare_points = 20
+    self.spare_points = 0
+
+    self.disable_mercy = true
+    self.tired = false
+    self.tired_percentage = -1
+    self.low_health_percentage = 0.1
 
     -- List of possible wave ids, randomly picked each turn
     self.waves = {
         "basic",
-        "aiming",
-        "movingarena"
     }
 
     -- Dialogue randomly displayed in the enemy's speech bubble
-    self.dialogue = {
-        "..."
-    }
+    self.dialogue = {}
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
-    self.check = "AT 4 DF 0\n* Looks just like a placeholder."
+    self.check = "AT 30 DF 10\n* Essence of the void."
 
     -- Text randomly displayed at the bottom of the screen each turn
     self.text = {
-        "* The dummy gives you a soft\nsmile.",
-        "* The power of fluffy boys is\nin the air.",
-        "* Smells like cardboard.",
+        "* The pain itself is reason why.",
+        "* Cornered.",
+        "* Smells like          .",
     }
     -- Text displayed at the bottom of the screen when the enemy has low health
-    self.low_health_text = "* The dummy looks like it's\nabout to fall over."
+    self.low_health_text = "* Voidspawn starts to dissipate."
 
-    -- Register act called "Smile"
-    self:registerAct("Smile")
-    -- Register party act with Ralsei called "Tell Story"
-    -- (second argument is description, usually empty)
-    self:registerAct("Tell Story", "", {"ralsei"})
+    self:registerAct("Banish",   "Defeat\nenemy",  nil,   64)
 
     self.killable = true
 
+    self.graze_tension = 0.1
+
     self.resistances = {
-        FIRE = 0.75,
-        ICE = 1.5
+        HOLY = 0.25,
+        DARK = math.huge
     }
 	self.is_active = false
 	self.sprite.eye_center = true
@@ -97,39 +96,34 @@ function Voidspawn:onHurtEnd()
 end
 
 function Voidspawn:onAct(battler, name)
-    if name == "Smile" then
-        -- Give the enemy 100% mercy
-        self:addMercy(100)
-        -- Change this enemy's dialogue for 1 turn
-        self.dialogue_override = "... ^^"
-        -- Act text (since it's a list, multiple textboxes)
-        return {
-            "* You smile.[wait:5]\n* The dummy smiles back.",
-            "* It seems the dummy just wanted\nto see you happy."
-        }
+    if name == "Banish" then
+        battler:setAnimation("act")
+        Game.battle:startCutscene(function(cutscene)
+            cutscene:text("* "..battler.chara:getName().."'s SOUL emitted a brilliant \nlight!")
+            battler:flash()
 
-    elseif name == "Tell Story" then
-        -- Loop through all enemies
-        for _, enemy in ipairs(Game.battle.enemies) do
-            -- Make the enemy tired
-            enemy:setTired(true)
-        end
-        return "* You and Ralsei told the dummy\na bedtime story.\n* The enemies became [color:blue]TIRED[color:reset]..."
+            local bx, by = battler:getRelativePos(battler.width/2 + 4, battler.height/2 + 4)
+
+            local texture = "player/heart_centered"
+            if battler.chara.id == "susie" then texture = "player/heart_centered_flip" end -- hacky
+            local soul = Game.battle:addChild(TitanSpawnPurifySoul(texture, bx, by, semi, self))
+            soul.color = Game:getPartyMember(Game.party[1].id).soul_color or { 1, 0, 0 }
+            soul.layer = 501
+
+            cutscene:wait(function() return soul.t >= 500 end)
+            cutscene:after(function()
+                if #Game.battle.enemies == 0 then
+                    Game.battle:setState("VICTORY")
+                else
+                    Game.battle:finishAction()
+                    Game.battle:setState("ACTIONS", "CUTSCENE")
+                end
+            end)
+        end)
+        return
 
     elseif name == "Standard" then --X-Action
-        -- Give the enemy 50% mercy
-        self:addMercy(50)
-        if battler.chara.id == "ralsei" then
-            -- R-Action text
-            return "* Ralsei bowed politely.\n* The dummy spiritually bowed\nin return."
-        elseif battler.chara.id == "susie" then
-            -- S-Action: start a cutscene (see scripts/battle/cutscenes/dummy.lua)
-            Game.battle:startActCutscene("dummy", "susie_punch")
-            return
-        else
-            -- Text for any other character (like Noelle)
-            return "* "..battler.chara:getName().." straightened the\ndummy's hat."
-        end
+        return "* "..battler.chara:getName().." didn't know what to do..."
     end
 
     -- If the act is none of the above, run the base onAct function
