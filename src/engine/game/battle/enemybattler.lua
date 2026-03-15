@@ -225,8 +225,14 @@ function EnemyBattler:registerAct(name, description, party, tp, highlight, icons
     if type(party) == "string" then
         if party == "all" then
             party = {}
-            for _, battler in ipairs(Game.battle.party) do
-                table.insert(party, battler.chara.id)
+            if Game.battle ~= nil then
+                for _, battler in ipairs(Game.battle.party) do
+                    table.insert(party, battler.chara.id)
+                end
+            else
+                for _, chara in ipairs(Game.party) do
+                    table.insert(party, chara.id)
+                end
             end
         else
             party = { party }
@@ -259,8 +265,14 @@ function EnemyBattler:registerShortAct(name, description, party, tp, highlight, 
     if type(party) == "string" then
         if party == "all" then
             party = {}
-            for _, battler in ipairs(Game.battle.party) do
-                table.insert(party, battler.chara.id)
+            if Game.battle ~= nil then
+                for _, battler in ipairs(Game.battle.party) do
+                    table.insert(party, battler.chara.id)
+                end
+            else
+                for _, chara in ipairs(Game.party) do
+                    table.insert(party, chara.id)
+                end
             end
         else
             party = { party }
@@ -293,8 +305,14 @@ function EnemyBattler:registerActFor(char, name, description, party, tp, highlig
     if type(party) == "string" then
         if party == "all" then
             party = {}
-            for _, battler in ipairs(Game.battle.party) do
-                table.insert(party, battler.chara.id)
+            if Game.battle ~= nil then
+                for _, battler in ipairs(Game.battle.party) do
+                    table.insert(party, battler.chara.id)
+                end
+            else
+                for _, chara in ipairs(Game.party) do
+                    table.insert(party, chara.id)
+                end
             end
         else
             party = { party }
@@ -326,8 +344,14 @@ function EnemyBattler:registerShortActFor(char, name, description, party, tp, hi
     if type(party) == "string" then
         if party == "all" then
             party = {}
-            for _, battler in ipairs(Game.battle.party) do
-                table.insert(party, battler.id)
+            if Game.battle ~= nil then
+                for _, battler in ipairs(Game.battle.party) do
+                    table.insert(party, battler.chara.id)
+                end
+            else
+                for _, chara in ipairs(Game.party) do
+                    table.insert(party, chara.id)
+                end
             end
         else
             party = { party }
@@ -449,14 +473,8 @@ function EnemyBattler:onSpareable()
 end
 
 --- Adds (or removes) mercy from this enemy
----@param amount number
+---@param amount number The amount of mercy being added (or removed, if set to negative)
 function EnemyBattler:addMercy(amount)
-    if (amount >= 0 and self.mercy >= 100) or (amount < 0 and self.mercy <= 0) then
-        -- We're already at full mercy and trying to add more; do nothing.
-        -- Also do nothing if trying to remove from an empty mercy bar.
-        return
-    end
-
     self.mercy = self.mercy + amount
     if self.mercy < 0 then
         self.mercy = 0
@@ -1063,7 +1081,7 @@ function EnemyBattler:defeat(reason, violent)
     elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
         Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
     end
-    
+
     if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
         self:setRecruitStatus(self:getRecruitStatus() + 1)
         if Game:getConfig("enableRecruits") then
@@ -1080,7 +1098,7 @@ function EnemyBattler:defeat(reason, violent)
             end
         end
     end
-    
+
     Game.battle.money = Game.battle.money + self.money
 
     Game.battle:removeEnemy(self, true)

@@ -301,6 +301,8 @@ Mend = require("src.engine.game.battle.mend")
 
 BlueSoul = require("src.engine.game.battle.souls.bluesoul")
 
+BattleBackground = require("src.engine.game.battle.ui.battlebackground")
+BattleDarkener = require("src.engine.game.battle.ui.battledarkener")
 BattleUI = require("src.engine.game.battle.ui.battleui")
 ActionBox = require("src.engine.game.battle.ui.actionbox")
 ActionBoxDisplay = require("src.engine.game.battle.ui.actionboxdisplay")
