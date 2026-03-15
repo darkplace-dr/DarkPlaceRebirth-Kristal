@@ -13,9 +13,9 @@ local MainMenuTitle, super = Class(StateClass)
 
 function MainMenuTitle:init(menu)
     self.menu = menu
-	
+
 	self.cont_alpha = 1
-    
+
     self.debounce = false
 end
 
@@ -35,15 +35,22 @@ end
 -------------------------------------------------------------------------------
 
 function MainMenuTitle:onEnter(old_state)
+    self.menu.heart_target_x = -40
+    self.menu.heart_target_y = -40
+    if old_state == "NONE" then
+        self.menu.heart.x = self.menu.heart_target_x
+        self.menu.heart.y = self.menu.heart_target_y
+    end
+
     self.cont_alpha = 1
-    
+
     if self.kristal_stage_title then
         self.kristal_stage_title:remove()
     end
-    
+
     self.menu.kristal_stage_title = TitleLogo(320, 180, self.menu.splash)
     MainMenu.stage:addChild(self.menu.kristal_stage_title)
-    
+
     self.debounce = false
 end
 
