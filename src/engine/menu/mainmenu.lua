@@ -17,18 +17,18 @@ MainMenu.BACKGROUND_SHADER = love.graphics.newShader([[
     }
 ]])
 
-function MainMenu:init()    
+function MainMenu:init()
     self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
     self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
-    
+
     local date = os.date("*t")
     if date.month == 4 and date.day == 1 then
         self.border_back = love.graphics.newImage("assets/sprites/kristal/title/fool_back.png")
         self.border_front = love.graphics.newImage("assets/sprites/kristal/title/fool_front.png")
     end
-    
+
     self.border_scroll = 0
-    
+
     self.splash_list = self:require("splashes")
 end
 
@@ -138,6 +138,8 @@ function MainMenu:enter()
         self.music:play("mod_menu", 1, 0.95)
     end
 
+    self.splash = Utils.pick(self.splash_list)
+
     if #Kristal.Mods.failed_mods > 0 then
         self:setState("MODERROR")
     elseif Kristal.Config["seenLegitWarning"] and Kristal.Config["skipIntro"] then
@@ -177,10 +179,8 @@ function MainMenu:enter()
         self.selected_mod = self.mod_list:getSelectedMod()
         self.selected_mod_button = self.mod_list:getSelectedButton()
     end
-    
+
     self.border_scroll = 0
-    
-    self.splash = Utils.pick(self.splash_list)
 end
 
 function MainMenu:require(module, ...)
@@ -354,18 +354,18 @@ function MainMenu:update()
             Kristal.Shatter.active = false
         end
     end
-    
+
     self.border_scroll = self.border_scroll + DT
 end
 
 function MainMenu:draw()
     -- Draw the menu background
     self:drawBackground()
-    
+
     Draw.setColor(1, 1, 1, 1)
     Draw.drawWrapped(self.border_back, true, false, self.border_scroll * 10, 15)
     Draw.drawWrapped(self.border_front, true, false, self.border_scroll * 8, 0)
-    
+
     Draw.drawWrapped(self.border_back, true, false, -self.border_scroll * 10, 465, math.rad(180))
     Draw.drawWrapped(self.border_front, true, false, -self.border_scroll * 8, 480, math.rad(180))
 
