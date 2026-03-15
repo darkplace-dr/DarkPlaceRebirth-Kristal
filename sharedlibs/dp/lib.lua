@@ -69,7 +69,7 @@ function lib:load(data)
     if not MagicalGlassLib then
         self.mg_data_preserve = data.magical_glass
     end
-    
+
     if data and data.name and string.upper(data.name) == "EUROPE" and tonumber(os.date("%m")) == 11 then
         love.event.quit("restart")
     end
@@ -143,7 +143,7 @@ function lib:checkPromises()
             table.insert(promises_to_fulfill, pair.key)
         end
     end
-    
+
     local nextPromise
     function nextPromise()
         local cutscene_id = table.remove(promises_to_fulfill, 1)
@@ -152,7 +152,7 @@ function lib:checkPromises()
         local cutscene = Game.world:startCutscene("promises." .. cutscene_id)
         cutscene:after(nextPromise)
     end
-    
+
     nextPromise()
 end
 
@@ -198,28 +198,28 @@ function lib:loadHooks()
         end)
         Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
         Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
-        
-        Utils.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...) 
+
+        Utils.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...)
             local enemy_obj
             if type(enemy) == "string" then
                 enemy_obj = MagicalGlassLib:createLightEnemy(enemy, ...)
             else
                 enemy_obj = enemy
             end
-            
+
             if enemy_obj.milestone and enemy_obj.experience > 0 then
                 self.milestone = true
             end
-            
+
             return orig(self, enemy, x, y, ...)
         end)
 
         Utils.hook(LightStatMenu, "draw", function(orig, self)
             love.graphics.setFont(self.font)
             Draw.setColor(PALETTE["world_text"])
-            
+
             local party = Game.party[self.party_selecting]
-            
+
             if self.state == "PARTYSELECT" then
                 local function party_box_area()
                     local party_box = self.party_select_bg
@@ -228,19 +228,19 @@ function lib:loadHooks()
                 love.graphics.stencil(party_box_area, "replace", 1)
                 love.graphics.setStencilTest("equal", 0)
             end
-            
+
             if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
                 Draw.setColor({235/255, 235/255, 130/255})
             end
-            
+
             love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
-            
+
             Draw.setColor(PALETTE["world_text"])
-            
+
             if party:getLightStatText() and not party:getLightPortrait() then
                 love.graphics.print(party:getLightStatText(), 172, 8)
             end
-            
+
             local ox, oy = party.actor:getPortraitOffset()
             if party:getLightPortrait() then
                 Draw.draw(Assets.getTexture(party:getLightPortrait()), 179 + ox, 7 + oy, 0, 2, 2)
@@ -251,23 +251,23 @@ function lib:loadHooks()
                     Draw.setColor(Game:getSoulColor())
                     Draw.draw(self.heart_sprite, 212, 124, 0, 2, 2)
                 end
-                
+
                 Draw.setColor(PALETTE["world_text"])
                 love.graphics.print("<                >", 162, 116)
             end
 
             Draw.setColor(PALETTE["world_text"])
-            
+
             love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").."  "..party:getLightLV(), 4, 68)
             love.graphics.print("HP  "..party:getHealth().." / "..party:getStat("health"), 4, 100)
 
             if self.state == "STATS" then
                 local exp_needed = math.max(0, party:getLightEXPNeeded(party:getLightLV() + 1) - party:getLightEXP())
-            
+
                 local at = party:getBaseStats()["attack"]
                 local df = party:getBaseStats()["defense"]
                 local mg = party:getBaseStats()["magic"]
-                
+
                 if self.undertale_stat_display then
                     at = at - 10
                     df = df - 10
@@ -281,14 +281,14 @@ function lib:loadHooks()
                 end
                 love.graphics.print("AT  "  .. at  .. " ("..party:getEquipmentBonus("attack")  .. ")", 4, 164 - offset)
                 love.graphics.print("DF  "  .. df  .. " ("..party:getEquipmentBonus("defense") .. ")", 4, 196 - offset)
-                
+
                 if party.id ~= "pauling" then
                     love.graphics.print("EXP: " .. party:getLightEXP(), 172, 164)
                     love.graphics.print("NEXT: ".. exp_needed, 172, 196)
                 else
                     love.graphics.print("MILESTONE", 172, 164)
                 end
-            
+
                 local weapon_name = "None"
                 local armor_name = "None"
 
@@ -299,15 +299,15 @@ function lib:loadHooks()
                 if party:getArmor(1) then
                     armor_name = party:getArmor(1):getEquipDisplayName()
                 end
-                
+
                 love.graphics.print("WEAPON: "..weapon_name, 4, 256)
                 love.graphics.print("ARMOR: "..armor_name, 4, 288)
-            
+
                 love.graphics.print(Game:getConfig("lightCurrency"):upper()..": "..Game.lw_money, 4, 328)
                 if MagicalGlassLib.kills > 20 then
                     love.graphics.print("KILLS: "..MagicalGlassLib.kills, 172, 328)
                 end
-                
+
                 if self.show_magic then
                     love.graphics.setFont(self.font_small)
                     if Input.usingGamepad() then
@@ -320,21 +320,21 @@ function lib:loadHooks()
             else
                 local spells = self:getSpells()
                 local spell_limit = self:getSpellLimit()
-                
+
                 love.graphics.setFont(self.font_small)
                 Draw.setColor(PALETTE["world_gray"])
                 love.graphics.print(Kristal.getLibConfig("magical-glass", "light_battle_tp_name"), 21, 138)
-                
+
                 love.graphics.setFont(self.font)
                 Draw.setColor(PALETTE["world_text"])
                 for i = self.scroll_y, math.min(#spells, self.scroll_y + (spell_limit - 1)) do
                     local spell = spells[i]
                     local offset = i - self.scroll_y
-                    
+
                     love.graphics.print(tostring(spell:getTPCost(party)).."%", 20, 148 + offset * 32)
                     love.graphics.print(spell:getName(), 90, 148 + offset * 32)
                 end
-                
+
                 Draw.setColor(Game:getSoulColor())
                 if self.state == "SELECTINGSPELL" then
                     Draw.draw(self.heart_sprite, -4, 156 + 32 * (self.spell_selecting - self.scroll_y), 0, 2, 2)
@@ -345,7 +345,7 @@ function lib:loadHooks()
                         Draw.draw(self.heart_sprite, 206 - 32, 348, 0, 2, 2)
                     end
                 end
-                
+
                 -- Draw scroll arrows if needed
                 if #spells > spell_limit then
                     Draw.setColor(1, 1, 1)
@@ -365,7 +365,7 @@ function lib:loadHooks()
                         Draw.draw(self.arrow_sprite, 294 - 4, (148 + (32 * spell_limit) - 19) + sine_off)
                     end
                 end
-                
+
                 -- Draw scrollbar if needed (unless the spell limit is 2, in which case the scrollbar is too small)
                 if self.state == "SELECTINGSPELL" and spell_limit > 2 and #spells > spell_limit then
                     local scrollbar_height = (spell_limit - 2) * 32 + 7
@@ -375,13 +375,13 @@ function lib:loadHooks()
                     Draw.setColor(1, 1, 1)
                     love.graphics.rectangle("fill", 294, 148 + 30 + math.floor(percent * (scrollbar_height-6)), 6, 6)
                 end
-                
+
                 if self.state == "PARTYSELECT" then
                     love.graphics.setStencilTest()
                     Draw.setColor(PALETTE["world_text"])
-                    
+
                     local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
-                    
+
                     Draw.printAlign("Use " .. spells[self.spell_selecting]:getName() .. " on", 150, 231 + (#Game.party > z and 18 or 56), "center")
 
                     for i,party in ipairs(Game.party) do
@@ -412,9 +412,9 @@ function lib:loadHooks()
                     love.graphics.print("INFO", 230 - 32, 340)
                 end
             end
-            love.graphics.setFont(self.font)			
+            love.graphics.setFont(self.font)
             local party = Game.party[self.party_selecting]
-            
+
             Draw.setColor(COLORS.white)
         end)
     end
@@ -531,7 +531,7 @@ function lib:updateBattleTaunt()
         and Input.pressed("taunt", false)
         and self.taunt_cooldown == 0
         and (Game.state == "BATTLE" and not Game.battle:hasCutscene())
-        and not Utils.containsValue(Game.state_blacklist, Game.battle.state)
+        and not Utils.containsValue(self.state_blacklist, Game.battle.state)
         and not (OVERLAY_OPEN or TextInput.active)
     then
         self.taunt_cooldown = 2.1

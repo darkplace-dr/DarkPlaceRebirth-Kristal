@@ -148,7 +148,7 @@ local cliffside = {
                 hero:setSprite("walk/down")
                 cutscene:textTagged("* Regardless,[wait:5] it seems you're stuck with me,[wait:5] so...", "neutral_opened", "hero")
                 cutscene:textTagged("* We should find out what caused reality to collapse in on itself.", "neutral_closed", "hero")
-				
+
                 cutscene:wait(0.5)
                 hero:setFacing("up")
                 hero:resetSprite()
@@ -428,14 +428,14 @@ local cliffside = {
         function isPrime(n)
             local n = tonumber(n)
             --catch nil, 0, 1, negative and non int numbers
-            if not n or n<2 or (n % 1 ~=0) then 
+            if not n or n<2 or (n % 1 ~=0) then
                 return false
             --catch even number above 2
-            elseif n>2 and (n % 2 == 0) then 
+            elseif n>2 and (n % 2 == 0) then
                 return false
             --primes over 5 end in 1,3,7 or 9
             --catch numbers that end in 5 or 0 (multiples of 5)
-            elseif n>5 and (n % 5 ==0) then 
+            elseif n>5 and (n % 5 ==0) then
                 return false
             --now check for prime
             else
@@ -450,7 +450,7 @@ local cliffside = {
                 return true
             end
         end
-        
+
         local gus = cutscene:getCharacter("gus")
 
         gus:setAnimation("idle")
@@ -458,7 +458,7 @@ local cliffside = {
         cutscene:textTagged("* NAME'S GUS.\n[wait:5]* [color:yellow]fun[color:reset] GUS!", nil, gus)
         cutscene:textTagged("* AND I'M 'ERE TO TELL YA 'BOUT HOW MUCH [color:yellow]fun[color:reset] YOU'LL HAVE ON THIS 'ERE ADVENTURE!", nil, gus)
         cutscene:textTagged("* ACCORDIN' TO MY \nSOURCES 'ERE...", nil, gus)
-		
+
         local FUN = Game:getFlag("FUN")
         local prime = isPrime(FUN)
         cutscene:textTagged("* THE AMOUNT OF [color:yellow]fun[color:reset] YOU'LL HAVE WILL BE [color:yellow]"..FUN.."%[color:reset]!", nil, gus)
@@ -512,19 +512,19 @@ local cliffside = {
                     cutscene:textTagged("* SAY, CAN I TELL YA A SECRET?", nil, gus)
                     cutscene:textTagged("* NUMBERS IN THE SIXTIES ARE MY FAAAVORITES!", nil, gus)
                     cutscene:textTagged("* YOU WANNA KNOW WHY?", nil, gus)
-    
+
                     local darkness = Rectangle(0, 0, 640, 480)
                     darkness.layer = Game.world.player.layer - 0.1
                     darkness:setScale(1)
                     darkness:setColor(0, 0, 0)
                     darkness:setParallax(0, 0)
                     Game.world:addChild(darkness)
-    
+
                     Game.world.music:setPitch(0.25)
                     Assets.playSound("noise")
                     gus:setSprite("spooky")
                     cutscene:text("[spacing:2.5][speed:0.3][voice:none][noskip]* Because there's a chance you'll meet someone special that way.")
-    
+
                     cutscene:wait(2)
                     darkness:remove()
                     Game.world.music:setPitch(1)
@@ -606,7 +606,7 @@ local cliffside = {
 		        if white_glows then
                     Game.world.timer:tween(5, white_glows, {alpha = 0})
                 end
-				
+
                 for i,v in ipairs(Game.world.map.tile_layers) do
                     Game.world.timer:tween(5, Game.world.map.tile_layers[i], {alpha = 0})
                 end
@@ -625,7 +625,7 @@ local cliffside = {
                 cutscene:wait(5)
                 local rev = Assets.playSound("revival")
                 soul:shine()
-    
+
                 local flash_parts = {}
                 local flash_part_total = 12
                 local flash_part_grow_factor = 0.5
@@ -983,10 +983,10 @@ local cliffside = {
                     cutscene:text("* Yeah,[wait:5] guess I don't really have much of a choice now.", "annoyed_down", "susie")
                     cutscene:text("* Well uhh,[wait:5] lead the way, Hero.", "sincere_smile", "susie")
                     cutscene:hideNametag()
-            
+
                     get_bus:stop()
                     get_bus:remove()
-					
+
 					Game.world.music:pause()
                     local party_jingle = Music("deltarune/charjoined")
                     party_jingle:play()
@@ -1000,7 +1000,7 @@ local cliffside = {
                     cutscene:showNametag("Hero")
                     cutscene:text("* Oh yeah.[wait:5]\n* I should get rid of this thing for now.", "neutral_opened", "hero")
                     cutscene:hideNametag()
-					
+
                     Assets.playSound("impact")
                     lore_board:shake()
                     hero:setSprite("walk/up_4")
@@ -1011,7 +1011,7 @@ local cliffside = {
                     cutscene:wait(1)
                     susie:shake()
                     susie:setSprite("shock_behind")
-					
+
                     local explosion = Explosion(lore_board.x + (lore_board.width), lore_board.y + (lore_board.height))
                     explosion:setOrigin(0.5, 0.5)
                     explosion:setScale(8, 4)
@@ -1019,7 +1019,7 @@ local cliffside = {
                     Game.world:addChild(explosion)
                     cutscene:wait(0.5)
                     lore_board:remove()
-					
+
                     cutscene:wait(1)
                     susie:setSprite("walk")
                     susie:setFacing("up")
@@ -1038,7 +1038,7 @@ local cliffside = {
                     cutscene:attachCamera()
                     cutscene:wait(cutscene:attachFollowers())
                     cutscene:interpolateFollowers()
-                    
+
                     Game.world.music:play("demonic_little_grey_cliffs", 1, 1)
                 end
                 cutscene:getEvent(65):remove()
@@ -1266,7 +1266,7 @@ local cliffside = {
         hero:walkTo(hero.x, hero.y - 20, 0.5, "up")
         cutscene:wait(0.5)
     end,
-    
+
     cat_claimb_done = function(cutscene, event)
         cutscene:showNametag("Cat")
             if Game.inventory:hasItem("claimbclaws") then
@@ -1619,22 +1619,7 @@ local cliffside = {
         return
     end
 
-    local action_raw = cutscene:getUserText(8, "warpbin", nil, nil, {
-        ---@type fun(text:string,key:string,object:WarpBinInputMenu|GonerKeyboard)
-        key_callback = function (text, key, object, fade_rect)
-            -- Kristal.Console.log(text..key)
-            local code = Kristal:getBinCode(text..key)
-            if code and code.instant then
-                if object.__includes_all[GonerKeyboard] then
-                    object.callback(text..key)
-                else
-                    object:finish_cb(text..key)
-                end
-                fade_rect:remove()
-                object:remove()
-            end
-        end
-    })
+    local action_raw = cutscene:getUserText(8, "warpbin")
     if action_raw == "THETOWER" then
         cutscene:wait(0.2)
         Game.world.music:stop()
@@ -1881,7 +1866,7 @@ local cliffside = {
         Game.world.music:resume()
     end,
 	]]
-	
+
     worse_vents = function (cutscene, event)
         cutscene:detachFollowers()
         local walktime,waittime = 0.2, 0.2
