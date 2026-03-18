@@ -43,7 +43,7 @@ function AssetBucket:startLoading(paths)
                 table.sort(files)
                 for i, subpath in ipairs(files) do
                     local filepath = FilePath(asset_search_path .. "/" .. subfolder, subpath)
-                    if TableUtils.contains(loader.valid_extensions, filepath.extension) then
+                    if TableUtils.contains(loader.valid_extensions, string.lower(filepath.extension)) then
                         loader:beginLoad(filepath, Assets.getQueue(self.bucket_id, asset_type))
                     end
                 end
