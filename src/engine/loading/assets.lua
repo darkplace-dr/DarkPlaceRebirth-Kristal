@@ -511,13 +511,19 @@ end
 ---@param sound string
 ---@return love.Source
 function Assets.getSound(sound)
-    return self.get("sound", sound)
+    return self.tryGet("sound", sound)
+end
+
+function Assets.hasSound(sound)
+    return self.internalHas("sound", sound)
 end
 
 ---@param sound string
 ---@return love.Source
 function Assets.newSound(sound)
-    return self.getSound(sound):clone()
+    local source = self.getSound(sound)
+    if not source then return end
+    return source:clone()
 end
 
 ---@param sound string
@@ -552,6 +558,7 @@ end
 ---@param pitch? number
 ---@return love.Source
 function Assets.playSound(sound, volume, pitch)
+    if not self.hasSound(sound) then return end
     self.sound_instances[sound] = self.sound_instances[sound] or {}
     local src
     local function play(v)
