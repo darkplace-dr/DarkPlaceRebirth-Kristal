@@ -14,7 +14,7 @@ function Voidspawn:init()
     -- Enemy attack (determines bullet damage)
     self.attack = 30
     -- Enemy defense (usually 0)
-    self.defense = 10
+    self.defense = 25
     -- Enemy reward
     self.money = 500
 
@@ -30,14 +30,15 @@ function Voidspawn:init()
 
     -- List of possible wave ids, randomly picked each turn
     self.waves = {
-        "basic",
+        --"voidspawn/eyebeam",
+        "voidspawn/ram"
     }
 
     -- Dialogue randomly displayed in the enemy's speech bubble
     self.dialogue = {}
 
     -- Check text (automatically has "ENEMY NAME - " at the start)
-    self.check = "AT 30 DF 10\n* Essence of the void."
+    self.check = "AT 30 DF 200\n* Essence of the void."
 
     -- Text randomly displayed at the bottom of the screen each turn
     self.text = {
@@ -50,8 +51,6 @@ function Voidspawn:init()
 
     self:registerAct("Banish",   "Defeat\nenemy",  nil,   64)
 
-    self.killable = true
-
     self.graze_tension = 0.1
 
     self.resistances = {
@@ -63,6 +62,8 @@ function Voidspawn:init()
 	self.sprite.body_alpha = 1
 	self.sprite.trail_speed = 0
 	self.sprite.trail_dir = math.rad(0)
+
+    self.siner_active = true
 end
 
 function Voidspawn:update()
@@ -77,7 +78,11 @@ function Voidspawn:update()
 			self.sprite.trail_speed = 2
 		end
 		self.sprite.fly_siner = self.sprite.fly_siner + DTMULT
-        self.sprite.y = -(math.sin(self.sprite.fly_siner / 7)) * 4
+        if self.siner_active then
+            self.sprite.y = MathUtils.lerp(self.sprite.y, -(math.sin(self.sprite.fly_siner / 7)) * 4, 0.75)
+        else
+            self.sprite.y = MathUtils.lerp(self.sprite.y, 0, 0.5)
+        end
 	end
 end
 
@@ -92,7 +97,26 @@ function Voidspawn:onHurt(damage, battler)
 end
 
 function Voidspawn:onHurtEnd()
-	self.sprite:setBodyState("DARKTRAIL")
+    if self.health > 0 then
+	    self.sprite:setBodyState("DARKTRAIL")
+    end
+end
+
+function Voidspawn:onDefeat()
+    self.hurt_timer = -1
+    self.defeated = true
+
+    self.sprite:kill()
+    self.siner_active = false
+
+    if Game:getFlag("can_kill") then
+        self:defeat("KILLED", true)
+        if Game:hasPartyMember("hero") then
+            Game:getPartyMember("hero"):addKarma(1)
+        end
+    else
+        self:defeat("VIOLENCED", true)
+    end
 end
 
 function Voidspawn:onAct(battler, name)

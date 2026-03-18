@@ -51,6 +51,9 @@ function VoidspawnActorSprite:init(actor)
     }), "wave")
 	self.squash_body = false
 	self.squash_frame = 0
+
+	self.death_scale = 2
+	self.eye_deathtimer = 0
 end
 
 function VoidspawnActorSprite:getTexturePath(sprite_name)
@@ -188,6 +191,15 @@ function VoidspawnActorSprite:setBodyState(state)
 	end
 end
 
+function VoidspawnActorSprite:kill()
+	self:setEyeState("AGONY")
+	self:setBodyState("DEATHEXPLOSION")
+	self.squash_body = true
+	Game.stage.timer:tween(3, self, {death_scale = 0.01}, "linear", function()
+		self:remove()
+	end)
+end
+
 function VoidspawnActorSprite:update()
     super.update(self)
 
@@ -296,6 +308,35 @@ function VoidspawnActorSprite:update()
 			else
 				self.trail_timer = MathUtils.randomInt(1, 8)
 			end
+		end
+	end
+	if self.body_state == "DEATHEXPLOSION" then
+		self.parent:setScale(self.death_scale)
+		local angle = math.rad(MathUtils.random(360))
+		local spd = MathUtils.random(4, 5)
+		local trail = {
+			x = self.trail_x + MathUtils.random(-8, 8),
+			y = self.trail_y - 8,
+			radius = MathUtils.random(0.2, 0.3),
+			speed_x = spd * math.cos(angle),
+			speed_y = spd * math.sin(angle),
+			angle = angle,
+			friction = 0.125,
+			fade = true,
+			mode = 0,
+			frame = 1,
+			lifetime = 15 + MathUtils.randomInt(10),
+			easetype = TableUtils.pick({1, 2}),
+			con = 0,
+		}
+		table.insert(self.trails, trail)
+	end
+	if self.eye_state == "AGONY" then
+		self.eye_deathtimer = self.eye_deathtimer + DT
+		if self.eye_deathtimer > 5/30 then
+			self.eye_deathtimer = 0
+			self.eye_aim_x = self.parent.x + (self.x + 31) + MathUtils.random(-5, 5) * (self.death_scale/2)
+			self.eye_aim_y = self.parent.y + (self.y + 31) + MathUtils.random(-5, 5) * (self.death_scale/2)
 		end
 	end
 end

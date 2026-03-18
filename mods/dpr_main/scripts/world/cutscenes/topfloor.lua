@@ -57,9 +57,12 @@ return{
         Game.world.music:fade(0, 1)
         cutscene:wait(0.5)
 
-        Assets.playSound("spearappear_choppy")
+		Assets.stopAndPlaySound("spearappear_choppy", 1, 0.66)
+		Assets.stopAndPlaySound("giygastalk", 0.7, 1.2)
         voidspawn.sprite:setEyeState("FOLLOWING")
         voidspawn.sprite:setBodyState("DARKTRAIL")
+        voidspawn.sprite.trail_speed = 0.5
+        voidspawn.sprite.trail_dir = math.rad(270)
 
         cutscene:wait(0.25)
         Game.world.player:alert()
@@ -81,12 +84,14 @@ return{
             Assets.playSound("sussurprise")
         end
 
+        voidspawn.sprite:setBodyState("CHASETRAIL")
+        voidspawn.sprite.trail_speed = 1
         cutscene:wait(0.25)
         cutscene:wait(cutscene:slideTo(voidspawn, Game.world.player.x + 70, Game.world.player.y - 20, 0.75, "in-cubic"))
         Assets.playSound("tensionhorn")
-        cutscene:wait(0.25)
+        cutscene:wait(10/30)
         Assets.playSound("tensionhorn", 1, 1.1)
-        cutscene:wait(0.3)
+        cutscene:wait(24/40)
         local encounter = cutscene:startEncounter("voidspawn_ambush", true, {{"voidspawn", voidspawn}})
 
         cutscene:wait(1)
