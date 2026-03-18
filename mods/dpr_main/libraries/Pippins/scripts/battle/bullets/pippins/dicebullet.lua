@@ -184,7 +184,7 @@ end
 function DiceBullet:draw()
     super.draw(self)
 
-	self:setSprite(self.setsprite..self.image_index)
+	self:setSprite(self.setsprite..(self.image_index + 1))
 
 	if (self.force_index == -1) then
 
