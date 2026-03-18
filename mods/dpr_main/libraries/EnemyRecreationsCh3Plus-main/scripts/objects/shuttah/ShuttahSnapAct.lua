@@ -189,7 +189,7 @@ function ShuttahSnapAct:update()
         local camera_frame = self.camera_frame
         local width, height = camera_frame.target_width, camera_frame.target_height
         local x, y = camera_frame.x - width / 2, camera_frame.y - height / 2
-        self.photo = ResultPhoto(camera_frame.canvas, camera_frame.border_on, x, y, width, height)
+        self.photo = ResultPhoto(love.graphics.newImage(camera_frame.imagedata), camera_frame.border_on, x, y, width, height)
         self:addChild(self.photo)
 
         self.alpha = 0

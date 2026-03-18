@@ -19,7 +19,7 @@ function CameraFrame:init(x, y)
 
     self.inherit_color = true
 
-    self.canvas = nil
+    self.imagedata = nil
     self.border_on = false
 
     self.timer = 0
@@ -43,7 +43,7 @@ function CameraFrame:capture()
     Assets.playSound('camera_flash')
     love.graphics.captureScreenshot(function(imageData)
         self.snapped = true
-        self.canvas = love.graphics.newImage(imageData)
+        self.imagedata = imageData
         self.border_on = Kristal.Config["borders"] ~= "off"
     end)
 end
