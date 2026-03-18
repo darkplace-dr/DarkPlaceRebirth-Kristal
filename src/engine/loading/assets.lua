@@ -517,13 +517,19 @@ end
 ---@param sound string
 ---@return Sound
 function Assets.getSound(sound)
-    return self.get("sound", sound)
+    return self.tryGet("sound", sound)
+end
+
+function Assets.hasSound(sound)
+    return self.internalHas("sound", sound)
 end
 
 ---@param sound string
 ---@return Sound
 function Assets.newSound(sound)
-    return self.getSound(sound):clone()
+    local source = self.getSound(sound)
+    if not source then return end
+    return source:clone()
 end
 
 ---@param sound string
@@ -558,11 +564,9 @@ end
 ---@param pitch? number
 ---@return Sound
 function Assets.playSound(sound, volume, pitch)
-    ---@type Sound?
-    local sound_to_clone = self.getSound(sound)
-    if sound_to_clone then
+    if self.hasSound(sound) then
         self.sound_instances[sound] = self.sound_instances[sound] or {}
-        local src = sound_to_clone:clone()
+        local src = self.getSound(sound):clone()
 
         if volume then
             src:setVolume(volume)
