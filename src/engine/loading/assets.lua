@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 ---@class Assets
 ---
 ---@field loaded boolean
@@ -75,6 +76,7 @@ function Assets.init()
     self.getBucket("engine"):startLoading({ "assets" })
 end
 
+---@return integer, integer
 function Assets.getAssetCount()
     local asset_total = 0
     local asset_loaded = 0
@@ -323,6 +325,9 @@ function Assets.update()
     end
     for _, sound in ipairs(sounds_to_remove) do
         TableUtils.removeValue(self.sound_instances[sound.key], sound.value)
+    end
+    if Kristal.Config["projectLoadingMode"] == LoadingMode.LAZY then
+        return
     end
     -- TODO: Make background loading happen on loadthread. Currently this can cause stutters when loading large assets
     local time = love.timer.getTime()
