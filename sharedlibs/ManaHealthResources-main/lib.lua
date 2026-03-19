@@ -69,9 +69,9 @@ function Lib:init()
 
     HookSystem.hook(PartyMember, "increaseStat", function(orig, self, stat, amount, max)
         orig(self, stat, amount, max)
-        local base_stats = self:getBaseStats()
-        base_stats[stat] = (base_stats[stat] or 0) + amount
         if stat == "mana" then
+            local base_stats = self:getBaseStats()
+            base_stats[stat] = (base_stats[stat] or 0) + amount
             self:setMana(math.min(self:getMana() + amount, base_stats[stat]))
         end
     end)

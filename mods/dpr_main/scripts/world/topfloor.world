@@ -13,6 +13,13 @@
             "width": 720,
             "x": 720,
             "y": -40
+        },
+        {
+            "fileName": "maps/topfloor/corridor1.tmx",
+            "height": 480,
+            "width": 1800,
+            "x": 1520,
+            "y": 280
         }
     ],
     "onlyShowAdjacentMaps": false,
