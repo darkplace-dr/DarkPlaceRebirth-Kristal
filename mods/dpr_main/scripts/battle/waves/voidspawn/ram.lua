@@ -25,6 +25,8 @@ function EyeBeam:init()
 end
 
 function EyeBeam:onStart()
+    Game.battle:swapSoul(FlashlightSoul())
+    
     for index, voidspawn in ipairs(self.voidspawn) do
         local x, y = voidspawn:getRelativePos(voidspawn.width/2, voidspawn.height/2)
         if index == 1 then
@@ -40,7 +42,6 @@ function EyeBeam:onEnd()
 
     for _, voidspawn in ipairs(self.voidspawn) do
         voidspawn.sprite:setEyeState("SET", voidspawn.x - 10, voidspawn.y + 30)
-        voidspawn.siner_active = true
         voidspawn.layer = BATTLE_LAYERS["battlers"]
     end
 end
@@ -49,7 +50,7 @@ function EyeBeam:update()
     for index, voidspawn in ipairs(self.voidspawn) do
         if index == 1 then
             if self.state == "AIMING" then
-                voidspawn.x = MathUtils.lerp(voidspawn.x, Game.battle.arena.right + 60, 0.1)
+                voidspawn.x = MathUtils.lerp(voidspawn.x, Game.battle.arena.right + 70, 0.1)
                 voidspawn.y = MathUtils.lerp(voidspawn.y, Game.battle.soul.y, 0.1)
             end
         end
@@ -66,23 +67,29 @@ function EyeBeam:update()
                 Game.stage.timer:tween(0.5, voidspawn, {x = Game.battle.arena.right + 100}, "out-cubic", function()
                     Assets.playSound("cardrive", 1, 0.95)
                     Assets.playSound("spearrise", 1, 0.3)
-                    Game.battle.timer:every(1/3, function()
-                        local x, y = voidspawn:getRelativePos(voidspawn.width/2, voidspawn.height/2)
-                        local bullet1 = self:spawnBullet("smallbullet", x, y, math.rad(90), 0.1)
-                        local bullet2 = self:spawnBullet("smallbullet", x, y, math.rad(270), 0.1)
-                        bullet1.layer = voidspawn.layer - 1
-                        bullet1.physics.friction = -0.25
-                        bullet2.layer = voidspawn.layer - 1
-                        bullet2.physics.friction = -0.25
+                    Game.battle.timer:every(1/5, function()
+                        if voidspawn.x < Game.battle.arena.right + 50 then
+                            Assets.playSound("dark_odd", 3, 1.2)
+                            local x, y = voidspawn:getRelativePos(voidspawn.width/2, voidspawn.height/2)
+                            local bullet1 = self:spawnBullet("voidspawn/rambullet", x, y, math.rad(90), 0.1)
+                            local bullet2 = self:spawnBullet("voidspawn/rambullet", x, y, math.rad(270), 0.1)
+                            bullet1.layer = voidspawn.layer - 1
+                            bullet1.physics.friction = -0.25
+                            bullet2.layer = voidspawn.layer - 1
+                            bullet2.physics.friction = -0.25
+                        end
                         if self.state == "RETURNING" then
                             return false
                         end
                     end)
-                    Game.stage.timer:tween(3, voidspawn, {x = -500}, "in-cubic", function()
+                    Game.stage.timer:tween(4, voidspawn, {x = -500}, "in-cubic", function()
                         self.state = "RETURNING"
                         voidspawn.x = SCREEN_WIDTH + 100
                         Game.stage.timer:tween(1, voidspawn, {x = self.og_posx_1, y = self.og_posy_1}, "linear", function()
-                            self:setFinished()
+                            voidspawn.siner_active = true
+                            Game.stage.timer:after(1, function()
+                                self:setFinished()
+                            end)
                         end)
                     end)
                 end)

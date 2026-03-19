@@ -311,6 +311,7 @@ function VoidspawnActorSprite:update()
 		end
 	end
 	if self.body_state == "DEATHEXPLOSION" then
+		if self.squash_body ~= true then self.squash_body = true end
 		self.parent:setScale(self.death_scale)
 		local angle = math.rad(MathUtils.random(360))
 		local spd = MathUtils.random(4, 5)

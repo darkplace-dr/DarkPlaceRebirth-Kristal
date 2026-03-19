@@ -49,6 +49,7 @@ function Voidspawn:init()
     -- Text displayed at the bottom of the screen when the enemy has low health
     self.low_health_text = "* Voidspawn starts to dissipate."
 
+    self:registerAct("Brighten", "Powerup\nlight", "all", 4)
     self:registerAct("Banish",   "Defeat\nenemy",  nil,   64)
 
     self.graze_tension = 0.1
@@ -145,7 +146,19 @@ function Voidspawn:onAct(battler, name)
             end)
         end)
         return
-
+    elseif name == "Brighten" then
+        for _,party in ipairs(Game.battle.party) do
+            party:flash()
+        end
+        Assets.playSound("boost")
+        local bx, by = Game.battle:getSoulLocation()
+        local soul = Sprite("effects/soulshine", bx + 5.5, by)
+        soul:play(1 / 30, false, function() soul:remove() end)
+        soul:setOrigin(0.5)
+        soul:setScale(2, 2)
+        Game.battle:addChild(soul)
+		Game.battle.encounter.light_radius = 63
+        return "* "..battler.chara:getName().."'s SOUL shone brighter!"
     elseif name == "Standard" then --X-Action
         return "* "..battler.chara:getName().." didn't know what to do..."
     end

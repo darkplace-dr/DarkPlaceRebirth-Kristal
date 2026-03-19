@@ -9,9 +9,15 @@ function Voidspawn:init()
     self.background = true
 
     self.reduced_tension = true
+    self.light_radius = 48
 
     self:addEnemy("voidspawn")
     self.flee = false
+end
+
+function Voidspawn:onTurnEnd()
+    super.onTurnEnd(self)
+	self.light_radius = 48
 end
 
 function Voidspawn:onBattleEnd()

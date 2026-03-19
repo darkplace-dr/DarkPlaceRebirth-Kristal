@@ -533,7 +533,10 @@ return {
           height = 80,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["map"] = "topfloor/corridor1",
+            ["marker"] = "west"
+          }
         },
         {
           id = 34,
@@ -594,21 +597,6 @@ return {
           shape = "rectangle",
           x = 680,
           y = 160,
-          width = 40,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 38,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 680,
-          y = 480,
           width = 40,
           height = 80,
           rotation = 0,
