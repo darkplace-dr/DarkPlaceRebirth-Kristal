@@ -84,6 +84,7 @@ function MainMenuOptions:init(menu)
         self.moon = Assets.getTexture("kristal/options_platform")
     end
     self.dog = Assets.getTexture("kristal/dog_balloon")
+    self.dialogue_bubble = Assets.getTexture("bubbles/long_right")
 end
 
 function MainMenuOptions:registerEvents()
@@ -183,6 +184,15 @@ function MainMenuOptions:draw()
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
     else
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
+        Draw.draw(self.dialogue_bubble, 536, 320 + offset, 0, -1, 1)
+    end
+
+    if not self.retro then
+        love.graphics.setFont(Assets.getFont("small"))
+        Draw.setColor(COLORS.black)
+        love.graphics.print(self:getOptionText() or "test FUCKING\n\noptions\n\ndialogue", 396, 326 + offset)
+        Draw.setColor(COLORS.white)
+        love.graphics.setFont(Assets.getFont("main"))
     end
 
     local menu_font = Assets.getFont("main")
@@ -758,6 +768,68 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
     self:registerConfigOption("gameplay", "Silly RTX Mode", "silly_mode")
 
+end
+
+function MainMenuOptions:getOptionText()
+    local text = nil
+    local page_1 = {
+        "change how\n\nloud the\n\ngame is",
+        "change what\n\nkeys do what\n\nactions",
+        "change what\n\ncontroller\n\nbuttons\n\ndo what\n\nactions",
+        "change\n\nwhether you\n\nrun by\n\ndefault",
+        "if enabled,\n\ngives a\n\ncustom\n\ndiscord\n\nstatus",
+        "toggles\n\nfullscreen",
+        "change the\n\nwindow scale\n\nfor windowed\n\nmode",
+        "whether or\n\nnot the game\n\nwill have\n\na border",
+        "simplifies\n\ncertain\n\nscenes for\n\nthose with\n\nphoto-\n\nsensitivity",
+        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
+        "go back\n\nto the\n\nmain menu"
+    }
+    local page_2 = {
+        "toggles\n\nfullscreen",
+        "change the\n\nwindow scale\n\nfor windowed\n\nmode",
+        "whether or\n\nnot the game\n\nwill have\n\na border",
+        "simplifies\n\ncertain\n\nscenes for\n\nthose with\n\nphoto-\n\nsensitivity",
+        "sets the\n\ntarget fps",
+        "toggles\n\nvsync",
+        "toggles\n\nframe skip",
+        "does some-\n\nthing and\n\nbreaks the\n\noptions\n\nmusic",
+        "go back\n\nto the\n\nmain menu"
+    }
+    local page_3 = {
+        "toggles\n\nskipping the\n\nintro when\n\nopening\n\nthe game",
+        "toggles\n\ndisplaying\n\nthe current\n\nfps count",
+        "change the\n\ndefault name\n\nfor save\n\nfiles",
+        "toggles\n\nskipping the\n\nsave file\n\nname entry",
+        "toggles\n\nkristal's\n\ndebug hot-\n\nkeys",
+        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
+        "show the\n\nsystem's\n\nmouse cursor\n\ninstead of\n\nkristal's",
+        "show the\n\nmouse cursor\n\nalways",
+        "instantly\n\nclose the\n\ngame when\n\npressing\n\nESC",
+        "go back\n\nto the\n\nmain menu"
+    }
+    local page_4 = {
+        "whether to\n\nuse the\n\ngoner key-\n\nboard when\n\ntyping",
+        "enables\n\nshatter\n\nif it's\n\ninstalled",
+        "manage\n\ninstalled\n\nplugins",
+        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
+        "whether\n\nattacking\n\nuses z, x,\n\nand c\n\ninstead of\n\njust z",
+        "wheter to\n\nuse special\n\nanimations\n\nwhen running",
+        "enable an\n\nungodly\n\namount of\n\nbloom",
+        "go back\n\nto the\n\nmain menu"
+    }
+
+    if self.selected_page == 1 then
+        text = page_1[self.selected_option]
+    elseif self.selected_page == 2 then
+        text = page_2[self.selected_option]
+    elseif self.selected_page == 3 then
+        text = page_3[self.selected_option]
+    elseif self.selected_page == 4 then
+        text = page_4[self.selected_option]
+    end
+
+    return text
 end
 
 -------------------------------------------------------------------------------
