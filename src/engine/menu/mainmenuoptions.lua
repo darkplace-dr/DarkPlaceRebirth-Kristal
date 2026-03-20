@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 ---@class (exact) MainMenuOptions : StateClass, StateManagedClass
 ---
 ---@field menu MainMenu
@@ -607,6 +608,22 @@ function MainMenuOptions:registerConfigOption(page, name, config, callback)
     )
 end
 
+local function toPascalCase(str)
+    local final_str = ""
+    local uppercase = true
+    for char in string.gmatch(str, utf8.charpattern) do
+        if char == "_" then
+            uppercase = true
+        elseif uppercase then
+            uppercase = false
+            final_str = final_str .. string.upper(char)
+        else
+            final_str = final_str .. string.lower(char)
+        end
+    end
+    return final_str
+end
+
 function MainMenuOptions:initializeOptions()
     self:registerOptionsPage("general", "GENERAL")
     self:registerOptionsPage("graphics", "GRAPHICS")
@@ -741,6 +758,12 @@ function MainMenuOptions:initializeOptions()
 
     self:registerConfigOption("engine", "Debug Hotkeys", "debug")
     self:registerConfigOption("engine", "Verbose Loader", "verboseLoader")
+
+    self:registerOption("engine", "Loader Mode", function(x, y)
+        Draw.printShadow(toPascalCase(TableUtils.getKey(LoadingMode --[[@as table]], Kristal.Config["projectLoadingMode"])), x, y)
+    end, function()
+        Kristal.Config["projectLoadingMode"] = ( Kristal.Config["projectLoadingMode"] + 1 ) % 3
+    end)
     self:registerConfigOption("engine", "Use System Mouse", "systemCursor", function() Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Always Show Mouse", "alwaysShowCursor", function() Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Instant Quit", "instantQuit")

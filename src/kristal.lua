@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 ---@class Kristal
 ---@field Console Console
 ---@field DebugSystem DebugSystem
@@ -13,6 +14,7 @@ else
     Kristal.PluginLoader = require("src.engine.pluginloader")
     Kristal.States = {
         ["Loading"] = require("src.engine.loadstate"),
+        ["ProjectLoading"] = require("src.engine.projectloadstate"),
         ["MainMenu"] = require("src.engine.menu.mainmenu"),
         ["Game"] = require("src.engine.game.game"),
         ["LameFadeout"] = require("src.engine.game.lamefadeout"),
@@ -220,6 +222,8 @@ function love.load(args)
         Kristal.HTTPS.thread = love.thread.newThread("src/engine/httpsthread.lua")
         Kristal.HTTPS.thread:start()
     end
+
+    Assets.init()
 
     -- TARGET_MOD being already set -> mod developer has
     -- a preference for auto mod start. We particularly wouldn't
@@ -1233,6 +1237,7 @@ function Kristal.clearModState()
 
     -- Restore assets and registry
     Assets.restoreData()
+    Assets.getBucket("project"):unload()
     Registry.restoreData()
 
     Kristal.reloadnoel()
@@ -1370,6 +1375,19 @@ function Kristal.loadAssets(dir, loader, paths, after)
         paths = paths
     })
     Kristal.Loader.next_key = Kristal.Loader.next_key + 1
+    if loader == "mods" then
+        -- Empty because I absolutely DESPISE LOGIC!! :jellycruel:
+    elseif Assets.getBucket("engine").state == AssetBucket.State.UNLOADED then
+        local paths4real = (type(paths) == "string" and {paths} or paths) ---@as string[]?
+        for i = 1, #paths4real do
+            paths4real[i] = paths4real[i] .. "/assets"
+            if paths4real[i] == "/assets" then
+                paths4real[i] = "assets"
+            end
+        end
+        Assets.getBucket("engine"):startLoading(paths4real)
+    else
+    end
 end
 
 --- Initializes the specified mod and loads its assets. \
@@ -1461,36 +1479,21 @@ function Kristal.loadModAssets(id, asset_type, asset_paths, after)
     -- No mod found; nothing to load
     if not mod then return end
 
-    -- How many assets we need to load (1 for the mod, 1 for each library)
-    local load_count = 1 + #mod.lib_order
-
     -- Begin mod loading
     MOD_LOADING = true
 
-    local function finishLoadStep()
-        -- Finish one load process
-        load_count = load_count - 1
-        -- Check if all load processes are done (mod and libraries)
-        if load_count == 0 then
-            -- Finish mod loading
-            MOD_LOADING = false
-
-            -- Call the after function
-            after()
-        end
-    end
-
+    local paths4real = {}
     -- Finally load all assets (libraries first)
     for _, lib_id in ipairs(mod.lib_order) do
-        if not mod.libs[lib_id].preload_assets then
-            Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
-        else
-            finishLoadStep()
-        end
+        table.insert(paths4real, mod.libs[lib_id].path .. "/assets")
     end
-    Kristal.loadAssets(mod.path, asset_type or "all", asset_paths or "", finishLoadStep)
-    for plugin in Kristal.PluginLoader.iterPlugins(true) do
-        Kristal.loadAssets(plugin.path, asset_type or "all", asset_paths or "", finishLoadStep)
+    table.insert(paths4real, mod.path .. "/assets")
+    Assets.getBucket("project"):startLoading(paths4real)
+    if Kristal.Config["projectLoadingMode"] == LoadingMode.FULL then
+        Kristal.setState("ProjectLoading", after)
+    else
+        MOD_LOADING = false
+        after()
     end
 end
 
@@ -1911,6 +1914,7 @@ function Kristal.loadConfig()
         defaultName = "",
         skipNameEntry = false,
         verboseLoader = false,
+        projectLoadingMode = LoadingMode.SEMI_LAZY,
         ["plugins/enabled_plugins"] = {},
         dLoad = true,
         altAttack = false,

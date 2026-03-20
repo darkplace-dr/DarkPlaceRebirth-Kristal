@@ -110,6 +110,11 @@ end
 function ActorSprite:setTextureExact(texture)
     super.setTextureExact(self, texture)
 
+    -- TODO: Why in the capital F HELL is this needed!?!?
+    if not self.texture_path and type(texture) == "string" then
+        Kristal.Console:warn(string.format("Setting texture to %s somehow caused texture path to be nil", texture))
+        self.texture_path = texture
+    end
     self.sprite_options = self.actor:parseSpriteOptions(self.texture_path)
 end
 
@@ -358,10 +363,10 @@ end
 ---@return boolean? directional
 ---@return string? separator
 function ActorSprite:isDirectional(texture)
-    if not Assets.getTexture(texture) and not Assets.getFrames(texture) then
-        if Assets.getTexture(texture .. "_left") or Assets.getFrames(texture .. "_left") then
+    if not Assets.hasSprite(texture) then
+        if Assets.hasSprite(texture .. "_left") then
             return true, "_"
-        elseif Assets.getTexture(texture .. "/left") or Assets.getFrames(texture .. "/left") then
+        elseif Assets.hasSprite(texture .. "/left") then
             return true, "/"
         end
     end

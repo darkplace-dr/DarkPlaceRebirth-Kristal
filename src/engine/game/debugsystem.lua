@@ -963,7 +963,7 @@ function DebugSystem:registerSubMenus()
         end
     )
 
-    for id, _ in pairs(Assets.sounds) do
+    for id in Assets.iterate("sound") do
         self:registerOption(
             "sound_test",
             id,
@@ -997,7 +997,7 @@ function DebugSystem:registerSubMenus()
         end
     )
 
-    for id, _ in pairs(Assets.data.music) do
+    for id in Assets.iterate("music") do
         self:registerOption(
             "music_test",
             id,
@@ -2067,10 +2067,8 @@ function DebugSystem:draw()
         Draw.setColor(1, 1, 1, 1)
 
         local textures = {}
-        for _, id in pairs(Assets.texture_ids) do
-            if StringUtils.startsWith(id, "face/") then
-                table.insert(textures, id:sub(6))
-            end
+        for id in Assets.iterate("sprite", "face/") do
+            table.insert(textures, id:sub(6))
         end
 
         -- Sort textures alphabetically

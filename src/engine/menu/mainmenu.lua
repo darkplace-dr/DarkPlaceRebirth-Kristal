@@ -17,10 +17,10 @@ MainMenu.BACKGROUND_SHADER = love.graphics.newShader([[
     }
 ]])
 
-function MainMenu:init()
-    self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
-    self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
-
+function MainMenu:init()    
+    self.border_back = Assets.getTexture("kristal/title/border_back")
+    self.border_front = Assets.getTexture("kristal/title/border_front")
+    
     local date = os.date("*t")
     if date.month == 4 and date.day == 1 then
         self.border_back = love.graphics.newImage("assets/sprites/kristal/title/fool_back.png")
@@ -30,6 +30,8 @@ function MainMenu:init()
     self.border_scroll = 0
 
     self.splash_list = self:require("splashes")
+
+    MainMenu.BACKGROUND_SHADER = Assets.getShader("kristal/main_menu_background")
 end
 
 function MainMenu:enter()

@@ -78,6 +78,11 @@ function Loading:enter(from, dir)
     end
 
     self.done_loading = false
+
+    self.stage = Stage()
+    self.dog = LoadingDog()
+    self.stage:addChild(self.dog)
+
     self:beginLoad()
 end
 
@@ -85,18 +90,6 @@ function Loading:beginLoad()
     Kristal.clearAssets(true)
 
     self.loading_state = Loading.States.LOADING
-
-    Kristal.loadAssets("", "all", "")
-
-    for _, name in ipairs(love.filesystem.getDirectoryItems("sharedlibs")) do
-        local lib_full_path = "sharedlibs/"..name
-        if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
-            local data = JSON.decode(love.filesystem.read(lib_full_path.."/lib.json"))
-            if data.preload_assets then
-                Kristal.loadAssets(lib_full_path, "all", "")
-            end
-        end
-    end
 
     Kristal.loadAssets("", "plugins", "")
 
@@ -120,6 +113,10 @@ function Loading:update()
     if self.done_loading then
         return
     end
+
+    local loaded, total = Assets.getAssetCount()
+    self.dog:setProgress(loaded / total)
+    self.stage:update()
 
     if (self.loading_state == Loading.States.DONE) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
         -- We're done loading! This should only happen once.
@@ -176,7 +173,10 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
-    if Kristal.DessYouFuckingIdiot then return end
+    if Kristal.DessYouFuckingIdiot then 
+        self.stage:draw()
+        return
+    end
     if self.loading_state == Loading.States.DONE then
         if self.fools then
             love.graphics.setShader(self.shader_invert)
@@ -189,6 +189,7 @@ function Loading:draw()
             love.graphics.scale(1, 1)
             self:drawSprite(self.logo, 0, 0, 1)
             love.graphics.pop()
+            self.stage:draw()
             return
         end
 
@@ -269,6 +270,7 @@ function Loading:draw()
         --Reset Shaders
         love.graphics.setShader()
     end
+    self.stage:draw()
 end
 
 function Loading:onKeyPressed(key)

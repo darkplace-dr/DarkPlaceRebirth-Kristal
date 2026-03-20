@@ -104,29 +104,18 @@ function Overlay:draw()
     Draw.draw(self.quit_frames[quit_frame])
     love.graphics.pop()
 
-    -- Draw the translucent rectangle
-    love.graphics.push()
-    love.graphics.scale(2)
-    Draw.setColor(0, 0, 0, self.load_alpha - 0.5)
-    love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    love.graphics.pop()
-	
     -- Draw the load star graphic
     love.graphics.push()
-    love.graphics.translate(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    love.graphics.scale(2)
     Draw.setColor(1, 1, 1, self.load_alpha)
-    Draw.draw(self.loading_star, 0, -self.loading_star:getHeight(), math.rad(self.loading_star_rot), 1, 1, self.loading_star:getWidth()/2, self.loading_star:getHeight()/2)
+    Draw.draw(self.loading_star, 32, SCREEN_HEIGHT - 32, math.rad(self.loading_star_rot), 2, 2, self.loading_star:getWidth()/2, self.loading_star:getHeight()/2)
     love.graphics.pop()
 
     -- Draw the load text
     love.graphics.push()
-    love.graphics.translate(SCREEN_WIDTH/2 + 5, SCREEN_HEIGHT/2 + 20)
-    love.graphics.scale(2)
     Draw.setColor(1, 1, 1, self.load_alpha)
     local load_frame = (math.floor(self.load_timer / 0.25) % #self.load_frames) + 1
     local load_texture = self.load_frames[load_frame]
-    Draw.draw(load_texture, 0, -load_texture:getHeight(), 0, 1, 1, load_texture:getWidth()/2, 0)
+    Draw.draw(load_texture, 64, SCREEN_HEIGHT - 32, 0, 2, 2, 0, load_texture:getHeight()/2)
     love.graphics.pop()
 
     -- Draw the loader messages
