@@ -122,20 +122,20 @@ end
 
 function Battle:canSelectMenuItem(menu_item)
     if menu_item.unusable then
-        print("ewhbdw")
+        --print("ewhbdw")
         return false
     end
     --print("menu_item resource: "..tostring(menu_item.resource))
     if menu_item.resource == "tension" and menu_item.tp and (menu_item.tp > Game:getTension()) then
-        print("dsy")
+        --print("dsy")
         return false
     end
     if menu_item.resource == "mana" and menu_item.mp and ((menu_item.mp > self.party[self.current_selecting].chara:getMana()) or not self.party[self.current_selecting].chara:usesMana()) then
-        print("rbe")
+        --print("rbe")
         return false
     end
     if menu_item.resource == "health" and menu_item.hp and (menu_item.hp >= self.party[self.current_selecting].chara:getHealth()) then
-        print("unq")
+        --print("unq")
         return false
     end
     if menu_item.party then
@@ -145,7 +145,7 @@ function Battle:canSelectMenuItem(menu_item)
             local action = self.character_actions[party_index]
             if (not battler) or (not battler:isActive()) or (action and action.cancellable == false) then
                 -- They're either down, asleep, or don't exist. Either way, they're not here to do the action.
-                print("yedbh")
+                --print("yedbh")
                 return false
             end
         end
@@ -291,7 +291,7 @@ function Battle:commitSingleAction(action)
                     Game:removeTension(-action.tp)
                 end
             elseif action.mp and action.resource == "mana" then
-                print(action.mp)
+                --print(action.mp)
                 if action.mp > 0 then
                     battler.chara:setMana(battler.chara:getMana() - action.mp)
                 elseif action.mp < 0 then
@@ -299,7 +299,7 @@ function Battle:commitSingleAction(action)
                 end
             elseif action.hp and action.resource == "health" then
                 local hurt_effects = not Kristal.getLibConfig("ManaHealthResources", "omit_hurt_effects_from_hp_cost")
-                print(hurt_effects)
+                --print(hurt_effects)
                 if action.hp > 0 then
                     battler:hurt(action.hp, true, battler, { msg = hurt_effects, anim = hurt_effects })
                 elseif action.hp < 0 then
