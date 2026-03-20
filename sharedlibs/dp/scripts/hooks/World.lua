@@ -11,7 +11,8 @@ World.mb_blacklist = {
     maps = {
         "conversion_rooms",
         "nothing",
-        "grey_cliffside/dead_room1_start"
+        "grey_cliffside/dead_room1_start",
+        "fwood"
     },
 }
 
@@ -20,12 +21,11 @@ function World:canMb(map)
         return false
     end
     -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
-    if not (Mod and Mod.info and Mod.info.id) or not (self.map and self.map.id) then
+    if not Mod or not self.map then
         return false
     end
     for obj,list in pairs(self.mb_blacklist) do
         for _,id in ipairs(list) do
-
             if obj == "dlcs" and (Mod and Mod.info and Mod.info.id) then
                 if Mod.info.id == id then
                     return false
