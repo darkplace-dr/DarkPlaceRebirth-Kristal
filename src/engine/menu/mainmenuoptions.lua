@@ -70,6 +70,9 @@ function MainMenuOptions:init(menu)
     self.scroll_speed2 = 1
 	
     self.dog_balloon_siner = 0
+	self.dog_talk_frame = 0
+	self.dog_retro_frame = 0
+	self.dog_talking = false
 	
     self.clouds_1 = Assets.getTexture("kristal/options_clouds1")
     if self.retro then
@@ -83,8 +86,14 @@ function MainMenuOptions:init(menu)
     if self.retro then
         self.moon = Assets.getTexture("kristal/options_platform")
     end
-    self.dog = Assets.getTexture("kristal/dog_balloon")
+    self.dog = Assets.getFrames("kristal/dog_balloon")
+    if self.retro then
+        self.dog = Assets.getFrames("kristal/dog_board")
+    end
     self.dialogue_bubble = Assets.getTexture("bubbles/long_right")
+    if self.retro then
+        self.dialogue_bubble = Assets.getTexture("bubbles/long_right_retro")
+    end
 end
 
 function MainMenuOptions:registerEvents()
@@ -158,6 +167,19 @@ function MainMenuOptions:update()
     self.state_manager:update()
     
     self.menu.kristal_stage_title.visible = false
+	
+	if self.dog_talking then
+		if self.retro then
+			self.dog_retro_frame = self.dog_retro_frame + 0.3 * DTMULT
+		end
+		self.dog_talk_frame = self.dog_talk_frame + 0.3 * DTMULT
+		if self.dog_talk_frame >= 10 then
+			self.dog_talk_frame = 0
+			self.dog_talking = false
+		end
+	elseif self.retro then
+		self.dog_retro_frame = self.dog_retro_frame + 0.1 * DTMULT
+	end
 end
 
 function MainMenuOptions:draw()
@@ -178,19 +200,27 @@ function MainMenuOptions:draw()
         Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
     end
     if not self.retro then
-        Draw.draw(self.dog, 536, 296 + offset, 0, 2, 2)
-    end
+        Draw.draw(self.dog[math.floor(self.dog_talk_frame % 2) + 1], 556, 296 + offset, 0, 2, 2)
+	end
     if self.retro then
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
+        Draw.draw(self.dog[math.floor(self.dog_retro_frame % 2) + 1], 560, 360, 0, 2, 2)
+        Draw.draw(self.dialogue_bubble, 560, 336, 0, -2, 2)
     else
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
-        Draw.draw(self.dialogue_bubble, 536, 320 + offset, 0, -1, 1)
+        Draw.draw(self.dialogue_bubble, 556, 320 + offset, 0, -1, 1)
     end
 
-    if not self.retro then
-        love.graphics.setFont(Assets.getFont("small"))
+    if self.retro then
+        love.graphics.setFont(Assets.getFont("8bit"))
         Draw.setColor(COLORS.black)
-        love.graphics.print(self:getOptionText() or "test FUCKING\n\noptions\n\ndialogue", 396, 326 + offset)
+        love.graphics.print(string.upper(self:getOptionText()) or "TEST FUCKING\nOPTIONS\nDIALOGUE", 424, 343, 0, 0.5, 0.5)
+        Draw.setColor(COLORS.white)
+        love.graphics.setFont(Assets.getFont("main"))
+	else
+        love.graphics.setFont(Assets.getFont("plain"))
+        Draw.setColor(COLORS.black)
+        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 414, 323 + offset)
         Draw.setColor(COLORS.white)
         love.graphics.setFont(Assets.getFont("main"))
     end
@@ -348,6 +378,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
     if move_noise then
         Assets.stopAndPlaySound("ui_move")
+		self.dog_talk_frame = 1
+		self.dog_talking = true
     end
 
     if Input.isConfirm(key) then
@@ -773,50 +805,50 @@ end
 function MainMenuOptions:getOptionText()
     local text = nil
     local page_1 = {
-        "change how\n\nloud the\n\ngame is",
-        "change what\n\nkeys do what\n\nactions",
-        "change what\n\ncontroller\n\nbuttons\n\ndo what\n\nactions",
-        "change\n\nwhether you\n\nrun by\n\ndefault",
-        "if enabled,\n\ngives a\n\ncustom\n\ndiscord\n\nstatus",
-        "toggles\n\nfullscreen",
-        "change the\n\nwindow scale\n\nfor windowed\n\nmode",
-        "whether or\n\nnot the game\n\nwill have\n\na border",
-        "simplifies\n\ncertain\n\nscenes for\n\nthose with\n\nphoto-\n\nsensitivity",
-        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
-        "go back\n\nto the\n\nmain menu"
+        "change how\nloud the\ngame is",
+        "change what\nkeys do what\nactions",
+        "change what\ncontroller\nbuttons\ndo what\nactions",
+        "change\nwhether you\nrun by\ndefault",
+        "if enabled,\ngives a\ncustom\ndiscord\nstatus",
+        "toggles\nfullscreen",
+        "change the\nwindow scale\nfor windowed\nmode",
+        "whether or\nnot the game\nwill have\na border",
+        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
+        "i have no\nidea what\nthis does \n\nlol",
+        "go back\nto the\nmain menu"
     }
     local page_2 = {
-        "toggles\n\nfullscreen",
-        "change the\n\nwindow scale\n\nfor windowed\n\nmode",
-        "whether or\n\nnot the game\n\nwill have\n\na border",
-        "simplifies\n\ncertain\n\nscenes for\n\nthose with\n\nphoto-\n\nsensitivity",
-        "sets the\n\ntarget fps",
-        "toggles\n\nvsync",
-        "toggles\n\nframe skip",
-        "does some-\n\nthing and\n\nbreaks the\n\noptions\n\nmusic",
-        "go back\n\nto the\n\nmain menu"
+        "toggles\nfullscreen",
+        "change the\nwindow scale\nfor windowed\nmode",
+        "whether or\nnot the game\nwill have\na border",
+        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
+        "sets the\ntarget fps",
+        "toggles\nvsync",
+        "toggles\nframe skip",
+        "does some-\nthing and\nbreaks the\noptions\nmusic",
+        "go back\nto the\nmain menu"
     }
     local page_3 = {
-        "toggles\n\nskipping the\n\nintro when\n\nopening\n\nthe game",
-        "toggles\n\ndisplaying\n\nthe current\n\nfps count",
-        "change the\n\ndefault name\n\nfor save\n\nfiles",
-        "toggles\n\nskipping the\n\nsave file\n\nname entry",
-        "toggles\n\nkristal's\n\ndebug hot-\n\nkeys",
-        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
-        "show the\n\nsystem's\n\nmouse cursor\n\ninstead of\n\nkristal's",
-        "show the\n\nmouse cursor\n\nalways",
-        "instantly\n\nclose the\n\ngame when\n\npressing\n\nESC",
-        "go back\n\nto the\n\nmain menu"
+        "toggles\nskipping the\nintro when\nopening\nthe game",
+        "toggles\ndisplaying\nthe current\nfps count",
+        "change the\ndefault name\nfor save\nfiles",
+        "toggles\nskipping the\nsave file\nname entry",
+        "toggles\nkristal's\ndebug hot-\nkeys",
+        "i have no\nidea what\nthis does \n\nlol",
+        "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
+        "show the\nmouse cursor\nalways",
+        "instantly\nclose the\ngame when\npressing\nESC",
+        "go back\nto the\nmain menu"
     }
     local page_4 = {
-        "whether to\n\nuse the\n\ngoner key-\n\nboard when\n\ntyping",
-        "enables\n\nshatter\n\nif it's\n\ninstalled",
-        "manage\n\ninstalled\n\nplugins",
-        "i have no\n\nidea what\n\nthis does \n\n\n\nlol",
-        "whether\n\nattacking\n\nuses z, x,\n\nand c\n\ninstead of\n\njust z",
-        "wheter to\n\nuse special\n\nanimations\n\nwhen running",
-        "enable an\n\nungodly\n\namount of\n\nbloom",
-        "go back\n\nto the\n\nmain menu"
+        "whether to\nuse the\ngoner key-\nboard when\ntyping",
+        "enables\nshatter\nif it's\ninstalled",
+        "manage\ninstalled\nplugins",
+        "i have no\nidea what\nthis does \n\nlol",
+        "when\nattacking,\nuse z, x,\nand c instead\nof just z",
+        "wheter to\nuse special\nanimations\nwhen running",
+        "enable an\nungodly\namount of\nbloom",
+        "go back\nto the\nmain menu"
     }
 
     if self.selected_page == 1 then
