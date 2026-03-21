@@ -18,6 +18,7 @@ function Player:init(chara, x, y)
         10,
         22,
     }
+	self.climbcon = 0
     self.draw_reticle = true
     self.onrotatingtower = false
     self.climb_speedboost = -1
@@ -42,6 +43,14 @@ function Player:init(chara, x, y)
 	self.grabontimer = 0
 	self.siner = 0
 	self.exitcon = 1
+	self.cuttimer = 0
+	self.climb_jumping = 0
+	self.climb_during_timer = nil
+	self.climb_after_1_timer = nil
+	self.climb_after_2_timer = nil
+	self.climb_inv_timer = 0
+	self.falseloop = false
+	self.falseloopx = {}
 end
 
 function Player:beginClimb(last_state)
@@ -49,6 +58,14 @@ function Player:beginClimb(last_state)
 	self.climbmomentum = 0
 	self.neutralcon = 1
     self.world.can_open_menu = false
+    self.world.camera:setState("CLIMB") 
+	if self.world.map.cyltower then
+        self.onrotatingtower = true
+		self.falseloop = true
+		self.falseloopx = {}
+		self.falseloopx[1] = 0
+		self.falseloopx[2] = self.world.map.cyltower.tower_circumference
+    end
 end
 
 function Player:setActor(actor)
@@ -57,12 +74,103 @@ function Player:setActor(actor)
     self.climb_collider = Hitbox(Game.world, (self.width/2) - (size/2), (self.height/2) - (size/2) + 8, (size), (size))
 end
 
+function Player:update()
+	if self.climbcon == 10 then
+		self.saved_phys = self.physics.move_target
+        self:setSprite("climb/charge/up")
+		self.sprite:setFrame(3)
+		self.cuttimer = self.cuttimer + DTMULT
+		if self.cuttimer >= 5 then
+			self.physics.move_target = self.saved_phys
+			self.climbcon = 2
+			if Game.world.player.climb_during_timer then
+				Game.world.timer:unpause(Game.world.player.climb_during_timer)
+			end
+			if Game.world.player.climb_after_1_timer then
+				Game.world.timer:unpause(Game.world.player.climb_after_1_timer)
+			end
+			if Game.world.player.climb_after_2_timer then
+				Game.world.timer:unpause(Game.world.player.climb_after_2_timer)
+			end	
+			self.physics.move_target = self.saved_phys
+		end
+		return
+	elseif self.climbcon == 2 then
+		self.alpha = 1
+		if (self.climb_inv_timer > 0) then
+			self.alpha = 0.5
+		end
+	end
+	super.update(self)
+end
+
+function Player:climbHurtParty(battler, damage)
+    Assets.playSound("hurt")
+
+    Game.world:shakeCamera()
+    Game.world:showHealthBars()
+
+    if type(battler) == "number" then
+        amount = battler
+        battler = nil
+    end
+
+    local any_killed = false
+    local any_alive = false
+    for _, party in ipairs(Game.party) do
+        if not battler or battler == party.id or battler == party then
+            local current_health = party:getHealth()
+            party:setHealth(party:getHealth() - amount)
+            if party:getHealth() <= 0 then
+                party:setHealth(1)
+                any_killed = true
+            else
+                any_alive = true
+            end
+
+            local dealt_amount = current_health - party:getHealth()
+
+            for _, char in ipairs(self.stage:getObjects(Character)) do
+                if char.actor and (char.actor.id == party:getActor().id) and dealt_amount > 0 then
+                    char:statusMessage("damage", dealt_amount)
+                end
+            end
+        elseif party:getHealth() > amount then
+            any_alive = true
+        end
+    end
+
+    if Game.world.player then
+        self.climb_inv_timer = 40
+    end
+
+    if any_killed and not any_alive then
+        if not Game.world.map:onGameOver() then
+            Game:gameOver(Game.world.soul:getScreenPos())
+        end
+        return true
+    elseif battler then
+        return any_killed
+    end
+
+    return false
+end
+
+function Player:preDraw()
+	self.lastx, self.lasty = self.x, self.y
+	if self.onrotatingtower then
+		self.x = self.world.map.cyltower.krisx
+		self.y = self.world.map.cyltower.krisy
+	end
+	super.preDraw(self)
+end
+
 function Player:draw()
     -- Draw the player
+	love.graphics.push()
 	love.graphics.translate(0, self.drawoffsety)
-    super.draw(self)
-	love.graphics.translate(0, 0)
-
+	super.draw(self)
+	love.graphics.pop()
     if DEBUG_RENDER then
         self.climb_collider:drawFor(self, 1, 1, 0)
     end
@@ -72,13 +180,30 @@ function Player:draw()
     end
 end
 
+function Player:postDraw()
+	super.postDraw(self)
+	self.x = self.lastx
+	self.y = self.lasty
+end
+
 function Player:endClimb(next_state)
     self:resetSprite()
     self.world.can_open_menu = true
     self.physics.move_target = nil
+	self.climbcon = 0
+    self.alpha = 1
+    self.world.camera:setState("ATTACHED")
+	if self.world.map.cyltower then
+        self.onrotatingtower = false
+		self.falseloop = false
+    end
 end
 
 function Player:processClimbInputs()
+	if self.climbcon == 0 then
+		self.climbcon = 2
+	end
+	self.climb_inv_timer = self.climb_inv_timer - DTMULT
 	self.siner = self.siner + DTMULT
 	local this_frame_directions = {}
 	local buffer_length = math.ceil(5 - (self.climbmomentum * 2))
@@ -187,8 +312,8 @@ function Player:processClimbInputs()
 				-- TODO: Find out where these numbers come from, because it sure isn't the actor
 				local x,y = -17, -37
 				x,y = x + self.x,y + self.y
-				if self.onrotatingtower then
-					x = MathUtils.wrap(x, 0, self.world.width+1)
+				if self.falseloop then
+					x = MathUtils.wrap(x, self.falseloopx[1], self.falseloopx[2])
 				end
 				self.climb_collider.parent = self.parent
 				self.climb_collider.x, self.climb_collider.y = x, y
@@ -217,12 +342,33 @@ function Player:processClimbInputs()
 			self.fallingtimer = self.fallingtimer - DTMULT
 			if self.fallingtimer <= 0 then
 				if self.grabon then
-					local allowed, obj = self:canClimb(0, 0)
-					if allowed and obj and self.y >= obj.y + 30 then
-						local grabx = self.x
-						local graby = self.y
-						self.grabx = (MathUtils.round(grabx / 40) * 40) - 20
-						self.graby = (MathUtils.round(graby / 40) * 40) + 2
+					self.grabx = self.remx + (MathUtils.round((self.x - self.remx) / 40) * 40)
+					self.graby = self.remy + (MathUtils.round((self.y - self.remy) / 40) * 40)
+					if self.onrotatingtower and self.grabx > self.world.map.cyltower.tower_circumference then
+						self.grabx = self.grabx - self.world.map.cyltower.tower_circumference
+					end
+					if self.onrotatingtower and self.grabx < 0 then
+						self.grabx = self.grabx + self.world.map.cyltower.tower_circumference
+					end
+					local climbarea = nil
+					for _, event in ipairs(self.world.stage:getObjects(Event)) do
+						---@cast event Event.climbarea|Event.climbentry
+						-- TODO: Find out where these numbers come from, because it sure isn't the actor
+						local x,y = -17, -37
+						x,y = x + self.grabx,y + self.graby
+						if self.falseloop then
+							x = MathUtils.wrap(x, self.falseloopx[1], self.falseloopx[2])
+						end
+						self.climb_collider.parent = self.parent
+						self.climb_collider.x, self.climb_collider.y = x, y
+						if (event.preClimbEnter or event.climbable) and event:collidesWith(self.climb_collider) then
+							if event.climbable then
+								climbarea = event
+							end
+						end
+					end
+					Object.endCache()
+					if climbarea then
 						self.grabontimer = 15
 						self.graboncon = 1
 						self.falling = 0
@@ -242,7 +388,7 @@ function Player:processClimbInputs()
 		if self.graboncon == 2 then
 			Assets.stopSound("wing")
 			Assets.playSound("wing", 0.7, 0.6 + MathUtils.random(0.3))
-			if Utils.round(self.siner) % 2 == 0 then
+			if MathUtils.round(self.siner) % 2 == 0 then
 				local dust = Sprite("effects/slide_dust")
 				dust:play(1 / 15, false, function () dust:remove() end)
 				dust:setOrigin(0.5, 0.5)
@@ -251,6 +397,9 @@ function Player:processClimbInputs()
 				dust.layer = self.layer - 0.01
 				dust.physics.speed_y = -3
 				dust.physics.speed_x = MathUtils.random(-1, 1)
+				if self.onrotatingtower then
+					dust.x = self.world.map.cyltower.tower_x
+				end
 				self.world:addChild(dust)
 			end
 			if self.fallingspeed > 7 * DTMULT then
@@ -281,8 +430,13 @@ function Player:processClimbInputs()
 				self:slideTo(self.grabx, self.graby, waittime/30, "in-out-quad")
 			end
 			if self.grabonclimbtimer >= initwait + waittime then
-				self.x = MathUtils.round(self.x / 10) * 10
-				self.y = MathUtils.round(self.y / 10) * 10
+				if self.onrotatingtower then
+					self.x = (math.floor(self.x / 40) * 40) + 20
+					self.y = (math.floor(self.y / 40) * 40)
+				else
+					self.x = MathUtils.round(self.x / 10) * 10
+					self.y = MathUtils.round(self.y / 10) * 10
+				end
 				self.graboncon = 0  
 				if self.climb_ready_callback then
 					self:climb_ready_callback()
@@ -448,12 +602,10 @@ function Player:processJumpCharge()
                     afterimage.graphics.grow = 0.05
                     afterimage.physics.speed_y = 1
                     afterimage:setParent(self)
-
-                    -- TODO: ahaHAHHAHAHAHHAAHAHA
-                    -- if (i_ex(obj_rotating_tower_controller_new) && i_ex(obj_climb_kris)) then
-                    --     afterimage.x = obj_rotating_tower_controller_new.tower_x;
-                    --     afterimage.depth = obj_rotating_tower_controller_new.depth - 4;
-                    -- end
+					if self.onrotatingtower then
+						afterimage.x = self.world.map.cyltower.krisx - self.x
+						afterimage.layer = self.world.map.cyltower.layer + 0.01
+					end
                 end
             end
         end
@@ -494,9 +646,9 @@ function Player:canClimb(dx, dy)
         local x,y = -17, -37
         x,y = x + self.x,y + self.y
         x,y = x + (dx*40),y + (dy*40)
-        if self.onrotatingtower then
-            x = MathUtils.wrap(x, 0, self.world.width+1)
-        end
+        if self.falseloop then
+			x = MathUtils.wrap(x, self.falseloopx[1], self.falseloopx[2])
+		end
         self.climb_collider.parent = self.parent
         self.climb_collider.x, self.climb_collider.y = x, y
         if (event.preClimbEnter or event.climbable) and event:collidesWith(self.climb_collider) then
@@ -567,6 +719,14 @@ function Player:doClimbJump(direction, distance)
 				dust:setScale(2, 2)
 				local dust_x = self.x
 				local dust_y = self.y - 17
+				if self.onrotatingtower then
+					dust_x = self.world.map.cyltower.tower_x
+					if self.facing == "right" then
+						dust.physics.speed_x = -4*dist
+					elseif self.facing == "left" then
+						dust.physics.speed_x = 4*dist
+					end
+				end
 				if charged then
 					dust_x = dust_x + MathUtils.random(-10, 10)
 					dust_y = dust_y + MathUtils.random(-10, 10)
@@ -584,6 +744,7 @@ function Player:doClimbJump(direction, distance)
 			end
 			self.drawoffsety = 0
 			if charged then
+				self.climb_jumping = 1
 				duration = (6 + distance*2)/30
 				local clipamount = 4/30
 				if charged then
@@ -592,8 +753,8 @@ function Player:doClimbJump(direction, distance)
 				local prevx = self.x
 				local prevy = self.y
 				self:slideTo(self.x + (dx*40*dist), self.y + (dy*40*dist), duration, "out-sine")
-				self.climbtimer = 0
-				Game.world.timer:during(duration, function()
+				self.climbtimer = 0 climbdist = dist
+				self.climb_during_timer = Game.world.timer:during(duration, function()
 					self.climbtimer = self.climbtimer + DT
 					self.drawoffsety = -math.sin((self.climbtimer / duration) * math.pi) * (2 * (self.jumpchargeamount - 1)) 
 					local afterimage = Sprite(self.sprite.texture, self.x, self.y + 16) -- for some reason the afterimage object insists on sticking directly to the player so i have to do this (sorry)
@@ -603,9 +764,19 @@ function Player:doClimbJump(direction, distance)
 					afterimage.alpha = 0.2
 					afterimage:fadeOutSpeedAndRemove()
 					afterimage:setLayer(self.layer - 0.1)
+					if self.onrotatingtower then
+						afterimage.x = self.world.map.cyltower.krisx
+						if self.neutralcon ~= 1 then
+							if self.facing == "right" then
+								afterimage.physics.speed_x = -4*dist
+							elseif self.facing == "left" then
+								afterimage.physics.speed_x = 4*dist
+							end
+						end
+					end
 					Game.world:addChild(afterimage)
 				end)
-				Game.world.timer:after(duration/2, function ()
+				self.climb_after_1_timer = Game.world.timer:after(duration/2, function ()
 					if self.sprite.sprite_options[2] ~= "climb/climb" then
 						if self.facing == "left" then
 							self:setSprite("climb/land_left")
@@ -614,10 +785,16 @@ function Player:doClimbJump(direction, distance)
 						end
 					end
 				end)
-				Game.world.timer:after(duration-clipamount, function ()
+				self.climb_after_2_timer = Game.world.timer:after(duration-clipamount, function ()
 					self:resetPhysics()
 					self.x = prevx + (dx*40*dist)
 					self.y = prevy + (dy*40*dist)
+					if self.onrotatingtower and self.x > self.world.map.cyltower.tower_circumference then
+						self.x = self.x - self.world.map.cyltower.tower_circumference
+					end
+					if self.onrotatingtower and self.x < 0 then
+						self.x = self.x + self.world.map.cyltower.tower_circumference
+					end
 					self.climbmomentum = self.jumpchargeamount/2
 					if self.climb_ready_callback then
 						self:climb_ready_callback()
@@ -633,6 +810,7 @@ function Player:doClimbJump(direction, distance)
 						self:climb_callback()
 						self.climb_callback = nil
 					end
+					self.climb_jumping = 0
 					self.neutralcon = 1
 					if obj and obj.onClimbEnter then
 						obj:onClimbEnter(self)
@@ -705,15 +883,8 @@ function Player:drawClimbReticle()
     if not self.draw_reticle then
         return
     end
-    local tempalpha = 1;
-
-    love.graphics.push()
+	love.graphics.push()
     love.graphics.translate(self.width/2, self.height - 10)
-
-    -- I /think/ this is what global.inv is?
-    if (self.world.soul.inv_timer > 0) then
-        tempalpha = 0.5;
-    end
 
     local found = 0;
     local _alph;
@@ -864,7 +1035,7 @@ function Player:drawClimbReticle()
         end
 
         if (self.facing == "up") then
-            py = px - (20 * found);
+            py = py - (20 * found);
         end
 
         if (self.facing == "left") then
@@ -891,9 +1062,9 @@ function Player:updateClimb()
     self.noclip = true
     -- self:updateWalk()
     self.noclip = o_noclip
-    if self.onrotatingtower and not self.physics.move_target then
+    if self.falseloop and not self.physics.move_target then
         -- TODO: Find out why I have to put 1 here and not 0
-        self.x = MathUtils.wrap(self.x, 1, self.world.width)
+		self.x = MathUtils.wrap(self.x, self.falseloopx[1], self.falseloopx[2])
     end
 	self.climbmomentum = self.climbmomentum - 0.03*DTMULT
 	if self.climbmomentum <= 0 then
@@ -915,9 +1086,16 @@ function Player:onAdd(parent)
     if not self.world.map.data.properties then return end
     if self.world.map.data.properties.playerstate then
         self:setState(self.world.map.data.properties.playerstate)
-        if self.world.map.cyltower then
-            self.onrotatingtower = true
-        end
+		if self.state == "CLIMB" then			
+			self.world.camera:setState("CLIMB") 
+			if self.world.map.cyltower then
+				self.onrotatingtower = true
+				self.falseloop = true
+				self.falseloopx = {}
+				self.falseloopx[1] = 0
+				self.falseloopx[2] = self.world.map.cyltower.tower_circumference
+			end
+		end
     end
 end
 

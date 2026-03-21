@@ -1,4 +1,6 @@
-local character, super = Class("noelle", true)
+local character, super = HookSystem.hookScript("noelle")
+---@cast character PartyMember
+---@cast super PartyMember
 
 function character:init()
     super.init(self)

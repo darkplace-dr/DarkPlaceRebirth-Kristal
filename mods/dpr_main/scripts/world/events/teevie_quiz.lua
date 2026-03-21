@@ -5,7 +5,7 @@ function TeevieQuiz:init(data)
 	
 	self.base_texture = Assets.getFrames("world/events/teevie_tvs/base")
 	self.base_texture_thin = Assets.getFrames("world/events/teevie_tvs/base_thin")
-	self.quiz_timer_sprite = Assets.getFrames("world/events/teevie_quiz/timer")
+	self.quiz_timer_sprite = Assets.getFrames("ui/timer/timer")
 	self.green_circle = Assets.getFrames("world/events/teevie_quiz/green_circle")
 	self.red_x = Assets.getFrames("world/events/teevie_quiz/red_x")
 	self.quiz_static = Assets.getFrames("world/events/teevie_tvs/static")
