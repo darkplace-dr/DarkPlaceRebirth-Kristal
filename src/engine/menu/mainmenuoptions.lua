@@ -88,7 +88,7 @@ function MainMenuOptions:init(menu)
     end
     self.dog = Assets.getFrames("kristal/dog_balloon")
     if self.retro then
-        self.dog = Assets.getFrames("kristal/dog_board")
+        self.dog = Assets.getFrames("kristal/dog_retro")
     end
     self.dialogue_bubble = Assets.getTexture("bubbles/long_right")
     if self.retro then
@@ -184,6 +184,9 @@ end
 
 function MainMenuOptions:draw()
     local offset = math.sin(self.dog_balloon_siner * 0.1) * 15
+	if self.retro then
+		offset = math.sin(self.dog_balloon_siner * 0.04) * 32
+	end
 
     if self.retro then
         Draw.setColor(0.36, 0.58, 0.99, 1)
@@ -204,17 +207,17 @@ function MainMenuOptions:draw()
 	end
     if self.retro then
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
-        Draw.draw(self.dog[math.floor(self.dog_retro_frame % 2) + 1], 560, 360, 0, 2, 2)
-        Draw.draw(self.dialogue_bubble, 560, 336, 0, -2, 2)
+        Draw.draw(self.dog[math.floor(self.dog_retro_frame % 2) + 1], 560, 360 + math.floor(offset / 2) * 2, 0, 2, 2)
+        Draw.draw(self.dialogue_bubble, 560, 330 + math.floor(offset / 2) * 2, 0, -2, 2)
     else
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
-        Draw.draw(self.dialogue_bubble, 556, 320 + offset, 0, -1, 1)
+        Draw.draw(self.dialogue_bubble, 556, 330 + offset, 0, -1, 1)
     end
 
     if self.retro then
         love.graphics.setFont(Assets.getFont("8bit"))
         Draw.setColor(COLORS.black)
-        love.graphics.print(string.upper(self:getOptionText()) or "TEST FUCKING\nOPTIONS\nDIALOGUE", 424, 343, 0, 0.5, 0.5)
+        love.graphics.print(string.upper(self:getOptionText()) or "TEST FUCKING\nOPTIONS\nDIALOGUE", 424, 336 + math.floor(offset / 2) * 2, 0, 0.5, 0.5)
         Draw.setColor(COLORS.white)
         love.graphics.setFont(Assets.getFont("main"))
 	else
@@ -884,9 +887,13 @@ function MainMenuOptions:noel_char()
     if self.noel2 then
         --for the update function
         --dont forget this sad diamond man you dumbass
-        local angle = Utils.angle(self.menu.heart.x, self.menu.heart.y, self.noel.x + 4, self.noel.y - 18)
+        local angle = MathUtils.angle(self.menu.heart.x, self.menu.heart.y, self.noel.x + 4, self.noel.y - 18)
         --print(angle)
-        self.noel2.y = -angle*10 + self.noel.y
+		if self.retro then
+			self.noel2.y = math.floor((-angle*10) / 2) * 2 + self.noel.y
+		else
+			self.noel2.y = -angle*10 + self.noel.y
+		end
         self.noel2.x = self.noel.x 
     else
 
