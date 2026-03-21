@@ -223,7 +223,7 @@ function MainMenuOptions:draw()
 	else
         love.graphics.setFont(Assets.getFont("plain"))
         Draw.setColor(COLORS.black)
-        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 414, 334 + offset)
+        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 414, 332 + offset)
         Draw.setColor(COLORS.white)
         love.graphics.setFont(Assets.getFont("main"))
     end
