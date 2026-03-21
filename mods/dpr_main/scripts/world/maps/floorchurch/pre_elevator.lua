@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -613,9 +613,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["fade"] = true,
-            ["fade_edges"] = true,
-            ["no_back"] = true,
             ["offy"] = -130,
             ["text"] = "THE LEGEND OF THIS WORLD.\nNOW FRACTURED AND FAUX.",
             ["texture"] = "end",
@@ -700,13 +697,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["fade"] = true,
-            ["fade_edges"] = true,
-            ["no_back"] = true,
             ["offy"] = -130,
             ["text"] = "THE MORONIC DEER WILL SAY\n\"HECK\" AND THEN \"YEAH\"",
             ["texture"] = "heckyeah",
-            ["txt_offy"] = "-32"
+            ["txt_offy"] = "-48"
           }
         }
       }

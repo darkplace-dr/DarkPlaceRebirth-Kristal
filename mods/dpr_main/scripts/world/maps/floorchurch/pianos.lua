@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 21,
+  nextobjectid = 28,
   properties = {
     ["border"] = "church_a",
     ["music"] = "deltarune/church_wip",
@@ -22,6 +22,12 @@ return {
       firstgid = 1,
       filename = "../../tilesets/church_new.tsx",
       exportfilename = "../../tilesets/church_new.lua"
+    },
+    {
+      name = "church_objects",
+      firstgid = 583,
+      filename = "../../tilesets/church_objects.tsx",
+      exportfilename = "../../tilesets/church_objects.lua"
     }
   },
   layers = {
@@ -321,6 +327,99 @@ return {
           visible = true,
           properties = {
             ["default_state"] = true
+          }
+        },
+        {
+          id = 22,
+          name = "steelcage",
+          type = "",
+          shape = "rectangle",
+          x = 40,
+          y = 120,
+          width = 58,
+          height = 246,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "churchpianoleft",
+            ["flagcheck"] = "!churchpianoleft",
+            ["flipx"] = true
+          }
+        },
+        {
+          id = 23,
+          name = "steelcage",
+          type = "",
+          shape = "rectangle",
+          x = 1100,
+          y = 120,
+          width = 58,
+          height = 246,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "churchpianoright",
+            ["flagcheck"] = "!churchpianoright"
+          }
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 220,
+          y = 280,
+          width = 90,
+          height = 66,
+          rotation = 0,
+          gid = 590,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "piano",
+          type = "",
+          shape = "rectangle",
+          x = 220,
+          y = 240,
+          width = 90,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "churchpianoleft",
+            ["solution"] = "131315"
+          }
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 900,
+          y = 280,
+          width = 90,
+          height = 66,
+          rotation = 0,
+          gid = 590,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 27,
+          name = "piano",
+          type = "",
+          shape = "rectangle",
+          x = 900,
+          y = 240,
+          width = 90,
+          height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["flag"] = "churchpianoright",
+            ["solution"] = "131315"
           }
         }
       }

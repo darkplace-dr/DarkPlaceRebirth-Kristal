@@ -64,8 +64,8 @@ function Map:loadClimbAreas(layer, depth)
         end
 
         local obj
-        -- TODO: Make ClimbArea a registered event (after DPR updates its Kristal ver)
-        obj = Registry.creatEvent("climbarea", v)
+        -- TODO: Make ClimbArea a registered event
+        obj = Registry.createLegacyEvent("climbarea", v)
         obj.x = obj.x + (layer.offsetx or 0)
         obj.y = obj.y + (layer.offsety or 0)
         if not obj.object_id then

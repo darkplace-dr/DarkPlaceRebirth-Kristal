@@ -6,11 +6,14 @@ function texturescroller:init(data)
     super.init(self, data)
     local properties = data and data.properties or {}
     self.surf_textured = love.graphics.newCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-    self.base_texture = Assets.getTexture "backgrounds/glow_tile_oscillate";
-    self.scroll_texture = Assets.getTexture "backgrounds/perlin_noise_darker_looping";
-    self.fade_time_seconds = 4;
+    self.base_texture = Assets.getTexture(properties["base_tex"] or "backgrounds/glow_tile_oscillate");
+    self.scroll_texture = Assets.getTexture(properties["scroll_tex"] or "backgrounds/perlin_noise_darker_looping");
+    self.fade_time_seconds = properties["fade_time"] or 4;
     self.fade_from = 0;
     self.fade_to = 1;
+    self.time_offset_x = properties["time_off_x"] ~= false;
+    self.time_offset_y = properties["time_off_y"] ~= false;
+	self.type = properties["type"] or "hsv"
 end
 
 local function draw_set_alpha(a)
@@ -34,16 +37,18 @@ function texturescroller:draw()
     local _timeoffset = (Kristal.getTime() * 1000) * 0.05;
     love.graphics.setBlendMode("alpha");
     draw_sprite_tiled(self.base_texture, 1, 0, 0);
-    draw_sprite_tiled(self.scroll_texture, 0, -_cx - _timeoffset, -_cy - _timeoffset);
+    draw_sprite_tiled(self.scroll_texture, 0, -_cx - (self.time_offset_x and _timeoffset or 0), -_cy - (self.time_offset_y and _timeoffset or 0));
     draw_set_alpha(1);
     love.graphics.setColorMask(true, true, true, true);
     love.graphics.setColorMask(false, false, false, true);
 
     for index, value in ipairs(self.stage:getObjects(Registry.getLegacyEvent("tile_oscillate"))) do
-        love.graphics.push()
-        love.graphics.replaceTransform(value:getFullTransform())
-        love.graphics.rectangle("fill", 0, 0, value.width, value.height)
-        love.graphics.pop()
+		if value.type == self.type then
+			love.graphics.push()
+			love.graphics.replaceTransform(value:getFullTransform())
+			love.graphics.rectangle("fill", 0, 0, value.width, value.height)
+			love.graphics.pop()
+		end
     end
 
     love.graphics.setColorMask(true, true, true, true);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="51">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="51">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -193,9 +193,6 @@
   </object>
   <object id="33" name="prophecy" x="1480" y="360" width="400" height="80">
    <properties>
-    <property name="fade" type="bool" value="true"/>
-    <property name="fade_edges" type="bool" value="true"/>
-    <property name="no_back" type="bool" value="true"/>
     <property name="offy" type="float" value="-130"/>
     <property name="text">THE LEGEND OF THIS WORLD.
 NOW FRACTURED AND FAUX.</property>
@@ -231,14 +228,11 @@ NOW FRACTURED AND FAUX.</property>
   </object>
   <object id="50" name="prophecy" x="120" y="360" width="400" height="80">
    <properties>
-    <property name="fade" type="bool" value="true"/>
-    <property name="fade_edges" type="bool" value="true"/>
-    <property name="no_back" type="bool" value="true"/>
     <property name="offy" type="float" value="-130"/>
     <property name="text">THE MORONIC DEER WILL SAY
 &quot;HECK&quot; AND THEN &quot;YEAH&quot;</property>
     <property name="texture" value="heckyeah"/>
-    <property name="txt_offy" value="-32"/>
+    <property name="txt_offy" value="-48"/>
    </properties>
   </object>
  </objectgroup>

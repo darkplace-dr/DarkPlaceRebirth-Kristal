@@ -12,12 +12,13 @@ function event:init(data)
     self.why_call_init = 0;
     self.siner = 0;
     self.accounty = 0;
-    self.xoff = ((0 + self.auto) * self.ss) + self.init_x;
-    self.yoff = ((0 + self.autoy) * self.ssy) + self.init_y;
+	self.xx = self.init_x
+	self.yy = self.init_y
+    self.xoff = ((0 + self.auto) * self.ss) + self.xx;
+    self.yoff = ((0 + self.autoy) * self.ssy) + self.yy;
     self.mysprite = Assets.getTexture "backgrounds/churchfog";
     self.sprwidth = (self.mysprite):getWidth() * 2;
     self.sprheight = (self.mysprite):getHeight() * 2;
-
 end
 
 local function draw_sprite_tiled_ext(tex, _, x, y, sx, sy, rotation, color, alpha)
@@ -29,15 +30,19 @@ local function draw_sprite_tiled_ext(tex, _, x, y, sx, sy, rotation, color, alph
     love.graphics.setColor(r,g,b,a)
 end
 
+function event:update()
+    super.draw(self)
+    self.auto = self.auto + (2 * DTMULT);
+    self.autoy = self.autoy + (2 * DTMULT);
+end
+
 function event:draw()
     local cx, cy = love.graphics.transformPoint(0, 0)
     love.graphics.origin()
     self.ss = 0.5;
     self.ssy = 0.5;
-    self.auto = self.auto + 2;
-    self.autoy = self.autoy + 2;
-    self.xoff = ((cx + self.auto) * self.ss) + self.init_x;
-    self.yoff = ((cy + self.autoy) * self.ssy) + self.init_y;
+    self.xoff = ((cx + self.auto) * self.ss) + self.xx;
+    self.yoff = ((cy + self.autoy) * self.ssy) + self.yy;
     self.mytransparency = 0.1;
     local finalxoff = self.xoff % self.sprwidth;
     local finalyoff = self.yoff % self.sprheight;

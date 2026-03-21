@@ -19,7 +19,8 @@ function event:climbFallLanding(player)
             player.sprite:set("landed")
 			player:shake()
             cutscene:wait(16/30)
-            local id = "climb_fade"
+			local id = "climb_fade"
+			local id2 = "climb_color"
             for i,follower in ipairs(self.world.followers) do
                 local mask = follower:getFX(id)
                 if mask then
@@ -27,6 +28,16 @@ function event:climbFallLanding(player)
                         follower:removeFX(mask)
                     end)
                 end
+                local colormask = follower:getFX(id2)
+                if colormask then
+                    self.world.timer:tween(12/30, colormask, {color = {1,1,1,1}}, nil, function ()
+                        follower:removeFX(colormask)
+                    end)
+                end
+				self.world.timer:after(12/30, function()
+					follower.shadow_force_off = false
+					follower.highlight_force_off = false
+				end)
                 -- TODO: Support parties > 3
                 follower:setPosition(tx + (i == 1 and -30 or 30), ty + (self.up and 10 or -10))
                 follower:setFacing(player.facing)
@@ -34,6 +45,7 @@ function event:climbFallLanding(player)
             cutscene:interpolateFollowers()
             cutscene:attachFollowers()
             player:resetSprite()
+			player.highlight_force_off = false
         end)
     end
 end
