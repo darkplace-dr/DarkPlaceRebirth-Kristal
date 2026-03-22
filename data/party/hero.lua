@@ -54,7 +54,7 @@ function character:init()
     self.head_icons = "party/hero/icon"
     self.name_sprite = "party/hero/name"
 
-    self.attack_sprite = "effects/attack/cut"
+    self.attack_sprite = "effects/attack/cut_h"
     self.attack_sound = "laz_c"
     self.attack_pitch = 1
 

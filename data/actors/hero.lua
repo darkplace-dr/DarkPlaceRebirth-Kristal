@@ -61,21 +61,16 @@ function actor:init()
         ["battle/act_end"]      = {"battle/actend", 1/15, false, next="battle/idle"},]]
 
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
-        
 
-        ["battle/transition"]   = {"sword_jump_down", 0.2, true},
+        ["battle/transition"]   = {"battle/attackready", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
-        ["battle/victory"]      = {"battle/victory", 1/10, false},
+        --["battle/victory"]      = {"battle/victory", 1/10, false},
 
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
         ["jump_ball"]           = {"ball", 1/15, true},
         ["wall_slam"]           = {"wall_slam", 1/10, false},
     }
-
-    if Game.chapter == 1 then
-        self.animations["battle/transition"] = {"walk/right", 0, true}
-    end
 
     -- Tables of sprites to change into in mirrors
     self.mirror_sprites = {
@@ -93,55 +88,33 @@ function actor:init()
         ["walk/up"] = {0, 0},
         ["walk/down"] = {0, 0},
 
-        ["walk_blush/down"] = {0, 0},
-
         ["slide"] = {0, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-5, -1},
+        ["battle/idle"] = {3, 0},
 
-        ["battle/attack"] = {-8, -6},
-        ["battle/attackready"] = {-8, -6},
+        ["battle/attack"] = {-1, -8},
+        ["battle/attackready"] = {0, -8},
         ["battle/act"] = {-6, -6},
         ["battle/actend"] = {-6, -6},
         ["battle/actready"] = {-6, -6},
         ["battle/spell"] = {-6, -6},
-        ["battle/spellready"] = {-9, -9},
+        ["battle/spellready"] = {-1, -8},
         ["battle/item"] = {-6, -6},
         ["battle/itemready"] = {-6, -6},
         ["battle/defend"] = {-5, -3},
 
-        ["battle/defeat"] = {-8, 5},
-        ["battle/hurt"] = {-5, -6},
-        ["battle/swooned"] = {-14, 1},
+        ["battle/defeat"] = {1, 6},
+        ["battle/hurt"] = {3, 0},
+        ["battle/swooned"] = {-6, 1},
 
-        ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-3, 0},
 
         -- Cutscene offsets
-        ["pose"] = {-4, -2},
-
-        ["fall"] = {-5, -6},
         ["ball"] = {1, 8},
         ["landed"] = {-4, -2},
 
         ["fell"] = {-14, 1},
-
-        ["sword_jump_down"] = {-19, -5},
-        ["sword_jump_settle"] = {-27, 4},
-        ["sword_jump_up"] = {-17, 2},
-
-        ["hug_left"] = {-4, -1},
-        ["hug_right"] = {-2, -1},
-
-        ["peace"] = {0, 0},
-        ["rude_gesture"] = {0, 0},
-
-        ["reach"] = {-3, -1},
-
-        ["sit"] = {-3, 0},
-
-        ["t_pose"] = {-4, 0},
 
         ["wall_slam"] = {-1, 0},
 
@@ -156,7 +129,7 @@ function actor:init()
         ["climb/jump_left"] = {-0, 4},
         ["climb/jump_right"] = {-0, 4},
     }
-    
+
 	self.shiny_id = "hero"
 end
 
