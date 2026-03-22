@@ -21,6 +21,7 @@ function WarpBinInputMenu:init(length)
     self.char_h = self.char_w
     self.char_spacing = 5
 
+    self.input_started = false
     -- yes, a table of lines. that's what the TextInput API
     -- asks for
     self.input = {""}
@@ -51,11 +52,10 @@ function WarpBinInputMenu:onAdd(...)
         end
     end
     TextInput.submit_callback = function()
-        if self.finish_cb then
-            self.finish_cb(nil, self.input[1])
-        end
+        self:finish()
         self:remove()
     end
+    self.input_started = true
 end
 
 function WarpBinInputMenu:draw()
@@ -87,9 +87,7 @@ function WarpBinInputMenu:update()
     if not OVERLAY_OPEN then
         if self.cancellable and
             (Input.pressed("shift") or Input.pressed("gamepad:b")) then -- exclude X (FIXME)
-            if self.finish_cb then
-                self.finish_cb(nil, nil)
-            end
+            self:finish(true)
             self:remove()
         end
     end
@@ -98,7 +96,18 @@ function WarpBinInputMenu:update()
 end
 
 function WarpBinInputMenu:endInput()
+    if not self.input_started then return end
     TextInput.endInput()
+    self.input_started = false
+end
+
+function WarpBinInputMenu:finish(cancel)
+    self:endInput()
+    if self.finish_cb then
+        local input = self.input[1] ---@type string|nil
+        if cancel then input = nil end
+        self.finish_cb(nil, input)
+    end
 end
 
 function WarpBinInputMenu:onRemoveFromStage(parent)
