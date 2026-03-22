@@ -15,6 +15,8 @@ function CerobaDiamondBuff:init(x, y, callback)
     self:play(1/15, false, function() self.fade_out = true end)
     self.buff_applied = false
     self.fade_out = false
+    self.timer_active = false
+    self.remove_delay_timer = 0
     Assets.playSound("ceroba_trap")
 	self.callback_function = callback or nil
 end
@@ -38,10 +40,17 @@ function CerobaDiamondBuff:update()
 
     if self.fade_out then
         self.alpha = self.alpha - 0.15 * DTMULT
+        if self.alpha <= 0 and not self.timer_active then
+            self.timer_active = true
+        end
     end
 
-    if self.alpha <= 0 then
+    if self.remove_delay_timer >= 30 then
         self:remove()
+    end
+
+    if self.timer_active then
+        self.remove_delay_timer = self.remove_delay_timer + DTMULT
     end
 
     super.update(self)

@@ -17,54 +17,51 @@ function spell:init()
     self.tags = {}
 end
 
-function spell:getCastMessage(user, target)
+function spell:getBattleDescription()
     if Game.pp > 0 then
-        return "* But the SOUL was already protected."
+        return "Already\nProtected"
     elseif not Game.battle.no_buff_loop then
-        return "* But the SOUL was already about\nto be protected."
-    else
-        return "* "..user.chara:getName().." protected the SOUL!"
+        return "Already\nPrepared"
     end
+    return self.effect
+end
+
+function spell:isUsable(chara)
+    if Game.pp > 0 or not Game.battle.no_buff_loop then
+        return false
+    end
+    return self.usable
+end
+
+function spell:getCastMessage(user, target)
+    return "* "..user.chara:getName().." protected the SOUL!"
 end
 
 function spell:getLightCastMessage(user, target)
-    if Game.pp > 0 then
-        return "* But the SOUL was already protected."
-    elseif not Game.battle.no_buff_loop then
-        return "* But the SOUL was already about\nto be protected."
-    else
-        return "* "..user.chara:getName().." protected the SOUL!"
-    end
+    return "* "..user.chara:getName().." protected the SOUL!"
 end
 
 function spell:onCast(user, target)
-	if Game.pp > 0 or not Game.battle.no_buff_loop then
-        Game:giveTension(self.cost)
-    else
-        Game.battle.no_buff_loop = false
-    end
+	Game.battle.no_buff_loop = false
 end
 
 function spell:onLightCast(user, target)
-	if Game.pp > 0 or not Game.battle.no_buff_loop then
-        Game:giveTension(self.cost)
-    else
-        Game.battle.no_buff_loop = false
-    end
+	Game.battle.no_buff_loop = false
 end
 
 function spell:hasWorldUsage(chara)
     if Game.pp > 0 then
         return false
-    else
-        return true
     end
+    return true
 end
 
 function spell:onWorldCast(chara)
     Game.pp = 1
     Assets.playSound("ceroba_trap")
-    Game.world.timer:after(0.46, function()
+    Game.world.timer:after((1/15)*8, function()
+        -- plays on the 8th frame of the diamond animation
+        -- no diamond, so we just imitate the delay
         Assets.playSound("equip_armor")
     end)
 end
