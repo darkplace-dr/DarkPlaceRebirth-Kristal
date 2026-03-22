@@ -22,14 +22,7 @@ return function(cutscene, event)
                 resolved_as_instant = true
                 input_menu = object
                 fade_rect:remove()
-                if object:includes(GonerKeyboard) then
-                    ---@cast object GonerKeyboard
-                    object:finish()
-                else
-                    ---@cast object WarpBinInputMenu
-                    object.finish_cb(code, text .. key)
-                    object:endInput()
-                end
+                object:finish()
             end
         end
     })
