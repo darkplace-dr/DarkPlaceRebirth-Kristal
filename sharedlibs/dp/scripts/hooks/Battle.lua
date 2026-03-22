@@ -119,7 +119,17 @@ end
 
 function Battle:onDefendingState()
     -- Ceroba's shield on turn start
-    if self:getPartyBattler("ceroba") and not self.no_buff_loop then
+    local diamond_guard = false
+    for _,partymember in ipairs(Game.party) do
+        if partymember:hasSpell("diamond_guard") then
+            diamond_guard = true
+            break
+        end
+    end
+    if diamond_guard and not self.no_buff_loop then
+        self:darken()
+        self:hideTargets()
+
 		self.wave_length = 0
 		self.wave_timer = 0
 
@@ -135,6 +145,8 @@ function Battle:onDefendingState()
 				wave.encounter = self.encounter
 
 				self.wave_length = math.max(self.wave_length, wave.time)
+                -- while buff is being applied, wave_timer goes up so we gotta reset it again
+                self.wave_timer = 0
 
 				if self.soul.buff_freeze or wave.buff_freeze then
 					self.soul.can_move = prev_can_move
