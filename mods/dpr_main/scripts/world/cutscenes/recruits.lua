@@ -44,7 +44,7 @@ local cyber = {
 				cutscene:getCharacter("jamm"):setSprite(TableUtils.pick(poses))
 			end
 			if cutscene:getCharacter("jammarcy") then cutscene:getCharacter("jammarcy"):setSprite("bs_win") end
-			if cutscene:getCharacter("ceroba_dw") then cutscene:getCharacter("ceroba_dw"):setSprite("cool") end
+			if cutscene:getCharacter("ceroba") then cutscene:getCharacter("ceroba"):setSprite("cool") end
 
 			event:setAnimation("pose")
 			cutscene:wait(1.2)

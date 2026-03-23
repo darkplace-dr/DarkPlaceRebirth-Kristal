@@ -353,7 +353,7 @@ local hub = {
                     char:setSprite("shock_left")
                 elseif id == "dess" then
                     char:setSprite("beatbox")
-                elseif id == "ceroba_dw" then
+                elseif id == "ceroba" then
                     char.x = char.x - 10
                     char.y = char.y + 15
                     char:setSprite("fall")

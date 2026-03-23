@@ -5,8 +5,8 @@ function character:init()
 
     self.name = "Ceroba"
 
-    self:setActor("ceroba_dw")
-    self:setLightActor("ceroba")
+    self:setActor("ceroba")
+    self:setLightActor("ceroba_lw")
     self:setDarkTransitionActor("ceroba_dark_transition")
 
     self.level = 1
