@@ -25,7 +25,7 @@ return {
 	end,
 
 	thoughts = function(cutscene, event)
-		local ceroba = Game.world:getCharacter("ceroba_dw")
+		local ceroba = Game.world:getCharacter("ceroba")
 		ceroba:facePlayer()
 		cutscene:text("* Yes?", "neutral", "ceroba")
 		local topic = cutscene:choicer({"Room", "Thoughts", "Advice", "Nothing"})
