@@ -69,7 +69,7 @@ function EyeBeam:update()
                     Assets.playSound("spearrise", 1, 0.3)
                     Game.battle.timer:every(1/5, function()
                         if voidspawn.x < Game.battle.arena.right + 50 then
-                            Assets.playSound("dark_odd", 3, 1.2)
+                            Assets.playSound("dark_odd", 1.6, 1.2)
                             local x, y = voidspawn:getRelativePos(voidspawn.width/2, voidspawn.height/2)
                             local bullet1 = self:spawnBullet("voidspawn/rambullet", x, y, math.rad(90), 0.1)
                             local bullet2 = self:spawnBullet("voidspawn/rambullet", x, y, math.rad(270), 0.1)
