@@ -12,7 +12,7 @@ function AllStarsManager:init(x, y)
     self.num = 2
     self.damage = 5
 	self:setLayer(BATTLE_LAYERS["top"])
-    self.snd_loop = Assets.getSound("crowd_laughter_loop")
+    self.snd_loop = Assets.newSound("crowd_laughter_loop")
     self.snd_loop:setLooping(true)
     self.snd_loop:play()
 	

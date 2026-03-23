@@ -14,8 +14,8 @@ function LensFlareManager:init(x, y)
     for _,bullet in ipairs(Game.stage:getObjects(Registry.getBullet("tenna/lensflare_manager"))) do
         bul_counter = bul_counter + 1
     end
-    self.flipside = math.pow(-1, bul_counter)
     Object.endCache()
+    self.flipside = math.pow(-1, bul_counter)
 
     self.dist_max = 150
     self.total_rot = 0
