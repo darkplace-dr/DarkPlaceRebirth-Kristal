@@ -301,9 +301,9 @@ function Battle:commitSingleAction(action)
                 local hurt_effects = not Kristal.getLibConfig("ManaHealthResources", "omit_hurt_effects_from_hp_cost")
                 --print(hurt_effects)
                 if action.hp > 0 then
-                    battler:hurt(action.hp, true, battler, { msg = hurt_effects, anim = hurt_effects })
+                    battler.chara.health = battler.chara.health - action.hp
                 elseif action.hp < 0 then
-                    battler.chara:heal(-action.hp)
+                    battler.chara.health = battler.chara.health + action.hp
                 end
             end
         battler:setAnimation("battle/"..anim.."_ready")
@@ -328,9 +328,9 @@ function Battle:commitSingleAction(action)
             end
             if action.hp and action.resource == "health" then
                 if action.hp > 0 then
-                    battler.chara:heal(-action.hp)
+                    battler.chara.health = battler.chara.health - action.hp
                 elseif action.hp < 0 then
-                    self:hurt(-action.hp, true, battler)
+                    battler.chara.health = battler.chara.health + action.hp
                 end
             end
         --end
@@ -375,9 +375,9 @@ function Battle:removeSingleAction(action)
 
     if action.hp and action.resource == "health" then
         if action.hp < 0 then
-            self:hurt(action.hp, true, battler)
+            battler.chara.health = battler.chara.health - action.hp
         elseif action.hp > 0 then
-            battler.chara:heal(action.hp)
+            battler.chara.health = battler.chara.health + action.hp
         end
     end
 
