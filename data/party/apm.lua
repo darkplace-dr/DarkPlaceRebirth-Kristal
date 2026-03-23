@@ -68,6 +68,10 @@ function character:init()
     self.attack_box_color = {175/255, 175/255, 175/255}
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {175/255, 175/255, 175/255}
+	-- highlight color A
+    self.highlight_color = COLORS.silver
+		-- highlight color B
+    self.highlight_color_alt = COLORS.gray
 
     self.icon_color = {175/255, 175/255, 175/255}
 

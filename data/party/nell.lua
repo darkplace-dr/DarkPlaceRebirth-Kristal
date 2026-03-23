@@ -49,6 +49,10 @@ function character:init()
     self.attack_bar_color = {22/255, 0, 40/255} -- Placeholder
     self.attack_box_color = {0, 0, 40/255} -- Placeholder
     self.xact_color = {22/255, 0, 40/255} -- Placeholder
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#3C006EFF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.purple
 
     self.icon_color = {22/255, 0, 40/255}
 

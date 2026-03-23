@@ -50,6 +50,10 @@ function character:init()
     self.xact_color = nil
 
     self.icon_color = {12/255, 48/255, 205/255}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#0C30CDFF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.navy
 
     self.menu_icon = "party/brenda/head"
     self.head_icons = "party/brenda/icon"

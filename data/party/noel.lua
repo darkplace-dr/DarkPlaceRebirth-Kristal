@@ -92,6 +92,10 @@ function character:init()
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
     self.attack_box_color = {1, 1, 1}
     self.xact_color = {1, 1, 1}
+	-- highlight color A
+    self.highlight_color = COLORS.white
+		-- highlight color B
+    self.highlight_color_alt = COLORS.white
 
     self.icon_color = {150/255, 150/255, 150/255}
 

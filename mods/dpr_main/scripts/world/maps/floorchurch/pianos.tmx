@@ -88,15 +88,15 @@
     <property name="flagcheck" value="!churchpianoright"/>
    </properties>
   </object>
-  <object id="24" gid="590" x="220" y="280" width="90" height="66"/>
-  <object id="25" name="piano" x="220" y="240" width="90" height="30">
+  <object id="24" gid="590" x="216" y="280" width="90" height="66"/>
+  <object id="25" name="piano" x="216" y="240" width="90" height="30">
    <properties>
     <property name="flag" value="churchpianoleft"/>
     <property name="solution" value="131315"/>
    </properties>
   </object>
-  <object id="26" gid="590" x="900" y="280" width="90" height="66"/>
-  <object id="27" name="piano" x="900" y="240" width="90" height="30">
+  <object id="26" gid="590" x="896" y="280" width="90" height="66"/>
+  <object id="27" name="piano" x="896" y="240" width="90" height="30">
    <properties>
     <property name="flag" value="churchpianoright"/>
     <property name="solution" value="131315"/>

@@ -50,6 +50,10 @@ function character:init()
     self.attack_bar_color = {1, 0, 0}
     self.attack_box_color = {1, 0, 0}
     self.xact_color = nil
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#DC1510FF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.red
 
     self.icon_color = {220/255, 21/255, 16/255}
 

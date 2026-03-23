@@ -86,6 +86,10 @@ function character:init()
     self.attack_box_color = {68/255, 131/255, 172/255}
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {117/255, 170/255, 204/255}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#75AACCFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#7CC7CCFF")
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/bor/head"

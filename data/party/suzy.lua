@@ -63,6 +63,10 @@ function character:init()
     self.attack_box_color = {0.6, 0.2, 0.6}
 
     self.xact_color = {0.7, 0.3, 0.8}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#EA79C8FF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#383F9DFF")
 
     self.menu_icon = "party/susie/head"
     self.head_icons = "party/susie/icon"

@@ -68,6 +68,10 @@ function character:init()
     self.light_xact_color = {237/255, 140/255, 36/255}
 
     self.icon_color = {253/255, 0, 85/255}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#AD3049FF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.maroon
 
     self.menu_icon = "party/ceroba/head"
     self.head_icons = "party/ceroba/icon"

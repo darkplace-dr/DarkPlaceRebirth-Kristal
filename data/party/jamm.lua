@@ -62,6 +62,10 @@ function character:init()
     self.attack_bar_color = {0.5, 0.5, 0}
     self.attack_box_color = {127/255, 106/255, 0}
     self.xact_color = nil
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#7F6A00FF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#7F0000FF")
 
     self.menu_icon = "party/jamm/head"
     self.head_icons = "party/jamm/icon"

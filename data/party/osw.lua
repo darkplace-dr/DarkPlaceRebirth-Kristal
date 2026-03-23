@@ -73,6 +73,10 @@ function character:init()
     self.attack_box_color = nil
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = nil
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#BFD2EDFF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.white
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/ostarwalker/head"

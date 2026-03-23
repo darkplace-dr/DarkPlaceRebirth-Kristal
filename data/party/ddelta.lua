@@ -56,6 +56,10 @@ function character:init()
     self.attack_bar_color = {153/255, 217/255, 234/255}
     self.attack_box_color = {153/255, 217/255, 234/255}
     self.xact_color = {0.5, 1, 1}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#99D9EAFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#83A6EFFF")
 
     self.icon_color = {153/255, 217/255, 234/255}
 
