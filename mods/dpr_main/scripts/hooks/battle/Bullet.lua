@@ -1,9 +1,13 @@
-local Bullet, super = Utils.hookScript(Bullet)
+---@class Bullet : Bullet
+local Bullet, super = HookSystem.hookScript(Bullet)
 
 function Bullet:onGraze(first)
 	super.onGraze(self, first)
-	if Game.battle.encounter.addscore and first then
-		Game.battle.encounter:addScore(self.graze_score or 1)
+
+    local tenna = Game.battle:getEnemyBattler("tenna")
+
+	if tenna and first then
+		tenna:addScore(1)
 	end
 end
 
