@@ -348,7 +348,7 @@ end
 
 --- Shows party member health bars
 function World:showHealthBars()
-    if Game.light then return end
+    if Game:isLight() then return end
 
     if self.healthbar then
         self.healthbar:transitionIn()
@@ -799,7 +799,7 @@ end
 --- Gets a specific character currently present in the world
 ---@param id        string  The actor id of the character to search for
 ---@param index?    number  The character's index, if they have multiple instances in the world. (Defaults to `1`)
----@return Character|nil chara The character instance, or `nil` if it was not found
+---@return Character? chara The character instance, or `nil` if it was not found
 function World:getCharacter(id, index)
     local party_member = Game:getPartyMember(id)
     local i = 0
@@ -1151,7 +1151,7 @@ function World:fadeInto(callback)
 end
 
 --- Gets the object that the camera is currently targetting
----@return Object|nil
+---@return Object?
 function World:getCameraTarget()
     if self.camera.target and self.camera.target.stage then
         return self.camera.target

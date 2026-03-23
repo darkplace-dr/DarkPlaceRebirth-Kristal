@@ -194,6 +194,14 @@ function character:init()
 	self.tv_name = "ASS"
 end
 
+function character:getTitle()
+    if self:getFlag("auto_attack", false) then
+        return "LV" .. self:getLevel() .. " Mean Girl\nWon't do anything\nbut fight."
+    else
+        return super.getTitle(self)
+    end
+end
+
 function character:onTurnStart(battler)
 	if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
         self:heal(11)

@@ -791,6 +791,10 @@ end
 ---@param y? number
 ---@param sf? boolean
 function Game:gameOver(x, y, sf)
+    x, y = x or 0, y or 0
+    if Kristal.callEvent(KRISTAL_EVENT.onGameOver, x, y) then
+        return
+    end
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
@@ -800,12 +804,11 @@ function Game:gameOver(x, y, sf)
     end
 
     if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
-        self.gameover = GameOver(x or 0, y or 0)
-        self.stage:addChild(self.gameover)
+        self.gameover = GameOver(x, y)
     else
         self.gameover = GameOverSF(sf == "bearers" and true or nil)
-        self.stage:addChild(self.gameover)
     end
+    self.stage:addChild(self.gameover)
 end
 
 ---@param cutscene          string

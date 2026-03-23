@@ -83,6 +83,8 @@ function Map:init(world, data)
 end
 
 function Map:load()
+    Game:setLight(self.light)
+
     self.world:addChild(self.timer)
     if self.data then
         self:loadMapData(self.data)
