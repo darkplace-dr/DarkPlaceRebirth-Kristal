@@ -159,8 +159,12 @@ end
 function Player:preDraw()
 	self.lastx, self.lasty = self.x, self.y
 	if self.onrotatingtower then
-		self.x = self.world.map.cyltower.krisx
-		self.y = self.world.map.cyltower.krisy
+		if self.world.map.cyltower.krisx then
+			self.x = self.world.map.cyltower.krisx
+		end
+		if self.world.map.cyltower.krisy then
+			self.y = self.world.map.cyltower.krisy
+		end
 	end
 	super.preDraw(self)
 end
