@@ -1,13 +1,13 @@
-local rudinn, super = Class(Recruit)
+local Rudinn, super = Class(Recruit)
 
-function rudinn:init()
+function Rudinn:init()
     super.init(self)
 
     -- Display Name
     self.name = "Rudinn"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 3
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 1
@@ -36,7 +36,7 @@ function rudinn:init()
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return rudinn
+return Rudinn

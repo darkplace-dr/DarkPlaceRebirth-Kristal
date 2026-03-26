@@ -1,13 +1,13 @@
-local rabbick, super = Class(Recruit)
+local Rabbick, super = Class(Recruit)
 
-function rabbick:init()
+function Rabbick:init()
     super.init(self)
 
     -- Display Name
     self.name = "Rabbick"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 3
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 4
@@ -36,7 +36,7 @@ function rabbick:init()
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return rabbick
+return Rabbick
