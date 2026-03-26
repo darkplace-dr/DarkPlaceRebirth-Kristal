@@ -104,7 +104,7 @@ function RegenItem:alsoHealsInBattle(id, regener) return self.heals end
 ---@param target PartyMember|PartyMember[]
 ---@return boolean
 function RegenItem:onWorldUse(target)
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         -- Regen single party member
         local heal_amount = self:getWorldHealAmount(target.id)
         local regen_amount = self:getWorldRegenAmount(target.id)
@@ -117,7 +117,7 @@ function RegenItem:onWorldUse(target)
             Game.world:heal(target, heal_amount)
         end
         return true
-    elseif self.target == "party" then
+    elseif self:getTarget() == "party" then
         -- Regen all party members
         for _,party_member in ipairs(target) do
             local heal_amount = self:getWorldHealAmount(target.id)
@@ -142,7 +142,7 @@ end
 ---@param user PartyBattler
 ---@param target Battler[]|PartyBattler|PartyBattler[]|EnemyBattler|EnemyBattler[]
 function RegenItem:onBattleUse(user, target)
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         -- Regen single party member
         local heal_amount = self:getBattleHealAmountModified(target.chara.id, user.chara)
         local regen_amount = self:getBattleRegenAmountModified(target.chara.id, user.chara)
@@ -154,7 +154,7 @@ function RegenItem:onBattleUse(user, target)
         if self:alsoHealsInBattle(target.chara.id, user.chara) then
             target:heal(heal_amount)
         end
-    elseif self.target == "party" then
+    elseif self:getTarget() == "party" then
         -- Regen all party members
         for _,battler in ipairs(target) do
             local heal_amount = self:getBattleHealAmountModified(target.chara.id, user.chara)
@@ -168,7 +168,7 @@ function RegenItem:onBattleUse(user, target)
                 battler:heal(heal_amount)
             end
         end
-    elseif self.target == "enemy" then
+    elseif self:getTarget() == "enemy" then
         -- Regen single enemy (why)
         local heal_amount = self:getBattleHealAmountModified(target.chara.id, user.chara)
         local regen_amount = self:getBattleRegenAmountModified(target.id, user.chara)
@@ -176,7 +176,7 @@ function RegenItem:onBattleUse(user, target)
         if self:alsoHealsInBattle(target.id, user.chara) then
             target:heal(heal_amount)
         end
-    elseif self.target == "enemies" then
+    elseif self:getTarget() == "enemies" then
         -- Regen all enemies (why????)
         for _,enemy in ipairs(target) do
             local heal_amount = self:getBattleHealAmountModified(target.chara.id, user.chara)

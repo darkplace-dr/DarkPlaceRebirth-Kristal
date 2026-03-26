@@ -98,15 +98,15 @@ function ActionButton:select()
                 ["callback"] = function(menu_item)
                     Game.battle.selected_spell = menu_item
 
-                    if not spell.target or spell.target == "none" then
+                    if not spell:getTarget() or spell:getTarget() == "none" then
                         Game.battle:pushAction("SPELL", nil, menu_item)
-                    elseif spell.target == "ally" then
+                    elseif spell:getTarget() == "ally" then
                         Game.battle:setState("PARTYSELECT", "SPELL")
-                    elseif spell.target == "enemy" then
+                    elseif spell:getTarget() == "enemy" then
                         Game.battle:setState("ENEMYSELECT", "SPELL")
-                    elseif spell.target == "party" then
+                    elseif spell:getTarget() == "party" then
                         Game.battle:pushAction("SPELL", Game.battle.party, menu_item)
-                    elseif spell.target == "enemies" then
+                    elseif spell:getTarget() == "enemies" then
                         Game.battle:pushAction("SPELL", Game.battle:getActiveEnemies(), menu_item)
                     end
                 end

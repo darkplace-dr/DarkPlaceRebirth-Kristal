@@ -2762,7 +2762,7 @@ function Battle:nextTurn()
                     spell.current_spell = spell.spells[selected_spell]
                     spell.effect = "Current:\n" .. spell.current_spell:getName()
                     spell.tags = spell.current_spell.tags
-                    spell.target = spell.current_spell.target
+                    spell.target = spell.current_spell:getTarget()
                 end
             end
         end

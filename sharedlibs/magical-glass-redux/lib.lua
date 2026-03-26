@@ -1641,32 +1641,32 @@ function lib:init()
     Utils.hook(Item, "onLightBoltHit", function(orig, self, battler) end)
     
     Utils.hook(Item, "getLightBattleText", function(orig, self, user, target)
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             return "* " .. target.chara:getNameOrYou() .. " "..self:getUseMethod(target.chara).." the " .. self:getUseName() .. "."
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.battle.party > 1 then
                 return "* Everyone "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
             else
                 return "* You "..self:getUseMethod("self").." the " .. self:getUseName() .. "."
             end
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             return "* " .. target.name .. " "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             return "* The enemies "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
         end
     end)
     
     Utils.hook(Item, "getLightBattleHealingText", function(orig, self, user, target, amount)
         local maxed = false
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target.chara:getHealth() >= target.chara:getStat("health") or amount == math.huge
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             maxed = target.health >= target.max_health or amount == math.huge
-        elseif self.target == "party" and #Game.battle.party == 1 then
+        elseif self:getTarget() == "party" and #Game.battle.party == 1 then
             maxed = target[1].chara:getHealth() >= target[1].chara:getStat("health") or amount == math.huge
         end
         local message = ""
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             if select(2, target.chara:getNameOrYou()) and maxed then
                 message = "* Your HP was maxed out."
             elseif maxed then
@@ -1674,7 +1674,7 @@ function lib:init()
             else
                 message = "* " .. target.chara:getNameOrYou() .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.battle.party > 1 then
                 message = "* Everyone recovered " .. amount .. " HP."
             elseif maxed then
@@ -1682,13 +1682,13 @@ function lib:init()
             else
                 message = "* You recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             if maxed then
                 message = "* " .. target.name .. "'s HP was maxed out."
             else
                 message = "* " .. target.name .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             message = "* The enemies recovered " .. amount .. " HP."
         end
         return message
@@ -2084,9 +2084,9 @@ function lib:init()
     
             if Input.pressed("confirm") then
                 local item = Game.inventory:getItem(self.storage, self.item_selecting)
-                if self.option_selecting == 1 and (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
+                if self.option_selecting == 1 and (item.usable_in == "world" or item.usable_in == "all") and not (item:getTarget() == "enemy" or item:getTarget() == "enemies") then
                     self.party_selecting = 1
-                    if #Game.party > 1 and item.target == "ally" then
+                    if #Game.party > 1 and item:getTarget() == "ally" then
                         self.ui_select:stop()
                         self.ui_select:play()
                         self.party_select_bg.visible = true
@@ -2142,7 +2142,7 @@ function lib:init()
         local inventory = Game.inventory:getStorage(self.storage)
     
         for index, item in ipairs(inventory) do
-            if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
+            if (item.usable_in == "world" or item.usable_in == "all") and not (item:getTarget() == "enemy" or item:getTarget() == "enemies") then
                 Draw.setColor(PALETTE["world_text"])
             else
                 Draw.setColor(PALETTE["world_text_unusable"])
@@ -2161,7 +2161,7 @@ function lib:init()
 
         if self.state ~= "PARTYSELECT" then
             local item = Game.inventory:getItem(self.storage, self.item_selecting)
-            if (item.usable_in == "world" or item.usable_in == "all") and not (item.target == "enemy" or item.target == "enemies") then
+            if (item.usable_in == "world" or item.usable_in == "all") and not (item:getTarget() == "enemy" or item:getTarget() == "enemies") then
                 Draw.setColor(PALETTE["world_text"])
             else
                 Draw.setColor(PALETTE["world_gray"])
@@ -2218,7 +2218,7 @@ function lib:init()
         if TARGET_MOD == "dpr_main" then orig(self, item) return end
         
         local result
-        if item.target == "ally" then
+        if item:getTarget() == "ally" then
             result = item:onWorldUse(Game.party[self.party_selecting])
         else
             result = item:onWorldUse(Game.party)
@@ -2288,7 +2288,7 @@ function lib:init()
     Utils.hook(HealItem, "onWorldUse", function(orig, self, target)
         if Game:isLight() then
             local text = self:getWorldUseText(target)
-            if self.target == "ally" then
+            if self:getTarget() == "ally" then
                 self:worldUseSound(target)
                 local amount = self:getWorldHealAmount(target.id)
                 local best_amount
@@ -2306,7 +2306,7 @@ function lib:init()
                 amount = amount + best_amount
                 Game.world:heal(target, amount, text, self)
                 return true
-            elseif self.target == "party" then
+            elseif self:getTarget() == "party" then
                 self:worldUseSound(target)
                 for _,party_member in ipairs(target) do
                     local amount = self:getWorldHealAmount(party_member.id)
@@ -2337,7 +2337,7 @@ function lib:init()
     Utils.hook(HealItem, "onLightBattleUse", function(orig, self, user, target)
         local text = self:getLightBattleText(user, target)
 
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             self:battleUseSound(user, target)
             local amount = self:getBattleHealAmount(target.chara.id)
 
@@ -2357,7 +2357,7 @@ function lib:init()
             end
             Game.battle:battleText(text)
             return true
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             self:battleUseSound(user, target)
 
             local amount = 0
@@ -2381,7 +2381,7 @@ function lib:init()
             end
             Game.battle:battleText(text)
             return true
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             local amount = self:getBattleHealAmount(target.id)
             
             for _,equip in ipairs(user.chara:getEquipment()) do
@@ -2401,7 +2401,7 @@ function lib:init()
             end
             Game.battle:battleText(text)
             return true
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             local amount = 0
             for _,enemy in ipairs(target) do
                 amount = self:getBattleHealAmount(enemy.id)
@@ -2430,25 +2430,25 @@ function lib:init()
     end)
     
     Utils.hook(HealItem, "getLightBattleText", function(orig, self, user, target)
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             return "* " .. target.chara:getNameOrYou() .. " "..self:getUseMethod(target.chara).." the " .. self:getUseName() .. "."
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.battle.party > 1 then
                 return "* Everyone "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
             else
                 return "* You "..self:getUseMethod("self").." the " .. self:getUseName() .. "."
             end
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             return "* " .. target.name .. " "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             return "* The enemies "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
         end
     end)
     
     Utils.hook(HealItem, "getWorldUseText", function(orig, self, target)
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             return "* " .. target:getNameOrYou() .. " "..self:getUseMethod(target).." the " .. self:getUseName() .. "."
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.party > 1 then
                 return "* Everyone "..self:getUseMethod("other").." the " .. self:getUseName() .. "."
             else
@@ -2459,15 +2459,15 @@ function lib:init()
     
     Utils.hook(HealItem, "getLightBattleHealingText", function(orig, self, user, target, amount)
         local maxed = false
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target.chara:getHealth() >= target.chara:getStat("health") or amount == math.huge
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             maxed = target.health >= target.max_health or amount == math.huge
-        elseif self.target == "party" and #Game.battle.party == 1 then
+        elseif self:getTarget() == "party" and #Game.battle.party == 1 then
             maxed = target[1].chara:getHealth() >= target[1].chara:getStat("health") or amount == math.huge
         end
         local message = ""
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             if select(2, target.chara:getNameOrYou()) and maxed then
                 message = "* Your HP was maxed out."
             elseif maxed then
@@ -2475,7 +2475,7 @@ function lib:init()
             else
                 message = "* " .. target.chara:getNameOrYou() .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.battle.party > 1 then
                 message = "* Everyone recovered " .. amount .. " HP."
             elseif maxed then
@@ -2483,13 +2483,13 @@ function lib:init()
             else
                 message = "* You recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             if maxed then
                 message = "* " .. target.name .. "'s HP was maxed out."
             else
                 message = "* " .. target.name .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             message = "* The enemies recovered " .. amount .. " HP."
         end
         return message
@@ -2498,12 +2498,12 @@ function lib:init()
     Utils.hook(HealItem, "getLightWorldHealingText", function(orig, self, target, amount)
         local maxed = false
 
-        if self.target == "ally" or self.target == "party" and #Game.party == 1 then
+        if self:getTarget() == "ally" or self:getTarget() == "party" and #Game.party == 1 then
             maxed = target:getHealth() >= target:getStat("health") or amount == math.huge
         end
 
         local message = ""
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             if select(2, target:getNameOrYou()) and maxed then
                 message = "* Your HP was maxed out."
             elseif maxed then
@@ -2511,7 +2511,7 @@ function lib:init()
             else
                 message = "* " .. target:getNameOrYou() .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.party > 1 then
                 message = "* Everyone recovered " .. amount .. " HP."
             elseif maxed then
@@ -2525,7 +2525,7 @@ function lib:init()
     
     Utils.hook(HealItem, "onBattleUse", function(orig, self, user, target)
         if Game:isLight() then
-            if self.target == "ally" then
+            if self:getTarget() == "ally" then
                 -- Heal single party member
                 local amount = self:getBattleHealAmount(target.chara.id)
                 for _,equip in ipairs(user.chara:getEquipment()) do
@@ -2534,7 +2534,7 @@ function lib:init()
                     end
                 end
                 target:heal(amount)
-            elseif self.target == "party" then
+            elseif self:getTarget() == "party" then
                 -- Heal all party members
                 for _,battler in ipairs(target) do
                     local amount = self:getBattleHealAmount(battler.chara.id)
@@ -2545,7 +2545,7 @@ function lib:init()
                     end
                     battler:heal(amount)
                 end
-            elseif self.target == "enemy" then
+            elseif self:getTarget() == "enemy" then
                 -- Heal single enemy (why)
                 local amount = self:getBattleHealAmount(target.id)
                 for _,equip in ipairs(user.chara:getEquipment()) do
@@ -2554,7 +2554,7 @@ function lib:init()
                     end
                 end
                 target:heal(amount)
-            elseif self.target == "enemies" then
+            elseif self:getTarget() == "enemies" then
                 -- Heal all enemies (why????)
                 for _,enemy in ipairs(target) do
                     local amount = self:getBattleHealAmount(enemy.id)
@@ -3568,7 +3568,7 @@ function lib:init()
                 self.state = "USINGSPELL"
             elseif self.state == "USINGSPELL" then
                 if self.option_selecting == 1 and self:canCast(spell) then
-                    if spell.target == "ally" and #Game.party > 1 then
+                    if spell:getTarget() == "ally" and #Game.party > 1 then
                         self.ui_select:stop()
                         self.ui_select:play()
                     
@@ -3577,7 +3577,7 @@ function lib:init()
                         self.state = "PARTYSELECT"
                     else
                         Game:removeTension(spell:getTPCost())
-                        spell:onLightWorldStart(Game.party[self.party_selecting], spell.target == "ally" and Game.party[1] or spell.target == "party" and Game.party or nil)
+                        spell:onLightWorldStart(Game.party[self.party_selecting], spell:getTarget() == "ally" and Game.party[1] or spell:getTarget() == "party" and Game.party or nil)
                     end
                 elseif self.option_selecting == 2 then
                     spell:onCheck()
@@ -4001,13 +4001,13 @@ function lib:init()
     
     Utils.hook(Spell, "getWorldHealMessage", function(orig, self, user, target, amount) 
         local maxed = false
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target:getHealth() >= target:getStat("health") or amount == math.huge
-        elseif self.target == "party" and #Game.party == 1 then
+        elseif self:getTarget() == "party" and #Game.party == 1 then
             maxed = target[1]:getHealth() >= target[1]:getStat("health") or amount == math.huge
         end
         local message = ""
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             if select(2, target:getNameOrYou()) and maxed then
                 message = "* Your HP was maxed out."
             elseif maxed then
@@ -4015,7 +4015,7 @@ function lib:init()
             else
                 message = "* " .. target:getNameOrYou() .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.party > 1 then
                 message = "* Everyone recovered " .. amount .. " HP."
             elseif maxed then
@@ -4104,15 +4104,15 @@ function lib:init()
     
     Utils.hook(Spell, "getHealMessage", function(orig, self, user, target, amount) 
         local maxed = false
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target.chara:getHealth() >= target.chara:getStat("health") or amount == math.huge
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             maxed = target.health >= target.max_health or amount == math.huge
-        elseif self.target == "party" and #Game.battle.party == 1 then
+        elseif self:getTarget() == "party" and #Game.battle.party == 1 then
             maxed = target[1].chara:getHealth() >= target[1].chara:getStat("health") or amount == math.huge
         end
         local message = ""
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             if select(2, target.chara:getNameOrYou()) and maxed then
                 message = "* Your HP was maxed out."
             elseif maxed then
@@ -4120,7 +4120,7 @@ function lib:init()
             else
                 message = "* " .. target.chara:getNameOrYou() .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "party" then
+        elseif self:getTarget() == "party" then
             if #Game.battle.party > 1 then
                 message = "* Everyone recovered " .. amount .. " HP."
             elseif maxed then
@@ -4128,13 +4128,13 @@ function lib:init()
             else
                 message = "* You recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             if maxed then
                 message = "* " .. target.name .. "'s HP was maxed out."
             else
                 message = "* " .. target.name .. " recovered " .. amount .. " HP."
             end
-        elseif self.target == "enemies" then
+        elseif self:getTarget() == "enemies" then
             message = "* The enemies recovered " .. amount .. " HP."
         end
         return message
@@ -4443,15 +4443,15 @@ function lib:onActionSelect(battler, button)
                             ["callback"] = function(menu_item)
                                 Game.battle.selected_spell = menu_item
 
-                                if not spell.target or spell.target == "none" then
+                                if not spell:getTarget() or spell:getTarget() == "none" then
                                     Game.battle:pushAction("SPELL", nil, menu_item)
-                                elseif spell.target == "ally" then
+                                elseif spell:getTarget() == "ally" then
                                     Game.battle:setState("PARTYSELECT", "SPELL")
-                                elseif spell.target == "enemy" then
+                                elseif spell:getTarget() == "enemy" then
                                     Game.battle:setState("ENEMYSELECT", "SPELL")
-                                elseif spell.target == "party" then
+                                elseif spell:getTarget() == "party" then
                                     Game.battle:pushAction("SPELL", Game.battle.party, menu_item)
-                                elseif spell.target == "enemies" then
+                                elseif spell:getTarget() == "enemies" then
                                     Game.battle:pushAction("SPELL", Game.battle:getActiveEnemies(), menu_item)
                                 end
                             end

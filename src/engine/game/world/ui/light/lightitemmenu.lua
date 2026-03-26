@@ -81,12 +81,12 @@ function LightItemMenu:init()
         local item = Game.inventory:getItem(self.storage, self.selected_item)
 
         if (item.usable_in == "world" or item.usable_in == "all") then
-            if #Game.party > 1 and item.target == "ally" then
+            if #Game.party > 1 and item:getTarget() == "ally" then
                 Assets.playSound("ui_select")
                 self.menu_partyselect:setFocused()
                 self.party_select_bg.visible = true
                 --Game.world:showHealthBars()
-            elseif #Game.party > 1 and item.target == "party" then
+            elseif #Game.party > 1 and item:getTarget() == "party" then
                 -- Assets.playSound("ui_select")
                 self.party_selecting = 1
                 self:useItem(item)
@@ -249,9 +249,9 @@ end
 
 function LightItemMenu:useItem(item)
     local result
-    if item.target == "ally" then
+    if item:getTarget() == "ally" then
         result = item:onWorldUse(Game.party[self.party_selecting])
-    elseif item.target == "party" or item.target == "none" then
+    elseif item:getTarget() == "party" or item:getTarget() == "none" then
         result = item:onWorldUse(Game.party)
     end
 

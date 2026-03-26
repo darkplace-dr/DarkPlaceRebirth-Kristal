@@ -119,15 +119,15 @@ end
 
 function item:getLightBattleHealingText(user, target, amount)
     if target then
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target.chara:getHealth() >= target.chara:getStat("health")
-        elseif self.target == "enemy" then
+        elseif self:getTarget() == "enemy" then
             maxed = target.health >= target.max_health
         end
     end
 
     local message
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         if target.chara.id == Game.battle.party[1].chara.id and maxed then
             message = "* Your HP was maxed out."
         elseif maxed then
@@ -141,7 +141,7 @@ end
 
 function item:getLightWorldHealingText(target, amount, maxed)
     if target then
-        if self.target == "ally" then
+        if self:getTarget() == "ally" then
             maxed = target:getHealth() >= target:getStat("health")
         end
     end

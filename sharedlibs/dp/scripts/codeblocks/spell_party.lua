@@ -16,8 +16,8 @@ function block:run(scope)
     local spell_n = self.spell:run(scope)
     local spell = assert(Game:getPartyMember("apm"):getSpells()[spell_n], "Spell " .. spell_n .. " not found.")
     assert(Game.tension >= spell:getTPCost(Game:getPartyMember("apm")), "Not enough tension to cast spell " .. spell_n .. ".")
-    assert(spell.target == "ally" or spell.target == "party", "Spell " .. spell_n .. " unable to be used on party.")
-	if spell.target == "party" then
+    assert(spell:getTarget() == "ally" or spell:getTarget() == "party", "Spell " .. spell_n .. " unable to be used on party.")
+	if spell:getTarget() == "party" then
 		target = Game.battle.party
 	end
     return {"SPELL", target, {data = spell, tp = spell:getTPCost(Game:getPartyMember("apm"))}, nil}
