@@ -136,7 +136,7 @@ function actor:init()
 
         --- Climbing offsets
         ["climb/climb"] = {-4, 8},
-        ["climb/charge"] = {-4, 8},
+        ["climb/charge"] = {-4, 11},
         ["climb/slip_left"] = {-4, 8},
         ["climb/slip_right"] = {-4, 8},
         ["climb/land_left"] = {-4, 8},
