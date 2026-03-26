@@ -21,6 +21,33 @@ function EnemyBattler:init(actor, use_overlay)
     self.powder_damage = false
 end
 
+function EnemyBattler:hurt(amount, battler, on_defeat, color, show_status, attacked)
+    if amount == 0 or (amount < 0 and Game:getConfig("damageUnderflowFix")) then
+        if show_status ~= false then
+            if battler.chara.id == "pauling" then
+                self:statusMessage("msg", "miss_pauling", color or (battler and { battler.chara:getDamageColor() }))
+            else
+                self:statusMessage("msg", "miss", color or (battler and { battler.chara:getDamageColor() }))
+            end
+        end
+
+        self:onDodge(battler, attacked)
+        return
+    end
+
+    self.health = self.health - amount
+    if show_status ~= false then
+        self:statusMessage("damage", amount, color or (battler and { battler.chara:getDamageColor() }))
+    end
+
+    if amount > 0 then
+        self.hurt_timer = 1
+        self:onHurt(amount, battler)
+    end
+
+    self:checkHealth(on_defeat, amount, battler)
+end
+
 function EnemyBattler:registerAssistAct(party_member, mini, name, description, party, tp, highlight, icons)
     if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
     if not Game:getPartyMember(party_member):getAssistID(--[[For some reason, there was a `mini` parameter here???]]) then return end
@@ -72,7 +99,7 @@ function EnemyBattler:onMercy(battler, spare_all)
                     alive = alive + 1
                 end
             end
-            local mercy_points = Utils.round(self.spare_points * alive/#Game.battle:getActiveEnemies())
+            local mercy_points = MathUtils.round(self.spare_points * alive/#Game.battle:getActiveEnemies())
             self:addMercy(math.min(mercy_points,100))
             -- if mercy_points > 100 and self:canSpare() then
                 -- self:spare()
@@ -138,7 +165,7 @@ end
 function EnemyBattler:attemptDisarm()
     if self.has_weapon then
 		if not self.disarmed then
-			if Utils.random() <= self.disarm_chance then
+			if MathUtils.random() <= self.disarm_chance then
 				return true, "* The enemy was disarmed!"
 			end
 			return false, "* The enemy resisted...[wait:10] Try again?"
