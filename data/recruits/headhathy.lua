@@ -1,13 +1,13 @@
-local headhathy, super = Class(Recruit)
+local HeadHathy, super = Class(Recruit)
 
-function headhathy:init()
+function HeadHathy:init()
     super.init(self)
 
     -- Display Name
     self.name = "Head Hathy"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 3
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 8
@@ -36,7 +36,7 @@ function headhathy:init()
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return headhathy
+return HeadHathy
