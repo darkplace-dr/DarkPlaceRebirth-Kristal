@@ -15,6 +15,7 @@ function RotatingTower:init(data)
 	self.tower_angle_fine_tune = properties["anglefine"] or 0
 	self.use_collision_map = properties["usecollision"] ~= false
 	self.use_background_map = properties["usebg"] ~= false
+	self.offset_reticle_x = properties["retoffx"] or 0
 	self.endclimb = false
 	self.endclimbtimer = 0
 	self.tower_x = self.x or 320
@@ -146,7 +147,7 @@ function RotatingTower:update()
 		local px, py = self.world.player:getRelativePos(0, 0)
 		self.krisx = self.tower_x
 		self.krisy = self.world.player.y
-		if self.world.player.state == "CLIMB" and self.world.player.onrotatingtower then
+		if (self.world.player.state == "CLIMB" or self.world.player.state == "CLIMBSLIP") and self.world.player.onrotatingtower then
 			local adjustment = self.tower_x - self.tower_angle_fine_tune
 			local last_angle = self.tower_angle
 			self.tower_angle = MathUtils.lerp(0, 360, (px - adjustment) / self.tower_circumference)
@@ -222,7 +223,7 @@ end
 
 function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw, gh, flip_x, flip_y, flip_diag)
     local draw_id = tileset:getDrawTile(id)
-    local w, h = self.tile_width_fine, self.tile_height_fine
+	local w, h = tileset:getTileSize(draw_id)
 
     x, y = x or 0, y or 0
     gw, gh = gw or w, gh or h
@@ -237,12 +238,12 @@ function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw,
     if tileset.fill_grid and gw and gh and (w ~= gw or h ~= gh) then
         sx = gw / w
         sy = gh / h
-        if self.preserve_aspect_fit then
+        if tileset.preserve_aspect_fit then
             sx = MathUtils.absMin(sx, sy)
             sy = sx
         end
     end
-	sx = sx * ((-xid.xscale) / self.tile_width_fine)
+	sx = sx * ((-xid.xscale) / gw)
 
     local ox, oy = (w * sx) / 2, gh - (h * sy) / 2
 
@@ -332,7 +333,7 @@ function RotatingTower:draw()
 						Draw.setColor(xid.color)
 						local xx = (self.tower_x - self.tower_xshake) + xid.x + (xid.xscale)
 						local yy = (self.tile_height_fine * ii) + self.tower_ystart + 10
-						self:drawGridTile(layer, xid, id, xx - cx, yy - cy, col, pos, tileset, grid_w, grid_h, flip_x, flip_y, flip_diag)
+						self:drawGridTile(layer, xid, id, xx - cx, yy - cy, col, pos, tileset, self.tile_width_fine, self.tile_height_fine, flip_x, flip_y, flip_diag)
 					end 
 				end
 			end
