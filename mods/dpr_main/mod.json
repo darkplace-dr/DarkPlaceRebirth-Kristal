@@ -14,7 +14,7 @@
     // The Deltarune chapter you'd like to base your mod off of.
     // Do keep in mind that you can control chapter-specific features
     // one by one using the config below.
-    "chapter": 2,
+    "chapter": 4,
 
     // The map that you start in when first starting the mod.
     "map": "nothing",
@@ -127,22 +127,6 @@
         },
     ],
 
-    // Equipment for your party. Not specifying equipment defaults to the following.
-    "equipment": {
-        "kris": {
-            "weapon": "wood_blade",
-            "armor": ["amber_card", "amber_card"]
-        },
-        "susie": {
-            "weapon": "mane_ax",
-            "armor": ["amber_card", "amber_card"]
-        },
-        "ralsei": {
-            "weapon": "red_scarf",
-            "armor": ["amber_card", "amber_card"]
-        }
-    },
-
     // Should never be true, but just in case. Restarts the entire engine when leaving the mod.
     // If you need this, you're most likely doing something wrong.
     "hardReset": false,
@@ -167,11 +151,6 @@
         "offseteditor": {},
         "kristal": {
             "growStronger": false,
-			"pacifyGlow": true,
-			"tiredMessages": true,
-			"awakeMessages": true,
-			"oldRudeBuster": false,
-			"newShopSpaceUI": true,
 			"shopSpaceUIFont": "8bit"
 		},
     }

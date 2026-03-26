@@ -208,7 +208,7 @@ end
 
 function character:onTurnStart(battler)
 	if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
-        self:heal(11)
+        Game.battle:getPartyBattler(self.id):heal(11)
     end
 	if self.rage_counter > 0 then
 		self.rage_counter = self.rage_counter - 1
@@ -231,47 +231,13 @@ function character:getMenuIcon()
     return self.menu_icon
 end
 
-function character:getHeadIcon()
-    if self.is_down then
-        return "head_down"
-    elseif self.sleeping then
-        return "sleep"
-    elseif self.defending then
-        return "defend"
-    elseif self.action and self.action.icon then
-        return self.action.icon
-    elseif self.hurting then
-        return "head_hurt"
-    elseif self.rage then
-        return "rage"
-	elseif (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) then
-		return "head_low"
-    else
-        return "head"
-    end
-end
-
-function character:down()
-	self.rage = false
-	self.rage_counter = 0
-    self.is_down = true
-    self.sleeping = false
-    self.hurting = false
-    self:toggleOverlay(true)
-    self.overlay_sprite:setAnimation("battle/defeat")
-    if self.action then
-        Game.battle:removeAction(Game.battle:getPartyIndex(self.chara.id))
-    end
-    Game.battle:checkGameOver()
-end
-
 function character:onAttackHit(enemy, damage)
     if damage > 0 then
         Assets.playSound("impact", 0.8)
         Game.battle:shakeCamera(4)
     end
-	
-	if self:getWeapon().id == "decayaxe" then
+
+	if self:getWeapon() and self:getWeapon().id == "decayaxe" then
 		self:addStatBuff("attack", -2)
 	end
 end

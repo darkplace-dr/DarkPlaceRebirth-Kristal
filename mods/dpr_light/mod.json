@@ -14,7 +14,7 @@
     // The Deltarune chapter you'd like to base your mod off of.
     // Do keep in mind that you can control chapter-specific features
     // one by one using the config below.
-    "chapter": 2,
+    "chapter": 4,
 
     // The map that you start in when first starting the mod.
     "map": "light/hometown/town_shelter",
