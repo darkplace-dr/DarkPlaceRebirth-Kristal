@@ -265,12 +265,12 @@ function BattleUI:drawState()
         local x = 0
         local y = 0
 		local party = Game.battle.party[Game.battle.current_selecting].chara
-		if party.soul_color then
+        if party.soul_color then
 			Draw.setColor(party.soul_color)
 		else
 			Draw.setColor(Game.battle.encounter:getSoulColor())
 		end
-		local heart_sprite = self.heart_sprite
+		local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
 		if party.heart_sprite then
 			heart_sprite = Assets.getTexture(party.heart_sprite)
 		end
@@ -401,7 +401,7 @@ function BattleUI:drawState()
 		else
 			Draw.setColor(Game.battle.encounter:getSoulColor())
 		end
-		local heart_sprite = self.heart_sprite
+		local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
 		if party.heart_sprite then
 			heart_sprite = Assets.getTexture(party.heart_sprite)
 		end
@@ -611,7 +611,7 @@ function BattleUI:drawState()
         else
             Draw.setColor(Game.battle.encounter:getSoulColor())
         end
-        local heart_sprite = self.heart_sprite
+        local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
         if party.heart_sprite then
             heart_sprite = Assets.getTexture(party.heart_sprite)
         end

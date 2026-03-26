@@ -733,8 +733,17 @@ function Lib:init()
         end
 
         if self.state == "SPELLS" then
-            Draw.setColor(Game:getSoulColor())
-            Draw.draw(self.heart_sprite, tp_x - 20, tp_y + 10 + ((self.selected_spell - self.scroll_y) * 25))
+            local party = Game.battle.party[Game.battle.current_selecting].chara
+            if party.soul_color then
+                Draw.setColor(party.soul_color)
+            else
+                Draw.setColor(Game.battle.encounter:getSoulColor())
+            end
+            local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
+            if party.heart_sprite then
+                heart_sprite = Assets.getTexture(party.heart_sprite)
+            end
+            Draw.draw(heart_sprite, tp_x - 20, tp_y + 10 + ((self.selected_spell - self.scroll_y) * 25))
 
             -- Draw scrollbar if needed (unless the spell limit is 2, in which case the scrollbar is too small)
             if spell_limit > 2 and #spells > spell_limit then
@@ -891,8 +900,17 @@ function Lib:init()
 
             local x = 0
             local y = 0
-            Draw.setColor(Game.battle.encounter:getSoulColor())
-            Draw.draw(self.heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 230), 30 + ((Game.battle.current_menu_y - (page*3)) * 30))
+            local party = Game.battle.party[Game.battle.current_selecting].chara
+            if party.soul_color then
+                Draw.setColor(party.soul_color)
+            else
+                Draw.setColor(Game.battle.encounter:getSoulColor())
+            end
+            local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
+            if party.heart_sprite then
+                heart_sprite = Assets.getTexture(party.heart_sprite)
+            end
+            Draw.draw(heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 230), 30 + ((Game.battle.current_menu_y - (page*3)) * 30))
 
             local font = Assets.getFont("main")
             love.graphics.setFont(font)
