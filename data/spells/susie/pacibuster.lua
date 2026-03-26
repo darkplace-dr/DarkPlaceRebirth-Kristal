@@ -65,21 +65,13 @@ function spell:onCast(user, target)
             if anim_finished then
                 Game.battle:finishAction()
             end
-            if target.tired then
+            if target.tired and target.health > 0 then
                 target:stopShake()
                 Assets.playSound("spell_pacify", 1, 1.1)
                 target:spare(true)
             else
-                local recolor = target:addFX(RecolorFX())
-                Game.battle.timer:during(8/30, function()
-                    recolor.color = ColorUtils.mergeColor(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
-                end, function()
-                    Game.battle.timer:during(8/30, function()
-                        recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
-                    end, function()
-                        target:removeFX(recolor)
-                    end)
-                end)
+                local flash = target:flash()
+                flash.color_mask:setColor(0, 0, 1)
             end
         end)
         blast.layer = BATTLE_LAYERS["above_ui"]
@@ -102,21 +94,13 @@ function spell:onLightCast(user, target)
             target:flash()
             target:hurt(damage, user)
             Game.battle:finishAction()
-            if target.tired then
+            if target.tired and target.health > 0 then
                 target:stopShake()
                 Assets.playSound("spell_pacify", 1, 1.1)
                 target:spare(true)
             else
-                local recolor = target:addFX(RecolorFX())
-                Game.battle.timer:during(8/30, function()
-                    recolor.color = ColorUtils.mergeColor(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
-                end, function()
-                    Game.battle.timer:during(8/30, function()
-                        recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
-                    end, function()
-                        target:removeFX(recolor)
-                    end)
-                end)
+                local flash = target:flash()
+                flash.color_mask:setColor(0, 0, 1)
             end
         end)
         blast.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]
