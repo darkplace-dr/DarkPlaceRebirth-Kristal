@@ -51,7 +51,7 @@ function item:init()
         noelle = "Wow, it's... Sure old, faha!",
 	    dess = "damn Wings why'd you make her ax a goner",
         brenda = "",
-	    jamm = "",
+	    jamm = "It's quite worn, isn't it...",
         noel = "",
         ceroba = "That old stuff? No way."
     }
