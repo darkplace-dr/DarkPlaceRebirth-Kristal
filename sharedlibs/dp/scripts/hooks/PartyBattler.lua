@@ -14,6 +14,7 @@ function PartyBattler:init(chara,x,y)
     
     self.super_flash = 0
 
+    self.succumbed = false
 end
 
 function PartyBattler:removeHealthBroken(amount, swoon)
@@ -121,11 +122,27 @@ function PartyBattler:hurt(amount, exact, color, options)
 end
 
 function PartyBattler:heal(amount, sparkle_color, show_up)
+    if self.succumbed then return end
     if self.chara:getStat("health") <= 0 then
         self:statusMessage("msg", "miss")
         return
     end
     return super.heal(self, amount, sparkle_color, show_up)
+end
+
+function PartyBattler:succumb() -- this one's meant to be called manually so it has some stuff the down() and swoon() don't have
+    self.chara:setHealth(-math.huge)
+    self:statusMessage("msg", "succumb")
+    self.succumbed = true
+    self.is_down = true
+    self.sleeping = false
+    self.hurting = false
+    self:toggleOverlay(true)
+    self.overlay_sprite:setAnimation("battle/succumbed")
+    if self.action then
+        Game.battle:removeAction(Game.battle:getPartyIndex(self.chara.id), true)
+    end
+    Game.battle:checkGameOver()
 end
 
 function PartyBattler:update()

@@ -464,6 +464,22 @@ function Battle:_isEnemyByIndexSelectable(index)
     return enemy.selectable
 end
 
+---@private
+---@return PartyBattler?
+function Battle:_getPartyByIndex(index)
+    local partybattler = self.party[index]
+    if not partybattler then return nil end
+    ---@cast partybattler PartyBattler
+    return partybattler
+end
+
+---@private
+function Battle:_isPartyByIndexSelectable(index)
+    local partybattler = self:_getPartyByIndex(index)
+    if not partybattler then return false end
+    return not partybattler.succumbed
+end
+
 
 --- Checks the current state on a state change. If waves shouldn't be active, stop them.
 ---
@@ -602,6 +618,22 @@ end
 function Battle:onPartySelectState()
     self.battle_ui:clearEncounterText()
     self.current_menu_y = 1
+
+    if #self.party > 0 and not self:_isPartyByIndexSelectable(self.current_menu_y) then
+        local attempts = 0
+        repeat
+            attempts = attempts + 1
+            if attempts > #self.party then
+                -- No selectable party battlers found (somehow????); bail out
+                return
+            end
+
+            self.current_menu_y = self.current_menu_y + 1
+            if self.current_menu_y > #self.party then
+                self.current_menu_y = 1
+            end
+        until self:_isPartyByIndexSelectable(self.current_menu_y)
+    end
 end
 
 --- Called when the [`BattleState`](lua://BattleState) is changed to MENUSELECT.
@@ -2671,10 +2703,12 @@ function Battle:nextTurn()
 
     for _, battler in ipairs(self.party) do
         battler.hit_count = 0
-        if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() and self.encounter:isAutoHealingEnabled(battler) then
-            battler:heal(battler.chara:autoHealAmount(), nil, true)
-        elseif (battler.chara:getHealth() <= 0) and battler.chara:canAutohealSwoon() and not self.encounter:isAutoHealingEnabled(battler) then
-            battler:heal(battler.chara:autoHealSwoonAmount(), nil, true)
+        if not battler.succumbed then
+            if (battler.chara:getHealth() <= 0) and battler.chara:canAutoHeal() and self.encounter:isAutoHealingEnabled(battler) then
+                battler:heal(battler.chara:autoHealAmount(), nil, true)
+            elseif (battler.chara:getHealth() <= 0) and battler.chara:canAutohealSwoon() and not self.encounter:isAutoHealingEnabled(battler) then
+                battler:heal(battler.chara:autoHealSwoonAmount(), nil, true)
+            end
         end
         battler.action = nil
     end
@@ -3863,18 +3897,38 @@ function Battle:onKeyPressed(key)
             return
         end
         if Input.is("up", key) then
-            self.ui_move:stop()
-            self.ui_move:play()
-            self.current_menu_y = self.current_menu_y - 1
-            if self.current_menu_y < 1 then
-                self.current_menu_y = #self.party
+            local old_location = self.current_menu_y
+            local give_up = 0
+            repeat
+                give_up = give_up + 1
+                if give_up > 100 then return end
+                -- Keep decrementing until there's a selectable enemy.
+                self.current_menu_y = self.current_menu_y - 1
+                if self.current_menu_y < 1 then
+                    self.current_menu_y = #self.party
+                end
+            until self:_isPartyByIndexSelectable(self.current_menu_y)
+
+            if self.current_menu_y ~= old_location then
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         elseif Input.is("down", key) then
-            self.ui_move:stop()
-            self.ui_move:play()
-            self.current_menu_y = self.current_menu_y + 1
-            if self.current_menu_y > #self.party then
-                self.current_menu_y = 1
+            local old_location = self.current_menu_y
+            local give_up = 0
+            repeat
+                give_up = give_up + 1
+                if give_up > 100 then return end
+                -- Keep decrementing until there's a selectable enemy.
+                self.current_menu_y = self.current_menu_y + 1
+                if self.current_menu_y > #self.party then
+                    self.current_menu_y = 1
+                end
+            until self:_isPartyByIndexSelectable(self.current_menu_y)
+
+            if self.current_menu_y ~= old_location then
+                self.ui_move:stop()
+                self.ui_move:play()
             end
         end
     elseif self.state == "BATTLETEXT" then

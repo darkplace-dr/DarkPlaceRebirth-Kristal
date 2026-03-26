@@ -157,6 +157,7 @@ function RegenItem:onBattleUse(user, target)
     elseif self:getTarget() == "party" then
         -- Regen all party members
         for _,battler in ipairs(target) do
+            if battler.succumbed then return end
             local heal_amount = self:getBattleHealAmountModified(target.chara.id, user.chara)
             local regen_amount = self:getBattleRegenAmountModified(battler.chara.id, user.chara)
             if battler.chara:usesMana() then

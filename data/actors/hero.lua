@@ -45,6 +45,7 @@ function actor:init()
 
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/swooned", 1/15, false},
+        ["battle/succumbed"]    = {"battle/swooned", 1/15, false},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         --"battle/act"]          = {"battle/act", 1/15, false},

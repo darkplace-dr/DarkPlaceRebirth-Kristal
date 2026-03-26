@@ -621,18 +621,23 @@ function BattleUI:drawState()
         love.graphics.setFont(font)
 
         for index = page_offset + 1, math.min(page_offset + 3, #Game.battle.party) do
-            Draw.setColor(1, 1, 1, 1)
+            Draw.setColor(Game.battle.party[index].succumbed and { 0.5, 0.5, 0.5 } or { 1, 1, 1 })
             love.graphics.print(Game.battle.party[index].chara:getName(), 80, 50 + ((index - page_offset - 1) * 30))
 
-            Draw.setColor(PALETTE["action_health_bg"])
-            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
+            if not Game.battle.party[index].succumbed then
+                Draw.setColor(PALETTE["action_health_bg"])
+                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), 101, 16)
 
-            local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
-            -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
-            -- Swooning is the only time you can ever see it this low
-            percentage = math.max(-1, percentage)
-            Draw.setColor(PALETTE["action_health"])
-            love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * 101), 16)
+                local percentage = Game.battle.party[index].chara:getHealth() / Game.battle.party[index].chara:getStat("health")
+                -- Chapter 3 introduces this lower limit, but all chapters in Kristal might as well have it
+                -- Swooning is the only time you can ever see it this low
+                percentage = math.max(-1, percentage)
+                Draw.setColor(PALETTE["action_health"])
+                love.graphics.rectangle("fill", 400, 55 + ((index - page_offset - 1) * 30), math.ceil(percentage * 101), 16)
+            else
+                Draw.setColor(1, 1, 1)
+                love.graphics.draw(Assets.getTexture("ui/battle/msg/succumb"), 398, 54 + ((index - page_offset - 1) * 30))
+            end
         end
 
         Draw.setColor(1, 1, 1, 1)
