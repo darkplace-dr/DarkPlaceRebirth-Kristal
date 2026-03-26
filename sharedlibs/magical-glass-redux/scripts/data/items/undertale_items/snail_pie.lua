@@ -49,13 +49,13 @@ end
 function item:onLightBattleUse(user, target)
     self:battleUseSound(user, target)
     
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         local old_health = target.chara:getHealth()
         target:heal(math.huge, false)
         if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
             target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
         end
-    elseif self.target == "enemy" then
+    elseif self:getTarget() == "enemy" then
         local old_health = target.health
         target:heal(math.huge)
         if old_health < target.max_health and target.max_health > 1 then
@@ -69,13 +69,13 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         local old_health = target.chara:getHealth()
         target:heal(math.huge)
         if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
             target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
         end
-    elseif self.target == "enemy" then
+    elseif self:getTarget() == "enemy" then
         local old_health = target.health
         target:heal(math.huge)
         if old_health < target.max_health and target.max_health > 1 then

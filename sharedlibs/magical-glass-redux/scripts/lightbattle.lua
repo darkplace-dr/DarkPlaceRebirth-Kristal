@@ -2124,13 +2124,13 @@ function LightBattle:powerAct(spell, battler, user, target)
     }
 
     if target == nil then
-        if spell.target == "ally" then
+        if spell:getTarget() == "ally" then
             target = user_battler
-        elseif spell.target == "party" then
+        elseif spell:getTarget() == "party" then
             target = self.party
-        elseif spell.target == "enemy" then
+        elseif spell:getTarget() == "enemy" then
             target = self:getActiveEnemies()[1]
-        elseif spell.target == "enemies" then
+        elseif spell:getTarget() == "enemies" then
             target = self:getActiveEnemies()
         end
     end

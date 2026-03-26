@@ -96,11 +96,11 @@ function item:onWorldUse(target)
     end
     amount = amount + best_amount
 
-    if self.target == "ally" then
+    if self:getTarget() == "ally" then
         self:worldUseSound(target)
         Game.world:heal(target, amount, text, self)
         return true
-    elseif self.target == "party" then
+    elseif self:getTarget() == "party" then
         self:worldUseSound(target)
         for _,party_member in ipairs(target) do
             Game.world:heal(party_member, amount, text, self)
