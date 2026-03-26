@@ -446,7 +446,9 @@ function Player:processClimbInputs()
 					self:climb_ready_callback()
 					self.climb_ready_callback = nil
 				end
-				self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+				if self.sprite.frames then
+					self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+				end
 				if self.sprite.sprite_options[2] ~= "climb/climb" then
 					self:setSprite("climb/climb")
 					self.sprite:setFrame(1)
@@ -470,7 +472,9 @@ function Player:processClimbInputs()
                 self:climb_ready_callback()
                 self.climb_ready_callback = nil
             end
-            self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+			if self.sprite.frames then
+				self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+			end
 			if self.falling <= 0 then
 				self.neutralcon = 1
 			end
@@ -488,8 +492,9 @@ function Player:processClimbInputs()
                 self:climb_ready_callback()
                 self.climb_ready_callback = nil
             end
-            self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
-
+			if self.sprite.frames then
+				self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+			end
             if self.sprite.sprite_options[2] ~= "climb/climb" then
                 self:setSprite("climb/climb")
                 self.sprite:setFrame(1)
@@ -584,8 +589,10 @@ function Player:processJumpCharge()
 
             for i = 1, #self.charge_times-1 do
                 if (self.jumpchargetimer >= self.charge_times[i]) then
-                    self.sprite:setFrame(MathUtils.clamp(i+1, 1, #self.sprite.frames))
-                    self.jumpchargesfx:setPitch(0.5 + (i-1)/10)
+					if self.sprite.frames then
+						self.sprite:setFrame(MathUtils.clamp(i+1, 1, #self.sprite.frames))
+					end
+					self.jumpchargesfx:setPitch(0.5 + (i-1)/10)
                     self.jumpchargeamount = i+1;
                     self.color = TableUtils.lerp(COLORS.white, COLORS.teal, 0.2 + (math.floor(math.sin(self.jumpchargetimer / 2)) * 0.2));
                 end
@@ -593,7 +600,9 @@ function Player:processJumpCharge()
 
 
             if (self.jumpchargetimer >= (self.charge_times[#self.charge_times] or math.huge)) then
-                self.sprite:setFrame(MathUtils.clamp(#self.charge_times+1, 1, #self.sprite.frames))
+				if self.sprite.frames then
+					self.sprite:setFrame(MathUtils.clamp(#self.charge_times+1, 1, #self.sprite.frames))
+				end
                 self.jumpchargeamount = (#self.charge_times+1);
                 self.jumpchargesfx:setPitch(0.5 + (#self.charge_times)/10)
                 self.color = TableUtils.lerp(COLORS.white, COLORS.teal, 0.4 + (math.floor(math.sin(self.jumpchargetimer)) * 0.4));
@@ -709,7 +718,9 @@ function Player:doClimbJump(direction, distance)
                 end
                 self.sprite:play(0.1, true)
             else
-                self.sprite:setFrame(MathUtils.wrap(math.floor(self.sprite.frame + 1, 2), 1, #self.sprite.frames+1))
+				if self.sprite.frames then
+					self.sprite:setFrame(MathUtils.wrap(math.floor(self.sprite.frame + 1, 2), 1, #self.sprite.frames+1))
+				end
             end
 
 			local dust_amount = 1
@@ -804,7 +815,9 @@ function Player:doClimbJump(direction, distance)
 						self:climb_ready_callback()
 						self.climb_ready_callback = nil
 					end
-					self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+					if self.sprite.frames then
+						self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+					end
 
 					if self.sprite.sprite_options[2] ~= "climb/climb" then
 						self:setSprite("climb/climb")
@@ -827,7 +840,9 @@ function Player:doClimbJump(direction, distance)
 						self:climb_ready_callback()
 						self.climb_ready_callback = nil
 					end
-					self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+					if self.sprite.frames then
+						self.sprite:setFrame(MathUtils.wrap(self.sprite.frame + 1, 1, #self.sprite.frames + 1))
+					end
 
 					if self.sprite.sprite_options[2] ~= "climb/climb" then
 						self:setSprite("climb/climb")

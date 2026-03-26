@@ -52,8 +52,8 @@ function RotatingTowerReticleDrawer:draw()
             end
         end
 		local px, py = player:getRelativePos(0, 20)
-		if cyltower.appearance == 1 then
-			px = px + 40
+		if cyltower.offset_reticle_x then
+			px = px + cyltower.offset_reticle_x
 		end
 		local tilex = px / cyltower.tile_width_fine
 		local tiley = py / cyltower.tile_height_fine
@@ -147,8 +147,8 @@ function RotatingTowerReticleDrawer:draw()
     if (player.jumpchargecon > 0 and found ~= 0) then
 		local px, py = player:getRelativePos(0, 20)
 		
-		if cyltower.appearance == 1 then
-			px = px + 40
+		if cyltower.offset_reticle_x then
+			px = px + cyltower.offset_reticle_x
 		end
 
         if (player.facing == "down") then
