@@ -72,6 +72,7 @@ function actor:init(style)
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/swooned", 1/15, false},
+        ["battle/succumbed"]    = {"battle/swooned", 1/15, false},
 
         ["battle/transition"]   = {self.default.."/right_1", 1/15, false},
         ["battle/intro"]        = {"battle/attack", 1/15, false},
@@ -91,7 +92,7 @@ function actor:init(style)
         ["laugh_right"] = {"laugh_right", 0.2, true},
         ["away_scratch"] = {"away_scratch", 0.2, true},
 
-        -- all animation speeds below are probably incorrect so feel free to fix 'em'
+        -- all animation speeds below are probably incorrect so feel free to fix 'em
         ["look_back_whisper_look"] = {"look_back_whisper_look", 0.2, true},
         ["look_down_arm_shake"] = {"look_down_arm_shake", 1/6, true},
 

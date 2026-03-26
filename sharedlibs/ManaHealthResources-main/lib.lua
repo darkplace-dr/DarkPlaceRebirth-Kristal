@@ -440,6 +440,15 @@ function Lib:init()
             Draw.setColor(PALETTE["action_fill"])
             love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
 
+            if self.actbox.battler.succumbed then
+                love.graphics.setFont(self.font)
+                Draw.setColor(1, 0, 0)
+                love.graphics.print("SUCCUMBED", 129, 14 - self.actbox.data_offset)
+
+                Object.draw(self)
+                return
+            end
+
             ------------Health Bar--------------
             Draw.setColor(PALETTE["action_health_bg"])
             love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, 81, 12)
@@ -549,6 +558,15 @@ function Lib:init()
 
             Draw.setColor(PALETTE["action_health_bg"])
             love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
+
+            if self.actbox.battler.succumbed then
+                love.graphics.setFont(self.font)
+                Draw.setColor(1, 0, 0)
+                love.graphics.print("SUCCUMBED", 129, 9 - self.actbox.data_offset)
+
+                Object.draw(self)
+                return
+            end
 
             local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
 

@@ -279,6 +279,7 @@ function PartyBattler:setSleeping(sleeping)
 end
 
 function PartyBattler:revive()
+    self.succumbed = false
     self.is_down = false
     self:toggleOverlay(false)
 end
