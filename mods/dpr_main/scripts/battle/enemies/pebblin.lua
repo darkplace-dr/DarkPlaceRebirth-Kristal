@@ -22,12 +22,7 @@ function Pebblin:init()
     self.spare_points = 20
 
     self.waves = {
-        "pebblin/pebbledrop",
         "pebblin/club"
-    }
-
-    self.dialogue = {
-        "..."
     }
 
     self.check = "AT 3 DF 5\n* Proud warrior of Cliffside.\n* Has a cobbled together club."
