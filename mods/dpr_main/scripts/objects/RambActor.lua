@@ -28,6 +28,12 @@ function RambActorSprite:init(actor)
     end
     self.head.debug_select = false
     self:addChild(self.head)
+
+    if Game:getFlag("can_kill", false) then
+        self.head.alpha = 0
+        self.body.alpha = 0
+        self:setSprite("body_full_stone")
+    end
 end
 
 function RambActorSprite:getTexturePath(sprite_name)

@@ -526,6 +526,11 @@ return {
         local susie = cutscene:getCharacter("susie")
         local ramb = cutscene:getCharacter("ramb")
 
+		if Game:getFlag("can_kill") then
+			cutscene:text("* (...)")
+			cutscene:text("* (Just a statue.)")
+			return
+		end
         if not Game:getFlag("ramb_introduction") then
             Game:setFlag("ramb_introduction", true)
             cutscene:showNametag("Ramb")
