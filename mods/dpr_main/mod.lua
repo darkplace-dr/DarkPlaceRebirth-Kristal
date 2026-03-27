@@ -1538,3 +1538,24 @@ function Mod:isInRematchMode()
     end
     return false
 end
+
+function Mod:registerTextCommands(text)
+    text:registerCommand("float", function(self,node, dry)
+        self.state.float_dist = tonumber(node.arguments[1]) or 5 --height amplitude, full distance covered is twice this
+        self.state.float_speed = 2*math.pi * (tonumber(node.arguments[2]) or 1) --cycle frequency, character makes 1 full trip up and down this many times per second
+        self.state.float_phase = math.rad(tonumber(node.arguments[3]) or 20) --phase shift per character, change to make more
+        
+        self.draw_every_frame = true
+        return true
+    end)
+end
+
+Utils.hook(Text,"drawChar", function(orig, self, node, state, use_color)
+    if(state.float_dist and state.float_dist > 0) then
+        --A*sin( w*t + theta )
+        state.offset_y = state.float_dist * math.sin( (state.float_speed * Kristal.getTime()) + (state.float_phase * state.typed_characters) )
+    else
+        state.offset_y = 0
+    end
+    orig(self, node, state, use_color)
+end)
