@@ -9,12 +9,25 @@ end
 function Basic:onStart()
     local attackers = self:getAttackers()
     for i, v in ipairs(attackers) do
+        v:setAnimation("prepare")
+        
         local x = v.x - 60
         local y = v.y - 40
     
         local bullet = self:spawnBullet("pebbleclub", x, y, math.rad(0), 0)
     
         bullet.remove_offscreen = false
+    end
+end
+
+function Basic:onEnd()
+    local attackers = self:getAttackers()
+    for i, v in ipairs(attackers) do
+        if v.mercy >= 100 then
+            v:setAnimation("spared")
+        else
+            v:setAnimation("idle")
+        end
     end
 end
 
