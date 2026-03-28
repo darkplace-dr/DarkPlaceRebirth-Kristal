@@ -83,12 +83,13 @@ return {
         nyako:setLayer(9999)
         Game.world:addChild(nyako)
 		
-        Assets.playSound("vineboom", 5)
+        Assets.playSound("vineboom_louder")
     
         cutscene:wait(0.3)
         removeBigText()
         nyako:remove()
         Assets.stopSound("vineboom")
+        Assets.stopSound("vineboom_louder")
         Game.world.music:stop()
         Game.world.music:play("mainhub")
         zoom(1, 0)

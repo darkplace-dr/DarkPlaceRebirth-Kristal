@@ -11,12 +11,19 @@ end
 
 function ShelterSound:update()
     local player = Game.world.player
-    local event = self
-    local distance = Utils.dist(player.x, player.y, event.x, event.y)
-    local volume = Utils.clampMap(distance, 50, 150, 2, 0)
-    local volume2 = Utils.clampMap(distance, 50, 150, 0.01, 1)
-    Game.world.music:setVolume(volume2)
-    self.sound:setVolume(volume)
+    local _, py = player:getRelativePos(0, 0)
+    local volume = 1
+    local volume2 = 0
+    if py >= 840 then
+        volume = MathUtils.clamp(1 - ((py - 1240) / 800), 0, 1)
+        volume2 = MathUtils.clamp(0 + ((py - 2200) / 300), 0, 1)
+    end
+    if Game.world.music:getVolume() ~= volume then
+        Game.world.music:setVolume(volume)
+    end
+    if self.sound:getVolume() ~= volume2 then
+        self.sound:setVolume(volume2)
+    end
 end
 
 function ShelterSound:onRemoveFromStage()
