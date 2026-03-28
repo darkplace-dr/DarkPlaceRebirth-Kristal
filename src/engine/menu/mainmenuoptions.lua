@@ -861,6 +861,7 @@ function MainMenuOptions:getOptionText()
         "toggles\nskipping the\nsave file\nname entry",
         "toggles\nkristal's\ndebug hot-\nkeys",
         "i have no\nidea what\nthis does \n\nlol",
+        "change what\nloading sys-\ntem to use",
         "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
         "show the\nmouse cursor\nalways",
         "instantly\nclose the\ngame when\npressing\nESC",
