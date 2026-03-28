@@ -219,7 +219,9 @@ function TeevieCameras:update()
 		end
 		self.siner_speed = MathUtils.lerp(self.siner_speed, 0, 0.01*DTMULT)
 	end
-	self.audience_sfx:setVolume(self.sound_volume)
+	if self.audience_sfx:getVolume() ~= self.sound_volume then
+		self.audience_sfx:setVolume(self.sound_volume)
+	end
 end
 
 return TeevieCameras
