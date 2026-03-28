@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 local Loading = {}
 
 function Loading:init()
@@ -114,7 +115,7 @@ function Loading:update()
     self.dog:setProgress(loaded / total)
     self.stage:update()
 
-    if (self.loading_state == Loading.States.DONE) and loaded >= total and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
+    if (self.loading_state == Loading.States.DONE) and (loaded >= total or Kristal.Config.projectLoadingMode == LoadingMode.LAZY) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
         -- We're done loading! This should only happen once.
         self.done_loading = true
 
