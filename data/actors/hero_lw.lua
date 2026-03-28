@@ -41,6 +41,8 @@ function actor:init()
         ["slide"]               = {"slide", 4/30, true},
 
         -- Cutscene animations
+        ["jump_ball"] = {"ball", 1/15, true},
+
         ["sit"] = {"sit", 0.25, true},
     }
 
