@@ -84,7 +84,170 @@ end
 --- *(Override)* Called upon completion of this character's arc
 function PartyMember:onArc() end
 
+function PartyMember:convertToLight()
+    local last_weapon = self:getWeapon() and self:getWeapon().id or false
+    local last_armors = {self:getArmor(1) and self:getArmor(1).id or false, self:getArmor(2) and self:getArmor(2).id or false}
 
+    self.equipped = {weapon = nil, armor = {}}
+
+    if self:getFlag("light_weapon") then
+        self.equipped.weapon = Registry.createItem(self:getFlag("light_weapon"))
+    end
+    if self:getFlag("light_armor") then
+        self.equipped.armor[1] = Registry.createItem(self:getFlag("light_armor"))
+    end
+
+    if self:getFlag("light_weapon") == nil then
+        self.equipped.weapon = self.lw_weapon_default and Registry.createItem(self.lw_weapon_default) or nil
+    end
+    if self:getFlag("light_armor") == nil then
+        self.equipped.armor[1] = self.lw_armor_default and Registry.createItem(self.lw_armor_default) or nil
+    end
+
+    --if Kristal.getLibConfig("magical-glass", "equipment_conversion") then
+        if last_weapon then
+            local result = Registry.createItem(last_weapon):convertToLightEquip(self)
+            if result then
+                if type(result) == "string" then
+                    result = Registry.createItem(result)
+                end
+                if isClass(result) and self:canEquip(result, "weapon", 1) and self.equipped.weapon and self.equipped.weapon.dark_item and self.equipped.weapon.equip_can_convert ~= false then
+                    self.equipped.weapon = result
+                end
+            end
+        end
+        local converted = false
+        for i = 1, 2 do
+            if last_armors[i] then
+                local result = Registry.createItem(last_armors[i]):convertToLightEquip(self)
+                if result then
+                    if type(result) == "string" then
+                        result = Registry.createItem(result)
+                    end
+                    if isClass(result) and self:canEquip(result, "armor", 1) and (self.equipped.armor[1] and (self.equipped.armor[1].equip_can_convert or self.equipped.armor[1].id == result.id) or not self.equipped.armor[1]) then
+                        if self:getFlag("converted_light_armor") == nil then
+                            if self.equipped.armor[1] and self.equipped.armor[1].id == result.id then
+                                self:setFlag("converted_light_armor", "light/bandage")
+                            else
+                                self:setFlag("converted_light_armor", self.equipped.armor[1] and self.equipped.armor[1].id or "light/bandage")
+                            end
+                        end
+                        converted = true
+                        self.equipped.armor[1] = result
+                        break
+                    end
+                end
+            end
+        end
+        if not converted and self:getFlag("converted_light_armor") ~= nil then
+            self.equipped.armor[1] = self:getFlag("converted_light_armor") and Registry.createItem(self:getFlag("converted_light_armor")) or nil
+            self:setFlag("converted_light_armor", nil)
+        end
+    --end
+
+    self:setFlag("dark_weapon", last_weapon)
+    self:setFlag("dark_armors", last_armors)
+
+    if Game:getConfig("healthConversion") then
+        self.lw_health = math.ceil((self.health / self:getStat("health", 1, false)) * self:getStat("health", 1, true))
+    else
+        -- The formula is broken in chapters 1 & 3.
+        self.lw_health = math.ceil(self.health / self:getStat("health", 1, false)) * self:getStat("health", 1, true)
+    end
+
+    if self.lw_health <= 0 then
+        self.lw_health = 1
+    end
+end
+
+function PartyMember:convertToDark()
+    local last_weapon = self:getWeapon() and self:getWeapon().id or false
+    local last_armor = self:getArmor(1) and self:getArmor(1).id or false
+
+    self.equipped = {weapon = nil, armor = {}}
+
+    if self:getFlag("dark_weapon") then
+        self.equipped.weapon = Registry.createItem(self:getFlag("dark_weapon"))
+    end
+    for i = 1, 2 do
+        if self:getFlag("dark_armors") and self:getFlag("dark_armors")[i] then
+            self.equipped.armor[i] = Registry.createItem(self:getFlag("dark_armors")[i])
+        end
+    end
+
+    --if Kristal.getLibConfig("magical-glass", "equipment_conversion") then
+        if last_weapon then
+            local result = Registry.createItem(last_weapon).dark_item
+            if result then
+                if type(result) == "string" then
+                    result = Registry.createItem(result)
+                end
+                if isClass(result) and self:canEquip(result, "weapon", 1) and self.equipped.weapon and self.equipped.weapon:convertToLightEquip(self) and self.equipped.weapon.equip_can_convert ~= false then
+                    self.equipped.weapon = result
+                end
+            end
+        end
+        if last_armor then
+            local result = Registry.createItem(last_armor).dark_item
+            if result then
+                if type(result) == "string" then
+                    result = Registry.createItem(result)
+                end
+                if isClass(result) then
+                    local slot
+                    for i = 1, 2 do
+                        if self:canEquip(result, "armor", i) then
+                            slot = i
+                            break
+                        end
+                    end
+                    if slot then
+                        if self:getFlag("converted_light_armor") == nil then
+                            self:setFlag("converted_light_armor", "light/bandage")
+                        end
+                        local already_equipped = false
+                        for i = 1, 2 do
+                            if self.equipped.armor[i] and (self.equipped.armor[i].id == result.id or self.equipped.armor[i].equip_can_convert == false) then
+                                already_equipped = true
+                            end
+                        end
+                        if not already_equipped then
+                            for i = 1, 2 do
+                                if self.equipped.armor[i] then
+                                    Game.inventory:addItem(self.equipped.armor[i].id)
+                                end
+                                self.equipped.armor[i] = nil
+                            end
+                            self.equipped.armor[slot] = result
+                        end
+                    end
+                end
+            else
+                for i = 1, 2 do
+                    if self:getFlag("converted_light_armor") ~= nil and self.equipped.armor[i] and self.equipped.armor[i]:convertToLightEquip(self) then
+                        self.equipped.armor[i] = nil
+                        self:setFlag("converted_light_armor", nil)
+                        break
+                    end
+                end
+            end
+        end
+    --end
+
+    self:setFlag("light_weapon", last_weapon)
+    self:setFlag("light_armor", last_armor)
+
+    if Game:getConfig("healthConversion") then
+        self.health = math.ceil((self.lw_health / self:getStat("health", 1, true)) * self:getStat("health", 1, false))
+    else
+        -- The formula is broken in chapters 1 & 3.
+        self.health = math.ceil(self.lw_health / self:getStat("health", 1, true)) * self:getStat("health", 1, false)
+    end
+
+    if self.health <= 0 then
+        self.health = 1
+    end
+end
 
 function PartyMember:getSoulFacing() return self.soul_facing or "down" end
 
