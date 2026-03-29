@@ -746,25 +746,27 @@ function Game:load(data, index, fade)
 
         apikey, location = load_weather()
 
-        local url = "https://api.openweathermap.org/data/2.5/weather?q="
-                .. location
-                .. "&appid=" .. apikey
-                .. "&units=imperial"
+        if apikey and location then
+            local url = "https://api.openweathermap.org/data/2.5/weather?q="
+                    .. location
+                    .. "&appid=" .. apikey
+                    .. "&units=imperial"
 
-        Kristal.fetch(url, {
-            disable_message = true,
-            callback=function(res, body, headers)
-                if res == 200 then
-                    local data = JSON.decode(body)
-                    data.name = nil
-                    data.coord = nil
+            Kristal.fetch(url, {
+                disable_message = true,
+                callback=function(res, body, headers)
+                    if res == 200 then
+                        local data = JSON.decode(body)
+                        data.name = nil
+                        data.coord = nil
 
-                    self.weather_info = data
-                else
-                    Kristal.Console:error("Weather unavailable: Code " .. res)
+                        self.weather_info = data
+                    else
+                        Kristal.Console:error("Weather unavailable: Code " .. res)
+                    end
                 end
-            end
-        })
+            })
+        end
     end)
 end
 
