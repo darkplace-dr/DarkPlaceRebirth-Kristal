@@ -160,7 +160,7 @@ function LightShop:postInit()
         self:onEmote(node.arguments[1])
     end
 
-    self.dialogue_text = DialogueText(nil, 40, 260, 372, 226, {
+    self.dialogue_text = DialogueText("", 40, 260, 372, 226, {
         font = self:getFont(),
         indent_string = self:getIndentString()
     })

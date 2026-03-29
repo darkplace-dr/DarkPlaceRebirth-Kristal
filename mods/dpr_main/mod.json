@@ -151,6 +151,7 @@
         "offseteditor": {},
         "kristal": {
             "growStronger": false,
+			"newShopSpaceUI": true,
 			"shopSpaceUIFont": "8bit"
 		},
     }

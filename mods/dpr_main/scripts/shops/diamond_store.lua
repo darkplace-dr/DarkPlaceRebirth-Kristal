@@ -141,7 +141,7 @@ function Diamond_Store:postInit()
         self:onEmote(node.arguments[1])
     end
 
-    self.dialogue_text = DialogueText(nil, 30, 270, 372, 194)
+    self.dialogue_text = DialogueText("", 30, 270, 372, 194)
     self.dialogue_text:addFX(OutlineFX())
     self.dialogue_text:getFX():setColor(0, 0, 0)
     self.dialogue_text:registerCommand("emote", emoteCommand)
