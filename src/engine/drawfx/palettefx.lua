@@ -27,8 +27,9 @@ function PaletteFX:setPalette(imagedata, line)
         local actor = imagedata
 
         -- DPR-specific spaghetti. This is safe to remove.
-        if actor.getShinyID and Game:getFlag("SHINY",{})[actor:getShinyID()] then
-            local shiny_imagedata = Assets.getTextureData(actor:getSpritePath().."/shiny_palette")
+        local shiny_image_path = actor:getSpritePath().."/shiny_palette"
+        if actor.getShinyID and Game:getFlag("SHINY",{})[actor:getShinyID()] and Assets.hasSprite(shiny_image_path) then
+            local shiny_imagedata = Assets.getTextureData(shiny_image_path)
             if shiny_imagedata and shiny_imagedata:getHeight() > (line+1) then
                 self.base_pal = {}
                 self.live_pal = {}
@@ -47,9 +48,10 @@ function PaletteFX:setPalette(imagedata, line)
     local path
     if type(imagedata) == "string" then
         path = imagedata
-        imagedata = Assets.getTextureData(path)
-        if not imagedata then
+        if not Assets.hasSprite(path) then
             Kristal.Console:warn("Missing palette, expected to find at "..path)
+        else
+            imagedata = Assets.getTextureData(path)
         end
     end
 
