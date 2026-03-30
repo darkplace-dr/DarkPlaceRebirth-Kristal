@@ -629,63 +629,125 @@ function Mod:makeSpellsMissAgainstJackenstein()
 
         return false
     end)
-    local spell = Registry.getSpell("gammabeam")
-    HookSystem.hook(spell, "onCast", function (orig, self, user, target) 
-        local damage = math.floor(((user.chara:getStat("attack") * 150) / 50 + (user.chara:getStat("magic") * 100) / 50) -
-            (target.defense * 3))
-        local targetX, targetY = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
-        local userX, userY = user:getRelativePos(user.width, user.height / 2, Game.battle)
-        local angle = Utils.angle(userX, userY, targetX, targetY)
-        if Game.battle.encounter.is_jackenstein then
-            target_y = target_y - 60
-        end
+    -- Brenda Spells
+    if Game:hasDLC("dlc_forest") then
+        local spell = Registry.getSpell("multiflare")
+        HookSystem.hook(spell, "onCast", function (orig, self, user, target)
+            Game.battle:incTemp(12)
         
-        local beam_start = Sprite("effects/spells/brenda/gammabeam_start", userX + 32, userY)
-        beam_start:setOrigin(0, 0.5)
-        beam_start:setScale(2)
-        beam_start.rotation = angle
-        Assets.playSound("rainbowbeam")
-        Game.battle:addChild(beam_start)
-        Game.battle.timer:after(0.6, function()
-            beam_start:fadeOutAndRemove(0.5)
-        end)
+            user:setAnimation("battle/multiflare")
 
-        local newX = beam_start.x + 60
-        local newY = beam_start.y + angle * 60
-        Game.battle.timer:every(1 / 20, function()
-            local beam_section = Sprite("effects/spells/brenda/gammabeam_section", newX, newY)
-            beam_section:setOrigin(0, 0.5)
-            beam_section:setScale(2)
-            beam_section.rotation = angle
-            Game.battle:addChild(beam_section)
-            newX = beam_section.x + 60
-            newY = beam_section.y + angle * 60
-            Game.battle.timer:after(0.6, function()
-                beam_section:fadeOutAndRemove(0.5)
-            end)
-        end)
+            Game.battle.timer:after(1/4, function()
+                for i = 1, 10, 1 do
+                    Game.battle.timer:after((i * 0.15), function()
+                        if #Game.battle:getActiveEnemies() >= 1 then
+                            target = Game.battle:getActiveEnemies()[love.math.random(1,#Game.battle:getActiveEnemies())]
 
-        Game.battle.timer:after(0.3, function()
-            Game.battle.timer:script(function(wait)
-                if Game.battle.encounter.is_jackenstein then
-                    target:hurt(0, user)
-                else
-                    for _ = 1, 5 do
-                        if target.health > 0 then
-                            Assets.stopAndPlaySound("damage")
-                            target:hurt(damage, user)
-                            target:shake(6, 0, 0.5)
+                            if target.id == "darkclone/brenda" then
+                                local skillknow = false
+                                for _, v in ipairs(target.usedskills) do
+                                    if v == "multiflare" then
+                                        skillknow = true
+                                    end
+                                end
+                                if skillknow == false then
+                                    table.insert(target.usedskills, "multiflare")
+                                end
+                                if target.powder then
+                                    target.defense = Game:getPartyMember("brenda"):getStat("defense") + Game:getPartyMember("brenda"):getStat("magic") / 2
+                                    target.powder_immunity = true
+                                end
+                            end
+
+                            Assets.playSound("noise")
+                            local x, y = user:getRelativePos(user.width, user.height/2 - 4, Game.battle)
+                            local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
+                            if Game.battle.encounter.is_jackenstein then
+                                ty = ty - 60
+                            end
+                            local flare = MultiFlareFireball(x, y, tx, ty, function(miss)
+                                if miss    then
+                                    target:hurt(0, user)
+                                else
+                                    local damage = self:getDamage(user, target)
+                                    target:hurt(damage, user)
+                                    if target.powder then
+                                        Assets.playSound("bomb")
+                                    end
+                                end
+                            end)
+                            flare.layer = BATTLE_LAYERS["above_ui"]
+                            Game.battle:addChild(flare)
                         end
-                        wait(0.1)
-                        if target.health <= 0 then break end
-                    end
-                    Game.battle:finishActionBy(user)
+                    end)
                 end
             end)
-        end)
 
-        return false
-    end)
+            Game.battle.timer:after(3, function()
+                Game.battle:finishActionBy(user)
+            end)
+
+            return false
+        end)
+        local spell = Registry.getSpell("gammabeam")
+        HookSystem.hook(spell, "onCast", function (orig, self, user, target) 
+            local damage = math.floor(((user.chara:getStat("attack") * 150) / 50 + (user.chara:getStat("magic") * 100) / 50) -
+                (target.defense * 3))
+            local targetX, targetY = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
+            local userX, userY = user:getRelativePos(user.width, user.height / 2, Game.battle)
+            local angle = Utils.angle(userX, userY, targetX, targetY)
+            if Game.battle.encounter.is_jackenstein then
+                target_y = target_y - 60
+            end
+        
+            local beam_start = Sprite("effects/spells/brenda/gammabeam_start", userX + 32, userY)
+            beam_start:setOrigin(0, 0.5)
+            beam_start:setScale(2)
+            beam_start.rotation = angle
+            Assets.playSound("rainbowbeam")
+            Game.battle:addChild(beam_start)
+            Game.battle.timer:after(0.6, function()
+                beam_start:fadeOutAndRemove(0.5)
+            end)
+
+            local newX = beam_start.x + 60
+            local newY = beam_start.y + angle * 60
+            Game.battle.timer:every(1 / 20, function()
+                local beam_section = Sprite("effects/spells/brenda/gammabeam_section", newX, newY)
+                beam_section:setOrigin(0, 0.5)
+                beam_section:setScale(2)
+                beam_section.rotation = angle
+                Game.battle:addChild(beam_section)
+                newX = beam_section.x + 60
+                newY = beam_section.y + angle * 60
+                Game.battle.timer:after(0.6, function()
+                    beam_section:fadeOutAndRemove(0.5)
+                end)
+            end)
+
+            Game.battle.timer:after(0.3, function()
+                Game.battle.timer:script(function(wait)
+                    if Game.battle.encounter.is_jackenstein then
+                        target:hurt(0, user)
+                    else
+                        for _ = 1, 5 do
+                            if target.health > 0 then
+                                Assets.stopAndPlaySound("damage")
+                                target:hurt(damage, user)
+                                target:shake(6, 0, 0.5)
+                            end
+                            wait(0.1)
+                            if target.health <= 0 then break end
+                        end
+                        Game.battle:finishActionBy(user)
+                    end
+                end)
+            end)
+
+            return false
+        end)   
+    end
+    
     local spell = Registry.getSpell("shooting_star")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)
         -- Code the cast effect here
@@ -1113,64 +1175,6 @@ function Mod:makeSpellsMissAgainstJackenstein()
 
         -- Finish the action
         Game.battle.timer:after(#positions * 0.1 + 1, function()
-            Game.battle:finishActionBy(user)
-        end)
-
-        return false
-    end)
-    local spell = Registry.getSpell("multiflare")
-    HookSystem.hook(spell, "onCast", function (orig, self, user, target)
-        Game.battle:incTemp(12)
-        
-        user:setAnimation("battle/multiflare")
-
-        Game.battle.timer:after(1/4, function()
-            for i = 1, 10, 1 do
-                Game.battle.timer:after((i * 0.15), function()
-                    if #Game.battle:getActiveEnemies() >= 1 then
-                        target = Game.battle:getActiveEnemies()[love.math.random(1,#Game.battle:getActiveEnemies())]
-
-                        if target.id == "darkclone/brenda" then
-                            local skillknow = false
-                            for _, v in ipairs(target.usedskills) do
-                                if v == "multiflare" then
-                                    skillknow = true
-                                end
-                            end
-                            if skillknow == false then
-                                table.insert(target.usedskills, "multiflare")
-                            end
-                            if target.powder then
-                                target.defense = Game:getPartyMember("brenda"):getStat("defense") + Game:getPartyMember("brenda"):getStat("magic") / 2
-                                target.powder_immunity = true
-                            end
-                        end
-
-                        Assets.playSound("noise")
-                        local x, y = user:getRelativePos(user.width, user.height/2 - 4, Game.battle)
-                        local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
-                        if Game.battle.encounter.is_jackenstein then
-                            ty = ty - 60
-                        end
-                        local flare = MultiFlareFireball(x, y, tx, ty, function(miss)
-                            if miss    then
-                                target:hurt(0, user)
-                            else
-                                local damage = self:getDamage(user, target)
-                                target:hurt(damage, user)
-                                if target.powder then
-                                    Assets.playSound("bomb")
-                                end
-                            end
-                        end)
-                        flare.layer = BATTLE_LAYERS["above_ui"]
-                        Game.battle:addChild(flare)
-                    end
-                end)
-            end
-        end)
-
-        Game.battle.timer:after(3, function()
             Game.battle:finishActionBy(user)
         end)
 

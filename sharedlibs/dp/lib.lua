@@ -21,12 +21,14 @@ function lib:postInit(new_file)
 end
 
 function lib:checkSaveStatus()
-    local brenda = Game:getPartyMember("brenda")
-    if not brenda:hasSpell("multiflare") then
-        brenda:removeSpell("gammabeam")
-        brenda:addSpell("multiflare")
-        brenda:addSpell("powderkeg")
-        print("[DP Lib] WARNING: Brenda does not have MultiFlare. Giving starting spells and removing GammaBeam. Save is likely from before her new spells were added.")
+    if Game:hasDLC("dlc_forest") then
+        local brenda = Game:getPartyMember("brenda")
+        if not brenda:hasSpell("multiflare") then
+            brenda:removeSpell("gammabeam")
+            brenda:addSpell("multiflare")
+            brenda:addSpell("powderkeg")
+            print("[DP Lib] WARNING: Brenda does not have MultiFlare. Giving starting spells and removing GammaBeam. Save is likely from before her new spells were added.")
+        end
     end
 end
 
