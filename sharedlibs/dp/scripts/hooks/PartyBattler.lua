@@ -312,7 +312,7 @@ function PartyBattler:pierce(amount, exact, color, options)
 end
 
 function PartyBattler:noel_damage(amount, swoon) -- DO NOT QUESTION MY CHOICES
-    local meth = MathUtils.random(1, 4) --random number for hit chance
+    local meth = math.floor(MathUtils.random(1, 4)) --random number for hit chance
     if meth == 1 then -- haha, funny noel/null damage joke thingy
         Assets.playSound("awkward")
         Assets.playSound("voice/noel-#")
