@@ -333,6 +333,7 @@ function Lib:init()
         self.hp_sprite.visible = false
     end)
     HookSystem.hook(ActionBox, "update", function (orig, self)
+        self.reaction_alpha = self.reaction_alpha - DTMULT
         if not Kristal.getLibConfig("ManaHealthResources", "use_propietary_ui")["ActionBox"] then orig(self) return end
 
         if self.battler.chara:usesMana() then
