@@ -1744,6 +1744,19 @@ function Battle:processAction(action)
                 self:battleText(text)
             end
             battler:setAnimation("battle/item", function()
+                local party = {action.target}
+                if action.target[1] then
+                    party = Game.battle.party
+                end
+                for _,char in ipairs(party) do
+                    for index, chara in ipairs(Game.battle.party) do
+                        local reaction = chara.chara:getBattleReaction(item, char.chara)
+                        if reaction and chara.chara:getHealth() > 0 then
+                            self.battle_ui.action_boxes[index].reaction_alpha = 50
+                            self.battle_ui.action_boxes[index].reaction_text = reaction
+                        end
+                    end
+                end
                 local result = item:onBattleUse(battler, action.target)
                 if result or result == nil then
                     self:finishAction(action)

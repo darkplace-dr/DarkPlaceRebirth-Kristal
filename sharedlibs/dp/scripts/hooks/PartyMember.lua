@@ -294,6 +294,12 @@ function PartyMember:getReaction(item, user)
     end
 end
 
+function PartyMember:getBattleReaction(item, user)
+    if item then
+        return item:getBattleReaction(user.id, self.id, self:getAssistID())
+    end
+end
+
 function PartyMember:getCombos()
     return self.combos
 end
