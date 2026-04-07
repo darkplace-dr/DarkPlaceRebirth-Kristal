@@ -47,7 +47,7 @@ function MainMenuSubTitle:onEnter(old_state)
         { "dlc", "DLC MANAGER" },
         { "options", "OPTIONS" },
         { "credits", "CREDITS" },
-        { "achievements", "NYI" },
+        { "achievements", "ACHIEVEMENTS" },
     }
 
     if not TARGET_MOD then
@@ -105,7 +105,7 @@ function MainMenuSubTitle:onKeyPressed(key, is_repeat)
             self.menu:setState("CREDITS")
 
         elseif option == "achievements" then
-            Assets.playSound("error")   -- I'm leaving this for y'all to do
+            self.menu:setState("ACHIEVEMENTS")
         end
 
         return true

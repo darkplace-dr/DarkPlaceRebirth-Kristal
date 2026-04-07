@@ -106,6 +106,8 @@ return {
 				cutscene:text("* (He's a good guy.)[wait:5]\n* (Just really stupid.)", "neutral", "jamm")
 			end
 			cutscene:hideNametag()
+            
+            DP:completeAchievement("find_mario")
 		end
     end,
 

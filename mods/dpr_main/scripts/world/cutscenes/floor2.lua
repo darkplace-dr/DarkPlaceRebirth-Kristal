@@ -378,6 +378,8 @@ return {
             Game.inventory:tryGiveItem("lancer")
             cutscene:text("* (Lancer has re-entered your KEY ITEMs!)")
             cutscene:interpolateFollowers()
+            
+            DP:completeAchievement("find_lancer")
         end
     end,
 

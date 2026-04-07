@@ -1043,6 +1043,8 @@ local cliffside = {
                 end
                 cutscene:getEvent(65):remove()
                 Game:setFlag(crystal.flag, true)
+            
+                DP:completeAchievement("find_susie")
             else
                 --cutscene:text("* You can't break a seal from the side you[color:yellow][wait:5] dummy[color:reset]!")
             end
