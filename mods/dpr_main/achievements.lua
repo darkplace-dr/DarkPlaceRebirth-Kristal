@@ -4,7 +4,7 @@ local achievements = {
 		name = "The Girl, with Shadow Crystal on her Skin",
 		desc = "Find Susie in Cliffside.",
 		hint = "Find Susie somewhere.",
-		border = "Common",
+		border = "common",
 		icon = "susie"
 	},
 	{
@@ -12,7 +12,7 @@ local achievements = {
 		name = "the worst achievement you'll ever get lmao",
 		desc = "Find Dess in DESSHERE and unfortunately get her as a party member.",
 		hint = "Find Dess somewhere.",
-		border = "Common",
+		border = "common",
 		icon = "dess"
 	},
 	{
@@ -20,7 +20,7 @@ local achievements = {
 		name = "Dark Place 64",
 		desc = "Find Mario in SLIDER.",
 		hint = "Find Mario somewhere.",
-		border = "Common",
+		border = "common",
 		icon = "mario"
 	},
 	{
@@ -28,8 +28,8 @@ local achievements = {
 		name = "Can't dig without a spade!",
 		desc = "Find Lancer on Floor 2.",
 		hint = "Find Lancer somewhere.",
-		border = "Common",
-		icon = "mario"
+		border = "unique",
+		icon = "lancer"
 	},
 }
 

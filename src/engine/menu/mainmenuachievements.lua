@@ -139,10 +139,10 @@ function MainMenuAch:registerModAchievements(mod)
                     elseif love.filesystem.getInfo("assets/sprites/achievements/frames/" .. ach.border .. ".png") then
                         ach.border = love.graphics.newImage("assets/sprites/achievements/frames/" .. ach.border .. ".png")
                     else
-                        ach.border = love.graphics.newImage("assets/sprites/achievements/frames/Common.png")
+                        ach.border = love.graphics.newImage("assets/sprites/achievements/frames/common.png")
                     end
                 else
-                    ach.border = love.graphics.newImage("assets/sprites/achievements/frames/Common.png")
+                    ach.border = love.graphics.newImage("assets/sprites/achievements/frames/common.png")
                 end
                 
                 if ach.icon then
