@@ -64,6 +64,7 @@ function actor:init()
 		
 		-- Cutscene animations
 		["sit"]               	= {"sit", 4/30, true},
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -97,6 +98,10 @@ function actor:init()
         ["battle/victory"] = {-14, -15},
 		
 		["sit"] = {4, -8},
+
+		["ball"] = {0, 0},
+
+		["bs_win"] = {0, -10},
 		
         ["sneak/left"] = {0, -10},
         ["sneak/right"] = {4, -10},

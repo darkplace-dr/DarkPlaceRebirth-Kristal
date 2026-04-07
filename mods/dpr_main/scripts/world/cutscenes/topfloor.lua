@@ -34,6 +34,7 @@ return{
     ambush = function(cutscene)
         local hero = cutscene:getCharacter("hero")
         local susie = cutscene:getCharacter("susie")
+        local jamm = cutscene:getCharacter("jamm")
         local voidspawn = cutscene:getEvent(39)
 
         cutscene:detachFollowers()
@@ -50,9 +51,26 @@ return{
             cutscene:showNametag("Susie")
             cutscene:text("* Y'know,[wait:5] these windows really give me the creeps...", "suspicious", "susie")
             susie:setFacing("up")
+            if jamm then
+                jamm:setFacing("up")
+            end
             cutscene:text("* I mean,[wait:5] the way they just stare at us is creepy...", "sus_nervous", "susie")
+            if jamm and Game:getFlag("future_variable") then
+                hero:setFacing("left")
+                cutscene:showNametag("Jamm")
+                cutscene:text("* What's creepier, Susie;[wait:10] this,[wait:5] or what we've been through?", "nervous", "jamm")
+                cutscene:showNametag("Susie")
+                if Game:getFlag("collapse_ralsei") then
+                    cutscene:text("* ...Tough question...", "suspicious", "susie")
+                else
+                    cutscene:text("* ...Definitely this.", "suspicious", "susie")
+                end
+                cutscene:showNametag("Hero")
+                cutscene:text("* ...", "suspicious", "hero")
+            end
             cutscene:hideNametag()
         end
+        hero:setFacing("right")
 
         Game.world.music:fade(0, 1)
         cutscene:wait(0.5)
@@ -72,6 +90,9 @@ return{
             cutscene:showNametag("Hero")
             cutscene:text("* Uh,[wait:5] guys...", "shocked", "hero")
             cutscene:hideNametag()
+        end
+        if jamm then
+            jamm:setFacing("right")
         end
         if susie then
             cutscene:showNametag("Susie")

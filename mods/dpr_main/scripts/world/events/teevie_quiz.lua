@@ -227,37 +227,50 @@ function TeevieQuiz:showResults()
 		-- A value of -1 means the sprite doesn't change (like Kris)
 		local winpose = {
 			default = "pose",
-			dess = "sonic_adventure"
+			dess = "sonic_adventure",
+			jamm = "bt",
+			["jamm+marcy"] = "bs_win"
 		}
 		local losepose = {
 			default = "battle/hurt",
 			kris = -1,
 			susie = "shock_right",
 			ralsei = "shocked_left",
-			dess = "angreh"
+			dess = "angreh",
+			jamm = "trip",
+			["jamm+marcy"] = "battle/hurt_1"
 		}
+        
+        local function getIDorAssist(chara)
+            local id = chara.id
+            if chara:getAssistID() then
+                id = id .. "+" .. chara:getAssistID()
+            end
+            return id
+        end
+        
 		if self.dess_wrong_answer ~= nil and (self.cur_correct_answer == "A" or self.cur_correct_answer == "B") then
 			winpose["dess"] = "teehee"
 			losepose["dess"] = "teehee"
 			if self.result == true then
-				if winpose[Game.party[1].id] ~= -1 then
-					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+				if winpose[getIDorAssist(Game.party[1])] ~= -1 then
+					player:setSprite(winpose[getIDorAssist(Game.party[1])] or winpose["default"])
 				end
-				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
-					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				if Game.party[2] and winpose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(winpose[getIDorAssist(Game.party[2])] or winpose["default"])
 				end
-				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
-					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				if Game.party[3] and winpose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(winpose[getIDorAssist(Game.party[3])] or winpose["default"])
 				end
 			else
-				if losepose[Game.party[1].id] ~= -1 then
-					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+				if losepose[getIDorAssist(Game.party[1])] ~= -1 then
+					player:setSprite(losepose[getIDorAssist(Game.party[1])] or losepose["default"])
 				end
-				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
-					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				if Game.party[2] and losepose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(losepose[getIDorAssist(Game.party[2])] or losepose["default"])
 				end
-				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
-					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				if Game.party[3] and losepose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(losepose[getIDorAssist(Game.party[3])] or losepose["default"])
 				end
 			end
 			Assets.playSound("won")
@@ -374,13 +387,13 @@ function TeevieQuiz:showResults()
 			if self.result == true then
 				Assets.playSound("won")
 				if winpose[Game.party[1].id] ~= -1 then
-					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+					player:setSprite(winpose[getIDorAssist(Game.party[1])] or winpose["default"])
 				end
-				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
-					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				if Game.party[2] and winpose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(winpose[getIDorAssist(Game.party[2])] or winpose["default"])
 				end
-				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
-					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				if Game.party[3] and winpose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(winpose[getIDorAssist(Game.party[3])] or winpose["default"])
 				end
 				cutscene:wait(45/30)
 				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
@@ -498,13 +511,13 @@ function TeevieQuiz:showResults()
 			else
 				Assets.playSound("error")
 				if losepose[Game.party[1].id] ~= -1 then
-					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+					player:setSprite(losepose[getIDorAssist(Game.party[1])] or losepose["default"])
 				end
-				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
-					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				if Game.party[2] and losepose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(losepose[getIDorAssist(Game.party[2])] or losepose["default"])
 				end
-				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
-					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				if Game.party[3] and losepose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(losepose[getIDorAssist(Game.party[3])] or losepose["default"])
 				end
 				cutscene:wait(45/30)
 				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
