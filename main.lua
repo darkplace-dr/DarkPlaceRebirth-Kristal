@@ -104,6 +104,7 @@ MainMenuDeadzone = require("src.engine.menu.mainmenudeadzone")
 MainMenuDLC = require("src.engine.menu.mainmenudlc")
 MainMenuWarning = require("src.engine.menu.mainmenuwarning")
 MainMenuPlugins = require("src.engine.menu.mainmenuplugins")
+MainMenuAchievements = require("src.engine.menu.mainmenuachievements")
 
 ModList = require("src.engine.menu.objects.modlist")
 ModButton = require("src.engine.menu.objects.modbutton")
@@ -366,6 +367,8 @@ GameOverSF = require("src.engine.game.gameoversf")
 Legend = require("src.engine.game.legend")
 
 DogCheck = require("src.engine.game.dogcheck")
+
+AchievementPopUp = require("src.engine.game.achievementpopup")
 
 
 WarpBinCodes = require("src.engine.warp_bin")

@@ -52,6 +52,7 @@ function MainMenu:enter()
     self.deadzone_config = MainMenuDeadzone(self)
     self.dlc_list = MainMenuDLC(self)
     self.warning = MainMenuWarning(self)
+    self.achievements = MainMenuAchievements(self)
     self.plugins = MainMenuPlugins(self)
 
     -- Register states
@@ -73,6 +74,7 @@ function MainMenu:enter()
     self.state_manager:addState("DEADZONE", self.deadzone_config)
     self.state_manager:addState("DLC", self.dlc_list)
     self.state_manager:addState("WARNING", self.warning)
+    self.state_manager:addState("ACHIEVEMENTS", self.achievements)
     self.state_manager:addState("plugins", self.plugins)
 
     for _, mod in ipairs(Kristal.Mods.getMods()) do

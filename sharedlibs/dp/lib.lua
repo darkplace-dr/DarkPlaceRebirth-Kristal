@@ -75,6 +75,46 @@ function lib:load(data)
     end
 end
 
+function lib:postLoad()
+    if not love.filesystem.getInfo("saves/achievements.json") then
+        local data = {}
+        
+        love.filesystem.createDirectory("saves/")
+        love.filesystem.write("saves/achievements.json", JSON.encode(data))
+    end
+    
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    
+    if not data[Mod.info.id] then
+        data[Mod.info.id] = {}
+    end
+    
+    if love.filesystem.getInfo(Mod.info.path .. "/achievements.lua") then
+        local chunk = love.filesystem.load(Mod.info.path .. "/achievements.lua")
+        success, result = pcall(chunk, Mod.info.path)
+        if success then
+            self.current_loaded_achievements = result
+            
+            for i,ach in ipairs(result) do
+                if not data[Mod.info.id][ach.id] then
+                    local info = {
+                        progress = 0,
+                        earned = false
+                    }
+                    
+                    if ach.data then
+                        info = TableUtils.merge(info, ach.data)
+                    end
+                    
+                    data[Mod.info.id][ach.id] = info
+                end
+            end
+        end
+    end
+    
+    love.filesystem.write("saves/achievements.json", JSON.encode(data))
+end
+
 function lib:preDraw()
     Assets.getShader("palette"):send("debug",DEBUG_RENDER and ((RUNTIME/0.3)%1>.5))
 end
@@ -111,6 +151,68 @@ function lib:postUpdate()
         badge:update(badge.equipped)
     end
 
+end
+
+function lib:getAchProgress(achievement)
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    local ach = data[Mod.info.id][achievement]
+	
+    return ach.progress
+end
+
+function lib:addAchProgress(achievement, number)
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    local ach = data[Mod.info.id][achievement]
+	
+    data[Mod.info.id][achievement].progress = data[Mod.info.id][achievement].progress + (number or 1)
+	
+	if ach.steps then
+		if data[Mod.info.id][achievement].progress >= ach.steps then
+			self:completeAchievement(achievement)
+		end
+	else
+		self:completeAchievement(achievement)
+	end
+	
+    love.filesystem.write("saves/achievements.json", JSON.encode(data))
+end
+
+function lib:setAchProgress(achievement, number)
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    local ach = data[Mod.info.id][achievement]
+	
+    data[Mod.info.id][achievement].progress = number
+	
+	if ach.steps then
+		if data[Mod.info.id][achievement].progress >= ach.steps then
+			self:completeAchievement(achievement)
+		end
+	else
+		self:completeAchievement(achievement)
+	end
+	
+    love.filesystem.write("saves/achievements.json", JSON.encode(data))
+end
+
+function lib:completeAchievement(achievement)
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    local ach = data[Mod.info.id][achievement]
+	
+    if not data[Mod.info.id][achievement].earned then
+        data[Mod.info.id][achievement].earned = true
+		
+        local achi
+        for k,v in ipairs(self.current_loaded_achievements) do
+            if v.id == achievement then
+                achi = v
+            end
+        end
+        
+        apu = AchievementPopUp(achi)
+        Game.stage:addChild(apu)
+    end
+	
+    love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
 function lib:addEventTime(time_added)
