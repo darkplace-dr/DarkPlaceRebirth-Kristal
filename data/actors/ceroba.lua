@@ -152,4 +152,9 @@ function actor:onWorldDraw(chara)
     end
 end
 
+function actor:onTextSound()
+    Assets.stopAndPlaySound("voice/ceroba")
+    return true
+end
+
 return actor
