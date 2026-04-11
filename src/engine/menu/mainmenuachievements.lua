@@ -50,6 +50,7 @@ function MainMenuAch:update()
         self.selected_page = self.selected_page - 1
         if self.selected_page == 0 then
             self.selected_page = #self.pages
+            self.offset = 0
         end
 	end
 	
@@ -57,10 +58,12 @@ function MainMenuAch:update()
         self.selected_page = self.selected_page + 1
         if self.selected_page == #self.pages + 1 then
             self.selected_page = 1
+            self.offset = 0
         end
 	end
     
     if old_page ~= self.selected_page then
+        self.offset = 0
         self.ui_move:stop()
 		self.ui_move:play()
     end
