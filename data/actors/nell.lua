@@ -8,7 +8,7 @@ function actor:init()
     self.width = 25
     self.height = 56
 
-    self.hitbox = {3, 42, 19, 14}
+    self.hitbox = {3, 42, 18, 14}
 
     self.soul_offset = {12.5, 37}
 

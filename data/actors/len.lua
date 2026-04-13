@@ -11,7 +11,7 @@ function actor:init()
     self.height = 31
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {0, 25, 19, 14}
+    self.hitbox = {0, 25, 18, 14}
 
     -- A table that defines where the Soul should be placed on this actor if they are a player.
     -- First value is x, second value is y.

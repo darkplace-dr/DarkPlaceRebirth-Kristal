@@ -117,7 +117,7 @@ function actor:init()
     self.name = "Noel"
     self.width = 33
     self.height = 40
-    self.hitbox = {7, 28, 19, 14}
+    self.hitbox = {7, 28, 18, 14}
     self.color = {1, 1, 1}
     self.path = "party/noel"
 
