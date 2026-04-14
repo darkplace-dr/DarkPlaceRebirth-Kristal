@@ -160,14 +160,14 @@ function PartyBattler:update()
     end
 end
 
-function PartyBattler:getHeadIcon()
-    if self.is_down then
-        return "head_down"
-    elseif (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) then
-        return "head_low"
-    end
-    return super.getHeadIcon(self)
-end
+-- function PartyBattler:getHeadIcon()
+    -- if self.is_down then
+        -- return "head_down"
+    -- elseif (self.chara:getHealth() <= (self.chara:getStat("health") / 4)) then
+        -- return "head_low"
+    -- end
+    -- return super.getHeadIcon(self)
+-- end
 
 
 function PartyBattler:doOverlay()
