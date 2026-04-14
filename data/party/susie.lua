@@ -207,6 +207,7 @@ function character:getTitle()
 end
 
 function character:onTurnStart(battler)
+    super.onTurnStart(self, battler)
 	if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
         Game.battle:getPartyBattler(self.id):heal(11)
     end

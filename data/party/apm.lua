@@ -144,6 +144,7 @@ function character:runProgramming()
 end
 
 function character:onTurnStart(battler)
+    super.onTurnStart(self, battler)
     Game.battle:pushForcedAction(battler, "DECIDE")
 end
 

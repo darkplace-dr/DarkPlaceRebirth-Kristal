@@ -140,6 +140,7 @@ end
 function character:getStarmanTheme() return "jamm" end
 
 function character:onTurnStart(battler)
+    super.onTurnStart(self, battler)
 	if self.stun then
 		Game.battle:pushForcedAction(battler, "SKIP")
 	end
