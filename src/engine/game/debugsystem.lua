@@ -1486,6 +1486,12 @@ end
 
 function DebugSystem:openMenu()
     Assets.playSound("ui_select")
+    self.heart:setColor(Kristal.getSoulColor())
+    if (Kristal.getState() == Game) then
+        self.heart:setSprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu")
+    else
+        self.heart:setSprite("player/heart_menu")
+    end
     self:setState("MENU")
 
     if (self.current_menu ~= nil) then
