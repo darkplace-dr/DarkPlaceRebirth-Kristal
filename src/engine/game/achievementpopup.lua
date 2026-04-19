@@ -5,8 +5,20 @@ function AchievementPopUp:init(achievement)
 	
 	self.achievement = achievement
 	
-	self.raritysprite = Sprite("achievements/frames/"..self.achievement.border, 0, 0)
-	self.iconsprite = Sprite("achievements/"..self.achievement.icon, 8, 8)
+    if type(self.achievement.border) == "userdata" or type(self.achievement.border) == "table" then
+        self.raritysprite = Sprite(self.achievement.border, 0, 0)
+    elseif self.achievement.border then
+        self.raritysprite = Sprite("achievements/frames/"..self.achievement.border, 0, 0)
+    else
+        self.raritysprite = Sprite("", 0, 0)
+    end
+    if type(self.achievement.icon) == "userdata" or type(self.achievement.icon) == "table" then
+        self.iconsprite = Sprite(self.achievement.icon, 8, 8)
+    elseif self.achievement.icon then
+        self.iconsprite = Sprite("achievements/"..self.achievement.icon, 8, 8)
+    else
+        self.iconsprite = Sprite("", 8, 8)
+    end
 	self.raritysprite:setScale(2,2)
 	self.iconsprite:setScale(2,2)
 	self:addChild(self.raritysprite)
