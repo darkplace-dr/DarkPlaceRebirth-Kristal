@@ -222,7 +222,7 @@ return {
 		Game:getQuest("acj_quest"):setProgress(1)
         party_jingle:remove()
         
-        :completeAchievementFor("dpr_jamm_dlc", "jamm")
+        DP:completeAchievementFor("dpr_jamm_dlc", "jamm")
 	end,
 	
 	breaker_box	= function(cutscene, event)
