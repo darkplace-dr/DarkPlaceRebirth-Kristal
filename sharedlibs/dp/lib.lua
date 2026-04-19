@@ -215,6 +215,43 @@ function lib:completeAchievement(achievement)
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
+function lib:completeAchievementFor(dlc, achievement)
+    local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
+    local ach = data[dlc][achievement]
+	
+    if not data[dlc][achievement].earned then
+        data[dlc][achievement].earned = true
+		
+        local achi
+        
+        if love.filesystem.getInfo(Kristal.Mods.getMod(dlc).path .. "/achievements.lua") then
+            local chunk = love.filesystem.load(Kristal.Mods.getMod(dlc).path .. "/achievements.lua")
+            success, result = pcall(chunk, Kristal.Mods.getMod(dlc).path)
+            if success then
+                for i,ach in ipairs(result) do
+                    if ach.id == achievement then
+                        achi = ach
+                    end
+                end
+                
+                if achi.border then
+                    achi.border = love.graphics.newImage(Kristal.Mods.getMod(dlc).path .. "/assets/sprites/achievements/frames/" .. achi.border .. ".png")
+                end
+                if achi.icon then
+                    achi.icon = love.graphics.newImage(Kristal.Mods.getMod(dlc).path .. "/assets/sprites/achievements/" .. achi.icon .. ".png")
+                end
+            else
+                error("Achievements don't exist for DLC " .. dlc)
+            end
+        end
+        
+        apu = AchievementPopUp(achi)
+        Game.stage:addChild(apu)
+    end
+	
+    love.filesystem.write("saves/achievements.json", JSON.encode(data))
+end
+
 function lib:addEventTime(time_added)
     for k,_ in pairs(Game:getFlag("PROMISES", {})) do
         Game:getFlag("PROMISES")[k] = Game:getFlag("PROMISES")[k] - time_added
