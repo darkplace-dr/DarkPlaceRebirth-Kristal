@@ -918,6 +918,7 @@ return {
 				black:remove()
 				eyes:remove()
 				Game.world:loadMap("floortv/green_room", "spawn", "down")
+				DP:completeAchievement("friendscare")
 				Kristal.showBorder(0)
 				Kristal.setDesiredWindowTitleAndIcon()
 			else
@@ -1410,6 +1411,7 @@ return {
     		Game:setFlag("playedDessGame", true)
     		cutscene:loadMap("floortv/legacy_corridors")
     		cutscene:fadeIn(nil, {speed=1})
+			DP:completeAchievement("dessgame")
     	else
     		cutscene:text("* Hell yeah you guys made the right choice.", "genuine_b", "dess")
     		cutscene:text("* Now let's all enjoy our last seconds of living.", "heckyeah", "dess")

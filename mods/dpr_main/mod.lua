@@ -222,19 +222,23 @@ function Mod:postLoad()
         Kristal.setState("Debug", save_data)
     end
     
-    self.mic_controller = MicController()
-    Game.stage:addChild(self.mic_controller)
-    if Game:getFlag("microphone_id") then
-        self.mic_controller.mic_id = Game:getFlag("microphone_id", 1)
-    end
-    if Game:getFlag("microphone_right_click") then
-        self.mic_controller.right_click_mic = Game:getFlag("microphone_right_click", 0)
-    end
-    if Game:getFlag("microphone_sensitivity") then
-        self.mic_controller.mic_sensitivity = Game:getFlag("microphone_sensitivity", 0.5)
-    end
-    if Game:getFlag("mic_active", false) then
-        Mod:enableMicAccess(self.mic_controller.mic_id)
+    if MicController() ~= nil then
+        self.mic_controller = MicController() or nil
+        if self.mic_controller ~= nil then
+            Game.stage:addChild(self.mic_controller)
+            if Game:getFlag("microphone_id") then
+                self.mic_controller.mic_id = Game:getFlag("microphone_id", 1)
+            end
+            if Game:getFlag("microphone_right_click") then
+                self.mic_controller.right_click_mic = Game:getFlag("microphone_right_click", 0)
+            end
+            if Game:getFlag("microphone_sensitivity") then
+                self.mic_controller.mic_sensitivity = Game:getFlag("microphone_sensitivity", 0.5)
+            end
+            if Game:getFlag("mic_active", false) then
+                Mod:enableMicAccess(self.mic_controller.mic_id)
+            end
+        end
     end
 end
 

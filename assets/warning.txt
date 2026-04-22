@@ -1,4 +1,4 @@
-This game is known to judge you based on your haircut.
+﻿This game is known to judge you based on your haircut.
 May include questions you can’t answer.
 May or may not contain subliminal advice on finding nemo.
 May contain Mario.
@@ -110,5 +110,6 @@ It's not DECEMBER
 Dark Place Legacy Deluxe
 May contain Undertale.
 May contain Deltarune.
-MAY BE INTERESTING.
+MAY BE VERY, VERY INTERESTING.
 Hello! I am in the warning.txt!
+Hey, I am also in warning.txt!

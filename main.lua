@@ -350,6 +350,8 @@ SoulExpandEffect = require("src.engine.game.effects.soulexpandeffect")
 SoulGlowEffect = require("src.engine.game.effects.soulgloweffect")
 CerobaDiamondBuff = require("src.engine.game.effects.cerobadiamondbuff")
 
+ChaosEmerald = require("src.engine.game.effects.chaosemerald")
+
 Discoball = require("src.engine.game.battle.bg.discoball")
 DojoBG = require("src.engine.game.battle.bg.dojobg")
 

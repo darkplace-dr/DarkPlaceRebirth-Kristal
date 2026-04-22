@@ -389,6 +389,8 @@ local hub = {
             cutscene:interpolateFollowers()
             cutscene:attachFollowers()
             cutscene:attachCamera()
+
+            DP:completeAchievement("malius_fix")
         end
     end,
 
@@ -553,7 +555,8 @@ local hub = {
             {"* Have you seen my friend...", "* His name is [color:yellow]Wocter Ding Dings[color:reset]..."},
             {"* Don't mess with reality...", "* This is a [color:red]threat[color:reset]..."},
             {"* The discovery channel would never lie to you...", "* It would lie to everyone..."},
-            {"* There is no fridge...", "* I lied..."}
+            {"* There is no fridge...", "* I lied..."},
+            {"* I am...", "* Indeed, I am..."},
         }
 
         cutscene:text("[speed:0.5]" .. Utils.pick(dialogue_pairs)[1])
@@ -766,6 +769,7 @@ local hub = {
                     Game:setFlag("hasPushedSans", true)
                     Game:setFlag("dessTriedToKillSans", true)
                     cutscene:text("* (You can now use the Elevator.)")
+                    DP:completeAchievement("elevator")
                     return
                 else
                     cutscene:showNametag("Dess")
@@ -896,6 +900,7 @@ local hub = {
                     sans:setFacing("down")
                     Assets.playSound("dimbox")
                     cutscene:text("* (You can now use the Elevator!)")
+                    DP:completeAchievement("elevator")
                 end
             elseif Game.world.player.facing == "right" and Game:isDessMode() and Game:getFlag("dessHasMetSans") == true and not Game:getFlag("hasPushedSans") then
                 local dess = cutscene:getCharacter("dess")
@@ -1533,6 +1538,7 @@ local hub = {
 
         if choice == 2 then
             showMorshuAnimWithVoc("menacing", "menace", 18.8, false)
+            DP:completeAchievement("morshu_mad")
             return
         end
 
@@ -1895,6 +1901,7 @@ local hub = {
                     cutscene:text("* (You put a dollar in the \"Hole.\")")
                     cutscene:text("* (The \"Hole\" became \"Full.\")")
                     Game:setFlag("money_hole", 1)
+                    DP:completeAchievement("donation")
                 end
             end
         end
@@ -2200,6 +2207,7 @@ local hub = {
             Game:setFlag("starwalker_defeated", true)
             cutscene:wait(cutscene:attachFollowers())
             cutscene:interpolateFollowers()
+            DP:completeAchievement("defeat_starwalker")
         end
     end,
 
