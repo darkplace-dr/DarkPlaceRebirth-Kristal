@@ -57,6 +57,7 @@ local cyber = {
                     cutscene:text("* (You got the Cell Phone.)")
                     cutscene:text("* (The Cell Phone was added to your KEY ITEMS.)")
                     Game:setFlag("gotCellPhone", true)
+					DP:completeAchievement("fakekris")
                 end
             else
                 cutscene:text("* (It's just a cardboard \ncutout.)")
@@ -110,6 +111,7 @@ local cyber = {
 				cutscene:text("* In the meantime,[wait:5] let me show you the power of the blue checkmarks...")
 				cutscene:hideNametag()
 				Game:setFlag("hackerSidequest", 2)
+				DP:completeAchievement("checks_quest")
 			end
 		end
     end,
@@ -182,6 +184,7 @@ local cyber = {
 				cutscene:playSound("locker")
 				cutscene:text("* (You got [color:yellow]ViroBuster![color:reset])")
 				cutscene:text("* Pleasure doing business with ya.", nil, event)
+				DP:completeAchievement("virobuster")
 			end
 		end
 	end,
@@ -267,7 +270,19 @@ local cyber = {
 				    cutscene:text("* Whoops!! No space to choose a flavor!!", nil, event)
 				else
 					cutscene:playSound("locker")
-					cutscene:text("* Okay, here you go!", nil, event)
+					Game:addFlag("teas", 1)
+					if Game:getFlag("teas") == 5 then
+                        cutscene:text("* Throwing a tea party, [wait:5]I see?", nil, event)
+						cutscene:text("* Well, why not![wait:5]\n* It's good to treat yourself while you can.", nil, event)
+						cutscene:text("* (You feel a sense of satisfaction from buying all that tea.)")
+						DP:completeAchievement("tea_party")
+					elseif Game:getFlag("teas") == 4 then
+						cutscene:text("* Okay, here you go![wait:5] Why do you need so much tea, anyway?", nil, event)
+					elseif Game:getFlag("teas") == 3 then
+						cutscene:text("* Okay, here you go![wait:5] You seem to be on a run today, aren'tcha?", nil, event)
+					else
+						cutscene:text("* Okay, here you go![wait:5] Don't have a rotten day!!", nil, event)
+					end
 				end
 			end
 		else

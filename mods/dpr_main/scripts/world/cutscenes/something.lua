@@ -54,6 +54,7 @@ return {
                         cutscene:text("* At least if you didn't kill your way through the Mimic.", nil, stall)
                         cutscene:text("* That is decent compensation, right?", nil, stall)
                     end
+                    DP:completeAchievement("defeat_benchthing")
                 end
             end
         end

@@ -43,18 +43,18 @@ function BlendMenu:init()
 			name = "Hatsell Blend",
 			id = "hatsell_blend",
 			desc = "A blend that raises ATK for the user by 1.",
-			bdarkess = 10, 
+			bdarkess = 5, 
 			bfountain = 0,
-			bspam = 20, 
+			bspam = 10, 
 			bbinari = 0
 		},
 		{
 			name = "Friva Blend",
 			id = "friva_blend",
 			desc = "A blend that raises DEF for the user by 1.",
-			bdarkess = 20, 
+			bdarkess = 10, 
 			bfountain = 0,
-			bspam = 10, 
+			bspam = 5, 
 			bbinari = 0
 		}
 	}
@@ -121,7 +121,7 @@ function BlendMenu:update()
             self.state = "SELECT"
 			return
 		end
-		if Input.pressed("confirm", false) then
+		if Input.pressed("confirm", false) then 
 			if self.selected_confirm == 1 then
 				if Game:getFlag("darkess_beans", 0) >= self.blends[self.selected].bdarkess and Game:getFlag("fountain_beans", 0) >= self.blends[self.selected].bfountain and Game:getFlag("spam_beans", 0) >= self.blends[self.selected].bspam and Game:getFlag("binaribeans", 0) >= self.blends[self.selected].bbinari then
 					local success = Game.inventory:addItem(self.blends[self.selected].id)
@@ -133,6 +133,7 @@ function BlendMenu:update()
 						Game:addFlag("spam_beans", -self.blends[self.selected].bspam)
 						Game:addFlag("binaribeans", -self.blends[self.selected].bbinari)
 						self.state = "SELECT"
+            			DP:completeAchievement("blend_collect")
 					else
 						Game.world:startCutscene("devroom.blend_invfull")
 					end

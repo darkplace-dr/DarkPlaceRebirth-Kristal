@@ -15,4 +15,8 @@ function Watercooler:init()
     self:addEnemy("watercooler", 507, 196)
 end
 
+function Encounter:onBattleEnd() 
+    DP:completeAchievement("defeat_watercooler")
+end
+
 return Watercooler
