@@ -117,6 +117,11 @@ function spell:getDamage(user, target, damage_bonus)
     if target.tired then
         damage = math.ceil(damage/2)
     end
+    if user.chara:checkWeapon("virobuster") then
+        if target.health <= target.chara:getStat("health") / 2 then
+            damage = damage * 2
+        end
+    end
     return damage
 end
 

@@ -224,7 +224,7 @@ function Diamond_Store:startTalk(talk)
         self:startDialogue({
             "[emote:talk]* Oh,[wait:5] thanks?[emote:idle]",
             "[emote:talk]* Um...[emote:idle]",
-            "[emote:talk]* You were not meant to deliver that. I sent a thing to do it.[emote:idle]",
+            "[emote:talk_huh]* You were not meant to deliver that. I sent a thing to do it.[emote:huh]",
             "[emote:talk]* Eh, it doesn't matter.[emote:idle]",
             "[emote:talk]* I'll put some money in your pockets for your troubles.[emote:idle]",
         })
@@ -237,6 +237,7 @@ function Diamond_Store:startTalk(talk)
             Game:setFlag("package_quest", 2)
             Game:getQuest("a_special_delivery"):setProgress(1)
             self:registerTalkAfter("Yourself", 1)
+            DP:completeAchievement("diamond")
 	elseif talk == "..." then
         self:startDialogue({
             "[emote:talk]* ...[emote:idle]",
