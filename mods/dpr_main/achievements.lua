@@ -31,6 +31,14 @@ local achievements = {
 		border = "unique",
 		icon = "lancer"
 	},
+	{
+		id = "find_rouxls",
+		name = "Soeth, canst I get oute of thee pockete noweth?",
+		desc = "I understand thou needeth mine assistance, but we art peopleth after all! Let us remaine civile and polite forevere. Thou shalt let me out of thy pocket eventually... please?",
+		hint = "Find Rouxls somewhere.",
+		border = "unique",
+		icon = "rouxls"
+	},
 }
 
 return achievements

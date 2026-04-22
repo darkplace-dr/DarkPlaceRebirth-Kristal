@@ -254,6 +254,8 @@ return {
             Game.inventory:tryGiveItem("rouxls_kaard")
             Assets.playSound("item")
             cutscene:text("* Rouxls Kaard re-entered your [color:yellow]KEY ITEMS[color:reset]...[wait:10]reluctantly.")
+
+            DP:completeAchievement("find_rouxls")
         else
             cutscene:text("* The finest lampe made for her majesty, Queen!", "open", "rouxls")
 		end
