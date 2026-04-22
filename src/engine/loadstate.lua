@@ -93,6 +93,8 @@ function Loading:beginLoad()
     Kristal.clearAssets(true)
 
     self.loading_state = Loading.States.LOADING
+    
+    Kristal.loadAssets("", "plugins", "")
 
     Kristal.loadAssets("", "mods", "", function()
         self.loading_state = Loading.States.DONE
