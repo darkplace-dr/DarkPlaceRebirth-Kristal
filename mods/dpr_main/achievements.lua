@@ -1,5 +1,21 @@
 local achievements = {
 	{
+		id = "wake_up",
+		name = "Wakey Wakey! Welcome to the Cliffside!",
+		desc = "Wake up in Cliffside.",
+		hint = "Begin the adventure.",
+		border = "common",
+		icon = "hero"
+	},
+	{
+		id = "first_badge",
+		name = "Baby's First Badge",
+		desc = "Equip your first badge.",
+		hint = "Equip a certain item.",
+		border = "common",
+		icon = "cat"
+	},
+	{
 		id = "find_susie",
 		name = "The Girl, with Shadow Crystal on her Skin",
 		desc = "Find Susie in Cliffside.",
@@ -166,6 +182,54 @@ local achievements = {
 		hint = "Meet your friend somewhere.",
 		border = "unique",
 		icon = "chair"
+	},
+	{
+		id = "tritrace",
+		name = "Tritrace",
+		desc = "Win the Cinnamon Clouds race replica in Tritra Land.",
+		hint = "Win a race somewhere.",
+		border = "unique",
+		icon = "notsuki"
+	},
+	{
+		id = "starrune_popstar",
+		name = "How STARRUNE do you feel today?",
+		desc = "Complete the STARRUNE POPSTAR trivia in Tritra Land.",
+		hint = "Complete a quiz somewhere.",
+		border = "epic",
+		icon = "buni"
+	},
+	{
+		id = "reaction_minigame",
+		name = "Press a random button in split second and you'll win this",
+		desc = "Complete the reaction minigame in Tritra Land.",
+		hint = "Complete a minigame somewhere.",
+		border = "epic",
+		icon = "machine"
+	},
+	{
+		id = "defeat_annabelle",
+		name = "Screams of forests",
+		desc = "Defeat Annabelle in Tritra Land",
+		hint = "Find Annabelle somewhere.",
+		border = "legendary",
+		icon = "annabelle"
+	},	
+	{
+		id = "defeat_voidspawn",
+		name = "Pain itself is the reason why",
+		desc = "Defeat the Voidspawn on the Top Floor.",
+		hint = "Defeat a certain entity.",
+		border = "unique",
+		icon = "voidspawn"
+	},
+	{
+		id = "woods",
+		name = "IT'S WOODS TIME FOR YOU",
+		desc = "Enter your name as WOODS.",
+		hint = "Enter the WOODS.",
+		border = "common",
+		icon = "woods"
 	},
 }
 

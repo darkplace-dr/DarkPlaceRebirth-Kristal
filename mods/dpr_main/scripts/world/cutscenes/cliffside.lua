@@ -194,6 +194,7 @@ local cliffside = {
             Game.stage.timer:tween(1, lightsource, { alpha = 1 })
             Kristal.showBorder(1.5)
             cutscene:wait(0.75)
+            DP:completeAchievement("wake_up")
             Game.world.music:play()
             Game.world:spawnObject(MusicLogo("demonic little grey cliffs", 30, 20), WORLD_LAYERS["ui"])
         elseif choicer == 2 then
@@ -1307,6 +1308,7 @@ local cliffside = {
         cutscene:showNametag("Cat")
         if not Game:getFlag("badge_tutorial") then
             if Game:getBadgeEquipped("stellar_lens") >= 1 then
+                DP:completeAchievement("first_badge")
                 cutscene:text("* Very excelent.", "neutral", "cat")
                 cutscene:text("* It may seem like that badge may be useless right now...", "neutral", "cat")
                 cutscene:text("* But I forsee you potentially meeting someone...", "neutral", "cat")
