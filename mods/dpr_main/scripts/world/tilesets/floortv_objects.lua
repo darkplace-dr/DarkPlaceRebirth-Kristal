@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 36,
+  tilecount = 40,
   tiles = {
     {
       id = 0,
@@ -240,6 +240,48 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png",
       width = 30,
       height = 44
+    },
+    {
+      id = 41,
+      image = "../../../../../assets/sprites/world/events/shine_1.png",
+      width = 5,
+      height = 5,
+      animation = {
+        {
+          tileid = 41,
+          duration = 250
+        },
+        {
+          tileid = 42,
+          duration = 250
+        },
+        {
+          tileid = 43,
+          duration = 250
+        },
+        {
+          tileid = 44,
+          duration = 250
+        }
+      }
+    },
+    {
+      id = 42,
+      image = "../../../../../assets/sprites/world/events/shine_2.png",
+      width = 5,
+      height = 5
+    },
+    {
+      id = 43,
+      image = "../../../../../assets/sprites/world/events/shine_3.png",
+      width = 5,
+      height = 5
+    },
+    {
+      id = 44,
+      image = "../../../../../assets/sprites/world/events/shine_4.png",
+      width = 5,
+      height = 5
     }
   }
 }

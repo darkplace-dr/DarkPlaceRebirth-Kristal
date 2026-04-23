@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="36" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="40" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -111,5 +111,23 @@
  </tile>
  <tile id="39">
   <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png"/>
+ </tile>
+ <tile id="41">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_1.png"/>
+  <animation>
+   <frame tileid="41" duration="250"/>
+   <frame tileid="42" duration="250"/>
+   <frame tileid="43" duration="250"/>
+   <frame tileid="44" duration="250"/>
+  </animation>
+ </tile>
+ <tile id="42">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_2.png"/>
+ </tile>
+ <tile id="43">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_3.png"/>
+ </tile>
+ <tile id="44">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_4.png"/>
  </tile>
 </tileset>

@@ -17,7 +17,7 @@ function GreenRoomWall:init(data)
 	self.from_amt = properties["fromamt"] or 0.4
 	self.spawn_vines = properties["vines"] ~= false
 	self.spawn_shines = properties["shines"] ~= false
-	self.tile_speed = 1
+	self.tile_speed = properties["speed"] or 1
 
 	local can_kill = Game:getFlag("can_kill", false)
     if Game.world.map.id:find("floortv/") and can_kill == true then
