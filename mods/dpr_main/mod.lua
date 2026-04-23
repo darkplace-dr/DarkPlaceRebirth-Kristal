@@ -231,13 +231,10 @@ function Mod:postLoad()
                 self.mic_controller.mic_id = Game:getFlag("microphone_id", 1)
             end
             if Game:getFlag("microphone_right_click") then
-                self.mic_controller.right_click_mic = Game:getFlag("microphone_right_click", 0)
+                self.mic_controller.right_click_mic = Game:getFlag("microphone_right_click", 1)
             end
             if Game:getFlag("microphone_sensitivity") then
                 self.mic_controller.mic_sensitivity = Game:getFlag("microphone_sensitivity", 0.5)
-            end
-            if Game:getFlag("mic_active", false) then
-                Mod:enableMicAccess(self.mic_controller.mic_id)
             end
         end
     end
@@ -245,12 +242,16 @@ end
 
 function Mod:enableMicAccess(id)
     Game:setFlag("mic_active", true)
-    self.mic_controller:startRecordMic(id or 1)
+	if self.mic_controller.right_click_mic == 0 then
+		self.mic_controller:startRecordMic(id or 1)
+	end
 end
 
 function Mod:disableMicAccess()
     Game:setFlag("mic_active", false)
-    self.mic_controller:startRecordMic()
+	if self.mic_controller.right_click_mic == 0 then
+		self.mic_controller:stopRecordMic()
+	end
 end
 
 function Mod:openMicMenu()

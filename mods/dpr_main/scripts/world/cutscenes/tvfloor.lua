@@ -1536,4 +1536,21 @@ return {
         cutscene:wait(1.5)
     end,
 
+    mike_keycard = function(cutscene, event)
+		cutscene:text("* (...? Someone left a keycard here on the ground.)")
+		local choicer = cutscene:choicer({"Pick it\nup", "Don't pick\nit up"})
+		if choicer == 1 then
+			if not Game.inventory:addItem("mike_keycard") then
+				cutscene:text("* (Somehow,[wait:5] you have too many [color:yellow]KEY ITEMS[color:reset].)")
+			else
+				if event then
+					event:remove()
+				end
+				Game:setFlag("mike_keycard", true)
+				cutscene:text("* ([color:yellow]MIKEKEYCARD[color:reset] was added to your [color:yellow]KEY ITEMS[color:reset].)")
+				Assets.playSound("item")
+			end
+		else
+		end
+    end,
 }
