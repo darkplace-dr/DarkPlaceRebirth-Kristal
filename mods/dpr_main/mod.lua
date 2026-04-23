@@ -95,6 +95,7 @@ function Mod:postInit(new_file)
             Game:addPartyMember("dess")
             Game:removePartyMember("hero")
         elseif Game:isSpecialMode "WOODS" then
+            DP:completeAchievement("woods")
             Game:setPartyMembers("kris")
             Game.world:loadMap("woods/spawn")
             no_cutscene = true
@@ -222,7 +223,7 @@ function Mod:postLoad()
         Kristal.setState("Debug", save_data)
     end
     
-    if MicController() ~= nil then
+    if type(MicController) == "function" or type(MicController) == "table" then
         self.mic_controller = MicController() or nil
         if self.mic_controller ~= nil then
             Game.stage:addChild(self.mic_controller)

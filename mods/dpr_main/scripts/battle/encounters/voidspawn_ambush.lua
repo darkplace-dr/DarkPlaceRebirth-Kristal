@@ -22,6 +22,7 @@ end
 
 function Voidspawn:onBattleEnd()
     super.onBattleEnd(self)
+    DP:completeAchievement("defeat_voidspawn")
 
     if not Game:getFlag("topfloor_ambush") then
         Game:setFlag("topfloor_ambush", true)
