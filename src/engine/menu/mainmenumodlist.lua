@@ -533,11 +533,13 @@ function MainMenuModList:buildModList()
             }
 
             local music = Music()
-            music:playFile(mod.preview_music_path, 0, 1)
-            music:setLooping(self.music_options[mod.id].loop)
-            music:stop()
-
-            self.music[mod.id] = music
+            if mod then
+                music:playFile(mod.preview_music_path, 0, 1)
+                music:setLooping(self.music_options[mod.id].loop)
+                music:stop()
+    
+                self.music[mod.id] = music
+            end
         end
 
         -- Get the engine versions this mod is compatible with

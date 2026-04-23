@@ -123,7 +123,7 @@ local achievements = {
 		id = "blend_collect",
 		name = "It's good to have a nice coffee once in a morning!",
 		desc = "Blend a blend in the Dev Diner!",
-		hint = "Colect a blend somewhere.",
+		hint = "Blend something.",
 		border = "rare",
 		icon = "alexa"
 	},	
@@ -181,7 +181,8 @@ local achievements = {
 		desc = "Get jumpscared by FRIEND in the secret area on TV Floor.",
 		hint = "Meet your friend somewhere.",
 		border = "unique",
-		icon = "chair"
+		icon = "chair",
+		hidden = true
 	},
 	{
 		id = "tritrace",
@@ -221,7 +222,8 @@ local achievements = {
 		desc = "Defeat the Voidspawn on the Top Floor.",
 		hint = "Defeat a certain entity.",
 		border = "unique",
-		icon = "voidspawn"
+		icon = "voidspawn",
+		hidden = true
 	},
 	{
 		id = "woods",
@@ -229,7 +231,8 @@ local achievements = {
 		desc = "Enter your name as WOODS.",
 		hint = "Enter the WOODS.",
 		border = "common",
-		icon = "woods"
+		icon = "woods",
+		hidden = true
 	},
 }
 

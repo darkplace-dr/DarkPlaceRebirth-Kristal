@@ -22,7 +22,6 @@ end
 
 function Voidspawn:onBattleEnd()
     super.onBattleEnd(self)
-    DP:completeAchievement("defeat_voidspawn")
 
     if not Game:getFlag("topfloor_ambush") then
         Game:setFlag("topfloor_ambush", true)
@@ -32,6 +31,10 @@ function Voidspawn:onBattleEnd()
             Game.world:getCharacter(member.id):setAnimation("battle/idle")
         end
     end
+end
+
+function Voidspawn:onReturnToWorld(events)
+    DP:completeAchievement("defeat_voidspawn")
 end
 
 return Voidspawn

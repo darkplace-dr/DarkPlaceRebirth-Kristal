@@ -35,11 +35,6 @@ function Mod:postInit(new_file)
     end
     local items_list = {
         {
-            result = "soulmantle",
-            item1 = "flarewings",
-            item2 = "discarded_robe"
-        },
-        {
             result = "dd_burger",
             item1 = "darkburger",
             item2 = "darkburger"
@@ -61,18 +56,63 @@ function Mod:postInit(new_file)
         },
         {
             result = "tensionbow",
-            item1 = "bshotbowtie",
+            item1 = "frayedbowtie",
             item2 = "tensionbit"
         },
         {
-            result = "peanut",
-            item1 = "nut",
-            item2 = "nut"
+            result = "tensiontie",
+            item1 = "tennatie",
+            item2 = "tentaser"
         },
         {
-            result = "quadnut",
-            item1 = "peanut",
-            item2 = "peanut"
+            result = "triribbon",
+            item1 = "twinribbon",
+            item2 = "princessrbn",
+        },
+        {
+            result = "royalpin",
+            item1 = "mousetoken",
+            item2 = "silver_card",
+        },
+        {
+            result = "casino_card",
+            item1 = "rotten_tea",
+            item2 = "amber_card",
+        },
+        {
+            result = "gold_card",
+            item1 = "leadmaker",
+            item2 = "silver_card",
+        },
+        {
+            result = "chosen_ax",
+            item1 = "chosen_blade",
+            item2 = "mane_ax"
+        },
+        {
+            result = "powerbitter",
+            item1 = "powerring",
+            item2 = "harvester"
+        },
+		{
+			result = "nullsword",
+			item1 = "glitchswd",
+			item2 = "bin_weapon"
+		},
+		{
+			result = "memory_guts",
+			item1 = "the_mushroom_hat_that_increases_the_rate_at_which_you_gain_nightmares",
+			item2 = "mind_guts"
+		},
+        {
+            result = "soulmantle",
+            item1 = "flarewings",
+            item2 = "shadowmantle"
+        },
+        {
+            result = "kindnessaxe",
+            item1 = "friend_buster",
+            item2 = "justiceaxe"
         },
     }
     Kristal.callEvent("setItemsList", items_list)
@@ -224,7 +264,7 @@ function Mod:postLoad()
     end
     
     if type(MicController) == "function" or type(MicController) == "table" then
-        self.mic_controller = MicController() or nil
+        self.mic_controller = MicController()
         if self.mic_controller ~= nil then
             Game.stage:addChild(self.mic_controller)
             if Game:getFlag("microphone_id") then
