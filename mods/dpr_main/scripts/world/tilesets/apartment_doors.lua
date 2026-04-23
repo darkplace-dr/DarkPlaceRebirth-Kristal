@@ -1,11 +1,11 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   name = "apartment_doors",
   class = "",
-  tilewidth = 184,
-  tileheight = 160,
+  tilewidth = 192,
+  tileheight = 256,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 7,
+  tilecount = 8,
   tiles = {
     {
       id = 0,
@@ -52,8 +52,8 @@ return {
     {
       id = 4,
       image = "../../../assets/sprites/world/apartment_doors/arlee.png",
-      width = 106,
-      height = 128
+      width = 192,
+      height = 256
     },
     {
       id = 5,
@@ -65,6 +65,12 @@ return {
       id = 6,
       image = "../../../assets/sprites/world/apartment_doors/ceroba.png",
       width = 184,
+      height = 160
+    },
+    {
+      id = 7,
+      image = "../../../assets/sprites/world/apartment_doors/ken.png",
+      width = 120,
       height = 160
     }
   }

@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 45,
+  nextobjectid = 56,
   properties = {
     ["music"] = "mainhub"
   },
@@ -99,10 +99,10 @@ return {
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -244,19 +244,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 80,
-          y = 200,
-          width = 1080,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 2,
           name = "",
           type = "",
@@ -266,6 +253,7 @@ return {
           width = 856,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -279,6 +267,7 @@ return {
           width = 760,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -292,6 +281,7 @@ return {
           width = 200,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -305,6 +295,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -318,6 +309,7 @@ return {
           width = 40,
           height = 880,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -331,6 +323,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -344,6 +337,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -357,6 +351,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -370,6 +365,7 @@ return {
           width = 856,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -383,8 +379,53 @@ return {
           width = 40,
           height = 880,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
+        },
+        {
+          id = 51,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 200,
+          width = 200,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 52,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 200,
+          width = 800,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 55,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 200,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["flagcheck"] = "!arlee_quest"
+          }
         }
       }
     },
@@ -412,6 +453,7 @@ return {
           width = 102,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["texture"] = "world/maps/floor2/door_spamgolor"
@@ -427,7 +469,23 @@ return {
           width = 184,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 177,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 48,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 224,
+          y = 240,
+          width = 192,
+          height = 256,
+          rotation = 0,
+          opacity = 1,
+          gid = 175,
           visible = true,
           properties = {}
         }
@@ -457,6 +515,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_1",
@@ -473,6 +532,7 @@ return {
           width = 102,
           height = 16,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "floor2.spamgolor"
@@ -488,9 +548,29 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.ceroba"
+          }
+        },
+        {
+          id = 54,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 280,
+          y = 202,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["facing"] = "down",
+            ["flagcheck"] = "arlee_quest",
+            ["marker"] = "arlee",
+            ["shop"] = "arlee"
           }
         }
       }
@@ -519,6 +599,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -532,6 +613,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -545,6 +627,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -558,6 +641,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -571,6 +655,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -584,6 +669,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -597,6 +683,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -610,6 +697,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -623,12 +711,13 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
         {
           id = 36,
-          name = "",
+          name = "arlee",
           type = "",
           shape = "point",
           x = 320,
@@ -636,6 +725,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -649,6 +739,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -662,6 +753,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -675,6 +767,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -688,6 +781,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

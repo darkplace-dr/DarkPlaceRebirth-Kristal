@@ -192,7 +192,7 @@ local devroom = {
         end
     end,
     
-    arlee = function(cutscene, npc)
+    arleev = function(cutscene, npc)
         if npc.interact_count == 1 then
         local arlee = cutscene:getCharacter('arlee')
         cutscene:setSpeaker(arlee)
@@ -299,6 +299,37 @@ local devroom = {
         end
     end
     end,
+
+    arlee = function(cutscene, npc)
+        local arlee = cutscene:getCharacter('arlee')
+        cutscene:setSpeaker(arlee)
+        cutscene:showNametag("*+arlee*+")
+        
+        cutscene:text("oh hi!")
+        cutscene:text("im uh arlee, yeah thats me.")
+        
+        cutscene:text("I have some stuff??? For sale??? if you wanna buy")
+        cutscene:text("its nothing super special honestly just stuff")
+        
+        cutscene:hideNametag()
+
+        local choice = cutscene:choicer({"sure", "go fuck urself"})
+        
+        cutscene:showNametag("*+arlee*+")
+        if choice == 1 then
+            cutscene:text("oh thank you!")
+            cutscene:text("ill get it ready just uh meet me in my room")
+            cutscene:text("see you there!!")
+            cutscene:hideNametag()
+            cutscene:slideTo(arlee, arlee.x, arlee.y - 600, 4)
+            Game:setFlag("arlee_quest", true)
+        else
+            cutscene:text("right okay loud and clear")
+            cutscene:text("didnt need to be rude but sure")
+            cutscene:hideNametag()
+        end
+    end,
+
     starbeans = function(cutscene, event)
         cutscene:showNametag("Alexa")
 		cutscene:text("[voice:alexa]* Oh,[wait:5] hello![wait:5]\n* Welcome to the Starbeans Cafe!")
