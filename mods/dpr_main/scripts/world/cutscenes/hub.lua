@@ -276,7 +276,7 @@ local hub = {
         },
         {
             result = "casino_card",
-            item1 = "hero_tea",
+            item1 = "rotten_tea",
             item2 = "amber_card",
         },
         {

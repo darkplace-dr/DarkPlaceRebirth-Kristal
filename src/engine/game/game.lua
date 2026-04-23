@@ -699,7 +699,7 @@ function Game:load(data, index, fade)
 
 
     --Code stolen from Simbel's depths dlc
-    if Kristal.Config["dLoad"] == true then
+    if Game.world and Kristal.Config["dLoad"] == true then
 		local text = Text("FILE " ..Game.save_id.. " LOADED")
 		text:setParallax(0)
 		text:setScreenPos(3, 3)
@@ -728,46 +728,48 @@ function Game:load(data, index, fade)
 		self:setFlag("unlocked_codeblocks", {})
 	end
     
-    self.stage.timer:everyInstant(60, function()
-        function load_weather()
-            local contents = love.filesystem.read("weatherkey.txt")
-            if not contents then return nil, nil end
-
-            local lines = {}
-            for line in contents:gmatch("[^\r\n]+") do
-                table.insert(lines, line)
-            end
-
-            local apiKey = lines[1] and lines[1]:gsub("%s+", "")
-            local location = lines[2] and lines[2]:gsub("^%s*(.-)%s*$", "%1")
-
-            return apiKey, location
-        end
-
-        apikey, location = load_weather()
-
-        if apikey and location then
-            local url = "https://api.openweathermap.org/data/2.5/weather?q="
-                    .. location
-                    .. "&appid=" .. apikey
-                    .. "&units=imperial"
-
-            Kristal.fetch(url, {
-                disable_message = true,
-                callback=function(res, body, headers)
-                    if res == 200 then
-                        local data = JSON.decode(body)
-                        data.name = nil
-                        data.coord = nil
-
-                        self.weather_info = data
-                    else
-                        Kristal.Console:error("Weather unavailable: Code " .. res)
-                    end
+    if self.stage then
+        self.stage.timer:everyInstant(60, function()
+            function load_weather()
+                local contents = love.filesystem.read("weatherkey.txt")
+                if not contents then return nil, nil end
+    
+                local lines = {}
+                for line in contents:gmatch("[^\r\n]+") do
+                    table.insert(lines, line)
                 end
-            })
-        end
-    end)
+    
+                local apiKey = lines[1] and lines[1]:gsub("%s+", "")
+                local location = lines[2] and lines[2]:gsub("^%s*(.-)%s*$", "%1")
+    
+                return apiKey, location
+            end
+    
+            apikey, location = load_weather()
+    
+            if apikey and location then
+                local url = "https://api.openweathermap.org/data/2.5/weather?q="
+                        .. location
+                        .. "&appid=" .. apikey
+                        .. "&units=imperial"
+    
+                Kristal.fetch(url, {
+                    disable_message = true,
+                    callback=function(res, body, headers)
+                        if res == 200 then
+                            local data = JSON.decode(body)
+                            data.name = nil
+                            data.coord = nil
+    
+                            self.weather_info = data
+                        else
+                            Kristal.Console:error("Weather unavailable: Code " .. res)
+                        end
+                    end
+                })
+            end
+        end)
+    end
 end
 
 ---@param light? boolean
