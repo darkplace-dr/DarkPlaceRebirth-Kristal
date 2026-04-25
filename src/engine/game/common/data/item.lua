@@ -7,6 +7,7 @@
 ---@class Item : Class
 ---
 ---@field name string
+---@field debug_name string
 ---@field use_name string?
 ---
 ---@field type string
@@ -53,6 +54,8 @@ local Item = Class()
 function Item:init()
     -- Display name
     self.name = "Test Item"
+    -- Debug name (optional)
+    self.debug_name = nil
     -- Name displayed when used in battle (optional)
     self.use_name = nil
 
@@ -273,6 +276,7 @@ function Item:convertToDarkEquip(chara) return self:convertToDark() end
 
 function Item:getName() return self.name end
 function Item:getUseName() return self.use_name or self:getName():upper() end
+function Item:getDebugName() return self.debug_name or self:getName() end
 function Item:getWorldMenuName() return self:getName() end
 
 function Item:getDescription() return self.description end
