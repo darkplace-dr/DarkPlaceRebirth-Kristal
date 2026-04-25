@@ -499,6 +499,9 @@ function Inventory:loadStorage(storage, data)
         if item then
             if Registry.getItem(item.id) then
                 storage[i] = Registry.createItem(item.id)
+                if storage[i].postInit then
+                    storage[i]:postInit()
+                end
                 storage[i]:load(item)
             else
                 storage[i] = Registry.createItem("darkrock")

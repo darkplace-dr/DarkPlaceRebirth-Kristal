@@ -34,6 +34,7 @@
 ---@field minigames table<string, Minigame>
 ---@field materials table<string, Material>
 ---@field shaders table<string, Shader>
+---@field recruit_battlers table<string, RecruitBattler>
 ---
 local Registry = {}
 local self = Registry
@@ -71,6 +72,7 @@ Registry.paths = {
     ["combos"]           = "battle/combos",
     ["materials"]        = "data/materials",
     ["shaders"]          = "shaders",
+    ["recruit_battlers"] = "data/recruit_battlers",
 }
 
 ---@param preload boolean?
@@ -149,6 +151,7 @@ function Registry.initialize(preload)
         Registry.initCombos()
         Registry.initMaterials()
         Registry.initShaders()
+        Registry.initRecruitBattlers()
 
         Kristal.callEvent(KRISTAL_EVENT.onRegistered)
     end
@@ -249,6 +252,10 @@ end
 ---@return Item
 function Registry.createItem(id, ...)
     if self.items[id] then
+        local item = self.items[id](...)
+        if item.postInit then
+            item:postInit()
+        end
         return self.items[id](...)
     else
         error("Attempt to create non existent item \"" .. tostring(id) .. "\"")
@@ -589,6 +596,18 @@ function Registry.createMaterial(id, ...)
     end
 end
 
+function Registry.getRecruitBattler(id)
+    return self.materials[id]
+end
+
+function Registry.createRecruitBattler(id, ...)
+    if self.recruit_battlers[id] then
+        return self.recruit_battlers[id](...)
+    else
+        error ("Attempted to create nonexistent recruit battler \"" .. tostring(id) .. "\"")
+    end
+end
+
 -- Register Functions --
 
 ---@param id string
@@ -751,6 +770,12 @@ end
 ---@param class Shader
 function Registry.registerShader(id, class)
     self.shaders[id] = class
+end
+
+---@param id string
+---@param class Shader
+function Registry.registerRecruitBattler(id, class)
+    self.recruit_battlers[id] = class
 end
 
 -- Internal Functions --
@@ -1074,6 +1099,15 @@ function Registry.initShaders()
         Kristal.Console:warn("Legacy shader found in " .. full_path .. ". This functionality will be removed in the future.")
         assert(shader ~= nil, '"shaders/'..path..'.lua" does not return value')
         self.shaders[path] = shader
+    end
+end
+
+function Registry.initRecruitBattlers()
+    self.recruit_battlers = {}
+
+    for full_path,path,recruit_battler in Registry.iterScripts("data/recruit_battlers/") do
+        assert(recruit_battler ~= nil, '"data/recruit_battlers/'..path..'.lua" does not return value')
+        self.recruit_battlers[path] = recruit_battler
     end
 end
 

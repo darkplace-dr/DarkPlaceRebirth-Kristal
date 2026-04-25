@@ -630,12 +630,20 @@ function DebugSystem:registerSubMenus()
 
     for id, item_data in pairs(Registry.items) do
         local item = item_data()
+        if item.postInit then
+            item:postInit()
+        end
+        local name = item:getDebugName()
         self:registerOption(
             "give_item",
-            item.name .. (item.light and " (Light Item)" or ""),
+            name .. (item.light and " (Light Item)" or ""),
             item.description,
             function()
-                Game.inventory:tryGiveItem(item_data())
+                local item = item_data()
+                if item.postInit then
+                    item:postInit()
+                end
+                Game.inventory:tryGiveItem(item)
             end
         )
     end

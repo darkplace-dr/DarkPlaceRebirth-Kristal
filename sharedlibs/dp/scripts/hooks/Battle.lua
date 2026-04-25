@@ -168,4 +168,28 @@ function Battle:getBattlers()
     return TableUtils.mergeMany(Game.battle.party, Game.battle.enemies)
 end
 
+function Battle:nextTurn()
+    super.nextTurn(self)
+    
+    if self.ally then
+        self.ally:onTurnStart()
+    end
+end
+
+function Battle:update()
+    super.update(self)
+    
+    if self.ally then
+        self.ally:onUpdate()
+    end
+end
+
+function Battle:updateActionsDone()
+    super.updateActionsDone(self)
+    
+    if self.ally then
+        self.ally:onActionsEnd()
+    end
+end
+
 return Battle
