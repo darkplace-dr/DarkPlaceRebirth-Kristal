@@ -109,10 +109,14 @@ function actor:init()
         -- Cutscene offsets
         ["ball"] = {-2, 10},
         ["dance"] = {-5, -1},
-        ["fall"] = {0, 0},
+        ["fall"] = {-10, 1},
+        ["fall_alt"] = {-10, 1},
         ["guard"] = {-17, -11},
         ["right_down"] = {-1, -2},
         ["right_down_more"] = {1, -2},
+        ["shock"] = {-10, 1},
+        ["shock_angry"] = {-10, 1},
+        ["shock_closed"] = {-10, 1},
         ["the_roba"] = {0, 0},
     }
 
