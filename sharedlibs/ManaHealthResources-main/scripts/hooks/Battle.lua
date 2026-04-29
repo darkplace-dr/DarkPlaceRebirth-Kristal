@@ -355,17 +355,7 @@ function Battle:removeSingleAction(action, from_defeat)
         return
     end
 
-    battler:resetSprite()
-
     if not from_defeat then
-        if action.tp and (action.resource == "tension" or action.action == "DEFEND") then
-            if action.tp < 0 then
-                Game:giveTension(-action.tp)
-            elseif action.tp > 0 then
-                Game:removeTension(action.tp)
-            end
-        end
-
         if action.mp and action.resource == "mana" then
             if action.mp < 0 then
                 battler.chara:setMana(battler.chara:getMana() - action.mp)
@@ -381,23 +371,9 @@ function Battle:removeSingleAction(action, from_defeat)
                 battler.chara.health = battler.chara.health + action.hp
             end
         end
-
-        if action.action == "ITEM" and action.data then
-            if action.item_index and action.consumed then
-                if action.result_item then
-                    Game.inventory:setItem(action.item_storage, action.item_index, action.data)
-                else
-                    Game.inventory:addItemTo(action.item_storage, action.item_index, action.data)
-                end
-            end
-            action.data:onBattleDeselect(battler, action.target)
-        elseif action.action == "SPELL" and action.data then
-            action.data:onDeselect(battler, action.target)
-        end
     end
 
-    battler.action = nil
-    self.character_actions[action.character_id] = nil
+    super.removeSingleAction(self, action, from_defeat)
 end
 
 --- Returns the equipment-modified mana regeneration amount from a man regen action performed by the specified party member
