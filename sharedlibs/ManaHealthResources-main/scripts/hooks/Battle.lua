@@ -346,7 +346,7 @@ function Battle:commitSingleAction(action)
     end
 end
 
-function Battle:removeSingleAction(action)
+function Battle:removeSingleAction(action, from_defeat)
     local battler = self.party[action.character_id]
 
     if Kristal.callEvent(KRISTAL_EVENT.onBattleActionUndo, action, action.action, battler, action.target) then
@@ -355,47 +355,25 @@ function Battle:removeSingleAction(action)
         return
     end
 
-    battler:resetSprite()
-
-    if action.tp and (action.resource == "tension" or action.action == "DEFEND") then
-        if action.tp < 0 then
-            Game:giveTension(-action.tp)
-        elseif action.tp > 0 then
-            Game:removeTension(action.tp)
-        end
-    end
-
-    if action.mp and action.resource == "mana" then
-        if action.mp < 0 then
-            battler.chara:setMana(battler.chara:getMana() - action.mp)
-        elseif action.mp > 0 then
-            battler.chara:setMana(battler.chara:getMana() + action.mp)
-        end
-    end
-
-    if action.hp and action.resource == "health" then
-        if action.hp < 0 then
-            battler.chara.health = battler.chara.health - action.hp
-        elseif action.hp > 0 then
-            battler.chara.health = battler.chara.health + action.hp
-        end
-    end
-
-    if action.action == "ITEM" and action.data then
-        if action.item_index and action.consumed then
-            if action.result_item then
-                Game.inventory:setItem(action.item_storage, action.item_index, action.data)
-            else
-                Game.inventory:addItemTo(action.item_storage, action.item_index, action.data)
+    if not from_defeat then
+        if action.mp and action.resource == "mana" then
+            if action.mp < 0 then
+                battler.chara:setMana(battler.chara:getMana() - action.mp)
+            elseif action.mp > 0 then
+                battler.chara:setMana(battler.chara:getMana() + action.mp)
             end
         end
-        action.data:onBattleDeselect(battler, action.target)
-    elseif action.action == "SPELL" and action.data then
-        action.data:onDeselect(battler, action.target)
+
+        if action.hp and action.resource == "health" then
+            if action.hp < 0 then
+                battler.chara.health = battler.chara.health - action.hp
+            elseif action.hp > 0 then
+                battler.chara.health = battler.chara.health + action.hp
+            end
+        end
     end
 
-    battler.action = nil
-    self.character_actions[action.character_id] = nil
+    super.removeSingleAction(self, action, from_defeat)
 end
 
 --- Returns the equipment-modified mana regeneration amount from a man regen action performed by the specified party member
