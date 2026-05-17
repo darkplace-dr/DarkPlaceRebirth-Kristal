@@ -9,13 +9,10 @@ function arlee:init()
     -- Battle music ("battle" is rude buster)
     if Game:isDessMode() then
         self.music = "batterup"
-        self.background = false
-	    self.hide_world = true
     else
         self.music = "deltarune/tenna_battle"
-        -- Enables the purple grid battle background
-        self.background = true
     end
+    self.background = true
 
     -- Add the arlee enemy to the encounter
     self:addEnemy("arlee", 480, 270)
@@ -26,10 +23,13 @@ function arlee:init()
 
 end
 
-function arlee:onBattleInit()
-    if Game:isDessMode() then
-        self.bg = StarsBG({1, 1, 1})
-        Game.battle:addChild(self.bg)
+function arlee:createBackground()
+    if self.background then
+        if Game:isDessMode() then
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        else
+            return super.createBackground(self)
+        end
     end
 end
 

@@ -7,20 +7,21 @@ function Poseur:init()
 
     if Game:isDessMode() then
         self.music = "batterup"
-        self.background = false
-	    self.hide_world = true
     else
         self.music = "battleut"
-        self.background = true
     end
+    self.background = true
 
     self:addEnemy("poseur")
 end
 
-function Poseur:onBattleInit()
-    if Game:isDessMode() then
-        self.bg = StarsBG({1, 1, 1})
-        Game.battle:addChild(self.bg)
+function Poseur:createBackground()
+    if self.background then
+        if Game:isDessMode() then
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        else
+            return super.createBackground(self)
+        end
     end
 end
 

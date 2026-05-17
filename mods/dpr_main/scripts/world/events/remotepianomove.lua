@@ -686,7 +686,7 @@ function RemotePianoMove:update()
 		if self.alpha <= 0 then
 			self.visible = false
 			Assets.playSound("impact")
-			Game.world.camera:shake(0, 8)
+			Game.world:shakeCamera(0, 8)
 			self:remove()
 		end	
 		if self.con == 400 then

@@ -13,13 +13,13 @@ end
 
 function GreatDoor:open()
     Assets.playSound("impact")
-    Game.world.camera:shake(6, 0)
+    Game.world:shakeCamera(6, 0)
     self:setSprite("world/events/greatdoor/white")
 end
 
 function GreatDoor:close()
     Assets.playSound("impact")
-    Game.world.camera:shake(6, 0)
+    Game.world:shakeCamera(6, 0)
     self:setSprite("world/events/greatdoor/closed")
 end
 

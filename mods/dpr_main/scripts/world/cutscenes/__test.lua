@@ -88,7 +88,7 @@ return {
 		local ran, wait, textbox = cutscene:textIfExists("* Yep.", "happy", "hero", {wait=false})
 		print("BETWEEN WAIT AAAAAAAAA", ran, wait, textbox)
 		Assets.playSound("noise")
-		Game.world.camera:shake()
+		Game.world:shakeCamera()
 		cutscene:wait(wait)
 
 		cutscene:text("* Last check: only runs if Dess exists.")

@@ -8,7 +8,7 @@ function Dess:init()
     self.music = "dessimation_clip"
     self.background = false
 
-    MUSIC_VOLUMES["dessimation_clip"] = 0.75 -- that "track" is temporarily here anyway
+    MUSIC_VOLUMES["dessimation_clip"] = 0.5 -- that "track" is temporarily here anyway
 
     self.dess = self:addEnemy("dess")
 
@@ -17,9 +17,9 @@ function Dess:init()
     self.afterimage_timer = 0
 end
 
-function Dess:onBattleInit()
-    self.bg = DessimationBG({1, 1, 1})
-    Game.battle:addChild(self.bg)
+function Dess:createBackground()
+    self.bg = Game.battle:addChild(DessimationBG({1, 1, 1}))
+    return self.bg
 end
 
 function Dess:onReturnToWorld(events)
@@ -40,7 +40,7 @@ end
 function Dess:update()
     super.update(self)
 
-    local dess = Game.battle.enemies[1]
+    local dess = self.dess
 
     if dess then
         if dess.health <= dess.max_health * 0.75 and self.phase < 2 then
