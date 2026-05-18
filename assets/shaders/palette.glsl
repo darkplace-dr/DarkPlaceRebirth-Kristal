@@ -11,7 +11,7 @@ vec4 find_alt_color(vec4 in_color)
     float dist;
     vec2 test_pos;
     vec4 left_color;
-    for (float i = 0.0; i < palette_dim.y; i += 1.0) {
+    for (float i = 0.0; i < palette_dim.y; i += 0.5) {
 		test_pos = vec2(0.0, i / palette_dim.y);
 		left_color = Texel(palette_tex, test_pos);
         
