@@ -134,7 +134,6 @@ FountainShadowFX = require("src.engine.drawfx.fountainshadowfx")
 GradientFX = require("src.engine.drawfx.gradientfx")
 ScissorFX = require("src.engine.drawfx.scissorfx")
 PaletteFX = require("src.engine.drawfx.palettefx")
-BGPaletteFX = require("src.engine.drawfx.bgpalettefx")
 
 Collider = require("src.engine.colliders.collider")
 ColliderGroup = require("src.engine.colliders.collidergroup")

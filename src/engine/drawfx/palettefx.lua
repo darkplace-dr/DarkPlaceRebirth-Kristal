@@ -1,102 +1,33 @@
----@class PaletteFX : FXBase
----@field base_pal number[][]
----@field live_pal number[][]
----@overload fun(imagedata:love.ImageData|string|Actor, line:integer, transformed:boolean?, priority:number?)
----@overload fun(base_pal:number[][], live_pal:number[][], transformed:boolean?, priority:number?)
 local PaletteFX, super = Class(FXBase)
 
--- Should always be the same as the value in palette.glsl
-PaletteFX.MAX_PALETTE_ENTRIES = 32
-
----@param imagedata love.ImageData|string|Actor
----@param line integer
----@overload fun(self:PaletteFX, base_pal: number[][], live_pal:number[][], transformed, priority)
-function PaletteFX:init(imagedata, line, transformed, priority)
+function PaletteFX:init(palette_tex, palette_index, transformed, priority)
     super.init(self, priority or 0)
 
     self.shader = Assets.getShader("palette")
-    self:setPalette(imagedata, line)
+	self.palette_tex = palette_tex and Assets.getTexture(palette_tex) or nil
+	self.palette_index = palette_index or 0
 end
 
----@param imagedata love.ImageData|string|Actor
----@param line integer
----@overload fun(self:PaletteFX, base_pal: number[][], live_pal:number[][], transformed, priority)
-function PaletteFX:setPalette(imagedata, line)
-    if isClass(imagedata) and imagedata.includes and imagedata:includes(Actor) then
-        ---@cast imagedata Actor
-        local actor = imagedata
+function PaletteFX:setPaletteIndex(index)
+	self.palette_index = index or nil
+end
 
-        -- DPR-specific spaghetti. This is safe to remove.
-        local shiny_image_path = actor:getSpritePath().."/shiny_palette"
-        if actor.getShinyID and Game:getFlag("SHINY",{})[actor:getShinyID()] and Assets.hasSprite(shiny_image_path) then
-            local shiny_imagedata = Assets.getTextureData(shiny_image_path)
-            if shiny_imagedata and shiny_imagedata:getHeight() > (line+1) then
-                self.base_pal = {}
-                self.live_pal = {}
-                local r,g,b,a
-                for x = 1, shiny_imagedata:getWidth() do
-                    r,g,b,a = shiny_imagedata:getPixel(x - 1, 0)
-                    table.insert(self.base_pal, {r,g,b,a})
-                    r,g,b,a = shiny_imagedata:getPixel(x - 1, line+1)
-                    table.insert(self.live_pal, {r,g,b,a})
-                end
-            end
-        end
-
-        imagedata = actor:getSpritePath().. "/palette"
-    end
-    local path
-    if type(imagedata) == "string" then
-        path = imagedata
-        if not Assets.hasSprite(path) then
-            Kristal.Console:warn("Missing palette, expected to find at "..path)
-        else
-            imagedata = Assets.getTextureData(path)
-        end
-    end
-
-    if type(imagedata) == "userdata" then
-        ---@cast imagedata love.ImageData
-        if imagedata:getHeight() > line then
-            self.base_pal = {}
-            
-            self.live_pal = {}
-            local r,g,b,a
-            for x = 1, imagedata:getWidth() do
-                r,g,b,a = imagedata:getPixel(x - 1, 0)
-                table.insert(self.base_pal, {r,g,b,a})
-                r,g,b,a = imagedata:getPixel(x - 1, line)
-                table.insert(self.live_pal, {r,g,b,a})
-            end
-        else
-            Kristal.Console:warn("Palette image "..(path and (path.." ") or "<unknown>") .. " doesn't have enough entries (expected at least "..line..", got "..(imagedata:getHeight()-1)..")")
-        end
-    elseif type(imagedata) == "table" and type(line) == "table" then
-        ---@cast imagedata -love.ImageData
-        ---@cast imagedata -(string|Actor)
-        ---@cast line -integer
-        self.base_pal = imagedata
-        self.live_pal = line
-    end
-
-    -- Pad end of palette tables
-    if self.base_pal and self.live_pal then
-        while #self.base_pal < self.MAX_PALETTE_ENTRIES do
-            table.insert(self.base_pal, self.base_pal[1])
-            table.insert(self.live_pal, self.live_pal[1])
-        end
-    end
+function PaletteFX:setPaletteTexture(tex)
+	self.palette_tex = Assets.getTexture(tex) or nil
 end
 
 function PaletteFX:isActive()
-    return super.isActive(self) and self.base_pal and self.live_pal
+    return super.isActive(self) and self.palette_tex and self.palette_index
 end
 
 function PaletteFX:draw(texture)
     local last_shader = love.graphics.getShader()
     love.graphics.setShader(self.shader)
-	self.shader:send("base_palette", unpack(self.base_pal))
-	self.shader:send("live_palette", unpack(self.live_pal))
+	self.shader:send("palette_tex", self.palette_tex)
+	local palw, palh = self.palette_tex:getWidth(), self.palette_tex:getHeight()
+	self.shader:send("palette_uvs", {(1.0 / palw) * 0.5, (1.0 / palh) * 0.5, 1, 1})
+	self.shader:send("pixel_size", {1.0 / palw, 1.0 / palh})
+	self.shader:send("palette_id", self.palette_index)
     Draw.drawCanvas(texture)
     love.graphics.setShader(last_shader)
 end
