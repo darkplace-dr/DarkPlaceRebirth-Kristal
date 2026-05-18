@@ -1,5 +1,5 @@
 ---@diagnostic disable: redundant-parameter
-local WorldCutscene, super = Utils.hookScript(WorldCutscene)
+local WorldCutscene, super = HookSystem.hookScript(WorldCutscene)
 
 local function waitForPasscode(self) return self.passcodebox.done, self.passcodebox:checkCorrect(), self.passcodebox:getSelectedCharacters() end
 --- Creates a passcode input with rows to input choices

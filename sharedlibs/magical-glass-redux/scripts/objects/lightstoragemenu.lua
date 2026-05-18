@@ -12,7 +12,7 @@ function LightStorageMenu:init(left_storage, right_storage)
     self.box.layer = WORLD_LAYERS["ui"]
     self:addChild(self.box)
     
-    self.heart_sprite = Assets.getTexture("player/heart_menu")
+    self.heart_sprite = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."heart_menu")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
     self.storages = {left_storage or "items", right_storage or "box_a"}

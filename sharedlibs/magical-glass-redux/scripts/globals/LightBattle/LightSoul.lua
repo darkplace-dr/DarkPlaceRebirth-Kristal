@@ -11,7 +11,7 @@ function LightSoul:init(x, y, color)
 
     self.layer = LIGHT_BATTLE_LAYERS["soul"]
 
-    self.sprite = Sprite("player/heart_light")
+    self.sprite = Sprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_light")
     self.sprite:setOrigin(0.5, 0.5)
     self.sprite.inherit_color = true
     self:addChild(self.sprite)
@@ -74,6 +74,12 @@ function LightSoul:init(x, y, color)
     self.allow_focus = true
     
     self.graze_collider.collidable = Game.battle.tension
+
+    -- Diamond shield variables start here
+    self.glow_texture = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_light")
+    self.glow_alpha = 0
+    self.glow_alpha_increase = 0.1
+    -- Diamond shield variables end here
 end
 
 function LightSoul:onRemove(parent)
@@ -388,11 +394,37 @@ function LightSoul:update()
         self.sprite:setColor(1, 1, 1)
     end
 
+    -- Diamond shield code starts here
+    local when_should_glow = {"ENEMYDIALOGUE", "DEFENDINGBEGIN", "DEFENDING"}
+    local not_in_battle_menu = true
+    if Game.battle then not_in_battle_menu = TableUtils.contains(when_should_glow, Game.battle.state) end
+    if self.inv_timer == 0 and Game.pp > 0 and not_in_battle_menu then
+        self.glow_alpha = self.glow_alpha + self.glow_alpha_increase * DTMULT
+        if self.glow_alpha >= 1 then
+            self.glow_alpha = 1
+            self.glow_alpha_increase = -self.glow_alpha_increase
+        end
+        if self.glow_alpha <= 0 then
+            self.glow_alpha = 0
+            self.glow_alpha_increase = -self.glow_alpha_increase
+        end
+    else
+        self.glow_alpha = 0
+        self.glow_alpha_increase = math.abs(self.glow_alpha_increase)
+    end
+    -- Diamond shield code ends here
+
     super.update(self)
 end
 
 function LightSoul:draw()
     super.draw(self)
+
+    local glow_w, glow_h = self.glow_texture:getWidth(), self.glow_texture:getHeight()
+    local scale_x, scale_y = self.sprite.scale_x, self.sprite.scale_y
+    love.graphics.setColor(1, 1, 1, self.glow_alpha)
+    love.graphics.draw(self.glow_texture, -glow_w/2 * scale_x, -glow_h/2 * scale_y, 0, scale_x, scale_y)
+    love.graphics.setColor(1, 1, 1, 1)
 
     if DEBUG_RENDER then
         self.collider:draw(0, 1, 0)

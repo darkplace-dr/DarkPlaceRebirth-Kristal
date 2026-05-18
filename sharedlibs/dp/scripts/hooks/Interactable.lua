@@ -1,5 +1,5 @@
 ---@class Interactable : Interactable
-local Interactable, super = Utils.hookScript(Interactable)
+local Interactable, super = HookSystem.hookScript(Interactable)
 
 function Interactable:init(x, y, shape, properties)
     properties = properties or {}

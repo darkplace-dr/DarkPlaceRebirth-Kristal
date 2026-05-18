@@ -1,5 +1,5 @@
 ---@class Textbox : Textbox
-local DialogueText, super = Utils.hookScript(DialogueText)
+local DialogueText, super = HookSystem.hookScript(DialogueText)
 
 function DialogueText:init(text, x, y, w, h, options)
 	super.init(self, text, x, y, w, h, options)

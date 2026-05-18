@@ -8,9 +8,8 @@ function WorldBullet:onDamage(soul)
             self.world:breakSoulShield()
         else
             self.world:hurtParty(self.damage)
-
-            soul.inv_timer = self.inv_timer
         end
+        soul.inv_timer = self.inv_timer
     end
 end
 

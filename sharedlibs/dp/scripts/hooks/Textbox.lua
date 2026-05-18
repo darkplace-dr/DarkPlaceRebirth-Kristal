@@ -1,5 +1,5 @@
 ---@class Textbox : Textbox
-local Textbox, super = Utils.hookScript(Textbox)
+local Textbox, super = HookSystem.hookScript(Textbox)
 
 function Textbox:setText(text, callback)
     super.setText(self, text, callback)

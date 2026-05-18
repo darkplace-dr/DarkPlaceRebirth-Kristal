@@ -1,5 +1,5 @@
 ---@class DialogueText : DialogueText
-local DialogueText, super = Utils.hookScript(DialogueText)
+local DialogueText, super = HookSystem.hookScript(DialogueText)
 
 function DialogueText:init(text, x, y, w, h, options)
     super.init(self, text, x or 0, y or 0, w or SCREEN_WIDTH, h or SCREEN_HEIGHT, options)

@@ -439,9 +439,9 @@ function Assets.hasSprite(asset_id)
     return Assets.internalHas("sprite", asset_id)
 end
 
-Utils.hook(Assets, "getTexture", function (orig, path)
+--[[Utils.hook(Assets, "getTexture", function (orig, path)
     return orig(Assets.checkSpritesOverride(path)) or orig(path)
-end)
+end)]]
 
 ---@param path string
 ---@return love.ImageData
@@ -473,9 +473,9 @@ function Assets.getFrames(path)
     return self.getFramesOrTexture(path)
 end
 
-Utils.hook(Assets, "getFrames", function (orig, path)
+--[[Utils.hook(Assets, "getFrames", function (orig, path)
     return orig(Assets.checkSpritesOverride(path)) or orig(path)
-end)
+end)]]
 
 ---@param path string
 ---@return string[]

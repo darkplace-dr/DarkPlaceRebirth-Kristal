@@ -130,7 +130,7 @@ function ActionBox:resetHeadIcon()
     self.head_sprite:setColor(1, 1, 1)
 
     local full_icon = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
-    if self.head_sprite:hasSprite(full_icon) then
+    if Assets.hasSprite(full_icon) then
         self.head_sprite:setSprite(full_icon)
     else
         self.head_sprite:setSprite(self.battler.chara:getHeadIcons() .. "/head")
@@ -154,7 +154,7 @@ function ActionBox:update()
 
         local current_head = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
         local head_has_icons = true
-        if not self.head_sprite:hasSprite(current_head) then
+        if not Assets.hasSprite(current_head) then
             current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
             head_has_icons = false
             if not self.head_sprite:hasSprite(current_head) then

@@ -363,12 +363,26 @@ function Lib:init()
             self.mp_sprite.y = 24 - self.data_offset
 
             if not self.force_head_sprite then
-                local current_head = self.battler.chara:getHeadIcons().."/"..self.battler:getHeadIcon()
-                if not self.head_sprite:hasSprite(current_head) then
-                    current_head = self.battler.chara:getHeadIcons().."/head"
+
+                --its a bit messy but i dont have the willpower to clean it
+
+                local current_head = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
+                local head_has_icons = true
+                if not Assets.hasSprite(current_head) then
+                    current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
+                    head_has_icons = false
+                    if not self.head_sprite:hasSprite(current_head) then
+                        current_head = self.battler.chara:getHeadIcons() .. "/head"
+                    end
                 end
 
                 if not self.head_sprite:isSprite(current_head) then
+                    local color = { 1, 1, 1 }
+                    self.head_sprite:setColor(self.battler.chara.icon_color or color)
+                    if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                        -- These icons are already colored and don't play nice with the coloring system.
+                        self.head_sprite:setColor(color)
+                    end
                     self.head_sprite:setSprite(current_head)
                 end
             end
@@ -395,12 +409,26 @@ function Lib:init()
             self.new_hp_sprite.y = 22 - self.data_offset
 
             if not self.force_head_sprite then
+
+                --its a bit messy but i dont have the willpower to clean it
+
                 local current_head = self.battler.chara:getHeadIcons() .. "/" .. self.battler:getHeadIcon()
-                if not self.head_sprite:hasSprite(current_head) then
-                    current_head = self.battler.chara:getHeadIcons() .. "/head"
+                local head_has_icons = true
+                if not Assets.hasSprite(current_head) then
+                    current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
+                    head_has_icons = false
+                    if not self.head_sprite:hasSprite(current_head) then
+                        current_head = self.battler.chara:getHeadIcons() .. "/head"
+                    end
                 end
 
                 if not self.head_sprite:isSprite(current_head) then
+                    local color = { 1, 1, 1 }
+                    self.head_sprite:setColor(self.battler.chara.icon_color or color)
+                    if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                        -- These icons are already colored and don't play nice with the coloring system.
+                        self.head_sprite:setColor(color)
+                    end
                     self.head_sprite:setSprite(current_head)
                 end
             end

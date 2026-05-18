@@ -1,5 +1,5 @@
 ---@class ActionButton : ActionButton
-local ActionButton, super = Utils.hookScript(ActionButton)
+local ActionButton, super = HookSystem.hookScript(ActionButton)
 
 function ActionButton:select()
     if Game.battle.encounter:onActionSelect(self.battler, self) then return end

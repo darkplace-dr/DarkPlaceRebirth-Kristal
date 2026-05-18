@@ -147,6 +147,12 @@ function LightBattle:init()
     self:addChild(self.darkify_fader)
     
     self.multi_mode = Kristal.getLibConfig("magical-glass", "multi_always_on") or #self.party > 1
+
+    if Game.pp > 0 then
+        self.no_buff_loop = true
+    else
+        self.no_buff_loop = false
+    end
 end
 
 function LightBattle:isPagerMenu()
@@ -279,7 +285,7 @@ function LightBattle:spawnSoul(x, y)
     if not self.soul then
         self.soul = self.encounter:createSoul(x, y, color)
         self.soul.alpha = 1
-        self.soul.sprite:set("player/heart_light")
+        self.soul.sprite:set("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_light")
         self:addChild(self.soul)
     end
 end
@@ -362,7 +368,7 @@ function LightBattle:onSoulTransition(transition)
             if self.main_chara_clone then
                 x, y = Game.world:getSoulPartyCharacter():localToScreenPos(Game.world:getSoulPartyCharacter().actor:getSoulOffset())
             end
-            self.transition_soul = Sprite("player/heart_menu", x, y)
+            self.transition_soul = Sprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu", x, y)
             self.transition_soul:setScale(2)
             self.transition_soul:setOrigin(0.5)
             self.transition_soul:setColor(self.encounter:getSoulColor())
@@ -1352,6 +1358,48 @@ end
 function LightBattle:onDefendingState()
     self.arena.layer = LIGHT_BATTLE_LAYERS["arena"]
 
+    -- Ceroba's shield on turn start
+    local diamond_guard = false
+    for _, partymember in ipairs(Game.party) do
+        if partymember:hasSpell("diamond_guard") then
+            diamond_guard = true
+            break
+        end
+    end
+
+    if diamond_guard and not self.no_buff_loop then
+		self.wave_length = 0
+		self.wave_timer = 0
+
+        self.no_buff_loop = true
+		local prev_can_move = self.soul.can_move
+		for _, wave in ipairs(self.waves) do
+			if self.soul.buff_freeze or wave.buff_freeze then
+				self.soul.can_move = false
+			end
+		end
+        self.soul:addChild(CerobaDiamondBuff(0, 0, function()
+			for _, wave in ipairs(self.waves) do
+				wave.encounter = self.encounter
+
+				self.wave_length = math.max(self.wave_length, wave.time)
+                -- while buff is being applied, wave_timer goes up so we gotta reset it again
+                self.wave_timer = 0
+
+				if self.soul.buff_freeze or wave.buff_freeze then
+					self.soul.can_move = prev_can_move
+				end
+
+				wave:onStart()
+
+				wave.active = true
+			end
+
+            self.soul:onWaveStart()
+		end))
+		return
+	end
+
     self.wave_length = 0
     self.wave_timer = 0
 
@@ -1609,7 +1657,7 @@ function LightBattle:onFleeingState()
 
     self.soul.collidable = false
     self.soul.y = self.soul.y + 4
-    self.soul.sprite:setAnimation({"player/heart_flee", 1/15, true})
+    self.soul.sprite:setAnimation({"player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_gtfo", 1/15, true})
     self.soul.physics.speed_x = -3
 
     self.timer:after(1, function()
@@ -3820,6 +3868,24 @@ end
 
 function LightBattle:canDeepCopy()
     return false
+end
+
+function LightBattle:breakSoulShield()
+    Assets.playSound("mirrorbreak")
+    self.soul:addChild(SoulExpandEffect())
+    local shard_x_table = {-2, 0, 2, 8, 10, 12}
+    local shard_y_table = {0, 3, 6}
+    for i = 1, 6 do
+        local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
+        local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
+        local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
+        shard.physics.direction = math.rad(MathUtils.random(360))
+        shard.physics.speed = 7
+        shard.physics.gravity = 0.2
+        shard.layer = LIGHT_BATTLE_LAYERS["above_arena_border"] + 5
+        shard:play(5/30)
+        self:addChild(shard)
+    end
 end
 
 return LightBattle

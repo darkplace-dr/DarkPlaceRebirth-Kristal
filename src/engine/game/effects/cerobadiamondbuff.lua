@@ -33,7 +33,6 @@ function CerobaDiamondBuff:update()
     if self.frame >= 8 and not self.buff_applied then
         Game.pp = Game.pp + 1
         Game.pp = MathUtils.clamp(Game.pp, 0, 1)
-        Game.battle.soul:addChild(SoulGlowEffect())
         Assets.playSound("equip_armor")
         self.buff_applied = true
     end

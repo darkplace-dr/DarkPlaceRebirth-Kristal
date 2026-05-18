@@ -8,7 +8,8 @@ function ActorSprite:init(actor)
     self.run_away_timer_2 = 0
 
     if Game:getFlag("SHINY", {})[self.actor:getShinyID()] and Game:getFlag("SHINY", {})[self.actor:getShinyID()] == true and not Game.world.map.dont_load_shiny then
-        self:setPaletteFX(0)
+        local shiny_image_path = self.actor:getSpritePath().."/shiny_palette"
+        self:setPaletteFX(1, shiny_image_path)
     end
 
     self.last_walk_or_talk_or_run = "walk"

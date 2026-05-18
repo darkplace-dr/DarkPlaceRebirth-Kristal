@@ -17,7 +17,7 @@ function DarkBadgeMenu:init()
     self.ui_cant_select = Assets.newSound("ui_cant_select")
     self.ui_cancel_small = Assets.newSound("ui_cancel_small")
 
-    self.heart_sprite = Assets.getTexture("player/heart")
+    self.heart_sprite = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
     self.bg = UIBox(0, 0, self.width, self.height)

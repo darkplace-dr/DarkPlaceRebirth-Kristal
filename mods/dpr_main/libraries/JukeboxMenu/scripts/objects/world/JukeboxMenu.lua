@@ -100,7 +100,7 @@ function JukeboxMenu:init(simple)
     self.font = Assets.getFont("main")
     self.font_2 = Assets.getFont("plain")
 
-    self.heart = Sprite("player/heart_menu")
+    self.heart = Sprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu")
     self.heart:setOrigin(0.5, 0.5)
     self.heart:setScale(2)
     self.heart.layer = 1

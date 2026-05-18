@@ -1,5 +1,5 @@
 ---@class World : World
-local World, super = Utils.hookScript(World)
+local World, super = HookSystem.hookScript(World)
 
 -- The MB easter egg won't happen when entering any DLCs or maps in this list
 -- The list only needs to find the given string in the id so you don't have to add every single map to the list
@@ -78,7 +78,7 @@ function World:breakSoulShield()
         shard.physics.gravity = 0.2
         shard.layer = self.soul.layer
         shard:play(5/30)
-        self.soul.stage:addChild(shard)
+        self:addChild(shard)
         shard:fadeOutAndRemove(1)
     end
 end

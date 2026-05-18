@@ -114,7 +114,7 @@ function LightShop:init()
     self.sell_page = 1
 
     self.font = Assets.getFont("main")
-    self.heart_sprite = Assets.getTexture("player/heart_menu")
+    self.heart_sprite = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
     self.fade_alpha = 0
