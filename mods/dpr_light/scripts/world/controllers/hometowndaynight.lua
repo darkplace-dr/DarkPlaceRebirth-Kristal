@@ -29,12 +29,12 @@ function HometownDayNight:postLoad()
 			if self.church and self.world.map.id ~= "light/hometown/church/main" then
 				self.overlay.color = ColorUtils.hexToRGB("#00042B")
 				self.overlay.alpha = 0.5 
-				if Game.world.map.image_layers["light"] then
-					Game.world.map.image_layers["light"].alpha = 0
-				end
 			else
 				self.overlay.color = ColorUtils.mergeColor(COLORS["black"], COLORS["navy"], 0.5)
 				self.overlay.alpha = self.inside and 0.4 or 0.6
+				if Game.world.map.image_layers["light"] then
+					Game.world.map.image_layers["light"].visible = false
+				end
 			end
             self.overlay:setLayer(WORLD_LAYERS["below_ui"])
             self.overlay:setParallax(0)
