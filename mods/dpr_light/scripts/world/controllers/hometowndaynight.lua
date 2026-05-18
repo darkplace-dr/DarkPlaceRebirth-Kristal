@@ -99,7 +99,7 @@ function HometownDayNight:draw()
     if self.shader then
         love.graphics.setShader(self.shader)
 		self.shader:send("palette_tex", self.palette_tex)
-		self.shader:send("pixel_size", {1.0 / self.palette_tex:getWidth(), 1.0 / self.palette_tex:getHeight()})
+		self.shader:send("palette_dim", {self.palette_tex:getWidth(), self.palette_tex:getHeight()})
 		self.shader:send("palette_id", self.night + 1)
     end
 end
