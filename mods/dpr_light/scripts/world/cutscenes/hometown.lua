@@ -847,7 +847,7 @@ return {
         end
         cutscene:text("[font:sans]* you need somethin'?", "neutral", "sans")
         cutscene:hideNametag()
-        local choice = cutscene:choicer({"When can\nwe see your\nbrother?", "Nothing"})
+        local choice = cutscene:choicer({"When can\nwe see your\nbrother?", "Nothing"}, {offset_y_1 = -32})
         cutscene:showNametag("sans.", {font = "sans"})
         if choice == 1 then
             cutscene:text("[font:sans]* you wanna see my brother,[wait:5] huh?", "look_left", "sans")
