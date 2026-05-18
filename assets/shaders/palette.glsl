@@ -1,25 +1,26 @@
 #define TRANSPARENT vec4(0.0, 0.0, 0.0, 0.0)
 #define TOLERANCE 0.004
 uniform Image palette_tex;
-uniform vec2 palette_dim;
+uniform vec4 palette_uvs;
 uniform float palette_id;
+uniform vec2 pixel_size;
 
-vec4 find_alt_color(vec4 in_color)
+vec4 find_alt_color(vec4 in_color, vec2 corner)
 {
     if (in_color.a == 0.0) return TRANSPARENT;
     
     float dist;
     vec2 test_pos;
     vec4 left_color;
-    for (float i = 0.0; i < palette_dim.y; i += 0.5) {
-		test_pos = vec2(0.0, i / palette_dim.y);
+    for (float i = corner.y; i < palette_uvs.w; i += pixel_size.y) {
+		test_pos = vec2(corner.x, i);
 		left_color = Texel(palette_tex, test_pos);
         
 		dist = distance(left_color, in_color);
 
 		if (dist < TOLERANCE) {
-			test_pos = vec2(0.0 + (1.0 / palette_dim.x) * floor(palette_id + 1.0), i / palette_dim.y);
-			return mix(Texel(palette_tex, vec2(test_pos.x - (1.0 / palette_dim.x), test_pos.y)), Texel(palette_tex, test_pos), fract(palette_id));
+			test_pos = vec2(corner.x + pixel_size.x * floor(palette_id + 1.0), i);
+			return mix(Texel(palette_tex, vec2(test_pos.x - pixel_size.x, test_pos.y)), Texel(palette_tex, test_pos), fract(palette_id));
 		}
     }
     return in_color;
@@ -30,6 +31,6 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
     if (pixel.a == 0.0) {
         discard;
     }
-    pixel = find_alt_color(pixel);
+    pixel = find_alt_color(pixel, palette_uvs.xy);
     return pixel*color;
 }
