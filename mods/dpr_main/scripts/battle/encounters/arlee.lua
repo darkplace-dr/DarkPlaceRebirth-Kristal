@@ -16,21 +16,6 @@ function arlee:init()
 
     -- Add the arlee enemy to the encounter
     self:addEnemy("arlee", 480, 270)
-
-    --- Uncomment this line to add another!
-    --self:addEnemy("arlee")
-
-
-end
-
-function arlee:createBackground()
-    if self.background then
-        if Game:isDessMode() then
-            return Game.battle:addChild(StarsBG({1, 1, 1}))
-        else
-            return super.createBackground(self)
-        end
-    end
 end
 
 function arlee:onReturnToWorld(events)

@@ -15,16 +15,6 @@ function Poseur:init()
     self:addEnemy("poseur")
 end
 
-function Poseur:createBackground()
-    if self.background then
-        if Game:isDessMode() then
-            return Game.battle:addChild(StarsBG({1, 1, 1}))
-        else
-            return super.createBackground(self)
-        end
-    end
-end
-
 function Poseur:onReturnToWorld(events)
     -- check whether the enemies were killed
     if Game.battle.killed then

@@ -6,31 +6,10 @@ function Neighron:init()
     -- Text displayed at the bottom of the screen at the start of the encounter
     self.text = "* Neighron pulses instinctively."
 
-    -- Battle music ("battle" is rude buster)
-    if Game:isDessMode() then
-        self.music = "batterup"
-    else
-        self.music = "battle"
-    end
     self.background = true
 
     -- Add the dummy enemy to the encounter
     self:addEnemy("neighron")
-
-    --- Uncomment this line to add another!
-    --self:addEnemy("dummy")
-
-
-end
-
-function Neighron:createBackground()
-    if self.background then
-        if Game:isDessMode() then
-            return Game.battle:addChild(StarsBG({1, 1, 1}))
-        else
-            return super.createBackground(self)
-        end
-    end
 end
 
 function Neighron:onReturnToWorld(events)

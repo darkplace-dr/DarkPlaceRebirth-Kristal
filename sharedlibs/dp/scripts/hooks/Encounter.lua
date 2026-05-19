@@ -4,6 +4,10 @@ local Encounter, super = HookSystem.hookScript(Encounter)
 function Encounter:init()
     super.init(self)
 
+    if Game:isDessMode() then
+        self.music = "batterup"
+    end
+
     -- Can the player flee the battle?
     self.flee = true
     -- Chance out of 100 that the player can flee this battle (x/100)
@@ -14,6 +18,16 @@ function Encounter:init()
     self.no_dojo_bg = false
     
     self.temperature = 50
+end
+
+function Encounter:createBackground()
+    if self.background then
+        if Game:isDessMode() then
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        else
+            return super.createBackground(self)
+        end
+    end
 end
 
 ---@return "up"|"down"|"left"|"right"?

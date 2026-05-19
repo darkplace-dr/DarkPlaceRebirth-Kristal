@@ -6,26 +6,10 @@ function Dummy:init()
     -- Text displayed at the bottom of the screen at the start of the encounter
     self.text = "* A bad memory approaches."
 
-    if Game:isDessMode() then
-        self.music = "batterup"
-    else
-        self.music = "battle"
-    end
     self.background = true
 
     -- Add the dummy enemy to the encounter
     self:addEnemy("bad_memory")
-
-end
-
-function Dummy:createBackground()
-    if self.background then
-        if Game:isDessMode() then
-            return Game.battle:addChild(StarsBG({1, 1, 1}))
-        else
-            return super.createBackground(self)
-        end
-    end
 end
 
 function Dummy:onReturnToWorld(events)

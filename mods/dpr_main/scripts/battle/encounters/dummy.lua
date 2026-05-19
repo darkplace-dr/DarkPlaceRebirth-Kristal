@@ -6,12 +6,6 @@ function Dummy:init()
     -- Text displayed at the bottom of the screen at the start of the encounter
     self.text = "* The tutorial begins...?"
 
-    -- Battle music ("battle" is rude buster)
-    if Game:isDessMode() then
-        self.music = "batterup"
-    else
-        self.music = "battle"
-    end
     self.background = true
 
     -- Add the dummy enemy to the encounter
@@ -19,18 +13,6 @@ function Dummy:init()
 
     --- Uncomment this line to add another!
     --self:addEnemy("dummy")
-
-
-end
-
-function Dummy:createBackground()
-    if self.background then
-        if Game:isDessMode() then
-            return Game.battle:addChild(StarsBG({1, 1, 1}))
-        else
-            return super.createBackground(self)
-        end
-    end
 end
 
 function Dummy:onReturnToWorld(events)

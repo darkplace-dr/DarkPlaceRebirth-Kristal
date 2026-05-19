@@ -10,7 +10,7 @@ return {
         if susie then
             if Mod:isInRematchMode() then
                 cutscene:text("* Heh,[wait:5] looks like we've won.", "smile", "susie")
-            elseif susie then
+            else
                 cutscene:text("* Hey uh,[wait:5] something about this feels off...", "sad_frown", "susie")
             end
         end
