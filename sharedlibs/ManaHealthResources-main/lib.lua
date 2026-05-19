@@ -371,7 +371,8 @@ function Lib:init()
                 if not Assets.hasSprite(current_head) then
                     current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
                     head_has_icons = false
-                    if not self.head_sprite:hasSprite(current_head) then
+                    local exceptions = {"autoattack", "combo", "skip", "swap", "tension"}
+                    if TableUtils.contains(exceptions, self.battler:getHeadIcon()) or not self.head_sprite:hasSprite(current_head) then
                         current_head = self.battler.chara:getHeadIcons() .. "/head"
                     end
                 end
@@ -379,7 +380,8 @@ function Lib:init()
                 if not self.head_sprite:isSprite(current_head) then
                     local color = { 1, 1, 1 }
                     self.head_sprite:setColor(self.battler.chara.icon_color or color)
-                    if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                    local dont_set_color = {"head", "head_hurt", "head_low", "autoattack", "combo", "skip", "swap", "tension"}
+                    if TableUtils.contains(dont_set_color, self.battler:getHeadIcon()) or head_has_icons == true then
                         -- These icons are already colored and don't play nice with the coloring system.
                         self.head_sprite:setColor(color)
                     end
@@ -417,7 +419,8 @@ function Lib:init()
                 if not Assets.hasSprite(current_head) then
                     current_head = "ui/battle/icon/" .. self.battler:getHeadIcon()
                     head_has_icons = false
-                    if not self.head_sprite:hasSprite(current_head) then
+                    local exceptions = {"autoattack", "combo", "skip", "swap", "tension"}
+                    if TableUtils.contains(exceptions, self.battler:getHeadIcon()) or not self.head_sprite:hasSprite(current_head) then
                         current_head = self.battler.chara:getHeadIcons() .. "/head"
                     end
                 end
@@ -425,7 +428,8 @@ function Lib:init()
                 if not self.head_sprite:isSprite(current_head) then
                     local color = { 1, 1, 1 }
                     self.head_sprite:setColor(self.battler.chara.icon_color or color)
-                    if self.battler:getHeadIcon() == "head" or self.battler:getHeadIcon() == "head_hurt" or self.battler:getHeadIcon() == "head_low" or head_has_icons == true then
+                    local dont_set_color = {"head", "head_hurt", "head_low", "autoattack", "combo", "skip", "swap", "tension"}
+                    if TableUtils.contains(dont_set_color, self.battler:getHeadIcon()) or head_has_icons == true then
                         -- These icons are already colored and don't play nice with the coloring system.
                         self.head_sprite:setColor(color)
                     end
