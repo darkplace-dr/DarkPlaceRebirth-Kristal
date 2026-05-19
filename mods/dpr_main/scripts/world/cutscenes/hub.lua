@@ -714,7 +714,7 @@ local hub = {
                     cutscene:wait(3)
                     rect:remove()
                     slash:remove()
-                    Game.world.camera:shake(6, 0)
+                    Game.world:shakeCamera(6, 0)
                     Assets.playSound("impact")
                     Assets.playSound("closet_impact")
                     Assets.playSound("closet_impact", 1, 0.5)

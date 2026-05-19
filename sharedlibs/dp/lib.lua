@@ -7,6 +7,7 @@ function lib:init()
     self:loadHooks()
     self:initTaunt()
     self:initBattleTaunt()
+    self:setMusicPitches()
 end
 
 function lib:postInit(new_file)
@@ -18,6 +19,14 @@ function lib:postInit(new_file)
     if date.month == 10 then
         Game.stage.timer:every(date.day == 31 and 30 or 60, self.tryForFunnySkeletonVideo)
     end
+end
+
+function lib:setMusicPitches()
+    -- set pitches for the built-in music
+    TableUtils.merge(MUSIC_PITCHES, {
+        ["deltarune/THE_HOLY"] = 0.9,
+        ["deltarune/tv_results_screen"] = 0.4
+    })
 end
 
 function lib:checkSaveStatus()

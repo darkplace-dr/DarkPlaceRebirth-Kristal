@@ -24,14 +24,15 @@ function GoogleDino:createSoul(x, y)
     return BlueSoul(x, y)
 end
 
-function GoogleDino:onBattleInit()
-    super.onBattleInit(self)
-    if Game:isDessMode() and not self.boss_rush then
-        self.bg = StarsBG({1, 1, 1})
-        Game.battle:addChild(self.bg)
-    elseif self.boss_rush == true then
-        Game.battle.dojo_bg = DojoBG({1, 1, 1})
-        Game.battle:addChild(Game.battle.dojo_bg)
+function GoogleDino:createBackground()
+    if self.background then
+        if Game:isDessMode() and not self.boss_rush then
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        elseif self.boss_rush == true then
+            return Game.battle:addChild(DojoBG({1, 1, 1}))
+        else
+            return super.createBackground(self)
+        end
     end
 end
 

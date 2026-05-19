@@ -23,7 +23,7 @@ return {
         cutscene:wait(1)
 
         if dess then
-            if Mod:isInRematchMode() then
+            if Mod:isInRematchMode() or Game:isDessMode() then
                 cutscene:text("* funny explosion incomming", "kind", "dess")
             else
                 cutscene:text("* idk looks fine to me lol", "kind", "dess")
@@ -45,10 +45,12 @@ return {
                 cutscene:text("* gg ez", "condescending", "dess")
             end
         else
-            cutscene:text("* ...", "shock", "susie")
             if Game:isDessMode() then
                 cutscene:text("* and STAY down", "angry", "dess")
             else
+                if susie then
+                    cutscene:text("* ...", "shock", "susie")
+                end
                 cutscene:text("* well erm... THAT just happened lol", "condescending", "dess")
             end
         end

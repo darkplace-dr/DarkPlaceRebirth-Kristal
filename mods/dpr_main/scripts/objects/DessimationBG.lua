@@ -7,7 +7,7 @@ function DessimationBG:init(color, back_color, fill)
     self.back_color = back_color or color
     self.fill = fill or {0, 0, 0}
 	self.offset = 0
-    self.fade = 0
+    self.alpha = 0
     self.speed = 0.5
     self.size = 50
 	self.layer = BATTLE_LAYERS["bottom"]
@@ -27,6 +27,14 @@ function DessimationBG:init(color, back_color, fill)
     self.dr_color = COLORS.red
 	self.dr_color_con = 0
 	self.dr_color_timer = 0
+end
+
+function DessimationBG:isFading()
+    return self.fading_out
+end
+
+function DessimationBG:fadeOut()
+    self.fading_out = true
 end
 
 function DessimationBG:bgDess(x, y, reverse_movement)
@@ -56,10 +64,10 @@ end
 
 function DessimationBG:update()
     super.update(self)
-    if self.fade < self.max_alpha then
-        self.fade = self.fade + 0.01 * DTMULT
-    elseif self.max_alpha == 0 and self.fade > 0 then
-        self.fade = self.fade - 0.01 * DTMULT
+    if self.alpha < self.max_alpha then
+        self.alpha = MathUtils.approach(self.alpha, self.max_alpha, 0.1 * DTMULT)
+    elseif self.max_alpha == 0 and self.alpha > 0 then
+        self.alpha = MathUtils.approach(self.alpha, 0, 0.1 * DTMULT)
     end
 	self.offset = self.offset + self.speed*DTMULT
 
@@ -76,12 +84,12 @@ function DessimationBG:update()
         end
     end
 
-	self.alpha_fx.alpha = Game.battle.transition_timer / 10
+	self.alpha_fx.alpha = self.alpha
 
     if self.deltarune and self.delta_rune_fade < 1 then
-        self.delta_rune_fade = self.delta_rune_fade + 0.1 * DTMULT
+        self.delta_rune_fade = MathUtils.approach(self.delta_rune_fade, 1, 0.1 * DTMULT)
     elseif not self.deltarune and self.delta_rune_fade > 0 then
-        self.delta_rune_fade = self.delta_rune_fade - 0.1 * DTMULT
+        self.delta_rune_fade = MathUtils.approach(self.delta_rune_fade, 0, 0.1 * DTMULT)
     end
 
     if self.delta_rune_fade > 0 then
@@ -117,8 +125,6 @@ function DessimationBG:draw()
 	self:drawBack()
 	self:drawFront()
 
-    Draw.setColor(0, 0, 0, Game.battle.background_fade_alpha)
-    love.graphics.rectangle("fill", -20, -20, SCREEN_WIDTH + 40, SCREEN_HEIGHT + 40)
     local r,g,b,a = unpack(self.dr_color)
     love.graphics.setColor(r,g,b, self.delta_rune_fade)
     love.graphics.draw(Assets.getTexture("battle/delta_rune"), 320, 240, 0, 2, 2, 60, 40)
@@ -126,13 +132,13 @@ end
 
 function DessimationBG:drawFill()
     local r,g,b,a = unpack(self.fill)
-    love.graphics.setColor(r,g,b, a or self.fade)
+    love.graphics.setColor(r,g,b, a or self.alpha)
     love.graphics.rectangle("fill", -8, -8, SCREEN_WIDTH+16, SCREEN_HEIGHT+16)
 end
 
 function DessimationBG:drawBack()
     local r,g,b,a = unpack(self.back_color)
-    love.graphics.setColor(r,g,b, a or self.fade/2)
+    love.graphics.setColor(r,g,b, a or self.alpha/2)
 	for x = -100, 740, 50 do
 		for y = -100, 580, 50 do
 			love.graphics.draw(self.image, x + self.offset/2, y + self.offset/2 + 10)
@@ -142,7 +148,7 @@ end
 
 function DessimationBG:drawFront()
     local r,g,b,a = unpack(self.color)
-    love.graphics.setColor(r,g,b, a or self.fade)
+    love.graphics.setColor(r,g,b, a or self.alpha)
 	for x = 0, 740, 50 do
 		for y = 0, 580, 50 do
 			love.graphics.draw(self.image, x - self.offset, y - self.offset)

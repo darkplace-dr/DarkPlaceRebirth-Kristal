@@ -102,7 +102,7 @@ local place_holder = function(cutscene, event)
         end
     end
 
-    if #Game.party == 3 then 
+    if #Game.party >= 4 then
         cutscene:text("* Party full.", "bruh", "noel")
     else
         if math.random(1, 10) == 9 then
