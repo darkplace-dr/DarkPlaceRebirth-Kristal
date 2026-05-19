@@ -17,8 +17,7 @@ function MimicBoss:init()
     end
 
     -- Enables the purple grid battle background
-    self.background = false
-	self.hide_world = true
+    self.background = true
 
 	self.energy = 0
 
@@ -36,14 +35,13 @@ function MimicBoss:init()
     self.font = Assets.getFont("main")
 end
 
-function MimicBoss:onBattleInit()
-    super.onBattleInit(self)
-    if self.boss_rush == true then
-        Game.battle.dojo_bg = DojoBG({1, 1, 1})
-        Game.battle:addChild(Game.battle.dojo_bg)
-    else
-        self.bg = StarsBG({1, 1, 1})
-	    Game.battle:addChild(self.bg)
+function MimicBoss:createBackground()
+    if self.background then
+        if self.boss_rush == true then
+            return Game.battle:addChild(DojoBG({1, 1, 1}))
+        else
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        end
     end
 end
 

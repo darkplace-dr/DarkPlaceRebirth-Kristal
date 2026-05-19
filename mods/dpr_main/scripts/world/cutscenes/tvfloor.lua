@@ -277,24 +277,41 @@ return {
 		end
 		local answers = answers or {}
 		local correct = 0
-		if Game:hasPartyMember("susie") and Game:hasPartyMember("dess") then
+		if Game:hasPartyMember("dess") then
 			for i = 1, #answers do
 				if answers[i]["dess"] == true then
 					correct = correct + 1
 				end
 			end
-			if correct == 0 then
-				cutscene:textTagged("* Dess,[wait:5] why the HELL are you picking the wrong answers!?", "teeth", "susie")
-				cutscene:textTagged("* teehee", "teehee", "dess")
-				cutscene:textTagged("* ...", "annoyed", "susie")
-			elseif correct == #answers then
-				cutscene:textTagged("* MAN you guys suck at this quiz", "condescending", "dess")
-				cutscene:textTagged("* Your strategy is literally just picking the opposite answer.", "neutral", "susie")
-				cutscene:textTagged("* okay but I got them right didn't I", "smug", "dess")
-				cutscene:textTagged("* THAT WAS JUST DUMB LUCK!!!", "teeth_b", "susie")
-			else
-				cutscene:textTagged("* (... Is Dess picking the opposite answers on purpose?)[react:1]", "suspicious", "susie", {reactions={
-				{"yup", "right", "bottom", "wink", "dess"}}})
+			if Game:hasPartyMember("susie") then
+				if correct == 0 then
+					cutscene:textTagged("* Dess,[wait:5] why the HELL are you picking the wrong answers!?", "teeth", "susie")
+					cutscene:textTagged("* teehee", "teehee", "dess")
+					cutscene:textTagged("* ...", "annoyed", "susie")
+				elseif correct == #answers then
+					cutscene:textTagged("* MAN you guys suck at this quiz", "condescending", "dess")
+					cutscene:textTagged("* Your strategy is literally just picking the opposite answer.", "neutral", "susie")
+					cutscene:textTagged("* okay but I got them right didn't I", "smug", "dess")
+					cutscene:textTagged("* THAT WAS JUST DUMB LUCK!!!", "teeth_b", "susie")
+				else
+					cutscene:textTagged("* (... Is Dess picking the opposite answers on purpose?)[react:1]", "suspicious", "susie", {reactions={
+					{"yup", "right", "bottom", "wink", "dess"}}})
+				end
+			elseif Game:hasPartyMember("ceroba") then
+				if correct == 0 then
+					cutscene:textTagged("* December,[wait:5] why the hell are you sabotaging us!?", "angry_alt", "ceroba")
+					cutscene:textTagged("* what are you talking about i would never do such a thing", "teehee", "dess")
+					cutscene:textTagged("* ...", "lostit", "ceroba")
+				elseif correct == #answers then
+					cutscene:textTagged("* MAN you guys suck at this quiz", "condescending", "dess")
+					cutscene:textTagged("* (Gotta be first time in a while I have nothing to say in my defense.)", "muttering", "ceroba")
+					if Game.party[1].id ~= "ceroba" and Game.party[1].id ~= "dess" then
+						cutscene:textTagged("* ("..Game.party[1]:getName()..",[wait:5] let's try a little better next time,[wait:5] alright?)", "neutral", "ceroba")
+					end
+				else
+					cutscene:textTagged("* (You know,[wait:5] sometimes I regret we have Dess with us.)[react:1]", "muttering", "ceroba", {reactions={
+					{"what did you\njust say", "right", "bottom", "dess.exe", "dess"}}})
+				end
 			end
 		end
 		cutscene:hideNametag()

@@ -2,6 +2,8 @@ local BG, super = Class(Object)
 
 function BG:init(color, fill)
     super.init(self)
+	self.alpha = 0
+	self.fading_out = false
 	self.dojo_siner = 0
     self.layer = BATTLE_LAYERS["bottom"]
 	if not Game.world.discoball then
@@ -30,6 +32,14 @@ function BG:init(color, fill)
         {0,1,0,1},
     }
     self.mesh = love.graphics.newMesh(self.vertices, "fan")
+end
+
+function BG:isFading()
+    return self.fading_out
+end
+
+function BG:fadeOut()
+    self.fading_out = true
 end
 
 function BG:drawTexturePos(tex, x1, y1, x2, y2, x3, y3, x4, y4, alpha)
@@ -68,8 +78,8 @@ function BG:update()
 			Game.battle.discoball.x = MathUtils.lerp(Game.battle.discoball.discoball_original_x, SCREEN_WIDTH/2, (Game.battle.transition_timer - 1) / 10)
 			Game.battle.discoball.y = MathUtils.lerp(Game.battle.discoball.discoball_original_y, 0, (Game.battle.transition_timer - 1) / 10)
 		elseif Game.battle.state == "TRANSITION" then
-			Game.battle.discoball.x = MathUtils.lerp(Game.battle.discoball.discoball_original_x, SCREEN_WIDTH/2, Game.battle.transition_timer / 10)
-			Game.battle.discoball.y = MathUtils.lerp(Game.battle.discoball.discoball_original_y, 0, Game.battle.transition_timer / 10)
+			Game.battle.discoball.x = MathUtils.lerp(Game.battle.discoball.discoball_original_x, SCREEN_WIDTH/2, self.alpha)
+			Game.battle.discoball.y = MathUtils.lerp(Game.battle.discoball.discoball_original_y, 0, self.alpha)
 		else
 			if Game.battle.state == "ENEMYDIALOGUE" or Game.battle.state == "DEFENDING" or Game.battle.state == "DEFENDINGBEGIN" then
 				if Game.battle.discoball.y >= -200 then
@@ -82,13 +92,22 @@ function BG:update()
 			end
 		end
 	end
+	if not self.fading_out then
+        self.alpha = MathUtils.approach(self.alpha, 1, 0.1 * DTMULT)
+    else
+        self.alpha = MathUtils.approach(self.alpha, 0, 0.1 * DTMULT)
+
+        if self.alpha <= 0 then
+            self:remove()
+        end
+    end
 end
 
 function BG:draw()
-    love.graphics.setColor(0, 0, 0, Game.battle.transition_timer / 10)
+    love.graphics.setColor(0, 0, 0, self.alpha)
     love.graphics.rectangle("fill", -10, -10, SCREEN_WIDTH+10, SCREEN_HEIGHT+10)
 
-    love.graphics.setColor(1, 1, 1, Game.battle.transition_timer / 10)
+    love.graphics.setColor(1, 1, 1, self.alpha)
     for x = 0, 1, 50 do
         for y = 0, 1, 50 do
             local dojo = Assets.getTexture("battle/dojo_battlebg")
