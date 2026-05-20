@@ -823,6 +823,7 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
     self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
     self:registerConfigOption("gameplay", "Silly RTX Mode", "silly_mode")
+    self:registerConfigOption("gameplay", "Low-Health Music", "musicDistort")
 
 end
 
@@ -873,6 +874,7 @@ function MainMenuOptions:getOptionText()
         "when\nattacking,\nuse z, x,\nand c instead\nof just z",
         "wheter to\nuse special\nanimations\nwhen running",
         "enable an\nungodly\namount of\nbloom",
+        "vibrato the\ngame music\nwhen everyone\nhas low hp",
         "go back\nto the\nmain menu"
     }
 

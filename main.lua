@@ -195,6 +195,8 @@ ChaserEnemy = require("src.engine.game.world.chaserenemy")
 Nametag = require("src.engine.game.world.nametag")
 InputMenu = require("src.engine.game.world.inputmenu")
 
+LowHealthVibrato = require("src.engine.game.lowhealthvibrato")
+
 Minigame = require("src.engine.game.minigames.minigame")
 
 AngryBirds = require("src.engine.game.minigames.angrybirds.angrybirds")
