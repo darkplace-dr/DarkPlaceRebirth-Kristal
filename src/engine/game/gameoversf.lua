@@ -175,7 +175,7 @@ function GameOverSF:declineUpdate()
         if Input.pressed("confirm") and not self.decline_dialogue:isTyping() then
             self.decline_dialogue:remove()
             self.music:play("AUDIO_DARKNESS", 1)
-            self.music.source:setLooping(false)
+            self.music:setLooping(false)
         end
     else
         if not self.music:isPlaying() then
