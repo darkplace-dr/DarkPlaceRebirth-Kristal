@@ -991,7 +991,7 @@ local cliffside = {
 					Game.world.music:pause()
                     local party_jingle = Music("deltarune/charjoined")
                     party_jingle:play()
-                    party_jingle.source:setLooping(false)
+                    party_jingle:setLooping(false)
                     cutscene:text("[noskip]* Susie joined the party.")
                     party_jingle:remove()
 
