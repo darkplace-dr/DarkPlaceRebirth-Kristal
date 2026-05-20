@@ -18,8 +18,8 @@ function LowHealthVibrato:update()
             if v.health > 0 then upcount = upcount + 1 end
             if v.health > v:getStat("health")/4 then
                 for _, music in ipairs(Music.getPlaying()) do   -- TODO: Figure out how to restore old values
-                    music:setVolume(1)
-                    music:setPitch(1)
+                    -- music:setVolume(1)
+                    -- music:setPitch(1)
                 end
                 return
             end
