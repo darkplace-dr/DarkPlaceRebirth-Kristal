@@ -139,6 +139,8 @@ function Game:enter(previous_state, save_id, save_name, fade)
             instance = 0
         })
     end
+    
+    self.lhv = LowHealthVibrato()
 end
 
 ---@deprecated
@@ -1412,6 +1414,8 @@ function Game:update()
         Kristal.swapIntoMod(unpack(Game.swap_into_mod))
         Game.swap_into_mod = nil
     end
+    
+    self.lhv:update()
 end
 
 ---@param key       string

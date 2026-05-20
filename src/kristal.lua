@@ -2013,7 +2013,8 @@ function Kristal.loadConfig()
         ["plugins/enabled_plugins"] = {},
         dLoad = true,
         altAttack = false,
-        brokenMenuBoxes = false
+        brokenMenuBoxes = false,
+        musicDistort = true
     }
     if love.filesystem.getInfo("settings.json") then
         TableUtils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
