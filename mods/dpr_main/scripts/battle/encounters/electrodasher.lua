@@ -5,24 +5,10 @@ function Electrodasher:init()
 
     self.text = "* Electrodasher drove in!"
 
-    if Game:isDessMode() then
-        self.music = "batterup"
-        self.background = false
-	    self.hide_world = true
-    else
-        self.music = "battle"
-        self.background = true
-    end
+    self.background = true
 	self.speed_up = false
     self:addEnemy("electrodasher")
     --self:addEnemy("electrodasher")
-end
-
-function Electrodasher:onBattleInit()
-    if Game:isDessMode() then
-        self.bg = StarsBG({1, 1, 1})
-        Game.battle:addChild(self.bg)
-    end
 end
 
 function Electrodasher:onReturnToWorld(events)

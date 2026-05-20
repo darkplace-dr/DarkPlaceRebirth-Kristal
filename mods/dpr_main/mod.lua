@@ -432,10 +432,8 @@ end
 
 function Mod:setMusicPitches()
 
-    MUSIC_PITCHES["deltarune/THE_HOLY"] = 0.9
     MUSIC_PITCHES["deltarune/cybercity"] = 0.97
     MUSIC_PITCHES["deltarune/cybercity_alt"] = 1.2
-    MUSIC_PITCHES["deltarune/tv_results_screen"] = 0.4
     MUSIC_PITCHES["lost_room"] = 0.8
 end
 
