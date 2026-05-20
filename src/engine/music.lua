@@ -13,7 +13,7 @@
 ---@field removed boolean
 ---
 ---@field current string?
----@field source love.Source?
+---@field private source love.Source?
 ---@field private decoder love.Decoder
 ---
 ---@field private samples_count integer
