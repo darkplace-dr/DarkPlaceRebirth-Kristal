@@ -11,7 +11,7 @@ function LowHealthVibrato:update()
     
     self.time = self.time + (DT * 2)
     
-    if Kristal.Config["musicDistort"] then
+    if Kristal.Config["musicDistort"] and Game.party then
         local upcount = 0
         
         for k,v in ipairs(Game.party) do
