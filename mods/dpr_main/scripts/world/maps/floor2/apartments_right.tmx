@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="56">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="57">
  <editorsettings>
   <export target="apartments_right.lua" format="lua"/>
  </editorsettings>
@@ -196,6 +196,14 @@
     <property name="marker" value="arlee"/>
     <property name="shop" value="arlee"/>
    </properties>
+  </object>
+  <object id="56" name="npc" x="1000.33" y="977.333">
+   <properties>
+    <property name="actor" value="zenore"/>
+    <property name="cutscene" value="apartments/zenore.room"/>
+    <property name="facing" value="down"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
