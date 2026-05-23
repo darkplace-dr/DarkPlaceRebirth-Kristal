@@ -74,6 +74,46 @@ function lib:save(data)
     end
 end
 
+local function handleRetroSave(data)
+    local data_changed = false
+    local diff_data = {}
+
+    -- Magical Glass update replaced "custom/<id>" with "mg/<id>"
+    for id,party_data in pairs(data.party_data) do
+        for flag,value in pairs(party_data.flags) do
+            print(id,flag,value)
+            if type(value) == "string" then
+                local old_custom, item_id = StringUtils.startsWith(value, "custom/")
+                if old_custom and Registry.getItem("mg/"..item_id) then
+                    Kristal.Console:log("Old Magical Glass Item ID detected. Replacing \"custom/"..item_id.."\" with \"mg/"..item_id.."\"!")
+                    --data.party_data[id].flags[flag] = "mg/"..item_id
+                    table.insert(diff_data, {
+                        value = "mg/"..item_id,
+                        path = {"party_data", id, "flags", flag}
+                    })
+                    data_changed = true
+                end
+            end
+        end
+    end
+
+    return data_changed, diff_data
+end
+
+local function applyRetroChanges(base_data, diff)
+    for _, patch in ipairs(diff) do
+        local target = base_data
+
+        for i = 1, #patch.path - 1 do
+            target = target[patch.path[i]]
+        end
+        
+        target[patch.path[#patch.path]] = patch.value
+    end
+
+    return base_data
+end
+
 function lib:load(data)
     if not MagicalGlassLib then
         self.mg_data_preserve = data.magical_glass
@@ -82,9 +122,30 @@ function lib:load(data)
     if data and data.name and string.upper(data.name) == "EUROPE" and tonumber(os.date("%m")) == 11 then
         love.event.quit("restart")
     end
+
+    self.data_changed, self.diff_data = handleRetroSave(data)
 end
 
 function lib:postLoad()
+    if self.data_changed then
+        Kristal.Console:log("Save data was changed for retrocompatibility. Creating backup and saving!")
+        local time = os.date("*t")
+        -- This level of details is useless, yes. But I like wasting computer ressources
+        local time_id = 
+                        StringUtils.pad(tostring(time.year or 0), 4, true, "0").. -- Just in case someone plays Dark Place in the year 654
+                        StringUtils.pad(tostring(time.month or 0), 2, true, "0")..
+                        StringUtils.pad(tostring(time.day or 0), 2, true, "0")..
+                        StringUtils.pad(tostring(time.hour or 0), 2, true, "0")..
+                        StringUtils.pad(tostring(time.min or 0), 2, true, "0")..
+                        StringUtils.pad(tostring(time.sec or 0), 2, true, "0")
+        local data = Kristal.getSaveFile()
+        love.filesystem.write("saves" .. "/file_" .. (Game.save_id or "unknown") .. "_"..time_id..".json_backup", JSON.encode(data))
+        Kristal.saveGame(nil, applyRetroChanges(data, self.diff_data))
+        TableUtils.clear(self.diff_data)
+        self.diff_data = nil
+        self.data_changed = nil
+    end
+
     if not love.filesystem.getInfo("saves/achievements.json") then
         local data = {}
         
