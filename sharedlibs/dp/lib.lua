@@ -81,12 +81,11 @@ local function handleRetroSave(data)
     -- Magical Glass update replaced "custom/<id>" with "mg/<id>"
     for id,party_data in pairs(data.party_data) do
         for flag,value in pairs(party_data.flags) do
-            print(id,flag,value)
             if type(value) == "string" then
                 local old_custom, item_id = StringUtils.startsWith(value, "custom/")
                 if old_custom and Registry.getItem("mg/"..item_id) then
                     Kristal.Console:log("Old Magical Glass Item ID detected. Replacing \"custom/"..item_id.."\" with \"mg/"..item_id.."\"!")
-                    --data.party_data[id].flags[flag] = "mg/"..item_id
+                    data.party_data[id].flags[flag] = "mg/"..item_id
                     table.insert(diff_data, {
                         value = "mg/"..item_id,
                         path = {"party_data", id, "flags", flag}
@@ -100,7 +99,7 @@ local function handleRetroSave(data)
     return data_changed, diff_data
 end
 
-local function applyRetroChanges(base_data, diff)
+local function applyRetroChangesToSave(base_data, diff)
     for _, patch in ipairs(diff) do
         local target = base_data
 
@@ -140,7 +139,7 @@ function lib:postLoad()
                         StringUtils.pad(tostring(time.sec or 0), 2, true, "0")
         local data = Kristal.getSaveFile()
         love.filesystem.write("saves" .. "/file_" .. (Game.save_id or "unknown") .. "_"..time_id..".json_backup", JSON.encode(data))
-        Kristal.saveGame(nil, applyRetroChanges(data, self.diff_data))
+        Kristal.saveGame(nil, applyRetroChangesToSave(data, self.diff_data))
         TableUtils.clear(self.diff_data)
         self.diff_data = nil
         self.data_changed = nil
