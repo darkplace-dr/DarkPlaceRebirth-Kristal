@@ -221,6 +221,8 @@ function MainMenuModConfig:registerOptions()
     self:registerOption("targetSystem", "Targeting System", "Whether battles should use the targeting system or not", "selection", { nil, true, false })
     self:registerOption("soulInvBetweenWaves", "Keep Soul Invulnerability", "Whether the soul invulnerability will carry between waves in battles", "selection", { nil, true, false })
     self:registerOption("speechBubble", "Speech Bubble Style", "The default style for enemy speech bubbles", "selection", { nil, "round", "cyber" }) -- unhardcode
+    self:registerOption("lightTextboxStyle", "Light Textbox Style", "Textbox style used in the light world (by default)", "selection", { nil, "light", "dark", "dark_old" })
+    self:registerOption("darkTextboxStyle", "Dark Textbox Style", "Textbox style used in the dark world (by default)", "selection", { nil, "light", "dark", "dark_old" })
     self:registerOption("enemyAuras", "Enemy Aura", "The red aura around enemies", "selection", { nil, true, false })
     self:registerOption("mercyMessages", "Mercy Messages", "Seeing +X% when an enemy's mercy goes up", "selection", { nil, true, false })
     self:registerOption("mercyBar", "Mercy Bar", "Whether the mercy bar should appear or not", "selection", { nil, true, false })
