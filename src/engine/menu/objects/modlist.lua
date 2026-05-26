@@ -56,8 +56,9 @@ end
 function ModList:addMod(mod)
     table.insert(self.mods, mod)
     self.mod_container:addChild(mod)
-    mod:setPosition(4, self.mod_list_height + 4)
-    self.mod_list_height = self.mod_list_height + mod.height + 12
+
+    mod:setPosition(4, self.mod_list_height + 6)
+    self.mod_list_height = self.mod_list_height + mod.height + (6 * 2)
     if (self.selected == 0) and (#self.mods == 1) then
         self.selected = 1
         mod:onSelect()
