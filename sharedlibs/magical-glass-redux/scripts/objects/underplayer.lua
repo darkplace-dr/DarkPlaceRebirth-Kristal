@@ -1,12 +1,10 @@
-local UnderPlayer, super = Class(Player, "UnderPlayer")
+local UnderPlayer, super = Class(Player)
 
 function UnderPlayer:init(chara, x, y)
     super.init(self, chara, x, y)
 
     -- If 'true', the player will be unable to run, like in Undertale
     self.force_walk = not Kristal.getLibConfig("magical-glass", "undertale_movement_can_run")
-    -- The movement speed of the player.
-    self.walk_speed = Game:isLight() and 6 or 4
     
     -- Don't edit the stuff below
     self.dance = nil
@@ -16,6 +14,14 @@ function UnderPlayer:init(chara, x, y)
     self.event_collide = {}
     self.gone_direction = {}
     self.speed = 0
+end
+
+function UnderPlayer:getCurrentSpeed(running)
+    local speed = self:getBaseWalkSpeed()
+    if running then
+        speed = speed + 5
+    end
+    return speed
 end
 
 function UnderPlayer:handleMovement()
@@ -99,10 +105,7 @@ function UnderPlayer:handleMovement()
         running = not running
     end
 
-    self.speed = self.walk_speed
-    if running then
-        self.speed = self.speed + 5
-    end
+    self.speed = self:getCurrentSpeed(running)
     
     if Input.down("up") and Input.down("down") then
         if not can_move_y then
@@ -160,7 +163,7 @@ function UnderPlayer:doMoveAmount(type, amount, other_amount)
 
     local other = type == "x" and "y" or "x"
 
-    local sign = Utils.sign(amount)
+    local sign = MathUtils.sign(amount)
     for i = 1, math.ceil(math.abs(amount)) do
         local moved = sign
         if (i > math.abs(amount)) then
@@ -200,8 +203,8 @@ function UnderPlayer:doMoveAmount(type, amount, other_amount)
             if collided then
                 self[type] = last_a
                 self[other] = last_b
-
-                if not target:includes("Event") then
+                
+                if not (target:includes("Event") or target:includes("Interactable") or target:includes("NPC")) then
                     if self.moving_y < 0 and (Input.down("up") and Input.down("down")) then
                         if not self["last_collided_"..other] == true then
                             self[type] = self[type] + self.speed
@@ -286,6 +289,7 @@ function UnderPlayer:update()
     if not self["last_collided_y"] == true then
         self.can_move_x = true
     end
+    
     super.update(self)
 end
 

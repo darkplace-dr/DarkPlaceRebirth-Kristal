@@ -18,7 +18,7 @@ function Watercooler:init()
     -- Enemy reward
     self.money = 200
 
-    self.experience = 10
+    self.experience = 25
 
     -- Mercy given when sparing this enemy before its spareable (20% for basic enemies)
     self.spare_points = 8
@@ -48,6 +48,11 @@ function Watercooler:init()
     self.killable = true
 	
 	self.last_text = "* A strong aura emanates from the Watercooler."
+
+    self.resistances = {
+        ICE = 1.5,
+        FIRE = 1.5,
+    }
 end
 
 function Watercooler:isXActionShort(battler)
@@ -69,12 +74,12 @@ function Watercooler:onShortAct(battler, name)
 				self:addMercy(6)
 			end
 			local text = "* Ralsei absorbs trace calcium!"
-			local chance = love.math.random(1,3)
+			local chance = MathUtils.randomInt(1,3)
 			if chance == 2 then
 				if Game:hasPartyMember("susie") then
 					text = "* Ralsei cleans Susie's spill!!"
 				else
-					chance = Utils.pick({1,3})
+					chance = TableUtils.pick({1,3})
 				end
 			end
 			if chance == 3 then
@@ -98,7 +103,7 @@ function Watercooler:onShortAct(battler, name)
 				self:addMercy(6)
 			end
 			local text = "* Susie face-crushes a cup!!"
-			local chance = love.math.random(0,#Game.party)
+			local chance = MathUtils.randomInt(0,#Game.party)
 			if chance >= 1 then
 				if Game:hasPartyMember("kris") and Game:getPartyIndex("kris") == chance then
 					text = "** Susie puts cups on Kris's eyes!"
@@ -161,10 +166,10 @@ function Watercooler:onAct(battler, name)
 end
 
 function Watercooler:getEnemyDialogue()
-	if love.math.random(1,2) == 1 then
+	if MathUtils.randomInt(1,2) == 1 then
 		return "Buble"
 	else
-		return "B"..Utils.pick({"a", "e", "i", "o", "u", "u", "oo"}).."b"..Utils.pick({"i", "l"}).."e"
+		return "B"..TableUtils.pick({"a", "e", "i", "o", "u", "u", "oo"}).."b"..TableUtils.pick({"i", "l"}).."e"
 	end
 end
 
@@ -188,10 +193,10 @@ function Watercooler:getEncounterText()
     elseif self.spareable_text and self:canSpare() then
         return self.spareable_text
     end
-	if love.math.random(0, 100) < 3 then
+	if MathUtils.randomInt(0, 100) < 3 then
 		return "* Smells like the faucet."
 	else
-		if love.math.random(0, 4) == 4 then
+		if MathUtils.randomInt(0, 4) == 4 then
 			return self.last_text
 		else
 			local text = super.getEncounterText(self)

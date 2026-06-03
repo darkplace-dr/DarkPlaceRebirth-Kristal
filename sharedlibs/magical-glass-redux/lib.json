@@ -1,14 +1,19 @@
 {
     "id": "magical-glass",
+    
     "authors": [
-        "Nyakorita",                    // original author
-        "Sam Deluxe",                   // previous author and lead programmer
-        "FireRainV",                    // current developer
-        "Bor",                          // contributor
-        "Just Another Random User",     // contributor
+        "Nyakorita",                    // Original Author
+        "Sam Deluxe",                   // Previous Author and Lead Programmer
+        "FireRainV",                    // Current Developer
+        "SadDiamondMan",                // Frisk
+        "Azrael",                       // Susie Light World Battle Sprites
+        "Trashcat",                     // Blue Soul
+        "Annie",                        // Green Soul
+        "vitellary",                    // Yellow Soul
+        "TheSkerch"                     // Purple Soul
     ],
-
-    "version": "v2.26.1",
+    
+    "version": "v4.0.0",
     "engineVer": "v0.10.0-dev",
 
     "config": {
@@ -56,13 +61,13 @@
         // Disables text skipping in ANY textbox when holding down cancel or menu.
         /////
         // false = Allows text skipping
-        // "slim" = Text which cannot be skipped in UT battles won't be skippable (like the YOU WON! text)
+        // "partial" = Text which cannot be skipped in UT battles won't be skippable (like the YOU WON! text)
         // true = Text skipping is not allowed (like holding down the menu button to quickly skip dialogue)
         /////
         "undertale_text_skipping": false,
         
         ///// Game Over Skipping
-        // Whether you can skip the game over screen by repeatly pressing the confirm button.
+        // Whether you can skip the game over screen by mashing the confirm button.
         /////
         // First Value: Whether you can skip it in the dark world.
         // Second Value: Whether you can skip it in the light world.
@@ -73,10 +78,10 @@
         // Controls what color palette will be used for dark battles in the light world.
         /////
         // false = Normal
-        // "slim" = Colors the head icon and the health bar
-        // true = Colors the head icon, the health bar, the attack box and battle strips (in solo party member, also colors the damage)
+        // "partial" = Colors the head icon and the health bar
+        // true = Colors the head icon, the health bar, the attack box and battle strips (with a solo party battler, also colors the damage)
         /////
-        "light_world_dark_battle_color_override": "slim",
+        "light_world_dark_battle_color_override": "partial",
         
         ///// Dark Battles In The Light World Tension
         // Whether dark battles in the light world will have tension.
@@ -86,26 +91,15 @@
         ///// UNDERTALE Movement Can Run
         // Enables the ability to run when using the Undertale player movement.
         /////
-        "undertale_movement_can_run": false,
+        "undertale_movement_can_run": true,
         
-        ///// Light Battles HP Gauge Length Cap
-        // Limits the length of the HP bar in light battles.
-        ///// Values:
-        //
-        // true
-        // Limits the gauge at 99. 
-        //
-        // false
-        // Doesn't limit the gauge.
-        //
-        // number
-        // Limits the gauge to the number specified.
-        //
+        ///// Balanced UNDERTALE Items Price
+        // Whether to use balanced buy and sell prices for UNDERTALE items or use the original UNDERTALE prices.
         /////
-        "hp_gauge_length_cap": true,
+        "balanced_undertale_items_price": true,
 
         ///// Item Conversion
-        // Like in Deltarune, converts the Dark World inventory to the Ball of Junk and items like the Shadow Crystal to Glass 
+        // Like in Deltarune, converts the Dark World inventory to the Ball of Junk and items like the Shadow Crystal to Glass
         // when traveling to the Light World or back.
         /////
         "item_conversion": true,
@@ -117,8 +111,14 @@
         /////
         "equipment_conversion": true,
         
+        ///// Light Inventory Equipment Conversion
+        // Like in Deltarune, converts light equipments that are in your light inventory to your dark inventory.
+        /////
+        "light_inventory_equipment_conversion": true,
+        
         ///// Health Conversion
         // Converts the party members current health between the light and dark worlds.
+        // If set to null, it will use Kristal's default health conversion method.
         /////
         "health_conversion": true,
 
@@ -133,11 +133,20 @@
         /////
         "undertale_menu_display": false,
         
-        ///// Always Show Magic
-        // Displays the MAGIC stat and spells in the Light World STAT menu even if there's no
-        // member in the current party who can cast spells.
+        ///// Show Magic
+        // Whether to display the MAGIC stat and spells in the Light World STAT menu.
+        //
+        // true
+        // Always show magic. 
+        //
+        // false
+        // Never show magic.
+        //
+        // null
+        // Show magic only if there's a party member who can cast spells in the current party.
+        //
         /////
-        "always_show_magic": false,
+        "show_magic": null,
 
         ///// Gauge Style
         // Determines the appearance of gauges drawn in ENEMYSELECT or PARTYSELECT in Light Battles.
@@ -184,6 +193,17 @@
         // Draws the HP and Mercy text and Percentages on the gauges.
         /////
         "enemy_bar_percentages": false,
+        
+        ///// Highlight Default Buttons
+        // Whether to highlight the MAGIC or MERCY/SPARE buttons when the enemy can be spared though their action.
+        /////
+        "highlight_default_buttons": false,
+        
+        ///// Default Invulnerablity Time
+        // The default length of invulnerability given to the player when hit by a bullet in the light world, in frames.
+        // (30 frames = 1 second)
+        /////
+        "default_invuln_time": 30,
 
         ///// Light Enemy Chaser Auras
         // Whether enemies in the light world will also have auras.
@@ -196,20 +216,39 @@
         //
         // "undertale"
         // UNDERTALE-styled savepoints. (yellow, doesn't fade)
-        // Uses Undertale saving style
+        // Uses Undertale saving style.
         //
         // "deltarune"
         // deltarune-styled savepoints. (white, fades depending on the player's distance from it)
-        // Uses Deltarune saving style
+        // Uses Deltarune saving style.
         //
         /////
         "savepoint_style": "deltarune",
         
-        ///// Expanded Light Save Menu
+        ///// Savepoint Heal
+        // Whether your party will be healed when using a savepoint by default.
+        /////
+        // First Value: Whether your party gets healed in the dark world.
+        // Second Value: Whether your party gets healed in the light world.
+        /////
+        "savepoint_heal": [true, false],
+        
+        ///// Light Save Menu Hours Display
+        // Displays hours in light save menus.
+        // (Ignored if "savepoint_style" is set to "deltarune")
+        /////
+        "light_save_menu_hours": true,
+        
+        ///// Light Save Menu Expanded
         // Allows having 3 save slots in the light world save points.
         // (Ignored if "savepoint_style" is set to "deltarune")
         /////
-        "expanded_light_save_menu": false,
+        "light_save_menu_expanded": true,
+        
+        ///// Text Choice Box Sound
+        // Whether to play the ui move sound effect when switching between options during a text choice box or not.
+        /////
+        "text_choicebox_sound": false,
         
         ///// Multi-Party Mode in Solo-Party
         // Whether Multi-Party light battle style will also be enabled when playing with just a single party member.
@@ -225,6 +264,17 @@
         // Whether when playing with multiple party members, the leader name will be mentioned as 'You'.
         /////
         "multi_leader_mentioned_as_you": false,
+        
+        ///// Multi-Party Minimal UI
+        // Whether when playing with multiple party members, the UI will be less bloated.
+        /////
+        "multi_minimal_ui": false,
+        
+        ///// Yellow Soul BIGSHOT Cheat
+        // Whether you're allowed to use the bug where you can chain BIGSHOTs
+        // rapidly by pressing the confirm button while holding another confirm button.
+        /////
+        "yellow_soul_allowcheat": true,
         
         ///// Debug Mode
         // Determines whether the library is in its debug mode state.

@@ -1,6 +1,6 @@
 ---@class Slapper : Object
 ---@overload fun(...) : Slapper
-local Slapper, super =  Utils.hookScript(Slapper)
+local Slapper, super =  HookSystem.hookScript(Slapper)
 
 function Slapper:init(user, target)
     super.init(self, user, target)

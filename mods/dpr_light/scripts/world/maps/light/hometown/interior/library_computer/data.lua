@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 40,
           height = 70,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -79,6 +80,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -92,6 +94,7 @@ return {
           width = 40,
           height = 420,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -105,6 +108,7 @@ return {
           width = 576,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -118,6 +122,7 @@ return {
           width = 40,
           height = 418,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -131,6 +136,7 @@ return {
           width = 40,
           height = 72,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -144,6 +150,7 @@ return {
           width = 176,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -157,6 +164,7 @@ return {
           width = 76,
           height = 186,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -170,6 +178,7 @@ return {
           width = 22,
           height = 88,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -183,6 +192,7 @@ return {
           width = 200,
           height = 104,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -196,6 +206,7 @@ return {
           width = 76,
           height = 44,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -209,19 +220,7 @@ return {
           width = 18,
           height = 124,
           rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 17,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 80,
-          y = 126,
-          width = 24,
-          height = 44,
-          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -230,11 +229,12 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 104,
+          x = 80,
           y = 86,
-          width = 472,
+          width = 496,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -264,10 +264,11 @@ return {
           width = 98,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
-            ["text"] = "* (It's full of many backup devices,[wait:5] like extra mice,[wait:5] extra keyboards,[wait:5] or extra maracas.)"
+            ["text"] = "* (It's empty. Seems like someone took everything inside.)"
           }
         },
         {
@@ -275,15 +276,15 @@ return {
           name = "interactable",
           type = "",
           shape = "rectangle",
-          x = 100,
+          x = 92,
           y = 86,
-          width = 42,
+          width = 50,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
-            ["text1"] = "* (The closet is spacious and full of old electronics.)",
-            ["text2"] = "* (A large person could easily fit inside.)"
+            ["text"] = "* (It's a door. A large person could fit inside.)"
           }
         },
         {
@@ -296,6 +297,7 @@ return {
           width = 144,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (Various posters talking about Internet safety.)"
@@ -311,6 +313,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["facing"] = "down",
@@ -328,6 +331,7 @@ return {
           width = 110,
           height = 192,
           rotation = 0,
+          opacity = 1,
           gid = 15,
           visible = true,
           properties = {
@@ -344,6 +348,7 @@ return {
           width = 222,
           height = 148,
           rotation = 0,
+          opacity = 1,
           gid = 16,
           visible = true,
           properties = {
@@ -360,9 +365,10 @@ return {
           width = 81,
           height = 29.3333,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digicomputer",
+            ["cutscene"] = "hometown_digi.computer",
             ["flagcheck"] = "hometown_digisetup"
           }
         },
@@ -376,6 +382,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "susie_lw",
@@ -393,6 +400,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "noelle_lw",
@@ -410,6 +418,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "jammarcy_light",
@@ -427,6 +436,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "dess",
@@ -444,6 +454,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "ceroba",
@@ -461,6 +472,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "brenda_lw",
@@ -478,6 +490,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "digicomputer",
@@ -510,6 +523,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -1,5 +1,5 @@
 ---@class Battle : Battle
-local BattleUI, super = Utils.hookScript(BattleUI)
+local BattleUI, super = HookSystem.hookScript(BattleUI)
 
 function BattleUI:init()
     super.init(self)

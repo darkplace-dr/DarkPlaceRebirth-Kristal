@@ -434,6 +434,7 @@ return {
                 --stall:setSprite("on")
                 Game:setFlag("NEXTROUNDMINIGAME", false)
                 Game:setFlag("WONREACTIONTIMEMINIGAME", true)
+                DP:completeAchievement("reaction_minigame")
                 cutscene:text("* You won the game!")
                 Game:setFlag("tl_mwon", true)
                 local itemcheck = Game.inventory:addItem("nut")
@@ -494,6 +495,7 @@ return {
             Game:setFlag("annabelle_defeated", true)
             cutscene:text("* Rewards can now be claimed under Reward in this machine.")
             cutscene:text("* Each reward can only be claimed once.")
+            DP:completeAchievement("defeat_annabelle")
         end
         if opinion == 2 then
             if Game:getFlag("annabelle_defeated") then

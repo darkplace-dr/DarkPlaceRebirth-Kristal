@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 4,
+  tilecount = 5,
   tiles = {
     {
       id = 0,
@@ -48,6 +48,12 @@ return {
       image = "../../../assets/sprites/world/events/sign_8bit.png",
       width = 16,
       height = 16
+    },
+    {
+      id = 4,
+      image = "../../../assets/sprites/world/events/sign.png",
+      width = 20,
+      height = 20
     }
   }
 }

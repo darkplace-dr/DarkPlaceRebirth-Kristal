@@ -16,7 +16,7 @@ function DarkCharacterMenu:init(selected)
 	self.ui_cancel = Assets.newSound("ui_cancel")
 	self.ui_cancel_small = Assets.newSound("ui_cancel_small")
 
-    self.heart_sprite = Sprite("player/up/heart")
+    self.heart_sprite = Sprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart")
 	self.heart_sprite:setOrigin(0.5, 0.5)
 
     self.up = Assets.getTexture("ui/page_arrow_up")
@@ -39,9 +39,9 @@ function DarkCharacterMenu:init(selected)
 
 	self.text = Text("")
 	self:addChild(self.text)
-	--self.text:setScale(0.8)
+	self.text:setScale(0.5)
 	self.text.x = 70
-	self.text.y = 310
+	self.text.y = 256
 	
 	self:addChild(self.heart_sprite)
 	self.heart_sprite.y = self.bg.y + 125
@@ -134,7 +134,7 @@ function DarkCharacterMenu:selection(num)
 		self.heart_sprite:setColor(chr.party:getSoulColor())
 		self.heart_sprite:setSprite("player/"..chr.party:getSoulFacing().."/heart")
 
-		local text = chr.party.title_extended or chr.party:getTitle() or "* Placeholder~"
+		local text = chr.party:getTitleExtended() or chr.party:getTitle() or "* Placeholder~"
 		self.text:setText(text)
 	else
 		self.text:setText("Empty")
@@ -191,16 +191,35 @@ function DarkCharacterMenu:draw()
 
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setLineWidth(6)
-	local y = 300
+	local y = 246
 	love.graphics.line(80, y, 560, y)
     local x = 320
-	love.graphics.line(x, 300, x, 420)
+	love.graphics.line(x, y, x, 420)
 
 	love.graphics.setColor(0, 0, 0)
 
 	if Game.party[self.selected] then
 		self:drawStats()
 	end
+end
+
+function DarkCharacterMenu:getElement(party) -- added before elements were introduced properly
+    local elements = party:getElements()
+    if elements then
+		if #elements == 1 then
+			return elements[1]
+		else
+			local element = ""
+			for i, v in ipairs(elements) do
+				element = element..v
+				if i < #party.element then
+					element = element.."/"
+				end
+			end
+			return element
+		end
+	end
+    return "???"
 end
 
 function DarkCharacterMenu:drawStats()
@@ -211,19 +230,32 @@ function DarkCharacterMenu:drawStats()
 
 	love.graphics.print(party:getName(), 80, 90)
 
-	if party.cm_draw then
-		party:CharacterMenuDraw()
+	if party:CharacterMenuDraw() then
+		--party:CharacterMenuDraw()
 	else
 		local x = 330
-		love.graphics.print("ATK "..party.stats["attack"], x, 310)
-		love.graphics.print("DEF "..party.stats["defense"], x, 342)
-		love.graphics.print("MAG "..party.stats["magic"], x, 374)
+    	--278, 246
+		local elem_width = self.font:getWidth(self:getElement(party)) <= 120 and 1 or 120/self.font:getWidth(self:getElement(party))
+		love.graphics.print("ELEMENT: ", x, 374)
+		love.graphics.print(self:getElement(party), x + 112, 374, 0, elem_width, 1)
+        love.graphics.print("LEVEL: "..party.level, x, 278)
+		love.graphics.print("LOVE: "..party.love, x, 310)
+		love.graphics.print("KILLS: "..party.kills, x, 342)
 
-		x = 420
+		x = 438
 
-		love.graphics.print("HP "..party.health.."/"..party.stats["health"], x, 310)
-		love.graphics.print("LOVE "..party.love, x, 342)
-		love.graphics.print("KILLS "..party.kills, x, 374)
+		love.graphics.print("HP: "..party.health.."/"..party.stats["health"], x, 246)
+
+
+		x = 464
+		love.graphics.print("ATK: "..party.stats["attack"], x, 278)
+		love.graphics.print("DEF: "..party.stats["defense"], x, 310)
+		love.graphics.print("MAG: "..party.stats["magic"], x, 342) --374 --342
+
+
+        Draw.draw(Assets.getTexture("ui/menu/icon/sword"), x - 24, 278 + 6, 0, 2, 2)
+        Draw.draw(Assets.getTexture("ui/menu/icon/armor"), x - 24, 310 + 6, 0, 2, 2)
+        Draw.draw(Assets.getTexture("ui/menu/icon/magic"), x - 24, 342 + 6, 0, 2, 2)
 	end
 end
 

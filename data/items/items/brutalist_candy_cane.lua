@@ -48,8 +48,10 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-        noel = "I am fucking dead now.",
+        noel = "I am dead now.",
         jamm = "I... don't know what I was expecting.",
+        ceroba = "Never felt worse in my life.",
+        berdly = "MY HEALTH POINTS!!!",
     }
 end
 

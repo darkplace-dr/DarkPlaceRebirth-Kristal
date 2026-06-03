@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="37" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="356">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="37" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="356">
  <editorsettings>
   <export target="worse_vents.lua" format="lua"/>
  </editorsettings>
@@ -206,8 +206,8 @@
   </object>
   <object id="64" name="transition" x="160" y="-40" width="120" height="40">
    <properties>
-    <property name="map" value="grey_cliffside/climb_1"/>
-    <property name="marker" value="spawn"/>
+    <property name="map" value="grey_cliffside/first_chr_encounter"/>
+    <property name="marker" value="right"/>
    </properties>
   </object>
   <object id="246" name="script" x="520" y="0" width="40" height="600">

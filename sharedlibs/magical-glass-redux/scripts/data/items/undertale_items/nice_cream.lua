@@ -37,11 +37,10 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getWorldUseText(target)
-    local picker = Utils.random(1, 8, 1)
+    local picker = MathUtils.round(MathUtils.random(1, 8))
     local message = {
         "* You're just great!",
         "* You look nice today!",
@@ -56,7 +55,7 @@ function item:getWorldUseText(target)
 end
 
 function item:getLightBattleText(user, target)
-    local picker = Utils.random(1, 8, 1)
+    local picker = MathUtils.round(MathUtils.random(1, 8))
     local message = {
         "* You're just great!",
         "* You look nice today!",
@@ -71,7 +70,7 @@ function item:getLightBattleText(user, target)
 end
 
 function item:getBattleText(user, target)
-    local picker = Utils.random(1, 8, 1)
+    local picker = MathUtils.round(MathUtils.random(1, 8))
     local message = {
         "* You're just great!",
         "* You look nice today!",
@@ -82,6 +81,7 @@ function item:getBattleText(user, target)
         "* (An illustration of a hug.)",
         "* Love yourself! I love you!"
     }
+    
     return message[picker] .. "\n" ..super.getBattleText(self, user, target)
 end
 

@@ -1,6 +1,4 @@
----@class LightSaveMenuExpanded : Object
----@overload fun(...) : LightSaveMenuExpanded
-local LightSaveMenuExpanded, super = Class(Object, "LightSaveMenuExpanded")
+local LightSaveMenuExpanded, super = Class(Object)
 
 function LightSaveMenuExpanded:init(marker)
     super.init(self, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -214,10 +212,18 @@ function LightSaveMenuExpanded:draw()
         love.graphics.print(name,         self.main_box.x + 8,        self.main_box.y - 10 + 8)
         love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..level, self.main_box.x + 210 - 34, self.main_box.y - 10 + 8)
 
-        local minutes = math.floor(data.playtime / 60)
-        local seconds = math.floor(data.playtime % 60)
-        local time_text = string.format("%d:%02d", minutes, seconds)
-        love.graphics.printf(time_text, self.main_box.x - 280 + 148, self.main_box.y - 10 + 8, 500, "right")
+        if Kristal.getLibConfig("magical-glass", "light_save_menu_hours") then
+            local hours = math.floor(data.playtime / 3600)
+            local minutes = math.floor(data.playtime / 60 % 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
+            love.graphics.printf(time_text, self.main_box.x - 280 + 148, self.main_box.y - 10 + 8, 500, "right")
+        else
+            local minutes = math.floor(data.playtime / 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d", minutes, seconds)
+            love.graphics.printf(time_text, self.main_box.x - 280 + 148, self.main_box.y - 10 + 8, 500, "right")
+        end
 
         love.graphics.print(data.room_name, self.main_box.x + 8, self.main_box.y + 38)
 
@@ -346,10 +352,18 @@ function LightSaveMenuExpanded:drawSaveFile(index, data, x, y, selected, header)
 
         love.graphics.print(data.name, x + (493 / 2) - self.font:getWidth(data.name) / 2, y + 6)
 
-        local minutes = math.floor(data.playtime / 60)
-        local seconds = math.floor(data.playtime % 60)
-        local time_text = string.format("%d:%02d", minutes, seconds)
-        love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
+        if Kristal.getLibConfig("magical-glass", "light_save_menu_hours") then
+            local hours = math.floor(data.playtime / 3600)
+            local minutes = math.floor(data.playtime / 60 % 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
+            love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
+        else
+            local minutes = math.floor(data.playtime / 60)
+            local seconds = math.floor(data.playtime % 60)
+            local time_text = string.format("%d:%02d", minutes, seconds)
+            love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
+        end
 
         love.graphics.print(data.room_name, x + (493 / 2) - self.font:getWidth(data.room_name) / 2, y + 38)
 

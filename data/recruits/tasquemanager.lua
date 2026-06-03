@@ -31,7 +31,7 @@ function tasquemanager:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/tasquemanager/okay", 0, 0, 4/30}
+    self.box_sprite = {"recruits/tasquemanager/npc", -3, 1, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

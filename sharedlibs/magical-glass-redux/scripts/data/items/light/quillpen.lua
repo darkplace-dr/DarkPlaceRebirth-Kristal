@@ -3,7 +3,7 @@ local item, super = Class("light/quillpen", true)
 function item:init()
     super.init(self)
 
-    self.price = 10
+    self.sell_price = 5
 end
 
 return item

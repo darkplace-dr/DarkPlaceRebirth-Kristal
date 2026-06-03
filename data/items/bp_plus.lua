@@ -16,7 +16,7 @@ function item:init()
     -- Battle description
     self.effect = "Use\nout of\nbattle"
     -- Shop description
-    self.shop = ""
+    self.shop = "Increases\nyour max\nBP by 3"
     -- Menu description
     self.description = "A small green gem with a plus sign on it.\nRaises maximum BP by 3."
 

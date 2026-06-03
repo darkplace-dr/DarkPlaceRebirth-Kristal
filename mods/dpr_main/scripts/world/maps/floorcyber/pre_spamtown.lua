@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,7 +12,9 @@ return {
   nextlayerid = 6,
   nextobjectid = 18,
   properties = {
-    ["border"] = "cyber",
+    ["alwayspipis"] = true,
+    ["border"] = "city",
+    ["fastpipis"] = true,
     ["music"] = "deltarune/alley_ambience",
     ["name"] = "Cyber Floor - ???"
   },
@@ -112,7 +114,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 360,
@@ -125,7 +127,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1160,
           y = 240,
@@ -138,7 +140,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 200,
@@ -151,7 +153,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 240,
@@ -164,7 +166,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 240,
@@ -177,7 +179,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 240,
@@ -206,7 +208,7 @@ return {
         {
           id = 9,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1080,
           y = 480,
@@ -222,7 +224,7 @@ return {
         {
           id = 13,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 200,
           y = 240,
@@ -235,7 +237,7 @@ return {
         {
           id = 14,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 120,
@@ -268,7 +270,7 @@ return {
         {
           id = 7,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 1120,
           y = 440,
@@ -281,7 +283,7 @@ return {
         {
           id = 8,
           name = "entry_elevator",
-          class = "",
+          type = "",
           shape = "point",
           x = 320,
           y = 280,
@@ -294,7 +296,7 @@ return {
         {
           id = 11,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 1040,
           y = 320,

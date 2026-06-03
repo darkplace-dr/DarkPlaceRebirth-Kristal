@@ -2,7 +2,7 @@
 ---
 ---@field menu MainMenu
 ---
----@field pages {[1]: string, [2]: creditsline[], [3]: creditsline[]|nil}[]
+---@field pages {[1]: string, [2]: creditsline[], [3]: creditsline[]?}[]
 ---
 ---@field selected_page number
 ---@field scroll_direction string
@@ -51,41 +51,41 @@ function MainMenuCredits:init(menu)
                 { "GitHub Contributors", COLORS.silver },
                 "Dobby233Liu",
                 "Elioze",
+                "Eribetra",
                 "FireRainV",
                 "HUECYCLES",
                 "Hyperboid",
                 "isakube",
                 "J.A.R.U.",
-                "Lionmeow",
-                "Luna",
+                "Lionmeow"
             },
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Luna",
+                "MaybeSamo",
                 "MCdeDaxia",
                 "MrOinky",
                 "NelleMonelle",
                 "Nextop",
                 "nightpool",
                 "prokube",
-                "Simbel",
-                "sjl057",
-                "skarph"
+                "rfrx"
             }
         },
         {
             "Kristal Engine",
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Simbel",
+                "sjl057",
+                "skarph",
                 "SuperOfSrb2",
+                "SweetSylveon",
                 "TFLTV",
+                "TheSkerch",
                 "Verozity",
                 "WIL-TZY",
-                "YeetusSnoopy",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "YeetusSnoopy"
             }
         },
         {
@@ -98,7 +98,7 @@ function MainMenuCredits:init(menu)
                 "J.A.R.U.",
                 "BrendaK7200",
                 "",
-                {"Name Idea", COLORS.silver},
+                {"Name Idea, Title Screen", COLORS.silver},
                 "AccousticJamm",
             },
             {
@@ -143,12 +143,14 @@ function MainMenuCredits:init(menu)
                 "Diamond Deltahedron",
                 "Science2048",
             },
+        },
+        {
+            "Dark Place",
             {
                 {"Contributors", COLORS.silver},
                 "TritraSerpifeu",
-                "",
-                "",
-                "",
+                "vamp",
+                "CharaCterDreemurr",
                 "",
                 "",
                 "",
@@ -156,7 +158,20 @@ function MainMenuCredits:init(menu)
                 "",
                 "",
             },
-        }
+            {
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+            }
+        },
     }
     self.selected_page = 1
 
@@ -184,11 +199,13 @@ function MainMenuCredits:onEnter(old_state)
 
     self.menu.heart_target_x = 320 - 32 - 16 + 1
     self.menu.heart_target_y = 480 - 16 + 1
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuCredits:onKeyPressed(key, is_repeat)
     if Input.isCancel(key) or Input.isConfirm(key) then
-        self.menu:setState("TITLE")
+        self.menu:setState("SUBTITLE")
 
         if Input.isCancel(key) then
             Assets.stopAndPlaySound("ui_move")
@@ -196,7 +213,7 @@ function MainMenuCredits:onKeyPressed(key, is_repeat)
             Assets.stopAndPlaySound("ui_select")
         end
 
-        self.menu.title_screen:selectOption("credits")
+        self.menu.subtitle:selectOption("credits")
     end
 
     local page_dir = "right"

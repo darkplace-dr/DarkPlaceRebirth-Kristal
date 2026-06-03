@@ -436,8 +436,12 @@ function DarkMenu:draw()
     Draw.setColor(1, 1, 1)
 
     love.graphics.setFont(self.font)
-    love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, (#self.buttons > 5 and 20) or 26)
-
+	if Game:getFlag("pointsDisplay", false) and Game:getFlag("points", 0) > 0 then
+		love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, 13)
+		love.graphics.print("PTs " .. Game:getFlag("points", 0), 520, 41)
+	else
+		love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, 20)
+	end
     super.draw(self)
 end
 

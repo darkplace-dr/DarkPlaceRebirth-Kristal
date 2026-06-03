@@ -87,6 +87,7 @@ return {
                     local text = cutscene:getUserText(10)
                     if text == "15" or text == "FIFTEEN" then
                         cutscene:text("* Correct!")
+                        DP:completeAchievement("starrune_popstar")
                         Game.total_bp = Game.total_bp + 1
                         Game:setFlag("WONQUIZ", true)
                         cutscene:text("* Here, take this badge point.")

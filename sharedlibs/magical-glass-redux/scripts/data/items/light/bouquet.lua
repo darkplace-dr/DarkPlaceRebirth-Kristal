@@ -3,7 +3,7 @@ local item, super = Class("light/bouquet", true)
 function item:init()
     super.init(self)
 
-    self.price = 12
+    self.sell_price = 6
 end
 
 function item:onBattleSelect(user, target)

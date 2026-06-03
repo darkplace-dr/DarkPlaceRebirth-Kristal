@@ -35,10 +35,6 @@ function item:init()
     }
 end
 
-function item:showEquipText(target)
-    Game.world:showText("* "..target:getNameOrYou().." equipped the apron.")
-end
-
 function item:onLightTurnEnd(battler)
     if Game.battle.turn_count % 2 == 0 then
         battler:heal(1)

@@ -8,7 +8,6 @@ function item:init(inventory)
     self.dark_name = "Candy Box"
     self.use_name = "Candy Box"
 
-    self.price = 20
     self.sell_price = 5
 end
 
@@ -25,7 +24,7 @@ function item:onWorldUse()
 end
 
 function item:getLightBattleText(user, target)
-    if user.chara.id == Game.battle.party[1].chara.id and not MagicalGlassLib.serious_mode then
+    if user.chara.id == Game.battle.party[1].chara.id and not Mod.libs["magical-glass"].serious_mode then
         return {"* (You unhesitatingly devoured\nthe box of heart shaped\ncandies.)","* (Your guts are being\ndestroyed.)","* (You accept this destruction as\npart of life...)"}
     else
         return "* "..user.chara:getNameOrYou().." devoured the box of\nheart shaped candies."

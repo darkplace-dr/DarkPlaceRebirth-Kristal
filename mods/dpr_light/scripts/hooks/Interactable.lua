@@ -21,7 +21,7 @@
 ---@field interact_count number The number of times this interactable has been interacted with on this map load
 ---
 ---@overload fun(...) : Interactable
-local Interactable, super = Utils.hookScript(Interactable)
+local Interactable, super = HookSystem.hookScript(Interactable)
 
 function Interactable:init(x, y, shape, properties)
     shape = shape or {TILE_WIDTH, TILE_HEIGHT}

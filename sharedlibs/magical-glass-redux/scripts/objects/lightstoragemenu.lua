@@ -1,4 +1,4 @@
-local LightStorageMenu, super = Class(Object, "LightStorageMenu")
+local LightStorageMenu, super = Class(Object)
 
 function LightStorageMenu:init(left_storage, right_storage)
     super.init(self, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -12,7 +12,7 @@ function LightStorageMenu:init(left_storage, right_storage)
     self.box.layer = WORLD_LAYERS["ui"]
     self:addChild(self.box)
     
-    self.heart_sprite = Assets.getTexture("player/heart_menu")
+    self.heart_sprite = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."heart_menu")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
     self.storages = {left_storage or "items", right_storage or "box_a"}
@@ -51,14 +51,18 @@ function LightStorageMenu:onKeyPressed(key)
         end
         if self.list == 1 then
             if not Game.inventory:isFull(self:getStorage(2)) and Game.inventory:getItem(self:getStorage(self.list), self.current_selecting) then
-                Game.inventory:addItemTo(self:getStorage(2), self:getSelectedItem(1))
-                Game.inventory:removeItemFrom(self:getStorage(1), self.current_selecting)
+                local success = Game.inventory:addItemTo(self:getStorage(2), self:getSelectedItem(1), false)
+                if success then
+                    Game.inventory:removeItemFrom(self:getStorage(1), self.current_selecting)
+                end
                 adjustPosition()
             end
         elseif self.list == 2 then
             if not Game.inventory:isFull(self:getStorage(1)) and Game.inventory:getItem(self:getStorage(self.list), self.current_selecting) then
-                Game.inventory:addItemTo(self:getStorage(1), self:getSelectedItem(2))
-                Game.inventory:removeItemFrom(self:getStorage(2), self.current_selecting)
+                local success = Game.inventory:addItemTo(self:getStorage(1), self:getSelectedItem(2), false)
+                if success then
+                    Game.inventory:removeItemFrom(self:getStorage(2), self.current_selecting)
+                end
                 adjustPosition()
             end
         end
@@ -91,7 +95,7 @@ function LightStorageMenu:onKeyPressed(key)
     local limit = self:getLimit(self.list)
     local min_scroll = math.max(1, self.current_selecting - (limit - 1))
     local max_scroll = math.min(math.max(1, getEndRow() - (limit - 1)), self.current_selecting)
-    self.scroll_y[self.list] = Utils.clamp(self.scroll_y[self.list], min_scroll, max_scroll)
+    self.scroll_y[self.list] = MathUtils.clamp(self.scroll_y[self.list], min_scroll, max_scroll)
 end
 
 function LightStorageMenu:drawStorage(list)

@@ -169,7 +169,7 @@ return {
                 trashnado:remove()
 
                 cutscene:wait(0.5)
-                cutscene:text("* [facec:sans/meme/lich, -18, -10][voice:nil][sound:fall_lich][style:GONER][color:18be14]F a l l .", nil, "sans")
+                cutscene:text("* [facec:sans/meme/lich, -18, -10][voice:none][sound:fall_lich][style:GONER][color:18be14]F a l l .", nil, "sans")
                 cutscene:hideNametag()
 			
                 Assets.playSound("locker")
@@ -218,19 +218,16 @@ return {
     end,
 
     hospitalpiano = function(cutscene, event)
-
         cutscene:text("* (It's an obligatory hospital piano,[wait:5] shrunk to fit in the corner.)")
         cutscene:text("* (As a result,[wait:5] it's missing most of the good keys.)")
         cutscene:text("* (Play it?)")
         local opinion = cutscene:choicer({"Yes", "No"})
-            if opinion == 1 then
-                Assets.playSound("pianonoise")
-                cutscene:text("* (Plink...)")
-            else
-                cutscene:text("* (Your hands linger over the keys doing nothing.)")
-                
-            end
-        
+        if opinion == 1 then
+            Assets.playSound("pianonoise")
+            cutscene:text("* (Plink...)")
+        else
+            cutscene:text("* (Your hands linger over the keys doing nothing.)")
+        end
     end,
 
     pre_knight_corner = function (cutscene, event)
@@ -238,30 +235,27 @@ return {
         if Game:getFlag("knight_corner", false) then
             if cutscene:getCharacter(susie) then
                 cutscene:text("* (It's a door.)")
-                cutscene:text("* That's the uh, mayor's office.", "sus_nervous", susie)
-                cutscene:text("* If we got in we would be in big trouble.", "nervous_side", susie)
-                cutscene:text("* Not like i care, let's go.", "teeth_smile", susie)
+                cutscene:text("* That's the uh, mayor's office.", "sus_nervous", "susie")
+                cutscene:text("* If we got in we would be in big trouble.", "nervous_side", "susie")
+                cutscene:text("* Not like i care, let's go.", "teeth_smile", "susie")
             end
         end
     end,
 
     hospitaltoy = function(cutscene, event)
-
         cutscene:text("* (It's a toy with beads on a track.)")
         if Game:getFlag("POST_SNOWGRAVE") then
             cutscene:text("* (One of the blue beads is broken and torn off.)")
         else
             cutscene:text("* (The beads of the toy march on.)")
         end
-        
     end,
 
     asgorefridge = function(cutscene, event)
-        
         cutscene:text("* (It's a rusty fridge with some photos on it.)")
         local opinion = cutscene:choicer({"\nOpen\nFridge\n", "Don't", "See photos"})
         if opinion == 1 then
-          cutscene:text("* (All that's inside is a jar with a single pickle in it...)")
+            cutscene:text("* (All that's inside is a jar with a single pickle in it...)")
         elseif opinion == 3 then
             local characters_who_knows_dreemurr = {
                 "susie",
@@ -279,11 +273,11 @@ return {
             else
                 cutscene:text("* (A photo of two goat monsters on their wedding day.)")
             end
-          cutscene:text("* (She's holding a bouquet of seven flowers.)")
-          cutscene:text("* (A reindeer-looking monster stands nearby in a tuxedo.)")
-          cutscene:text("* (They all look happy.)")
+            cutscene:text("* (She's holding a bouquet of seven flowers.)")
+            cutscene:text("* (A reindeer-looking monster stands nearby in a tuxedo.)")
+            cutscene:text("* (They all look happy.)")
         else
-          cutscene:text("* (You decide not to look.)")  
+            cutscene:text("* (You decide not to look.)")
         end
     end,
 
@@ -324,13 +318,12 @@ return {
     end,
 
     librarybook1 = function(cutscene, event)
-
-      cutscene:text("* How To Care For A Human")
-      cutscene:text("* (It's a book for monsters about how to care for humans.)")
-      local opinion = cutscene:choicer({"Look in\nthe back", "Look inside"})
+      	cutscene:text("* How To Care For A Human")
+      	cutscene:text("* (It's a book for monsters about how to care for humans.)")
+      	local opinion = cutscene:choicer({"Look in\nthe back", "Look inside"})
         if opinion == 1 then
-          cutscene:text("* (According to the card in the back...)")
-          cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
+          	cutscene:text("* (According to the card in the back...)")
+          	cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
         else
             cutscene:text("* (There are photos of unfamiliar humans inside.)")
             local leader_id = GeneralUtils:getLeader().id
@@ -338,69 +331,79 @@ return {
                 cutscene:text("* (You shut the book quickly.)")
             end
         end
-
     end,
 
     librarybook2 = function(cutscene, event)
-
-      cutscene:text("* (It's BOOK 1 about SOULS. Read it?)")
-      local opinion = cutscene:choicer({"Read", "Don't"})
+      	cutscene:text("* (It's BOOK 1 about SOULS. Read it?)")
+      	local opinion = cutscene:choicer({"Read", "Don't"})
         if opinion == 1 then
-          cutscene:text("* The SOUL has been called many things.")
-          cutscene:text("* The font of our compassion. The source of our will.")
-          cutscene:text("* The container of our \"life force.\"")
-          cutscene:text("* But even now,[wait:5] the true function of it is unknown.")
+          	cutscene:text("* The SOUL has been called many things.")
+          	cutscene:text("* The font of our compassion. The source of our will.")
+          	cutscene:text("* The container of our \"life force.\"")
+          	cutscene:text("* But even now,[wait:5] the true function of it is unknown.")
         end
+    end,
 
+	librarybook3 = function(cutscene, event)
+      	cutscene:text("* (It's a book about Monster Funerals. Read it?)")
+      	local opinion = cutscene:choicer({"Read", "Do not"})
+        if opinion == 1 then
+          	cutscene:text("* ...[wait:5] When monsters die,[wait:5] their dust will be spread over what they loved.")
+          	cutscene:text("* An object that symbolizes their existence. That object will be buried...")
+          	cutscene:text("* And in such a way,[wait:5] their soul be able to rest,[wait:5] within that object,[wait:5] and the earth.")
+          	cutscene:text("* Of course,[wait:5] everyone knows that. That's why this is the introduction...")
+        end
     end,
 
     papyrushouse = function(cutscene, event)
-
-      Assets.playSound("knock")
-      cutscene:text("* (Knock knock knock...)")
-      cutscene:text("* (...)")
-      cutscene:text("* (No response...)\n[wait:5]* (... not even the distant trousle of bones.)")
-
+        if Game:getFlag("hometown_time") == "night" then
+            cutscene:text("* (...[wait:5] it's quiet inside. Peek in?)")
+            local choice = cutscene:choicer({"Yes", "No"})
+            if choice == 1 then
+                cutscene:text("* (Zig zag rug...[wait:5] flatscreen TV...[wait:5] regular-looking kitchen...)")
+                cutscene:text("* (...[wait:5] it's a bit messy,[wait:5] but nothing special.)")
+            end
+        else
+            Assets.playSound("knock")
+            cutscene:text("* (Knock knock knock.)")
+            cutscene:text("* (You hear nary a bone...[wait:5] No rattle,[wait:5] nor trousle,[wait:5] nor xylophone tickle.)")
+        end
     end,
 
     sansplin = function(cutscene, event)
-
-      Assets.playSound("bell")
-
+        Assets.playSound("bell")
     end,
 
     iceesoda = function(cutscene, event)
-
-      cutscene:text("* (It's a soda-dispensing machine.)")
-      local opinion = cutscene:choicer({"Inspect", "Not"})
+        cutscene:text("* (It's a soda-dispensing machine.)")
+        local opinion = cutscene:choicer({"Inspect", "Not"})
         if opinion == 1 then
-          cutscene:text("* (You took a look at the flavors.)")
-          cutscene:text("* WATER")
-          cutscene:text("* ICE")
-          cutscene:text("* DOUBLE-ICE")
-          cutscene:text("* BREAD")
-          cutscene:text("* FLAMIN HOT CHEESE SODA")
-          cutscene:text("* GAMER BLOOD ENERGY DRINK")
-          cutscene:text("* Juice (Red Flavor)")
+            cutscene:text("* (You took a look at the flavors.)")
+            cutscene:text("* WATER")
+            cutscene:text("* ICE")
+            cutscene:text("* DOUBLE-ICE")
+            cutscene:text("* BREAD")
+            cutscene:text("* FLAMIN HOT CHEESE SODA")
+            cutscene:text("* GAMER BLOOD ENERGY DRINK")
+            cutscene:text("* Juice (Red Flavor)")
         end
-
     end,
-	
+
     toilet = function(cutscene, event)
         cutscene:text("* (It's a toilet.)[wait:5]\n* (Flush it?)")
         local choice = cutscene:choicer({"Yes", "No"})
         if choice == 1 then
-            Game.world.music:fade(0,0.001)
+            Game.world.music:fade(0, 0.001)
             Assets.playSound("toilet")
-			
+
             cutscene:wait(1)
-			
+
             Assets.playSound("won")
             cutscene:text("* (You flushed the toilet!)")
-            Game.world.music:fade(1,1)
+            Game.world.music:fade(1, 1)
         end
     end,
-	
+
     asriel_bed = function(cutscene, event)
         if Game.party[1].id == "YOU" then
             cutscene:text("* It looks like one of the beds from the inn you were staying at.")
@@ -703,7 +706,7 @@ return {
 				end
                 cutscene:showNametag("Susie")
                 cutscene:text("* Heh,[wait:5] the name's Susie!", "smile", "susie")
-				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+				if (jamm or jammarcy) then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* And my name's Luthane,[wait:10] but I really go by Jamm.", "side_smile", "jamm")
 					if jammarcy then
@@ -733,7 +736,7 @@ return {
                 cutscene:showNametag("Brenda")
                 cutscene:text("* Pshh,[wait:5] there's no bears in these woods.", "smug", "brenda_lw")
                 cutscene:text("* I think.", "suspicious", "brenda_lw")
-				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+				if (jamm or jammarcy) then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* You \"think\"?", "suspicious", "jamm")
 					cutscene:text("* Wait,[wait:5] are you even licensed in your work?", "suspicious", "jamm")
@@ -760,7 +763,7 @@ return {
                 cutscene:showNametag("Susie")
                 cutscene:text("* HEY![wait:10]\n* I'M A TEENAGER,[wait:5] NOT A KID!", "teeth", "susie")
                 cutscene:text("* Besides,[wait:5] I can kick some serious ass.", "smile", "susie")
-				if (jamm or jammarcy) and not Game:getFlag("dungeonkiller") then
+				if (jamm or jammarcy) then
 					cutscene:showNametag("Jamm")
 					cutscene:text("* Look,[wait:5] if it's any consolation,[wait:5] I'm an adult.", "neutral", "jamm")
 					cutscene:text("* I'm just...[wait:5] short for my age.", "nervous_left", "jamm")
@@ -817,419 +820,6 @@ return {
         blook:setFacing("down")
     end,
 
-    digicall = function(cutscene, event)
-        if Game:hasDLC("dlc_digimon") and (#Game.party == 1 and Game:hasPartyMember("hero")) and Game:getFlag("jamm_closure") == true and Game:getFlag("marcy_unlocked") == true and (Game:hasUnlockedPartyMember("dess") and Game:hasUnlockedPartyMember("susie") and Game:hasUnlockedPartyMember("noelle") and Game:hasUnlockedPartyMember("brenda")) and (Game:hasUnlockedPartyMember("ceroba") or Game:getFlag("whatevertheflagfordeadcerobais") == true) then
-            Game:setFlag("hometown_digicall", true)
-            Game:setFlag("hometown_digisetup", true)
-            Game.world.music:stop()
-            Assets.playSound("phone")
-            cutscene:wait(1)
-            Assets.playSound("phone")
-            cutscene:wait(1)
-            Assets.playSound("phone")
-            cutscene:wait(1)
-            cutscene:showNametag("Hero")
-            cutscene:text("* ... Huh?", "shocked", "hero")
-            cutscene:text("* That's...[wait:5] odd...", "pout", "hero")
-            cutscene:text("* I don't have a phone,[wait:5] but...[wait:10] There's a ring coming from my pocket...", "suspicious", "hero")
-            cutscene:text("* Might as well see what it is...", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            Assets.playSound("item")
-            cutscene:wait(0.5)
-            cutscene:showNametag("Hero")
-            cutscene:text("* Hello...?", "neutral_closed_b", "hero")
-            cutscene:showNametag("???")
-            cutscene:text("* Greetings, Hero.")
-            cutscene:text("* You,[wait:5] along side seven other people,[wait:5] have been chosen for something very special.")
-            cutscene:text("* Please make your way to the library.")
-            cutscene:text("* Once all eight of you make it,[wait:5] open the door to the computer lab.")
-            cutscene:text("* Your destiny awaits,[wait:5] Hero.")
-            cutscene:hideNametag()
-            Assets.playSound("item")
-            cutscene:text("[voice:nil]* (Click)")
-            cutscene:showNametag("Hero")
-            cutscene:text("* ...", "shocked", "hero")
-            cutscene:text("* What WAS that...?", "shocked", "hero")
-            local hero = cutscene:getCharacter("hero_lw")
-            hero:setFacing("down")
-            cutscene:text("* Do YOU have any idea who that was?", "neutral_closed_b", "hero")
-            cutscene:hideNametag()
-            local choice = cutscene:choicer({"No clue", "Could be\nGaster?"})
-            cutscene:showNametag("Hero")
-            if choice == 1 then
-                cutscene:text("* That makes two of us then.", "neutral_closed", "hero")
-                cutscene:text("* Well,[wait:5] we should see who,[wait:5] or what,[wait:5] called me.", "neutral_closed_b", "hero")
-            else
-                cutscene:text("* ...", "really", "hero")
-                cutscene:text("* I've talked with Gaster before,[wait:5] he sounds nothing like that.", "pout", "hero")
-                cutscene:text("* Seriously,[wait:5] what is up with people nowadays...", "suspicious", "hero")
-                cutscene:text("* ... thinking everything is related to him?", "suspicious", "hero")
-                cutscene:text("* Uh,[wait:5] regardless,[wait:5] [face:neutral_closed]we should head to the library.", "shocked", "hero")
-            end
-            cutscene:hideNametag()
-            hero:setFacing("up")
-            event:remove()
-        end
-    end,
-
-    digiwrongway_a = function(cutscene, event)
-        if Game:getFlag("hometown_digisetup") == true then
-            cutscene:showNametag("Hero")
-            cutscene:text("* That's the wrong way.", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            local hero = cutscene:getCharacter("hero_lw")
-            cutscene:wait(cutscene:walkTo(hero, hero.x, hero.y - 80, 1))
-        end
-    end,
-
-    digiwrongway_b = function(cutscene, event)
-        if Game:getFlag("hometown_digisetup") == true then
-            cutscene:showNametag("Hero")
-            cutscene:text("* That's the wrong way.", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            local hero = cutscene:getCharacter("hero_lw")
-            cutscene:wait(cutscene:walkTo(hero, hero.x + 80, hero.y, 1))
-        end
-    end,
-
-    digiwrongway_c = function(cutscene, event)
-        if Game:getFlag("hometown_digisetup") == true then
-            cutscene:showNametag("Hero")
-            cutscene:text("* That's the wrong way.", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            local hero = cutscene:getCharacter("hero_lw")
-            cutscene:wait(cutscene:walkTo(hero, hero.x - 80, hero.y, 1))
-        end
-    end,
-
-    digiwrongway_d = function(cutscene, event)
-        if Game:getFlag("hometown_digisetup") == true then
-            cutscene:showNametag("Hero")
-            cutscene:text("* That's the wrong way.", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            local hero = cutscene:getCharacter("hero_lw")
-            cutscene:wait(cutscene:walkTo(hero, hero.x, hero.y + 80, 1))
-        end
-    end,
-
-    digi_library = function(cutscene, event)
-        local hero = cutscene:getCharacter("hero_lw")
-        local susie = cutscene:getCharacter("susie_lw")
-        local noelle = cutscene:getCharacter("noelle_lw")
-        local dess = cutscene:getCharacter("dess")
-        local ceroba = cutscene:getCharacter("ceroba")
-        local brenda = cutscene:getCharacter("brenda_lw")
-        local jammarcy = cutscene:getCharacter("jammarcy_light")
-        Game.world.music:fade(0, 0.5)
-        cutscene:walkTo(hero, hero.x, hero.y - 40, 2)
-        cutscene:wait(0.5)
-        susie:alert()
-        noelle:alert()
-        dess:alert()
-        ceroba:alert()
-        brenda:alert()
-        jammarcy:alert()
-        cutscene:wait(0.5)
-        susie:resetSprite()
-        dess:setFacing("left")
-        ceroba:setFacing("down")
-        brenda:setFacing("left")
-        jammarcy:setFacing("right")
-        cutscene:showNametag("Susie", {top = false})
-        cutscene:text("* Hero?[wait:5] The hell're you doing here?", "surprise", "susie", {top = false})
-        cutscene:text("* Wait,[wait:5] did you get a weird phone-call too?", "annoyed", "susie", {top = false})
-        cutscene:showNametag("Hero")
-        cutscene:text("* Yup,[wait:5] I'm guessing you guys all had that call too?", "neutral_closed_b", "hero")
-        cutscene:showNametag("Ceroba", {top = false})
-        cutscene:text("* Mhm.", "closed_eyes", "ceroba", {top = false})
-        cutscene:showNametag("Brenda")
-        cutscene:text("* Yeah,[wait:5] I got kinda spooked because I almost never get calls.", "smile_b", "brenda_lw")
-        cutscene:showNametag("Noelle", {top = false})
-        cutscene:text("* Me too,[wait:5] I a-almost had a heart attack, fahah!", "blush_finger", "noelle", {top = false})
-        cutscene:showNametag("Dess")
-        cutscene:text("* oh yeah,[wait:5] i'm the chosen one, baby", "heckyeah", "dess")
-        cutscene:showNametag("Jamm")
-        cutscene:text("* You're acting like you're the only one who got this call.", "suspicious", "jamm")
-        cutscene:showNametag("Marcy")
-        cutscene:text("* Papa,[wait:5] this makes Marcy special,[wait:5] right?", "smile", "marcy")
-        cutscene:showNametag("Jamm")
-        cutscene:text("* You've always been special, Marcy.", "side_smile", "jamm")
-        cutscene:text("* I guess this just makes you even more special,[wait:5] haha!", "happy", "jamm")
-        cutscene:showNametag("Ceroba", {top = false})
-        cutscene:text("* ...", "dissapproving_1", "ceroba", {top = false})
-        cutscene:text("* So,[wait:5] I suppose that makes all eight of us here?", "neutral", "ceroba", {top = false})
-        cutscene:showNametag("Hero")
-        cutscene:text("* Looks like it.", "neutral_closed", "hero")
-        cutscene:text("* You guys ready to head into the computer lab?", "neutral_closed_b", "hero")
-        cutscene:showNametag("Susie", {top = false})
-        cutscene:text("* Yeah,[wait:5] you head in whenever you're ready,[wait:5] and we'll follow.", "smirk", "susie", {top = false})
-        cutscene:showNametag("Hero")
-        cutscene:text("* Got it.", "happy", "hero")
-        cutscene:hideNametag()
-        susie:setSprite("chill")
-        dess:setFacing("up")
-        ceroba:setFacing("left")
-        brenda:setFacing("right")
-        jammarcy:setFacing("up")
-    end,
-
-    digiwrongway_library = function(cutscene, event)
-        if Game:getFlag("hometown_digisetup") == true then
-            cutscene:showNametag("Hero")
-            cutscene:text("* No going back now.", "neutral_closed", "hero")
-            cutscene:hideNametag()
-            local hero = cutscene:getCharacter("hero_lw")
-            cutscene:wait(cutscene:walkTo(hero, hero.x, hero.y - 80, 1))
-        end
-    end,
-
-    digi_brenda = function(cutscene, event)
-        if cutscene:getCharacter("hero_lw").facing == "right" then
-            event:setFacing("left")
-        else
-            event:setFacing("up")
-        end
-        cutscene:showNametag("Brenda")
-        cutscene:text("* Man,[wait:5] I wonder who was calling us.", "down", "brenda_lw")
-        cutscene:text("* It wasn't a voice I recognized,[wait:5] so it can't be anyone I know.", "neutral", "brenda_lw")
-        cutscene:hideNametag()
-        event:setFacing("right")
-    end,
-
-    digi_dess = function(cutscene, event)
-        event:setFacing("left")
-        cutscene:showNametag("Dess")
-        cutscene:text("* hell yeah i'm special and you guys are not", "condescending", "dess")
-        cutscene:getCharacter("jammarcy_light"):setFacing("right")
-        cutscene:showNametag("Jamm")
-        cutscene:text("* Didn't I just say we all got this call?", "determined", "jamm")
-        cutscene:showNametag("Dess")
-        cutscene:text("* lalalalala can't hear you", "calm_b", "dess")
-        cutscene:hideNametag()
-        event:setFacing("up")
-        cutscene:getCharacter("jammarcy_light"):setFacing("up")
-    end,
-
-    digi_ceroba = function(cutscene, event)
-        cutscene:showNametag("Ceroba")
-        cutscene:text("* I'm worried that this could be a trap.", "dissapproving", "ceroba")
-        cutscene:showNametag("Susie")
-        cutscene:text("* Nah,[wait:5] I don't think there's anyone in town that'd do that.", "neutral_side", "susie")
-        cutscene:text("* If anything,[wait:5] it's gonna be a surprise party!", "smile", "susie")
-        cutscene:text("* Man I hope there's lots of cake,[wait:5] ice cream,[wait:5]\nham sandwiches...", "sincere_smile", "susie")
-        cutscene:showNametag("Ceroba")
-        cutscene:text("* ...[wait:10]\n[face:unsure_alt]* You're drooling.", "wat", "ceroba")
-        cutscene:showNametag("Susie")
-        cutscene:text("* Oh,[wait:5] oops.", "shock_down", "susie")
-        cutscene:text("* Besides,[wait:5] even if it IS a trap...", "closed_grin", "susie")
-        cutscene:text("* We can just kick the ass of whoever's behind it to next Sunday.", "teeth_smile", "susie")
-        cutscene:showNametag("Ceroba")
-        cutscene:text("* I guess you're right,[wait:5] Susie.", "closed_eyes", "ceroba")
-        cutscene:showNametag("Susie")
-        cutscene:text("* I'm always right!", "closed_grin", "susie")
-        cutscene:text("* Uh,[wait:5] except for when I'm not.", "shock_nervous", "susie")
-        cutscene:hideNametag()
-    end,
-
-    digi_susie = function(cutscene, event)
-        cutscene:showNametag("Susie")
-        cutscene:text("* You can go in whenever you're ready, Hero.", "neutral", "susie")
-        cutscene:text("* We'll be right behind you!", "sincere_smile", "susie")
-        cutscene:hideNametag()
-    end,
-
-    digi_noelle = function(cutscene, event)
-        if cutscene:getCharacter("hero_lw").facing == "left" then
-            event:setFacing("right")
-        end
-        cutscene:showNametag("Noelle")
-        cutscene:text("* G-gosh,[wait:5] I h-hope there isn't some sorta prank waiting for us.", "blush_smile", "noelle")
-        cutscene:text("* I think I'd literally DIE if it's Kris trying to spook me again,[wait:5] faha!", "blush_smile_closed", "noelle")
-        cutscene:text("* G-gosh,[wait:5] but then I'd b-be able to hold Susie for safety,[wait:5] a-and...", "blush_smile", "noelle")
-        cutscene:showNametag("Susie")
-        cutscene:text("* Huh?[wait:10] You said somethin' about me, Noelle?", "surprise", "susie")
-        cutscene:showNametag("Noelle")
-        event:setSprite("shocked")
-        cutscene:text("* H-huh?!", "shock", "noelle")
-        event:resetSprite()
-        event:setFacing("right")
-        cutscene:text("* O-oh, um,[wait:5] n-not at all, Susie,[wait:5] fahahaha!", "blush_big_smile", "noelle")
-        cutscene:showNametag("Susie")
-        cutscene:text("* If you say so.", "suspicious", "susie")
-        cutscene:showNametag("Noelle")
-        event:setFacing("down")
-        cutscene:text("* ...", "blush_side", "noelle")
-        cutscene:showNametag("Hero")
-        cutscene:text("* ...", "shocked", "hero")
-        cutscene:hideNametag()
-    end,
-
-    digi_jammarcy = function(cutscene, event)
-        cutscene:showNametag("Marcy")
-        cutscene:text("* Marcy can't wait to see what's in the computer lab!", "happy", "marcy")
-        cutscene:text("* What if it's a gift just for Marcy?", "happy_closed", "marcy")
-        cutscene:showNametag("Jamm")
-        cutscene:text("* Settle down, Marcy,[wait:5] we gotta wait for Hero to be ready first.", "look_left", "jamm")
-        cutscene:text("* (Also,[wait:5] you're not the only one invited here...)", "look_left", "jamm")
-        cutscene:showNametag("Marcy")
-        cutscene:text("* Aww...[wait:5] but Marcy wants to go now...", "sad", "marcy")
-        cutscene:showNametag("Jamm")
-        cutscene:text("* I'm sure they'll be ready soon.", "smile", "jamm")
-        cutscene:hideNametag()
-    end,
-
-    digicomputer = function(cutscene, event)
-        local hero = cutscene:getCharacter("hero_lw")
-        local susie = cutscene:getCharacter("susie_lw")
-        local noelle = cutscene:getCharacter("noelle_lw")
-        local dess = cutscene:getCharacter("dess")
-        local ceroba = cutscene:getCharacter("ceroba")
-        local brenda = cutscene:getCharacter("brenda_lw")
-        local jammarcy = cutscene:getCharacter("jammarcy_light")
-        local computer = cutscene:getCharacter("digicomputer")
-        cutscene:wait(0.5)
-        hero:alert()
-        cutscene:wait(0.5)
-        Game.world.music:play("deltarune/creepydoor", 1, 1)
-        cutscene:showNametag("Hero")
-        cutscene:text("* Huh?[wait:10] It's a...[wait:5] computer?", "shocked", "hero")
-        cutscene:hideNametag()
-        cutscene:walkTo(hero, computer.x - 10, computer.y + 40, 2)
-        cutscene:walkTo(susie, susie.x, susie.y - 120, 1)
-        cutscene:walkTo(noelle, noelle.x, noelle.y - 120, 1)
-        cutscene:walkTo(dess, dess.x, dess.y - 120, 1)
-        cutscene:walkTo(ceroba, ceroba.x, ceroba.y - 120, 1)
-        cutscene:walkTo(brenda, brenda.x, brenda.y - 120, 1)
-        cutscene:walkTo(jammarcy, jammarcy.x, jammarcy.y - 120, 1)
-        cutscene:wait(1)
-        cutscene:walkTo(susie, 280, 280, 1, "right")
-        cutscene:walkTo(noelle, 410, 310, 1, "left")
-        cutscene:walkTo(dess, 420, 370, 1, "left")
-        cutscene:walkTo(brenda, 350, 390, 1, "up")
-        cutscene:walkTo(jammarcy, 260, 340, 1, "right")
-        cutscene:walkTo(ceroba, 220, 385, 1, "right")
-        cutscene:wait(1)
-        cutscene:showNametag("Noelle", {top = true})
-        cutscene:text("* I d-don't think I've seen this computer in here before.", "afraid", "noelle", {top = true})
-        cutscene:showNametag("Susie", {top = true})
-        cutscene:text("* You think the person who called us put it here?", "suspicious", "susie", {top = true})
-        cutscene:showNametag("Brenda", {top = true})
-        cutscene:text("* Seems likely to me.", "neutral", "brenda_lw", {top = true})
-        cutscene:text("* But why would they put it here?", "down", "brenda_lw", {top = true})
-        cutscene:showNametag("Dess", {top = true})
-        cutscene:text("* oh oh oh maybe they want us to play space pinball", "teehee", "dess", {top = true})
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* It's not even plugged in,[wait:5] Dess.", "really", "hero", {top = true})
-        cutscene:showNametag("Susie", {top = true})
-        cutscene:text("* Damnit!", "teeth", "susie", {top = true})
-        cutscene:showNametag("Jamm", {top = true})
-        cutscene:text("* Susie,[wait:5] please.[wait:10]\n* My daughter is right here.", "stern", "jamm", {top = true})
-        cutscene:showNametag("Ceroba", {top = true})
-        cutscene:text("* Hmm...[wait:5] All of this is so strange...", "closed_eyes", "ceroba", {top = true})
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* That's odd...", "annoyed", "hero", {top = true})
-        cutscene:text("* Even though it's not plugged in,[wait:5] the lights are still on...", "suspicious", "hero", {top = true})
-        cutscene:showNametag("Susie", {top = true})
-        cutscene:text("* Maybe you should turn it on then?", "neutral", "susie", {top = true})
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* It's worth a shot...", "pout", "hero", {top = true})
-        cutscene:hideNametag()
-        cutscene:wait(0.2)
-        Assets.playSound("noise")
-        cutscene:wait(3)
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* ...", "neutral_closed", "hero", {top = true})
-        cutscene:hideNametag()
-        cutscene:wait(3)
-        cutscene:showNametag("Hero", {top = true})
-        hero:setFacing("down")
-        cutscene:text("[noskip]* Well,[wait:5] I dunno what I was expecti", "annoyed", "hero", {auto = true, top = true})
-        cutscene:hideNametag()
-        hero:setFacing("up")
-        cutscene:slideTo(hero, hero.x, hero.y + 20, 0.5, "out-cubic")
-        susie:setSprite("shock_down")
-        computer:setSprite("on")
-        computer:flash()
-        Game.world.music:stop()
-        Assets.playSound("great_shine")
-        cutscene:wait(2)
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* ...", "shocked", "hero", {top = true})
-        cutscene:showNametag("Susie", {top = true})
-        cutscene:text("* ...", "shock", "susie", {top = true})
-        susie:resetSprite()
-        cutscene:text("* Did...[wait:10] Did it just turn on?", "shock_nervous", "susie", {top = true})
-        cutscene:showNametag("Noelle", {top = true})
-        cutscene:text("* The screen's so bright,[wait:5] I c-can't see anything on it...", "surprise_frown_b", "noelle", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        Game.world.music:play("deltarune/deep_noise", 0, 1)
-        Game.world.music:fade(1, 1)
-        noelle:setSprite("shocked")
-        cutscene:wait(1)
-        cutscene:showNametag("Noelle", {top = true})
-        cutscene:text("* Hey,[wait:5] d-did you guys feel that?", "shock_b", "noelle", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("* I...[wait:5] I can't...", "shocked", "hero", {top = true})
-        cutscene:hideNametag()
-        susie:setSprite("shock_down")
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Susie", {top = true})
-        cutscene:text("* Why can't I move?!", "bangs/nervous_b", "susie", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Marcy", {top = true})
-        cutscene:text("* Papa![wait:10] Marcy's scared!", "surprised", "marcy", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Jamm", {top = true})
-        cutscene:text("* Just keep holding onto me,[wait:5] okay?!", "ouch", "jamm", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Dess", {top = true})
-        cutscene:text("* hm yes i appear to be in immense pain right now", "mspaint", "dess", {top = true})
-        cutscene:hideNametag()
-        ceroba:setSprite("flashback/worried")
-        ceroba.flip_x = true
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Ceroba", {top = true})
-        cutscene:text("* W-what the hell is going on?!", "confounded", "ceroba", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Brenda", {top = true})
-        cutscene:text("* I DON'T WANNA DIE![wait:5]\n* I DON'T WANNA DIE!![wait:5]\n* I DON'T WANNA DIE!!!", "crying", "brenda_lw", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:showNametag("Hero", {top = true})
-        cutscene:text("[noskip][speed:0.5]* Everything's...[wait:5][speed:0.3]\n* going.....[wait:10][speed:0.15]\n* numb..........", "shade", "hero", {top = true})
-        cutscene:hideNametag()
-        Game.world:shake(5)
-        Assets.playSound("closet_impact")
-        cutscene:wait(1)
-        cutscene:wait(cutscene:fadeOut(3, {color = {1,1,1}}))
-        Game.world.music:fade(0, 1)
-        cutscene:wait(2)
-    end,
-
     sans = function(cutscene, event)
         local susie = cutscene:getCharacter("susie_lw")
         cutscene:showNametag("sans.", {font = "sans"})
@@ -1257,7 +847,7 @@ return {
         end
         cutscene:text("[font:sans]* you need somethin'?", "neutral", "sans")
         cutscene:hideNametag()
-        local choice = cutscene:choicer({"When can\nwe see your\nbrother?", "Nothing"})
+        local choice = cutscene:choicer({"When can\nwe see your\nbrother?", "Nothing"}, {offset_y_1 = -32})
         cutscene:showNametag("sans.", {font = "sans"})
         if choice == 1 then
             cutscene:text("[font:sans]* you wanna see my brother,[wait:5] huh?", "look_left", "sans")
@@ -1400,5 +990,73 @@ return {
                 cutscene:text("* Coward.", "smile", "susie")
             end
         end
-    end
+    end,
+
+    noellegate = function(cutscene, event)
+        local susie = Game.world:getCharacter("susie_lw")
+        cutscene:text("* (It's an ornate gate.)\n[wait:5]* (It appears to be locked.)")
+        cutscene:runIf(susie and not Game:getFlag("holiday_mansion_quest_started"), function(cutscene)
+			cutscene:text("* You know...[wait:5] Come to think of it...", "nervous", "susie")
+            cutscene:text("* I haven't seen Noelle...[wait:5] In,[wait:5] like...[wait:5] A while.", "sus_nervous", "susie")
+            cutscene:textVariant("* Is that your friend?", {
+                hero = "neutral_closed_b",
+                ceroba = "neutral",
+			    jamm = "neutral"
+		    }, {priority={ -- --> order of piority
+		    	"hero", "ceroba", "jamm"
+		    }})
+            if Game:hasPartyMember("hero") or Game:hasPartyMember("ceroba") or Game:hasPartyMember("jamm") then
+                cutscene:text("* Yeah,[wait:5] she...[wait:5] She is.", "annoyed_down_smile", "susie")
+            else
+                cutscene:text("* She's sort of a friend of mine", "annoyed_down_smile", "susie")
+            end
+            cutscene:text("* Actually,[wait:5] I was at her house once with Kris.", "smile", "susie")
+            if Game:getFlag("POST_SNOWGRAVE") then
+                cutscene:text("* Though,[wait:5] it was kind of...[wait:5] Weird?", "sus_nervous", "susie")
+                cutscene:text("* It was fine until she said she needs to talk with Kris.", "sus_nervous", "susie")
+            else
+                cutscene:text("* And we had a pretty good time!", "sincere_smile", "susie")
+                cutscene:text("* Explored her basement,[wait:5] found a mouse...", "small_smile", "susie")
+                cutscene:text("* I even got to play guitar a bit!", "sincere_smile", "susie")
+            end
+            cutscene:text("* But then,[wait:5] like...[wait:5] Her mom came home and...", "suspicious", "susie")
+            cutscene:text("* Kinda kicked us all out.", "nervous", "susie")
+            cutscene:text("* And I haven't seen her since.", "neutral_side", "susie")
+            cutscene:wait(1)
+            susie:setSprite("shock_down")
+            susie:shake()
+            Assets.playSound("wing")
+            cutscene:wait(1)
+            cutscene:text("* OH SHOOT,[wait:5] I haven't seen her SINCE!", "shock", "susie")
+            susie:resetSprite()
+            cutscene:text("* Something TOTALLY happened!", "surprise_frown", "susie")
+            cutscene:text("* Normally I wouldn't say we should break in,[wait:5] buuut...", "nervous_side", "susie")
+            cutscene:text("* We should totally break in.", "closed_grin", "susie")
+            local susieline = "* Thoguh,[wait:5] for that we need to open that gate."
+            cutscene:runIfExists("dess", function(cutscene, dess)
+			    cutscene:text("* 'kay now you're talking my language pal", "challenging", dess)
+			    cutscene:text("* one hit with my trusty bat and the gate is no more", "swag", dess)
+                cutscene:text("* No.", "annoyed", "susie")
+                cutscene:text("* hell you mean no?", "annoyed", dess)
+                cutscene:text("* Her mom is like,[wait:5] the mayor.[wait:5] We're gonna get in BIG trouble.", "annoyed", "susie")
+                cutscene:text("* you're so lame man", "eyebrow", dess)
+                susieline = "* We need some way to OPEN that thing."
+		    end)
+            cutscene:text(susieline, "suspicious", "susie")
+            cutscene:textVariant("* Any suggestion on where should we start?", {
+                hero = "neutral_closed",
+                ceroba = "alt",
+			    jamm = "look_left"
+		    }, {priority={ -- --> order of piority
+		    	"hero", "ceroba", "jamm"
+		    }})
+            cutscene:text("* Well,[wait:5] since her mom is like,[wait:5] the [color:red]mayor[color:reset] and stuff...", "nervous", "susie")
+            cutscene:text("* She should have something like a spare key,[wait:5] right?", "nervous_side", "susie")
+            cutscene:text("* Maybe at her...[wait:5] Workplace?", "suspicious", "susie")
+            cutscene:text("* So let's start looking there then.", "smile", "susie")
+            Game:setFlag("holiday_mansion_quest_started", true)
+            Game:getQuest("holiday_mansion"):unlock()
+            Assets.playSound("dimbox", 0.7)
+		end)
+    end,
 }

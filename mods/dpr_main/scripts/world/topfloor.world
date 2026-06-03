@@ -1,0 +1,27 @@
+{
+    "maps": [
+        {
+            "fileName": "maps/topfloor/elevator.tmx",
+            "height": 480,
+            "width": 640,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "maps/topfloor/ambush.tmx",
+            "height": 600,
+            "width": 720,
+            "x": 720,
+            "y": -40
+        },
+        {
+            "fileName": "maps/topfloor/corridor1.tmx",
+            "height": 480,
+            "width": 1800,
+            "x": 1520,
+            "y": 280
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

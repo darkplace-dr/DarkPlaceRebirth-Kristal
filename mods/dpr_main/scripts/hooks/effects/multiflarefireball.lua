@@ -1,6 +1,6 @@
 ---@class MultiFlareFireball : Sprite
 ---@overload fun(...) : MultiFlareFireball
-local MultiFlareFireball, super = Utils.hookScript(MultiFlareFireball)
+local MultiFlareFireball, super = HookSystem.hookScript(MultiFlareFireball)
 
 function MultiFlareFireball:init(x, y, tx, ty, after)
     super.init(self, x, y, tx, ty, after)

@@ -14,7 +14,7 @@ function greyarea:onEnter()
 
 
 
-        love.event.quit()
+        love.event.quit("restart")
     end
 
 

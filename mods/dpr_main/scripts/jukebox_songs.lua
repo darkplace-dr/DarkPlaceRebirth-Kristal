@@ -6,7 +6,7 @@ return {
     composer = "J.A.R.U.",
     released = "March 2nd, 2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 57.122
   },
   {
@@ -15,7 +15,7 @@ return {
     composer = "SadDiamondMan",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 100
   },
   {
@@ -24,7 +24,7 @@ return {
     composer = "Spunky Tunky",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 137
   },
   {
@@ -33,7 +33,7 @@ return {
     composer = "J.A.R.U.",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 95
   },
   {
@@ -42,7 +42,7 @@ return {
     composer = "J.A.R.U.",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 100
   },
   {
@@ -51,7 +51,7 @@ return {
     composer = "JustAnAverageChilly",
     released = "2024",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 132
   },
   {
@@ -60,7 +60,7 @@ return {
     composer = "Charbomber",
     released = "2023",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 117
   },
   {
@@ -69,7 +69,7 @@ return {
     composer = "BrendaK7200",
     released = "2023",
     origin = "Dark Place",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 96
   },
   {
@@ -78,7 +78,7 @@ return {
     composer = "BrendaK7200",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 140
   },
   {
@@ -87,7 +87,7 @@ return {
     composer = "Tritra Serpifeu",
     released = "2025",
     origin = "Dark Place: REBIRTH",
-    album = "dark_place_with_text",
+    album = "dark_place",
     bpm = 55.5
   },
   {
@@ -240,7 +240,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 145
   },
   {
@@ -249,7 +249,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 130
   },
   {
@@ -258,7 +258,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 85
   },
   {
@@ -267,7 +267,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 100
   },
   {
@@ -276,7 +276,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4"
+    album = "dr_ch3n4"
   },
   {
     name = "TV WORLD",
@@ -284,7 +284,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 145
   },
   {
@@ -293,7 +293,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 148
   },
   {
@@ -302,7 +302,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 140.75
   },
   {
@@ -311,7 +311,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 125
   },
   {
@@ -320,7 +320,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "DELTARUNE Chapter 4",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 190
   },
   {
@@ -329,7 +329,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 265
   },
   {
@@ -338,7 +338,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 160
   },
   {
@@ -347,7 +347,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 78
   },
   {
@@ -356,7 +356,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 130
   },
   {
@@ -365,7 +365,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 140
   },
   {
@@ -374,7 +374,7 @@ return {
     composer = "Toby Fox",
     released = "2025",
     origin = "Deltarune",
-    album = "dr_ch3_4",
+    album = "dr_ch3n4",
     bpm = 108.8
   },
   {
@@ -464,7 +464,7 @@ return {
     composer = "Keiichi Suzuki, Hirokazu Tanaka",
     released = "1994",
     origin = "MOTHER 2/Earthbound",
-    album = "mother_2",
+    album = "mother_two",
     bpm = 151.36
   },
   {
@@ -481,27 +481,27 @@ return {
     file = "Same Old Story",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 86
+    bpm = 174
   },
   {
     name = "Face Down",
     file = "facedown",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 161 -- has silence at start
+    bpm = 160
   },
   {
     name = "Wherever We Are Now",
     file = "whereverwearenow",
     composer = "Joel Baylis",
     released = "2023",
-    origin = "Casette Beasts",
+    origin = "Cassette Beasts",
     album = "casette_beasts",
-    bpm = 105 -- has silence at start
+    bpm = 105
   },
   --{
   --  name = "WHATCHACALLITSNAME (Cover)",

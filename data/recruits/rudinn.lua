@@ -1,13 +1,13 @@
-local rudinn, super = Class(Recruit)
+local Rudinn, super = Class(Recruit)
 
-function rudinn:init()
+function Rudinn:init()
     super.init(self)
 
     -- Display Name
     self.name = "Rudinn"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 3
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 1
@@ -31,12 +31,12 @@ function rudinn:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/rudinn/idle", 0, 12, 4/30}
+    self.box_sprite = {"recruits/rudinn/overworld", -3, 30, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return rudinn
+return Rudinn

@@ -1,13 +1,13 @@
-local ponman, super = Class(Recruit)
+local Ponman, super = Class(Recruit)
 
-function ponman:init()
+function Ponman:init()
     super.init(self)
 
     -- Display Name
     self.name = "Ponman"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 2
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 3
@@ -31,12 +31,12 @@ function ponman:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/ponman/idle", 0, 12, 4/30}
+    self.box_sprite = {"recruits/ponman/idle", -3, 26, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return ponman
+return Ponman

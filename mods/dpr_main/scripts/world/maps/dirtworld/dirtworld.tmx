@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="45">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="46">
  <editorsettings>
   <export target="dirtworld.lua" format="lua"/>
  </editorsettings>
@@ -146,23 +146,7 @@
  </objectgroup>
  <objectgroup id="5" name="objects">
   <object id="2" name="elevatordoor" x="360" y="40" width="120" height="40"/>
-  <object id="3" name="darknesstest" x="-40" y="-80" width="200" height="400">
-   <properties>
-    <property name="hide" value="false"/>
-   </properties>
-  </object>
-  <object id="26" name="script" x="160" y="160" width="40" height="120">
-   <properties>
-    <property name="cutscene" value="darktest.show"/>
-    <property name="once" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="27" name="script" x="200" y="160" width="40" height="120">
-   <properties>
-    <property name="cutscene" value="darktest.hide"/>
-    <property name="once" type="bool" value="false"/>
-   </properties>
-  </object>
+  <object id="3" name="squaretestback" x="-40" y="-40" width="240" height="400"/>
   <object id="28" name="interactable" x="560" y="360" width="120" height="40">
    <properties>
     <property name="text" value="* A conveniently-placed tower is blocking you from going further"/>
@@ -185,6 +169,7 @@
    </properties>
    <point/>
   </object>
+  <object id="45" name="squaretest" x="-40" y="-40" width="240" height="400"/>
  </objectgroup>
  <objectgroup id="10" name="markers">
   <object id="34" name="entry_elevator" x="420" y="120">

@@ -669,7 +669,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floortv/green_room",
+            ["map"] = "floortv/legacy/greenroom",
             ["marker"] = "entry_left"
           }
         },

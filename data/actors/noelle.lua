@@ -11,7 +11,7 @@ function actor:init()
     self.height = 46
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {2, 33, 19, 14}
+    self.hitbox = {2, 33, 18, 14}
 
     -- A table that defines where the Soul should be placed on this actor if they are a player.
     -- First value is x, second value is y.
@@ -57,12 +57,16 @@ function actor:init()
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/defeat", 1/15, false},
+        ["battle/succumbed"]    = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
 
         -- Cutscene animations
         ["laugh"]               = {"laugh", 4/30, true},
+
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     -- Alternate animations to use for Noelle weird mode (false to disable the animation)
@@ -162,7 +166,7 @@ function actor:init()
         ["battle/attack"] = {-8, 0},
         ["battle/attackready"] = {0, 0},
         ["battle/act"] = {0, 0},
-        ["battle/actend"] = {0, 0},
+        ["battle/actend"] = {-3, 0},
         ["battle/actready"] = {0, 0},
         ["battle/spell"] = {-3, 0},
         ["battle/spellready"] = {0, 0},

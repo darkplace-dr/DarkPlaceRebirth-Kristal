@@ -3,6 +3,9 @@ local character, super = Class("ralsei", true)
 function character:init()
     super.init(self)
     
+    -- Gives a shield in the light world
+    self.darkner_shield = true
+    
     -- Light world portrait in the menu (saved to the save file)
     self.lw_portrait = Game:getConfig("ralseiStyle") == 1 and "face/ralsei_hat/smile" or "face/ralsei/smile"
     
@@ -16,7 +19,7 @@ function character:init()
     }
     
     -- Default light world equipment item IDs (saves current equipment)
-    self.lw_weapon_default = "custom/scarf"
+    self.lw_weapon_default = "mg/scarf"
     self.lw_armor_default = "light/bandage"
 end
 

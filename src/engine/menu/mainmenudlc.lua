@@ -124,6 +124,8 @@ function MainMenuDLC:onEnter()
 
 		self:setState("MAIN")
 	end
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuDLC:onLeave()
@@ -183,8 +185,8 @@ function MainMenuDLC:onKeyPressedMain(key, is_repeat)
 	elseif Input.isCancel(key) then
 		Assets.stopAndPlaySound("ui_move")
 
-        self.menu:setState("TITLE")
-        self.menu.title_screen:selectOption("dlc")
+        self.menu:setState("SUBTITLE")
+        self.menu.subtitle:selectOption("dlc")
         return true
     elseif (Input.isMenu(key) and not Input.ctrl()) and not is_repeat then
     	Assets.stopAndPlaySound("ui_select")

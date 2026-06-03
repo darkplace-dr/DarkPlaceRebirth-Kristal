@@ -113,6 +113,20 @@ function actor:onSpriteInit(sprite)
     sprite.flame2alpha = 0
     sprite.flamecontimer = 0
     sprite.specialcontimer = 0
+
+    local colors = {{0,0,1}, {0,1,1}, {1,1,0}, {0,1,0}, {1,1,1}, {1,0,1}, {1,0,0}}
+    sprite.emeralds = {}
+    for i = 1, 7, 1 do
+        local emerald = {}
+        table.insert(emerald, Assets.getTexture("effects/chaos_emerald"))
+        table.insert(emerald, colors[i])
+        table.insert(sprite.emeralds, emerald)
+    end
+    sprite.emeraldtimer = 0
+
+    --[[for i, emerald in ipairs(sprite.emeralds) do
+        sprite:addChild(ChaosEmerald(emerald[1], emerald[2], i))
+    end]]
 end
 
 function actor:preSpriteDraw(sprite)
@@ -151,6 +165,12 @@ function actor:preSpriteDraw(sprite)
     else
         Draw.draw(sprite.flame[2], 23/2 + 10, 46, 0, -1/2, 1.4/2, 99/2 + 10, 90)
     end
+
+    sprite.emeraldtimer = sprite.emeraldtimer + DT
+    --[[for i, emerald in ipairs(sprite.emeralds) do
+        love.graphics.setColor(emerald[2])
+        Draw.draw(emerald[1], 23/2 + (math.sin(sprite.emeraldtimer + ((math.pi*2)/7) * i) * 20), 23/2 + (math.cos(sprite.emeraldtimer + ((math.pi*2)/7) * i) * 5), 0, 1.5)
+    end]]
 end
 
 return actor

@@ -41,7 +41,9 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        ceroba = false,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -53,7 +55,7 @@ function item:init()
         brenda = "Its soo sturdy!",
         mario = "Weege!",
         noel = "How can this defend at all?",
-        ceroba = "A bowl...? okay",
+        ceroba = "A bowl? Are you serious?",
     }
 end
 

@@ -1,0 +1,13 @@
+{
+    "id": "rabbick",
+    "authors": [
+        "J.A.R.U.",
+        "Diamond Deltahedron",
+    ],
+    "version": "v1.0.0",
+    "engineVer": "v0.10.0",
+	
+    "config": {
+        "show_act_countdown": false,
+    }
+}

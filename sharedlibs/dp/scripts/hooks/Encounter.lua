@@ -1,8 +1,12 @@
 ---@class Encounter : Encounter
-local Encounter, super = Utils.hookScript(Encounter)
+local Encounter, super = HookSystem.hookScript(Encounter)
 
 function Encounter:init()
     super.init(self)
+
+    if Game:isDessMode() then
+        self.music = "batterup"
+    end
 
     -- Can the player flee the battle?
     self.flee = true
@@ -12,6 +16,18 @@ function Encounter:init()
     ---@type boolean
     -- Prevents the Dojo background from being added on Boss Rushes and Boss Refights
     self.no_dojo_bg = false
+    
+    self.temperature = 50
+end
+
+function Encounter:createBackground()
+    if self.background then
+        if Game:isDessMode() then
+            return Game.battle:addChild(StarsBG({1, 1, 1}))
+        else
+            return super.createBackground(self)
+        end
+    end
 end
 
 ---@return "up"|"down"|"left"|"right"?

@@ -3,16 +3,19 @@ local Shadowguy, super = Class(Encounter)
 function Shadowguy:init()
     super.init(self)
 
-    self.text = "* Shadowguys enter the scene!"
+    self.text = "* Shadowguys play on in."
 
     self.music = "deltarune/rudebuster_boss"
     self.background = true
 
     self.shadows = {
-        self:addEnemy("shadowguy"),
-        self:addEnemy("shadowguy")
+        self:addEnemy("shadowguy", 476 + 58, 70 + 59*2),
+        self:addEnemy("shadowguy", 454 + 58, 168 + 59*2)
     }
-	
+
+	for _,enemy in ipairs(self.shadows) do
+		enemy.shoot_target = "SOCKS"
+	end
 	self.flee = false
 end
 

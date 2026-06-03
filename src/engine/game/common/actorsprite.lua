@@ -110,6 +110,11 @@ end
 function ActorSprite:setTextureExact(texture)
     super.setTextureExact(self, texture)
 
+    -- TODO: Why in the capital F HELL is this needed!?!?
+    if not self.texture_path and type(texture) == "string" then
+        Kristal.Console:warn(string.format("Setting texture to %s somehow caused texture path to be nil", texture))
+        self.texture_path = texture
+    end
     self.sprite_options = self.actor:parseSpriteOptions(self.texture_path)
 end
 
@@ -155,7 +160,7 @@ end
 --- Sets the sprite to either a texture or an animation \
 --- If the current actor has an animation with a name matching `name`, it will be passed into [`ActorSprite:setAnimation()`](lua://ActorSprite.setAnimation). \
 --- Otherwise, it will be passed into [`ActorSprite:setSprite()`](lua://ActorSprite.setSprite).
----@param name                      string|nil
+---@param name                      string?
 ---@param callback?                 fun(sprite: ActorSprite)
 ---@param ignore_actor_callback?    boolean
 function ActorSprite:set(name, callback, ignore_actor_callback)
@@ -358,10 +363,10 @@ end
 ---@return boolean? directional
 ---@return string? separator
 function ActorSprite:isDirectional(texture)
-    if not Assets.getTexture(texture) and not Assets.getFrames(texture) then
-        if Assets.getTexture(texture .. "_left") or Assets.getFrames(texture .. "_left") then
+    if not Assets.hasSprite(texture) then
+        if Assets.hasSprite(texture .. "_left") then
             return true, "_"
-        elseif Assets.getTexture(texture .. "/left") or Assets.getFrames(texture .. "/left") then
+        elseif Assets.hasSprite(texture .. "/left") then
             return true, "/"
         end
     end

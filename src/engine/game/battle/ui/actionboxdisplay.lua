@@ -32,6 +32,15 @@ function ActionBoxDisplay:draw()
     Draw.setColor(PALETTE["action_health_bg"])
     love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
 
+    if self.actbox.battler.succumbed then
+        love.graphics.setFont(self.font)
+        Draw.setColor(1, 0, 0)
+        love.graphics.print("SUCCUMBED", 129, 9 - self.actbox.data_offset)
+
+        super.draw(self)
+        return
+    end
+
     local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
 
     if health > 0 then

@@ -48,11 +48,11 @@ function item:init()
     -- Character reactions
     self.reactions = {
         susie = "Nope. Not again.",
-        ralsei = "",
+        ralsei = "An interesting shape!",
         noelle = "(It kind of reminds me of...)",
         jamm = "How does this even work...?",
-		    dess = "let's rock",
-        ceroba = "Looks great, but... No."
+		dess = "let's rock",
+        ceroba = "Huh? That's a BAT?"
     }
 end
 

@@ -1,23 +1,20 @@
 ---@class MainMenu : StateManagedClass
 local MainMenu = {}
 
-MainMenu.BACKGROUND_SHADER = love.graphics.newShader([[
-    extern number bg_sine;
-    extern number bg_mag;
-    extern number wave_height;
-    extern number sine_mul;
-    extern vec2 texsize;
-    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
-    {
-        number i = texture_coords.y * texsize.y;
-        number bg_minus = ((bg_mag * (i / wave_height)) * 1.3);
-        number wave_mag = max(0.0, bg_mag - bg_minus);
-        vec2 coords = vec2(max(0.0, min(1.0, texture_coords.x + (sine_mul * sin((i / 8.0) + (bg_sine / 30.0)) * wave_mag) / texsize.x)), max(0.0, min(1.0, texture_coords.y + 0.0)));
-        return Texel(texture, coords) * color;
-    }
-]])
-
 function MainMenu:init()
+    self.border_back = love.graphics.newImage("assets/sprites/kristal/title/border_back.png")
+    self.border_front = love.graphics.newImage("assets/sprites/kristal/title/border_front.png")
+
+    local date = os.date("*t")
+    if date.month == 4 and date.day == 1 then
+        self.border_back = love.graphics.newImage("assets/sprites/kristal/title/fool_back.png")
+        self.border_front = love.graphics.newImage("assets/sprites/kristal/title/fool_front.png")
+    end
+
+    self.border_scroll = 0
+
+    self.splash_list = self:require("splashes")
+    MainMenu.BACKGROUND_SHADER = Assets.getShader("kristal/main_menu_background")
 end
 
 function MainMenu:enter()
@@ -40,6 +37,7 @@ function MainMenu:enter()
 
     -- Initialize all states
     self.title_screen = MainMenuTitle(self)
+    self.subtitle = MainMenuSubtitle(self)
     self.options = MainMenuOptions(self)
     self.credits = MainMenuCredits(self)
     self.mod_list = MainMenuModList(self)
@@ -54,12 +52,14 @@ function MainMenu:enter()
     self.deadzone_config = MainMenuDeadzone(self)
     self.dlc_list = MainMenuDLC(self)
     self.warning = MainMenuWarning(self)
+    self.achievements = MainMenuAchievements(self)
     self.plugins = MainMenuPlugins(self)
 
     -- Register states
     self.state = "NONE"
     self.state_manager = StateManager("NONE", self, true)
     self.state_manager:addState("TITLE", self.title_screen)
+    self.state_manager:addState("SUBTITLE", self.subtitle)
     self.state_manager:addState("OPTIONS", self.options)
     self.state_manager:addState("CREDITS", self.credits)
     self.state_manager:addState("MODSELECT", self.mod_list)
@@ -74,6 +74,7 @@ function MainMenu:enter()
     self.state_manager:addState("DEADZONE", self.deadzone_config)
     self.state_manager:addState("DLC", self.dlc_list)
     self.state_manager:addState("WARNING", self.warning)
+    self.state_manager:addState("ACHIEVEMENTS", self.achievements)
     self.state_manager:addState("plugins", self.plugins)
 
     for _, mod in ipairs(Kristal.Mods.getMods()) do
@@ -124,6 +125,8 @@ function MainMenu:enter()
         self.music:play("mod_menu", 1, 0.95)
     end
 
+    self.splash = Utils.pick(self.splash_list)
+
     if #Kristal.Mods.failed_mods > 0 then
         self:setState("MODERROR")
     elseif Kristal.Config["seenLegitWarning"] and Kristal.Config["skipIntro"] then
@@ -141,28 +144,33 @@ function MainMenu:enter()
         instance = 1
     })
 
-    self.version_outdated = false
-    GitFinder:fetchLatestCommit(function(status, body, headers)
-        if status == nil then return end -- request failed somehow (no SSL?)
-        if status < 200 or status >= 300 then return end -- non-success status code
+    if not RELEASE_MODE then
+        -- We're in an interm build, so check updates
+        GitFinder:fetchLatestCommit(function(status, body, headers)
+            if status == nil then return end -- request failed somehow (no SSL?)
+            if status < 200 or status >= 300 then return end -- non-success status code
 
-        local current_commit = GitFinder:fetchCurrentCommit()
-        if current_commit ~= body then
-            --[[
-            self.ver_string = "v" .. tostring(Kristal.Version)
-            if trimmed_commit then
-                self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
+            local current_commit = GitFinder:fetchCurrentCommit()
+            if current_commit ~= body then
+                self.ver_string = "v" .. tostring(Kristal.Version)
+                if trimmed_commit then
+                    self.ver_string = self.ver_string .. " (" .. trimmed_commit .. ")"
+                end
+                self.ver_string = self.ver_string .. " (outdated!)"
             end
-            self.ver_string = self.ver_string .. " (outdated!)"
-            ]]
-            self.version_outdated = true
-        end
-    end)
+        end)
+    end
 
     if TARGET_MOD then
         self.selected_mod = self.mod_list:getSelectedMod()
         self.selected_mod_button = self.mod_list:getSelectedButton()
     end
+
+    self.border_scroll = 0
+end
+
+function MainMenu:require(module, ...)
+    return love.filesystem.load("mods/dpr_main/preview/" .. module:gsub("%.", "/") .. ".lua")(...)
 end
 
 function MainMenu:leave()
@@ -332,11 +340,20 @@ function MainMenu:update()
             Kristal.Shatter.active = false
         end
     end
+
+    self.border_scroll = self.border_scroll + DT
 end
 
 function MainMenu:draw()
     -- Draw the menu background
     self:drawBackground()
+
+    Draw.setColor(1, 1, 1, 1)
+    Draw.drawWrapped(self.border_back, true, false, self.border_scroll * 10, 15)
+    Draw.drawWrapped(self.border_front, true, false, self.border_scroll * 8, 0)
+
+    Draw.drawWrapped(self.border_back, true, false, -self.border_scroll * 10, 465, math.rad(180))
+    Draw.drawWrapped(self.border_front, true, false, -self.border_scroll * 8, 480, math.rad(180))
 
     love.graphics.setFont(self.menu_font)
 
@@ -515,7 +532,7 @@ function MainMenu:drawVersion()
 
         love.graphics.setFont(self.small_font)
         Draw.setColor(1, 1, 1, 0.5)
-        love.graphics.print(ver_string, 4, ver_y)
+        love.graphics.printf(ver_string, 4, ver_y, SCREEN_WIDTH, "left")
 
         if self.selected_mod and not TARGET_MOD then
             local compatible, mod_version = self.mod_list:checkCompatibility()

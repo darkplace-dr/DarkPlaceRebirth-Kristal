@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 14,
-  nextobjectid = 45,
+  nextobjectid = 46,
   properties = {
     ["music"] = "dirtworld"
   },
@@ -470,50 +470,16 @@ return {
         },
         {
           id = 3,
-          name = "darknesstest",
+          name = "squaretestback",
           type = "",
           shape = "rectangle",
           x = -40,
-          y = -80,
-          width = 200,
+          y = -40,
+          width = 240,
           height = 400,
           rotation = 0,
           visible = true,
-          properties = {
-            ["hide"] = "false"
-          }
-        },
-        {
-          id = 26,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 160,
-          y = 160,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "darktest.show",
-            ["once"] = false
-          }
-        },
-        {
-          id = 27,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 200,
-          y = 160,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "darktest.hide",
-            ["once"] = false
-          }
+          properties = {}
         },
         {
           id = 28,
@@ -575,6 +541,19 @@ return {
           properties = {
             ["item"] = "mudcake"
           }
+        },
+        {
+          id = 45,
+          name = "squaretest",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = -40,
+          width = 240,
+          height = 400,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

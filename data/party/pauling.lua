@@ -71,6 +71,10 @@ function character:init()
     self.attack_box_color = {104/255, 51/255, 85/255}
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {104/255, 51/255, 85/255}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#683355FF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.purple
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/pauling/head"

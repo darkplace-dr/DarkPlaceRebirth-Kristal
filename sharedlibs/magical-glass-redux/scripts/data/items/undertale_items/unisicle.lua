@@ -38,7 +38,6 @@ function item:init()
     self.use_method_self = "eat"
     -- How this item is used on other party members (eats, etc.)
     self.use_method_other = "eats"
-    
 end
 
 return item

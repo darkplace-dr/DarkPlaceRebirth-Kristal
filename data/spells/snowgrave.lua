@@ -20,20 +20,22 @@ function spell:init()
     self.target = "enemies"
 
     -- Tags that apply to this spell
-    self.tags = {"ice", "fatal", "damage"}
+    self.tags = { "ice", "fatal", "damage" }
 end
 
 function spell:getTPCost(chara)
     local cost = super.getTPCost(self, chara)
     if chara and chara:checkWeapon("thornring") then
-        cost = Utils.round(cost / 2)
+        cost = MathUtils.round(cost / 2)
     elseif chara and chara:checkWeapon("crimsonspire") then
-        cost = Utils.round(cost / 4)
+        cost = MathUtils.round(cost / 4)
     end
     return cost
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(math.huge)
+    
     local object = SnowGraveSpell(user)
     object.damage = self:getDamage(user, target)
     object.layer = BATTLE_LAYERS["above_ui"]

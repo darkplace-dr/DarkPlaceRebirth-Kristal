@@ -31,7 +31,7 @@ end
 function spell:onCast(user, target)
     Assets.playSound("break1")
     target:heal(user.chara:getStat("magic") *20 + 10)
-    user:hurt(user.chara:getStat("magic") *20 + 10)
+    user:hurt((user.chara:getStat("magic") *20 + 10)/10)
 end
 
 return spell

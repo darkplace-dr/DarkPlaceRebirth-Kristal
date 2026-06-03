@@ -74,8 +74,8 @@ function spell:onCast(user, target)
         -- Calculate damage and deal it.
         Assets.playSound("stardrop")
         -- yes it's just the iceshock formula, I'm not a mathemetician
-        local min_magic = Utils.clamp(user.chara:getStat("magic") - 10, 1, 999)
-        local damage = math.ceil((min_magic * 30) + 90 + Utils.random(10))
+        local min_magic = MathUtils.clamp(user.chara:getStat("magic") - 10, 1, 999)
+        local damage = math.ceil(((min_magic * 30) + 90 + MathUtils.random(10))/target:getResistance("HOLY"))
         particles:remove()
         target:flash()
         target:hurt(damage, user)

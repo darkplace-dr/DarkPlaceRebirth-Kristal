@@ -1,95 +1,115 @@
----@class RippleEffect: Object
----@overload fun(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve): RippleEffect
 local RippleEffect, super = Class(Object)
 
----@return self
--- Helper function for porting from Deltarune GML code. Please only use as a placeholder.
-function RippleEffect:MakeRipple(x, y, life, color, radmax, radstart, thickness, depth, hsp, vsp, fric, curve)
-    depth = depth or 1999000
-    color = color or 16159050
-    if type(color) == "number" then
-        color = ColorUtils.hexToRGB("#"..StringUtils.sub(string.format("%08X",color), 3,8).."FF")
-        color[1], color[3] = color[3], color[1]
-    end
-    local obj = self(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve)
-    obj.layer = depth and -depth or obj.layer
-    Game.world:addChild(obj)
-    return obj
-end
-
-function RippleEffect:applySpeedFrom(obj, scale)
-    scale = scale or 1
-    self.physics.speed_x = ((obj.x - obj.last_x)/DTMULT)*scale
-    self.physics.speed_y = ((obj.y - obj.last_y)/DTMULT)*scale
-end
-
-function RippleEffect:init(x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve)
-    local obj
-    life = life or 60
-    radmax = radmax or 160
-    radstart = radstart or 1
-    thickness = thickness or 15
-    hsp = hsp or 0
-    vsp = vsp or 0
-    fric = fric or 0.1
-    if type(x) == "table" then
-        obj = x
-        x, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve = x.x, x.y, y, life, radmax, thickness, color, hsp, vsp, radstart, fric, curve
-    end
-    super.init(self, x, y)
-    if obj then
-        self.physics.speed_x = (obj.x - obj.last_x)/DTMULT
-        self.physics.speed_y = (obj.y - obj.last_y)/DTMULT
-    end
+function RippleEffect:init()
+    super.init(self, 0, 0)
     self.shader = Assets.getShader("ripple")
-    self.max_radius = max_radius or 100
-    self.rad = radstart
-    self.radstart = radstart
-    self.life = life
-    self.lifemax = self.life
-    self.radmax = radmax
-    if color then
-        self:setColor(color)
-    end
-    self.physics.speed_x = hsp or self.physics.speed_x
-    self.physics.speed_y = vsp or self.physics.speed_y
-    self.fric = fric
-    self.thickness = thickness
-    self.curve = curve or LibTimer.tween["out-quad"]
+	self.ripples = {}
+	self.layer = WORLD_LAYERS["bottom"]
 end
 
-function RippleEffect:update()
-    super.update(self)
+function RippleEffect:makeRipple(x, y, life, color, radmax, radstart, thickness, depth, hsp, vsp, fric, curve)
+	life = life or 60
+    color = color or ColorUtils.hexToRGB("#4A91F6")
+	radstart = radstart or 1
+	radmax = radmax or 160
+	thickness = thickness or 15
+	hsp = hsp or 0
+	vsp = vsp or 0
+	fric = fric or 0.1
+	curve = curve or Ch4Lib.ripple_curve["norm"]
+	table.insert(self.ripples, {
+		x = x,
+		y = y,
+		life = life,
+		lifemax = life,
+		color = color,
+		rad = radstart,
+		radmax = radmax,
+		radstart = radstart,
+		thickness = thickness,
+		hsp = hsp,
+		vsp = vsp,
+		fric = fric,
+		curve = curve
+	})
 end
 
--- TODO: Framerate-independence
+function RippleEffect:evaluate(curve, time)
+	if time < 0 then
+		time = 0
+	end
+	if time > 1 then
+		time = 1
+	end
+	local cmax = #curve
+	local cstart = 0
+	local cend = cmax  - 1
+	local cmid = math.floor(cend / 2)
+	while (cmid ~= cstart) do
+		if curve[math.min(cmid + 1, #curve)].x > time then
+			cend = cmid
+		else
+			cstart = cmid
+		end
+		cmid = math.floor((cstart + cend) / 2)
+	end
+	local x1 = curve[math.min(cmid + 1, cmax)].x
+	local x2 = curve[math.min(cmid + 2, cmax)].x
+	
+	if x1 == x2 then
+		return curve[math.min(cmid + 1, cmax)].value
+	end
+	
+	local val1 = curve[math.min(cmid + 1, cmax)].value
+	local val2 = curve[math.min(cmid + 2, cmax)].value
+	
+	local ratio = (time - x1) / (x2 - x1)
+	local val = ((val2 - val1) * ratio) + val1
+	
+	return val
+end
+
 function RippleEffect:draw()
     super.draw(self)
-    local cx, cy = love.graphics.transformPoint(0,0)
-    love.graphics.origin()
-    self.shader:send("rippleCenter", {cx,cy})
-    self.life = math.max(0, self.life - 1);
-
-    if (self.physics.speed_x > 0) then
-        self.physics.speed_x = MathUtils.approach(self.physics.speed_x, 0, self.fric*DTMULT)
-    end
-
-    if (self.physics.speed_y > 0) then
-        self.physics.speed_y = MathUtils.approach(self.physics.speed_y, 0, self.fric*DTMULT)
-    end
-
-    self.rad = MathUtils.lerp(self.radstart, self.radmax, self.curve(1 - (self.life / self.lifemax)));
-
-    if (self.rad > 0) then
-        self.shader:send("rippleRad", {self.rad, self.radmax, self.thickness})
-        Draw.setColor(self:getDrawColor());
-        love.graphics.setShader(self.shader)
-        love.graphics.rectangle("fill", 0,0,SCREEN_WIDTH,SCREEN_HEIGHT)
-        love.graphics.setShader()
-        if (self.life == 0) then
-            self:remove()
-        end
-    end
+	local cx, cy = Game.world.camera.x - SCREEN_WIDTH/2, Game.world.camera.y - SCREEN_HEIGHT/2
+	local to_remove = {}
+	local ripple_canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_HEIGHT)
+	love.graphics.clear()
+	love.graphics.setShader(self.shader)
+	for _, ripple in ipairs(self.ripples) do
+		ripple.life = math.max(0, ripple.life - DTMULT)
+		ripple.x = ripple.x + ripple.hsp * DTMULT
+		ripple.y = ripple.y + ripple.vsp * DTMULT
+		
+		if ripple.hsp > 0 then
+			ripple.hsp = MathUtils.approach(ripple.hsp, 0, ripple.fric*DTMULT)
+		end
+		if ripple.vsp > 0 then
+			ripple.vsp = MathUtils.approach(ripple.vsp, 0, ripple.fric*DTMULT)
+		end
+		
+		local xx = ripple.x - cx
+		local yy = ripple.y - cy
+		ripple.rad = MathUtils.lerp(ripple.radstart, ripple.radmax, self:evaluate(ripple.curve, 1 - (ripple.life / ripple.lifemax)))
+		if ripple.rad > 0 then
+			love.graphics.setShader(self.shader)
+			self.shader:send("rippleCenter", {xx, yy})
+			self.shader:send("rippleRad", {ripple.rad, ripple.radmax, ripple.thickness})
+			Draw.setColor(ripple.color)
+			love.graphics.rectangle("fill", xx - ripple.rad, yy - ripple.rad, ripple.rad*2, ripple.rad*2)
+			if ripple.life == 0 then
+				table.insert(to_remove, ripple)
+			end
+		end
+	end
+	for _,ripple in ipairs(to_remove) do
+        TableUtils.removeValue(self.ripples, ripple)
+	end
+	love.graphics.setShader()
+	Draw.popCanvas()
+	
+	Draw.setColor(1,1,1,1)
+	Draw.draw(ripple_canvas, cx, cy)
 end
 
 return RippleEffect

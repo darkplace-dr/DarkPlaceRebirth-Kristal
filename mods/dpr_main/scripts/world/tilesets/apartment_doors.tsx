@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.11.2" name="apartment_doors" tilewidth="184" tileheight="160" tilecount="8" columns="0">
+<tileset version="1.10" tiledversion="1.12.1" name="apartment_doors" tilewidth="192" tileheight="256" tilecount="8" columns="0">
+ <editorsettings>
+  <export target="apartment_doors.lua" format="lua"/>
+ </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image source="../../../assets/sprites/world/apartment_doors/jamm.png" width="120" height="160"/>
@@ -14,7 +17,7 @@
   <image source="../../../assets/sprites/world/apartment_doors/ddelta.png" width="120" height="160"/>
  </tile>
  <tile id="4">
-  <image source="../../../assets/sprites/world/apartment_doors/arlee.png" width="106" height="128"/>
+  <image source="../../../assets/sprites/world/apartment_doors/arlee.png" width="192" height="256"/>
  </tile>
  <tile id="5">
   <image source="../../../assets/sprites/world/apartment_doors/ubx.png" width="120" height="160"/>

@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   name = "hub_objects",
   class = "",
   tilewidth = 130,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 14,
+  tilecount = 15,
   tiles = {
     {
       id = 0,
@@ -158,6 +158,12 @@ return {
       image = "../../../assets/sprites/world/maps/hub/hub_vending.png",
       width = 30,
       height = 44
+    },
+    {
+      id = 17,
+      image = "../../../assets/sprites/world/maps/hub/warphub_door_edge.png",
+      width = 80,
+      height = 60
     }
   }
 }

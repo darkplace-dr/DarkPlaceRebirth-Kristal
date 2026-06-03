@@ -7,11 +7,10 @@ function spell:init()
 end
 
 function spell:onLightCast(user, target)
-    user.delay_turn_end = true
-    Game.battle.timer:after(15/30, function()
+    Game.battle.timer:after(15 / 30, function()
         Assets.playSound("rudebuster_swing")
-        local x, y = (SCREEN_WIDTH/2), SCREEN_HEIGHT
-        local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
+        local x, y = (SCREEN_WIDTH / 2), SCREEN_HEIGHT
+        local tx, ty = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
         local blast = RudeBusterBeam(true, x, y, tx, ty, function(damage_bonus, play_sound)
             local damage = self:getDamage(user, target, damage_bonus)
             if play_sound then

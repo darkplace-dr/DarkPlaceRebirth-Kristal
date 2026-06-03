@@ -33,21 +33,12 @@ function item:init()
     }
     
     self.light_bolt_direction = "random"
+    self.light_bolt_speed_multiplier = 1.25
 
     self.can_equip = {
         ["susie"] = false
     }
 end
-
-function item:getLightBoltSpeed()
-    local speed = super.getLightBoltSpeed(self)
-    if speed then
-        return speed * 1.25
-    else
-        return nil
-    end
-end
-
 function item:showEquipText(target)
     Game.world:showText("* " .. target:getNameOrYou() .." equipped Toy Knife.")
 end

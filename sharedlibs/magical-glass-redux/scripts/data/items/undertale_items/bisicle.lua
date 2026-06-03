@@ -43,7 +43,7 @@ function item:getWorldUseText(target)
     if target:getNameOrYou() == "You" then
         return "* You eat one half\nof the Bisicle."
     else
-        return "* "..target:getName().." eats one half\nof the Bisicle."
+        return "* " .. target:getName() .. " eats one half\nof the Bisicle."
     end
 end
 
@@ -51,7 +51,7 @@ function item:getLightBattleText(user, target)
     if target.chara:getNameOrYou() == "You" then
         return "* You eat one half\nof the Bisicle."
     else
-        return "* "..target:getName().." eats one half\nof the Bisicle."
+        return "* " .. target:getName() .. " eats one half\nof the Bisicle."
     end
 end
 

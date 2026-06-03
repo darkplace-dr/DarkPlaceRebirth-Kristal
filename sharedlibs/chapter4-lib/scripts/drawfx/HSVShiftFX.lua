@@ -16,6 +16,7 @@ function HSVShiftFX:init(heartbeat, priority)
     self.val = self.val_start;
     self.wave_time = 4;
     self.heartbeat_mode = heartbeat or false
+	self.amount = 1
 
     -- Unused?
     if (self.wave_time == 0) then
@@ -42,9 +43,23 @@ function HSVShiftFX:update()
 
 end
 
+function HSVShiftFX:isActive()
+    return super.isActive(self) and self.amount > 0
+end
+
 function HSVShiftFX:draw(texture)
     self.shader:send("_hsv", {self.hue, self.sat, self.val})
-    super.draw(self, texture)
+	if self.amount < 1 then
+		Draw.drawCanvas(texture)
+		Draw.setColor(1, 1, 1, self.amount)
+		local last_shader = love.graphics.getShader()
+		love.graphics.setShader(self.shader)
+		Draw.draw(texture)
+		Draw.setColor(1, 1, 1, 1)
+		love.graphics.setShader(last_shader)
+	else
+		super.draw(self, texture)
+	end
 end
 
 return HSVShiftFX

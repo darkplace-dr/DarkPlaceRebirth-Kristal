@@ -250,8 +250,8 @@ end
 
 function LightSaveMenu:draw()
 
-    local heart_positions_x = {142, 322}
-    local heart_positions_y = {228, 270}
+    local heart_positions_x = { 142, 322 }
+    local heart_positions_y = { 228, 270 }
 
     love.graphics.setFont(self.font)
     if self.state == "MAIN" then
@@ -260,7 +260,7 @@ function LightSaveMenu:draw()
         -- Header
         Draw.setColor(PALETTE["world_text"])
         love.graphics.print(data.name, 120, 120)
-        love.graphics.print("LV "..data.level, 352, 120)
+        love.graphics.print("LV " .. data.level, 352, 120)
 
         local hours = math.floor(data.playtime / 3600)
         local minutes = math.floor(data.playtime / 60 % 60)
@@ -269,7 +269,7 @@ function LightSaveMenu:draw()
         love.graphics.print(time_text, 522 - self.font:getWidth(time_text), 120)
 
         -- Room name
-        love.graphics.print(data.room_name, 319.5 - self.font:getWidth(data.room_name)/2, 170)
+        love.graphics.print(data.room_name, 319.5 - self.font:getWidth(data.room_name) / 2, 170)
 
         -- Buttons
         love.graphics.print("Save", 170, 220)
@@ -342,15 +342,15 @@ function LightSaveMenu:draw()
 
     if self.state == "OVERWRITE" then
         Draw.setColor(PALETTE["world_text"])
-        local overwrite_text = "Overwrite Slot "..self.selected_file.."?"
-        love.graphics.print(overwrite_text, SCREEN_WIDTH/2 - self.font:getWidth(overwrite_text)/2, 123)
+        local overwrite_text = "Overwrite Slot " .. self.selected_file .. "?"
+        love.graphics.print(overwrite_text, SCREEN_WIDTH / 2 - self.font:getWidth(overwrite_text) / 2, 123)
 
         local function drawOverwriteSave(data, x, y)
             local w = 478
 
             -- Header
-            love.graphics.print(data.name, x + (w/2) - self.font:getWidth(data.name)/2, y)
-            love.graphics.print("LV "..data.level, x, y)
+            love.graphics.print(data.name, x + (w / 2) - self.font:getWidth(data.name) / 2, y)
+            love.graphics.print("LV " .. data.level, x, y)
 
             local hours = math.floor(data.playtime / 3600)
             local minutes = math.floor(data.playtime / 60 % 60)
@@ -359,7 +359,7 @@ function LightSaveMenu:draw()
             love.graphics.print(time_text, x + w - self.font:getWidth(time_text), y)
 
             -- Room name
-            love.graphics.print(data.room_name, x + (w/2) - self.font:getWidth(data.room_name)/2, y+30)
+            love.graphics.print(data.room_name, x + (w / 2) - self.font:getWidth(data.room_name) / 2, y + 30)
         end
 
         Draw.setColor(PALETTE["world_text"])
@@ -419,19 +419,19 @@ function LightSaveMenu:drawSaveFile(index, data, x, y, selected, header)
     else
         if not header then
             love.graphics.print("LV "..data.level, x + 14, y + 6)
-    
+
             love.graphics.print(data.name, x + (262 / 2) - self.font:getWidth(data.name) / 2, y + 44)
-    
+
             local hours = math.floor(data.playtime / 3600)
             local minutes = math.floor(data.playtime / 60 % 60)
             local seconds = math.floor(data.playtime % 60)
             local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
             love.graphics.print(time_text, x + 248 - self.font:getWidth(time_text), y + 6)
-    
+
             local room_x = Utils.clamp((260 / 2) - self.font:getWidth(data.room_name)/2, 12, math.huge)
             local room_sx = self.font:getWidth(data.room_name) <= 237 and 1 or 237/self.font:getWidth(data.room_name)
             love.graphics.print(data.room_name, x + room_x, y + 82, 0, room_sx, 1)
-    
+
             if selected and not header and self.selected_y ~= 3 then
                 Draw.setColor(Game:getSoulColor())
                 Draw.draw(self.heart_sprite, x + 122, y + 15)
@@ -440,15 +440,15 @@ function LightSaveMenu:drawSaveFile(index, data, x, y, selected, header)
             love.graphics.print("LV "..data.level, x + 26, y + 6)
 
             love.graphics.print(data.name, x + (493 / 2) - self.font:getWidth(data.name) / 2, y + 6)
-    
+
             local hours = math.floor(data.playtime / 3600)
             local minutes = math.floor(data.playtime / 60 % 60)
             local seconds = math.floor(data.playtime % 60)
             local time_text = string.format("%d:%02d:%02d", hours, minutes, seconds)
             love.graphics.print(time_text, x + 467 - self.font:getWidth(time_text), y + 6)
-    
+
             love.graphics.print(data.room_name, x + (493 / 2) - self.font:getWidth(data.room_name) / 2, y + 38)
-    
+
             if selected and not header and self.selected_y ~= 3 then
                 Draw.setColor(Game:getSoulColor())
                 Draw.draw(self.heart_sprite, x + 18, y + 14)

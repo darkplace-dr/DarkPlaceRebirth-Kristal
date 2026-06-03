@@ -16,8 +16,8 @@ function block:run(scope)
     local item_n = self.item:run(scope)
     local item = assert(Game.inventory:getItem("items",item_n), "Item " .. item_n .. " not found.")
     assert(item.usable_in == "all" or item.usable_in == "battle", "Item " .. item_n .. " unable to be used in battle.")
-    assert(item.target == "enemy" or item.target == "enemies", "Item " .. item_n .. " unable to be used on enemy.")
-	if item.target == "enemies" then
+    assert(item:getTarget() == "enemy" or item:getTarget() == "enemies", "Item " .. item_n .. " unable to be used on enemy.")
+	if item:getTarget() == "enemies" then
 		target = Game.battle:getActiveEnemies()
 	end
     return {"ITEM", target, {data = item}, nil}

@@ -180,6 +180,13 @@ function MikeVending:draw()
 
                     Draw.draw(head_path, offset_x + 426, offset_y + 132 + top)
                 end
+            elseif current_item.item.type == "badge" then
+                local bp_text = current_item.item:getBadgePoints() .. " BP"
+                Draw.setColor(COLORS.orange)
+                if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                    Draw.setColor(COLORS.gray)
+                end
+                love.graphics.print(bp_text, left + width - 32 - self.font:getWidth(bp_text), top + 20)
             end
 
             Draw.popScissor()
@@ -187,16 +194,56 @@ function MikeVending:draw()
             Draw.setColor(COLORS.white)
 
             if not self.hide_storage_text then
-                local current_item = self.items[self.current_selecting]
-                love.graphics.setFont(self.plain_font)
-
                 local current_storage = Game.inventory:getDefaultStorage(current_item.item)
-                local space = Game.inventory:getFreeSpace(current_storage)
+                if not Game:getConfig("newShopSpaceUI") then
+                    local space = Game.inventory:getFreeSpace(current_storage)
+                    love.graphics.setFont(self.plain_font)
 
-                if space <= 0 then
-                    love.graphics.print("NO SPACE", 521, 430)
+                    if space <= 0 then
+                        love.graphics.print("NO SPACE", 521, 430)
+                    else
+                        love.graphics.print("Space:" .. space, 521, 430)
+                    end
                 else
-                    love.graphics.print("Space:" .. space, 521, 430)
+                    local item_type = current_item.item.type
+                    
+                    local space = Game.inventory:getFreeSpace(current_storage, false)
+                    local space_count = Game.inventory:getItemCount(current_storage, false)
+                    local total_space = space + space_count
+                    
+                    local storage_space = Game.inventory:getFreeSpace("storage")
+                    local storage_space_count = Game.inventory:getItemCount("storage")
+                    local storage_total_space = storage_space + storage_space_count
+                    
+                    love.graphics.setFont(self.space_font)
+                    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" and item_type ~= "badge" then
+                        Draw.draw(self.ui_hold_sprite, 555, 398)
+                        love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 412, 0, 0.5, 0.5)
+                        Draw.draw(self.ui_storage_sprite, 555, 430)
+                        love.graphics.print(string.format("%02d", storage_space_count) .. "/" .. string.format("%02d", storage_total_space), 556, 444, 0, 0.5, 0.5)
+                    else
+                        if item_type == "badge" then
+                            Draw.draw(self.ui_badge_sprite, 555, 398)
+                            Draw.draw(self.ui_hold_sprite, 555, 410)
+                            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 424, 0, 0.5, 0.5)
+                            Draw.draw(self.ui_bp_sprite, 555, 444)
+                            if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                                Draw.setColor(COLORS.gray)
+                            end
+                            love.graphics.print(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), 576, 444, 0, 0.5, 0.5)
+                            Draw.setColor(COLORS.white)
+                        else
+                            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 436, 0, 0.5, 0.5)
+                            Draw.draw(self.ui_hold_sprite, 555, 422)
+                            if item_type == "armor" then
+                                Draw.draw(self.ui_armor_sprite, 555, 410)
+                            elseif item_type == "weapon" then
+                                Draw.draw(self.ui_weapon_sprite, 555, 410)
+                            elseif item_type == "key" then
+                                Draw.draw(self.ui_pocket_sprite, 555, 410)
+                            end
+                        end
+                    end
                 end
             end
         end 

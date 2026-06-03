@@ -2,7 +2,7 @@
 table.insert(Text.COMMANDS, "funnytext")
 table.insert(Text.COMMANDS, "rainbow")
 
-local Text, super = Utils.hookScript(Text)
+local Text, super = HookSystem.hookScript(Text)
 
 function Text:init(text, x, y, w, h, options)
     super.init(self, text, x or 0, y or 0, w or SCREEN_WIDTH, h or SCREEN_HEIGHT, options)

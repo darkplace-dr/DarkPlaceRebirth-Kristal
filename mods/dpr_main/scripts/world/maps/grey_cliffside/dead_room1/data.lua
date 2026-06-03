@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 12,
-  nextobjectid = 87,
+  nextobjectid = 89,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -187,84 +187,6 @@ return {
           properties = {
             ["broken"] = true
           }
-        },
-        {
-          id = 81,
-          name = "voidglass",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 280,
-          width = 160,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 82,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 640,
-          y = 240,
-          width = 160,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 83,
-          name = "voidglass",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 200,
-          width = 120,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 84,
-          name = "voidglass",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 240,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 85,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 720,
-          y = 280,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 86,
-          name = "magicglass",
-          type = "",
-          shape = "rectangle",
-          x = 680,
-          y = 200,
-          width = 120,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -537,32 +459,6 @@ return {
           properties = {}
         },
         {
-          id = 62,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 160,
-          width = 240,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 63,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 560,
-          y = 320,
-          width = 240,
-          height = 56,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 66,
           name = "",
           type = "",
@@ -623,6 +519,19 @@ return {
           y = 960,
           width = 240,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 88,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 120,
+          width = 40,
+          height = 256,
           rotation = 0,
           visible = true,
           properties = {}
@@ -776,22 +685,6 @@ return {
           properties = {}
         },
         {
-          id = 64,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 800,
-          y = 200,
-          width = 40,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["map"] = "grey_cliffside/cliffside_pcv",
-            ["marker"] = "entry"
-          }
-        },
-        {
           id = 65,
           name = "script",
           type = "",
@@ -803,8 +696,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "cliffside.force_suscla",
-            ["flagcheck"] = "!suscla",
+            ["cutscene"] = "cliffside.force_susie",
+            ["flagcheck"] = "!cliffside_susie",
             ["once"] = false
           }
         }
@@ -857,19 +750,6 @@ return {
           shape = "point",
           x = 40,
           y = 820,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 60,
-          name = "entry_3",
-          type = "",
-          shape = "point",
-          x = 760,
-          y = 280,
           width = 0,
           height = 0,
           rotation = 0,

@@ -50,7 +50,7 @@ return {
                 cutscene:wait(cutscene:walkToSpeed(hero, hero.x, hero.y+20, 4, "up", true))
                 cutscene:text("* ...", "shock_down", susie)
                 cutscene:text("* ... You've done it now...", "neutral_closed_b", hero)
-                Game.world.camera:shake(1,1,0)
+                Game.world:shakeCamera(1,1,0)
 
                 cutscene:text("* Uhh,[wait:5] what's going on—?", "shock_down", susie)
                 local r = Rectangle(0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2)

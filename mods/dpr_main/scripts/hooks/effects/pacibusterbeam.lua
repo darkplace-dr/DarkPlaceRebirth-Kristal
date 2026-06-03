@@ -1,6 +1,6 @@
 ---@class PaciBusterBeam : Sprite
 ---@overload fun(...) : PaciBusterBeam
-local PaciBusterBeam, super = Utils.hookScript(PaciBusterBeam)
+local PaciBusterBeam, super = HookSystem.hookScript(PaciBusterBeam)
 
 function PaciBusterBeam:init(x, y, tx, ty, after)
     super.init(self, x, y, tx, ty, after)

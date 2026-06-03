@@ -1,13 +1,13 @@
-local headhathy, super = Class(Recruit)
+local HeadHathy, super = Class(Recruit)
 
-function headhathy:init()
+function HeadHathy:init()
     super.init(self)
 
     -- Display Name
     self.name = "Head Hathy"
 
     -- How many times an enemy needs to be spared to be recruited
-    self.recruit_amount = 0
+    self.recruit_amount = 3
 
     -- Organize the order that recruits show up in the recruit menu
     self.index = 8
@@ -31,12 +31,12 @@ function headhathy:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/headhathy/idle", 0, 12, 4/30}
+    self.box_sprite = {"recruits/headhathy/overworld", -3, 22, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
     -- Boolean: True = Recruited | False = Lost Forever
-    self.recruited = true
+    self.recruited = 0
 end
 
-return headhathy
+return HeadHathy

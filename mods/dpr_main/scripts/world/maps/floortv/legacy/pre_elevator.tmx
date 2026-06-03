@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="73">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="73">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -10,19 +10,19 @@
  </properties>
  <tileset firstgid="1" source="../../../tilesets/greenroom.tsx"/>
  <tileset firstgid="127" source="../../../tilesets/floor3-objects.tsx"/>
- <tileset firstgid="170" source="../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
- <imagelayer id="7" name="Image Layer 1" repeatx="1" repeaty="1">
+ <tileset firstgid="177" source="../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
+ <imagelayer id="7" name="Image Layer 1">
   <image source="../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png" width="1280" height="960"/>
  </imagelayer>
  <layer id="1" name="Tile Layer 1" width="24" height="12">
   <data encoding="csv">
 21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
 21,21,21,21,21,0,0,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
-21,21,21,21,21,0,0,0,0,0,0,521,522,522,205,206,522,522,521,205,206,522,522,522,
-21,21,21,21,21,0,0,0,0,0,0,482,234,234,236,237,234,234,486,240,241,242,243,244,
-21,21,21,21,21,0,0,0,0,0,0,544,265,265,265,265,265,265,517,271,272,273,274,275,
-21,21,21,21,21,0,0,0,0,0,0,575,327,327,327,327,328,327,579,333,333,333,333,333,
-21,21,21,21,21,0,0,0,0,0,0,361,361,361,361,361,361,361,361,361,0,0,361,361,
+21,21,21,21,21,0,0,0,0,0,0,528,529,529,212,213,529,529,528,212,213,529,529,529,
+21,21,21,21,21,0,0,0,0,0,0,489,241,241,243,244,241,241,493,247,248,249,250,251,
+21,21,21,21,21,0,0,0,0,0,0,551,272,272,272,272,272,272,524,278,279,280,281,282,
+21,21,21,21,21,0,0,0,0,0,0,582,334,334,334,334,335,334,586,340,340,340,340,340,
+21,21,21,21,21,0,0,0,0,0,0,368,368,368,368,368,368,368,368,368,0,0,368,368,
 21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,

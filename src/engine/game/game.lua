@@ -31,6 +31,7 @@
 ---@field light             boolean
 ---@field money             integer
 ---@field xp                integer
+---@field sp                integer
 ---@field tension           number
 ---@field max_tension       number
 ---@field lw_money          integer
@@ -57,7 +58,7 @@ function Game:clear()
         self.battle.music:stop()
     end
     if self.stage then
-        for _,child in ipairs(self.stage.children) do
+        for _, child in ipairs(self.stage.children) do
             self.stage:removeFromStage(child)
         end
     end
@@ -80,6 +81,7 @@ function Game:clear()
     self.border = "simple"
     self.swap_into_mod = nil
     self.total_bp = nil
+    self.pp = nil
 end
 
 ---@overload fun(self: Game, previous_state: string, save_data: SaveData, save_id: number)
@@ -94,6 +96,11 @@ function Game:enter(previous_state, save_id, save_name, fade)
     self.music = Music()
 
     self.quick_save = nil
+
+    self.event_registry = EventRegistry()
+    self.builtin_event_registry = EventRegistry()
+
+    self:registerBuiltInEvents()
 
     Kristal.callEvent(KRISTAL_EVENT.init)
 
@@ -124,7 +131,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
 
     if next(DISCORD_RPC_PRESENCE) == nil then
         Kristal.setPresence({
-            state = Kristal.callEvent(KRISTAL_EVENT.getPresenceState) or ("Playing " .. (Kristal.getModOption("name") or "a mod")),
+            state = Kristal.callEvent(KRISTAL_EVENT.getPresenceState) or ("Playing " .. (Kristal.getModOption("name") or "a project")),
             details = Kristal.callEvent(KRISTAL_EVENT.getPresenceDetails),
             largeImageKey = Kristal.callEvent(KRISTAL_EVENT.getPresenceImage) or "logo",
             largeImageText = "Kristal v" .. tostring(Kristal.Version),
@@ -132,6 +139,8 @@ function Game:enter(previous_state, save_id, save_name, fade)
             instance = 0
         })
     end
+    
+    self.lhv = LowHealthVibrato()
 end
 
 ---@deprecated
@@ -159,10 +168,77 @@ function Game:forceShiny(arg0, arg1)
 	return DP:forceShiny(arg0, arg1)
 end
 
-
 ---@deprecated
 function Game:loadHooks()
     return DP:loadHooks()
+end
+
+--- Register a new event class with the given ID.
+---@param id string                    The ID of the event.
+---@param constructor fun(data):Event  A constructor function that takes event data and returns an event instance.
+function Game:registerEvent(id, constructor)
+    self.event_registry:register(id, constructor)
+end
+
+--- Responsible for registering all built-in events.
+function Game:registerBuiltInEvents()
+    local registry = Game.builtin_event_registry
+
+    -- Unfortunately, we have to defer all of these...
+
+    local function getCharaX(data)
+        if data.gid then
+            local tx, _, tw, _ = Game.world.map:getTileObjectRect(data)
+            return tx + tw / 2
+        end
+        return data.center_x
+    end
+
+    local function getCharaY(data)
+        if data.gid then
+            local _, ty, _, th = Game.world.map:getTileObjectRect(data)
+            return ty + th
+        end
+        return data.center_y
+    end
+
+    local function getShapeData(data)
+        return { data.width, data.height, data.polygon }
+    end
+
+    local function getRectData(data)
+        return { data.width, data.height }
+    end
+
+    registry:register("savepoint", function(data) return Savepoint(data.center_x, data.center_y, data.properties) end)
+    registry:register("interactable", function(data) return Interactable(data.x, data.y, getShapeData(data), data.properties) end)
+    registry:register("script", function(data) return Script(data.x, data.y, getShapeData(data), data.properties) end)
+    registry:register("transition", function(data) return Transition(data.x, data.y, getShapeData(data), data.properties) end)
+    registry:register("npc", function(data) return NPC(data.properties["actor"], getCharaX(data), getCharaY(data), data.properties) end)
+    registry:register("enemy", function(data) return ChaserEnemy(data.properties["actor"], getCharaX(data), getCharaY(data), data.properties) end)
+    registry:register("outline", function(data) return Outline(data.x, data.y, getRectData(data)) end)
+    registry:register("silhouette", function(data) return Silhouette(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("slidearea", function(data) return SlideArea(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("mirror", function(data) return MirrorArea(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("chest", function(data) return TreasureChest(data.center_x, data.center_y, data.properties) end)
+    registry:register("cameratarget", function(data) return CameraTarget(data.x, data.y, getShapeData(data), data.properties) end)
+    registry:register("hideparty", function(data) return HideParty(data.x, data.y, getShapeData(data), data.properties.alpha) end)
+    registry:register("setflag", function(data) return SetFlagEvent(data.x, data.y, getShapeData(data), data.properties) end)
+    registry:register("cybertrash", function(data) return CyberTrashCan(data.center_x, data.center_y, data.properties) end)
+    registry:register("forcefield", function(data) return Forcefield(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("pushblock", function(data) return PushBlock(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("tilebutton", function(data) return TileButton(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("magicglass", function(data) return MagicGlass(data.x, data.y, getRectData(data), data.properties) end)
+    registry:register("warpdoor", function(data) return WarpDoor(data.x, data.y, data.properties) end)
+    registry:register("darkfountain", function(data) return DarkFountain(data.x, data.y, data.properties) end)
+    registry:register("fountainfloor", function(data) return FountainFloor(data.x, data.y, getRectData(data)) end)
+    registry:register("quicksave", function(data) return QuicksaveEvent(data.x, data.y, getShapeData(data), data.properties["marker"]) end)
+    registry:register("sprite", function(data)
+        local sprite = Sprite(data.properties["texture"], data.x, data.y)
+        sprite:play(data.properties["speed"], true)
+        sprite:setScale(data.properties["scalex"] or 2, data.properties["scaley"] or 2)
+        return sprite
+    end)
 end
 
 function Game:leave()
@@ -211,7 +287,7 @@ end
 ---@param deep_merge?   boolean
 ---@return any
 function Game:getConfig(key, merge, deep_merge)
-    local default_config = Utils.copy(Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)])
+    local default_config = TableUtils.copy(Kristal.ChapterConfigs[Utils.clamp(self.chapter, 1, #Kristal.ChapterConfigs)])
     for index, config in pairs(Kristal.ExtraConfigs) do
        default_config[index] = config
     end
@@ -231,7 +307,7 @@ function Game:getConfig(key, merge, deep_merge)
     elseif default_value ~= nil and mod_value == nil then
         return default_value
     elseif type(default_value) == "table" and merge then
-        return Utils.merge(Utils.copy(default_value, true), mod_value, deep_merge)
+        return TableUtils.merge(TableUtils.copy(default_value, true), mod_value, deep_merge)
     else
         return mod_value
     end
@@ -310,6 +386,10 @@ function Game:save(x, y)
         total_bp = self.total_bp,
 
         bossrush_encounters = self.bossrush_encounters,
+
+        pp = self.pp,
+
+        sp = self.sp,
     }
 
     if x then
@@ -318,15 +398,15 @@ function Game:save(x, y)
         elseif type(x) == "table" then
             data.spawn_position = x
         elseif x and y then
-            data.spawn_position = {x, y}
+            data.spawn_position = { x, y }
         end
     end
 
     data.party = {}
-    for _,party in ipairs(self.party) do
+    for _, party in ipairs(self.party) do
         table.insert(data.party, party.id)
     end
-    
+
     data.default_equip_slots = self.default_equip_slots
     data.default_storage_slots = self.default_storage_slots
 
@@ -335,12 +415,12 @@ function Game:save(x, y)
     data.dark_inventory = self.dark_inventory:save()
 
     data.party_data = {}
-    for k,v in pairs(self.party_data) do
+    for k, v in pairs(self.party_data) do
         data.party_data[k] = v:save()
     end
-    
+
     data.recruits_data = {}
-    for k,v in pairs(self.recruits_data) do
+    for k, v in pairs(self.recruits_data) do
         data.recruits_data[k] = v:save()
     end
 
@@ -381,7 +461,7 @@ function Game:load(data, index, fade)
     self.stage:addChild(self.fader)
 
     if fade then
-        self.fader:fadeIn(nil, {alpha = 1, speed = 0.5})
+        self.fader:fadeIn(nil, { alpha = 1, speed = 0.5 })
     end
 
     self.battle = nil
@@ -409,26 +489,26 @@ function Game:load(data, index, fade)
 
     self:initPartyMembers()
     if data.party_data then
-        for k,v in pairs(data.party_data) do
+        for k, v in pairs(data.party_data) do
             if self.party_data[k] then
                 self.party_data[k]:load(v)
             end
         end
     end
-    
+
     self.party = {}
-    for _,id in ipairs(data.party or Kristal.getModOption("party") or {"kris"}) do
+    for _, id in ipairs(data.party or Kristal.getModOption("party") or { "kris" }) do
         local ally = self:getPartyMember(id)
         if ally then
             table.insert(self.party, ally)
         else
-            Kristal.Console:error("Could not load party member \"" ..id.."\"")
+            Kristal.Console:error("Could not load party member \""  .. id .. "\"")
         end
     end
-    
+
     self:initRecruits()
     if data.recruits_data then
-        for k,v in pairs(data.recruits_data) do
+        for k, v in pairs(data.recruits_data) do
             if self.recruits_data[k] then
                 self.recruits_data[k]:load(v)
             end
@@ -439,7 +519,7 @@ function Game:load(data, index, fade)
         self.temp_followers = data.temp_followers
     else
         self.temp_followers = {}
-        for _,id in ipairs(Kristal.getModOption("followers") or {}) do
+        for _, id in ipairs(Kristal.getModOption("followers") or {}) do
             table.insert(self.temp_followers, id)
         end
     end
@@ -458,6 +538,10 @@ function Game:load(data, index, fade)
 
     self.lw_money = data.lw_money or 2
 
+    self.pp = data.pp or 0
+
+    self.sp = data.sp or 0
+
     self.border = data.border
     if not self.border then
         self.border = self.light and "leaves" or "castle"
@@ -472,18 +556,23 @@ function Game:load(data, index, fade)
         self.light = map.light or false
     end
     if Game.reset_map then Game.reset_map = nil end
-    
+
+    self.border = data.border
+    if not self.border then
+        self.border = self.light and "leaves" or "castle"
+    end
+
     self.default_equip_slots = data.default_equip_slots or 0
     if Game:getConfig("lessEquipments") and self.default_equip_slots <= 12 then
         self.default_equip_slots = 12
     else
         self.default_equip_slots = 48
     end
-    
+
     self.default_storage_slots = data.default_storage_slots or 0
-    -- Check if a mod is still using the deprecated "enableStorage" config
+    -- Check if a project is still using the deprecated "enableStorage" config
     if Game:getConfig("enableStorage") ~= nil then
-        Kristal.Console:warn("Using deprecated mod option 'enableStorage', switch to 'storageSlots' option instead")
+        Kristal.Console:warn("Using deprecated project option 'enableStorage', switch to 'storageSlots' option instead")
         if Game:getConfig("enableStorage") or self.default_storage_slots > 0 then
             self.default_storage_slots = 24
         else
@@ -509,16 +598,16 @@ function Game:load(data, index, fade)
     if data.dark_inventory then
         self.dark_inventory:load(data.dark_inventory)
     end
-    
+
     if data.inventory then
         self.inventory:load(data.inventory)
     else
         local default_inv = Kristal.getModOption("inventory") or {}
         if not self.light and not default_inv["key_items"] then
-            default_inv["key_items"] = {"cell_phone"}
+            default_inv["key_items"] = { "cell_phone" }
         end
-        for storage,items in pairs(default_inv) do
-            for i,item in ipairs(items) do
+        for storage, items in pairs(default_inv) do
+            for i, item in ipairs(items) do
                 self.inventory:setItem(storage, i, item)
             end
         end
@@ -529,11 +618,11 @@ function Game:load(data, index, fade)
     -- Party members have to be converted to light initially, due to dark world defaults
     if loaded_light ~= self.light then
         if self.light then
-            for _,chara in pairs(self.party_data) do
+            for _, chara in pairs(self.party_data) do
                 chara:convertToLight()
             end
         else
-            for _,chara in pairs(self.party_data) do
+            for _, chara in pairs(self.party_data) do
                 chara:convertToDark()
             end
         end
@@ -544,9 +633,9 @@ function Game:load(data, index, fade)
             Game:setFlag("has_cell_phone", Kristal.getModOption("cell") ~= false)
         end
 
-        for id,equipped in pairs(Kristal.getModOption("equipment") or {}) do
+        for id, equipped in pairs(Kristal.getModOption("equipment") or {}) do
             if not self.party_data[id] then
-                error("Attempted to set up equipment for non-existent member "..id)
+                error("Attempted to set up equipment for non-existent member " .. id)
             end
             if equipped["weapon"] then
                 self.party_data[id]:setWeapon(equipped["weapon"] ~= "" and equipped["weapon"] or nil)
@@ -612,7 +701,7 @@ function Game:load(data, index, fade)
 
 
     --Code stolen from Simbel's depths dlc
-    if Kristal.Config["dLoad"] == true then
+    if Game.world and Kristal.Config["dLoad"] == true then
 		local text = Text("FILE " ..Game.save_id.. " LOADED")
 		text:setParallax(0)
 		text:setScreenPos(3, 3)
@@ -640,6 +729,49 @@ function Game:load(data, index, fade)
 	if not self:getFlag("unlocked_codeblocks") then
 		self:setFlag("unlocked_codeblocks", {})
 	end
+    
+    if self.stage then
+        self.stage.timer:everyInstant(60, function()
+            function load_weather()
+                local contents = love.filesystem.read("weatherkey.txt")
+                if not contents then return nil, nil end
+    
+                local lines = {}
+                for line in contents:gmatch("[^\r\n]+") do
+                    table.insert(lines, line)
+                end
+    
+                local apiKey = lines[1] and lines[1]:gsub("%s+", "")
+                local location = lines[2] and lines[2]:gsub("^%s*(.-)%s*$", "%1")
+    
+                return apiKey, location
+            end
+    
+            apikey, location = load_weather()
+    
+            if apikey and location then
+                local url = "https://api.openweathermap.org/data/2.5/weather?q="
+                        .. location
+                        .. "&appid=" .. apikey
+                        .. "&units=imperial"
+    
+                Kristal.fetch(url, {
+                    disable_message = true,
+                    callback=function(res, body, headers)
+                        if res == 200 then
+                            local data = JSON.decode(body)
+                            data.name = nil
+                            data.coord = nil
+    
+                            self.weather_info = data
+                        else
+                            Kristal.Console:error("Weather unavailable: Code " .. res)
+                        end
+                    end
+                })
+            end
+        end)
+    end
 end
 
 ---@param light? boolean
@@ -680,7 +812,7 @@ function Game:convertToLight()
 
     self.inventory = inventory:convertToLight()
 
-    for _,chara in pairs(self.party_data) do
+    for _, chara in pairs(self.party_data) do
         chara:convertToLight()
     end
 end
@@ -691,7 +823,7 @@ function Game:convertToDark()
 
     self.inventory = inventory:convertToDark()
 
-    for _,chara in pairs(self.party_data) do
+    for _, chara in pairs(self.party_data) do
         chara:convertToDark()
     end
 
@@ -704,23 +836,24 @@ end
 ---@param y? number
 ---@param sf? boolean
 function Game:gameOver(x, y, sf)
+    x, y = x or 0, y or 0
+    if Kristal.callEvent(KRISTAL_EVENT.onGameOver, x, y) then
+        return
+    end
     Kristal.hideBorder(0)
 
     self.state = "GAMEOVER"
-    if self.battle   then self.battle  :remove() end
-    if self.world    then self.world   :remove() end
-    if self.shop     then self.shop    :remove() end
-    if self.gameover then self.gameover:remove() end
-    if self.legend   then self.legend  :remove() end
-    if self.dogcheck then self.dogcheck:remove() end
+
+    for _, child in ipairs(self.stage.children) do
+        child:remove()
+    end
 
     if Game:getFlag("FUN", 0) ~= 18 --[[0xE+0xA]] and not sf then
-        self.gameover = GameOver(x or 0, y or 0)
-        self.stage:addChild(self.gameover)
+        self.gameover = GameOver(x, y)
     else
         self.gameover = GameOverSF(sf == "bearers" and true or nil)
-        self.stage:addChild(self.gameover)
     end
+    self.stage:addChild(self.gameover)
 end
 
 ---@param cutscene          string
@@ -984,6 +1117,7 @@ function Game:addPartyMember(chara, index)
     else
         table.insert(self.party, chara)
     end
+    self.world:spawnSoul()
     return chara
 end
 
@@ -994,10 +1128,12 @@ function Game:removePartyMember(chara)
         chara = self:getPartyMember(chara)
     end
     TableUtils.removeValue(self.party, chara)
+    self.world:spawnSoul()
     return chara
 end
 
 ---@param ... string|PartyMember
+---@return PartyMember[]
 function Game:setPartyMembers(...)
     local args = {...}
     self.party = {}
@@ -1008,6 +1144,8 @@ function Game:setPartyMembers(...)
             self.party[i] = chara
         end
     end
+    self.world:spawnSoul()
+    return self.party
 end
 
 ---@param chara string|PartyMember
@@ -1224,6 +1362,22 @@ function Game:swapIntoMod(...)
     self.swap_into_mod = {...}
 end
 
+function Game:isWorldHidden()
+    if not self.world then
+        return true
+    end
+
+    if self.state == "BATTLE" and self.battle and self.battle:isWorldHidden() then
+        return true
+    end
+
+    if self.state == "SHOP" and self.shop and self.shop:isWorldHidden() then
+        return true
+    end
+
+    return false
+end
+
 function Game:update()
     if self.state == "EXIT" then
         self.fader:update()
@@ -1236,7 +1390,7 @@ function Game:update()
         if self.world.player then
             self.world.player.visible = true
         end
-        for _,follower in ipairs(self.world.followers) do
+        for _, follower in ipairs(self.world.followers) do
             follower.visible = true
         end
     end
@@ -1245,13 +1399,14 @@ function Game:update()
         return
     end
 
-    if (self.state == "BATTLE" and self.battle and self.battle:isWorldHidden()) or
-       (self.state == "SHOP" and self.shop and self.shop:isWorldHidden()) then
-        self.world.active = false
-        self.world.visible = false
-    else
-        self.world.active = true
-        self.world.visible = true
+    if self.world then
+        if self:isWorldHidden() then
+            self.world.active = false
+            self.world.visible = false
+        else
+            self.world.active = true
+            self.world.visible = true
+        end
     end
 
     self.playtime = self.playtime + DT
@@ -1264,6 +1419,8 @@ function Game:update()
         Kristal.swapIntoMod(unpack(Game.swap_into_mod))
         Game.swap_into_mod = nil
     end
+    
+    self.lhv:update()
 end
 
 ---@param key       string
@@ -1309,6 +1466,25 @@ function Game:onWheelMoved(x, y)
     Kristal.callEvent(KRISTAL_EVENT.onWheelMoved, x, y)
 end
 
+--- Responsible for drawing the "Developer Mode Enabled" warning in the top right of the screen when developer mode is forcibly enabled.
+function Game:drawDevWarning()
+    if Kristal.shouldDisplayDevWarning() then
+        love.graphics.push()
+
+        local small_font = Assets.getFont("main", 16)
+        love.graphics.setFont(small_font)
+        local notice = "Developer Mode Enabled"
+        Draw.setColor(0, 0, 0, 1)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 5, 4)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 3, 4)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 3)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 5)
+        Draw.setColor(1, 1, 1, 0.75)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 4)
+        love.graphics.pop()
+    end
+end
+
 function Game:draw()
     love.graphics.clear(0, 0, 0, 1)
     love.graphics.push()
@@ -1323,6 +1499,8 @@ function Game:draw()
     love.graphics.push()
     Kristal.callEvent(KRISTAL_EVENT.postDraw)
     love.graphics.pop()
+
+    self:drawDevWarning()
 end
 
 ---@param ignore_light? boolean -- if you still want some stats etc. despite being in LW
@@ -1502,6 +1680,37 @@ function Game:isSpecialMode(name)
     if Game.save_name:upper() == "EVERYCHALLEN" and name ~= "DESS" then return true end
     if Game.save_name:upper() == "NIGHTMAREWAD" then return true end
     return Game.save_name:upper() == name:upper()
+end
+
+--- Depending on the element, runs a multiplier value through several factors and returns the final multiplier.
+--- Usually for elemental damage multipliers for spells
+---@param element string -- the element to check multipliers for
+function Game:getElementMult(element)
+    local mult = 1
+    if element == "STAR" then
+        -- Stellar Lens
+        mult = mult + (0.2 * Game:getBadgeEquipped("stellar_lens"))
+
+        return mult
+    else
+        return mult
+    end
+end
+
+function Game:getElementAvgMult(...)
+    local list = {...}
+    local num = 0
+    
+    for _,v in ipairs(list) do
+        num = num + Game:getElementMult(v)
+    end
+    
+    return num/#list
+end
+
+function Game:addSP(ammount)
+    self.sp = self.sp + ammount
+    if self.sp < 0 then self.sp = 0 end
 end
 
 

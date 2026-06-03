@@ -35,14 +35,13 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:battleUseSound(user, target)
     Game.battle.timer:script(function(wait)
         Assets.stopAndPlaySound("swallow")
         wait(0.4)
-        if not MagicalGlassLib.serious_mode then
+        if not Mod.libs["magical-glass"].serious_mode then
             Assets.stopAndPlaySound("dogresidue")
         else
             Assets.stopAndPlaySound("power")
@@ -54,7 +53,7 @@ function item:worldUseSound(target)
     Game.world.timer:script(function(wait)
         Assets.stopAndPlaySound("swallow")
         wait(0.4)
-        if not MagicalGlassLib.serious_mode then
+        if not Mod.libs["magical-glass"].serious_mode then
             Assets.stopAndPlaySound("dogresidue")
         else
             Assets.stopAndPlaySound("power")
@@ -63,7 +62,7 @@ function item:worldUseSound(target)
 end
 
 function item:onWorldUse(target)
-    local dogsad = Utils.random(0, 3, 1)
+    local dogsad = MathUtils.round(MathUtils.random(0, 3))
     
     local amount = 1
 
@@ -83,9 +82,9 @@ function item:onWorldUse(target)
     local text = self:getWorldUseText(target, dogsad)
     
     local best_amount
-    for _,member in ipairs(Game.party) do
+    for _, member in ipairs(Game.party) do
         local equip_amount = 0
-        for _,equip in ipairs(member:getEquipment()) do
+        for _, equip in ipairs(member:getEquipment()) do
             if equip.getHealBonus then
                 equip_amount = equip_amount + equip:getHealBonus()
             end
@@ -102,7 +101,7 @@ function item:onWorldUse(target)
         return true
     elseif self.target == "party" then
         self:worldUseSound(target)
-        for _,party_member in ipairs(target) do
+        for _, party_member in ipairs(target) do
             Game.world:heal(party_member, amount, text, self)
         end
         return true
@@ -125,6 +124,7 @@ function item:getWorldUseText(target, dogsad)
     if dogsad == 3 then
         message = "* It's literally garbage???"
     end
+    
     return super.getWorldUseText(self, target).."\n"..message
 end
 
@@ -147,7 +147,7 @@ function item:getLightBattleText(user, target, dogsad)
 end
 
 function item:onLightBattleUse(user, target)
-    local dogsad = Utils.random(0, 3, 1)
+    local dogsad = MathUtils.round(MathUtils.random(0, 3))
 
     local amount = 1
 
@@ -164,7 +164,7 @@ function item:onLightBattleUse(user, target)
         amount = math.huge
     end
     
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
@@ -177,7 +177,7 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    local dogsad = Utils.random(0, 3, 1)
+    local dogsad = MathUtils.round(MathUtils.random(0, 3))
 
     local amount = 1
 
@@ -194,13 +194,13 @@ function item:onBattleUse(user, target)
         amount = math.huge
     end
     
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
     end
 
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         Assets.stopAndPlaySound("dogresidue")
     end
     target:heal(amount)

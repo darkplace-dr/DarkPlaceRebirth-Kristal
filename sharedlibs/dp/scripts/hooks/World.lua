@@ -1,5 +1,5 @@
 ---@class World : World
-local World, super = Utils.hookScript(World)
+local World, super = HookSystem.hookScript(World)
 
 -- The MB easter egg won't happen when entering any DLCs or maps in this list
 -- The list only needs to find the given string in the id so you don't have to add every single map to the list
@@ -11,7 +11,8 @@ World.mb_blacklist = {
     maps = {
         "conversion_rooms",
         "nothing",
-        "grey_cliffside/dead_room1_start"
+        "grey_cliffside/dead_room1_start",
+        "fwood"
     },
 }
 
@@ -20,12 +21,11 @@ function World:canMb(map)
         return false
     end
     -- Something important might be loading if Mod or Game.world.map is nil, let's not interrupt it
-    if not (Mod and Mod.info and Mod.info.id) or not (self.map and self.map.id) then
+    if not Mod or not self.map then
         return false
     end
     for obj,list in pairs(self.mb_blacklist) do
         for _,id in ipairs(list) do
-
             if obj == "dlcs" and (Mod and Mod.info and Mod.info.id) then
                 if Mod.info.id == id then
                     return false
@@ -62,6 +62,25 @@ function World:loadMap(...)
         Game:setFlag("PREVMAP", self.map.id)
     end
     super.loadMap(self, ...)
+end
+
+function World:breakSoulShield()
+    Assets.playSound("mirrorbreak")
+    self.soul:addChild(SoulExpandEffect())
+    local shard_x_table = {-2, 0, 2, 8, 10, 12}
+    local shard_y_table = {0, 3, 6}
+    for i = 1, 6 do
+        local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
+        local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
+        local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
+        shard.physics.direction = math.rad(MathUtils.random(360))
+        shard.physics.speed = 7
+        shard.physics.gravity = 0.2
+        shard.layer = self.soul.layer
+        shard:play(5/30)
+        self:addChild(shard)
+        shard:fadeOutAndRemove(1)
+    end
 end
 
 return World

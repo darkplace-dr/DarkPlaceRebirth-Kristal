@@ -64,4 +64,24 @@ function GreenRoomPlatter:doBananaJump()
 	self:setSprite("world/events/greenroom_platter/platter_2")
 end
 
+function GreenRoomPlatter:undoBananaJump()
+	Game.lock_movement = true
+	Assets.playSound("sm64_warp")
+	local fade_in_spr = Sprite("world/events/greenroom_platter/platter_1", self.x, self.y)
+	fade_in_spr:setScale(2,2)
+	fade_in_spr.layer = self.layer + 2
+	fade_in_spr.alpha = 0
+	fade_in_spr:fadeTo(1, 10/30)
+	self.lid:fadeTo(0, 10/30)
+	Game.world:addChild(fade_in_spr)
+	Game.world.timer:after(10/30, function()
+		Game.lock_movement = false
+		fade_in_spr:remove()
+		if self.lid then
+			self.lid:remove()
+		end
+		self:setSprite("world/events/greenroom_platter/platter_1")
+	end)
+end
+
 return GreenRoomPlatter

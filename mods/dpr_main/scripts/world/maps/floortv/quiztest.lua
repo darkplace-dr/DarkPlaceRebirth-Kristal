@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 90,
+  nextobjectid = 92,
   properties = {
     ["border"] = "teevie",
     ["music"] = "deltarune/tv_world"

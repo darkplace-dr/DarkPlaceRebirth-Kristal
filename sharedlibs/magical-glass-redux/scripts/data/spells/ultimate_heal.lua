@@ -7,13 +7,18 @@ function spell:init()
 end
 
 function spell:onLightCast(user, target)
-    local amount = math.ceil(Game:isLight() and user.chara:getStat("magic") or user.chara:getStat("magic") + 1)
-    target:heal(amount)
+    local base_heal = math.ceil(Game:isLight() and user.chara:getStat("magic") or user.chara:getStat("magic") + 1)
+    local heal_amount = Game.battle:applyHealBonuses(base_heal, user.chara)
+
+    target:heal(heal_amount)
 end
 
 function spell:onCast(user, target)
     if Game:isLight() then
-        target:heal(math.ceil(user.chara:getStat("magic")))
+        local base_heal = math.ceil(user.chara:getStat("magic"))
+        local heal_amount = Game.battle:applyHealBonuses(base_heal, user.chara)
+
+        target:heal(heal_amount)
     else
         super.onCast(self, user, target)
     end

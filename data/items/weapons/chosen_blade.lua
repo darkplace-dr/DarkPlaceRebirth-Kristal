@@ -60,7 +60,7 @@ function item:init()
         dess = "little ol' me a hero? surely you're jestin",
         brenda = "Swords aren't really my style.",
         jamm = "What do I look like, the main character?",
-        ceroba = "There's no way I can wield THAT.",
+        ceroba = "Chosen? I think you got the wrong person.",
         noel = "Overhyped, Underused, yet VERY Interesting...",
     }
 end

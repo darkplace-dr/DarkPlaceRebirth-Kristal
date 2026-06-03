@@ -70,7 +70,11 @@ function Virovirokun:onActStart(battler, name)
     local sprite_lookup = Kristal.getLibConfig("virovirokun", "take_care_sprites", true)
     local offset_lookup = Kristal.getLibConfig("virovirokun", "take_care_offsets", true)
 
-    local function getSpriteAndOffset(id)
+    local function getSpriteAndOffset(chara)
+        local id = chara.id
+        if chara:getAssistID() then
+            id = id .. "+" .. chara:getAssistID()
+        end
         local selected_sprite = sprite_lookup[id] or ("enemies/virovirokun/take_care/"..id)
         if type(selected_sprite) == "table" then
             selected_sprite = Utils.pick(sprite_lookup[id])
@@ -80,13 +84,13 @@ function Virovirokun:onActStart(battler, name)
     end
 
     if name == "TakeCare" then
-        battler:setActSprite(getSpriteAndOffset(battler.chara.id))
+        battler:setActSprite(getSpriteAndOffset(battler.chara))
     elseif name == "TakeCareX" then
         for _,ibattler in ipairs(Game.battle.party) do
-            ibattler:setActSprite(getSpriteAndOffset(ibattler.chara.id))
+            ibattler:setActSprite(getSpriteAndOffset(ibattler.chara))
             if ibattler.chara.id == "noelle" then
                 Game.battle.timer:script(function(wait)
-                    local _, ox, oy = getSpriteAndOffset(battler.chara.id)
+                    local _, ox, oy = getSpriteAndOffset(battler.chara)
                     wait(1)
                     ibattler:setCustomSprite("enemies/virovirokun/take_care/noelle_fall_1", ox, oy)
                     Assets.playSound("noise")

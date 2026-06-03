@@ -40,10 +40,10 @@ function preview:init(mod, button, menu)
     self.naming_video_fade_phase = -1
     self.naming_video_fade_timer = 0
 
-    self.splash_list = self:require("splashes")
-    self.splash = Utils.pick(self.splash_list)
+    -- self.splash_list = self:require("splashes")
+    -- self.splash = Utils.pick(self.splash_list)
 
-    self.splash_timer = 0
+    -- self.splash_timer = 0
 
     self.music_once = 0
 end
@@ -184,7 +184,7 @@ function preview:update()
         self.naming_video_fade_timer = 0
     end
 
-    self.splash_timer = self.splash_timer + DT
+    -- self.splash_timer = self.splash_timer + DT
 end
 
 function preview:draw()
@@ -252,9 +252,11 @@ function preview:draw()
 end
 
 function preview:drawOverlay()
+    --[[
     if TARGET_MOD == self.mod_id and self.menu.state == "TITLE" then
         self:drawSplashText()
     end
+    ]]
 
     if self:areWeSelected() and DEBUG_RENDER then
         love.graphics.setColor(Utils.hexToRgb("#0AC1FF"), 1)
@@ -286,6 +288,7 @@ video=%s(p=%d f=%.2f)]],
     end
 end
 
+--[[
 function preview:drawSplashText()
     love.graphics.setColor(1, 1, 0, self.fade)
     local font = Assets.getFont("plain")
@@ -327,6 +330,7 @@ function preview:drawSplashText()
     love.graphics.setColor(not self.april_fools and {1, 1, 0} or {0, 0, 1}, self.fade)
     love.graphics.print(self.splash, splash_x, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
 end
+]]
 
 function preview:areWeSelected()
     return self.menu.selected_mod and self.menu.selected_mod.id == self.mod_id

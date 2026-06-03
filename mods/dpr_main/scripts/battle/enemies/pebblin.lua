@@ -22,11 +22,7 @@ function Pebblin:init()
     self.spare_points = 20
 
     self.waves = {
-        "pebbledrop"
-    }
-
-    self.dialogue = { -- Placeholder
-        "..."
+        "pebblin/club"
     }
 
     self.check = "AT 3 DF 5\n* Proud warrior of Cliffside.\n* Has a cobbled together club."
@@ -38,38 +34,63 @@ function Pebblin:init()
     }
     self.low_health_text = "* Pebblin is starting to errode."
 
-    self:registerAct("Smile") -- Placeholder
-    self:registerAct("Tell Story", "", {"susie"}) -- Placeholder
+    self:registerAct("Polish")
+    self:registerAct("X-Polish", "", {"susie"})
+
+    if Game.party[1].id == "hero" then
+        self:registerAct("Mug")
+    end
+
+    self.resistances = {
+        DARK = 0.5,
+    }
 end
 
 function Pebblin:onAct(battler, name)
-    if name == "Smile" then
+    if name == "Polish" then
         self:addMercy(100)
-        self.dialogue_override = "... ^^"
-        return {
-            "* You smile.[wait:5]\n* The dummy smiles back.",
-            "* It seems the dummy just wanted\nto see you happy."
-        }
+        self.dialogue_override = Utils.pick{"Dziękuję!", "Wielkie dzięki!", "Jestem wdzięczny!", "Dzięki!"}
+        return "* You cooked some Perogis for Pebblin.\n* It looks like they were just hungry."
 
-    elseif name == "Tell Story" then
+    elseif name == "X-Polish" then
         for _, enemy in ipairs(Game.battle.enemies) do
-            enemy:setTired(true)
+            if enemy.id == "pebblin" then
+                enemy:setTired(true)
+                enemy.attack = enemy.attack + 2
+                enemy.dialogue_override = "?!?!"
+                enemy:setAnimation("prepare")
+            end
         end
-        return "* You and Ralsei told the dummy\na bedtime story.\n* The enemies became [color:blue]TIRED[color:reset]..."
-
+        return {
+            "* Susie said some Polish swear words.",
+            "* The Pebblin became angry!\n* Their attack increased, but they became [color:blue]TIRED[color:reset]!"
+        }
+    elseif name == "Mug" then
+        if self.mugged then
+            return "* Hero threatens Pebblin again, but there was nothing left to mug."
+        end
+        self.mugged = true
+        self.dialogue_override = Utils.pick{"Zjedz trochę słodyczy!", "Ciesz się!"}
+        Game.inventory:addItem("rock_candy")
+        return {
+            "* Hero threatens Pebblin.\n* Pebblin hastily empties their pockets.",
+            "* [color:yellow]ROCK CANDY[color:reset] was added to your inventory!"
+        }
     elseif name == "Standard" then --X-Action
         self:addMercy(50)
-        if battler.chara.id == "susie" then
-            Game.battle:startActCutscene("dummy", "susie_punch")
-            return
-        else
-            return "* "..battler.chara:getName().." straightened the\ndummy's hat."
-        end
+        return "* "..battler.chara:getName().." tried to polish Pebblin's club."
     end
 
     -- If the act is none of the above, run the base onAct function
     -- (this handles the Check act)
     return super.onAct(self, battler, name)
+end
+
+function Pebblin:onSpareable()
+    super.onSpareable(self)
+    self.waves = {
+        "pebblin/pebbledrop",
+    }
 end
 
 function Pebblin:onDefeat(damage, battler)
@@ -96,6 +117,28 @@ function Pebblin:onDefeatFatal(damage, battler)
     self:addChild(death)
 
     self:defeat("KILLED", true)
+end
+
+function Pebblin:getEnemyDialogue()
+    local dialogue
+    if self.dialogue_override then
+        local dialogue = self.dialogue_override
+        self.dialogue_override = nil
+        return dialogue
+    end
+
+    if self:canSpare() then
+        dialogue = {
+            "Perfekcja!\nCo za styl!",
+            "Zrobione\njak trzeba!",
+            "Majstersztyk!"
+        }
+    else
+        dialogue = {
+            "..."
+        }
+    end
+    return "[float:2]" .. dialogue[math.random(#dialogue)]
 end
 
 return Pebblin

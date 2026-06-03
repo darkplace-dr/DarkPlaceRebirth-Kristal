@@ -7,6 +7,7 @@
 ---@class Item : Class
 ---
 ---@field name string
+---@field debug_name string
 ---@field use_name string?
 ---
 ---@field type string
@@ -53,6 +54,8 @@ local Item = Class()
 function Item:init()
     -- Display name
     self.name = "Test Item"
+    -- Debug name (optional)
+    self.debug_name = nil
     -- Name displayed when used in battle (optional)
     self.use_name = nil
 
@@ -172,6 +175,18 @@ function Item:onWorldUpdate(chara) end
 ---@param battler PartyBattler The equipping character
 function Item:onBattleUpdate(battler) end
 
+--- *(Override)* Called before a Character takes damage from a world bullet
+---@param amount The damage of the incoming hit
+---@return number? New damage amount
+function Item:onWorldDamage(amount) end
+
+--- *(Override)* Called before a PartyBattler takes damage
+---@param amount The damage of the incoming hit
+---@param swoon  Whether the damage will swoon the battler instead of downing them
+---@param all    Whether the damage being taken comes from a strike targeting the whole party
+---@return number? New damage amount
+function Item:onBattleDamage(amount, swoon, all) end
+
 --- *(Override)* Called after an attack from a party member with this item equipped hits an enemy
 ---@param battler PartyBattler The attacking character
 ---@param enemy EnemyBattler The enemy hit by the attack
@@ -200,9 +215,9 @@ function Item:onCheck()
                 table.insert(text, check)
             end
         end
-        Game.world:showText({{"* \""..self:getName().."\" - "..(self:getCheck()[1] or "")}, text})
+        Game.world:showText({ { "* \"" .. self:getName() .. "\" - " .. (self:getCheck()[1] or "") }, text })
     else
-        Game.world:showText("* \""..self:getName().."\" - "..self:getCheck())
+        Game.world:showText("* \"" .. self:getName() .. "\" - " .. self:getCheck())
     end
 end
 --- *(Override)* Called when the item is tossed \
@@ -273,6 +288,7 @@ function Item:convertToDarkEquip(chara) return self:convertToDark() end
 
 function Item:getName() return self.name end
 function Item:getUseName() return self.use_name or self:getName():upper() end
+function Item:getDebugName() return self.debug_name or self:getName() end
 function Item:getWorldMenuName() return self:getName() end
 
 function Item:getDescription() return self.description end
@@ -286,7 +302,9 @@ end
 function Item:getPrice() return self.price end
 
 function Item:getBuyPrice() return self.buy_price or self:getPrice() end
-function Item:getSellPrice() return self.sell_price or math.ceil(self:getPrice()/2) end
+function Item:getSellPrice() return self.sell_price or math.ceil(self:getPrice() / 2) end
+
+function Item:getTarget() return self.target end
 
 function Item:isSellable() return self.can_sell end
 
@@ -312,7 +330,7 @@ end
 ---@param target Battler[]|PartyBattler|PartyBattler[]|EnemyBattler|EnemyBattler[]
 ---@return string
 function Item:getBattleText(user, target)
-    return "* "..user.chara:getName().." used the "..self:getUseName().."!"
+    return "* " .. user.chara:getName() .. " used the " .. self:getUseName() .. "!"
 end
 
 --[[ Misc Functions ]]--

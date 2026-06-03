@@ -45,7 +45,7 @@ function Dice:onStart()
     local bullet = self:spawnBullet("pippins/dicebullet",(Game.battle.arena.x - 60 + love.math.random(120)), (Game.battle.arena.y - 90 - love.math.random(30)), 0)
     bullet.image_index = self.n
     for _, attacker in ipairs(self:getAttackers()) do
-        if(attacker.ikasama == true) then
+        if(attacker.cheat == true) then
             bullet.setsprite = "bullets/pippins/all4s_"
         end
     end
@@ -57,11 +57,11 @@ function Dice:onEnd()
         if(attacker.bet == true) then
             attacker.bet = false
         end
-        if(attacker.ikasama == true) then
-            attacker.ikasama = false
+        if(attacker.cheat == true) then
+            attacker.cheat = false
         end
-        if(attacker.wairo == true) then
-            attacker.wairo = false
+        if(attacker.bribe == true) then
+            attacker.bribe = false
         end
         if attacker.anim ~= "idle" then
             if(attacker.mercy >= 100) then
@@ -115,7 +115,7 @@ function Dice:update()
             local bullet = self:spawnBullet("pippins/dicebullet",(Game.battle.arena.x - 60 + love.math.random(120)), (Game.battle.arena.y - 90 - love.math.random(30)), 0)
             bullet.image_index = self.n
             for _, attacker in ipairs(self:getAttackers()) do
-                if(attacker.ikasama == true) then
+                if(attacker.cheat == true) then
                     bullet.setsprite = "bullets/pippins/all4s_"
                 end
             end
@@ -149,7 +149,7 @@ function Dice:update()
             local bullet = self:spawnBullet("pippins/dicebullet",(Game.battle.arena.x - 60 + love.math.random(120)), (Game.battle.arena.y - 90 - love.math.random(30)), 0)
             bullet.image_index = self.n
             for _, attacker in ipairs(self:getAttackers()) do
-                if(attacker.ikasama == true) then
+                if(attacker.cheat == true) then
                     bullet.setsprite = "bullets/pippins/all4s_"
                 end
             end
@@ -163,7 +163,7 @@ function Dice:update()
             local bullet = self:spawnBullet("pippins/dicebullet",(Game.battle.arena.x - 60 + love.math.random(120)), (Game.battle.arena.y - 90 - love.math.random(30)), 0)
             bullet.image_index = self.n
             for _, attacker in ipairs(self:getAttackers()) do
-                if(attacker.ikasama == true) then
+                if(attacker.cheat == true) then
                     bullet.setsprite = "bullets/pippins/all4s_"
                 end
             end

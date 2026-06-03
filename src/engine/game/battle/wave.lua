@@ -84,6 +84,8 @@ function Wave:init()
     -- Timer for convenience
     self.timer = Timer()
     self:addChild(self.timer)
+	-- Don't allow soul movement if a buff (like Ceroba's diamond shield) is activating
+	self.buff_freeze = false
 end
 
 --- *(Override)* Called every frame after [`Wave:onStart()`](lua://Wave.onStart) has run

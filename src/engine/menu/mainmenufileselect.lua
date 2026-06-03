@@ -46,6 +46,11 @@ function MainMenuFileSelect:onEnter(old_state)
     self.selected_x = 1
     self.selected_y = 1
 
+    self.menu.heart:setColor(Kristal.getSoulColor())
+    if MainMenu.mod_list:getSelectedMod().soulColor then
+        self.menu.heart:setColor(MainMenu.mod_list:getSelectedMod().soulColor)
+    end
+
     self.files = {}
     for i = 1, 3 do
         local data = Kristal.loadData("file_" .. i, self.mod.id)
@@ -58,6 +63,8 @@ function MainMenuFileSelect:onEnter(old_state)
     end
 
     self.bottom_row_heart = { 80, 250, 440 }
+    
+    self.menu.kristal_stage_title.visible = false
 end
 
 function MainMenuFileSelect:onLeave(new_state)
@@ -181,12 +188,12 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
         if Input.is("cancel", key) then
             if not TARGET_MOD then
                 self.menu:setState("MODSELECT")
-				if MainMenu.mod_list:getSelectedMod().soulColor then
-					MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
-				end
+                if MainMenu.mod_list:getSelectedMod().soulColor then
+                    MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+                end
             else
-                self.menu:setState("TITLE")
-                self.menu.title_screen:selectOption("play")
+                self.menu:setState("SUBTITLE")
+                self.menu.subtitle:selectOption("play")
             end
             Assets.stopAndPlaySound("ui_cancel")
             return true
@@ -215,9 +222,6 @@ function MainMenuFileSelect:onKeyPressed(key, is_repeat)
                 elseif self.selected_x == 3 then
                     if not TARGET_MOD then
                         self.menu:setState("MODSELECT")
-						if MainMenu.mod_list:getSelectedMod().soulColor then
-							MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
-						end
                     else
                         self.menu:setState("TITLE")
                         self.menu.title_screen:selectOption("play")

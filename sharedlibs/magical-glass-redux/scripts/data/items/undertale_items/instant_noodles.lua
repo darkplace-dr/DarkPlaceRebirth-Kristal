@@ -38,7 +38,6 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getLightBattleText(user, target)
@@ -64,7 +63,7 @@ function item:onLightBattleUse(user, target)
         return text
     end
 
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         Game.battle:startCutscene(function(cutscene)
             cutscene:text("[noskip]* You remove the Instant\nNoodles from their\npackaging.")
             cutscene:text("[noskip]* You put some water in\nthe pot and place it on\nthe heat.")
@@ -85,7 +84,7 @@ function item:onLightBattleUse(user, target)
             Game.battle.music:resume()
             self.cooked = true
             self.heal_amount = 4
-            for _,equip in ipairs(user.chara:getEquipment()) do
+            for _, equip in ipairs(user.chara:getEquipment()) do
                 if equip.getHealBonus then
                     self.heal_amount = self.heal_amount + equip:getHealBonus()
                 end
@@ -99,7 +98,7 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         self.heal_amount = 4
     end
     return super.onBattleUse(self, user, target)

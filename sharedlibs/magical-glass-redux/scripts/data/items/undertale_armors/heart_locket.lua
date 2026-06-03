@@ -35,12 +35,4 @@ function item:init()
     }
 end
 
-function item:showEquipText(target)
-    Game.world:showText("* "..target:getNameOrYou().." equipped the locket.")
-end
-
-function item:showEquipTextFail(target)
-    Game.world:showText("* " .. target:getNameOrYou() .. " didn't want to equip the locket.")
-end
-
 return item

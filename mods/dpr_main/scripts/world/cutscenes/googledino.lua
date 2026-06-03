@@ -67,5 +67,6 @@ return {
         cutscene:wait(cutscene:panTo(player, nil))
 
         cutscene:attachCameraImmediate()
+        DP:completeAchievement("defeat_dino")
     end,
 }

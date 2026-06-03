@@ -4,5 +4,15 @@
         "Hyperboid",
         "Diamond Deltahedron",
         "Arlee", // Contributor
+		"Ally", // setBlendState reimplementation
     ],
+	"config": {
+		// This option enables the new, more accurate way
+		// to perform masking operations.
+		// THIS MIGHT NOT WORK. It will be disabled automatically
+		// if the system can't support it.
+		// Defaults to true.
+		
+		"use_bm_subtract_blending": true
+	}
 }

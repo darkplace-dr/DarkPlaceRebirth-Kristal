@@ -39,11 +39,10 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getWorldUseText(target)
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         return "* "..target:getNameOrYou().." "..self:getUseMethod(target).." the Hush Puppy.\n* Dog-magic is neutralized."
     else
         return super.getWorldUseText(self, target)
@@ -51,7 +50,7 @@ function item:getWorldUseText(target)
 end
 
 function item:getLightBattleText(user, target)
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         return "* "..target.chara:getNameOrYou().." "..self:getUseMethod(target.chara).." the Hush Puppy.\n* Dog-magic is neutralized."
     else
         return super.getLightBattleText(self, user, target)

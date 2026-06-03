@@ -31,7 +31,7 @@ function Pippins:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/pippins/idle", -3, 25, 1/10}
+    self.box_sprite = {"recruits/pippins/idle", -3, 25, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

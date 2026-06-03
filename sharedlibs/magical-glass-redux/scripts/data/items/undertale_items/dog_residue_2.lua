@@ -32,7 +32,6 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:onWorldUse(target)
@@ -69,7 +68,7 @@ function item:onWorldUse(target)
             "undertale/dog_residue_5",
             "undertale/dog_residue_6",
         }
-        Game.inventory:addItem(Utils.pick(items))
+        Game.inventory:addItem(TableUtils.pick(items))
     end
     return false
 end
@@ -110,7 +109,7 @@ function item:onLightBattleUse(user, target)
             "undertale/dog_residue_5",
             "undertale/dog_residue_6",
         }
-        Game.inventory:addItem(Utils.pick(items))
+        Game.inventory:addItem(TableUtils.pick(items))
     end
     return true
 end
@@ -128,7 +127,7 @@ function item:onBattleUse(user, target)
             "undertale/dog_residue_5",
             "undertale/dog_residue_6",
         }
-        Game.inventory:addItem(Utils.pick(items))
+        Game.inventory:addItem(TableUtils.pick(items))
     end
     return true
 end
@@ -140,6 +139,7 @@ function item:getBattleText(user, target)
     else
         text = "* An uneasy atmosphere fills the room."
     end
+    
     return super.getBattleText(self, user, target) .. "\n" .. text
 end
 

@@ -1,17 +1,27 @@
-local LightConfigMenu, super = Class(DarkConfigMenu, "LightConfigMenu")
+local LightConfigMenu, super = Class(DarkConfigMenu)
 
 function LightConfigMenu:init()
     super.init(self)
     
     self:setParallax(0, 0)
+    self.currently_selected = 1
     self.heart_sprite = Assets.getTexture("player/heart_menu")
+end
+
+function LightConfigMenu:shouldStopUIMoveSound(state, min, max)
+    if self.state == state then
+        if self.currently_selected <= min and Input.pressed("up") or
+           self.currently_selected >= max and Input.pressed("down") then
+            return true
+        end
+    end
+    return false
 end
 
 function LightConfigMenu:update()
     if self.state == "MAIN" then
         if Input.pressed("confirm") and self.currently_selected == 7 then
-            self.ui_select:stop()
-            self.ui_select:play()
+            Assets.stopAndPlaySound("ui_select")
             
             Game.world:closeMenu()
             self:remove()
@@ -23,13 +33,30 @@ function LightConfigMenu:update()
             return
         end
     end
+    
+    local stop_sound = self:shouldStopUIMoveSound("MAIN", 1, 7)
 
     super.update(self)
+    
+    if stop_sound then
+        Assets.stopSound("ui_move")
+    end
+end
+
+function LightConfigMenu:onKeyPressed(key)
+    local stop_sound = self:shouldStopUIMoveSound("CONTROLS", 1, 9)
+    
+    super.onKeyPressed(self, key)
+    
+    if stop_sound then
+        Assets.stopSound("ui_move")
+    end
 end
 
 function LightConfigMenu:draw()
     if Game.state == "EXIT" then
         Object.draw(self)
+        
         return
     end
     love.graphics.setFont(self.font)
@@ -41,26 +68,26 @@ function LightConfigMenu:draw()
         if self.state == "VOLUME" then
             Draw.setColor(PALETTE["world_text_selected"])
         end
-        love.graphics.print("Master Volume", 88, 38 + (0 * 32))
+        love.graphics.print("Master Volume", 88, 38 + (0 * 35))
         Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("Controls", 88, 38 + (1 * 32))
-        love.graphics.print("Simplify VFX", 88, 38 + (2 * 32))
-        love.graphics.print("Fullscreen", 88, 38 + (3 * 32))
-        love.graphics.print("Auto-Run", 88, 38 + (4 * 32))
-        love.graphics.print("Return to Title", 88, 38 + (5 * 32))
-        love.graphics.print("Exit", 88, 38 + (6 * 32))
+        love.graphics.print("Controls", 88, 38 + (1 * 35))
+        love.graphics.print("Simplify VFX", 88, 38 + (2 * 35))
+        love.graphics.print("Fullscreen", 88, 38 + (3 * 35))
+        love.graphics.print("Auto-Run", 88, 38 + (4 * 35))
+        love.graphics.print("Return to Title", 88, 38 + (5 * 35))
+        love.graphics.print("Exit", 88, 38 + (6 * 35))
 
         if self.state == "VOLUME" then
             Draw.setColor(PALETTE["world_text_selected"])
         end
-        love.graphics.print(Utils.round(Kristal.getVolume() * 100) .. "%", 348, 38 + (0 * 32))
+        love.graphics.print(MathUtils.round(Kristal.getVolume() * 100) .. "%", 348, 38 + (0 * 35))
         Draw.setColor(PALETTE["world_text"])
-        love.graphics.print(Kristal.Config["simplifyVFX"] and "ON" or "OFF", 348, 38 + (2 * 32))
-        love.graphics.print(Kristal.Config["fullscreen"] and "ON" or "OFF", 348, 38 + (3 * 32))
-        love.graphics.print(Kristal.Config["autoRun"] and "ON" or "OFF", 348, 38 + (4 * 32))
+        love.graphics.print(Kristal.Config["simplifyVFX"] and "ON" or "OFF", 348, 38 + (2 * 35))
+        love.graphics.print(Kristal.Config["fullscreen"] and "ON" or "OFF", 348, 38 + (3 * 35))
+        love.graphics.print(Kristal.Config["autoRun"] and "ON" or "OFF", 348, 38 + (4 * 35))
 
         Draw.setColor(Game:getSoulColor())
-        Draw.draw(self.heart_sprite, 64, 46 + ((self.currently_selected - 1) * 32), 0, 2, 2)
+        Draw.draw(self.heart_sprite, 64, 46 + ((self.currently_selected - 1) * 35), 0, 2, 2)
     else
         -- NOTE: This is forced to true if using a PlayStation in DELTARUNE... Kristal doesn't have a PlayStation port though.
         local dualshock = Input.getControllerType() == "ps4"
@@ -98,11 +125,11 @@ function LightConfigMenu:draw()
                 if type(alias) == "table" then
                     local title_cased = {}
                     for _, word in ipairs(alias) do
-                        table.insert(title_cased, Utils.titleCase(word))
+                        table.insert(title_cased, StringUtils.titleCase(word))
                     end
                     love.graphics.print(table.concat(title_cased, "+"), 243, 0 + (28 * index))
                 elseif alias ~= nil then
-                    love.graphics.print(Utils.titleCase(alias), 243, 0 + (28 * index))
+                    love.graphics.print(StringUtils.titleCase(alias), 243, 0 + (28 * index))
                 end
             end
 
@@ -125,7 +152,7 @@ function LightConfigMenu:draw()
         Draw.setColor(PALETTE["world_text"])
 
         if (self.reset_flash_timer > 0) then
-            Draw.setColor(Utils.mergeColor(PALETTE["world_text"], PALETTE["world_text_selected"],
+            Draw.setColor(ColorUtils.mergeColor(PALETTE["world_text"], PALETTE["world_text_selected"],
                                            ((self.reset_flash_timer / 10) - 0.1)))
         end
 

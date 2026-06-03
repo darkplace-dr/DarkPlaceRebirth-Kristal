@@ -1,5 +1,11 @@
 ---@class DarkItemMenu : DarkItemMenu
-local DarkItemMenu, super = Utils.hookScript(DarkItemMenu)
+local DarkItemMenu, super = HookSystem.hookScript(DarkItemMenu)
+
+function DarkItemMenu:init()
+    super.init(self)
+
+    self.heart_sprite = Assets.getTexture("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart")
+end
 
 function DarkItemMenu:getSelectedItem()
     if Game.inventory:hasItem("oddstone") and self.selected_item == 13 then

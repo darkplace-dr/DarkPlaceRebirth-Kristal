@@ -1,4 +1,4 @@
-local LightHealthBar, super = Class(Object, "LightHealthBar")
+local LightHealthBar, super = Class(Object)
 
 function LightHealthBar:init()
     super.init(self, 0, 415)
@@ -29,7 +29,7 @@ end
 function LightHealthBar:draw()
     super.draw(self)
     
-    for index,party in ipairs(Game.party) do
+    for index, party in ipairs(Game.party) do
         local x, y = 31 + (3 - #Game.party - (#Game.party == 2 and 0.2 or 0)) * 98 + (index - 1) * 98 * 2 * (#Game.party == 2 and (1 + 0.2) or 1), 10
         
         local name = party:getShortName()
@@ -38,21 +38,21 @@ function LightHealthBar:draw()
         local max = party:getStat("health")
         
         love.graphics.setFont(Assets.getFont("namelv", 24))
-        love.graphics.setColor(PALETTE["world_text"])
+        Draw.setColor(PALETTE["world_text"])
         love.graphics.print(name, x, y)
         
         local small = false
-        for _,target in ipairs(Game.party) do
+        for _, target in ipairs(Game.party) do
             if target:getStat("health") >= 100 then
                 small = true
             end
         end
         
-        love.graphics.setColor(MG_PALETTE["player_health_bg"])
+        Draw.setColor(MG_PALETTE["player_health_bg"])
         love.graphics.rectangle("fill", x + 92, y, (small and 20 or 32) * 1.2 + 1, 21)
         if current > 0 then
-            love.graphics.setColor(MG_PALETTE["player_health"])
-            love.graphics.rectangle("fill", x + 92, y, math.ceil((Utils.clamp(current, 0, max) / max) * (small and 20 or 32)) * 1.2 + 1, 21)
+            Draw.setColor(MG_PALETTE["player_health"])
+            love.graphics.rectangle("fill", x + 92, y, math.ceil((MathUtils.clamp(current, 0, max) / max) * (small and 20 or 32)) * 1.2 + 1, 21)
         end
         
         love.graphics.setFont(Assets.getFont("namelv", 16))
@@ -64,7 +64,7 @@ function LightHealthBar:draw()
             current = "0" .. tostring(current)
         end
         
-        love.graphics.setColor(PALETTE["world_text"])
+        Draw.setColor(PALETTE["world_text"])
         Draw.printAlign(current .. "/" .. max, x + 189, y + 3, "right")
     end
 end

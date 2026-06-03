@@ -52,7 +52,7 @@ function item:init()
         ralsei = "You can do it!",
         noelle = "Now THIS is a tacky scarf! Faha!",
 		dess = ":)",
-        ceroba = "How lovely...",
+        ceroba = "(Kanako would love it...)",
         noel = "blatant lie",
         jamm = "I never was a good cheerleader...",
     }

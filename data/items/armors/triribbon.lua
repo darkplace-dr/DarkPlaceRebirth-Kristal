@@ -60,7 +60,7 @@ function item:init()
         jamm = "Woah! Pop idle much???",
         ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
         noel = "THREE bracelets??",
-        ceroba = "I think that's good enough.",
+        ceroba = "Good thing I have enough hair for that.",
     }
 end
 

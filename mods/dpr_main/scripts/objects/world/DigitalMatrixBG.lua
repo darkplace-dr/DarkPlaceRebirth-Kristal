@@ -1,6 +1,5 @@
 local DigitalMatrixBG, super = Class(Object)
 
--- Soul sprite used in the fountain sealing cutscene
 function DigitalMatrixBG:init(x, y)
     self.font = Assets.getFont("ja_main")
     super.init(self, x, y)
@@ -21,9 +20,9 @@ function DigitalMatrixBG:init(x, y)
 	local jrand = -1
 	local lastjrand = -1
 	for j = 1, 20 do
-		jrand = Utils.pick({1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}, function(value) return value ~= lastjrand end)
+		jrand = TableUtils.pick({1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}, function(value) return value ~= lastjrand end)
 		lastjrand = jrand
-		local lrand = love.math.random(255,300)
+		local lrand = MathUtils.randomInt(255,301)
 		for k = 0, 6 do
 			self.matrix_lifetime[j][math.max(jrand-k,0)] = math.max(lrand-(50*k),0)
 		end
@@ -34,8 +33,8 @@ end
 
 function DigitalMatrixBG:getChar()
 	local chars = "０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ，．：；！？＂＇｀＾～￣＿＆＠＃％＋－＊＝＜＞（）［］｛｝｟｠｜￤／＼￢＄￡￠￦￥"
-	local pos = love.math.random(1, 103)
-	return Utils.sub(chars, pos, pos)
+	local pos = MathUtils.randomInt(1, 104)
+	return StringUtils.sub(chars, pos, pos)
 end
 
 function DigitalMatrixBG:update()
@@ -69,9 +68,9 @@ function DigitalMatrixBG:draw()
 		for i = 1, 16 do
 			if self.matrix_lifetime[j][i] > 0 then
 				if self.matrix_lifetime[j][i] >= 150 then
-					love.graphics.setColor(Utils.mergeColor(COLORS["white"], COLORS["green"], 1-((self.matrix_lifetime[j][i]-150)/150)))
+					love.graphics.setColor(ColorUtils.mergeColor(COLORS["white"], COLORS["green"], 1-((self.matrix_lifetime[j][i]-150)/150)))
 				else
-					love.graphics.setColor(Utils.mergeColor(COLORS["green"], COLORS["black"], 1-(self.matrix_lifetime[j][i]/150)))
+					love.graphics.setColor(ColorUtils.mergeColor(COLORS["green"], COLORS["black"], 1-(self.matrix_lifetime[j][i]/150)))
 				end
 				love.graphics.print(self.matrix_char[j][i],(j-1)*32,(i-2)*32,0,1,1)
 			end

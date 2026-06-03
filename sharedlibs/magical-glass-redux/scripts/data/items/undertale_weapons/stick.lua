@@ -26,6 +26,8 @@ function item:init()
     self.usable_in = "all"
     -- Item this item will get turned into when consumed
     self.result_item = nil
+    
+    self.light_bolt_direction = "right"
 end
 
 function item:onWorldUse(target)
@@ -47,7 +49,7 @@ function item:getLightBattleText(user, target)
     if Game.battle.encounter.onStickUse then
         return Game.battle.encounter:onStickUse(self, user, target)
     else
-        return "* "..user.chara:getNameOrYou().." threw the stick away.\n* Then picked it back up."
+        return "* " .. user.chara:getNameOrYou() .. " threw the stick away.\n* Then picked it back up."
     end
 end
 
@@ -55,7 +57,7 @@ function item:getBattleText(user, target)
     if Game.battle.encounter.onStickUse then
         return Game.battle.encounter:onStickUse(self, user, target)
     else
-        return "* "..user.chara:getName().." threw the stick away.\n* Then picked it back up."
+        return "* " .. user.chara:getName() .. " threw the stick away.\n* Then picked it back up."
     end
 end
 

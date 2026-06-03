@@ -13,7 +13,8 @@ return {
   nextobjectid = 9,
   properties = {
     ["border"] = "green_room",
-    ["music"] = "deltarune/tv_changingroom"
+    ["music"] = "deltarune/greenroom_detune",
+    ["quietpipis"] = true
   },
   tilesets = {
     {

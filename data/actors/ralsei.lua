@@ -21,7 +21,7 @@ function actor:initChapter1()
     self.height = 43
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {2, 31, 19, 14}
+    self.hitbox = {2, 31, 18, 14}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {0, 1, 0}
@@ -63,10 +63,12 @@ function actor:initChapter1()
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/defeat", 1/15, false},
+        ["battle/succumbed"]    = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"walk/right_1", 1/15, false},
         ["battle/intro"]        = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
 
         -- Cutscene animations
         ["hood"]                = {"hood", 0.25, true},
@@ -203,6 +205,7 @@ function actor:initChapter2()
         ["battle/transition"]   = {"walk/right_1", 1/15, false},
         ["battle/intro"]        = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
 
         -- Cutscene animations
         ["jump_fall"]           = {"fall", 1/5, true},
@@ -272,7 +275,7 @@ function actor:initChapter2()
         ["battle/actend"] = {-2, -6},
         ["battle/actready"] = {-2, -6},
         ["battle/spell"] = {-11, -6},
-        ["battle/spellend"] = {-11, -6}, -- it was missing????????
+        ["battle/spellend"] = {-11, -6},
         ["battle/spellready"] = {-11, -6},
         ["battle/item"] = {-7, -14},
         ["battle/itemready"] = {-7, -14},
@@ -323,27 +326,8 @@ function actor:initChapter2()
     }
 
     self.menu_anim = "pose"
-end
 
-function actor:onWorldDraw(chara)
-    if Kristal.Config["runAnimations"] then
-        local player = Game.world.player
-
-        if Game.world.cutscene and not self.cut then
-            self.default = "walk"
-            chara:resetSprite()
-            self.cut = true
-        elseif not Game.world.cutscene then
-            if self.cut then self.cut = nil end
-            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
-                self.default = "run" --({"run", "float"})[math.random(2)]
-                chara:resetSprite()
-            elseif self.default ~= "walk" and player.run_timer == 0 then
-                self.default = "walk"
-                chara:resetSprite()
-            end
-        end
-    end
+    self.running_sprites = true
 end
 
 return actor

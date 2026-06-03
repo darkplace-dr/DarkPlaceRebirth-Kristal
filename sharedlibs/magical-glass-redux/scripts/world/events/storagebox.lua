@@ -1,7 +1,7 @@
 local StorageBox, super = Class(Interactable, "storagebox")
 
-function StorageBox:init(x, y, properties)
-    super.init(self, x, y)
+function StorageBox:init(x, y, shape, properties)
+    super.init(self, x, y, shape, properties)
 
     properties = properties or {}
 
@@ -28,7 +28,7 @@ function StorageBox:init(x, y, properties)
                     "* You put a little effort\ninto the box.",
                     "* You put a little feeling\ninto the box."
                 }
-                cutscene:text("* You have no items.\n"..Utils.pick(message))
+                cutscene:text("* You have no items.\n"..TableUtils.pick(message))
             else
                 self.should_open_menu = true
             end
@@ -41,8 +41,14 @@ function StorageBox:onTextEnd()
 
     if self.should_open_menu then
         Game.world:closeMenu()
-        Game.world:openMenu(LightStorageMenu("items", "box_a"))
+        Game.world:openMenu(LightStorageMenu("items", self.inventory))
     end
+end
+
+function StorageBox:getDebugInfo()
+    local info = super.getDebugInfo(self)
+    if self.inventory then table.insert(info, "Storage: " .. self.inventory) end
+    return info
 end
 
 return StorageBox

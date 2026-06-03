@@ -39,7 +39,7 @@ function item:init()
 	
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = "Devil's Bow"
-    self.bonus_icon = "minus"
+    self.bonus_icon = "ui/menu/icon/down"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}
@@ -48,6 +48,7 @@ function item:init()
     self.reactions = {
         noel = "Oh, fucking thanks I *really* needed a debuff.",
         ceroba = "That choice is on you.",
+        jamm = "This is insane...",
     }
 end
 

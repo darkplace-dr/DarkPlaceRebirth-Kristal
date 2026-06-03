@@ -1,4 +1,4 @@
-local item, super = Class(LightEquipItem, "custom/ring")
+local item, super = Class(LightEquipItem, "mg/ring")
 
 function item:init()
     super.init(self)
@@ -20,7 +20,7 @@ function item:init()
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
     
-    self.price = 100
+    self.sell_price = 10
     
     self.shop_magic = true
 
@@ -33,11 +33,12 @@ function item:init()
     self.attack_sprite = "effects/lightattack/slap"
     self.attack_pitch = 1.5
     
-    self.light_bolt_direction = "random"
-    
     self.can_equip = {
         ["susie"] = false
     }
+    
+    -- Default dark item conversion for this item
+    self.dark_item = "snowring"
 end
 
 return item

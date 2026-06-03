@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -18,106 +18,14 @@ return {
     {
       name = "floor2",
       firstgid = 1,
-      class = "",
-      tilewidth = 20,
-      tileheight = 20,
-      spacing = 0,
-      margin = 0,
-      columns = 17,
-      image = "../../../../assets/sprites/tilesets/floor2.png",
-      imagewidth = 340,
-      imageheight = 200,
-      objectalignment = "unspecified",
-      tilerendersize = "grid",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 20,
-        height = 20
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 170,
-      tiles = {}
+      filename = "../../tilesets/floor2.tsx",
+      exportfilename = "../../tilesets/floor2.lua"
     },
     {
       name = "apartment_doors",
       firstgid = 171,
-      class = "",
-      tilewidth = 184,
-      tileheight = 160,
-      spacing = 0,
-      margin = 0,
-      columns = 0,
-      objectalignment = "unspecified",
-      tilerendersize = "tile",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 1,
-        height = 1
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 8,
-      tiles = {
-        {
-          id = 0,
-          image = "../../../../assets/sprites/world/apartment_doors/jamm.png",
-          width = 120,
-          height = 160
-        },
-        {
-          id = 1,
-          image = "../../../../assets/sprites/world/apartment_doors/brenda.png",
-          width = 120,
-          height = 160
-        },
-        {
-          id = 2,
-          image = "../../../../assets/sprites/world/apartment_doors/nell.png",
-          width = 120,
-          height = 160
-        },
-        {
-          id = 3,
-          image = "../../../../assets/sprites/world/apartment_doors/ddelta.png",
-          width = 120,
-          height = 160
-        },
-        {
-          id = 4,
-          image = "../../../../assets/sprites/world/apartment_doors/arlee.png",
-          width = 106,
-          height = 128
-        },
-        {
-          id = 5,
-          image = "../../../../assets/sprites/world/apartment_doors/ubx.png",
-          width = 120,
-          height = 160
-        },
-        {
-          id = 6,
-          image = "../../../../assets/sprites/world/apartment_doors/ceroba.png",
-          width = 184,
-          height = 160
-        },
-        {
-          id = 7,
-          image = "../../../../assets/sprites/world/apartment_doors/ken.png",
-          width = 120,
-          height = 160
-        }
-      }
+      filename = "../../tilesets/apartment_doors.tsx",
+      exportfilename = "../../tilesets/apartment_doors.lua"
     }
   },
   layers = {
@@ -200,10 +108,10 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -345,6 +253,7 @@ return {
           width = 1080,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -358,6 +267,7 @@ return {
           width = 280,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -371,6 +281,7 @@ return {
           width = 760,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -384,6 +295,7 @@ return {
           width = 200,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -397,6 +309,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -410,6 +323,7 @@ return {
           width = 40,
           height = 880,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -423,6 +337,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -436,6 +351,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -449,6 +365,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -462,6 +379,7 @@ return {
           width = 856,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -475,6 +393,7 @@ return {
           width = 40,
           height = 880,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -488,6 +407,7 @@ return {
           width = 88,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -501,6 +421,7 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -514,6 +435,7 @@ return {
           width = 160,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -527,6 +449,7 @@ return {
           width = 248,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -556,6 +479,7 @@ return {
           width = 72,
           height = 94,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -569,6 +493,7 @@ return {
           width = 160,
           height = 156,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -582,6 +507,7 @@ return {
           width = 134,
           height = 182,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -595,6 +521,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 171,
           visible = true,
           properties = {}
@@ -609,6 +536,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 172,
           visible = true,
           properties = {}
@@ -623,6 +551,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 173,
           visible = true,
           properties = {}
@@ -637,21 +566,8 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 174,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 69,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 666,
-          y = 600,
-          width = 106,
-          height = 128,
-          rotation = 0,
-          gid = 175,
           visible = true,
           properties = {}
         },
@@ -665,6 +581,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 176,
           visible = true,
           properties = {}
@@ -679,6 +596,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           gid = 178,
           visible = true,
           properties = {}
@@ -709,6 +627,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_1",
@@ -725,6 +644,7 @@ return {
           width = 93,
           height = 26.6667,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/lancer",
@@ -741,6 +661,7 @@ return {
           width = 93,
           height = 26.67,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["once"] = false,
@@ -757,6 +678,7 @@ return {
           width = 160,
           height = 10,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/queen",
@@ -774,6 +696,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.jamm"
@@ -789,6 +712,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.nell"
@@ -804,6 +728,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.brenda"
@@ -819,6 +744,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.ddelta"
@@ -834,30 +760,12 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "marcy",
             ["cond"] = "(Game:hasDLC(\"dpr_jamm_dlc\")) and (Game:getFlag(\"acj_quest_prog\", 0) < 2)",
             ["cutscene"] = "apartments/jamm.helpme"
-          }
-        },
-        {
-          id = 70,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = 672,
-          y = 562,
-          width = 94,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["exit_delay"] = 0.3,
-            ["exit_sound"] = "doorclose",
-            ["map"] = "floor2/apartments/arlee/arlee_room",
-            ["marker"] = "spawn",
-            ["sound"] = "dooropen"
           }
         },
         {
@@ -870,6 +778,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.gen"
@@ -885,6 +794,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "apartment_doors.ken"
@@ -916,6 +826,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -929,6 +840,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -942,6 +854,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -955,6 +868,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -968,6 +882,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -981,19 +896,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 22,
-          name = "entry_arlee",
-          type = "",
-          shape = "point",
-          x = 720,
-          y = 640,
-          width = 0,
-          height = 0,
-          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1007,6 +910,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1020,6 +924,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1033,6 +938,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1046,6 +952,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1059,6 +966,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1072,6 +980,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1085,6 +994,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

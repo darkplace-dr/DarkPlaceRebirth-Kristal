@@ -35,11 +35,10 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getWorldUseText(target)
-    if MagicalGlassLib.serious_mode then
+    if Mod.libs["magical-glass"].serious_mode then
         return super.getWorldUseText(self, target)
     else
         if select(2, target:getNameOrYou()) and target.id == Game.party[1].id then
@@ -51,7 +50,7 @@ function item:getWorldUseText(target)
 end
 
 function item:getLightBattleText(user, target)
-    if MagicalGlassLib.serious_mode then
+    if Mod.libs["magical-glass"].serious_mode then
         return super.getLightBattleText(self, user, target)
     else
         if select(2, target.chara:getNameOrYou()) and user.chara.id == Game.battle.party[1].chara.id and target.chara.id == Game.battle.party[1].chara.id then

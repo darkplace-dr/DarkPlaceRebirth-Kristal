@@ -116,6 +116,10 @@ function World:init(map)
     if map then
         self:loadMap(map)
     end
+
+    if Kristal.Config["silly_mode"] then
+        self:addFX(ShaderFX("bloom"), "bloom")
+    end
 end
 
 --- Heals a member of the party
@@ -143,13 +147,33 @@ function World:heal(target, amount, text)
     elseif self.healthbar then
         for _, actionbox in ipairs(self.healthbar.action_boxes) do
             if actionbox.chara.id == target.id then
-                local text = HPText("+" .. amount, self.healthbar.x + actionbox.x + 69, self.healthbar.y + actionbox.y + 15)
+				local xx = 69
+				if #Game.party == 4 then
+					xx = 49
+				end
+                local text = HPText("+" .. amount, self.healthbar.x + actionbox.x + xx, self.healthbar.y + actionbox.y + 15)
                 text.layer = WORLD_LAYERS["ui"] + 1
                 Game.world:addChild(text)
                 return
             end
         end
     end
+end
+
+--- Gets the `Player` and `Follower` characters
+---@return (Player|Follower)[]
+function World:getPlayerAndFollowers()
+    local characters = TableUtils.copy(self.followers)
+    if self.player then
+        table.insert(characters, 1, self.player)
+    end
+    return characters
+end
+
+--- Gets the `Follower` or `Player` of a character that's currently the soul party member
+---@return Player|Follower?
+function World:getSoulPartyCharacter()
+    return self:getPartyCharacterInParty(Game:getSoulPartyMember())
 end
 
 --- Hurts the party member `battler` by `amount`, or hurts the whole party for `amount`
@@ -171,9 +195,15 @@ function World:hurtParty(battler, amount)
     local any_killed = false
     local any_alive = false
     for _, party in ipairs(Game.party) do
+        local current_amount = amount
+
+        for _, item in ipairs(party:getEquipment()) do
+            current_amount = item:onWorldDamage(current_amount) or current_amount
+        end
+
         if not battler or battler == party.id or battler == party then
             local current_health = party:getHealth()
-            party:setHealth(party:getHealth() - amount)
+            party:setHealth(party:getHealth() - current_amount)
             if party:getHealth() <= 0 then
                 party:setHealth(1)
                 any_killed = true
@@ -188,7 +218,7 @@ function World:hurtParty(battler, amount)
                     char:statusMessage("damage", dealt_amount)
                 end
             end
-        elseif party:getHealth() > amount then
+        elseif party:getHealth() > current_amount then
             any_alive = true
         end
     end
@@ -324,7 +354,7 @@ end
 
 --- Shows party member health bars
 function World:showHealthBars()
-    if Game.light then return end
+    if Game:isLight() then return end
 
     if self.healthbar then
         self.healthbar:transitionIn()
@@ -352,7 +382,7 @@ end
 
 ---@param key string
 function World:onKeyPressed(key)
-    if Kristal.Config["debug"] and Input.ctrl() then
+    if Kristal.isDevMode() and Input.ctrl() then
         if key == "m" then
             if self.music then
                 if self.music:isPlaying() then
@@ -384,7 +414,7 @@ function World:onKeyPressed(key)
             Game.world:hurtParty(math.huge)
         end
         if key == "k" then
-            Game:setTension(Game:getMaxTension() * 2, true)
+            Game:setTension(Game:getMaxTension())
         end
         if key == "n" then
             NOCLIP = not NOCLIP
@@ -451,6 +481,23 @@ function World:checkCollision(collider, enemy_check)
     end
     Object.endCache()
     return false
+end
+
+--- Returns all the inputs `collider` is currently colliding with in the world
+---@param collider      Collider    The collider to check collisions for
+---@param enemy_check?  boolean     Whether to include the enemy collision map in the check
+---@return boolean  collided    Whether a collision was found
+---@return Object[] collisions The objects that were collided with
+function World:checkCollisions(collider, enemy_check)
+    local collided_with = {}
+    Object.startCache()
+    for _, other in ipairs(self:getCollision(enemy_check)) do
+        if collider:collidesWith(other) and collider ~= other then
+            table.insert(collided_with, other.parent)
+        end
+    end
+    Object.endCache()
+    return #collided_with > 0, collided_with
 end
 
 --- Whether the world has a currently active cutscene
@@ -549,9 +596,6 @@ function World:spawnPlayer(...)
         facing = self.player:getFacing()
         self:removeChild(self.player)
     end
-    if self.soul then
-        self:removeChild(self.soul)
-    end
 
     self.player = Player(chara, x, y)
     self.player.layer = self.map.object_layer
@@ -562,17 +606,23 @@ function World:spawnPlayer(...)
         self.player.party = party
     end
 
-    self.soul = OverworldSoul(self.player:getRelativePos(self.player.actor:getSoulOffset()))
-    self.soul:setColor(Game:getSoulColor())
-    self.soul.layer = WORLD_LAYERS["soul"]
-    self:addChild(self.soul)
-
     if self.camera.attached_x then
         self.camera:setPosition(self.player.x, self.camera.y)
     end
     if self.camera.attached_y then
         self.camera:setPosition(self.camera.x, self.player.y - (self.player.height * 2) / 2)
     end
+end
+
+--- Spawns the soul into the world
+---@param x? number
+---@param y? number
+function World:spawnSoul(x, y)
+    if self.soul then
+        self:removeChild(self.soul)
+    end
+    self.soul = OverworldSoul(x, y)
+    self:addChild(self.soul)
 end
 
 --- Gets the `Character` in the world of a party member
@@ -720,6 +770,7 @@ function World:spawnParty(marker, party, extra, facing)
                 follower:setFacing(facing or self.player:getFacing())
             end
         end
+        self:spawnSoul()
     end
 end
 
@@ -775,7 +826,7 @@ end
 --- Gets a specific character currently present in the world
 ---@param id        string  The actor id of the character to search for
 ---@param index?    number  The character's index, if they have multiple instances in the world. (Defaults to `1`)
----@return Character|nil chara The character instance, or `nil` if it was not found
+---@return Character? chara The character instance, or `nil` if it was not found
 function World:getCharacter(id, index)
     local party_member = Game:getPartyMember(id)
     local i = 0
@@ -1127,7 +1178,7 @@ function World:fadeInto(callback)
 end
 
 --- Gets the object that the camera is currently targetting
----@return Object|nil
+---@return Object?
 function World:getCameraTarget()
     if self.camera.target and self.camera.target.stage then
         return self.camera.target

@@ -117,7 +117,7 @@ function actor:init()
     self.name = "Noel"
     self.width = 33
     self.height = 40
-    self.hitbox = {7, 28, 19, 14}
+    self.hitbox = {7, 28, 18, 14}
     self.color = {1, 1, 1}
     self.path = "party/noel"
 
@@ -145,6 +145,7 @@ function actor:init()
         ["battle/idle"]         = {"battle/idle", 0.2, true},
         ["battle/defeat"]         = {"battle/down", 0.2, false},
         ["battle/swooned"]      = {"battle/down", 1/15, false},
+        ["battle/succumbed"]      = {"battle/down", 1/15, false},
         ["battle/attack_ready"] = {"battle/attack_ready", 1/60, false},
         ["battle/spell_ready"]  = {"battle/attack_ready", 1/8, false},
         ["battle/attack"]         = {"battle/attack", 1/35, false},

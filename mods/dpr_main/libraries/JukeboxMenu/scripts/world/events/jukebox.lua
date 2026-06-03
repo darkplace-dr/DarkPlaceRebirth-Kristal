@@ -28,8 +28,8 @@ function Jukebox:openMenu()
 end
 
 function Jukebox:onInteract(chara, dir)
-    Game.world:startCutscene(function(cutscene, event)
-        cutscene:text("* A working jukebox.\n* Would you like to play a song?")
+    Game.world:startCutscene(function(cutscene)
+        cutscene:text("* A working jukebox.[wait:5]\n* Would you like to play a song?")
 
         if cutscene:choicer({"Yes", "No"}) == 2 then
             cutscene:text("* You decided to leave the jukebox in its undamaged state.")

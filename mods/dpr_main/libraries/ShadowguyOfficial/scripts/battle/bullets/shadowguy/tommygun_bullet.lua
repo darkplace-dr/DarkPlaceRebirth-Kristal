@@ -7,6 +7,7 @@ function ShadowguyGunBullet:init(x, y)
     self:setSprite("bullets/shadowguy/tommygun_bullet")
 	self:setScale(1)
 	self:setOriginExact(16, 14)
+	self.physics.match_rotation = true
 	
 	self._destroy = false
 end

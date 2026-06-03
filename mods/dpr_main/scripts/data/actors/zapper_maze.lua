@@ -20,7 +20,8 @@ function actor:init()
     self.animations = {}
 
     self.talk_sprites = {
-        ["talk"] = 0.15
+        ["talk"] = 0.15,
+        ["talk_water"] = 0.15
     }
 
     self.offsets = {}
@@ -32,14 +33,32 @@ function actor:onSpriteInit(sprite)
     sprite.draw_children_above = 0
     sprite.draw_children_below = 0
 
-    sprite.buttons = Sprite(self.path.."/maze/talk_colmask")
-    sprite.buttons:setFrame(sprite.frame)
-    sprite.buttons:setColor(self.button_color)
-    sprite.buttons.debug_select = false
-    sprite:addChild(sprite.buttons)
+	sprite.buttons = Sprite(self.path.."/maze/talk_colmask")
+	sprite.buttons:setFrame(math.floor(sprite.frame))
+	sprite.buttons:setColor(self.button_color)
+	sprite.buttons.debug_select = false
+	sprite:addChild(sprite.buttons)
+end
+
+function actor:onSetSprite(sprite, texture, keep_anim)
+	if sprite.buttons then
+		sprite.buttons:setSprite(self.path.."/maze/" .. sprite.sprite .. "_colmask")
+		sprite.buttons:setFrame(math.floor(sprite.frame))
+	end
+end
+
+function actor:onSetAnimation(sprite, anim, callback)
+	if sprite.buttons then
+		sprite.buttons:setSprite(self.path.."/maze/" .. sprite.sprite .. "_colmask")
+		sprite.buttons:setFrame(math.floor(sprite.frame))
+	end
 end
 
 function actor:onSpriteUpdate(sprite)
+    sprite.buttons:setFrame(math.floor(sprite.frame))
+end
+
+function actor:onTalkEnd(text, sprite)
     sprite.buttons:setFrame(math.floor(sprite.frame))
 end
 

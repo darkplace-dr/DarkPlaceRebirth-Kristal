@@ -1,3 +1,4 @@
+---@class Chapter4Lib.ClimbWater : Object
 local ClimbWater, super = Class(Object)
 
 function ClimbWater:init(x, y, watertype, movetimer, moverate, tilelimit, fallingtimer, falldir, spawnrate, activetime)
@@ -97,9 +98,12 @@ function ClimbWater:update()
 			yoff = 14 * self.scaley
 			adjustment = 20
 		end
+		if self.watertype == 1 and Game.world.map.cyltower then
+			adjustment = -40
+		end
 		if boty - (topy + yoff) > 8 then
 			Object.startCache()
-			local collider = Hitbox(self, adjustment + 8, topy + yoff, adjustment + width - 16, boty - topy - 8)
+			local collider = Hitbox(self, adjustment + 8, topy + yoff, width - 16, boty - topy - 8)
 			if Game.world.player:collidesWith(collider) then
 				if Game.world.player.falling == 0 and Game.world.player.neutralcon == 1 or Game.world.player.jumpchargecon >= 1 then
 					Game.world.player.falldir = self.falldir
@@ -151,13 +155,42 @@ end
 
 function ClimbWater:draw()
     super.draw(self)
-	if not self.waterinit then return end
-	local xx = 0
-	local yy = 0
+	love.graphics.push()
+	love.graphics.origin()
+	love.graphics.translate(-(Game.world.camera.x - SCREEN_WIDTH/2), -(Game.world.camera.y - SCREEN_HEIGHT/2))
+	if not self.waterinit then
+		love.graphics.pop()
+		return
+	end
+	local xscale = 2
+	local adjustment = 0
+	local xx = self.x + adjustment
+	local yy = self.y
+	if Game.world.map.cyltower then
+		local cyltower = Game.world.map.cyltower
+		if cyltower.appearance == 1 then
+			adjustment = 40
+			xx = self.x + adjustment
+		end
+		local tilex = math.floor(xx / cyltower.tile_width_fine) + 1
+		if tilex > cyltower.horizontaltilecount - 1 then
+			tilex = tilex - cyltower.horizontaltilecount
+		end
+		if tilex < 0 then
+			tilex = tilex + cyltower.horizontaltilecount
+		end
+		local tile = cyltower.tile_data[cyltower.tm_tileset[1]][tilex - 1]
+		xx = cyltower.tower_x + tile.x
+		xscale = (tile.xscale * 2) / cyltower.tile_width_fine
+		if tile.vis ~= 1 then
+			love.graphics.pop()
+			return
+		end
+	end
 	if self.watertype == 1 then
 		local watcol = ColorUtils.hexToRGB("0EBBE9FF")
-		local topy = MathUtils.clamp(self.drawy, self.starty - self.y + 10, self.endy - self.y)
-		local boty = MathUtils.clamp(-40 + (self.scaley * 40) + self.drawy, self.starty - self.y + 20, self.endy - self.y)
+		local topy = MathUtils.clamp(yy + self.drawy, self.starty + 10, self.endy)
+		local boty = MathUtils.clamp(yy - 40 + (self.scaley * 40) + self.drawy, self.starty + 20, self.endy)
 		local alph = MathUtils.clamp(self.animindex + (math.sin(self.animindex * 4) * 0.25), 0, 0.8)
 		self.animindex = self.animindex + 0.25
 		self.col = {ColorUtils.hexToRGB("00AAE9FF"),
@@ -170,32 +203,36 @@ function ClimbWater:draw()
 		local offset = -8
 		if self.ending then
 			offset = 0
-			alph = alph * Utils.clamp((boty - topy) / 20, 0, 1)
+			alph = alph * MathUtils.clamp((boty - topy) / 20, 0, 1)
 		end
 		love.graphics.setBlendMode("add")
 		Draw.setColor(ColorUtils.mergeColor({0,0,0,1}, {1,1,1,1}, alph))
- 		Draw.draw(self.watertile_top[colindex], xx, yy + topy, 0, 2, 2, 0, 8)
+ 		Draw.draw(self.watertile_top[colindex], xx, topy, 0, xscale, 2, 0, 8)
 		if not self.ending then
-			Draw.draw(self.watertile_top[colindex], xx, yy + boty - 8, 0, 2, -2, 0, 8)
+			Draw.draw(self.watertile_top[colindex], xx, boty - 8, 0, xscale, -2, 0, 8)
 		end
 		Draw.setColor(ColorUtils.mergeColor({0,0,0,1}, watcol, alph))
- 		Draw.draw(Assets.getTexture("bubbles/fill"),  xx, yy + topy, 0, 20 * 2, (boty - topy) + offset)
+ 		Draw.draw(Assets.getTexture("bubbles/fill"),  xx, topy, 0, 20 * xscale, (boty - topy) + offset)
 		Draw.setColor(1,1,1,1)
 		love.graphics.setBlendMode("alpha")
 	end
 	if DEBUG_RENDER then
-		local topy = MathUtils.clamp(self.drawy, self.starty - self.y, self.endy - self.y)
-		local boty = MathUtils.clamp(-40 + (self.scaley * 40) + self.drawy, self.starty - self.y, self.endy - self.y)
+		local topy = MathUtils.clamp(yy + self.drawy, self.starty, self.endy)
+		local boty = MathUtils.clamp(yy - 40 + (self.scaley * 40) + self.drawy, self.starty, self.endy)
 		local kris = 0
 		local width = 40
 		local yoff = 8
 		local adjustment = 0
-		local collider = Hitbox(self, adjustment + 8, topy + yoff, adjustment + width - 16, boty - topy - 8)
+		if self.watertype == 1 and Game.world.map.cyltower then
+			adjustment = -40
+		end
+		local collider = Hitbox(self, self.x + adjustment + 8, topy + yoff, width - 16, boty - topy - 8)
 		collider:draw(1,0,0)
 		if self.collider then
 			self.collider:draw(0,1,0)
 		end
 	end
+	love.graphics.pop()
 end
 
 return ClimbWater

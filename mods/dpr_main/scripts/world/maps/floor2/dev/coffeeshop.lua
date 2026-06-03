@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 25,
+  nextobjectid = 33,
   properties = {
     ["music"] = "dev"
   },
@@ -46,7 +46,7 @@ return {
         {
           id = 14,
           name = "space_bg",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -79,8 +79,8 @@ return {
         15, 15, 15, 31, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 32, 15, 15, 15,
         15, 15, 31, 86, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 84, 32, 15, 15,
         15, 15, 16, 96, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 35, 0, 0, 0, 45, 94, 14, 15, 15,
-        15, 15, 16, 96, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 0, 0, 0, 45, 94, 14, 15, 15,
-        15, 15, 16, 106, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 104, 14, 15, 15,
+        15, 15, 16, 96, 45, 45, 45, 45, 45, 45, 33, 33, 33, 33, 45, 45, 0, 0, 0, 45, 94, 14, 15, 15,
+        15, 15, 16, 106, 55, 55, 55, 55, 55, 55, 33, 33, 33, 33, 55, 55, 55, 55, 55, 55, 104, 14, 15, 15,
         15, 15, 16, 33, 33, 33, 53, 43, 43, 43, 43, 43, 43, 43, 43, 3221225525, 33, 33, 33, 33, 33, 14, 15, 15,
         15, 15, 16, 33, 33, 53, 43, 43, 43, 43, 43, 43, 43, 43, 3221225525, 33, 33, 33, 33, 33, 53, 14, 15, 15,
         15, 15, 16, 33, 53, 43, 43, 43, 43, 43, 43, 43, 43, 3221225525, 33, 33, 33, 33, 33, 53, 43, 14, 15, 15,
@@ -109,9 +109,9 @@ return {
       encoding = "lua",
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 7, 8, 9, 10, 0, 0, 0, 0, 0, 91, 92, 92, 92, 93, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 17, 18, 19, 20, 0, 0, 0, 0, 0, 101, 0, 0, 0, 103, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 27, 28, 29, 30, 0, 0, 0, 0, 0, 101, 0, 0, 0, 103, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0, 91, 92, 92, 92, 93, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 17, 18, 19, 20, 0, 0, 0, 0, 0, 0, 101, 0, 0, 0, 103, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 27, 28, 29, 30, 0, 0, 0, 0, 0, 0, 101, 0, 0, 0, 103, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 111, 112, 112, 112, 113, 0, 0, 0, 0,
         0, 0, 0, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 114, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -139,7 +139,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 400,
@@ -152,7 +152,7 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 840,
           y = 240,
@@ -165,7 +165,7 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 160,
@@ -178,7 +178,7 @@ return {
         {
           id = 7,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 80,
           y = 240,
@@ -191,7 +191,7 @@ return {
         {
           id = 8,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 400,
@@ -204,7 +204,7 @@ return {
         {
           id = 11,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 120,
           y = 257,
@@ -223,7 +223,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 840,
           y = 264,
@@ -242,7 +242,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 350,
@@ -255,7 +255,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 350,
@@ -268,7 +268,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 350,
@@ -281,12 +281,44 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 350,
           width = 80,
           height = 30,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 380,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 40, y = 40 },
+            { x = 160, y = 40 },
+            { x = 200, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 380,
+          y = 200,
+          width = 200,
+          height = 40,
           rotation = 0,
           visible = true,
           properties = {}
@@ -310,7 +342,7 @@ return {
         {
           id = 9,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 480,
@@ -321,6 +353,36 @@ return {
           properties = {
             ["map"] = "floor2/dev/main_1",
             ["marker"] = "starbeans"
+          }
+        },
+        {
+          id = 27,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 230,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "alexa"
+          }
+        },
+        {
+          id = 32,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 420,
+          y = 240,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "devroom.starbeans"
           }
         }
       }
@@ -342,7 +404,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 380,
@@ -356,7 +418,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 380,
@@ -370,7 +432,7 @@ return {
         {
           id = 17,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 380,
@@ -384,7 +446,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 380,
@@ -398,7 +460,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 380,
@@ -412,7 +474,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 380,
@@ -420,6 +482,20 @@ return {
           height = 60,
           rotation = 0,
           gid = 123,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 380,
+          y = 280,
+          width = 200,
+          height = 280,
+          rotation = 0,
+          gid = 127,
           visible = true,
           properties = {}
         }
@@ -442,10 +518,23 @@ return {
         {
           id = 10,
           name = "main",
-          class = "",
+          type = "",
           shape = "point",
           x = 480,
           y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "spawn",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 380,
           width = 0,
           height = 0,
           rotation = 0,

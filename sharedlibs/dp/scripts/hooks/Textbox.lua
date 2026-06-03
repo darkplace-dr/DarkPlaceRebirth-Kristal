@@ -1,5 +1,13 @@
 ---@class Textbox : Textbox
-local Textbox, super = Utils.hookScript(Textbox)
+local Textbox, super = HookSystem.hookScript(Textbox)
+
+function Textbox:init(x, y, width, height, default_font, default_font_size, battle_box)
+    super.init(self, x, y, width, height, default_font, default_font_size, battle_box)
+
+    self.do_ceroba_eye_twitch = false
+    self.ceroba_eye_twitched = false
+    self.ceroba_eye_twitch_timer = 0
+end
 
 function Textbox:setText(text, callback)
     super.setText(self, text, callback)
@@ -38,6 +46,31 @@ function Textbox:setActor(actor)
     
     if self.actor and self.actor.id == "jamm" and Game:getFlag("jamm_has_glasses", false) then
         self.jamm = Assets.getTexture("face/jamm/glasses_overlay")
+    end
+end
+
+function Textbox:update()
+    super.update(self)
+
+    if self.do_ceroba_eye_twitch then
+        if MathUtils.randomInt(30 + 1) == 1 and not self.ceroba_eye_twitched then
+            self.face:setSprite("lostit_twitch")
+            self.ceroba_eye_twitch_timer = 1
+            self.ceroba_eye_twitched = true
+        else
+            self.ceroba_eye_twitch_timer = MathUtils.approach(self.ceroba_eye_twitch_timer, 0, 0.2 * DTMULT)
+            if self.ceroba_eye_twitch_timer == 0 then
+                self.face:setSprite("lostit")
+                self.ceroba_eye_twitched = false
+            end
+        end
+    end
+end
+
+function Textbox:setFace(face, ox, oy)
+    super.setFace(self, face, ox, oy)
+    if self.actor and self.actor.id == "ceroba" and face == "lostit" then
+        self.do_ceroba_eye_twitch = true
     end
 end
 

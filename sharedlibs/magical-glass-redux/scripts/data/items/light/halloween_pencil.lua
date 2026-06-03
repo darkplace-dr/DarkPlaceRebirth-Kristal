@@ -7,7 +7,7 @@ function item:init()
     self.short_name = "HllwPencil"
     self.dark_name = "Hallow Pencil"
 
-    self.price = 6
+    self.sell_price = 3
 end
 
 return item

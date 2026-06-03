@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="42">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="42">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -115,7 +115,7 @@
   <object id="32" name="npc" x="420" y="180">
    <properties>
     <property name="actor" value="susie_lw"/>
-    <property name="cutscene" value="hometown.digi_susie"/>
+    <property name="cutscene" value="hometown_digi.susie"/>
     <property name="facing" value="down"/>
     <property name="flagcheck" value="hometown_digisetup"/>
     <property name="sprite" value="chill"/>
@@ -125,7 +125,7 @@
   <object id="34" name="npc" x="460" y="330">
    <properties>
     <property name="actor" value="dess"/>
-    <property name="cutscene" value="hometown.digi_dess"/>
+    <property name="cutscene" value="hometown_digi.dess"/>
     <property name="facing" value="up"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
@@ -134,7 +134,7 @@
   <object id="35" name="npc" x="470" y="200">
    <properties>
     <property name="actor" value="ceroba"/>
-    <property name="cutscene" value="hometown.digi_ceroba"/>
+    <property name="cutscene" value="hometown_digi.ceroba"/>
     <property name="facing" value="left"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
@@ -143,7 +143,7 @@
   <object id="36" name="npc" x="390" y="380">
    <properties>
     <property name="actor" value="brenda_lw"/>
-    <property name="cutscene" value="hometown.digi_brenda"/>
+    <property name="cutscene" value="hometown_digi.brenda"/>
     <property name="facing" value="right"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
@@ -152,7 +152,7 @@
   <object id="37" name="npc" x="250" y="170">
    <properties>
     <property name="actor" value="noelle_lw"/>
-    <property name="cutscene" value="hometown.digi_noelle"/>
+    <property name="cutscene" value="hometown_digi.noelle"/>
     <property name="facing" value="down"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
@@ -161,7 +161,7 @@
   <object id="39" name="npc" x="180" y="320">
    <properties>
     <property name="actor" value="jammarcy_light"/>
-    <property name="cutscene" value="hometown.digi_jammarcy"/>
+    <property name="cutscene" value="hometown_digi.jammarcy"/>
     <property name="facing" value="up"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
@@ -169,13 +169,13 @@
   </object>
   <object id="40" name="script" x="300" y="420" width="40" height="40">
    <properties>
-    <property name="cutscene" value="hometown.digi_library"/>
+    <property name="cutscene" value="hometown_digi.library"/>
     <property name="flagcheck" value="hometown_digisetup"/>
    </properties>
   </object>
   <object id="41" name="script" x="278.5" y="462.5" width="82.5" height="15">
    <properties>
-    <property name="cutscene" value="hometown.digiwrongway_library"/>
+    <property name="cutscene" value="hometown_digi.wrongway_library"/>
     <property name="flagcheck" value="!digi_complete"/>
     <property name="once" type="bool" value="false"/>
    </properties>

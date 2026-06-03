@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="106">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="112">
  <editorsettings>
   <export target="corridors2.lua" format="lua"/>
  </editorsettings>
@@ -9,7 +9,7 @@
  </properties>
  <tileset firstgid="1" source="../../../tilesets/greenroom.tsx"/>
  <tileset firstgid="127" source="../../../tilesets/floor3-objects.tsx"/>
- <tileset firstgid="170" source="../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
+ <tileset firstgid="177" source="../../../tilesets/bg_ch3_dw_changing_room_tileset.tsx"/>
  <imagelayer id="9" name="Image Layer 1">
   <image source="../../../../../assets/sprites/world/maps/floor3/sloppy/changing_room_floor.png" width="1280" height="960"/>
  </imagelayer>
@@ -20,11 +20,11 @@
 21,21,21,21,21,21,21,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
 21,21,21,21,21,21,21,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
 21,21,21,21,21,21,21,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
-205,206,522,522,522,523,524,0,0,0,0,521,205,206,522,522,522,522,522,522,522,21,21,21,
-237,546,546,546,238,239,516,0,0,0,0,544,238,239,514,514,514,514,236,237,514,21,21,21,
-268,546,546,546,269,270,547,0,0,0,0,544,269,270,545,545,545,545,267,268,545,545,21,21,
-577,328,577,577,577,329,578,0,0,0,0,575,576,576,329,576,576,576,576,328,576,576,21,21,
-361,361,361,361,361,361,361,0,0,0,0,361,361,361,361,361,361,361,361,361,361,0,0,21,
+212,213,529,529,529,530,531,0,0,0,0,528,212,213,529,529,529,529,529,529,529,21,21,21,
+244,553,553,553,245,246,523,0,0,0,0,551,245,246,521,521,521,521,243,244,521,21,21,21,
+275,553,553,553,276,277,554,0,0,0,0,551,276,277,552,552,552,552,274,275,552,552,21,21,
+584,335,584,584,584,336,585,0,0,0,0,582,583,583,336,583,583,583,583,335,583,583,21,21,
+368,368,368,368,368,368,368,0,0,0,0,368,368,368,368,368,368,368,368,368,368,0,0,21,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,
 21,21,21,21,21,21,21,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,
@@ -80,7 +80,7 @@
   <object id="23" x="840" y="360">
    <polygon points="0,0 80,80 80,0"/>
   </object>
-  <object id="28" x="480" y="360" width="68" height="20"/>
+  <object id="28" x="540" y="360" width="68" height="20"/>
   <object id="37" x="920" y="360" width="40" height="120"/>
   <object id="67" x="0" y="480" width="280" height="320"/>
   <object id="68" x="440" y="480" width="520" height="320"/>
@@ -142,8 +142,8 @@
     <property name="default_state" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="102" gid="157" x="480" y="380" width="68" height="72"/>
-  <object id="105" name="interactable" x="480" y="339.255" width="68" height="40.75">
+  <object id="102" gid="157" x="540" y="380" width="68" height="72"/>
+  <object id="105" name="interactable" x="540" y="339.255" width="68" height="40.75">
    <properties>
     <property name="text">* (A vending machine in a rough state.)
 * (Unusable at this point.)</property>

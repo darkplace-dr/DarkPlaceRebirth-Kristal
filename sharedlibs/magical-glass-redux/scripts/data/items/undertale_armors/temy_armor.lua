@@ -37,7 +37,7 @@ function item:init()
     -- Item this item will get turned into when consumed
     self.result_item = nil
 
-    self.inv_bonus = 15/30
+    self.inv_bonus = 15 / 30
 
     self.bonuses = {
         defense = 20,
@@ -71,7 +71,7 @@ end
 
 function item:getPrice()
     local price = 9999
-    for i = 1, math.min(MagicalGlassLib.game_overs, 30) do
+    for i = 1, math.min(Mod.libs["magical-glass"].game_overs, 30) do
         if i == 1 then
             price = price - 999
         elseif i <= 5 then

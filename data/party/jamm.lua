@@ -24,7 +24,7 @@ function character:init()
 
     if Game:getFlag("jamm_canact") then
         self.has_act = true
-		self.soul_priority = 10
+		-- self.soul_priority = 10
     else
         self.has_act = false
     end
@@ -33,23 +33,21 @@ function character:init()
     self.has_xact = true
     self.xact_name = "J-Action"
 
-    if Game:getFlag("dungeonkiller") then
-        self.lw_portrait = "face/jamm/shaded_neutral"
-    else
-        self.lw_portrait = "face/jamm/neutral"
-    end
+    self.lw_portrait = "face/jamm/neutral"
 
     self:addSpell("supersling")
     self:addSpell("darksling")
     self:addSpell("numbshot")
 
     self.health = 120
+    self.mana = 15
 
     self.stats = {
         health = 120,
         attack = 10,
         defense = 2,
-        magic = 3
+        magic = 3,
+        mana = 30
     }
 
     self.weapon_icon = "ui/menu/equip/sling"
@@ -64,6 +62,10 @@ function character:init()
     self.attack_bar_color = {0.5, 0.5, 0}
     self.attack_box_color = {127/255, 106/255, 0}
     self.xact_color = nil
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#7F6A00FF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#7F0000FF")
 
     self.menu_icon = "party/jamm/head"
     self.head_icons = "party/jamm/icon"
@@ -88,6 +90,42 @@ function character:init()
     self.flags = {
         ["disarmed"] = false
     }
+    
+    self.default_spell_resource = "tension"
+    self.uses_mana = false
+
+    if Game:getFlag("marcy_joined", false) then
+        self.element = {
+            "ELEC",
+            "FIRE"
+        }
+    else
+        self.element = {
+            "ELEC"
+        }
+    end
+end
+
+function character:getElements()
+    local e = {"ELEC"}
+    if Game:getFlag("marcy_joined") then
+        table.insert(e, "FIRE")
+    end
+    return e
+end
+
+function character:usesMana()
+    if Game:getFlag("jamm_skill_16") then   -- for testing purposes
+        return true
+    end
+    return false
+end
+
+function character:getDefaultSpellResourceType()
+    if Game:getFlag("jamm_skill_16") then
+        return "mana"
+    end
+    return "tension"
 end
 
 function character:getName()
@@ -98,9 +136,7 @@ function character:getName()
 end
 
 function character:getMenuIcon()
-    if Game:getFlag("dungeonkiller", false) then
-        return "party/jamm/head_shadowed"
-    elseif Game:getFlag("marcy_joined", false) then
+    if Game:getFlag("marcy_joined", false) then
         return "party/jamm/withmarcy/head"
     end
     return self.menu_icon
@@ -123,6 +159,7 @@ end
 function character:getStarmanTheme() return "jamm" end
 
 function character:onTurnStart(battler)
+    super.onTurnStart(self, battler)
 	if self.stun then
 		Game.battle:pushForcedAction(battler, "SKIP")
 	end

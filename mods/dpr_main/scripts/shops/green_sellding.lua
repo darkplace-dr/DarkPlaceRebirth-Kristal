@@ -40,6 +40,7 @@ function GreenVending:init()
         {"Swell", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	self.hide_main_menu_currency = true
 end
 
 function GreenVending:postInit()

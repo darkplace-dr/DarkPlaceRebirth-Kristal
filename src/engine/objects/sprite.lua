@@ -2,9 +2,9 @@
 --- This texture must be placed inside `assets/sprites/`.
 ---
 ---@class Sprite : Object
----@field texture      love.Image|nil   *(Read-only)* The current texture of the sprite, if it exists.
----@field texture_path string|nil       *(Read-only)* The string ID of the current texture, if it exists.
----@field frames       love.Image[]|nil *(Read-only)* The animation frames of the sprite, or `nil` if the texture has no frames.
+---@field texture      love.Image?   *(Read-only)* The current texture of the sprite, if it exists.
+---@field texture_path string?       *(Read-only)* The string ID of the current texture, if it exists.
+---@field frames       love.Image[]? *(Read-only)* The animation frames of the sprite, or `nil` if the texture has no frames.
 ---@field frame        number           *(Read-only)* The current frame of the sprite. Set with `Sprite:setFrame()`.
 ---
 --- The base path of the sprite. \
@@ -24,18 +24,24 @@
 ---@field anim_speed    number       A multiplier for how fast the sprite animates. (Defaults to `1`)
 ---@field anim_sprite   string       *(Read-only)* The name of the sprite used in the current animation.
 ---@field anim_delay    number       *(Read-only)* The delay between frames in the current animation.
----@field anim_frames   number[]|nil *(Read-only)* A list of frame indexes the current animation loops through. If `nil`, the animation loops through all frames.
+---@field anim_frames   number[]? *(Read-only)* A list of frame indexes the current animation loops through. If `nil`, the animation loops through all frames.
 ---@field anim_duration number       *(Read-only)* The duration of the current animation. If greater than 0, the animation will stop after this many seconds.
 ---@field anim_waiting  number       *(Read-only)* Set by the `wait` function of an animation routine. The amount of time left until the animation continues.
 ---
----@field anim_callback     Sprite.anim_callback|nil  A function that is called when the current animation finishes.
----@field anim_routine      thread|nil                *(Read-only)* The coroutine of the current sprite animation.
----@field anim_routine_func Sprite.anim_func|nil      *(Read-only)* The function of the current sprite animation.
+---@field anim_callback     Sprite.anim_callback?  A function that is called when the current animation finishes.
+---@field anim_routine      thread?                *(Read-only)* The coroutine of the current sprite animation.
+---@field anim_routine_func Sprite.anim_func?      *(Read-only)* The function of the current sprite animation.
 ---@field anim_wait_func    Sprite.wait_func          *(Read-only)* The function used to wait for the next frame of the animation.
 ---
----@overload fun(texture:string|love.Image|nil, x?:number, y?:number, width?:number, height?:number, path?:string) : Sprite
+---@overload fun(texture:string|love.Image?, x?:number, y?:number, width?:number, height?:number, path?:string) : Sprite
 local Sprite, super = Class(Object)
 
+---@param texture string|love.Image?
+---@param x number?
+---@param y number?
+---@param width number?
+---@param height number?
+---@param path string?
 function Sprite:init(texture, x, y, width, height, path)
     super.init(self, x, y, width, height)
 
@@ -70,6 +76,7 @@ end
 function Sprite:canDebugSelect()
     if self.debug_select then
         -- Make the sprite unselectable if it's the parent's "sprite" variable
+        ---@diagnostic disable-next-line: undefined-field
         return not self.parent or self.parent.sprite ~= self
     else
         return self.debug_select
@@ -93,7 +100,7 @@ function Sprite:updateTexture()
     end
 end
 
----@return love.Image|nil texture  The current texture of the sprite, if it exists.
+---@return love.Image? texture  The current texture of the sprite, if it exists.
 function Sprite:getTexture()
     return self.texture
 end
@@ -111,9 +118,9 @@ end
 ---@param name string  The relative path of the sprite to get the full path of.
 function Sprite:getPath(name)
     if self.path ~= "" and name ~= "" then
-        return self.path.."/"..name
+        return self.path .. "/" .. name
     else
-        return self.path..name
+        return self.path .. name
     end
 end
 
@@ -151,7 +158,7 @@ function Sprite:setSprite(texture, keep_anim)
     if type(texture) == "string" then
         texture = self:getPath(texture)
     end
-    if type(texture) == "table" or (type(texture) == "string" and Assets.getFrames(texture)) then
+    if type(texture) == "table" or (type(texture) == "string" and Assets.hasSprite(texture)) then
         self:setFrames(texture, keep_anim)
     else
         self:setTexture(texture, keep_anim)
@@ -175,30 +182,25 @@ end
 function Sprite:setTextureExact(texture)
 
     if type(texture) == "string" then
-        self.texture = Assets.getTexture(texture)
+        if texture == "" then
+            self.texture = nil
+            self.texture_path = ""
+            return
+        else
+            self.texture = Assets.getTexture(texture)
+        end
     else
         self.texture = texture
     end
-
-    self.texture_path = Assets.getTextureID(texture)
-    if not self.texture then
-        if texture ~= nil then
-            Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
-
-			if not (self.disallow_replacement_texture or (self.actor and self.actor.disallow_replacement_texture)) then
-				self.texture = Assets.getTexture("ui/missing_texture")
-				self.texture_path = self.texture_path or Assets.getTextureID(self.texture)
-				if self.width > 0 and self.height > 0 then
-					local resized_texture_canvas = Draw.pushCanvas(self.width, self.height)
-					Draw.draw(self.texture, 0, 0, 0, self.width/self.texture:getWidth(), self.height/self.texture:getHeight())
-					Draw.popCanvas()
-					self.texture = love.graphics.newImage(resized_texture_canvas:newImageData())
-				else
-					self.width = self.texture:getWidth()
-					self.height = self.texture:getHeight()
-				end
-			end
-        elseif self.use_texture_size then
+    if (not self.texture) and (texture ~= nil) then
+        Kristal.Console:warn("Texture not found: " .. TableUtils.dump(texture))
+    end
+    self.texture_path = Assets.getTextureID(texture) or (type(texture_in) == "string" and texture_in)
+    if self.use_texture_size then
+        if self.texture then
+            self.width = self.texture:getWidth()
+            self.height = self.texture:getHeight()
+        else
             self.width = 0
             self.height = 0
         end
@@ -308,7 +310,7 @@ function Sprite:setAnimation(anim)
         end
 
         if not has_routine then
-            self.anim_delay = anim[2] or (1/30)
+            self.anim_delay = anim[2] or (1 / 30)
             self.loop = anim[3] or false
             self.anim_frames = self:parseFrames(anim.frames)
 
@@ -330,29 +332,29 @@ end
 function Sprite:parseFrames(frames)
     if not frames then return end
     local t = {}
-    for k,v in ipairs(frames) do
+    for k, v in ipairs(frames) do
         if type(v) == "number" then
             table.insert(t, v)
         elseif type(v) == "string" then
             local arg_i = string.find(v, "-")
             if arg_i then
-                local num1, num2 = tonumber(string.sub(v,1,arg_i-1)), tonumber(string.sub(v,arg_i+1,-1))
-                for i=num1, num2, (num1 < num2) and 1 or -1 do
+                local num1, num2 = tonumber(string.sub(v, 1, arg_i - 1)), tonumber(string.sub(v, arg_i + 1, -1))
+                for i = num1, num2, (num1 < num2) and 1 or -1 do
                     table.insert(t, i)
                 end
             else
                 arg_i = string.find(v, "*")
                 if arg_i then
-                    local num1, num2 = tonumber(string.sub(v,1,arg_i-1)), tonumber(string.sub(v,arg_i+1,-1))
-                    for i=1,num2 do
+                    local num1, num2 = tonumber(string.sub(v, 1, arg_i - 1)), tonumber(string.sub(v, arg_i + 1, -1))
+                    for i = 1, num2 do
                         table.insert(t, num1)
                     end
                 else
-                    error("Could not parse string at frame index "..k)
+                    error("Could not parse string at frame index " .. k)
                 end
             end
         else
-            error("Frame index "..k.." must be either a number or string")
+            error("Frame index " .. k .. " must be either a number or string")
         end
     end
     return t
@@ -382,13 +384,13 @@ end
 
 --- Starts animating the sprite's current texture
 ---@param speed?         number                 The speed of the animation as the number of seconds between frames (Defaults to `1/30`)
----@param loop?          boolean                Whether the animation should loop (Defautls to `false`)
+---@param loop?          boolean                Whether the animation should loop (Defaults to `false`)
 ---@param on_finished?   fun(sprite: Sprite)    A function to run when the animation finishes
 function Sprite:play(speed, loop, on_finished)
     if loop == nil then
         loop = true
     end
-    self:setAnimation({nil, speed, loop, callback = on_finished})
+    self:setAnimation({ nil, speed, loop, callback = on_finished })
 end
 
 function Sprite:resume()
@@ -419,9 +421,10 @@ end
 ---@param offset_x? number  The x-offset of the flash sprite
 ---@param offset_y? number  The y-offset of the flash sprite
 ---@param layer?    number  (Defaults to `100`)
+---@param color?    Color   The color used to draw the flash, defaulting to white
 ---@return FlashFade
-function Sprite:flash(offset_x, offset_y, layer)
-    local flash = FlashFade(self.texture, offset_x or 0, offset_y or 0)
+function Sprite:flash(offset_x, offset_y, layer, color)
+    local flash = FlashFade(self.texture, offset_x or 0, offset_y or 0, color)
     flash.layer = layer or 100 -- TODO: Unhardcode?
     self:addChild(flash)
     return flash
@@ -468,7 +471,7 @@ function Sprite:crossFadeToSpeed(texture, speed, fade_out, after)
     self.crossfade_speed = speed or 0.04
     self.crossfade_out = fade_out
     self.crossfade_after = function(self)
-        self:setTexture(texture)
+        self:setTexture(self:getPath(texture))
         self:resetCrossFade()
         if after then after(self) end
     end
@@ -525,7 +528,7 @@ function Sprite:update()
 end
 
 function Sprite:draw()
-    local r,g,b,a = self:getDrawColor()
+    local r, g, b, a = self:getDrawColor()
     local function drawSprite(...)
         if self.crossfade_alpha > 0 and self.crossfade_texture ~= nil then
             Draw.setColor(r, g, b, self.crossfade_out and MathUtils.lerp(a, 0, self.crossfade_alpha) or a)
@@ -555,16 +558,16 @@ function Sprite:draw()
             if self.wrap_texture_x and self.wrap_texture_y then
                 for i = 1, wrap_width do
                     for j = 1, wrap_height do
-                        drawSprite(x_offset + (i-1) * self.texture:getWidth(), y_offset + (j-1) * self.texture:getHeight())
+                        drawSprite(x_offset + (i - 1) * self.texture:getWidth(), y_offset + (j - 1) * self.texture:getHeight())
                     end
                 end
             elseif self.wrap_texture_x then
                 for i = 1, wrap_width do
-                    drawSprite(x_offset + (i-1) * self.texture:getWidth(), 0)
+                    drawSprite(x_offset + (i - 1) * self.texture:getWidth(), 0)
                 end
             elseif self.wrap_texture_y then
                 for j = 1, wrap_height do
-                    drawSprite(0, y_offset + (j-1) * self.texture:getHeight())
+                    drawSprite(0, y_offset + (j - 1) * self.texture:getHeight())
                 end
             end
         else

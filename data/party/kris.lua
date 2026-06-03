@@ -147,6 +147,10 @@ function character:init()
     self.attack_box_color = {0, 0, 1}
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = {0.5, 1, 1}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#00A2E8FF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#526ACDFF")
 
     self.icon_color = {0, 162/255, 232/255}
 
@@ -173,6 +177,11 @@ function character:init()
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil
+
+    self.element = {
+        "BLADE",
+        "STEEL"
+    }
 end
 
 function character:onLevelUp(level)

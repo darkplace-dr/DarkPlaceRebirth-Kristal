@@ -5,7 +5,7 @@ function TeevieQuiz:init(data)
 	
 	self.base_texture = Assets.getFrames("world/events/teevie_tvs/base")
 	self.base_texture_thin = Assets.getFrames("world/events/teevie_tvs/base_thin")
-	self.quiz_timer_sprite = Assets.getFrames("world/events/teevie_quiz/timer")
+	self.quiz_timer_sprite = Assets.getFrames("ui/timer/timer")
 	self.green_circle = Assets.getFrames("world/events/teevie_quiz/green_circle")
 	self.red_x = Assets.getFrames("world/events/teevie_quiz/red_x")
 	self.quiz_static = Assets.getFrames("world/events/teevie_tvs/static")
@@ -118,7 +118,7 @@ function TeevieQuiz:onLoad()
 			self.spikes[i][j]:setScale(2, 2)
 			self:addChild(self.spikes[i][j])
 		end
-		self.spikessolid[i] = Registry.createEvent("teevie_quizsolid", {x = self.x - 80 + i*200, y = self.y + self.height})
+		self.spikessolid[i] = Registry.createLegacyEvent("teevie_quizsolid", {x = self.x - 80 + i*200, y = self.y + self.height})
 		self.spikessolid[i]:setScale(1, self.spike_height)
 		self.spikessolid[i].solid = false
 		self.spikessolid[i].visible = false
@@ -227,37 +227,50 @@ function TeevieQuiz:showResults()
 		-- A value of -1 means the sprite doesn't change (like Kris)
 		local winpose = {
 			default = "pose",
-			dess = "sonic_adventure"
+			dess = "sonic_adventure",
+			jamm = "bt",
+			["jamm+marcy"] = "bs_win"
 		}
 		local losepose = {
 			default = "battle/hurt",
 			kris = -1,
 			susie = "shock_right",
 			ralsei = "shocked_left",
-			dess = "angreh"
+			dess = "angreh",
+			jamm = "trip",
+			["jamm+marcy"] = "battle/hurt_1"
 		}
+        
+        local function getIDorAssist(chara)
+            local id = chara.id
+            if chara:getAssistID() then
+                id = id .. "+" .. chara:getAssistID()
+            end
+            return id
+        end
+        
 		if self.dess_wrong_answer ~= nil and (self.cur_correct_answer == "A" or self.cur_correct_answer == "B") then
 			winpose["dess"] = "teehee"
 			losepose["dess"] = "teehee"
 			if self.result == true then
-				if winpose[Game.party[1].id] ~= -1 then
-					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+				if winpose[getIDorAssist(Game.party[1])] ~= -1 then
+					player:setSprite(winpose[getIDorAssist(Game.party[1])] or winpose["default"])
 				end
-				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
-					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				if Game.party[2] and winpose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(winpose[getIDorAssist(Game.party[2])] or winpose["default"])
 				end
-				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
-					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				if Game.party[3] and winpose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(winpose[getIDorAssist(Game.party[3])] or winpose["default"])
 				end
 			else
-				if losepose[Game.party[1].id] ~= -1 then
-					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+				if losepose[getIDorAssist(Game.party[1])] ~= -1 then
+					player:setSprite(losepose[getIDorAssist(Game.party[1])] or losepose["default"])
 				end
-				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
-					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				if Game.party[2] and losepose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(losepose[getIDorAssist(Game.party[2])] or losepose["default"])
 				end
-				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
-					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				if Game.party[3] and losepose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(losepose[getIDorAssist(Game.party[3])] or losepose["default"])
 				end
 			end
 			Assets.playSound("won")
@@ -276,24 +289,14 @@ function TeevieQuiz:showResults()
 				party3:resetSprite()
 				party3:setFacing("up")
 			end
-			Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
-			Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
-			if Game.party[2] then
-				Game.world.timer:tween(10/30, party2, {x = self.x + 420+20}, "out-cubic")
-				Game.world.timer:tween(10/30, party2, {y = self.y + self.height + 70}, "out-cubic")
-			end
-			if Game.party[3] then
-				Game.world.timer:tween(10/30, party3, {x = self.x + 15+20}, "out-cubic")
-				Game.world.timer:tween(10/30, party3, {y = self.y +  self.height + 70}, "out-cubic")
-			end
+			self:moveParty(false)
 			cutscene:wait(10/15)
 			Game.lock_movement = false
 			self.quiz_bullets = true
 			cutscene:wait(function() return not self.quiz_bullets end)
 			self:showStatic()
 			Game.lock_movement = true
-			Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
-			Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
+			self:moveParty(true)
 			cutscene:wait(15/30)
 			if self.quiz_question >= self.quiz_max then
 				self.quiz_state = "done"
@@ -312,15 +315,7 @@ function TeevieQuiz:showResults()
 					v:unpause()
 				end
 				Game.world:hideHealthBars()	
-				for i,button in ipairs(self.button) do
-					if button then
-						button.layer = self.layer + 10
-						Game.world.timer:tween(math.floor(button.spawn_order*5)/30, button, {y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60}, "out-quart")
-						Game.world.timer:after(20/30, function()
-							button:remove()
-						end)
-					end
-				end
+				self:hideButtons()
 				for i = 1, 2 do
 					for j = 1, self.spike_height do
 						self.spikessolid[i].solid = false
@@ -382,6 +377,7 @@ function TeevieQuiz:showResults()
 				self.shoot_sequence_con = 0
 				self.shoot_sequence_timer = 0
 				self.dess_wrong_answer = nil
+				self.word_max_scale = 6
 				self.quiz_state = "ready"
 				self.word_scale_timer = 0
 				self.quiz_timer = 0
@@ -391,13 +387,13 @@ function TeevieQuiz:showResults()
 			if self.result == true then
 				Assets.playSound("won")
 				if winpose[Game.party[1].id] ~= -1 then
-					player:setSprite(winpose[Game.party[1].id] or winpose["default"])
+					player:setSprite(winpose[getIDorAssist(Game.party[1])] or winpose["default"])
 				end
-				if Game.party[2] and winpose[Game.party[2].id] ~= -1 then
-					party2:setSprite(winpose[Game.party[2].id] or winpose["default"])
+				if Game.party[2] and winpose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(winpose[getIDorAssist(Game.party[2])] or winpose["default"])
 				end
-				if Game.party[3] and winpose[Game.party[3].id] ~= -1 then
-					party3:setSprite(winpose[Game.party[3].id] or winpose["default"])
+				if Game.party[3] and winpose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(winpose[getIDorAssist(Game.party[3])] or winpose["default"])
 				end
 				cutscene:wait(45/30)
 				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
@@ -443,15 +439,7 @@ function TeevieQuiz:showResults()
 						v:unpause()
 					end
 					Game.world:hideHealthBars()	
-					for i,button in ipairs(self.button) do
-						if button then
-							button.layer = self.layer + 10
-							Game.world.timer:tween((math.floor(i/2)*5)/30, button, {y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60}, "out-quart")
-							Game.world.timer:after(20/30, function()
-								button:remove()
-							end)
-						end
-					end
+					self:hideButtons()
 					for i = 1, 2 do
 						for j = 1, self.spike_height do
 							self.spikessolid[i].solid = false
@@ -515,6 +503,7 @@ function TeevieQuiz:showResults()
 					self.shoot_sequence_con = 0
 					self.shoot_sequence_timer = 0
 					self.dess_wrong_answer = nil
+					self.word_max_scale = 6
 					self.quiz_state = "ready"
 					self.word_scale_timer = 0
 					self.quiz_timer = 0
@@ -522,13 +511,13 @@ function TeevieQuiz:showResults()
 			else
 				Assets.playSound("error")
 				if losepose[Game.party[1].id] ~= -1 then
-					player:setSprite(losepose[Game.party[1].id] or losepose["default"])
+					player:setSprite(losepose[getIDorAssist(Game.party[1])] or losepose["default"])
 				end
-				if Game.party[2] and losepose[Game.party[2].id] ~= -1 then
-					party2:setSprite(losepose[Game.party[2].id] or losepose["default"])
+				if Game.party[2] and losepose[getIDorAssist(Game.party[2])] ~= -1 then
+					party2:setSprite(losepose[getIDorAssist(Game.party[2])] or losepose["default"])
 				end
-				if Game.party[3] and losepose[Game.party[3].id] ~= -1 then
-					party3:setSprite(losepose[Game.party[3].id] or losepose["default"])
+				if Game.party[3] and losepose[getIDorAssist(Game.party[3])] ~= -1 then
+					party3:setSprite(losepose[getIDorAssist(Game.party[3])] or losepose["default"])
 				end
 				cutscene:wait(45/30)
 				if math.abs(math.abs(Game.world.player.x - math.abs(self.x + 220+20))) > 10 then
@@ -544,24 +533,14 @@ function TeevieQuiz:showResults()
 					party3:resetSprite()
 					party3:setFacing("up")
 				end
-				Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
-				Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
-				if Game.party[2] then
-					Game.world.timer:tween(10/30, party2, {x = self.x + 420+20}, "out-cubic")
-					Game.world.timer:tween(10/30, party2, {y = self.y +  self.height + 70}, "out-cubic")
-				end
-				if Game.party[3] then
-					Game.world.timer:tween(10/30, party3, {x = self.x + 15+20}, "out-cubic")
-					Game.world.timer:tween(10/30, party3, {y = self.y + self.height + 70}, "out-cubic")
-				end
+				self:moveParty(false)
 				cutscene:wait(10/15)
 				Game.lock_movement = false
 				self.quiz_bullets = true
 				cutscene:wait(function() return not self.quiz_bullets end)
 				self:showStatic()
 				Game.lock_movement = true
-				Game.world.timer:tween(10/30, player, {x = self.x + 220+20}, "out-cubic")
-				Game.world.timer:tween(10/30, player, {y = self.y + self.height + 70}, "out-cubic")
+				self:moveParty(true)
 				cutscene:wait(15/30)
 				if self.quiz_question >= self.quiz_max then
 					self.quiz_state = "done"
@@ -580,15 +559,7 @@ function TeevieQuiz:showResults()
 						v:unpause()
 					end
 					Game.world:hideHealthBars()	
-					for i,button in ipairs(self.button) do
-						if button then
-							button.layer = self.layer + 10
-							Game.world.timer:tween((math.floor(i/2)*5)/30, button, {y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60}, "out-quart")
-							Game.world.timer:after(20/30, function()
-								button:remove()
-							end)
-						end
-					end
+					self:hideButtons()
 					for i = 1, 2 do
 						for j = 1, self.spike_height do
 							self.spikessolid[i].solid = false
@@ -646,6 +617,7 @@ function TeevieQuiz:showResults()
 					self.shoot_sequence_con = 0
 					self.shoot_sequence_timer = 0
 					self.dess_wrong_answer = nil
+					self.word_max_scale = 6
 					self.quiz_state = "ready"
 					self.word_scale_timer = 0
 					self.quiz_timer = 0
@@ -715,6 +687,7 @@ function TeevieQuiz:update()
 		self.quiz_timer = self.quiz_timer + DTMULT
 		if self.quiz_state == "intro" then
 			if self.quiz_timer >= 30 then
+				self.word_max_scale = 6
 				self.quiz_state = "ready"
 				self.word_scale_timer = 0
 				self.quiz_timer = 0
@@ -743,51 +716,51 @@ function TeevieQuiz:update()
 					end
 					cutscene:wait(20/30)
 					if Game.world.player then
-						self.button[1] = Registry.createEvent("teevie_keyboardtile", {x = player.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[1] = Registry.createLegacyEvent("teevie_keyboardtile", {x = player.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[1].letter = "A"
 						self.button[1]:setLetter()
 						self.button[1].layer = self.layer + 10
 						self.button[1].spawn_order = 2
-						Game.world.timer:tween((2*5)/30, self.button[1], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[1], "y", self.button[1].y, self.y + self.height + 40, 10, 4, "out")
 						Game.world:spawnObject(self.button[1])
-						self.button[2] = Registry.createEvent("teevie_keyboardtile", {x = player.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[2] = Registry.createLegacyEvent("teevie_keyboardtile", {x = player.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[2].letter = "B"
 						self.button[2]:setLetter()
 						self.button[2].layer = self.layer + 10
 						self.button[2].spawn_order = 2
-						Game.world.timer:tween((2*5)/30, self.button[2], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[2], "y", self.button[2].y, self.y + self.height + 40, 10, 4, "out")
 						Game.world:spawnObject(self.button[2])
 					end
 					if Game.party[2] then
-						self.button[3] = Registry.createEvent("teevie_keyboardtile", {x = party2.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[3] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party2.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[3].letter = "A"
 						self.button[3]:setLetter()
 						self.button[3].layer = self.layer + 10
 						self.button[3].spawn_order = 3
-						Game.world.timer:tween((3*5)/30, self.button[3], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[3], "y", self.button[3].y, self.y + self.height + 40, 5, 4, "out")
 						Game.world:spawnObject(self.button[3])
-						self.button[4] = Registry.createEvent("teevie_keyboardtile", {x = party2.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[4] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party2.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[4].letter = "B"
 						self.button[4]:setLetter()
 						self.button[4].layer = self.layer + 10
 						self.button[4].spawn_order = 3
-						Game.world.timer:tween((3*5)/30, self.button[4], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[4], "y", self.button[4].y, self.y + self.height + 40, 5, 4, "out")
 						Game.world:spawnObject(self.button[4])
 					end
 					if Game.party[3] then
-						self.button[5] = Registry.createEvent("teevie_keyboardtile", {x = party3.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[5] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party3.x - 80, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[5].letter = "A"
 						self.button[5]:setLetter()
 						self.button[5].layer = self.layer + 1010
 						self.button[5].spawn_order = 1
-						Game.world.timer:tween((1*5)/30, self.button[5], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[5], "y", self.button[5].y, self.y + self.height + 40, 15, 4, "out")
 						Game.world:spawnObject(self.button[5])
-						self.button[6] = Registry.createEvent("teevie_keyboardtile", {x = party3.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
+						self.button[6] = Registry.createLegacyEvent("teevie_keyboardtile", {x = party3.x + 40, y = Game.world.camera.y-SCREEN_HEIGHT/2 - 60})
 						self.button[6].letter = "B"
 						self.button[6]:setLetter()
 						self.button[6].layer = self.layer + 1010
 						self.button[6].spawn_order = 1
-						Game.world.timer:tween((1*5)/30, self.button[6], {y = self.y + self.height + 40}, "out-quart")
+						Game.world.timer:lerpVar(self.button[6], "y", self.button[6].y, self.y + self.height + 40, 15, 4, "out")
 						Game.world:spawnObject(self.button[6])
 					end
 					for i = 1, 2 do
@@ -1079,6 +1052,41 @@ function TeevieQuiz:initQuiz()
 	self.mode = 1
 end
 
+function TeevieQuiz:hideButtons()
+	for i,button in ipairs(self.button) do
+		if button then
+			button.layer = self.layer + 10
+			Game.world.timer:lerpVar(button, "y", button.y, Game.world.camera.y-SCREEN_HEIGHT/2 - 60, math.floor(button.spawn_order)*5, 16, "out")
+			Game.world.timer:after(20/30, function()
+				button:remove()
+			end)
+		end
+	end
+end
+
+function TeevieQuiz:moveParty(player_only)
+	local player = Game.world.player
+	local party2 = nil
+	local party3 = nil
+	if Game.party[2] then
+		party2 = Game.world:getCharacter(Game.party[2].id)
+	end
+	if Game.party[3] then
+		party3 = Game.world:getCharacter(Game.party[3].id)
+	end
+	Game.world.timer:lerpVar(player, "x", player.x, self.x + 220+20, 10, 3, "out")
+	Game.world.timer:lerpVar(player, "y", player.y, self.y + self.height + 70, 10, 3, "out")
+	if player_only then return end
+	if Game.party[2] then
+		Game.world.timer:lerpVar(party2, "x", party2.x, self.x + 420+20, 10, 3, "out")
+		Game.world.timer:lerpVar(party2, "y", party2.y, self.y + self.height + 70, 10, 3, "out")
+	end
+	if Game.party[3] then
+		Game.world.timer:lerpVar(party3, "x", party3.x, self.x + 15+20, 10, 3, "out")
+		Game.world.timer:lerpVar(party3, "y", party3.y, self.y + self.height + 70, 10, 3, "out")
+	end
+end
+
 function TeevieQuiz:draw()
     super.draw(self)
 	
@@ -1101,12 +1109,12 @@ function TeevieQuiz:draw()
 				Draw.setColor(1,1,1,1)
 				Draw.draw(frames[5], screen.x, screen.y, 0, 2, 2)
 				if screen.con == 4 or screen.con == 6 then
-					Draw.setColor(Utils.mergeColor(self.base_color, COLORS["black"], 0.5))
+					Draw.setColor(ColorUtils.mergeColor(self.base_color, COLORS["black"], 0.5))
 				else
-					Draw.setColor(Utils.mergeColor(self.base_color, screen.color, 0.6 + (math.sin((self.timer / 4) + screen.x + screen.y) * 0.1)))
+					Draw.setColor(ColorUtils.mergeColor(self.base_color, screen.color, 0.6 + (math.sin((self.timer / 4) + screen.x + screen.y) * 0.1)))
 				end
 				Draw.draw(frames[2], screen.x, screen.y, 0, 2, 2)
-				Draw.setColor(Utils.mergeColor(self.base_color, COLORS["black"], 0.5))
+				Draw.setColor(ColorUtils.mergeColor(self.base_color, COLORS["black"], 0.5))
 				Draw.draw(frames[3], screen.x, screen.y, 0, 2, 2)
 				Draw.setColor(self.base_color)
 				Draw.draw(frames[4], screen.x, screen.y, 0, 2, 2)
@@ -1123,8 +1131,8 @@ function TeevieQuiz:draw()
 			local word_alpha = 1
 			Draw.setColor(self.gameshowdblue[1],self.gameshowdblue[2],self.gameshowdblue[3],word_alpha)
 			local quiztext = "QUIZ!"
-			self.word_scale_timer = self.word_scale_timer + 0.1 * DTMULT
-			local scale = Utils.clampMap(self.word_scale_timer, 0, 1, 1, 0, "out-back") + 1
+			self.word_scale_timer = self.word_scale_timer + 1 * DTMULT
+			local scale = MathUtils.easeInAccurate(MathUtils.clamp(MathUtils.rangeMap(self.word_scale_timer, 0, self.word_max_scale, 1, 0), 0, 1), -1) + 1
 			local sscale = 3*scale
 			love.graphics.print(quiztext, 260-((self.font:getWidth(quiztext)*sscale)/2), 130+2-((self.font:getHeight(quiztext)*sscale)/2)-6, 0, sscale, sscale)
 			love.graphics.print(quiztext, 260+2-((self.font:getWidth(quiztext)*sscale)/2), 130+2-((self.font:getHeight(quiztext)*sscale)/2)-6, 0, sscale, sscale)
@@ -1138,8 +1146,8 @@ function TeevieQuiz:draw()
 			quiztext[1] = "GET\n"
 			quiztext[2] = "\nREADY!"
 			quiztext[3] = "GET\nREADY!"
-			self.word_scale_timer = self.word_scale_timer + 0.1 * DTMULT
-			local scale = Utils.clampMap(self.word_scale_timer, 0, 1, 1, 0, "out-back") + 1
+			self.word_scale_timer = self.word_scale_timer + 1 * DTMULT
+			local scale = MathUtils.easeInAccurate(MathUtils.clamp(MathUtils.rangeMap(self.word_scale_timer, 0, self.word_max_scale, 1, 0), 0, 1), -1) + 1
 			local sscale = 3*scale
 			love.graphics.print(quiztext[1], 260-((self.font:getWidth(quiztext[1])*sscale)/2), 130+2-((self.font:getHeight(quiztext[1])*sscale)/2)-((self.font:getHeight(quiztext[3])*sscale)/2)-6, 0, sscale, sscale)
 			love.graphics.print(quiztext[1], 260+2-((self.font:getWidth(quiztext[1])*sscale)/2), 130+2-((self.font:getHeight(quiztext[1])*sscale)/2)-((self.font:getHeight(quiztext[3])*sscale)/2)-6, 0, sscale, sscale)

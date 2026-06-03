@@ -40,14 +40,13 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:battleUseSound(user, target)
     Game.battle.timer:script(function(wait)
         Assets.stopAndPlaySound("swallow")
         wait(0.4)
-        if not MagicalGlassLib.serious_mode then
+        if not Mod.libs["magical-glass"].serious_mode then
             Assets.stopAndPlaySound("catsalad")
         else
             Assets.stopAndPlaySound("power")
@@ -59,7 +58,7 @@ function item:worldUseSound(target)
     Game.world.timer:script(function(wait)
         Assets.stopAndPlaySound("swallow")
         wait(0.4)
-        if not MagicalGlassLib.serious_mode then
+        if not Mod.libs["magical-glass"].serious_mode then
             Assets.stopAndPlaySound("catsalad")
         else
             Assets.stopAndPlaySound("power")
@@ -68,7 +67,7 @@ function item:worldUseSound(target)
 end
 
 function item:onBattleUse(user, target)
-    if not MagicalGlassLib.serious_mode then
+    if not Mod.libs["magical-glass"].serious_mode then
         Assets.stopAndPlaySound("catsalad")
     end
     target:heal(self:getHealAmount())

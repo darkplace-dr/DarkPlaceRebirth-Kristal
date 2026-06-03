@@ -34,11 +34,21 @@ function item:init()
     self.instant = false
 end
 
+function item:getHealAmount(id)
+    local party_member = Game:getPartyMember(id)
+
+    if not party_member then
+        return self.heal_amount -- Fallback
+    end
+
+    return party_member:getStat("health") + math.abs(party_member:getHealth())
+end
+
 function item:onWorldUse(target)
     self:worldUseSound(target)
     
     local old_health = target:getHealth()
-    Game.world:heal(target, math.huge, self:getWorldUseText(target), self)
+    Game.world:heal(target, self:getHealAmount(target.id), self:getWorldUseText(target), self)
     if old_health < target:getStat("health") and target:getStat("health") > 1 then
         target:setHealth(target:getStat("health") - 1 + old_health % 1)
     end
@@ -49,18 +59,10 @@ end
 function item:onLightBattleUse(user, target)
     self:battleUseSound(user, target)
     
-    if self.target == "ally" then
-        local old_health = target.chara:getHealth()
-        target:heal(math.huge, false)
-        if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
-            target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
-        end
-    elseif self.target == "enemy" then
-        local old_health = target.health
-        target:heal(math.huge)
-        if old_health < target.max_health and target.max_health > 1 then
-            target.health = target.max_health - 1 + old_health % 1
-        end
+    local old_health = target.chara:getHealth()
+    target:heal(self:getHealAmount(target.chara.id), false)
+    if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
+        target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
     end
 
     Game.battle:battleText(self:getLightBattleText(user, target).."\n"..self:getLightBattleHealingText(user, target, math.huge))
@@ -69,18 +71,10 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    if self.target == "ally" then
-        local old_health = target.chara:getHealth()
-        target:heal(math.huge)
-        if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
-            target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
-        end
-    elseif self.target == "enemy" then
-        local old_health = target.health
-        target:heal(math.huge)
-        if old_health < target.max_health and target.max_health > 1 then
-            target.health = target.max_health - 1 + old_health % 1
-        end
+    local old_health = target.chara:getHealth()
+    target:heal(self:getHealAmount(target.chara.id))
+    if old_health < target.chara:getStat("health") and target.chara:getStat("health") > 1 then
+        target.chara:setHealth(target.chara:getStat("health") - 1 + old_health % 1)
     end
 
     return true

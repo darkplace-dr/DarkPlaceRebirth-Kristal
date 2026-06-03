@@ -1,4 +1,4 @@
----@class AcJQuest : Quest
+---@class MyQuest : Quest
 local KrisQuest, super = Class(Quest, "krismissing")
 
 function KrisQuest:init()

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   name = "church_objects",
   class = "",
   tilewidth = 320,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 6,
+  tilecount = 8,
   tiles = {
     {
       id = 0,
@@ -60,6 +60,18 @@ return {
       image = "../../../assets/sprites/world/maps/church/spire.png",
       width = 320,
       height = 800
+    },
+    {
+      id = 6,
+      image = "../../../assets/sprites/world/maps/church/churchb_door.png",
+      width = 40,
+      height = 60
+    },
+    {
+      id = 7,
+      image = "../../../assets/sprites/world/maps/church/piano.png",
+      width = 45,
+      height = 33
     }
   }
 }
