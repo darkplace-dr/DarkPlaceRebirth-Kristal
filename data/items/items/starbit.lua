@@ -48,6 +48,7 @@ function item:init()
     self.reactions = {
         susie = "Too small!",
         ralsei = "It's popping in my mouth!",
+        jamm = "Is that... honey?",             -- Nintendo confirmed that starbits taste like honey
     }
 end
 

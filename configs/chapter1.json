@@ -21,6 +21,8 @@
     "oldDualHealFormula": true,      // Old Dual Heal amount calculation
 
     "speechBubble": "round",         // Default enemy speech bubble style
+    "lightTextboxStyle": "light",    // Textbox style used in the light world (by default)
+    "darkTextboxStyle": "dark_old",  // Textbox style used in the dark world (by default)
 
     "enemyAuras": false,             // Red glow around overworld enemies
 

@@ -1391,8 +1391,15 @@ function Kristal.quickReload(mode)
 
     -- Clear the project
     Kristal.clearModState()
-	-- Reload plugins
-	Kristal.loadAssets("", "plugins", "")
+
+    -- Reload plugins
+    Kristal.loadAssets("", "plugins", "")
+
+    -- Refresh the debug menu since we're changing states
+    if Kristal.DebugSystem then
+        Kristal.DebugSystem:refresh()
+    end
+
     -- Reload projects
     Kristal.loadAssets("", "mods", "", function()
         Kristal.setDesiredWindowTitleAndIcon()
