@@ -1391,8 +1391,15 @@ function Kristal.quickReload(mode)
 
     -- Clear the project
     Kristal.clearModState()
-	-- Reload plugins
-	Kristal.loadAssets("", "plugins", "")
+
+    -- Reload plugins
+    Kristal.loadAssets("", "plugins", "")
+
+    -- Refresh the debug menu since we're changing states
+    if Kristal.DebugSystem then
+        Kristal.DebugSystem:refresh()
+    end
+
     -- Reload projects
     Kristal.loadAssets("", "mods", "", function()
         Kristal.setDesiredWindowTitleAndIcon()
@@ -2013,7 +2020,8 @@ function Kristal.loadConfig()
         ["plugins/enabled_plugins"] = {},
         dLoad = true,
         altAttack = false,
-        brokenMenuBoxes = false
+        brokenMenuBoxes = false,
+        musicDistort = true
     }
     if love.filesystem.getInfo("settings.json") then
         TableUtils.merge(config, JSON.decode(love.filesystem.read("settings.json")))

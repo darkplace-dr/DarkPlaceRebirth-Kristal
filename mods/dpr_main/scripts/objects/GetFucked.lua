@@ -272,7 +272,7 @@ function GameOver:update()
     if (self.current_stage == 20) and Input.pressed("confirm") and (not self.dialogue:isTyping()) then
         self.dialogue:remove()
         self.music:play("AUDIO_DARKNESS")
-        self.music.source:setLooping(false)
+        self.music:setLooping(false)
         self.current_stage = 21
     end
 

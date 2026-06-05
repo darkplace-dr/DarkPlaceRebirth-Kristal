@@ -107,7 +107,7 @@ return function(cutscene)
             cutscene:wait(1)
     
             Game.world.music:play("deltarune/usefountain", 1)
-            Game.world.music.source:setLooping(false)
+            Game.world.music:setLooping(false)
     
             cutscene:wait(50/30)
             fountain.adjust = 1 -- fade out color
@@ -237,7 +237,7 @@ return function(cutscene)
             cutscene:wait(1)
     
             Game.world.music:play("deltarune/usefountain", 1)
-            Game.world.music.source:setLooping(false)
+            Game.world.music:setLooping(false)
     
             cutscene:wait(50/30)
             fountain.adjust = 1 -- fade out color

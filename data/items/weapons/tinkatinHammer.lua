@@ -45,12 +45,15 @@ function item:init()
     self.can_equip = {
         susie = true,
         suzy = true,
+        mario = true,
     }
 
     -- Character reactions
     self.reactions = {
         susie = "There's a bit of blood in the corner!",
         suzy = "My enemies will be very warned!!",
+        jamm = "There isn't even a handle or anything!",
+        mario = "Mario's gonna do something very illegal!"
     }
 end
 

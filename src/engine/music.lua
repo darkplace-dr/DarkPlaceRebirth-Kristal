@@ -13,7 +13,7 @@
 ---@field removed boolean
 ---
 ---@field current string?
----@field source love.Source?
+---@field private source love.Source?
 ---@field private decoder love.Decoder
 ---
 ---@field private samples_count integer
@@ -83,6 +83,7 @@ function Music:play(music, volume, pitch)
     if music then
         local path = Assets.getMusicPath(music)
         if not path then
+            Kristal.Console:warn("Music not found: \"" .. music .. "\"")
             return
         end
         self:playFile(path, volume, pitch, music)

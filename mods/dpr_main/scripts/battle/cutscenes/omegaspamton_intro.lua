@@ -19,7 +19,7 @@ return {
 		
         local intro_music = Music()
 		intro_music:play("omega_spamton_intro")
-		intro_music.source:setLooping(false)
+		intro_music:setLooping(false)
 
 		cutscene:wait(6.5)
 		
