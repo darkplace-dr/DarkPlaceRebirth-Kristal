@@ -134,7 +134,7 @@ function DeathLord:onAct(battler, name)
 		end
     elseif name == "Standard" then
 		if battler.chara.id == "susie" then
-			self:addMercy(20)
+			self:addMercy(12)
             return "* Susie gave DEATH LORD a thumbs up."
         else
 			if battler.chara.id == "jamm" and Game:getFlag("marcy_joined") then
