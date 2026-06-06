@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="24">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="26">
  <editorsettings>
   <export target="main_2.lua" format="lua"/>
  </editorsettings>
@@ -49,7 +49,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,80,81,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -130,6 +130,11 @@
    <properties>
     <property name="map" value="floor2/pre_diner"/>
     <property name="marker" value="entry_left"/>
+   </properties>
+  </object>
+  <object id="25" name="interactable" x="120" y="520" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="floor2.deathlordsign"/>
    </properties>
   </object>
  </objectgroup>
