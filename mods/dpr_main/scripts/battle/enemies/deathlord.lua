@@ -39,10 +39,16 @@ function DeathLord:init()
 	self.graze_challenge = false
 	self.showtempmercy = false
 	self.boss = true
+	self.tired_percentage_text = nil
 end
 
 function DeathLord:getEncounterText()
-    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
+    if self.tired_percentage_text then
+		local text = self.tired_percentage_text
+		self.tired_percentage_text = nil
+        return text
+
+    elseif self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
         return self.low_health_text
 
     elseif self.tired_text and self.tired then
@@ -98,22 +104,29 @@ function DeathLord:onAct(battler, name)
 			self.begged = true
 			if self.tired then
 				self.dialogue_override = "(yawn)\ndie bozo..."
+				return {
+					"* You begged for mercy.\n* DEATH LORD became fully [color:blue]TIRED[color:reset]!"
+				}
 			else
 				self.dialogue_override = "im on a\nno mercy playthrough"
+				return {
+					"* You begged for mercy.[wait:5]\n* But DEATH LORD showed none.",
+					"* However, DEATH LORD became a little [color:blue]TIRED[color:reset]!"
+				}
 			end
-			return {
-				"* You begged for mercy.[wait:5]\n* But DEATH LORD showed none.",
-				"* However, DEATH LORD became a little [color:blue]TIRED[color:reset]!"
-			}
 		else
+			self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 			if self.tired then
 				self.dialogue_override = "(yawn)\ndie bozo..."
+				return {
+					"* You begged for mercy.\n* DEATH LORD became fully [color:blue]TIRED[color:reset]!"
+				}
 			else
 				self.dialogue_override = "no"
+				return {
+					"* You begged for mercy.\n* DEATH LORD became more [color:blue]TIRED[color:reset]!"
+				}
 			end
-			return {
-				"* You begged for mercy.\n* DEATH LORD became more [color:blue]TIRED[color:reset]..."
-			}
 		end
 	elseif name == "GrazeChallenge" then
 		self.graze_challenge = true
