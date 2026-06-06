@@ -2,7 +2,8 @@ local DeathLordGunBullet, super = Class(Bullet)
 
 function DeathLordGunBullet:init(x, y, dir, speed)
     super.init(self, x, y, "battle/bullets/deathlord/gunbullet")
-	self.physics.direction = dir
+	self.rotation = dir
+	self.physics.match_rotation = true
 	self.physics.speed = speed
 	self.trail_count = 0
 end
@@ -31,7 +32,7 @@ function DeathLordGunBullet:draw()
         local r, g, b, a = self:getDrawColor()
         for i = 0, self.trail_count do
             Draw.setColor(r, g, b, (a - (i / self.trail_count)) * 0.4)
-            Draw.draw(self.sprite.texture, MathUtils.lengthDirX(i * 2, -MathUtils.angle(self.x, self.y, self.last_x, self.last_y)), MathUtils.lengthDirY(i * 2, -MathUtils.angle(self.x, self.y, self.last_x, self.last_y)))
+            Draw.draw(self.sprite.texture, -i * 2, 0)
         end
     end
 	super.draw(self)
