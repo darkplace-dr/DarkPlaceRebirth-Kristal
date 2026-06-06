@@ -13,7 +13,7 @@ function DeathLord:init()
     else
         self.money = 60
     end
-	self.tired_percentage = 0
+	self.tired_percentage = 0.25
     self.spare_points = 0
     self.waves = {
         "deathlord/gun"
@@ -97,6 +97,11 @@ function DeathLord:onAct(battler, name)
 			self.dialogue_override = "what are you\neven doing"
 			return {
 				"* You begged for mercy.[wait:5]\n* But...[wait:5] you can just [color:yellow]SPARE[color:reset] it already...",
+			}
+		elseif self.health <= (self.max_health * self.low_health_percentage) then
+			self.dialogue_override = "it really\nhurts"
+			return {
+				"* You begged for mercy.\n* But DEATH LORD is already [color:blue]TIRED[color:reset]!",
 			}
 		elseif last_tired then
 			self.dialogue_override = "(yawn)\ndie bozo..."
