@@ -98,7 +98,7 @@ function DeathLord:onAct(battler, name)
 			return {
 				"* You begged for mercy.[wait:5]\n* But...[wait:5] you can just [color:yellow]SPARE[color:reset] it already...",
 			}
-		elseif self.health <= (self.max_health * self.low_health_percentage) then
+		elseif self.health <= (self.max_health * self.low_health_percentage) and self.tired then
 			self.dialogue_override = "it really\nhurts"
 			return {
 				"* You begged for mercy.\n* But DEATH LORD is already [color:blue]TIRED[color:reset]!",
