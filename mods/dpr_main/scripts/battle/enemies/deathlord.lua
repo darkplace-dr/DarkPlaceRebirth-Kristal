@@ -30,7 +30,7 @@ function DeathLord:init()
         "* bepis",
     }
     self.low_health_text = "* oh god hes is gonna die"
-    self.spareable_text = "* oh god he doesnt really care anymore"
+    self.spareable_text = "* oh god he doesnt really care\nanymore"
     self.tired_text = "* oh boy hes quite sleepy"
     self:registerAct("BegForMercy", "Induce\nTIRED")
     self:registerAct("GrazeChallenge", "Graze\nfor\nMERCY")
