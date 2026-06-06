@@ -14,6 +14,8 @@ function LowHealthVibrato:update()
     if Kristal.Config["musicDistort"] and Game.party then
         local upcount = 0
         
+        if Game.state == "GAMEOVER" then return end
+        
         for k,v in ipairs(Game.party) do
             if v.health > 0 then upcount = upcount + 1 end
             if v.health > v:getStat("health")/4 then
@@ -52,8 +54,10 @@ function LowHealthVibrato:update()
         pitch = pitch - (lowHealth * 0.08)
     
         for _, music in ipairs(Music.getPlaying()) do
-            music:setVolume(MUSIC_VOLUME * (music.current and MUSIC_VOLUMES[music.current] or 1) * music.builtin_volume * pulse)
-            music:setPitch(math.max((music.current and MUSIC_PITCHES[music.current] or 1) * music.builtin_pitch * pitch, 0.01))
+            if not TableUtils.contains({"inainaina"}, music.current) then
+                music:setVolume(MUSIC_VOLUME * (music.current and MUSIC_VOLUMES[music.current] or 1) * music.builtin_volume * pulse)
+                music:setPitch(math.max((music.current and MUSIC_PITCHES[music.current] or 1) * music.builtin_pitch * pitch, 0.01))
+            end
         end
     end
 end

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 56,
+  nextobjectid = 57,
   properties = {
     ["music"] = "mainhub"
   },
@@ -571,6 +571,24 @@ return {
             ["flagcheck"] = "arlee_quest",
             ["marker"] = "arlee",
             ["shop"] = "arlee"
+          }
+        },
+        {
+          id = 56,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1000.33,
+          y = 977.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["actor"] = "zenore",
+            ["cutscene"] = "apartments/zenore.room",
+            ["facing"] = "down"
           }
         }
       }

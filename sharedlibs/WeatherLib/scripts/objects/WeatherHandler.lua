@@ -124,7 +124,7 @@ function WeatherHandler:update()
 				self.rainsplash = true
 			end
 			if self.weathertimer < 120 then
-				self.droptimer = self.droptimer + 1
+				self.droptimer = self.droptimer + DTMULT
 				if self.droptimer >= self.dropwait then
 					self.droptimer = 0
 					self.dropwait = math.max(self.dropwait * 0.75, 2)
@@ -154,15 +154,15 @@ function WeatherHandler:update()
 
                 for i = 1, amount do
                     self.raintimer = self.gen
-                    local number = "rain_"..tostring(love.math.random(1, 10))
+                    local number = "rain_"..tostring(MathUtils.randomInt(1, 11))
                     if self.type == "cd" then number = TableUtils.pick({"cat", "dog"}) end
 					local x, y
 					if self.prewarm then
-						x = love.math.random(0,720) - 64
-						y = love.math.random(-SCREEN_HEIGHT*1.5-76, -76+556)
+						x = MathUtils.randomInt(0,720) - 64
+						y = MathUtils.randomInt(-SCREEN_HEIGHT*1.5-76, -76+556)
 					else
-						local side_random = love.math.random(0,720) - 64
-						local foff = math.random(0,10 * (speedmult*20))
+						local side_random = MathUtils.randomInt(0,720) - 64
+						local foff = MathUtils.randomInt(0,10 * (speedmult*20))
 						x = side_random + (foff * (speedmult*10))
 						y = -(foff * (speedmult*20))
 					end
