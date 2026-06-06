@@ -102,13 +102,14 @@ function DeathLord:onAct(battler, name)
 			}
 		elseif not self.begged then
 			self.begged = true
-			self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 			if self.tired then
+				self.tired_percentage_text = nil
 				self.dialogue_override = "(yawn)\ndie bozo..."
 				return {
 					"* You begged for mercy.\n* DEATH LORD became fully [color:blue]TIRED[color:reset]!"
 				}
 			else
+				self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 				self.dialogue_override = "im on a\nno mercy playthrough"
 				return {
 					"* You begged for mercy.[wait:5]\n* But DEATH LORD showed none.",
@@ -116,13 +117,14 @@ function DeathLord:onAct(battler, name)
 				}
 			end
 		else
-			self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 			if self.tired then
+				self.tired_percentage_text = nil
 				self.dialogue_override = "(yawn)\ndie bozo..."
 				return {
 					"* You begged for mercy.\n* DEATH LORD became fully [color:blue]TIRED[color:reset]!"
 				}
 			else
+				self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 				self.dialogue_override = "no"
 				return {
 					"* You begged for mercy.\n* DEATH LORD became more [color:blue]TIRED[color:reset]!"
