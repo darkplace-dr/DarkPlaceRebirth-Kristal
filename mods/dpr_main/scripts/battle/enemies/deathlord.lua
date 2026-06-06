@@ -13,6 +13,7 @@ function DeathLord:init()
     else
         self.money = 60
     end
+	self.tired_percentage = 0
     self.spare_points = 0
     self.waves = {
         "deathlord/gun"
