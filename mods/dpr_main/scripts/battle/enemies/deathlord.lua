@@ -103,7 +103,7 @@ function DeathLord:onAct(battler, name)
 			end
 			return {
 				"* You begged for mercy.[wait:5]\n* But DEATH LORD showed none.",
-				"* However, DEATH LORD became more [color:blue]TIRED[color:reset]!"
+				"* However, DEATH LORD became a little [color:blue]TIRED[color:reset]!"
 			}
 		else
 			if self.tired then
