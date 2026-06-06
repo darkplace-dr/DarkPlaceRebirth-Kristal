@@ -8,6 +8,10 @@ end
 function DeathLordGun:onStart()
     self.startmove = false
     self.timer:script(function(wait)
+		local attackers = self:getAttackers()
+		for _, attacker in ipairs(attackers) do
+			attacker:shake()
+		end
 		Assets.stopAndPlaySound("glock")
 		wait(0.5)
 		self.startmove = true
