@@ -102,6 +102,7 @@ function DeathLord:onAct(battler, name)
 			}
 		elseif not self.begged then
 			self.begged = true
+			self.tired_percentage_text = "* DEATH LORD is [color:blue]"..math.floor(self.tiredness).."% TIRED[color:reset]!"
 			if self.tired then
 				self.dialogue_override = "(yawn)\ndie bozo..."
 				return {
