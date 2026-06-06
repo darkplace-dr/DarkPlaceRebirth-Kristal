@@ -13,6 +13,7 @@ function DeathLord:init()
     else
         self.money = 60
     end
+	self.low_health_percentage = 0.25
 	self.tired_percentage = 0.25
     self.spare_points = 0
     self.waves = {
