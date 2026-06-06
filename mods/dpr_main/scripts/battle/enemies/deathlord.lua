@@ -89,7 +89,7 @@ end
 function DeathLord:onAct(battler, name)
     if name == "BegForMercy" then
 		local last_tired = self.tired
-		self:addTired(16)
+		self:addTired(25)
 		if self.mercy >= 100 then		
 			self.dialogue_override = "what are you\neven doing"
 			return {
