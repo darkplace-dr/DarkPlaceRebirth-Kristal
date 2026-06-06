@@ -120,17 +120,17 @@ function character:init()
 
     -- Equipment (saved to the save file)
     if Game.chapter <= 2 then
-        self:setWeapon("flame_knife")
+        --self:setWeapon("flame_knife") -- flame_knife does not exist
         if Game.chapter == 2 then
             self:setArmor(1, "amber_card")
             self:setArmor(2, "amber_card")
         end
     elseif Game.chapter == 3 then
-        self:setWeapon("flame_knife")
+        --self:setWeapon("flame_knife")
         self:setArmor(1, "amber_card")
         self:setArmor(2, "glowwrist")
     elseif Game.chapter >= 4 then
-        self:setWeapon("flame_knife")
+        --self:setWeapon("flame_knife")
         self:setArmor(1, "gingerguard")
         self:setArmor(2, "glowwrist")
     end

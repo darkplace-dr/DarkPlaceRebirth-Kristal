@@ -32,20 +32,7 @@ function spell:getTPCost(chara)
     end
     return cost
 end
-function spell:onCast(user, target)
-    local buster_finished = false
-    local anim_finished = false
-    local function finishAnim()
-        anim_finished = true
-        if buster_finished then
-            Game.battle:finishAction()
-        end
-    end
-    if not user:setAnimation("battle/flame_burst_cast", finishAnim) then
-        anim_finished = false
-        user:setAnimation("battle/spell", finishAnim)
-    end
-end
+
 function spell:onCast(user, target)
     Game.battle:decTemp(16)
     
