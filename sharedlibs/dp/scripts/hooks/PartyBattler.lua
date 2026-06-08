@@ -1,6 +1,18 @@
 ---@class PartyBattler : PartyBattler
 local PartyBattler, super = HookSystem.hookScript(PartyBattler)
 
+local function map(tbl, func)
+    local result = {}
+    for index, value in ipairs(tbl) do
+        result[index] = func(value, index)
+    end
+    return result
+end
+
+local function getConfig(name)
+    return Kristal.getLibConfig("rolling-health", name)
+end
+
 function PartyBattler:init(chara,x,y)
     super.init(self,chara,x,y)
 
@@ -19,11 +31,19 @@ function PartyBattler:init(chara,x,y)
     if self.chara.id == "jamm" and Game:getFlag("jamm_skill_4") then
         self.shield = self.chara:getMaxShield()/2
     end
+    self.health_rolling_to = self.chara:getHealth()
+    self.health_rolling_last = self.health_rolling_to
+    self.health_rolling_timer = 0
+	self.health_rolling_swooned = false
 end
 
 function PartyBattler:removeHealthBroken(amount, swoon)
-    if Game.battle.superpower then return end
-    return super.removeHealthBroken(self, amount, swoon)
+	if self:canHealthRoll() then
+		if Game.battle.superpower then return end
+		self:removeHealth(amount, swoon)
+	else
+		super.removeHealthBroken(self, amount, swoon)
+	end
 end
 
 function PartyBattler:hurt(amount, exact, color, options)
@@ -126,16 +146,67 @@ function PartyBattler:hurt(amount, exact, color, options)
 end
 
 function PartyBattler:heal(amount, sparkle_color, show_up)
-    if self.succumbed then return end
-    if self.chara:getStat("health") <= 0 then
-        self:statusMessage("msg", "miss")
-        return
-    end
-    return super.heal(self, amount, sparkle_color, show_up)
+	if self:canHealthRoll() then
+		if self.succumbed then return end
+		if self.chara:getStat("health") <= 0 then
+			self:statusMessage("msg", "miss")
+			return
+		end
+		Assets.stopAndPlaySound("power")
+
+		amount = math.floor(amount)
+
+		local health_roll_previous = self.health_rolling_to
+		self.health_rolling_to = self.health_rolling_to + amount
+
+		local was_down = self.is_down
+		self:flash()
+
+		if self.health_rolling_to >= self.chara:getStat("health") then
+			self.health_rolling_to = self.chara:getStat("health")
+			self:statusMessage("msg", "max")
+		else
+			if show_up then
+				if was_down ~= self.is_down then
+					self:statusMessage("msg", "up")
+				end
+			else
+				self:statusMessage("heal", amount, {0, 1, 0})
+			end
+		end
+
+		if getConfig("instant_roll_up") then
+			self.chara:setHealth(self.health_rolling_to)
+		elseif self.is_down then
+			if self.health_rolling_to <= 0 or
+			   (self.health_rolling_to > 0 and getConfig("instant_roll_revive")) then
+				self.chara:setHealth(self.health_rolling_to)
+			else
+				self.chara:setHealth(1)
+			end
+		end
+		self.health_rolling_swooned = false
+
+		-- Kristal.Console:log(tostring(self.health_rolling_to > self.chara:getHealth() and health_roll_previous < self.chara:getHealth()))
+		-- if self.health_rolling_to > self.chara:getHealth() and health_roll_previous < self.chara:getHealth() then
+		--     self.health_rolling_timer = -getConfig("roll_delay")
+		-- end
+		
+		self:checkHealth()
+		self:sparkle(unpack(sparkle_color or {}))
+	else
+		if self.succumbed then return end
+		if self.chara:getStat("health") <= 0 then
+			self:statusMessage("msg", "miss")
+			return
+		end
+		return super.heal(self, amount, sparkle_color, show_up)
+	end
 end
 
 function PartyBattler:succumb() -- this one's meant to be called manually so it has some stuff the down() and swoon() don't have
     self.chara:setHealth(-math.huge)
+	self.health_rolling_to = self.chara:getHealth()
     self:statusMessage("msg", "succumb")
     self.succumbed = true
     self.is_down = true
@@ -201,31 +272,58 @@ function PartyBattler:doOverlay()
 end
 
 function PartyBattler:removeHealth(amount, swoon, pierce)
-    if Game.battle.superpower then return end
-    if not pierce then
-        if self.shield < amount then
-            amount = amount - self.shield
-            self.shield = 0
-        else
-            self.shield = self.shield - amount
-            amount = 0
-        end
-    end
-    if (self.chara:getHealth() <= 0) then
-        amount = MathUtils.round(amount / 4)
-        self.chara:setHealth(self.chara:getHealth() - amount)
-    else
-        self.chara:setHealth(self.chara:getHealth() - amount)
-        if (self.chara:getHealth() <= 0) then
-            if swoon then
-                self.chara:setHealth(-999)
-            else
-                amount = math.abs((self.chara:getHealth() - (self.chara:getStat("health") / 2)))
-                self.chara:setHealth(MathUtils.round(((-self.chara:getStat("health")) / 2)))
-            end
-        end
-    end
-    self:checkHealth(swoon)
+	if self:canHealthRoll() then
+		if Game.battle.superpower then return end
+		if not pierce then
+			if self.shield < amount then
+				amount = amount - self.shield
+				self.shield = 0
+			else
+				self.shield = self.shield - amount
+				amount = 0
+			end
+		end
+		if swoon then
+			self.health_rolling_swooned = true
+		end
+		local health_roll_previous = self.health_rolling_to
+		if (self.chara:getHealth() <= 0) then
+			amount = MathUtils.round(amount / 4)
+			self.health_rolling_to = self.health_rolling_to - amount
+		else
+			self.health_rolling_to = self.health_rolling_to - amount
+		end
+		self.health_rolling_to = math.max(self.health_rolling_to, 0)
+		-- if self.health_rolling_to > self.chara:getHealth() and health_roll_previous < self.chara:getHealth() then
+		--     self.health_rolling_timer = -getConfig("roll_delay")
+		-- end
+	else
+		if Game.battle.superpower then return end
+		if not pierce then
+			if self.shield < amount then
+				amount = amount - self.shield
+				self.shield = 0
+			else
+				self.shield = self.shield - amount
+				amount = 0
+			end
+		end
+		if (self.chara:getHealth() <= 0) then
+			amount = MathUtils.round(amount / 4)
+			self.chara:setHealth(self.chara:getHealth() - amount)
+		else
+			self.chara:setHealth(self.chara:getHealth() - amount)
+			if (self.chara:getHealth() <= 0) then
+				if swoon then
+					self.chara:setHealth(-999)
+				else
+					amount = math.abs((self.chara:getHealth() - (self.chara:getStat("health") / 2)))
+					self.chara:setHealth(MathUtils.round(((-self.chara:getStat("health")) / 2)))
+				end
+			end
+		end
+		self:checkHealth(swoon)
+	end
 end
 
 function PartyBattler:addShield(amount)

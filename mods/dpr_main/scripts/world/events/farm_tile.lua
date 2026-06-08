@@ -1,9 +1,5 @@
 local farm_tile, super = Class(Event)
 
-local function h(hex)
-    return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
-end
-
 function farm_tile:init(data)
     super.init(self, data.center_x, data.center_y, {data.width, data.height})
 
@@ -81,13 +77,7 @@ function farm_tile:bananaCheck(nosound)
     if not self.grown and Game.playtime > self.plant[2] then
         self.grown = true
 
-    self.crop:addFX(PaletteFX({
-        h '#f8d808',
-        h '#f8ad08',
-    }, {
-        h '#08d8f8',
-        h '#08adf8',
-    }))
+		self.crop:addFX(PaletteFX("world/banana_pal", 1, nil, 1))
 
         if not nosound then
             Assets.playSound("barrel_jump", 0.6)
