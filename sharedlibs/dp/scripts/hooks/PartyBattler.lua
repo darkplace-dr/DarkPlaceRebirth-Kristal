@@ -206,6 +206,7 @@ end
 
 function PartyBattler:succumb() -- this one's meant to be called manually so it has some stuff the down() and swoon() don't have
     self.chara:setHealth(-math.huge)
+	self.health_rolling_to = self.chara:getHealth()
     self:statusMessage("msg", "succumb")
     self.succumbed = true
     self.is_down = true
