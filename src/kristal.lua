@@ -2048,6 +2048,7 @@ end
 --- Loads the game from a save file.
 ---@param id?   number  The save file index to load. (Defaults to the currently loaded save index)
 ---@param fade? boolean Whether the game should fade in after loading. (Defaults to `false`)
+---@return boolean valid If false, another DLC started to load. Used to stop Game from loading
 function Kristal.loadGame(id, fade)
     id = id or Game.save_id
     local data = Kristal.getSaveFile(id)
@@ -2056,15 +2057,22 @@ function Kristal.loadGame(id, fade)
         if data.mod == Mod.info.id then
             Game:load(data, id, fade)
         else
+            -- I think we need a better way to load into another DLC
+            -- This happens too late in the loading process
+            -- Because we don't switch before, we end up having to restart the whole process in the right DLC
             Kristal.setState({})
             Kristal.clearModState()
+            -- This function is async, which means we have to stop Game from loading itself
+            -- Otherwise it keeps loading without actually having data
             Kristal.loadAssets("", "mods", "", function()
                 Kristal.startGameDPR(id, data.name)
             end)
+            return false
         end
     else
         Game:load(nil, id, fade)
     end
+    return true
 end
 
 --- Returns the data from the specified save file.
