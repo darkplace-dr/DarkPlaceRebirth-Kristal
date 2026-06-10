@@ -911,4 +911,13 @@ function Map:createTileObject(data, x, y, width, height)
     end
 end
 
+---@param cutscene string|WorldCutsceneFunc
+function Map:setTalkCutscene(cutscene)
+    self.talk_cutscene = cutscene
+end
+---@return string|WorldCutsceneFunc cutscene
+function Map:getTalkCutscene()
+    return (self.data and self.data.properties and self.data.properties["talk_cutscene"]) or self.talk_cutscene
+end
+
 return Map

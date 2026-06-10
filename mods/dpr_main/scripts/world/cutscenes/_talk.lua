@@ -1,6 +1,9 @@
 return {
     ---@param cutscene WorldCutscene
-    main = function(cutscene, map, partyleader)
+    main = function(cutscene, map, partyleader, talk_count)
+        local c = Game.world.map:getTalkCutscene()
+        if (c and cutscene:gotoCutscene(c, map, partyleader, talk_count) ~= false) then return end
+
         if Game:isDessMode() or Game.world.player:getName() == "Dess" then
             cutscene:showNametag("Dess")
             if map == "floor1/dess_house" then
