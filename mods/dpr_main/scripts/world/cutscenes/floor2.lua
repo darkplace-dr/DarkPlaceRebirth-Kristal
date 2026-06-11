@@ -1,5 +1,5 @@
 return {
-    ---@param cutscene WorldCutscene
+---@param cutscene WorldCutscene
     wobblything = function(cutscene, map, partyleader)
         local wobblything = cutscene:getEvent("wobblything")
         
@@ -97,6 +97,143 @@ return {
 		
     end,
 
+---@param cutscene WorldCutscene
+    rentdoor = function(cutscene, event)
+        if Game:getFlag("ownsRentRoom") then return end
+
+        cutscene:text("* (This door is different from the others)")
+        local date = os.date("*t")
+        if true or date.hour == 0 then
+            local door = Game.world.map:getEvent("rentdoor")
+            local flag = "meetRentMan"
+            local meetRentMan = Game:getFlag(flag)
+            local susie = cutscene:getCharacter("susie")
+            if not meetRentMan then
+                Game:setFlag(flag, true)
+                cutscene:text("* W-Wait!")
+
+                -- Walk to place
+
+                cutscene:wait(2)
+                cutscene:text("* Sorry im late, business is everywhere...")
+                cutscene:text("* So you want to rent this place right?")
+
+                if susie then
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* Uhh...[wait:5] no?[wait:5] it doesn't even have a price tag on it.", "annoyed", susie)
+                    cutscene:hideNametag()
+                end
+
+                cutscene:text("* Huh?[wait:5] oh![wait:5] the sign![wait:5] right!")
+
+                cutscene:wait(0.3)
+
+                Assets.playSound("noise")
+                door:setSprite("world/events/floor2/door/sale")
+            else
+                --- Walk to place
+            end
+
+            cutscene:text("* That'll be 500$.")
+
+            local price = 500
+            local money = Game.money
+
+            local function onDeclined(cutscene)
+                cutscene:text("* Oh uh... too bad...")
+            end
+
+            if money < price then
+                if susie then
+                    cutscene:showNametag("Susie")
+                    cutscene:text("* What?![wait:5] No way we can afford that!", "nervous", susie)
+                    cutscene:hideNametag()
+                else
+                    cutscene:text("* (You don't have enough DARK DOLLARs)")
+                end
+                onDeclined(cutscene)
+            else
+                cutscene:showShop()
+                local buy = cutscene:choicer({ "Yes", "No" })
+                cutscene:hideShop()
+                if buy == 2 then
+                    onDeclined(cutscene)
+                    return
+                end
+
+                Game.money = Game.money - price
+                Game:setFlag("ownsRentRoom", true)
+                Assets.playSound("item")
+                cutscene:text("* Thanks![wait:5] now let me open up the door for you.")
+
+                cutscene:wait(0.4)
+
+                Assets.playSound("dooropen")
+                door:setSprite("world/events/floor2/door/open")
+                door.solid = false
+
+                cutscene:text("* Oh,[wait:5] and remember how i said rent before?")
+                cutscene:text("* Well,[wait:5] i lied.[wait:5] you actually own this place now.")
+                cutscene:text("* Now if you don't mind,[wait:5] im gonna take some vacations.")
+            end
+        else
+            return false
+        end
+    end,
+
+---@param cutscene WorldCutscene
+    rentsision = function(cutscene, event)
+        if love.math.random(1, 100) <= 5 then
+            cutscene:mapTransition("floor2/apartments/man", "entry")
+            -- default wait func waits for the fade animation to end. movement should be allowed slightly before that
+            cutscene:wait(function () return Game.world.map.id == "floor2/apartments/man" end)
+            local timeout = .5
+            cutscene:during(function () timeout = timeout - DT end)
+            -- prevent player from accidentally exiting the room
+            cutscene:wait(function ()
+                return Input.up("left") or (timeout <= 0)
+            end)
+        else
+            cutscene:mapTransition("floor2/apartments/rent", "entry")
+			if Game.world.music:isPlaying() then
+				local music_vol = Game.world.music.volume
+				Game.world.music:fade(0, 10 / 30)
+				cutscene:wait(function () return Game.world.map.id == "floor2/apartments/rent" end)
+				Game.world.music:stop()
+				Game.world.music:play()
+				Game.world.music:setVolume(music_vol)
+			end
+        end
+    end,
+
+---@param cutscene WorldCutscene
+    mandoor = function(cutscene, event, dir)
+        local canOpen = event:canOpen()
+        if not canOpen then
+            cutscene:text("* (The door is being blocked off by ????????????????????)")
+            return false
+        end
+
+        if dir and dir ~= "up" then
+            local text = "* (You can't enter the door from this side)"
+            if MathUtils.randomInt(1,12) == 1 then
+                text = TableUtils.pick({
+                    "* (You admire the beaty of this door)",
+                    "* (You admire the tiny details)",
+                    "* (You breathe in the air of this door)",
+                    "* (You consider breaking trough this door)",
+                    "* (Mhh, yup, it's a door)",
+                })
+            end
+
+            cutscene:text(text)
+            return false
+        end
+
+        Assets.playSound("dooropen")
+        return true
+    end,
+
     backrooms_entry = function(cutscene, event)
         --Game.world.music:fade(0, 0.25)
         Assets.playSound("dooropen")
@@ -110,6 +247,8 @@ return {
         end
     end,
 
+---@param cutscene WorldCutscene
+---@param event Event
     queen_sip = function(cutscene, event)
         cutscene:showNametag("Queen")
 		if not Game.world.map.queen_dialogue then
@@ -154,10 +293,56 @@ return {
                 cutscene:text("* More For Me I Suppose", "smile_side_l", "queen")
                 cutscene:hideNametag()
             else
-                cutscene:text("* (You decline without hesitation.)")
-                cutscene:showNametag("Queen")
-                cutscene:text("* Oh Well More For Me I Suppose", "smile_side_l", "queen")
-                cutscene:hideNametag()
+                local function queenreact(cutscene, event)
+                    cutscene:showNametag("Queen")
+                    cutscene:text("* Oh Well More For Me I Suppose", "smile_side_l", "queen")
+                    cutscene:hideNametag()
+                end
+
+                local len = cutscene:getCharacter("len")
+                if len then
+                    if not Game:getFlag("drankAcid") then
+                        cutscene:text("* Hell yeah!")
+
+                        --- Drinking acid animation stuff
+                        
+                        local lethal = false
+                        local lenParty = len:getPartyMember()
+                        local hp = lenParty:getHealth()
+                        local min = 1
+                        local dmg = hp - min
+                        if hp <= min then
+                            dmg = dmg + min
+                            lethal = true
+                        end
+
+                        local repeats = 5
+                        local fordmg = dmg / repeats
+
+                        for _ = 1,repeats do
+                            len:shake()
+
+                            if not lethal and fordmg > hp then
+                                fordmg = 0
+                            end
+
+                            lenParty:heal(-fordmg,false) -- owchies
+
+                            Assets.playSound("hurt")
+                            cutscene:wait(0.4)
+                        end
+
+                        cutscene:text("* Ow ow ow ow owwwwwww")
+                        cutscene:text("* Worth it...")
+                        Game:setFlag("drankAcid", true)
+                    else
+                        cutscene:text("* (You decline with regret.)")
+                        queenreact(cutscene, event)
+                    end
+                else
+                    cutscene:text("* (You decline without hesitation.)")
+                    queenreact(cutscene, event)
+                end
             end
             Game.world.map.queen_dialogue = true
         else

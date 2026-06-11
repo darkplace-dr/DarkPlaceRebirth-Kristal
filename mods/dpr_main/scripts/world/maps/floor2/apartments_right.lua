@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.1",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 56,
+  nextobjectid = 63,
   properties = {
     ["music"] = "mainhub"
   },
@@ -18,14 +18,106 @@ return {
     {
       name = "floor2",
       firstgid = 1,
-      filename = "../../tilesets/floor2.tsx",
-      exportfilename = "../../tilesets/floor2.lua"
+      class = "",
+      tilewidth = 20,
+      tileheight = 20,
+      spacing = 0,
+      margin = 0,
+      columns = 17,
+      image = "../../../../assets/sprites/tilesets/floor2.png",
+      imagewidth = 340,
+      imageheight = 200,
+      objectalignment = "unspecified",
+      tilerendersize = "grid",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 20,
+        height = 20
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 170,
+      tiles = {}
     },
     {
       name = "apartment_doors",
       firstgid = 171,
-      filename = "../../tilesets/apartment_doors.tsx",
-      exportfilename = "../../tilesets/apartment_doors.lua"
+      class = "",
+      tilewidth = 192,
+      tileheight = 256,
+      spacing = 0,
+      margin = 0,
+      columns = 0,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 1,
+        height = 1
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 8,
+      tiles = {
+        {
+          id = 0,
+          image = "../../../../assets/sprites/world/apartment_doors/jamm.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 1,
+          image = "../../../../assets/sprites/world/apartment_doors/brenda.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 2,
+          image = "../../../../assets/sprites/world/apartment_doors/nell.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 3,
+          image = "../../../../assets/sprites/world/apartment_doors/ddelta.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 4,
+          image = "../../../../assets/sprites/world/apartment_doors/arlee.png",
+          width = 192,
+          height = 256
+        },
+        {
+          id = 5,
+          image = "../../../../assets/sprites/world/apartment_doors/ubx.png",
+          width = 120,
+          height = 160
+        },
+        {
+          id = 6,
+          image = "../../../../assets/sprites/world/apartment_doors/ceroba.png",
+          width = 184,
+          height = 160
+        },
+        {
+          id = 7,
+          image = "../../../../assets/sprites/world/apartment_doors/ken.png",
+          width = 120,
+          height = 160
+        }
+      }
     }
   },
   layers = {
@@ -70,7 +162,7 @@ return {
         0, 20, 0, 0, 0, 52, 53, 53, 55, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 55, 54, 0, 0, 0, 18, 0,
         0, 20, 0, 0, 0, 72, 53, 53, 53, 53, 53, 53, 53, 53, 55, 53, 53, 53, 53, 53, 53, 39, 53, 53, 53, 54, 0, 0, 0, 18, 0,
         0, 20, 0, 0, 0, 52, 53, 53, 53, 53, 39, 53, 53, 53, 53, 53, 53, 56, 53, 53, 53, 53, 53, 55, 53, 73, 0, 0, 0, 18, 0,
-        0, 20, 0, 0, 0, 69, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 71, 0, 0, 0, 18, 0,
+        0, 20, 0, 0, 0, 69, 70, 70, 70, 70, 70, 70, 23, 25, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 71, 0, 0, 0, 18, 0,
         0, 20, 23, 24, 25, 43, 43, 23, 25, 43, 43, 43, 23, 25, 43, 43, 43, 23, 25, 43, 43, 43, 23, 25, 43, 43, 23, 24, 25, 18, 0,
         0, 20, 23, 24, 10, 7, 7, 9, 10, 7, 7, 7, 9, 10, 7, 7, 7, 9, 10, 7, 7, 7, 9, 10, 7, 7, 9, 24, 25, 18, 0,
         0, 20, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 18, 0,
@@ -117,10 +209,10 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 109, 110, 111, 0, 0, 109, 110, 111, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 127, 128, 0, 0, 126, 127, 128, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 144, 145, 0, 0, 143, 144, 145, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 160, 161, 162, 0, 0, 160, 161, 162, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -250,8 +342,36 @@ return {
           shape = "rectangle",
           x = 192,
           y = 760,
-          width = 856,
+          width = 288,
           height = 200,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 760,
+          width = 480,
+          height = 200,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 760,
+          width = 80,
+          height = 160,
           rotation = 0,
           opacity = 1,
           visible = true,
@@ -488,6 +608,20 @@ return {
           gid = 175,
           visible = true,
           properties = {}
+        },
+        {
+          id = 59,
+          name = "rentdoor",
+          type = "",
+          shape = "rectangle",
+          x = 464,
+          y = 824,
+          width = 112,
+          height = 136,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -572,6 +706,23 @@ return {
             ["marker"] = "arlee",
             ["shop"] = "arlee"
           }
+        },
+        {
+          id = 60,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 910,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.rentsision",
+            ["once"] = false
+          }
         }
       }
     },
@@ -619,7 +770,7 @@ return {
         },
         {
           id = 29,
-          name = "",
+          name = "rent",
           type = "",
           shape = "point",
           x = 520,
