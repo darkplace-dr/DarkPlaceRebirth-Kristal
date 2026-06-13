@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -40,6 +40,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -53,6 +54,7 @@ return {
           width = 240,
           height = 41,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -66,6 +68,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -79,6 +82,7 @@ return {
           width = 80,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -92,6 +96,7 @@ return {
           width = 80,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -121,6 +126,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -134,6 +140,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "intro/lab_reception",
@@ -151,6 +158,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["color_1"] = "#ff321fc3",
@@ -168,7 +176,7 @@ return {
             ["color_9"] = "#ff4429ff",
             ["cutscene_13"] = "elevator.top",
             ["cutscene_8"] = "broken_elevator",
-            ["dest_1"] = "intro/lab_reception",
+            ["dest_1"] = "pre_pit",
             ["dest_10"] = "tritraland/entrance",
             ["dest_11"] = "deoxtest",
             ["dest_12"] = "dirtworld/dirtworld",
@@ -236,6 +244,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -249,6 +258,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -262,6 +272,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -275,6 +286,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
