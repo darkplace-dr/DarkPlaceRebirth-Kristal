@@ -74,6 +74,7 @@ function lib:save(data)
     end
 end
 
+-- TODO: fuse checkSaveStatus with this function
 local function handleRetroSave(data)
     local data_changed = false
     local diff_data = {}
@@ -113,7 +114,7 @@ local function applyRetroChangesToSave(base_data, diff)
     return base_data
 end
 
-function lib:load(data)
+function lib:load(data, new_file)
     if not MagicalGlassLib then
         self.mg_data_preserve = data.magical_glass
     end
@@ -122,7 +123,9 @@ function lib:load(data)
         love.event.quit("restart")
     end
 
-    self.data_changed, self.diff_data = handleRetroSave(data)
+    if not new_file then
+        self.data_changed, self.diff_data = handleRetroSave(data)
+    end
 end
 
 function lib:postLoad()
