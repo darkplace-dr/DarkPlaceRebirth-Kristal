@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   name = "hub_objects",
   class = "",
   tilewidth = 130,
@@ -150,7 +150,7 @@ return {
     {
       id = 15,
       image = "../../../assets/sprites/world/events/square_hole.png",
-      width = 40,
+      width = 30,
       height = 30
     },
     {
