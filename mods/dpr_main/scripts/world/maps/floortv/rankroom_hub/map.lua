@@ -12,7 +12,7 @@ function RankRoom:load()
     for rank,data in pairs(door_data) do
         local dest_map = "floortv/rankroom_"..rank:lower()
         local map_exists = Registry.getMap(dest_map)
-        local door_open = Mod:getRankedDoorStatus(rank)
+        local door_open = DP:getRankedDoorStatus(rank)
 
         if not map_exists or not door_open then
             if door_open and not map_exists then
@@ -21,7 +21,7 @@ function RankRoom:load()
             local door = Game.world:getEvent("door_"..rank)
             if door then
                 -- One weird change to the tileset and this code is done for
-                if door.tile + 1 <= door.tileset.tile_count+2 then -- don't ask me why tile_count is off by 2
+                if --[[door.tile + 1 <= door.tileset.tile_count+2 the code was done for]] true then -- don't ask me why tile_count is off by 2
                     door.tile = door.tile + 1
                 else
                     Kristal.Console:warn("Something is wrong with the rank doors. The "..door.tileset.id.." tileset might have changed.")
