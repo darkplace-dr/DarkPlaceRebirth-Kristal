@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="10">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="10">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -42,7 +42,7 @@
     <property name="marker" value="entry_l"/>
    </properties>
   </object>
-  <object id="9" name="interactable" x="240" y="320">
+  <object id="9" name="interactable_do not show I'll restore it later bye bye" x="240" y="320">
    <properties>
     <property name="cutscene" value="tvfloor.pipis_closet"/>
     <property name="originx" type="float" value="0.5"/>

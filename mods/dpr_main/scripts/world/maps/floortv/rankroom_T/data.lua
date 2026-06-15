@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -44,6 +44,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -105,6 +106,7 @@ return {
           width = 720,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["borders"] = false
@@ -136,6 +138,7 @@ return {
           width = 1120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -149,6 +152,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -162,6 +166,7 @@ return {
           width = 1120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -191,6 +196,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floortv/rankroom_hub",
@@ -199,7 +205,7 @@ return {
         },
         {
           id = 9,
-          name = "interactable",
+          name = "interactable_do not show I'll restore it later bye bye",
           type = "",
           shape = "point",
           x = 240,
@@ -207,6 +213,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tvfloor.pipis_closet",
@@ -242,6 +249,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -255,6 +263,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
