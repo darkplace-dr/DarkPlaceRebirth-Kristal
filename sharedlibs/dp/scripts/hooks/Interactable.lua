@@ -8,6 +8,7 @@ function Interactable:init(x, y, shape, properties)
         Kristal.Console:warn("Deprecated Interactable \"texture\" property used, please use usetile instead.")
         self:setSprite(properties["texture"])
     end
+    self:setOrigin(properties["originx"], properties["originy"])
 end
 
 return Interactable

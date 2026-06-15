@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="28" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="26">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="green_room"/>
+  <property name="music" value="deltarune/greenroom_detune"/>
+ </properties>
+ <tileset firstgid="1" source="../../../tilesets/ch3_dw_tvland_stage.tsx"/>
+ <tileset firstgid="370" source="../../../tilesets/floortv_objects.tsx"/>
+ <objectgroup id="5" name="objects_floor">
+  <object id="6" name="greenroom_floor" x="0" y="0" width="40" height="40"/>
+ </objectgroup>
+ <layer id="1" name="floor" width="28" height="12">
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,259,259,36,36,259,259,259,259,36,36,36,36,
+259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,236,236,259,259,236,236,236,236,36,36,36,36,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,236,236,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,236,236,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,236,236,36,36,36,36
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collisions">
+  <object id="1" x="0" y="360" width="880" height="120"/>
+  <object id="2" x="960" y="240" width="160" height="240"/>
+  <object id="3" x="720" y="240" width="240" height="40"/>
+  <object id="4" x="640" y="200" width="80" height="40"/>
+  <object id="5" x="0" y="240" width="640" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff007f" id="4" name="objects_below">
+  <object id="7" name="greenroom_wall" x="0" y="120" width="640" height="160">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="8" name="greenroom_wall" x="800" y="80" width="160" height="160">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="9" name="greenroom_wall" x="640" y="80" width="80" height="160">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="10" name="greenroom_wall" x="720" y="120" width="80" height="160">
+   <properties>
+    <property name="fromamt" type="int" value="0"/>
+    <property name="shines" type="bool" value="false"/>
+    <property name="vines" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="objects_objects">
+  <object id="14" name="door_A" gid="415" x="140" y="280" width="92" height="146"/>
+  <object id="15" name="door_B" gid="417" x="280" y="280" width="88" height="128"/>
+  <object id="16" name="door_C" gid="419" x="420" y="280" width="80" height="110"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="3" name="objects">
+  <object id="20" name="transition" x="-40" y="280" width="40" height="80">
+   <properties>
+    <property name="map" value="floortv/rankroom_T"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="22" name="transition" x="880" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="floortv/green_room"/>
+    <property name="marker" value="entry_rank"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="6" name="markers">
+  <object id="11" name="spawn" x="920" y="360">
+   <point/>
+  </object>
+  <object id="12" name="entry_d" x="920" y="440">
+   <point/>
+  </object>
+  <object id="13" name="entry_l" x="40" y="320">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

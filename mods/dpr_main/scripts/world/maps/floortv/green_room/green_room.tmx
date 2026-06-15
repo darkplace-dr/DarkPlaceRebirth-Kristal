@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="121">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="121">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -108,16 +108,15 @@
    </properties>
   </object>
   <object id="77" name="greenroom_platter" x="670" y="368" width="100" height="88"/>
-  <object id="81" name="interactable" x="1000" y="80" width="76" height="40">
+  <object id="83" name="transition" x="1120" y="122" width="90" height="40">
    <properties>
-    <property name="text">* (It's a door.)[wait:5]
-* (It's locked.)</property>
+    <property name="map" value="floortv/rankroom_hub"/>
+    <property name="marker" value="entry_d"/>
    </properties>
   </object>
-  <object id="83" name="interactable" x="1120" y="120" width="90" height="40">
+  <object id="84" name="interactable" x="550" y="120" width="390" height="40">
    <properties>
-    <property name="text">* (It's the cooler door.)[wait:5]
-* (It's currently locked.)</property>
+    <property name="text" value="* (Doesn't seem like anyone's here...)"/>
    </properties>
   </object>
   <object id="89" name="transition" x="120" y="160">
@@ -222,6 +221,9 @@
    <point/>
   </object>
   <object id="92" name="entry_right" x="1260" y="200">
+   <point/>
+  </object>
+  <object id="94" name="entry_rank" x="1164.67" y="199.667">
    <point/>
   </object>
   <object id="96" name="entry_dump" x="1040" y="200">

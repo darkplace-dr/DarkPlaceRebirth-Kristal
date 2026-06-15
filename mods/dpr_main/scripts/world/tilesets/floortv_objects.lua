@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   name = "tvland_objects",
   class = "",
   tilewidth = 426,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 40,
+  tilecount = 46,
   tiles = {
     {
       id = 0,
@@ -282,6 +282,42 @@ return {
       image = "../../../../../assets/sprites/world/events/shine_4.png",
       width = 5,
       height = 5
+    },
+    {
+      id = 45,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a.png",
+      width = 46,
+      height = 73
+    },
+    {
+      id = 46,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a_locked.png",
+      width = 46,
+      height = 73
+    },
+    {
+      id = 47,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b.png",
+      width = 44,
+      height = 64
+    },
+    {
+      id = 48,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b_locked.png",
+      width = 44,
+      height = 64
+    },
+    {
+      id = 49,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c.png",
+      width = 40,
+      height = 55
+    },
+    {
+      id = 50,
+      image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png",
+      width = 40,
+      height = 55
     }
   }
 }
