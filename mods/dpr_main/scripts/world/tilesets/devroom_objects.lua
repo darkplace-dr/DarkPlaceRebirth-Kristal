@@ -4,8 +4,8 @@ return {
   tiledversion = "1.10.2",
   name = "devroom_objects",
   class = "",
-  tilewidth = 50,
-  tileheight = 52,
+  tilewidth = 100,
+  tileheight = 140,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 4,
+  tilecount = 6,
   tiles = {
     {
       id = 0,
@@ -48,6 +48,18 @@ return {
       image = "../../../assets/sprites/world/maps/devroom/closet_mono.png",
       width = 31,
       height = 52
+    },
+    {
+      id = 4,
+      image = "../../../assets/sprites/world/maps/devroom/dev_vending.png",
+      width = 30,
+      height = 44
+    },
+    {
+      id = 6,
+      image = "../../../assets/sprites/world/maps/devroom/coffee_desk.png",
+      width = 100,
+      height = 140
     }
   }
 }

@@ -18,6 +18,6 @@ return {
         cutscene:text("[noskip]eW91IHJlYWxseSB0cmFuc2xhdGVkIHRoaXM/Pz8gbG9sbGxsbGwgaSBtaWdodCBwdXQgc29tZSBraW5kIG9mIGFyZyBoZXJlIGxhdGVyIG9yIHNtdGg=", "faceless", "satan", { auto = true, top = true })
         cutscene:walkTo(satan, 440, 320, 8)
         cutscene:wait(7)
-        cutscene:mapTransition("hub_fuseroom", "entry")
+        cutscene:mapTransition("floor1/fuseroom", "entry")
 	end,
 }

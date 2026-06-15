@@ -4,9 +4,9 @@ function actor:init()
     super.init(self)
 
     -- Table of sprite animations
-    Utils.merge(self.animations, {
+    TableUtils.merge(self.animations, {
         -- Battle animations
-        ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle"]         = {"battle/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
@@ -28,6 +28,8 @@ function actor:init()
 
         ["battle/transition"]   = {"battle/intro", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
+        ["battle/flee"]         = {"battle/hurt", 1/15},
         
         -- Cutscene animations
         ["laugh"]               = {"laugh", 4/30, true},
@@ -36,7 +38,7 @@ function actor:init()
     -- Alternate animations to use for Noelle weird mode (false to disable the animation)
     self.animations_alt = {
         -- Battle animations
-        ["battle/idle"]         = {"battle_alt/idle", 0.2, true},
+        ["battle/idle"]         = {"battle_alt/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle/spell", 1/15, false, next="battle/idle"},
 
@@ -50,7 +52,7 @@ function actor:init()
     }
 
     -- Tables of sprites to change into in mirrors
-    Utils.merge(self.mirror_sprites, {
+    TableUtils.merge(self.mirror_sprites, {
         ["walk_alt/down"] = "walk_alt/up",
         ["walk_alt/up"] = "walk_alt/down",
         ["walk_alt/left"] = "walk_alt/left",
@@ -81,7 +83,7 @@ function actor:init()
     }, false)
 
     -- Table of sprite offsets (indexed by sprite name)
-    Utils.merge(self.offsets, {
+    TableUtils.merge(self.offsets, {
         -- Movement offsets
         ["walk_alt/down"] = {0, 0},
         ["walk_alt/right"] = {0, 0},
@@ -120,7 +122,7 @@ function actor:init()
         ["battle/attack"] = {-8, 0},
         ["battle/attackready"] = {0, 0},
         ["battle/act"] = {0, 0},
-        ["battle/actend"] = {0, 0},
+        ["battle/actend"] = {-3, 0},
         ["battle/actready"] = {0, 0},
         ["battle/spell"] = {-3, 0},
         ["battle/spellready"] = {0, 0},

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -845,7 +845,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digicall",
+            ["cutscene"] = "hometown_digi.call",
             ["flagcheck"] = "!hometown_digicall",
             ["once"] = false
           }
@@ -862,7 +862,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digiwrongway_a",
+            ["cutscene"] = "hometown_digi.wrongway_a",
             ["flagcheck"] = "!digi_complete",
             ["once"] = false
           }

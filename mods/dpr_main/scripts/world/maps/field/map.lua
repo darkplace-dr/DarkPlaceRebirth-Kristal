@@ -8,15 +8,16 @@ function field:onEnter()
 	-- This is what I believe in. \
     --      - Charbomber
 	-- \
-	-- When this was originally made for Dark Place, it was dedicated to Bor, who was going through some terrible stuff when this was created. \
-	-- They're doing much better now, but now, the person who this is dedicated to is Nelle. I honestly wish I could do more to help than just being there for them. \
-    -- I just hope that whatever happens, they end up being happy. They deserve to be happy. \
-    -- Everyone deserves to be happy. \
+	-- Another update to the Field. This time, it's dedicated to Racckoon, this mod's creator and my wonderful girlfriend. \
+	-- While she wasn't hospitalized like I first thought, her living situation isn't really all that great either. \
+	-- I wish I could do more for her, but all I can really do is be there for her, I just hope one day that everything will go well for her. \
+	-- For anyone else reading this, feel free to leave your own messages wishing her well. \
+	-- I love you, Lizzie. \
     --      - BrendaK7200
 	---@type string[]
 	self.hopes_and_dreams = {
-		"I hope Nelle will be okay.", -- This deserves to show up twice as often.
-        "I hope Nelle will be okay.",
+		"Racckoon, I hope you end up okay.", -- This deserves to show up twice as often.
+        "Racckoon, I hope you end up okay.",
 
 		"I hope Bor will be okay.",
 		"I hope I can get more sleep soon.",
@@ -56,6 +57,11 @@ function field:onEnter()
 		"I wish I could be a better friend.",
 		"I hope this all won't be for nothing.",
 		"I dream about creating something meaningful.",
+		"I hope Nelle will be okay.",
+        "Please let my loved ones be okay.",
+        "I hope I can make a difference.",
+        "I want to better my community.",
+        "I hope I'll finish what I began."
 		--"", -- Please, add more.
 		--"", -- All I ask for are your Hopes and Dreams.
 		--"", --       -Charbomber

@@ -53,6 +53,7 @@ function actor:init()
         ["battle/hurt"]          = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]        = {"battle/defeat", 1/15, false},
         ["battle/swooned"]       = {"battle/defeat", 1/15, false},
+        ["battle/succumbed"]     = {"battle/defeat", 1/15, false},
 
 		["battle/transition"]    = {"battle/transition", 1/15, false},
         ["battle/intro"]   		 = {"battle/intro", 1/15, false},
@@ -62,6 +63,7 @@ function actor:init()
 		["battle/spellsuper"]    = {"battle/spellsuper", 2/30, false, next="battle/spellsuperend"},
 		["battle/spellsuperend"] = {"battle/spellsuperend", 2/30, true},
         ["battle/tactic_freeze"] = {"battle/tactic_freeze", 1/15, false},
+        ["battle/slam"]        = {"battle/slam", 1/23, false},
 
         -- Cutscene animations
         --["laugh"]               = {"laugh", 4/30, true},
@@ -100,6 +102,7 @@ function actor:init()
         ["battle/victory"] = {-20, 0},
 
         ["battle/snap"] = {-20, 0},
+        ["battle/slam"] = {-13, 0},
         ["battle/spellsuper"] = {-19, 0},
         ["battle/spellsuperend"] = {-18, 0},
         ["battle/tactic_freeze"] = {-20, 0},

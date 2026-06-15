@@ -34,7 +34,6 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getATIncrease(user)
@@ -53,7 +52,7 @@ end
 
 function item:onWorldUse(target)
     Game.world:closeMenu()
-    Game.world.timer:after(1/30, function()
+    Game.world.timer:after(2/30, function()
         if Kristal.getLibConfig("magical-glass", "punch_card_exploit") then
             ImageViewerBroken("world/punchcard")
         else
@@ -64,7 +63,7 @@ function item:onWorldUse(target)
 end
 
 function item:getLightBattleText(user, target)
-    if Utils.containsValue(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
+    if TableUtils.contains(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
         return {
             "* OOOORAAAAA!!![wait:10]\n* "..user.chara:getNameOrYou().." rips up the punch card!",
             "* "..(select(2, user.chara:getNameOrYou()) and user.chara.id == Game.battle.party[1].chara.id and "Your" or user.chara:getNameOrYou().."'s").." hands are burning![wait:10]\n* AT increased by "..self:getATIncrease(user).."!"
@@ -78,7 +77,7 @@ function item:getLightBattleText(user, target)
 end
 
 function item:getBattleText(user, target)
-    if Utils.containsValue(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
+    if TableUtils.contains(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
         return {
             "* OOOORAAAAA!!![wait:10]\n* "..user.chara:getName().." rips up the punch card!",
             "* "..user.chara:getName().."'s hands are burning![wait:10]\n* AT increased by "..self:getATIncrease(user).."!"
@@ -93,7 +92,7 @@ end
 
 function item:onLightBattleUse(user, target)
     Game.battle:battleText(self:getLightBattleText(user, target))
-    if Utils.containsValue(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
+    if TableUtils.contains(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
         Assets.playSound("tearcard")
         user.chara:addStatBuff("attack", self:getATIncrease(user))
     end
@@ -101,7 +100,7 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    if Utils.containsValue(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
+    if TableUtils.contains(user.chara:getWeapon() and user.chara:getWeapon().tags or {}, "punch") then
         Assets.playSound("tearcard")
         user.chara:addStatBuff("attack", self:getATIncrease(user))
     end

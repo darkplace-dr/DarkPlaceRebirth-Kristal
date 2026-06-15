@@ -16,6 +16,10 @@ function character:init()
     -- Default title / class (saved to the save file)
     self.title = "Star\nThe original."
 
+    local t = "\n\n\n\n[image:party/ostarwalker/dark/base, 0, 0, 4, 4]"
+    local v = "* This menu is pissing me off."
+    self.title_extended = v .. t
+
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 1
     -- The color of this character's soul (optional, defaults to red)
@@ -73,6 +77,10 @@ function character:init()
     self.attack_box_color = nil
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = nil
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#BFD2EDFF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.white
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/ostarwalker/head"
@@ -99,6 +107,11 @@ function character:init()
     self.gameover_message = nil
 	
 	self.tv_name = "OSW"
+
+    self.element = {
+        "STAR",
+        "WALKER"
+    }
 end
 
 function character:onLevelUp(level)

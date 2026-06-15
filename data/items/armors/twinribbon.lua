@@ -47,11 +47,11 @@ function item:init()
         susie = false,
         dess = false,
 		jamm = false,
-        ceroba = false
     }
 
     -- Character reactions
     self.reactions = {
+        hero = "Actually, it fits.",
         susie = "... it gets worse and worse.",
         ralsei = "Try around my horns!",
         noelle = "... nostalgic, huh.",
@@ -59,7 +59,7 @@ function item:init()
         jamm = "Woah! Pop idle much???",
         ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
         noel = "Two bracelets?",
-        ceroba = "Even combined, they're still too small.",
+        ceroba = "This here, that there... Perfect.",
     }
 end
 

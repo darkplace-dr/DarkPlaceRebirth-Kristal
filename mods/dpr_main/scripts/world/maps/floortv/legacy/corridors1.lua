@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 84,
+  nextobjectid = 85,
   properties = {
     ["border"] = "greenroomold",
     ["music"] = "lost_room"
@@ -590,6 +590,22 @@ return {
           gid = 155,
           visible = true,
           properties = {}
+        },
+        {
+          id = 84,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 699.25,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "tvfloor.legacy_freevending",
+            ["solid"] = true
+          }
         }
       }
     },

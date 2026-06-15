@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.0" name="tvland_objects" tilewidth="195" tileheight="160" tilecount="36" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="50" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -76,6 +76,9 @@
  <tile id="25">
   <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png"/>
  </tile>
+ <tile id="35">
+  <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green_left.png"/>
+ </tile>
  <tile id="26">
   <image width="66" height="30" source="../../../assets/sprites/world/maps/tvland/stealthzone.png"/>
  </tile>
@@ -95,21 +98,54 @@
   <image width="38" height="97" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png"/>
  </tile>
  <tile id="33">
-  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a.png"/>
+  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape.png"/>
  </tile>
  <tile id="34">
-  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a_locked.png"/>
- </tile>
- <tile id="35">
-  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b.png"/>
- </tile>
- <tile id="36">
-  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b_locked.png"/>
- </tile>
- <tile id="37">
-  <image width="40" height="55" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c.png"/>
+  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png"/>
  </tile>
  <tile id="38">
+  <image width="426" height="140" source="../../../assets/sprites/world/maps/tvland/green_room_building.png"/>
+ </tile>
+ <tile id="40">
+  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/tvland_preview_vending.png"/>
+ </tile>
+ <tile id="39">
+  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png"/>
+ </tile>
+ <tile id="41">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_1.png"/>
+  <animation>
+   <frame tileid="41" duration="250"/>
+   <frame tileid="42" duration="250"/>
+   <frame tileid="43" duration="250"/>
+   <frame tileid="44" duration="250"/>
+  </animation>
+ </tile>
+ <tile id="42">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_2.png"/>
+ </tile>
+ <tile id="43">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_3.png"/>
+ </tile>
+ <tile id="44">
+  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_4.png"/>
+ </tile>
+  <tile id="45">
+  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a.png"/>
+ </tile>
+ <tile id="46">
+  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a_locked.png"/>
+ </tile>
+ <tile id="47">
+  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b.png"/>
+ </tile>
+ <tile id="48">
+  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b_locked.png"/>
+ </tile>
+ <tile id="49">
+  <image width="40" height="55" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c.png"/>
+ </tile>
+ <tile id="50">
   <image width="40" height="55" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png"/>
  </tile>
 </tileset>

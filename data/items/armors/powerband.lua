@@ -49,7 +49,7 @@ function item:init()
         ralsei = "I'm juiced up!",
         noelle = "Why always jewelry?",
         jamm = "I feel powered up!",
-        ceroba = "(Makes me feel stronger than usual...)"
+        ceroba = "Heh, even stronger now."
     }
 end
 

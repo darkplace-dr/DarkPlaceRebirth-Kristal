@@ -31,10 +31,11 @@ function MicController:init()
 	self.mic_timer = 0
 	self.mic_id = -1
 	self.font = Assets.getFont("main")
-	self.mic_sample = 0
 	self.cleaning_up = false
 	
-	self.right_click_mic = 0
+	-- Normally this would be zero, but right now it should default to 1
+	-- because LOVE2D's mic support sucks ass especially on older hardware
+	self.right_click_mic = 1
 	if #self.mic_inputs <= 0 then
 		self.right_click_mic = 1
 	end
@@ -115,17 +116,12 @@ function MicController:update()
 			self.mic_volume = 0
 		end
 	elseif self.mic_recording then
-		if self.mic_collect_timer >= 4 then
+		if self.mic_inputs[self.mic_id]:getSampleCount() >= 600 then
 			self:collectMicValues()
-			self.mic_sample = self.mic_sample + 1
-			if self.mic_sample >= 5 then
-				self.mic_sample = 0
-			end
-			self.mic_collect_timer = 0
 		end
 		if self.mic_timer >= 1 then
-			for i = 0, #self.mic_values do
-				local alpha = 0.036*2
+			for i = 1, 600 do
+				local alpha = 0.003
 				local us = self.mic_values[i] or 0
 				us = math.abs(us)
 				if self.us_old == -1 then
@@ -190,7 +186,7 @@ function MicController:startRecordMic(id)
 			self.mic_data:release()
 			self.mic_data = nil
 		end
-		self.mic_recording = self.mic_inputs[self.mic_id]:start(1, 8000, 8)
+		self.mic_recording = self.mic_inputs[self.mic_id]:start(600, 8000, 8)
 	else
 		self:stopRecordMic()
 	end
@@ -214,9 +210,10 @@ function MicController:collectMicValues()
 	if self.mic_recording then
 		self.mic_data = self.mic_inputs[self.mic_id]:getData()
 		if self.mic_data then
-			self.mic_values[self.mic_sample] = self.mic_data:getSample(0)*32768
-			self.mic_data:release()
-			self.mic_recording = self.mic_inputs[self.mic_id]:start(1, 8000, 8)
+			for i = 1, 600 do
+				self.mic_values[i] = self.mic_data:getSample(i)*32768
+			end
+			self.mic_recording = self.mic_inputs[self.mic_id]:start(600, 8000, 8)
 		end
 	end
 end
@@ -228,23 +225,23 @@ function MicController:draw()
 	end
 	if DEBUG_RENDER and (self.mic_recording or self.right_click_mic ~= 0) then
 		love.graphics.setLineWidth(4)
-		love.graphics.setColor(ColorUtils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.aqua, COLORS.black, 0.5))
 		love.graphics.line(20, 20, 20+(200*0.1), 20)
-		love.graphics.setColor(ColorUtils.mergeColor(COLORS["lime"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.lime, COLORS.black, 0.5))
 		love.graphics.line(20+(200*0.1), 20, 20+(200*0.6), 20)
-		love.graphics.setColor(ColorUtils.mergeColor(COLORS["yellow"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.yellow, COLORS.black, 0.5))
 		love.graphics.line(20+(200*0.6), 20, 20+(200*0.9), 20)
-		love.graphics.setColor(ColorUtils.mergeColor(COLORS["red"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.red, COLORS.black, 0.5))
 		love.graphics.line(20+(200*0.9), 20, 20+200, 20)
-		love.graphics.setColor(COLORS["aqua"])
+		love.graphics.setColor(COLORS.aqua)
 		if self.mic_volume > 10 then
-			love.graphics.setColor(COLORS["lime"])
+			love.graphics.setColor(COLORS.lime)
 		end
 		if self.mic_volume > 60 then
-			love.graphics.setColor(COLORS["yellow"])
+			love.graphics.setColor(COLORS.yellow)
 		end
 		if self.mic_volume > 90 then
-			love.graphics.setColor(COLORS["red"])
+			love.graphics.setColor(COLORS.red)
 		end
 		love.graphics.line(20, 20, 20+self.mic_volume*2, 20)
 		love.graphics.setColor(1,1,1,1)

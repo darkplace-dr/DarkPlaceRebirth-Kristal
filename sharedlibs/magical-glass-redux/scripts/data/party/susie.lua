@@ -14,9 +14,20 @@ function character:init()
         defense = 10,
         magic = 1
     }
+    
+    -- The color of this character's soul (optional, defaults to red)
+    self.soul_color = {1, 1, 1}
+    -- Whether the soul will be upside-down or not (optional)
+    self.monster_soul = true
 
     -- Default light world equipment item IDs (saves current equipment)
-    self.lw_weapon_default = "custom/hairbrush"
+    if Game.chapter <= 2 then
+        self.lw_weapon_default = "mg/hairbrush"
+    elseif Game.chapter == 3 then
+        self.lw_weapon_default = "mg/electric_toothbrush"
+    elseif Game.chapter >= 4 then
+        self.lw_weapon_default = "mg/dirty_toothbrush"
+    end
     self.lw_armor_default = "light/bandage"
 end
 
@@ -31,8 +42,20 @@ end
 
 function character:onLightTurnStart(battler)
     super.onLightTurnStart(self, battler)
+    
     if self:getFlag("auto_attack", false) then
         Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[1], nil, {points = 150})
+    end
+end
+
+function character:onLightAttackHit(enemy, damage)
+    super.onLightAttackHit(self, enemy, damage)
+    
+    if not Game:isLight() then
+        if damage > 0 then
+            Assets.playSound("impact", 0.8)
+            Game.battle:shake(true)
+        end
     end
 end
 

@@ -42,12 +42,4 @@ function item:init()
     }
 end
 
-function item:showEquipText(target)
-    Game.world:showText("* "..target:getNameOrYou().." equipped the glasses.")
-end
-
-function item:showEquipTextFail(target)
-    Game.world:showText("* " .. target:getNameOrYou() .. " didn't want to equip the glasses.")
-end
-
 return item

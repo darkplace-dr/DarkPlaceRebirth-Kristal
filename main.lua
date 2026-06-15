@@ -4,8 +4,6 @@ if OrigGlobal then
     chunk()
 end
 
-require("src.engine.tweaks")
-
 require("src.engine.vars")
 require("src.engine.statevars")
 require("src.engine.vendcust")
@@ -52,7 +50,15 @@ Game = Kristal.States["Game"]
 MainMenu = Kristal.States["MainMenu"]
 LoadingState = Kristal.States["Loading"]
 
-Assets = require("src.engine.assets")
+AssetBucket = require("src.engine.loading.AssetBucket")
+AssetLoader = require("src.engine.loading.AssetLoader")
+ShaderAssetLoader = require("src.engine.loading.loaders.ShaderAssetLoader")
+SpriteAssetLoader = require("src.engine.loading.loaders.SpriteAssetLoader")
+SoundAssetLoader = require("src.engine.loading.loaders.SoundAssetLoader")
+AssetLoaders = require('src.engine.loading.AssetLoaders')
+
+Assets = require("src.engine.loading.assets")
+Sound = require("src.engine.sound")
 Music = require("src.engine.music")
 Input = require("src.engine.input")
 TextInput = require("src.engine.textinput")
@@ -79,8 +85,10 @@ Callback = require("src.engine.objects.callback")
 Video = require("src.engine.objects.video")
 GonerChoice = require("src.engine.objects.gonerchoice")
 GonerKeyboard = require("src.engine.objects.gonerkeyboard")
+LoadingDog = require("src.engine.objects.LoadingDog")
 
 MainMenuTitle = require("src.engine.menu.mainmenutitle")
+MainMenuSubtitle = require("src.engine.menu.mainmenusubtitle")
 MainMenuOptions = require("src.engine.menu.mainmenuoptions")
 MainMenuCredits = require("src.engine.menu.mainmenucredits")
 MainMenuModList = require("src.engine.menu.mainmenumodlist")
@@ -96,6 +104,7 @@ MainMenuDeadzone = require("src.engine.menu.mainmenudeadzone")
 MainMenuDLC = require("src.engine.menu.mainmenudlc")
 MainMenuWarning = require("src.engine.menu.mainmenuwarning")
 MainMenuPlugins = require("src.engine.menu.mainmenuplugins")
+MainMenuAchievements = require("src.engine.menu.mainmenuachievements")
 
 ModList = require("src.engine.menu.objects.modlist")
 ModButton = require("src.engine.menu.objects.modbutton")
@@ -104,6 +113,7 @@ ModCreateButton = require("src.engine.menu.objects.modcreatebutton")
 FileButton = require("src.engine.menu.objects.filebutton")
 DarkFileButton = require("src.engine.menu.objects.darkfilebutton")
 FileNamer = require("src.engine.menu.objects.filenamer")
+TitleLogo = require("src.engine.menu.objects.titlelogo")
 
 DarkTransitionLine = require("src.engine.game.darktransition.darktransitionline")
 DarkTransitionParticle = require("src.engine.game.darktransition.darktransitionparticle")
@@ -123,9 +133,7 @@ ShadowFX = require("src.engine.drawfx.shadowfx")
 FountainShadowFX = require("src.engine.drawfx.fountainshadowfx")
 GradientFX = require("src.engine.drawfx.gradientfx")
 ScissorFX = require("src.engine.drawfx.scissorfx")
-VHSFilterFX = require("src.engine.drawfx.vhsfilterfx")
 PaletteFX = require("src.engine.drawfx.palettefx")
-BGPaletteFX = require("src.engine.drawfx.bgpalettefx")
 
 Collider = require("src.engine.colliders.collider")
 ColliderGroup = require("src.engine.colliders.collidergroup")
@@ -143,6 +151,7 @@ Badge = require("src.engine.game.common.data.badge")
 HealItem = require("src.engine.game.common.data.healitem")
 TeaItem = require("src.engine.game.common.data.teaitem")
 TensionItem = require("src.engine.game.common.data.tensionitem")
+CallCardItem = require("src.engine.game.common.data.callcarditem")
 LightEquipItem = require("src.engine.game.common.data.lightequipitem")
 Recruit = require("src.engine.game.common.data.recruit")
 ButtonPrompt = require("src.engine.game.buttonprompt")
@@ -185,6 +194,8 @@ WorldBullet = require("src.engine.game.world.worldbullet")
 ChaserEnemy = require("src.engine.game.world.chaserenemy")
 Nametag = require("src.engine.game.world.nametag")
 InputMenu = require("src.engine.game.world.inputmenu")
+
+LowHealthVibrato = require("src.engine.game.lowhealthvibrato")
 
 Minigame = require("src.engine.game.minigames.minigame")
 
@@ -246,6 +257,8 @@ LightItemMenu = require("src.engine.game.world.ui.light.lightitemmenu")
 LightStatMenu = require("src.engine.game.world.ui.light.lightstatmenu")
 LightCellMenu = require("src.engine.game.world.ui.light.lightcellmenu")
 
+EventRegistry = require("src.engine.game.world.eventregistry")
+
 Event = require("src.engine.game.world.event")
 Script = require("src.engine.game.world.events.script")
 Interactable = require("src.engine.game.world.events.interactable")
@@ -297,9 +310,12 @@ Quicktime = require("src.engine.game.battle.quicktime")
 Slapper = require("src.engine.game.battle.slapper")
 Combo = require("src.engine.game.battle.combo")
 Mend = require("src.engine.game.battle.mend")
+RecruitBattler = require("src.engine.game.common.data.recruitbattler")
 
 BlueSoul = require("src.engine.game.battle.souls.bluesoul")
 
+BattleBackground = require("src.engine.game.battle.ui.battlebackground")
+BattleDarkener = require("src.engine.game.battle.ui.battledarkener")
 BattleUI = require("src.engine.game.battle.ui.battleui")
 ActionBox = require("src.engine.game.battle.ui.actionbox")
 ActionBoxDisplay = require("src.engine.game.battle.ui.actionboxdisplay")
@@ -333,10 +349,13 @@ IceBurst = require("src.engine.game.effects.iceburst")
 MirrorEffect = require("src.engine.game.effects.mirroreffect")
 MultiFlareFireball = require("src.engine.game.effects.multiflarefireball")
 PaciBusterBeam = require("src.engine.game.effects.pacibusterbeam")
+SoulExpandEffect = require("src.engine.game.effects.soulexpandeffect")
+CerobaDiamondBuff = require("src.engine.game.effects.cerobadiamondbuff")
+
+ChaosEmerald = require("src.engine.game.effects.chaosemerald")
 
 Discoball = require("src.engine.game.battle.bg.discoball")
 DojoBG = require("src.engine.game.battle.bg.dojobg")
-ConcentrateBG = require("src.engine.game.battle.bg.concentratebg")
 
 Shop = require("src.engine.game.shop")
 Shopkeeper = require("src.engine.game.shop.shopkeeper")
@@ -352,6 +371,8 @@ GameOverSF = require("src.engine.game.gameoversf")
 Legend = require("src.engine.game.legend")
 
 DogCheck = require("src.engine.game.dogcheck")
+
+AchievementPopUp = require("src.engine.game.achievementpopup")
 
 
 WarpBinCodes = require("src.engine.warp_bin")
@@ -500,7 +521,7 @@ function love.run()
     end
 
     -- Main loop time.
-    return function ()
+    return function()
         if error_result then
             local result = error_result()
             if result then

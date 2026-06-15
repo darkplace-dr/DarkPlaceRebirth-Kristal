@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="other-objects" tilewidth="57" tileheight="70" tilecount="4" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="other-objects" tilewidth="57" tileheight="70" tilecount="5" columns="0">
  <editorsettings>
   <export target="other-objects.lua" format="lua"/>
  </editorsettings>
@@ -15,5 +15,8 @@
  </tile>
  <tile id="3">
   <image width="16" height="16" source="../../../assets/sprites/world/events/sign_8bit.png"/>
+ </tile>
+ <tile id="4">
+  <image width="20" height="20" source="../../../assets/sprites/world/events/sign.png"/>
  </tile>
 </tileset>

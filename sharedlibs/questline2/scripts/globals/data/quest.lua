@@ -24,9 +24,13 @@ function Quest:addFlag(flag, value)
 end
 
 -- Unlocks a quest by id, quest are located at "mods\dpr_main\scripts\data\quests"
-function Quest:unlock(...)
+function Quest:unlock(silent)
     self:setProgress(math.max(self:getProgress(), 0))
-    Kristal.callEvent("unlockQuest", self, ...)
+    if not silent and Game.stage then
+        local popup = Game.stage:addChild(QuestCreatedPopup(self))
+        popup.layer = 1500
+    end
+    Kristal.callEvent("unlockQuest", self, silent)
 end
 
 -- Checks if the Quest is unlocked (by checking if the quest progress is more than 0)

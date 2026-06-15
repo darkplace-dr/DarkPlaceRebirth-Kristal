@@ -1,4 +1,4 @@
-local item, super = Class(LightEquipItem, "custom/scarf")
+local item, super = Class(LightEquipItem, "mg/scarf")
 
 function item:init()
     super.init(self)
@@ -15,20 +15,18 @@ function item:init()
     self.description = "A magical pink scarf.\nIt's quite fluffy."
 
     -- Light world check text
-    self.check = "Weapon 2 MG\n* A magical pink scarf.\n* It's quite fluffy."
+    self.check = "Weapon 3 MG\n* A magical pink scarf.\n* It's quite fluffy."
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
     
-    self.price = 70
+    self.sell_price = 6
     
     self.shop_magic = true
-    
-    self.light_bolt_direction = "random"
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        magic = 2
+        magic = 3
     }
 end
 

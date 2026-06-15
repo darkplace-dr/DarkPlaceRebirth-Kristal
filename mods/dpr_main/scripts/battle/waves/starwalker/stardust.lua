@@ -68,7 +68,7 @@ end
 function Stardust:onEnd()
     self.starwalker:setMode("normal")
     self.starwalker.sprite:set("wings")
-    self.starwalker.layer = self.starwalker.layer - 500
+    --self.starwalker.layer = self.starwalker.layer - 500
     self.starwalker.blue = false
 
     super.onEnd(self)

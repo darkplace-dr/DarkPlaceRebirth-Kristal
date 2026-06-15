@@ -1,5 +1,5 @@
 ---@class Map : Map
-local Map, super = Utils.hookScript(Map)
+local Map, super = HookSystem.hookScript(Map)
 
 function Map:onEnter()
     Noel:checkNoel()
@@ -8,6 +8,12 @@ function Map:onEnter()
     if Game.world.map.id:find("floortv/") and can_kill == true then
         self.tv_snow = Game.world:spawnObject(TVSnow())
         self.tv_snow.overlay = true
+    end
+
+    if Game.world.map.serious then
+        Game:setFlag("disable_spongestep", true)
+    else
+        Game:setFlag("disable_spongestep", false)
     end
 end
 

@@ -15,13 +15,17 @@
             "kris": ["enemies/virovirokun/take_care/kris_nurse", "enemies/virovirokun/take_care/kris_doctor"],
             "susie": "enemies/virovirokun/take_care/susie",
             "ralsei": "enemies/virovirokun/take_care/ralsei",
-            "noelle": "enemies/virovirokun/take_care/noelle"
+            "noelle": "enemies/virovirokun/take_care/noelle",
+            "jamm": "enemies/virovirokun/take_care/jamm",
+            "jamm+marcy": "enemies/virovirokun/take_care/jammarcy"
         },
         "take_care_offsets": {
             "kris": [-4, -2],
             "susie": [-6, 0],
             "ralsei": [6, -1],
-            "noelle": [-7, 0]
+            "noelle": [-7, 0],
+            "jamm": [0, 0],
+            "jamm+marcy": [0, 0]
         }
     }
 }

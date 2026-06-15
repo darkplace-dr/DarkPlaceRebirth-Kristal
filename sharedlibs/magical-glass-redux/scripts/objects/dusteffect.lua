@@ -1,4 +1,4 @@
-local DustEffect, super = Class(Object, "DustEffect")
+local DustEffect, super = Class(Object)
 
 function DustEffect:init(texture, x, y, allow_black_pixels, after)
     super.init(self, x, y)
@@ -13,21 +13,21 @@ function DustEffect:init(texture, x, y, allow_black_pixels, after)
     self.width, self.height = texture:getWidth(), texture:getHeight()
 
     -- New canvas
-    self.canvas = love.graphics.newCanvas(self.width, self.height)
-    self.canvas:setFilter("nearest", "nearest")
+    self.canvas = Draw.pushCanvas(self.width, self.height)
 
-    love.graphics.setCanvas(self.canvas)
+    Draw.setCanvas(self.canvas)
         love.graphics.clear(0, 0, 0, 0)
         love.graphics.setBlendMode("alpha")
-        love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.draw(self.texture)
-    love.graphics.setCanvas()
+        Draw.setColor(1, 1, 1, 1)
+        Draw.draw(self.texture)
+        Draw.popCanvas()
+    Draw.setCanvas()
 
     local data = self.canvas:newImageData()
 
     local delay = 0
 
-    if #Game.stage:getObjects(DustEffectParticle) + #Game.stage:getObjects(DustEffectLargeParticle) <= 8000 then -- Prevents your PC from exploding
+    if #Game.stage:getObjects(DustEffectParticle) + #Game.stage:getObjects(DustEffectLineParticle) <= 6400 then -- Prevents your PC from exploding
         for y = 1, self.height do
             for x = 1, self.width do
                 local r, g, b, a = data:getPixel(x-1, y-1)
@@ -38,15 +38,15 @@ function DustEffect:init(texture, x, y, allow_black_pixels, after)
                         Game.battle.timer:after(math.floor(delay / 3) / 30, function()
                             particle.activated = true
                             particle.physics.gravity_direction = math.rad(-90)
-                            particle.physics.gravity = (Utils.random(0.25) + 0.1)
-                            particle.physics.speed_x = (Utils.random(2) - 1)
+                            particle.physics.gravity = (MathUtils.random(0.25) + 0.1)
+                            particle.physics.speed_x = (MathUtils.random(2) - 1)
                         end)
                     else
                         Game.world.timer:after(math.floor(delay / 3) / 30, function()
                             particle.activated = true
                             particle.physics.gravity_direction = math.rad(-90)
-                            particle.physics.gravity = (Utils.random(0.25) + 0.1)
-                            particle.physics.speed_x = (Utils.random(2) - 1)
+                            particle.physics.gravity = (MathUtils.random(0.25) + 0.1)
+                            particle.physics.speed_x = (MathUtils.random(2) - 1)
                         end)
                     end
                 end

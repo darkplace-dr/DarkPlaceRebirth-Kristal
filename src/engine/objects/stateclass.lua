@@ -1,7 +1,7 @@
 ---@class StateClass : Class
 ---
 ---@field parent StateManager
----@field registered_events table<string, function>|nil
+---@field registered_events table<string, function>?
 ---
 ---@overload fun() : StateClass
 local StateClass, super = Class()
@@ -36,7 +36,7 @@ function StateClass:registerEvent(event, func)
         return
     end
 
-    for k, v in Utils.iterClass(self) do
+    for k, v in ClassUtils.iterClass(self) do
         if type(k) == "string" and type(v) == "function" then
             if k:lower() == event or k:lower() == "on" .. event then
                 if self.parent.master then

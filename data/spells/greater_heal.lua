@@ -1,0 +1,33 @@
+local spell, super = Class(Spell, "greater_heal")
+
+function spell:init()
+    super.init(self)
+
+    -- Display name
+    self.name = "GreaterHeal"
+    -- Name displayed when cast (optional)
+    self.cast_name = "GREATERHEAL"
+
+    -- Battle description
+    self.effect = "Best\nhealing"
+    -- Menu description
+    self.description = "Heals 1 party member to the\nbest of Susie's ability."
+
+    -- TP cost
+    self.cost = 55
+
+    -- Target mode (ally, party, enemy, enemies, or none)
+    self.target = "ally"
+
+    -- Tags that apply to this spell
+    self.tags = {"heal"}
+end
+
+function spell:onCast(user, target)
+    local base_heal = user.chara:getStat("magic") * 10 + user.chara:getStat("attack") * 4
+    local heal_amount = Game.battle:applyHealBonuses(base_heal, user.chara)
+
+    target:heal(heal_amount)
+end
+
+return spell

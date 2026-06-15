@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 61,
+  nextlayerid = 8,
+  nextobjectid = 65,
   properties = {
     ["music"] = "mainhub"
   },
@@ -423,6 +423,40 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 7,
+      name = "objects_beans",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 61,
+          name = "beanspot",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 170,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["bean_col"] = "#ff7629ff",
+            ["color"] = "#ffffffff",
+            ["inc_flag"] = "darkess_beans",
+            ["name"] = "Darkess Bean"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 3,
       name = "objects",
       class = "",
@@ -622,6 +656,56 @@ return {
           visible = true,
           properties = {
             ["text"] = "* (There's salsa buried in the ground here.)"
+          }
+        },
+        {
+          id = 62,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 314,
+          y = 432.5,
+          width = 12,
+          height = 10.5,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.lancer",
+            ["once"] = true
+          }
+        },
+        {
+          id = 63,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 279,
+          y = 450.545,
+          width = 81.8182,
+          height = 3.81818,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.beans_forcer",
+            ["flagcheck"] = "!lancer_obtained",
+            ["once"] = false
+          }
+        },
+        {
+          id = 64,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 190,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "lancer",
+            ["facing"] = "up",
+            ["flagcheck"] = "!lancer_obtained"
           }
         }
       }

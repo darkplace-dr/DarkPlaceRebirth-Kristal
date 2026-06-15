@@ -53,7 +53,7 @@ function item:init()
         brenda = "I can't carry THAT.",
 	    jamm = "I mean, I'm not THAT strong...",
         noel = "I'm gonna pull a [Rude Buster]!",
-        ceroba = "(It's not THAT heavy...)"
+        ceroba = "AX? No thanks."
     }
 end
 

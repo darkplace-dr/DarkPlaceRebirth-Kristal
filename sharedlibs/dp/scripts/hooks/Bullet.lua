@@ -10,20 +10,20 @@ end
 function Bullet:onDamage(soul)
     local damage = self:getDamage()
     if damage > 0 then
-        if Game:getSoulPartyMember().pp > 0 then
-            Game:getSoulPartyMember().pp = Game:getSoulPartyMember().pp - 1
+        if Game.pp > 0 then
+            Game.pp = Game.pp - 1
             Game.battle:breakSoulShield()
         else
             local target = self:getTarget()
             if not self.pierce then
                 local battlers = Game.battle:hurt(damage, false, target, self:shouldSwoon(damage, target, soul))
-                soul.inv_timer = self.inv_timer
+                soul.inv_timer = self:getInvulnTime()
                 soul:onDamage(self, damage)
                 return battlers
             end
             Game.battle:pierce(damage, false, target)
         end
-        soul.inv_timer = self.inv_timer
+        soul.inv_timer = self:getInvulnTime()
         soul:onDamage(self, damage)
     end
     return {}

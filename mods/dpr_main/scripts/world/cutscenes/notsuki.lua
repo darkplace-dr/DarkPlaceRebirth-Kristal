@@ -1,6 +1,7 @@
 return {
     script = function(cutscene, event)
         if Game:getFlag("tl_clock") then
+            DP:completeAchievement("tritrace")
             -- We pass nil as the second argument so that it doesn't mistake "notsuki" for being the name of a portrait.
             cutscene:text("* You won the race!", nil, "notsuki")
             if not Game:getFlag("tl_rwon") then

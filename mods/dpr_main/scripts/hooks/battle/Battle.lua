@@ -1,5 +1,5 @@
 ---@class Battle : Battle
-local Battle, super = Utils.hookScript(Battle)
+local Battle, super = HookSystem.hookScript(Battle)
 
 function Battle:postInit(state, encounter)
     super.postInit(self, state, encounter)

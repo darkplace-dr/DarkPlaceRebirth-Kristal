@@ -36,12 +36,11 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getWorldUseText(target)
     local message = ""
-    local picker = Utils.random(1, 10, 1)
+    local picker = MathUtils.round(MathUtils.random(1, 10))
     if picker <= 2 then
         message = "\n* "..target:getNameOrYou().." didn't cry..."
     end
@@ -50,7 +49,7 @@ end
 
 function item:getLightBattleText(user, target)
     local message = ""
-    local picker = Utils.random(1, 10, 1)
+    local picker = MathUtils.round(MathUtils.random(1, 10))
     if picker <= 2 then
         message = "\n* "..target.chara:getNameOrYou().." didn't cry..."
     end

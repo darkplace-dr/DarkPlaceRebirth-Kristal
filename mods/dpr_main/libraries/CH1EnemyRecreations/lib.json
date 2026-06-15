@@ -1,0 +1,25 @@
+{
+    "id": "CH1EnemyRecreations",
+
+    "version": "v1.0.0",
+    "engineVer": "v0.10.0-dev",
+
+    "authors": [
+        "J.A.R.U.",            // Manager of the library. 
+                               // Recreated Head Hathy and Rudinn Ranger, made some configs, provided accuracy fixes to older enemies, and more.
+
+        "Kaysan",              // Original creators of the Rudinn recreation from EnemyRecreations.
+        "pixelator",
+
+        "BrendaK7200",         // Orignal creator of the Hathy recreation from EnemyRecreations.
+
+        "Diamond Deltahedron", // Helped with recreating Rabbick.
+    ],
+
+    "config": {
+        //Rudinn
+        "extra_convince_dialogue": false,  // Enables the unused dialogue that would've occured when using Rudinn's Convince ACT for the first time.
+        "tired_animation": false,          // Enables a tired animation to display when Rudinn's Lecture ACT is used. This was originally an overworld animation that went unused in Deltarune.
+        "dog_bullets": false,              // Replaces the "diamonds_aim" attack with the Annoying Dog version seen in the DR Spoiler-Free trailer.
+    }
+}

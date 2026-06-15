@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 62,
+  nextobjectid = 65,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub"
@@ -27,6 +27,12 @@ return {
       firstgid = 209,
       filename = "../../tilesets/other-objects.tsx",
       exportfilename = "../../tilesets/other-objects.lua"
+    },
+    {
+      name = "hub_objects",
+      firstgid = 213,
+      filename = "../../tilesets/hub_objects.tsx",
+      exportfilename = "../../tilesets/hub_objects.lua"
     }
   },
   layers = {
@@ -444,6 +450,36 @@ return {
             ["actor"] = "boxer",
             ["text1"] = "* (Shuffle  shuffle.)\n(I am a box. People put stuff on me.)",
             ["text2"] = "* (I eat that stuff. Such is the way of the box.)"
+          }
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 210,
+          y = 270,
+          width = 60,
+          height = 88,
+          rotation = 0,
+          gid = 229,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 210.005,
+          y = 229.253,
+          width = 60,
+          height = 40.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "hub.vending",
+            ["solid"] = true
           }
         }
       }

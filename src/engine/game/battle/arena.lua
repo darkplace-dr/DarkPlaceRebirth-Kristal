@@ -3,38 +3,38 @@
 ---
 ---@class Arena : Object
 ---
----@field color         table           The color of the arena border (Defaults to `{0, 0.75, 0}`)   
----@field bg_color      table           The color of the back of the arena (Defaults to `{0, 0, 0}`)
+---@field color Color The color of the arena border (Defaults to `{0, 0.75, 0}`)
+---@field bg_color Color The color of the back of the arena (Defaults to `{0, 0, 0}`)
 ---
----@field x             number          The x-coordinate of the center of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getCenter()`](lua://Arena.getCenter) where possible.
----@field y             number          The y-coordinate of the center of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getCenter()`](lua://Arena.getCenter) where possible.
+---@field x number The x-coordinate of the center of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getCenter()`](lua://Arena.getCenter) where possible.
+---@field y number The y-coordinate of the center of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getCenter()`](lua://Arena.getCenter) where possible.
 ---
----@field left          number          Leftmost horizontal position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getLeft()`](lua://Arena.getLeft) where possible.
----@field right         number          Rightost horizontal position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getRight()`](lua://Arena.getRight) where possible.
----@field top           number          Topmost vertical position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getLeft()`](lua://Arena.getTop) where possible.
----@field bottom        number          Bottommost vertical position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getBottom()`](lua://Arena.getBottom) where possible.
+---@field left number Leftmost horizontal position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getLeft()`](lua://Arena.getLeft) where possible.
+---@field right number Rightost horizontal position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getRight()`](lua://Arena.getRight) where possible.
+---@field top number Topmost vertical position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getLeft()`](lua://Arena.getTop) where possible.
+---@field bottom number Bottommost vertical position of the arena. May be inaccurate if the arena is transformed. Use [`Arena:getBottom()`](lua://Arena.getBottom) where possible.
 ---
----@field line_width    integer         The thickness of the arena border in pixels, must call [`Arena:setShape()`](lua://Arena.setShape) or [`Arena:setSize()`](lua://Arena.setSize) after changing this to make the change take effect. (Defaults to `4`)
+---@field line_width integer The thickness of the arena border in pixels, must call [`Arena:setShape()`](lua://Arena.setShape) or [`Arena:setSize()`](lua://Arena.setSize) after changing this to make the change take effect. (Defaults to `4`)
 ---
----@field sprite        ArenaSprite
+---@field sprite ArenaSprite
 ---
----@field mask          ArenaMask       A mask for the arena - Any object parented to this will only render inside of the arena's bounds. 
+---@field mask ArenaMask A mask for the arena - Any object parented to this will only render inside of the arena's bounds.
 ---
----@field shape         table<[number, number]>     The shape of the arena, represented as a table of `{x, y}` coordinates that form a polygon. 
+---@field shape table<[number, number]> The shape of the arena, represented as a table of `{x, y}` coordinates that form a polygon.
 ---
 ---@overload fun(x?:number, y?:number, shape?:table<[number, number]>) : Arena
 local Arena, super = Class(Object)
 
----@param x?        number                  The x-coordinate of the center of the arena.
----@param y?        number                  The y-coordinate of the center of the arena.
----@param shape?    table<[number, number]> The shape of the arena, represented as a table of `{x, y}` coordinates that form a polygon.
+---@param x? number The x-coordinate of the center of the arena.
+---@param y? number The y-coordinate of the center of the arena.
+---@param shape? table<[number, number]> The shape of the arena, represented as a table of `{x, y}` coordinates that form a polygon.
 function Arena:init(x, y, shape)
     super.init(self, x, y)
 
     self:setOrigin(0.5, 0.5)
 
-    self.color = {0, 0.75, 0}
-    self.bg_color = {0, 0, 0}
+    self.color = { 0, 0.75, 0 }
+    self.bg_color = { 0, 0, 0 }
 
     self.x = math.floor(self.x)
     self.y = math.floor(self.y)
@@ -42,7 +42,7 @@ function Arena:init(x, y, shape)
     self.collider = ColliderGroup(self)
 
     self.line_width = 4 -- must call setShape again if u change this
-    self:setShape(shape or {{0, 0}, {142, 0}, {142, 142}, {0, 142}})
+    self:setShape(shape or { { 0, 0 }, { 142, 0 }, { 142, 142 }, { 0, 142 } })
 
     self.sprite = ArenaSprite(self)
     self:addChild(self.sprite)
@@ -56,7 +56,7 @@ end
 ---@param width     number
 ---@param height    number
 function Arena:setSize(width, height)
-    self:setShape{{0, 0}, {width, 0}, {width, height}, {0, height}}
+    self:setShape({ { 0, 0 }, { width, 0 }, { width, height }, { 0, height } })
 end
 
 --- Sets the arena to the polygon `shape`. \
@@ -88,14 +88,14 @@ function Arena:setShape(shape)
 
     self.triangles = love.math.triangulate(Utils.unpackPolygon(self.shape))
 
-    self.border_line = {Utils.unpackPolygon(Utils.getPolygonOffset(self.shape, self.line_width/2))}
+    self.border_line = { Utils.unpackPolygon(Utils.getPolygonOffset(self.shape, self.line_width / 2)) }
 
     self.clockwise = Utils.isPolygonClockwise(self.shape)
 
     self.area_collider = PolygonCollider(self, TableUtils.copy(shape, true))
 
     self.collider.colliders = {}
-    for _,v in ipairs(Utils.getPolygonEdges(self.shape)) do
+    for _, v in ipairs(Utils.getPolygonEdges(self.shape)) do
         table.insert(self.collider.colliders, LineCollider(self, v[1][1], v[1][2], v[2][1], v[2][2]))
     end
 end
@@ -243,8 +243,10 @@ function Arena:update()
     local soul = Game.battle.soul
     if soul and Game.battle.soul.collidable then
         Object.startCache()
-        local angle_diff = self.clockwise and -(math.pi/2) or (math.pi/2)
-        for _,line in ipairs(self.collider.colliders) do
+        local angle_diff = self.clockwise and -(math.pi / 2) or (math.pi / 2)
+        for _, line in ipairs(self.collider.colliders) do
+            ---@cast line LineCollider
+
             local angle
             while soul:collidesWith(line) do
                 if not angle then

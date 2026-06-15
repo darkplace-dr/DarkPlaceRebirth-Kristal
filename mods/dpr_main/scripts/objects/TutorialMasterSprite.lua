@@ -30,16 +30,19 @@ function TutorialMasterSprite:update()
     super.update(self)
     if self.face_shocked.visible then
         self.siner = self.siner + DTMULT
-        self.face_shocked.x = math.sin(self.siner)
-        self.hat.y = math.sin(self.siner)
+        self.face_shocked.x = math.sin(self.siner) / 2
+        self.hat.y = math.sin(self.siner) / 2
     elseif self.bop then
         self.siner = self.siner + DTMULT
-        self.face.x = math.sin(self.siner / 8) * 4
-        self.face.y = math.sin(self.siner / 4) * 2
+        self.face.x = (math.sin(self.siner / 8) * 4) / 2
+        self.face.y = (math.sin(self.siner / 4) * 2) / 2
 		
-        self.body.scale_y = 1 + math.sin(self.siner / 4) * 0.1
+        self.body.scale_y = 1 + ((math.sin(self.siner / 4) * 0.1) / 2)
     end
 end
+
+-- Required to make the tutorial master room not crash
+function TutorialMasterSprite:setFacing() end
 
 function TutorialMasterSprite:setAnimation(animation)
     self.face:setPosition(0,0)

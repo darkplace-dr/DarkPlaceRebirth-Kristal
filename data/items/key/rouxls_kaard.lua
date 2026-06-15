@@ -18,7 +18,7 @@ function item:init()
     -- Shop description
     self.shop = nil
     -- Menu description
-    self.description = "Thou gazeth upon a man most handsometh.\nThis daringst genius, adoredeth beyondth all hey let me speakest"
+    self.description = "Alrighte, I haveth to admite, thoust caughte me!\nBut, fore thou shalt receive nary a thinge until hey let me speakest"
 
     -- Default shop price (sell price is halved)
     self.price = nil
@@ -58,7 +58,7 @@ end
 function item:onMenuDraw(menu)
     local x, y = menu.box:screenToLocalPos(0, 0)
     if menu.box.state == "SELECT" and self:isVisible() then
-        love.graphics.draw(Assets.getTexture("kristal/rouxls_kaard", x, y), x + 470, y + 230, 0, 2)
+        love.graphics.draw(Assets.getTexture("kristal/rouxls_kaard_lamp", x, y), x + 470, y + 230, 0, 2)
     end
 end
 

@@ -389,6 +389,8 @@ local desslmao = {
         if cutscene:getCharacter("susie") then
             susie_party:addOpinion("dess", -10)
         end
+        
+        DP:completeAchievement("find_dess")
     end,
 
     dessgetoverhere = function(cutscene, event)

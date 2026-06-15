@@ -57,7 +57,7 @@
   </object>
   <object id="14" name="npc" x="300" y="230">
    <properties>
-    <property name="actor" value="ceroba_dw"/>
+    <property name="actor" value="ceroba"/>
     <property name="cond" value="Game:hasUnlockedPartyMember(&quot;ceroba&quot;) and not Game:hasPartyMember(&quot;ceroba&quot;)"/>
     <property name="cutscene" value="apartments/ceroba.thoughts"/>
     <property name="facing" value="up"/>

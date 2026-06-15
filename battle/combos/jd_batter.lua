@@ -70,7 +70,7 @@ function test:doCutscene(cutscene, target)
 	Game.battle:addChild(text)
 	cutscene:wait(0.25)
 	if not dess_input_1 then
-		cutscene:setAnimation(dess, {"battle/attack_ready_shake", 0.1, true})
+		cutscene:setAnimation(dess, {"battle/attackready_shake", 0.1, true})
 		cutscene:wait(0.25)
 		if not dess_input_1 then
 			text:remove()
@@ -96,7 +96,7 @@ function test:doCutscene(cutscene, target)
 		end
 	end
 	local can_proceed = false
-	cutscene:setAnimation(dess, "battle/attack")
+	cutscene:setAnimation(dess, "battle/slam")
 	cutscene:wait(0.2)
 	Assets.playSound("boowomp", 1, 1)
 	Game.battle.timer:tween(0.5, jamm, {scale_y = 1}, "in-bounce", function()

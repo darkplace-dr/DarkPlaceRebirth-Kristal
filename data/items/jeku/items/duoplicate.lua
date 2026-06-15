@@ -77,13 +77,27 @@ end
 
 function item:onBattleUse(user, target)
     local count = 0
-    while not Game.inventory:isFull("items", false) do
-        Game.inventory:addItemTo("items", "unoplicate", false)
+    local storage = Game.inventory:getStorage("items")
+    while not Game.inventory:isFull(storage, false) do
+        Game.inventory:addItemTo(storage, "unoplicate", false)
         count = count + 1
-        if count > 10 then break end --safe break just in case
+        if count >= storage.max then break end --safe break just in case
     end
     target:heal(self:getBattleHealAmount(target.id))
     return true
+end
+
+-- getBattleText is called before onBattleUse so I can already check if the Inventory is full or not
+function item:getBattleText(user, target)
+    local t = super.getBattleText(self, user, target)
+    if not Game.inventory:isFull("items", false) then
+        local finalt = t
+        for i=1,Game.inventory:getFreeSpace("items", false)-1 do
+            finalt = finalt.."\n"..t
+        end
+        return finalt
+    end
+    return t.."\n* But your inventory didn't have any emptyness to duplicate into..."
 end
 
 return item

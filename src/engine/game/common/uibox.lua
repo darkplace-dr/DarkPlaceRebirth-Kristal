@@ -9,7 +9,14 @@ function UIBox:init(x, y, width, height, skin)
     self.top_frame    = 0
     self.corner_frame = 0
 
-    self.skin = skin or Kristal.callEvent(KRISTAL_EVENT.getUISkin) or Game:getUISkin()
+    -- If the callback returns something, use that instead
+    self.skin = Kristal.callEvent(KRISTAL_EVENT.getUISkin, skin) or skin
+
+    -- We still don't have one, let's figure it out
+    if self.skin == nil then
+        self.skin = self:getWorldSkin()
+    end
+
     self.fill_color = {0,0,0}
 
     self.left   = Assets.getFramesOrTexture("ui/box/" .. self.skin .. "/left")
@@ -19,6 +26,18 @@ function UIBox:init(x, y, width, height, skin)
     self.corners = {{0, 0}, {1, 0}, {1, 1}, {0, 1}}
 
     self.speed = 10
+end
+
+function UIBox:getWorldSkin()
+    if Game:isLight() then
+        return Game:getConfig("lightTextboxStyle")
+    end
+
+    return Game:getConfig("darkTextboxStyle")
+end
+
+function UIBox:getSkin()
+    return self.skin
 end
 
 function UIBox:getBorder()
@@ -61,7 +80,7 @@ function UIBox:draw()
 
     for i = 1, 4 do
         local cx, cy = self.corners[i][1] * width, self.corners[i][2] * height
-        local sprite = self.corner[math.floor(self.corner_frame)]
+        local sprite = Kristal.Config["simplifyVFX"] and self.corner[1] or self.corner[math.floor(self.corner_frame)]
         local width  = 2 * ((self.corners[i][1] * 2) - 1) * -1
         local height = 2 * ((self.corners[i][2] * 2) - 1) * -1
         Draw.draw(sprite, cx, cy, 0, width, height, sprite:getWidth(), sprite:getHeight())

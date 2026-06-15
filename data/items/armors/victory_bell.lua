@@ -37,7 +37,7 @@ function item:init()
 	
     -- Bonus name and icon (displayed in equip menu)
     self.bonus_name = "VictoryBell"
-    self.bonus_icon = "plus"
+    self.bonus_icon = "ui/menu/icon/up"
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {

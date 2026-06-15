@@ -13,7 +13,7 @@
     "susieStyle": 1,                 // Susie chapter style
     "ralseiStyle": 1,                // Ralsei chapter style
 
-    "oldTensionBar": true,           // Syle of TP bar
+    "oldTensionBar": true,           // Style of TP bar
     "oldUIPositions": true,          // Old positions of various UI elements
     "oldGameOver": true,             // The game over screen used in chapter 1
     "oldRudeBuster": true,           // Old Rude Buster damage calculation and effect
@@ -21,6 +21,8 @@
     "oldDualHealFormula": true,      // Old Dual Heal amount calculation
 
     "speechBubble": "round",         // Default enemy speech bubble style
+    "lightTextboxStyle": "light",    // Textbox style used in the light world (by default)
+    "darkTextboxStyle": "dark_old",  // Textbox style used in the dark world (by default)
 
     "enemyAuras": false,             // Red glow around overworld enemies
 
@@ -49,5 +51,10 @@
     "overworldSpells": true,         // Whether spells should be usable in the overworld
     "damageUnderflowFix": true,      // When disabled, negative enemy damage heals the enemy and displays a negative damage number
     "darkCandyForm": "dark",         // Whether to use Dark Candy or Darker Candy
-    "canTossLightWeapons": true      // Whether light world weapons can be thrown away
+    "canTossLightWeapons": true,     // Whether light world weapons can be thrown away
+    "newShopSpaceUI": false,         // Whether shops use the newer space display with both inventory and storage space
+    "shopSpaceUIFont": "8bit",       // The font used for the shop space UI's numbers
+
+    "healthConversion": false,       // Whether to (properly) convert health when switching between light and dark worlds.
+    "defaultInvulnTime": 40          // The default length of invulnerability given to the player when hit by a bullet, in frames. (30 frames = 1 second)
 }

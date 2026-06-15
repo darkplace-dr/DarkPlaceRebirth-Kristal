@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="33">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value=""/>
+  <property name="music" value="deltarune/mike_zone"/>
+  <property name="name" value="MIKE ZONE"/>
+  <property name="quietpipis" type="bool" value="true"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/ch3_dw_tvland_stage.tsx"/>
+ <objectgroup id="5" name="objects_floor">
+  <object id="11" name="greenroom_floor" x="0" y="0" width="40" height="40"/>
+ </objectgroup>
+ <layer id="1" name="floor" width="16" height="12">
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,
+36,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,
+36,36,36,36,0,0,0,0,0,0,0,0,0,0,0,0,
+36,36,36,36,259,259,259,259,259,259,259,259,259,259,259,259,
+36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,
+36,36,36,36,236,236,236,236,236,236,236,236,236,236,236,236,
+36,36,36,36,236,236,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,236,236,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,236,236,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,236,236,36,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="6" name="objects_below">
+  <object id="12" name="greenroom_wall" x="160" y="80" width="480" height="160">
+   <properties>
+    <property name="speed" type="float" value="0.4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <imagelayer id="7" name="overlay" opacity="0.4" tintcolor="#00004c" parallaxx="0" parallaxy="0">
+  <image source="../../../../../../assets/sprites/world/maps/floor3/sloppy/overlay.png" width="640" height="480"/>
+ </imagelayer>
+ <objectgroup color="#ff00ff" id="2" name="objects_party">
+  <object id="20" name="transition" x="160" y="480" width="80" height="40">
+   <properties>
+    <property name="exit_delay" type="float" value="0.3"/>
+    <property name="exit_sound" value="doorclose"/>
+    <property name="map" value="floortv/placeholder_mike_entrance"/>
+    <property name="marker" value="entry"/>
+    <property name="sound" value="dooropen"/>
+   </properties>
+  </object>
+  <object id="23" name="mike_statue" x="510" y="138" width="58" height="116"/>
+  <object id="24" name="mike_statue" x="330" y="138" width="58" height="116"/>
+  <object id="25" name="interactable" x="338" y="208" width="40" height="40">
+   <properties>
+    <property name="text" value="* (It's a statue.)"/>
+   </properties>
+  </object>
+  <object id="32" name="interactable" x="518" y="208" width="40" height="40">
+   <properties>
+    <property name="text" value="* (It's a statue.)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="13" x="160" y="200" width="480" height="40"/>
+  <object id="14" x="240" y="320" width="400" height="160"/>
+  <object id="16" x="120" y="240" width="40" height="240"/>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="4" name="markers">
+  <object id="19" name="spawn" x="200" y="300">
+   <point/>
+  </object>
+  <object id="21" name="entry" x="200" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

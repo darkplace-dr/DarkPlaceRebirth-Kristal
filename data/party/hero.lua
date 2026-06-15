@@ -47,6 +47,10 @@ function character:init()
     self.attack_bar_color = {1, 0.75, 0}
     self.attack_box_color = {1, 0.5, 0}
     self.xact_color = {1, 0.5, 0}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#FF7F27FF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.orange
 
     self.icon_color = {1, 127/255, 39/255}
 
@@ -54,7 +58,7 @@ function character:init()
     self.head_icons = "party/hero/icon"
     self.name_sprite = "party/hero/name"
 
-    self.attack_sprite = "effects/attack/cut"
+    self.attack_sprite = "effects/attack/cut_h"
     self.attack_sound = "laz_c"
     self.attack_pitch = 1
 
@@ -71,6 +75,10 @@ function character:init()
     self.tv_name = "HRO"
 
     self.can_lead = true
+
+    self.element = {
+        "BLADE"
+    }
 end
 
 function character:onLevelUp(level)
@@ -132,6 +140,7 @@ function character:addKarma(ammount)
 end
 
 function character:onTurnStart(battler)
+    super.onTurnStart(self, battler)
     if self:checkWeapon("harvester") and not Game:getFlag("IDLEHEALDOESNTWORK") then
         self:heal(9)
     end

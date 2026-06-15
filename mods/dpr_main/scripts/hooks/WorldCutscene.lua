@@ -1,5 +1,5 @@
 ---@class WorldCutscene : WorldCutscene
-local WorldCutscene, super = Utils.hookScript(WorldCutscene)
+local WorldCutscene, super = HookSystem.hookScript(WorldCutscene)
 
 local function waitForTVTime(self) return not self.tvtimetext or self.tvtimetext.done == true end
 function WorldCutscene:itsTVTime(options)

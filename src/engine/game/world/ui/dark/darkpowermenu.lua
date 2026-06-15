@@ -7,6 +7,9 @@ function DarkPowerMenu:init()
 
     self.draw_children_below = 0
 
+    if #Game.party == 4 then
+		self.y = self.y - 12
+	end
     self.font = Assets.getFont("main")
 
     self.ui_move = Assets.newSound("ui_move")
@@ -17,7 +20,7 @@ function DarkPowerMenu:init()
     self.heart_sprite = Assets.getTexture("player/heart")
     self.arrow_sprite = Assets.getTexture("ui/page_arrow_down")
 
-    self.tp_sprite = Game:getConfig("oldUIPositions") and Assets.getTexture("ui/menu/caption_tp_old") or Assets.getTexture("ui/menu/caption_tp")
+    self.tp_sprite = Assets.getTexture("ui/menu/caption_tp")
 
     self.caption_sprites = {
           ["char"] = Assets.getTexture("ui/menu/caption_char"),
@@ -39,6 +42,9 @@ function DarkPowerMenu:init()
     self.party = DarkMenuPartySelect(8, 48)
     self.party.focused = true
     self.party.highlight_party = false
+	if #Game.party == 4 then
+		self.party.x = -6
+	end
     self:addChild(self.party)
 
     self.party.on_select = function(new, old)
@@ -61,6 +67,9 @@ function DarkPowerMenu:init()
     self.caption_sprites["combos"] = Assets.getTexture("ui/menu/caption_combo")
     self.caption_sprites["arrow_l"] = Assets.getTexture("ui/flat_arrow_left_opaque")
     self.caption_sprites["arrow_r"] = Assets.getTexture("ui/flat_arrow_right_opaque")
+    
+    self.mp_sprite = Game:getConfig("oldUIPositions") and Assets.getTexture("ui/menu/caption_mp_old") or Assets.getTexture("ui/menu/caption_mp")
+    self.hp_sprite = Game:getConfig("oldUIPositions") and Assets.getTexture("ui/menu/caption_mp_old") or Assets.getTexture("ui/menu/caption_hp")
 end
 
 function DarkPowerMenu:getSpellLimit()
@@ -183,13 +192,22 @@ function DarkPowerMenu:update()
             local spell = self:getSpells()[self.selected_spell]
             if self:canCast(spell) then
                 self.state = "USE"
-                if spell.target == "ally" or spell.target == "party" then
+                if spell:getTarget() == "ally" or spell:getTarget() == "party" then
 
-                    local target_type = spell.target == "ally" and "SINGLE" or "ALL"
+                    local target_type = spell:getTarget() == "ally" and "SINGLE" or "ALL"
 
                     self:selectParty(target_type, spell)
                 else
-                    Game:removeTension(spell:getTPCost())
+                    Game.world:setWorldCaster(self.party:getSelected())
+                    local caster = Game.world:getWorldCaster()
+                    local resource = spell:getResourceType(caster)
+                    if resource == "tension" then
+                        Game:removeTension(spell:getTPCost())
+                    elseif resource == "mana" then
+                        caster:removeMana(spell:getMPCost(caster))
+                    elseif resource == "health" then
+                        caster:setHealth(caster:getHealth() - spell:getHPCost(caster))
+                    end
                     spell:onWorldCast()
                     self.state = "SPELLS"
                 end
@@ -272,9 +290,9 @@ function DarkPowerMenu:draw()
     Draw.setColor(PALETTE["world_border"])
     love.graphics.rectangle("fill", -24, 104, 525, 6)
     if Game:getConfig("oldUIPositions") then
-        love.graphics.rectangle("fill", 212, 104, 6, 196)
+        love.graphics.rectangle("fill", 212, 104, 6, 191)
     else
-        love.graphics.rectangle("fill", 212, 104, 6, 200)
+        love.graphics.rectangle("fill", 212, 104, 6, 193)
     end
 
     Draw.setColor(1, 1, 1, 1)
@@ -370,20 +388,37 @@ function DarkPowerMenu:drawSpells()
     end
 
     Draw.setColor(1, 1, 1)
-    Draw.draw(self.tp_sprite, tp_x, tp_y - 5)
+    local resource_caption = spells[self.selected_spell]:getResourceType(self.party:getSelected())
+    if resource_caption == "tension" then
+        Draw.draw(self.tp_sprite, tp_x, tp_y - 5)
+    elseif resource_caption == "mana" then
+        Draw.draw(self.mp_sprite, tp_x, tp_y - 5)
+    elseif resource_caption == "health" then
+        Draw.draw(self.hp_sprite, tp_x, tp_y - 5)
+    end
 
     local spell_limit = self:getSpellLimit()
 
     for i = self.scroll_y, math.min(#spells, self.scroll_y + (spell_limit - 1)) do
         local spell = spells[i]
         local offset = i - self.scroll_y
+        local resource = spell:getResourceType(self.party:getSelected())
 
         if not self:canCast(spell) then
             Draw.setColor(0.5, 0.5, 0.5)
         else
             Draw.setColor(1, 1, 1)
         end
-        love.graphics.print(tostring(spell:getTPCost(self.party:getSelected())).."%", tp_x, tp_y + (offset * 25))
+        if resource == "tension" then
+            --love.graphics.print("TP", caption_x, caption_y + (offset * 25))
+            love.graphics.print(tostring(spell:getTPCost(self.party:getSelected())).."%", tp_x, tp_y + (offset * 25))
+        elseif resource == "mana" then
+            --love.graphics.print("MP", caption_x, caption_y + (offset * 25))
+            love.graphics.print(tostring(spell:getMPCost(self.party:getSelected())), tp_x, tp_y + (offset * 25))
+        elseif resource == "health" then
+            --love.graphics.print("HP", caption_x, caption_y + (offset * 25))
+            love.graphics.print(tostring(spell:getHPCost(self.party:getSelected())), tp_x, tp_y + (offset * 25))
+        end
         love.graphics.print(spell:getName(), name_x, name_y + (offset * 25))
     end
 
@@ -536,8 +571,18 @@ end
 
 function DarkPowerMenu:canCast(spell)
     --if not Game:getFlag("tension_storage") then return false end
-    if Game:getTension() <= spell:getTPCost(self.party:getSelected()) then return false end
-    return spell:hasWorldUsage(self.party:getSelected())
+    local resource = spell:getResourceType(self.party:getSelected())
+        --print(resource)
+    if resource == "tension" then
+        if Game:getTension() < spell:getTPCost(self.party:getSelected()) then return false end
+    elseif resource == "mana" then
+        if self.party:getSelected():getMana() < spell:getMPCost(self.party:getSelected()) then return false end
+            --print("huhh")
+    elseif resource == "health" then
+        if self.party:getSelected():getHealth() <= spell:getHPCost(self.party:getSelected()) then return false end
+    end
+
+    return (spell:hasWorldUsage(self.party:getSelected()))
 end
 
 function DarkPowerMenu:getCombos()

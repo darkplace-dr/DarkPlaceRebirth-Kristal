@@ -835,7 +835,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digiwrongway_b",
+            ["cutscene"] = "hometown_digi.wrongway_b",
             ["flagcheck"] = "!digi_complete",
             ["once"] = false
           }

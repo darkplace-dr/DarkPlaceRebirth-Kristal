@@ -20,7 +20,7 @@ function LightItemMenu:init()
     self.box = BoxComponent(FixedSizing(298))
     self.box.x = -32
     self.box.y = -32
-    
+
     self:addChild(self.bg)
     self:addChild(self.box)
     self.box.box.visible = false
@@ -38,7 +38,7 @@ function LightItemMenu:init()
     for i, page in ipairs(self.item_pages) do
         local index = i
         local storage = page.storage
-        local option = self.menu_storageselect:addChild(SoulMenuItemComponent(Text(page.name), function () 
+        local option = self.menu_storageselect:addChild(SoulMenuItemComponent(Text(page.name), function ()
             if #Game.inventory.storages[page.storage] > 0 then
                 Assets.playSound("ui_select")
                 self:createItemList(Game.inventory:getStorage(storage))
@@ -48,7 +48,7 @@ function LightItemMenu:init()
                 Assets.playSound("ui_cant_select")
             end
         end))
-        
+
         function option:onHovered(hovered, from_focused)
             self.selected = hovered
             self.children[1]:setColor(COLORS.white)
@@ -69,7 +69,7 @@ function LightItemMenu:init()
         Game.world.menu.state = "MAIN"
         self:remove()
     end)
-    
+
     self.box:addChild(self.menu_storageselect)
     self.menu_storageselect:setFocused()
 
@@ -81,12 +81,12 @@ function LightItemMenu:init()
         local item = Game.inventory:getItem(self.storage, self.selected_item)
 
         if (item.usable_in == "world" or item.usable_in == "all") then
-            if #Game.party > 1 and item.target == "ally" then
+            if #Game.party > 1 and item:getTarget() == "ally" then
                 Assets.playSound("ui_select")
                 self.menu_partyselect:setFocused()
                 self.party_select_bg.visible = true
                 --Game.world:showHealthBars()
-            elseif #Game.party > 1 and item.target == "party" then
+            elseif #Game.party > 1 and item:getTarget() == "party" then
                 -- Assets.playSound("ui_select")
                 self.party_selecting = 1
                 self:useItem(item)
@@ -210,6 +210,9 @@ end
 function LightItemMenu:draw()
     super.draw(self)
 
+    local font = love.graphics.getFont()
+    love.graphics.setFont(Assets.getFont("main"))
+
     -- Draw items as plain text, when on the "storage select" part of the menu
     if TableUtils.contains(Input.component_stack, self.menu_storageselect) then
         Draw.setColor(COLORS.gray)
@@ -219,8 +222,6 @@ function LightItemMenu:draw()
         end
     end
 
-    local font = love.graphics.getFont()
-    love.graphics.setFont(Assets.getFont("main"))
     if self.party_select_bg.visible then
         local item = Game.inventory:getItem(self.storage, self.selected_item)
         love.graphics.printf("Use " .. item:getName() .. " on", -45, 233, 400, "center")
@@ -248,12 +249,12 @@ end
 
 function LightItemMenu:useItem(item)
     local result
-    if item.target == "ally" then
+    if item:getTarget() == "ally" then
         result = item:onWorldUse(Game.party[self.party_selecting])
-    elseif item.target == "party" or item.target == "none" then
+    elseif item:getTarget() == "party" or item:getTarget() == "none" then
         result = item:onWorldUse(Game.party)
     end
-        
+
     if result then
         if item:hasResultItem() then
             Game.inventory:replaceItem(item, item:createResultItem())

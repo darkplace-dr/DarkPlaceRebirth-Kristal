@@ -1,5 +1,5 @@
 ---@class ChaserEnemy : ChaserEnemy
-local ChaserEnemy, super = Utils.hookScript(ChaserEnemy)
+local ChaserEnemy, super = HookSystem.hookScript(ChaserEnemy)
 
 function ChaserEnemy:onCollide(player)
     if player.invincible_colors then

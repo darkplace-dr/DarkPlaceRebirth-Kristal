@@ -17,7 +17,8 @@ function Zapper:init()
     self.spare_points = 10
 
     self.waves = {
-        "basic",
+        "zapper/cannon",		
+        "zapper/laser"
     }
 
     self.dialogue = {
@@ -57,8 +58,8 @@ function Zapper:init()
     self.changecolorcount = 0
     self.changecolortimer = 0
 
-    self.colortarget = { 1, 1, 1 }
-    self.colortarget2 = { 1, 1, 1 }
+    self.colortarget = COLORS.white
+    self.colortarget2 = COLORS.white
 
     self.fountain_snd = Assets.getSound("fountain_make")
     self.soundtimer = 0
@@ -69,6 +70,36 @@ function Zapper:init()
     self.closedcaptioncon = 0
     self.closedcaptioncon2 = 0
     self.closedcaptiontimer = 0
+	
+	self.muted = false
+	self.displayvolumetimer = 0
+	self.volumecounttimer = 0
+	self.volumecount = 10
+	self.volumecountdestination = 10
+    self.volume_text_tex = Assets.getTexture("battle/enemies/zapper/volume_text")
+    self.caption2_tex = Assets.getTexture("battle/enemies/zapper/caption2")
+    self.volume_on_tex = Assets.getTexture("battle/enemies/zapper/volume_on")
+    self.volume_off_tex = Assets.getTexture("battle/enemies/zapper/volume_off")
+end
+
+function Zapper:getNextWaves()
+    if self.wave_override then
+        return super.getNextWaves(self)
+    end
+
+    local enemies = Game.battle:getActiveEnemies()
+    for _, enemy in ipairs(enemies) do
+		if enemy.id == "shuttah" then
+			return {"zapper/laser"}
+		end
+		if enemy.id == "shadowguy" and Game.battle.encounter.volume_up then
+			return {"zapper/cannon"}
+		end
+		if enemy.id == "pippins" and Game.battle.encounter.volume_up then
+			return {"zapper/cannon"}
+		end
+	end
+    return super.getNextWaves(self)
 end
 
 function Zapper:update()
@@ -81,13 +112,13 @@ function Zapper:update()
         end
 
         if self.changecolorcon == 0 then
-            self.colortarget2 = {self:HSV(MathUtils.roundToMultiple(MathUtils.random(0, 255), 1)/255, 250/255, 255/255)}
+            self.colortarget2 = {ColorUtils.HSVToRGB(MathUtils.randomInt(0, 255)/255, 250/255, 255/255)}
 
             if self.changecolorcount == 5 then
-                self.colortarget2 = { 1, 1, 1 }
+                self.colortarget2 = COLORS.white
             end
 
-            self.pitchtarget2 = 1 + love.math.random(2)
+            self.pitchtarget2 = 1 + MathUtils.random(2)
             self.changecolorcon = 1
         end
         if self.changecolorcon == 1 then
@@ -96,10 +127,10 @@ function Zapper:update()
             self.pitch = MathUtils.lerp(self.pitchtarget, self.pitchtarget2, self.changecolortimer / 3)
             self.fountain_snd:setPitch(self.pitch)
 
-            if self.changecolortimer == 3 then
+            if self.changecolortimer >= 3 then
                 self.colortarget = self.colortarget2
                 self.pitchtarget = self.pitchtarget2
-                self.changecolorcount = self.changecolorcount + (1 * DTMULT)
+                self.changecolorcount = self.changecolorcount + 1
                 self.changecolorcon = 0
                 self.changecolortimer = 0
             end
@@ -120,19 +151,33 @@ function Zapper:onAct(battler, name)
             self:addMercy(25)
             if self.volumeturnups == 0 then
                 cutscene:text("* You turned up the volume!")
+				self.volumecountdestination = 15
+				self.displayvolumetimer = 60
+				self.volumecounttimer = (self.displayvolumetimer - 2) % 3
+				Game.battle.music:setVolume(1.4)
                 cutscene:text("* ...")
                 cutscene:text("* The bullets increased in\nvolume, too...!\n(But, they'll give more TP!)")
             else
+				self.volumecountdestination = 15
+				self.displayvolumetimer = 60
+				self.volumecounttimer = (self.displayvolumetimer - 2) % 3
+				Game.battle.music:setVolume(1.4)
                 cutscene:text("* The bullets increased in\nvolume! Try getting close to\ngather TP!")
             end
-            self.dialogue_override = TableUtils.pick(self.dialogue_loud)
+			Game.battle.encounter.volume_up = true
+			if not self.muted then
+				self.dialogue_override = TableUtils.pick(self.dialogue_loud)
+			end
             self.volumeturnups = self.volumeturnups + 1
         end)
         return
     elseif name == "Mute" then
         Game.battle:startActCutscene(function(cutscene)
             cutscene:text("* You hit the MUTE button!")
-            Game.battle.music.volume = 0
+			self.muted = true
+			self.volumecountdestination = 0
+			self.displayvolumetimer = 60
+			Game.battle.music:setVolume(0)
             cutscene:text("* ...")
             for _, enemy in ipairs(Game.battle.enemies) do
                 enemy:setTired(true)
@@ -156,7 +201,9 @@ function Zapper:onAct(battler, name)
     elseif name == "Standard" then
         if battler.chara.id == "susie" then
             self:addMercy(25)
-            self.dialogue_override = "D-don't touch\nthat, you's!"
+			if not self.muted then
+				self.dialogue_override = "D-don't touch\nthat, you's!"
+			end
 
             Assets.playSound("damage")
             self:hurt(0, nil, nil, nil, false)
@@ -166,9 +213,18 @@ function Zapper:onAct(battler, name)
 
             return "* Susie mashed random buttons!"
         elseif battler.chara.id == "ralsei" then
-            self:addMercy(25)
-            self.dialogue_override = "Hey, I can\nsee da music.!"
-            return "* Ralsei enabled captions!"
+			Game.battle:startActCutscene(function(cutscene)
+				self:addMercy(25)
+				if not self.muted then
+					self.dialogue_override = "Hey, I can\nsee da music.!"
+				end
+				cutscene:text("* Ralsei enabled captions!")
+				if not self.muted then
+					self.closedcaptioncon = 1
+					cutscene:wait(70/30)
+				end
+				self.closedcaptioncon = 0
+			end)
         else
             return "* "..battler.chara:getName().." straightened the\ndummy's hat."
         end
@@ -177,27 +233,44 @@ function Zapper:onAct(battler, name)
     return super.onAct(self, battler, name)
 end
 
--- Function from the love2d wiki, converts HSV to RGB
-function Zapper:HSV(h, s, v)
-    if s <= 0 then return v,v,v end
-    h = h*6
-    local c = v*s
-    local x = (1-math.abs((h%2)-1))*c
-    local m,r,g,b = (v-c), 0, 0, 0
-    if h < 1 then
-        r, g, b = c, x, 0
-    elseif h < 2 then
-        r, g, b = x, c, 0
-    elseif h < 3 then
-        r, g, b = 0, c, x
-    elseif h < 4 then
-        r, g, b = 0, x, c
-    elseif h < 5 then
-        r, g, b = x, 0, c
-    else
-        r, g, b = c, 0, x
-    end
-    return r+m, g+m, b+m
+function Zapper:onTurnEnd()
+	if self.volumecountdestination > 10 then
+		self.volumecountdestination = 10
+		self.displayvolumetimer = 20
+		Game.battle.music:setVolume(1)
+	end
+	self.muted = false
+	Game.battle.encounter.volume_up = false
+end
+
+function Zapper:draw()
+	super.draw(self)
+	love.graphics.push()
+	love.graphics.origin()
+	Draw.setColor(1,1,1,1)
+	if self.displayvolumetimer > 0 then
+		self.displayvolumetimer = self.displayvolumetimer - DTMULT
+		self.volumecounttimer = self.volumecounttimer + DTMULT
+		if self.volumecounttimer >= 2 and self.volumecount < self.volumecountdestination then
+			self.volumecount = self.volumecount + 1
+			self.volumecounttimer = 0
+		elseif self.volumecounttimer >= 1 and self.volumecount > self.volumecountdestination then
+			self.volumecount = self.volumecount - 1
+			self.volumecounttimer = 0
+		end
+		Draw.draw(self.volume_text_tex, 186 - 4 + 12, 290 - 12, 0, 1, 1, 0, 24)
+		for a = 0, 20 do
+			if a <= self.volumecount then
+				Draw.draw(self.volume_on_tex, 186 + (a * 12), 290, 0, 1.6, 1, 2, 11)
+			else
+				Draw.draw(self.volume_off_tex, 186 + (a * 12), 290, 0, 1, 1, 2, 11)		
+			end
+		end
+	end
+	if self.closedcaptioncon == 1 then
+		Draw.draw(self.caption2_tex, 320, 60, 0, 1, 1, 152, 20)
+	end
+	love.graphics.pop()
 end
 
 return Zapper

@@ -29,6 +29,12 @@ function Elnina:init()
 
     self.used_umbrella = false
     self.used_warmhat = false
+
+    self.resistances = {
+        ICE = 2,
+        FIRE = 1.5,
+        ELEC = 0.75
+    }
 end
 
 function Elnina:isXActionShort(battler)

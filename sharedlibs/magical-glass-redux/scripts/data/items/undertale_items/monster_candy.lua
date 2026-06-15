@@ -39,8 +39,8 @@ end
 
 function item:getWorldUseText(target)
     local message = ""
-    if not MagicalGlassLib.serious_mode then
-        local picker = Utils.random(0, 15, 1)
+    if not Mod.libs["magical-glass"].serious_mode then
+        local picker = MathUtils.round(MathUtils.random(0, 15))
         if picker == 15 then
             message = "\n* ... tastes like licorice."
         end
@@ -55,8 +55,8 @@ end
 
 function item:getLightBattleText(user, target)
     local message = ""
-    if not MagicalGlassLib.serious_mode then
-        local picker = Utils.random(0, 15, 1)
+    if not Mod.libs["magical-glass"].serious_mode then
+        local picker = MathUtils.round(MathUtils.random(0, 15))
         if picker == 15 then
             message = "\n* ... tastes like licorice."
         end

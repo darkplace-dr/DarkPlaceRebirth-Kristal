@@ -3,7 +3,7 @@ local DustEffectParticle, super = Class(Object, "DustEffectParticle")
 function DustEffectParticle:init(color, x, y)
     super.init(self, x, y)
 
-    self.color = Utils.unpackColor({color})
+    self.color = ColorUtils.unpackColor({color})
     self:setScale(0.5)
 end
 
@@ -11,7 +11,7 @@ function DustEffectParticle:update()
     super.update(self)
 
     if self.activated then
-        local new_color = Utils.unpackColor({self.color})
+        local new_color = ColorUtils.unpackColor({self.color})
         new_color[4] = new_color[4] - 0.07 * DTMULT
         self.color = new_color
 

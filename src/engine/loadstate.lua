@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 local Loading = {}
 
 function Loading:init()
@@ -70,27 +71,29 @@ function Loading:enter(from, dir)
 
     self.fader_alpha = 0
 
+    if Kristal.DessYouFuckingIdiot then
+        self.animation_done = true
+        self.logo_alpha = 0
+        self.logo_alpha_2 = 0
+        self.skipped = true
+    end
+
     self.done_loading = false
     self:beginLoad()
+    self.stage = Stage()
+    self.dog = LoadingDog()
+    self.stage:addChild(self.dog)
+    -- Create the debug console
+    Kristal.Console = Kristal.Stage:addChild(Console())
+    -- Create the debug system
+    Kristal.DebugSystem = Kristal.Stage:addChild(DebugSystem())
 end
 
 function Loading:beginLoad()
     Kristal.clearAssets(true)
 
     self.loading_state = Loading.States.LOADING
-
-    Kristal.loadAssets("", "all", "")
-
-    for _, name in ipairs(love.filesystem.getDirectoryItems("sharedlibs")) do
-        local lib_full_path = "sharedlibs/"..name
-        if love.filesystem.getInfo(lib_full_path .. "/lib.json") then
-            local data = JSON.decode(love.filesystem.read(lib_full_path.."/lib.json"))
-            if data.preload_assets then
-                Kristal.loadAssets(lib_full_path, "all", "")
-            end
-        end
-    end
-
+    
     Kristal.loadAssets("", "plugins", "")
 
     Kristal.loadAssets("", "mods", "", function()
@@ -100,10 +103,6 @@ function Loading:beginLoad()
 
         Kristal.setDesiredWindowTitleAndIcon()
 
-        -- Create the debug console
-        Kristal.Console = Kristal.Stage:addChild(Console())
-        -- Create the debug system
-        Kristal.DebugSystem = Kristal.Stage:addChild(DebugSystem())
 
         REGISTRY_LOADED = true
     end)
@@ -114,11 +113,20 @@ function Loading:update()
         return
     end
 
-    if (self.loading_state == Loading.States.DONE) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
+    local loaded, total = Assets.getAssetCount()
+    self.dog:setProgress(loaded / total)
+    self.stage:update()
+
+    if (self.loading_state == Loading.States.DONE) and (loaded >= total or Kristal.Config.projectLoadingMode == LoadingMode.LAZY) and self.key_check and (self.animation_done or Kristal.Config["skipIntro"]) then
         -- We're done loading! This should only happen once.
         self.done_loading = true
 
-        if Kristal.Args["test"] then
+        if Kristal.DessYouFuckingIdiot then
+            local saveData = JSON.decode(love.filesystem.read("saves/file_dessyoufuckingpretzel.json"))
+            if not Kristal.loadMod("dpr_main", 666, saveData.name) then
+                error("Failed to load dpr_main")
+            end
+        elseif Kristal.Args["test"] and (not RELEASE_MODE) then
             Kristal.setState("Testing")
         elseif AUTO_MOD_START and TARGET_MOD then
             if not Kristal.loadMod(TARGET_MOD) then
@@ -164,6 +172,7 @@ function Loading:lerpSnap(a, b, m, snap_delta)
 end
 
 function Loading:draw()
+    if Kristal.DessYouFuckingIdiot then return end
     if self.loading_state == Loading.States.DONE then
         if self.fools then
             love.graphics.setShader(self.shader_invert)
@@ -176,6 +185,7 @@ function Loading:draw()
             love.graphics.scale(1, 1)
             self:drawSprite(self.logo, 0, 0, 1)
             love.graphics.pop()
+            self.stage:draw()
             return
         end
 

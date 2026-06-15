@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -452,7 +452,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "susie_lw",
-            ["cutscene"] = "hometown.digi_susie",
+            ["cutscene"] = "hometown_digi.susie",
             ["facing"] = "down",
             ["flagcheck"] = "hometown_digisetup",
             ["sprite"] = "chill"
@@ -471,7 +471,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "dess",
-            ["cutscene"] = "hometown.digi_dess",
+            ["cutscene"] = "hometown_digi.dess",
             ["facing"] = "up",
             ["flagcheck"] = "hometown_digisetup"
           }
@@ -489,7 +489,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "ceroba",
-            ["cutscene"] = "hometown.digi_ceroba",
+            ["cutscene"] = "hometown_digi.ceroba",
             ["facing"] = "left",
             ["flagcheck"] = "hometown_digisetup"
           }
@@ -507,7 +507,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "brenda_lw",
-            ["cutscene"] = "hometown.digi_brenda",
+            ["cutscene"] = "hometown_digi.brenda",
             ["facing"] = "right",
             ["flagcheck"] = "hometown_digisetup"
           }
@@ -525,7 +525,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "noelle_lw",
-            ["cutscene"] = "hometown.digi_noelle",
+            ["cutscene"] = "hometown_digi.noelle",
             ["facing"] = "down",
             ["flagcheck"] = "hometown_digisetup"
           }
@@ -543,7 +543,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "jammarcy_light",
-            ["cutscene"] = "hometown.digi_jammarcy",
+            ["cutscene"] = "hometown_digi.jammarcy",
             ["facing"] = "up",
             ["flagcheck"] = "hometown_digisetup"
           }
@@ -560,7 +560,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digi_library",
+            ["cutscene"] = "hometown_digi.library",
             ["flagcheck"] = "hometown_digisetup"
           }
         },
@@ -576,7 +576,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "hometown.digiwrongway_library",
+            ["cutscene"] = "hometown_digi.wrongway_library",
             ["flagcheck"] = "!digi_complete",
             ["once"] = false
           }

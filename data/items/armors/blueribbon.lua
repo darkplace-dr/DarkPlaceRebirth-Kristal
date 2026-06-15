@@ -44,14 +44,17 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = false,
+        dess = false,
         ceroba = false
     }
 
     -- Character reactions
     self.reactions = {
+        hero = "Whatever.",
         susie = "ABSOLUTELY not.",
         ralsei = "Yeah!",
         noelle = "Go...  t... team?",
+        dess = "ew i hate healing things",
         jamm = "GO US!",
         ceroba = "I don't... Do healing."
     }

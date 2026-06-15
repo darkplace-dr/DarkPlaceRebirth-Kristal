@@ -31,7 +31,7 @@ function ambyulance:init()
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/ambyulance/idle", 0, 12, 4/30}
+    self.box_sprite = {"recruits/ambyulance/idle", -3, 13, 4/30}
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

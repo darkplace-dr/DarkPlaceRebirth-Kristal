@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="62">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="65">
  <editorsettings>
   <export target="marketplace.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,7 @@
  </properties>
  <tileset firstgid="1" source="../../tilesets/main_area.tsx"/>
  <tileset firstgid="209" source="../../tilesets/other-objects.tsx"/>
+ <tileset firstgid="213" source="../../tilesets/hub_objects.tsx"/>
  <layer id="1" name="Tile Layer 1" width="31" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -115,6 +116,13 @@
     <property name="text2" value="* (I eat that stuff. Such is the way of the box.)"/>
    </properties>
    <point/>
+  </object>
+  <object id="63" gid="229" x="210" y="270" width="60" height="88"/>
+  <object id="64" name="interactable" x="210.005" y="229.253" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="hub.vending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers" visible="0">

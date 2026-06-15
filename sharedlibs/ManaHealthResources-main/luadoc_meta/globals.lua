@@ -1,0 +1,1 @@
+RegenItem = require("scripts.globals.regenitem")

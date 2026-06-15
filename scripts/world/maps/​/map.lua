@@ -7,7 +7,11 @@ function mb_map:load()
 	    for _,v in ipairs(Game.party) do
 	    	table.insert(self.old_party, v.id)
 	    end
-		Game:setPartyMembers("kris")
+	    Game:setPartyMembers("kris")
+
+	    self.old_temp_followers = TableUtils.copy(Game.temp_followers, true)
+	    TableUtils.clear(Game.temp_followers)
+
 		Game:setFlag("mb_partySet", true)
 	end
 
@@ -25,7 +29,6 @@ function mb_map:onEnter()
 	for i,follower in ipairs(Game.world.followers) do
     	follower.visible = false
     end
-
     for key,_ in pairs(Assets.sound_instances) do
 		Assets.stopSound(key, true)
 	end
@@ -41,14 +44,16 @@ function mb_map:update()
 	if self.back then
 		local player = Game.world.player
 		local mb_ev = Game.world:getEvent(10)
-		mb_ev.x = Utils.approach(mb_ev.x, player.x-mb_ev.width/2, self.stepback*DTMULT)
-		mb_ev.y = Utils.approach(mb_ev.y, player.y-mb_ev.height*2, self.stepback*DTMULT)
+		mb_ev.x = MathUtils.approach(mb_ev.x, player.x-mb_ev.width/2, self.stepback*DTMULT)
+		mb_ev.y = MathUtils.approach(mb_ev.y, player.y-mb_ev.height*2, self.stepback*DTMULT)
 		local limit = not Game.party[1]:checkArmor("pizza_toque")
-		self.stepback = Utils.clamp(self.stepback + 0.1*DTMULT, 0.01, limit and 12 or math.huge)
+		self.stepback = MathUtils.clamp(self.stepback + 0.1*DTMULT, 0.01, limit and 12 or math.huge)
 		if player:collidesWith(mb_ev) then
 			Game:setFlag("s", true)
-			Game:setPartyMembers(Utils.unpack(self.old_party))
 			player:remove()
+			for i,v in ipairs(Game.stage:getObjects(Character)) do
+				v:remove()
+			end
 			self.back = false
 			Game.world:closeMenu()
 			for key,_ in pairs(Assets.sound_instances) do
@@ -62,10 +67,6 @@ function mb_map:update()
 			Game.world:addChild(c)
 			Game.world.timer:after(10+1/120, function()
 				Game.world.music:play("TAEFED", 0)
-				Game:setFlag("mb_partySet", nil)
-				for i,v in ipairs(Game.stage:getObjects(Character)) do
-					v:remove()
-				end
 				Game.world.timer:tween(10, Game.world.music, {volume=1}, "in-cubic", function()
 					local t = Text("You lost, Kris.", 200, 200, 300, 200)
 					t:setLayer(WORLD_LAYERS["textbox"])
@@ -82,6 +83,7 @@ function mb_map:update()
 						else
 							Game.world:loadMap(Kristal.mb_map_dest, Kristal.mb_marker_dest, Kristal.mb_facing_dest, Kristal.mb_callback_dest)
 						end
+						Game:setFlag("mb_partySet", nil)
 					end)
 				end)
 			end)
@@ -98,10 +100,8 @@ end
 
 function mb_map:onExit()
 	if Game:getFlag("mb_partySet", nil) then
-		Game:setPartyMembers(Utils.dump(self.old_party))
-		for i,follower in ipairs(Game.world.followers) do
-	    	follower.visible = true
-	    end
+		Game:setPartyMembers(TableUtils.unpack(self.old_party))
+	    Game.temp_followers = self.old_temp_followers
 		Game:setFlag("mb_partySet", nil)
 	end
 	Game.world.camera.keep_in_bounds = true

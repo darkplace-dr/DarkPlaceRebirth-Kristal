@@ -27,6 +27,8 @@ function actor:init()
 
     self.animations = {
         ["idle"] = {"idle", 0.175, true},
+        ["spared"] = {"spared", 1/4, true},
+        ["prepare"] = {"prepare", 1/4, true},
         ["hurt"] = {"hurt", 0, false},
     }
 

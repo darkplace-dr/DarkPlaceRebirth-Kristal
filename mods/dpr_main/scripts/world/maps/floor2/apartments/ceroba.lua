@@ -237,7 +237,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["actor"] = "ceroba_dw",
+            ["actor"] = "ceroba",
             ["cond"] = "Game:hasUnlockedPartyMember(\"ceroba\") and not Game:hasPartyMember(\"ceroba\")",
             ["cutscene"] = "apartments/ceroba.thoughts",
             ["facing"] = "up"

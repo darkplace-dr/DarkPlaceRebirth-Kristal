@@ -1,5 +1,5 @@
 ---@class Battle : Battle
-local Battle, super = Utils.hookScript(Battle)
+local Battle, super = HookSystem.hookScript(Battle)
 
 function Battle:init()
     super.init(self)
@@ -11,13 +11,8 @@ function Battle:init()
     self.superpower = false
 
     self.super_timer = 0
-    
-    -- Base pitch for the music to return to when not using timeslow.
-    -- This must be changed along with music.pitch in order to correctly change the music's pitch.
-    -- TODO: Relocate 
-    self.music.basepitch = self.music.pitch
 
-    if Game:getSoulPartyMember().pp > 0 then
+    if Game.pp > 0 then
         self.no_buff_loop = true
     else
         self.no_buff_loop = false
@@ -72,6 +67,16 @@ function Battle:init()
             end
         end
     end
+    
+    self.temperature = 50
+    self.max_temperature = 100
+    self.min_temperature = 0
+
+    if Kristal.Config["silly_mode"] then
+        self:addFX(ShaderFX("bloom"), "bloom")
+    end
+	
+    self.victory = false
 end
 
 function Battle:postInit(state, encounter)
@@ -80,32 +85,123 @@ function Battle:postInit(state, encounter)
     if Game.bossrush_encounters and not self.encounter.no_dojo_bg then
         self.dojobg = self:addChild(DojoBG())
     end
+    
+    self.temperature = self.encounter.temperature
+    
+    Kristal.Console:log(self.temperature)
+end
+
+function Battle:incTemp(amount)
+    self.temperature = math.min(self.max_temperature, self.temperature + amount)
+end
+
+function Battle:decTemp(amount)
+    self.temperature = math.max(self.min_temperature, self.temperature - amount)
 end
 
 function Battle:breakSoulShield()
     Assets.playSound("mirrorbreak")
-    local souleffect = Sprite("player/heart_dodge")
-    souleffect:setOrigin(0.5, 0.5)
-    souleffect.layer = self.soul.layer + 0.1
-    souleffect:setParent(self.soul)
-    souleffect.graphics.grow = 0.1
-    souleffect.alpha = 0.5
-    souleffect:fadeOutAndRemove(0.5)
+    self.soul:addChild(SoulExpandEffect())
     local shard_x_table = {-2, 0, 2, 8, 10, 12}
     local shard_y_table = {0, 3, 6}
-    self.soul.shards = {}
     for i = 1, 6 do
         local x_pos = shard_x_table[((i - 1) % #shard_x_table) + 1]
         local y_pos = shard_y_table[((i - 1) % #shard_y_table) + 1]
         local shard = Sprite("player/heart_shard", self.soul.x + x_pos, self.soul.y + y_pos)
-        shard.physics.direction = math.rad(Utils.random(360))
+        shard.physics.direction = math.rad(MathUtils.random(360))
         shard.physics.speed = 7
         shard.physics.gravity = 0.2
         shard.layer = self.soul.layer
         shard:play(5/30)
-        table.insert(self.soul.shards, shard)
-        self.soul.stage:addChild(shard)
+        self:addChild(shard)
     end
+end
+
+function Battle:onDefendingState()
+    -- Ceroba's shield on turn start
+    local diamond_guard = false
+    for _,partymember in ipairs(Game.party) do
+        if partymember:hasSpell("diamond_guard") then
+            diamond_guard = true
+            break
+        end
+    end
+    if diamond_guard and not self.no_buff_loop then
+        self:darken()
+        self:hideTargets()
+
+		self.wave_length = 0
+		self.wave_timer = 0
+
+        self.no_buff_loop = true
+		local prev_can_move = self.soul.can_move
+		for _, wave in ipairs(self.waves) do
+			if self.soul.buff_freeze or wave.buff_freeze then
+				self.soul.can_move = false
+			end
+		end
+        self.soul:addChild(CerobaDiamondBuff(0, 0, function()
+			for _, wave in ipairs(self.waves) do
+				wave.encounter = self.encounter
+
+				self.wave_length = math.max(self.wave_length, wave.time)
+                -- while buff is being applied, wave_timer goes up so we gotta reset it again
+                self.wave_timer = 0
+
+				if self.soul.buff_freeze or wave.buff_freeze then
+					self.soul.can_move = prev_can_move
+				end
+
+				wave:onStart()
+
+				wave.active = true
+			end
+		end))
+		return
+	end
+	super.onDefendingState(self)
+end
+
+--- Gets a table that contains all battlers in the battle.
+---@return table<PartyBattler|EnemyBattler> battlers A table containing all PartyBattler and EnemyBattler currently in the battle
+function Battle:getBattlers()
+    return TableUtils.mergeMany(Game.battle.party, Game.battle.enemies)
+end
+
+function Battle:nextTurn()
+    super.nextTurn(self)
+    
+    if self.ally then
+        self.ally:onTurnStart()
+    end
+end
+
+function Battle:update()
+    super.update(self)
+    
+    if self.ally then
+        self.ally:onUpdate()
+    end
+end
+
+function Battle:updateActionsDone()
+    super.updateActionsDone(self)
+    
+    if self.ally then
+        self.ally:onActionsEnd()
+    end
+end
+
+function Battle:onVictory()
+    self.victory = true
+    for _,battler in ipairs(self.party) do
+        if battler.health_rolling_to <= 0 or battler.chara:getHealth() <= 0 then
+            battler:revive()
+            battler.health_rolling_to = battler.chara:autoHealAmount()
+        end
+        battler.chara:setHealth(battler.health_rolling_to)
+    end
+	return super.onVictory(self)
 end
 
 return Battle

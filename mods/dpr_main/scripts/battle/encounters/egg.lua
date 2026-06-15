@@ -7,26 +7,14 @@ function Egg:init()
     self.text = "* The air hatches with freedom."
 
     -- Battle music ("battle" is rude buster)
-    if Game:isDessMode() then
-        self.music = "batterup"
-        self.background = false
-	    self.hide_world = true
-    else
-        self.music = "knight"
-        -- Enables the purple grid battle background
-        self.background = false
-    end
+    self.music = "knight"
+    self.background = true
 
     -- Add the Egg enemy to the encounter
     self:addEnemy("egg", 450, 244)
 end
 
 function Egg:onBattleInit()
-    if Game:isDessMode() then
-        self.bg = StarsBG({1, 1, 1})
-        Game.battle:addChild(self.bg)
-    end
-
     local eggs = Sprite("battle/egg_background", 0, 0)
     local gradient = Sprite("battle/gradient_background", 0, 0)
     local handu = Sprite("battle/enemies/egg/handu", 0, 0)

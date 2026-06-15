@@ -203,4 +203,16 @@ function DamageNumber:draw()
     super.draw(self)
 end
 
+function DamageNumber:onRemoveFromStage(stage)
+    super.onRemoveFromStage(self, stage)
+    if self.parent and self.parent:includes(Battle) and Game.world then
+        local prev_x, prev_y = self.x, self.y
+        local x, y = self:getScreenPos()
+        self:setParent(Game.world)
+        self:setScreenPos(x, y)
+        self.start_x = ((self.start_x or self.x) - prev_x) + self.x
+        self.start_y = ((self.start_y or self.y) - prev_y) + self.y
+    end
+end
+
 return DamageNumber

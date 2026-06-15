@@ -34,6 +34,7 @@
 ---@field minigames table<string, Minigame>
 ---@field materials table<string, Material>
 ---@field shaders table<string, Shader>
+---@field recruit_battlers table<string, RecruitBattler>
 ---
 local Registry = {}
 local self = Registry
@@ -71,6 +72,7 @@ Registry.paths = {
     ["combos"]           = "battle/combos",
     ["materials"]        = "data/materials",
     ["shaders"]          = "shaders",
+    ["recruit_battlers"] = "data/recruit_battlers",
 }
 
 ---@param preload boolean?
@@ -141,7 +143,7 @@ function Registry.initialize(preload)
         Registry.initEventScripts()
         Registry.initTilesets()
         Registry.initMaps()
-        Registry.initEvents()
+        Registry.initLegacyEvents()
         Registry.initControllers()
         Registry.initShops()
         Registry.initBorders()
@@ -149,6 +151,7 @@ function Registry.initialize(preload)
         Registry.initCombos()
         Registry.initMaterials()
         Registry.initShaders()
+        Registry.initRecruitBattlers()
 
         Kristal.callEvent(KRISTAL_EVENT.onRegistered)
     end
@@ -188,7 +191,7 @@ end
 -- Getter Functions --
 
 ---@param id string
----@return Object|nil
+---@return Object?
 function Registry.getObject(id)
     return self.objects[id]
 end
@@ -205,7 +208,7 @@ function Registry.createObject(id, ...)
 end
 
 ---@param id string
----@return DrawFX|nil
+---@return DrawFX?
 function Registry.getDrawFX(id)
     return self.draw_fx[id]
 end
@@ -222,7 +225,7 @@ function Registry.createDrawFX(id, ...)
 end
 
 ---@param id string
----@return Actor|nil
+---@return Actor?
 function Registry.getActor(id)
     return self.actors[id]
 end
@@ -239,7 +242,7 @@ function Registry.createActor(id, ...)
 end
 
 ---@param id string
----@return Item|nil
+---@return Item?
 function Registry.getItem(id)
     return self.items[id]
 end
@@ -249,6 +252,10 @@ end
 ---@return Item
 function Registry.createItem(id, ...)
     if self.items[id] then
+        local item = self.items[id](...)
+        if item.postInit then
+            item:postInit()
+        end
         return self.items[id](...)
     else
         error("Attempt to create non existent item \"" .. tostring(id) .. "\"")
@@ -256,7 +263,7 @@ function Registry.createItem(id, ...)
 end
 
 ---@param id string
----@return Spell|nil
+---@return Spell?
 function Registry.getSpell(id)
     return self.spells[id]
 end
@@ -273,7 +280,7 @@ function Registry.createSpell(id, ...)
 end
 
 ---@param id string
----@return PartyMember|nil
+---@return PartyMember?
 function Registry.getPartyMember(id)
     return self.party_members[id]
 end
@@ -290,7 +297,7 @@ function Registry.createPartyMember(id, ...)
 end
 
 ---@param id string
----@return Recruit|nil
+---@return Recruit?
 function Registry.getRecruit(id)
     return self.recruits[id]
 end
@@ -307,7 +314,7 @@ function Registry.createRecruit(id, ...)
 end
 
 ---@param id string
----@return Encounter|nil
+---@return Encounter?
 function Registry.getEncounter(id)
     return self.encounters[id]
 end
@@ -324,7 +331,7 @@ function Registry.createEncounter(id, ...)
 end
 
 ---@param id string
----@return EnemyBattler|nil
+---@return EnemyBattler?
 function Registry.getEnemy(id)
     return self.enemies[id]
 end
@@ -341,7 +348,7 @@ function Registry.createEnemy(id, ...)
 end
 
 ---@param id string
----@return Wave|nil
+---@return Wave?
 function Registry.getWave(id)
     return self.waves[id]
 end
@@ -358,7 +365,7 @@ function Registry.createWave(id, ...)
 end
 
 ---@param id string
----@return Bullet|nil
+---@return Bullet?
 function Registry.getBullet(id)
     return self.bullets[id]
 end
@@ -375,7 +382,7 @@ function Registry.createBullet(id, ...)
 end
 
 ---@param id string
----@return WorldBullet|nil
+---@return WorldBullet?
 function Registry.getWorldBullet(id)
     return self.world_bullets[id]
 end
@@ -393,8 +400,8 @@ end
 
 ---@param group string
 ---@param id? string
----@return function|nil cutscene
----@return boolean|nil grouped
+---@return function? cutscene
+---@return boolean? grouped
 function Registry.getWorldCutscene(group, id)
     local cutscene = self.world_cutscenes[group]
     if type(cutscene) == "table" then
@@ -406,8 +413,8 @@ end
 
 ---@param group string
 ---@param id? string
----@return function|nil cutscene
----@return boolean|nil grouped
+---@return function? cutscene
+---@return boolean? grouped
 function Registry.getBattleCutscene(group, id)
     local cutscene = self.battle_cutscenes[group]
     if type(cutscene) == "table" then
@@ -419,8 +426,8 @@ end
 
 ---@param group string
 ---@param id? string
----@return function|nil cutscene
----@return boolean|nil grouped
+---@return function? cutscene
+---@return boolean? grouped
 function Registry.getLegendCutscene(group, id)
     local cutscene = self.legend_cutscenes[group]
     if type(cutscene) == "table" then
@@ -432,8 +439,8 @@ end
 
 ---@param group string
 ---@param id? string
----@return function|nil cutscene
----@return boolean|nil grouped
+---@return function? cutscene
+---@return boolean? grouped
 function Registry.getEventScript(group, id)
     if not id then
         local args = StringUtils.split(group, ".")
@@ -449,13 +456,13 @@ function Registry.getEventScript(group, id)
 end
 
 ---@param id string
----@return Tileset|nil
+---@return Tileset?
 function Registry.getTileset(id)
     return self.tilesets[id]
 end
 
 ---@param id string
----@return Map|nil
+---@return Map?
 function Registry.getMap(id)
     return self.maps[id]
 end
@@ -479,21 +486,21 @@ function Registry.createMap(id, world, ...)
 end
 
 ---@param id string
----@return table|nil
+---@return table?
 function Registry.getMapData(id)
     return self.map_data[id]
 end
 
 ---@param id string
----@return Event|Object|nil
-function Registry.getEvent(id)
+---@return Event|Object?
+function Registry.getLegacyEvent(id)
     return self.events[id]
 end
 
 ---@param id string
 ---@param ... any
 ---@return Event|Object
-function Registry.createEvent(id, ...)
+function Registry.createLegacyEvent(id, ...)
     if self.events[id] then
         return self.events[id](...)
     else
@@ -502,7 +509,7 @@ function Registry.createEvent(id, ...)
 end
 
 ---@param id string
----@return Event|Object|nil
+---@return Event|Object?
 function Registry.getController(id)
     return self.controllers[id]
 end
@@ -519,7 +526,7 @@ function Registry.createController(id, ...)
 end
 
 ---@param id string
----@return Shop|nil
+---@return Shop?
 function Registry.getShop(id)
     return self.shops[id]
 end
@@ -543,9 +550,8 @@ function Registry.createBorder(id, ...)
     if self.borders[id] then
         return self.borders[id](...)
     else
-        local texture = Assets.getTexture("borders/" .. id)
-        if texture then
-            return ImageBorder(texture, id)
+        if Assets.hasSprite("borders/" .. id) then
+            return ImageBorder(Assets.getTexture("borders/" .. id), id)
         end
         local border = Border()
         border.id = id
@@ -587,6 +593,18 @@ function Registry.createMaterial(id, ...)
         return self.materials[id](...)
     else
         error ("Attempted to create nonexistent material \"" .. tostring(id) .. "\"")
+    end
+end
+
+function Registry.getRecruitBattler(id)
+    return self.materials[id]
+end
+
+function Registry.createRecruitBattler(id, ...)
+    if self.recruit_battlers[id] then
+        return self.recruit_battlers[id](...)
+    else
+        error ("Attempted to create nonexistent recruit battler \"" .. tostring(id) .. "\"")
     end
 end
 
@@ -714,7 +732,7 @@ end
 
 ---@param id string
 ---@param class Event|Object
-function Registry.registerEvent(id, class)
+function Registry.registerLegacyEvent(id, class)
     self.events[id] = class
 end
 
@@ -752,6 +770,12 @@ end
 ---@param class Shader
 function Registry.registerShader(id, class)
     self.shaders[id] = class
+end
+
+---@param id string
+---@param class Shader
+function Registry.registerRecruitBattler(id, class)
+    self.recruit_battlers[id] = class
 end
 
 -- Internal Functions --
@@ -988,13 +1012,13 @@ function Registry.initMaps()
     Kristal.callEvent(KRISTAL_EVENT.onRegisterMaps)
 end
 
-function Registry.initEvents()
+function Registry.initLegacyEvents()
     self.events = {}
 
     for _, path, event in self.iterScripts(Registry.paths["events"]) do
         assert(event ~= nil, '"events/' .. path .. '.lua" does not return value')
         event.id = event.id or path
-        self.registerEvent(event.id, event)
+        self.registerLegacyEvent(event.id, event)
     end
 
     Kristal.callEvent(KRISTAL_EVENT.onRegisterEvents)
@@ -1078,6 +1102,15 @@ function Registry.initShaders()
     end
 end
 
+function Registry.initRecruitBattlers()
+    self.recruit_battlers = {}
+
+    for full_path,path,recruit_battler in Registry.iterScripts("data/recruit_battlers/") do
+        assert(recruit_battler ~= nil, '"data/recruit_battlers/'..path..'.lua" does not return value')
+        self.recruit_battlers[path] = recruit_battler
+    end
+end
+
 ---@param base_path string
 ---@param exclude_folder boolean?
 ---@return fun() : string?, string?, ...
@@ -1096,9 +1129,8 @@ function Registry.iterScripts(base_path, exclude_folder)
     local chunks = nil
     local parsed = {}
     local queued_parse = {}
-    local addChunk, parse
 
-    addChunk = function(path, chunk, file, full_path)
+    local function addChunk(path, chunk, file, full_path)
         local success, a, b, c, d, e, f = xpcall(chunk, function(msg)
             if type(msg) == "table" then
                 return msg
@@ -1126,7 +1158,7 @@ function Registry.iterScripts(base_path, exclude_folder)
             return true
         end
     end
-    parse = function(path, _chunks, full_path_prefix)
+    local function parse(path, _chunks, full_path_prefix)
         chunks = _chunks
         parsed = {}
         queued_parse = {}

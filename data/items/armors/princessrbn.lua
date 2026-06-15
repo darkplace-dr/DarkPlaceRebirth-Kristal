@@ -50,9 +50,11 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "I'm a true princess.",
         susie = "Nah. Gloves don't fit.",
         ralsei = "Cute! (Gloves don't fit)",
         noelle = "Kris, you can wear the gloves!",
+        dess = "it increases atk thats cool",
         jamm = "I'm already wearing gloves!",
         ceroba = "Not a big royalty fan."
     }

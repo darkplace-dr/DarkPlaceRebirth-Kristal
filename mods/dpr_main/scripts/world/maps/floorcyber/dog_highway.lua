@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 27,
+  nextobjectid = 33,
   properties = {
     ["border"] = "city",
     ["music"] = "deltarune/cybercity",
@@ -152,7 +152,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 680,
@@ -165,7 +165,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 680,
@@ -178,12 +178,12 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
           width = 440,
-          height = 400,
+          height = 360,
           rotation = 0,
           visible = true,
           properties = {}
@@ -191,7 +191,7 @@ return {
         {
           id = 4,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 0,
@@ -204,7 +204,7 @@ return {
         {
           id = 9,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = -40,
@@ -217,11 +217,37 @@ return {
         {
           id = 10,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 1160,
           width = 280,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 360,
+          width = 160,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 240,
+          y = 360,
+          width = 200,
           height = 40,
           rotation = 0,
           visible = true,
@@ -246,7 +272,7 @@ return {
         {
           id = 6,
           name = "savepoint",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 420,
@@ -258,8 +284,8 @@ return {
         },
         {
           id = 7,
-          name = "transition",
-          class = "",
+          name = "script",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 400,
@@ -268,14 +294,14 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "floorcyber/street_1",
-            ["marker"] = "west"
+            ["cutscene"] = "cyber.transition",
+            ["once"] = false
           }
         },
         {
           id = 12,
           name = "traffic_car_generator",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 508,
           y = -40,
@@ -293,7 +319,7 @@ return {
         {
           id = 15,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 560,
@@ -308,7 +334,7 @@ return {
         {
           id = 16,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 520,
@@ -323,7 +349,7 @@ return {
         {
           id = 17,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 480,
@@ -338,7 +364,7 @@ return {
         {
           id = 18,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 440,
@@ -353,7 +379,7 @@ return {
         {
           id = 19,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 400,
@@ -368,7 +394,7 @@ return {
         {
           id = 20,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 600,
@@ -383,7 +409,7 @@ return {
         {
           id = 21,
           name = "dogconegroup",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 640,
@@ -398,7 +424,7 @@ return {
         {
           id = 22,
           name = "traffic_marker",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 360,
           y = 400,
@@ -411,7 +437,7 @@ return {
         {
           id = 23,
           name = "traffic_switch",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 380,
           y = 320,
@@ -427,7 +453,7 @@ return {
         {
           id = 24,
           name = "traffic_marker",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 720,
           y = 400,
@@ -440,7 +466,7 @@ return {
         {
           id = 25,
           name = "traffic_switch",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 740,
           y = 320,
@@ -456,7 +482,7 @@ return {
         {
           id = 26,
           name = "traffic_car_generator",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 572,
           y = 1160,
@@ -469,6 +495,39 @@ return {
             ["gen_speed"] = 15,
             ["group"] = 0,
             ["walkdir"] = "up"
+          }
+        },
+        {
+          id = 27,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1000,
+          y = 420,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "falseral",
+            ["cutscene"] = "cyber.falseral",
+            ["flagcheck"] = "!falseraldead"
+          }
+        },
+        {
+          id = 32,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 360,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/cyber_store",
+            ["marker"] = "entry1"
           }
         }
       }
@@ -490,7 +549,7 @@ return {
         {
           id = 8,
           name = "east",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 560,
@@ -503,10 +562,23 @@ return {
         {
           id = 14,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 260,
           y = 430,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "store",
+          type = "",
+          shape = "point",
+          x = 200,
+          y = 440,
           width = 0,
           height = 0,
           rotation = 0,

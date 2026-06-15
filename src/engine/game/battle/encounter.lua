@@ -3,53 +3,35 @@
 ---
 ---@class Encounter : Class
 ---
----@field text                  string
+---@field text string Text that will be displayed when the battle starts.
+---@field background boolean Whether the default battle background is created or not.
+---@field hide_world boolean If enabled, hides the world even if the default background is disabled.
 ---
----@field background            boolean
----@field hide_world            boolean
+---@field music string? The music to be played for this encounter. If `nil`, the world music will continue playing. Use `"none"` to stop music from playing.
 ---
----@field music                 string?
----
----@field default_xactions      boolean
----
----@field no_end_message        boolean
----
----@field queued_enemy_spawns   table
----
----@field defeated_enemies      table
----
----@field no_dojo_bg            boolean
----
----@field reduced_tension       boolean
+---@field default_xactions boolean Whether or not the default X-Actions appear in spell menus.
+---@field no_end_message boolean Whether or not to skip the "You won!" text at the end of the battle.
+---@field queued_enemy_spawns table Table used to spawn enemies when the battle exists, if this encounter is created before then.
+---@field defeated_enemies table A copy of Battle.defeated_enemies, used to determine how an enemy has been defeated.
+---@field reduced_tension boolean Whether tension is reduced for this encounter.
 ---
 ---@overload fun(...) : Encounter
 local Encounter = Class()
 
 function Encounter:init()
-    -- Text that will be displayed when the battle starts
     self.text = "* A skirmish breaks out!"
 
-    -- Whether the default grid background is drawn
     self.background = true
-    -- If enabled, hides the world even if the default background is disabled
     self.hide_world = false
 
-    -- The music used for this encounter
     self.music = "battle"
 
-    -- Whether characters have the X-Action option in their spell menu
     self.default_xactions = Game:getConfig("partyActions")
 
-    -- Should the battle skip the YOU WON! text?
     self.no_end_message = false
-
-    -- Table used to spawn enemies when the battle exists, if this encounter is created before
     self.queued_enemy_spawns = {}
-
-    -- A copy of Battle.defeated_enemies, used to determine how an enemy has been defeated.
     self.defeated_enemies = nil
 
-    -- Whether tension is reduced for this encounter.
     self.reduced_tension = false
 end
 
@@ -139,26 +121,23 @@ function Encounter:onReturnToWorld(events) end
 function Encounter:getDialogueCutscene() end
 
 --- *(Override)* Called to modify the victory money earned from the battle.
----@param money integer     Current victory money based on normal money calculations
+---@param money integer Current victory money based on normal money calculations
 ---@return integer? money
 function Encounter:getVictoryMoney(money) end
----@param xp integer        Current victory xp based on normal xp calculations
+---@param xp integer Current victory xp based on normal xp calculations
 ---@return integer? xp
 function Encounter:getVictoryXP(xp) end
----@param text  string      Current victory text
----@param money integer     Money earned on victory
----@param xp    integer     XP earned on victory
+---@param text string Current victory text
+---@param money integer Money earned on victory
+---@param xp integer XP earned on victory
 ---@return string? text
 function Encounter:getVictoryText(text, money, xp) end
 
 function Encounter:update() end
 
---- *(Override)* Called before anything has been rendered each frame. Usable to draw custom backgrounds for specific encounters.
----@param fade number   The opacity of the background when fading in/out of the world.
-function Encounter:draw(fade) end
 --- *(Override)* Called after everything has been rendered each frame. Usable to draw custom effects for specific encounters.
----@param fade number   The opacity of the background when fading in/out of the world.
-function Encounter:drawBackground(fade) end
+---@param fade number *(Deprecated)* An alpha value for fading in/out of battle. This is not recommended to be used anymore!
+function Encounter:draw(fade) end
 
 -- Functions
 
@@ -238,13 +217,13 @@ end
 ---@return PartyBattler|PartyMember|Actor|string? actor # The actor to use for the text settings (ex. voice, portrait settings)
 function Encounter:getEncounterText()
     local enemies = Game.battle:getActiveEnemies()
-    local enemy = Utils.pick(enemies, function(v)
+    local enemy = TableUtils.pick(TableUtils.filter(enemies, function(v)
         if not v.text then
             return true
         else
             return #v.text > 0
         end
-    end)
+    end))
     if enemy then
         return enemy:getEncounterText()
     else
@@ -257,7 +236,7 @@ end
 ---@return Wave[]
 function Encounter:getNextWaves()
     local waves = {}
-    for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+    for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
         local wave = enemy:selectWave()
         if wave then
             table.insert(waves, wave)
@@ -290,6 +269,10 @@ function Encounter:getPartyPosition(index)
     return x, y
 end
 
+function Encounter:getBackRowPosition()
+    return 42, 324
+end
+
 ---@return integer
 ---@return integer
 ---@return integer
@@ -308,8 +291,8 @@ function Encounter:getSoulSpawnLocation()
         local battler = Game.battle.party[Game.battle:getPartyIndex(main_chara.id)]
 
         if battler then
-            if main_chara.actor:getSoulOffset() then
-                return battler:localToScreenPos(main_chara.actor:getSoulOffset())
+            if main_chara:getActor():getSoulOffset() then
+                return battler:localToScreenPos(main_chara:getActor():getSoulOffset())
             else
                 return battler:localToScreenPos((battler.sprite.width / 2) - 4.5, battler.sprite.height / 2)
             end
@@ -330,9 +313,9 @@ end
 
 --- *(Override)* Creates the soul being used this battle (Called at the start of the first wave)
 --- *By default, returns the regular (red) soul.*
----@param x         number  The x-coordinate the soul should spawn at.
----@param y         number  The y-coordinate the soul should spawn at.
----@param color?    table   A custom color for the soul, that should override its default.
+---@param x number The x-coordinate the soul should spawn at.
+---@param y number The y-coordinate the soul should spawn at.
+---@param color? Color A custom color for the soul, that should override its default.
 ---@return Soul
 function Encounter:createSoul(x, y, color)
     return Soul(x, y, color)
@@ -351,14 +334,14 @@ end
 ---@param flag  string
 ---@param value any
 function Encounter:setFlag(flag, value)
-    Game:setFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, value)
+    Game:setFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, value)
 end
 
 ---@param flag      string
 ---@param default?  any
 ---@return any
 function Encounter:getFlag(flag, default)
-    return Game:getFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, default)
+    return Game:getFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, default)
 end
 
 --- Increments a numerical flag by `amount`.
@@ -366,7 +349,7 @@ end
 ---@param amount?   number  (Defaults to `1`)
 ---@return number
 function Encounter:addFlag(flag, amount)
-    return Game:addFlag("encounter#"..Mod.info.id.."/"..self.id..":"..flag, amount)
+    return Game:addFlag("encounter#" .. Mod.info.id .. "/" .. self.id .. ":" .. flag, amount)
 end
 
 --- Checks if the encounter has reduced tension.
@@ -400,6 +383,22 @@ end
 ---@return boolean
 function Encounter:canSwoon(target)
     return true
+end
+
+--- *(Override)* Creates the battle background for this encounter. \
+--- *By default, returns a new instance of [`BattleBackground`](lua://BattleBackground) if the encounter's [background](lua://Encounter.background) property is `true`.
+---@return BattleBackground? background
+function Encounter:createBackground()
+    if self.background then
+        return Game.battle:addChild(BattleBackground())
+    end
+end
+
+--- *(Override)* Creates the battle darkener for this encounter. \
+--- *By default, returns a new instance of [`BattleDarkener`](lua://BattleDarkener).
+---@return BattleDarkener? darkener
+function Encounter:createBattleDarkener()
+    return Game.battle:addChild(BattleDarkener())
 end
 
 return Encounter

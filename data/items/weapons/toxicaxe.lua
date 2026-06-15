@@ -19,7 +19,7 @@ function item:init()
     self.description = "An axe used to clear wastelands\nin a fetid swamp. Not poison, but gross."
 
     -- Default shop price (sell price is halved)
-    self.price = 700
+    self.price = Game.chapter <= 3 and 600 or 700
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -47,9 +47,11 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero =  "Ew.",
         susie = "Eat dirt, losers.",
         ralsei = "Could I wash it off first?",
         noelle = "N-no way! Susie wouldn't use that!",
+        dess = "i wana eat dirt",
         jamm = "How'd you even...",
         ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
     }

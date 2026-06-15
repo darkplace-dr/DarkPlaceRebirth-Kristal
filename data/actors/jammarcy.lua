@@ -56,6 +56,7 @@ function actor:init()
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 0.5, true},
         ["battle/swooned"]      = {"battle/swooned", 1/15, false},
+        ["battle/succumbed"]    = {"battle/swooned", 1/15, false},
 
         ["battle/transition"]   = {"walk/right", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},
@@ -63,6 +64,7 @@ function actor:init()
 		
 		-- Cutscene animations
 		["sit"]               	= {"sit", 4/30, true},
+        ["jump_ball"]           = {"ball", 1/15, true},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -96,6 +98,10 @@ function actor:init()
         ["battle/victory"] = {-14, -15},
 		
 		["sit"] = {4, -8},
+
+		["ball"] = {0, 0},
+
+		["bs_win"] = {0, -10},
 		
         ["sneak/left"] = {0, -10},
         ["sneak/right"] = {4, -10},

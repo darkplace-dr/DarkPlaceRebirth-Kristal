@@ -49,7 +49,7 @@ function WarpDoor:init(x, y, properties)
         if properties["name"..i] then
             self.names[i] = properties["name"..i]
         else
-            self.names[i] = Utils.titleCase(properties["map"..i])
+            self.names[i] = StringUtils.titleCase(properties["map"..i])
         end
         if properties["flag"..i] then
             self.flags[i] = properties["flag"..i]
@@ -85,9 +85,7 @@ function WarpDoor:onInteract(chara, facing)
                     self.light:remove()
                     cutscene:text("* (The door opened...)")
                     cutscene:wait(0.2) -- 6/30
-                    for key,_ in pairs(Assets.sound_instances) do
-                        Assets.stopSound(key, true)
-                    end
+                    Assets.stopAllSounds()
                     Assets.playSound("doorclose")
                     Game.world.music:stop()
                     Game.world.fader:fadeOut(nil, {

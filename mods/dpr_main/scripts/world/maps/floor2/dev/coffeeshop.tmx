@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="25">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="33">
  <editorsettings>
   <export target="coffeeshop.lua" format="lua"/>
  </editorsettings>
@@ -16,8 +16,8 @@
 15,15,15,31,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,32,15,15,15,
 15,15,31,86,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,84,32,15,15,
 15,15,16,96,45,45,45,45,45,45,45,45,45,45,45,35,0,0,0,45,94,14,15,15,
-15,15,16,96,45,45,45,45,45,45,45,45,45,45,45,45,0,0,0,45,94,14,15,15,
-15,15,16,106,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,104,14,15,15,
+15,15,16,96,45,45,45,45,45,45,33,33,33,33,45,45,0,0,0,45,94,14,15,15,
+15,15,16,106,55,55,55,55,55,55,33,33,33,33,55,55,55,55,55,55,104,14,15,15,
 15,15,16,33,33,33,53,43,43,43,43,43,43,43,43,3221225525,33,33,33,33,33,14,15,15,
 15,15,16,33,33,53,43,43,43,43,43,43,43,43,3221225525,33,33,33,33,33,53,14,15,15,
 15,15,16,33,53,43,43,43,43,43,43,43,43,3221225525,33,33,33,33,33,53,43,14,15,15,
@@ -30,9 +30,9 @@
  <layer id="2" name="Tile Layer 2" width="24" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,7,8,9,10,0,0,0,0,0,91,92,92,92,93,0,0,0,0,
-0,0,0,0,0,0,17,18,19,20,0,0,0,0,0,101,0,0,0,103,0,0,0,0,
-0,0,0,0,0,0,27,28,29,30,0,0,0,0,0,101,0,0,0,103,0,0,0,0,
+0,0,0,0,0,7,8,9,10,0,0,0,0,0,0,91,92,92,92,93,0,0,0,0,
+0,0,0,0,0,17,18,19,20,0,0,0,0,0,0,101,0,0,0,103,0,0,0,0,
+0,0,0,0,0,27,28,29,30,0,0,0,0,0,0,101,0,0,0,103,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,112,112,112,113,0,0,0,0,
 0,0,0,116,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,114,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -59,12 +59,27 @@
   <object id="22" x="560" y="350" width="80" height="30"/>
   <object id="23" x="320" y="350" width="80" height="30"/>
   <object id="24" x="160" y="350" width="80" height="30"/>
+  <object id="26" x="380" y="240">
+   <polygon points="0,0 40,40 160,40 200,0"/>
+  </object>
+  <object id="29" x="380" y="200" width="200" height="40"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="9" name="transition" x="440" y="480" width="80" height="40">
    <properties>
     <property name="map" value="floor2/dev/main_1"/>
     <property name="marker" value="starbeans"/>
+   </properties>
+  </object>
+  <object id="27" name="npc" x="480" y="230">
+   <properties>
+    <property name="actor" value="alexa"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="32" name="interactable" x="420" y="240" width="120" height="40">
+   <properties>
+    <property name="cutscene" value="devroom.starbeans"/>
    </properties>
   </object>
  </objectgroup>
@@ -75,9 +90,13 @@
   <object id="18" gid="123" x="560" y="380" width="80" height="60"/>
   <object id="19" gid="123" x="560" y="380" width="80" height="60"/>
   <object id="20" gid="123" x="720" y="380" width="80" height="60"/>
+  <object id="28" gid="127" x="380" y="280" width="200" height="280"/>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="10" name="main" x="480" y="440">
+   <point/>
+  </object>
+  <object id="30" name="spawn" x="480" y="380">
    <point/>
   </object>
  </objectgroup>

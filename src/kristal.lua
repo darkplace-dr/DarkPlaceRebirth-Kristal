@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 ---@class Kristal
 ---@field Console Console
 ---@field DebugSystem DebugSystem
@@ -13,6 +14,7 @@ else
     Kristal.PluginLoader = require("src.engine.pluginloader")
     Kristal.States = {
         ["Loading"] = require("src.engine.loadstate"),
+        ["ProjectLoading"] = require("src.engine.projectloadstate"),
         ["MainMenu"] = require("src.engine.menu.mainmenu"),
         ["Game"] = require("src.engine.game.game"),
         ["LameFadeout"] = require("src.engine.game.lamefadeout"),
@@ -62,6 +64,7 @@ else
 
     Kristal.reloadnoel()
 
+    Kristal.LoadedModScripts = {}
 end
 
 function Kristal.fetch(url, options)
@@ -80,7 +83,10 @@ function Kristal.fetch(url, options)
     options.headers = options.headers or {}
     options.headers["User-Agent"] = options.headers["User-Agent"] or ("Kristal/" .. tostring(Kristal.Version))
 
-    Kristal.Console:log("Fetching from URL "..url)
+    if not options["disable_message"] then
+        Kristal.Console:log("Fetching from URL "..url)
+    end
+    
     Kristal.HTTPS.in_channel:push({
         url = url,
         key = Kristal.HTTPS.next_key,
@@ -90,6 +96,15 @@ function Kristal.fetch(url, options)
     })
     Kristal.HTTPS.next_key = Kristal.HTTPS.next_key + 1
     return true
+end
+
+function Kristal.verifySoundSystem()
+    local source = love.audio.newSource("assets/music/none.ogg", "static")
+    local success = source:play()
+    if not success then
+        print("Audio has been detected as unavailable, disabling sound for the rest of the session")
+        SOUND_DISABLED = true
+    end
 end
 
 function love.load(args)
@@ -120,7 +135,9 @@ function love.load(args)
     -- load the keybinds
     Input.loadBinds()
 
-    -- Save the defaults so if we do setWindowTitle for a mod we're able to revert it
+    TextInput.init()
+
+    -- Save the defaults so if we do setWindowTitle for a project we're able to revert it
     -- Unfortunate variable names
     Kristal.icon = love.window.getIcon()
     Kristal.game_default_name = love.window.getTitle()
@@ -150,6 +167,8 @@ function love.load(args)
     -- hide mouse
     Kristal.hideCursor()
 
+    Kristal.verifySoundSystem()
+
     -- make mouse sprite
     MOUSE_SPRITE = love.graphics.newImage((love.math.random(1000) <= 1) and "assets/sprites/kristal/starwalker.png" or
         "assets/sprites/kristal/mouse.png")
@@ -171,8 +190,20 @@ function love.load(args)
     Kristal.ChapterConfigs[4] = JSON.decode(love.filesystem.read("configs/chapter4.json"))
     Kristal.ExtraConfigs = JSON.decode(love.filesystem.read("configs/extra.json"))
 
+    -- If a certain save file exists, Dess destroyed reality with her trolley problem
+    Kristal.DessYouFuckingIdiot = love.filesystem.getInfo("saves/file_dessyoufuckingpretzel.json", "file") ~= nil
+
     -- initialize overlay
     Kristal.Overlay:init()
+
+    -- Do some ugly stuff so the Overlay doesn't appear
+    if Kristal.DessYouFuckingIdiot then
+        Kristal.__OVERLAY_DRAW = Kristal.Overlay.draw
+        Kristal.Overlay.draw = function() end
+
+        love.window.setTitle("")
+        love.window.setIcon(love.image.newImageData(1, 1))
+    end
 
     -- global stage
     Kristal.Stage = Stage()
@@ -182,7 +213,7 @@ function love.load(args)
     SCREEN_CANVAS:setFilter("nearest", "nearest")
 
     PERFORMANCE_TEST = nil
-    ---@type string|nil
+    ---@type string?
     PERFORMANCE_TEST_STAGE = nil
 
     SCREENSHOT_DISPLAY = 1
@@ -206,14 +237,16 @@ function love.load(args)
         Kristal.HTTPS.thread:start()
     end
 
-    -- TARGET_MOD being already set -> mod developer has
+    Assets.init()
+
+    -- TARGET_MOD being already set -> project developer has
     -- a preference for auto mod start. We particularly wouldn't
-    -- want the user to overwrite this since it can break some mods
+    -- want the user to overwrite this since it can break some projects
     if not TARGET_MOD and Kristal.Args["auto-mod-start"] then
         AUTO_MOD_START = true
     end
 
-    -- TARGET_MOD being already set -> is defined by the mod developer
+    -- TARGET_MOD being already set -> is defined by the project developer
     -- and we wouldn't want the user to overwrite it
     if not TARGET_MOD and Kristal.Args["mod"] then
         TARGET_MOD = Kristal.Args["mod"][1]
@@ -511,14 +544,37 @@ function love.keyreleased(key)
     Input.onKeyReleased(key)
 end
 
-function Kristal.onKeyPressed(key, is_repeat)
-    if Input.ctrl() and Input.shift() and Input.alt() and key == "t" and not is_repeat then -- Panic button for binds
-        Input.resetBinds()
-        Input.saveBinds()
-        Assets.playSound("impact")
-        return
+--- Whether or not developer mode is enabled.
+---@return boolean
+function Kristal.isDevMode()
+    if Mod ~= nil then
+        -- We're in a project, so use the project's value... unless overridden
+        return DEBUG_OVERRIDE or Mod.info.dev
     end
 
+    -- We're not in a mod; use our global value
+    return not RELEASE_MODE
+end
+
+--- Whether or not to show the "dev mode enabled" warning.
+---@return boolean
+function Kristal.shouldDisplayDevWarning()
+    if Mod ~= nil then
+        -- We're in a project
+
+        if Mod.info.dev then
+            -- Don't show it, the project allows developer mode
+            return false
+        end
+
+        return DEBUG_OVERRIDE
+    end
+
+    -- We're not even in a project
+    return false
+end
+
+function Kristal.onKeyPressed(key, is_repeat)
     if not TextInput.active and not (Input.gamepad_locked and Input.isGamepad(key)) then
         if not StringUtils.startsWith(key, "gamepad:") then
             Input.active_gamepad = nil
@@ -531,24 +587,44 @@ function Kristal.onKeyPressed(key, is_repeat)
     end
 
     if Input.shouldProcess(key) and not TextInput.active then
-        if Input.is("debug_menu", key) then
-            if Kristal.DebugSystem then
-                Input.clear("debug_menu")
-                if Kristal.DebugSystem:isMenuOpen() then
+        if Input.ctrl() and Input.shift() and Input.alt() and key == "t" and not is_repeat then -- Panic button for binds
+            Input.resetBinds()
+            Input.saveBinds()
+            Assets.playSound("impact")
+            return
+        end
+
+        if Mod ~= nil then
+            if Input.ctrl() and Input.shift() and Input.alt() and key == "m" and not is_repeat then -- Enable developer mode for the current project
+                if not DEBUG_OVERRIDE then
+                    DEBUG_OVERRIDE = true
+                    Assets.playSound("bump")
+                    Assets.playSound("him_quick")
+                end
+                return
+            end
+        end
+
+        if Kristal.isDevMode() then
+            if Input.is("debug_menu", key) then
+                if Kristal.DebugSystem then
+                    Input.clear("debug_menu")
+                    if Kristal.DebugSystem:isMenuOpen() then
+                        Assets.playSound("ui_move")
+                        Kristal.DebugSystem:closeMenu()
+                    else
+                        Kristal.DebugSystem:openMenu()
+                    end
+                end
+            elseif Input.is("console", key) then
+                if Kristal.DebugSystem and Kristal.DebugSystem:isMenuOpen() then
                     Assets.playSound("ui_move")
                     Kristal.DebugSystem:closeMenu()
-                else
-                    Kristal.DebugSystem:openMenu()
-                end
-            end
-        elseif Input.is("console", key) then
-            if Kristal.DebugSystem and Kristal.DebugSystem:isMenuOpen() then
-                Assets.playSound("ui_move")
-                Kristal.DebugSystem:closeMenu()
-            elseif Kristal.Console then
-                if not Kristal.Console.is_open then
-                    Input.clear("console")
-                    Kristal.Console:open()
+                elseif Kristal.Console then
+                    if not Kristal.Console.is_open then
+                        Input.clear("console")
+                        Kristal.Console:open()
+                    end
                 end
             end
         end
@@ -561,18 +637,42 @@ function Kristal.onKeyPressed(key, is_repeat)
     local console_open = Kristal.Console and Kristal.Console.is_open
 
     if not is_repeat and Input.shouldProcess(key) then
-        if key == "f2" or (Input.is("fast_forward", key) and not console_open) then
-            FAST_FORWARD = not FAST_FORWARD
-        elseif key == "f3" then
-            love.system.openURL("https://kristal.cc/wiki")
-        elseif key == "f4" or (key == "return" and Input.alt()) then
+        if Kristal.isDevMode() then
+            -- Developer hotkeys
+            if key == "f2" or (Input.is("fast_forward", key) and not console_open) then
+                FAST_FORWARD = not FAST_FORWARD
+            elseif key == "f3" then
+                love.system.openURL("https://kristal.cc/wiki")
+            elseif key == "f6" then
+                DEBUG_RENDER = not DEBUG_RENDER
+            elseif key == "f8" then
+                print("Hotswapping files...\nNOTE: Might be unstable. If anything goes wrong, it's not our fault :P")
+                Hotswapper.scan()
+            elseif key == "r" and Input.ctrl() and (not console_open) then
+                -- CTRL+R to reload
+                if (not Kristal.isLoading()) and (Kristal.getState() ~= LoadingState) then
+                    if Kristal.getModOption("hardReset") or Input.alt() and Input.shift() then
+                        love.event.quit("restart")
+                    else
+                        if Mod then
+                            if Input.alt() then
+                                Kristal.quickReload("none")
+                            elseif Input.shift() then
+                                Kristal.quickReload("save")
+                            else
+                                Kristal.quickReload("temp")
+                            end
+                        else
+                            Kristal.returnToMenu()
+                        end
+                    end
+                end
+            end
+        end
+
+        if key == "f4" or (key == "return" and Input.alt()) then
             Kristal.Config["fullscreen"] = not Kristal.Config["fullscreen"]
             love.window.setFullscreen(Kristal.Config["fullscreen"])
-        elseif key == "f6" then
-            DEBUG_RENDER = not DEBUG_RENDER
-        elseif key == "f8" then
-            print("Hotswapping files...\nNOTE: Might be unstable. If anything goes wrong, it's not our fault :P")
-            Hotswapper.scan()
         elseif key == "f9" and Input.shift() then
             love.filesystem.createDirectory("screenshots")
             -- FIXME: the game might freeze when using love.system.openURL to open a file directory
@@ -588,25 +688,6 @@ function Kristal.onKeyPressed(key, is_repeat)
             Assets.playSound("camera_flash")
             SCREENSHOT_DISPLAY = 0
             TAKING_SCREENSHOT = true
-        elseif key == "r" and Input.ctrl() and (not console_open) then
-            -- CTRL+R to reload
-            if (not Kristal.isLoading()) and (Kristal.getState() ~= LoadingState) then
-                if Kristal.getModOption("hardReset") or Input.alt() and Input.shift() then
-                    love.event.quit("restart")
-                else
-                    if Mod then
-                        if Input.alt() then
-                            Kristal.quickReload("none")
-                        elseif Input.shift() then
-                            Kristal.quickReload("save")
-                        else
-                            Kristal.quickReload("temp")
-                        end
-                    else
-                        Kristal.returnToMenu()
-                    end
-                end
-            end
         end
     end
 
@@ -647,8 +728,17 @@ end
 --- Called when an error occurs.
 ---@param  msg string|table     The error message.
 ---@param trace_level integer?
----@return function|nil handler The error handler, called every frame instead of the main loop.
+---@return function? handler The error handler, called every frame instead of the main loop.
 function Kristal.errorHandler(msg, trace_level)
+    if Mod then
+        local status, err = pcall(function()
+            Kristal.callEvent(KRISTAL_EVENT.cleanup)
+        end)
+        if not status then
+            -- msg = err
+        end
+    end
+    
     Draw.reset()
 
     local copy_color = { 1, 1, 1, 1 }
@@ -1019,7 +1109,7 @@ end
 ---@param state table|string The gamestate to switch to.
 ---| "Loading" # The loading state, before entering the main menu.
 ---| "Menu"    # The main menu state.
----| "Game"    # The game state, entered when loading a mod.
+---| "Game"    # The game state, entered when loading a project.
 ---| "Testing" # The testing state, used in development.
 ---| "Debug"   # Unused
 ---| "Empty"   # An empty state, which does nothing.
@@ -1051,7 +1141,7 @@ end
 ---@param state table|string The gamestate to switch to.
 ---| "Loading" # The loading state, before entering the main menu.
 ---| "Menu"    # The main menu state.
----| "Game"    # The game state, entered when loading a mod.
+---| "Game"    # The game state, entered when loading a project.
 ---| "Testing" # The testing state, used in development.
 ---| "Empty"   # An empty state, which does nothing.
 ---@param ... any Arguments passed to the gamestate.
@@ -1172,19 +1262,43 @@ function Kristal.getVolume()
     return Kristal.Config["masterVolume"]
 end
 
---- Clears all state expected to be changed by mods. \
---- Called internally when exiting or reloading a mod.
+function Kristal.resetDevMode()
+    DEBUG_OVERRIDE = false
+
+    FAST_FORWARD = false
+    DEBUG_RENDER = false
+    NOCLIP = false
+end
+
+--- Clears all state expected to be changed by projects. \
+--- Called internally when exiting or reloading a project.
 function Kristal.clearModState()
     -- Clear disruptive active globals
     Object._clearCache()
     Draw._clearStacks()
+
     MOD_LOADING = false
-    -- End the current mod
+
+    Kristal.LoadedModScripts = {}
+
+    -- End the current project
     Kristal.callEvent(KRISTAL_EVENT.unload)
+    Kristal.callEvent(KRISTAL_EVENT.cleanup)
     Mod = nil
 
-    -- TODO: make this work with the plugin loader
-    -- Kristal.Mods.clear()
+    Kristal.resetDevMode()
+
+    -- Close the console or debug menu if open
+    -- (We don't care much if someone "smuggles" them out of the Game state, but we'll try to close them if we can)
+    if Kristal.DebugSystem then
+        Kristal.DebugSystem:closeMenu()
+    end
+
+    if Kristal.Console then
+        Kristal.Console:close()
+    end
+
+    Kristal.Mods.clear()
     Kristal.clearModHooks()
     Kristal.clearModSubclasses()
 
@@ -1207,6 +1321,7 @@ function Kristal.clearModState()
 
     -- Restore assets and registry
     Assets.restoreData()
+    Assets.getBucket("project"):unload()
     Registry.restoreData()
 
     Kristal.reloadnoel()
@@ -1215,12 +1330,12 @@ function Kristal.clearModState()
     collectgarbage("collect")
 end
 
---- Exits the current mod and returns to the Kristal menu.
+--- Exits the current project and returns to the Kristal menu.
 function Kristal.returnToMenu()
     -- Go to empty state
     Kristal.setState("Empty")
 
-    -- Clear the mod
+    -- Clear the project
     Kristal.clearModState()
 	
 	Kristal.loadAssets("", "plugins", "")
@@ -1231,7 +1346,7 @@ function Kristal.returnToMenu()
         return
     end
 
-    -- Reload mods and return to memu
+    -- Reload projects and return to memu
     Kristal.loadAssets("", "mods", "", function()
         Kristal.setDesiredWindowTitleAndIcon()
         Kristal.setState(MainMenu)
@@ -1245,11 +1360,11 @@ function Kristal.returnToMenu()
     end
 end
 
---- Reloads the current mod.
----@param mode string The mode to reload the mod in.
----| "temp" # Creates a temp-save and reloads the mod from there.
----| "save" # Reloads the mod from the last save.
----| "none" # Fully reloads the mod from the start of the game.
+--- Reloads the current project.
+---@param mode string The mode to reload the project in.
+---| "temp" # Creates a temp-save and reloads the project from there.
+---| "save" # Reloads the project from the last save.
+---| "none" # Fully reloads the project from the start of the game.
 function Kristal.quickReload(mode)
     if Kristal.isLoading() then
         error("Attempt to reload while loading")
@@ -1268,23 +1383,30 @@ function Kristal.quickReload(mode)
         save_id = Game.save_id
     end
 
-    -- Temporarily save the current mod id
+    -- Temporarily save the current project id
     local mod_id = Mod.info.id
 
     -- Go to empty state
     Kristal.setState("Empty")
 
-    -- Clear the mod
+    -- Clear the project
     Kristal.clearModState()
-	-- Reload plugins
-	Kristal.loadAssets("", "plugins", "")
-    -- Reload mods
+
+    -- Reload plugins
+    Kristal.loadAssets("", "plugins", "")
+
+    -- Refresh the debug menu since we're changing states
+    if Kristal.DebugSystem then
+        Kristal.DebugSystem:refresh()
+    end
+
+    -- Reload projects
     Kristal.loadAssets("", "mods", "", function()
         Kristal.setDesiredWindowTitleAndIcon()
-        -- Reload the current mod directly
+        -- Reload the current project directly
         if mode ~= "save" then
             Kristal.loadMod(mod_id, nil, nil, function()
-                -- Pre-initialize the current mod
+                -- Pre-initialize the current project
                 if Kristal.preInitMod(mod_id) then
                     Kristal.setDesiredWindowTitleAndIcon()
                     if save then
@@ -1311,7 +1433,7 @@ function Kristal.quickReload(mode)
 end
 
 --- Clears all currently loaded assets. Called internally in the Loading state.
----@param include_mods boolean Whether to clear loaded mods.
+---@param include_mods boolean Whether to clear loaded projects.
 function Kristal.clearAssets(include_mods)
     Assets.clear()
     if include_mods then
@@ -1344,25 +1466,38 @@ function Kristal.loadAssets(dir, loader, paths, after)
         paths = paths
     })
     Kristal.Loader.next_key = Kristal.Loader.next_key + 1
+    if loader == "mods" then
+        -- Empty because I absolutely DESPISE LOGIC!! :jellycruel:
+    elseif Assets.getBucket("engine").state == AssetBucket.State.UNLOADED then
+        local paths4real = (type(paths) == "string" and {paths} or paths) ---@as string[]?
+        for i = 1, #paths4real do
+            paths4real[i] = paths4real[i] .. "/assets"
+            if paths4real[i] == "/assets" then
+                paths4real[i] = "assets"
+            end
+        end
+        Assets.getBucket("engine"):startLoading(paths4real)
+    else
+    end
 end
 
---- Initializes the specified mod and loads its assets. \
---- If an `after` callback is not provided, enters the mod, including dark transition if enabled.
----@param id         string   The id of the mod to load.
----@param save_id?   number   The id of the save to load the mod from. (1-3)
+--- Initializes the specified project and loads its assets. \
+--- If an `after` callback is not provided, enters the project, including dark transition if enabled.
+---@param id         string   The id of the project to load.
+---@param save_id?   number   The id of the save to load the project from. (1-3)
 ---@param save_name? string   The name to use for the save file.
 ---@param after?     function The function to call after assets have been loaded.
----@return boolean   success  Whether the mod was loaded successfully.
+---@return boolean   success  Whether the project was loaded successfully.
 function Kristal.loadMod(id, save_id, save_name, after)
-    -- Get the mod data (loaded from mod.json)
+    -- Get the project data (loaded from mod.json)
     local mod = Kristal.Mods.getAndLoadMod(id)
 
-    -- No mod found; nothing to load
+    -- No project found; nothing to load
     if not mod then return false end
 
     -- Create the Mod table, which is a global table that
-    -- can contain a mod's custom variables and functions
-    -- with Mod.info referencing the mod data (from the .json)
+    -- can contain a project's custom variables and functions
+    -- with Mod.info referencing the project data (from the .json)
     Mod = Mod or { info = mod, libs = {} }
 
     -- Check for mod.lua
@@ -1409,61 +1544,60 @@ function Kristal.loadMod(id, save_id, save_name, after)
 
         -- Add the current library to the libs table (again, with the real final value)
         Mod.libs[lib_id] = lib
+        -- Cache the library to be accessible through modRequire/libRequire
+        Kristal.LoadedModScripts["libraries." .. lib_id .. ".lib"] = lib
+    end
+
+    if Mod.info.dev == nil then
+        -- No explicit dev mode value, default to true
+        Mod.info.dev = true
     end
 
     Kristal.loadModAssets(mod.id, "all", "", after or function()
         if Kristal.preInitMod(mod.id) then
             Kristal.setDesiredWindowTitleAndIcon()
             Kristal.setState("Game", save_id, save_name)
+            Kristal.resetDevMode()
         end
     end)
 
     return true
 end
 
---- Loads assets from a mod and its libraries. Called internally by `Kristal.loadMod`.
----@param id           string       The id of the mod to load assets from.
+--- Loads assets from a project and its libraries. Called internally by `Kristal.loadMod`.
+---@param id           string       The id of the project to load assets from.
 ---@param asset_type?  string       The type of assets to load. (Defaults to "all")
 ---@param asset_paths? string|table The specific asset paths to load.
 ---@param after        function     The function to call after assets have been loaded.
 function Kristal.loadModAssets(id, asset_type, asset_paths, after)
-    -- Get the mod data (loaded from mod.json)
+    -- Get the project data (loaded from mod.json)
     local mod = Kristal.Mods.getAndLoadMod(id)
 
-    -- No mod found; nothing to load
+    -- No project found; nothing to load
     if not mod then return end
 
-    -- How many assets we need to load (1 for the mod, 1 for each library)
-    local load_count = 1 + #mod.lib_order
-
-    -- Begin mod loading
+    -- Begin project loading
     MOD_LOADING = true
 
-    local function finishLoadStep()
-        -- Finish one load process
-        load_count = load_count - 1
-        -- Check if all load processes are done (mod and libraries)
-        if load_count == 0 then
-            -- Finish mod loading
-            MOD_LOADING = false
-
-            -- Call the after function
-            after()
-        end
-    end
-
+    local paths4real = {}
     -- Finally load all assets (libraries first)
     for _, lib_id in ipairs(mod.lib_order) do
-        if not mod.libs[lib_id].preload_assets then
-            Kristal.loadAssets(mod.libs[lib_id].path, asset_type or "all", asset_paths or "", finishLoadStep)
-        else
-            finishLoadStep()
-        end
+        table.insert(paths4real, mod.libs[lib_id].path .. "/assets")
     end
-    Kristal.loadAssets(mod.path, asset_type or "all", asset_paths or "", finishLoadStep)
+    table.insert(paths4real, mod.path .. "/assets")
+    -- TODO: Make plugins use a dedicated bucket
     for plugin in Kristal.PluginLoader.iterPlugins(true) do
+        table.insert(paths4real, plugin.path .. "/assets")
         Kristal.loadAssets(plugin.path, asset_type or "all", asset_paths or "", finishLoadStep)
     end
+    Assets.getBucket("project"):startLoading(paths4real)
+    if Kristal.Config["projectLoadingMode"] == LoadingMode.FULL then
+        Kristal.setState("ProjectLoading", after)
+    else
+        MOD_LOADING = false
+        after()
+    end
+    Kristal.loadAssets(mod.path, asset_type or "all", asset_paths or "", finishLoadStep)
 end
 
 function Kristal.startGameDPR(save_id, save_name, after)
@@ -1542,17 +1676,17 @@ local function shouldWindowUseModBranding()
     if mod then
         -- NOTE: setWindowTitle is the previous name of setWindowTitleAndIcon
         if TARGET_MOD then
-            -- Unless the mod explicitly says it doesn't want to use mod branding, use it
+            -- Unless the project explicitly says it doesn't want to use mod branding, use it
             use_mod_branding = (mod.setWindowTitleAndIcon or mod.setWindowTitle) ~= false
         else
-            -- If the mod explicitly says it wants to use mod branding, use it
+            -- If the project explicitly says it wants to use mod branding, use it
             use_mod_branding = mod.setWindowTitleAndIcon or mod.setWindowTitle
         end
     end
     return use_mod_branding and mod
 end
 
---- Called internally. Returns the current running/target mod's name
+--- Called internally. Returns the current running/target project's name
 --- if it wants us to, or the default. \
 --- Also see Kristal.setDesiredWindowTitleAndIcon().
 function Kristal.getDesiredWindowTitle()
@@ -1561,8 +1695,14 @@ function Kristal.getDesiredWindowTitle()
 end
 
 --- Called internally. Sets the title and icon of the game window
---- to either what mod requests to be or the defaults.
+--- to either what project requests to be or the defaults.
 function Kristal.setDesiredWindowTitleAndIcon()
+    if Kristal.DessYouFuckingIdiot then
+        love.window.setTitle("")
+        love.window.setIcon(love.image.newImageData(1, 1))
+        return
+    end
+
     local mod = shouldWindowUseModBranding()
     love.window.setIcon(mod and mod.window_icon_data or Kristal.icon)
     love.window.setTitle(mod and mod.name or Kristal.game_default_name)
@@ -1602,6 +1742,7 @@ Kristal.funny_titles = {
     "Undertale Yellow: The Roba Edition",
     "Power Star",
     "Doki Doki Literature Club!",
+    "Need a hand!?",
 }
 -- Sets a random title and icon to the game window.
 function Kristal.funnytitle(force_icon)
@@ -1614,14 +1755,14 @@ function Kristal.funnytitle(force_icon)
     love.window.setIcon(funnyicon)
 end
 
---- Called internally. Calls the `preInit` event on the mod and initializes the registry.
----@param id string        The id of the mod to pre-initialize.
----@return boolean success Whether the mod should use default handling to enter the game.
+--- Called internally. Calls the `preInit` event on the project and initializes the registry.
+---@param id string        The id of the project to pre-initialize.
+---@return boolean success Whether the project should use default handling to enter the game.
 function Kristal.preInitMod(id)
-    -- Get the mod data (loaded from mod.json)
+    -- Get the project data (loaded from mod.json)
     local mod = Kristal.Mods.getAndLoadMod(id)
 
-    -- No mod found; nothing to load
+    -- No project found; nothing to load
     if not mod then return false end
 
     -- Whether to call the "after" function
@@ -1658,13 +1799,22 @@ function Kristal.resetWindow()
         window_height                     = window_height + border_height
     end
 
-    love.window.setMode(
+    local properties = {
+        fullscreen = Kristal.Config["fullscreen"],
+        vsync = Kristal.Config["vSync"],
+    }
+
+    local major, _, _, _ = love.getVersion()
+
+    if major < 12 then
+        properties.highdpi = true
+        properties.usedpiscale = false
+    end
+
+    love.window.updateMode(
         love.window.fromPixels(window_width),
         love.window.fromPixels(window_height),
-        {
-            fullscreen = Kristal.Config["fullscreen"],
-            vsync = Kristal.Config["vSync"]
-        }
+        properties
     )
 
     -- Force tilelayers to redraw, since resetWindow destroys their canvases
@@ -1724,7 +1874,7 @@ function Kristal.getRelativeBorderSize()
     return 0, 0
 end
 
----@return Border|nil border The currently displayed border, or `nil` if borders are disabled.
+---@return Border? border The currently displayed border, or `nil` if borders are disabled.
 function Kristal.getBorder()
     if not REGISTRY_LOADED then
         return nil
@@ -1743,12 +1893,12 @@ function Kristal.getBorder()
     return nil
 end
 
----@return Border|nil border The currently displayed border if dynamic borders are enabled.
+---@return Border? border The currently displayed border if dynamic borders are enabled.
 function Kristal.processDynamicBorder()
     if Kristal.getState() == Game then
         return Game:getBorder()
     elseif Kristal.getState() == MainMenu then
-        return ImageBorder("castle")
+        return ImageBorder("mainhub")
     end
 end
 
@@ -1829,7 +1979,7 @@ function Kristal.getSoulColor()
     if Kristal.getState() == Game then
         return Game:getSoulColor()
     end
-    return COLORS.red[1], COLORS.red[2], COLORS.red[3], COLORS.red[4]
+    return 1, 0, 0, 1
 end
 
 --- Returns the soul facing direction which should be used.
@@ -1851,7 +2001,6 @@ function Kristal.loadConfig()
         fps = 30,
         vSync = false,
         frameSkip = false,
-        debug = true,
         fullscreen = false,
         simplifyVFX = false,
         ardlc = false,
@@ -1867,10 +2016,12 @@ function Kristal.loadConfig()
         defaultName = "",
         skipNameEntry = false,
         verboseLoader = false,
+        projectLoadingMode = LoadingMode.SEMI_LAZY,
         ["plugins/enabled_plugins"] = {},
         dLoad = true,
         altAttack = false,
-        brokenMenuBoxes = false
+        brokenMenuBoxes = false,
+        musicDistort = true
     }
     if love.filesystem.getInfo("settings.json") then
         TableUtils.merge(config, JSON.decode(love.filesystem.read("settings.json")))
@@ -1897,6 +2048,7 @@ end
 --- Loads the game from a save file.
 ---@param id?   number  The save file index to load. (Defaults to the currently loaded save index)
 ---@param fade? boolean Whether the game should fade in after loading. (Defaults to `false`)
+---@return boolean valid If false, another DLC started to load. Used to stop Game from loading
 function Kristal.loadGame(id, fade)
     id = id or Game.save_id
     local data = Kristal.getSaveFile(id)
@@ -1905,21 +2057,29 @@ function Kristal.loadGame(id, fade)
         if data.mod == Mod.info.id then
             Game:load(data, id, fade)
         else
+            -- I think we need a better way to load into another DLC
+            -- This happens too late in the loading process
+            -- Because we don't switch before, we end up having to restart the whole process in the right DLC
             Kristal.setState({})
             Kristal.clearModState()
+            -- This function is async, which means we have to stop Game from loading itself
+            -- Otherwise it keeps loading without actually having data
             Kristal.loadAssets("", "mods", "", function()
                 Kristal.startGameDPR(id, data.name)
             end)
+            return false
         end
     else
         Game:load(nil, id, fade)
     end
+    return true
 end
 
 --- Returns the data from the specified save file.
 ---@param id?   number    The save file index to load. (Defaults to the currently loaded save index)
----@return table|nil data The data loaded from the save file, or `nil` if the file doesn't exist.
-function Kristal.getSaveFile(id)
+---@param path? string    The save folder to load from. (Defaults to the current project's save folder)
+---@return table? data The data loaded from the save file, or `nil` if the file doesn't exist.
+function Kristal.getSaveFile(id, path)
     id = id or Game.save_id
     local full_path = "saves" .. "/file_" .. id .. ".json"
     if love.filesystem.getInfo(full_path) then
@@ -1930,14 +2090,16 @@ end
 
 --- Returns whether the specified save file exists.
 ---@param id?   number    The save file index to check. (Defaults to the currently loaded save index)
+---@param _path? string    The save folder to check. (Defaults to the current project's save folder). Unused in DPR.
 ---@return boolean exists Whether the save file exists.
-function Kristal.hasSaveFile(id)
+function Kristal.hasSaveFile(id, _path)
     id = id or Game.save_id
     local full_path = "saves" .. "/file_" .. id .. ".json"
     return love.filesystem.getInfo(full_path) ~= nil
 end
 
 --- Returns whether the specified save folder has any save files.
+---@param path? string    The save folder to check. (Defaults to the current project's save folder).
 ---@return boolean exists Whether the save folder has any save files.
 function Kristal.hasAnySaves(path)
     local full_path = "saves/" .. (path or Mod.info.id)
@@ -1954,14 +2116,16 @@ end
 --- Saves the given data to a file in the save folder.
 ---@param file  string The file name to save to.
 ---@param data  table  The data to save.
-function Kristal.saveData(file, data)
+---@param _path? string The save folder to save to. (Defaults to the current project's save folder). Unused in DPR.
+function Kristal.saveData(file, data, _path)
     love.filesystem.write("saves/" .. file .. ".json", JSON.encode(data or {}))
 end
 
 --- Loads and returns the data from a file in the save folder.
 ---@param file  string    The file name to load.
----@return table|nil data The data loaded from the file, or `nil` if the file doesn't exist.
-function Kristal.loadData(file)
+---@param path? string    The save folder to load from. (Defaults to the current project's save folder)
+---@return table? data The data loaded from the file, or `nil` if the file doesn't exist.
+function Kristal.loadData(file, path)
     local full_path = "saves/" .. file .. ".json"
     if love.filesystem.getInfo(full_path) then
         return JSON.decode(love.filesystem.read(full_path))
@@ -1987,7 +2151,7 @@ end
 --- Calls a function from the specified library, if it exists. \
 --- If `id` is not specified, the function will be called in all libraries, and the return value \
 --- will be `or`'d between libraries.
----@param id  string|nil The library ID to call the function from, or `nil` to call in all libraries.
+---@param id  string? The library ID to call the function from, or `nil` to call in all libraries.
 ---@param f   string     The function name to call.
 ---@param ... any        The arguments to pass to the function.
 ---@return ...           The returned values from the function call, if it exists.
@@ -2013,7 +2177,7 @@ function Kristal.libCall(id, f, ...)
     end
 end
 
---- Calls a function from all libraries, and then the current mod.
+--- Calls a function from all libraries, and then the current project.
 ---@param f   string  The function name to call.
 ---@param ... any     The arguments to pass to the function.
 ---@return any result The result of the function calls `or`'d together.
@@ -2041,7 +2205,7 @@ function Kristal.modGet(key)
     end
 end
 
---- Gets a value from the current mod's `mod.json`.
+--- Gets a value from the current project's `mod.json`.
 ---@param key string The key of the value to get.
 ---@return any value The value at the key, or `nil` if it doesn't exist.
 function Kristal.getModOption(key)
@@ -2092,7 +2256,7 @@ function Kristal.getLibConfig(lib_id, key, merge, deep_merge)
     end
 end
 
---- Executes a `.lua` script inside the mod folder.
+--- Executes a `.lua` script inside the project folder.
 ---@param path string      The script name to execute.
 ---@param ...  any         The arguments to pass to the script.
 ---@return boolean success Whether the script was executed successfully.
@@ -2108,7 +2272,7 @@ end
 
 --- Executes a `.lua` script inside the specified library folder. \
 --- If `id` is not specified, the first script found from any library will be executed.
----@param lib  string|nil  The library ID to execute the script from, or `nil` to execute from any library.
+---@param lib  string?  The library ID to execute the script from, or `nil` to execute from any library.
 ---@param path string      The script name to execute.
 ---@param ...  any         The arguments to pass to the script.
 ---@return boolean success Whether the script was executed successfully.
@@ -2127,8 +2291,8 @@ function Kristal.executeLibScript(lib, path, ...)
         end
         return false
     else
-        local library = Mod.libs[lib]
-        local chunk = library and (library.info.script_chunks[path] or library.info.script_chunks[path .. "/init"])
+        local library = Mod.info.libs[lib]
+        local chunk = library and (library.script_chunks[path] or library.script_chunks[path .. "/init"])
         if not chunk then
             return false
         else
@@ -2151,8 +2315,8 @@ function Kristal.iterLibraries()
     end
 end
 
---- Clears all mod-defined hooks from `Utils.hook`, and restores the original functions. \
---- Called internally when a mod is unloaded.
+--- Clears all project-defined hooks from `Utils.hook`, and restores the original functions. \
+--- Called internally when a project is unloaded.
 function Kristal.clearModHooks()
     for _, hook in ipairs(HookSystem.__MOD_HOOKS) do
         hook.target[hook.name] = hook.orig
@@ -2160,8 +2324,8 @@ function Kristal.clearModHooks()
     HookSystem.__MOD_HOOKS = {}
 end
 
---- Removes all mod-defined classes from base classes' `__includers` table.
---- Called internally when a mod is unloaded.
+--- Removes all project-defined classes from base classes' `__includers` table.
+--- Called internally when a project is unloaded.
 function Kristal.clearModSubclasses()
     for class, subs in pairs(MOD_SUBCLASSES) do
         for _, sub in ipairs(subs) do
@@ -2173,17 +2337,28 @@ function Kristal.clearModSubclasses()
     MOD_SUBCLASSES = {}
 end
 
---- Executes a `.lua` script inside the mod folder.
+--- Executes a `.lua` script inside the project folder.
 ---@param path string  The script name to execute.
 ---@param ...  any     The arguments to pass to the script.
 ---@return any ...     The returned values from the script.
 ---@diagnostic disable-next-line: lowercase-global
 function modRequire(path, ...)
-    path = path:gsub("%.", "/")
-    local success, result = Kristal.executeModScript(path, ...)
-    if not success then
-        error("No script found: " .. path)
+    if Kristal.LoadedModScripts[path] ~= nil then
+        return Kristal.LoadedModScripts[path]
     end
+    local success, result
+    if StringUtils.startsWith(path, "libraries.") then
+        local _,_, lib_id, remaining_path = string.find(path, "libraries%.([^.]*)%.(.*)")
+        assert(lib_id and remaining_path, "Invalid library require syntax. Expected \"libraries.<lib ID>.<script>\"")
+        result = libRequire(lib_id, remaining_path)
+    else
+        local path_slashes = path:gsub("%.", "/")
+        success, result = Kristal.executeModScript(path_slashes, ...)
+        if not success then
+            error("No script found: " .. path_slashes)
+        end
+    end
+    Kristal.LoadedModScripts[path] = result
     return result
 end
 
@@ -2194,11 +2369,17 @@ end
 ---@return any ...     The returned values from the script.
 ---@diagnostic disable-next-line: lowercase-global
 function libRequire(lib, path, ...)
+    assert(Mod.info.libs[lib], string.format("Unknown library \"%s\".", lib))
+    local full_path = "libraries." .. lib .. "." ..path
+    if Kristal.LoadedModScripts[full_path] then
+        return Kristal.LoadedModScripts[full_path]
+    end
     path = path:gsub("%.", "/")
     local success, result = Kristal.executeLibScript(lib, path, ...)
     if not success then
         error("No script found: " .. path)
     end
+    Kristal.LoadedModScripts[full_path] = result
     return result
 end
 

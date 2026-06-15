@@ -133,6 +133,10 @@ function character:init()
     self.xact_color = {208/255/2, 1, 1}
 
     self.icon_color = {208/255, 1, 1}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#D0FFFFFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#ACD3D3FF")
 
     -- Head icon in the equip / power menu
     self.menu_icon = "party/len/head"

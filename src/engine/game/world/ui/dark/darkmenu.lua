@@ -78,7 +78,7 @@ function DarkMenu:getDotSpacing()
     if #self.buttons <= 8 then
         return 50
     else
-        return 50 - Utils.round((#self.buttons/3*#self.buttons/3))
+        return 50 - MathUtils.round((#self.buttons/3*#self.buttons/3))
     end
 end
 
@@ -159,7 +159,8 @@ function DarkMenu:addButtons()
         ["hovered_sprite"] = Assets.getTexture("ui/menu/btn/talk_h"),
         ["desc_sprite"]    = Assets.getTexture("ui/menu/desc/talk"),
         ["callback"]       = function()
-            Game.world:startCutscene("_talk", "main", Game.world.map.id, Game.party[1].id)
+            Game.world.map.talk_count = (Game.world.map.talk_count or 0) + 1
+            Game.world:startCutscene("_talk", "main", Game.world.map.id, Game.party[1].id, Game.world.map.talk_count)
 
             self.ui_select:stop()
             self.ui_select:play()
@@ -436,8 +437,12 @@ function DarkMenu:draw()
     Draw.setColor(1, 1, 1)
 
     love.graphics.setFont(self.font)
-    love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, (#self.buttons > 5 and 20) or 26)
-
+	if Game:getFlag("pointsDisplay", false) and Game:getFlag("points", 0) > 0 then
+		love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, 13)
+		love.graphics.print("PTs " .. Game:getFlag("points", 0), 520, 41)
+	else
+		love.graphics.print(Game:getConfig("darkCurrencyShort") .. " " .. Game.money, 520, 20)
+	end
     super.draw(self)
 end
 

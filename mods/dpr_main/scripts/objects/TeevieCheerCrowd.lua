@@ -10,11 +10,12 @@ function TeevieCheerCrowd:init(x, y, width, height)
 	self.siner_speed = 0
 	self.anim = 0
 	self.anim_speed = 0
-	self.current_y_pos = 280 + 180
+	self.current_y_pos = 500
 	self.glitz_active = false
 	self.lerp_speed = 0.2
 	self.gradient_style = "smooth"
 	self.dess_moment = 0
+	self.type = 0
 end
 
 function TeevieCheerCrowd:update()
@@ -22,29 +23,30 @@ function TeevieCheerCrowd:update()
 	
 	self.siner = self.siner + self.siner_speed * DTMULT
 	self.anim = self.anim + self.anim_speed * DTMULT
-	
-	if self.dess_moment == 0 then
-		if self.glitz_active then
-			self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280, 0.6*DTMULT)
-			self.siner_speed = 0.4
-			self.anim_speed = 0.2
-		else
-			self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 180, 0.1*DTMULT)
-			self.siner_speed = MathUtils.lerp(self.siner_speed, 0, 0.01*DTMULT)
-			self.anim_speed = MathUtils.lerp(self.anim_speed, 0, 0.01*DTMULT)
+	if self.type == 1 then
+		if self.dess_moment == 0 then
+			if self.glitz_active then
+				self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280, 0.6*DTMULT)
+				self.siner_speed = 0.4
+				self.anim_speed = 0.2
+			else
+				self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 140, 0.1*DTMULT)
+				self.siner_speed = MathUtils.lerp(self.siner_speed, 0, 0.01*DTMULT)
+				self.anim_speed = MathUtils.lerp(self.anim_speed, 0, 0.01*DTMULT)
+			end
+		elseif self.dess_moment == 1 then
+			self.siner_speed = 0
+			self.anim_speed = 0
+		elseif self.dess_moment == 2 then
+			self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 180, 0.05*DTMULT)
+			self.siner_speed = 0
+			self.anim_speed = 0
 		end
-	elseif self.dess_moment == 1 then
-		self.siner_speed = 0
-		self.anim_speed = 0
-	elseif self.dess_moment == 2 then
-		self.current_y_pos = MathUtils.lerp(self.current_y_pos, 280 + 180, 0.05*DTMULT)
-		self.siner_speed = 0
-		self.anim_speed = 0
-	end
-	
-	if Game.world:hasCutscene() or Game.world.encountering_enemy or Game.world.state == "MENU" or Game.state ~= "OVERWORLD" then
-		self.siner_speed = 0
-		self.anim_speed = 0
+		
+		if Game.world:hasCutscene() or Game.world.encountering_enemy or Game.world.state == "MENU" or Game.state ~= "OVERWORLD" then
+			self.siner_speed = 0
+			self.anim_speed = 0
+		end
 	end
 end
 

@@ -53,7 +53,7 @@
 ---
 ---@field component_stack Component[]
 ---
----@field button_sprites table<string, string|{switch:string|nil, ps4:string|nil, xbox:string|nil}>
+---@field button_sprites table<string, string|{switch:string?, ps4:string?, xbox:string?}>
 ---
 local Input = {}
 local self = Input
@@ -180,7 +180,7 @@ end
 
 ---@param key string
 ---@param gamepad? boolean
----@return (string|string[])[]|nil
+---@return (string|string[])[]?
 function Input.getBoundKeys(key, gamepad)
     if gamepad == nil then
         local key_bindings = Input.key_bindings[key]
@@ -463,13 +463,23 @@ function Input.setBind(alias, index, key, gamepad)
         end
     end
 
-    local is_gamepad_button = StringUtils.startsWith(key, "gamepad:")
-    if is_gamepad_button ~= gamepad or false then
-        -- Cannot assign gamepad button to key or vice versa
-        return false
+    if type(key) == "table" then
+        for _, k in ipairs(key) do
+            local is_gamepad_key = StringUtils.startsWith(k, "gamepad:")
+            if is_gamepad_key ~= (gamepad or false) then
+                -- Cannot assign gamepad button to key or vice versa
+                return false
+            end
+        end
+    else
+        local is_gamepad_button = StringUtils.startsWith(key, "gamepad:")
+        if is_gamepad_button ~= (gamepad or false) then
+            -- Cannot assign gamepad button to key or vice versa
+            return false
+        end
     end
 
-    if self.group_for_key[key] then
+    if type(key) ~= "table" and self.group_for_key[key] then
         key = self.group_for_key[key]
     end
 
@@ -498,7 +508,7 @@ end
 
 ---@param alias string
 ---@param gamepad? boolean
----@return string|string[]|nil
+---@return string|string[]?
 function Input.getPrimaryBind(alias, gamepad)
     if gamepad == nil then
         gamepad = Input.usingGamepad()
@@ -509,7 +519,7 @@ end
 
 ---@param key? string
 ---@param clear_down? boolean
----@return boolean|nil
+---@return boolean?
 function Input.clear(key, clear_down)
     if key then
         local bindings = Input.getBoundKeys(key)
@@ -1046,7 +1056,7 @@ function Input.getTexture(alias, gamepad)
     return Assets.getTexture("kristal/buttons/unknown")
 end
 
----@return "switch"|"ps4"|"xbox"|nil
+---@return "switch"|"ps4"|"xbox"?
 function Input.getControllerType()
     if not Input.connected_gamepad then return nil end
 

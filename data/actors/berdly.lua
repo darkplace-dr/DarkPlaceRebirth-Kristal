@@ -11,7 +11,7 @@ function actor:init()
     self.height = 41
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {2, 25, 20, 14}
+    self.hitbox = {2, 25, 18, 14}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {0, 0, 1}
@@ -59,6 +59,7 @@ function actor:init()
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/defeat", 1/15, false},
+        ["battle/succumbed"]    = {"battle/defeat", 1/15, false},
 
         ["battle/transition"]   = {"battle/transition", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, true},

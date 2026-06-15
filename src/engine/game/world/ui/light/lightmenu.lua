@@ -42,14 +42,14 @@ function LightMenu:init()
 
     self.info_box = UIBox(56, 76, 94, 62)
     self:addChild(self.info_box)
-    self:realign()
 
     if Game:getFlag("has_cell_phone") then
-        self.choice_box = UIBox(56, 192, 94, 126)
+        self.choice_box = UIBox(56, 192, 94, 136)
     else
         self.choice_box = UIBox(56, 192, 94, 100)
     end
     self:addChild(self.choice_box)
+    self:realign()
 
     self.storage = "items"
 end
@@ -165,18 +165,27 @@ function LightMenu:realign()
     self.top = player_y > 260
 
     local offset = 0
+    local offset2 = 0
     if self.top then
         offset = 270
+		if Game:getFlag("has_cell_phone") then
+			offset2 = -36
+		end
     end
     self.info_box.y = 76 + offset
+    self.choice_box.y = 192 + offset2
 end
 
 function LightMenu:draw()
     super.draw(self)
 
     local offset = 0
+    local offset2 = 0
     if self.top then
         offset = 270
+		if Game:getFlag("has_cell_phone") then
+			offset2 = -36
+		end
     end
 
     local chara = Game.party[1]
@@ -196,26 +205,26 @@ function LightMenu:draw()
     else
         Draw.setColor(PALETTE["world_gray"])
     end
-    love.graphics.print("ITEM", 84, 188 + (36 * 0))
+    love.graphics.print("ITEM", 84, offset2 + 188 + (36 * 0))
     Draw.setColor(PALETTE["world_text"])
-    love.graphics.print("STAT", 84, 188 + (36 * 1))
+    love.graphics.print("STAT", 84, offset2 + 188 + (36 * 1))
     if Game:getFlag("has_cell_phone", false) then
         if #Game.world.calls > 0 then
             Draw.setColor(PALETTE["world_text"])
         else
             Draw.setColor(PALETTE["world_gray"])
         end
-        love.graphics.print("CELL", 84, 188 + (36 * 2))
+        love.graphics.print("CELL", 84, offset2 + 188 + (36 * 2))
         Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("TALK", 84, 188 + (36 * 3))
+        love.graphics.print("TALK", 84, offset2 + 188 + (36 * 3))
     else
         Draw.setColor(PALETTE["world_text"])
-        love.graphics.print("TALK", 84, 188 + (36 * 2))
+        love.graphics.print("TALK", 84, offset2 + 188 + (36 * 2))
     end
 
     if self.state == "MAIN" then
         Draw.setColor(Game:getSoulColor())
-        Draw.draw(self.heart_sprite, 56, 160 + (36 * self.current_selecting), 0, 2, 2)
+        Draw.draw(self.heart_sprite, 56, offset2 + 160 + (36 * self.current_selecting), 0, 2, 2)
     end
 end
 

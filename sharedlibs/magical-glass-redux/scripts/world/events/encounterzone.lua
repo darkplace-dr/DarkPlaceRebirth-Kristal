@@ -10,10 +10,10 @@ function EncounterZone:init(data)
     self.width = data.width
     self.height = data.height
 
-    self.group = MagicalGlassLib:createRandomEncounter(data.properties["encgroup"])
+    self.random_encounter = Mod.libs["magical-glass"]:createRandomEncounter(data.properties["randomencounter"])
 
-    if MagicalGlassLib.steps_until_encounter == nil or MagicalGlassLib.steps_until_encounter and MagicalGlassLib.steps_until_encounter < 0 then
-        self.group:resetSteps(true)
+    if Mod.libs["magical-glass"].steps_until_encounter == nil or Mod.libs["magical-glass"].steps_until_encounter and Mod.libs["magical-glass"].steps_until_encounter < 0 then
+        self.random_encounter:resetSteps(true)
     end
 
     local s = data.shape
@@ -25,7 +25,7 @@ function EncounterZone:init(data)
     end
 
     self.accepting = false
-    MagicalGlassLib.in_encounter_zone = false
+    Mod.libs["magical-glass"].in_encounter_zone = false
 end
 
 function EncounterZone:update()
@@ -37,44 +37,50 @@ function EncounterZone:update()
         else
             self.accepting = false
         end
-        if Mod.libs["multiplayer"] then
-            for _,player in ipairs(Game.world.other_players) do
-                if player.parent and self.collider:collidesWith(player) then
-                    self.accepting = true
-                end
-            end
-        end
     end
-    MagicalGlassLib.in_encounter_zone = self.accepting
+    Mod.libs["magical-glass"].in_encounter_zone = self.accepting
 
-    if MagicalGlassLib.steps_until_encounter and MagicalGlassLib.steps_until_encounter <= 0 and self.accepting then
-        self.group:resetSteps(false)
-        self.group:start()
+    if Mod.libs["magical-glass"].steps_until_encounter and Mod.libs["magical-glass"].steps_until_encounter <= 0 and self.accepting then
+        self.random_encounter:resetSteps(false)
+        self.random_encounter:start()
     end
 
 end
 
 function EncounterZone:onAddToStage(parent)
-    MagicalGlassLib.encounters_enabled = true
+    if Mod then
+        Mod.libs["magical-glass"].encounters_enabled = true
+    end
+
     super.onAdd(self, parent)
 end
 
 function EncounterZone:onRemoveFromStage(stage)
-    MagicalGlassLib.encounters_enabled = false
+    if Mod then
+        Mod.libs["magical-glass"].encounters_enabled = false
+    end
+
     super.onRemove(self, stage)
 end
 
 function EncounterZone:draw()
     super.draw(self)
+
     if DEBUG_RENDER and self.collider and self.accepting then
         love.graphics.push()
         love.graphics.origin()
 
         love.graphics.setFont(Assets.getFont("main"))
-        love.graphics.print({{1,0,0},"Encounter Zone!",{1,1,0},"\nSteps Until Encounter: ",{1,1,1},not MagicalGlassLib.initiating_random_encounter and (MagicalGlassLib.steps_until_encounter or "N\\A") or 0}, 8, 0, 0, 1.25)
+        love.graphics.print({{1, 0, 0},"Encounter Zone!",{1, 1, 0},"\nSteps Until Encounter: ",{1, 1, 1},not Mod.libs["magical-glass"].initiating_random_encounter and (Mod.libs["magical-glass"].steps_until_encounter or "N\\A") or 0}, 8, 0, 0, 1.25)
 
         love.graphics.pop()
     end
+end
+
+function EncounterZone:getDebugInfo()
+    local info = super.getDebugInfo(self)
+    table.insert(info, "Active: " .. (self.accepting and "True" or "False"))
+    return info
 end
 
 return EncounterZone

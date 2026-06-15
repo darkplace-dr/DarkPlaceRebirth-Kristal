@@ -54,6 +54,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "What?",
         susie = "Hell yeah!",
         ralsei = "...",
         noelle = "...",
@@ -62,7 +63,7 @@ function item:init()
         brenda = "Its too weak!",
         mario = "Mari-no",
         noel = "...",
-        ceroba = "...?",
+        ceroba = "That's just childish.",
     }
 end
 

@@ -41,7 +41,6 @@ function item:init()
     self.use_method = "drank"
     -- How this item is used on other party members (eats, etc.)
     self.use_method_other = nil
-
 end
 
 return item

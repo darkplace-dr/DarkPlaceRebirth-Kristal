@@ -1,4 +1,4 @@
-local item, super = Class(LightEquipItem, "custom/hairbrush")
+local item, super = Class(LightEquipItem, "mg/hairbrush")
 
 function item:init()
     super.init(self)
@@ -13,20 +13,23 @@ function item:init()
     self.light = true
 
     -- Item description text (unused by light items outside of debug menu)
-    self.description = "Purple, with hair stuck to it.\nFire coloring on the handle."
+    self.description = "Purple, with hair stuck to it.\nIt has a bit of a sharp edge."
 
     -- Light world check text
-    self.check = "Weapon 1 AT\n* Purple, with hair stuck to it.\n* Fire coloring on the handle."
+    self.check = "Weapon 1 AT\n* Purple, with hair stuck to it.\n* It has a bit of a sharp edge."
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
     
-    self.price = 30
+    self.sell_price = 2
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
         attack = 1
     }
+    
+    -- Default dark item conversion for this item
+    self.dark_item = "mane_ax"
 end
 
 return item

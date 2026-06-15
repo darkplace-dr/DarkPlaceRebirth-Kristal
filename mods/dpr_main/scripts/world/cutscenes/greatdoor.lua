@@ -1,8 +1,19 @@
 ---@param cutscene WorldCutscene
 return function(cutscene)
+    -- we've got MUCH less darkners than lightners so it's easier to check them
+    local darkners = {"apm", "ostarwalker", "ralsei"}
+    local lightners = 0
+    for _, partymember in ipairs(Game.party) do
+        if not TableUtils.contains(darkners, partymember.id) then
+            lightners = lightners + 1
+        end
+    end
+    if lightners == 0 then
+        cutscene:text("* (Cannot go to the Light World without any [color:yellow]LIGHTNER[color:reset]s in your party.)")
+        return
+    end
     local door = Game.world:getEvent("greatdoor")
     cutscene:text("* Do you want to go to the Light World?")
-    cutscene:text("* (Note: Your items may disappear after re-entering the Dark World.)")
     local choice = cutscene:choicer({"Yes", "No"})
     if choice == 1 then
         door:open()

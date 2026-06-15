@@ -10,7 +10,7 @@ function Pippins:init()
 		"pippins/dice"
 	}
 	
-	self.check = "AT[image:ui/dice_6b, 6,0] DF[image:ui/dice_3, 6,0]\n* This crooked gambler from Card Castle always bets it all!"
+	self.check = "AT[image:ui/dice_6b, 6,0] DF[image:ui/dice_3a, 6,0]\n* This crooked gambler from Card Castle always bets it all!"
 	
 	self.prev_wave = nil
 	
@@ -152,7 +152,7 @@ function Pippins:getEnemyDialogue()
             "YEAH! Touch\nthese 4's and\ntaste the THRILL!",
             "Put it all on\nGreen 4! Alright!!"
         }
-    elseif self.cheated then
+    elseif self.cheat then
         dialogue = {
             "(You do know\nthat makes my\nattack stronger...)",
             "(This girl...\nshe boggles\nthe mind.)",

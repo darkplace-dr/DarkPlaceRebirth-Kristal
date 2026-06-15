@@ -182,11 +182,11 @@ function MicMenu:update()
 			self.reload = -1
 			if Input.down("left") then
 				self.reload = 2
-				mic.mic_sensitivity = Utils.approach(mic.mic_sensitivity, 0.035, 0.1)
+				mic.mic_sensitivity = MathUtils.approach(mic.mic_sensitivity, 0.035, 0.1)
 			end
 			if Input.down("right") then
 				self.reload = 2
-				mic.mic_sensitivity = Utils.approach(mic.mic_sensitivity, 4, 0.1)
+				mic.mic_sensitivity = MathUtils.approach(mic.mic_sensitivity, 4, 0.1)
 			end
 		end
     end
@@ -206,6 +206,16 @@ function MicMenu:draw()
         love.graphics.print("Done", self.box.x - 32 + 48, self.box.y - 32 + 40  + 24 + 60)
         Draw.setColor(Game:getSoulColor())
         Draw.draw(self.heart_sprite, self.box.x - 32 + 32, self.box.y - 32 + 40 + 40 + (self.selected_y - 1) * 30, 0, 1, 1, 7, 7)
+        Draw.setColor(COLORS.red)
+        love.graphics.print("NOTE: Microphone support in LOVE2D is kind of bad\nat the moment. If the game runs poorly when using\na microphone, or if it can't detect your volume,\nuse Mouse Right-Click or ", self.box.x - 32 + 48, self.box.y - 32 + 40 + 120, 0, 0.5, 0.5)
+		local input_str = Input.getText("cancel")
+		if Input.usingGamepad() then
+			input_str = "     "
+			Draw.setColor(1, 1, 1)
+			Draw.draw(Input.getTexture("cancel"), self.box.x - 32 + 46 + self.font:getWidth("use Mouse Right-Click or  ")/2, self.box.y - 32 + 42 + 120 + 16*3, 0, 1, 1)
+			Draw.setColor(COLORS.red)
+		end
+		love.graphics.print(input_str.." instead.", self.box.x - 32 + 48 + self.font:getWidth("use Mouse Right-Click or ")/2, self.box.y - 32 + 40 + 120 + 16*3, 0, 0.5, 0.5)
 	end 
 	if self.state == "MIC_SELECT" then
 		Draw.setColor(0.5, 0.5, 0.5)
@@ -221,7 +231,7 @@ function MicMenu:draw()
 						str = " "
 						Draw.setColor(1, 1, 1)
 						Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
-						Draw.setColor(Utils.hexToRgb("#FFFF40"))
+						Draw.setColor(ColorUtils.hexToRGB("#FFFF40FF"))
 					else
 						Draw.setColor(1, 1, 1)
 					end
@@ -229,12 +239,12 @@ function MicMenu:draw()
 					str = " "
 					Draw.setColor(1, 1, 1)
 					Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
-					Draw.setColor(Utils.hexToRgb("#FFFF40"))
+					Draw.setColor(ColorUtils.hexToRGB("#FFFF40FF"))
 				elseif i == self.menu_max - 1 and mic.right_click_mic == 2 then
 					str = " "
 					Draw.setColor(1, 1, 1)
 					Draw.draw(self.star_sprite, self.box.x - 32 + 46, self.box.y - 32 + 40 + 32 + (i-1)*30 + (menu_y-1)*30)
-					Draw.setColor(Utils.hexToRgb("#FFFF40"))
+					Draw.setColor(ColorUtils.hexToRGB("#FFFF40FF"))
 				else
 					Draw.setColor(1, 1, 1)
 				end
@@ -269,7 +279,7 @@ function MicMenu:draw()
 						mic_name = mic.mic_names[i]
 						local shortened = false
 						while self.ja_font:getWidth(mic_name) > 300 do
-							mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name) - 1)
+							mic_name = StringUtils.sub(mic_name, 1, utf8.len(mic_name) - 1)
 							shortened = true
 						end
 						if shortened then
@@ -286,23 +296,23 @@ function MicMenu:draw()
 					love.graphics.setLineWidth(4)
 					if i == self.selected_y then
 						if self.mic_wait <= 0 then
-							love.graphics.setColor(Utils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))
+							love.graphics.setColor(ColorUtils.mergeColor(COLORS.aqua, COLORS.black, 0.5))
 							love.graphics.line(volx, voly, volx+(volw*0.1), voly)
-							love.graphics.setColor(Utils.mergeColor(COLORS["lime"], COLORS["black"], 0.5))
+							love.graphics.setColor(ColorUtils.mergeColor(COLORS.lime, COLORS.black, 0.5))
 							love.graphics.line(volx+(volw*0.1), voly, volx+(volw*0.6), voly)
-							love.graphics.setColor(Utils.mergeColor(COLORS["yellow"], COLORS["black"], 0.5))
+							love.graphics.setColor(ColorUtils.mergeColor(COLORS.yellow, COLORS.black, 0.5))
 							love.graphics.line(volx+(volw*0.6), voly, volx+(volw*0.9), voly)
-							love.graphics.setColor(Utils.mergeColor(COLORS["red"], COLORS["black"], 0.5))
+							love.graphics.setColor(ColorUtils.mergeColor(COLORS.red, COLORS.black, 0.5))
 							love.graphics.line(volx+(volw*0.9), voly, volx+volw, voly)
-							love.graphics.setColor(COLORS["aqua"])
+							love.graphics.setColor(COLORS.aqua)
 							if self.mic_volume > 10 then
-								love.graphics.setColor(COLORS["lime"])
+								love.graphics.setColor(COLORS.lime)
 							end
 							if self.mic_volume > 60 then
-								love.graphics.setColor(COLORS["yellow"])
+								love.graphics.setColor(COLORS.yellow)
 							end
 							if self.mic_volume > 90 then
-								love.graphics.setColor(COLORS["red"])
+								love.graphics.setColor(COLORS.red)
 							end
 							love.graphics.line(volx, voly, volx+(self.mic_volume/100)*volw, voly)
 							love.graphics.setColor(1,1,1,1)
@@ -312,7 +322,7 @@ function MicMenu:draw()
 							love.graphics.print("Loading...", volx + 40 - self.font:getWidth("Loading...")/4, self.box.y - 32 + 40 + 32 + (i-1)*30 - (menu_y-1)*30, 0, 0.5, 0.5)
 						end
 					else
-						love.graphics.setColor(COLORS["dkgray"])
+						love.graphics.setColor(COLORS.dkgray)
 						love.graphics.line(volx, voly, volx+volw, voly)
 						love.graphics.setColor(1,1,1,1)
 					end
@@ -333,7 +343,7 @@ function MicMenu:draw()
 		
 		love.graphics.setFont(self.font)
 		if self.menu_max > 7 then
-			love.graphics.setColor(COLORS["dkgray"])
+			love.graphics.setColor(COLORS.dkgray)
 			love.graphics.rectangle("fill", self.box.x - 32 + 580 - 29, self.box.y - 32 + 70, 5, 222)
 			local nn = self.menu_max - 7
 			local pagey = ((menu_y-1) / nn) * 222
@@ -352,12 +362,12 @@ function MicMenu:draw()
 	if self.state == "SENSITIVITY" then
 		Draw.setColor(1, 1, 1)
         love.graphics.print("Adjust Sensitivity", self.box.x - 32 + 580/2 - self.font:getWidth("Adjust Sensitivity")/2, self.box.y - 32 + 30)
-		love.graphics.setColor(COLORS["dkgray"])
+		love.graphics.setColor(COLORS.dkgray)
 		local tri_points = {self.box.x - 32 + 86, self.box.y - 32 + 344/2 + 32, self.box.x - 32 + 580 - 96}
 		love.graphics.polygon("fill", tri_points[1], tri_points[2], tri_points[3], tri_points[2], tri_points[3], tri_points[2] - 16)
 		Draw.setColor(1, 1, 1)
 		local ly = self.box.y - 32 + 344/2 + 32
-		local lw = Utils.dist(self.box.x - 32 + 96, 0, self.box.x - 32 + 580 - 96, 0) 
+		local lw = MathUtils.dist(self.box.x - 32 + 96, 0, self.box.x - 32 + 580 - 96, 0) 
 		local lx = self.box.x - 32 + 96 + lw * (mic.mic_sensitivity/4)
 		love.graphics.rectangle("fill", lx - 2, ly - 24, 5, 33)
 	end
@@ -366,7 +376,7 @@ function MicMenu:draw()
 			local mic_name = mic.mic_names[mic.mic_id]
 			local shortened = false
 			while self.ja_font:getWidth(mic_name) > 600 do
-				mic_name = Utils.sub(mic_name, 1, utf8.len(mic_name) - 1)
+				mic_name = StringUtils.sub(mic_name, 1, utf8.len(mic_name) - 1)
 				shortened = true
 			end
 			if shortened then
@@ -391,23 +401,23 @@ function MicMenu:draw()
 			love.graphics.setFont(self.font)
 		end
 		love.graphics.setLineWidth(4)
-		love.graphics.setColor(Utils.mergeColor(COLORS["aqua"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.aqua, COLORS.black, 0.5))
 		love.graphics.line(self.box.x-32+80, self.box.y-32+280, self.box.x-32+80+(419*0.1), self.box.y-32+280)
-		love.graphics.setColor(Utils.mergeColor(COLORS["lime"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.lime, COLORS.black, 0.5))
 		love.graphics.line(self.box.x-32+80+(419*0.1), self.box.y-32+280, self.box.x-32+80+(419*0.6), self.box.y-32+280)
-		love.graphics.setColor(Utils.mergeColor(COLORS["yellow"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.yellow, COLORS.black, 0.5))
 		love.graphics.line(self.box.x-32+80+(419*0.6), self.box.y-32+280, self.box.x-32+80+(419*0.9), self.box.y-32+280)
-		love.graphics.setColor(Utils.mergeColor(COLORS["red"], COLORS["black"], 0.5))
+		love.graphics.setColor(ColorUtils.mergeColor(COLORS.red, COLORS.black, 0.5))
 		love.graphics.line(self.box.x-32+80+(419*0.9), self.box.y-32+280, self.box.x-32+80+419, self.box.y-32+280)
-		love.graphics.setColor(COLORS["aqua"])
+		love.graphics.setColor(COLORS.aqua)
 		if self.mic_volume > 10 then
-			love.graphics.setColor(COLORS["lime"])
+			love.graphics.setColor(COLORS.lime)
 		end
 		if self.mic_volume > 60 then
-			love.graphics.setColor(COLORS["yellow"])
+			love.graphics.setColor(COLORS.yellow)
 		end
 		if self.mic_volume > 90 then
-			love.graphics.setColor(COLORS["red"])
+			love.graphics.setColor(COLORS.red)
 		end
 		love.graphics.line(self.box.x-32+80, self.box.y-32+280, self.box.x-32+80+(self.mic_volume/100)*419, self.box.y-32+280)
 	end	

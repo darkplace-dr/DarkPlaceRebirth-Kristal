@@ -391,6 +391,10 @@ function DebugSystem:addToExclusiveMenu(state, id)
 end
 
 function DebugSystem:fadeMusicOut(fade_to)
+    if not self:isInGame() then
+        return
+    end
+
     local music = Game:getActiveMusic()
     if music then
         self.old_music_volume = music.volume
@@ -400,6 +404,10 @@ function DebugSystem:fadeMusicOut(fade_to)
 end
 
 function DebugSystem:fadeMusicIn()
+    if not self:isInGame() then
+        return
+    end
+
     local music = Game:getActiveMusic()
     if music and self.music_needs_reset then
         music:fade(self.old_music_volume, 0.5)
@@ -630,12 +638,20 @@ function DebugSystem:registerSubMenus()
 
     for id, item_data in pairs(Registry.items) do
         local item = item_data()
+        if item.postInit then
+            item:postInit()
+        end
+        local name = item:getDebugName()
         self:registerOption(
             "give_item",
-            item.name + (item.light and " (Light Item)" or ""),
+            name .. (item.light and " (Light Item)" or ""),
             item.description,
             function()
-                Game.inventory:tryGiveItem(item_data())
+                local item = item_data()
+                if item.postInit then
+                    item:postInit()
+                end
+                Game.inventory:tryGiveItem(item)
             end
         )
     end
@@ -828,7 +844,7 @@ function DebugSystem:registerSubMenus()
         "wave_select_multiple",
         "[Start Waves]",
         "Start the selected waves.",
-        function ()
+        function()
             if #self.selected_waves > #Game.battle:getActiveEnemies() then
                 return false
             end
@@ -847,7 +863,7 @@ function DebugSystem:registerSubMenus()
                 -- Step 2: Assign waves to enemies
                 -- Table for waves that don't get a match at this stage
                 local assign_randomly = {}
-                for i=0,#self.selected_waves do
+                for i = 0, #self.selected_waves do
                     for wave, enemies in pairs(enemy_matches) do
                         -- Process the least matches first
                         if #enemies == i then
@@ -884,10 +900,11 @@ function DebugSystem:registerSubMenus()
                     end
                 end
                 Game.battle:setState("DEFENDINGBEGIN", self.selected_waves)
+                self:closeMenu()
             end
         end,
         nil,
-        function ()
+        function()
             return #self.selected_waves > #Game.battle:getActiveEnemies() and COLORS.silver or COLORS.white
         end
     )
@@ -896,7 +913,7 @@ function DebugSystem:registerSubMenus()
         "wave_select_multiple",
         "[Clear Selection]",
         "Clear the currently selected waves.",
-        function ()
+        function()
             self.selected_waves = {}
         end
     )
@@ -918,7 +935,7 @@ function DebugSystem:registerSubMenus()
     end)
 
     local function getWaveSpaceString()
-        return "(" .. #self.selected_waves .. "/".. #Game.battle:getActiveEnemies() ..")"
+        return "(" .. #self.selected_waves .. "/" .. #Game.battle:getActiveEnemies() .. ")"
     end
 
     for _, id in ipairs(waves_list) do
@@ -926,10 +943,10 @@ function DebugSystem:registerSubMenus()
             "wave_select_multiple",
             id,
             function()
-               if TableUtils.contains(self.selected_waves, id) then
+                if TableUtils.contains(self.selected_waves, id) then
                     return "Remove this wave from the selected group. " .. getWaveSpaceString()
-               end
-               return "Add this wave to the selected group. " .. getWaveSpaceString()
+                end
+                return "Add this wave to the selected group. " .. getWaveSpaceString()
             end,
             function()
                 if TableUtils.contains(self.selected_waves, id) then
@@ -941,7 +958,7 @@ function DebugSystem:registerSubMenus()
                 end
             end,
             nil,
-            function ()
+            function()
                 return TableUtils.contains(self.selected_waves, id) and COLORS.aqua or #self.selected_waves >= #Game.battle:getActiveEnemies() and COLORS.silver or COLORS.white
             end
         )
@@ -962,7 +979,7 @@ function DebugSystem:registerSubMenus()
         end
     )
 
-    for id, _ in pairs(Assets.sounds) do
+    for id in Assets.iterate("sound") do
         self:registerOption(
             "sound_test",
             id,
@@ -981,6 +998,11 @@ function DebugSystem:registerSubMenus()
         "music_test",
         function()
             self:fadeMusicOut(0)
+            if self.music then
+                self.music:remove()
+                self.music = nil
+            end
+            self.music = Music()
         end
     )
     self:registerMenuLeave(
@@ -990,13 +1012,14 @@ function DebugSystem:registerSubMenus()
             self.music:fade(
                 0, 0.5,
                 function()
-                    self.music:stop()
+                    self.music:remove()
+                    self.music = nil
                 end
             )
         end
     )
 
-    for id, _ in pairs(Assets.data.music) do
+    for id in Assets.iterate("music") do
         self:registerOption(
             "music_test",
             id,
@@ -1006,7 +1029,7 @@ function DebugSystem:registerSubMenus()
                 self.music:play(id)
             end,
             nil,
-            function ()
+            function()
                 return self.music:isPlaying() and self.music.current == id and COLORS.aqua or COLORS.white
             end
         )
@@ -1049,7 +1072,7 @@ function DebugSystem:registerSubMenus()
                 end
             end,
             nil,
-            function ()
+            function()
                 return Game:hasPartyMember(id) and COLORS.aqua or COLORS.white
             end
         )
@@ -1065,7 +1088,7 @@ function DebugSystem:registerSubMenus()
             self:registerOption(
                 "give_spell_" .. id,
                 spell_id,
-                function ()
+                function()
                     local member = Game.party_data[id]
                     return member and (not member:hasSpell(spell_id) and "Give this spell to " .. id .. "." or "Take this spell from " .. id .. ".") or "???" -- Failsafe (when would this happen?)
                 end,
@@ -1080,7 +1103,7 @@ function DebugSystem:registerSubMenus()
                     end
                 end,
                 nil,
-                function ()
+                function()
                     return Game.party_data[id]:hasSpell(spell_id) and COLORS.aqua or COLORS.white
                 end
             )
@@ -1110,8 +1133,12 @@ function DebugSystem:registerSubMenus()
     end
 end
 
+function DebugSystem:isInGame()
+    return Kristal.getState() == Game
+end
+
 function DebugSystem:registerDefaults()
-    local in_game = function() return Kristal.getState() == Game end
+    local in_game = function() return self:isInGame() end
     local in_battle = function() return in_game() and Game.state == "BATTLE" end
     local in_overworld = function() return in_game() and Game.state == "OVERWORLD" end
     local in_legend = function() return in_game() and Game.state == "LEGEND" end
@@ -1228,22 +1255,29 @@ function DebugSystem:registerDefaults()
         in_game
     )
 
-    self:registerOption("main", "Give Money", "Give an amount of money.", function()
-        self.window = DebugWindow("Enter Money", "Enter the money amount you'd like.", "input",
-            function(text)
-                local money = tonumber(text)
-                if money then
-                    if Game:isLight() then
-                        Game.lw_money = Game.lw_money + money
-                    else
-                        Game.money = Game.money + money
+    self:registerOption(
+        "main", "Give Money", "Give an amount of money.",
+        function()
+            self.window = DebugWindow(
+                "Enter Money", "Enter the money amount you'd like.", "input",
+                function(text)
+                    local money = tonumber(text)
+                    if money then
+                        if Game:isLight() then
+                            Game.lw_money = Game.lw_money + money
+                        else
+                            Game.money = Game.money + money
+                        end
+                        Assets.stopAndPlaySound("bell_bounce_short")
                     end
-                    Assets.stopAndPlaySound("bell_bounce_short")
                 end
-            end)
-        self.window:setPosition(Input.getCurrentCursorPosition())
-        self:addChild(self.window)
-    end, in_game)
+            )
+
+            self.window:setPosition(Input.getCurrentCursorPosition())
+            self:addChild(self.window)
+        end,
+        in_game
+    )
 
     self:registerOption(
         "main",
@@ -1454,7 +1488,7 @@ end
 ---@param description string|fun():string
 ---@param func function
 ---@param visible_func? fun():boolean
----@param color? fun():table
+---@param color? fun(): Color
 ---@return nil
 function DebugSystem:registerOption(menu, name, description, func, visible_func, color)
     table.insert(self.menus[menu].options, {
@@ -1478,6 +1512,12 @@ end
 
 function DebugSystem:openMenu()
     Assets.playSound("ui_select")
+    self.heart:setColor(Kristal.getSoulColor())
+    if (Kristal.getState() == Game) then
+        self.heart:setSprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu")
+    else
+        self.heart:setSprite("player/heart_menu")
+    end
     self:setState("MENU")
 
     if (self.current_menu ~= nil) then
@@ -1664,10 +1704,11 @@ function DebugSystem:onKeyPressed(key, is_repeat)
             else
                 local option = options[self.current_selecting]
                 if option then
+                    local menu = self.current_menu
                     local failsound = option.func() == false
                     if failsound then
                         Assets.playSound("ui_cant_select")
-                    elseif self.current_menu ~= "sound_test" then
+                    elseif menu ~= "sound_test" then
                         Assets.playSound("ui_select")
                     end
                 end
@@ -1918,7 +1959,7 @@ function DebugSystem:update()
             stage.active = true
         end
     end
-    
+
     if self:isMenuOpen() then
         -- Create a table to store states that should be excluded
         local excluded_states = {}
@@ -1952,6 +1993,10 @@ function DebugSystem:onWheelMoved(x, y)
 end
 
 function DebugSystem:draw()
+    if self.state == "IDLE" and self.menu_anim_timer >= 1 then
+        return
+    end
+
     love.graphics.setFont(self.font)
     Draw.setColor(1, 1, 1, 1)
 
@@ -2059,10 +2104,8 @@ function DebugSystem:draw()
         Draw.setColor(1, 1, 1, 1)
 
         local textures = {}
-        for _, id in pairs(Assets.texture_ids) do
-            if StringUtils.startsWith(id, "face/") then
-                table.insert(textures, id:sub(6))
-            end
+        for id in Assets.iterate("sprite", "face/") do
+            table.insert(textures, id:sub(6))
         end
 
         -- Sort textures alphabetically

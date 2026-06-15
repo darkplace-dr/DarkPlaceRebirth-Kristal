@@ -17,11 +17,7 @@ function AcJQuest:getDescription()
 	if Game:getFlag("acj_quest_dungeon_prog", 0) == 1 then
 		return "As Jamm and Dess walked into the dungeon, the door locked behind them. The two must progress through the dungeon, all while Jamm tries not to be annoyed to death by Dess."
 	elseif Game:getFlag("acj_quest_dungeon_prog", 0) == 2 then
-		if Game:getFlag("dungeonkiller") then
-			return "Jamm and Dess escape the dungeon, but something seems wrong with Jamm. He may never be back to his old self again."
-		else
-			return "Jamm and Dess escape the dungeon. It turns out that the two really can work well together when they actually try to. Perhaps they could eventually end up as friends? ...Maybe not, but Jamm could tolerate Dess slightly more."
-		end
+		return "Jamm and Dess escape the dungeon. It turns out that the two really can work well together when they actually try to. Perhaps they could eventually end up as friends? ...Maybe not, but Jamm could tolerate Dess slightly more."
 	end
 	return self.description
 end

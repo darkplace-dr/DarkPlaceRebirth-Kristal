@@ -158,6 +158,34 @@ function Room1:load()
 			end
 		end
 	end
+	if Game:getFlag("can_kill") then -- note: maybe make this more specific, like killing all the tv world enemies?
+		self:getEvent(90).collider.collidable = false
+		for _, event in ipairs(Game.world.map.events) do
+			if event.layer == self.layers["objects_dessim_door_a"] or event.layer == self.layers["objects_dessim_door_b"] then
+				event.visible = false
+				if event.layer == self.layers["objects_dessim_door_a"] and not Game:getFlag("locked_tenna_door_opened") then
+					event.visible = true
+				elseif event.layer == self.layers["objects_dessim_door_b"] and Game:getFlag("locked_tenna_door_opened") then
+					event.visible = true
+				end
+			end
+		end
+		if not Game:getFlag("locked_tenna_door_opened") then
+			self:getEvent(117).collider.collidable = false
+			self:getEvent(113).collider.collidable = true
+		else
+			self:getEvent(117).collider.collidable = true
+			self:getEvent(113).collider.collidable = false
+		end
+	else
+		self:getEvent(117).collider.collidable = false
+		for _, event in ipairs(Game.world.map.events) do
+			if event.layer == self.layers["objects_dessim_door_a"] or event.layer == self.layers["objects_dessim_door_b"] then
+				event.visible = false
+				event.collider.collidable = false
+			end
+		end
+	end
 end
 
 function Room1:onExit()

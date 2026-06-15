@@ -47,6 +47,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "Already comfortable enough.",
         susie = "No. Just... no.",
         ralsei = "Comfy! Touch it, Kris!",
         noelle = "Huh? No, I'm not cold.",

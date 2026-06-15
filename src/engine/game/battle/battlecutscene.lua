@@ -29,7 +29,7 @@ function BattleCutscene:update()
     if self.ended then return end
 
     local done_moving = {}
-    for battler,target in pairs(self.move_targets) do
+    for battler, target in pairs(self.move_targets) do
         if battler.x == target[1] and battler.y == target[2] then
             table.insert(done_moving, battler)
         end
@@ -37,7 +37,7 @@ function BattleCutscene:update()
         local ty = MathUtils.approach(battler.y, target[2], target[3] * DTMULT)
         battler:setPosition(tx, ty)
     end
-    for _,v in ipairs(done_moving) do
+    for _, v in ipairs(done_moving) do
         self.move_targets[v] = nil
     end
 
@@ -73,14 +73,14 @@ end
 
 --- Gets the first instance of a specific party or enemy character in the current battle.
 ---@param id string The character id to search for.
----@return PartyBattler|EnemyBattler|nil battler The PartyBattler/EnemyBattler instance of the character if they exist, otherwise `nil`.
+---@return PartyBattler|EnemyBattler? battler The PartyBattler/EnemyBattler instance of the character if they exist, otherwise `nil`.
 function BattleCutscene:getCharacter(id)
-    for _,battler in ipairs(Game.battle.party) do
+    for _, battler in ipairs(Game.battle.party) do
         if battler.chara.id == id then
             return battler
         end
     end
-    for _,battler in ipairs(Game.battle.enemies) do
+    for _, battler in ipairs(Game.battle.enemies) do
         if battler.id == id then
             return battler
         end
@@ -92,7 +92,7 @@ end
 ---@return table enemies A table containing all matched EnemyBattler instances.
 function BattleCutscene:getEnemies(id)
     local result = {}
-    for _,battler in ipairs(Game.battle.enemies) do
+    for _, battler in ipairs(Game.battle.enemies) do
         if battler.id == id then
             table.insert(result, battler)
         end
@@ -115,7 +115,7 @@ end
 --- Resets the sprites of characters who have had their sprites changed in this cutscene. \
 --- Called in BattleCutscene:onEnd() automatically.
 function BattleCutscene:resetSprites()
-    for battler,_ in pairs(self.changed_sprite) do
+    for battler, _ in pairs(self.changed_sprite) do
         battler:toggleOverlay(false)
     end
     self.changed_sprite = {}
@@ -166,7 +166,7 @@ function BattleCutscene:moveTo(chara, x, y, speed)
         chara = self:getCharacter(chara)
     end
     if chara.x ~= x or chara.y ~= y then
-        self.move_targets[chara] = {x, y, speed or 4}
+        self.move_targets[chara] = { x, y, speed or 4 }
 
         return function() return self.move_targets[chara] == nil end
     end
@@ -301,7 +301,7 @@ function BattleCutscene:fadeIn(speed, options)
 end
 
 --- Sets the active speaker for the encountertext box.
----@param actor? PartyBattler|EnemyBattler|Actor|nil The character or actor to set as the speaker. `nil` resets the speaker to nothing.
+---@param actor? PartyBattler|EnemyBattler|Actor? The character or actor to set as the speaker. `nil` resets the speaker to nothing.
 function BattleCutscene:setSpeaker(actor)
     if isClass(actor) and (actor:includes(PartyBattler) or actor:includes(EnemyBattler)) then
         actor = actor.actor
@@ -353,14 +353,14 @@ function BattleCutscene:text(text, portrait, actor, options)
 
     Game.battle.battle_ui.encounter_text:resetReactions()
     if options["reactions"] then
-        for id,react in pairs(options["reactions"]) do
+        for id, react in pairs(options["reactions"]) do
             Game.battle.battle_ui.encounter_text:addReaction(id, react[1], react[2], react[3], react[4], react[5])
         end
     end
 
     Game.battle.battle_ui.encounter_text:resetFunctions()
     if options["functions"] then
-        for id,func in pairs(options["functions"]) do
+        for id, func in pairs(options["functions"]) do
             Game.battle.battle_ui.encounter_text:addFunction(id, func)
         end
     end
@@ -417,22 +417,22 @@ function BattleCutscene:battlerText(battlers, text, options)
     local _battlers = {} ---@type Battler[]
     if type(battlers) == "string" then
         local id = battlers ---@type string
-        for _,battler in ipairs(Game.battle.enemies) do
+        for _, battler in ipairs(Game.battle.enemies) do
             if battler.id == id then
                 table.insert(_battlers, battler)
             end
         end
-        for _,battler in ipairs(Game.battle.party) do
+        for _, battler in ipairs(Game.battle.party) do
             if battler.chara.id == id then
                 table.insert(_battlers, battler)
             end
         end
     elseif isClass(battlers) then
-        _battlers = {battlers}
+        _battlers = { battlers }
     end
     local wait = options["wait"] or options["wait"] == nil
     local bubbles = {}
-    for _,battler in ipairs(_battlers) do
+    for _, battler in ipairs(_battlers) do
         local bubble
         if not options["x"] and not options["y"] then
             bubble = battler:spawnSpeechBubble(text, options)
@@ -456,7 +456,7 @@ function BattleCutscene:battlerText(battlers, text, options)
         table.insert(bubbles, bubble)
     end
     local wait_func = function()
-        for _,bubble in ipairs(bubbles) do
+        for _, bubble in ipairs(bubbles) do
             if not bubble:isDone() then
                 return false
             end
@@ -490,7 +490,7 @@ function BattleCutscene:choicer(choices, options)
     Game.battle.battle_ui.choice_box.done = false
 
     Game.battle.battle_ui.choice_box:clearChoices()
-    for _,choice in ipairs(choices) do
+    for _, choice in ipairs(choices) do
         Game.battle.battle_ui.choice_box:addChoice(choice)
     end
     Game.battle.battle_ui.choice_box:setColors(options["color"], options["highlight"])
@@ -513,7 +513,7 @@ function BattleCutscene:closeText()
         text.active = true
         text.visible = true
     end
-    for _,battler in ipairs(Utils.mergeMultiple(Game.battle.party, Game.battle:getActiveEnemies())) do
+    for _, battler in ipairs(TableUtils.mergeMany(Game.battle.party, Game.battle:getActiveEnemies())) do
         if battler.bubble then
             battler:onBubbleRemove(battler.bubble)
             battler.bubble:remove()

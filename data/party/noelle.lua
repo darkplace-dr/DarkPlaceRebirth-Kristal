@@ -81,6 +81,10 @@ function character:init()
     self.attack_box_color = { 1, 1, 0 }
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = { 1, 1, 0.5 }
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#ECFFBBFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#5259C2FF")
 
     self.icon_color = { 1, 1, 0 }
 
@@ -111,27 +115,23 @@ function character:init()
     -- Character flags (saved to the save file)
     self.flags = {
         ["iceshocks_used"] = 0,
-        ["boldness"] = -12,
-        ["weird"] = false,
+        ["boldness"] = (Game.chapter >= 2 and 100 or -12),
+        ["weird"] = false
+    }
+
+    self.element = {
+        "ICE",
+        "HOLY"
     }
 end
 
 function character:getTitle()
-    local prefix = "LV" .. self:getLevel() .. " "
     if self:checkWeapon("thornring") then
-        return prefix .. "Ice Trancer\nReceives pain to\nbecome stronger."
+        return "LV" .. self:getLevel() .. " Ice Trancer\nReceives pain to\nbecome stronger."
     elseif self:getFlag("iceshocks_used", 0) > 0 then
-        return prefix .. "Frostmancer\nFreezes the enemy."
+        return "LV" .. self:getLevel() .. " Frostmancer\nFreezes the enemy."
     else
         return super.getTitle(self)
-    end
-end
-
-function character:getLevel()
-    if self:checkWeapon("thornring") or self:getFlag("iceshocks_used", 0) > 0 then
-        return super.getLevel(self)
-    else
-        return 1
     end
 end
 

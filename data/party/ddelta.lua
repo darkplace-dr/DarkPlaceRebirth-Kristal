@@ -11,7 +11,7 @@ function character:init()
 
     self.love = 1
     self.level = self.love
-    self.title = "Walking Jewel\nKnows a variety\nof random moves."
+    self.title = "Psychic Jewel\nCapable of using PSI.\nA true \"jewel-head.\""
 
     self.soul_priority = 1
     self.soul_color = {0.6, 1, 1}
@@ -47,15 +47,20 @@ function character:init()
     self.weapon_icon = "ui/menu/equip/crystal"
 
     self:setWeapon("beginners_crystal")
+    self:setArmor(1, "life_odometer")
 
     self.lw_weapon_default = "light/magic_ball"
-    self.lw_armor_default = "light/bandage"
+    self.lw_armor_default = "light/calculator"
 
     self.color = {0.5, 1, 1}
     self.dmg_color = {0.75, 1, 1}
     self.attack_bar_color = {153/255, 217/255, 234/255}
     self.attack_box_color = {153/255, 217/255, 234/255}
     self.xact_color = {0.5, 1, 1}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#99D9EAFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#83A6EFFF")
 
     self.icon_color = {153/255, 217/255, 234/255}
 

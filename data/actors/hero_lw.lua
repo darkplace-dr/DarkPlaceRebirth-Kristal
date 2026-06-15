@@ -11,7 +11,7 @@ function actor:init()
     self.height = 36
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {5, 24, 19, 14}
+    self.hitbox = {5, 24, 18, 14}
 
     -- A table that defines where the Soul should be placed on this actor if they are a player.
     -- First value is x, second value is y.
@@ -41,6 +41,8 @@ function actor:init()
         ["slide"]               = {"slide", 4/30, true},
 
         -- Cutscene animations
+        ["jump_ball"] = {"ball", 1/15, true},
+
         ["sit"] = {"sit", 0.25, true},
     }
 
@@ -62,6 +64,8 @@ function actor:init()
         ["fallen"] = {-8, 16},
 
         ["sit"] = {-4, -8},
+
+        ["fell"] = {-14, 1},
 
         ["ghostwalk_lf"] = {-4, 3},
         ["ghostwalk_lu"] = {-4, 3},

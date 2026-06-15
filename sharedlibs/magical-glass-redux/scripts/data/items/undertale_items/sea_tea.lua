@@ -41,7 +41,6 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
-    
 end
 
 function item:getLightBattleText(user, target, boost)
@@ -50,15 +49,14 @@ end
 
 function item:onLightBattleUse(user, target)
     local boost = false
-    if Game.battle.soul_speed_bonus < 4 then
-        Game.battle.soul_speed_bonus = Game.battle.soul_speed_bonus + 1
-        Game.battle.soul.speed = Game.battle.soul.speed + 1
+    if Game.battle.soul_speed < 8 then
+        Game.battle.soul_speed = Game.battle.soul_speed + 1
         boost = true
     end
     self:battleUseSound(user, target)
 
     local amount = self:getBattleHealAmount(target.chara.id)
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
@@ -69,13 +67,13 @@ function item:onLightBattleUse(user, target)
 end
 
 function item:onBattleUse(user, target)
-    if Game.battle.soul_speed_bonus < 4 then
-        Game.battle.soul_speed_bonus = Game.battle.soul_speed_bonus + 1
+    if Game.battle.soul_speed < 8 then
+        Game.battle.soul_speed = Game.battle.soul_speed + 1
     end
     Assets.stopAndPlaySound("speedup")
 
     local amount = self:getBattleHealAmount(target.chara.id)
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
@@ -85,7 +83,7 @@ function item:onBattleUse(user, target)
 end
 
 function item:getBattleText(user, target)
-    return super.getBattleText(self, user, target) .. (Game.battle.soul_speed_bonus < 4 and "\n* Your SPEED boosts!" or "")
+    return super.getBattleText(self, user, target) .. (Game.battle.soul_speed < 8 and "\n* Your SPEED boosts!" or "")
 end
 
 function item:battleUseSound(user, target)

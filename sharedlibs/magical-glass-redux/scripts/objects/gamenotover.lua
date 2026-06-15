@@ -1,4 +1,4 @@
-local GameNotOver, super = Class(Object, "GameNotOver")
+local GameNotOver, super = Class(Object)
 
 function GameNotOver:init(x, y)
     super.init(self, 0, 0)
@@ -60,7 +60,7 @@ function GameNotOver:update()
     if (self.timer >= 50) and (self.current_stage == 1) then
         Assets.playSound("break1")
         self.soul:setSprite("player/heart_break")
-        if MagicalGlassLib.revived_once then
+        if Mod.libs["magical-glass"].revived_once then
             self.current_stage = 11
         else
             self.current_stage = 2
@@ -69,7 +69,7 @@ function GameNotOver:update()
     if (self.timer >= 130) and (self.current_stage == 2) or (self.timer >= 70) and (self.current_stage == 11) then
         self.shake_timer = self.shake_timer + DTMULT
         if self.shake_timer >= 1 then
-            self.soul:shake(Utils.random(-3, 3), Utils.random(-3, 3))
+            self.soul:shake(MathUtils.random(-3, 3), MathUtils.random(-3, 3))
             self.shake_timer = 0
         end
     end
@@ -92,8 +92,8 @@ function GameNotOver:update()
         self.dialogue:remove()
     end
     if (self.timer >= 308) and (self.current_stage == 4) or (self.timer >= 148) and (self.current_stage == 12) then
-        MagicalGlassLib.revived_once = true
-        for _,party in pairs(Game.party_data) do
+        Mod.libs["magical-glass"].revived_once = true
+        for _, party in pairs(Game.party_data) do
             party:heal(math.huge, false)
         end
         Game:saveQuick()
@@ -106,12 +106,10 @@ function GameNotOver:update()
                     Game.battle.timer:afterCond(has_soul, function() -- apply inv frames
                         Game.battle.soul.inv_timer = Game:isLight() and 1 or (4/3)
                         local best_amount
-                        for _,battler in ipairs(Game.battle.party) do
+                        for _, battler in ipairs(Game.battle.party) do
                             local equip_amount = 0
-                            for _,equip in ipairs(battler.chara:getEquipment()) do
-                                if equip.getInvBonus then
-                                    equip_amount = equip_amount + equip:getInvBonus()
-                                end
+                            for _, equip in ipairs(battler.chara:getEquipment()) do
+                                equip_amount = equip_amount + equip:getInvBonus()
                             end
                             if not best_amount or equip_amount > best_amount then
                                 best_amount = equip_amount

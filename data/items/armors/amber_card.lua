@@ -45,6 +45,7 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
+        hero = "That's neat.",
         susie = "... better than nothing.",
         ralsei = "It's sticky, huh, Kris...",
         noelle = "It's like a name-tag!",
@@ -53,7 +54,7 @@ function item:init()
         brenda = "It stained my clothes!",
         mario = "Tastes like glue!",
         noel = "Seam sells these ... right?",
-        ceroba = "Hope it won't get stuck on me...",
+        ceroba = "The glue isn't very sturdy..",
     }
 end
 

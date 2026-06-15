@@ -56,6 +56,7 @@ function actor:init()
         ["battle/hurt"]         		= {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       		= {"battle/defeat", 0.5, true},
         ["battle/swooned"]              = {"battle/swooned", 1/15, false},
+        ["battle/succumbed"]            = {"battle/swooned", 1/15, false},
 
         ["battle/transition"]   		= {"walk/right", 0.2, true},
         ["battle/intro"]        		= {"battle/attack", 1/15, true},
@@ -64,40 +65,15 @@ function actor:init()
         ["battle/tactic_freeze"] 		= {"battle/tactic_freeze", 1/15, false},
         ["battle/tactic_freeze_shiny"] 	= {"battle/tactic_freeze_shiny", 1/15, false},
 
+        ["battle/charge"]               = {"battle/charge", 1/6, true},
+
 		-- Cutscene animations
         ["jump_ball"]           = {"ball", 1/15, true},
 		["sit"]               	= {"sit", 4/30, true},
 
 		["dance"]               = {"dance", 1/10, true},
-    }
 
-    self.animations_dk = {
-        -- Movement animations
-        ["slide"]               = {"slide_hurt", 4/30, true},
-
-        -- Battle animations
-        ["battle/idle"]         = {"battle_dungeonkiller/idle", 0.2, true},
-
-        ["battle/attack"]       = {"battle_dungeonkiller/attack", 1/15, false},
-        ["battle/act"]          = {"battle_dungeonkiller/act", 1/15, false},
-        ["battle/spell"]        = {"battle_dungeonkiller/spell", 1/15, false},
-        ["battle/item"]         = {"battle_dungeonkiller/item", 1/15, false, next="battle/idle"},
-        ["battle/spare"]        = {"battle_dungeonkiller/act", 1/15, false, next="battle/idle"},
-
-        ["battle/attack_ready"] = {"battle_dungeonkiller/attackready", 0.2, true},
-        ["battle/act_ready"]    = {"battle_dungeonkiller/actready", 0.2, true},
-        ["battle/spell_ready"]  = {"battle_dungeonkiller/actready", 0.2, true},
-        ["battle/item_ready"]   = {"battle_dungeonkiller/itemready", 0.2, true},
-        ["battle/defend_ready"] = {"battle_dungeonkiller/defend", 1/15, false},
-
-        ["battle/act_end"]      = {"battle_dungeonkiller/actend", 1/15, false, next="battle/idle"},
-
-        ["battle/hurt"]         = {"battle_dungeonkiller/hurt", 1/15, false, temp=true, duration=0.5},
-        ["battle/defeat"]       = {"battle_dungeonkiller/defeat", 0.5, true},
-
-        ["battle/transition"]   = {"walk_shadowed/right", 0.2, true},
-        ["battle/intro"]        = {"battle_dungeonkiller/attack", 1/15, true},
-        ["battle/victory"]      = {"battle_dungeonkiller/victory", 1/10, false},
+        ["pirouette"]           = {"pirouette", 4/30, true},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -122,46 +98,29 @@ function actor:init()
         ["slide_hurt"] = {0, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-5, -1},
+        ["battle/idle"] = {-9, -3},
 
-        ["battle/attack"] = {-5, -1},
-        ["battle/attackready"] = {-5, -1},
-        ["battle/act"] = {-5, -1},
-        ["battle/actend"] = {-5, -1},
-        ["battle/actready"] = {-5, -1},
-        ["battle/item"] = {-5, -1},
-        ["battle/itemready"] = {-5, -1},
-        ["battle/defend"] = {-5, -1},
+        ["battle/attack"] = {-9, -3},
+        ["battle/attackready"] = {-9, -3},
+        ["battle/act"] = {-9, -3},
+        ["battle/actend"] = {-9, -3},
+        ["battle/actready"] = {-9, -3},
+        ["battle/spell"] = {-9, -3},
+        ["battle/item"] = {-9, -3},
+        ["battle/itemready"] = {-9, -3},
+        ["battle/defend"] = {-9, -3},
         ["battle/swooned"] = {0, 0},
 
-        ["battle/defeat"] = {-8, -5},
-        ["battle/hurt"] = {-5, -1},
+        ["battle/defeat"] = {-8, -3},
+        ["battle/hurt"] = {-9, -3},
 
         ["battle/intro"] = {-8, -9},
-        ["battle/victory"] = {-3, 0},
+        ["battle/victory"] = {-9, -3},
 
-        ["battle/tactic_freeze"] = {-5, -1},
-        ["battle/tactic_freeze_shiny"] = {-5, -1},
+        ["battle/tactic_freeze"] = {-9, -3},
+        ["battle/tactic_freeze_shiny"] = {-9, -3},
 
-        -- Dungeonkiller battle offsets
-        ["battle_dungeonkiller/idle"] = {-5, -1},
-
-        ["battle_dungeonkiller/attack"] = {-5, -1},
-        ["battle_dungeonkiller/attackready"] = {-5, -1},
-        ["battle_dungeonkiller/act"] = {-5, -1},
-        ["battle_dungeonkiller/actend"] = {-5, -1},
-        ["battle_dungeonkiller/actready"] = {-5, -1},
-        ["battle_dungeonkiller/item"] = {-5, -1},
-        ["battle_dungeonkiller/itemready"] = {-5, -1},
-        ["battle_dungeonkiller/defend"] = {-5, -1},
-
-        ["battle_dungeonkiller/defeat"] = {-8, -5},
-        ["battle_dungeonkiller/hurt"] = {-5, -1},
-
-        ["battle_dungeonkiller/intro"] = {-8, -9},
-        ["battle_dungeonkiller/victory"] = {-3, 0},
-
-		["sit"] = {4, -8},
+        ["battle/charge"] = {-9, -3},
 
 		["ball"] = {0, 18},
 
@@ -171,12 +130,14 @@ function actor:init()
 
         ["dance"] = {-4, 0},
 
+        ["pirouette"] = {-4, 0},
+
         ["sneak/left"] = {-6, 3},
         ["sneak/right"] = {2, 3},
 
         --- Climbing offsets
         ["climb/climb"] = {-4, 8},
-        ["climb/charge"] = {-4, 8},
+        ["climb/charge"] = {-4, 11},
         ["climb/slip_left"] = {-4, 8},
         ["climb/slip_right"] = {-4, 8},
         ["climb/land_left"] = {-4, 8},
@@ -204,9 +165,7 @@ function actor:init()
     }
 
     self.taunt_sprites = {"box", "bs_win", "maid", "bt"}
-    if Game:getFlag("dungeonkiller") then
-        self.taunt_sprites = nil
-    elseif Game:getFlag("jamm_closure") then
+    if Game:getFlag("jamm_closure") then
 		self.taunt_sprites = {"box", "ghost_bs", "maid", "bt"}
 	end
 
@@ -216,21 +175,6 @@ function actor:init()
 	end
 
 	self.shiny_id = "jamm"
-end
-
-function actor:getDefault()
-    if Game:getFlag("dungeonkiller") then
-        return "walk_shadowed"
-    end
-    return self.default
-end
-
-function actor:getAnimation(anim)
-    if Game:getFlag("dungeonkiller", false) and self.animations_dk[anim] ~= nil then
-        return self.animations_dk[anim] or nil
-    else
-        return super.getAnimation(self, anim)
-    end
 end
 
 return actor

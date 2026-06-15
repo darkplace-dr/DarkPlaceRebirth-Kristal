@@ -4,7 +4,7 @@ function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Magic Ball"
+    self.name = "Worn Diamond"
 
     -- Item type (item, key, weapon, armor)
     self.type = "weapon"
@@ -12,10 +12,10 @@ function item:init()
     self.light = true
 
     -- Item description text (unused by light items outside of debug menu)
-    self.description = "A dusty fortune-telling crystal ball."
+    self.description = "A small diamond that has went\nthrough the rough."
 
     -- Light world check text
-    self.check = "Weapon 1 AT\n* A dusty fortune-telling crystal ball."
+    self.check = "Weapon 1 AT\n* A small diamond that has went\nthrough the rough."
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"

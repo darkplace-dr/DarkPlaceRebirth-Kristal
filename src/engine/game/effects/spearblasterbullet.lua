@@ -2,8 +2,8 @@
 ---@overload fun(...) : SpearBlasterBullet
 local SpearBlasterBullet, super = Class(Sprite)
 
-function SpearBlasterBullet:init(x, y, tx, ty, after)
-    super.init(self, "effects/spearblaster_bullet", x, y)
+function SpearBlasterBullet:init(x, y, tx, ty, onhit)
+    super.init(self, "effects/spells/berdly/spearblaster_bullet", x, y)
 
     self:setOrigin(0.5, 0.5)
     self:setScale(2)
@@ -17,14 +17,14 @@ function SpearBlasterBullet:init(x, y, tx, ty, after)
 
     self.collided = false
 
-    self.after_func = after
+    self.onhit_func = onhit
 end
 
 function SpearBlasterBullet:update()
     if MathUtils.dist(self.x, self.y, self.target_x, self.target_y) <= 20 and not self.collided then
         self.collided = true
-        if self.after_func then
-            self.after_func()
+        if self.onhit_func then
+            self.onhit_func()
         end
     end
 

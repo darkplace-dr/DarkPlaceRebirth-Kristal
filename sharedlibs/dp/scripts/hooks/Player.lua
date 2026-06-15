@@ -1,5 +1,5 @@
 ---@class Player : Player
-local Player, super = Utils.hookScript(Player)
+local Player, super = HookSystem.hookScript(Player)
 
 function Player:init(chara, x, y)
     super.init(self, chara, x, y)

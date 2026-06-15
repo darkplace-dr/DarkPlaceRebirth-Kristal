@@ -9,7 +9,7 @@
 ---@field attacker          EnemyBattler    The attacker that owns the wave which created this bullet. Not defined until after `Bullet:init()`.
 ---@field wave              Wave            The wave that this bullet was created by. Not defined until after `Bullet:init()`.
 ---
----@field collider          Collider|nil
+---@field collider          Collider?
 ---
 ---@field tp                number
 ---@field time_bonus        number
@@ -42,7 +42,7 @@ function Bullet:init(x, y, texture)
     end
 
     -- Default collider to half this object's size
-    self.collider = Hitbox(self, self.width/4, self.height/4, self.width/2, self.height/2)
+    self.collider = Hitbox(self, self.width / 4, self.height / 4, self.width / 2, self.height / 2)
 
     -- TP added when you graze this bullet (Also given each frame after the first graze, 30x less at 30FPS)
     self.tp = nil
@@ -55,8 +55,8 @@ function Bullet:init(x, y, texture)
 
     -- Damage given to the player when hit by this bullet (Defaults to 5x the attacker's attack stat)
     self.damage = nil
-    -- Invulnerability timer to apply to the player when hit by this bullet (Defaults to 4/3 seconds)
-    self.inv_timer = (4 / 3)
+    -- Invulnerability timer to apply to the player when hit by this bullet
+    self.inv_timer = Game:getConfig("defaultInvulnTime") / 30
     -- Whether this bullet gets removed on collision with the player (Defaults to `true`)
     self.destroy_on_hit = true
 
@@ -96,6 +96,12 @@ function Bullet:shouldSwoon(damage, target, soul)
     return false
 end
 
+--- Get the invulnerability time that will be applied to the soul upon this bullet hitting it.
+---@return number
+function Bullet:getInvulnTime()
+    return self.inv_timer
+end
+
 --- *(Override)* Called when the bullet hits the player's soul without invulnerability frames. \
 --- Not calling `super.onDamage()` here will stop the normal damage logic from occurring.
 ---@param soul Soul
@@ -105,7 +111,7 @@ function Bullet:onDamage(soul)
     if damage > 0 then
         local target = self:getTarget()
         local battlers = Game.battle:hurt(damage, false, target, self:shouldSwoon(damage, target, soul))
-        soul.inv_timer = self.inv_timer
+        soul.inv_timer = self:getInvulnTime()
         soul:onDamage(self, damage)
         return battlers
     end

@@ -1,6 +1,6 @@
 --- Events are used as the base class for objects in the Overworld (in most cases)
 --- Custom events should be defined in `scripts/world/events` and extend from this class. They will receive an id based on their filepath from this location.
---- Custom events only ever recieve a `data` argument in their `init()` function that contains all of the data about the object in the map. 
+--- Custom events only ever recieve a `data` argument in their `init()` function that contains all of the data about the object in the map.
 --- Included in the `data` table is the `properties` table, which contains every property in the object's `Custom Properties` in Tiled.
 --- Events can be placed in maps by placing a shape on any `objects` layer and setting its name to the id of the event that should be created.
 ---
@@ -14,19 +14,18 @@
 ---@field unique_id         string
 ---@field world             World       The world that this event is contained in
 ---@field data              table
+---@field layer_name        string
 ---
 ---@overload fun(x: number, y: number, shape: table) : Event
 ---@overload fun(data: table) : Event
 local Event, super = Class(Object)
 
----@param x?        number
----@param y?        number
----@param width?    number
----@param height?   number
----@param shape?    {[1]: number, [2]: number, [3]: table?} Shape data for this event. First two indexes are the width and height of the object. The third (optional) index is polygon data.
----@param data?     table
----@overload fun(self: Event, data?: table)
----@overload fun(self: Event, x?: number, y?: number, shape?: {[1]: number, [2]: number, [3]: table?})
+---@param x number?
+---@param y number?
+---@param width number?
+---@param height number?
+---@overload fun(self: Event, data: table?)
+---@overload fun(self: Event, x: number?, y: number?, shape: EventShape?)
 function Event:init(x, y, width, height)
     local shape = { 0, 0 }
     if type(width) == "table" then
@@ -68,7 +67,7 @@ function Event:init(x, y, width, height)
     self.interact_buffer = (5 / 30)
 end
 
---- The below callbacks are set back to `nil` to ensure collision checks are 
+--- The below callbacks are set back to `nil` to ensure collision checks are
 --- only run on objects that define collision code
 
 --- *(Override)* Called whenever the player interacts with this event
@@ -125,12 +124,18 @@ end
 --- Called when the event is removed
 ---@param parent World|Event
 function Event:onRemove(parent)
-    if self.data then
-        if self.world.map.events_by_name[self.data.name] then
-            TableUtils.removeValue(self.world.map.events_by_name[self.data.name], self)
+    if self.world then
+        TableUtils.removeValue(self.world.map.events, self)
+        if self.data then
+            if self.world.map.events_by_name[self.data.name] then
+                TableUtils.removeValue(self.world.map.events_by_name[self.data.name], self)
+            end
+            if self.world.map.events_by_id[self.data.id] then
+                TableUtils.removeValue(self.world.map.events_by_id[self.data.id], self)
+            end
         end
-        if self.world.map.events_by_id[self.data.id] then
-            TableUtils.removeValue(self.world.map.events_by_id[self.data.id], self)
+        if self.layer_name and self.world.map.events_by_layer[self.layer_name] then
+            TableUtils.removeValue(self.world.map.events_by_layer[self.layer_name], self)
         end
     end
     if parent:includes(World) or parent.world then
@@ -138,7 +143,7 @@ function Event:onRemove(parent)
     end
 end
 
---- Gets this `Event` instance's unique id within the whole mod
+--- Gets this `Event` instance's unique id within the whole project
 --- *The returned id follows the format `#[map.id](lua://Map.id)#[object_id](lua://Event.object_id)` if a custom [`unique_id`](lua://Event.unique_id) is not defined*
 ---@return string? id
 function Event:getUniqueID()
@@ -253,10 +258,11 @@ end
 ---@param offset_x? number
 ---@param offset_y? number
 ---@param layer?    number
+---@param color?    Color   The color used to draw the flash, defaulting to white
 ---@return FlashFade
-function Event:flash(sprite, offset_x, offset_y, layer)
+function Event:flash(sprite, offset_x, offset_y, layer, color)
     local sprite_to_use = sprite or self.sprite
-    return sprite_to_use:flash(offset_x, offset_y, layer)
+    return sprite_to_use:flash(offset_x, offset_y, layer, color)
 end
 
 function Event:draw()

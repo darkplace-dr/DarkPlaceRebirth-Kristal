@@ -9,8 +9,6 @@ function character:init()
     -- Display name
     self.name = "Noel"
 
-    self.cm_draw = true --for the character select draw function
-
     -- Actor (handles sprites)
     self:setActor("noel")
     self:setDarkTransitionActor("noel")
@@ -20,6 +18,12 @@ function character:init()
     self.level = lever
     -- Default title / class (saved to the save file)
     self.title = "Preist\nDoesn't understand\nhow his class works."
+
+    local t = "* Level -1 Preist.\n"
+    local b = "* Doesn't understand what a preist is.\n\nCan't level up.\n\n"
+    local v = "Incapable of using [image:ui/battle/btn/fight_a, 0, 0, 2, 2] and"
+    local s = " [image:ui/battle/btn/defend_a, 0, 0, 2, 2] ."
+    self.title_extended = t .. b .. v .. s .. "\n\nHas a 2/3 chance of taking damage."
 
     -- Determines which character the soul comes from (higher number = higher priority)
     self.soul_priority = 0.1
@@ -92,6 +96,10 @@ function character:init()
     -- Attack box color (for the attack area in attack mode) (defaults to darkened main color)
     self.attack_box_color = {1, 1, 1}
     self.xact_color = {1, 1, 1}
+	-- highlight color A
+    self.highlight_color = COLORS.white
+		-- highlight color B
+    self.highlight_color_alt = COLORS.white
 
     self.icon_color = {150/255, 150/255, 150/255}
 
@@ -138,6 +146,10 @@ function character:init()
     self.tv_name = "NUL"
 
     self.can_lead = false
+
+    self.element = {
+        "NIL"
+    }
 end
 
 function character:getTitle()
@@ -302,6 +314,10 @@ function character:load(data)
     local save_stat = {}
     local lw_save_stat = {}
     if save then
+
+
+        if save.MaxHealth == 1 then save.MaxHealth = 900 end
+
         save_stat = {
             health = save.MaxHealth,
             attack = save.Attack,
@@ -325,7 +341,7 @@ function character:load(data)
             self:loadSpells(save.Spells)
         end
 
-        self.kills = save.Kills or self.kills
+        self.kills = save.Kills
 
         self:loadEquipment(save.Equipped)
 
@@ -338,7 +354,7 @@ function character:load(data)
         if not Noel:getFlag("FUN") then
             Noel:setFlag("FUN", Game:getFlag("FUN", 11))
         end
-    else
+    elseif not save then
         self.stats = data.stats or self.stats
         self.health = data.health or self:getStat("health", 0, false)
         if data.spells then
@@ -369,16 +385,31 @@ end
 function character:CharacterMenuDraw()
 
     local party = self
-	local x = 330
-	love.graphics.print("ATK "..party.stats["attack"], x, 310)
-	love.graphics.print("PAIN x10", x, 342)
-	love.graphics.print("MAG "..party.stats["magic"], x, 374)
 
-	x = 420
 
-	love.graphics.print("HP "..party.health.."/"..party.stats["health"], x, 310)
-	love.graphics.print("   LOVE -1", x, 342)
-	love.graphics.print("KILLS "..party.kills, x, 374)
+		local x = 330
+	love.graphics.print("ELEMENT: NONE", x, 374)
+                love.graphics.print("LEVEL: "..party.level, x, 278)
+		love.graphics.print("LOVE: -1", x, 310)
+		love.graphics.print("KILLS: "..party.kills, x, 342)
+
+		x = 438
+
+		love.graphics.print("HP: "..party.health.."/"..party.stats["health"], x, 246)
+
+
+		x = 464
+		love.graphics.print("ATK: "..party.stats["attack"], x, 278)
+		love.graphics.print("PAIN: x10", x, 310)
+		love.graphics.print("MAG: "..party.stats["magic"], x, 342) --374 --342
+
+
+                Draw.draw(Assets.getTexture("ui/menu/icon/sword"), x - 24, 278 + 6, 0, 2, 2)
+                local img = "ui/menu/icon/armor"
+                if math.random(1, 10) == 1 then img = "ui/menu/icon/pain" end
+                Draw.draw(Assets.getTexture(img), x - 24, 310 + 6, 0, 2, 2)
+                Draw.draw(Assets.getTexture("ui/menu/icon/magic"), x - 24, 342 + 6, 0, 2, 2)
+    return true
 end
 
 return character

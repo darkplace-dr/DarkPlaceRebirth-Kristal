@@ -66,7 +66,7 @@ function item:init()
 			jamm = "Did you try to eat it!?",
 		},
         dess = "ew im alergic to flowers AND love",
-        ceroba = "It's beautiful... But give it to Jamm.",
+        ceroba = "Beautiful... But not mine.",
     }
 end
 

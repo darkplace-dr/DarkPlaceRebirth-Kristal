@@ -34,6 +34,8 @@ function spell:getTPCost(chara)
 end
 
 function spell:onCast(user, target)
+    Game.battle:decTemp(16)
+    
     user.chara:addFlag("iceshocks_used", 1)
 
     local function createParticle(x, y)
@@ -89,7 +91,7 @@ end
 function spell:getDamage(user, target)
     local min_magic = MathUtils.clamp(user.chara:getStat("magic") - 10, 1, 999)
 
-    return math.ceil((min_magic * 30) + 90 + MathUtils.random(10))
+    return math.ceil(((min_magic * 30) + 90 + MathUtils.random(10))/target:getResistance("ICE"))
 end
 
 return spell

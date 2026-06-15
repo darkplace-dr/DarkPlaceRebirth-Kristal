@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="84">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="85">
  <editorsettings>
   <export target="corridors1.lua" format="lua"/>
  </editorsettings>
@@ -161,6 +161,12 @@
    <point/>
   </object>
   <object id="83" gid="155" x="480" y="740" width="60" height="90"/>
+  <object id="84" name="interactable" x="480" y="699.25" width="60" height="40.75">
+   <properties>
+    <property name="cutscene" value="tvfloor.legacy_freevending"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="31" name="entry" x="40" y="800">

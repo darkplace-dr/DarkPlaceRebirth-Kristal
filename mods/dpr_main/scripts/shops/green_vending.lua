@@ -34,8 +34,8 @@ function GreenVending:init()
 
     self:registerItem("tvdinner", {price = 150})
     self:registerItem("deluxedinner", {price = 300})
-    self:registerItem("gingerguard", {price = 600})
     self:registerItem("lodestone", {price = 400})
+    self:registerItem("gingerguard", {price = 600})
     
     self.hide_world = false
 	self.bg_cover.visible = false
@@ -59,6 +59,10 @@ function GreenVending:onStateChange(old,new)
     Game.key_repeat = false
     self.buy_confirming = false
     self.sell_confirming = false
+	if new == "SELLMENU" then
+        self:startDialogue({"* (You tried to sell something, but you've forgot vending machines don't work like that.)"}, "MAINMENU")
+		return
+	end
 	if new == "TALKMENU" then
         self:startDialogue({"* (You CHECKed the vending machine.)[wait:5]\n* (It says: \"Thanks for visiting Green Room(TM)! Don't forget to visit the TENNA ROOM! All Tennas and non-Tennas are welcome!\".)"}, "MAINMENU")
 		return

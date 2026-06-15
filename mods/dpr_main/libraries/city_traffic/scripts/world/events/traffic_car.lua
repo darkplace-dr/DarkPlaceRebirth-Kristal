@@ -257,7 +257,7 @@ function TrafficCar:update()
     Object.startCache()
     for _, turner in ipairs(Game.world:getEvents("car_turner")) do
         if self:collidesWith(turner) and turner.walkdir ~= self.walkdir then
-            local car = Registry.createEvent("traffic_car", {x = self.x, y = self.y})
+            local car = Registry.createLegacyEvent("traffic_car", {x = self.x, y = self.y})
             car.car_path = self.car_path
             car.legs_path = self.legs_path
             car.speed = self.speed

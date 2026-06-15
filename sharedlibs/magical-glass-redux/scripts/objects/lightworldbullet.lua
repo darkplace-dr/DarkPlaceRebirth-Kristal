@@ -1,4 +1,4 @@
-local LightWorldBullet, super = Class(WorldBullet, "LightWorldBullet")
+local LightWorldBullet, super = Class(WorldBullet)
 
 function LightWorldBullet:init(x, y, texture)
     super.init(self, x, y, texture)

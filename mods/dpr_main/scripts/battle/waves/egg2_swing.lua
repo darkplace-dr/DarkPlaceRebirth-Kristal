@@ -9,6 +9,7 @@ function Basic:init()
     self.soul_start_y = 260
 	
 	self.time = 10
+	self.buff_freeze = true
 end
 
 function Basic:onStart()

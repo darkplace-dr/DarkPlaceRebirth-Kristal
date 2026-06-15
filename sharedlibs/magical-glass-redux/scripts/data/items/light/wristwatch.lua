@@ -6,7 +6,7 @@ function item:init()
     -- Display name
     self.short_name = "Watch"
 
-    self.price = 100
+    self.sell_price = 10
 end
 
 return item

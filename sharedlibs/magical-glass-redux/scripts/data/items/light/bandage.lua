@@ -11,8 +11,8 @@ function item:init()
     -- Whether this item is for the light world
     self.light = true
 
-    -- Default shop sell price
-    self.sell_price = 10
+    -- Shop sell price (optional, default half of buy price)
+    self.sell_price = 3
     -- Whether the item can be sold
     self.can_sell = true
 
@@ -28,7 +28,7 @@ function item:init()
     self.result_item = nil
 
     -- Amount this item heals
-    self.heal_amount = 10
+    self.heal_amount = 1
 
     -- Amount this item heals for in the overworld (optional)
     self.world_heal_amount = nil
@@ -52,9 +52,9 @@ end
 function item:onWorldUse(target)
     local amount = self:getWorldHealAmount(target.id)
     local best_amount
-    for _,member in ipairs(Game.party) do
+    for _, member in ipairs(Game.party) do
         local equip_amount = 0
-        for _,equip in ipairs(member:getEquipment()) do
+        for _, equip in ipairs(member:getEquipment()) do
             if equip.getHealBonus then
                 equip_amount = equip_amount + equip:getHealBonus()
             end
@@ -71,6 +71,7 @@ function item:onWorldUse(target)
     else
         Game.world:heal(target, amount, "* " .. target:getName() .. " applied the bandage.", self)
     end
+
     return true
 end
 
@@ -87,9 +88,8 @@ function item:getBattleText(user, target)
 end
 
 function item:onLightBattleUse(user, target)
-    Assets.stopAndPlaySound("power")
     local amount = self:getBattleHealAmount(target.chara.id)
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
@@ -100,7 +100,7 @@ end
 
 function item:onBattleUse(user, target)
     local amount = self:getBattleHealAmount(target.chara.id)
-    for _,equip in ipairs(user.chara:getEquipment()) do
+    for _, equip in ipairs(user.chara:getEquipment()) do
         if equip.getHealBonus then
             amount = amount + equip:getHealBonus()
         end
@@ -124,7 +124,7 @@ function item:getLightBattleHealingText(user, target, amount)
         elseif maxed then
             message = "* " .. target.chara:getNameOrYou() .. "'s HP was maxed out."
         else
-            message = "* " .. target.chara:getNameOrYou() .. " recovered " .. amount .. " HP."
+            message = "* " .. target.chara:getNameOrYou() .. " recovered " .. amount .. " HP!"
         end
     end
     return message
@@ -143,7 +143,7 @@ function item:getLightWorldHealingText(target, amount, maxed)
     elseif maxed then
         message = "* " .. target:getName() .. "'s HP was maxed out."
     else
-        message = "* " .. target:getNameOrYou() .. " recovered " .. amount .. " HP."
+        message = "* " .. target:getNameOrYou() .. " recovered " .. amount .. " HP!"
     end
     return message
 end

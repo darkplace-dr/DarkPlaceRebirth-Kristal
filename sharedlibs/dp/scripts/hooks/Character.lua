@@ -1,5 +1,5 @@
 ---@class Character : Character
-local Character, super = Utils.hookScript(Character)
+local Character, super = HookSystem.hookScript(Character)
 
 function Character:getDebugOptions(context)
     if (self.party or self.actor.id) == "noel" then

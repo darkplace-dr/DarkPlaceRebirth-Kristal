@@ -6,16 +6,7 @@ return {
 
     door = function(cutscene, event, player)
         cutscene:text("* (It's a door. A large person could fit inside.)")
-        local choice = cutscene:choicer({"Turn the\ndoorknob", "Do not"})
-        if choice == 1 then
-            cutscene:text("* (You turned the doorknob.)")
-            cutscene:text("* (...)")
-            if Game.party[1].id == "kris" then
-                cutscene:text("* (...[wait:5] You didn't do anything else.)")
-            else
-                cutscene:text("* (...[wait:5] it's not opening. Must be locked.)")
-            end
-        end
+        cutscene:text("* (...[wait:5] it's locked.)")
     end,
 
     candles = function(cutscene, event, player)
@@ -76,25 +67,11 @@ return {
     bells = function(cutscene, event)
         cutscene:text("* (It's a set of bells of different sizes.)")
         local dowemess = cutscene:choicer({"Mess\nwith them", "Don't"})
-        if dowemess == 1 then -- I tried to port the thing but it kinda broke. Any help on that?
-            local count = 0
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 1.17 - count / 40)
-            count = count + 1
-            cutscene:wait(0.05)
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 0.97 - count / 40)
-            count = count + 1
-            cutscene:wait(0.05)
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 1.17 - count / 40)
-            count = count + 1
-            cutscene:wait(0.05)
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 0.97 - count / 40)
-            count = count + 1
-            cutscene:wait(0.05)
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 1.17 - count / 40)
-            count = count + 1
-            cutscene:wait(0.05)
-            Assets.playSound("churchbell_short", (0.7 - count / 8), 0.97 - count / 40)
-            cutscene:wait(0.5)
+        if dowemess == 1 then
+            Game.world.timer:after(4/30, function() Assets.playSound("playablebell", 0.7, 0.8) end)
+            Game.world.timer:after(8/30, function() Assets.playSound("playablebell", 0.7, 1) end)
+            Game.world.timer:after(12/30, function() Assets.playSound("playablebell", 0.7, 1.2) end)
+            cutscene:wait(1)
         end
     end,
 

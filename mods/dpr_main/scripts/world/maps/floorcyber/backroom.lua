@@ -1,0 +1,280 @@
+return {
+  version = "1.11",
+  luaversion = "5.1",
+  tiledversion = "1.11.2",
+  class = "",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 18,
+  height = 10,
+  tilewidth = 40,
+  tileheight = 40,
+  nextlayerid = 7,
+  nextobjectid = 10,
+  properties = {},
+  tilesets = {
+    {
+      name = "dw_cybershop",
+      firstgid = 1,
+      filename = "../../tilesets/dw_cybershop.tsx",
+      exportfilename = "../../tilesets/dw_cybershop.lua"
+    },
+    {
+      name = "dither_overlay",
+      firstgid = 82,
+      filename = "../../tilesets/dither_overlay.tsx",
+      exportfilename = "../../tilesets/dither_overlay.lua"
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 18,
+      height = 10,
+      id = 1,
+      name = "Tile Layer 1",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 52, 53, 53, 53, 53, 53, 53, 54, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 61, 62, 62, 62, 62, 62, 62, 63, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 70, 71, 71, 71, 71, 71, 71, 72, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 44, 44, 45, 45, 45, 44, 45, 45, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 45, 45, 44, 45, 43, 45, 45, 44, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 45, 43, 44, 43, 43, 44, 45, 44, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 45, 44, 45, 36, 36, 45, 43, 45, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 45, 45, 45, 36, 36, 44, 45, 45, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 18,
+      height = 10,
+      id = 2,
+      name = "Tile Layer 2",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 79, 80, 80, 80, 80, 81, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 4, 91, 91, 2, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 18,
+      height = 10,
+      id = 6,
+      name = "Tile Layer 3",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 73, 74, 75, 76, 77, 78, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 3,
+      name = "collisions",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 120,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 2,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 80,
+          width = 320,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 120,
+          width = 40,
+          height = 200,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 200,
+          y = 320,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 400,
+          y = 320,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 4,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 8,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 425,
+          y = 60,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "itemsparkle",
+            ["cutscene"] = "cyber.speedbadge",
+            ["flagcheck"] = "!speedbadge"
+          }
+        },
+        {
+          id = 9,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 320,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floorcyber/cyber_store",
+            ["marker"] = "entry3"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 5,
+      name = "markers",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 5,
+          name = "entry1",
+          type = "",
+          shape = "point",
+          x = 360,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
+}

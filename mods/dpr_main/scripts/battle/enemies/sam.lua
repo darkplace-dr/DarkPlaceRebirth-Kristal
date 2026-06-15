@@ -25,10 +25,10 @@ function Sam:init()
     }
 
     self.dialogue = {
-        "[font:sans][voice:sans]hehehehe",
-        "[font:sans][voice:sans]the name's sam",
-        "[font:sans][voice:sans]hi",
-        "[font:sans][voice:sans]miss thoodleoo,[wait:5]\nmay i go to\nthe restroom?"
+        "[font:sans_battle][voice:sans]hehehehe",
+        "[font:sans_battle][voice:sans]the name's sam",
+        "[font:sans_battle][voice:sans]hi",
+        "[font:sans_battle][voice:sans]miss thoodleoo,[wait:5]\nmay i go to\nthe restroom?"
     }
 
     self.check = "AT 1 DF 0\n* His name's Sam.[wait:5]\n* Apparently."
@@ -67,7 +67,7 @@ function Sam:onAct(battler, name)
         Game.battle:powerAct("red_buster", battler, "susie", self)
     elseif name == "Talk" then
         self:addMercy(7)
-        self.dialogue_override = "[font:sans][voice:sans]heya"
+        self.dialogue_override = "[font:sans_battle][voice:sans]heya"
         return "* You talk to Sam."
     elseif name == "Standard" then
 		self:addMercy(3)

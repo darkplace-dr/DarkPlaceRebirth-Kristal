@@ -1,3 +1,4 @@
+local LoadingMode = require("src.engine.loading.LoadingMode")
 ---@class (exact) MainMenuOptions : StateClass, StateManagedClass
 ---
 ---@field menu MainMenu
@@ -5,7 +6,7 @@
 ---@field state string
 ---@field state_manager StateManager
 ---
----@field options table<string, {id: string, name: string, options: {name: string, value: (fun(x:number, y:number):any)|nil, callback: fun()}[]}>
+---@field options table<string, {id: string, name: string, options: {name: string, value: (fun(x:number, y:number):any)?, callback: fun()}[]}>
 ---@field pages string[]
 ---
 ---@field selected_option number
@@ -70,6 +71,9 @@ function MainMenuOptions:init(menu)
     self.scroll_speed2 = 1
 	
     self.dog_balloon_siner = 0
+	self.dog_talk_frame = 0
+	self.dog_retro_frame = 0
+	self.dog_talking = false
 	
     self.clouds_1 = Assets.getTexture("kristal/options_clouds1")
     if self.retro then
@@ -83,7 +87,14 @@ function MainMenuOptions:init(menu)
     if self.retro then
         self.moon = Assets.getTexture("kristal/options_platform")
     end
-    self.dog = Assets.getTexture("kristal/dog_balloon")
+    self.dog = Assets.getFrames("kristal/dog_balloon")
+    if self.retro then
+        self.dog = Assets.getFrames("kristal/dog_retro")
+    end
+    self.dialogue_bubble = Assets.getTexture("bubbles/long_right")
+    if self.retro then
+        self.dialogue_bubble = Assets.getTexture("bubbles/long_right_retro")
+    end
 end
 
 function MainMenuOptions:registerEvents()
@@ -155,10 +166,28 @@ function MainMenuOptions:update()
     self.menu.heart_target_x, self.menu.heart_target_y = self:getHeartPos()
 
     self.state_manager:update()
+    
+    self.menu.kristal_stage_title.visible = false
+	
+	if self.dog_talking then
+		if self.retro then
+			self.dog_retro_frame = self.dog_retro_frame + 0.3 * DTMULT
+		end
+		self.dog_talk_frame = self.dog_talk_frame + 0.3 * DTMULT
+		if self.dog_talk_frame >= 10 then
+			self.dog_talk_frame = 0
+			self.dog_talking = false
+		end
+	elseif self.retro then
+		self.dog_retro_frame = self.dog_retro_frame + 0.1 * DTMULT
+	end
 end
 
 function MainMenuOptions:draw()
     local offset = math.sin(self.dog_balloon_siner * 0.1) * 15
+	if self.retro then
+		offset = math.sin(self.dog_balloon_siner * 0.04) * 32
+	end
 
     if self.retro then
         Draw.setColor(0.36, 0.58, 0.99, 1)
@@ -175,12 +204,29 @@ function MainMenuOptions:draw()
         Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
     end
     if not self.retro then
-        Draw.draw(self.dog, 536, 296 + offset, 0, 2, 2)
-    end
+        Draw.draw(self.dog[math.floor(self.dog_talk_frame % 2) + 1], 556, 296 + offset, 0, 2, 2)
+	end
     if self.retro then
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
+        Draw.draw(self.dog[math.floor(self.dog_retro_frame % 2) + 1], 560, 360 + math.floor(offset / 2) * 2, 0, 2, 2)
+        Draw.draw(self.dialogue_bubble, 560, 330 + math.floor(offset / 2) * 2, 0, -2, 2)
     else
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
+        Draw.draw(self.dialogue_bubble, 556, 330 + offset, 0, -1, 1)
+    end
+
+    if self.retro then
+        love.graphics.setFont(Assets.getFont("8bit"))
+        Draw.setColor(COLORS.black)
+        love.graphics.print(string.upper(self:getOptionText()) or "TEST FUCKING\nOPTIONS\nDIALOGUE", 424, 336 + math.floor(offset / 2) * 2, 0, 0.5, 0.5)
+        Draw.setColor(COLORS.white)
+        love.graphics.setFont(Assets.getFont("main"))
+	else
+        love.graphics.setFont(Assets.getFont("plain"))
+        Draw.setColor(COLORS.black)
+        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 414, 332 + offset)
+        Draw.setColor(COLORS.white)
+        love.graphics.setFont(Assets.getFont("main"))
     end
 
     local menu_font = Assets.getFont("main")
@@ -292,8 +338,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
         self:remove_noel_char()
 
-        self.menu:setState("TITLE")
-        self.menu.title_screen:selectOption("options")
+        self.menu:setState("SUBTITLE")
+        self.menu.subtitle:selectOption("options")
         return
     end
 
@@ -336,6 +382,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
     if move_noise then
         Assets.stopAndPlaySound("ui_move")
+		self.dog_talk_frame = 1
+		self.dog_talking = true
     end
 
     if Input.isConfirm(key) then
@@ -347,8 +395,8 @@ function MainMenuOptions:onKeyPressedMenu(key, is_repeat)
 
             self:remove_noel_char()
 
-            self.menu:setState("TITLE")
-            self.menu.title_screen:selectOption("options")
+            self.menu:setState("SUBTITLE")
+            self.menu.subtitle:selectOption("options")
         else
             options[self.selected_option].callback()
         end
@@ -357,7 +405,7 @@ end
 
 function MainMenuOptions:onKeyPressedVolume(key, is_repeat)
     if Input.isCancel(key) or Input.isConfirm(key) then
-        Kristal.setVolume(Utils.round(Kristal.getVolume() * 100) / 100)
+        Kristal.setVolume(MathUtils.round(Kristal.getVolume() * 100) / 100)
 
         Assets.stopAndPlaySound("ui_select")
         self:setState("MENU")
@@ -581,14 +629,34 @@ end
 ---@param config string                  # The config option to toggle.
 ---@param callback? fun(toggled:boolean) # Additional callback for when the option is toggled.
 function MainMenuOptions:registerConfigOption(page, name, config, callback)
-    self:registerOption(page, name, function ()
-                            return Kristal.Config[config] and "ON" or "OFF"
-                        end, function ()
-                            Kristal.Config[config] = not Kristal.Config[config]
-                            if callback then
-                                callback(Kristal.Config[config])
-                            end
-                        end)
+    self:registerOption(
+        page,
+        name,
+        function()
+            return Kristal.Config[config] and "ON" or "OFF"
+        end, function()
+            Kristal.Config[config] = not Kristal.Config[config]
+            if callback then
+                callback(Kristal.Config[config])
+            end
+        end
+    )
+end
+
+local function toPascalCase(str)
+    local final_str = ""
+    local uppercase = true
+    for char in string.gmatch(str, utf8.charpattern) do
+        if char == "_" then
+            uppercase = true
+        elseif uppercase then
+            uppercase = false
+            final_str = final_str .. string.upper(char)
+        else
+            final_str = final_str .. string.lower(char)
+        end
+    end
+    return final_str
 end
 
 function MainMenuOptions:initializeOptions()
@@ -601,18 +669,23 @@ function MainMenuOptions:initializeOptions()
     -- General Options
     ---------------------
 
-    self:registerOption("general", "Master Volume", function ()
-                            return Utils.round(Kristal.getVolume() * 100) .. "%"
-                        end, function ()
-                            self:setState("VOLUME")
-                        end)
+    self:registerOption(
+        "general",
+        "Master Volume",
+        function()
+            return MathUtils.round(Kristal.getVolume() * 100) .. "%"
+        end,
+        function()
+            self:setState("VOLUME")
+        end
+    )
 
     local function enterControls(type)
         self.menu:pushState("CONTROLS", type)
         self:remove_noel_char()
     end
-    self:registerOption("general", "Keyboard Controls", nil, function () enterControls("keyboard") end)
-    self:registerOption("general", "Gamepad Controls", nil, function () enterControls("gamepad") end)
+    self:registerOption("general", "Keyboard Controls", nil, function() enterControls("keyboard") end)
+    self:registerOption("general", "Gamepad Controls", nil, function() enterControls("gamepad") end)
 
     self:registerConfigOption("general", "Auto-Run", "autoRun")
 
@@ -631,44 +704,72 @@ function MainMenuOptions:initializeOptions()
     -- Graphics Options
     ---------------------
 
-    self:registerConfigOption({ "general", "graphics" }, "Fullscreen", "fullscreen", function (toggled)
+    self:registerConfigOption({ "general", "graphics" }, "Fullscreen", "fullscreen", function(toggled)
         love.window.setFullscreen(toggled)
     end)
 
-    self:registerOption({ "general", "graphics" }, "Window Scale", function ()
-                            return tostring(Kristal.Config["windowScale"]) .. "x"
-                        end, function ()
-                            self:setState("WINDOWSCALE")
-                        end)
+    self:registerOption(
+        { "general", "graphics" },
+        "Window Scale",
+        function()
+            return tostring(Kristal.Config["windowScale"]) .. "x"
+        end,
+        function()
+            self:setState("WINDOWSCALE")
+        end
+    )
 
-    self:registerOption({ "general", "graphics" }, "Border", function ()
-                            return Kristal.getBorderName()
-                        end, function ()
-                            self:setState("BORDER")
-                        end)
+    self:registerOption(
+        { "general", "graphics" },
+        "Border",
+        function()
+            return Kristal.getBorderName()
+        end,
+        function()
+            self:setState("BORDER")
+        end
+    )
 
     self:registerConfigOption({ "general", "graphics" }, "Simplify VFX", "simplifyVFX")
 	
     self:registerConfigOption("general", "Auto-Reload DLC", "ardlc")
 
-    self:registerOption("graphics", "Target FPS", function (x, y)
-                            if Kristal.Config["fps"] > 0 then
-                                return Kristal.Config["fps"]
-                            else
-                                Draw.setColor(0, 0, 0)
-                                Draw.draw(Assets.getTexture("kristal/menu_infinity"), x + 2, y + 11, 0, 2, 2)
-                                Draw.setColor(1, 1, 1)
-                                Draw.draw(Assets.getTexture("kristal/menu_infinity"), x, y + 9, 0, 2, 2)
-                            end
-                        end, function ()
-                            self:setState("FPS")
-                        end)
+    self:registerOption(
+        "graphics",
+        "Target FPS",
+        function(x, y)
+            if Kristal.Config["fps"] > 0 then
+                return Kristal.Config["fps"]
+            else
+                Draw.setColor(0, 0, 0)
+                Draw.draw(Assets.getTexture("kristal/menu_infinity"), x + 2, y + 11, 0, 2, 2)
+                Draw.setColor(1, 1, 1)
+                Draw.draw(Assets.getTexture("kristal/menu_infinity"), x, y + 9, 0, 2, 2)
+            end
+        end, function()
+            self:setState("FPS")
+        end
+    )
 
-    self:registerConfigOption("graphics", "VSync", "vSync", function (toggled)
-        love.window.setVSync(toggled and 1 or 0)
-    end)
+    self:registerConfigOption(
+        "graphics",
+        "VSync",
+        "vSync",
+        function(toggled)
+            love.window.setVSync(toggled and 1 or 0)
+        end
+    )
+
     self:registerConfigOption("graphics", "Frame Skip", "frameSkip")
-    self:registerConfigOption("graphics", "Broken Menu Boxes", "brokenMenuBoxes")
+
+    self:registerConfigOption(
+        "graphics",
+        "Broken Menu Boxes",
+        "brokenMenuBoxes",
+        function(toggled)
+            self.menu.mod_list:buildModList()
+        end
+    )
 
     ---------------------
     -- Engine Options
@@ -677,19 +778,27 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("engine", "Skip Intro", "skipIntro")
     self:registerConfigOption("engine", "Display FPS", "showFPS")
 
-    self:registerOption("engine", "Default Name", function ()
-                            return Kristal.Config["defaultName"]
-                        end, function ()
-                            self.menu:pushState("DEFAULTNAME")
-                            self:remove_noel_char()
-                        end)
-    self:registerConfigOption("engine", "Skip Name Entry", "skipNameEntry")
+    self:registerOption(
+        "engine",
+        "Default Name",
+        function()
+            return Kristal.Config["defaultName"]
+        end,
+        function()
+            self.menu:pushState("DEFAULTNAME")
+        end
+    )
 
-    self:registerConfigOption("engine", "Debug Hotkeys", "debug")
+    self:registerConfigOption("engine", "Skip Name Entry", "skipNameEntry")
     self:registerConfigOption("engine", "Verbose Loader", "verboseLoader")
-    self:registerConfigOption("engine", "Lazy Load Sprites", "lazySprites")
-    self:registerConfigOption("engine", "Use System Mouse", "systemCursor", function () Kristal.updateCursor() end)
-    self:registerConfigOption("engine", "Always Show Mouse", "alwaysShowCursor", function () Kristal.updateCursor() end)
+
+    self:registerOption("engine", "Loader Mode", function(x, y)
+        Draw.printShadow(toPascalCase(TableUtils.getKey(LoadingMode --[[@as table]], Kristal.Config["projectLoadingMode"])), x, y)
+    end, function()
+        Kristal.Config["projectLoadingMode"] = ( Kristal.Config["projectLoadingMode"] + 1 ) % 3
+    end)
+    self:registerConfigOption("engine", "Use System Mouse", "systemCursor", function() Kristal.updateCursor() end)
+    self:registerConfigOption("engine", "Always Show Mouse", "alwaysShowCursor", function() Kristal.updateCursor() end)
     self:registerConfigOption("engine", "Instant Quit", "instantQuit")
 
     self:registerConfigOption("gameplay", "Prefer Goner Keybd.", "prefersGonerKeyboard")
@@ -713,7 +822,72 @@ function MainMenuOptions:initializeOptions()
     self:registerConfigOption("gameplay", "Descriptive Loading", "dLoad")
     self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
     self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
+    self:registerConfigOption("gameplay", "Silly RTX Mode", "silly_mode")
+    self:registerConfigOption("gameplay", "Low-Health Music", "musicDistort")
 
+end
+
+function MainMenuOptions:getOptionText()
+    local text = nil
+    local page_1 = {
+        "change how\nloud the\ngame is",
+        "change what\nkeys do what\nactions",
+        "change what\ncontroller\nbuttons\ndo what\nactions",
+        "change\nwhether you\nrun by\ndefault",
+        "if enabled,\ngives a\ncustom\ndiscord\nstatus",
+        "toggles\nfullscreen",
+        "change the\nwindow scale\nfor windowed\nmode",
+        "whether or\nnot the game\nwill have\na border",
+        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
+        "i have no\nidea what\nthis does \n\nlol",
+        "go back\nto the\nmain menu"
+    }
+    local page_2 = {
+        "toggles\nfullscreen",
+        "change the\nwindow scale\nfor windowed\nmode",
+        "whether or\nnot the game\nwill have\na border",
+        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
+        "sets the\ntarget fps",
+        "toggles\nvsync",
+        "toggles\nframe skip",
+        "does some-\nthing and\nbreaks the\noptions\nmusic",
+        "go back\nto the\nmain menu"
+    }
+    local page_3 = {
+        "toggles\nskipping the\nintro when\nopening\nthe game",
+        "toggles\ndisplaying\nthe current\nfps count",
+        "change the\ndefault name\nfor save\nfiles",
+        "toggles\nskipping the\nsave file\nname entry",
+        "i have no\nidea what\nthis does \n\nlol",
+        "change what\nloading sys-\ntem to use",
+        "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
+        "show the\nmouse cursor\nalways",
+        "instantly\nclose the\ngame when\npressing\nESC",
+        "go back\nto the\nmain menu"
+    }
+    local page_4 = {
+        "whether to\nuse the\ngoner key-\nboard when\ntyping",
+        "enables\nshatter\nif it's\ninstalled",
+        "manage\ninstalled\nplugins",
+        "i have no\nidea what\nthis does \n\nlol",
+        "when\nattacking,\nuse z, x,\nand c instead\nof just z",
+        "wheter to\nuse special\nanimations\nwhen running",
+        "enable an\nungodly\namount of\nbloom",
+        "vibrato the\ngame music\nwhen everyone\nhas low hp",
+        "go back\nto the\nmain menu"
+    }
+
+    if self.selected_page == 1 then
+        text = page_1[self.selected_option]
+    elseif self.selected_page == 2 then
+        text = page_2[self.selected_option]
+    elseif self.selected_page == 3 then
+        text = page_3[self.selected_option]
+    elseif self.selected_page == 4 then
+        text = page_4[self.selected_option]
+    end
+
+    return text
 end
 
 -------------------------------------------------------------------------------
@@ -736,9 +910,13 @@ function MainMenuOptions:noel_char()
     if self.noel2 then
         --for the update function
         --dont forget this sad diamond man you dumbass
-        local angle = Utils.angle(self.menu.heart.x, self.menu.heart.y, self.noel.x + 4, self.noel.y - 18)
+        local angle = MathUtils.angle(self.menu.heart.x, self.menu.heart.y, self.noel.x + 4, self.noel.y - 18)
         --print(angle)
-        self.noel2.y = -angle*10 + self.noel.y
+		if self.retro then
+			self.noel2.y = math.floor((-angle*10) / 2) * 2 + self.noel.y
+		else
+			self.noel2.y = -angle*10 + self.noel.y
+		end
         self.noel2.x = self.noel.x 
     else
 

@@ -15,8 +15,6 @@ function item:init()
     self.type = "item"
     -- Whether this item is for the light world
     self.light = true
-    
-    self.heal_amount = math.huge
 
     -- Default shop sell price
     self.sell_price = 180
@@ -37,6 +35,16 @@ function item:init()
     self.result_item = nil
     -- Will this item be instantly consumed in battles?
     self.instant = false
+end
+
+function item:getHealAmount(id)
+    local party_member = Game:getPartyMember(id)
+
+    if not party_member then
+        return self.heal_amount -- Fallback
+    end
+
+    return party_member:getStat("health") + math.abs(party_member:getHealth())
 end
 
 return item

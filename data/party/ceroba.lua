@@ -5,12 +5,14 @@ function character:init()
 
     self.name = "Ceroba"
 
-    self:setActor("ceroba_dw")
-    self:setLightActor("ceroba")
+    self:setActor("ceroba")
+    self:setLightActor("ceroba_lw")
     self:setDarkTransitionActor("ceroba_dark_transition")
 
     self.level = 1
     self.title = "Ketsukane\nA legacy not to\nbe forgotten."
+
+    self.title_extended = "* Level ".. self.level .." Ketsukane\n* A legacy not to be forgotten.\n\nStarts every battle with [color:yellow]D. Guard[color:reset]\nautomatically activated."
 
     self.soul_priority = 1
     self.soul_color = {1, 1, 1}
@@ -50,9 +52,9 @@ function character:init()
         magic = 5
     }
 
-    self.weapon_icon = "ui/menu/equip/staff_c"
+    self.weapon_icon = "ui/menu/equip/katana"
 
-    self:setWeapon("cerobas_staff")
+    self:setWeapon("k_blade")
     self:setArmor(1, "hair_ribbon")
 
     self.lw_weapon_default = "light/cerobas_staff"
@@ -68,6 +70,10 @@ function character:init()
     self.light_xact_color = {237/255, 140/255, 36/255}
 
     self.icon_color = {253/255, 0, 85/255}
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#AD3049FF")
+		-- highlight color B
+    self.highlight_color_alt = COLORS.maroon
 
     self.menu_icon = "party/ceroba/head"
     self.head_icons = "party/ceroba/icon"
@@ -84,6 +90,11 @@ function character:init()
     self.gameover_message = {
         "Hey,[wait:5] get up,[wait:5]\nyou hear me?!",
         "I can't lose\nanother one..."
+    }
+
+    self.element = {
+        "FLOWER",
+        "FIRE"
     }
 end
 
@@ -115,15 +126,15 @@ end
 
 function character:drawPowerStat(index, x, y, menu)
     if index == 1 then
-        local icon = Assets.getTexture("ui/menu/icon/smile")
+        local icon = Assets.getTexture("ui/menu/icon/staff_c")
         Draw.draw(icon, x-26, y+6, 0, 2, 2)
-        love.graphics.print("Trust", x, y)
-        love.graphics.print(79, x+130, y)
+        love.graphics.print("Legacy", x, y)
+        love.graphics.print("Yes", x+130, y)
         return true
     elseif index == 2 then
-        local icon = Assets.getTexture("ui/menu/icon/exclamation")
+        local icon = Assets.getTexture("ui/menu/icon/katana")
         Draw.draw(icon, x-26, y+6, 0, 2, 2)
-        love.graphics.print("Observation", x, y, 0, 0.8, 1)
+        love.graphics.print("Blade skill", x, y, 0, 0.8, 1)
         love.graphics.print(81, x+130, y)
         return true
     elseif index == 3 then
@@ -134,6 +145,7 @@ function character:drawPowerStat(index, x, y, menu)
         Draw.draw(icon, x+90, y+6, 0, 2, 2)
         Draw.draw(icon, x+110, y+6, 0, 2, 2)
         Draw.draw(icon, x+130, y+6, 0, 2, 2)
+        Draw.draw(icon, x+150, y+6, 0, 2, 2)
         return true
     end
 end

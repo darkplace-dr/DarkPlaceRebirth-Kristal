@@ -57,10 +57,7 @@ return {
         cutscene:text("* Whaddya need from your good \nol' pal?", nil, "tenna")
         cutscene:hideNametag()
 
-        local choicer = {"Why are\nyou 3D?", "Nothing", "Games"}
-        if Game:getFlag("arlee_quest") then
-            table.insert(choicer, "Starbits?")
-        end
+        local choicer = {"Why are\nyou 3D?", "Nothing", "Games", "TV Challenge"}
 
         local choice = cutscene:choicer(choicer)
         cutscene:showNametag("Mr. (Ant) Tenna")
@@ -115,8 +112,18 @@ return {
             cutscene:text("* Heh,[wait:5] but that's only if you WANT to play, of course!", nil, "tenna")
             tenna.sprite:setTennaSprite(0, "whisper_blush", 1)
             cutscene:text("* I've learned by now that forcing someone to play NEVER works well.", nil, "tenna")
+            Game:setFlag("ramb_games", true)
         elseif choice == 4 then
-            if not Game:getFlag("tenna_physicalchallenge") then
+            cutscene:text("* Write TV Challenge dialogue here", nil, "tenna")
+			cutscene:hideNametag()
+			local choice_tvchal = cutscene:choicer({"Challenge", "No thanks"})
+			if choice_tvchal == 1 then
+				local encounter = cutscene:startEncounter("tenna", nil, {tenna})
+				cutscene:showNametag("Mr. (Ant) Tenna")
+				cutscene:text("* TODO: Win cutscene, maybe do something else if you gameover", nil, "tenna")
+				cutscene:hideNametag()
+			end
+			--[[if not Game:getFlag("tenna_physicalchallenge") then
                 tenna.sprite:setTennaSprite(2, "pose_podium_1", 1)
                 cutscene:text("* Huh?[wait:10] Have I seen any STARBITS lying around?", nil, "tenna")
                 tenna.sprite:setTennaSprite(1, nil, 1)
@@ -154,7 +161,7 @@ return {
                     tenna.sprite:setTennaSprite(17, nil, 1)
                     cutscene:text("* Remember,[wait:5] the stickers look like me,[wait:5] you can't miss 'em.", nil, "tenna")
                 end
-            end
+            end]]
         end
 
         tenna.sprite:setTennaSprite(24, nil, 1)
@@ -267,5 +274,63 @@ return {
 		cutscene:text("[face:what]* And if I'm not there,\n[wait:5]someone might take over.")
 		cutscene:text("[face:what]* And if someone takes\nover, [wait:5]that means that\nthey might get PAID.")
 		cutscene:text("[face:thefuck]* So the longer I'm out\nhere, [wait:5]the longer someone\nmight take [wait:10]MY [wait:10]MONEY.")
+    end,
+
+    spamtenna = function(cutscene, event)
+        -- Open textbox and wait for 
+        local spta = cutscene:getCharacter("spamtenna")
+        local susie = cutscene:getCharacter("susie")
+        local dess = cutscene:getCharacter("dess")
+        if dess then
+            cutscene:setSpeaker(spta)
+            cutscene:text("* HEY HEY HELLO YOU <connect a device to start streaming.>")
+            cutscene:setSpeaker(dess)
+            cutscene:text("* I'm dess dark place from hit game dark place", "heckyeah")
+            Assets.playSound("concreteturn")
+            spta:setAnimation({"tennaturn", 0.05, false})
+            cutscene:wait(1.5)
+            Assets.stopSound("concreteturn", true)
+            cutscene:wait(0.4)
+            cutscene:setSpeaker(spta)
+            Assets.playSound("impact")
+            cutscene:text("* WE CAN'T SHOW THAT ON TV! WE'LL BE F[wait:2]", {auto = true})
+            cutscene:text("[instant]* <This content was removed for violating our community guidelines>")
+        else
+        if susie then
+            cutscene:setSpeaker(spta)
+            cutscene:text("* WHAT IS UP MY <you must insert the dvd to view this!>")
+            cutscene:setSpeaker(susie)
+            cutscene:text("* It's fish time!!!", "surprise_smile")
+            Assets.playSound("concreteturn")
+            spta:setAnimation({"tennaturn", 0.05, false})
+            cutscene:wait(1.5)
+            Assets.stopSound("concreteturn", true)
+            cutscene:wait(0.4)
+            
+            cutscene:setSpeaker(spta)
+            Assets.playSound("impact")
+            cutscene:text("* W[wait:1] H[wait:1] A[wait:1] T[wait:1] [wait:1] D[wait:1] I[wait:1] D[wait:1] [wait:1] Y[wait:1] O[wait:1] U[wait:1] [wait:1] <SIGNAL LOST>[wait:5]", {auto = true})
+            cutscene:setSpeaker(susie)
+            cutscene:text("* I said \"It's fish time!!!\"", "surprise_smile")
+            cutscene:wait(0.5)
+            spta:resetSprite()
+            cutscene:setSpeaker(spta)
+            cutscene:text("* OH OKAY THEN.")
+        else
+            cutscene:setSpeaker(spta)
+            cutscene:text("* HEY THERE YOU <switch to HDMI 1>")
+            spta:setAnimation({"tennalaugh", 0.05, false})
+            cutscene:wait(0.3)
+            Assets.playSound("splaugh")
+            cutscene:wait(1.5)
+            spta:shake(4)
+            spta:resetSprite()
+            Assets.playSound("impact")
+            
+
+            cutscene:wait(1)
+            cutscene:text("* I AM NO LONGER FLATTENED FOR MY <content moved to streaming>.")
+        end
+    end
     end
 }

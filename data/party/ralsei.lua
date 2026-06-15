@@ -22,7 +22,7 @@ function character:init()
     elseif Game.chapter == 3 then
         self.title = "Dark Prince\nDark-World being.\nHas friends."
     else
-        self.title = "Dark Hero\nRecords and faces\nThe fate."
+        self.title = "Dark Hero\nRecords and faces\nthe fate."
     end
 
     -- Determines which character the soul comes from (higher number = higher priority)
@@ -144,6 +144,10 @@ function character:init()
     self.attack_box_color = { 0, 0.5, 0 }
     -- X-Action color (for the color of X-Action menu items) (defaults to the main color)
     self.xact_color = { 0.5, 1, 0.5 }
+	-- highlight color A
+    self.highlight_color = ColorUtils.hexToRGB("#B5E61DFF")
+		-- highlight color B
+    self.highlight_color_alt = ColorUtils.hexToRGB("#4A6ACAFF")
 
     self.icon_color = { 181 / 255, 230 / 255, 29 / 255 }
 
@@ -177,6 +181,11 @@ function character:init()
         "This is not\nyour fate...!",
         "Please,[wait:5]\ndon't give up!",
     }
+
+    self.element = {
+        "DARK",
+        "MAGIC"
+    }
 end
 
 function character:getTitle()
@@ -199,7 +208,7 @@ function character:onLevelUp(level)
 end
 
 function character:onPowerSelect(menu)
-    if MathUtils.random() <= 0.03 then
+    if MathUtils.random() < 0.02 then
         menu.ralsei_dog = true
     else
         menu.ralsei_dog = false
@@ -238,8 +247,8 @@ function character:drawPowerStat(index, x, y, menu)
 
         Draw.draw(icon, x + 130, y + 6, 0, 2, 2)
         -- Ralsei loses bonus fluffiness in Chapter 3
-        if Game.chapter == 2 then
-            Draw.draw(icon, x + 150, y + 6, 0, 2, 2)
+        if (Game.chapter == 1 and self:checkWeapon("daintyscarf")) or Game.chapter == 2 then
+            Draw.draw(icon, x+150, y+6, 0, 2, 2)
         end
         return true
     elseif index == 3 then

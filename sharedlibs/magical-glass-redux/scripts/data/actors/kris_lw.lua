@@ -4,9 +4,9 @@ function actor:init()
     super.init(self)
 
     -- Table of sprite animations
-    Utils.merge(self.animations, {
+    TableUtils.merge(self.animations, {
         -- Battle animations
-        ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle"]         = {"battle/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle/attack", 1/15, false},
         ["battle/act"]          = {"battle/act", 1/15, false},
@@ -26,20 +26,40 @@ function actor:init()
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/defeat", 1/15, false},
 
-        ["battle/transition"]   = {"knife_jump_down", 0.2, true},
+        ["battle/transition"]   = {"pencil_jump_down", 0.2, true},
         ["battle/intro"]        = {"battle/attack", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
+        ["battle/flee"]         = {"battle/hurt", 1/15},
         
         -- Cutscene animations
         ["jump_ball"]           = {"ball", 1/15, true},
     }, false)
+    
+    -- Alternate animations to use for Kris knife (false to disable the animation)
+    self.animations_knife = {
+        -- Battle animations
+        ["battle/idle"]         = {"battle_knife/idle", 1/6, true},
+
+        ["battle/attack"]       = {"battle_knife/attack", 1/15, false},
+
+        ["battle/attack_ready"] = {"battle_knife/attackready", 0.2, true},
+
+        ["battle/act_end"]      = {"battle_knife/actend", 1/15, false, next="battle/idle"},
+
+        ["battle/hurt"]         = {"battle_knife/hurt", 1/15, false, temp=true, duration=0.5},
+
+        ["battle/transition"]   = {"knife_jump_down", 0.2, true},
+        ["battle/intro"]        = {"battle_knife/attack", 1/15, false},
+        ["battle/victory"]      = {"battle_knife/victory", 1/10, false},
+    }
 
     if Game.chapter == 1 then
         self.animations["battle/transition"] = {"walk/right", 0, true}
     end
 
     -- Table of sprite offsets (indexed by sprite name)
-    Utils.merge(self.offsets, {
+    TableUtils.merge(self.offsets, {
         -- Movement offsets
         ["walk_blush/down"] = {0, 0},
     
@@ -61,6 +81,18 @@ function actor:init()
         ["battle/intro"] = {-8, -9},
         ["battle/victory"] = {-3, 0},
         
+        -- Battle offsets (Knife)
+        ["battle_knife/idle"] = {-5, -1},
+
+        ["battle_knife/attack"] = {-8, -6},
+        ["battle_knife/attackready"] = {-8, -6},
+        ["battle_knife/actend"] = {-6, -6},
+
+        ["battle_knife/hurt"] = {-5, -6},
+
+        ["battle_knife/intro"] = {-8, -9},
+        ["battle_knife/victory"] = {-3, 0},
+        
         -- Cutscene offsets
         ["pose"] = {-4, -2},
 
@@ -69,6 +101,7 @@ function actor:init()
 
         ["fell"] = {-14, 1},
 
+        ["pencil_jump_down"] = {-19, -5},
         ["knife_jump_down"] = {-19, -5},
 
         ["hug_left"] = {-4, -1},
@@ -83,6 +116,15 @@ function actor:init()
 
         ["t_pose"] = {-4, 0},
     }, false)
+end
+
+function actor:getAnimation(anim)
+    -- If the light world battle knife flag is set and a knife animation is defined, use it instead
+    if Game:getPartyMember("kris"):getFlag("lw_battle_knife", false) and self.animations_knife[anim] ~= nil then
+        return self.animations_knife[anim] or nil
+    else
+        return super.getAnimation(self, anim)
+    end
 end
 
 return actor

@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 40,
+  tilecount = 47,
   tiles = {
     {
       id = 0,
@@ -300,6 +300,48 @@ return {
       image = "../../../assets/sprites/world/maps/floor3/nondescript_room/poster_distort_4.png",
       width = 35,
       height = 39
+    },
+    {
+      id = 43,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_storage.png",
+      width = 195,
+      height = 60
+    },
+    {
+      id = 44,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_couch_l.png",
+      width = 280,
+      height = 100
+    },
+    {
+      id = 45,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_couch_r.png",
+      width = 140,
+      height = 50
+    },
+    {
+      id = 46,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/gr_table.png",
+      width = 60,
+      height = 36
+    },
+    {
+      id = 47,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/greenroom_platter_b.png",
+      width = 120,
+      height = 72
+    },
+    {
+      id = 48,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/greenroom_cactusleft.png",
+      width = 63,
+      height = 80
+    },
+    {
+      id = 49,
+      image = "../../../assets/sprites/world/maps/floor3/sloppy/greenroom_cactusright.png",
+      width = 60,
+      height = 80
     }
   }
 }

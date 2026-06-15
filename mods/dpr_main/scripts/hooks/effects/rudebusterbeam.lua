@@ -1,6 +1,6 @@
 ---@class RudeBusterBeam : Sprite
 ---@overload fun(...) : RudeBusterBeam
-local RudeBusterBeam, super = Utils.hookScript(RudeBusterBeam)
+local RudeBusterBeam, super = HookSystem.hookScript(RudeBusterBeam)
 
 function RudeBusterBeam:init(red, x, y, tx, ty, after)
     super.init(self, red, x, y, tx, ty, after)

@@ -8,6 +8,7 @@ function Basic:init()
 	self.time = 10
 	
 	self.left = true
+	self.buff_freeze = true
 end
 
 function Basic:onStart()

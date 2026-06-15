@@ -4,6 +4,7 @@ local event, super = Class(Event, "tile_oscillate")
 function event:init(data)
     super.init(self, data)
     local properties = data and data.properties or {}
+	self.type = properties["type"] or "hsv"
 end
 
 -- Optimization: Do nothing

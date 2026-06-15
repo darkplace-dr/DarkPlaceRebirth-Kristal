@@ -53,7 +53,7 @@ function item:init()
         susie = "THAT thing? Hell if I do.",
         ralsei = "Ummm... it's too heavy...",
         noelle = "(Why does this smell like fried chicken???)",
-        ceroba = "Who's making chicken nuggets?",
+        ceroba = "Glow-y, tech-y... Yeah, not for me.",
         jamm = "I never got how to use these things..."
     }
 end

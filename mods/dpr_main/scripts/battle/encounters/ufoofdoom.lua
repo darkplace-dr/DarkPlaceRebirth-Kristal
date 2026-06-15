@@ -7,15 +7,15 @@ function UfoEncounter:init()
 
     self.music = "batterup"
 
-    self.background = false
-	self.hide_world = true
+    self.background = true
 
     self:addEnemy("ufoofdoom")
 end
 
-function UfoEncounter:onBattleInit()
-	self.bg = StarsBG({1, 1, 1})
-	Game.battle:addChild(self.bg)
+function UfoEncounter:createBackground()
+    if self.background then
+        return Game.battle:addChild(StarsBG({1, 1, 1}))
+    end
 end
 
 function UfoEncounter:onReturnToWorld(events)

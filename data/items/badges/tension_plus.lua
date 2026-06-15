@@ -11,7 +11,7 @@ function badge:init()
     -- Menu description
     self.description = "Increases maximum tension points stored."
 
-    self.shop = "Have more\n TP"
+    self.shop = "Have much\nmore TP than\nusual"
     -- The cost of putting it on
     self.badge_points = 5
 

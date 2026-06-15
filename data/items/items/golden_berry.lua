@@ -41,7 +41,10 @@ function item:init()
         jamm = "HAPPY 1 YEAR, DEOXYNN!",
         dess = "ew fruit",
         mario = "Blech! That tastes like shit!",
-        brenda = "Is that gold paint?",
+        brenda = {
+            brenda = "Is that gold paint?",
+            jamm = "No, it just grows that way."
+        },
         ceroba = "Not the best kind of berry I had...",
     }
 end

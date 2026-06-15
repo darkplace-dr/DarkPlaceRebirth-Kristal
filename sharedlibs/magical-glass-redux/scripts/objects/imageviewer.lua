@@ -1,7 +1,8 @@
-local ImageViewer, super = Class(Sprite, "ImageViewer")
+local ImageViewer, super = Class(Sprite)
 
 function ImageViewer:init(sprite, x, y)
     super.init(self, sprite, x, y)
+    
     self.x = x or 0
     self.y = y or 0
 

@@ -13,7 +13,7 @@ local FakeChest, super = Class(Event, "fakechest")
 function FakeChest:init(x, y, properties)
     super.init(self, x, y)
 
-    properties = properties or {}
+    properties = data and data.properties or {}
 
     self:setOrigin(0.5, 0.5)
     self:setScale(2)
@@ -26,7 +26,7 @@ function FakeChest:init(x, y, properties)
 
     self.solid = true
 
-    self.type = 2 --properties["type"] or 2
+    self.type = properties["type"] or 2
 end
 
 --- Handles making the chest remain appearing open when re-entering the room
@@ -54,7 +54,7 @@ function FakeChest:onInteract(player, dir)
                 c:text("* (You opened the treasure chest...)")
 
                 local watercooler = c:spawnNPC("watercooler", self.x + 8, self.y + 4)
-                self:setLayer(watercooler.layer - 0.1)
+				watercooler.layer = self.layer + 0.01
 
                 Assets.playSound("alert", nil, 0.8)
                 watercooler.alert_icon = Sprite("effects/alert", watercooler.sprite.width/2 - 3, -2)

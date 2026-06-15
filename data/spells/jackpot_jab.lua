@@ -14,7 +14,7 @@ function spell:init()
     self.description = "Momento of Hero Siffrin. Jab that gets stronger if you use it each turn non stop."
 
     -- TP cost
-    self.cost = 10
+    self.cost = 16
 
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy"

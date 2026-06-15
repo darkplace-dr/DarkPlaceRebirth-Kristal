@@ -13,7 +13,7 @@ function actor:init(style)
     self.height = 43
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {3, 31, 19, 14}
+    self.hitbox = {3, 31, 18, 14}
     
     -- A table that defines where the Soul should be placed on this actor if they are a player.
     -- First value is x, second value is y.
@@ -72,10 +72,12 @@ function actor:init(style)
         ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
         ["battle/defeat"]       = {"battle/defeat", 1/15, false},
         ["battle/swooned"]      = {"battle/swooned", 1/15, false},
+        ["battle/succumbed"]    = {"battle/swooned", 1/15, false},
 
         ["battle/transition"]   = {self.default.."/right_1", 1/15, false},
-        ["battle/intro"]        = {"battle/attack", 1/15, true},
+        ["battle/intro"]        = {"battle/attack", 1/15, false},
         ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition_out"] = {"battle/transition_out", 1/15, false},
 
         ["battle/rude_buster"]  = {"battle/rudebuster", 1/15, false, next="battle/idle"},
         ["battle/sing"]         = {"battle/sing", 1/5, true},
@@ -90,7 +92,7 @@ function actor:init(style)
         ["laugh_right"] = {"laugh_right", 0.2, true},
         ["away_scratch"] = {"away_scratch", 0.2, true},
 
-        -- all animation speeds below are probably incorrect so feel free to fix 'em'
+        -- all animation speeds below are probably incorrect so feel free to fix 'em
         ["look_back_whisper_look"] = {"look_back_whisper_look", 0.2, true},
         ["look_down_arm_shake"] = {"look_down_arm_shake", 1/6, true},
 
@@ -146,7 +148,7 @@ function actor:init(style)
         ["battle/defeat"]       = {"battle_eyes/defeat", 1/15, false},
 
         ["battle/transition"]   = {self.default.."/right_1", 1/15, false},
-        ["battle/intro"]        = {"battle_eyes/attack", 1/15, true},
+        ["battle/intro"]        = {"battle_eyes/attack", 1/15, false},
         ["battle/victory"]      = {"battle_eyes/victory", 1/10, false},
 
         ["battle/rude_buster"]  = {"battle_eyes/rudebuster", 1/15, false, next="battle/idle"},
@@ -165,6 +167,7 @@ function actor:init(style)
 
     if susie_style == 1 then
         self.animations["battle/transition"] = {"bangs_wall_right", 0, true}
+        self.animations["battle/transition_out"] = {"battle/transition_out_bangs", 1/15, false}
     end
 
     -- Tables of sprites to change into in mirrors
@@ -399,6 +402,8 @@ function actor:init(style)
     self.menu_anim = "pose"
 
 	self.shiny_id = "susie"
+
+    self.running_sprites = true
 end
 
 function actor:getAnimation(anim)
@@ -411,35 +416,6 @@ function actor:getAnimation(anim)
         return self.animations_eyes[anim] or nil
     else
         return super.getAnimation(self, anim)
-    end
-end
-
-function actor:onWorldDraw(chara)
-    if Kristal.Config["runAnimations"] then
-        local player = Game.world.player
-
-        local moving = false
-        local c, b = chara.x, chara.y
-        if c ~= self.l or b ~= self.ll then
-            moving = true
-        end
-
-        if Game.world.cutscene and not self.cut then
-            self.default = "walk"
-            chara:resetSprite()
-            self.cut = true
-        elseif not Game.world.cutscene then
-            if self.cut then self.cut = nil end
-            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene and moving then
-                self.default = "run"
-                chara:resetSprite()
-            elseif self.default == "run" and (player.run_timer == 0 or moving == false) then
-                self.default = "walk"
-                chara:resetSprite()
-            end
-        end
-        self.l = chara.x
-        self.ll = chara.y
     end
 end
 

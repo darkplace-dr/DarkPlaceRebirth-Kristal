@@ -9,7 +9,7 @@ function badge:init()
     self.type = "badge"
 
     -- Menu description
-    self.description = "Allow Hero to use Jackpot Jab in battle, dealing scaling damage for 10 TP."
+    self.description = "Allow Hero to use Jackpot Jab in battle, dealing scaling damage for 16% of TP."
 
     -- The cost of putting it on
     self.badge_points = 1

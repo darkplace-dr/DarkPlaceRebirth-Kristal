@@ -11,10 +11,16 @@ function RoomGlow:init(data)
     self.tint = TiledUtils.parseColorProperty(properties["tint"]) or ColorUtils.hexToRGB("#2A39FFFF")
     self.highlight = TiledUtils.parseColorProperty(properties["highlight"]) or ColorUtils.hexToRGB("#42D0FFFF")
     self.darkcol = TiledUtils.parseColorProperty(properties["darkness"]) or ColorUtils.hexToRGB("#404040FF")
-	self.glowactive = false
-	self.actind = 0
+	self.glowactive = properties["active"] or false
+	self.shadow = properties["shadow"] ~= false
+	self.actind = properties["alpha"] or 0
 	self.lerpstrength = 0.125
-	self.init = true
+end
+
+function RoomGlow:onAdd(parent)
+    super.onAdd(self, parent)
+	-- Gotta love Kristal updates
+    self:setParallax(0, 0)
 end
 
 function RoomGlow:postLoad()
@@ -49,12 +55,10 @@ function RoomGlow:update()
 			end
 		end
 	end
-	if self.init then
-		if self.glowactive then
-			self.actind = MathUtils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
-		else
-			self.actind = MathUtils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
-		end
+	if self.glowactive then
+		self.actind = MathUtils.lerp(self.actind, 1.05, self.lerpstrength * DTMULT)
+	else
+		self.actind = MathUtils.lerp(self.actind, -0.05, self.lerpstrength * DTMULT)
 	end
 	if self.tile_dark and self.tile_dark:getFX("shadow") then
 		self.tile_dark:getFX("shadow").alpha = self.actind
@@ -73,14 +77,17 @@ function RoomGlow:update()
 			local sfx = chara:getFX("shadow")
 			if hfx then
 				hfx.alpha = self.actind
+                hfx.color = self.highlight
 			else
-				chara:addFX(ChurchHighlightFX(0, self.highlight, {darkcol = self.darkcol}), "highlight")
+				chara:addFX(ChurchHighlightFX(0, self.highlight, {darkcol = self.darkcol}, 1), "highlight")
 			end
-			if sfx then
-				sfx.scale = self.actind*2
-				sfx.alpha = self.actind
-			else
-				chara:addFX(ChurchShadowFX(), "shadow")
+			if self.shadow then
+				if sfx then
+					sfx.scale = self.actind*2
+					sfx.alpha = self.actind
+				else
+					chara:addFX(ChurchShadowFX(), "shadow")
+				end
 			end
         end
     end
@@ -88,10 +95,20 @@ end
 
 function RoomGlow:draw()
 	if self.actind > 0 then
+		love.graphics.push()
 		love.graphics.setColor(ColorUtils.mergeColor({1,1,1}, {self.tint[1],self.tint[2],self.tint[3]}, self.actind))
-		love.graphics.setBlendMode("multiply", "premultiplied")
+		if Ch4Lib.accurate_blending then
+			Ch4Lib.setBlendState("add", "zero", "srccolor")
+		else
+			love.graphics.setBlendMode("multiply", "premultiplied")
+		end
 		love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-		love.graphics.setBlendMode("alpha", "alphamultiply")
+		if Ch4Lib.accurate_blending then
+			Ch4Lib.setBlendState("add", "srcalpha", "oneminussrcalpha")
+		else
+			love.graphics.setBlendMode("alpha", "alphamultiply")
+		end
+		love.graphics.pop()
 	end
     super.draw(self)
 end
