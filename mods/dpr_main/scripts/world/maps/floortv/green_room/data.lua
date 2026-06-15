@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -55,6 +55,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -116,6 +117,7 @@ return {
           width = 640,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -133,6 +135,7 @@ return {
           width = 640,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -166,6 +169,7 @@ return {
           width = 82,
           height = 204,
           rotation = 0,
+          opacity = 1,
           gid = 370,
           visible = true,
           properties = {}
@@ -180,6 +184,7 @@ return {
           width = 82,
           height = 204,
           rotation = 0,
+          opacity = 1,
           gid = 2147484018,
           visible = true,
           properties = {}
@@ -194,6 +199,7 @@ return {
           width = 60,
           height = 88,
           rotation = 0,
+          opacity = 1,
           gid = 374,
           visible = true,
           properties = {}
@@ -208,6 +214,7 @@ return {
           width = 280,
           height = 100,
           rotation = 0,
+          opacity = 1,
           gid = 372,
           visible = true,
           properties = {}
@@ -222,6 +229,7 @@ return {
           width = 280,
           height = 100,
           rotation = 0,
+          opacity = 1,
           gid = 373,
           visible = true,
           properties = {}
@@ -236,6 +244,7 @@ return {
           width = 16,
           height = 12,
           rotation = 0,
+          opacity = 1,
           gid = 380,
           visible = true,
           properties = {}
@@ -250,6 +259,7 @@ return {
           width = 32,
           height = 30,
           rotation = 0,
+          opacity = 1,
           gid = 381,
           visible = true,
           properties = {}
@@ -264,6 +274,7 @@ return {
           width = 16,
           height = 12,
           rotation = 0,
+          opacity = 1,
           gid = 380,
           visible = true,
           properties = {}
@@ -278,6 +289,7 @@ return {
           width = 390,
           height = 120,
           rotation = 0,
+          opacity = 1,
           gid = 378,
           visible = true,
           properties = {}
@@ -292,6 +304,7 @@ return {
           width = 92,
           height = 146,
           rotation = 0,
+          opacity = 1,
           gid = 389,
           visible = true,
           properties = {}
@@ -306,6 +319,7 @@ return {
           width = 76,
           height = 104,
           rotation = 0,
+          opacity = 1,
           gid = 390,
           visible = true,
           properties = {}
@@ -315,8 +329,6 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
-<<<<<<< HEAD
-=======
       id = 12,
       name = "objects_dessim_door_a",
       class = "",
@@ -338,6 +350,7 @@ return {
           width = 82,
           height = 204,
           rotation = 0,
+          opacity = 1,
           gid = 403,
           visible = true,
           properties = {}
@@ -352,6 +365,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -390,6 +404,7 @@ return {
           width = 82,
           height = 204,
           rotation = 0,
+          opacity = 1,
           gid = 404,
           visible = true,
           properties = {}
@@ -404,6 +419,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -442,6 +458,7 @@ return {
           width = 390,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (Doesn't seem like anyone's here...)"
@@ -452,9 +469,8 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
->>>>>>> dpr-main
       id = 5,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -474,6 +490,7 @@ return {
           width = 116,
           height = 102,
           rotation = 0,
+          opacity = 1,
           gid = 371,
           visible = true,
           properties = {}
@@ -488,6 +505,7 @@ return {
           width = 116,
           height = 102,
           rotation = 0,
+          opacity = 1,
           gid = 371,
           visible = true,
           properties = {}
@@ -502,6 +520,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 377,
           visible = true,
           properties = {}
@@ -516,6 +535,7 @@ return {
           width = 70,
           height = 94,
           rotation = 0,
+          opacity = 1,
           gid = 2147484024,
           visible = true,
           properties = {}
@@ -530,6 +550,7 @@ return {
           width = 70,
           height = 94,
           rotation = 0,
+          opacity = 1,
           gid = 376,
           visible = true,
           properties = {}
@@ -544,6 +565,7 @@ return {
           width = 280,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 387,
           visible = true,
           properties = {}
@@ -558,6 +580,7 @@ return {
           width = 280,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 388,
           visible = true,
           properties = {}
@@ -572,6 +595,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["flagcheck"] = "!can_kill",
@@ -589,6 +613,7 @@ return {
           width = 120,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tvfloor.greenroomplatter",
@@ -605,23 +630,9 @@ return {
           width = 100,
           height = 88,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
-        },
-        {
-          id = 81,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 1001,
-          y = 120,
-          width = 76,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["text"] = "* (It's a door.)[wait:5]\n* (It's locked.)"
-          }
         },
         {
           id = 83,
@@ -633,6 +644,7 @@ return {
           width = 90,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floortv/rankroom_hub",
@@ -649,6 +661,7 @@ return {
           width = 390,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (Doesn't seem like anyone's here...)"
@@ -664,6 +677,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -689,6 +703,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -714,6 +729,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["flagcheck"] = "can_kill",
@@ -731,6 +747,7 @@ return {
           width = 76.0384,
           height = 39.4545,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -750,6 +767,7 @@ return {
           width = 92,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tvfloor.exit_rambs_room",
@@ -766,6 +784,7 @@ return {
           width = 60,
           height = 40.75,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tvfloor.green_vending",
@@ -782,6 +801,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tvfloor.greenroomracingtv",
@@ -814,6 +834,7 @@ return {
           width = 390,
           height = 120,
           rotation = 0,
+          opacity = 1,
           gid = 379,
           visible = true,
           properties = {}
@@ -838,7 +859,7 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -856,9 +877,9 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 7,
-      name = "collision",
+      name = "base_collision",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -876,6 +897,7 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -889,6 +911,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -902,6 +925,7 @@ return {
           width = 880,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -915,6 +939,7 @@ return {
           width = 40,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -928,6 +953,7 @@ return {
           width = 200,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -941,6 +967,7 @@ return {
           width = 1200,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -954,6 +981,7 @@ return {
           width = 80,
           height = 84,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -967,6 +995,7 @@ return {
           width = 200,
           height = 64,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -980,6 +1009,7 @@ return {
           width = 200,
           height = 64,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -993,6 +1023,7 @@ return {
           width = 80,
           height = 88,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1006,6 +1037,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1019,6 +1051,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1032,6 +1065,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1045,6 +1079,93 @@ return {
           width = 60,
           height = 9,
           rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "ramb_collision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 97,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 574,
+          y = 72,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 98,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 784,
+          y = 72,
+          width = 120,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 99,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 560,
+          y = 142,
+          width = 360,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 100,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 592,
+          y = 90,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 101,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 904,
+          y = 90,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -1074,6 +1195,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1087,6 +1209,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1100,6 +1223,35 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 96,
+          name = "entry_dump",
+          type = "",
+          shape = "point",
+          x = 1040,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 108,
+          name = "entry_ramb",
+          type = "",
+          shape = "point",
+          x = 739,
+          y = 138,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -1113,6 +1265,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -1,119 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="50" columns="0">
+<tileset version="1.10" tiledversion="1.12.1" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="46" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
-  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door.png" width="41" height="102"/>
  </tile>
  <tile id="1">
-  <image width="58" height="51" source="../../../assets/sprites/world/maps/tvland/green_room_tv.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_tv.png" width="58" height="51"/>
  </tile>
  <tile id="2">
-  <image width="140" height="50" source="../../../assets/sprites/world/maps/tvland/green_room_couch_left.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_couch_left.png" width="140" height="50"/>
  </tile>
  <tile id="3">
-  <image width="140" height="50" source="../../../assets/sprites/world/maps/tvland/green_room_couch_right.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_couch_right.png" width="140" height="50"/>
  </tile>
  <tile id="17">
-  <image width="140" height="20" source="../../../assets/sprites/world/maps/tvland/green_room_couch_left_top.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_couch_left_top.png" width="140" height="20"/>
  </tile>
  <tile id="18">
-  <image width="140" height="20" source="../../../assets/sprites/world/maps/tvland/green_room_couch_right_top.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_couch_right_top.png" width="140" height="20"/>
  </tile>
  <tile id="4">
-  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/green_room_vending.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_vending.png" width="30" height="44"/>
  </tile>
  <tile id="5">
-  <image width="40" height="23" source="../../../assets/sprites/world/maps/tvland/sign.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/sign.png" width="40" height="23"/>
  </tile>
  <tile id="6">
-  <image width="35" height="47" source="../../../assets/sprites/world/maps/tvland/green_room_cactus.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_cactus.png" width="35" height="47"/>
  </tile>
  <tile id="7">
-  <image width="80" height="20" source="../../../assets/sprites/world/maps/tvland/green_room_table.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_table.png" width="80" height="20"/>
  </tile>
  <tile id="8">
-  <image width="195" height="60" source="../../../assets/sprites/world/maps/tvland/green_room_bar_back.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_bar_back.png" width="195" height="60"/>
  </tile>
  <tile id="9">
-  <image width="195" height="60" source="../../../assets/sprites/world/maps/tvland/green_room_bar_front.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_bar_front.png" width="195" height="60"/>
  </tile>
  <tile id="14">
-  <image width="32" height="16" source="../../../assets/sprites/world/maps/tvland/green_room_vines.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_vines.png" width="32" height="16"/>
  </tile>
  <tile id="10">
-  <image width="8" height="6" source="../../../assets/sprites/world/maps/tvland/green_room_floor_star_small.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_floor_star_small.png" width="8" height="6"/>
  </tile>
  <tile id="11">
-  <image width="16" height="15" source="../../../assets/sprites/world/maps/tvland/green_room_floor_star.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_floor_star.png" width="16" height="15"/>
  </tile>
  <tile id="12">
-  <image width="43" height="46" source="../../../assets/sprites/world/maps/tvland/green_room_poster.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_poster.png" width="43" height="46"/>
  </tile>
  <tile id="13">
-  <image width="80" height="160" source="../../../assets/sprites/world/maps/tvland/teevie_statue.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/teevie_statue.png" width="80" height="160"/>
  </tile>
  <tile id="19">
-  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking.png" width="46" height="73"/>
  </tile>
  <tile id="20">
-  <image width="38" height="52" source="../../../assets/sprites/world/maps/tvland/green_room_door_early.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_early.png" width="38" height="52"/>
  </tile>
  <tile id="21">
-  <image width="92" height="74" source="../../../assets/sprites/world/maps/tvland/green_room_door_double.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_double.png" width="92" height="74"/>
  </tile>
  <tile id="22">
-  <image width="92" height="74" source="../../../assets/sprites/world/maps/tvland/green_room_door_double_transparent.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_double_transparent.png" width="92" height="74"/>
  </tile>
  <tile id="24">
-  <image width="63" height="78" source="../../../assets/sprites/world/maps/tvland/b3bs_door.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/b3bs_door.png" width="63" height="78"/>
  </tile>
  <tile id="23">
-  <image width="47" height="66" source="../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/b3bs_closeddoor.png" width="47" height="66"/>
  </tile>
  <tile id="25">
-  <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green.png" width="37" height="37"/>
  </tile>
  <tile id="35">
-  <image width="37" height="37" source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green_left.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/interstitial_poster_green_left.png" width="37" height="37"/>
  </tile>
  <tile id="26">
-  <image width="66" height="30" source="../../../assets/sprites/world/maps/tvland/stealthzone.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/stealthzone.png" width="66" height="30"/>
  </tile>
  <tile id="28">
-  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/kris.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/hall_of_fame/kris.png" width="52" height="56"/>
  </tile>
  <tile id="30">
-  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/susie.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/hall_of_fame/susie.png" width="52" height="56"/>
  </tile>
  <tile id="29">
-  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/ralsei.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/hall_of_fame/ralsei.png" width="52" height="56"/>
  </tile>
  <tile id="27">
-  <image width="52" height="56" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/best_inu.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/hall_of_fame/best_inu.png" width="52" height="56"/>
  </tile>
  <tile id="32">
-  <image width="38" height="97" source="../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/hall_of_fame/hall_of_fame_door.png" width="38" height="97"/>
  </tile>
  <tile id="33">
-  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_tape.png" width="41" height="102"/>
  </tile>
  <tile id="34">
-  <image width="41" height="102" source="../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_tape_opened.png" width="41" height="102"/>
  </tile>
  <tile id="38">
-  <image width="426" height="140" source="../../../assets/sprites/world/maps/tvland/green_room_building.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_building.png" width="426" height="140"/>
  </tile>
  <tile id="40">
-  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/tvland_preview_vending.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/tvland_preview_vending.png" width="30" height="44"/>
  </tile>
  <tile id="39">
-  <image width="30" height="44" source="../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/b3bs_vendingmachine.png" width="30" height="44"/>
  </tile>
  <tile id="41">
-  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_1.png"/>
+  <image source="../../../../../assets/sprites/world/events/shine_1.png" width="5" height="5"/>
   <animation>
    <frame tileid="41" duration="250"/>
    <frame tileid="42" duration="250"/>
@@ -122,30 +122,30 @@
   </animation>
  </tile>
  <tile id="42">
-  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_2.png"/>
+  <image source="../../../../../assets/sprites/world/events/shine_2.png" width="5" height="5"/>
  </tile>
  <tile id="43">
-  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_3.png"/>
+  <image source="../../../../../assets/sprites/world/events/shine_3.png" width="5" height="5"/>
  </tile>
  <tile id="44">
-  <image width="5" height="5" source="../../../../../assets/sprites/world/events/shine_4.png"/>
+  <image source="../../../../../assets/sprites/world/events/shine_4.png" width="5" height="5"/>
  </tile>
-  <tile id="45">
-  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a.png"/>
+ <tile id="45">
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a.png" width="46" height="73"/>
  </tile>
  <tile id="46">
-  <image width="46" height="73" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a_locked.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_a_locked.png" width="46" height="73"/>
  </tile>
  <tile id="47">
-  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b.png" width="44" height="64"/>
  </tile>
  <tile id="48">
-  <image width="44" height="64" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b_locked.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_b_locked.png" width="44" height="64"/>
  </tile>
  <tile id="49">
-  <image width="40" height="55" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c.png" width="40" height="55"/>
  </tile>
  <tile id="50">
-  <image width="40" height="55" source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png"/>
+  <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png" width="40" height="55"/>
  </tile>
 </tileset>

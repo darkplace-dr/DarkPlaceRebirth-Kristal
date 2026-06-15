@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 23,
+  nextobjectid = 26,
   properties = {
     ["border"] = "green_room",
     ["music"] = "deltarune/greenroom_detune"
@@ -53,6 +53,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -114,6 +115,7 @@ return {
           width = 880,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -127,6 +129,7 @@ return {
           width = 160,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -140,6 +143,7 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -153,6 +157,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -166,6 +171,7 @@ return {
           width = 640,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -195,6 +201,7 @@ return {
           width = 640,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -212,6 +219,7 @@ return {
           width = 160,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -229,6 +237,7 @@ return {
           width = 80,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -246,6 +255,7 @@ return {
           width = 80,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["fromamt"] = 0,
@@ -279,7 +289,8 @@ return {
           width = 92,
           height = 146,
           rotation = 0,
-          gid = 403,
+          opacity = 1,
+          gid = 415,
           visible = true,
           properties = {}
         },
@@ -293,7 +304,8 @@ return {
           width = 88,
           height = 128,
           rotation = 0,
-          gid = 405,
+          opacity = 1,
+          gid = 417,
           visible = true,
           properties = {}
         },
@@ -307,7 +319,8 @@ return {
           width = 80,
           height = 110,
           rotation = 0,
-          gid = 407,
+          opacity = 1,
+          gid = 419,
           visible = true,
           properties = {}
         }
@@ -337,6 +350,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floortv/rankroom_T",
@@ -353,6 +367,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floortv/green_room",
@@ -385,6 +400,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -398,6 +414,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -411,6 +428,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
