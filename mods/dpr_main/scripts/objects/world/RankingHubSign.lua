@@ -19,7 +19,7 @@ function RankingHubSign:draw()
 	Draw.setColor(1,1,1,1)
 	local tx = 0
 	local kern = 2
-	local text_canvas = Draw.pushCanvas(self.main_font:getWidth(self.txt)/2+(StringUtils.len(self.txt)*2), self.main_font:getHeight(self.txt)/2)
+	local text_canvas = Draw.pushCanvas(self.main_font:getWidth(self.txt)/2+(kern * StringUtils.len(self.txt)), self.main_font:getHeight(self.txt)/2)
 	for i = 1, StringUtils.len(self.txt) do
 		local ch = StringUtils.sub(self.txt, i, i)
 		love.graphics.print(ch, tx, 0, 0, 0.5, 0.5)
@@ -27,11 +27,10 @@ function RankingHubSign:draw()
 		tx = tx + kern
 	end
 	Draw.popCanvas()
-	tx = 0
+	tx = -self.main_font:getWidth(StringUtils.sub(self.txt, 1, 1))/4
 	for i = 1, StringUtils.len(self.txt) do
 		local ch = StringUtils.sub(self.txt, i, i)
 		local x_pos = 57 + tx
-		x_pos = x_pos - self.main_font:getWidth(self.txt)/4+(StringUtils.len(self.txt)*2)
 		local y_pos = margin + 10
 		local current_text = ch
 		Draw.setColor(ColorUtils.hexToRGB("#21277C"))
@@ -58,7 +57,7 @@ function RankingHubSign:draw()
 	love.graphics.setShader(shader)
 	shader:sendColor("from", COLORS.white)
 	shader:sendColor("to", COLORS.yellow)
-	Draw.draw(text_canvas, 57 - self.main_font:getWidth(self.txt)/4+(StringUtils.len(self.txt)*2), margin + 10)
+	Draw.draw(text_canvas, 57 - self.main_font:getWidth(StringUtils.sub(self.txt, 1, 1))/4, margin + 10)
 	love.graphics.setShader(last_shader)
 	local current_text = self.rank_txt
 	local text_canvas_2 = Draw.pushCanvas(self.main_font:getWidth(self.rank_txt), self.main_font:getHeight(self.rank_txt))
