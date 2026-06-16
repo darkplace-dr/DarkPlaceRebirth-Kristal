@@ -100,7 +100,7 @@ function GreenRoomWall:draw()
 		local max_amount = self.width / 55
 
 		Draw.setColor(232/255, 1, 200/255)
-		for i = 0, max_amount do
+		for i = 0, max_amount - 1 do
 			local y_offset = 10
 			if i % 2 == 1 then
 				y_offset = 4
@@ -114,7 +114,7 @@ function GreenRoomWall:draw()
 
 		max_amount = self.width / 80
 
-		for i = 0, max_amount do
+		for i = 0, max_amount - 1 do
 			local x_offset = 3
 			local y_offset = 20
 			if i % 2 == 1 then
