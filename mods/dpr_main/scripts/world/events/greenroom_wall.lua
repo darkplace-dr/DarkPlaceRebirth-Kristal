@@ -80,7 +80,7 @@ function GreenRoomWall:draw()
     -- Draw.draw(self.gradient, 0, 0, 0, self.width, self.height / 480)
     Draw.pushShader(Assets.getShader("gradient_a"), {
         -- from = {99/255, 142/255, 152/255},
-		from = Utils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt),
+		from = ColorUtils.mergeColor({102/255, 131/255, 157/255}, {140/255, 180/255, 151/255}, self.from_amt),
         to = {168/255, 228/255, 131/255},
         scale = 1
     })
@@ -97,7 +97,7 @@ function GreenRoomWall:draw()
 
     -- Draw the shine
 	if self.spawn_shines then
-		local max_amount = self.width / 55
+		local max_amount = ((self.x + (self.width)) - self.x) / 55
 
 		Draw.setColor(232/255, 1, 200/255)
 		for i = 0, max_amount do
@@ -112,9 +112,9 @@ function GreenRoomWall:draw()
 			Draw.draw(self.shine_frames[(self.shine_frame + starting_index - 1) % 4 + 1], (i * 55), y_offset, 0, 2, 2)
 		end
 
-		max_amount = self.width / 80
+		max_amount = ((self.x + (self.width)) - self.x) / 80
 
-		for i = 0, max_amount do
+		for i = 0, max_amount - 1 do
 			local x_offset = 3
 			local y_offset = 20
 			if i % 2 == 1 then

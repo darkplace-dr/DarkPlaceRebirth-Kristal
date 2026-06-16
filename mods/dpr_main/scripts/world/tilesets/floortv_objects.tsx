@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="46" columns="0">
+<tileset version="1.11" tiledversion="1.12.1" name="tvland_objects" tilewidth="426" tileheight="160" tilecount="47" columns="0">
  <editorsettings>
   <export target="floortv_objects.lua" format="lua"/>
  </editorsettings>
@@ -147,5 +147,8 @@
  </tile>
  <tile id="50">
   <image source="../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png" width="40" height="55"/>
+ </tile>
+ <tile id="51">
+  <image source="../../../assets/sprites/world/maps/tvland/ranking_counter.png" width="80" height="20"/>
  </tile>
 </tileset>

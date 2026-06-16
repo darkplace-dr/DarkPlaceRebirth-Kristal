@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.12.1",
   name = "tvland_objects",
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 46,
+  tilecount = 47,
   tiles = {
     {
       id = 0,
@@ -318,6 +318,12 @@ return {
       image = "../../../assets/sprites/world/maps/tvland/green_room_door_ranking/door_c_locked.png",
       width = 40,
       height = 55
+    },
+    {
+      id = 51,
+      image = "../../../assets/sprites/world/maps/tvland/ranking_counter.png",
+      width = 80,
+      height = 20
     }
   }
 }

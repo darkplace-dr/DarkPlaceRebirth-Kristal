@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.12.1",
   class = "",
@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 7,
   nextobjectid = 10,
-  properties = {},
+  properties = {
+    ["music"] = "trank_tv_static"
+  },
   tilesets = {
     {
       name = "ch3_dw_tvland_stage",
