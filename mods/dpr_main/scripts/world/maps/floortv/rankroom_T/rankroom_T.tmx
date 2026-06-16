@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="10">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="10">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="music" value="trank_tv_static"/>
+ </properties>
  <tileset firstgid="1" source="../../../tilesets/ch3_dw_tvland_stage.tsx"/>
  <objectgroup id="4" name="objects_floor">
   <object id="2" name="greenroom_floor" x="0" y="0" width="40" height="40"/>
