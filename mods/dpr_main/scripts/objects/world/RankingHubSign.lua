@@ -27,7 +27,7 @@ function RankingHubSign:draw()
 		tx = tx + kern
 	end
 	Draw.popCanvas()
-	tx = -self.main_font:getWidth(StringUtils.sub(self.txt, 1, 1))/4
+	tx = -4
 	for i = 1, StringUtils.len(self.txt) do
 		local ch = StringUtils.sub(self.txt, i, i)
 		local x_pos = 57 + tx
@@ -57,7 +57,7 @@ function RankingHubSign:draw()
 	love.graphics.setShader(shader)
 	shader:sendColor("from", COLORS.white)
 	shader:sendColor("to", COLORS.yellow)
-	Draw.draw(text_canvas, 57 - self.main_font:getWidth(StringUtils.sub(self.txt, 1, 1))/4, margin + 10)
+	Draw.draw(text_canvas, 57 - 4, margin + 10)
 	love.graphics.setShader(last_shader)
 	local current_text = self.rank_txt
 	local text_canvas_2 = Draw.pushCanvas(self.main_font:getWidth(self.rank_txt), self.main_font:getHeight(self.rank_txt))
