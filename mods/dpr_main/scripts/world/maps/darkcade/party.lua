@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 15,
+  nextobjectid = 24,
   properties = {
     ["border"] = "dev",
     ["music"] = "deltarune/castle_funk_long",
@@ -44,17 +44,17 @@ return {
       encoding = "lua",
       data = {
         40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
-        40, 40, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 40, 40,
-        40, 40, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 40, 40,
-        40, 40, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 40, 40,
-        40, 40, 14, 15, 15, 15, 15, 15, 15, 15, 15, 40, 40, 16, 40, 40,
-        40, 40, 14, 15, 15, 15, 15, 15, 15, 15, 15, 40, 40, 16, 40, 40,
-        40, 40, 26, 27, 27, 27, 27, 27, 27, 27, 27, 40, 40, 28, 40, 40,
+        40, 40, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 40, 40,
+        40, 40, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 40, 40,
+        40, 40, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 31, 40, 40,
         40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
         40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
         40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
         40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
-        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40
+        40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
+        40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
+        40, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 40,
+        40, 40, 40, 40, 40, 40, 40, 52, 52, 40, 40, 40, 40, 40, 40, 40
       }
     },
     {
@@ -79,14 +79,14 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 21, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 20, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 62, 62, 0, 0, 0,
-        0, 0, 63, 62, 62, 62, 62, 62, 62, 62, 62, 74, 74, 0, 0, 0,
-        0, 0, 87, 74, 74, 74, 74, 74, 74, 74, 74, 74, 74, 0, 0, 0,
-        0, 0, 111, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 63, 65, 65, 67, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 75, 74, 74, 79, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 74, 74, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -108,16 +108,16 @@ return {
       encoding = "lua",
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132, 0,
-        0, 143, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 0,
-        0, 143, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 0,
-        0, 143, 0, 0, 0, 0, 0, 0, 0, 0, 0, 162, 164, 0, 144, 0,
-        0, 143, 0, 0, 0, 0, 0, 0, 0, 0, 0, 174, 176, 0, 144, 0,
-        0, 155, 0, 0, 0, 0, 0, 0, 0, 0, 0, 186, 188, 0, 156, 0,
-        0, 167, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 55, 168, 0,
+        0, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 171, 0,
+        0, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 0,
+        0, 172, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 173, 0,
+        0, 184, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 185, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 154, 53, 0, 54, 0, 55, 0, 56, 0, 53, 0, 54, 0, 153, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 154, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 153, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
@@ -136,26 +136,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
-          name = "warpbin",
-          type = "",
-          shape = "rectangle",
-          x = 120,
-          y = 280,
-          width = 120,
-          height = 40,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 12,
           name = "transition",
           type = "",
           shape = "rectangle",
-          x = 440,
-          y = 240,
+          x = 280,
+          y = 480,
           width = 80,
           height = 40,
           rotation = 0,
@@ -163,25 +149,7 @@ return {
           visible = true,
           properties = {
             ["map"] = "darkcade/floor1",
-            ["marker"] = "entry"
-          }
-        },
-        {
-          id = 13,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 380,
-          y = 310,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {
-            ["actor"] = "pippins",
-            ["animation"] = "angry",
-            ["cutscene"] = "one_offs.darkcade_pippins"
+            ["marker"] = "party_exit"
           }
         }
       }
@@ -205,8 +173,8 @@ return {
           name = "spawn",
           type = "",
           shape = "point",
-          x = 180,
-          y = 350,
+          x = 320,
+          y = 360,
           width = 0,
           height = 0,
           rotation = 0,
@@ -216,11 +184,11 @@ return {
         },
         {
           id = 14,
-          name = "exit",
+          name = "entry",
           type = "",
           shape = "point",
-          x = 480,
-          y = 320,
+          x = 320,
+          y = 440,
           width = 0,
           height = 0,
           rotation = 0,
@@ -245,12 +213,40 @@ return {
       properties = {},
       objects = {
         {
-          id = 3,
+          id = 15,
           name = "",
           type = "",
-          shape = "polygon",
+          shape = "rectangle",
           x = 40,
-          y = 320,
+          y = 440,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 360,
+          y = 440,
+          width = 240,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 80,
+          y = 440,
           width = 0,
           height = 0,
           rotation = 0,
@@ -258,51 +254,55 @@ return {
           visible = true,
           polygon = {
             { x = 0, y = 0 },
-            { x = 40, y = -40 },
-            { x = 0, y = -40 }
+            { x = -40, y = -40 },
+            { x = -40, y = 0 }
           },
           properties = {}
         },
         {
-          id = 4,
+          id = 18,
           name = "",
           type = "",
-          shape = "polygon",
+          shape = "rectangle",
+          x = 0,
+          y = 160,
+          width = 40,
+          height = 280,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 19,
+          name = "",
+          type = "",
+          shape = "rectangle",
           x = 40,
-          y = 400,
-          width = 0,
-          height = 0,
+          y = 120,
+          width = 560,
+          height = 40,
           rotation = 0,
           opacity = 1,
           visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 40, y = 40 },
-            { x = 0, y = 40 }
-          },
           properties = {}
         },
         {
-          id = 5,
+          id = 20,
           name = "",
           type = "",
-          shape = "polygon",
-          x = 560,
-          y = 280,
-          width = 0,
-          height = 0,
+          shape = "rectangle",
+          x = 600,
+          y = 160,
+          width = 40,
+          height = 280,
           rotation = 0,
           opacity = 1,
           visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 40, y = 40 },
-            { x = 40, y = 0 }
-          },
           properties = {}
         },
         {
-          id = 6,
+          id = 21,
           name = "",
           type = "",
           shape = "polygon",
@@ -321,73 +321,41 @@ return {
           properties = {}
         },
         {
-          id = 7,
+          id = 22,
           name = "",
           type = "",
-          shape = "rectangle",
+          shape = "polygon",
           x = 600,
-          y = 280,
-          width = 40,
-          height = 160,
+          y = 200,
+          width = 0,
+          height = 0,
           rotation = 0,
           opacity = 1,
           visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -40, y = -40 },
+            { x = 0, y = -40 }
+          },
           properties = {}
         },
         {
-          id = 8,
+          id = 23,
           name = "",
           type = "",
-          shape = "rectangle",
+          shape = "polygon",
           x = 40,
-          y = 440,
-          width = 560,
-          height = 40,
+          y = 200,
+          width = 0,
+          height = 0,
           rotation = 0,
           opacity = 1,
           visible = true,
-          properties = {}
-        },
-        {
-          id = 9,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 280,
-          width = 40,
-          height = 160,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 10,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 40,
-          y = 240,
-          width = 400,
-          height = 40,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 11,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 520,
-          y = 240,
-          width = 80,
-          height = 40,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 40, y = -40 },
+            { x = 0, y = -40 }
+          },
           properties = {}
         }
       }
