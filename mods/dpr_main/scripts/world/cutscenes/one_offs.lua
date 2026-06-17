@@ -135,4 +135,10 @@ return {
     lost_hero = function(cutscene)
 		cutscene:text("* (Nothing more than a past life.)")
     end,
+    darkcade_pippins = function(cutscene)
+        cutscene:showNametag("Pippins")
+		cutscene:text("* This place SUCKS![wait:5] All of the games are totally rigged!")
+		cutscene:text("* I want a refund, dammit!")
+		cutscene:hideNametag()
+    end,
 }
