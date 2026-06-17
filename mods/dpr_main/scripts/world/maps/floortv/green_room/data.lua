@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.12.1",
   class = "",
@@ -647,8 +647,11 @@ return {
           opacity = 1,
           visible = true,
           properties = {
+            ["exit_delay"] = 0.3,
+            ["exit_sound"] = "doorclose",
             ["map"] = "floortv/rankroom_hub",
-            ["marker"] = "entry_d"
+            ["marker"] = "entry_d",
+            ["sound"] = "dooropen"
           }
         },
         {
