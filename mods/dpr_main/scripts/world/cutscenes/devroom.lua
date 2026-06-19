@@ -519,5 +519,71 @@ local devroom = {
     blend_invfull = function(cutscene, event)
 		cutscene:text("* You don't have enough space.\n* (TODO: Make Alexa say this)")
 	end,
+    chara = function(cutscene, npc)
+        local chara = cutscene:getCharacter('chara')
+        cutscene:setSpeaker(chara)
+        
+        cutscene:text("* Greetings.")
+        cutscene:text("* I, am Chara.[wait:3]\n* From Undertale.")
+
+        local choice = cutscene:choicer({"Can I\nhave apple", "", "chara do the thing please"})
+        
+        if choice == 1 then
+            chara:setAnimation("ohdamnreally")
+            cutscene:text("* Oh uh")
+            chara:setAnimation("embarrassed")
+            cutscene:text("* Damn lmao, this is awkward,, uhh...")
+            chara:setAnimation("smile")
+            cutscene:text("* This is placeholder dialogue until I finish the heese (Plural of horse) battle lmao")
+            chara:setAnimation("idle")
+        end
+        if choice == 2 then
+            if love.math.random(1,5) == 5 then
+            chara:setAnimation("pixel")
+            cutscene:text("[noskip]* H[wait:3]ey [wait:1]did [color:red]y[wait:1]o[wait:2]u[wait:3][color:white] kn[wait:6]ow [wait:1]th[wait:4]at[wait:1], my [wait:2]sp[wait:4]ri[wait:1]t[wait:6]e[wait:1], [wait:3][color:yellow]act[color:white][wait:8]ua[wait:1]l[wait:2]ly [wait:4]ha[wait:8]s 1[wait:1]8[wait:8] uni[wait:2]qu[wait:4]e c[wait:3]o[wait:3]l[wait:3]o[wait:3]u[wait:3]r[wait:3]s[wait:3] no[wait:9]r[wait:1]ma[wait:2]ll[wait:4]y[wait:9]?")
+        else
+            chara:setAnimation("what")
+            cutscene:text("* please say something ill go crazy if you wont")
+        end
+        chara:setAnimation("idle")
+    end
+        if choice == 3 then
+            if love.math.random(1,2) == 1 then
+            chara:setAnimation("bored")
+            cutscene:text("* What. What thing.")
+            cutscene:text("* Um. Do you mean the funny narration thing?")
+            cutscene:setSpeaker(nil)
+            cutscene:text("* You nod.")
+            cutscene:setSpeaker('chara')
+            chara:setAnimation("shrug")
+            cutscene:text("* no")
+            cutscene:text("[noskip]* .[wait:5].[wait:5].[wait:10]",{auto=true})
+            cutscene:text("[noskip]* .[wait:7].[wait:8].[wait:9]",{auto=true})
+            cutscene:text("[noskip]* .[wait:6].[wait:2].[wait:6].[wait:10].[wait:10]",{auto=true})
+            chara:setAnimation("facepalm")
+            cutscene:text("* ok fine")
+            chara:setAnimation("bored")
+            cutscene:text("*[voice:charahigh] (You go walk away,)[voice:chara][wait:10] or whatever.")
+            else
+            chara:setAnimation("bored")
+            cutscene:text("* What. What thing.")
+            cutscene:text("* Um. Do you mean the funny genocides thing?")
+            cutscene:setSpeaker(nil)
+            cutscene:text("* You nod furiously.")
+            cutscene:setSpeaker('chara')
+            chara:setAnimation("facepalm")
+            cutscene:text("* no")
+            cutscene:text("[noskip]* .[wait:2].[wait:11].[wait:6]",{auto=true})
+            cutscene:text("[noskip]* .[wait:7].[wait:1].[wait:9]",{auto=true})
+            cutscene:text("[noskip]* .[wait:16].[wait:4].[wait:1].[wait:9].[wait:10]",{auto=true})
+            chara:setAnimation("bored")
+            cutscene:text("* ok fine")
+            chara:setAnimation("shrug")
+            cutscene:wait(3)
+            cutscene:text("*[voice:charahigh][color:red] Three left (=[color:white],[voice:chara][wait:10] or whatever.")
+            end
+            chara:setAnimation("idle")
+        end
+    end,
 }
 return devroom
