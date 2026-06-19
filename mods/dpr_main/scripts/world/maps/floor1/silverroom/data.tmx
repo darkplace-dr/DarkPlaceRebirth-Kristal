@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="43">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="mainhub"/>
+  <property name="music" value="mainhub"/>
+ </properties>
+ <tileset firstgid="1" source="../../../tilesets/main_area.tsx"/>
+ <tileset firstgid="209" source="../../../tilesets/silverroom_objects.tsx"/>
+ <layer id="6" name="back" width="16" height="12">
+  <data encoding="csv">
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15
+</data>
+ </layer>
+ <layer id="1" name="main" width="16" height="12">
+  <data encoding="csv">
+0,0,123,15,15,15,15,15,15,15,15,15,15,124,0,0,
+0,0,123,15,15,15,15,15,15,15,15,15,15,124,0,0,
+0,0,123,15,15,15,15,15,15,15,15,15,15,124,0,0,
+0,0,123,15,15,15,15,15,15,15,15,15,15,124,0,0,
+0,0,136,2,2,2,2,2,2,2,2,2,2,137,0,0,
+0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,
+0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,
+0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,
+0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,
+0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,
+0,0,27,28,28,28,28,28,28,28,28,15,15,29,0,0,
+0,0,0,0,0,0,0,0,0,0,0,14,16,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="detail" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="1" x="88" y="440" width="352" height="40"/>
+  <object id="2" x="520" y="440" width="32" height="40"/>
+  <object id="3" x="552" y="0" width="88" height="480"/>
+  <object id="4" x="88" y="0" width="464" height="160"/>
+  <object id="5" x="0" y="0" width="88" height="480"/>
+  <object id="19" x="88" y="160" width="224" height="66"/>
+  <object id="20" x="88" y="414" width="146" height="26"/>
+  <object id="21" x="222" y="336" width="36" height="28"/>
+  <object id="22" x="396" y="336" width="36" height="28"/>
+  <object id="23" x="264" y="324" width="126" height="46"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="28" gid="219" x="184" y="328" width="282" height="86"/>
+  <object id="8" gid="211" x="348" y="66" width="180" height="16"/>
+  <object id="10" gid="211" x="348" y="126" width="180" height="16"/>
+  <object id="37" name="interactable" x="228" y="336" width="24" height="14">
+   <properties>
+    <property name="cutscene" value="hub.silverroom_rock"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="8" name="objects_party">
+  <object id="6" gid="209" x="98" y="226" width="214" height="98"/>
+  <object id="11" gid="212" x="112" y="438" width="122" height="34"/>
+  <object id="12" gid="213" x="264" y="370" width="126" height="86"/>
+  <object id="13" gid="214" x="222" y="364" width="36" height="28"/>
+  <object id="14" gid="214" x="396" y="364" width="36" height="28"/>
+  <object id="15" gid="215" x="112" y="110" width="192" height="110"/>
+  <object id="18" gid="217" x="228" y="364" width="24" height="36"/>
+  <object id="26" name="transition" x="440" y="480" width="80" height="40">
+   <properties>
+    <property name="facing" value="down"/>
+    <property name="map" value="floor1/main_south"/>
+    <property name="marker" value="1"/>
+   </properties>
+  </object>
+  <object id="29" name="npc" x="160" y="280">
+   <properties>
+    <property name="actor" value="silver"/>
+    <property name="cutscene" value="hub.silverroom"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="38" name="plush" x="368" y="116">
+   <properties>
+    <property name="character" value="hero"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="39" name="plush" x="402" y="116">
+   <properties>
+    <property name="character" value="dess"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="41" name="plush" x="508" y="116">
+   <properties>
+    <property name="character" value="silver"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="42" name="script" x="440" y="440" width="80" height="40">
+   <properties>
+    <property name="once" type="bool" value="false"/>
+    <property name="script" value="silverroom_check"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="24" name="spawn" x="320" y="280">
+   <point/>
+  </object>
+  <object id="25" name="1" x="480" y="440">
+   <point/>
+  </object>
+  <object id="34" name="shelf_hitbox" x="370" y="98">
+   <point/>
+  </object>
+  <object id="36" name="chair1_hitbox" x="414" y="336">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
