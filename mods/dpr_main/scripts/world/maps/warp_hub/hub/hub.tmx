@@ -202,17 +202,6 @@
     <property name="cutscene" value="warp_hub.bin_codes"/>
    </properties>
   </object>
-  <object id="36" name="plush" x="480" y="160" width="40" height="40">
-   <properties>
-    <property name="character" value="dess"/>
-   </properties>
-  </object>
-  <object id="71" gid="513" x="300" y="520" width="160" height="120"/>
-  <object id="73" name="plush" x="480" y="220" width="40" height="40">
-   <properties>
-    <property name="character" value="hero"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup color="#0000ff" id="3" name="collision">
   <object id="1" x="80" y="120" width="40" height="240"/>
