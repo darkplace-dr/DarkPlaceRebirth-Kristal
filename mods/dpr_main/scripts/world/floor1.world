@@ -83,6 +83,13 @@
             "width": 896,
             "x": 1012,
             "y": 2304
+        },
+        {
+            "fileName": "maps/floor1/silverroom/data.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -252,
+            "y": 1024
         }
     ],
     "onlyShowAdjacentMaps": false,

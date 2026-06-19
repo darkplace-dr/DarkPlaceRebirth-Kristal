@@ -490,21 +490,6 @@ return {
           }
         },
         {
-          id = 36,
-          name = "plush",
-          type = "",
-          shape = "rectangle",
-          x = 480,
-          y = 160,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["character"] = "dess"
-          }
-        },
-        {
           id = 71,
           name = "",
           type = "",
@@ -518,21 +503,6 @@ return {
           visible = true,
           properties = {}
         },
-        {
-          id = 73,
-          name = "plush",
-          type = "",
-          shape = "rectangle",
-          x = 480,
-          y = 220,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["character"] = "hero"
-          }
-        }
       }
     },
     {

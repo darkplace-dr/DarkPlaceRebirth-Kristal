@@ -489,12 +489,12 @@ local hub = {
         local track_names = {}
 
         for track_name, _ in pairs(music_assets) do
-            if not Utils.startsWith(track_name, "voiceover/") then
+            if not StringUtils.startsWith(track_name, "voiceover/") then
                 table.insert(track_names, track_name)
             end
         end
 
-        local random_theme = Music(Utils.pick(track_names), 0.8, 1)
+        local random_theme = Music(TableUtils.pick(track_names), 0.8, 1)
 
         cutscene:wait(0.4)
         fun_fax:setSprite("watching")
@@ -559,14 +559,14 @@ local hub = {
             {"* I am...", "* Indeed, I am..."},
         }
 
-        cutscene:text("[speed:0.5]" .. Utils.pick(dialogue_pairs)[1])
+        cutscene:text("[speed:0.5]" .. TableUtils.pick(dialogue_pairs)[1])
 
         fun_fax:setSprite("searching")
         cutscene:wait(1.5)
         fun_fax:setSprite("watching")
         cutscene:wait(1.5)
 
-        cutscene:text("[speed:0.5]" .. Utils.pick(dialogue_pairs)[2])
+        cutscene:text("[speed:0.5]" .. TableUtils.pick(dialogue_pairs)[2])
 
         cutscene:wait(3)
         fun_fax:setSprite("searching")
@@ -1494,7 +1494,7 @@ local hub = {
         local function waitForTimeOrUserCancellation(time)
             cust_wait_timer = time
             return function()
-                cust_wait_timer = Utils.approach(cust_wait_timer, 0, DT)
+                cust_wait_timer = MathUtils.approach(cust_wait_timer, 0, DT)
                 if morshu.interact_count > 1 and Input.pressed("cancel") then
                     cust_wait_timer = 0
                     return true
@@ -2308,5 +2308,323 @@ local hub = {
 			Game:enterShop("hub_vending")
 		end
 	end,
+
+    ---@param cutscene WorldCutscene
+    ---@param npc NPC
+    silver = function(cutscene, npc)
+        local flag = Game:getFlag("hub_silver_npc_progress", 0)
+        if (flag == 0) then
+            cutscene:showNametag("???")
+            if (Game.playtime <= 1560) then
+                cutscene:text("* ...[wait:5]Hi.[wait:5] Are you new here?\n[wait:5]* Me too.", "neutral", npc)
+            else
+                cutscene:text("* ...[wait:5]Hi.\n[wait:5]* I'm new here.", "neutral", npc)
+            end
+            cutscene:hideNametag()
+            cutscene:textTagged("* Name's Silver.[wait:5] Moved from a cave to a tower.[wait:5] My mother's very proud.", "neutral_side", npc)
+            
+            cutscene:textTagged("* I'm still trying to find things to decorate my room with.", "neutral_side", npc)
+            cutscene:textTagged("* Hm...\n[wait:5][face:neutral]* Can I tell you a secret?", "neutral_side", npc)
+            cutscene:textTagged("* ...[wait:5]I really love plushies.", "blush_side", npc)
+            cutscene:textTagged("* They're so soft and cute,[wait:2] I can't handle myself.", "blush_side", npc)
+            cutscene:textTagged("* ...[wait:5]If you happen to find a plushie or two,[wait:2] please bring them to me.", "neutral", npc)
+            cutscene:textTagged("* I...[wait:5] WILL allow you to play with them,[wait:2] of course...[wait:5] maybe.", "blush_side", npc)
+            Game:getQuest("plushies_for_silver"):unlock()
+            Game:setFlag("hub_silver_npc_progress", 1)
+        else
+            local have_any_plushies = false
+            for k, v in pairs(Game:getQuest("plushies_for_silver").plush_flags) do
+                if (v() == true) then have_any_plushies = true break end
+            end
+            if (have_any_plushies and flag == 1) then
+                cutscene:textTagged("* Oh,[wait:2] oh,[wait:2] what is this??", "excited", npc)
+                cutscene:textTagged("* I see.[wait:5] You've come to possess a sacred artifact.", "neutral_side", npc)
+                cutscene:textTagged("* Then,[wait:5] let me put it in its rightful place...", "smile_side", npc)
+                npc:setAnimation("diagright_up")
+
+                npc:walkTo(npc.x, npc.y - 20, 0.2, nil, true, nil, function ()
+                    npc:fadeOutAndRemove(0.5)
+                end)
+                cutscene:wait(0.75)
+                Game:setFlag("hub_silver_npc_progress", 2)
+            else
+                cutscene:textTagged("* Come back when you're a little...[wait:5] plushier.", "smile_side", npc)
+            end
+        end
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param npc NPC
+    silverroom_intro = function(cutscene, npc)
+        cutscene:detachFollowers()
+        cutscene:look(Game.world.player, "up")
+        cutscene:alignFollowers("up", nil, nil, 40)
+        cutscene:attachFollowersImmediate()
+
+        local silver = cutscene:getCharacter("silver")
+        silver:setPosition(440, 314)
+        silver:setAnimation("diagright_up")
+
+        local pointx = silver.x
+        local pointy = silver.y - silver.height*2 - 40
+
+        local effect = Game.world:addChild(SilverMagicEffect(pointx, pointy, 30))
+        effect.layer = WORLD_LAYERS["above_soul"]
+
+        local init_sound = Assets.playSound("snowgrave", 0.5, 2)
+
+        local levitate_plushies = true
+        local function lev()
+            effect.width = effect.width + effect.counter / 6
+            effect.height = effect.height + effect.counter / 6
+
+            if (init_sound:tell() > 0.68) then
+                init_sound:seek(0.1)
+            end
+            if (not levitate_plushies) then return false end
+            for _, plush in ipairs(Game.world.map:getEvents("plush")) do ---@param plush PickupPlush
+                if (not plush:isRemoved()) then
+                    plush.x = pointx
+                    plush.y = pointy + 20 + math.sin(effect.counter * 10) * 3
+                end
+            end
+        end
+        lev()
+        cutscene:during(lev)
+
+        cutscene:wait(2)
+
+        effect.graphics.grow = -0.3
+        effect.graphics.remove_shrunk = true
+        levitate_plushies = false
+        init_sound:stop()
+
+        local time = 0
+        local plush_trails = true
+        local function trails()
+            if (not plush_trails) then return false end
+            time = time + 1 * DT
+            if (time > 1/20) then
+                time = 0
+                for _, plush in ipairs(Game.world.map:getEvents("plush")) do ---@param plush PickupPlush
+                    if (not plush:isRemoved()) then
+                    local star = Game.world:addChild(Sprite("world/events/shine", plush.x, plush.y))
+                    star:play(1/6, true)
+                    star:setOrigin(0.5)
+                    star.layer = plush.layer - 0.1
+                    star:setScale(4)
+                    star.graphics.grow = -0.2
+                    star.graphics.remove_shrunk = true
+                    end
+                end
+            end
+        end
+        cutscene:during(trails)
+
+        Assets.playSound("magicsprinkle")
+
+        for _, plush in ipairs(Game.world.map:getEvents("plush")) do ---@param plush PickupPlush
+            if (not plush:isRemoved()) then
+                plush:flash()
+                Game.world.timer:tween(1.0, plush, { x = plush.original_x, y = plush.original_y }, "out-expo")
+            end
+        end
+        cutscene:wait(1)
+        plush_trails = false
+
+        cutscene:wait(0.5)
+        silver:setAnimation("diagleft_down")
+
+        local b = false
+        silver:walkToSpeed(486, 314, 8, nil, true, function() b = true end)
+        cutscene:wait(function() return b end)
+        b = false
+        silver:walkToSpeed(486, 390, 8, nil, true, function() b = true end)
+        cutscene:wait(function() return b end)
+
+        cutscene:textTagged("* Look![wait:5] Doesn't it look so cute up there?", "excited", silver)
+        cutscene:textTagged("* The more I have,[wait:2] the better!\n[wait:5]* Mwehehe...!", "devious", silver)
+        
+        silver:walkPath({{440, 280}, {160, 280}}, { keep_facing = true, time = 2 })
+
+        Game:setFlag("hub_silver_npc_progress", 3)
+    end,
+
+    ---@param cutscene WorldCutscene
+    silverroom_check = function(cutscene)
+        local player = Game.world.player
+        local silver = cutscene:getCharacter("silver")
+        -- silver:setAnimation("diagright_up")
+        local plushies = TableUtils.copy(player.holding)
+        for _, plush in ipairs(plushies) do ---@param plush PickupPlush
+            if (not plush:isRemoved()) then
+                plush:place()
+                plush.old_layer = plush.layer
+                plush.layer = plush.layer + 1
+            end
+        end
+
+        local pointx = plushies[1].x
+        local pointy = plushies[1].y
+
+        local effect = Game.world:addChild(SilverMagicEffect(pointx, pointy - 20, 30))
+        effect.layer = WORLD_LAYERS["above_soul"]
+
+        local init_sound = Assets.playSound("snowgrave", 0.5, 2)
+
+        local levitate_plushies = true
+        local function lev()
+            effect.width = effect.width + effect.counter / 6
+            effect.height = effect.height + effect.counter / 6
+
+            if (init_sound:tell() > 0.68) then
+                init_sound:seek(0.1)
+            end
+            if (not levitate_plushies) then return false end
+            for _, plush in ipairs(plushies) do ---@param plush PickupPlush
+                if (not plush:isRemoved()) then
+                    plush.x = MathUtils.lerp(plush.x, pointx, DT * 3)
+                    plush.y = MathUtils.lerp(plush.y, pointy, DT * 3) + math.sin(effect.counter * 10) * 1
+                end
+            end
+        end
+        lev()
+        cutscene:during(lev)
+
+        cutscene:wait(1)
+
+        effect.graphics.grow = -0.3
+        effect.graphics.remove_shrunk = true
+        levitate_plushies = false
+        init_sound:stop()
+
+        local time = 0
+        local plush_trails = true
+        local function trails()
+            if (not plush_trails) then return false end
+            time = time + 1 * DT
+            if (time > 1/20) then
+                time = 0
+                for _, plush in ipairs(plushies) do ---@param plush PickupPlush
+                    if (not plush:isRemoved()) then
+                    local star = Game.world:addChild(Sprite("world/events/shine", plush.x, plush.y))
+                    star:play(1/6, true)
+                    star:setOrigin(0.5)
+                    star.layer = plush.layer - 0.1
+                    star:setScale(4)
+                    star.graphics.grow = -0.2
+                    star.graphics.remove_shrunk = true
+                    end
+                end
+            end
+        end
+        cutscene:during(trails)
+
+        Assets.playSound("magicsprinkle")
+
+        for _, plush in ipairs(plushies) do ---@param plush PickupPlush
+            plush.layer = plush.layer - 1
+            if (not plush:isRemoved()) then
+                plush.layer = plush.old_layer or (plush.layer - 1)
+                plush:flash()
+                if (Game.world.map.placeOnShelf) then Game.world.map:placeOnShelf(plush) end
+                Game.world.timer:tween(1.0, plush, { x = plush.original_x, y = plush.original_y }, "out-expo")
+            end
+        end
+        cutscene:wait(1)
+        plush_trails = false
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param npc NPC
+    silverroom = function(cutscene, npc)
+        cutscene:textTagged("* What's up?", "smile_eyesclosed", npc)
+
+        local choice = cutscene:choicer({"Tower", "Plushies", "You", "Nothing"})
+        if (choice == 1) then
+            cutscene:textTagged("* It's a nice place.\n[wait:5]* Very cozy.", "smile", npc)
+            cutscene:textTagged("* I thought,[wait:2] maybe people won't accept me here.", "neutral_side", npc)
+            cutscene:textTagged("* Because,[wait:2] y'know...", "sad_side", npc)
+            cutscene:textTagged("* I look like something from [font:special_mono]fhtving[font:reset] nightmares.", "sad", npc)
+            cutscene:textTagged("* Parents used to scare their misbehaving children with me.", "sad", npc)
+            cutscene:textTagged("* Just because I am...[wait:5] like this.", "sad_side", npc)
+            cutscene:textTagged("* But here...[wait:5] It's almost as if that never happened.", "sad", npc)
+            cutscene:textTagged("* In this place,[wait:2] it doesn't matter what happened before...", "sad_smile", npc)
+            cutscene:textTagged("* ...[wait:5]or what will happen after.", "sad_smile", npc)
+            cutscene:textTagged("* So...[wait:5] even if only for just a moment...[wait:5] you should have fun here.", "smile_side", npc)
+            cutscene:textTagged("* Forget about all [font:special_mono]bhnnzui[font:reset] happening outside and play a game or two.", "smile_eyesclosed", npc)
+            cutscene:textTagged("* I will always welcome you as my guests.", "smile_eyesclosed", npc)
+        elseif (choice == 2) then
+            cutscene:textTagged("* Yeah,[wait:2] I like cute things a lot.\n[wait:5]* Don't you?", "smile", npc)
+            choice = cutscene:choicer({"I Like", "I Don't Like"})
+            if (choice == 1) then
+                cutscene:textTagged("* See,[wait:2] we understand each other.", "smile_eyesclosed", npc)
+                cutscene:textTagged("* This is a normal interaction in this society.", "smile_eyesclosed", npc)
+            else
+                cutscene:textTagged("* Heh,[wait:2] as if that's true.", "smile", npc)
+                cutscene:textTagged("* You wouldn't collect them if you didn't like them.", "smile_eyesclosed", npc)
+            end
+        elseif (choice == 3) then
+            local f = Game:getFlag("hub_silver_npc_topic3", 0)
+            if (f == 0) then
+                cutscene:textTagged("* Me...?", "shock", npc)
+                cutscene:textTagged("* I was...[wait:5] different,[wait:2] before.", "sad_smile", npc)
+                cutscene:textTagged("* Before the,[wait:5] uh...\n[wait:5]before [font:special_mono]dvoddptd smf yjtrsfd.[font:reset]", "sad_side", npc)
+                cutscene:textTagged("* They just wanted to create.[wait:5] I understand.", "sad", npc)
+                cutscene:textTagged("* They did their best and I don't blame them.", "sad", npc)
+                cutscene:textTagged("* Even if pieces don't fit together,[wait:5] you may get a nice picture.", "sad_side", npc)
+                cutscene:textTagged("* That's what I believe.", "sad_side", npc)
+                cutscene:textTagged("* I'm...[wait:5] not sure that's the case here,[wait:5] though.", "sad_side", npc)
+                cutscene:textTagged("* I always wished that my body was different.", "sad_side", npc)
+                cutscene:textTagged("* Wished that all of this didn't happen to me.", "sad_side", npc)
+                cutscene:textTagged("* It feels like a curse that you can never get rid of.", "sad_side", npc)
+                cutscene:textTagged("* But,[wait:5] I suppose,[wait:5] this is just something I'll have to accept...", "sad_smile", npc)
+                choice = cutscene:choicer({"You don't\nhave to\naccept it", "Yes.\nIt's fine"})
+                if (choice == 1) then
+                    cutscene:textTagged("* You think so...?", "shock", npc)
+                    cutscene:textTagged("* I...[wait:5] don't even know what I can do,[wait:5] but...", "neutral", npc)
+                    cutscene:textTagged("* You sound...[wait:5] very confident.", "smile", npc)
+                    cutscene:textTagged("* I should be as confident as you!\n[wait:5]* Thank you!", "smile_eyesclosed", npc)
+                    cutscene:textTagged("* Figuring it out might take some time,[wait:5] but...[wait:5] I'm sure it's worth it!", "smile_eyesclosed", npc)
+                    cutscene:textTagged("* Maybe I should draw what I'd want to look like?", "smile_side", npc)
+                    cutscene:textTagged("* Or should I...[wait:5] make my current body feel better to reside in?", "smile_side", npc)
+                    cutscene:textTagged("* Not that I'm a ghost or something,[wait:5] haha!", "smile_eyesclosed", npc)
+                    Game:setFlag("hub_silver_npc_topic3", 1)
+                else
+                    cutscene:textTagged("* Y-yeah![wait:5] I don't even need to like my body!", "sad_smile", npc)
+                    cutscene:textTagged("* It's fine.[wait:5] I don't care at all.", "sad_smile", npc)
+                    cutscene:textTagged("* I'll just ignore it and it will go away.", "smile_eyesclosed", npc)
+                    cutscene:textTagged("* Thank you![wait:5] Now I'm confident in myself!!", "smile_eyesclosed", npc)
+                    Game:setFlag("hub_silver_npc_topic3", 2)
+                end
+            elseif (f == 1) then
+                if (npc.interact_count == 1) then
+                    cutscene:textTagged("* I'm still thinking of who I am!!\n[wait:5]* It's difficult to figure,[wait:5] you know?", "smile_eyesclosed", npc)
+                else
+                    cutscene:textTagged("* I'm still thinking!!", "smile_eyesclosed", npc)
+                end
+            elseif (f == 2) then
+                cutscene:textTagged("* I'm fine.", "smile_eyesclosed", npc)
+            end
+        elseif (choice == 4) then
+            cutscene:textTagged("* See ya.", "smile_eyesclosed", npc)
+        end
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param event Interactable
+    silverroom_rock = function(cutscene, event)
+        if (Game.world.player.holding and #Game.world.player.holding > 0) then
+            if (event.interact_count <= 3) then
+                cutscene:text("* [wait:10].[wait:10].[wait:10].[wait:20] taken.")
+            else
+                cutscene:text("* [shake:"..(math.min(event.interact_count-2, 5)).."]What do you not understand.[shake:0]")
+            end
+        else
+            cutscene:text("* A rock is sitting on the chair.")
+            event.interact_count = 0
+        end
+    end,
 }
+
 return hub
