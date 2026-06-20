@@ -31,7 +31,7 @@ function item:init()
 		["noelle"] = 70,
 		["dess"] = 90,
         ["hero"] = 20,
-		["ceroba"] = 1,
+		["ceroba"] = 5,
         ["brenda"] = 200,
 		["jamm"] = 70,
     }

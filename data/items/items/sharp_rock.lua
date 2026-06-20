@@ -42,7 +42,8 @@ function item:init()
         susie = 100,
         dess = 70,
         noelle = 40,
-        jamm = 70
+        jamm = 70,
+        ceroba = 130, -- experienced katana wielder, probably counts as a sword
     }
 end
 

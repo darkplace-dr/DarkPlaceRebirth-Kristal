@@ -26,9 +26,10 @@ function item:init()
     local tea_self = "jamm"
     local placeholder = 50
     self.heal_amounts = {
-        ["kris"] = placeholder,
-        ["susie"] = placeholder,
-        ["noelle"] = placeholder,
+        ["kris"] = 20,
+        ["susie"] = 110,
+        ["ralsei"] = 50,
+        ["noelle"] = 60,
         ["dess"] = 60,
         ["hero"] = 20,
         ["jamm"] = 40,
@@ -62,6 +63,21 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
+        kris = {
+			jamm = "(Do they like it or...?)",
+		},
+        susie = {
+            susie = "Hell yeah, soda!",
+			jamm = "",
+		},
+        ralsei = {
+            ralsei = "A-ah! That's hot!",
+			jamm = "",
+		},
+        noelle = {
+            noelle = "Iced coffee? (It's nice...)",
+			jamm = "",
+		},
 		jamm = {
             susie = "It tastes like color?! Gimme some!",
 			jamm = "Orange flavored. Neat.",
@@ -78,7 +94,7 @@ function item:init()
 			jamm = "(She gave it a thumbs up...!)",
 		},
         ceroba = {
-            ceroba = "Usual black tea. Not that it's bad, though.",
+            ceroba = "Black tea. Not bad.",
 			jamm = "...I'll take it.",
 		},
     }

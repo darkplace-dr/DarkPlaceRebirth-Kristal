@@ -49,7 +49,7 @@ function item:init()
         ralsei = "I'm juiced up!",
         noelle = "Why always jewelry?",
         jamm = "I feel powered up!",
-        ceroba = "Heh, even stronger now."
+        ceroba = "(If only I didn't cancel it...)" -- her gym membership (yes she canonically had one)
     }
 end
 

@@ -26,6 +26,7 @@ function item:init()
 
     self.reactions = {
         jamm = "The taste is deceptive...",
+        ceroba = "Everything about it is weird.",
     }
 end
 
