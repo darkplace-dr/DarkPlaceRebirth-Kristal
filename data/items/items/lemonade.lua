@@ -50,15 +50,15 @@ function item:init()
 
     -- Character reactions (key = party member id)
 
-    self.reactions = { -- can't think of any rn. feel free to add some.
-        susie = "",
-        ralsei = "",
-        noelle = "",
+    self.reactions = { -- feel free to add some.
+        susie = "Huh? That's it?",
+        ralsei = "I'm feeling refreshed!",
+        noelle = "A classic!",
 		dess = "",
         brenda = "",
 		jamm = "So, is this fresh from the lemon?",
 		noel = "",
-        ceroba = "",
+        ceroba = "It's good.",
         hero = "",
 	}
 end

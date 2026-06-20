@@ -52,7 +52,7 @@ function item:init()
         ralsei = "So pliable, like me!",
         noelle = "Twist it and... it's a wreath!",
         jamm = "Flexible...",
-        ceroba = "(... I could use it for my hair.)"
+        ceroba = "What's that, a toy?"
     }
 end
 
