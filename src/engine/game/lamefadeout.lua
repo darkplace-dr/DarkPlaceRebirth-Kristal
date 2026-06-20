@@ -22,14 +22,14 @@ end
 function LameFadeout:update()
     self.progress = MathUtils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
     if self.progress >= 1 and self.on_finish then
-        self.on_finish = nil
         self.on_finish()
+        self.on_finish = nil
     end
 end
 
 function LameFadeout:setFinishCallback(on_finish)
     if self.progress >= 1 then
-        self.on_finish()
+        on_finish()
     else
         self.on_finish = on_finish
     end
