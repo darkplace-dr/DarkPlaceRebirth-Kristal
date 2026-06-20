@@ -1660,8 +1660,9 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
             if Kristal.preInitMod(id) then
                 Kristal.setDesiredWindowTitleAndIcon()
                 local game_params = {save, save_id}
-                if use_lame_fadeout then
-                    Kristal.States["LameFadeout"]:onLoadFinish(game_params)
+                local current_state = Kristal.getState()
+                if current_state == LameFadeout then ---@cast current_state LameFadeout
+                    current_state:onLoadFinish(game_params)
                 else
                     Kristal.setState("Game", unpack(game_params))
                 end
