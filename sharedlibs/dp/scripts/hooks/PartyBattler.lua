@@ -212,12 +212,23 @@ function PartyBattler:succumb() -- this one's meant to be called manually so it 
     self.is_down = true
     self.sleeping = false
     self.hurting = false
+    self.chara.blackheart_charge = false
     self:toggleOverlay(true)
     self.overlay_sprite:setAnimation("battle/succumbed")
     if self.action then
         Game.battle:removeAction(Game.battle:getPartyIndex(self.chara.id), true)
     end
     Game.battle:checkGameOver()
+end
+
+function PartyBattler:swoon()
+    self.chara.blackheart_charge = false
+    super.swoon(self)
+end
+
+function PartyBattler:down()
+    self.chara.blackheart_charge = false
+    super.down(self)
 end
 
 function PartyBattler:update()
