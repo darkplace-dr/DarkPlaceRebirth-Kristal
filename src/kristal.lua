@@ -1592,7 +1592,15 @@ function Kristal.loadModAssets(id, asset_type, asset_paths, after)
     end
     Assets.getBucket("project"):startLoading(paths4real)
     if Kristal.Config["projectLoadingMode"] == LoadingMode.FULL then
-        Kristal.setState("ProjectLoading", after)
+        local current_state = Kristal.getState()
+        if current_state == Kristal.States["LameFadeout"] then
+            ---@cast current_state LameFadeout
+            current_state:setFinishCallback(function()
+                Kristal.setState("ProjectLoading", after)
+            end)
+        else
+            Kristal.setState("ProjectLoading", after)
+        end
     else
         MOD_LOADING = false
         after()
@@ -1661,8 +1669,11 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
                 Kristal.setDesiredWindowTitleAndIcon()
                 local game_params = {save, save_id}
                 local current_state = Kristal.getState()
-                if current_state == LameFadeout then ---@cast current_state LameFadeout
-                    current_state:onLoadFinish(game_params)
+                if current_state == Kristal.States["LameFadeout"] then
+                    ---@cast current_state LameFadeout
+                    current_state:setFinishCallback(function()
+                        Kristal.setState("Game", unpack(game_params))
+                    end)
                 else
                     Kristal.setState("Game", unpack(game_params))
                 end

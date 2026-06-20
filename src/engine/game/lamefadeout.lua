@@ -6,7 +6,7 @@ function LameFadeout:init()
     self.screenshot = nil
     self.type = nil
     self.progress = 0
-    self.game_params = nil
+    self.on_finish = nil
 
     self.whiten_speed = 80/30
     self.darken_speed = 2
@@ -16,21 +16,22 @@ function LameFadeout:enter(_, type)
     self.type = type
     self.progress = 0
     self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
-    self.game_params = nil
+    self.on_finish = nil
 end
 
 function LameFadeout:update()
     self.progress = MathUtils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
-    if self.progress >= 1 and self.game_params then
-        self.game_params = nil
-        Kristal.setState("Game", unpack(self.game_params))
+    if self.progress >= 1 and self.on_finish then
+        self.on_finish = nil
+        self.on_finish()
     end
 end
 
-function LameFadeout:onLoadFinish(game_params)
-    self.game_params = game_params
+function LameFadeout:setFinishCallback(on_finish)
     if self.progress >= 1 then
-        Kristal.setState("Game", unpack(self.game_params))
+        self.on_finish()
+    else
+        self.on_finish = on_finish
     end
 end
 
@@ -56,7 +57,7 @@ end
 
 function LameFadeout:leave()
     self.screenshot = nil
-    self.game_params = nil
+    self.on_finish = nil
 end
 
 return LameFadeout
