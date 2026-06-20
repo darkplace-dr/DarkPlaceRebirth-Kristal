@@ -1660,8 +1660,11 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
         save.spawn_position = {x, y}
     end
 
+    Kristal.setState({})
     Kristal.clearModState()
-    Kristal.setState(use_lame_fadeout and "LameFadeout" or {}, use_lame_fadeout)
+    if use_lame_fadeout then
+        Kristal.setState("LameFadeout", use_lame_fadeout)
+    end
 
     Kristal.loadAssets("", "mods", "", function()
         Kristal.loadMod(id, nil, nil, function()
