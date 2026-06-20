@@ -24,6 +24,7 @@ function LameFadeout:update()
     self.progress = Utils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
     if self.progress >= 1 and self.game_params then
         Kristal.setState("Game", unpack(self.game_params))
+        self.game_params = nil
     end
 end
 
