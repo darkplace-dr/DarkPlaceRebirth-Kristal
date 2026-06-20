@@ -13,7 +13,6 @@ function LameFadeout:init()
 end
 
 function LameFadeout:enter(_, type)
-    print(self.type)
     self.type = type
     self.progress = 0
     self.screenshot = love.graphics.newImage(SCREEN_CANVAS:newImageData())
@@ -21,10 +20,10 @@ function LameFadeout:enter(_, type)
 end
 
 function LameFadeout:update()
-    self.progress = Utils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
+    self.progress = MathUtils.approach(self.progress, self.type == "WHITEN" and 2 or 1, DT)
     if self.progress >= 1 and self.game_params then
-        Kristal.setState("Game", unpack(self.game_params))
         self.game_params = nil
+        Kristal.setState("Game", unpack(self.game_params))
     end
 end
 
