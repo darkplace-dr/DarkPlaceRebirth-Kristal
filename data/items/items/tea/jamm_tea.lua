@@ -68,15 +68,15 @@ function item:init()
 		},
         susie = {
             susie = "Hell yeah, soda!",
-			jamm = "",
+			jamm = "(But what kind of soda...?)",
 		},
         ralsei = {
             ralsei = "A-ah! That's hot!",
-			jamm = "",
+			jamm = "Spice is nice. ...Wait...", -- he thinks he put that the wrong way
 		},
         noelle = {
             noelle = "Iced coffee? (It's nice...)",
-			jamm = "",
+			jamm = "That seemed to calm you down.",
 		},
 		jamm = {
             susie = "It tastes like color?! Gimme some!",
@@ -95,7 +95,7 @@ function item:init()
 		},
         ceroba = {
             ceroba = "Black tea. Not bad.",
-			jamm = "...I'll take it.",
+			jamm = "...Respect.",
 		},
     }
 end
