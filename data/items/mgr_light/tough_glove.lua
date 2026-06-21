@@ -17,12 +17,12 @@ function item:init()
     self.shop = "Slap 'em."
     -- Default shop price (sell price is halved)
     self.price = 50
-    if Kristal.getLibConfig("magical-glass", "balanced_undertale_items_price") then
-        self.sell_price = 5
-    else
+    --if Kristal.getLibConfig("magical-glass", "balanced_undertale_items_price") then
+        --self.sell_price = 5
+    --else
         -- Default shop sell price
         self.sell_price = 50
-    end
+    --end
     -- Whether the item can be sold
     self.can_sell = true
 
