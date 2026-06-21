@@ -11,6 +11,8 @@ function item:init()
     -- Whether this item is for the light world
     self.light = true
 
+    self.target = "none"
+
     -- Item description text (unused by light items outside of debug menu)
     self.description = "A renowned book written by the late Gerson Boom."
 
@@ -24,6 +26,8 @@ function item:init()
 end
 
 function item:onWorldUse(target)
+    target = target[1]
+
     local heroes = {"kris", "susie", "ralsei", "noelle", "berdly"}
 
     local reactions = {
@@ -51,6 +55,10 @@ function item:onWorldUse(target)
         })
     end
     return false
+end
+
+function item:convertToDark()
+    return "glass_panel"
 end
 
 return item
