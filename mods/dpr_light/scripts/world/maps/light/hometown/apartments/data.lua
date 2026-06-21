@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.0",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 14,
+  nextobjectid = 16,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -58,6 +58,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -71,6 +72,7 @@ return {
           width = 40,
           height = 360,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -84,6 +86,7 @@ return {
           width = 40,
           height = 360,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -113,6 +116,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["facing"] = "down",
@@ -130,6 +134,7 @@ return {
           width = 44,
           height = 52,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -146,6 +151,7 @@ return {
           width = 44,
           height = 52,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -162,6 +168,7 @@ return {
           width = 42,
           height = 52,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -178,6 +185,7 @@ return {
           width = 42,
           height = 50,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -194,6 +202,7 @@ return {
           width = 42,
           height = 50,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -210,6 +219,7 @@ return {
           width = 40,
           height = 14,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -218,7 +228,7 @@ return {
         },
         {
           id = 13,
-          name = "NPC",
+          name = "npc",
           type = "",
           shape = "point",
           x = 280,
@@ -226,6 +236,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "colorguy",
@@ -264,6 +275,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -293,6 +305,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

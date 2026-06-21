@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="14">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="16">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -60,7 +60,7 @@
     <property name="text" value="* (It's a saucer of milk.)"/>
    </properties>
   </object>
-  <object id="13" name="NPC" x="280" y="200">
+  <object id="13" name="npc" x="280" y="200">
    <properties>
     <property name="actor" value="colorguy"/>
     <property name="talk" type="bool" value="true"/>
