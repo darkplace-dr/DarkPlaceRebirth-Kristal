@@ -1029,7 +1029,7 @@ return {
             cutscene:text("* Something TOTALLY happened!", "surprise_frown", "susie")
             cutscene:text("* Normally I wouldn't say we should break in,[wait:5] buuut...", "nervous_side", "susie")
             cutscene:text("* We should totally break in.", "closed_grin", "susie")
-            local susieline = "* Thoguh,[wait:5] for that we need to open that gate."
+            local susieline = "* Though,[wait:5] for that we need to open that gate."
             cutscene:runIfExists("dess", function(cutscene, dess)
 			    cutscene:text("* 'kay now you're talking my language pal", "challenging", dess)
 			    cutscene:text("* one hit with my trusty bat and the gate is no more", "swag", dess)
@@ -1070,29 +1070,31 @@ return {
         local susie_back = TableUtils.contains(alvin_party, "susie") or #TableUtils.filter(Game.party, function(value) return value.id == "susie" end) > 0
 
         if alvin_recognizes > 0 then
-            cutscene:text("* Oh, it's you"..({"", " two", " three", " four"})[alvin_recognizes].." again.")
+            cutscene:text("* Oh,[wait:5] it's you"..({"", " two", " three", " four"})[alvin_recognizes].." again.")
             cutscene:text("* Did you seek anything else from me?")
         else
-            cutscene:text("* Ah? Hello there.")
+            cutscene:text("* Ah?[wait:5] Hello there.")
             cutscene:text("* Do you wish to speak to me?")
         end
         local choice = cutscene:choicer({"Changes", "Nothing"})
         if choice == 1 then
             cutscene:text("* Recent changes in town?")
-            cutscene:text("* To be honest, many things have happened recently.")
+            cutscene:text("* To be honest,[wait:5] many things have happened recently.")
             cutscene:text("* Multiple townfolks have reported having strange dreams.")
             cutscene:text("* They enter a building in complete darkness and ends up in a outlandish place...")
-            cutscene:text("* Then three, sometimes four, heroes come save the day...")
+            cutscene:text("* Then three,[wait:5] sometimes four,[wait:5] heroes come save the day...")
             cutscene:text("* And then wake up in the exact building they wanted to be in.")
             cutscene:text("* But then even stranger things started to occur.")
             cutscene:text("* A mountain appeared next to Hometown, multiple strangers came to our little town...")
-            cutscene:text("* Kris and Susie went missing... We haven't heard from Carol and her daughter in weeks...")
+            cutscene:text("* Kris and Susie went missing...[wait:5] We haven't heard from Carol and her daughter in weeks...")
+            cutscene:text("* And then...[wait:5] The heroes from those dreams stopped coming.")
+            cutscene:wait(0.1)
             if susie_back then
-                cutscene:text("* Thankfully, I can see Susie is back at the very least.")
+                cutscene:text("* Thankfully,[wait:5] I can see Susie is back at the very least.")
             end
             cutscene:text("* But surprisingly...")
             cutscene:text("* I don't think anything would be stranger...")
-            cutscene:text("* Then receiving a letter telling you the true feelings of someone I lost a long time ago.")
+            cutscene:text("* Than receiving a letter telling you the true feelings of someone I lost a long time ago.")
             cutscene:wait(0.5)
             cutscene:text("* The Angel works in mysterious ways.")
             cutscene:text("* Maybe all of this is part of its plan?")
