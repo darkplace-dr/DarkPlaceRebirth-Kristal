@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="13">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="16">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -59,6 +59,20 @@
     <property name="solid" type="bool" value="true"/>
     <property name="text" value="* (It's a saucer of milk.)"/>
    </properties>
+  </object>
+  <object id="13" name="npc" x="280" y="200">
+   <properties>
+    <property name="actor" value="colorguy"/>
+    <property name="talk" type="bool" value="true"/>
+    <property name="talksprite" value="talk"/>
+    <property name="text1_1" value="* Look at those FLOWERS![wait:5] Aren't they so colorful and full of life?"/>
+    <property name="text1_2" value="* Who would dare put them in trash cans??"/>
+    <property name="text2_1" value="* My friends say I care too much about colors..."/>
+    <property name="text2_2" value="* Well it's their PROBLEM if they want to be monochrome!"/>
+    <property name="text3_1">* Keep your colors, kid.[wait:5]
+* You never know when you'll lose them.</property>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
