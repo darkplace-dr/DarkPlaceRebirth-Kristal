@@ -24,7 +24,8 @@ function item:init()
     self.heal_amount = 130
     -- Amount this item heals for specific characters
     self.heal_amounts = {
-        ["jamm"] = 0
+        ["jamm"] = 0,
+        ["ceroba"] = 0
     }
 
     -- Default shop price (sell price is halved)
@@ -56,7 +57,7 @@ function item:init()
         ralsei = "Can I make one too?",
         noelle = "C- can I not? Please?",
         --floyde = "Woah, this tastes horrid!", --This is a character in my mod which I have not added yet; uncomment when added -- Not gonna uncomment, but it doesn't break anything uncommented
-        ceroba = "I guess if I have to eat it.", --Placeholder dialogue, replace if you want
+        ceroba = "Hell no.",
         jamm = "Nope. I'm drawing the line here.",
         ["jamm+marcy"] = "We're not eating this.",
         brenda = "Placeholder mud dialogue!",--Placeholder dialogue, please replace, Brenda

@@ -1570,4 +1570,44 @@ return {
 		else
 		end
     end,
+
+    pipis_closet = function(cutscene)
+
+    	local hero = cutscene:getCharacter("hero")
+    	local susie = cutscene:getCharacter("susie")
+
+    	cutscene:detachFollowers()
+
+    	cutscene:look(hero, "right")
+    	cutscene:look(susie, "right")
+    	local _, wait1 = cutscene:alert(hero, nil, {play_sound=false})
+    	local _, wait2 = cutscene:alert(susie, nil, {play_sound=false})
+
+    	local x, _ = Game.world:screenToLocalPos(SCREEN_WIDTH, 0)
+    	local tenna = cutscene:spawnNPC("tenna", x+150, 345)
+
+    	cutscene:showNametag("Mr. (Ant) Tenna")
+    	cutscene:text("* HEY! DON'T TOUCH THAT DIAL!!", nil, tenna)
+    	cutscene:hideNametag()
+
+    	cutscene:waitMultiple(wait1, wait2)
+
+    	local TVSprite = tenna.sprite
+    	local changeTenna = tenna.sprite.setPreset
+    	TVSprite:setPreset(30)
+
+    	cutscene:waitMultiple(
+    		cutscene:walkTo(hero, 180, 320, nil, "right", true),
+    		cutscene:walkTo(susie, 180, 355, nil, "right", true),
+    		cutscene:slideTo(tenna, 410, 345, nil, "outBack")
+    	)
+    	TVSprite:setPreset(12)
+    	tenna.sprite.anim_delay = 0.05
+
+    	cutscene:showNametag("Mr. (Ant) Tenna")
+    	cutscene:text("* Did the children shows never teach you not to look into others' buisiness??", nil, tenna)
+    	cutscene:text("* You don't know what could lie in this closet!")
+    	cutscene:text("* It could be [funnytext:amazing,sparkle_glock,0,-10,73,30]!! It could be horrible!! It could be my LIFE ADVICE!!")
+    	cutscene:text("* MIKE!! THE FUNNYTEXT PLEASE!!")
+    end
 }

@@ -1,0 +1,44 @@
+{
+    "id": "rolling-health",
+    "default": true,
+    "authors": [
+        "HmmNoPls",
+		"Diamond Deltahedron" // Updated it a little
+    ],
+    "version": "v1.0.4DP",
+    "engineVer": "v0.10.0",
+
+    "config": {
+        // Determines the time in seconds between each time the HP meter moves
+        "roll_speed": 0.1,
+        // How much faster the HP display will take to roll to the next number than the actual roll speed.
+        // For example, setting this to 2 makes the HP meter does the animation for half the roll speed and halt for half the roll speed.
+        // Setting this to 3 makes the HP meter does the animation for 1/3 of the roll speed and halt for 2/3 of the roll speed
+        // Setting this to 1 disables this completely.
+        "display_roll_speed": 2,
+        // The color of the HP number when a member received mortal damage but is still up.
+        // Format: [r, g, b, a] (Last value is recommended to be 1)
+        // Remove this value to disable.
+        "mortal_damage_color": [1, 0, 1, 1],
+        // Whether the HP meter will only roll during the enemies' turn.
+        "halt_during_party_turn": false,
+        // Whether the HP meter will instantly roll when healing
+        "instant_roll_up": false,
+        // Whether the HP meter will instantly be set to the target when revived
+        // Otherwise, initial HP will be 1 before it starts to roll.
+        // This value will not matter if 'instant_roll_up' is true.
+        "instant_roll_revive": false,
+        // How much faster the HP meter will roll the bigger the difference between
+        // the HP target and the current HP is
+        // Formula: roll_speed * ((1 - speed_up) ^ (difference / max_hp))
+        // This should be a value between 0 and 1.
+        // Set to 0 to disable this.
+        "speed_up": 0,
+        // Whether to cut off the number.
+        "stencil": true,
+        // Whether to darker the previous number.
+        "darken_previous": false,
+        // Whether to change the alpha of the number when rolling.
+        "change_alpha": true
+    }
+}

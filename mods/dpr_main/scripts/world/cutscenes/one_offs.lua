@@ -24,6 +24,31 @@ return {
 			cutscene:wait(cutscene:walkTo(Game.world.player, Game.world.player.x, Game.world.player.y + 20))
 		end
     end,
+    mantle_dlc = function(cutscene)
+        if Kristal.Mods.data["dlc_mantle"] == nil then
+			cutscene:text("* But the door remained closed.")
+			cutscene:text(string.format("* (Are you missing the \"TV Time! DLC\" DLC?)"))
+			return
+		end
+
+
+		local has_dess = cutscene:getCharacter("dess") ~= nil
+		cutscene:text("* Your "
+			.. (has_dess and "desstination" or "destination")
+			.." is "
+			..(has_dess and "in another castle" or "infinitely far away")
+			..".\n* Leave this "
+			.. (has_dess and "Dark " or "")
+			.."Place?")
+		local enter = cutscene:choicer({"Yes", "No"})
+
+		if enter == 1 then
+			cutscene:after(Game:swapIntoMod("dlc_mantle", true, "room1", "spawn"))
+		else
+			cutscene:text("* You gamen't.")
+			Game.world.player:setFacing("down")
+		end
+    end,
     trapped_forever = function(cutscene)
         local id = Game.world.player.actor.id
 
@@ -109,5 +134,11 @@ return {
     end,
     lost_hero = function(cutscene)
 		cutscene:text("* (Nothing more than a past life.)")
+    end,
+    darkcade_pippins = function(cutscene)
+        cutscene:showNametag("Pippins")
+		cutscene:text("* This place SUCKS![wait:5] All of the games are totally rigged!")
+		cutscene:text("* I want a refund, dammit!")
+		cutscene:hideNametag()
     end,
 }

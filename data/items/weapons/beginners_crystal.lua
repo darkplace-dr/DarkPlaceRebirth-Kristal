@@ -16,7 +16,7 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "An old magical crystal that has seen\nsome use over the years."
+    self.description = "A diamond-shaped crystal that enhances PSI.\nIt has weakened over long use."
 
     -- Default shop price (sell price is halved)
     self.price = 60

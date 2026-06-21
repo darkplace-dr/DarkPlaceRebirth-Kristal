@@ -89,7 +89,7 @@ function item:init()
             ralsei = "Such a rich flavor!",
             noelle = "It's crunchy like a salad!",
             dess = "slop",
-            ceroba = "A bold decision to mix so much stuff.",
+            ceroba = "That's a lot of stuff...",
             jamm = "I always liked trail mix."
         }
     }

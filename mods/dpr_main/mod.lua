@@ -435,6 +435,7 @@ function Mod:setMusicPitches()
     MUSIC_PITCHES["deltarune/cybercity"] = 0.97
     MUSIC_PITCHES["deltarune/cybercity_alt"] = 1.2
     MUSIC_PITCHES["lost_room"] = 0.8
+    MUSIC_VOLUMES["trank_tv_static"] = 0.5
 end
 
 function Mod:getGlobalNextLvRequiredEXP()

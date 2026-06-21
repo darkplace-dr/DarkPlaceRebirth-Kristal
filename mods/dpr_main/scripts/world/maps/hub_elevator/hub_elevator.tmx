@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="35">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -39,7 +39,7 @@
     <property name="color_9" type="color" value="#ff4429ff"/>
     <property name="cutscene_13" value="elevator.top"/>
     <property name="cutscene_8" value="broken_elevator"/>
-    <property name="dest_1" value="intro/lab_reception"/>
+    <property name="dest_1" value="pre_pit"/>
     <property name="dest_10" value="tritraland/entrance"/>
     <property name="dest_11" value="deoxtest"/>
     <property name="dest_12" value="dirtworld/dirtworld"/>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="15">
+ <editorsettings>
+  <export target="outside.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="dev"/>
+  <property name="music" value="deltarune/castle_funk_long"/>
+  <property name="name" value="Dark-cade"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/darkcade_tiles.tsx"/>
+ <layer id="1" name="tiles" width="16" height="12">
+  <data encoding="csv">
+40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,
+40,40,2,3,3,3,3,3,3,3,3,3,3,4,40,40,
+40,40,14,15,15,15,15,15,15,15,15,15,15,16,40,40,
+40,40,14,15,15,15,15,15,15,15,15,15,15,16,40,40,
+40,40,14,15,15,15,15,15,15,15,15,40,40,16,40,40,
+40,40,14,15,15,15,15,15,15,15,15,40,40,16,40,40,
+40,40,26,27,27,27,27,27,27,27,27,40,40,28,40,40,
+40,52,52,52,52,52,52,52,52,52,52,52,52,52,52,40,
+40,52,52,52,52,52,52,52,52,52,52,52,52,52,52,40,
+40,52,52,52,52,52,52,52,52,52,52,52,52,52,52,40,
+40,52,52,52,52,52,52,52,52,52,52,52,52,52,52,40,
+40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40
+</data>
+ </layer>
+ <layer id="2" name="tiles_carpet" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,21,0,0,0,32,0,0,0,0,0,0,
+0,0,0,20,0,0,0,22,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,62,62,0,0,0,
+0,0,63,62,62,62,62,62,62,62,62,74,74,0,0,0,
+0,0,87,74,74,74,74,74,74,74,74,74,74,0,0,0,
+0,0,111,86,86,86,86,86,86,86,86,86,86,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="tiles_corner" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,131,0,0,0,0,0,0,0,0,0,0,0,0,132,0,
+0,143,0,0,0,0,0,0,0,0,0,0,0,0,144,0,
+0,143,0,0,0,0,0,0,0,0,0,0,0,0,144,0,
+0,143,0,0,0,0,0,0,0,0,0,162,164,0,144,0,
+0,143,0,0,0,0,0,0,0,0,0,174,176,0,144,0,
+0,155,0,0,0,0,0,0,0,0,0,186,188,0,156,0,
+0,167,0,0,0,0,0,0,0,0,53,0,0,55,168,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,154,53,0,54,0,55,0,56,0,53,0,54,0,153,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="1" name="warpbin" x="120" y="280" width="120" height="40"/>
+  <object id="12" name="transition" x="440" y="240" width="80" height="40">
+   <properties>
+    <property name="map" value="darkcade/floor1"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="13" name="npc" x="380" y="310">
+   <properties>
+    <property name="actor" value="pippins"/>
+    <property name="animation" value="angry"/>
+    <property name="cutscene" value="one_offs.darkcade_pippins"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="5" name="markers">
+  <object id="2" name="spawn" x="180" y="350">
+   <point/>
+  </object>
+  <object id="14" name="exit" x="480" y="320">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="6" name="collision">
+  <object id="3" x="40" y="320">
+   <polygon points="0,0 40,-40 0,-40"/>
+  </object>
+  <object id="4" x="40" y="400">
+   <polygon points="0,0 40,40 0,40"/>
+  </object>
+  <object id="5" x="560" y="280">
+   <polygon points="0,0 40,40 40,0"/>
+  </object>
+  <object id="6" x="600" y="400">
+   <polygon points="0,0 -40,40 0,40"/>
+  </object>
+  <object id="7" x="600" y="280" width="40" height="160"/>
+  <object id="8" x="40" y="440" width="560" height="40"/>
+  <object id="9" x="0" y="280" width="40" height="160"/>
+  <object id="10" x="40" y="240" width="400" height="40"/>
+  <object id="11" x="520" y="240" width="80" height="40"/>
+ </objectgroup>
+</map>

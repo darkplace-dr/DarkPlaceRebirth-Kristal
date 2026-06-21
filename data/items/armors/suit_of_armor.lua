@@ -53,7 +53,7 @@ function item:init()
         brenda = "Y'know I wore a suit of armor before, actually.",
 	    jamm = "No different than the Halloween I went as a knight.",
         noel = "I totally get it now.",
-        ceroba = "(I don't remember assigning for the royal guard.)"
+        ceroba = "(I don't remember assigning for the Royal Guard.)"
     }
 end
 

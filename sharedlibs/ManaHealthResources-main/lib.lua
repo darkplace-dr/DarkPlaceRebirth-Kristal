@@ -454,189 +454,428 @@ function Lib:init()
     HookSystem.hook(ActionBoxDisplay, "draw", function (orig, self)
         if not Kristal.getLibConfig("ManaHealthResources", "use_propietary_ui")["ActionBox"] then orig(self) return end
 
-        if self.actbox.battler.chara:usesMana() then
-            if Game.battle.current_selecting == self.actbox.index then
-                Draw.setColor(self.actbox.battler.chara:getColor())
-            else
-                Draw.setColor(PALETTE["action_strip"], 1)
-            end
+		if self.actbox.battler:canHealthRoll() then
+			if self.actbox.battler.chara:usesMana() then
+				if Game.battle.current_selecting == self.actbox.index then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+				else
+					Draw.setColor(PALETTE["action_strip"], 1)
+				end
 
-            love.graphics.setLineWidth(2)
-            love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
+				love.graphics.setLineWidth(2)
+				love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
 
-            love.graphics.setLineWidth(2)
-            if Game.battle.current_selecting == self.actbox.index then
-                love.graphics.line(1  , 2, 1,   36)
-                love.graphics.line(212, 2, 212, 36)
-            end
+				love.graphics.setLineWidth(2)
+				if Game.battle.current_selecting == self.actbox.index then
+					love.graphics.line(1  , 2, 1,   36)
+					love.graphics.line(212, 2, 212, 36)
+				end
 
-            Draw.setColor(PALETTE["action_fill"])
-            love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
+				Draw.setColor(PALETTE["action_fill"])
+				love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
 
-            if self.actbox.battler.succumbed then
-                love.graphics.setFont(self.font)
-                Draw.setColor(1, 0, 0)
-                love.graphics.print("SUCCUMBED", 129, 14 - self.actbox.data_offset)
+				if self.actbox.battler.succumbed then
+					love.graphics.setFont(self.font)
+					Draw.setColor(1, 0, 0)
+					love.graphics.print("SUCCUMBED", 129, 14 - self.actbox.data_offset)
 
-                Object.draw(self)
-                return
-            end
+					Object.draw(self)
+					return
+				end
 
-            ------------Health Bar--------------
-            Draw.setColor(PALETTE["action_health_bg"])
-            love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, 81, 12)
+				------------Health Bar--------------
+				Draw.setColor(PALETTE["action_health_bg"])
+				love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, 81, 12)
 
-            local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 82
+				local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 82
 
-            if health > 0 then
-                Draw.setColor(self.actbox.battler.chara:getColor())
-                love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, math.ceil(health), 12)
-            end
-            -------------------------------------
+				if health > 0 then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+					love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, math.ceil(health), 12)
+				end
+				
+				local health_rolling_diff = ((self.actbox.battler.health_rolling_to - self.actbox.battler.chara:getHealth()) / self.actbox.battler.chara:getStat("health")) * 76
+				if health_rolling_diff ~= 0 and health > 0 then
+					Draw.setColor(self:mapRollHPTable({self.actbox.battler.chara:getColor()}, function(value, index)
+						if index == 4 then return value
+						else
+							return value * 0.75
+						end
+					end))
+					local x_start = health
+					local width = health_rolling_diff
+					if health_rolling_diff < 0 then
+						x_start = math.ceil(health + width)
+						width = math.ceil(width) - 1
+					end
+					-- Kristal.Console:log(x_start + math.abs(math.floor(width)))
+					love.graphics.rectangle("fill", 125 + x_start, 6 - self.actbox.data_offset, math.abs(width), 12)
+				end
 
-            ----------------- Mana Bar -----------------------------
-            Draw.setColor(ManaHealthResources.PALETTE["mana_bar_bg"])
-            love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, 81, 12)
+				-------------------------------------
 
-            local mana = (self.actbox.battler.chara:getMana() / self.actbox.battler.chara:getStat("mana")) * 82
+				----------------- Mana Bar -----------------------------
+				Draw.setColor(ManaHealthResources.PALETTE["mana_bar_bg"])
+				love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, 81, 12)
 
-            if mana > 0 then
-                Draw.setColor(ManaHealthResources.PALETTE["mana_bar_fill"])
-                love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, math.ceil(mana), 12)
-            end
-            ----------------------------------------------------------
+				local mana = (self.actbox.battler.chara:getMana() / self.actbox.battler.chara:getStat("mana")) * 82
 
-            local color = PALETTE["action_health_text"]
-            local mana_color = ManaHealthResources.PALETTE["mana_text"]
+				if mana > 0 then
+					Draw.setColor(ManaHealthResources.PALETTE["mana_bar_fill"])
+					love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, math.ceil(mana), 12)
+				end
+				----------------------------------------------------------
 
-            if mana <= 0 then
-                mana_color = ManaHealthResources.PALETTE["mana_text_empty"]
-            elseif (self.actbox.battler.chara:getMana() <= (self.actbox.battler.chara:getStat("mana") / 4)) then
-                mana_color = ManaHealthResources.PALETTE["mana_text_low"]
-            else
-                mana_color = ManaHealthResources.PALETTE["mana_text"]
-            end
+				local color = PALETTE["action_health_text"]
+				local mana_color = ManaHealthResources.PALETTE["mana_text"]
 
-            if health <= 0 then
-                color = PALETTE["action_health_text_down"]
-                mana_color = ManaHealthResources.PALETTE["mana_text_down"]
-            elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
-                color = PALETTE["action_health_text_low"]
-            else
-                color = PALETTE["action_health_text"]
-            end
+				if mana <= 0 then
+					mana_color = ManaHealthResources.PALETTE["mana_text_empty"]
+				elseif (self.actbox.battler.chara:getMana() <= (self.actbox.battler.chara:getStat("mana") / 4)) then
+					mana_color = ManaHealthResources.PALETTE["mana_text_low"]
+				else
+					mana_color = ManaHealthResources.PALETTE["mana_text"]
+				end
 
-            local health_offset = 0
-            local mana_offset = 0
-            health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
-            mana_offset = (#tostring(self.actbox.battler.chara:getMana()) - 1) * 8
+				if health <= 0 then
+					color = PALETTE["action_health_text_down"]
+					mana_color = ManaHealthResources.PALETTE["mana_text_down"]
+				elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
+					color = PALETTE["action_health_text_low"]
+				else
+					color = PALETTE["action_health_text"]
+				end
 
-            local string_width_health = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
-            local string_width_mana = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("mana")))
+				local mortal_damage_color = self:getRollHPConfig("mortal_damage_color")
+				if mortal_damage_color and self.actbox.battler.health_rolling_to <= 0 and health > 0 then
+					color = mortal_damage_color
+					if self.actbox.battler.health_rolling_swooned then
+						color = ColorUtils.mergeColor(mortal_damage_color, COLORS.red, 0.5)
+					end
+				end
 
-            love.graphics.setFont(self.font)
+				local health_offset = 0
+				local mana_offset = 0
+				health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
+				mana_offset = (#tostring(self.actbox.battler.chara:getMana()) - 1) * 8
 
-            --Draw the black translucent outlines
-            local outline_canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_WIDTH)
+				local string_width_health = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
+				local string_width_mana = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("mana")))
 
-                ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getHealth(), 183 - health_offset - string_width_health, 7 - self.actbox.data_offset)
-                ManaHealthResources:getOutlineDraft("/", 192 - string_width_health, 7 - self.actbox.data_offset)
-                ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
+				love.graphics.setFont(self.font)
 
-                ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
-                ManaHealthResources:getOutlineDraft("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
-                ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
+				--Draw the black translucent outlines
+				local outline_canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_WIDTH)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health, 7 - self.actbox.data_offset - 1)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health + 1, 7 - self.actbox.data_offset - 1)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health + 1, 7 - self.actbox.data_offset)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health + 1, 7 - self.actbox.data_offset + 1)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health, 7 - self.actbox.data_offset + 1)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health - 1, 7 - self.actbox.data_offset + 1)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health - 1, 7 - self.actbox.data_offset)
+					self:drawCurrentHealth(COLORS.black, 183 - string_width_health - 1, 7 - self.actbox.data_offset - 1)
+					ManaHealthResources:getOutlineDraft("/", 192 - string_width_health, 7 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
 
-                Draw.setColor(COLORS["black"], 0.5)
-                Draw.popCanvas()
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
 
-            Draw.drawCanvas(outline_canvas)
+					Draw.setColor(COLORS["black"], 0.5)
+					Draw.popCanvas()
 
-            Draw.setColor(color)
-            love.graphics.print(self.actbox.battler.chara:getHealth(), 183 - health_offset - string_width_health, 7 - self.actbox.data_offset)
-            Draw.setColor(PALETTE["action_health_text"])
-            love.graphics.print("/", 192 - string_width_health, 7 - self.actbox.data_offset)
-            Draw.setColor(color)
-            love.graphics.print(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
-            
-            Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
-            love.graphics.rectangle("fill", 125, 14 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
+				Draw.drawCanvas(outline_canvas)
 
-            Draw.setColor(mana_color)
-            love.graphics.print(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
-            Draw.setColor(ManaHealthResources.PALETTE["mana_text"])
-            love.graphics.print("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
-            Draw.setColor(mana_color)
-            love.graphics.print(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
+				self:drawCurrentHealth(color, 183 - string_width_health, 7 - self.actbox.data_offset)
+				Draw.setColor(PALETTE["action_health_text"])
+				love.graphics.print("/", 192 - string_width_health, 7 - self.actbox.data_offset)
+				Draw.setColor(color)
+				love.graphics.print(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
+				
+				Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
+				love.graphics.rectangle("fill", 125, 14 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
 
-            --super.super.draw(self)
-            Object.draw(self)
-        else
+				Draw.setColor(mana_color)
+				love.graphics.print(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
+				Draw.setColor(ManaHealthResources.PALETTE["mana_text"])
+				love.graphics.print("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
+				Draw.setColor(mana_color)
+				love.graphics.print(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
 
-            if Game.battle.current_selecting == self.actbox.index then
-            Draw.setColor(self.actbox.battler.chara:getColor())
-            else
-                Draw.setColor(PALETTE["action_strip"], 1)
-            end
+				--super.super.draw(self)
+				Object.draw(self)
+			else
 
-            love.graphics.setLineWidth(2)
-            love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
+				if Game.battle.current_selecting == self.actbox.index then
+				Draw.setColor(self.actbox.battler.chara:getColor())
+				else
+					Draw.setColor(PALETTE["action_strip"], 1)
+				end
 
-            love.graphics.setLineWidth(2)
-            if Game.battle.current_selecting == self.actbox.index then
-                love.graphics.line(1  , 2, 1,   36)
-                love.graphics.line(212, 2, 212, 36)
-            end
+				love.graphics.setLineWidth(2)
+				love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
 
-            Draw.setColor(PALETTE["action_fill"])
-            love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
+				love.graphics.setLineWidth(2)
+				if Game.battle.current_selecting == self.actbox.index then
+					love.graphics.line(1  , 2, 1,   36)
+					love.graphics.line(212, 2, 212, 36)
+				end
 
-            Draw.setColor(PALETTE["action_health_bg"])
-            love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
+				Draw.setColor(PALETTE["action_fill"])
+				love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
 
-            if self.actbox.battler.succumbed then
-                love.graphics.setFont(self.font)
-                Draw.setColor(1, 0, 0)
-                love.graphics.print("SUCCUMBED", 129, 9 - self.actbox.data_offset)
+				Draw.setColor(PALETTE["action_health_bg"])
+				love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
 
-                Object.draw(self)
-                return
-            end
+				if self.actbox.battler.succumbed then
+					love.graphics.setFont(self.font)
+					Draw.setColor(1, 0, 0)
+					love.graphics.print("SUCCUMBED", 129, 9 - self.actbox.data_offset)
 
-            local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
+					Object.draw(self)
+					return
+				end
 
-            if health > 0 then
-                Draw.setColor(self.actbox.battler.chara:getColor())
-                love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.ceil(health), 9)
-            end
+				local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
 
-            Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
-            love.graphics.rectangle("fill", 128, 27 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
+				if health > 0 then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+					love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.ceil(health), 9)
+				end
 
-            local color = PALETTE["action_health_text"]
-            if health <= 0 then
-                color = PALETTE["action_health_text_down"]
-            elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
-                color = PALETTE["action_health_text_low"]
-            else
-                color = PALETTE["action_health_text"]
-            end
+				local health_rolling_diff = ((self.actbox.battler.health_rolling_to - self.actbox.battler.chara:getHealth()) / self.actbox.battler.chara:getStat("health")) * 76
+				if health_rolling_diff ~= 0 and health > 0 then
+					Draw.setColor(self:mapRollHPTable({self.actbox.battler.chara:getColor()}, function(value, index)
+						if index == 4 then return value
+						else
+							return value * 0.75
+						end
+					end))
+					local x_start = health
+					local width = health_rolling_diff
+					if health_rolling_diff < 0 then
+						x_start = math.ceil(health + width)
+						width = math.ceil(width) - 1
+					end
+					-- Kristal.Console:log(x_start + math.abs(math.floor(width)))
+					love.graphics.rectangle("fill", 128 + x_start, 22 - self.actbox.data_offset, math.abs(width), 9)
+				end
+
+				Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
+				love.graphics.rectangle("fill", 128, 27 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
+
+				local color = PALETTE["action_health_text"]
+				if health <= 0 then
+					color = PALETTE["action_health_text_down"]
+				elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
+					color = PALETTE["action_health_text_low"]
+				else
+					color = PALETTE["action_health_text"]
+				end
+
+				local mortal_damage_color = self:getRollHPConfig("mortal_damage_color")
+				if mortal_damage_color and self.actbox.battler.health_rolling_to <= 0 and health > 0 then
+					color = mortal_damage_color
+					if self.actbox.battler.health_rolling_swooned then
+						color = ColorUtils.mergeColor(mortal_damage_color, COLORS.red, 0.5)
+					end
+				end
+
+				love.graphics.setFont(self.font)
+				self:drawCurrentHealth(color, 152, 9 - self.actbox.data_offset)
+				Draw.setColor(PALETTE["action_health_text"])
+				love.graphics.print("/", 161, 9 - self.actbox.data_offset)
+				local string_width = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
+				Draw.setColor(color)
+				love.graphics.print(self.actbox.battler.chara:getStat("health"), 205 - string_width, 9 - self.actbox.data_offset)
+
+				Object.draw(self)
+			end
+		else		
+			if self.actbox.battler.chara:usesMana() then
+				if Game.battle.current_selecting == self.actbox.index then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+				else
+					Draw.setColor(PALETTE["action_strip"], 1)
+				end
+
+				love.graphics.setLineWidth(2)
+				love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
+
+				love.graphics.setLineWidth(2)
+				if Game.battle.current_selecting == self.actbox.index then
+					love.graphics.line(1  , 2, 1,   36)
+					love.graphics.line(212, 2, 212, 36)
+				end
+
+				Draw.setColor(PALETTE["action_fill"])
+				love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
+
+				if self.actbox.battler.succumbed then
+					love.graphics.setFont(self.font)
+					Draw.setColor(1, 0, 0)
+					love.graphics.print("SUCCUMBED", 129, 14 - self.actbox.data_offset)
+
+					Object.draw(self)
+					return
+				end
+
+				------------Health Bar--------------
+				Draw.setColor(PALETTE["action_health_bg"])
+				love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, 81, 12)
+
+				local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 82
+
+				if health > 0 then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+					love.graphics.rectangle("fill", 125, 6 - self.actbox.data_offset, math.ceil(health), 12)
+				end
+				-------------------------------------
+
+				----------------- Mana Bar -----------------------------
+				Draw.setColor(ManaHealthResources.PALETTE["mana_bar_bg"])
+				love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, 81, 12)
+
+				local mana = (self.actbox.battler.chara:getMana() / self.actbox.battler.chara:getStat("mana")) * 82
+
+				if mana > 0 then
+					Draw.setColor(ManaHealthResources.PALETTE["mana_bar_fill"])
+					love.graphics.rectangle("fill", 125, 22 - self.actbox.data_offset, math.ceil(mana), 12)
+				end
+				----------------------------------------------------------
+
+				local color = PALETTE["action_health_text"]
+				local mana_color = ManaHealthResources.PALETTE["mana_text"]
+
+				if mana <= 0 then
+					mana_color = ManaHealthResources.PALETTE["mana_text_empty"]
+				elseif (self.actbox.battler.chara:getMana() <= (self.actbox.battler.chara:getStat("mana") / 4)) then
+					mana_color = ManaHealthResources.PALETTE["mana_text_low"]
+				else
+					mana_color = ManaHealthResources.PALETTE["mana_text"]
+				end
+
+				if health <= 0 then
+					color = PALETTE["action_health_text_down"]
+					mana_color = ManaHealthResources.PALETTE["mana_text_down"]
+				elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
+					color = PALETTE["action_health_text_low"]
+				else
+					color = PALETTE["action_health_text"]
+				end
+
+				local health_offset = 0
+				local mana_offset = 0
+				health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
+				mana_offset = (#tostring(self.actbox.battler.chara:getMana()) - 1) * 8
+
+				local string_width_health = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
+				local string_width_mana = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("mana")))
+
+				love.graphics.setFont(self.font)
+
+				--Draw the black translucent outlines
+				local outline_canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_WIDTH)
+
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getHealth(), 183 - health_offset - string_width_health, 7 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft("/", 192 - string_width_health, 7 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
+
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
+					ManaHealthResources:getOutlineDraft(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
+
+					Draw.setColor(COLORS["black"], 0.5)
+					Draw.popCanvas()
+
+				Draw.drawCanvas(outline_canvas)
+
+				Draw.setColor(color)
+				love.graphics.print(self.actbox.battler.chara:getHealth(), 183 - health_offset - string_width_health, 7 - self.actbox.data_offset)
+				Draw.setColor(PALETTE["action_health_text"])
+				love.graphics.print("/", 192 - string_width_health, 7 - self.actbox.data_offset)
+				Draw.setColor(color)
+				love.graphics.print(self.actbox.battler.chara:getStat("health"), 207 - string_width_health, 7 - self.actbox.data_offset)
+				
+				Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
+				love.graphics.rectangle("fill", 125, 14 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
+
+				Draw.setColor(mana_color)
+				love.graphics.print(self.actbox.battler.chara:getMana(), 183 - mana_offset - string_width_mana, 23 - self.actbox.data_offset)
+				Draw.setColor(ManaHealthResources.PALETTE["mana_text"])
+				love.graphics.print("/", 192 - string_width_mana, 23 - self.actbox.data_offset)
+				Draw.setColor(mana_color)
+				love.graphics.print(self.actbox.battler.chara:getStat("mana"), 207 - string_width_mana, 23 - self.actbox.data_offset)
+
+				--super.super.draw(self)
+				Object.draw(self)
+			else
+
+				if Game.battle.current_selecting == self.actbox.index then
+				Draw.setColor(self.actbox.battler.chara:getColor())
+				else
+					Draw.setColor(PALETTE["action_strip"], 1)
+				end
+
+				love.graphics.setLineWidth(2)
+				love.graphics.line(0  , Game:getConfig("oldUIPositions") and 2 or 1, 213, Game:getConfig("oldUIPositions") and 2 or 1)
+
+				love.graphics.setLineWidth(2)
+				if Game.battle.current_selecting == self.actbox.index then
+					love.graphics.line(1  , 2, 1,   36)
+					love.graphics.line(212, 2, 212, 36)
+				end
+
+				Draw.setColor(PALETTE["action_fill"])
+				love.graphics.rectangle("fill", 2, Game:getConfig("oldUIPositions") and 3 or 2, 209, Game:getConfig("oldUIPositions") and 34 or 35)
+
+				Draw.setColor(PALETTE["action_health_bg"])
+				love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, 76, 9)
+
+				if self.actbox.battler.succumbed then
+					love.graphics.setFont(self.font)
+					Draw.setColor(1, 0, 0)
+					love.graphics.print("SUCCUMBED", 129, 9 - self.actbox.data_offset)
+
+					Object.draw(self)
+					return
+				end
+
+				local health = (self.actbox.battler.chara:getHealth() / self.actbox.battler.chara:getStat("health")) * 76
+
+				if health > 0 then
+					Draw.setColor(self.actbox.battler.chara:getColor())
+					love.graphics.rectangle("fill", 128, 22 - self.actbox.data_offset, math.ceil(health), 9)
+				end
+
+				Draw.setColor(self.actbox.battler.chara.shield_color or {128/255, 128/255, 128/255})
+				love.graphics.rectangle("fill", 128, 27 - self.actbox.data_offset, math.ceil((self.actbox.battler.shield / self.actbox.battler.chara:getMaxShield()) * 76), 4)
+
+				local color = PALETTE["action_health_text"]
+				if health <= 0 then
+					color = PALETTE["action_health_text_down"]
+				elseif (self.actbox.battler.chara:getHealth() <= (self.actbox.battler.chara:getStat("health") / 4)) then
+					color = PALETTE["action_health_text_low"]
+				else
+					color = PALETTE["action_health_text"]
+				end
 
 
-            local health_offset = 0
-            health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
+				local health_offset = 0
+				health_offset = (#tostring(self.actbox.battler.chara:getHealth()) - 1) * 8
 
-            Draw.setColor(color)
-            love.graphics.setFont(self.font)
-            love.graphics.print(self.actbox.battler.chara:getHealth(), 152 - health_offset, 9 - self.actbox.data_offset)
-            Draw.setColor(PALETTE["action_health_text"])
-            love.graphics.print("/", 161, 9 - self.actbox.data_offset)
-            local string_width = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
-            Draw.setColor(color)
-            love.graphics.print(self.actbox.battler.chara:getStat("health"), 205 - string_width, 9 - self.actbox.data_offset)
+				Draw.setColor(color)
+				love.graphics.setFont(self.font)
+				love.graphics.print(self.actbox.battler.chara:getHealth(), 152 - health_offset, 9 - self.actbox.data_offset)
+				Draw.setColor(PALETTE["action_health_text"])
+				love.graphics.print("/", 161, 9 - self.actbox.data_offset)
+				local string_width = self.font:getWidth(tostring(self.actbox.battler.chara:getStat("health")))
+				Draw.setColor(color)
+				love.graphics.print(self.actbox.battler.chara:getStat("health"), 205 - string_width, 9 - self.actbox.data_offset)
 
-            Object.draw(self)
-        end
+				Object.draw(self)
+			end
+		end
     end)
 
     HookSystem.hook(Savepoint, "init", function (orig, self, x, y, properties)

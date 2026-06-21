@@ -114,7 +114,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
         save_name = nil
         self:load(save, save_id, fade)
     elseif save_id then
-        Kristal.loadGame(save_id, fade)
+        if not Kristal.loadGame(save_id, fade) then return end
     else
         self:load(nil, nil, fade)
     end

@@ -20,7 +20,18 @@ function item:init()
     -- Menu description
     self.description = "It's own-flavored tea.\nThe flavor just says \"Hero.\""
     -- Amount healed (HealItem variable)
-    self.heal_amount = Utils.pick{40,50,60,70,80,90,100}
+    self.heal_amount = 50
+    -- Amount this item heals for specific characters
+    self.heal_amounts = {
+        ["kris"] = 20,
+        ["susie"] = 100,
+        ["ralsei"] = 50,
+        ["noelle"] = 50,
+        ["dess"] = 50,
+        ["hero"] = 10,
+        ["jamm"] = 10,
+        ["ceroba"] = 40,
+    }
 
     -- Default shop price (sell price is halved)
     self.price = 10
@@ -47,9 +58,10 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-		susie =  "It tastes like... what?",
-		dess =  "this tea sucks dude",
+		susie = "Hell yeah, flavor mix!",
+		dess = "this tea sucks dude",
         jamm = "Is this just... water?",
+        ceroba = "Cold drink with a hint of sweet...",
     }
 end
 
