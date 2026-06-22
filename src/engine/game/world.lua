@@ -215,7 +215,9 @@ function World:hurtParty(battler, amount)
 
             for _, char in ipairs(self.stage:getObjects(Character)) do
                 if char.actor and (char.actor.id == party:getActor().id) and dealt_amount > 0 then
-                    char:statusMessage("damage", dealt_amount)
+                    if char.alpha > 0 then
+                        char:statusMessage("damage", dealt_amount)
+                    end
                 end
             end
         elseif party:getHealth() > current_amount then
