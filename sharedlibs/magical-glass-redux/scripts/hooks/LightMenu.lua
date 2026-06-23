@@ -38,10 +38,10 @@ function LightMenu:draw()
     end
 
     love.graphics.setFont(self.font)
-    if Game.inventory:getItemCount(self.storage, false) <= 0 then
-        Draw.setColor(PALETTE["world_gray"])
-    else
+    if self:canOpenItemMenu() then
         Draw.setColor(PALETTE["world_text"])
+    else
+        Draw.setColor(PALETTE["world_gray"])
     end
     love.graphics.print("ITEM", 84, offset2 + 188 + (36 * 0))
     Draw.setColor(PALETTE["world_text"])

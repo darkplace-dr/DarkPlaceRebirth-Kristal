@@ -65,8 +65,11 @@ return {
 			cutscene:walkTo(Game.world.player, 600, 640, 1, "up")
 			cutscene:walkTo(Game.world.followers[1], 660, 640, 1, "up")
 			cutscene:walkTo(Game.world.followers[2], 720, 640, 1, "up")
-		else	-- I know 4 is planned but I won't write this case yet
-		
+		elseif #Game.party == 4 then
+			cutscene:walkTo(Game.world.player, 590, 640, 1, "up")
+			cutscene:walkTo(Game.world.followers[1], 650, 640, 1, "up")
+			cutscene:walkTo(Game.world.followers[2], 710, 640, 1, "up")
+			cutscene:walkTo(Game.world.followers[3], 770, 640, 1, "up")
 		end
 		
 		cutscene:wait(cutscene:panTo("camto", 1))
@@ -115,6 +118,11 @@ return {
 					cutscene:text("* Something like that???", "shocked", "hero")	-- they never made the realization
 					cutscene:showNametag("Jamm")
 					cutscene:text("* I see...", "look_left", "jamm")
+				elseif party.id == "ceroba" then
+					cutscene:showNametag("Ceroba")
+					cutscene:text("* Ceroba Ketsukane.", "neutral", "ceroba")
+					cutscene:text("* But,[wait:5] just Ceroba is fine.", "smile", "ceroba")
+					cutscene:showNametag("Jamm")
 				else
 					cutscene:hideNametag()
 					cutscene:text("* You tell Jamm your name.")
@@ -162,6 +170,22 @@ return {
 					cutscene:text("* ...That's-a what Mario was supposed to be doing?", "main", "mario")
 					cutscene:showNametag("Jamm")
 					cutscene:text("* ...Why am I not surprised.", "stern", "jamm")
+				elseif party.id == "ceroba" then
+					cutscene:showNametag("Ceroba")
+					cutscene:text("* Ceroba Ketsukane.", "neutral", "ceroba")
+					cutscene:text("* But,[wait:5] just Ceroba is fine.", "smile", "ceroba")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* Aren't you a bit too old to hang out with a bunch of teenagers?", "suspicious", "jamm")
+					cutscene:showNametag("Ceroba")
+					cutscene:text("* I sort of got pulled in the group after a...", "nervous_smile_closed", "ceroba")
+					cutscene:text("* Certain incident...[wait:5] At my old house...", "nervous_smile", "ceroba")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* Did they break in there!?", "shocked", "jamm")
+					cutscene:showNametag("Ceroba")
+					cutscene:text("* What?[wait:5] No,[wait:5] no!", "nervous", "ceroba")
+					cutscene:text("* It's...[wait:5] a long story.[wait:5] I'll tell some other time.", "neutral", "ceroba")
+					cutscene:showNametag("Jamm")
+					cutscene:text("* If you say so.", "nervous_left", "jamm")
 				else
 					undefined = undefined + 1
 				end
@@ -205,7 +229,7 @@ return {
 		Game.world.music:stop()
 		local party_jingle = Music("deltarune/charjoined")
         party_jingle:play()
-        party_jingle.source:setLooping(false)
+        party_jingle:setLooping(false)
 		cutscene:hideNametag()
 		cutscene:text("* (Jamm joined the team!)")
 		
@@ -393,10 +417,12 @@ return {
 	end,
 	
 	jamm = function(cutscene, event)
+		local jamm = cutscene:getCharacter("jamm")
 		local susie = cutscene:getCharacter("susie")
 		local brenda = cutscene:getCharacter("brenda")
 		local dess = cutscene:getCharacter("dess")
 		
+		jamm:facePlayer()
 		cutscene:showNametag("Jamm")
 		cutscene:text("* Oh,[wait:5] hey,[wait:5] guys![wait:5] Nice seeing you again!", "smile", "jamm")
 		cutscene:text("* Did you want to talk about something?", "smile", "jamm")
@@ -501,7 +527,8 @@ return {
 				Game:setFlag("jammHasTalkedAboutAlexa", true)
 			end
 		end
-	cutscene:hideNametag()
+		cutscene:hideNametag()
+		jamm:setFacing("down")
     end,
 	
 	marcy = function(cutscene, event)

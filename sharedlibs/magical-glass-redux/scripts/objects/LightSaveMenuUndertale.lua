@@ -1,6 +1,6 @@
-local LightSaveMenuNormal, super = Class(Object)
+local LightSaveMenuUndertale, super = Class(Object)
 
-function LightSaveMenuNormal:init(save_id, marker)
+function LightSaveMenuUndertale:init(save_id, marker)
     super.init(self, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     self.parallax_x = 0
@@ -27,7 +27,7 @@ function LightSaveMenuNormal:init(save_id, marker)
     self.saved_file = Kristal.getSaveFile(save_id)
 end
 
-function LightSaveMenuNormal:update()
+function LightSaveMenuUndertale:update()
     if self.state == "MAIN" then
         if Input.pressed("left") or Input.pressed("right") then
             Assets.stopAndPlaySound("ui_move")
@@ -62,7 +62,7 @@ function LightSaveMenuNormal:update()
     super.update(self)
 end
 
-function LightSaveMenuNormal:draw()
+function LightSaveMenuUndertale:draw()
     love.graphics.setFont(self.font)
 
     if self.state == "SAVED" then
@@ -80,7 +80,7 @@ function LightSaveMenuNormal:draw()
     local room_name = data.room_name         or "--"
 
     love.graphics.print(name,         self.box.x + 8,        self.box.y - 10 + 8)
-    love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").." "..level, self.box.x + 210 - 42, self.box.y - 10 + 8)
+    love.graphics.print("LV" .. " " .. level, self.box.x + 210 - 42, self.box.y - 10 + 8)
 
     if Kristal.getLibConfig("magical-glass", "light_save_menu_hours") then
         local hours = math.floor(data.playtime / 3600)
@@ -112,4 +112,4 @@ function LightSaveMenuNormal:draw()
     Object.draw(self)
 end
 
-return LightSaveMenuNormal
+return LightSaveMenuUndertale

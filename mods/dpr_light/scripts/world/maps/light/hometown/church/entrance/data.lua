@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 29,
+  nextobjectid = 30,
   properties = {
     ["border"] = "leaves",
     ["church"] = true,
@@ -369,6 +369,23 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "church.fire_extinguisher"
+          }
+        },
+        {
+          id = 29,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "alvin",
+            ["cutscene"] = "church.alvin",
+            ["flagcheck"] = "!alvinAtGraveyard"
           }
         }
       }

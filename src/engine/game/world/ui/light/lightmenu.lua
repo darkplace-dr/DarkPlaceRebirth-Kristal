@@ -50,8 +50,6 @@ function LightMenu:init()
     end
     self:addChild(self.choice_box)
     self:realign()
-
-    self.storage = "items"
 end
 
 function LightMenu:getMaxSelecting()
@@ -98,9 +96,13 @@ function LightMenu:onKeyPressed(key)
     end
 end
 
+function LightMenu:canOpenItemMenu()
+    return Game.inventory:getItemCount("items", false) > 0 or Game.inventory:getItemCount("key_items", false) > 0
+end
+
 function LightMenu:onButtonSelect(button)
     if button == 1 then
-        if Game.inventory:getItemCount(self.storage, false) > 0 then
+        if self:canOpenItemMenu() then
             self.state = "ITEMMENU"
             Input.clear("confirm")
             self.box = LightItemMenu()
@@ -200,7 +202,7 @@ function LightMenu:draw()
     love.graphics.print(StringUtils.pad(Game:getConfig("lightCurrencyShort"), 4) .. Game.lw_money, 46, 136 + offset)
 
     love.graphics.setFont(self.font)
-    if (Game.inventory:getItemCount("items", false) > 0) or (Game.inventory:getItemCount("key_items", false) > 0) then
+    if self:canOpenItemMenu() then
         Draw.setColor(PALETTE["world_text"])
     else
         Draw.setColor(PALETTE["world_gray"])
