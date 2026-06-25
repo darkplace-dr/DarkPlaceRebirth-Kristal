@@ -16,6 +16,7 @@ function SakuraFubukiMini:onAdd(parent)
     super.onAdd(self,parent)
     self:setLayer(WORLD_LAYERS["below_ui"])
     self:setPosition(0,0)
+	self:setParallax(0,0)
 	self.ps = GMParticleSystem()
 	self.ps.auto_draw = false
 	self.ps:setLayer(self.layer)
@@ -47,12 +48,11 @@ end
 
 function SakuraFubukiMini:draw()
     super.draw(self)
-	local cx, cy = Game.world.camera.x - SCREEN_WIDTH/2, Game.world.camera.y - SCREEN_HEIGHT/2
 	local canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_HEIGHT)
 	love.graphics.clear()
 	self.ps:drawIt()
 	Draw.popCanvas()
-	Draw.drawCanvas(canvas, cx, cy)
+	Draw.drawCanvas(canvas)
 end
 
 return SakuraFubukiMini
