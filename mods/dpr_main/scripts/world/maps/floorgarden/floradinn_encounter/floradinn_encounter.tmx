@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="39" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="96">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="39" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="97">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -272,6 +272,16 @@
    <point/>
   </object>
   <object id="95" name="spawn" x="380" y="240">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffaaff" id="11" name="objects_overlay">
+  <object id="96" name="sakurafubuki_mini" x="0" y="40">
+   <properties>
+    <property name="layer" type="list">
+     <item value="tiles_grass"/>
+    </property>
+   </properties>
    <point/>
   </object>
  </objectgroup>
