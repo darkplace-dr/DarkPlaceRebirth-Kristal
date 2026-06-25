@@ -30,6 +30,8 @@ end
 function WaterReflect:drawMirror()
     local to_draw = {}
     local to_draw_events = {}
+	love.graphics.push()
+	love.graphics.translate(-self.x, -self.y)
     for _, obj in ipairs(Game.world.children) do
         if obj:includes(Event) then
             table.insert(to_draw_events, obj)
@@ -46,6 +48,7 @@ function WaterReflect:drawMirror()
     for _, obj in ipairs(to_draw) do
         self:drawCharacter(obj)
     end
+	love.graphics.pop()
 	if self.tile_canvas then
 		Draw.draw(self.tile_canvas)
 	end
@@ -123,7 +126,7 @@ function WaterReflect:drawTiles()
 							end
 						end
 						local ox, oy = (w * sx) / 2, grid_h - (h * sy) / 2
-						tileset:drawTile(id, (tx * grid_w) - self.x + ox, (self.y + self.height) - (ty * grid_h) + grid_h + oy, rot, flip_x and -sx or sx, flip_y and -sy or sy, ox, oy)
+						tileset:drawTile(id, (tx * grid_w) - self.x + ox, (self.y + self.height) - (ty * grid_h) - grid_h + oy, rot, flip_x and -sx or sx, flip_y and -sy or sy, ox, oy)
 					end
 				end
 			end
@@ -137,7 +140,6 @@ function WaterReflect:draw()
 
     local canvas = Draw.pushCanvas(self.width, self.height + 80)
     love.graphics.clear()
-    love.graphics.translate(-self.x, -self.y)
     self:drawMirror()
     Draw.popCanvas()
 
@@ -146,9 +148,6 @@ function WaterReflect:draw()
     Draw.draw(canvas, 0, self.shadow_y_offset)
     Draw.setColor(1, 1, 1, 1)
 	love.graphics.setBlendMode("alpha")
-	if self.tile_canvas then
-		Draw.draw(self.tile_canvas)
-	end
 end
 
 return WaterReflect
