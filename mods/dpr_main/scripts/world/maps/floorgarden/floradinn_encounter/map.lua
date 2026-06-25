@@ -13,6 +13,7 @@ function Room1:load()
         Game.world:spawnObject(MusicLogo("garden", 180, 324, true), WORLD_LAYERS["ui"])
 		Game:setFlag("sawGardenMusicLogo", true)
 	end
+	self:getTileLayer("tiles_deco_topreflect").visible = false
 end
 
 return Room1
