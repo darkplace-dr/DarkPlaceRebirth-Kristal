@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="25" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="41">
+ <editorsettings>
+  <export target="pre_elevator.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="none"/>
+  <property name="music" value="deltarune/birds_ch5"/>
+  <property name="name" value="Garden Floor - Elevator"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/tree_objects.tsx"/>
+ <tileset firstgid="5" source="../../tilesets/grassdark.tsx"/>
+ <layer id="8" name="tiles_grass" width="16" height="25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,6,62,62,86,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,0,0,22,70,70,102,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,182,198,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,174,190,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="4" name="collision">
+  <object id="31" x="200" y="160" width="60" height="40"/>
+  <object id="32" x="380" y="160" width="60" height="40"/>
+  <object id="34" x="400" y="200" width="40" height="480"/>
+  <object id="35" x="360" y="640" width="40" height="360"/>
+  <object id="36" x="240" y="640" width="40" height="360"/>
+  <object id="37" x="200" y="200" width="40" height="480"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="3" name="objects_elevator">
+  <object id="9" name="elevatordoor" x="260" y="160" width="120" height="40">
+   <properties>
+    <property name="double_doors" value="true"/>
+    <property name="type" value="great"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="2" name="objects">
+  <object id="11" name="transition" x="280" y="140" width="80" height="40">
+   <properties>
+    <property name="map" value="hub_elevator"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="26" name="transition" x="280" y="1000" width="80" height="40">
+   <properties>
+    <property name="map" value="floorgarden/floradinn_encounter"/>
+    <property name="marker" value="entry_down"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="objects_trees"/>
+ <objectgroup color="#00aa00" id="7" name="controllers"/>
+ <objectgroup color="#aa00ff" id="5" name="markers">
+  <object id="24" name="entry_elevator" x="320" y="250">
+   <point/>
+  </object>
+  <object id="38" name="entry_up" x="320" y="960">
+   <point/>
+  </object>
+  <object id="40" name="spawn" x="320" y="520">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
