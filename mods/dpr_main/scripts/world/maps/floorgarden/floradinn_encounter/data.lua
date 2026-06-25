@@ -14,7 +14,7 @@ return {
   properties = {
     ["border"] = "garden",
     ["music"] = "deltarune/field_of_hopes_insaneintherain_loop",
-    ["name"] = "Garden Floor"
+    ["name"] = "Garden Floor - Beginning"
   },
   tilesets = {
     {
