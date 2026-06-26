@@ -150,9 +150,7 @@
   <object id="47" name="npc" x="872" y="260.667">
    <properties>
     <property name="actor" value="chara"/>
-    <property name="text1" value="* Hi no way it's me chara from undertale"/>
-    <property name="text2" value="* This is placeholder dialogue until I finish the heese (Plural of horse) battle lmao"/>
-    <property name="text3" value="* So, I guess that means... TEST FUCKING DIALOGUE!!1!"/>
+    <property name="cutscene" value="devroom.chara"/>
    </properties>
    <point/>
   </object>
