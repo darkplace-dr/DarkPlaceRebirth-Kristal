@@ -62,6 +62,36 @@ return {
 		end
 	end,
 
+	papereater = function(cutscene, event)
+		local paper = cutscene:getCharacter('papereater')
+		cutscene:text("* Hey there buddy! Its me paper eater!")
+		cutscene:text("* Want me to eat your paper? (I also find bandannas quite SCRUMPTIOUS)")
+		local choice = cutscene:choicer({"Yes", "No"})
+		if choice == 1 then
+			paper:setAnimation("open")
+			cutscene:wait(1)
+			if Game.inventory:hasItem("paper_hat") then
+				paper:setAnimation("eat",false)
+				Game.inventory:removeItem("paper_hat")
+				cutscene:text("* I have eaten your paper!")
+			else
+				cutscene:text("* YOU HAVE NO PAPER. FOOL.")
+			end
+			if Game.inventory:hasItem("fluffy_bandana") then
+				
+				paper:setAnimation("bandana",false)
+				Game.inventory:removeItem("fluffy_bandana")
+				cutscene:text("* I have eaten your bandana!")
+			end
+			paper:setAnimation("close")
+			cutscene:wait(1)
+			paper:setAnimation(nil)
+		end
+		if choice == 2 then
+		cutscene:text("* you starve me.")
+		end
+	end,
+
 	ddelta = function(cutscene, event)
 		cutscene:text("* It's a door.")
 		cutscene:text("* The sign reads \"This\napartment belongs to Diamond Deltahedron.\"")
