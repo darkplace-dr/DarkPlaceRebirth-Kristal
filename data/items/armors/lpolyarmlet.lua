@@ -51,7 +51,7 @@ function item:init()
         dess = "ewwwwww old games suck i only like rtx games",
         jamm = "I always forget how high up to put these...",
         noel = "dunno",
-        ceroba = "dunno",
+        ceroba = "It's a struggle to even put it on...",
     }
 end
 

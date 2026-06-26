@@ -759,6 +759,9 @@ function WorldCutscene:text(text, portrait, actor, options)
     if not speaker and isClass(actor) and actor:includes(Character) then
         speaker = actor.sprite
     end
+    if (actor ~= nil and self.textbox_actor ~= nil) and self.textbox_actor.id ~= (isClass(actor) and actor.id or actor) then
+        speaker = nil
+    end
 
     if options["talk"] ~= false then
         self.textbox.text.talk_sprite = speaker

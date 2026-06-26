@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="24">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="25">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -165,6 +165,14 @@
     <property name="cutscene" value="hometown.brenda"/>
     <property name="dlc" value="dlc_forest"/>
     <property name="facing" value="left"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="24" name="npc" x="235" y="195">
+   <properties>
+    <property name="actor" value="alvin"/>
+    <property name="cutscene" value="hometown.alvingraveyard"/>
+    <property name="flagcheck" value="alvinAtGraveyard"/>
    </properties>
    <point/>
   </object>

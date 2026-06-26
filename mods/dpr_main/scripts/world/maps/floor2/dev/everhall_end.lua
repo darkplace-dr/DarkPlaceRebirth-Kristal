@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -104,39 +104,42 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 240,
           width = 560,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 560,
           y = 280,
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 360,
           width = 560,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -158,14 +161,15 @@ return {
       objects = {
         {
           id = 5,
-          name = "transiton",
-          class = "",
+          name = "transition",
+          type = "",
           shape = "rectangle",
           x = -40,
           y = 280,
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/dev/everhall_entry",
@@ -175,13 +179,14 @@ return {
         {
           id = 7,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 400,
           y = 240,
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* So,[wait:5] you made it to the end,[wait:5] did you?",
@@ -211,13 +216,14 @@ return {
         {
           id = 4,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 40,
           y = 320,
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

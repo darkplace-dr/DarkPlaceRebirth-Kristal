@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 26,
-  nextobjectid = 59,
+  nextobjectid = 62,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -852,6 +852,59 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 59,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1240,
+          y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "eye",
+            ["text1"] = "* This man is convinced that all eye monsters have eye-related issues.",
+            ["text2"] = "* I don't mind it,[wait:5] he's pretty fun to look at."
+          }
+        },
+        {
+          id = 60,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1040,
+          y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "eyecatcher",
+            ["text1"] = "* Eh eh eh...[wait:5] Just you wait...",
+            ["text2"] = "* I KNOW this lady will see me blurry if I move far away enough.",
+            ["text3"] = "* I just can't prove it yet."
+          }
+        },
+        {
+          id = 61,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 960,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "astigmatism",
+            ["text1_1"] = "* I'm so scared...",
+            ["text1_2"] = "* I can't let that guy know I'm seeing him double...",
+            ["text2_1"] = "* I don't want to wear glass.[wait:5] It doesn't look good on me."
+          }
         }
       }
     },

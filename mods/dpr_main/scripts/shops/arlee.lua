@@ -15,32 +15,32 @@ function notDiamonStore:init()
 	
 	self.shopkeeper:setActor("arlee_shop")
 	
-	self.encounter_text = "[emote:happyClosed]hey there!!"
+	self.encounter_text = "[emote:face]hi there"
 
-	self.shop_text = "[emote:happyClosed]make yourself at home!"
-	self.leaving_text = "[emote:happyClosed]good night!"
-	self.buy_menu_text = "what are you buying?"
+	self.shop_text = "make yourself at home"
+	self.leaving_text = "good night"
+	self.buy_menu_text = "what are you buying"
 	self.buy_confirmation_text = "you sure?"
-	self.buy_refuse_text = "[emote:sad]aww......"
-	self.buy_text = "[emote:happyClosed]thx!"
-	self.buy_storage_text = "[emote:face]deorganized ass ngl"
-	self.buy_too_expensive_text = "[emote:face]ya cant make a scene if you dont have the green"
-	self.buy_no_space_text = "[emote:face]sorry your full"
-	self.sell_menu_text = "[emote:face]dont got a lot of money but sure!1"
-	self.sell_no_price_text = "[emote:face]i cant afford that"
-	self.sell_nothing_text = "[emote:face]yknow air is free right?"
-	self.sell_confirmation_text = "ill buy if for \n%s"
-	self.sell_everything_text = "[emote:happyClosed]thats all!"
-	self.sell_refuse_text = "[emote:angry]didnt want you junk anyway!!!"
-	self.sell_text = "[emote:face]i dunno where ill store this"
-	self.sell_no_storage_text = "[emote:face]you dont have anything...."
+	self.buy_refuse_text = "sucks to suck"
+	self.buy_text = "thx"
+	self.buy_storage_text = "deorganized ass ngl"
+	self.buy_too_expensive_text = "broke"
+	self.buy_no_space_text = "sorry your full"
+	self.sell_menu_text = "dont got a lot of money but sure"
+	self.sell_no_price_text = "i cant afford that"
+	self.sell_nothing_text = "yknow air is free right?"
+	self.sell_confirmation_text = "ill buy it for \n%s"
+	self.sell_everything_text = "thats all"
+	self.sell_refuse_text = "a shame"
+	self.sell_text = "i dunno where ill store this"
+	self.sell_no_storage_text = "you dont have space hehehe space"
 
-	self.talk_text = "[emote:face]about me?"
+	self.talk_text = "about me?"
 
-	self.sell_options_text["items"]   = "[emote:face]what you got?"
-	self.sell_options_text["weapons"] = "[emote:face]what you got?"
-	self.sell_options_text["armors"]  = "[emote:face]what you got?"
-	self.sell_options_text["storage"] = "[emote:face]what you got?"
+	self.sell_options_text["items"]   = "what you got?"
+	self.sell_options_text["weapons"] = "what you got?"
+	self.sell_options_text["armors"]  = "what you got?"
+	self.sell_options_text["storage"] = "what you got?"
 
 	self:registerItem("lpolyarmlet")
 	self:registerItem("tinkatinHammer")
@@ -169,10 +169,10 @@ end
 function notDiamonStore:startTalk(talk)
 	if talk == "Yourself" then
 		self:startDialogue({
-            "[emote:face]ya want to know more about me?",
-            "[emote:face]well im really sorry but i like",
-            "[emote:happy]dont spread my personals like a pro gossiper",
-            "[emote:face]so yea sorry",
+            "ya want to know more about me?",
+            "well im really sorry but i like",
+            "dont spread my personals like a pro gossiper",
+            "so yea sorry",
         })
 	end
 end
@@ -669,17 +669,14 @@ function notDiamonStore:update()
 
 	self.talktext_rand = love.math.random(1, 12)
 	self.talktext = ({
-		"[emote:sad]i miss her",
-		"[emote:face]making games is hard",
-		"[emote:face]and boring sometimes",
-		"[emote:face]soooo how are you?",
-		"[emote:face]the weathers not bad today",
-		"[emote:sad]are my items that ass??",
-		"[emote:face]buy smth please",
-		"[emote:happy]mama said id be rich in the future",
-		"[emote:angry]cmon i need this money",
-		"[emote:face]do you have a super nintendo?",
-		"[emote:face]im not tweaking cuz im crazy im nervous",
+		"making games is hard",
+		"soooo how are you?",
+		"the weathers not bad today",
+		"are my items that ass",
+		"buy smth please",
+		"mama said id be rich in the future",
+		"cmon i need this money",
+		"do you have a super nintendo?",
 		"brrrrrrrr"
 	})[self.talktext_rand]
 
@@ -687,10 +684,10 @@ function notDiamonStore:update()
 
 	self.talktext_rand = love.math.random(1, 4)
 	self.ttalktext = ({
-		"[emote:face]whats it gonna be?",
-		"[emote:happy]if you want i can make a suggestion!",
-		"[emote:face]just buy already",
-		"[emote:happyClosed]my items are amazing!!"
+		"whats it gonna be",
+		"if you want i can make a suggestion",
+		"just buy already",
+		"my items are amazing"
 	})[self.talktext_rand]
 
 	self.buy_menu_text = self.ttalktext

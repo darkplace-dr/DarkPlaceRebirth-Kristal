@@ -52,12 +52,12 @@ else
     -- Hotswaps Noel specifically. Why can't we just use hotswapper? I don't know! Ask SDM!
     function Kristal.reloadnoel()
         -- If you don't know what this is for, then don't touch it!!!
-        
-        package.loaded["src.engine.game.char_file_handlers.noel_spawn"] = nil 
-        Noel = require("src.engine.game.char_file_handlers.noel_spawn")      
+
+        package.loaded["src.engine.game.char_file_handlers.noel_spawn"] = nil
+        Noel = require("src.engine.game.char_file_handlers.noel_spawn")
         if Noel:loadNoel() then
             Kristal.noel = true
-        else 
+        else
             Kristal.noel = false
         end
     end
@@ -86,7 +86,7 @@ function Kristal.fetch(url, options)
     if not options["disable_message"] then
         Kristal.Console:log("Fetching from URL "..url)
     end
-    
+
     Kristal.HTTPS.in_channel:push({
         url = url,
         key = Kristal.HTTPS.next_key,
@@ -738,7 +738,7 @@ function Kristal.errorHandler(msg, trace_level)
             -- msg = err
         end
     end
-    
+
     Draw.reset()
 
     local copy_color = { 1, 1, 1, 1 }
@@ -1337,7 +1337,7 @@ function Kristal.returnToMenu()
 
     -- Clear the project
     Kristal.clearModState()
-	
+
 	Kristal.loadAssets("", "plugins", "")
 
     -- Quit the game if the menu is disabled
@@ -1592,7 +1592,15 @@ function Kristal.loadModAssets(id, asset_type, asset_paths, after)
     end
     Assets.getBucket("project"):startLoading(paths4real)
     if Kristal.Config["projectLoadingMode"] == LoadingMode.FULL then
-        Kristal.setState("ProjectLoading", after)
+        local current_state = Kristal.getState()
+        if current_state == Kristal.States["LameFadeout"] then
+            ---@cast current_state LameFadeout
+            current_state:setFinishCallback(function()
+                Kristal.setState("ProjectLoading", after)
+            end)
+        else
+            Kristal.setState("ProjectLoading", after)
+        end
     else
         MOD_LOADING = false
         after()
@@ -1652,16 +1660,23 @@ function Kristal.swapIntoMod(id, use_lame_fadeout, ...)
         save.spawn_position = {x, y}
     end
 
-    Kristal.setState(use_lame_fadeout and "LameFadeout" or {}, use_lame_fadeout)
+    Kristal.setState({})
     Kristal.clearModState()
+    if use_lame_fadeout then
+        Kristal.setState("LameFadeout", use_lame_fadeout)
+    end
 
     Kristal.loadAssets("", "mods", "", function()
         Kristal.loadMod(id, nil, nil, function()
             if Kristal.preInitMod(id) then
                 Kristal.setDesiredWindowTitleAndIcon()
                 local game_params = {save, save_id}
-                if use_lame_fadeout then
-                    Kristal.States["LameFadeout"]:onLoadFinish(game_params)
+                local current_state = Kristal.getState()
+                if current_state == Kristal.States["LameFadeout"] then
+                    ---@cast current_state LameFadeout
+                    current_state:setFinishCallback(function()
+                        Kristal.setState("Game", unpack(game_params))
+                    end)
                 else
                     Kristal.setState("Game", unpack(game_params))
                 end

@@ -7,11 +7,11 @@ function actor:init()
     self.name = "arlee"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 96
-    self.height = 128
+    self.width = 128
+    self.height = 192
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {16, 96, 64, 32}
+    self.hitbox = {32, 160, 64, 32}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {0, 1, 0}

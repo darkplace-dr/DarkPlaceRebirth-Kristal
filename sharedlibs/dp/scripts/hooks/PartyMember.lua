@@ -85,6 +85,16 @@ function PartyMember:onTurnStart(battler)
     if turnHealing > 0 and Game.battle.turn_count > 1 then
         battler:heal(turnHealing)
     end
+    
+    if self.blackheart_charge then
+        local user = self.id
+        local user_index = Game.battle:getPartyIndex(user)
+        local action_data = {
+            data = Registry.createSpell("blackheart_charge"),
+            tp = 0,
+        }
+        Game.battle:pushForcedAction(battler, "SPELL", Game.battle:getActiveEnemies(), {tp = 0, data = Registry.createSpell("blackheart")})
+    end
 end
 
 --- *(Override)* Called upon completion of this character's arc

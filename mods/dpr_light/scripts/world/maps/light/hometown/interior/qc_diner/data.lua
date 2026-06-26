@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 17,
+  nextobjectid = 20,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -41,7 +41,7 @@ return {
       id = 3,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -267,6 +267,46 @@ return {
             ["facing"] = "down",
             ["map"] = "light/hometown/town_mid",
             ["marker"] = "entrydiner"
+          }
+        },
+        {
+          id = 17,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 217.455,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "goku"
+          }
+        },
+        {
+          id = 19,
+          name = "interactable",
+          type = "",
+          shape = "polygon",
+          x = 202.667,
+          y = 181.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 117, y = 0.333333 },
+            { x = 117.303, y = 70.3939 },
+            { x = 39.3333, y = 70.3333 },
+            { x = 39.3333, y = 38.3333 },
+            { x = -0.666667, y = 38.3333 }
+          },
+          properties = {
+            ["text1"] = "* Hi, I'm Goku!",
+            ["text2"] = "* The bunny lady holding this place needed help due to a sudden influx of customers",
+            ["text3"] = "* So I'm helping her.[wait:5]\n\n* That makes me very happy."
           }
         }
       }
