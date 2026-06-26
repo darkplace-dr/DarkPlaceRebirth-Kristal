@@ -388,6 +388,7 @@ end
 
 function SunShadows:draw()
 	super.draw(self)
+	if not self.canv_static_shadows or not self.canv_static_cutout or not self.canv_static_hcutout then return end
 	love.graphics.push()
 	local last_shader = love.graphics.getShader()
 	local shadow_alpha = 1
