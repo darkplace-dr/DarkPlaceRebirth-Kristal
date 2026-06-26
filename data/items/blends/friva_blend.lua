@@ -43,7 +43,7 @@ function item:init()
     self.reactions = {
 	    jamm = "Ooh, spicy~!",
         noel = "... Nothing happened...",
-        ceroba = "What a curious mix of tastes."
+        ceroba = "What an interesting mix of flavors."
     }
 end
 

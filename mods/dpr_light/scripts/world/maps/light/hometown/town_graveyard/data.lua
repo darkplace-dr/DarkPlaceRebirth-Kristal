@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.10.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 20,
-  nextobjectid = 24,
+  nextobjectid = 25,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -531,6 +531,23 @@ return {
             ["cutscene"] = "hometown.brenda",
             ["dlc"] = "dlc_forest",
             ["facing"] = "left"
+          }
+        },
+        {
+          id = 24,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 235,
+          y = 195,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "alvin",
+            ["cutscene"] = "hometown.alvingraveyard",
+            ["flagcheck"] = "alvinAtGraveyard"
           }
         }
       }

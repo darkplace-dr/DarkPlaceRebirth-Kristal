@@ -54,7 +54,7 @@ function item:init()
 		dess = "snowgrave route heheheheh",
         ceroba = {
             ceroba = "I'm a widow, but not free to take.",
-            brenda = "There goes MY plans for tonight...",
+            brenda = "There go MY plans for tonight...",
             jamm = "Preach, Ceroba. You got this."
         }
     }
