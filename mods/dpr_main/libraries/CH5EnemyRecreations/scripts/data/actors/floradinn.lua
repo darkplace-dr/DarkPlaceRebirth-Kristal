@@ -16,7 +16,7 @@ function actor:init()
     self.default = "idle"
 
     self.animations = {
-        ["idle"] = {"hidden", 0.2, true},
+        ["idle"] = {"idle", 0.2, true},
         ["mane"] = {"hidden", 0.2, true},
         ["hurt"] = {"hurt", 0.2, true},
         ["spared"] = {"spared", 0.2, true},
