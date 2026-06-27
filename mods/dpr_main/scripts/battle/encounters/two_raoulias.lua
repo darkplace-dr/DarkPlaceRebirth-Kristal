@@ -31,4 +31,4 @@ function two_raoulias:onReturnToWorld(events)
     end
 end
 
-return outskirts_enemies
+return two_raoulias
