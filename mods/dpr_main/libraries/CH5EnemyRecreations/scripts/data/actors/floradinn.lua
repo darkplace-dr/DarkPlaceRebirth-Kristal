@@ -31,6 +31,10 @@ function actor:init()
         ["spikes"] = {"spikes"},
         ["spikes_return"] = {"spikes_return"}
     }
+	
+    self.offsets = {
+        ["hurt"] = {-3, -7},
+    }
 end
 
 function actor:createSprite()
