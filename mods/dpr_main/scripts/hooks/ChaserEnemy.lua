@@ -20,10 +20,12 @@ function ChaserEnemy:paceMovement()
 				self:setAnimation("overworld")
 				self.collidable = true
 				Game.world.timer:after(5/30, function()
-					self.pace_type = "wander_nospawn"
-					self:setWalkSprite("overworld")
-					self:setAnimation("overworld")
-					self.can_chase = true
+					if not self.world.encountering_enemy then
+						self.pace_type = "wander_nospawn"
+						self:setWalkSprite("overworld")
+						self:setAnimation("overworld")
+						self.can_chase = true
+					end
 				end)
 			end)
 			self.did_ambush = true
