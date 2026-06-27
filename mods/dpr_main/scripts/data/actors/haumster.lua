@@ -1,16 +1,14 @@
-local actor, super = Class(Actor, "papereater")
+local actor, super = Class(Actor, "haumster")
 
 function actor:init()
     super.init(self)
 
     -- Display name (optional)
-    self.name = "PaperEater"
-
-    --Meant to be C-r-trash or crt trash but I suck at making names lol
+    self.name = "haumster"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 30
-    self.height = 32
+    self.width = 28
+    self.height = 14
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
 
@@ -18,15 +16,15 @@ function actor:init()
     self.color = {1, 0, 0}
 
     -- Whether this actor flips horizontally (optional, values are "right" or "left", indicating the flip direction)
-    self.flip = nil
+    self.flip = true
 
     -- Path to this actor's sprites (defaults to "")
-    self.path = "world/npcs/papereater"
+    self.path = "battle/enemies/haumster"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    self.default = "papereater"
+    self.default = "idle"
 
     -- Sound to play when this actor speaks (optional)
-    self.voice = "nil"
+    self.voice = nil
     -- Path to this actor's portrait for dialogue (optional)
     self.portrait_path = nil
     -- Offset position for this actor's portrait (optional)
@@ -36,20 +34,19 @@ function actor:init()
     self.can_blush = false
 
     -- Table of talk sprites and their talk speeds (default 0.25)
-    self.talk_sprites = {
-    }
+    self.talk_sprites = {}
 
     -- Table of sprite animations
     self.animations = {
-        ["eat"] = {"papereatereating", 0.1, false},
-        ["bandana"] = {"papereaterbandana", 0.2, false},
-        ["open"] = {"papereatereat", 0.2, false},
-        ["close"] = {"papereaterclose", 0.1, false},
-        ["idle"] = {"papereater", 0, false},
-}
+        -- Looping animation with 0.25 seconds between each frame
+        -- (even though there's only 1 idle frame)
+        ["idle"] = {"idle", 0.25, true},
+    }
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {
+        -- Since the width and height is the idle sprite size, the offset is 0,0
+        ["idle"] = {0, 0},
     }
 end
 
