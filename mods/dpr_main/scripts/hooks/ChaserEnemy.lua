@@ -17,6 +17,7 @@ function ChaserEnemy:paceMovement()
 			Assets.playSound("board_throw", 0.7)
 			self:jumpTo(self.floradinn_jump_marker, self.floradinn_jump_strength, 20/30, "overworld", "overworld")
 			Game.world.timer:after(20/30, function()
+				self:setAnimation("overworld")
 				self.collidable = true
 				Game.world.timer:after(5/30, function()
 					self.pace_type = "wander_nospawn"
