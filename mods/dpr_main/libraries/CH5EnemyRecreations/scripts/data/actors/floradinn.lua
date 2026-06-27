@@ -16,11 +16,13 @@ function actor:init()
     self.default = "idle"
 
     self.animations = {
-        ["idle"] = {"idle", 0.2, true},
+        ["idle"] = {"hidden", 0.2, true},
         ["mane"] = {"hidden", 0.2, true},
         ["hurt"] = {"hurt", 0.2, true},
         ["spared"] = {"spared", 0.2, true},
-        ["overworld"] = {"idle", 0.2, true}
+        ["overworld"] = {"idle", 0.2, true},
+        ["alerted"] = {"idle", 0, true},
+        ["chasing"] = {"idle", 0.1, true}
     }
 	
     self.parts = {
