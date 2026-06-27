@@ -27,16 +27,17 @@ return {
                 Game.world.music:resume()
             end
         end
-    
+
         local music_inst = Music()
         cutscene:after(function()
             music_inst:remove()
         end)
+        music_inst:setLooping(false)
         local function playCellPhoneAudio(path, volume, pitch)
             local epic_hax = "voiceover/cell_phone/"
             if string.sub(path, 1, string.len(epic_hax)) == epic_hax then
                 -- requiring a sound in assets/music
-                music_inst:play(path, volume, pitch, false)
+                music_inst:play(path, volume, pitch)
                 return function() return not music_inst:isPlaying() end
             else
                 return cutscene--[[@as WorldCutscene]]:playSound(path, volume, pitch)
@@ -44,13 +45,13 @@ return {
         end
         local function garbageNoise(path, time)
             pauseMusic()
-    
+
             local wait = playCellPhoneAudio(path, 0.8)
             cutscene:wait(time or wait)
-    
+
             resumeMusic()
         end
-    
+
         local function pacematchingMsg(text, wait, portrait, actor)
             cutscene:text("[noskip][voice:none]" .. text .. string.format("[wait:%g]", wait), portrait, actor, { auto = true })
         end
@@ -60,26 +61,26 @@ return {
             cutscene:wait(time)
             cutscene:closeText()
         end]]
-    
+
         Assets.playSound("phone", 0.7)
         cutscene:text("* (You tried to call on the Cell\nPhone.)", nil, nil, { advance = false })
         cutscene:wait(1.5)
-    
+
         local event_num = event_override ~= nil and event_override or love.math.random(1, 100)
-    
+
         if event_num <= 10 then
             garbageNoise("voiceover/cell_phone/mcdonalds")
-    
+
             cutscene:text("* Sounded like an angry customer.")
         elseif event_num == 17 then
             -- "17 is first yeah"
             pauseMusic()
             local _ = playCellPhoneAudio("voiceover/cell_phone/hello_world")
-    
+
             local leader = Game.world.player
             local old_layer = leader.layer
             leader:setLayer(WORLD_LAYERS["below_ui"])
-    
+
             local fade = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
             fade.layer = leader.layer-0.1
             fade:setColor(0, 0, 0)
@@ -91,7 +92,7 @@ return {
                 fade_to = 1,
                 fade = 0.02
             })
-    
+
             cutscene.use_light_textbox = true
             pmMsg("* (Hello.)", 40)
             pmMsg("* (Thank you for stopping by.)", 40)
@@ -99,54 +100,54 @@ return {
             pmMsg("* (Unless it is an urgent matter,[wait:9] please refrain from messaging me.)", 50)
             pmMsg("* (Have a wonderful day.)", 40)
             cutscene.use_light_textbox = false
-    
+
             leader:setFacing("down")
-    
+
             cutscene:wait(5)
-    
+
             local cc = Text("thank you")
             cc:setColor(0.2, 0.2, 0.2, 0)
             cc.layer = WORLD_LAYERS["textbox"]
             Game.world:addChild(cc)
             cc:setScreenPos(110, 360)
             cc:fadeTo(0.1, 5)
-    
+
             cutscene:wait(_)
             cc:remove()
-    
+
             fade:fadeTo(0, nil, function()
                 fade:remove()
                 leader:setLayer(old_layer)
             end)
-    
+
             cutscene:text("* (Click.)")
             resumeMusic()
         elseif event_num == 39 then
             cutscene:text("* Hello!\n* Could I speak to G...")
             cutscene:text("* ...[wait:5]\n* Wait a second.")
             cutscene:text("* Is this the wrong number?")
-    
+
             pauseMusic()
             music_inst:play("wrongnumbersong", 0.8)
-    
+
             cutscene:text("* Oh it's the wrong number![wait:2]\n* The wrong number song!")
             cutscene:text("* We're very very sorry that\nwe got it wrong!")
             cutscene:text("* Oh it's the wrong number![wait:2]\n* The wrong number song!")
             cutscene:text("* We're very very sorry that\nwe got it wrong!")
-    
+
             music_inst:stop()
             resumeMusic()
-    
+
             cutscene:text("* (Click...)")
             cutscene:text("* Must've been a wrong number.")
         elseif event_num == 87 then
             garbageNoise("voiceover/cell_phone/fnafcall")
-    
+
             cutscene:text("* It's nothing but useless information.")
         elseif event_num == 97 then
             pauseMusic()
             local spam = playCellPhoneAudio("voiceover/cell_phone/spamcall", 0.8)
-    
+
             cutscene:showNametag("Spamton G. Spamton")
             pmMsg("* FUCK YOU CYBER CITY!", 10)
             pmMsg("* IF YOU'RE [[Exploitable]] ENOUGH TO BUY A CAR THIS WEEKEND...", 5)
@@ -184,13 +185,13 @@ return {
             pmMsg("* AND EXCLUSIVE HOME OF THE [[Biggest]] SON OF A BITCH IN THE DARK WORLD!", 40)
             pmMsg("* GUARANTEED!", 30)
             cutscene:hideNametag()
-    
+
             cutscene:wait(spam)
             resumeMusic()
-    
+
             cutscene:text("* ...")
             cutscene:text("* What.")
-    
+
             if cutscene:getCharacter("susie") then
                 cutscene:showNametag("Susie")
                 cutscene:text("* The hell was THAT?", "nervous", "susie")
@@ -204,12 +205,12 @@ return {
             Kris and Susie Gamer Time.
             ]]
             garbageNoise("voiceover/cell_phone/bbqbb", 200 / 30)
-    
+
             cutscene:text("* It's nothing but an old meme.")
         elseif event_num == 86 then
             pauseMusic()
             local carglass = playCellPhoneAudio("voiceover/cell_phone/carglass", 0.8)
-    
+
             cutscene:wait(0.06)
             pmMsg("[speed:0.7]* ~Carglass répare,[wait:3] Carglass remplace!~", 15)
             cutscene:showNametag("Olivier de Carglass")
@@ -236,10 +237,10 @@ return {
             pmMsg("* Ou réservez sur carglass.fr", 10)
             cutscene:hideNametag()
             pmMsg("[speed:0.7]* ~Carglass répare,[wait:3] Carglass remplace!~", 15)
-    
+
             cutscene:wait(carglass)
             resumeMusic()
-    
+
             cutscene:text("* It's nothing but a French ad.")
         elseif event_num == 52 then
             --[[
@@ -248,7 +249,7 @@ return {
             ]]
             pauseMusic()
             local soup = playCellPhoneAudio("voiceover/cell_phone/soup", 0.8)
-    
+
             cutscene:showNametag("???", {right = false})
             pmMsg("[wait:3]* Hello?", 5)
             cutscene:showNametag("???", {right = true})
@@ -302,16 +303,16 @@ return {
             cutscene:showNametag("???", {right = true})
             pmMsg("* [color:red]FUCK[wait:2] YOU!!", 20)
             cutscene:hideNametag()
-    
+
             cutscene:wait(soup)
             cutscene:wait(1)
             resumeMusic()
-    
+
             cutscene:text("* It's just an argument about soup.")
         elseif event_num >= 70 and event_num <= 75 then
             pauseMusic()
             local waystuffis = playCellPhoneAudio("voiceover/cell_phone/stuffisway")
-    
+
             cutscene:wait(0.25)
             cutscene:setTextboxTop(false)
             pmMsg("[speed:0.9]* Did you just\n* What", 45)
@@ -325,7 +326,7 @@ return {
             pmMsg("[speed:0.9]* It was catastro[wait:25]\n* Catastro[wait:10]\n* Feeling good", 55)
             pmMsg("[speed:0.9]* As it the drag[wait:45]\n* That has you are", 45)
             pmMsg("[speed:0.9]* Is in the bag[wait:15][speed:0.6] that you drag behind your[wait:10] car.", 65)
-    
+
             cutscene:setTextboxTop(true)
             cutscene.use_light_textbox = true
             pmMsg("[speed:0.9]* Did you just\n* What", 45)
@@ -334,11 +335,11 @@ return {
             pmMsg("[speed:0.9]* The stocking horse[wait:45]\n* Was hides the guy", 45)
             pmMsg("[speed:0.9]* And which the pony[wait:15]\nis a phony[wait:15]\nwas a lie", 55)
             cutscene.use_light_textbox = false
-    
+
             music_inst:stop()
             resumeMusic()
             cutscene:setTextboxTop(nil)
-    
+
             cutscene:text("* (You're not sure what they were trying to say.)")
             cutscene:text("* (I have an idea to have the two voices, but I'm lazy rn.[wait:10]\n- Simbel)")
         -- if anyone wants to add an additional easter egg, feel free to use the template below!
@@ -349,7 +350,7 @@ return {
         ]]
         else
             garbageNoise("smile", 200 / 30)
-    
+
             cutscene:text("* It's nothing but garbage noise.")
         end
 	end,
@@ -385,7 +386,7 @@ return {
 			lancer.layer = player.layer + 0.03
 			event.layer = lancer.layer - 0.02
 		end
-        
+
         cutscene:wait(cutscene:slideTo(lancer, event.x, event.y, 0.5, "out-cubic"))
         Assets.playSound("ui_cancel_small")
         Assets.playSound("lancercough")
@@ -409,7 +410,7 @@ return {
 			end
 		end)
         Game:addFlag(event.flag_inc, 1)
-        event:setFlag("dont_load", true)        
+        event:setFlag("dont_load", true)
         event:remove()
         local bean = Sprite(bean_sprite, event.x, event.y)
         bean:setScale(2)
@@ -435,7 +436,7 @@ return {
 					star:remove()
 				end)
 				Game.world:addChild(star)
-				
+
 				local star2 = Sprite(bean_star_sprite, bean.x, bean.y)
 				star2.layer = bean.layer - 0.01
 				star2:setOrigin(0.5, 0.5)
@@ -455,7 +456,7 @@ return {
 		Game.world.timer:cancel(star_timer)
 		Game.world.timer:cancel(smoke_timer)
         Assets.stopSound("lancerbeanget")
-        
+
         cutscene:resetSprite(player)
 		if dx == -1 or dy == -1 then
 			if player.flip_x then
@@ -473,7 +474,7 @@ return {
 			Assets.playSound("item")
 			bean:remove()
 		end)
-        
+
         cutscene:attachFollowers()
         cutscene:attachCamera(0.5)
         cutscene:wait(0.5)
@@ -539,10 +540,7 @@ good_apple = function(cutscene, event)
         Game.world.timer:tween(1, boss, {x = player.x+500}, "out-cubic")
         cutscene:wait(1)
         boss:remove()
-        
-        
+
+
 end
 }
-
-
-
