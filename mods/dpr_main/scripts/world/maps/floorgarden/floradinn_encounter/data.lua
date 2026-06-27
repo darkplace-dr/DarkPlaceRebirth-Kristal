@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 106,
+  nextobjectid = 108,
   properties = {
     ["border"] = "garden",
     ["music"] = "deltarune/field_of_hopes_insaneintherain_loop",
@@ -1157,8 +1157,8 @@ return {
           name = "enemy",
           type = "",
           shape = "point",
-          x = 1400,
-          y = 400,
+          x = 1520,
+          y = 240,
           width = 0,
           height = 0,
           rotation = 0,
@@ -1177,6 +1177,22 @@ return {
             ["pacereturn"] = false,
             ["pacespeed"] = 4,
             ["pacetype"] = "floradinn_ambush"
+          }
+        },
+        {
+          id = 107,
+          name = "pinktree",
+          type = "",
+          shape = "point",
+          x = 1520,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["flip"] = true
           }
         }
       }

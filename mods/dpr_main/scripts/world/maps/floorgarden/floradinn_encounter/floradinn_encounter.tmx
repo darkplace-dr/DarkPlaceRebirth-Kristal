@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="39" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="106">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="39" height="18" tilewidth="40" tileheight="40" infinite="0" nextlayerid="15" nextobjectid="108">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -284,7 +284,7 @@
    </properties>
    <point/>
   </object>
-  <object id="101" name="enemy" x="1400" y="400">
+  <object id="101" name="enemy" x="1520" y="240">
    <properties>
     <property name="actor" value="floradinn"/>
     <property name="animation" value="overworld"/>
@@ -298,6 +298,12 @@
     <property name="pacereturn" type="bool" value="false"/>
     <property name="pacespeed" type="int" value="4"/>
     <property name="pacetype" value="floradinn_ambush"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="107" name="pinktree" x="1520" y="280">
+   <properties>
+    <property name="flip" type="bool" value="true"/>
    </properties>
    <point/>
   </object>
