@@ -11,7 +11,7 @@ end
 function ChaserEnemy:paceMovement()
 	super.paceMovement(self)
     if self.pace_type == "floradinn_ambush" then
-		local in_radius = self.world.player:collidesWith(CircleCollider(self.world, self.x, self.y, self.chase_dist))
+		local in_radius = self.world.player:collidesWith(CircleCollider(self.world, self.x, self.y, self.chase_dist * 2))
         if in_radius and not self.did_ambush then
 			self.collidable = false
 			Assets.playSound("board_throw", 0.7)
