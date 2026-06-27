@@ -292,7 +292,7 @@
     <property name="chasespeed" type="int" value="10"/>
     <property name="encounter" value="floradinn"/>
     <property name="jumpmarker" value="floradinn_jump"/>
-    <property name="jumpstrength" type="float" value="32"/>
+    <property name="jumpstrength" type="float" value="16"/>
     <property name="marker1" value="floradinn_pace"/>
     <property name="marker2" value="floradinn_jump"/>
     <property name="pacereturn" type="bool" value="false"/>

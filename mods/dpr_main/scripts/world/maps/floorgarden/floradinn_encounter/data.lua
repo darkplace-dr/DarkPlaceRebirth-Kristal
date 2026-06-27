@@ -1171,7 +1171,7 @@ return {
             ["chasespeed"] = 10,
             ["encounter"] = "floradinn",
             ["jumpmarker"] = "floradinn_jump",
-            ["jumpstrength"] = 32,
+            ["jumpstrength"] = 16,
             ["marker1"] = "floradinn_pace",
             ["marker2"] = "floradinn_jump",
             ["pacereturn"] = false,
