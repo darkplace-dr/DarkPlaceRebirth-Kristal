@@ -727,7 +727,9 @@ return {
         ramb:setAnimation("idle")
         cutscene:hideNametag()
     end,
-
+	post_ralsei_impostor = function(cutscene, event)
+	cutscene:text("* crash prevention dialogue, todo: ADD CUTSCENE HERE!")
+	end,
     ralsei_impostor = function(cutscene, event)
         local hero = cutscene:getCharacter("hero")
         local susie = cutscene:getCharacter("susie")

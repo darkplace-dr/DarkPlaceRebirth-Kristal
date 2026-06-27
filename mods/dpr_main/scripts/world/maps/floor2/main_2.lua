@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.1",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 26,
+  nextobjectid = 28,
   properties = {
     ["music"] = "mainhub"
   },
@@ -54,7 +54,7 @@ return {
         53, 53, 53, 56, 53, 53, 54, 156, 43, 23, 24, 24, 24, 24, 25, 43, 154, 52, 53, 53, 55, 53, 53, 53,
         55, 53, 53, 53, 53, 53, 73, 43, 6, 9, 24, 24, 24, 24, 10, 8, 43, 52, 39, 53, 53, 53, 56, 53,
         53, 53, 39, 53, 53, 55, 54, 6, 9, 24, 24, 24, 24, 24, 24, 10, 8, 72, 53, 53, 53, 53, 53, 55,
-        70, 70, 70, 70, 70, 70, 71, 23, 24, 24, 24, 24, 24, 24, 24, 24, 25, 69, 70, 70, 70, 70, 70, 70,
+        70, 70, 70, 70, 70, 70, 71, 23, 24, 24, 24, 24, 24, 24, 24, 24, 25, 69, 87, 70, 70, 70, 70, 70,
         7, 7, 7, 7, 7, 7, 7, 9, 24, 24, 24, 24, 24, 24, 24, 24, 10, 7, 7, 7, 7, 7, 7, 7,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         41, 41, 41, 41, 41, 41, 41, 26, 24, 24, 24, 24, 24, 24, 24, 24, 27, 41, 41, 41, 41, 41, 41, 41,
@@ -179,7 +179,6 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -193,7 +192,6 @@ return {
           width = 280,
           height = 120,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -207,7 +205,6 @@ return {
           width = 280,
           height = 120,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -221,7 +218,6 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -235,7 +231,6 @@ return {
           width = 88,
           height = 240,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -249,7 +244,6 @@ return {
           width = 88,
           height = 240,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -263,7 +257,6 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -277,7 +270,6 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -291,7 +283,6 @@ return {
           width = 280,
           height = 200,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -305,7 +296,6 @@ return {
           width = 400,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -319,7 +309,6 @@ return {
           width = 280,
           height = 200,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -349,7 +338,6 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_1",
@@ -366,7 +354,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -382,7 +369,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -398,7 +384,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -414,7 +399,6 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/pre_diner",
@@ -431,7 +415,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "floor2.deathlordsign"
@@ -463,7 +446,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -477,7 +459,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -491,7 +472,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         }

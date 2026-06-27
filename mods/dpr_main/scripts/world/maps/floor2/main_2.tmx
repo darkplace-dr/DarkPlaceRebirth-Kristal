@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="26">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="28">
  <editorsettings>
   <export target="main_2.lua" format="lua"/>
  </editorsettings>
@@ -22,7 +22,7 @@
 53,53,53,56,53,53,54,156,43,23,24,24,24,24,25,43,154,52,53,53,55,53,53,53,
 55,53,53,53,53,53,73,43,6,9,24,24,24,24,10,8,43,52,39,53,53,53,56,53,
 53,53,39,53,53,55,54,6,9,24,24,24,24,24,24,10,8,72,53,53,53,53,53,55,
-70,70,70,70,70,70,71,23,24,24,24,24,24,24,24,24,25,69,70,70,70,70,70,70,
+70,70,70,70,70,70,71,23,24,24,24,24,24,24,24,24,25,69,87,70,70,70,70,70,
 7,7,7,7,7,7,7,9,24,24,24,24,24,24,24,24,10,7,7,7,7,7,7,7,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 41,41,41,41,41,41,41,26,24,24,24,24,24,24,24,24,27,41,41,41,41,41,41,41,
