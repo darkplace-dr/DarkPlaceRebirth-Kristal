@@ -43,11 +43,13 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        noel = false,
+    }
 
     -- Character reactions
     self.reactions = {
-
+        noel = "I have no mind.",
     }
 end
 
