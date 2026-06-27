@@ -1078,6 +1078,7 @@ return {
 
     	local hero = cutscene:getCharacter("hero")
     	local susie = cutscene:getCharacter("susie")
+    	local jamm = cutscene:getCharacter("jamm") or cutscene:getCharacter("jammarcy")
 
     	local susie_timer
     	if susie then
@@ -1177,21 +1178,21 @@ return {
     	if susie then
     		susie:resetSprite()
     		cutscene:look(susie, "right")
+            
+            cutscene:text("* And why would we even choose the top option?", "neutral_side", "susie")
+
+            cutscene:text("* Why wouldn't you?", "reverse", "dess")
+            cutscene:text("* The bottom option? It's boring, predictable, dumb.", "calm", "dess")
+            cutscene:text("* Nothing has no thrill. It's not even a nice-looking word.", "angry", "dess")
+            cutscene:text("* Nothing is bad and bad things suck.", "neutral_b", "dess")
+            cutscene:text("* Destroying reality on the other end...", "smug", "dess")
+            cutscene:text("* It sounds VERY cool. Very unique and badass.", "swag", "dess")
+            cutscene:text("* It's a once-in-a-lifetime experience to check out.", "genuine_b", "dess")
+            cutscene:text("* And best of all, it solves all your problems!", "eurika", "dess")
+            cutscene:text("* No reality = no problems to have or solves.", "wink", "dess")
+            cutscene:text("* Can't beat my maths here.", "condescending", "dess")
+            cutscene:text("* I graduated elementary school at 15.", "condescending", "dess")
     	end
-
-    	cutscene:text("* And why would we even choose the top option?", "neutral_side", "susie")
-
-    	cutscene:text("* Why wouldn't you?", "reverse", "dess")
-    	cutscene:text("* The bottom option? It's boring, predictable, dumb.", "calm", "dess")
-    	cutscene:text("* Nothing has no thrill. It's not even a nice-looking word.", "angry", "dess")
-    	cutscene:text("* Nothing is bad and bad things suck.", "neutral_b", "dess")
-    	cutscene:text("* Destroying reality on the other end...", "smug", "dess")
-    	cutscene:text("* It sounds VERY cool. Very unique and badass.", "swag", "dess")
-    	cutscene:text("* It's a once-in-a-lifetime experience to check out.", "genuine_b", "dess")
-    	cutscene:text("* And best of all, it solves all your problems!", "eurika", "dess")
-    	cutscene:text("* No reality = no problems to have or solves.", "wink", "dess")
-    	cutscene:text("* Can't beat my maths here.", "condescending", "dess")
-    	cutscene:text("* I graduated elementary school at 15.", "condescending", "dess")
 
     	cutscene:wait(0.5)
 
@@ -1230,6 +1231,17 @@ return {
     		cutscene:look(susie, "right")
     		cutscene:text("* Okay well I vote against it.", "sus_nervous", "susie")
     		votingMachine:setChoice(susie, false)
+    	end
+
+    	if jamm then
+            if susie then
+                cutscene:look(susie, "right")
+                cutscene:text("* I'm with Susie on this one.", "nervous_left", "jamm")
+            else
+                cutscene:look(susie, "right")
+                cutscene:text("* Well,[wait:5] there's still a lot I wanted to do...", "nervous_left", "jamm")
+            end
+            votingMachine:setChoice(jamm, false)
     	end
 
     	if hero then
@@ -1277,6 +1289,21 @@ return {
     	if susie then
     		cutscene:text("* Wait, who said you could vote??", "teeth_b", "susie")
     		cutscene:text("* Uh, me? I'm the mod here, dumbass.", "neutral", "dess")
+    	end
+
+    	if jamm then
+            cutscene:text("* ...Shit's rigged.", "stern", "jamm")
+    		cutscene:text("* Oh shit I think something's broken let me fix that", "neutral", "dess")
+            cutscene:text("[instant]* ...Shit's rigged.[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's rigged[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's rigge[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's rigg[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's rig[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's ri[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's r[stopinstant][wait:1]", "stern", "jamm", {auto=true})
+            cutscene:text("[instant]* ...Shit's [stopinstant]completely fair and bal[face:nervous]anced and I am very [face:nervous_left]fucking stupid lmao", "stern", "jamm")
+    		cutscene:text("* There we go lmao", "neutral", "dess")
+            cutscene:text("* She can change what we say now!?", "nervous_left", "jamm")
     	end
 
     	votes = votingMachine:getResults()
