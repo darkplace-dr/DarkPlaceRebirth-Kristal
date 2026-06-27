@@ -15,11 +15,14 @@ function ChaserEnemy:paceMovement()
         if in_radius and not self.did_ambush then
 			self.collidable = false
 			Assets.playSound("board_throw", 0.7)
-			self:jumpTo(self.floradinn_jump_marker, self.floradinn_jump_strength, 20/30, "overworld", "overworld")
+			self:jumpTo(self.floradinn_jump_marker, self.floradinn_jump_strength, 20/30, nil, nil)
 			Game.world.timer:after(20/30, function()
+				self:setAnimation("overworld")
 				self.collidable = true
 				Game.world.timer:after(5/30, function()
 					self.pace_type = "wander_nospawn"
+					self:setWalkSprite("overworld")
+					self:setAnimation("overworld")
 					self.can_chase = true
 				end)
 			end)
