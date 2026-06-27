@@ -21,7 +21,7 @@ function actor:init()
         ["hurt"] = {"hurt", 0.2, true},
         ["spared"] = {"spared", 0.2, true},
         ["overworld"] = {"idle", 0.2, true},
-        ["alerted"] = {"idle", 0, true},
+        ["alerted"] = {"idle", 0, false},
         ["chasing"] = {"idle", 0.1, true}
     }
 	
