@@ -130,11 +130,11 @@ function ElevatorButtons:confirmModSwitch(floor, mod)
                 ELEVATOR_TRANSITION.party_data[1].y =      Game.world.player.y
                 ELEVATOR_TRANSITION.party_data[1].facing = Game.world.player.facing
                 for i, chara in ipairs(Game.world.followers) do
-                    ELEVATOR_TRANSITION.party_data[i + 1] = {}
-                    local follower_data = ELEVATOR_TRANSITION.party_data[i + 1]
+                    local follower_data = {}
                     follower_data.x = chara.x
                     follower_data.y = chara.y
                     follower_data.facing = chara.facing
+                    ELEVATOR_TRANSITION.party_data[i + 1] = follower_data
                 end
 
                 cutscene:wait(1)
