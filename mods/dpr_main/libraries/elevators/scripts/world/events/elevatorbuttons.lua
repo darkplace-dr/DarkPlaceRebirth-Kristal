@@ -66,7 +66,7 @@ function ElevatorButtons:onInteract(chara)
                 cutscene:text("* (You're there.)")
                 return
             end
-            if incmenu.mod and incmenu.mod ~= Mod.info.id then 
+            if incmenu.mod and incmenu.mod ~= Mod.info.id then
                 self:confirmModSwitch(incmenu.decision, incmenu.mod)
                 return
             end
@@ -75,7 +75,7 @@ function ElevatorButtons:onInteract(chara)
                 self.elevator.infinite = true
 				cutscene:wait(1/30)
                 cutscene:after(function()
-				    Game.world:startCutscene(self.elevator.floors[incmenu.decision].cutscene, self) 
+				    Game.world:startCutscene(self.elevator.floors[incmenu.decision].cutscene, self)
                 end)
                 return
             end
@@ -108,18 +108,18 @@ function ElevatorButtons:confirmModSwitch(floor, mod)
     if enter == 1 then
 
 
-        cutscene:after(function(cutscene) 
+        cutscene:after(function(cutscene)
             Game.world:startCutscene(function (cutscene)
 
-                
+
                 cutscene:wait(4)
                 Game.world.timer:tween(3, self.elevator, {volcount = 0}, "linear")
                 cutscene:wait(cutscene:fadeOut(3))
-                
+
                 -- When moving between mods, we want to keep the party in the same position that they were when leaving the previous mod,
                 -- as well as keep the elevator moving in the same direction.
                 ELEVATOR_TRANSITION = {
-                    party_data = { {}, {}, {} },
+                    party_data = { {} },
                     target_floor = floor,
                     target_name = self.elevator.floors[self.elevator.target_floor].name,
                     target_dest = self.elevator.floors[self.elevator.target_floor].dest,
@@ -130,15 +130,15 @@ function ElevatorButtons:confirmModSwitch(floor, mod)
                 ELEVATOR_TRANSITION.party_data[1].y =      Game.world.player.y
                 ELEVATOR_TRANSITION.party_data[1].facing = Game.world.player.facing
                 for i, chara in ipairs(Game.world.followers) do
-                    
-                    ELEVATOR_TRANSITION.party_data[i+1].x =      chara.x
-                    ELEVATOR_TRANSITION.party_data[i+1].y =      chara.y
-                    ELEVATOR_TRANSITION.party_data[i+1].facing = chara.facing
-                    
+                    local follower_data = {}
+                    follower_data.x = chara.x
+                    follower_data.y = chara.y
+                    follower_data.facing = chara.facing
+                    ELEVATOR_TRANSITION.party_data[i + 1] = follower_data
                 end
-                
+
                 cutscene:wait(1)
-                
+
                 cutscene:after(Game:swapIntoMod(mod, false, self.elevator.floors[floor].dest))
 
             end)
