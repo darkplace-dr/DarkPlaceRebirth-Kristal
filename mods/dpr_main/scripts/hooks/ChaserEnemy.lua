@@ -20,7 +20,6 @@ function ChaserEnemy:paceMovement()
 				self.collidable = true
 				Game.world.timer:after(5/30, function()
 					self.pace_type = "wander_nospawn"
-					self:setWalkSprite("overworld")
 					self.can_chase = true
 				end)
 			end)
