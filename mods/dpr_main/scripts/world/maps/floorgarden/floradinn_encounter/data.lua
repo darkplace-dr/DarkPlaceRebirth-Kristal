@@ -9,8 +9,8 @@ return {
   height = 18,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 14,
-  nextobjectid = 101,
+  nextlayerid = 15,
+  nextobjectid = 106,
   properties = {
     ["border"] = "garden",
     ["music"] = "deltarune/field_of_hopes_insaneintherain_loop",
@@ -724,6 +724,50 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 14,
+      name = "enemycollision",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 104,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1040,
+          y = 200,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 105,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1200,
+          y = 320,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 6,
       name = "objects_deco",
       class = "",
@@ -1107,6 +1151,33 @@ return {
           properties = {
             ["flip"] = true
           }
+        },
+        {
+          id = 101,
+          name = "enemy",
+          type = "",
+          shape = "point",
+          x = 1400,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["actor"] = "floradinn",
+            ["animation"] = "overworld",
+            ["chase"] = false,
+            ["chasespeed"] = 10,
+            ["encounter"] = "floradinn",
+            ["jumpmarker"] = "floradinn_jump",
+            ["jumpstrength"] = 32,
+            ["marker1"] = "floradinn_pace",
+            ["marker2"] = "floradinn_jump",
+            ["pacereturn"] = false,
+            ["pacespeed"] = 4,
+            ["pacetype"] = "floradinn_ambush"
+          }
         }
       }
     },
@@ -1196,6 +1267,34 @@ return {
           type = "",
           shape = "point",
           x = 380,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "floradinn_pace",
+          type = "",
+          shape = "point",
+          x = 1160,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 103,
+          name = "floradinn_jump",
+          type = "",
+          shape = "point",
+          x = 1350,
           y = 240,
           width = 0,
           height = 0,
