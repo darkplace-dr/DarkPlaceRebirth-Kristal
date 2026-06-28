@@ -9,7 +9,7 @@ return {
   spacing = 0,
   margin = 0,
   columns = 8,
-  image = "../../../assets/sprites/tilesets/bg_dw_grassdark_tileset.png",
+  image = "../../../assets/sprites/tilesets/grassdark.png",
   imagewidth = 320,
   imageheight = 1080,
   objectalignment = "unspecified",

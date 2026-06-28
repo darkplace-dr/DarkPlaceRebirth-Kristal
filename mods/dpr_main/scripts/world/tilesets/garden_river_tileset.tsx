@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="garden_river_tileset.lua" format="lua"/>
  </editorsettings>
- <image source="../../../assets/sprites/tilesets/bg_dw_river_tileset.png" width="320" height="280"/>
+ <image source="../../../assets/sprites/tilesets/garden_river.png" width="320" height="280"/>
  <tile id="8">
   <animation>
    <frame tileid="8" duration="250"/>

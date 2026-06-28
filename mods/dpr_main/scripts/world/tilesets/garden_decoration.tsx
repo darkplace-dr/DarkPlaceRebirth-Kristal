@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="garden_decoration.lua" format="lua"/>
  </editorsettings>
- <image source="../../../assets/sprites/tilesets/bg_dw_garden_decoration_tileset.png" width="320" height="1080"/>
+ <image source="../../../assets/sprites/tilesets/garden_decoration.png" width="320" height="1080"/>
  <tile id="51">
   <animation>
    <frame tileid="51" duration="166"/>
