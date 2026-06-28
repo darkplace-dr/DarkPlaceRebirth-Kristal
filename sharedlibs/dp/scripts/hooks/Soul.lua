@@ -164,12 +164,12 @@ function Soul:update()
 		self.collider.radius = 8
 		self.sprite_focus.alpha = 0
 	end
-	
+
     local focus_equipped = false
     for _,party in ipairs(Game.party) do
         if party:checkArmor("focus") then focus_equipped = true end
     end
-	
+
 	-- Taunt code starts here
 	if self.force_taunt ~= false then
 	if Game:isTauntingAvaliable() or self.force_taunt == true then
@@ -180,7 +180,7 @@ function Soul:update()
         end
         return
     end
-    
+
     self.can_move = true
     if self.parry_lock_movement > 0 then
         self.parry_lock_movement = self.parry_lock_movement - DTMULT
@@ -301,14 +301,20 @@ function Soul:draw()
 
     -- Soul brightens when invincible
     if charge_timer > 0 then
-        ---@diagnostic disable-next-line: param-type-mismatch
-        self.color = Utils.clampMap(self.parry_inv, 0, self.parry_cap / 2, {r,g,b},{1,1,1})
+        local min_a, max_a = 0, self.parry_cap / 2
+        local val = MathUtils.clamp(self.parry_inv, min_a, max_a)
+        self.color[1] = MathUtils.rangeMap(val, min_a, max_a, r, 1)
+        self.color[2] = MathUtils.rangeMap(val, min_a, max_a, g, 1)
+        self.color[3] = MathUtils.rangeMap(val, min_a, max_a, b, 1)
     end
 
     -- Soul darkens when on cooldown
     if self.cooldown_timer > 0 then
-        ---@diagnostic disable-next-line: param-type-mismatch
-        self.color = Utils.clampMap(self.cooldown_timer, 0, self.cooldown / 2, {r,g,b},{(r * 0.5),(g * 0.5),(b * 0.5)})
+        local min_a, max_a = 0, self.cooldown / 2
+        local val = MathUtils.clamp(self.cooldown_timer, min_a, max_a)
+        self.color[1] = MathUtils.rangeMap(val, min_a, max_a, r, r*.5)
+        self.color[2] = MathUtils.rangeMap(val, min_a, max_a, g, g*.5)
+        self.color[3] = MathUtils.rangeMap(val, min_a, max_a, b, b*.5)
     end
 
     super.draw(self)
