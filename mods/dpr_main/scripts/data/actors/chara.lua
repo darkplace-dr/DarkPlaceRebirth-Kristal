@@ -42,16 +42,23 @@ function actor:init()
 
     -- Table of sprite animations
     self.animations = {
-        ["shrug"] = {"shrug", 0.5, false},
+        ["shrug"] = {"shrug", 0.15, false},
+        ["facepalm"] = {"facepalm", 0.3, true},
         ["bored"] = {"bored", 0, false},
         ["sit"] = {"sit", 0, false},
+        ["idle"] = {"idle", 0, false},
         ["smile"] = {"smile", 0, false},
         ["smilebad"] = {"smilebad", 0, false},
         ["wall"] = {"wall", 0, false},
+        ["what"] = {"what", 0, false},
+        ["ohdamnreally"] = {"ohdamnreally", 0, false},
+        ["embarrassed"] = {"yeahsorry", 0, false},
+        ["pixel"] = {"pixelconsistancywhereweregoingwedontneedpixelconsistancy", 0, false},
 }
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {
+        ["shrug"] = {-6,-1}
     }
 end
 

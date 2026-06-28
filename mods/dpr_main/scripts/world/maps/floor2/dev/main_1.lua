@@ -625,9 +625,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "chara",
-            ["text1"] = "* Hi no way it's me chara from undertale",
-            ["text2"] = "* This is placeholder dialogue until I finish the heese (Plural of horse) battle lmao",
-            ["text3"] = "* So, I guess that means... TEST FUCKING DIALOGUE!!1!"
+            ["cutscene"] = "devroom.chara"
           }
         }
       }
