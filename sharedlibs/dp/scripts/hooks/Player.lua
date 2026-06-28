@@ -40,7 +40,7 @@ function Player:getCurrentSpeed(running)
     -- Holding run with the Pizza Toque equipped (or if the file name is "PEPPINO")
     -- will cause a gradual increase in speed.
     if DP:isTauntingAvaliable()
-        and (self.world.map.id ~= "everhall" and self.world.map.id ~= "everhall_entry")
+        and (not string.find(self.world.map.id, "everhall"))
         and self.run_timer > 60 then
         self.run_toque_timer = self.run_toque_timer + DT
         speed = speed + self.run_toque_timer

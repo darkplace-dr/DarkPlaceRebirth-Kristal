@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="79">
  <editorsettings>
   <export target="apartments_left.lua" format="lua"/>
  </editorsettings>
@@ -235,6 +235,13 @@
    <properties>
     <property name="cutscene" value="apartment_doors.ken"/>
    </properties>
+  </object>
+  <object id="77" name="npc" x="160" y="280">
+   <properties>
+    <property name="actor" value="papereater"/>
+    <property name="cutscene" value="apartment_doors.papereater"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
