@@ -14,7 +14,7 @@ function OverworldActionBox:init(x, y, index, chara)
     if chara:getNameSprite() then
         self.name_sprite = Sprite(chara:getNameSprite(), 51 + ox, 16 + oy)
         self:addChild(self.name_sprite)
-		
+
 		if Game:getFlag("SHINY", {})[chara.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
 			self.name_sprite:addFX(GradientFX(COLORS.white, {235/255, 235/255, 130/255}, 1, math.pi/2))
 		end
@@ -66,7 +66,7 @@ function OverworldActionBox:draw()
 	if self.four_party_mode then
 		love.graphics.setLineWidth(2)
 		love.graphics.line(0, 1, 153, 1)
-		
+
 		if Game:getConfig("oldUIPositions") then
 			love.graphics.line(0, 2, 2, 2)
 			love.graphics.line(151, 2, 153, 2)
@@ -77,7 +77,7 @@ function OverworldActionBox:draw()
 
             self.mp_sprite.visible = true
             self.mp_sprite.x = 51
-            
+
             -- Draw health
             Draw.setColor(PALETTE["action_health_bg"])
             love.graphics.rectangle("fill", 70, 8, 81, 12)
@@ -200,7 +200,7 @@ function OverworldActionBox:draw()
 	else
 		love.graphics.setLineWidth(2)
 		love.graphics.line(0, 1, 213, 1)
-		
+
 		if Game:getConfig("oldUIPositions") then
 			love.graphics.line(0, 2, 2, 2)
 			love.graphics.line(211, 2, 213, 2)
@@ -211,7 +211,7 @@ function OverworldActionBox:draw()
             self.hp_sprite.y = 10
 
             self.mp_sprite.visible = true
-            
+
             -- Draw health
             Draw.setColor(PALETTE["action_health_bg"])
             love.graphics.rectangle("fill", 125, 8, 81, 12)

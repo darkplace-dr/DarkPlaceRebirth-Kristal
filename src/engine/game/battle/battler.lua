@@ -1,4 +1,4 @@
---- The base class for participants in battles. 
+--- The base class for participants in battles.
 --- This class defines shared logic between types of `Battler`, but is not used on its own. \
 --- See [`EnemyBattler`](lua://EnemyBattler.init) or [`PartyBattler`](lua://PartyBattler.init) depending on which you are working with, as well as this object.
 ---
@@ -27,7 +27,7 @@
 ---@overload fun(x?:number, y?:number, width?:number, height?:number) : Battler
 local Battler, super = Class(Object)
 
----@param x?        number 
+---@param x?        number
 ---@param y?        number
 ---@param width?    number
 ---@param height?   number
@@ -125,7 +125,8 @@ end
 function Battler:alert(duration, options)
     options = options or {}
     if options["play_sound"] == nil or options["play_sound"] then
-        Assets.stopAndPlaySound("alert")
+        local sound_to_use = options["sound"] or "alert"
+        Assets.stopAndPlaySound(sound_to_use)
     end
     local sprite_to_use = options["sprite"] or "effects/alert"
     self.alert_timer = duration and duration * 30 or 20

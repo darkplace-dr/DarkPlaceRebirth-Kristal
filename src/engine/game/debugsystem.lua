@@ -1,7 +1,7 @@
 ---@class DebugSystem : Object
 ---
 ---@field flag_type             string          The current flag filter setting for value type
----@field flag_query            { [1]: string } The current flag filter query 
+---@field flag_query            { [1]: string } The current flag filter query
 ---@field flag_filter_mode      string          The current flag filter mode
 ---
 ---@field temp_flag_type        string          Temporary version of [`flag_type`](lua://DebugSystem.flag_type). Only set as filter once the settings are saved.
@@ -612,7 +612,7 @@ function DebugSystem:registerSubMenus()
     end)
 
     self:registerOption("engine_option_fps", "Back", "Go back to the previous menu.", function() self:returnMenu() end)
-    
+
     self:registerMenu("fast_forward", "Fast Forward")
     self:registerOption(
         "fast_forward",
@@ -1706,6 +1706,7 @@ function DebugSystem:onKeyPressed(key, is_repeat)
                 if option then
                     local menu = self.current_menu
                     local failsound = option.func() == false
+                    Input.clear("confirm")
                     if failsound then
                         Assets.playSound("ui_cant_select")
                     elseif menu ~= "sound_test" then

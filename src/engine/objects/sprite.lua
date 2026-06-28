@@ -250,7 +250,7 @@ end
 
 --- Sets the animation of the current sprite. \
 --- The animation specified in `anim` can take on multiple forms:
---- - `fun(wait: fun(time: number))`    - The animation routine. Receives the animation coroutine's wait function. 
+--- - `fun(wait: fun(time: number))`    - The animation routine. Receives the animation coroutine's wait function.
 ---                                         See [`Sprite:_basicAnimation(wait)`](lua://Sprite._basicAnimation) for an example of an animation routine
 --- - `table`                           - A table of animation data, in one of these three formats:
 --- - - `string|table`                  - The name of the sprite, or a table of frames of the animation, \
@@ -259,7 +259,7 @@ end
 --- - - `string|table`                  - The name of the sprite, or a table of frames of the animation, \
 ---     `fun(wait: fun(time: number))`  - An animation routine
 --- - - `fun(wait: fun(time: number))`  - An animation routine
---- 
+---
 --- Additionally, these keys can be defined in the `anim` table for further customisation:
 --- - `duration: number`                - The time, in seconds, that the animation will run for
 --- - `callback: fun(self: Sprite)`     - A callback that will run when the sprite stops animating. Receives the sprite as an argument
@@ -445,6 +445,7 @@ end
 --- Stops the cross-fade on the current sprite
 function Sprite:resetCrossFade()
     self.crossfade_alpha = 0
+    self.crossfade_blocky = false
     self.crossfade_texture = nil
     self.crossfade_texture_path = nil
     self.crossfade_speed = 0
@@ -452,24 +453,46 @@ function Sprite:resetCrossFade()
     self.crossfade_after = nil
 end
 
---- Starts a cross-fade from the current sprite to a new `texture`
+--- Starts a cross-fade from the current sprite to a new `texture`.
+---
+--- If "options" is instead a boolean, it will be treated as the value for `fade_out`. This behavior is deprecated and will be removed.
 ---@param texture   string|love.Image   The texture to fade into
 ---@param time?     number              The time, in seconds, that the cross-fade should take (Defaults to `1`)
----@param fade_out? boolean             Whether the current sprite texture should fade out during the cross-fade (if `false`, it disappears at the end)
+---@param options?  table|boolean       A table defining additional properties to control the fade
 ---@param after?    fun(sprite: Sprite) The function to run when the cross-fade is complete
-function Sprite:crossFadeTo(texture, time, fade_out, after)
-    self:crossFadeToSpeed(texture, (1 / (time or 1)) / 30 * (1 - self.crossfade_alpha), fade_out, after)
+function Sprite:crossFadeTo(texture, time, options, after)
+    if (type(options) == "boolean") then
+        options = { fade_out = options }
+
+        local info = debug.getinfo(2, "Sln")
+        Kristal.Console:warn("Deprecated \"fade_to\" argument to crossFadeTo, expected a table of options")
+        Kristal.Console:warn(info.source .. ":"..info.currentline)
+    end
+
+    self:crossFadeToSpeed(texture, (1 / (time or 1)) / 30 * (1 - self.crossfade_alpha), options, after)
 end
 
 --- Starts a cross-fade from the current sprite to a new `texture`
+---
+--- If "options" is instead a boolean, it will be treated as the value for `fade_out`. This behavior is deprecated and will be removed.
 ---@param texture   string|love.Image   The texture to fade into
 ---@param speed?    number              The speed at which the alpha of both sprites change, meaasured as the alpha value change per frame at 30FPS (Defaults to `0.04`)
----@param fade_out? boolean             Whether the current sprite texture should fade out during the cross-fade (if `false`, it disappears at the end)
+---@param options?  table|boolean       A table defining additional properties to control the fade.
 ---@param after?    fun(sprite: Sprite) The function to run when the cross-fade is complete
-function Sprite:crossFadeToSpeed(texture, speed, fade_out, after)
+function Sprite:crossFadeToSpeed(texture, speed, options, after)
+    if (type(options) == "boolean") then
+        options = { fade_out = options }
+
+        local info = debug.getinfo(2, "Sln")
+        Kristal.Console:warn("Deprecated \"fade_to\" argument to crossFadeToSpeed, expected a table of options")
+        Kristal.Console:warn(info.source .. ":"..info.currentline)
+    end
+
+    options = options or {}
     self:setCrossFadeTexture(texture)
     self.crossfade_speed = speed or 0.04
-    self.crossfade_out = fade_out
+    self.crossfade_blocky = options["blocky"] or false -- Whether to use a "blocky" esque fade or not (Defaults to `false`)
+    self.crossfade_out = options["fade_out"] -- Whether the current sprite texture should fade out during the cross-fade (if `false`, it disappears at the end)
     self.crossfade_after = function(self)
         self:setTexture(self:getPath(texture))
         self:resetCrossFade()
@@ -529,12 +552,19 @@ end
 
 function Sprite:draw()
     local r, g, b, a = self:getDrawColor()
+    local function getCrossFadeAlpha()
+        if self.crossfade_blocky then
+            return math.floor(self.crossfade_alpha * 4) / 4
+        else
+            return self.crossfade_alpha
+        end
+    end
     local function drawSprite(...)
         if self.crossfade_alpha > 0 and self.crossfade_texture ~= nil then
-            Draw.setColor(r, g, b, self.crossfade_out and MathUtils.lerp(a, 0, self.crossfade_alpha) or a)
+            Draw.setColor(r, g, b, self.crossfade_out and MathUtils.lerp(a, 0, getCrossFadeAlpha()) or a)
             Draw.draw(self.texture, ...)
 
-            Draw.setColor(r, g, b, MathUtils.lerp(0, a, self.crossfade_alpha))
+            Draw.setColor(r, g, b, MathUtils.lerp(0, a, getCrossFadeAlpha()))
             Draw.draw(self.crossfade_texture, ...)
         else
             Draw.setColor(r, g, b, a)

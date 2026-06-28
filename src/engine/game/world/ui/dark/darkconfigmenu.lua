@@ -21,7 +21,7 @@ function DarkConfigMenu:init()
     self.bg.debug_select = false
     self:addChild(self.bg)
 
-    -- MAIN, VOLUME, CONTROLS, BORDER
+    -- MAIN, VOLUME, CONTROLS, BORDERS
     self.state = "MAIN"
 
     self.currently_selected = 0
@@ -40,7 +40,7 @@ function DarkConfigMenu:init()
         {"none",    "None",    nil}
     }
     self.keybinds = {}
-    
+
     self:registerKeybind()
 
     self.control_page = 1
@@ -190,7 +190,7 @@ function DarkConfigMenu:update()
     if self.state == "MAIN" then
         if Input.pressed("confirm") then
             Assets.stopAndPlaySound("ui_select")
-			
+
             if self.current_config_page == 1 then
                 if self.currently_selected == 1 then
                     self.state = "VOLUME"
@@ -212,7 +212,7 @@ function DarkConfigMenu:update()
                 end
             elseif self.current_config_page == 2 then
                 if self.currently_selected == 1 then
-                    self.state = "BORDER"
+                    self.state = "BORDERS"
                 elseif self.currently_selected == 2 then
                     Kristal.Config["runAnimations"] = not Kristal.Config["runAnimations"] or false
                 elseif self.currently_selected == 3 then
@@ -245,7 +245,7 @@ function DarkConfigMenu:update()
         elseif self.current_config_page == 2 then
             self.currently_selected = MathUtils.clamp(self.currently_selected, 1, 4)
         end
-		
+
         local old_page = self.current_config_page
         if Input.pressed("left") then
             self.current_config_page = self.current_config_page - 1
@@ -298,14 +298,16 @@ function DarkConfigMenu:update()
         else
             return
         end
-    elseif self.state == "BORDER" then
+    elseif self.state == "BORDERS" then
         if Input.pressed("cancel") or Input.pressed("confirm") then
             self.state = "MAIN"
-            self.currently_selected = 1
-            Assets.stopAndPlaySound("ui_select")
+            return
         end
+
+        local types = Kristal.getBorderTypes()
+
         local border_index = -1
-        for current_index, border in ipairs(self.border_types) do
+        for current_index, border in ipairs(types) do
             if border[1] == Kristal.Config["borders"] then
                 border_index = current_index
             end
@@ -313,19 +315,21 @@ function DarkConfigMenu:update()
         if border_index == -1 then
             border_index = 1
         end
+
         local old_index = border_index
         if Input.pressed("left") then
             border_index = math.max(border_index - 1, 1)
         end
         if Input.pressed("right") then
-            border_index = math.min(border_index + 1, #self.border_types)
+            border_index = math.min(border_index + 1, #types)
         end
+
         if old_index ~= border_index then
-            Assets.stopAndPlaySound("ui_move")
-            Kristal.Config["borders"] = self.border_types[border_index][1]
-            if self.border_types[border_index][1] == "off" then
+            Kristal.Config["borders"] = types[border_index][1]
+
+            if types[border_index][1] == "off" then
                 Kristal.resetWindow()
-            elseif self.border_types[old_index][1] == "off" then
+            elseif types[old_index][1] == "off" then
                 Kristal.resetWindow()
             end
         end
@@ -346,12 +350,12 @@ function DarkConfigMenu:draw()
 
     if self.state ~= "CONTROLS" then
         love.graphics.print("CONFIG", 188, -12)
-		
+
         local page_offset = ((self.max_config_pages >= 10 and self.current_config_page >= 10) and 14) or ((self.max_config_pages >= 10 and self.current_config_page < 10) and 6) or 0
         if self.max_config_pages > 1 then
             love.graphics.print(self.current_config_page.."/"..self.max_config_pages, 418 - page_offset, -4 + (28 * 9) + 4)
         end
-		
+
     --  Code for the arrow sprite
         local sine_off = math.sin((Kristal.getTime()*30)/16) * 3
 
@@ -386,7 +390,7 @@ function DarkConfigMenu:draw()
             love.graphics.print(Kristal.Config["fullscreen"] and "ON" or "OFF", 348, 38 + (3 * 35))
             love.graphics.print(Kristal.Config["autoRun"] and "ON" or "OFF", 348, 38 + (4 * 35))
 		elseif self.current_config_page == 2 then
-            if self.state == "BORDER" then
+            if self.state == "BORDERS" then
                 Draw.setColor(PALETTE["world_text_selected"])
             end
             love.graphics.print("Border", 88, 38 + (0 * 35))
@@ -398,8 +402,8 @@ function DarkConfigMenu:draw()
             love.graphics.print(Kristal.Config["temperatureDisplay"] and "Celcius" or "Fahrenheit", 348, 38 + (2 * 35))
 
             love.graphics.print("Back", 88, 38 + (3 * 35))
-			
-            if self.state == "BORDER" then
+
+            if self.state == "BORDERS" then
                 love.graphics.setColor(PALETTE["world_text_selected"])
             end
             love.graphics.print(Kristal.getBorderName(), 348, 38 + (0 * 35))
@@ -440,7 +444,7 @@ function DarkConfigMenu:draw()
                 else
                     love.graphics.print(key_info.keybind:gsub("_", " "):upper(), 23, -4 + (28 * (index - offset)) + 4)
                 end
-                
+
                 if not Kristal.isConsole() then
                     local alias = Input.getBoundKeys(key_info.keybind, false)[1]
                     if type(alias) == "table" then
