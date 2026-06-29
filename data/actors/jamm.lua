@@ -58,12 +58,14 @@ function actor:init()
         ["battle/swooned"]              = {"battle/swooned", 1/15, false},
         ["battle/succumbed"]            = {"battle/swooned", 1/15, false},
 
-        ["battle/transition"]   		= {"walk/right", 0.2, true},
-        ["battle/intro"]        		= {"battle/attack", 1/15, true},
+        ["battle/transition"]   		= {"battle/transition", 0.2, true},
+        ["battle/intro"]        		= {"battle/intro", 1/15, true},
         ["battle/victory"]      		= {"battle/victory", 1/10, false},
 
         ["battle/tactic_freeze"] 		= {"battle/tactic_freeze", 1/15, false},
         ["battle/tactic_freeze_shiny"] 	= {"battle/tactic_freeze_shiny", 1/15, false},
+		
+		["battle/transition_out"]       = {"battle/transition_out", 1/15, false},
 
         ["battle/charge"]               = {"battle/charge", 1/6, true},
 
@@ -98,27 +100,28 @@ function actor:init()
         ["slide_hurt"] = {0, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-5, -1},
+        ["battle/idle"] = {-5, 0},
 
-        ["battle/attack"] = {-5, 0},
-        ["battle/attackready"] = {-5, -1},
-        ["battle/act"] = {-4, -1},
-        ["battle/actend"] = {-4, -1},
-        ["battle/actready"] = {-4, -1},
-        ["battle/item"] = {-4, -1},
-        ["battle/itemready"] = {-4, -1},
-        ["battle/defend"] = {-4, -1},
+        ["battle/attack"] = {-5, 1},
+        ["battle/attackready"] = {-5, 0},
+        ["battle/act"] = {-4, 0},
+        ["battle/actend"] = {-4, 0},
+        ["battle/actready"] = {-4, 0},
+        ["battle/item"] = {-4, 0},
+        ["battle/itemready"] = {-4, 0},
+        ["battle/defend"] = {-4, 0},
         ["battle/swooned"] = {0, 0},
 
-        ["battle/defeat"] = {-3, 5},
-        ["battle/hurt"] = {-5, -1},
+        ["battle/defeat"] = {-3, 4},
+        ["battle/hurt"] = {-5, 0},
 
-        ["battle/intro"] = {-8, -9},
-        ["battle/victory"] = {-7, 0},
-        ["battle/transition_out"] = {-7, 0},
+        ["battle/transition"] = {-9, 0},
+        ["battle/intro"] = {-9, 0},
+        ["battle/victory"] = {-10, 0},
+        ["battle/transition_out"] = {-10, 0},
 		
-        ["battle/tactic_freeze"] = {-5, -1},
-        ["battle/tactic_freeze_shiny"] = {-5, -1},
+        ["battle/tactic_freeze"] = {-5, 0},
+        ["battle/tactic_freeze_shiny"] = {-5, 0},
 
         ["battle/charge"] = {-9, -3},
 
