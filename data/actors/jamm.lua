@@ -98,27 +98,27 @@ function actor:init()
         ["slide_hurt"] = {0, 0},
 
         -- Battle offsets
-        ["battle/idle"] = {-9, -3},
+        ["battle/idle"] = {-5, -1},
 
-        ["battle/attack"] = {-9, -3},
-        ["battle/attackready"] = {-9, -3},
-        ["battle/act"] = {-9, -3},
-        ["battle/actend"] = {-9, -3},
-        ["battle/actready"] = {-9, -3},
-        ["battle/spell"] = {-9, -3},
-        ["battle/item"] = {-9, -3},
-        ["battle/itemready"] = {-9, -3},
-        ["battle/defend"] = {-9, -3},
+        ["battle/attack"] = {-5, 0},
+        ["battle/attackready"] = {-5, -1},
+        ["battle/act"] = {-4, -1},
+        ["battle/actend"] = {-4, -1},
+        ["battle/actready"] = {-4, -1},
+        ["battle/item"] = {-4, -1},
+        ["battle/itemready"] = {-4, -1},
+        ["battle/defend"] = {-4, -1},
         ["battle/swooned"] = {0, 0},
 
-        ["battle/defeat"] = {-8, -3},
-        ["battle/hurt"] = {-9, -3},
+        ["battle/defeat"] = {-3, 5},
+        ["battle/hurt"] = {-5, -1},
 
         ["battle/intro"] = {-8, -9},
-        ["battle/victory"] = {-9, -3},
-
-        ["battle/tactic_freeze"] = {-9, -3},
-        ["battle/tactic_freeze_shiny"] = {-9, -3},
+        ["battle/victory"] = {-7, 0},
+        ["battle/transition_out"] = {-7, 0},
+		
+        ["battle/tactic_freeze"] = {-5, -1},
+        ["battle/tactic_freeze_shiny"] = {-5, -1},
 
         ["battle/charge"] = {-9, -3},
 
