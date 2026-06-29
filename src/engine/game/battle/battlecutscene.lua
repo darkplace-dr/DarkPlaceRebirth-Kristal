@@ -173,7 +173,7 @@ function BattleCutscene:moveTo(chara, x, y, speed)
     return _true
 end
 
---- Moves a character to a new position (`x`, `y`) over `time` seconds. \ 
+--- Moves a character to a new position (`x`, `y`) over `time` seconds. \
 --- Supports easing.
 ---@param obj   string|Battler  The character being moved. Accepts either a Battler instance or an id to search for.
 ---@param x     number          The new x-coordinate to approach.
@@ -241,15 +241,15 @@ end
 --- Creates an alert bubble above a character.
 ---@param chara     string|Battler  The character being shaken. Accepts either a Battler instance or an id to search for.
 ---@param ...       unknown         Arguments to be passed to Battler:alert().
+---@return fun() : boolean finished A function that returns `true` once the alert icon has disappeared.
 ---@return Sprite   alert_icon      The result alert icon created above the character's head.
----@return fun() : boolean finished        A function that returns `true` once the alert icon has disappeared. \
 ---@see Battler.alert for details on the arguments to pass to this function.
 function BattleCutscene:alert(chara, ...)
     if type(chara) == "string" then
         chara = self:getCharacter(chara)
     end
     local function waitForAlertRemoval() return chara.alert_icon == nil or chara.alert_timer == 0 end
-    return chara:alert(...), waitForAlertRemoval
+    return waitForAlertRemoval, chara:alert(...)
 end
 
 --- Fades the screen and music out.
@@ -478,7 +478,7 @@ local function waitForChoicer() return Game.battle.battle_ui.choice_box.done, Ga
 ---|"highlight" # The color to highlight the selected choice in, or a table of colors to highlight different choices in when selected. (Defaults to `COLORS.yellow`)
 ---|"wait"      # Whether the cutscene should automatically suspend itself until the player makes their choice. (Defaults to `true`)
 ---@return number|function selected The index of the selected item if the cutscene has been set to wait for the choicer, otherwise a boolean that states whether the player has made their choice.
----@return Choicebox? choicer The choicebox object for this choicer. Only returned if wait is `false`. 
+---@return Choicebox? choicer The choicebox object for this choicer. Only returned if wait is `false`.
 function BattleCutscene:choicer(choices, options)
     options = options or {}
 

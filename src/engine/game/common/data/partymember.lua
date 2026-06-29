@@ -133,7 +133,7 @@ function PartyMember:init()
 
     -- Max stats from level-ups
     self.max_stats = {}
-    
+
     -- Party members which will also get stronger when this character gets stronger, even if they're not in the party
     self.stronger_absent = {}
 
@@ -890,7 +890,7 @@ function PartyMember:loadEquipment(data)
     end
 end
 
----@return string[] spells An array of the spell IDs this party member knows 
+---@return string[] spells An array of the spell IDs this party member knows
 function PartyMember:saveSpells()
     local result = {}
     for _, v in pairs(self.spells) do

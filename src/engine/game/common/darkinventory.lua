@@ -44,7 +44,7 @@ function DarkInventory:convertToLight()
 
     local was_storage_enabled = new_inventory.storage_enabled
     new_inventory.storage_enabled = true
-    
+
     for k,storage in pairs(self:getLightInventory().storages) do
         for i = 1, storage.max do
             if storage[i] then
@@ -94,7 +94,7 @@ function DarkInventory:convertToLight()
     end
 
     new_inventory.storage_enabled = was_storage_enabled
-    
+
     Game.dark_inventory = self
 
     return new_inventory

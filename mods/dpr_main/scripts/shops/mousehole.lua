@@ -68,7 +68,10 @@ function MouseHole:startTalk(talk)
         self:setFlag("talk_2", 2)
         self:startDialogue({"[emote:left]* Oh, [wait:5]ehehe...\n[wait:5]* I keep forgetting I put that there.", "[emote:idle]* Pay no attention to it,[wait:5] it's just..."})
     elseif talk == "Together" then
-        self:startDialogue({"[emote:left]* U-us? [wait:5]No, [wait:5]we're not... [wait:5]I-I mean, [wait:5]there's not much goin' for me.", "[emote:happy]* That's all!!"})
+        self:startDialogue({
+            "[emote:left]* U-us? [wait:5]No, [wait:5]we're not... [wait:5]I-I mean, [wait:5]I don't have much goin' for me.",
+            "[emote:happy]* That's all!!"
+        })
     end
 end
 

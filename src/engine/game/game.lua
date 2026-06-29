@@ -1090,7 +1090,7 @@ end
 ---@return Recruit[]
 function Game:getRecruits(include_incomplete, include_hidden)
     local recruits = {}
-    for id,recruit in pairs(Game.recruits_data) do
+    for id, recruit in pairs(Game.recruits_data) do
         if (not recruit:getHidden() or include_hidden) and (recruit:getRecruited() == true or include_incomplete and type(recruit:getRecruited()) == "number" and recruit:getRecruited() > 0) then
             table.insert(recruits, recruit)
         end
@@ -1102,7 +1102,7 @@ end
 ---@param recruit string
 ---@return boolean
 function Game:hasRecruit(recruit)
-    return self:getRecruit(recruit):getRecruited() == true
+    return self:getRecruit(recruit) and self:getRecruit(recruit):getRecruited() == true
 end
 
 ---@param chara     string|PartyMember
@@ -1443,10 +1443,6 @@ function Game:onKeyPressed(key, is_repeat)
     elseif self.state == "OVERWORLD" then
         if self.world then
             self.world:onKeyPressed(key)
-        end
-    elseif self.state == "SHOP" then
-        if self.shop then
-            self.shop:onKeyPressed(key, is_repeat)
         end
     elseif self.state == "GAMEOVER" then
         if self.gameover then

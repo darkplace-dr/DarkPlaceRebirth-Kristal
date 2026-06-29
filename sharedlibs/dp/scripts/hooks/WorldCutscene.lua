@@ -78,7 +78,7 @@ end
 ---@param portrait? string|nil                  The name of the character portrait to use for this textbox.
 ---@param actor?    Character|Actor|string|nil  The Character/Actor to be used for voice bytes and portraits, overriding the active cutscene speaker.
 ---@param options?  table                       A table definining additional properties to control the textbox.
----|"talk"         # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world. 
+---|"talk"         # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world.
 ---|"top"          # Override for the default textbox position, defining whether the textbox should appear at the top of the screen.
 ---|"x"            # The x-offset of the dialgoue portrait.
 ---|"y"            # The y-offset of the dialogue portrait.
@@ -664,7 +664,7 @@ function WorldCutscene:alertParty(duration, options)
         if only_once and i > 1 then
             options.play_sound = false
         end
-        local _, w = self:alert(v, duration, options)
+        local w, _ = self:alert(v, duration, options)
         table.insert(waits, w)
     end
     return function()
@@ -731,7 +731,7 @@ end
 ---@param portrait? string|nil                  The name of the character portrait to use for this textbox.
 ---@param actor?    Character|Actor|string|nil  The Character/Actor to be used for voice bytes and portraits, overriding the active cutscene speaker.
 ---@param options?  table                       A table definining additional properties to control the textbox.
----|"talk"      # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world. 
+---|"talk"      # If a `Character` instance is attached to the textbox, whether they should use their talk sprite in world.
 ---|"top"       # Override for the default textbox position, defining whether the textbox should appear at the top of the screen.
 ---|"x"         # The x-offset of the dialgoue portrait.
 ---|"y"         # The y-offset of the dialogue portrait.
