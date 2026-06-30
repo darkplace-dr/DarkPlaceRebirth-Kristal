@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="25" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="41">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="25" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="54">
  <editorsettings>
   <export target="pre_elevator.lua" format="lua"/>
  </editorsettings>
@@ -10,6 +10,7 @@
  </properties>
  <tileset firstgid="1" source="../../tilesets/tree_objects.tsx"/>
  <tileset firstgid="5" source="../../tilesets/grassdark.tsx"/>
+ <tileset firstgid="221" source="../../tilesets/garden_objects.tsx"/>
  <layer id="8" name="tiles_grass" width="16" height="25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -20,12 +21,12 @@
 0,0,0,0,0,0,6,62,62,86,0,0,0,0,0,0,
 0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
 0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
-0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
+0,0,0,0,6,62,70,70,70,94,6,86,0,0,0,0,
+0,0,0,0,14,70,70,70,70,70,70,94,0,0,0,0,
+0,0,0,0,70,70,70,70,70,94,70,70,6,6,6,6,
+0,0,0,0,70,70,70,70,70,94,70,70,102,102,102,102,
+0,0,0,0,14,70,14,70,70,94,70,94,0,0,0,0,
+0,0,0,0,22,102,14,70,70,94,22,78,0,0,0,0,
 0,0,0,0,0,0,14,70,70,94,0,0,0,0,0,0,
 0,0,0,0,0,0,22,70,70,102,0,0,0,0,0,0,
 0,0,0,0,0,0,0,14,94,0,0,0,0,0,0,0,
@@ -42,10 +43,15 @@
  <objectgroup color="#0000ff" id="4" name="collision">
   <object id="31" x="200" y="160" width="60" height="40"/>
   <object id="32" x="380" y="160" width="60" height="40"/>
-  <object id="34" x="400" y="200" width="40" height="480"/>
+  <object id="34" x="400" y="200" width="80" height="120"/>
   <object id="35" x="360" y="640" width="40" height="360"/>
   <object id="36" x="240" y="640" width="40" height="360"/>
-  <object id="37" x="200" y="200" width="40" height="480"/>
+  <object id="37" x="160" y="200" width="80" height="120"/>
+  <object id="41" x="400" y="560" width="80" height="80"/>
+  <object id="42" x="160" y="560" width="80" height="80"/>
+  <object id="44" x="480" y="320" width="160" height="80"/>
+  <object id="46" x="480" y="480" width="160" height="80"/>
+  <object id="47" x="120" y="320" width="40" height="240"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="3" name="objects_elevator">
   <object id="9" name="elevatordoor" x="260" y="160" width="120" height="40">
@@ -68,6 +74,20 @@
     <property name="marker" value="entry_down"/>
    </properties>
   </object>
+  <object id="48" name="dogconegroup" x="600" y="400" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="49" name="dogconegroup" x="600" y="440" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="50" gid="225" x="420" y="760" width="44" height="80"/>
+  <object id="51" gid="2147483873" x="460" y="880" width="44" height="80"/>
+  <object id="52" gid="2147483873" x="180" y="760" width="44" height="80"/>
+  <object id="53" gid="225" x="140" y="880" width="44" height="80"/>
  </objectgroup>
  <objectgroup id="6" name="objects_trees"/>
  <objectgroup color="#00aa00" id="7" name="controllers"/>

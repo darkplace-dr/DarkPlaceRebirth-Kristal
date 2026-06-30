@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 108,
+  nextobjectid = 109,
   properties = {
     ["border"] = "garden",
     ["music"] = "deltarune/field_of_hopes_insaneintherain_loop",
@@ -1193,6 +1193,22 @@ return {
           visible = true,
           properties = {
             ["flip"] = true
+          }
+        },
+        {
+          id = 108,
+          name = "dogconegroup",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 680,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["default_state"] = true
           }
         }
       }
