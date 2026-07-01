@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="16">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="4" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="16">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,6 +7,7 @@
   <property name="border" value="leaves"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="hometown"/>
+  <property name="no_shadows" type="bool" value="true"/>
  </properties>
  <imagelayer id="2" name="room" offsetx="240" offsety="0">
   <image source="../../../../../../assets/sprites/world/maps/hometown/apartmentsroom.png" width="160" height="480"/>
@@ -80,7 +81,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#00aa00" id="6" name="controllers">
+ <objectgroup color="#00aa00" id="6" name="objects_overlay">
   <object id="12" name="hometowndaynight" x="0" y="0">
    <point/>
   </object>
