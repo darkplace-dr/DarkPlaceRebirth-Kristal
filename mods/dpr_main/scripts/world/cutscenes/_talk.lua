@@ -116,9 +116,14 @@ return {
                 end
             elseif map == "floortv/green_room" then
                 local susie = cutscene:getCharacter("susie")
+                local jamm = cutscene:getCharacter("jamm") or cutscene:getCharacter("jammarcy")
                 if susie then
                     cutscene:textTagged("* Huh.[wait:5]\n* Even Tenna's Green Room is in this place...", "suspicious", susie)
                     cutscene:textTagged("* I don't recall there being a platter in the room though.", "sus_nervous", susie)
+                    if jamm then
+                        cutscene:textTagged("* Is that a bad thing?", "look_left", jamm)
+                        cutscene:textTagged("* Well,[wait:5] no,[wait:5] but...", "annoyed_down_alt", susie)
+                    end
                 end
             elseif map == "field" then
                 cutscene:text("* (You give a moment of silence for those in need...)")
