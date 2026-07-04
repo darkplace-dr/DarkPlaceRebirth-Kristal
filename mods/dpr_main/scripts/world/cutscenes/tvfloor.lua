@@ -854,6 +854,7 @@ return {
 	end,
 
     atm_vending = function(cutscene, event)
+        Input.clear("confirm")
 		Game:enterShop("atm_vending")
 	end,
 
@@ -882,6 +883,7 @@ return {
 			end
 		end
 		cutscene:hidePoints()
+		Input.clear("confirm")
 		Game:enterShop("atm_vending")
 	end,
 
@@ -910,6 +912,7 @@ return {
 			end
 		end
 		cutscene:hidePoints()
+		Input.clear("confirm")
 		Game:enterShop("legacy_vending")
 	end,
 
