@@ -56,6 +56,7 @@ function item:init()
         ralsei = "I'll keep my place.",
         noelle = "Look, ribbon dancing!",
         jamm = "...What?",
+        calypso = "Aye, I be not very holy...",
         ceroba = "Isn't that the bookmark?"
     }
 end

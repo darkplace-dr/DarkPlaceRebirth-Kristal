@@ -41,7 +41,8 @@ function item:init()
         ralsei = "Aw, you saved me half?",
         noelle = "(Whatever, it's just Kris's...)",
         ceroba = "Not the best soda I had.",
-        jamm = "...What? Soda is soda."
+        jamm = "...What? Soda is soda.",
+        calypso = "It be... plain?",
     }
 end
 

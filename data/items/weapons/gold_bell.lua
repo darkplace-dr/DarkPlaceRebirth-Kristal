@@ -53,7 +53,11 @@ function item:init()
         noelle = "I prefer jingle bells...",
         ostarwalker = "The original                   bell",
         ceroba = "Hits with a jingle?",
-        jamm = "...You're kidding, right?"
+        jamm = {
+            jamm = "...You're kidding, right?",
+            calypso = "Don't ring it in me ear!"
+        },
+        calypso = "...Yer kidding, right?",
     }
 end
 

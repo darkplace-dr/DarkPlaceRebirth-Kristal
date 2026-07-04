@@ -56,8 +56,10 @@ function item:init()
         brenda = "I love apples!",
 		jamm = {
             jamm = "A doctor a day keeps the apple away. Wait...",
-            berdly = "It's \"An apple a day keeps the doctor away.\", of course!" -- nerd (probably too long to see in game lol)
+            berdly = "It's \"An apple a day keeps the doctor away.\", of course!", -- nerd (probably too long to see in game lol)
+            calypso = "You be funny sometimes, Lu."
         },
+        calypso = "Aye, a good fruit.",
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Nom!",
         ceroba = "Perfectly average in sweetness.",

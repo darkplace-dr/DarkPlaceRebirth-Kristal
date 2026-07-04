@@ -57,6 +57,7 @@ function item:init()
         ralsei = "Yum, is this spaghetti?",
         noelle = "Tastes like... jumprope?",
         jamm = "Huh. Roux... Not bad.",
+        calypso = "It's moving...?",
 		dess = "(does a very realistic depiction of dance move titled 'the worm')",
         ceroba = "It's like sauce. (Wait, what's that in it?!)",
     }

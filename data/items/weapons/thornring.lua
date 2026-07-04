@@ -51,6 +51,7 @@ function item:init()
         susie = "A torture device?",
         ralsei = "...",
         jamm = "And I thought Ragger2 was bad...",
+        calypso = "Try it and yer walkin' the plank.",
 		dess = "KILL!!!!!!!!!!!!!!!!!!!!!",
         ceroba = "(Looks painful to wear...)"
     }

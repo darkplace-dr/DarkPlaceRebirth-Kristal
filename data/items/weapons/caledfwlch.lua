@@ -54,6 +54,7 @@ function item:init()
 		dess = "what to heck",
         brenda = "I hate Welsh.",
 		jamm = "Cald.. Cael... Caledfa... No thanks.",
+        calypso = "Ye can't expect me to say it.",
         ceroba = "I won't even try.",
         noel = "Illegible...",
     }

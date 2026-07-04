@@ -54,6 +54,7 @@ function item:init()
 		noelle = "How is this Christmas-themed??",
         brenda = "It sure is green.",
 		jamm = "I know I like green, but...",
+        calypso = "Yer bat be too Christmasy...",   -- not the biggest fan of Christmas. Sorry, Noelle.
         noel = [[I WILL RULE "BASEBALL" ENGLAND!!!]],
         ceroba = "Only for the worthy one, huh?"
     }

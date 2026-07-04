@@ -40,6 +40,7 @@ function item:init()
 	    dess = "aint no fuckin WAY the swiss guard uses these",
         brenda = "Ew, Swiss cheese? Really?",
 	    jamm = "A lot of holes... You sure it's effective?",
+        calypso = "Are we having a snack break?",
         noel = "",
         ceroba = "This... Doesn't look efficient to use."
     }

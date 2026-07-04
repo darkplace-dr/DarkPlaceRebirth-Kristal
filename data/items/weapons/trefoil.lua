@@ -51,6 +51,7 @@ function item:init()
         ralsei = "Not my shade of green...",
         noelle = "Okay! ...? What do you mean, unused!?",
         jamm = "I'm not a billboard!",
+        calypso = "...No.",
 		dess = "unused item alert",
         ceroba = "Lucky charm?",
     }

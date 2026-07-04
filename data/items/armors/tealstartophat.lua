@@ -47,6 +47,7 @@ function item:init()
     self.reactions = {
         bor = "Cool Design",
         jamm = "And for my next trick, my student loans wil disappear!",
+        calypso = "...It be taking me back...",
         ceroba = "Ace would like that one.",
     }
 end

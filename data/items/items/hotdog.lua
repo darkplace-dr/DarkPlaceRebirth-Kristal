@@ -47,6 +47,7 @@ function item:init()
     self.reactions = {
 		jamm = "(Did it bark at me!?)",
         ["jamm+marcy"] = "(Did it bark at us!?)",
+        calypso = "...What.",
 		noel = "Not going to question this.",
         ceroba = "I-is it alive?!",
     }

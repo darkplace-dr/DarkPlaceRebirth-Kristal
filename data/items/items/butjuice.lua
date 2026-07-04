@@ -53,6 +53,7 @@ function item:init()
         noelle = "B-Brainfreeze! ... kidding!",
 		dess = "[joke censored from mod]",
         jamm = "Tastes... Dignified.",
+        calypso = "It be the fanciest thing I ever drank.",
         ["jamm+marcy"] = "Marcy, it's not THAT funny. ...*snrk*",
         noel = "Why is it fluctuating?",
         ceroba = "What a magnificent glow...",

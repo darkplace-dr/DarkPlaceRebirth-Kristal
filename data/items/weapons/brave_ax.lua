@@ -52,6 +52,7 @@ function item:init()
         noelle = "(W-wow, what presence...)",
 		dess = "ffs no",
         jamm = "Too shiny. Don't want to dirty it.",
+        calypso = "It be heavy...",
         ceroba = "Good fit for a hero. But not me.",
         noel = "Flashy yet Fleeting...",
     }

@@ -51,6 +51,7 @@ function item:init()
         susie = "This looks like torture...",
         ralsei = "....",
         jamm = "Jeez! What even IS this ring!?",
+        calypso = "It be lookin' painful...",
         ceroba = "Not even gonna touch that.",
     }
 end

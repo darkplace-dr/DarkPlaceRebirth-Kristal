@@ -51,6 +51,7 @@ function item:init()
         noelle = "Queen... gave this to me.",
         dess = "I'm Wing Desster, the royal scientist!",
         jamm = "Not that I'm a part of her fan club, but...",
+        calypso = "Only since it be defensive...",
         noel = "Ow! MOTHERFU-",
         ceroba = "\"Royal\", huh?",
     }

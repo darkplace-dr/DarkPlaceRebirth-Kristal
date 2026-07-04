@@ -64,6 +64,7 @@ function item:init()
 		dess = "yeah im a gamer",
         brenda = "I can just taste the heart disease.",
 		jamm = "*cough* My throat... *cough*",
+        calypso = "I hate energy drinks...",
 		noel = "Wait, it's not real blood?",
         ceroba = "There's GOTTA be tons of caffeine in there.",
     }

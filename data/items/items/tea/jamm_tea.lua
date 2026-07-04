@@ -33,6 +33,7 @@ function item:init()
         ["dess"] = 60,
         ["hero"] = 20,
         ["jamm"] = 40,
+        ["calypso"] = 200,
         ["mario"] = 65,
         ["pauling"] = 40,
         ["ceroba"] = 70,
@@ -97,6 +98,10 @@ function item:init()
             ceroba = "Black tea. Not bad.",
 			jamm = "...Respect.",
 		},
+        calypso = {
+            calypso = "...Amazing rum...",
+            jamm = "Heh, I'm glad you like it...!", -- blushing
+        },
     }
 end
 

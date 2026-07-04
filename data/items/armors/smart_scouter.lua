@@ -46,6 +46,7 @@ function item:init()
         susie = false,
 	    ostarwalker = false,
         ceroba = false,
+        calypso = false,
     }
 
     -- Character reactions
@@ -58,6 +59,7 @@ function item:init()
 		dess = "IT'S OVER 9000!",
 		ostarwalker = "Doesn't    fits",
 		jamm = "So are they binoculars or something?",
+        calypso = "...This be embarrassing.",
         ceroba = "Technology and I don't exactly mix well.",
     }
 end

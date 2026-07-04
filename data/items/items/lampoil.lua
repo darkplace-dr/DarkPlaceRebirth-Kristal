@@ -29,6 +29,7 @@ function item:init()
 		["dess"] = 90,
         ["brenda"] = nil,
 		["jamm"] = -50,
+        ["calypso"] = nil,
         ["noel"] = -100,
         ["ceroba"] = nil,
         ["hero"] = 50
@@ -56,7 +57,11 @@ function item:init()
         noelle = "Isn't this poisonous!?",
 		dess = "yummy",
         brenda = "No.",
-		jamm = "Not the first time I drank oil. Ow, though...",
+		jamm = {
+            jamm = "Not the first time I drank oil. Ow, though...",
+            calypso = "(I be dating a dunderhead...)",
+        },
+        calypso = "Ye'd be a dunderhead to drink this.",
 		noel = "[color:red]kill me...",
         ceroba = "I'm NOT drinking OIL!",
         hero = "Not the worst thing I've consumed."

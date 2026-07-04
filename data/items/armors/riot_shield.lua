@@ -54,6 +54,7 @@ function item:init()
         brenda = "Sus Among U-",
 	    jamm = "Well, I'm on my way to YouTube. Don't wait up.",	-- Was a politics joke before, you're welcome
         ["jamm+marcy"] =  "Shouldn't make this joke around Marcy...",
+        calypso = "Aye, a big shield...",
         noel = "An oversized mug would be better.",
         ceroba = "Is somebody coming at us?",
     }

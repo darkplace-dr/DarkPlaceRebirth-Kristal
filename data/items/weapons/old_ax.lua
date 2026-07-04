@@ -52,6 +52,7 @@ function item:init()
 	    dess = "damn Wings why'd you make her ax a goner",
         brenda = "",
 	    jamm = "It's quite worn, isn't it...",
+        calypso = "This old thing? Really?",
         noel = "",
         ceroba = "That old stuff? No way."
     }

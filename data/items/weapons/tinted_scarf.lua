@@ -54,6 +54,7 @@ function item:init()
         prince = "Going classy, are we?",
         noelle = "Huh? N-No, I'm not cold.",
 		jamm = "Missed a spot. Yeah, right there.",
+        calypso = "Ye did a bad job on this.",
         noel = "*thumbs up*",
         ceroba = "Painted quite... Badly."
     }

@@ -53,6 +53,7 @@ function item:init()
         noelle = "(Seems... familiar?)",
         dess = "wow this seems familiar for no reason in particular",
         jamm = "Not really a glasses guy, but...",
+        calypso = "I hate it, but...",
         noel = "Can't take em with me.",
         ["jamm+marcy"] = "You look like a real big shot with those, Marcy!",
         ceroba = "Everything looks ugly now.", -- she's not a fan of the pink-yellow filter

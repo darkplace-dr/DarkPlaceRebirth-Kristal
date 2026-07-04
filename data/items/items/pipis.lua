@@ -67,12 +67,21 @@ function item:init()
         ralsei = "Is... that, um, nutritious?",
         noelle = "C... Can we keep it?",
         ceroba = "... that's just a blue ball.",
-        jamm = "Looks like a giant egg..."
+        jamm = "Looks like a giant egg...",
+        calypso = {
+            calypso = "...Sure, why not.",
+            hero = "God...",
+            susie = "DID YOU JUST-",
+            ralsei = "Where'd it go?",
+            noelle = "...",
+            ceroba = "(Did she just...!?)",
+            jamm = "(Oh, so you CAN crack it...)"
+        },
     }
 end
 
 function item:onWorldUse(target)
-    if target.id == "kris" or target.id == "dess" then
+    if target.id == "kris" or target.id == "dess" or target.id == "calypso" then
         -- ????
         Game.world:heal(target, 100)
         return true

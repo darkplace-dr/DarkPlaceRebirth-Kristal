@@ -50,6 +50,7 @@ function item:init()
         ralsei = "It... doesn't feel right...",
         noelle = "I don't understand...",
 		jamm = "Nice! This looks great!",
+        calypso = "I don't understand it, but...",
         ceroba = "Isn't this computer stuff?", -- she means code, she's so stupid (in a nice way :) )
     }
 end

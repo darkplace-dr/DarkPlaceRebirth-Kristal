@@ -55,7 +55,10 @@ function item:init()
 		susie = "Never heard of em'.",
 		noelle = "Baseball is Dess' thing...",
         brenda = "I prefer the Bluejays.",
-		jamm = "DAYTON DRAGONS!",
+		jamm = {
+            jamm = "DAYTON DRAGONS!",
+            calypso = "DAYTON DRAGONS!"
+        },
         ceroba = "Mets, mets... What is that?",
         noel = "ok",
     }

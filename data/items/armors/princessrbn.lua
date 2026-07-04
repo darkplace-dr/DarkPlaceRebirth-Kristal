@@ -56,6 +56,7 @@ function item:init()
         noelle = "Kris, you can wear the gloves!",
         dess = "it increases atk thats cool",
         jamm = "I'm already wearing gloves!",
+        calypso = "...I'll bite.",
         ceroba = "Not a big royalty fan."
     }
 end

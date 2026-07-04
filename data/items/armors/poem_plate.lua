@@ -21,6 +21,7 @@ function item:init()
     self.bonus_icon = nil
     self.can_equip = {
         noel = false,
+        calypso = false,
     }
     self.reactions = {
         susie = "What, you want me to read it? Hell no.",
@@ -30,6 +31,7 @@ function item:init()
         ceroba = "How did they write on THAT?",
         noel = "Just no",
         jamm = "I've been meaning to read more...",
+        calypso = "It's not fer me...",
     }
 end
 

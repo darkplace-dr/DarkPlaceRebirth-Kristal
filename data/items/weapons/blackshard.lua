@@ -54,6 +54,7 @@ function item:init()
         susie = "... how is this a weapon?",
         ralsei = "I... shouldn't use it.",
         jamm = "...And you got this from the Knight?",
+        calypso = "I don't trust this.",
         ceroba = "I just... Don't trust this thing."
     }
 end

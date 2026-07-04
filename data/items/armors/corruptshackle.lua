@@ -55,7 +55,11 @@ function item:init()
         noelle = "(Smells like Susie...)",
         dess = "I feel just like Halojack Metropolis",
         brenda = "Jeez it's hard to move my head...",
-        jamm = "No thanks. Not after last time.",
+        jamm = {
+            jamm = "No thanks. Not after last time.",
+            calypso = "That was a crazy night...",
+        },
+        calypso = "Aye, it be cool...",
         noel = "Now I can be an edgy bitch.",
         ceroba = "I'd rather not."
     }

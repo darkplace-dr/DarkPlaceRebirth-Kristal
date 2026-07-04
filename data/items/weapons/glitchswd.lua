@@ -46,6 +46,7 @@ function item:init()
         hero = "Wow. Really funny.",
         susie = "... what are you trying to equip?",
         jamm = "Uh... what?",
+        calypso = "Ye concern me, landubber...",
         ceroba = "Huh? What sword?"
     }
 end

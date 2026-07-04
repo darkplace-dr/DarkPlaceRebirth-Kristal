@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
 		susie = false,
 		dess = false,
+        calypso = false,
 	}
 
     -- Character reactions
@@ -55,6 +56,7 @@ function item:init()
 		dess = "These are for femboys",
         brenda = "D-do I look cute?",
 		jamm = "For (i = 0, i < 2, i++), equip socks.", -- he doesn't get it
+        calypso = "...What.",
         noel = "*wears like gloves* Same stats...",
         ceroba = "I mean, those are just socks, so...",
     }

@@ -51,6 +51,7 @@ function item:init()
         ralsei = "Are you... proposing?",
         noelle = "(Thank goodness...)",
         jamm = "It's pretty cold, huh...",
+        calypso = "...No.",
 		dess = "snowgrave route heheheheh",
         ceroba = {
             ceroba = "I'm a widow, but not free to take.",

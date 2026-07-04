@@ -51,6 +51,7 @@ function item:init()
         ralsei = "*Chapter 1 flashbacks*",
         noelle = "I-is that a gun!?",
         jamm = "Can't even aim a gun.",
+        calypso = "I'm not a good aim...",
 		dess = "if only game programming would allow it",
         ceroba = "Guns are... Not my type."
     }

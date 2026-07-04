@@ -53,6 +53,7 @@ function item:init()
         noelle = "Such a soothing sound...",
 		dess = "kickass",
 		jamm = "Ooh! Spine tingling, I love it!",
+        calypso = "Feels like I be at sea again...", -- TODO: Synth for Calypso
 		noel = "The Meat Factory.",
         ceroba = "Huh? That sounds familiar...",
     }

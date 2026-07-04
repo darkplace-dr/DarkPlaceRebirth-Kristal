@@ -52,6 +52,7 @@ function item:init()
         ralsei = "If I have to fight...",
         noelle = "(Feels like guitar strings...)",
         jamm = "It feels weird...",
+        calypso = "...It be staring...",
 		dess = "smth smth dess guitar",
         ceroba = "String scarf? No thanks."
     }

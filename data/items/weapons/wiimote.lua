@@ -61,6 +61,7 @@ function item:init()
     self.reactions = {
 		jamm = "Oh, sweet! I remember this!",
         ["jamm+marcy"] = "You ever use one of these, Marcy?",
+        calypso = "...Yer serious?",
 		dess = {
 			dess = "oh sick",
 			jamm = "The wrist strap! Use the wrist strap!",

@@ -56,6 +56,7 @@ function item:init()
         brenda = "Somebody get me some holy water.",
         noel = "This is mockery.",
 		jamm = "Is this Nyarla's? No? Okay then.",
+        calypso = "This be too evil for me.",
         ceroba = "That thing is EVIL."
     }
 end

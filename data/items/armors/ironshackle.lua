@@ -50,8 +50,15 @@ function item:init()
         ralsei = "*jingle jangle* Haha!",
         noelle = "I'm the ghost of holidays past!",
         dess = "holy shit terraria reference?????",
-        jamm = "Relatable.",
-        ["jamm+marcy"] = "Relatable. // What do you mean, papa?",
+        jamm = {
+            jamm = "Relatable.",
+            calypso = "Crazy night..."
+        },
+        ["jamm+marcy"] = {
+            jamm = "Relatable. // What do you mean, papa?",
+            calypso = "Crazy night..."
+        },
+        calypso = "Huh, neat.",
         noel = "Am I being detained?",
         ceroba = "Surprisingly light.",
     }

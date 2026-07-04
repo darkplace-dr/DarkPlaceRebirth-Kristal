@@ -47,9 +47,13 @@ function item:init()
     self.reactions = {
         susie = "I'M RICH!!",
         ralsei = "So shiny, haha!",
-        noelle = "I think I had a few jewels like that?", -- maybe I'm overestimating the Holidays' riches but I mean if she get tired of eating CAVIAR...
+        noelle = "I think I had a few jewels like that?", -- maybe I'm overestimating the Holidays' riches but I mean if she get tired of eating CAVIAR... -- she also has hundreds of dollars at the festival, I think you predicted this well
         dess = "man i love debt",
         jamm = "I GUESS I could take another.",
+        calypso = {
+            calypso = "This be digital currency?",
+            jamm = "Well, not exactly..."
+        }
         noel = "",
         ceroba = "Is that... Real gold?",
     }

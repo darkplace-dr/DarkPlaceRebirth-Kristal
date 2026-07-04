@@ -51,6 +51,7 @@ function item:init()
         noelle = "It goes with my watch!",
         dess = "chaching",
         jamm = "(Did they max it out...?)",
+        calypso = "(This be a lot o' power...)",
         noel = "How do I use one of these?",
         ceroba = "Wasn't this amber??",
     }

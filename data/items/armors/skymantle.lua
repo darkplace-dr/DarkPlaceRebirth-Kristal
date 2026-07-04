@@ -49,7 +49,11 @@ function item:init()
     self.reactions = {
 		dess = "nonfunctional lol",
         noel = "I just don't want it.",
-        jamm = "Huh, like when I was a kid.",
+        jamm = {
+            jamm = "Huh, like when I was a kid.",
+            calypso = "You always knew how to make me laugh..."
+        },
+        calypso = "Aye, it wraps well...",
         ceroba = "Kind of like Asgore's...",
     }
 

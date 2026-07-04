@@ -53,6 +53,7 @@ function item:init()
         jamm = true,
         mario = true,
         pauling = true,
+        calypso = false,
     }
 
     -- Character reactions
@@ -64,6 +65,7 @@ function item:init()
         brenda = "Does it say something?",
         noel = "no...",
 		jamm = "What did you say about Ania!?",
+        calypso = "It be confusing...",
         ceroba = "Those are just numbers...",
         hero = "Good, I can't count.",
         mario = "I'm fucking Mario.",

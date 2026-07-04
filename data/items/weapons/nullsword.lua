@@ -59,6 +59,7 @@ function item:init()
         brenda = "Does it say something?",
         noel = "no...",
 		jamm = "You know corruption spreads, right?",
+        calypso = "This feels wrong...",
         ceroba = "Don't ask me to equip that.",
         mario = "I'm fucking Mario.",
     }

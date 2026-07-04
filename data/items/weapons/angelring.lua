@@ -61,6 +61,7 @@ function item:init()
             jamm = "IT'S NOT FOOD!!",
             brenda = "DON'T EAT THAT!!",
             kangel = "DON'T EAT THAT!!",
+            calypso = "DON'T YE EAT THAT!!",
             noel = "WHY IS EVERYONE YELLING?!",
             dess = "lol",
         },
@@ -68,7 +69,11 @@ function item:init()
         noel = "Angel...? No...",
         noelle = "It's beautiful...!",
         kangel = "It goes with my outfit!",
-		jamm = "I'm... Already taken...",
+		jamm = {
+            jamm = "I'm... Already taken...",
+            calypso = "Aye. Back off.",
+        },
+        calypso = "Aye, not fer me...",
         ceroba = "I'm nowhere close to an angel..."
     }
 end

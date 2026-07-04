@@ -30,6 +30,7 @@ function item:init()
         ["dess"] = 25,
         ["brenda"] = 30,
 		["jamm"] = nil,
+        ["calypso"] = 35,
         ["noel"] = 300,
         ["ceroba"] = 30,
 	}
@@ -57,6 +58,7 @@ function item:init()
         brenda = "WAS THAT THE BITE OF 87?!",
 		jamm = "Hold on. There are mushrooms.",
         ["jamm+marcy"] = "You're a picky eater too, huh, Marcy?",
+        calypso = "This takes me back.",
 		noel = "So, THIS is a PIZZA!",
         ceroba = "Fancy.",
 	}

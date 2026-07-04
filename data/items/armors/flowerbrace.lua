@@ -51,6 +51,7 @@ function item:init()
         noel = false,
         dess = false,
         ceroba = false,
+        calypso = false,
 	}
 
     -- Character reactions
@@ -61,6 +62,7 @@ function item:init()
         noelle = "(It doesn't fit...?)",
         brenda = "This uh... isn't mine.",
 		jamm = "Thank you, Ania. I won't forget this.",
+        calypso = "Lu would get better use of it.",
 		mario = {
 			mario = "Blech! That tastes like shit!",
 			jamm = "Did you try to eat it!?",

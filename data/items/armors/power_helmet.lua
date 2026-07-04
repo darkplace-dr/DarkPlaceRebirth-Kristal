@@ -55,6 +55,7 @@ function item:init()
 		dess = "fucking lazy item",
         brenda = "Hopefully this doesn't mess up my hair.",
 	    jamm = "Always wanted to play Football. No, not Soccer.",
+        calypso = "Better than nothing...",
         noel = "Better safe then sorry?",
         ceroba = "It's pressing against my ears...",
     }

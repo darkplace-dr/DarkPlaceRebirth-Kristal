@@ -54,7 +54,11 @@ function item:init()
 		dess = ":)",
         ceroba = "(Kanako would love it...)",
         noel = "blatant lie",
-        jamm = "I never was a good cheerleader...",
+        jamm = {
+            jamm = "I never was a good cheerleader...",
+            calypso = "That's where yer wrong, Lu."
+        },
+        calypso = "Yer scarf lies...",
     }
 end
 

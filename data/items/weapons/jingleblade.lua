@@ -54,6 +54,7 @@ function item:init()
         ralsei = "Mmm! Minty and festive!",
         noelle = "What is this, a barber pole?",
         jamm = "I know Susie'd try to eat this.",
+        calypso = "Yer sword be in bright colors...",
         ceroba = "Smells like holidays."
     }
 end

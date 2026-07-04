@@ -39,6 +39,7 @@ function item:init()
     -- Character reactions (key = party member id)
     self.reactions = {
         jamm = "HAPPY 1 YEAR, DEOXYNN!",
+        calypso = "It be free Vitamin C...",
         dess = "ew fruit",
         mario = "Blech! That tastes like shit!",
         brenda = {

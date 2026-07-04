@@ -32,6 +32,7 @@ function item:init()
         ["dess"] = placeholder,
         ["hero"] = 20,
         ["jamm"] = 60,
+        ["calypso"] = 50,
         ["mario"] = placeholder,
         ["pauling"] = 10,
         ["ceroba"] = 20,
@@ -65,6 +66,7 @@ function item:init()
 		jamm = {
 			jamm = "It tastes like... eggs? Neat!",
 		},
+        calypso = "...Egg yolk?",
         ceroba = "I can barely taste anything...",
     }
 end

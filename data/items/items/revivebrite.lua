@@ -50,6 +50,7 @@ function item:init()
         noelle = "What are you throwing?",
 		dess = "oh shiit food fight",
         jamm = "Mints aren't my favorite, but...",
+        calypso = "Tastes cold...",
         ceroba = "Could've just gave it normally...",
     }
 end

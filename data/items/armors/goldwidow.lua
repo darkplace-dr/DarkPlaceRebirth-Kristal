@@ -53,6 +53,7 @@ function item:init()
         ralsei = "Itsy and/or bitsy!",
         noelle = "E-Ew! Kris, get that away!",
         jamm = "(Does this apply to me...?)",
+        calypso = "It be made of gold...!",
         ceroba = "Widow to widow."
     }
 end

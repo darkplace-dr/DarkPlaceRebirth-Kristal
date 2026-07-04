@@ -41,7 +41,11 @@ function item:init()
         ralsei = "... the hymn of the prophecy.",
         noelle = "(... Kris would never join choir...)",
         ceroba = "Choir in a teapot?",
-        jamm = "Brings me back..."
+        jamm = "Brings me back...",
+        calypso = {
+            calypso = "(Jamm's singing...)",
+            jamm = "...What's with that look, Callie?",
+        },
     }
 end
 

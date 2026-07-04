@@ -35,6 +35,7 @@ function item:init()
     self.can_equip = {
         susie = false,
         mario = false,
+        calypso = false,
     }
 
     self.reactions = {
@@ -53,7 +54,8 @@ function item:init()
         ceroba = "(Are those... Asgore's kids?)",
         noel = "oh... you found it...",
         jamm = "It's just like...",
-        ["jamm+marcy"] = "Just like yours, Marcy..."
+        ["jamm+marcy"] = "Just like yours, Marcy...",
+        calypso = "Aye, who be this?",
     }
 
     self.light_item = "undertale/heart_locket"

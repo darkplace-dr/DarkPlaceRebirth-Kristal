@@ -50,7 +50,11 @@ function item:init()
         ralsei = "Can I have suspenders?",
         noelle = "... do I put it in my hair?",
         dess = "holy shit is that a spamtong reference????",
-        jamm = "So, how do I look?",
+        jamm = {
+            jamm = "So, how do I look?",
+            calypso = "Ye be lookin' great, Lu!"
+        }
+        calypso = "I can tie me hair with it...",
         noel = "What brand is this?",
         ["jamm+marcy"] = "So, how do I look, Marcy? // It looks great!",
         ceroba = "Looking official."

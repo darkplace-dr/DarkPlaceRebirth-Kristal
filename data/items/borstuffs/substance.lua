@@ -46,7 +46,8 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noel = false,
-        ceroba = false
+        ceroba = false,
+        calypso = false,
     }
 
     -- Character reactions (key = party member id)
@@ -61,6 +62,7 @@ function item:init()
         berdly = "I-W-What?! I'm sorry, my friend. But even a GAMER has STANDARS.",
 		jamm = "A friend with herb is a true friend.",
         ["jamm+marcy"] = "I'll... I'll take this, Marcy.",
+        calypso = "...No.",
 		mario = "Mario's got to piss.",
         noel = "No.",
         ceroba = "Who the fuck do you think I am!?"

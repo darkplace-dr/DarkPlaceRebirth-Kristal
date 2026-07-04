@@ -44,6 +44,7 @@ function item:init()
         noelle = 40,
         jamm = 70,
         ceroba = 130, -- experienced katana wielder, probably counts as a sword
+        calypso = 150,
     }
 end
 

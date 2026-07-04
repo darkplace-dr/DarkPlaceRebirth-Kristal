@@ -52,6 +52,7 @@ function item:init()
         dess = "aw dang it",
         jamm = "No stranger to this.",
         ["jamm+marcy"] = "I gamble in moderation, Marcy.",
+        calypso = "I take risks in me life anyway.",
         ceroba = "Gambling is bad, children." -- but she'll do it anyway lol
     }
 end

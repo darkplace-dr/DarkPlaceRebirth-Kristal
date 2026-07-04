@@ -33,6 +33,7 @@ function item:init()
 		["dess"] = 20,
         ["brenda"] = 40,
 		["jamm"] = 0,
+        ["calypso"] = 60,
         ["noel"] = 999999999999999999999999999999, --fucking send him
 		-- :salute:
         ["ceroba"] = 60,
@@ -69,6 +70,7 @@ function item:init()
 		dess = "I don't trust it",
         brenda = "Never really been a fan.",
 		jamm = "Alright. I punched it. What next?",
+        calypso = "(Just like at sea...)",
         noel = "I AM WHO IS ALL YET NONE!!!",
         ceroba = "So many fruit flavors...",
     }

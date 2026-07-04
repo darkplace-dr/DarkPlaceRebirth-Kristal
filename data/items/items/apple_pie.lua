@@ -30,6 +30,7 @@ function item:init()
 		["dess"] = 250,
         ["brenda"] = 60,
 		["jamm"] = 99999,
+        ["calypso"] = 90,
         ["ceroba"] = 110
 	}
 
@@ -64,6 +65,7 @@ function item:init()
 		dess = "YEAH WOO AMERICA BABY YEAH",
         brenda = "Eh, pumpkin's better.",
 		jamm = "I'm lovin' it!",
+        calypso = "Aye, good pie!",
         ["jamm+marcy"] = "I'm lovin' it! // What?",
 		noel = "I wish I had a grandma.",
         ceroba = "It's really good!",

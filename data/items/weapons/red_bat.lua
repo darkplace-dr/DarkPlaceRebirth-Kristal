@@ -51,6 +51,10 @@ function item:init()
         ralsei = "An interesting shape!",
         noelle = "(It kind of reminds me of...)",
         jamm = "How does this even work...?",
+        calypso = {
+            calypso = "It be like a fiddle...",
+            jamm = "Well, it's a guitar..."
+        }
 		dess = "let's rock",
         ceroba = "Huh? That's a BAT?"
     }

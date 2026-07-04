@@ -55,6 +55,7 @@ function item:init()
         dess = "now i can go toe to toe with that BITCH catty", -- who tf wrote this lmao
         jamm = "Ehh... Okay...?",
         ["jamm+marcy"] = "You want this, Marcy? Eh, sure...",
+        calypso = "...It be decent for me hair, at least.",
         noel = "Perfect for reverse weddings!",
         ceroba = "This might be just as old as me.",
     }

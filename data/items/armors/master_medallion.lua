@@ -50,6 +50,7 @@ function item:init()
         noelle = "",
         jamm = "I feel like a master!",
         ceroba = "I'm not sure if it's a good idea...",
+        calypso = "Aye aye, captain!",
     }
 
     -- Character reactions to wearing two
@@ -59,6 +60,7 @@ function item:init()
         noelle = "",
         jamm = "The ultimate daredevil!!!",
         ceroba = "... at least I still have my shield.",
+        calypso = "Full speed ahead!",
     }
 end
 

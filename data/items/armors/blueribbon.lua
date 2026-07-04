@@ -56,6 +56,7 @@ function item:init()
         noelle = "Go...  t... team?",
         dess = "ew i hate healing things",
         jamm = "GO US!",
+        calypso = "I'll tie me hair with it...",
         ceroba = "I don't... Do healing."
     }
     -- Ralsei cheer reactions (advanced on each equip)

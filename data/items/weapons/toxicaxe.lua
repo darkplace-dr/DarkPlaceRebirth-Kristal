@@ -53,6 +53,7 @@ function item:init()
         noelle = "N-no way! Susie wouldn't use that!",
         dess = "i wana eat dirt",
         jamm = "How'd you even...",
+        calypso = "I may be a pirate, but I have standards.",
         ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
     }
 end

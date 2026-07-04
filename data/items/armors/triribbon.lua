@@ -59,6 +59,7 @@ function item:init()
         dess = "why did you had to mix them",
         jamm = "Woah! Pop idle much???",
         ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
+        calypso = "It be a new way to tie me hair...",
         noel = "THREE bracelets??",
         ceroba = "Good thing I have enough hair for that.",
     }

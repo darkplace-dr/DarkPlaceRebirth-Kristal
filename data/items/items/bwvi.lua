@@ -30,6 +30,7 @@ function item:init()
         dess = nil,
         brenda = 60,
 		jamm = 60,
+        calypso = 60,
         noel = 60,
     }
 
@@ -61,6 +62,7 @@ function item:init()
         noelle = "(I'll just lick it off...)",
 		dess = "throw it at a window instead",
 		jamm = "Remind me to visit the dentist after this.",
+        calypso = "...How did that work?",
         ceroba = "I'm NOT eating the brick.",
         berdly = "Afraid I'll have to leave the solid part.",
     }

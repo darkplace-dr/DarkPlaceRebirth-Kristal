@@ -54,6 +54,7 @@ function item:init()
 	    dess = "Yo is that a kirby reference??????",
         brenda = "I look good in this!",
         jamm = "Oops, put it on backwards! Let me just... There we go!",
+        calypso = "Me tail sticks out...",
         noel = "Smells like cats!!! :D",
         ceroba = "Thanks, I have my own.",
     }

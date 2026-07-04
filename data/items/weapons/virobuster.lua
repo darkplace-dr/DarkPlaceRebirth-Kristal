@@ -55,6 +55,7 @@ function item:init()
         dess = "woah it hates me, cool!",
         brenda = "Yeah uh, keep that away from me please.",
 		jamm = "Hey, can I use this for Deoxynn? No? Damn...",
+        calypso = "I don't have any buster moves.",
         ceroba = "Not really useful to me.",
         noel = "(Not yet.)",
     }

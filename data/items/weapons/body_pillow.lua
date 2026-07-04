@@ -55,7 +55,11 @@ function item:init()
         suzy = "...That's armor AT BEST.",
 		noelle = "Maybe we can replace the sleeve...",
         brenda = "Why do we have this?",
-		jamm = "I am not THAT desperate...",
+		jamm = {
+            jamm = "I am not THAT desperate...",
+            calypso = "Lu..."
+        },
+        calypso = "...Ye can't be serious.",
         ceroba = "No.",
         noel = "Soft, Sad, and Ineffective."
     }

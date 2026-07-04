@@ -54,6 +54,7 @@ function item:init()
 		dess = "happy easter",
         jamm = "That's a LOT of sugar.",
         ["jamm+marcy"] = "Here. We'll split it, Marcy.",
+        calypso = "It be powerful, at least...",
         ceroba = "Are we celebrating something?",
     }
 end

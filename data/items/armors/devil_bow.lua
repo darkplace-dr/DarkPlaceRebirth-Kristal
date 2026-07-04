@@ -49,6 +49,7 @@ function item:init()
         noel = "Oh, fucking thanks I *really* needed a debuff.",
         ceroba = "That choice is on you.",
         jamm = "This is insane...",
+        calypso = "Aye, a challenge...",
     }
 end
 

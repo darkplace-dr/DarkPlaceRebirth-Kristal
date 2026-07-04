@@ -36,6 +36,7 @@ function item:init()
         dess = "HELL YEAH AN AMERICAN CLASSIC!!!!",
         brenda = "The perfect midnight snack.",
         jamm = "Can't go wrong with a chunk of swiss.",
+        calypso = "...Sandwich, anyone?",
         ceroba = "Needs some bread.",
         berdly = "Feels synthetic. Not just me, right?",
     }

@@ -57,6 +57,7 @@ function item:init()
         noel = "Insufficent.",
         hero = "This thing is BUSTED!",
         jamm = "I don't have a green thumb.",
+        calypso = "Ye want me to farm for you?",
     }
 end
 

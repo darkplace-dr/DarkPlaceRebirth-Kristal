@@ -51,7 +51,11 @@ function item:init()
         susie = "Watch this, old man!",
         ralsei = "... isn't Susie amazing?",
         noelle = "... Susie beat up an old man!?",
-        jamm = "So you... robbed an old guy?",
+        jamm = {
+            jamm = "So you... robbed an old guy?",
+            calypso = "That be NOT what they said!"
+        },
+        calypso = "This be very impressive, but alas...",
         ceroba = "It's like from a history book..."
     }
 end

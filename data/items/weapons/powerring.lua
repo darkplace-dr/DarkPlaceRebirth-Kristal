@@ -54,7 +54,11 @@ function item:init()
 		dess = "NOOO, MY PRECIOUS POWER RING, GONE FOREVER, AUGHHHHHHHHH",
         noel = "NOOO, MY-... wait a minute...",
         brenda = "I've seen better rings sold at toy stores.",
-		jamm = "My wife wouldn't like that... Oh, right...",
+		jamm = {
+            jamm = "Sorry, taken.",
+            calypso = "Aye. Back off."
+        },
+        calypso = "It doesn't even fit.",
         ceroba = "That's... Plastic."
     }
 end

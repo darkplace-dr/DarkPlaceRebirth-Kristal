@@ -66,6 +66,7 @@ function item:init()
         },
 		dess = "do you get it",
 		jamm = "Not the first stolen food I ate.",
+        calypso = "...It be fair to steal it.",
 		noel = "If this was green I would die.",
         ceroba = "What? It's STOLEN?",
         berdly = "Don't worry, it's stolen from mere NPCs.",

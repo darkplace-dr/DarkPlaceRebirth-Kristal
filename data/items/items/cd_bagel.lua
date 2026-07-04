@@ -53,6 +53,7 @@ function item:init()
         noelle = "What a nice song...",
 		dess = ">look inside >cd",
         jamm = "So what decides these songs?",
+        calypso = "...The wind of the waves.",
         noel = "I'm seeing stars.",
         ceroba = "Sounds like memories...",
         brenda = "Sounds like home."
@@ -64,6 +65,7 @@ function item:init()
         ["ralsei"] = "cd_bagel/ralsei",
         ["noelle"] = "cd_bagel/noelle",
 		["jamm"] = "cd_bagel/jamm",
+		["calypso"] = "cd_bagel/calypso",
 		["noel"] = "cd_bagel/noel",
     }
 end

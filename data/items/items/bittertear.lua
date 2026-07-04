@@ -38,6 +38,10 @@ function item:init()
         noelle = "It's like when we ate snow.",
         ceroba = "Not much difference from water.",
         jamm = "So... it's water.",
+        calypso = {
+            calypso = "It be the same as the sea.",
+            jamm = "(Have you tasted seawater?)",
+        },
         berdly = "Quite a creative water rebrand, I must say.",
     }
 end

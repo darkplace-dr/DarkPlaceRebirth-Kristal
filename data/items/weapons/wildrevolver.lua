@@ -59,6 +59,7 @@ function item:init()
         ceroba = "(... just like the one Clover had.)",
         noel = "(Pretty.)",
         jamm = "Never been of a fan of 6-shooters.",
+        calypso = "I'm not good at me aiming...",
     }
 end
 

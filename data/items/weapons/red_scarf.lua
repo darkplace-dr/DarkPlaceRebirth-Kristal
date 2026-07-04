@@ -52,6 +52,7 @@ function item:init()
         ralsei = "Comfy! Touch it, Kris!",
         noelle = "Huh? No, I'm not cold.",
         jamm = "Red is... not my color.",
+        calypso = "It be soft...",
 		dess = "fgdsfgsdfgsdf",
         ceroba = "Cloth as a weapon? I'd rather not."
     }

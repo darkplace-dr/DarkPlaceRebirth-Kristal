@@ -51,6 +51,7 @@ function item:init()
         noelle = "This smells amazing! Um, sorry.",
         dess = "nom",
         jamm = "Christmas time already...?",
+        calypso = "It smells of gingerbread...",
         ceroba = "(If only I could bake...)"
     }
 end

@@ -48,6 +48,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         jamm = "I suppose it's better...",
+        calypso = "I can't hold yer weapon.",
         noel = "(Hey, it fits in my hand.)",
 		dess = "still hate stardew",
         ceroba = "I can hold it fine, but... No."

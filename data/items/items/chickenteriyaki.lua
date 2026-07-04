@@ -31,6 +31,7 @@ function item:init()
         ["dess"] = 10,
         ["brenda"] = 60,
 		["jamm"] = 999,
+        ["calypso"] = 500,
 		["mario"] = 10,
         ["pauling"] = 60,
         ["ceroba"] = 100,
@@ -64,6 +65,10 @@ function item:init()
 		dess = "needs more salt lmao",
 		jamm = "I missed this... It's so good!",
         ["jamm+marcy"] = "Like your mother used to make, right, Marcy?",
+        calypso = {
+            calypso = "...Marcy made this?",
+            jamm = "I know, right?"
+        },
 		mario = "Blech! That tastes like shit!",
         ceroba = "Tastes really good!",
         berdly = "*visible discomfort*", -- he's eating another bird not a very great feeling probably

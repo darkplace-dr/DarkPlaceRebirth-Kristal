@@ -19,7 +19,7 @@ function item:init()
     self.description = "A plate of spaghetti. It smells terrible. Maybe someone will like it?"
 
     -- Amount this item heals for specific characters
-	-- !! This item is specifically for Jamm. Please don't raise your number too much. !!
+	-- !! This item is specifically for Jamm. Please don't raise your number too much. !!   -- what
     self.heal_amounts = {
         ["kris"] = 0,
         ["susie"] = 0,
@@ -32,6 +32,7 @@ function item:init()
 		["mario"] = 999,
         ["pauling"] = 0,
         ["ceroba"] = 0,
+        ["calypso"] = 0,
 	}
 
     -- Default shop price (sell price is halved)
@@ -54,6 +55,7 @@ function item:init()
 		dess = "who taught that guy how to cook?",
 		jamm = "I finally understand Gordon Ramsay...",
         ["jamm+marcy"] = "You don't like it either, do you? It's okay!",
+        calypso = "I thought it couldn't get worse...",
 		mario = "That's-a so nice!",
         ceroba = "What's this even made from?!"
 	}

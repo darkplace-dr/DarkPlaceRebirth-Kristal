@@ -53,6 +53,7 @@ function item:init()
         ralsei = "Why, thank you!",
         noelle = "It's not liquid...",
         jamm = "I mean... Can't really complain.",
+        calypso = "So... huh?",
         ceroba = "I just hope it's not really cotton.",
     }
 end

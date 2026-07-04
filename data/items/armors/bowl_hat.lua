@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ceroba = false,
+        calypso = false,
     }
 
     -- Character reactions
@@ -52,6 +53,7 @@ function item:init()
         noelle = "How it's not falling off?",
         dess = "Yummy wood",
         jamm = "Why?",
+        calypso = "...Ye gotta be kidding.",
         brenda = "Its soo sturdy!",
         mario = "Weege!",
         noel = "How can this defend at all?",

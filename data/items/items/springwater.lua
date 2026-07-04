@@ -66,6 +66,7 @@ function item:init()
 		jamm = "r/hydrohomies",
 		noel = "Stay Hydrated!",
         ceroba = "It's good to stay hydrated.",
+        calypso = "It be not salt water, at least.",
     }
 	
 	--self.light_item = "light/gamerblood"

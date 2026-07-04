@@ -57,6 +57,7 @@ function item:init()
 		dess = "im not gonna sugarcoat it",
         brenda = "So I can just say \"no\" to damage sometimes with this?",
 		jamm = "Oof! It's heavy...",
+        calypso = "Aye, this be me style!",
 		mario = "Mario feels like a gladiator again.",
         noel = "(My quirk does a better job.)",
         ceroba = "Now that's some protection.",

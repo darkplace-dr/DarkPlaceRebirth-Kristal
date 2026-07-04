@@ -46,6 +46,7 @@ function item:init()
         hero = true,
         noelle = true,
         kris = true,
+        calypso = true,
     }
 
     -- Character reactions
@@ -56,7 +57,8 @@ function item:init()
         noelle = "(It... fits?)",
         dess = "can i eat it",
         ceroba = "I'm not playing with electricity.",
-        jamm = "It won't even go on my hand!"
+        jamm = "It won't even go on my hand!",
+        calypso = "Aye, it suits me just fine!",
     }
 end
 

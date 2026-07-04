@@ -30,6 +30,7 @@ function item:init()
         ["noelle"] = 30,
 		["dess"] = 80,
 		["jamm"] = 70,
+        ["calypso"] = 90,
 		["noel"] = 400,
         ["ceroba"] = 60,
     }
@@ -72,7 +73,11 @@ function item:init()
         ralsei = "Aah, sticky...",
         noelle = "Mmm... what!? It's blood!?",
 		dess = "haha blood",
-        jamm = "AcousticJAMM.",
+        jamm = {
+            jamm = "AcousticJAMM.",
+            calypso = "(Cute...)"
+        },
+        calypso = "...Not bad.",
         ["jamm+marcy"] = "AcousticJAMM. // MarcyJAMM.",
         noel = "Chewy!",
         ceroba = "What kind of jam is this? Cherry?"

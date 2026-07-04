@@ -50,6 +50,7 @@ function item:init()
         noelle = "(I'll... just pretend to drink it...)",
 		dess = "this sucks good",
         jamm = "Blech! What is this!?",
+        calypso = "...Been poisoned before. It be nothing new.",
         ceroba = "Yeah, uh... No.",
     }
 

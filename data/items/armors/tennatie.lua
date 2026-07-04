@@ -52,6 +52,7 @@ function item:init()
         noelle = "Look, I'm like a gift!",
         dess = "now i can look stupid",
         jamm = "I'll just... wrap it around my arm.",
+        calypso = "It could... Tie me hair???",
         ceroba = "Guess it can go in my hair..."
     }
 end

@@ -42,6 +42,7 @@ function item:init()
         noelle = "Caviar AGAIN?",
         ceroba = "Those are WHAT!?", -- girl learns about the fish eggs
         jamm = "Never liked the fancy shit...",
+        calypso = "It be very extravagant...",
         ["jamm+marcy"] = "Never liked the fancy stuff..."
     }
 end

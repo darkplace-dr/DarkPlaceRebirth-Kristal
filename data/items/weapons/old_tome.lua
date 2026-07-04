@@ -53,6 +53,10 @@ function item:init()
 		dess = "I'm REALLY not a fucking nerd",
         brenda = "Ooo, I love books!",
 		jamm = "They don't pay me enough for this!",
+        calypso = {
+            calypso = "Aye, I can't read this...",
+            jamm = "I didn't know you learned to read."
+        }
         ceroba = "Looks older than me..."
     }
 end

@@ -50,6 +50,7 @@ function item:init()
         noelle = "This is uncomfortable...",
         dess = "ewwwwww old games suck i only like rtx games",
         jamm = "I always forget how high up to put these...",
+        calypso = "This be uncomfortable...",
         noel = "dunno",
         ceroba = "It's a struggle to even put it on...",
     }

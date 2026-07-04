@@ -52,7 +52,11 @@ function item:init()
         ralsei = "Seems illegal...",
         noelle = "(Too dangerous...)",
         brenda = "Ooo I always wanted a revolver!",
-		jamm = "Why, Hornet...?",
+		jamm = {
+            jamm = "Why, Hornet...?",
+            calypso = "Do I be missing something?"
+        },
+        calypso = "There be no bullets...",
         ceroba = "Just don't give it to kids, please." -- Clover reference
     }
 end

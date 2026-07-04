@@ -25,7 +25,8 @@ function item:init()
     -- Amount this item heals for specific characters
     self.heal_amounts = {
         ["jamm"] = 0,
-        ["ceroba"] = 0
+        ["ceroba"] = 0,
+        ["calypso"] = 0,
     }
 
     -- Default shop price (sell price is halved)
@@ -60,6 +61,7 @@ function item:init()
         ceroba = "Hell no.",
         jamm = "Nope. I'm drawing the line here.",
         ["jamm+marcy"] = "We're not eating this.",
+        calypso = "...Ye can't be serious.",
         brenda = "Placeholder mud dialogue!",--Placeholder dialogue, please replace, Brenda
         berdly = "These are yummy worms.", --Placeholder dialogue, replace if you want
         dess = "Mmm yummy dirt",  --Placeholder dialogue, replace if you want

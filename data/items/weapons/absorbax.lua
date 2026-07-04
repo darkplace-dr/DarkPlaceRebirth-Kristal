@@ -51,6 +51,7 @@ function item:init()
         ralsei = "Don't scoop me!",
         noelle = "That red... is that blood?",
         jamm = "Feels... vampiric.",
+        calypso = "Aye, this feels wrong...",
         ceroba = "Don't even try it." -- she's NOT getting scooped up
     }
 end

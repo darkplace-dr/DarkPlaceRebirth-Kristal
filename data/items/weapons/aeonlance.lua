@@ -55,7 +55,9 @@ function item:init()
 		jamm = {
             jamm = "I never was a swords guy.",
             brenda = "Uhh... lances aren't swords?",
+            calypso = "Learn yer weapons, Lu...",
         },
+        calypso = "Yer crazy...",
 	    kris = {
         },
         ceroba = "Looks like something ancient...",

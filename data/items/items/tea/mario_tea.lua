@@ -32,6 +32,7 @@ function item:init()
         ["dess"] = 35,
         ["hero"] = 20,
         ["jamm"] = 65,
+        ["calypso"] = 60,
         ["mario"] = 10,
         ["pauling"] = placeholder,
         ["ceroba"] = 10,
@@ -70,6 +71,7 @@ function item:init()
 			mario = "Oh boy! Lotsa spaghetti!",
 		},
         ceroba = "It's undercooked?",
+        calypso = "It be... sugar water???",
     }
 end
 

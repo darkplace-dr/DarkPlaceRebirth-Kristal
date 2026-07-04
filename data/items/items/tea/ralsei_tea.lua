@@ -31,6 +31,8 @@ function item:init()
         ["dess"] = 70,
         ["hero"] = 20,
         ["ceroba"] = 40,
+        ["jamm"] = 60,
+        ["calypso"] = 60,
     }
 
     -- Default shop price (sell price is halved)
@@ -69,6 +71,7 @@ function item:init()
         ralsei = "Um... isn't this water?",
         noelle = "There's nothing in here!",
         jamm = "Tastes like... I don't know...",
+        calypso = "Ah, nice, refreshing water.",
         dess = "tastes like shit",
         ceroba = {
             noelle = "I heard it helps to sleep well!",

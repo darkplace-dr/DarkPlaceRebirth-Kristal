@@ -55,7 +55,8 @@ function item:init()
         },
         noelle = "Mints? I love mints!",
 		dess = "jesser we have to cook methm",
-        jamm = "And we used it here, why?",
+        jamm = "Minty...",
+        calypso = "It be a cold taste...",
         ceroba = "Mints are alright, I suppose.",
     }
 end

@@ -38,6 +38,7 @@ function item:init()
 		dess = "no way jose",
         brenda = "... No.",
         jamm = "*Kirby flashbacks*",
+        calypso = "This material be intimidating...",
         ceroba = "I have so many questions.",
         noel = "Even nothing is something.",
     }

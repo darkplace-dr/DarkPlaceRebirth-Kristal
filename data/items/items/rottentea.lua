@@ -41,7 +41,8 @@ function item:init()
         ralsei = "Um?",
         noelle = "No flavor... anymore.",
         ceroba = "You sure that's still a tea?",
-        jamm = "It's all chunky..."
+        jamm = "It's all chunky...",
+        calypso = "It be all wasted now...",
     }
 end
 

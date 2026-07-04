@@ -52,6 +52,7 @@ function item:init()
 	    dess = "Too heavy",
         brenda = "I can't carry THAT.",
 	    jamm = "I mean, I'm not THAT strong...",
+        calypso = "This ax be very, er... Hairy...",
         noel = "I'm gonna pull a [Rude Buster]!",
         ceroba = "AX? No thanks."
     }

@@ -59,6 +59,7 @@ function item:init()
 		dess = "thank god its not a javascript cookie",
         jamm = "Better than Bedrock.",
         ["jamm+marcy"] = "You prefer Bedrock, Marcy?",
+        calypso = "What be \"java\", anyways?",
 		noel = "uh... are ya sure?",
         ceroba = "What's \"java\"?"
     }

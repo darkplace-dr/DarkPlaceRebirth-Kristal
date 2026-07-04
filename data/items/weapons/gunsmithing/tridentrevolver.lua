@@ -57,6 +57,7 @@ function item:init()
 		dess = "pokemon is better tbh",
         brenda = "It's fightin' time!",
 		jamm = "Three times what I'm used to...",
+        calypso = "...Ye monsters concern me.",
         ceroba = "That's some HEAVY firearm..."
     }
 end

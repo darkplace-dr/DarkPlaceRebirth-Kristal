@@ -55,6 +55,7 @@ function item:init()
         brenda = "This was NOT worth it.",
 		dess = "what are we waiting for",
 	    jamm = "What? I'm not a patient guy.",
+        calypso = "Terrible craftsmanship...",
         noel = "#worth it",
         ceroba = "Patience is important."
     }

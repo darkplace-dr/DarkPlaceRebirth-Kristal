@@ -111,6 +111,7 @@ return {
                     cutscene:showNametag("Jamm")
 					cutscene:text("* Beats me.[wait:10]\n* I asked the same thing too.", "neutral", "jamm")
 					cutscene:text("* I was surprised Marcy's name was on it.[wait:10]\n* She's just a kid.", "nervous_left", "jamm")
+                    cutscene:showNametag("Brenda")
                 end
 				cutscene:text("* Eh whatever,[wait:5] don't look a Giftrot in the mouth as they say.", "suspicious", "brenda")
 				cutscene:hideNametag()

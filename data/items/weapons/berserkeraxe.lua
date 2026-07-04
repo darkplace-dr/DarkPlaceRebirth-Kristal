@@ -41,6 +41,7 @@ function item:init()
 	    dess = "do i look like a viking to you",
         brenda = "Uh... no.",
         jamm = "I don't feel comfortable with this...",
+        calypso = "...Disturbing.",
         ceroba = "(Who's blood is that...?)",
         noel = "Reckless, and soon rusted...",
     }

@@ -61,6 +61,7 @@ function item:init()
         noel = "That would be suicide",
         susie = "Who the hell is John Wick?",
         jamm = "Not ready to be like John Wick...",
+        calypso = "Ye make me feel like John Wick with this.",
     }
 end
 

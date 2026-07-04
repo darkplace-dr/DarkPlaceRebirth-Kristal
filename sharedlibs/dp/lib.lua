@@ -374,14 +374,14 @@ function lib:rollShiny(id, force)
         if not Game:getFlag("SHINY") then
             Game:setFlag("SHINY", {})
         end
-        -- "󰌠 󰸭 󰺾  󰘦 󰫿 "- Gaster (translates to "CROSS MY PENUMBRA GRAND CHASM")
+        -- "󰌠 󰸭 󰺾  󰘦 󰫿 "- Gaster (translates to "CROSS MY PENUMBRA GRAND CHASM")   -- .. the hell???
         if roller == 66 then
             Game:getFlag("SHINY")[id] = true
         else
             Game:getFlag("SHINY")[id] = false
         end
     else
-        Kristal.Console:log("Tried to roll shiny for " .. id .. ", but they were already rolled.")
+        print("Tried to roll shiny for " .. id .. ", but they were already rolled.")
     end
 end
 

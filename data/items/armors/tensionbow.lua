@@ -50,6 +50,7 @@ function item:init()
         noel = "I feel tense. Good...",
         ceroba = "Feels more tense than usual.",
         jamm = "Tension's rising...",
+        calypso = "It be gettin' pretty tense.",
     }
 end
 

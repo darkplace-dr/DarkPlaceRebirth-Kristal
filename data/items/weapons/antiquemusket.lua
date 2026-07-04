@@ -55,7 +55,8 @@ function item:init()
         brenda = "(I'm gonna regret this, aren't I?)",
         noel = "Just another hot piece of metal.",
         ceroba = "I'm not good with firearms...",
-        jamm = "I don't know how to..."
+        jamm = "I don't know how to...",
+        calypso = "How do ye reload this...?",
     }
 end
 

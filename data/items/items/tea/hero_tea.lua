@@ -30,6 +30,7 @@ function item:init()
         ["dess"] = 50,
         ["hero"] = 10,
         ["jamm"] = 10,
+        ["calypso"] = 50,
         ["ceroba"] = 40,
     }
 
@@ -62,6 +63,7 @@ function item:init()
 		dess = "this tea sucks dude",
         jamm = "Is this just... water?",
         ceroba = "Cold drink with a hint of sweet...",
+        calypso = "Sweet tea...",
     }
 end
 

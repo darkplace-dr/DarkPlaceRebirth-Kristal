@@ -55,6 +55,7 @@ function item:init()
         },
         noelle = "(This could grow a giant tree...)",
         jamm = "Huh. Just like the baseball games...",
+        calypso = "Aye, a familiar taste.",
         ceroba = "...hope that crunch wasn't my tooth.",
     }
 end

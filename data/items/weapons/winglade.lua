@@ -52,6 +52,7 @@ function item:init()
         ralsei = "Th-that tickles!",
         noelle = "... whose feather is this?",
         jamm = "It's... an enemy...?",
+        calypso = "This be hard to trust...",
         ceroba = {
             ceroba = "A-achoo!",
             ralsei = "Bless you!",

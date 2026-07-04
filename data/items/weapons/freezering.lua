@@ -52,6 +52,7 @@ function item:init()
         ralsei = "It's beautiful...",
         noelle = "...",
         jamm = "It's cold...",
+        calypso = "Yer ring be cold...",
 		dess = "you aborted snowgrave for this dialogue?",
         ceroba = "It's like touching the ice..."
     }

@@ -54,6 +54,7 @@ function item:init()
         ceroba = "What is this, a toy?",
         suzy = "Let's a GO!",
         jamm = "(It barely stays together...)",
+        calypso = "It's not fer me...",
     }
 end
 

@@ -59,6 +59,7 @@ function item:init()
         noelle = "Something to graze on!",
 		dess = "told you i eat lettuce",
         jamm = "Not much of a salad eater...",
+        calypso = "...Do I spy seaweed?",
         ["jamm+marcy"] = "It's good for you, Marcy!",
         ceroba = "At least it's good for me.",
     }

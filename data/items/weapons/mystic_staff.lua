@@ -53,6 +53,7 @@ function item:init()
 		dess = "\"mystic\" my ass",
         brenda = "",
         jamm = "I'm not good with staffs.",
+        calypso = "Me magic be not enough...",
         ceroba = "Not exactly MY type of staff...",
         nell = "Back to origins, eh?"
     }

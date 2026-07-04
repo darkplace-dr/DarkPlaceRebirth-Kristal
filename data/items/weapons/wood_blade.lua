@@ -54,6 +54,7 @@ function item:init()
 	    dess = "I'm not a fucking nerd",
         brenda = "How do you even hurt someone with this?",
 	    jamm = "Ow! Splinter...",
+        calypso = "This be... a stick?",
         noel = "you can only get one of these...",
         ceroba = "Looks like just a big toy."
     }

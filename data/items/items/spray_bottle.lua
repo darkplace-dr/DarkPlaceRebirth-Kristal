@@ -48,7 +48,8 @@ function item:init()
     self.reactions = {
 		jamm = "Hey! Cut that out!",
         ceroba = "Stop. That. Now.",
-        brenda = "*HISSS*"
+        brenda = "*HISSS*",
+        calypso = "Ah, fresh like the waves...",
     }
 end
 

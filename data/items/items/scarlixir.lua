@@ -44,6 +44,7 @@ function item:init()
         noelle = "... fine, you can have the LAST DROP.",
         ceroba = "Phew, that's a strong taste!",
         jamm = "Down the hatch...",
+        calypso = "It be like ship food...?",
         ["jamm+marcy"] = "Plug your nose, Marcy..."
     }
 end

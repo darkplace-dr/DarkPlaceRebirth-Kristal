@@ -57,7 +57,8 @@ function item:init()
             dess = "Wow, it is pretty ice-shocking",
             ceroba = "(I wonder if they have my favorite...)",
             jamm = "What flavor is this? I like it.",
-            ["jamm+marcy"] = "Yeah, you deserve it, Marcy."
+            ["jamm+marcy"] = "Yeah, you deserve it, Marcy.",
+            calypso = "Argh, brain freeze!!",
         },
         [2] = {
             hero = "Meaty.",
@@ -72,7 +73,8 @@ function item:init()
                 ceroba = "What does \"vegan\" mean anyway?",
                 jamm = "No meat or dairy. No fun."
             },
-            jamm = "It... TASTES like meat, at least."
+            jamm = "It... TASTES like meat, at least.",
+            calypso = "Vegan meat be nice for a change.",
         },
         [3] = {
             hero = "That's... not my favourite.",
@@ -81,7 +83,8 @@ function item:init()
             noelle = "Mmm, butterscotch!",
             dess = "UNDERTALE 2",
             ceroba = "Would be great with some tea.",
-            jamm = "Wow! Pie is delicious!"     -- Never had pie before
+            jamm = "Wow! Pie is delicious!",     -- Never had pie before
+            calypso = "The flavor o' wildberry...?",
         },
         [4] = {
             hero = "At least that's edible.",
@@ -90,7 +93,8 @@ function item:init()
             noelle = "It's crunchy like a salad!",
             dess = "slop",
             ceroba = "That's a lot of stuff...",
-            jamm = "I always liked trail mix."
+            jamm = "I always liked trail mix.",
+            calypso = "There be a lot here...",
         }
     }
 end

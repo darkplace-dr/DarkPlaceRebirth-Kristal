@@ -92,14 +92,6 @@ return {
 			Game:setFlag("gotMario", true)
 			Game:unlockPartyMember("mario")
 			
-			if Game:hasPartyMember("brenda") and leader_id ~= "brenda" then
-				cutscene:showNametag("Brenda")
-				cutscene:text("* That joke is only funny the first time.", "dissapointed", "brenda")
-				
-				cutscene:showNametag("Mario")
-				cutscene:text("* There was a first time?", "main", "mario")
-			end
-			
 			if Game:hasPartyMember("jamm") and leader_id ~= "jamm" then
 				cutscene:showNametag("Jamm")
 				cutscene:text("* (Don't take anything he says or does to heart.)", "nervous", "jamm")

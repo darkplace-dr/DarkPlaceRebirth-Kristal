@@ -65,6 +65,7 @@ function item:init()
         dess = "ew i hate cute things",
         jamm = "How adorable!",
         ["jamm+marcy"] = "It looks great on you, Marcy!",
+        calypso = "It'll look good in me hair.",
         noel = "I'm so FANCY",
         ceroba = "Makes me feel nostalgic.",
     })

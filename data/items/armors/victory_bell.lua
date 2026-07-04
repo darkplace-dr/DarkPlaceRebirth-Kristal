@@ -49,6 +49,7 @@ function item:init()
         noel = "(I don't think this is meant for me)",
         ceroba = "... so why only after battles?",
         jamm = "For what it's worth... I like it.",
+        calypso = "Ring the bell, mateys!",
     }
 end
 

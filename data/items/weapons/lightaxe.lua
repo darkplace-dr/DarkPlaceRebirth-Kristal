@@ -53,6 +53,7 @@ function item:init()
 		dess = "no",
         brenda = "Die monster, you don't belong in this world!",
 		jamm = "A light weapon? In a dark world? Sketchy...",
+        calypso = "Yer ax be blinding me eyes!",
         ceroba = "What is this, divine light?"
     }
 end

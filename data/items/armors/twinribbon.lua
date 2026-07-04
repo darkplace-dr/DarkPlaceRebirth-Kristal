@@ -58,6 +58,7 @@ function item:init()
         dess = "ew i hate cute AND pink things",
         jamm = "Woah! Pop idle much???",
         ["jamm+marcy"] = "Sorry, Marcy. It won't stay.",
+        calypso = "I guess I'll tie me hair... twice?",
         noel = "Two bracelets?",
         ceroba = "This here, that there... Nice.",
     }

@@ -50,6 +50,7 @@ function item:init()
         ddelta = "i should probably get a new one",
 		dess = "made too many meth jokes already",
         jamm = "How do I even use this?",
+        calypso = "The range is short...",
         ceroba = "You want me to hit with a CRYSTAL?",
         noel = "Dull, Drained, Useless.",
     }

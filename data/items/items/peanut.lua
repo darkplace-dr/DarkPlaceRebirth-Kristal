@@ -56,6 +56,7 @@ function item:init()
         ralsei = "NUTJOKE",
         noelle = "Erm, maybe give Susie the rest?",
         jamm = "Oh, there's some left over!",
+        calypso = "Still some left...",
         ceroba = "Ah, there's another one...",
     }
 end

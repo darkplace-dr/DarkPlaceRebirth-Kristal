@@ -55,6 +55,7 @@ function item:init()
 		dess= "yummy cyanide",
         brenda = "Why did I eat that?",
 		jamm = "I could've used those for my sling...",
+        calypso = "They be terrible...",
 		noel = "Why not?",
         ceroba = "*aggressive coughing*",
     }
@@ -70,7 +71,7 @@ function item:onWorldUse(target)
         health_dec = 50
 	elseif target.id == "dess" and not Game:getFlag("realDess") then
         health_dec = -10
-    elseif target.id == "jamm" then
+    elseif target.id == "jamm" or target.id == "calypso" then
         health_dec = 40
     end
     target.health = math.max(1, target.health - health_dec)

@@ -34,6 +34,7 @@ function item:init()
 		["ceroba"] = 5,
         ["brenda"] = 200,
 		["jamm"] = 70,
+        ["calypso"] = 80,
     }
 
     -- Default shop price (sell price is halved)
@@ -79,6 +80,8 @@ function item:init()
 	        ralsei = "(I don't get it)",
 	        noelle = "(Is that good?)",
 	        ceroba = "(What's that supposed to mean!?)",
+            jamm = ",(Uh... What?)",
+            calypso = "(I will never understand...)",
 	    },
 	    ceroba = "... sour.",
         brenda = {
@@ -86,12 +89,17 @@ function item:init()
             ceroba = "... Why are you looking at me like that?",
             dess = "Ah, I take it you are a resident of the island of Lesbos?",
             susie = "Dude, you look like a tomato, haha!",
-            noel = "I thought cantalopes were GREEN, not RED."
+            noel = "I thought cantalopes were GREEN, not RED.",
+            jamm = "Huh... That says a lot.",
+            calypso = "(I choose not to comment...)",
         },
 	    jamm = {
 	    	jamm = "I get the taste...",
 	    	ceroba = "What do you mean by that...?"
 	    },
+        calypso = {
+            calypso = "Aye, a glass o' tropical storm...",
+        }
     }
 end
 

@@ -43,6 +43,10 @@ function item:init()
         dess = "mmm yummy rocks",
         ceroba = "That's. A rock.",
         jamm = "I think I chipped my tooth...",
+        calypso = {
+            calypso = "...I've tasted better rocks...",
+            jamm = "(Callie???)",
+        },
     }
 end
 

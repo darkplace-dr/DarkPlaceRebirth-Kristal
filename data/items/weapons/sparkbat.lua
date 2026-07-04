@@ -57,6 +57,7 @@ function item:init()
             dess = "teehee"
         },
         jamm = "Shiny...",
+        calypso = "It be flashing a lot.",
         ceroba = "Too flashy...",
     }
 end

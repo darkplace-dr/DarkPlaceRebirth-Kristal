@@ -66,6 +66,7 @@ function item:init()
 			susie = "You're this close, twerp.",
 		},
         jamm = "(Better keep this away from Marcy...)",
+        calypso = "Is this... just dough?",
         ["jamm+marcy"] = "(Quick, while Marcy isn't looking...!)",
         ceroba = "Who's face is this?",
     }

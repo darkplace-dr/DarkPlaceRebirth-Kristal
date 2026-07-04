@@ -54,6 +54,7 @@ function item:init()
         noelle = "(Is this even edible?)",
         dess = "lmao it hurts",
 		jamm = "What exactly is this...?",
+        calypso = "I didn't taste anything...",
         ceroba = "Is this safe to consume?",
         berdly = "Smells like typical RNG.",
     }

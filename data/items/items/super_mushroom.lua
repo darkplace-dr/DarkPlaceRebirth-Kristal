@@ -66,6 +66,7 @@ function item:init()
 			noel = "(Did you get taller?)",
         },
 		jamm = "if I was an Italian plumber whose girlfriend was constantly being imprisoned in castles by an evil fire breathing lizard I would simply not take part in recreational go-kart races with aforementioned lizard",
+        calypso = "(Did I just get...)",
 		mario = "Imma feel lightheaded! Wheeee!",
 		noel = "I'm big now?",
         ceroba = "W-what happened to me?!",

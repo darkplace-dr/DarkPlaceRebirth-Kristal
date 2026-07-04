@@ -31,7 +31,8 @@ function item:init()
     self.reactions = {
         noel = "Concerning...",
         ceroba = "... so why bother giving it?",
-        jamm = "...Okay, now you're just taunting us."
+        jamm = "...Okay, now you're just taunting us.",
+        calypso = "Ye should be ashamed...",
     }
 end
 

@@ -56,6 +56,7 @@ function item:init()
         noelle = "(Th-this was mine...)",
         dess = "aint no WAY you stole from my sister bro",
         jamm = "Nah, I got my own. It's a Halofit!",
+        calypso = "This be a fancy sundial...", -- forgot what a clock is
         noel = "I already have a pocket watch...",
         ceroba = "Looks expensive..."
     }

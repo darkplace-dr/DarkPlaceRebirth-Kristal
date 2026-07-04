@@ -74,6 +74,7 @@ function item:init()
         noelle = "Oh, it's... sticky?",
 		dess = "pure sugar yum",
         jamm = "I'm not much of a sweet tooth. But...",
+        calypso = "And ye said this grew on a tree...?",
         ["jamm+marcy"] = "Here, Marcy. It's not my kind of snack.",
         ceroba = "It's a bit TOO sweet...",
     }

@@ -52,6 +52,7 @@ function item:init()
         noel = [[Do you want me to make "HOT POCKET"s?]],
 		dess = "another unused thing i think smh",
 		jamm = "I mean, am I supposed to throw it, or...?",
+        calypso = "...Ye can't be serious.",
         ceroba = "You CANNOT be serious right now."
     }
 end

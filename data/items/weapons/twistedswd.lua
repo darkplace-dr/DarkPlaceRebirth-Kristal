@@ -51,7 +51,8 @@ function item:init()
         ralsei = "It's like a spiral.",
         noelle = "It's... kind of scary...",
         jamm = "How do I even use this?",
-		dess = "love the clickbait on this", -- ping me when this becomes outdated in chapter 3 & 4 or whatever -- it didn't
+        calypso = "More twisted than Darkbeard's desires...",
+		dess = "love the clickbait on this", -- ping me when this becomes outdated in chapter 3 & 4 or whatever -- it didn't -- still didn't in chapter 5
         ceroba = "That's supposed to be a SWORD?"
     }
 end

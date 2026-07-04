@@ -49,6 +49,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         jamm = "I've got a terrible feeling about this...",
+        calypso = "This be holding some dark secrets...",   -- You're a little late on this one, Callie.
         ceroba = "No. Not a good idea.",
     }
 end

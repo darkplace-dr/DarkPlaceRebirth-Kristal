@@ -55,6 +55,7 @@ function item:init()
 		dess = "so retro",
         brenda = "Let's-a go!",
 		jamm = "Never thought I'd see one of these again...",
+        calypso = "This be... a game controller?",
         ceroba = "It's looking quite familiar..."
     }
 end

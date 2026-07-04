@@ -54,6 +54,7 @@ function item:init()
         dess = "fucking microtransactions",
         brenda = "The hell am I supposed to do with this?!",
 		jamm = "Why don't we just cut our losses and sell it next time?",
+        calypso = "...Ye be crazy.",
 		noel = "Keep it ... Trust me ...",
         ceroba = "This is not even food.",
     }

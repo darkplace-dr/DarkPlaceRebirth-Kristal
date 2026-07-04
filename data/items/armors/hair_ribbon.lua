@@ -57,7 +57,8 @@ function item:init()
         ceroba = "Back to it's rightful place.",
         noel = "Jingle Jingle!",
 		jamm = "I don't know how I'd make it work.",
-        ["jamm+marcy"] = "It's way too big for you, Marcy!"
+        ["jamm+marcy"] = "It's way too big for you, Marcy!",
+        calypso = "It be alright for me hair...",
     }
 end
 

@@ -46,6 +46,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
 		jamm = "Toasty...",
+        calypso = "Where be this on me voyages?",
 		mario = {
 			mario = "But I can just use a fire flower.",
             noel = "do it bitch.",

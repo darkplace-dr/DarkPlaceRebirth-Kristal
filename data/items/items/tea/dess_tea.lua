@@ -33,6 +33,7 @@ function item:init()
         ["hero"] = 20,
         ["dess"] = 75,
         ["jamm"] = 15,
+        ["calypso"] = 10,
         ["mario"] = placeholder,
         ["pauling"] = placeholder,
 		["brenda"] = 20,
@@ -71,6 +72,7 @@ function item:init()
 	    noyno = "We should buy more!",
 	    dess = "C'mon, man...",
 		jamm = "I can see that...",
+        calypso = "That's gotta stink...",
         },
 	YOU = {
 	    susie = "(Oh, damn...)",
@@ -80,6 +82,7 @@ function item:init()
 	    noyno = "Haha! Yes!",
 	    dess = "It's not that bad",
 		jamm = "(I don't want to try it...)",
+        calypso = "(Their face is more green than usual...)",
 	},
 	susie = {
 	    susie = "AUGH, rotten milk!",
@@ -89,6 +92,7 @@ function item:init()
 	    noyno = "Rotten milk isn't *that* bad.",
 	    dess = "Really?",
 		jamm = "That can't taste good.",
+        calypso = "Ugh, yer makin' ME sick...",
 	},
 	ralsei = {
 	    susie = "Ralsei, are you good?!",
@@ -98,6 +102,7 @@ function item:init()
 	    noyno = "Oh, toughen up!",
 	    dess = "God dammit.",
 		jamm = "Ugh...",
+        calypso = "That makes sense.",
 	},
 	noelle = {
 	    susie = "What's it like?",
@@ -106,6 +111,7 @@ function item:init()
 	    brenda = "Weird.",
 	    noyno = "I wanna know! Tell me!",
 		jamm = "How does it taste?",
+        calypso = "Do we wanna know?",
 	},
     dess = {
 	    dess = "Hell yeah, Wayside School reference.",
@@ -115,6 +121,7 @@ function item:init()
 	    brenda = "(SHE LIKES IT??)",
 	    noyno = "(Her ego is bigger than mine?!)",
 		jamm = "Of course...",
+        calypso = "It can't be that good...",
 	},
 	brenda = {
 	    susie = "(Jeez...)",
@@ -124,6 +131,7 @@ function item:init()
 	    noyno = "And I thought *I* hated her.",
 	    dess = "yea",
 		jamm = "Jeez, wow...",
+        calypso = "It be that bad?",
 	},
 	noyno = {
 	    susie = "Heh.",
@@ -133,6 +141,7 @@ function item:init()
 	    noyno = "This is disgusting!",
 	    dess = "Hm",
 		jamm = "Yeah, glad you agree.",
+        calypso = "I don't want to try it...",
 	},
 	robo_susie = {
 	    robo_susie = "It's better than paint.",
@@ -143,6 +152,7 @@ function item:init()
 	    noyno = "Same diets, I suppose.",
 	    dess = "Dang, finally",
 		jamm = "(You drink paint???)",
+        calypso = "Ye can take it?",
     },
 	ceroba = {
 		ceroba = "It's, well... How do I put this...",
@@ -150,13 +160,19 @@ function item:init()
 	    brenda = "Disgusting?",
 	    dess = "Literally perfect?",
 		jamm = "Worst thing you ever tasted?",
+        calypso = "Making ye sea sick?",
 	},
 	jamm = {
 		jamm = "Is this expired???",
 	    brenda = "Not expired. Trust me...",
 	    susie = "Ugh, what???",
 	    dess = "It isn't expired lmao",
+        calypso = "That says all I need to know...",
 	},
+    calypso = {
+        calypso = "Ugh! Rotten water!?",
+        jamm = "(Water can go rotten?)",
+    },
     }
 end
 

@@ -51,6 +51,7 @@ function item:init()
         ralsei = "Feels prickly... Nice!",
         noelle = "Ouch! ... kind of nice",
         jamm = "Like a rose's thorn...",
+        calypso = "Me body be cut enough...",
 		dess = "who ever uses this",
         ceroba = "Uncomfortable."
     }

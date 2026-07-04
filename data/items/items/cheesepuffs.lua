@@ -36,6 +36,7 @@ function item:init()
         dess = "this is a certified cheetos classic",
         brenda = "(I'll just wipe my hands on my pants...)",
         jamm = "Isn't this dangerously cheesy???",
+        calypso = "Wow, the dust is everywhere...",
         ceroba = "... my fingers are yellow now. Great.",
         berdly = "Why, a delicious gamer snack!",
     }

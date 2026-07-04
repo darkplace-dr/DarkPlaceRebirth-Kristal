@@ -50,6 +50,7 @@ function item:init()
     self.reactions = {
         bor = "It's smoking hot!",
         jamm = "Nope! Not holding THAT!",
+        calypso = "Aye, flaming...",
         ceroba = "My fur's gonna burn...",
     }
 end

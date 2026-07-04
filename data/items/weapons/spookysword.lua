@@ -51,6 +51,7 @@ function item:init()
         ralsei = "Oh, it's too scary!",
         noelle = "(It's kinda cool...)",
         jamm = "Not really my style...",
+        calypso = "Aye, too spooky...",
 		dess = "HALLOWEEN IS BETTER FUCK CHRISTMAS",
         ceroba = "Could be a nice Halloween decoration."
     }

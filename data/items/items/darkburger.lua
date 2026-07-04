@@ -58,6 +58,7 @@ function item:init()
         noelle = "I-is this real meat...?",
 		dess = "sorry man i only eat lettuce",
         jamm = "Burnt food isn't all that bad.",
+        calypso = "It's at least better than the ship food...",
         ceroba = "Burnt, but still good.",
     }
 end

@@ -60,6 +60,7 @@ function item:init()
 	    dess = "Play Undertale 2 Revenge of the Robots",
         brenda = "Don't mind if I do.",
 	    jamm = "Wait. I'm *not* supposed to eat it? Okay then.",
+        calypso = "...Okay.",
         noel = "I wear the banana???",
         ceroba = "Do I just... Hold it?",
     }

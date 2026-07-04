@@ -53,6 +53,7 @@ function item:init()
 		dess = "pew pew",
         brenda = "Uh, okay then?",
 		jamm = "But I'm not an NRA member!",
+        calypso = "I'd rather walk the plank.",
         noel = "Basic is an understatement...",
         ceroba = "I'm not shooting anybody."
     }

@@ -50,6 +50,7 @@ function item:init()
         noelle = "It's like a comfy bed!",
         dess = "Yummy red",
         jamm = "How do i even put this on?",
+        calypso = "It be very fluffy...",
         brenda = "Its soo red!",
         mario = "Lets a go!",
         noel = "This isn't stolen ... right?",

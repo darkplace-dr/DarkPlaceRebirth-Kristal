@@ -37,6 +37,7 @@ function item:init()
         susie = "Hell yeah! I love eating air!!",
         dess = "mmm nothing im not eating nothing",
         jamm = "Don't know what I just ate but okay...",
+        calypso = "...It definitely be something...",
         ceroba = "You want me to eat... What, exactly?",
     }
 end

@@ -54,6 +54,7 @@ function item:init()
         noelle = "(Does it just... suck money?)",
         dess = "oh noooo how will I pay my taxes now",
         jamm = "...Eh, not as bad as student loans.",
+        calypso = "Aye, I be rich enough...",
         noel = "",
         ceroba = "Goodbye my earnings.",
     }

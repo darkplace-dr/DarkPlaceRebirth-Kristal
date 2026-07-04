@@ -1,5 +1,5 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
   tiledversion = "1.12.1",
   class = "",
@@ -14,7 +14,8 @@ return {
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
-    ["music"] = "hometown"
+    ["music"] = "hometown",
+    ["no_shadows"] = true
   },
   tilesets = {},
   layers = {
@@ -285,7 +286,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 6,
-      name = "controllers",
+      name = "objects_overlay",
       class = "",
       visible = true,
       opacity = 1,

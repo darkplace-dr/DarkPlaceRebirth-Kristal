@@ -42,6 +42,7 @@ function item:init()
     -- Character reactions (key = party member id)
     self.reactions = {
 	    jamm = "Ooh, spicy~!",
+        calypso = "It reminds me of the curry I ate on the sea.",
         noel = "... Nothing happened...",
         ceroba = "What an interesting mix of flavors."
     }

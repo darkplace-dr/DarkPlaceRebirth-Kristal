@@ -51,6 +51,7 @@ function item:init()
         noelle = "It's like a name-tag!",
         dess = "Yummy glue",
         jamm = "It won't fall off like this, right?",
+        calypso = "Aye, sticky...",
         brenda = "It stained my clothes!",
         mario = "Tastes like glue!",
         noel = "Seam sells these ... right?",

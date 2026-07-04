@@ -54,7 +54,8 @@ function item:init()
         ralsei = "Ummm... it's too heavy...",
         noelle = "(Why does this smell like fried chicken???)",
         ceroba = "Glow-y, tech-y... Yeah, not for me.",
-        jamm = "I never got how to use these things..."
+        jamm = "I never got how to use these things...",
+        calypso = "Glowing things be not fer me...",
     }
 end
 

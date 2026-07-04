@@ -247,10 +247,31 @@ function notDiamonStore:drawBackground()
     Draw.setColor(1, 1, 1, 1)
 end
 
+function notDiamonStore:drawBonuses(party_member, old_item, bonuses, stat, x, y)
+    local old_stat = 0
+
+    if old_item then
+        old_stat = old_item:getStatBonus(stat) or 0
+    end
+
+    local amount = (bonuses[stat] or 0) - old_stat
+    local amount_string = tostring(amount)
+    if amount < 0 then
+        Draw.setColor(COLORS.aqua)
+    elseif amount == 0 then
+        Draw.setColor(COLORS.white)
+    elseif amount > 0 then
+        Draw.setColor(COLORS.yellow)
+        amount_string = "+" .. amount_string
+    end
+    self:printOutline(amount_string, x, y)
+    Draw.setColor(COLORS.white)
+end
+
 function notDiamonStore:draw()
     self:drawBackground()
 
-    super.draw(self)
+    super.super.draw(self)
 
 	love.graphics.setFont(self.font)
     if self.state == "MAINMENU" then
@@ -383,7 +404,7 @@ function notDiamonStore:draw()
                     Draw.setColor(COLORS.white)
 
                     if can_equip then
-                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head")
+                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_alpha")
                         if current_item.item.type == "armor" then
                             self:drawTextureOutlined(self.stat_icons["defense_1"], offset_x + 470, offset_y + 127 + top)
                             self:drawTextureOutlined(self.stat_icons["defense_2"], offset_x + 470, offset_y + 147 + top)
@@ -415,7 +436,7 @@ function notDiamonStore:draw()
                             )
                         end
                     else
-                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_error")
+                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_error_alpha")
                     end
 
                     self:drawTextureOutlined(head_path, offset_x + 426, offset_y + 132 + top)

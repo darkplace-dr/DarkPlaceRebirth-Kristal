@@ -52,7 +52,11 @@ function item:init()
     self.reactions = {
         susie = "There's a bit of blood in the corner!",
         suzy = "My enemies will be very warned!!",
-        jamm = "There isn't even a handle or anything!",
+        jamm = {
+            jamm = "There isn't even a handle or anything!",
+            calypso = "THAT be yer concern, Lu?"
+        },
+        calypso = "...Why?",
         mario = "Mario's gonna do something very illegal!",
         ceroba = "Wh- I- HOW!?", -- how tf did they rip off a sign
     }

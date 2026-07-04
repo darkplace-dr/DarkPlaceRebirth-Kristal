@@ -129,5 +129,27 @@ return {
 	end,
 	battle = function(cutscene)
 
-	end
+	end,
+    pink = function(cutscene)
+        cutscene:text("* NYA!", "nya", "pink", {top = false})
+
+        cutscene:text("* Nya2!", "nya2", "pink", {top = false})
+
+        cutscene:text("* Talk portrait.", "talk", "pink", {top = false})
+
+        cutscene:text("* [sweat]Sweatdrop Happy.", "happy", "pink", {top = false})
+
+        cutscene:text("* Huh?", "shocked", "pink", {top = false}) 
+
+        cutscene:text("* Wink Wink.", "wink", "pink", {top = false})
+
+        cutscene:text("* Concerned.", "concerned", "pink", {top = false})
+
+        cutscene:text("* Cry crying cry", "cry", "pink", {top = false})
+
+        cutscene:text("* ANGRY PORTRAIT MEW!", "angry", "pink", {top = false})
+
+        cutscene:text("* Exploded.", "exploded", "pink", {top = false})
+
+    end,
 }

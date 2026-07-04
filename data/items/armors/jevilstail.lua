@@ -47,6 +47,7 @@ function item:init()
 	    jamm = false,
         noel = false,
         ceroba = false,
+        calypso = false,
     }
 
 
@@ -58,6 +59,7 @@ function item:init()
         dess = "im gonna go commit a felony now",
         jamm = "It won't fit...!",
         ["jamm+marcy"] = "It won't fit either of us...!",
+        calypso = "I already have one...",
         noel = "I am not a circus.",
         ceroba = "I have my own.", -- at least I think???
     }

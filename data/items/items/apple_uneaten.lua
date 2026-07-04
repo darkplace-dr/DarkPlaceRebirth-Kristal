@@ -55,6 +55,7 @@ function item:init()
 		dess = "sweet",
         brenda = "I love apples!",
 		jamm = "A doctor a day keeps the apple away. Wait...",
+        calypso = "Aye, a good fruit.",
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Nom!",
         ceroba = "Not a fan of sweet stuff, but it's good.",

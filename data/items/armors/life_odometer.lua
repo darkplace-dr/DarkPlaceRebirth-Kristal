@@ -32,6 +32,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
 		ddelta = "how the hey does it work? dunno",
+        jamm = "Could be a close call...",
+        calypso = "It be a good one...",
     }
 end
 

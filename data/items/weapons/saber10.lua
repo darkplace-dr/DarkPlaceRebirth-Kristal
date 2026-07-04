@@ -54,6 +54,7 @@ function item:init()
         noelle = "(I'm not against using it, but...)",
         dess = "this is too op for me",
         jamm = "Ow! Prickly...",
+        calypso = "...why 10?",
         ceroba = "I'm not risking getting prickled."
     }
 end

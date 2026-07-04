@@ -58,6 +58,7 @@ function item:init()
         noelle = "Th... there's MORE!?",
 		dess = "sorry man i REALLY only eat lettuce",
         jamm = "Huh. Leftovers. Neat.",
+        calypso = "There be leftovers...?",
         ceroba = "I'll leave the rest.",
     }
 end

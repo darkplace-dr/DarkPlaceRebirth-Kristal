@@ -42,6 +42,7 @@ function item:init()
         noelle = "I'm, um, an alien?",
         ceroba = "Uh... What do I do with these?",
         jamm = "I always hated the accessories.",
+        calypso = "It be very extravagant...",
         ["jamm+marcy"] = "They look cute on you, Marcy!"
     }
 end

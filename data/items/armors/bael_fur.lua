@@ -53,6 +53,7 @@ function item:init()
         dess = "Yo you guys killed a giant spider without me?",
         ceroba = "I'm not comfortable with that...",
         jamm = "Anything is armor, I guess...",
+        calypso = "...It looks cool, at least.",
         hero = "Fuzzy",
         noel = "1 DEF won't help me.",
     }

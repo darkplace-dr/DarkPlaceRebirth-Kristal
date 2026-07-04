@@ -42,6 +42,7 @@ function item:init()
         brenda = "Black isn't really my style.",
         noel = "Uwa~ True Emo~",
 		jamm = "Gotta support goth culture.",
+        calypso = "Aye, something to tie me hair.",
         ceroba = "Did someone die or...?"
     }
 end
