@@ -53,7 +53,7 @@ function item:init()
         calypso = {
             calypso = "This be digital currency?",
             jamm = "Well, not exactly..."
-        }
+        },
         noel = "",
         ceroba = "Is that... Real gold?",
     }
