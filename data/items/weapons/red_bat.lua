@@ -54,7 +54,7 @@ function item:init()
         calypso = {
             calypso = "It be like a fiddle...",
             jamm = "Well, it's a guitar..."
-        }
+        },
 		dess = "let's rock",
         ceroba = "Huh? That's a BAT?"
     }

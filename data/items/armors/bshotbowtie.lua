@@ -53,7 +53,7 @@ function item:init()
         jamm = {
             jamm = "So, how do I look?",
             calypso = "Ye be lookin' great, Lu!"
-        }
+        },
         calypso = "I can tie me hair with it...",
         noel = "What brand is this?",
         ["jamm+marcy"] = "So, how do I look, Marcy? // It looks great!",

@@ -56,7 +56,7 @@ function item:init()
         calypso = {
             calypso = "Aye, I can't read this...",
             jamm = "I didn't know you learned to read."
-        }
+        },
         ceroba = "Looks older than me..."
     }
 end
