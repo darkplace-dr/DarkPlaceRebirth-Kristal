@@ -54,7 +54,7 @@ function item:init()
             calypso = "This be digital currency?",
             jamm = "Well, not exactly..."
         },
-        noel = "",
+        noel = "I love gold. Wish I could see it for real.",
         ceroba = "Is that... Real gold?",
     }
 end
