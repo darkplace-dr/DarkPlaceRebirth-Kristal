@@ -20,7 +20,7 @@ function spell:init()
     self.target = "enemy"
 
     -- Tags that apply to this spell
-    self.tags = {"Status"}
+    self.tags = {"status"}
 	
 	self.success = 0
 end

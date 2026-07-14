@@ -45,6 +45,7 @@ function item:init()
             calypso = "Aye, no Vitamin C...",
             jamm = "...Scurvy?",
         },
+        ceroba = "Huh? Isn't it green?", -- completely missed the joke(s)
     }
 end
 

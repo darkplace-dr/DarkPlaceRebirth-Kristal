@@ -151,7 +151,7 @@ function Jackolantern:onDamage(soul)
 	if self.hits >= 12 then
 		Game.battle.wave_timer = Game.battle.wave_length - 1/30
 	end
-	soul.inv_timer = math.min(soul.inv_timer, (10 - math.floor(self.hits / 2))/30)
+	Game.inv_frames = math.min(Game.inv_frames, (10 - math.floor(self.hits / 2)))
 	if not self.fully_aggro then
 		self.fully_aggro = true
 		self:resetPhysics()

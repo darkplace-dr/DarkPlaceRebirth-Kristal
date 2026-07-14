@@ -50,6 +50,7 @@ function item:init()
         noelle = "Pff... YOU should wear it, Kris.",
         jamm = "A statue of God.",
         calypso = "It be just a dog???",
+        ceroba = "Somehow looks... Familiar.", -- I'd like to think that Toby dog is just running around the Underground so much she saw him at least once
     }
 end
 

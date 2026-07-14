@@ -37,6 +37,7 @@ function item:init()
         ["mario"] = placeholder,
         ["pauling"] = placeholder,
 		["brenda"] = 20,
+		["ceroba"] = 30,
     }
 
     -- Default shop price (sell price is halved)

@@ -48,6 +48,7 @@ function item:init()
         noelle = "........ who the heck is Flowery?",
         jamm = "...Carbonated milk???",
         calypso = "It be alright...",
+        ceroba = "I guess not the worst thing I had...",
     }
 end
 

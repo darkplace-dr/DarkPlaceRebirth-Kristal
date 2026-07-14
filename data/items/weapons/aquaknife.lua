@@ -53,6 +53,7 @@ function item:init()
         noelle = "That's, um, nostalgic.",
         jamm = "Knives aren't my thing.",
         calypso = "I've seen better.",
+        ceroba = "Maybe if it was bigger...",
     }
 end
 

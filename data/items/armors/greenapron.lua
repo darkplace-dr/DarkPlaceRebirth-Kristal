@@ -52,6 +52,7 @@ function item:init()
         noelle = "Kris, can you, um, tie the back for me...?",
         jamm = "Cooking skills, don't fail me now!",
         calypso = "Aye, it be not for me...",
+        ceroba = "Not much of a cook, but I'll try.",
     }
 end
 

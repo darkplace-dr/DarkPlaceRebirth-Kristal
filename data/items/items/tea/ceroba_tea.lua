@@ -80,7 +80,7 @@ function item:init()
 	        ralsei = "(I don't get it)",
 	        noelle = "(Is that good?)",
 	        ceroba = "(What's that supposed to mean!?)",
-            jamm = ",(Uh... What?)",
+            jamm = "(Uh... What?)",
             calypso = "(I will never understand...)",
 	    },
 	    ceroba = "... sour.",
@@ -99,6 +99,7 @@ function item:init()
 	    },
         calypso = {
             calypso = "Aye, a glass o' tropical storm...",
+            ceroba = "(I guess that's good?)"
         }
     }
 end

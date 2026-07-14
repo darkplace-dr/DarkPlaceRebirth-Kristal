@@ -51,6 +51,7 @@ function item:init()
         noelle = "They're not ANTENNA!! They're ant-LERS!",
         jamm = "(Can't show my wings, can't show my wings...)",
         calypso = "Aye, a perfect fit in me hair.",
+        ceroba = "Right near the flower. What a match.", -- the one on her head
     }
     self.susie_rejection = "I'll squash it."
 end

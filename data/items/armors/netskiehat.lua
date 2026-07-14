@@ -50,6 +50,7 @@ function item:init()
         noelle = "Does not. Fit my antlers.",
         jamm = "I won't even question this...",
         calypso = "Yer interests confuse me...",
+        ceroba = "It's like it was made for me...!", -- she likes it
     }
 end
 

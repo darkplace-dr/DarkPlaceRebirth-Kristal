@@ -1,0 +1,55 @@
+{
+    // This shit isn't documented anywhere for some reason.
+    // (or if it is, the documentation isn't linked to)
+    
+    "id": "gottabegreen",
+    "authors": ["ItsAnnieee"],
+    
+    // The version of your mod.
+    "version": "v0.4.3",
+    // What version of the engine your mod was made with.
+    "engineVer": "v0.10.0-dev",
+    
+    "config": {
+        // If true, the green soul starts in diagonal (8-way) mode by default. If false, starts in 4-way mode.
+        // This can always be overridden for the current wave by using setDiagonal() in Encounter:createSoul or in a wave script.
+        // Chapter 4 = false
+        "diagonalByDefault": false,
+        
+        // Depth of the collider hitbox, as a multiplier of the octagon radius. (0..=1)
+        "blockerColliderDepth": 0.25,
+        // Radius of the "too close" hitcircle, as a multiplier of the octagon radius. (0..=1) to enable | -1 to disable
+        // Bullets inside this circle are considered "too close" and cannot be blocked.
+        "tooCloseRadius": 0.5,
+        // Enable the "first-frame rule".
+        // When enabled, deflection collision is more lenient on the first frame that a bullet touches the octagon, by ignoring the too-close radius and using a special "lane collider" (line) in addition to the shallow blocker hitbox.
+        // Helpful if you have bullets that are fast enough to cross into a "too close" region in a single frame.
+        "tooCloseFirstFrameRule": true,
+        
+        // Multiplier for tp gain from regular blocking.
+        // Chapter 4 = 0.3125 (so bullets worth 1.6% give 0.5%. 0.5/1.6 = 0.3125)
+        "tpGainRegular": 0.3125,
+        // Multiplier for tp gain from "critical" blocking. (i.e. parry/etc.)
+        // Chapter 4 = 0.625 (so bullets worth 1.6% give 1%. 1/1.6 = 0.625)
+        "tpGainCrit": 0.625,
+        // Enable wave-time reduction from blocking.
+        // Chapter 4 = false
+        "deflectionWaveTimeReduction": false,
+        
+        // Default critical block window for cardinals (frames)
+        // Chapter 4 = 4 frames
+        "critWindowC": 4,
+        // Default critical block window for diagonals (frames)
+        // Chapter 4 = 6 frames
+        "critWindowD": 6,
+        
+        // Whether to enable re-inputting the same direction to "parry" attacks (re-activating the crit window)
+        // Chapter 4 = true
+        "enableParry": true,
+        // Cooldown time (in frames) between parries, or null to disable.
+        // Chapter 4 = null
+        "parryCooldown": null,
+        // Whether to clear the parry cooldown upon a successful parry (or a critical block while the cooldown is active)
+        "parryClearOnSuccess": true,
+    }
+}

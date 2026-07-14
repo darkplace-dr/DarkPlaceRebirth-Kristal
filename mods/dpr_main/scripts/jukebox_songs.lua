@@ -136,6 +136,15 @@ return {
     bpm = 69
   },
   {
+    name = "Lancer",
+    file = "deltarune/lancer",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1",
+    bpm = 165
+  },
+  {
     name = "Rude Buster",
     file = "battle",
     composer = "Toby Fox",
@@ -143,6 +152,24 @@ return {
     origin = "Deltarune",
     album = "dr_ch1",
     bpm = 140
+  },
+  {
+    name = "Weird Birds",
+    file = "deltarune/bird",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1",
+    bpm = 65
+  },
+  {
+    name = "Field of Hopes and Dreams",
+    file = "deltarune/field_of_hopes",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1",
+    bpm = 125
   },
   {
     name = "Fanfare (from \"Rose of Winter\")",
@@ -188,6 +215,14 @@ return {
     origin = "Deltarune",
     album = "dr_ch1",
     bpm = 65
+  },
+  {
+    name = "Man",
+    file = "deltarune/man",
+    composer = "Toby Fox",
+    released = "2018",
+    origin = "Deltarune",
+    album = "dr_ch1"
   },
   {
     name = "Berdly",
@@ -242,6 +277,15 @@ return {
     origin = "Deltarune",
     album = "dr_ch3n4",
     bpm = 145
+  },
+  {
+    name = "Dig! Dig! To The Center of the Earth!",
+    file = "deltarune/board_lancer_dig",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3n4",
+    bpm = 134
   },
   {
     name = "Ruder Buster",
@@ -306,6 +350,15 @@ return {
     bpm = 140.75
   },
   {
+    name = "Dump",
+    file = "deltarune/tv_changingroom",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3n4",
+    bpm = 94
+  },
+  {
     name = "Castle Funk",
     file = "deltarune/castle_funk_long",
     composer = "Toby Fox",
@@ -331,6 +384,15 @@ return {
     origin = "Deltarune",
     album = "dr_ch3n4",
     bpm = 265
+  },
+  {
+    name = "A DARK ZONE",
+    file = "deltarune/pumpkin_boss",
+    composer = "Toby Fox",
+    released = "2025",
+    origin = "Deltarune",
+    album = "dr_ch3n4",
+    bpm = 200
   },
   {
     name = "Hammer of Justice",
@@ -376,6 +438,33 @@ return {
     origin = "Deltarune",
     album = "dr_ch3n4",
     bpm = 108.8
+  },
+  {
+    name = "Weirder Birds",
+    file = "deltarune/birds_ch5",
+    composer = "Toby Fox",
+    released = "2026",
+    origin = "Deltarune",
+    album = "dr_ch5",
+    bpm = 57
+  },
+  {
+    name = "Garden of Hopes and Dreams",
+    file = "deltarune/field_of_hopes_insaneintherain_intro",
+    composer = "Toby Fox",
+    released = "2026",
+    origin = "Deltarune",
+    album = "dr_ch5",
+    bpm = 125
+  },
+  {
+    name = "Rakuichi Buster",
+    file = "deltarune/rakuichi_buster_wip",
+    composer = "Toby Fox, rakuichi",
+    released = "2026",
+    origin = "Deltarune",
+    album = "dr_ch5",
+    bpm = 140
   },
   {
     name = "STARSTRUCK", -- official name according to the Soundcloud upload

@@ -48,6 +48,7 @@ function item:init()
         noelle = "Look, Kris! Susie's venom! (drinks it) (drinks it)",
         jamm = "Grape's awesome.",
         calypso = "It be what I'm used to.",
+        ceroba = "Hey, grapes are good.",
     }
 end
 

@@ -42,6 +42,7 @@ function item:init()
         noelle = "Not mixing it with yellow?",
         jamm = "Wow, quite the potion.",
         calypso = "...That be confusing.",
+        ceroba = "My taste buds got puched HARD.",
     }
 end
 

@@ -52,6 +52,7 @@ function item:init()
         noelle = "Go, Kris! \"1000 Moon Crescent Slash!\" Faha!",
         jamm = "Is it at least a different type of wood?",
         calypso = "A practive blade be a practice blade...",
+        ceroba = "At least it's more powerful.",
     }
 end
 

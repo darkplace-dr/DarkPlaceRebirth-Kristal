@@ -53,6 +53,7 @@ function item:init()
         noelle = "Wow! Something I actually want to wear?",
         jamm = "Like the ThornScarf, but a ring?",      -- the ThornScarf is an unused Deoxynn item
         calypso = "...No.",
+        ceroba = "It's nice, but I prefer actual weapons.",
     }
 end
 

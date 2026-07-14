@@ -54,6 +54,7 @@ function item:init()
         noelle = "(You KNOW I can't wear normal shoes...)",
         jamm = "...So anything's a weapon now?",
         calypso = "I don't tie me shoes...",
+        ceroba = "What? I'm not a dancer.",
     }
 end
 

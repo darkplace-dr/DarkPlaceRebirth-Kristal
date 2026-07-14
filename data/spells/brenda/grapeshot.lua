@@ -14,7 +14,7 @@ function spell:init()
 
     self.target = "enemies"
 
-    self.tags = {"Damage", "Fire"}
+    self.tags = {"damage", "Fire"}
 end
 
 function spell:getCastMessage(user, target)

@@ -1,0 +1,96 @@
+local Rainbows, super = Class(Wave)
+
+function Rainbows:init()
+    super.init(self)
+    
+    self.time = 5
+    
+    self:addChild(SpearRedChecker())
+end
+
+function Rainbows:onStart()
+    local DIST = (SCREEN_WIDTH/2)+32
+    
+    self.shell = self:spawnBullet("gerson_shell", 0, DIST, 100)
+    self.shell:setSpin(self.shell.SPIN_NORMAL)
+    self.shell.remove_offscreen = false
+
+    local DIST = (SCREEN_WIDTH/2)+32
+    local prev_angle = math.rad(90)
+    local keep_spawning = true
+    
+    local num_attackers = 0
+    local num_tired = 0
+    for _, attacker in ipairs(self:getAttackers()) do
+        num_attackers = num_attackers + 1
+        if attacker.tired then
+            num_tired = num_tired + 1
+        end
+    end
+    if num_attackers == 0 then -- avoid division by zero
+        num_attackers = 1
+    end
+    local speed_multiplier = 0.5 - ((num_tired / num_attackers)*0.5) -- make bullets half speed when enemies are tired
+    local delay_multiplier = 1 + ((num_tired / num_attackers)*0.5) -- increase delay by 50% when enemies are tired
+    
+    self.timer:script(function(wait)
+        while not self.finished do
+            local angle_step = math.rad(45)
+            local num_angles = 8
+            if not Game.battle.soul.diagonal then
+                angle_step = math.rad(90)
+                num_angles = 4
+            end
+            
+            if math.random()<0.2 then -- re-use previous angle
+                angle = prev_angle
+            else -- wait a moment then pick new angle
+                wait(1/5)
+                angle = math.random(0, num_angles-1)*angle_step
+                
+                -- wait a little extra if new angle is a diagonal that isn't adjacent to the previous angle
+                local epsilon = math.rad(5)
+                if math.abs(angle%math.rad(90)) > epsilon and math.abs(prev_angle - angle) > math.rad(45) + epsilon then
+                    wait(2/5)
+                end
+                
+                -- all good
+                prev_angle = angle
+            end
+            
+            local bullet = self:spawnBullet("gerson_spear", angle, DIST, 12 * speed_multiplier)
+
+            -- Don't remove the bullet offscreen, because we spawn it offscreen
+            bullet.remove_offscreen = false
+            self.timer:after(1, function()
+                bullet.remove_offscreen = true
+            end)
+            
+            -- and then wait a short time
+            wait((1/10) * delay_multiplier)
+        end
+    end)
+end
+
+function Rainbows:canEnd()
+    self.timer:after(20, function()
+        self.emergency_stop = true
+    end)
+    if self.emergency_stop then
+        return true
+    end
+    for _,bullet in ipairs(self.bullets) do
+        if bullet ~= self.shell and bullet:isFullyActive() then -- still active, so don't end
+            return false
+        end
+    end
+    return true
+end
+
+function Rainbows:update()
+    -- Code here gets called every frame
+
+    super.update(self)
+end
+
+return Rainbows

@@ -28,6 +28,7 @@ function item:init()
     self.heal_amounts = {
         ["jamm"] = 200,
         ["calypso"] = 60,
+        ["ceroba"] = 70,
     }
 
     -- Default shop price (sell price is halved)
@@ -60,6 +61,7 @@ function item:init()
             calypso = "That's a lot of blushing..."
 		},
         calypso = "Aye, a nice bottle o' bumbo!",
+        ceroba = "Tastes like fish soup. (Yum...)",
     }
 end
 

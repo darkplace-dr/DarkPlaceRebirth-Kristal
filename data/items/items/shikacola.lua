@@ -46,6 +46,7 @@ function item:init()
         noelle = "WHY WOULD I LIKE THIS??? IT HAS SOMEONE'S HAIR IN IT???",
         jamm = "...Why is there hair in it.",
         calypso = "Aye, too cheerful...",
+        ceroba = "Pheh! It got on my tongue!",
     }
 end
 

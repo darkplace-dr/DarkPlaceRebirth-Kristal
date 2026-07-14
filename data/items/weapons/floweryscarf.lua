@@ -52,6 +52,7 @@ function item:init()
         noelle = "Who the heck is Flowery?",
         jamm = "...I'm not that cheap.",
         calypso = "I don't like a guy I don't even know!",
+        ceroba = "That smile annoys me.",
     }
 end
 

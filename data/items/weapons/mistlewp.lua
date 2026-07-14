@@ -56,6 +56,7 @@ function item:init()
             calypso = "Be real. Ye don't wash 'em.",
         },
         calypso = "This be hard to control...",
+        ceroba = "I don't think I can do a whip...",
     }
 end
 

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -150,6 +150,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -163,6 +164,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -176,6 +178,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -189,6 +192,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -202,6 +206,7 @@ return {
           width = 320,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -215,6 +220,7 @@ return {
           width = 320,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -228,6 +234,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -241,6 +248,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -254,6 +262,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -275,6 +284,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -312,6 +322,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["type"] = "floor2"
@@ -343,8 +354,12 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
-          properties = {}
+          properties = {
+            ["map"] = "floor2/left",
+            ["marker"] = "entry_main"
+          }
         },
         {
           id = 14,
@@ -356,6 +371,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/wobblything_room",
@@ -372,6 +388,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/apartments_right",
@@ -388,6 +405,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/apartments_left",
@@ -404,6 +422,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "hub_elevator",
@@ -420,6 +439,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -433,6 +453,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_2",
@@ -449,6 +470,7 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* - APARTMENTS -\n* - LEFT WING -"
@@ -464,39 +486,10 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* - APARTMENTS -\n* - RIGHT WING -"
-          }
-        },
-        {
-          id = 34,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 280,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 35,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 320,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
           }
         }
       }
@@ -525,6 +518,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -538,6 +532,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -551,12 +546,13 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
         {
           id = 25,
-          name = "entry_lounge",
+          name = "entry_left",
           type = "",
           shape = "point",
           x = 40,
@@ -564,6 +560,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -577,6 +574,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -590,6 +588,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -603,6 +602,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

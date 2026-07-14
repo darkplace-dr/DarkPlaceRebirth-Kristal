@@ -51,6 +51,7 @@ function item:init()
         noelle = "Umm, your dad's name is on this.",
         jamm = "Just glad it isn't for me...",
         calypso = "...This be nothing to me.",
+        ceroba = "How did THAT become a ribbon?",
     }
     self.susie_rejection = "Nah, I guess... not."
 end

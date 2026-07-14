@@ -54,6 +54,7 @@ function item:init()
         noelle = "Who the HECK is Flowery?",
         jamm = "How can someone use this...?",
         calypso = "It won't even keep me warm!",
+        ceroba = "It's torn pretty badly...",
     }
 end
 

@@ -42,6 +42,7 @@ function item:init()
         noelle = "This... is expired!",
         jamm = "Kinda spicy...",
         calypso = "Aye, it be no poison...",
+        ceroba = "The taste is really weird.",
     }
 end
 

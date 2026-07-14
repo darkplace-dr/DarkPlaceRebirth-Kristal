@@ -34,6 +34,21 @@ function Actor:getExpressionPart(name)
     return nil
 end
 
+--- Creates data for an expression part.
+---@param name string
+---@param path string
+---@param x number
+---@param y number
+---@param options table?
+function Actor:newExpressionPart(path, x, y, options)
+    return {
+        path = path,
+        x = x,
+        y = y,
+        options = options or {},
+    }
+end
+
 --- Stores data for an expression part on this actor.
 ---@param name string
 ---@param path string
@@ -42,12 +57,7 @@ end
 ---@param options table?
 function Actor:addExpressionPart(name, path, x, y, options)
     self.expression_parts = self.expression_parts or {}
-    self.expression_parts[name] = {
-        path = path,
-        x = x,
-        y = y,
-        options = options or {},
-    }
+    self.expression_parts[name] = self:newExpressionPart(path, x, y, options)
 end
 
 function Actor:getTalkSprites() return self.talk_sprites end

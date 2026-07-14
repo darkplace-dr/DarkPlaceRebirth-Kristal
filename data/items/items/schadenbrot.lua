@@ -20,6 +20,10 @@ function item:init()
 
     -- Amount healed (HealItem variable)
     self.heal_amount = 200
+    -- Amount this item heals for specific characters in the overworld
+    self.world_heal_amounts = {
+        ["ceroba"] = 150 -- can't really enjoy food when you're thinking of bad things
+    }
 
     -- Default shop price (sell price is halved)
     self.price = 600
@@ -42,6 +46,7 @@ function item:init()
         noelle = "Doesn't bread always taste like this?",
         jamm = "(Is that the Xbox logo???)",
         calypso = "Aye, it ain't stale...",
+        ceroba = "(Why does it remind me of... That!?)", -- lots of regrets
     }
 end
 

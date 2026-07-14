@@ -426,12 +426,12 @@ function JekuShop:onEnter()
         end
     else
         if self.noel and not Mod.jeku_memory["met_noel"] then
-            HookSystem.hook(self, "onKeyPressed", function() end)
+            HookSystem.hook(self, "processInput", function() end)
             Game.shop.timer:afterCond(function()
                 return self.dialogue_text.state.current_node > #self.dialogue_text.nodes/2
             end,
             function()
-                unhook(self, "onKeyPressed")
+                unhook(self, "processInput")
                 Game.shop.music:pause()
                 local savedData = Noel:loadNoel()
 
@@ -461,7 +461,7 @@ function JekuShop:onEnter()
                 --end
 
                 self:startDialogue(text)
-                Game.shop.timer:afterCond(function() return self.dialogue_text.line_index == 4 end, 
+                Game.shop.timer:afterCond(function() return self.dialogue_text.line_index == 4 end,
                 function()
                     Game.shop.music:resume()
                 end)
@@ -1023,7 +1023,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
 
             -- I feel like I'm making a giant mess to keep things organized
             -- As if this whole file wasn't a mess already
-        
+
             HookSystem.hook(self, "update", function(orig, self)
                 orig(self)
 
@@ -1143,7 +1143,7 @@ if Kristal.Shatter and Kristal.Shatter.active then
                         else
                             if self.console_timer >= 9999+150 then
                                 local str = self.sentence_step == 1 and "Where is it?" or "You always know how to amuse me "..StringUtils.titleCase(Game.save_name).."."
-                                if self.console_timer%5==0 then 
+                                if self.console_timer%5==0 then
                                     if TextInput.input[1] == "Where is it?" then TextInput.clear() end
                                     if self.char < #str then
                                         self.char = self.char + 1

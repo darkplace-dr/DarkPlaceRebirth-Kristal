@@ -51,6 +51,7 @@ function item:init()
         noelle = "What's next, a fedora?",
         jamm = "Oh neat, fancy!",
         calypso = "...It could be in me hair.",
+        ceroba = "Would go well with a suit.",
     }
 
     -- TODO: Elemental resistance

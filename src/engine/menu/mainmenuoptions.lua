@@ -843,66 +843,52 @@ function MainMenuOptions:initializeOptions()
 end
 
 function MainMenuOptions:getOptionText()
-    local text = nil
-    local page_1 = {
-        "change how\nloud the\ngame is",
-        "change what\nkeys do what\nactions",
-        "change what\ncontroller\nbuttons\ndo what\nactions",
-        "change\nwhether you\nrun by\ndefault",
-        "if enabled,\ngives a\ncustom\ndiscord\nstatus",
-        "toggles\nfullscreen",
-        "change the\nwindow scale\nfor windowed\nmode",
-        "whether or\nnot the game\nwill have\na border",
-        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
-        "i have no\nidea what\nthis does \n\nlol",
-        "go back\nto the\nmain menu"
-    }
-    local page_2 = {
-        "toggles\nfullscreen",
-        "change the\nwindow scale\nfor windowed\nmode",
-        "whether or\nnot the game\nwill have\na border",
-        "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
-        "sets the\ntarget fps",
-        "toggles\nvsync",
-        "toggles\nframe skip",
-        "does some-\nthing and\nbreaks the\noptions\nmusic",
-        "go back\nto the\nmain menu"
-    }
-    local page_3 = {
-        "toggles\nskipping the\nintro when\nopening\nthe game",
-        "toggles\ndisplaying\nthe current\nfps count",
-        "change the\ndefault name\nfor save\nfiles",
-        "toggles\nskipping the\nsave file\nname entry",
-        "i have no\nidea what\nthis does \n\nlol",
-        "change what\nloading sys-\ntem to use",
-        "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
-        "show the\nmouse cursor\nalways",
-        "instantly\nclose the\ngame when\npressing\nESC",
-        "go back\nto the\nmain menu"
-    }
-    local page_4 = {
-        "whether to\nuse the\ngoner key-\nboard when\ntyping",
-        "enables\nshatter\nif it's\ninstalled",
-        "manage\ninstalled\nplugins",
-        "i have no\nidea what\nthis does \n\nlol",
-        "when\nattacking,\nuse z, x,\nand c instead\nof just z",
-        "wheter to\nuse special\nanimations\nwhen running",
-        "enable an\nungodly\namount of\nbloom",
-        "vibrato the\ngame music\nwhen everyone\nhas low hp",
-        "go back\nto the\nmain menu"
+    local texts = {
+        ["Master Volume"] = "change how\nloud the\ngame is",
+        ["Keyboard Controls"] = "change what\nkeys do what\nactions",
+        ["Gamepad Controls"] = "change what\ncontroller\nbuttons\ndo what\nactions",
+        ["Auto-Run"] = "change\nwhether you\nrun by\ndefault",
+        ["Discord RPC"] = "if enabled,\ngives a\ncustom\ndiscord\nstatus",
+        ["Fullscreen"] = "toggles\nfullscreen",
+        ["Window Scale"] = "change the\nwindow scale\nfor windowed\nmode",
+        ["Border"] = "whether or\nnot the game\nwill have\na border",
+        ["Simplify VFX"] = "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
+        ["Auto-Reload DLC"] = "i have no\nidea what\nthis does \n\nlol",
+        ["Target FPS"] = "sets the\ntarget fps",
+        ["VSync"] = "toggles\nvsync",
+        ["Frame Skip"] = "toggles\nframe skip",
+        ["Broken Menu Boxes"] = "does some-\nthing and\nbreaks the\noptions\nmusic",
+        ["Skip Intro"] = "toggles\nskipping the\nintro when\nopening\nthe game",
+        ["Display FPS"] = "toggles\ndisplaying\nthe current\nfps count",
+        ["Default Name"] = "change the\ndefault name\nfor save\nfiles",
+        ["Skip Name Entry"] = "toggles\nskipping the\nsave file\nname entry",
+        ["Verbose Loader"] = "i have no\nidea what\nthis does \n\nlol",
+        ["Loader Mode"] = "change what\nloading sys-\ntem to use",
+        ["Use System Mouse"] = "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
+        ["Always Show Mouse"] = "show the\nmouse cursor\nalways",
+        ["Instant Quit"] = "instantly\nclose the\ngame when\npressing\nESC",
+        ["Prefer Goner Keybd."] = "whether to\nuse the\ngoner key-\nboard when\ntyping",
+        ["Enable Shatter"] = "enables\nshatter\nif it's\ninstalled",
+        ["Plugins"] = "manage\ninstalled\nplugins",
+        ["Descriptive Loading"] = "i have no\nidea what\nthis does \n\nlol",
+        ["Alt Attack Style"] = "when\nattacking,\nuse z, x,\nand c instead\nof just z",
+        ["Run Animations"] = "wheter to\nuse special\nanimations\nwhen running",
+        ["Silly RTX Mode"] = "enable an\nungodly\namount of\nbloom",
+        ["Low-Health Music"] = "vibrato the\ngame music\nwhen everyone\nhas low hp",
+        ["Back"] = "go back\nto the\nmain menu"
     }
 
-    if self.selected_page == 1 then
-        text = page_1[self.selected_option]
-    elseif self.selected_page == 2 then
-        text = page_2[self.selected_option]
-    elseif self.selected_page == 3 then
-        text = page_3[self.selected_option]
-    elseif self.selected_page == 4 then
-        text = page_4[self.selected_option]
+    local page = self.pages[self.selected_page]
+    local options = self.options[page] and self.options[page].options
+    if options == nil then return nil end
+    local option_id
+    if self.selected_option == #options + 1 then
+        option_id = "Back"
+    else
+        local option = options and options[self.selected_option]
+        option_id = option and option.name
     end
-
-    return text
+    return texts[option_id]
 end
 
 -------------------------------------------------------------------------------

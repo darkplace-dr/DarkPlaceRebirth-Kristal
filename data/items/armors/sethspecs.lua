@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         noelle = false,
         jamm = false,
+        ceroba = false,
     }
 
     -- Character reactions
@@ -54,6 +55,7 @@ function item:init()
         noelle = "That's too much like...",
         jamm = "...I got some of my own.",
         calypso = "Aye, they be helpful...",
+        ceroba = "I can see fine, thanks.",
     }
 end
 

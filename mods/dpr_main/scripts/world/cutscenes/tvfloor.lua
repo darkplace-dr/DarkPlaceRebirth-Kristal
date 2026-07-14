@@ -114,7 +114,7 @@ return {
 			susie:setSprite("racing/play")
 			player.sprite:stop()
 			susie.sprite:play(1/5)
-			
+
 			racing_game = GreenRoomRacingGame()
 			Game.world:addChild(racing_game)
 			racing_game.init = true
@@ -134,7 +134,7 @@ return {
 				end
 				return false
 			end)
-			
+
 			--END GAME
 			player.sprite:stop()
 			susie.sprite:stop()
@@ -187,7 +187,7 @@ return {
 		end
 		cutscene:detachCamera()
 		cutscene:detachFollowers()
-		if Game:hasPartyMember("susie") then			
+		if Game:hasPartyMember("susie") then
 			if event.interact_count == 1 then
 				cutscene:text("* (A game system is set up,[wait:5] but strictly,[wait:5] and rules are written down...)")
 				cutscene:textTagged("* Wanna race?", "smile", "susie")
@@ -216,7 +216,7 @@ return {
 		cutscene:attachCamera()
 		cutscene:attachFollowersImmediate()
 	end,
-	
+
 	funnytexttest = function(cutscene)
 		cutscene:text("* Wow,[wait:5] what an [funnytext:amazing_01,ftext_prize,8,-58,204,61]\n                 performance!!!")
 		cutscene:text("* The audience has been brought to [funnytext:tears/tears,splat,0,0,98,31],[wait:5] folks!")
@@ -231,7 +231,7 @@ return {
 		if not Game:hasPartyMember("dess") or Game:getFlag("can_kill", false) then return end
 		local dess = cutscene:getCharacter("dess")
 		local crowd = cutscene:getEvents("teevie_cameras")[1]
-		
+
 		cutscene:detachCamera()
 		cutscene:detachFollowers()
 		cutscene:showNametag("Dess")
@@ -270,7 +270,7 @@ return {
 			end
 		end
 	end,
-	
+
 	after_quiz = function(cutscene, answers)
 		if Game:getFlag("after_quiz_done", false) then
 			return
@@ -317,7 +317,7 @@ return {
 		cutscene:hideNametag()
 		Game:setFlag("after_quiz_done", true)
 	end,
-	
+
 	sneakattack_zapper = function(cutscene, light)
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
@@ -373,7 +373,7 @@ return {
             cutscene:wait(function () return change:isRemoved() end)
 		end
 	end,
-	
+
 	sneakattack_shadowguy = function(cutscene, light)
 		local heads = {}
 		for _,head in ipairs(Game.world:getEvents("teevie_sneakhead")) do
@@ -395,7 +395,7 @@ return {
 		if #heads <= 0 then
 			if Game:getFlag("can_kill") then
 				cutscene:text("* (But nobody came.)")
-			else			
+			else
 				cutscene:text("* (You somehow remained undetected.)")
 			end
 		else
@@ -455,7 +455,7 @@ return {
 		cutscene:wait(1)
 		light:remove()
 	end,
-	
+
     pippins_pre_elevator = function(cutscene, event)
 		cutscene:showShop()
         if event.interact_count == 1 then
@@ -482,7 +482,7 @@ return {
 		end
 		cutscene:hideShop()
     end,
-	
+
     pippins_stealth_1 = function(cutscene, event)
         if event.interact_count == 1 then
             cutscene:showNametag("Pippins")
@@ -496,7 +496,7 @@ return {
             cutscene:hideNametag()
         end
     end,
-	
+
     gouldensam_first = function(cutscene, event)
         cutscene:showNametag("Goulden Sam")
         cutscene:text("* (It's tough being the forgotten cage.)", nil, event)
@@ -754,7 +754,7 @@ return {
         ralsei_impostor:setFacing("down")
         Assets.playSound("alert")
         cutscene:wait(8/30)
-		
+
         if susie then
             Assets.playSound("sussurprise", 2)
             susie:shake()
@@ -801,12 +801,12 @@ return {
 		Game:setFlag("in_rambs_room", true)
 		Game.world:mapTransition("floortv/green_room", "entry_ramb", chara.facing)
 	end,
-	
+
     exit_rambs_room = function(cutscene, event, chara)
 		Game:setFlag("in_rambs_room", false)
 		Game.world:mapTransition("floortv/inbetween_hall", "entry_ramb", chara.facing)
 	end,
-	
+
     green_vending = function(cutscene, event)
         cutscene:text("* (It's the VENDING MACHINE!)\n* (Use the vending machine?)", nil)
         local choicer = cutscene:choicer({"Buy", "Don't Buy"})
@@ -814,7 +814,7 @@ return {
 			Game:enterShop("green_vending")
 		end
 	end,
-	
+
     green_wvending = function(cutscene, event)
         cutscene:text("* (It's the VENDING MACHINE (promoted by Tenna)!)\n* (Use the vending machine?)", nil)
         local choicer = cutscene:choicer({"Buy", "Don't Buy"})
@@ -822,7 +822,7 @@ return {
 			Game:enterShop("green_wvending")
 		end
 	end,
-	
+
     green_sellding = function(cutscene, event)
 		Game:enterShop("green_sellding")
 	end,
@@ -852,8 +852,9 @@ return {
 			Game:enterShop("legacy_mikevending")
 		end
 	end,
-	
+
     atm_vending = function(cutscene, event)
+        Input.clear("confirm")
 		Game:enterShop("atm_vending")
 	end,
 
@@ -882,6 +883,7 @@ return {
 			end
 		end
 		cutscene:hidePoints()
+		Input.clear("confirm")
 		Game:enterShop("atm_vending")
 	end,
 
@@ -910,6 +912,7 @@ return {
 			end
 		end
 		cutscene:hidePoints()
+		Input.clear("confirm")
 		Game:enterShop("legacy_vending")
 	end,
 
@@ -1180,7 +1183,7 @@ return {
     	if susie then
     		susie:resetSprite()
     		cutscene:look(susie, "right")
-            
+
             cutscene:text("* And why would we even choose the top option?", "neutral_side", "susie")
 
             cutscene:text("* Why wouldn't you?", "reverse", "dess")
@@ -1493,7 +1496,7 @@ return {
     		love = nil
     	end
     end,
-	
+
 	dessimation_tenna_door = function(cutscene)
 		cutscene:text("* (The door is sealed with tape.)[wait:5]\n* (Written all over it are the words \"NO ENTRY\"...)")
 		if not Game:hasPartyMember("dess") then return end
@@ -1522,7 +1525,7 @@ return {
 				event.visible = true
 			elseif event.layer == Game.world.map.layers["objects_dessim_door_a"] then
 				event.visible = false
-				event.collider.collidable = false			
+				event.collider.collidable = false
 			end
 		end
 		Game.world.map:getEvent(113).collider.collidable = false
@@ -1541,7 +1544,7 @@ return {
 		cutscene:wait(1)
 		cutscene:wait(cutscene:fadeIn(1))
 	end,
-	
+
     elevator_strange = function(cutscene)
         local leader = cutscene:getCharacter(Game.party[1].id)
         cutscene:after(function()
@@ -1609,8 +1612,8 @@ return {
 
     	cutscene:look(hero, "right")
     	cutscene:look(susie, "right")
-    	local _, wait1 = cutscene:alert(hero, nil, {play_sound=false})
-    	local _, wait2 = cutscene:alert(susie, nil, {play_sound=false})
+    	local wait1, _ = cutscene:alert(hero, nil, {play_sound=false})
+    	local wait2, _ = cutscene:alert(susie, nil, {play_sound=false})
 
     	local x, _ = Game.world:screenToLocalPos(SCREEN_WIDTH, 0)
     	local tenna = cutscene:spawnNPC("tenna", x+150, 345)

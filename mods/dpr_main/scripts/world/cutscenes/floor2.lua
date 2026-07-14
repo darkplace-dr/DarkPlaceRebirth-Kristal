@@ -480,5 +480,313 @@ return {
 		if susie then
 			susie:resetSprite()
 		end
-    end
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param event Event
+    podiumitem = function(cutscene, event)
+        ---@param event Event
+        local function getEventProperties(event)
+            local data = event.data
+            local properties = data.properties or {}
+            return data, properties
+        end
+
+        if not event then return end
+        local data, properties = getEventProperties(event)
+        local item = properties["item"]
+        if not item then return end
+        ---@type PodiumItem
+        local podiumitem_event = Game.world:getEvent(item.id)
+        if not podiumitem_event or not podiumitem_event.parent then return end
+        local podiumitem_event_data, podiumitem_properties = getEventProperties(podiumitem_event)
+        local podiumitem = podiumitem_properties["item"]
+        local skip_rsc = Game:getFlag("skip_red_spear_cutscene")
+        if not skip_rsc then
+            cutscene:text("* (You don't know anything about this item.)")
+        end
+        cutscene:text("* (Take it?)")
+        local c = cutscene:choicer({"Yes", "No"})
+        if c == 2 then return end
+
+        local itempodiums = Game.world:getEvents("podiumitem")
+        local success, result_text = podiumitem_event:tryGiveItem(true)
+        if success then
+            Assets.playSound("item")
+            for _,itempodium in pairs(itempodiums) do
+                itempodium:setFlag("grabbed", false)
+                itempodium.visible = false
+                if itempodium ~= podiumitem_event then
+                    itempodium:setFlag("grabbed", true)
+                    itempodium:explode(nil, nil, true)
+                end
+            end
+
+            cutscene:text(result_text)
+
+            local len = cutscene:getCharacter("len")
+            if len then
+                cutscene:detachCamera()
+                cutscene:detachFollowers()
+                
+                if not skip_rsc then
+                    local charas = cutscene:getPartyCharacters()
+                    for i,chara in ipairs(charas) do
+                        if chara.actor.id == len.actor.id then
+                            table.remove(charas, i)
+                            break
+                        end
+                    end
+                    
+                    for _,chara in pairs(charas) do
+                        local x = chara.x - 40
+                        cutscene:walkTo(chara, x, chara.y)
+                    end
+
+                    len:setFacing("up")
+                    cutscene:wait(1)
+
+                    cutscene:textTagged("* Wait!", "neutral", "len")
+
+                    for _,chara in pairs(charas) do
+                        chara:setFacing("right")
+                    end
+                end
+
+                local time = 1
+                if skip_rsc then
+                    time = 0.4
+                end
+
+                local mx, my = cutscene:getMarker("spear_walk")
+                if len.y > my then
+                    cutscene:wait(cutscene:walkTo(len, mx, my, time))
+                end
+                local mx, my = cutscene:getMarker("spear")
+                cutscene:wait(cutscene:walkTo(len, mx, my, time))
+                len:setFacing("up")
+                if not skip_rsc then
+                    cutscene:textTagged("* This red spear looks soo cool.", "neutral", "len")
+                    cutscene:textTagged("* I don't think whoever left this here would mind if i take it.", "neutral_b", "len")
+                end
+
+                ---@type TileLayer
+                local spear = Game.world.map:getTileLayer("spear")
+                spear.visible = false
+                Assets.playSound("item")
+                if not skip_rsc then
+                    cutscene:wait(1)
+                else
+                    cutscene:wait(0.3)
+                end
+
+                len:setFacing("down")
+                if not skip_rsc then
+                    cutscene:textTagged("* Ok,[wait:5] lets go.", "neutral", "len")
+                end
+
+                cutscene:wait(cutscene:walkTo(len, len.x, len.y + 40, time))
+
+                Assets.playSound("spearappear", 2, 1)
+                cutscene:wait(0.2)
+                cutscene:alert(len)
+
+                if not skip_rsc then
+                    cutscene:wait(1)
+                else
+                    cutscene:wait(0.3)
+                end
+
+                len:setFacing("up")
+                if not skip_rsc then
+                    cutscene:textTagged("* Uh...[wait:5] what was that noise?", "suprise", "len")
+                    cutscene:wait(1)
+
+                    cutscene:alert(len)
+                    cutscene:setSpeaker("len_hood", false)
+                    cutscene:text("* WHAT ARE YOU DOING?")
+                    cutscene:text("* THE SIGN SAID TO ONLY TAKE ONE![wait:5] ONE!")
+                    cutscene:text("* THIS,[wait:5] IS,[wait:5] MORE,[wait:5] THAN ONE!")
+                    cutscene:text("* THIS IS AGAINST THE ROOM RULES!")
+
+                    if not Game:getFlag("read_red_spear_sign") then
+                        cutscene:textTagged("* What???[wait:5] the sign i didn't read???", "nervous", "len")
+                    else
+                        cutscene:textTagged("* What???", "nervous", "len")
+                    end
+                    
+                    cutscene:text("* ENOUGH![wait:5] ENOUGH![wait:5] ENOUGH!!!")
+                    cutscene:alert(len)
+                    cutscene:text("* I'LL SHOW YOU THE CONSEQUENCES OF YOUR ACTIONS!")
+                    cutscene:textTagged("* Wait! don't-", "dumb", "len", {auto = true})
+                end
+                
+                len:setAnimation("reveal_forced")
+                len:shake()
+                Assets.playSound("wing")
+                Assets.playSound("bell_bounce_short")
+                local slide = 60
+                local time = 0.4
+                local x, y = len.x, len.y
+                local hood_x, hood_y = x -20, y
+                local hood = cutscene:spawnNPC("len_hood", hood_x, hood_y)
+                hood:setAnimation("spear/idle")
+                hood.flip_x = true
+                hood.layer = len.layer + 1
+                local offset_y = 22
+                cutscene:slideTo(hood, hood_x + slide, hood_y - offset_y, time)
+                cutscene:wait(cutscene:slideTo(len, x - slide, y - offset_y, time))
+
+                Game:setFlag("skip_red_spear_cutscene", true)
+                Kristal.saveGame()
+
+                for _,itempodium in pairs(itempodiums) do
+                    itempodium:setFlag("grabbed", true)
+                    itempodium:remove()
+                end
+
+                Game:getPartyMember("len"):setFlag("hoodless", true)
+                hood:setAnimation("spear/point")
+                hood:shake()
+                Assets.playSound("wing")
+                cutscene:setSpeaker("len_hood", false)
+                cutscene:text("* EN GUARDE!")
+
+                cutscene:startEncounter("lenhoodredspear", true, hood)
+
+                Game.world.music:play("forgottenbone", 2)
+                hood:setAnimation("spear/idle")
+                cutscene:text("* Woah![wait:5] What a good battle!")
+                cutscene:text("* I hadn't had a battle like that in ages!")
+                cutscene:text("* You have proven yourself worthy of my power.")
+                cutscene:text("* Let me aid you on your adventure.")
+                local success, result_text = Game.inventory:tryGiveItem("red_spear")
+                if not success then
+                    cutscene:setSpeaker()
+                    cutscene:text(result_text)
+                    cutscene:setSpeaker("len_hood", false)
+                    cutscene:text("* ...")
+                    cutscene:text("* ...?")
+                    cutscene:text("* Nevermind then,[wait:5] i'll return to the wall until you need me.")
+                end
+
+                cutscene:textTagged("* Wait![wait:5] could you return me my hoodie first please?", "dumb", "len")
+                cutscene:text("* Oh,[wait:5] sure...[wait:5] i almost forgot.")
+                cutscene:text("* Catch![wait:1]", "", "len_hood", {wait = false, auto = true})
+                cutscene:wait(0.2)
+                len:alert()
+                hood:setAnimation("spear_only/idle")
+                hood:shake()
+                local offset_y = 45
+                local hood_sprite = Sprite("party/len_hood/idle", hood.x, hood.y - offset_y)
+                hood_sprite:setScaleOrigin(0.5, 1)
+                hood_sprite:setScale(2.4, 2.4)
+                hood_sprite.layer = len.layer + 1
+                hood_sprite.flip_x = true
+                Game.world:addChild(hood_sprite)
+                Assets.playSound("whip_throw_only")
+                cutscene:wait(cutscene:slideTo(hood_sprite, len.x, len.y - offset_y, 0.4))
+                hood_sprite:remove()
+                Assets.playSound("wing")
+                Game:getPartyMember("len"):setFlag("hoodless", false)
+                len:shake()
+                len:resetSprite()
+                len:setFacing("right")
+                cutscene:wait(1)
+                cutscene:textTagged("* Ahh...[wait:5][face:happy][sound:voice/pink/mew] much better!", "neutral_closed", "len")
+                cutscene:text("* Ok,[wait:5] now.")
+                if success then
+                    Assets.playSound("item")
+                    hood:remove()
+                    cutscene:setSpeaker()
+                    cutscene:text(result_text)
+                    Game:setFlag("gave_red_spear", true)
+                else
+                    cutscene:setSpeaker("len_hood", false)
+                    local mx, my = cutscene:getMarker("spear_wall")
+                    cutscene:wait(cutscene:slideTo(hood, mx, my))
+                    Assets.playSound("equip")
+                    hood:remove()
+                    spear.visible = true
+                end
+
+                cutscene:setSpeaker("len")
+                cutscene:textTagged("* ...[wait:5][face:happy_nervous_b]Could we pretend this never happened?", "nervous_closed_b", "len")
+
+                local player = Game.world.player
+                if player.actor.id == "len" then
+                    local mx, my = cutscene:getMarker("spear_walk")
+                    cutscene:wait(cutscene:walkTo(len, mx, my))
+                    len:setFacing("down")
+                end
+
+                cutscene:attachFollowers()
+                cutscene:attachCamera()
+            end
+        else
+            cutscene:text(result_text)
+        end
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param event Event
+    redspear = function(cutscene, event)
+        if Game:getFlag("gave_red_spear") then
+            return
+        end
+
+        if Game:getFlag("encounter#dpr_main/lenhoodredspear:done") then
+            cutscene:setSpeaker("len_hood", false)
+            cutscene:text("* Hello![wait:5] ready to bring some [color:yellow]JUSTICE[color:reset]?")
+            cutscene:setSpeaker()
+            
+            local c = cutscene:choicer({"Yes", "No"})
+            if c == 2 then return end
+
+            local success, result_text = Game.inventory:tryGiveItem("red_spear")
+            if success then
+                ---@type TileLayer
+                local spear = Game.world.map:getTileLayer("spear")
+                spear.visible = false
+                Assets.playSound("item")
+                Game:setFlag("gave_red_spear", true)
+                cutscene:text(result_text)
+                return
+            end
+
+            cutscene:text(result_text)
+        else
+            cutscene:text("* (It appears to be some kind of spear,[wait:5] and for some reason energy is emanating from it.)")
+            cutscene:text("* (This item is not on a podium,[wait:5] alas,[wait:5] you cannot take it.)")
+        end
+    end,
+
+    ---@param cutscene WorldCutscene
+    ---@param event Event
+    redspear_savepoint = function(cutscene, event)
+        if Game:getFlag("encounter#dpr_main/lenhoodredspear:done") then
+            if Game:getFlag("gave_red_spear") then
+                cutscene:text("* (The empty room feels like a reminder.)")
+                cutscene:text("* (...[wait:5][color:yellow]JUSTICE[color:reset] has been made.)")
+            else
+                cutscene:text("* (The half-empty room feels like a reminder.)")
+                cutscene:text("* (...[wait:5][color:yellow]JUSTICE[color:reset]'s waiting.)")
+            end
+
+            return
+        end
+
+        local itempodiums = Game.world:getEvents("podiumitem")
+        local count = 0
+        for _,_ in pairs(itempodiums) do
+            count = count + 1
+        end
+        if count == 2 then
+            cutscene:text("* (Two green looking weapons shine at your view.)")
+            cutscene:text("* (You're filled with the power of not knowing which one to choose.)")
+        else
+            cutscene:text("* (Your choosen weapon shines at your view.)")
+            cutscene:text("* (You're filled with the power of not having to choose again.)")
+        end
+    end,
 }

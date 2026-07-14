@@ -55,6 +55,7 @@ function item:init()
             calypso = "(What???)",
         },
         calypso = "It be too green...",
+        ceroba = "I'd prefer to keep my distance...",
     }
 end
 

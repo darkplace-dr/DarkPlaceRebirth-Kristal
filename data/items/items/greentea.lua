@@ -42,6 +42,7 @@ function item:init()
         noelle = "You mean cardamom?",
         jamm = "Huh, that's really good.",
         calypso = "It be so calming...",
+        ceroba = "It's been made with care, wasn't it...?",
     }
 end
 

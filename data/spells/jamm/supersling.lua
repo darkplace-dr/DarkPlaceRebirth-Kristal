@@ -21,7 +21,7 @@ function spell:init()
     self.target = "enemy"
 
     -- Tags that apply to this spell
-    self.tags = {"Heal"}
+    self.tags = {"heal"}
 end
 
 function spell:getName()

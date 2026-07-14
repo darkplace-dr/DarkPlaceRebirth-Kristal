@@ -106,9 +106,7 @@ Shaders["Mask"] = love.graphics.newShader[[
     }
  ]]
 
-local success, colorShader = pcall(love.graphics.newShader, [[
-    #pragma language glsl3
-
+Shaders["ColorGradient"] = love.graphics.newShader[[
     extern vec4 from;
     extern vec4 to;
     extern float screenHeight;
@@ -119,12 +117,6 @@ local success, colorShader = pcall(love.graphics.newShader, [[
 
         return mix(from, to, y)*Texel(tex, texture_coords).a;
     }
-]])
-
-if success then
-    Shaders["ColorGradient"] = colorShader
-else
-    print("Color shader not supported on system.")
-end
+]]
 
 return Shaders

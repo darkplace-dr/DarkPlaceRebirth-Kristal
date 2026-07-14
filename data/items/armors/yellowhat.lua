@@ -55,6 +55,7 @@ function item:init()
             susie = "That's what I'M saying!",
         },
         calypso = "...It suits me.",
+        ceroba = "\"Yee-haw!\" (I think that was it?)", -- tries to remember Star's cowboy phrases
     }
 end
 

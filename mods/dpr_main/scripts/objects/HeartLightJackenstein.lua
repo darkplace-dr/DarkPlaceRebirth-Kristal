@@ -25,9 +25,8 @@ end
 function HeartLightJackenstein:update()
 	super.update(self)
 	if Game.battle and Game.battle.soul then
-		local soul = Game.battle.soul
-		if soul.inv_timer > 15/30 then
-			self.siner = self.siner + MathUtils.clamp(((soul.inv_timer/30)-15), 1, 30)
+		if Game.inv_frames > 15 then
+			self.siner = self.siner + MathUtils.clamp((Game.inv_frames - 15), 1, 30)
 		else
 			self.siner = self.siner + DTMULT
 		end

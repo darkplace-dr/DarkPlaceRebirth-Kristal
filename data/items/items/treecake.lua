@@ -43,6 +43,7 @@ function item:init()
         noelle = "Mmm, water bubbler. I mean, fruitcake.",
         jamm = "Mmm, cake.",
         calypso = "Aye, me first rum...",
+        ceroba = "The taste from our family picnics...", -- she's tearing up here
     }
 end
 

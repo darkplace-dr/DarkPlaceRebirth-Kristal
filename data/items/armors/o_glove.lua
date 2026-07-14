@@ -56,6 +56,7 @@ function item:init()
         noelle = "I'm used to gloves. I mean, um, oven mitts.",
         jamm = "I already have gloves!",
         calypso = "Me claws would break them...",
+        ceroba = "I don't usually punch stuff, but...",
     }
 end
 
