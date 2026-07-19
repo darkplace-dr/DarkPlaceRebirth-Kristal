@@ -48,7 +48,6 @@ function LightSoul:init(x, y, color)
     self.transitioning = Game.battle:getState() ~= "DEFENDING" or not self.visible
     self.speed = Game.battle.soul_speed
 
-    self.inv_timer = 0
     self.inv_flash_timer = 0
 
     -- 1px movement increments
@@ -299,6 +298,10 @@ end
 
 function LightSoul:onGraze(bullet, old_graze) end
 
+function LightSoul:shouldDecreaseInvuln()
+    return true
+end
+
 function LightSoul:doMovement()
     local speed = self.speed
 
@@ -337,10 +340,6 @@ function LightSoul:update()
     end
 
     -- Bullet collision !!! Yay
-    if self.inv_timer > 0 then
-        self.inv_timer = MathUtils.approach(self.inv_timer, 0, DT)
-    end
-
     local collided_bullets = {}
     Object.startCache()
     for _, bullet in ipairs(Game.stage:getObjects(Bullet)) do
@@ -349,7 +348,7 @@ function LightSoul:update()
             -- to avoid issues with cacheing inside onCollide
             table.insert(collided_bullets, bullet)
         end
-        if self.inv_timer == 0 and Game.battle:getState() == "DEFENDING" then
+        if not Game:hasInvulnerability() and Game.battle:getState() == "DEFENDING" then
             if bullet:canGraze() and bullet:collidesWith(self.graze_collider) then
                 local old_graze = bullet.grazed
                 if bullet.grazed then
@@ -380,7 +379,7 @@ function LightSoul:update()
         self:onCollide(bullet)
     end
 
-    if self.inv_timer > 0 then
+    if Game.inv_frames > 0 then
         self.inv_flash_timer = self.inv_flash_timer + DT
         local amt = math.floor(self.inv_flash_timer / (2 / 30)) -- flashing is faster in ut
         if (amt % 2) == 1 then
@@ -397,7 +396,7 @@ function LightSoul:update()
     local when_should_glow = {"ENEMYDIALOGUE", "DEFENDINGBEGIN", "DEFENDING"}
     local not_in_battle_menu = true
     if Game.battle then not_in_battle_menu = TableUtils.contains(when_should_glow, Game.battle.state) end
-    if self.inv_timer == 0 and Game.pp > 0 and not_in_battle_menu then
+    if not Game:hasInvulnerability() and Game.pp > 0 and not_in_battle_menu then
         self.glow_alpha = self.glow_alpha + self.glow_alpha_increase * DTMULT
         if self.glow_alpha >= 1 then
             self.glow_alpha = 1

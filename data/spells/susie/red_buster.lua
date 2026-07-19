@@ -32,8 +32,6 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-    Game.battle:incTemp(30)
-    
     local buster_finished = false
     local anim_finished = false
     local function finishAnim()
@@ -47,6 +45,7 @@ function spell:onCast(user, target)
         user:setAnimation("battle/attack", finishAnim)
     end
     Game.battle.timer:after(15/30, function()
+        Game.battle:incTemp(30)
         Assets.playSound("rudebuster_swing")
         local x, y = user:getRelativePos(user.width, user.height/2 - 10, Game.battle)
         local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
@@ -70,16 +69,25 @@ function spell:onCast(user, target)
 end
 
 function spell:getDamage(user, target, damage_bonus)
-    local damage = math.ceil((user.chara:getStat("magic") * 6) + (user.chara:getStat("attack") * 13) - (target.defense * 6)) + 90 + damage_bonus
-    damage = math.ceil(damage/target:getResistance("RED"))
+    local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+    local magic_part = user.chara:getStat("magic") * (6 + (yellowhat_count * 0.5))
+    local attack_part = user.chara:getStat("attack") * (13 + yellowhat_count)
+
+    local damage = math.ceil(magic_part + attack_part - (target.defense * 6)) + 90 + (90 * (0.2 * yellowhat_count)) + damage_bonus
+
+    damage = math.ceil(damage / target:getResistance("RED"))
+
     if user.chara:checkWeapon("virobuster") then
         if target.health <= target.max_health / 2 then
             damage = damage * 2
         end
     end
+
     if (Game.battle and Game.battle.headwind > 0) then
         damage = math.floor(damage * 1.25)
     end
+
     return damage
 end
 

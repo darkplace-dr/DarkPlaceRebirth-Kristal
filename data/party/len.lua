@@ -141,6 +141,17 @@ function character:onPreHurt(amount, swoon)
     end
 end
 
+function character:getHeadIcons()
+    local party = Game:getPartyMember("len")
+    if party then
+        if party:getFlag("hoodless") or (Game.battle and Game.battle.encounter.is_jackenstein) then
+            return "party/len/icon/hoodless"
+        end
+    end
+    
+    return super.getHeadIcons(self)
+end
+
 -- function character:onHurt(amount)
 --     print("onHurt: " .. self.name .. " was hurt by " .. tostring(amount) .. " points of damage.")
 -- end

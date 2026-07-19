@@ -146,7 +146,7 @@ function Battle:onDefendingState()
 				self.soul.can_move = false
 			end
 		end
-        self.soul:addChild(CerobaDiamondBuff(0, 0, function()
+        self:addChild(CerobaDiamondBuff(self.soul.x, self.soul.y, function()
 			for _, wave in ipairs(self.waves) do
 				wave.encounter = self.encounter
 

@@ -54,31 +54,6 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-    local mult = 1
-    if Game:getFlag("jamm_skill_21") and not Game.light then
-        mult = Game:getElementAvgMult("DARK", "STAR")
-    end
-    
-	local damage = math.floor((((user.chara:getStat("attack") * 400) / 20) - 3 * (target.defense)) * 1.3)
-	if target.boss then
-		damage = math.floor((((user.chara:getStat("attack") * 130) / 20) - 3 * (target.defense)) * 1.7)
-	end
-    
-    if Game:getFlag("jamm_skill_2") then
-        damage = damage * (target.boss and 1.1 or 1.2)
-    end
-    
-    damage = damage * mult
-    
-    if Game:getFlag("jamm_skill_21") and not Game.light then
-        damage = damage/target:getResistance("STAR")
-        damage = damage/target:getResistance("DARK")
-    end
-    
-    if (Game.battle and Game.battle.headwind > 0) then
-        damage = math.floor(damage * 1.25)
-    end
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -106,19 +81,10 @@ function spell:onCast(user, target)
 	end
 
 	generateSlash(1)
-	target:hurt(damage, user)
+	target:hurt(self:getDamage(user, target), user)
 end
 
 function spell:onLightCast(user, target)
-	local damage = math.floor((((user.chara:getStat("attack") * 40) / 10) - 3 * (target.defense)) * 1.3)
-	if target.boss then
-		damage = math.floor((((user.chara:getStat("attack") * 13) / 10) - 3 * (target.defense)) * 1.7)
-	end
-    
-    if (Game.battle and Game.battle.headwind > 0) and name == "attack" then
-        damage = math.floor(damage * 1.25)
-    end
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -132,9 +98,55 @@ function spell:onLightCast(user, target)
 	end
 
 	generateSlash(1)
-	target:hurt(damage, user)
+	target:hurt(self:getDamage(user, target), user)
 end
 
 function spell:isUsable(chara) return not chara.disarmed end
+
+function spell:getDamage(user, target)
+	if Game:isLight() then
+		local damage = math.floor((((user.chara:getStat("attack") * 40) / 10) - 3 * (target.defense)) * 1.3)
+        if target.boss then
+            damage = math.floor((((user.chara:getStat("attack") * 13) / 10) - 3 * (target.defense)) * 1.7)
+        end
+
+        if (Game.battle and Game.battle.headwind > 0) then
+            damage = math.floor(damage * 1.25)
+        end
+
+		return damage
+	else
+		local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+		local mult = 1
+        if Game:getFlag("jamm_skill_21") then
+            mult = Game:getElementAvgMult("DARK", "STAR")
+        end
+
+        local attack_part = (user.chara:getStat("attack") * 400) / 20
+        local damage = math.floor((attack_part + (attack_part * (0.2 * yellowhat_count)) - 3 * (target.defense)) * 1.3)
+        if target.boss then
+            attack_part = (user.chara:getStat("attack") * 130) / 20
+            damage = math.floor((attack_part + (attack_part * (0.2 * yellowhat_count)) - 3 * (target.defense)) * 1.7)
+        end
+
+        if Game:getFlag("jamm_skill_2") then
+            damage = damage * (target.boss and 1.1 or 1.2)
+        end
+
+        damage = damage * mult
+
+        if Game:getFlag("jamm_skill_21") then
+            damage = damage / target:getResistance("STAR")
+            damage = damage / target:getResistance("DARK")
+        end
+
+        if (Game.battle and Game.battle.headwind > 0) then
+            damage = math.floor(damage * 1.25)
+        end
+
+		return damage
+	end
+end
 
 return spell

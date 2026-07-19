@@ -30,7 +30,8 @@ function spell:onCast(user, target)
 
     local function explosion()
         Assets.playSound("ceroba_boom")
-        local boom = Sprite("effects/spells/ceroba/explosion", target.x, target.y - target.height)
+        local tx, ty = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
+        local boom = Sprite("effects/spells/ceroba/explosion", tx, ty)
         boom:setOrigin(0.5)
         boom:setScale(1)
         boom.layer = BATTLE_LAYERS["above_battlers"] + 1
@@ -41,7 +42,7 @@ function spell:onCast(user, target)
     Game.battle.timer:after(0.25, function()
         for i = 1, bullet_number_max do
             Game.battle.timer:after((i * 5) / 30, function()
-                local flower = FlowerBarrageBullet(target.x, target.y - target.height, bullet_speed, attack_dir, function()
+                local flower = FlowerBarrageBullet(target, bullet_speed, attack_dir, function()
                     if i == bullet_number_max then
                         explosion()
                         Game.battle:shakeCamera(5, 5)
@@ -77,7 +78,8 @@ function spell:onLightCast(user, target)
 
     local function explosion()
         Assets.playSound("ceroba_boom")
-        local boom = Sprite("effects/spells/ceroba/explosion", target.x, target.y - target.height)
+        local tx, ty = target:getRelativePos(target.width / 2, target.height / 2, Game.battle)
+        local boom = Sprite("effects/spells/ceroba/explosion", tx, ty)
         boom:setOrigin(0.5)
         boom:setScale(2)
         boom.layer = LIGHT_BATTLE_LAYERS["above_arena_border"] + 1
@@ -88,7 +90,7 @@ function spell:onLightCast(user, target)
     Game.battle.timer:after(0.25, function()
         for i = 1, bullet_number_max do
             Game.battle.timer:after((i * 5) / 30, function()
-                local flower = FlowerBarrageBullet(target.x, target.y - target.height, bullet_speed, attack_dir, function()
+                local flower = FlowerBarrageBullet(target, bullet_speed, attack_dir, function()
                     if i == bullet_number_max then
                         explosion()
                         Game.battle:shakeCamera(5, 5)

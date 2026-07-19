@@ -1378,7 +1378,7 @@ function LightBattle:onDefendingState()
 				self.soul.can_move = false
 			end
 		end
-        self.soul:addChild(CerobaDiamondBuff(0, 0, function()
+        self:addChild(CerobaDiamondBuff(self.soul.x, self.soul.y, function()
 			for _, wave in ipairs(self.waves) do
 				wave.encounter = self.encounter
 
@@ -3866,8 +3866,8 @@ function LightBattle:applyHealBonuses(base_heal, healer)
     return current_heal
 end
 
-function LightBattle:canDeepCopy()
-    return false
+function LightBattle:shouldDecreaseInvuln()
+    return self.encounter:shouldDecreaseInvuln()
 end
 
 function LightBattle:breakSoulShield()
@@ -3883,6 +3883,10 @@ function LightBattle:breakSoulShield()
         shard.layer = self.soul.layer - 1
         self:addChild(shard)
     end
+end
+
+function LightBattle:canDeepCopy()
+    return false
 end
 
 return LightBattle

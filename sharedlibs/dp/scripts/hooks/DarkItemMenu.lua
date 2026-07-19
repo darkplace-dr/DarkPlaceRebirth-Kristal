@@ -15,19 +15,20 @@ function DarkItemMenu:getSelectedItem()
 end
 
 function DarkItemMenu:updateSelectedItem()
-    if not Game.world.menu or (Game.world.menu ~= self.parent) then -- will be true if an item creates a new menu
+    if (not Game.world.menu) or self:isRemoved() then
         return
     end
+
     local items = self:getCurrentStorage()
-    if Game.inventory:hasItem("oddstone") and #items == 0 then
+    if #items == 0 and not Game.inventory:hasItem("oddstone") then
+        self.state = "MENU"
+        Game.world.menu:setDescription("", false)
+    elseif #items == 0 then
         self.item_selected_x = 1
         self.item_selected_y = 8
         self.selected_item = (2 * (self.item_selected_y - 1) + self.item_selected_x)
         local odd_item = Registry.createItem("oddstone")
         Game.world.menu:setDescription(odd_item:getDescription(), true)
-    elseif #items == 0 then
-        self.state = "MENU"
-        Game.world.menu:setDescription("", false)
     else
         if self.selected_item > #items then
             self.item_selected_x = (#items - 1) % 2 + 1

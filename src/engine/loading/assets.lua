@@ -650,4 +650,8 @@ function Assets.newShader(id)
     return love.graphics.newShader(self.get("shader", id).source)
 end
 
+function Assets.hasShader(id)
+    return self.internalHas("shader", id)
+end
+
 return Assets

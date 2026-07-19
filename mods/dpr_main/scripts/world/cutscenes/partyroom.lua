@@ -266,9 +266,16 @@ return {
 -- ¿.
 -- D:
     party = function(cutscene, event)
+        cutscene:text("* A wardrobe.[wait:5]\n* Would you like to change your party?")
+
+        if cutscene:choicer({"Yes", "No"}) == 2 then
+            cutscene:text("* You wardrobn't.")
+            return
+        end
+
+        Assets.stopAndPlaySound("ui_select")
         cutscene:after(function()
-           Game.world:openMenu(DarkCharacterMenu())    
-           Game.world.menu.ready = true
+            Game.world:openMenu(DarkCharacterMenu())
         end)
     end,
 }

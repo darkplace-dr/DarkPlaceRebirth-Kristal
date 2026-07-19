@@ -25,6 +25,21 @@ end
 
 ---@param target EnemyBattler
 function spell:onCast(user, target)
+    if Game.battle and Game.battle.encounter.is_jackenstein then
+        Game.battle.timer:after(0.2, function()
+            local dmg = 1
+            if MathUtils.randomInt(1, 1001) == 1 then
+                dmg = 2
+            end
+
+            user:hurt(dmg, true)
+
+            Assets.playSound("squeaky", dmg)
+        end)
+
+        return
+    end
+
     local chara = user.chara
     local attack_sound = chara.attack_sound
     if chara.level <= 1 then

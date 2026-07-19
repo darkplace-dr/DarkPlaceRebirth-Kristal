@@ -35,7 +35,7 @@ function item:init()
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
 
-    self.inv_bonus = 1
+    self.inv_bonus = 30
 
     self.bonuses = {
         defense = 5

@@ -96,7 +96,7 @@ function DarkPartyMenu:selection(num)
 		self.character_index = {} -- this holds all party member sprites currently visible.
 
 		self.selected_menu = self.selected_menu + num
-	
+
 		local menus = {}
 
 		for k in pairs(self.character_menus) do
@@ -106,53 +106,53 @@ function DarkPartyMenu:selection(num)
 		if Noel:loadNoel() and self.slot_selected > 1 then --SECRET MENU!
 			table.insert(menus, noeltitle)
 		end
-		
+
 		local max = #menus
-	
+
 		if self.selected_menu > max then
 			self.selected_menu = 1
 		elseif self.selected_menu <= 0 then
 			self.selected_menu = max
 		end
-	
+
 		self.text:setText(menus[self.selected_menu])
 
-		local menu_name = menus[self.selected_menu] 
+		local menu_name = menus[self.selected_menu]
 
 		local table
-		
+
 		if menu_name == noeltitle then
 			table = {"noel"} --SECRET TABLE DO NOT POST IN #SPAMROOM
 		else
-			table = self.character_menus[menu_name] 
+			table = self.character_menus[menu_name]
 		end
-		
+
 		-- this adds all the party icon sprites, if you want to add data to sprites do it here
 		for i, party in ipairs(table) do
 
 			local unlocked = false
-	
+
 			for _, key in ipairs(self.unlocked) do
 				if key == party then
 					unlocked = true
 					break
 				end
 			end
-			
+
 			local path = "ui/menu/party/"
 			local sprite = Sprite(path.."unknown")
-			
+
 			local icon = unlocked and party or "unknown" --just learned about this
 			sprite:setSprite(path..icon)
 			sprite.icon_path = path..icon --you can use this like: sprite:setSprite(sprite.icon_path.."_h")
-			
+
 			local offset = 40
 			local x = 270 - offset + (i * offset)
-	
+
 			sprite.x = x
-	
+
 			sprite.y = 130
-	
+
 			sprite:setOrigin(0.5, 0.5)
 
 			if unlocked then
@@ -163,13 +163,10 @@ function DarkPartyMenu:selection(num)
 				end
 			end
 
-	
 			self:addChild(sprite)
 			self.character_index[i] = sprite
-
 		end
 	end
-	
 end
 
 function DarkPartyMenu:update()
@@ -185,20 +182,17 @@ function DarkPartyMenu:update()
 			self.ui_move:stop()
 			self.ui_move:play()
 		elseif Input.pressed("cancel") then
+			Input.clear("cancel")
 			Game.world:openMenu(DarkCharacterMenu(self.slot_selected))
 			self.ui_cancel_small:stop()
 			self.ui_cancel_small:play()
 		elseif Input.pressed("confirm") then
-			if self.ready then
-				self.ui_select:stop()
-				self.ui_select:play()
-				Input.clear()
-				self.party_selected = 1
-				self.state = "party_select"
-				self:iconSelect(0, false)
-			else
-				self.ready = true
-			end
+			self.ui_select:stop()
+			self.ui_select:play()
+			Input.clear("confirm")
+			self.party_selected = 1
+			self.state = "party_select"
+			self:iconSelect(0, false)
 		elseif Input.pressed("menu") then
 		end
 	else
@@ -244,6 +238,9 @@ function DarkPartyMenu:update()
 					end
 				else
 					Game:addPartyMember(party)
+					if party == "noel" then
+						Game:setFlag("noel_SaveID", Noel:loadNoel()["SaveID"])
+					end
 					if self.slot_selected > 1 then
 						if Game.world.followers[self.slot_selected - 1] then
 							Game.world.followers[self.slot_selected - 1]:setActor(Game.party[self.slot_selected]:getActor())
@@ -254,7 +251,8 @@ function DarkPartyMenu:update()
 						end
 					end
 				end
-	
+
+				Input.clear("confirm")
 				Game.world:openMenu(DarkCharacterMenu(self.slot_selected))
 			else
 				self.ui_cant_select:stop()
@@ -295,20 +293,19 @@ function DarkPartyMenu:iconSelect(number, playsound)
 	if self.selected.char then
 		local party = self.selected.char
 
-
-                local sprite = NPC(party:getActor().id)
-                sprite.world = Game.world
-                sprite:setFacing("down")
+        local sprite = NPC(party:getActor().id)
+        sprite.world = Game.world
+        sprite:setFacing("down")
 		self.selected_sprite = sprite
 
 		local x = 154
 		self.selected_sprite:setOrigin(0.5, 0.5)
 		local y = 154
-	
+
 		self.selected_sprite:setScale(2)
 		self.selected_sprite.x = x
 		self.selected_sprite.y = y
-	
+
 		self:addChild(self.selected_sprite)
 
 		if party.actor.menu_anim then
@@ -318,12 +315,11 @@ function DarkPartyMenu:iconSelect(number, playsound)
 end
 
 function DarkPartyMenu:unused()
-
-		if Input.pressed("left", true) then
-			self:iconSelect(-1)
-		elseif Input.pressed("right", true) then
-			self:iconSelect(1)
-		end
+	if Input.pressed("left", true) then
+		self:iconSelect(-1)
+	elseif Input.pressed("right", true) then
+		self:iconSelect(1)
+	end
 end
 
 function DarkPartyMenu:draw()

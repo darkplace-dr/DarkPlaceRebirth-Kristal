@@ -241,13 +241,13 @@ function LightPartyBattler:updateKarma()
                     self.inv_bonus = self.inv_bonus + equip:getInvBonus()
                 end
             end
-            if self.inv_bonus >= 15 / 30 then
+            if self.inv_bonus >= 15 then
                 self.karma_bonus = TableUtils.pick({0,1})
             end
-            if self.inv_bonus >= 30 / 30 then
+            if self.inv_bonus >= 30 then
                 self.karma_bonus = TableUtils.pick({0,1,1})
             end
-            if self.inv_bonus >= 45 / 30 then
+            if self.inv_bonus >= 45 then
                 self.karma_bonus = 1
             end
             

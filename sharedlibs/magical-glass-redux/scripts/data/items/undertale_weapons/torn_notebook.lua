@@ -47,7 +47,7 @@ function item:init()
     self.light_bolt_miss_threshold = 2
     self.light_bolt_direction = "left"
     self.light_multibolt_variance = {{0, 25, 50}}
-    self.inv_bonus = 15 / 30
+    self.inv_bonus = 15
     
     self.bolt_count = 2
     self.multibolt_variance = {{40, 60}}

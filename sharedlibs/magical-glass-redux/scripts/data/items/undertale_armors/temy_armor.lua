@@ -37,7 +37,7 @@ function item:init()
     -- Item this item will get turned into when consumed
     self.result_item = nil
 
-    self.inv_bonus = 15 / 30
+    self.inv_bonus = 15
 
     self.bonuses = {
         defense = 20,

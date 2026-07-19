@@ -9,7 +9,7 @@ function spell:init()
     self.cast_name = nil
 
     -- Battle description
-    self.effect = "Rude\nDamage"
+    self.effect = "Rude\ndamage"
     -- Menu description
     self.description = "Deals moderate Rude-elemental damage to\none friend. Depends on Attack & Magic."
     -- Check description
@@ -54,24 +54,13 @@ function spell:onCast(user, target)
         Assets.playSound("rudebuster_swing")
         local x, y = user:getRelativePos(user.width, user.height/2 - 10, Game.battle)
         local tx, ty = target:getRelativePos(target.width/2, target.height/2, Game.battle)
-        local blast = RudeBusterBeam(false, x, y, tx, ty, function(pressed)
-            local damage = math.ceil((user.chara:getStat("magic") * 5) + (user.chara:getStat("attack") * 11) - (target.chara:getStat("defense") * 3))
-    
-            if (Game.battle and Game.battle.headwind > 0) then
-                damage = math.floor(damage * 1.25)
-            end
-            
-            if pressed then
-                damage = damage + 30
+        local blast = RudeBusterBeam(false, x, y, tx, ty, function(damage_bonus, play_sound)
+            local damage = self:getDamage(user, target, damage_bonus)
+            if play_sound then
                 Assets.playSound("scytheburst")
             end
-            if user.chara:checkWeapon("virobuster") then
-                if target.health <= target.chara:getStat("health") / 2 then
-                    damage = damage * 2
-                end
-            end
             target:flash()
-            target:hurt(damage, true)
+            target:hurt(damage, user)
             buster_finished = true
             if anim_finished then
                 Game.battle:finishAction()
@@ -83,13 +72,36 @@ function spell:onCast(user, target)
     return false
 end
 
+function spell:getDamage(user, target, damage_bonus)
+    local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+    local magic_part = user.chara:getStat("magic") * (5 + (yellowhat_count * 0.5))
+    local attack_part = user.chara:getStat("attack") * (11 + yellowhat_count)
+
+    local damage = math.ceil(magic_part + attack_part - (target.chara:getStat("defense") * 3)) + damage_bonus
+
+    if user.chara:checkWeapon("virobuster") then
+        if target.health <= target.max_health / 2 then
+            damage = damage * 2
+        end
+    end
+
+    if (Game.battle and Game.battle.headwind > 0) then
+        damage = math.floor(damage * 1.25)
+    end
+
+    return damage
+end
+
 function spell:hasWorldUsage(chara)
     return true
 end
 
 function spell:onWorldCast(chara)
     Assets.playSound("scytheburst")
+    local _, yellowhat_count = user.chara:checkArmor("yellowhat")
     local damage = 250
+    damage = damage + damage * (0.2 * yellowhat_count)
     Game.world:hurt(chara, damage)
 end
 

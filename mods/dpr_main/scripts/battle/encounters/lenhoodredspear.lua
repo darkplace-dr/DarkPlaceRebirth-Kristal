@@ -14,16 +14,6 @@ function LenHoodRedSpear:init()
     self.len_hood = self:addEnemy("len_hood")
 
     self.len = Game:getPartyMember("len")
-    if self.len and self.len:getFlag("hoodless") then
-        self.old_head_icons = self.len.head_icons
-        self.len.head_icons = "party/len/icon/hoodless"
-    end
-end
-
-function LenHoodRedSpear:onReturnToWorld(events)
-    if self.len and self.old_head_icons then
-        self.len.head_icons = self.old_head_icons
-    end
 end
 
 function LenHoodRedSpear:onTurnStart()

@@ -16,7 +16,7 @@ function DarkCharacterMenu:init(selected)
 	self.ui_cancel = Assets.newSound("ui_cancel")
 	self.ui_cancel_small = Assets.newSound("ui_cancel_small")
 
-    self.heart_sprite = Sprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart")
+    self.heart_sprite = Sprite("player/"..Game.party[1]:getSoulFacing().."/heart")
 	self.heart_sprite:setOrigin(0.5, 0.5)
 
     self.up = Assets.getTexture("ui/page_arrow_up")
@@ -26,7 +26,7 @@ function DarkCharacterMenu:init(selected)
     self.bg.layer = -1
 
     self:addChild(self.bg)
-	
+
 	self.party = Game.party
 
 	self.sprites = {}
@@ -42,12 +42,12 @@ function DarkCharacterMenu:init(selected)
 	self.text:setScale(0.5)
 	self.text.x = 70
 	self.text.y = 256
-	
+
 	self:addChild(self.heart_sprite)
 	self.heart_sprite.y = self.bg.y + 125
 	self.heart_sprite.x = self.bg.x + (self.selected) * 100
 	self.target_x = self.bg.x + (self.selected) * 100
-	self:selection(0)
+	self:selection(0, true)
 end
 
 function DarkCharacterMenu:removeParty()
@@ -57,8 +57,13 @@ function DarkCharacterMenu:removeParty()
 		self.heart_sprite:shake(0, 5)
 	else
 		Game:removePartyMember(self.sprites[self.selected].party.id)
-		if Game.world.followers[self.selected - 1] then
-			Game.world.followers[self.selected - 1]:remove()
+		if self.selected == 1 then
+			Game.world.player:remove()
+			Game.world.followers[1]:convertToPlayer()
+		else
+			if Game.world.followers[self.selected - 1] then
+				Game.world.followers[self.selected - 1]:remove()
+			end
 		end
 		self:partySprites()
 		self:selection(0)
@@ -77,15 +82,14 @@ function DarkCharacterMenu:partySprites()
 	for i, party in ipairs(Game.party) do
 		--local sprite = Sprite(party.actor.path .. "/" .. party.actor.default .. "/down")
 
+        local sprite = NPC(party:getActor().id)
+        sprite.world = Game.world
+        sprite:setFacing("down")
 
-                local sprite = NPC(party:getActor().id)
-                sprite.world = Game.world
-                sprite:setFacing("down")
-
-		local x = self.bg.x + 100 + (i - 1) * 100 
+		local x = self.bg.x + 100 + (i - 1) * 100
 		--sprite:setOrigin(0.5, 0.5)
 		local y = self.bg.y + 100
-	
+
 		sprite:setScale(2)
 		sprite.x = x
 		sprite.y = y
@@ -93,19 +97,17 @@ function DarkCharacterMenu:partySprites()
 		sprite.party = party
 
 		self.sprites[i] = sprite
-	
+
 		self:addChild(sprite)
 
         if party.actor.menu_anim then
 			sprite:setSprite(party.actor.menu_anim)
 		end
 
-
-
 	end
 end
 
-function DarkCharacterMenu:selection(num)
+function DarkCharacterMenu:selection(num, initial)
 	local chr = self.sprites[self.selected]
 
 	if chr then
@@ -114,8 +116,10 @@ function DarkCharacterMenu:selection(num)
 
 	self.selected = self.selected + num
 
-	self.ui_move:stop()
-	self.ui_move:play()
+	if not initial then
+		self.ui_move:stop()
+		self.ui_move:play()
+	end
 
 	if self.selected > self.index then
 		self.selected = 1
@@ -127,7 +131,7 @@ function DarkCharacterMenu:selection(num)
 
 	local chr = self.sprites[self.selected]
 
-	if chr then 
+	if chr then
 		chr:addFX(OutlineFX(), "outline")
 		chr:getFX("outline"):setColor(chr.party:getColor())
 
@@ -157,26 +161,21 @@ function DarkCharacterMenu:update()
 		self:selection(1)
 
 	elseif Input.pressed("cancel") then
-		if self.ready then
-			self.ui_cancel:stop()
-			self.ui_cancel:play()
-			Game.world:closeMenu()
-			self:remove()
-		else
-			self.ready = true
-		end
+		self.ui_cancel:stop()
+		self.ui_cancel:play()
+		Game.world:closeMenu()
+		self:remove()
 
 	elseif Input.pressed("confirm") then
 		if self.selected >= (#Game.party+2) then
 			self.ui_cant_select:stop()
 			self.ui_cant_select:play()
 			self.heart_sprite:shake(0, 5)
-		elseif self.ready then
+		else
 			self.ui_select:stop()
 			self.ui_select:play()
+			Input.clear("confirm")
 			Game.world:openMenu(DarkPartyMenu(self.selected))
-		else
-			self.ready = true
 		end
 
 	elseif Input.pressed("menu") then

@@ -33,12 +33,6 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-	local damage = math.floor((((user.chara:getStat("attack") * 4)) - 3 * target.defense))
-    
-    if (Game.battle and Game.battle.headwind > 0) then
-        damage = math.floor(damage * 1.25)
-    end
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -66,7 +60,7 @@ function spell:onCast(user, target)
 	end
 
 	generateSlash(1)
-	target:hurt(damage, user)
+	target:hurt(self:getDamage(user, target), user)
 	if target.health > 0 then
 		if target.tired then
 			Assets.playSound("spell_pacify")
@@ -98,12 +92,6 @@ function spell:onCast(user, target)
 end
 
 function spell:onLightCast(user, target)
-	local damage = math.floor((((user.chara:getStat("attack") * 4)) - 3 * target.defense))
-    
-    if (Game.battle and Game.battle.headwind > 0) then
-        damage = math.floor(damage * 1.25)
-    end
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -117,12 +105,34 @@ function spell:onLightCast(user, target)
 	end
 
 	generateSlash(1)
-	target:hurt(damage, user)
+	target:hurt(self:getDamage(user, target), user)
 	if target.health > 0 then
 		target:spare(true)				-- Can someone do the Pacify graphics here too please? idk how to make it look UT
 	end
 end
 
 function spell:isUsable(chara) return not chara.disarmed end
+
+function spell:getDamage(user, target)
+	if Game:isLight() then
+		local damage = math.floor((((user.chara:getStat("attack") * 4)) - 3 * target.defense))
+
+		if (Game.battle and Game.battle.headwind > 0) then
+			damage = math.floor(damage * 1.25)
+		end
+
+		return damage
+	else
+		local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+		local damage = math.floor((((user.chara:getStat("attack") * 4) + (user.chara:getStat("attack") * 4) * (0.2 * yellowhat_count)) - 3 * target.defense))
+
+		if (Game.battle and Game.battle.headwind > 0) then
+			damage = math.floor(damage * 1.25)
+		end
+
+		return damage
+	end
+end
 
 return spell

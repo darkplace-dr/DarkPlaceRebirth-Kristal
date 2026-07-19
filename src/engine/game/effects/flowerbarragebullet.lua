@@ -2,8 +2,8 @@
 ---@overload fun(...) : FlowerBarrageBullet
 local FlowerBarrageBullet, super = Class(Sprite)
 
-function FlowerBarrageBullet:init(tx, ty, speed, dir, after)
-    super.init(self, "effects/spells/ceroba/flower", tx + MathUtils.lengthDirX(80, math.rad(90)), ty + MathUtils.lengthDirY(80, math.rad(90)))
+function FlowerBarrageBullet:init(target, speed, dir, after)
+    super.init(self, "effects/spells/ceroba/flower", 0, 0)
 
     self:setOrigin(0.5, 0.5)
     self:setScale(1)
@@ -12,25 +12,25 @@ function FlowerBarrageBullet:init(tx, ty, speed, dir, after)
 
     self.alpha = 0
 
-    self.target_x = tx
-    self.target_y = ty
+    self.target = target
     self.after_func = after
+
+    local tx, ty = self.target:getRelativePos(self.target.width / 2, self.target.height / 2, Game.battle)
 
     self.state = 0
     self.attack_distance = 80
     self.attack_distance_max = self.attack_distance + 32
     self.attack_dir = dir or 90
-    self.attack_target_x = self.target_x
-    self.attack_target_y = self.target_y
+    self.attack_target_x = tx
+    self.attack_target_y = ty
     self.bullet_speed = speed or 6
     self.homing_speed = 0
 end
 
 function FlowerBarrageBullet:update()
-    if self.state < 3 then
-        self.attack_target_x = self.target_x
-        self.attack_target_y = self.target_y
-    end
+    local tx, ty = self.target:getRelativePos(self.target.width / 2, self.target.height / 2, Game.battle)
+    self.attack_target_x = tx + self.target:getActiveSprite().x
+    self.attack_target_y = ty + self.target:getActiveSprite().y
     self.x = self.attack_target_x + MathUtils.lengthDirX(self.attack_distance, math.rad(self.attack_dir))
     self.y = self.attack_target_y + MathUtils.lengthDirY(self.attack_distance, math.rad(self.attack_dir))
     if self.state == 0 then

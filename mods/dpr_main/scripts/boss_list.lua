@@ -59,4 +59,16 @@ return {
     defense = 200,
     flag = "omegaspamton_defeated"
   },
+  {
+    name = "Red Spear",
+    encounter = "lenhoodredspear",
+    difficulty = {true, true, true, true, false},
+    preview = "redspear",
+    description = "A weapon long forgotten by their weilder.",
+    locked_description = "Look around floor 2 with a blue like character to unlock this fight!",
+    health = 5950,
+    attack = 14,
+    defense = 0,
+    flag = "encounter#dpr_main/lenhoodredspear:done"
+  },
 }

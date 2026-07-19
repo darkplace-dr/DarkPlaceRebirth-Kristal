@@ -54,7 +54,16 @@ function ShadowShop:init()
     end
     
 	-- Base Items
-    self:registerItem("synthsoda")
+	-- snacks 'n stuff
+	self:registerItem("gigasalad", {description = "ITEM\nGood for\nyour health."})
+	self:registerItem("clubssandwich", {description = "ITEM\nShare with\nyour team.\n+70HP ALL", price = 120})
+	-- meal(s?)
+	self:registerItem("baconeggs")
+	-- desserts and drinks
+    self:registerItem("apple_pie", {description = "ITEM\nBaked with\nlove.\n+??HP ALL", price = 340})
+	self:registerItem("surpriseshake")
+	-- drinks
+	self:registerItem("synthsoda")
     
 	-- MistCard Items
 	if Game.inventory:hasItem("mistcard") then

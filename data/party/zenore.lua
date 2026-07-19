@@ -48,7 +48,7 @@ function character:init()
     self:addSpell("heal_prayer")
     self:addSpell("flame_buster")
     if Game.chapter >= 5 then
-        self:addMagik("magikbuff")
+        --self:addMagik("magikbuff")
     end
 
     -- Current health (saved to the save file)

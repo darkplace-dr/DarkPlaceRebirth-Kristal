@@ -228,7 +228,7 @@ function Draw.pushShader(shader, vars)
     vars = vars or {}
 
     if type(shader) == "string" then
-        if Assets.getShader(shader) ~= nil then
+        if Assets.hasShader(shader) then
             shader = Assets.getShader(shader)
         elseif Kristal.Shaders[shader] then
             shader = Kristal.Shaders[shader]

@@ -1,4 +1,4 @@
-local spell, super = Class(Spell, "supersling")
+local spell, super = Class(Spell, "healsling")
 
 function spell:init()
     super.init(self)
@@ -40,15 +40,6 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-	local damage = math.floor((user.chara:getStat("attack") * 15))
-    if Game:getFlag("healsling_plus") then
-        damage = math.floor((user.chara:getStat("attack") * 30))
-    end
-    
-    if (Game.battle and Game.battle.headwind > 0) then
-        damage = math.floor(damage * 1.25)
-    end
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -77,30 +68,21 @@ function spell:onCast(user, target)
 
 	Game.battle.timer:after(0.1/2, function()
 		generateSlash(1)
-		local mult = 1
-		if target.health == target.max_health then
-			mult = 0.5
+
+		local heal = self:getDamage(user, target)
+		if heal > 0 then
+			target:heal(heal)
+		else
+			target:statusMessage("msg", "miss", {0, 1, 0})
 		end
-        
-        if Game:getFlag("jamm_skill_9") then
-            mult = mult * 1.5
-        end
-    
-        if (Game.battle and Game.battle.headwind > 0) then
-            mult = math.floor(mult * 1.25)
-        end
-        
-		target:heal(damage)
 		if target:canService(self.id) then
-			target:addMercy(math.ceil(target.service_mercy*1.3*mult))
+			target:addMercy(math.ceil(target.service_mercy * 1.3 * self:getMercyMult(user, target, heal)))
 		end
 		target:onService(self.id)
 	end)
 end
 
 function spell:onLightCast(user, target)
-	local damage = math.floor((user.chara:getStat("attack") * 3))
-
 	local function generateSlash(scale_x)
 		local cutAnim = Sprite("effects/attack/sling")
 		Assets.playSound("scytheburst")
@@ -115,18 +97,74 @@ function spell:onLightCast(user, target)
 
 	Game.battle.timer:after(0.1/2, function()
 		generateSlash(1)
-		local mult = 1
-		if target.health == target.max_health then
-			mult = 0.5
+
+		local heal = self:getDamage(user, target)
+		if heal > 0 then
+			target:heal(heal)
+		else
+			target:lightStatusMessage("text", "MISS", {0, 1, 0})
 		end
-		target:heal(damage)
 		if target:canService(self.id) then
-			target:addMercy(math.ceil(target.service_mercy*1.3*mult))
+			target:addMercy(math.ceil(target.service_mercy * 1.3 * self:getMercyMult(user, target, heal)))
 		end
 		target:onService(self.id)
 	end)
 end
 
 function spell:isUsable(chara) return not chara.disarmed end
+
+function spell:getDamage(user, target)
+	if Game:isLight() then
+		local damage = math.floor((user.chara:getStat("attack") * 3))
+
+		if (Game.battle and Game.battle.headwind > 0) then
+			damage = math.floor(damage * 1.25)
+		end
+
+		return damage
+	else
+		local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+		local damage = math.floor((user.chara:getStat("attack") * 15) + (user.chara:getStat("attack") * 15) * (0.2 * yellowhat_count))
+		if Game:getFlag("healsling_plus") then
+			damage = math.floor((user.chara:getStat("attack") * 30) + (user.chara:getStat("attack") * 30) * (0.2 * yellowhat_count))
+		end
+
+		if (Game.battle and Game.battle.headwind > 0) then
+			damage = math.floor(damage * 1.25)
+		end
+
+		return damage
+	end
+end
+
+function spell:getMercyMult(user, target, heal)
+	if heal <= 0 then
+		return 0
+	end
+
+	local mult = 1
+	if target.health == target.max_health then
+		mult = 0.5
+	end
+
+	if Game:isLight() then
+		return mult
+	else
+		local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+		mult = mult + (0.2 * yellowhat_count)
+
+		if Game:getFlag("jamm_skill_9") then
+            mult = mult * 1.5
+        end
+
+        if (Game.battle and Game.battle.headwind > 0) then
+            mult = math.floor(mult * 1.25)
+        end
+
+		return mult
+	end
+end
 
 return spell

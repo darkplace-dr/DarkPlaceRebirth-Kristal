@@ -256,7 +256,9 @@ function character:onTurnStart(battler)
 		end
 	end
 	if self.rage then	-- TODO: 5% chance to attack a party member instead
-		Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[love.math.random(#Game.battle:getActiveEnemies())], nil, {points = 450})
+        local _, yellowhat_count = self:checkArmor("yellowhat") -- technically this is part of the spell(?), so the 20% bonus applies
+        local p = 450 + 450 * (0.2 * yellowhat_count)
+		Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[love.math.random(#Game.battle:getActiveEnemies())], nil, {points = p})
     elseif self:getFlag("auto_attack", false) then
         Game.battle:pushForcedAction(battler, "AUTOATTACK", Game.battle:getActiveEnemies()[1], nil, {points = 150})
     end

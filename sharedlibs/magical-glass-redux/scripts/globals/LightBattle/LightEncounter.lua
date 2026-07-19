@@ -266,6 +266,10 @@ function LightEncounter:canSwoon(target)
     return true
 end
 
+function LightEncounter:shouldDecreaseInvuln()
+    return Game.battle.soul ~= nil and Game.battle.soul:shouldDecreaseInvuln()
+end
+
 function LightEncounter:createBackground()
     if self.background then
         local background = Sprite("ui/lightbattle/backgrounds/standard", 0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)

@@ -97,6 +97,26 @@ local function handleRetroSave(data)
         end
     end
 
+    -- Jamm's SuperSling spell id was changed to HealSling
+    local jamm_data = data.party_data.jamm
+    if TableUtils.contains(jamm_data.spells, "supersling") then
+        local sling_index = 1
+        -- This is probably redundant with TableUtils.contains() just above but eh whatever
+        for i,v in ipairs(jamm_data.spells) do
+            if v == "supersling" then
+                sling_index = i
+                jamm_data.spells[sling_index] = "healsling"
+                break
+            end
+        end
+        table.insert(diff_data, {
+            value = "healsling",
+            path = {"party_data", "jamm", "spells", sling_index}
+        })
+        data_changed = true
+    end
+
+
     return data_changed, diff_data
 end
 

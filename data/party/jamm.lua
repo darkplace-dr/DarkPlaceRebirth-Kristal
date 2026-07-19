@@ -35,7 +35,7 @@ function character:init()
 
     self.lw_portrait = "face/jamm/neutral"
 
-    self:addSpell("supersling")
+    self:addSpell("healsling")
     self:addSpell("darksling")
     self:addSpell("numbshot")
 

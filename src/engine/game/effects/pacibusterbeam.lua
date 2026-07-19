@@ -33,10 +33,10 @@ function PaciBusterBeam:init(x, y, tx, ty, after)
 end
 
 function PaciBusterBeam:update()
-    self.alpha = Utils.approach(self.alpha, 1, 0.25 * DTMULT)
+    self.alpha = MathUtils.approach(self.alpha, 1, 0.25 * DTMULT)
 
     local dir = Utils.angle(self.x, self.y, self.target_x, self.target_y)
-    self.rotation = self.rotation + (Utils.angleDiff(dir, self.rotation) / 4) * DTMULT
+    self.rotation = self.rotation + (MathUtils.angleDiff(dir, self.rotation) / 4) * DTMULT
 
     self.bolt_timer = self.bolt_timer + DTMULT
     if Input.pressed("confirm") and not self.pressed then
@@ -44,7 +44,7 @@ function PaciBusterBeam:update()
         self.chosen_bolt = self.bolt_timer
     end
 
-    if Utils.dist(self.x, self.y, self.target_x, self.target_y) <= 40 then
+    if MathUtils.dist(self.x, self.y, self.target_x, self.target_y) <= 40 then
         if not self.final_bolt_set then
             self.final_bolt_set = true
             self.final_bolt = self.bolt_timer
@@ -55,8 +55,8 @@ function PaciBusterBeam:update()
                 -- Values are rounded since we have to account for different framerates
                 -- Don't use floor or ceil since frame rate occasionally drops on low end devices
                 -- Which will throw off the values
-                self.chosen_bolt = Utils.round(self.chosen_bolt)
-                self.final_bolt = Utils.round(self.final_bolt)
+                self.chosen_bolt = MathUtils.round(self.chosen_bolt)
+                self.final_bolt = MathUtils.round(self.final_bolt)
                 if self.chosen_bolt > 0 then
                     if self.chosen_bolt == self.final_bolt then
                         damage_bonus = 30
@@ -89,7 +89,7 @@ function PaciBusterBeam:update()
         end
         Assets.playSound("rudebuster_hit")
         for i = 1, 8 do
-            local burst = RudeBusterBurst(false, self.target_x, self.target_y, 45 + ((i - 1) * 90), i > 4, self.bonus_anim and 40 or 25)
+            local burst = RudeBusterBurst(false, self.target_x, self.target_y, math.rad(45 + ((i - 1) * 90)), i > 4, self.bonus_anim and 40 or 25)
             burst.layer = self.layer + (0.01 * i)
             self.parent:addChild(burst)
 
@@ -115,11 +115,11 @@ function PaciBusterBeam:update()
         sprite.layer = self.layer - 0.01
         sprite.graphics.grow_y = -0.1
         sprite.graphics.remove_shrunk = true
-        sprite.color = {1/3, 1/3, 1}
-        sprite:play(1/15, true)
+        sprite.color = {1 / 3, 1 / 3, 1}
+        sprite:play(1 / 15, true)
         self.parent:addChild(sprite)
 
-        local z = SpareZ(love.math.random(1, 360), self.x, self.y)
+        local z = SpareZ(MathUtils.randomInt(360), self.x, self.y)
         z.layer = self.layer - 0.01
         self.parent:addChild(z)
     end

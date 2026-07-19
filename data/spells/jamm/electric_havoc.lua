@@ -29,14 +29,6 @@ function spell:getCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-	local damage = 200
-	
-	if target.defense >= 99 then
-		damage = 0
-	end
-
-	damage = math.ceil(damage/target:getResistance("ELEC"))
-
 	local function shock(scale_x)
 		local cutAnim = Sprite("party/jamm/dark/special/shock")
 		cutAnim:setOrigin(0.5, 1)
@@ -52,25 +44,19 @@ function spell:onCast(user, target)
 
 	Game.battle.timer:after(0.25, function()
 		shock(1)
-		target:hurt(damage, user)
+		target:hurt(self:getDamage(user, target), user)
 		Game.battle.timer:after(0.25, function()
 			shock(-1)
-			target:hurt(damage, user)
+			target:hurt(self:getDamage(user, target), user)
 			Game.battle.timer:after(0.25, function()
 				shock(1)
-				target:hurt(damage, user)
+				target:hurt(self:getDamage(user, target), user)
 			end)
 		end)
 	end)
 end
 
 function spell:onLightCast(user, target)
-	local damage = 50
-
-	if target.defense >= 99 then
-		damage = 0
-	end
-
 	local function shock(scale_x)
 		local cutAnim = Sprite("party/jamm/dark/special/shock")
 		cutAnim:setOrigin(0.5, 1)
@@ -86,16 +72,40 @@ function spell:onLightCast(user, target)
 
 	Game.battle.timer:after(0.25, function()
 		shock(1)
-		target:hurt(damage, user)
+		target:hurt(self:getDamage(user, target), user)
 		Game.battle.timer:after(0.25, function()
 			shock(-1)
-			target:hurt(damage, user)
+			target:hurt(self:getDamage(user, target), user)
 			Game.battle.timer:after(0.25, function()
 				shock(1)
-				target:hurt(damage, user)
+				target:hurt(self:getDamage(user, target), user)
 			end)
 		end)
 	end)
+end
+
+function spell:getDamage(user, target)
+	if Game:isLight() then
+		local damage = 50
+
+		if target.defense >= 99 then
+			damage = 0
+		end
+
+		return damage
+	else
+		local _, yellowhat_count = user.chara:checkArmor("yellowhat")
+
+		local damage = 200 + (200 * (0.2 * yellowhat_count))
+
+		if target.defense >= 99 then
+			damage = 0
+		end
+
+		damage = math.ceil(damage / target:getResistance("ELEC"))
+
+		return damage
+	end
 end
 
 return spell

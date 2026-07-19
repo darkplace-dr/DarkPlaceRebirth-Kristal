@@ -13,25 +13,26 @@ function RudeBusterBeam:init(red, x, y, tx, ty, after)
 end
 
 function RudeBusterBeam:update()
-    self.alpha = Utils.approach(self.alpha, 1, 0.25 * DTMULT)
-	
+    self.alpha = MathUtils.approach(self.alpha, 1, 0.25 * DTMULT)
+
     local dir = Utils.angle(self.x, self.y, self.target_x, self.target_y)
-    self.rotation = self.rotation + (Utils.angleDiff(dir, self.rotation) / 4) * DTMULT
+    self.rotation = self.rotation + (MathUtils.angleDiff(dir, self.rotation) / 4) * DTMULT
 
     self.bolt_timer = self.bolt_timer + DTMULT
     if Input.pressed("confirm") and not self.pressed then
         self.pressed = true
         self.chosen_bolt = self.bolt_timer
     end
+
 	if self.x > SCREEN_WIDTH then
 		self:remove()
         return
 	end
-    if self.jackenstein and Utils.dist(self.x, self.y, self.target_x, self.target_y) <= 200 and not self.misswritercreated then
+    if self.jackenstein and MathUtils.dist(self.x, self.y, self.target_x, self.target_y) <= 200 and not self.misswritercreated then
 		self.after_func(damage_bonus, play_sound, true)
 		self.misswritercreated = true
 	end
-    if Utils.dist(self.x, self.y, self.target_x, self.target_y) <= 40 and not self.jackenstein then
+    if MathUtils.dist(self.x, self.y, self.target_x, self.target_y) <= 40 and not self.jackenstein then
         if not self.final_bolt_set then
             self.final_bolt_set = true
             self.final_bolt = self.bolt_timer
@@ -42,8 +43,8 @@ function RudeBusterBeam:update()
                 -- Values are rounded since we have to account for different framerates
                 -- Don't use floor or ceil since frame rate occasionally drops on low end devices
                 -- Which will throw off the values
-                self.chosen_bolt = Utils.round(self.chosen_bolt)
-                self.final_bolt = Utils.round(self.final_bolt)
+                self.chosen_bolt = MathUtils.round(self.chosen_bolt)
+                self.final_bolt = MathUtils.round(self.final_bolt)
                 if self.chosen_bolt > 0 then
                     if self.chosen_bolt == self.final_bolt then
                         damage_bonus = 30
@@ -72,7 +73,7 @@ function RudeBusterBeam:update()
                     play_sound = true
                 end
             end
-            self.after_func(damage_bonus, play_sound, false)
+            self.after_func(damage_bonus, play_sound)
         end
         Assets.playSound("rudebuster_hit")
         for i = 1, 8 do
@@ -97,7 +98,7 @@ function RudeBusterBeam:update()
         sprite.layer = self.layer - 0.01
         sprite.graphics.grow_y = -0.1
         sprite.graphics.remove_shrunk = true
-        sprite:play(1/15, true)
+        sprite:play(1 / 15, true)
         self.parent:addChild(sprite)
     end
 

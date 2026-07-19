@@ -20,7 +20,7 @@ function FuseMenu:init()
 	self.left_arrow = Assets.getTexture("ui/flat_arrow_left")
 	self.right_arrow = Assets.getTexture("ui/flat_arrow_right")
 
-	self.heart = Assets.getTexture("player/heart")
+	self.heart = Assets.getTexture("player/" .. Game.party[1]:getSoulFacing() .. "/heart")
 	self.heart_x = 80
 	self.heart_y = 198
 	self.heart_timer = nil
@@ -443,7 +443,7 @@ function FuseMenu:draw()
 		love.graphics.print("No", 480, 400)
 	end
 
-	love.graphics.setColor(1, 0, 0)
+	love.graphics.setColor(Game.party[1].soul_color)
 
 	love.graphics.draw(self.heart, self.heart_x, self.heart_y)
 
