@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -24,14 +24,12 @@ return {
     {
       name = "bg_dw_mansion_spamton_basement",
       firstgid = 287,
-      filename = "../../tilesets/bg_dw_mansion_spamton_basement.tsx",
-      exportfilename = "../../tilesets/bg_dw_mansion_spamton_basement.lua"
+      filename = "../../tilesets/bg_dw_mansion_spamton_basement.tsx"
     },
     {
       name = "bg_dw_mansion_basement_door",
       firstgid = 339,
-      filename = "../../tilesets/bg_dw_mansion_basement_door.tsx",
-      exportfilename = "../../tilesets/bg_dw_mansion_basement_door.lua"
+      filename = "../../tilesets/bg_dw_mansion_basement_door.tsx"
     },
     {
       name = "schooltiles2",
@@ -164,6 +162,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -177,6 +176,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -190,6 +190,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -219,6 +220,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "gamertime/forest",
@@ -235,6 +237,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "gamertime/bombs",
@@ -243,7 +246,7 @@ return {
         },
         {
           id = 179,
-          name = "Script",
+          name = "script",
           type = "",
           shape = "rectangle",
           x = 120,
@@ -251,6 +254,7 @@ return {
           width = 400,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "gamertime.getbombs",
@@ -267,6 +271,7 @@ return {
           width = 40,
           height = 100,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["marker"] = "shopExit",
@@ -349,6 +354,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -362,6 +368,7 @@ return {
           width = 80,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -375,6 +382,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -388,6 +396,7 @@ return {
           width = 170,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -401,6 +410,7 @@ return {
           width = 100,
           height = 800,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -414,6 +424,7 @@ return {
           width = 170,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -427,6 +438,7 @@ return {
           width = 100,
           height = 1000,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -440,6 +452,7 @@ return {
           width = 460,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -453,6 +466,7 @@ return {
           width = 50,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -466,6 +480,7 @@ return {
           width = 50,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -479,6 +494,7 @@ return {
           width = 100,
           height = 100,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -476,6 +476,10 @@ function Mod:setMusicPitches()
     MUSIC_PITCHES["deltarune/cybercity_alt"] = 1.2
     MUSIC_PITCHES["lost_room"] = 0.8
     MUSIC_VOLUMES["trank_tv_static"] = 0.5
+
+    -- the two below are from Gamer Time and just loud
+    MUSIC_VOLUMES["yiik"] = 0.5
+    MUSIC_VOLUMES["cemetary"] = 0.5
 end
 
 function Mod:getGlobalNextLvRequiredEXP()
@@ -508,6 +512,13 @@ function Mod:onMapMusic(map, music)
     --TV World music
     if map.id:find("floortv/") and can_kill == true then
         return "deltarune/tv_results_screen"
+    end
+    -- Gamer Time boss room music
+    if music == "gamertime_boss" then
+        if not Game:getFlag("POST_SNOWGRAVE") then
+            return {"deltarune/spamton_neo_meeting", 1, 1.3}
+        end
+        return "deltarune/spamton_neo_meeting"
     end
 end
 

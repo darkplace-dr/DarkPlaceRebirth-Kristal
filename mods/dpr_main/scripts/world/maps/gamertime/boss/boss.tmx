@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="1">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="gamertime_boss"/>
+ </properties>
+ <tileset firstgid="1" source="../../../tilesets/bg_dw_mansion_spamton_basement.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+51,49,50,49,49,49,51,49,49,49,52,49,51,49,52,49,
+51,49,49,50,49,51,49,49,50,49,52,49,49,50,51,49,
+49,52,51,49,49,49,52,49,49,51,49,50,51,49,49,49,
+30,37,46,39,30,33,30,30,30,30,30,30,30,30,30,30,
+30,30,30,30,30,30,30,30,30,30,30,34,30,30,29,30,
+30,30,30,30,30,30,37,38,39,30,30,30,30,30,30,30,
+30,30,30,30,30,30,30,42,30,30,30,33,30,30,30,30,
+30,33,34,30,30,29,30,30,30,30,30,30,30,30,30,30,
+30,30,30,30,30,30,30,30,30,30,30,30,29,29,30,30,
+30,30,37,38,39,30,30,30,30,30,30,30,30,30,30,30,
+30,30,30,30,30,30,33,30,30,30,30,34,30,30,30,34
+</data>
+ </layer>
+ <objectgroup id="2" name="collision"/>
+ <objectgroup id="3" name="objects"/>
+ <objectgroup id="4" name="markers"/>
+</map>

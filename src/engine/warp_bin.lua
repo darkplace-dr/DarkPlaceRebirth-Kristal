@@ -53,6 +53,7 @@ Kristal.warp_bin_codes = {
     ["BOSSRUSH"] = { result = "thearena", mod = "dpr_main" },
     ["THEARENA"] = { result = "thearena", mod = "dpr_main" },
     ["DARKCADE"] = { result = "darkcade/outside", mod = "dpr_main" },
+    ["GAMETIME"] = { result = "gamertime/entrance", mod = "dpr_main" },
 }
 -- i refuse to lower my softcoding standarts
 package.loaded["src/engine/warps"] = nil

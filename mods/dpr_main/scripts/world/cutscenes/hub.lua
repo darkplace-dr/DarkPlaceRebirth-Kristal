@@ -2444,7 +2444,6 @@ local hub = {
 					Game.world.music:resume()
                     party_jingle:remove()
                 end
-                Game:setFlag("ostarwalker_party", true)
                 Game:unlockPartyMember("ostarwalker")
             end
             Game:setFlag("starwalker_defeated", true)
@@ -2494,7 +2493,6 @@ local hub = {
                 cutscene:text("* Well,[wait:5] shi--", "shock", "susie", { auto = true })
                 Game:removePartyMember("susie")
                 susie:remove()
-                Game:setFlag("susie_party", false)
             end
         elseif Game:isDessMode() then
             Game.world.music:pause()

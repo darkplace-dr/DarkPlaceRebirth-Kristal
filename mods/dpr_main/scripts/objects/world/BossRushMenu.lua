@@ -51,7 +51,7 @@ function BossRushMenu:init()
 			},
             {
 				name = "Jamm Rush",
-				requirements = {"sam_defeated","jamm_closure","booty_finished","pauling_inparty","mario_obtained","!marcy_joined"},
+				requirements = {"sam_defeated","jamm_closure","booty_finished","mario_obtained","!marcy_joined"},
 				encounters = {{"sam","Sam"},{"ania_boss","Shade Ania"},{"big_booty","Booty"},{"eggman",Game:getFlag("jamm_rush") and "Eggman" or "???"}},
 				party = {"pauling","jamm","mario"},
 				grad_color = {92/255, 88/255, 188/255},

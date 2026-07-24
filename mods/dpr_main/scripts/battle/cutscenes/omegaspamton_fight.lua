@@ -38,9 +38,9 @@ function scenes.talk(cutscene, battler, enemy)
 		if Game:hasPartyMember("berdly") then
 			cutscene:text("* Perhaps we should have level grinded beforehand?", "scared", "berdly")
 			cutscene:text("* Nah,[wait:5] I've got a better idea...", "neutral_side", "susie")
-			cutscene:text("* Hey,[wait:5] Hero,[wait:5] you should let us help out with downgrading this pile of junk!", "smile", "susie")
+			cutscene:text("* Hey,[wait:5] Hero,[wait:5] we should try downgrading this pile of junk all together!", "smile", "susie")
 		else
-			cutscene:text("* Hey,[wait:5] Hero,[wait:5] you should let ME help out with downgrading this pile of junk!", "smile", "susie")
+			cutscene:text("* Hey,[wait:5] Hero,[wait:5] we should try downgrading this pile of junk both together!", "smile", "susie")
 		end
 		cutscene:text("* Alright,[wait:5] let's turn this guy into scrap metal!", "smug", "hero")
 		cutscene:text("* Yeah,[wait:5] you said it!", "sincere_smile", "susie")

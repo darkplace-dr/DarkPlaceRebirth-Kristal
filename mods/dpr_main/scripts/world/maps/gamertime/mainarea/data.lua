@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 8,
-  nextobjectid = 59,
+  nextobjectid = 60,
   properties = {
     ["border"] = "leaves",
     ["music"] = "yiik",
@@ -20,12 +20,12 @@ return {
     {
       name = "towntiles",
       firstgid = 1,
-      filename = "../../tilesets/towntiles.tsx"
+      filename = "../../../tilesets/towntiles.tsx"
     },
     {
       name = "schooltiles2",
       firstgid = 287,
-      filename = "../../tilesets/schooltiles2.tsx"
+      filename = "../../../tilesets/schooltiles2.tsx"
     }
   },
   layers = {
@@ -233,6 +233,7 @@ return {
           width = 1920,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -246,6 +247,7 @@ return {
           width = 280,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -259,6 +261,7 @@ return {
           width = 160,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -272,6 +275,7 @@ return {
           width = 120,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -285,6 +289,7 @@ return {
           width = 160,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -298,6 +303,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -311,6 +317,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -324,6 +331,7 @@ return {
           width = 160,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -337,6 +345,7 @@ return {
           width = 2400,
           height = 60,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -350,6 +359,7 @@ return {
           width = 40,
           height = 1420,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -363,6 +373,7 @@ return {
           width = 40,
           height = 1420,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -376,6 +387,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -389,6 +401,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -402,6 +415,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -415,6 +429,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -428,6 +443,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -441,6 +457,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -454,6 +471,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -467,6 +485,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -480,6 +499,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -493,6 +513,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -506,6 +527,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -519,6 +541,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -548,6 +571,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -561,6 +585,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -574,6 +599,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -603,6 +629,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["marker"] = "SaveReturn",
@@ -620,6 +647,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* This is the end of the road for you."
@@ -635,26 +663,11 @@ return {
           width = 160,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* There's an absolutely massive patch of mud here.",
             ["text2"] = "* You don't want to get dirty."
-          }
-        },
-        {
-          id = 36,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 240,
-          y = 160,
-          width = 120,
-          height = 120,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "gamertime.start",
-            ["once"] = true
           }
         },
         {
@@ -667,6 +680,7 @@ return {
           width = 40,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -684,6 +698,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -699,6 +714,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -714,6 +730,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -729,6 +746,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -744,6 +762,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -759,6 +778,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -774,6 +794,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -789,6 +810,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -804,6 +826,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Locked."
@@ -819,6 +842,7 @@ return {
           width = 120,
           height = 50,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -836,6 +860,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* This is the end of the road for you."
@@ -851,6 +876,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -869,6 +895,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -887,6 +914,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -905,6 +933,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -923,6 +952,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "bobberry",
@@ -932,26 +962,8 @@ return {
           }
         },
         {
-          id = 55,
-          name = "npc",
-          type = "",
-          shape = "rectangle",
-          x = 780,
-          y = 720,
-          width = 40,
-          height = 20,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "berdly",
-            ["cond"] = "not Game:getFlag(\"POST_SNOWGRAVE\") and not Game:getFlag(\"gamer_berdly\")",
-            ["cutscene"] = "gamertime.berdly",
-            ["facing"] = "up"
-          }
-        },
-        {
           id = 56,
-          name = "Script",
+          name = "script",
           type = "",
           shape = "rectangle",
           x = 720,
@@ -959,6 +971,7 @@ return {
           width = 160,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "gamertime.berdly",
@@ -975,6 +988,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "gamertime.door"
@@ -990,10 +1004,29 @@ return {
           width = 200,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "gamertime/forest",
             ["marker"] = "warp1"
+          }
+        },
+        {
+          id = 59,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 800,
+          y = 740,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["actor"] = "berdly",
+            ["cond"] = "not Game:getFlag(\"POST_SNOWGRAVE\") and not Game:getFlag(\"gamer_berdly\")",
+            ["facing"] = "up"
           }
         }
       }

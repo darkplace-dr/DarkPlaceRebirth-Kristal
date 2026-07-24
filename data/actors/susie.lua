@@ -110,6 +110,8 @@ function actor:init(style)
         ["dance"] = {"dance", 1/6, true},
 
         ["pirouette"] = {"pirouette", 4/30, true},
+
+        ["kick_up"] = {"kick_up", 1/12, false},
     }
 
     -- Alternate animations to use for Susie without a smile
@@ -397,6 +399,8 @@ function actor:init(style)
         ["dance"] = {-3, -1},
 
         ["pirouette"] = {-3, -1},
+
+        ["kick_up"] = {-4, 2},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

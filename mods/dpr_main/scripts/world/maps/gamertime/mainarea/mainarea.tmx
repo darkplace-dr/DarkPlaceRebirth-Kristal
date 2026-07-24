@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="59">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="60">
  <editorsettings>
-  <export target="mainarea.lua" format="lua"/>
+  <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="leaves"/>
   <property name="music" value="yiik"/>
   <property name="name" value="Gamer Time - Streets"/>
  </properties>
- <tileset firstgid="1" source="../../tilesets/towntiles.tsx"/>
- <tileset firstgid="287" source="../../tilesets/schooltiles2.tsx"/>
+ <tileset firstgid="1" source="../../../tilesets/towntiles.tsx"/>
+ <tileset firstgid="287" source="../../../tilesets/schooltiles2.tsx"/>
  <layer id="1" name="Tile Layer 1" width="60" height="40">
   <data encoding="csv">
 56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,
@@ -142,7 +142,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="collision">
+ <objectgroup color="#0000ff" id="5" name="collision">
   <object id="2" x="0" y="0" width="1920" height="120"/>
   <object id="3" x="2120" y="0" width="280" height="120"/>
   <object id="4" x="0" y="360" width="160" height="160"/>
@@ -167,7 +167,7 @@
   <object id="27" x="1640" y="960" width="200" height="120"/>
   <object id="32" x="480" y="120" width="40" height="40"/>
  </objectgroup>
- <objectgroup id="6" name="markers">
+ <objectgroup color="#7f00ff" id="6" name="markers">
   <object id="30" name="warp1" x="2020" y="40">
    <point/>
   </object>
@@ -178,7 +178,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="objects">
+ <objectgroup color="#ff00ff" id="7" name="objects">
   <object id="31" name="savepoint" x="40" y="200" width="40" height="40">
    <properties>
     <property name="marker" value="SaveReturn"/>
@@ -195,12 +195,6 @@
    <properties>
     <property name="text1" value="* There's an absolutely massive patch of mud here."/>
     <property name="text2" value="* You don't want to get dirty."/>
-   </properties>
-  </object>
-  <object id="36" name="script" x="240" y="160" width="120" height="120">
-   <properties>
-    <property name="cutscene" value="gamertime.start"/>
-    <property name="once" type="bool" value="true"/>
    </properties>
   </object>
   <object id="37" name="enemy" x="180" y="480" width="40" height="38">
@@ -308,15 +302,7 @@
     <property name="group" type="int" value="0"/>
    </properties>
   </object>
-  <object id="55" name="npc" x="780" y="720" width="40" height="20">
-   <properties>
-    <property name="actor" value="berdly"/>
-    <property name="cond" value="not Game:getFlag(&quot;POST_SNOWGRAVE&quot;) and not Game:getFlag(&quot;gamer_berdly&quot;)"/>
-    <property name="cutscene" value="gamertime.berdly"/>
-    <property name="facing" value="up"/>
-   </properties>
-  </object>
-  <object id="56" name="Script" x="720" y="680" width="160" height="120">
+  <object id="56" name="script" x="720" y="680" width="160" height="120">
    <properties>
     <property name="cutscene" value="gamertime.berdly"/>
     <property name="once" type="bool" value="true"/>
@@ -332,6 +318,14 @@
     <property name="map" value="gamertime/forest"/>
     <property name="marker" value="warp1"/>
    </properties>
+  </object>
+  <object id="59" name="npc" x="800" y="740">
+   <properties>
+    <property name="actor" value="berdly"/>
+    <property name="cond" value="not Game:getFlag(&quot;POST_SNOWGRAVE&quot;) and not Game:getFlag(&quot;gamer_berdly&quot;)"/>
+    <property name="facing" value="up"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <layer id="4" name="trees" width="60" height="40">
