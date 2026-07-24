@@ -534,8 +534,8 @@ return {
                 bomb:slideTo(800, 710, 0.15)
                 cutscene:wait(1)
 
-                susie:resetSprite()
-                susie:setFacing("up")
+                Game.world.followers[1]:resetSprite()
+                Game.world.followers[1]:setFacing("up")
 		        bomb:explode()
                 local dooropen = Sprite("world/cutscenes/gamertime/school_door", 799, 662) -- an illusion of the opened door
                 dooropen:setScale(2)
