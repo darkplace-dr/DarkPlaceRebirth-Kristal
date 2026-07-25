@@ -31,8 +31,6 @@ return {
 		omega.sprite.partshadow = false
 		cutscene:wait(2)
 
-        intro_music:remove()
-
 		omega:setAnimation("laugh")
 		cutscene:wait(5)
 		omega:setAnimation("static")
