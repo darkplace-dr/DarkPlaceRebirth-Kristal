@@ -125,8 +125,8 @@ end
 
 function character:getGameOverMessage(main)
     return {
-        "Oh, no! ".. main.name ..", are you all right?",
-        "Do not die on me, ".. main.name .."! Do not!!!"
+        "Oh no![wait:5] " .. main:getName() .. ",[wait:5]\nare you alright?",
+        "Don't die on\nme,[wait:5] " .. main:getName() .. "![wait:5] Do\nnot!!!"
     }
 end
 
