@@ -14,19 +14,8 @@ function TwoBalldude:init()
     -- Add the dummy enemy to the encounter
     self:addEnemy("balldude")
 	self:addEnemy("balldude")
-	
-    --- Uncomment this line to add another!
-    --self:addEnemy("dummy")
 end
 
-function TwoBalldude:onTurnEnd()
---  if Game.battle.used_violence then
---    Game:setFlag("tooksusieadvice", true)
---  end
---  Game:setFlag("tookberry", false)
-	Game:setFlag("racket1", false)
-	Game:setFlag("racket2", false)
-end
 
 function TwoBalldude:onReturnToWorld(events)
     -- check whether the enemies were killed

@@ -15,18 +15,6 @@ function ThreeBalldude:init()
     self:addEnemy("balldude")
 	self:addEnemy("balldude")
 	self:addEnemy("balldude")
-	
-    --- Uncomment this line to add another!
-    --self:addEnemy("dummy")
-end
-
-function ThreeBalldude:onTurnEnd()
---  if Game.battle.used_violence then
---    Game:setFlag("tooksusieadvice", true)
---  end
---  Game:setFlag("tookberry", false)
-	Game:setFlag("racket1", false)
-	Game:setFlag("racket2", false)
 end
 
 function ThreeBalldude:onReturnToWorld(events)

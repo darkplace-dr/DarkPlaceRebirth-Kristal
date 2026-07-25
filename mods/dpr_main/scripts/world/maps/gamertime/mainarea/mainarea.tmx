@@ -201,7 +201,7 @@
    <properties>
     <property name="actor" value="bobberry"/>
     <property name="encounter" value="onebobberry"/>
-    <property name="flagcheck" value="!first_bobbery"/>
+    <property name="once" type="bool" value="true"/>
    </properties>
   </object>
   <object id="38" name="interactable" x="440" y="680" width="80" height="40">

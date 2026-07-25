@@ -685,7 +685,7 @@ return {
           properties = {
             ["actor"] = "bobberry",
             ["encounter"] = "onebobberry",
-            ["flagcheck"] = "!first_bobbery"
+            ["once"] = true
           }
         },
         {
