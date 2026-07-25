@@ -16,9 +16,8 @@ return {
         src:setLooping(true)
         src:setVolume(0.75)
 
-        local intro_music = Music()
-		intro_music:play("omega_spamton_intro")
-		intro_music:setLooping(false)
+        Game.battle.music:play("omega_spamton_intro", 1)
+		Game.battle.music:setLooping(false)
 
 		cutscene:wait(6.5)
 
@@ -43,6 +42,7 @@ return {
 		    Game.battle:setState("ACTIONSELECT")
             omega:setAnimation("idle")
             Game.battle.music:play("omega_spamton_loop")
+			Game.battle.music:setLooping(true)
         end, true)
     end,
 	outro = function(cutscene, battler, enemy)
