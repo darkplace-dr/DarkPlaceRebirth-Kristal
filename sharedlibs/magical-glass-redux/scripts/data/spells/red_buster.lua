@@ -17,7 +17,7 @@ function spell:onLightCast(user, target)
                 Assets.playSound("scytheburst")
             end
             target:hurt(damage, user)
-            target:flash()
+            target:flash(nil, nil, nil, nil, {1, 0, 0})
             Game.battle:finishAction()
         end)
         blast.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]

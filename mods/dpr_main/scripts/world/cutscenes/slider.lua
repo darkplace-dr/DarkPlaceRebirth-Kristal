@@ -74,11 +74,9 @@ return {
 			if #Game.party >= 3 then
 				local prev_leader_pm = Game.party[1]
 				Game:removePartyMember(prev_leader_pm)
-				Game:setFlag(prev_leader_pm.id.."_party", false)
 			end
 			
 			Game:addPartyMember("mario", 1)
-			Game:setFlag("mario_party", true)
 			Game:setFlag("mario_obtained", true)
 			Game.world:spawnPlayer(mario.x, mario.y, "mario")
 			mario:remove()

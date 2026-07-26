@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 28,
+  nextobjectid = 29,
   properties = {
     ["music"] = "mainhub"
   },
@@ -179,6 +179,7 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -192,6 +193,7 @@ return {
           width = 280,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -205,6 +207,7 @@ return {
           width = 280,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -218,6 +221,7 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -231,6 +235,7 @@ return {
           width = 88,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -244,6 +249,7 @@ return {
           width = 88,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -257,6 +263,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -270,6 +277,7 @@ return {
           width = 16,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -283,6 +291,7 @@ return {
           width = 280,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -296,6 +305,7 @@ return {
           width = 400,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -309,6 +319,7 @@ return {
           width = 280,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -338,55 +349,11 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_1",
             ["marker"] = "entry_main_2"
-          }
-        },
-        {
-          id = 19,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 600,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 20,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 640,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 21,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 560,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["default_state"] = true
           }
         },
         {
@@ -399,6 +366,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/pre_diner",
@@ -415,9 +383,27 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "floor2.deathlordsign"
+          }
+        },
+        {
+          id = 28,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = 560,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/jam/main",
+            ["marker"] = "entry_main_2"
           }
         }
       }
@@ -446,6 +432,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -459,6 +446,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -472,6 +460,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

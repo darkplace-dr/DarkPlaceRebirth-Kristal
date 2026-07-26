@@ -44,14 +44,12 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = true,
-        suzy = true,
         hero = true,
     }
 
     -- Character reactions
     self.reactions = {
         susie = "There goes my lightsaber! *nom*",
-        suzy = "Chomp, Chomp!",
         ceroba = "I'm... Not a farmer. AND it's plastic.",
         dess = "i hate stardew valley",
         noel = "Insufficent.",

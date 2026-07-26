@@ -656,13 +656,8 @@ local cliffside = {
                     flash_parts[i]:remove()
                 end
 
-                local susie
-                if crystal.char == "susie" then
-                    susie = cutscene:spawnNPC("susie", Game.world.player.x, 180)
-                    susie:setSprite("shock_right")
-                else
-                    susie = cutscene:spawnNPC("suzy_lw", Game.world.player.x, 180)
-                end
+                local susie = cutscene:spawnNPC("susie", Game.world.player.x, 180)
+                susie:setSprite("shock_right")
                 crystal.broken = true
                 crystal.spawn_shards = true
 		        Assets.stopSound("kristal_intro")
@@ -689,33 +684,6 @@ local cliffside = {
 		        cutscene:wait(1)
 		        Assets.playSound("wing")
 
-                if susie.actor.name == "Suzy" then
-		            susie.x = Game.world.player.x
-		            susie:shake()
-		            susie:setFacing("up")
-		            susie:resetSprite()
-		            cutscene:wait(0.5)
-
-		            susie.x = Game.world.player.x
-		            susie:shake()
-		            susie:setFacing("down")
-		            susie:resetSprite()
-		            cutscene:wait(0.5)
-		            susie:alert()
-		            cutscene:wait(1)
-                    cutscene:text("* Is that you, [color:yellow]Mu[color:reset]-", nil, "suzy_lw", {auto = true})
-                    cutscene:text("* [shake:0.8]Nope.[wait:5] Nope.[wait:5]Nope.[wait:5]Nope.", "shocked", "hero")
-                    cutscene:text("* It's Hero.[wait:5][face:neutral_closed] My name is Hero.", "suspicious", "hero")
-
-                    --Game.world.music:play("demonic_little_grey_cliffs")
-                    cutscene:text("* This is all very much a placeholder text/cutscene. Please rewrite it if you want.")
-
-                    susie:convertToFollower()
-                    Game:addPartyMember("suzy")
-                    Game:unlockPartyMember("suzy")
-                    cutscene:attachCamera()
-                    cutscene:wait(cutscene:attachFollowers())
-                end
                 if susie.actor.name == "Susie" then
                     susie.x = Game.world.player.x
                     susie:shake()

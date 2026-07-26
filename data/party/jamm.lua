@@ -86,11 +86,12 @@ function character:init()
 	}
 
 	self.graduate = true
-    
+
     self.flags = {
-        ["disarmed"] = false
+        ["disarmed"] = false,
+        ["serious"] = false
     }
-    
+
     self.default_spell_resource = "tension"
     self.uses_mana = false
 
@@ -108,11 +109,11 @@ end
 
 function character:getStat(name, default, light)
     local dmg = super.getStat(self, name, default, light)
-    
+
     if (Game.battle and Game.battle.headwind > 0) and name == "attack" then
         dmg = math.floor(dmg * 1.25)
     end
-    
+
     return dmg
 end
 

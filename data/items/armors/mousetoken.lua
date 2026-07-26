@@ -54,7 +54,6 @@ function item:init()
         calypso = "This skull be deformed...",
         noel = "Is this from a resturant?",
         ceroba = "Looks like a normal coin.",
-        suzy = "Rest In Pepperonis",
     }
 end
 

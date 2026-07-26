@@ -38,7 +38,7 @@ function item:init()
 		dess = "hoooolyyyyy shiiiiiieeeeeet",
         jamm = "Hey, chicken terriyaki!",
         calypso = "Aye, the taste o' rum!",
-        noel = "",
+        noel = "I got a good one.",
         ceroba = "Something... floral?",
     }
 
@@ -50,7 +50,7 @@ function item:init()
 		dess = "ew it's sweet",
         jamm = "Ugh, kale...",
         calypso = "Argh, seaweed...",
-        noel = "",
+        noel = "HOW MANY STUFF IS IN HERE!?",
         ceroba = "Ugh... It's lemon...",
     }
 

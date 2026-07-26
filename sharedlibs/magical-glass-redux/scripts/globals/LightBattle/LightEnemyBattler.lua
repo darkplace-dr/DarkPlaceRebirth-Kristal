@@ -503,9 +503,9 @@ function LightEnemyBattler:onMercy(battler)
     end
 end
 
-function LightEnemyBattler:flash(sprite, offset_x, offset_y, layer)
+function LightEnemyBattler:flash(sprite, offset_x, offset_y, layer, color)
     local sprite_to_use = sprite or self.sprite
-    return sprite_to_use:flash(offset_x, offset_y, layer)
+    return sprite_to_use:flash(offset_x, offset_y, layer, color)
 end
 
 function LightEnemyBattler:mercyFlash(color)

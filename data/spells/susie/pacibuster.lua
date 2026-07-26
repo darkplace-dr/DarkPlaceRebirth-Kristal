@@ -70,8 +70,7 @@ function spell:onCast(user, target)
                 Assets.playSound("spell_pacify", 1, 1.1)
                 target:spare(true)
             else
-                local flash = target:flash()
-                flash.color_mask:setColor(0, 0, 1)
+                target:flash(nil, nil, nil, nil, {0, 0, 1})
             end
         end)
         blast.layer = BATTLE_LAYERS["above_ui"]
@@ -99,8 +98,7 @@ function spell:onLightCast(user, target)
                 Assets.playSound("spell_pacify", 1, 1.1)
                 target:spare(true)
             else
-                local flash = target:flash()
-                flash.color_mask:setColor(0, 0, 1)
+                target:flash(nil, nil, nil, nil, {0, 0, 1})
             end
         end)
         blast.layer = LIGHT_BATTLE_LAYERS["above_arena_border"]

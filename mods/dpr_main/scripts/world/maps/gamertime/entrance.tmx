@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="15" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="20">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="15" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="21">
  <editorsettings>
-  <export target="../../../../../../../../../../AppData/Roaming/LOVE/kristal/mods/Dark-Place/scripts/world/maps/gamertimeentrance.lua" format="lua"/>
+  <export target="entrance.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="cyber"/>
@@ -64,7 +64,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="collision">
+ <objectgroup color="#0000ff" id="3" name="collision">
   <object id="1" x="40" y="80" width="560" height="40"/>
   <object id="2" x="0" y="120" width="40" height="240"/>
   <object id="3" x="40" y="360" width="120" height="40"/>
@@ -80,13 +80,8 @@
   <object id="13" x="440" y="680" width="160" height="40"/>
   <object id="15" x="600" y="120" width="40" height="240"/>
  </objectgroup>
- <objectgroup id="5" name="objects">
-  <object id="16" name="npc" x="180" y="720" width="40" height="40">
-   <properties>
-    <property name="actor" value="labass"/>
-    <property name="cutscene" value="gamertime.labass"/>
-   </properties>
-  </object>
+ <objectgroup color="#ff00ff" id="5" name="objects">
+  <object id="16" name="warpbin" x="60" y="720" width="120" height="40"/>
   <object id="18" name="interactable" x="240" y="120" width="160" height="60">
    <properties>
     <property name="cutscene" value="gamertime.station"/>
@@ -94,8 +89,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="markers">
-  <object id="14" name="spawn" x="300" y="840">
+ <objectgroup color="#7f00ff" id="4" name="markers">
+  <object id="14" name="spawn" x="120" y="840">
    <point/>
   </object>
   <object id="19" name="exit" x="320" y="240">

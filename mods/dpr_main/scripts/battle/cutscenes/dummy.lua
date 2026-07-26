@@ -20,17 +20,5 @@ return {
             -- Ralsei text, if he's in the party
             cutscene:text("* Aww,[wait:5] Susie!", "blush_pleased", "ralsei")
         end
-    end,
-    tattle = function(cutscene, battler, enemy)
-        local tex = "."
-        if Game:hasPartyMember("hero") then tex = ", Hero." end
-        cutscene:text("* That's a training dummy" ..tex, "face", "suzy")
-        cutscene:text("* Not much to say other than it's a dummy. [wait:5]\n[face:smile_b]* Duh!", "neutral", "suzy")
-        cutscene:text("* It's attacks are really easy to dodge.\n* So you should be fine.", "smile", "suzy")
-        local p = Game.party[1]
-        if p:getHealth() < p:getStat("health")/4 then
-           cutscene:text("* Too bad you suck at dodging.", "smile_b", "suzy")
-        end
-
     end
 }

@@ -61,7 +61,6 @@ function item:init()
         calypso = "...Really?",
         noel = "Eat Lead!",
         ceroba = "The heck do I do with that?",
-        suzy = "I am so good at this!",
         hero = "Free cash.",
         len = "Time to make lead!... that's what this does, right?",
     }

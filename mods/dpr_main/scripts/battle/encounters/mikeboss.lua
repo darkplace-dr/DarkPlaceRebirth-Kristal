@@ -73,7 +73,6 @@ function MikeBoss:init()
 		pauling = 0,
 		ralsei = 0,
 		susie = 0,
-		suzy = 0,
 	}
 	self.display_fake_arena = false
 end

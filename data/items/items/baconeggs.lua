@@ -23,6 +23,7 @@ function item:init()
         ["dess"] = 80,
 		["jamm"] = 120,
         ["calypso"] = 120,
+        ["noel"] = 40,
         ["ceroba"] = 110,
     }
 
@@ -41,6 +42,7 @@ function item:init()
         dess = "ew meat in MY tray",
         jamm = "Just as good as homemade!",
         calypso = "Aye, a good start to me day!",
+        noel = "What's a breakfast?",
         ceroba = "Not MY usual breakfast meal.",
     }
 end

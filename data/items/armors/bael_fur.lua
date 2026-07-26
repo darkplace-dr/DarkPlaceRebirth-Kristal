@@ -48,7 +48,6 @@ function item:init()
     -- Character reactions
     self.reactions = {
         susie = "Now that's a cool shade of red!",
-        suzy = "Now that's a cool shade of orange!",
         ralsei = "I never thought to use this as armor!",
         dess = "Yo you guys killed a giant spider without me?",
         ceroba = "I'm not comfortable with that...",

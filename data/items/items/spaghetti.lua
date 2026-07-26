@@ -25,7 +25,6 @@ function item:init()
         ["susie"] = 0,
         ["ralsei"] = 0,
         ["noelle"] = 0,
-        ["YOU"] = 0,
         ["dess"] = 0,
         ["brenda"] = 0,
 		["jamm"] = 0,

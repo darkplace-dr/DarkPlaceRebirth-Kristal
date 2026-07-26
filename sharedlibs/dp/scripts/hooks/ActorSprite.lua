@@ -60,7 +60,7 @@ function ActorSprite:update()
             if should_do_walk_animation then
                 -- If we should process the walking animation, do so.
 
-                local run_check = (self.actor:usesRunningSprites() and (Game.world.player and Game.world.player.run_timer > 0) and Kristal.Config["runAnimations"]) and true or false
+                local run_check = (self.actor:usesRunningSprites() and (Game.world.player and Game.world.player.run_timer > 0) and not Game.world.cutscene and Kristal.Config["runAnimations"]) and true or false
                 if self.last_walk_or_talk_or_run ~= "run" and run_check then
                     self:setSprite(self.actor:getRunSpritesPath())
                     self.last_walk_or_talk_or_run = "run"

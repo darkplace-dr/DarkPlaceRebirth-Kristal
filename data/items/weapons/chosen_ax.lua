@@ -46,14 +46,12 @@ function item:init()
         kris = true,
         hero = true,
         susie = true,
-        suzy = true,
     }
 
     -- Character reactions
     self.reactions = {
         hero = "That's pretty cool, actually.",
         susie = "Now we're talking!",
-        suzy = "Chosen One? Heck Yeah!",
         ralsei = "Ummm... it's a bit big.",
         noelle = "It's... pretty heroic...",
 	    dess = "Too too heavy",

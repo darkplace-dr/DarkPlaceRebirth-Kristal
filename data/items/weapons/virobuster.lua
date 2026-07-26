@@ -43,8 +43,7 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        susie = true,
-        robo_susie = true
+        susie = true
     }
 
     -- Character reactions

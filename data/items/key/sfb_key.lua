@@ -59,7 +59,7 @@ function item:onWorldUse()
 
         local leader = Game.world.player
         local key, og_facing
-        if leader.actor.id == "YOU" or leader.actor.id == "kris" then
+        if leader.actor.id == "kris" then
             leader:setSprite("hold_key")
         else
             og_facing = leader.facing

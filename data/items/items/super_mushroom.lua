@@ -61,10 +61,6 @@ function item:init()
         noelle = "(Will Susie like me more?)",
         brenda = "Mario.",
         dess = "Fuck yea!",
-        YOU = {
-            susie = "Heh, looking good YOU.",
-			noel = "(Did you get taller?)",
-        },
 		jamm = "if I was an Italian plumber whose girlfriend was constantly being imprisoned in castles by an evil fire breathing lizard I would simply not take part in recreational go-kart races with aforementioned lizard",
         calypso = "(Did I just get...)",
 		mario = "Imma feel lightheaded! Wheeee!",

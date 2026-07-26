@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {
     ["border"] = "cyber",
     ["music"] = "waitfortruth"
@@ -19,8 +19,7 @@ return {
     {
       name = "hotland",
       firstgid = 1,
-      filename = "../../tilesets/hotland.tsx",
-      exportfilename = "../../tilesets/hotland.lua"
+      filename = "../../tilesets/hotland.tsx"
     }
   },
   layers = {
@@ -136,6 +135,7 @@ return {
           width = 560,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -149,6 +149,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -162,6 +163,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -175,6 +177,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -188,6 +191,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -201,6 +205,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -214,6 +219,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -227,6 +233,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -240,6 +247,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -253,6 +261,7 @@ return {
           width = 40,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -266,6 +275,7 @@ return {
           width = 560,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -279,6 +289,7 @@ return {
           width = 40,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -292,6 +303,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -305,6 +317,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -326,19 +339,17 @@ return {
       objects = {
         {
           id = 16,
-          name = "npc",
+          name = "warpbin",
           type = "",
           shape = "rectangle",
-          x = 180,
+          x = 60,
           y = 720,
-          width = 40,
+          width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
-          properties = {
-            ["actor"] = "labass",
-            ["cutscene"] = "gamertime.labass"
-          }
+          properties = {}
         },
         {
           id = 18,
@@ -350,6 +361,7 @@ return {
           width = 160,
           height = 60,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "gamertime.station",
@@ -377,11 +389,12 @@ return {
           name = "spawn",
           type = "",
           shape = "point",
-          x = 300,
+          x = 120,
           y = 840,
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -395,6 +408,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -643,7 +643,9 @@ end
 ---@param id string
 ---@return love.Shader
 function Assets.getShader(id)
-    return self.get("shader", id).shader
+    if self.internalHas("shader", id) then
+        return self.get("shader", id).shader
+    end
 end
 
 function Assets.newShader(id)

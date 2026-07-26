@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="89">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="89">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,7 +7,7 @@
   <property name="music" value="demonic_little_grey_cliffs"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/cliffs.tsx"/>
- <tileset firstgid="64" source="../../../tilesets/cliffs_objs.tsx"/>
+ <tileset firstgid="113" source="../../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="5" name="objects_bg">
   <object id="28" name="glitch_bg" x="520" y="560" width="40" height="40"/>
  </objectgroup>
@@ -80,6 +80,7 @@
    <properties>
     <property name="char" value="susie"/>
     <property name="char_spr" value="shock_right"/>
+    <property name="cutscene" value="cliffside.break_crystal"/>
     <property name="flag" value="susie_freed"/>
    </properties>
   </object>
@@ -131,11 +132,11 @@
    </properties>
    <point/>
   </object>
-  <object id="50" gid="65" x="440" y="560" width="180" height="168"/>
-  <object id="52" gid="65" x="440" y="160" width="180" height="168"/>
-  <object id="53" gid="65" x="40" y="374" width="180" height="168"/>
-  <object id="54" gid="64" x="680" y="560" width="70" height="136"/>
-  <object id="55" gid="65" x="120" y="760" width="180" height="168"/>
+  <object id="50" gid="114" x="440" y="560" width="180" height="168"/>
+  <object id="52" gid="114" x="440" y="160" width="180" height="168"/>
+  <object id="53" gid="114" x="40" y="374" width="180" height="168"/>
+  <object id="54" gid="113" x="680" y="560" width="70" height="136"/>
+  <object id="55" gid="114" x="120" y="760" width="180" height="168"/>
   <object id="65" name="script" x="0" y="720" width="40" height="216">
    <properties>
     <property name="cutscene" value="cliffside.force_susie"/>

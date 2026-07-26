@@ -52,7 +52,6 @@ function item:init()
 		dess = "yo omori reference",
 		ralsei = "It'l get dirty as a weapon!",
 		susie = "...That's not a weapon.",
-        suzy = "...That's armor AT BEST.",
 		noelle = "Maybe we can replace the sleeve...",
         brenda = "Why do we have this?",
 		jamm = {

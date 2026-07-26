@@ -14,7 +14,7 @@ return function(cutscene)
                 cutscene:text("* Actually,[wait:5] I don't know.", "what_smile", noelle)
             end
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     elseif Game.world.map.id == "light/hometown/school/school_lobby" then
         if ceroba then
@@ -23,14 +23,14 @@ return function(cutscene)
             cutscene:text("* Especially me,[wait:5] since,[wait:5] you know...", "confounded", ceroba)
             cutscene:text("* I'm not a child nor a teacher to be walking around here.", "nervous_smile", ceroba)
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     elseif Game.world.map.id == "light/hometown/school/kris_class" then
         if ceroba then
             cutscene:text("* A generic classroom...", "alt", ceroba)
             cutscene:text("* Personally I wouldn't say there's anything to talk about.", "neutral", ceroba)
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     elseif Game.world.map.id == "light/hometown/school/toriel_class" then
         if ceroba then
@@ -46,23 +46,23 @@ return function(cutscene)
                 cutscene:text("* (Kanako would love it here...)", "dissapproving", ceroba)
             end
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     elseif Game.world.map.id == "light/hometown/school/school_door" then
         if ceroba then
             cutscene:text("* Just another school corridor.", "alt", ceroba)
             cutscene:text("* Nothing I haven't seen.", "closed_eyes", ceroba)
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     elseif Game.world.map.id == "light/hometown/school/unused_class" then
         if ceroba then
             cutscene:text("* This classroom is...[wait:10] [face:unsure_alt]Quite empty.", "unsure", ceroba)
             cutscene:text("* It must be unused then...", "closed_eyes", ceroba)
         else
-            cutscene:text("* Your voice echoes aimlessly.")
+            cutscene:text("* But the surroundings absorbed the words without an answer.")
         end
     else
-        cutscene:text("* Your voice echoes aimlessly.")
+        cutscene:text("* But the surroundings absorbed the words without an answer.")
     end
 end

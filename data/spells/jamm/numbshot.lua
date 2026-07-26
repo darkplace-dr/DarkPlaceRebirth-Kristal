@@ -107,7 +107,32 @@ function spell:onLightCast(user, target)
 	generateSlash(1)
 	target:hurt(self:getDamage(user, target), user)
 	if target.health > 0 then
-		target:spare(true)				-- Can someone do the Pacify graphics here too please? idk how to make it look UT
+		if self.tired then
+			target:spare(true)
+
+			Assets.playSound("spell_pacify")
+
+            local pacify_x, pacify_y = target:getRelativePos(target.width / 2, target.height / 2)
+            local z_count = 0
+            local z_parent = target.parent
+            Game.battle.timer:every(1 / 15, function()
+                z_count = z_count + 1
+                local z = SpareZ(z_count * -40, pacify_x, pacify_y)
+                z.layer = math.max(target.layer, LIGHT_BATTLE_LAYERS["above_arena_border"]) + 0.002
+                z_parent:addChild(z)
+            end, 8)
+		else
+			local recolor = target:addFX(RecolorFX())
+			Game.battle.timer:during(8 / 30, function()
+				recolor.color = ColorUtils.mergeColor(recolor.color, {0, 0, 1}, 0.12 * DTMULT)
+			end, function()
+				Game.battle.timer:during(8 / 30, function()
+					recolor.color = ColorUtils.mergeColor(recolor.color, {1, 1, 1}, 0.16 * DTMULT)
+				end, function()
+					target:removeFX(recolor)
+				end)
+			end)
+		end
 	end
 end
 

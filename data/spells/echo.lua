@@ -13,6 +13,8 @@ function Echo:init()
     -- Menu description
     self.description = "Echo a spell of one of your allies."
 
+    self.check = {"Echo a spell of one of your allies.", "* Doesn't work in the Light World."}
+
     -- TP cost
     self.cost = 70
 
@@ -21,10 +23,24 @@ function Echo:init()
 
     -- Tags that apply to this spell
     self.tags = {"echo"}
-	
+
 	self.current_spell = nil
 	self.spells = {}
 	self.spell_int = -1
+end
+
+function Echo:getBattleDescription()
+    if Game:isLight() then
+        return "Cannot\nuse"
+    end
+    return self.effect
+end
+
+function Echo:isUsable(chara)
+    if Game:isLight() then
+        return false
+    end
+    return self.usable
 end
 
 function Echo:getCastMessage(user, target)

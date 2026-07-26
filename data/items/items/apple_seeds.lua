@@ -67,8 +67,6 @@ function item:onWorldUse(target)
         health_dec = 15
     elseif target.id == "ralsei" then
         health_dec = 30
-    elseif target.id == "YOU" then
-        health_dec = 50
 	elseif target.id == "dess" and not Game:getFlag("realDess") then
         health_dec = -10
     elseif target.id == "jamm" or target.id == "calypso" then

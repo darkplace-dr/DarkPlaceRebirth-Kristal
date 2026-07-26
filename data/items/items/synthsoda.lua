@@ -63,7 +63,6 @@ function item:init()
         ["susie"] = "synthsoda/susie",
         ["ralsei"] = "synthsoda/ralsei",
         ["noelle"] = "synthsoda/noelle",
-		["YOU"] = "synthsoda/you",
 		["brenda"] = "synthsoda/brenda",
 		["dess"] = "synthsoda/dess",
 		["jamm"] = "synthsoda/jamm",

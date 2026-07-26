@@ -405,32 +405,14 @@ return {
     end,
 
     asriel_bed = function(cutscene, event)
-        if Game.party[1].id == "YOU" then
-            cutscene:text("* It looks like one of the beds from the inn you were staying at.")
-            cutscene:text("* Still in perfect condition...[wait:1s] for now.")
-            if Game:hasPartyMember("susie") then
-                cutscene:showNametag("Susie")
-                cutscene:text("* (Why do they look like they want to eat it???)", "nervous_side", "susie")
-                cutscene:hideNametag()
-            end
-        else
-            cutscene:text("* There are CDs under the bed.\n[wait:5]* Classical,[wait:5] jazz,[wait:5] religious ska...")
-            cutscene:text("* There's also a game console.\n[wait:5]* It has one normal controller,[wait:5] and one knock-off one.")
-        end
+        cutscene:text("* There are CDs under the bed.\n[wait:5]* Classical,[wait:5] jazz,[wait:5] religious ska...")
+        cutscene:text("* There's also a game console.\n[wait:5]* It has one normal controller,[wait:5] and one knock-off one.")
     end,
 
     torcar = function(cutscene, event)
         if Game.party[1].id == "kris" then
             cutscene:text("* (It's your mom's car.)")
             cutscene:text("* (Seems like she hasn't replaced the tires yet, judging by the slashes.)")
-        elseif Game.party[1].id == "YOU" then
-            cutscene:text("* (Looks like the same car that you and Toriel drove in to the orphanage.)")
-            cutscene:text("* (...)")
-            cutscene:text("* (Actually wait,[wait:5] wasn't it a freight train?)")
-            cutscene:text("* (Wait,[wait:5] no. It was an airliner,[wait:5] wasn't it?)")
-            cutscene:text("* (No no no,[wait:5] it was a tricycle that suddenly sprouted legs and ran off,[wait:5] right???)")
-            cutscene:text("* (...)")
-            cutscene:text("* (Well regardless,[wait:5] the car just looks familiar to you.)")
         else
             cutscene:text("* (A red car that can hold up to at least four people.)")
             cutscene:text("* (The tires on the car appear to be slashed.)")

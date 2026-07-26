@@ -20,11 +20,5 @@ return {
             -- Ralsei text, if he's in the party
             cutscene:text("* Aww,[wait:5] Susie!", "blush_pleased", "ralsei")
         end
-    end,
-    tattle = function(cutscene, battler, enemy)
-        cutscene:text("* That's a training dummy, Hero! Like the name says, It's purpose it to be beat up and ", nil, "suzy_lw")
-        cutscene:text("* Placeholder.", nil, "suzy_lw")
-
-
     end
 }

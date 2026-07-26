@@ -476,6 +476,10 @@ function Mod:setMusicPitches()
     MUSIC_PITCHES["deltarune/cybercity_alt"] = 1.2
     MUSIC_PITCHES["lost_room"] = 0.8
     MUSIC_VOLUMES["trank_tv_static"] = 0.5
+
+    -- the two below are from Gamer Time and just loud
+    MUSIC_VOLUMES["yiik"] = 0.5
+    MUSIC_VOLUMES["cemetary"] = 0.5
 end
 
 function Mod:getGlobalNextLvRequiredEXP()
@@ -508,6 +512,13 @@ function Mod:onMapMusic(map, music)
     --TV World music
     if map.id:find("floortv/") and can_kill == true then
         return "deltarune/tv_results_screen"
+    end
+    -- Gamer Time boss room music
+    if music == "gamertime_boss" then
+        if not Game:getFlag("POST_SNOWGRAVE") then
+            return {"deltarune/spamton_neo_meeting", 1, 1.3}
+        end
+        return "deltarune/spamton_neo_meeting"
     end
 end
 
@@ -860,24 +871,12 @@ function Mod:makeSpellsMissAgainstJackenstein()
         end
     end)
     local spell = Registry.getSpell("xslash")
-    HookSystem.hook(spell, "onCast", function (orig, self, user, target)
-    local damage = math.floor((((user.chara:getStat("attack") * 150) / 20) - 3 * (target.defense)) * 1.3)
-
-        ---@type XSlashSpell
-        local spellobj = XSlashSpell(user,target)
+    HookSystem.hook(spell, "getDamage", function (orig, self, user, target)
         if Game.battle.encounter.is_jackenstein then
-            spellobj.y = spellobj.y - 60
+            return 0
+        else
+            return orig(self, user, target)
         end
-        Game.battle:addChild(spellobj):setLayer(BATTLE_LAYERS["above_battlers"])
-        spellobj.damage_callback = function(self, hit_action_command)
-            local strikedmg = damage
-            if Game.battle.encounter.is_jackenstein then
-                target:hurt(0, user)
-            else
-                target:hurt(strikedmg, user)
-            end
-        end
-        return false
     end)
     local spell = Registry.getSpell("ice_shock")
     HookSystem.hook(spell, "onCast", function (orig, self, user, target)

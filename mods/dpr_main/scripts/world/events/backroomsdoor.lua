@@ -3,11 +3,7 @@ local BackroomsDoor, super = Class(Event)
 function BackroomsDoor:init(data)
     super.init(self, data)
 
-    self.sprite = Sprite("world/events/floor2/backroomsdoor_closed")
-    self.sprite:setScale(2)
-    self:addChild(self.sprite)
-
-    self.solid = true
+    self:setSprite("world/events/floor2/backroomsdoor_closed")
 end
 
 function BackroomsDoor:onInteract(player, dir)

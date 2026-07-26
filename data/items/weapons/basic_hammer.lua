@@ -43,7 +43,6 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         mario = true,
-        suzy = true,
     }
 
     -- Character reactions
@@ -52,7 +51,6 @@ function item:init()
         noel = "Glorified stick...",
 		dess = "this shit aint lucky",
         ceroba = "What is this, a toy?",
-        suzy = "Let's a GO!",
         jamm = "(It barely stays together...)",
         calypso = "It's not fer me...",
     }

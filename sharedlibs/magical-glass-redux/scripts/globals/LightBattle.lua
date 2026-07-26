@@ -153,6 +153,8 @@ function LightBattle:init()
     else
         self.no_buff_loop = false
     end
+
+    self.headwind = 0
 end
 
 function LightBattle:isPagerMenu()
@@ -1843,6 +1845,8 @@ function LightBattle:nextTurn()
 
         self.soul:onMenuWaveStart()
     end
+
+    self.headwind = self.headwind - 1
 end
 
 function LightBattle:canSelectMenuItem(menu_item)

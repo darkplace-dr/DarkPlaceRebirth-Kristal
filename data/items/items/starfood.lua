@@ -31,53 +31,52 @@ function item:init()
 
     -- Really good
     self.reactions_1 = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
-		dess = "",
+        susie = "BEST SNACK EVER!!",
+        ralsei = "I'm... At a loss of words.", -- imagine little stars in his eyes
+        noelle = "Holy cheese and crackers...",
+		dess = "i'm eating this one",
         jamm = "Woah, feels like I'm in space!",
         calypso = "Reminds me o' the night sky...",
-        noel = "",
-        ceroba = "",
+        noel = "THAT'S SUPPOSED TO BE IMPOSSIBLE!?!?", -- curse of being forbidden to lead the party
+        ceroba = "Woah, it's... Amazing!",
     }
 
     -- Good
     self.reactions_2 = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
-		dess = "",
+        susie = "Second best, not bad!",
+        ralsei = "It's, um, really good!",
+        noelle = "Hey, it's the good one, right?",
+		dess = "hey that's not the best one",
         jamm = "Tastes... cottony.",
         calypso = "Aye, a stellar taste.",
-        noel = "",
-        ceroba = "",
+        noel = "Man am I glad I'm the second.",
+        ceroba = "Better than I expected.",
     }
 
     -- Alright
     self.reactions_3 = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
-		dess = "",
+        susie = "I hoped for better.",
+        ralsei = "It's okay!",
+        noelle = "At least it's... Not too bad?",
+		dess = "man that's REALLY not the best one",
         jamm = "...I mean, it's alright, I guess.",
         calypso = "Reminds me o' the endless nights...",
-        noel = "",
-        ceroba = "",
+        noel = "At least I'm not in the back-back.",
+        ceroba = "A bit... sour...?",
     }
 
     -- Bad
     self.reactions_4 = {
-        susie = "",
-        ralsei = "",
-        noelle = "",
-		dess = "",
+        susie = "Ugh, why did I get that one!?",
+        ralsei = "Oh, I... got unlucky, haha.",
+        noelle = "Huh? Is that a prank?",
+		dess = "man u suck",
         jamm = "...Why do I get the bad corner!?",
         calypso = "Argh, there always be a bad one...",
-        noel = "",
-        ceroba = "",
+        noel = "Of course the back ones get the worst.",
+        ceroba = "Agh, it's all crunchy...",
     }
 end
-
 
 function item:getReaction(user_id, reactor_id, miniparty)
     local location
@@ -87,7 +86,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
             break
         end
     end
-    
+
     return self["reactions_" .. location][reactor_id] or ""
 end
 
@@ -97,7 +96,7 @@ function item:getHealAmount(id)
             return self.heal_amounts[i]
         end
     end
-    
+
     return 25   -- an amount that shouldn't happen so we know if something's wrong
 end
 

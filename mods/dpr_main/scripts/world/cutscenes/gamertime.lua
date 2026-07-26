@@ -1,20 +1,4 @@
 return {
-
-    labass = function(cutscene, event)
-        cutscene:showNametag("Lab Assistant")
-        cutscene:text("* This is the way to the gaming room.", nil, event)
-        cutscene:text("* I oversee the gaming.", nil, event)
-        cutscene:text("* Would you like to return to the Cyber City?", nil, event)
-        cutscene:hideNametag()
-        if cutscene:choicer({"Yes", "No"}) == 1 then
-            Game.world:mapTransition("cybercity/alley2", "gamerexit", "up")
-        else
-            cutscene:showNametag("Lab Assistant")
-            cutscene:text("* Understandable,[wait:5] have a nice day.", nil, event)
-            cutscene:hideNametag()
-        end
-    end,
-
     station = function(cutscene, event)
         if Game:getFlag("omegaspamton_defeated") then
             cutscene:text("* The gaming stations don't seem to be working.")
@@ -138,7 +122,6 @@ return {
                     cutscene:fadeOut(0.5, {color = {1, 1, 1}})
                     cutscene:wait(1.5)
                     for k,chara in ipairs(Game.party) do
-			    		Game:setFlag(chara.id .. "_party", false)
                         if chara.id == "noel" then
                             Game:setFlag("noel_at", "room1")
                         end
@@ -146,8 +129,6 @@ return {
 			    	Game.party = {}
                     Game:addPartyMember("hero")
 			    	Game:addPartyMember("susie")
-                    Game:setFlag("hero_party", true)
-			    	Game:setFlag("susie_party", true)
                     Game.world:mapTransition("gamertime/mainarea", "spawn", "down")
                 else
                     cutscene:text("* Unfortunatly,[wait:5] none of your party seems interested in playing it.")
@@ -252,6 +233,7 @@ return {
             cutscene:attachFollowers()
             cutscene:wait(1)
         end
+        Game:setFlag("gamertime_intro", true)
     end,
 
     berdly = function(cutscene, event)
@@ -340,9 +322,8 @@ return {
 
                 sprite.visible = false
 
-                local death_x, death_y = sprite:getRelativePos(0, 0, self)
-                local death
-                death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() berdly:remove() end)
+                local death_x, death_y = sprite:getRelativePos(0, 0, berdly)
+                local death = DustEffect(sprite:getTexture(), death_x, death_y, true, function() berdly:remove() end)
 
                 death:setColor(sprite:getDrawColor())
                 death:setScale(sprite:getScale())
@@ -369,7 +350,7 @@ return {
                 dess_party:increaseStat("magic", 1)
                 cutscene:text("* (Dess became stronger!)")
             else
-                local mus = Music("deltarune/berdly_theme", 0.75)
+                local mus = Music("deltarune/berdly_theme", 0.7)
                 cutscene:text("* Susan?[wait:10] Oh thank the Gamer Gods that you're here.", "worried_smile", "berdly")
                 cutscene:showNametag("Susie")
                 cutscene:text("* Wait,[wait:5] Berdly?", "surprise", "susie")
@@ -447,8 +428,6 @@ return {
                 cutscene:attachFollowers()
                 cutscene:wait(1)
                 charjoined_music:remove()
-                Game:setFlag("berdly_inparty", true)
-                Game:setFlag("berdly_party", true)
                 if not Game:getFlag("drcastsplitup_known") then
                     cutscene:showNametag("Susie")
                     cutscene:text("* We should uh...", "neutral_side", "susie")
@@ -519,14 +498,62 @@ return {
         if Game.inventory:hasItem("bomb") then
             cutscene:text("* Use the bomb?")
             if cutscene:choicer({"Yes", "No"}) == 1 then
-                cutscene:fadeOut(1)
                 Game.world.music:fade(0, 1)
-		        cutscene:wait(1)
-		        Assets.playSound("bomb")
+                cutscene:detachCamera()
+                cutscene:detachFollowers()
+                cutscene:panTo(800, 710, 1)
+                if Game:isDessMode() then
+                    Game.world.player:walkToSpeed(800, 860, 6, "up")
+                else
+                    Game.world.player:walkToSpeed(680, 790, 6, "right")
+                    Game.world.followers[1]:walkToSpeed(800, 860, 6, "up")
+                    if Game.world.followers[2] then
+                        Game.world.followers[2]:walkToSpeed(920, 790, 6, "left")
+                    end
+                end
+
+                cutscene:wait(2)
+                local x, y = Game.world.player.x, Game.world.player.y - 20
+                if not Game:isDessMode() then
+                    x, y = Game.world.followers[1].x, Game.world.followers[1].y - 20
+                end
                 Game.inventory:removeItem("bomb")
-		        cutscene:wait(1)
-		        cutscene:fadeIn(1)
-		        cutscene:wait(1)
+                local bomb = Sprite("world/cutscenes/gamertime/sneo_bomb", x, y)
+                bomb:setOrigin(0.5)
+                bomb:play(1 / 15, true)
+                bomb.layer = Game.world.player.layer - 0.01
+                Game.world:addChild(bomb)
+
+                if Game:isDessMode() then
+                    --Game.world.player:setAnimation("kick_up") -- doesn't have it yet
+                else
+                    Game.world.followers[1]:setAnimation("kick_up")
+                end
+                cutscene:wait(2 / 30)
+                Assets.playSound("bump", 1.5)
+                bomb:slideTo(800, 710, 0.15)
+                cutscene:wait(1)
+
+                Game.world.followers[1]:resetSprite()
+                Game.world.followers[1]:setFacing("up")
+		        bomb:explode()
+                local dooropen = Sprite("world/cutscenes/gamertime/school_door", 799, 662) -- an illusion of the opened door
+                dooropen:setScale(2)
+                dooropen:setOrigin(0.5)
+                dooropen.color = {0, 0, 0}
+                dooropen.layer = Game.world.player.layer - 0.01
+                Game.world:addChild(dooropen)
+                local door = Sprite("world/cutscenes/gamertime/school_door", 799, 662)
+                door:setScale(2)
+                door:setOrigin(0.5)
+                door.layer = Game.world.player.layer
+                door.physics.speed_x = 20
+                door.physics.speed_y = -14
+                door.physics.match_rotation = true
+                door.physics.spin = math.rad(30)
+                Game.world:addChild(door)
+		        cutscene:wait(2)
+
                 if Game:isDessMode() then
                     cutscene:showNametag("Dess")
                     cutscene:text("* ", "mspaint", "dess") -- add proper dialogue later
@@ -537,59 +564,14 @@ return {
                         cutscene:text("* Let's show Spamton how to REALLY steal items!", "smile", "susie")
                         cutscene:showNametag("Hero")
                         cutscene:text("* Let's kick some puppet ass!", "smug", "hero")
-                        cutscene:showNametag("Spamton")
-                        cutscene:text("[voice:spam_omega]* WHAT!!![wait:10]\n* YOU NEWBIES WANT TO TAKE MY [[Legally sourced]] RARE ITEMS?")
-                        cutscene:text("[voice:spam_omega]* WELL,[wait:5] [You're gonna have to try a little HARDER than that]!")
-                        cutscene:text("[voice:spam_omega]* I'VE BEEN STOCKING UP ON [[collector's items]]!")
-                        cutscene:text("[voice:spam_omega]* THERE'S NO WAY YOU COULD BEAT ME IN [Omega Male] FORM!!")
-                        cutscene:showNametag("Berdly")
-                        cutscene:text("* Well,[wait:5] I think he's gonna fight us with his scammed loot.", "neutral", "berdly")
-                        cutscene:text("* Time to show him who the TRUE gamers are!", "angry", "berdly")
-                        cutscene:showNametag("Spamton")
-                        cutscene:text("[voice:spam_omega]* I'LL TELL YOU WHAT,[wait:5] YOU [[Big Shots]]...")
-                        cutscene:text("[voice:spam_omega]* IT'S ON LIKE [[Legally Distinct Ape]]!!")
                     else
-                        cutscene:showNametag("Spamton")
-                        cutscene:text("[voice:spam_omega]* WHAT!!![wait:10]\n* YOU NEWBIES WANT TO TAKE MY [[Legally sourced]] RARE ITEMS?")
-                        cutscene:showNametag("Susie")
-                        cutscene:text("* Wha-[wait:5] Who's there!?", "surprise_frown", "susie")
-                        cutscene:showNametag("Spamton")
-                        cutscene:text("[voice:spam_omega]* WELL,[wait:5] [You're gonna have to try a little harder than THAT.]!")
-                        cutscene:text("[voice:spam_omega]* I'VE BEEN STOCKING UP ON [[collector's items]]!")
-                        cutscene:text("[voice:spam_omega]* THERE'S NO WAY YOU COULD BEAT ME IN [Omega Male] FORM!!")
-                        cutscene:showNametag("Susie")
-                        cutscene:text("* Wait,[wait:5] is it that one guy from Queen's basement!?", "surprise", "susie")
-                        cutscene:text("* What was his name again?[wait:5] Spam...[wait:5] Guy?", "surprise_frown", "susie")
-                        cutscene:text("* Well,[wait:5] if it's the fight he wants...", "closed_grin", "susie")
-                        cutscene:text("* Then it's a fight he'll get!", "teeth_smile", "susie")
-                        cutscene:showNametag("Hero")
-                        cutscene:text("* Let's kick some puppet ass!", "smug", "hero")
-                        cutscene:showNametag("Spamton")
-                        cutscene:text("[voice:spam_omega]* I'LL TELL YOU WHAT,[wait:5] YOU [[Big Shots]]...")
-                        cutscene:text("[voice:spam_omega]* IT'S ON LIKE [[Legally Distinct Ape]]!!")
+                        cutscene:text("* Now let's check this place out.", "teeth_smile", "susie")
                     end
                 end
                 cutscene:hideNametag()
-                cutscene:startEncounter("omegaspamtonbossfight", true)
-                Game:setFlag("omegaspamton_defeated", true)
-                cutscene:text("* This part is VERY WIP (as you can tell from Spamton not having any unique attacks)")
-                cutscene:text("* Uhh I'll finish up the rest of this segment another time")
-                cutscene:text("* -BrendaK7200")
-                Assets.playSound("shadowpendant")
-                cutscene:fadeOut(0.5, {color = {1, 1, 1}})
-                cutscene:wait(0.75)
-                Game.world:mapTransition("gamertime/entrance", "exit", "down")
-                cutscene:wait(0.75)
-                cutscene:fadeIn(0.5, {color = {1, 1, 1}})
-                cutscene:wait(1.5)
-                if Game:isDessMode() then
-                    Game:setFlag("dess_canact", false)
-			        Game:getPartyMember("dess").has_act = false
-                    cutscene:text("* (Dess can no longer ACT.)", nil, nil, {skip=false})
-                end
-                if cutscene:getCharacter("berdly") then
-                    Game:getQuest("berdlymissing"):setProgress(2)
-                end
+                cutscene:after(function()
+                    Game.world:mapTransition("gamertime/boss")
+                end)
             end
         else
             if Game:isDessMode() then
@@ -602,6 +584,85 @@ return {
             end
             cutscene:hideNametag()
             cutscene:text("* You need a bomb to open this door.")
+        end
+    end,
+
+    boss = function(cutscene, event)
+        if Game:isDessMode() then
+            Game.world.player:setPosition(-80, 300)
+        else
+            cutscene:detachFollowers()
+            local susie = Game.world:getCharacter("susie")
+            if not Game:getFlag("POST_SNOWGRAVE") then
+                local berdly = Game.world:getCharacter("berdly")
+                Game.world.player:setPosition(-80, 220)
+                susie:setPosition(-80, 300)
+                berdly:setPosition(-80, 380)
+            else
+                Game.world.player:setPosition(-80, 260)
+                susie:setPosition(-80, 340)
+            end
+        end
+
+        Game.world.player:walkToSpeed(Game.world.player.x + 190, Game.world.player.y, 4, "right")
+        for _, follower in ipairs(Game.world.followers) do
+            follower:walkToSpeed(follower.x + 190, follower.y, 4, "right")
+        end
+        cutscene:wait(2)
+
+        if Game:isDessMode() then
+            cutscene:showNametag("Dess")
+            cutscene:text("* ", "mspaint", "dess") -- add proper dialogue later
+        else
+            if not Game:getFlag("POST_SNOWGRAVE") then
+                cutscene:text("[voice:spam_omega]* WHAT!!![wait:10]\n* YOU NEWBIES WANT TO TAKE MY [[Legally sourced]] RARE ITEMS?")
+                cutscene:text("[voice:spam_omega]* WELL,[wait:5] [You're gonna have to try a little harder than THAT]!")
+                cutscene:text("[voice:spam_omega]* I'VE BEEN STOCKING UP ON [[collector's items]]!")
+                cutscene:text("[voice:spam_omega]* THERE'S NO WAY YOU COULD BEAT ME IN [Omega Male] FORM!!")
+                cutscene:showNametag("Berdly")
+                cutscene:text("* Well,[wait:5] I think he's gonna fight us with his scammed loot.", "neutral", "berdly")
+                cutscene:text("* Time to show him who the TRUE gamers are!", "angry", "berdly")
+                cutscene:showNametag("Spamton")
+                cutscene:text("[voice:spam_omega]* I'LL TELL YOU WHAT,[wait:5] YOU [[Big Shots]]...")
+                cutscene:text("[voice:spam_omega]* IT'S ON LIKE [[Legally Distinct Ape]]!!")
+            else
+                cutscene:showNametag("Spamton")
+                cutscene:text("[voice:spam_omega]* WHAT!!![wait:10]\n* YOU NEWBIES WANT TO TAKE MY [[Legally sourced]] RARE ITEMS?")
+                cutscene:showNametag("Susie")
+                cutscene:text("* Wha-[wait:5] Who's there!?", "surprise_frown", "susie")
+                cutscene:showNametag("Spamton")
+                cutscene:text("[voice:spam_omega]* WELL,[wait:5] [You're gonna have to try a little harder than THAT]!")
+                cutscene:text("[voice:spam_omega]* I'VE BEEN STOCKING UP ON [[collector's items]]!")
+                cutscene:text("[voice:spam_omega]* THERE'S NO WAY YOU COULD BEAT ME IN [Omega Male] FORM!!")
+                cutscene:showNametag("Susie")
+                cutscene:text("* Wait,[wait:5] is it that one guy from Queen's basement!?", "surprise", "susie")
+                cutscene:text("* What was his name again?[wait:5] Spam...[wait:5] Guy?", "surprise_frown", "susie")
+                cutscene:text("* Well,[wait:5] if it's the fight he wants...", "closed_grin", "susie")
+                cutscene:text("* Then it's a fight he'll get!", "teeth_smile", "susie")
+                cutscene:showNametag("Hero")
+                cutscene:text("* Let's kick some puppet ass!", "smug", "hero")
+                cutscene:showNametag("Spamton")
+                cutscene:text("[voice:spam_omega]* I'LL TELL YOU WHAT,[wait:5] YOU [[Big Shots]]...")
+                cutscene:text("[voice:spam_omega]* IT'S ON LIKE [[Legally Distinct Ape]]!!")
+            end
+        end
+        cutscene:hideNametag()
+        cutscene:startEncounter("omegaspamtonbossfight", true)
+        Game:setFlag("omegaspamton_defeated", true)
+        Assets.playSound("shadowpendant")
+        cutscene:fadeOut(0.5, {color = {1, 1, 1}})
+        cutscene:wait(0.75)
+        Game.world:mapTransition("gamertime/entrance", "exit", "down")
+        cutscene:wait(0.75)
+        cutscene:fadeIn(0.5, {color = {1, 1, 1}})
+        cutscene:wait(1.5)
+        if Game:isDessMode() then
+            Game:setFlag("dess_canact", false)
+		    Game:getPartyMember("dess").has_act = false
+            cutscene:text("* (Dess can no longer ACT.)", nil, nil, {skip=false})
+        end
+        if cutscene:getCharacter("berdly") then
+            Game:getQuest("berdlymissing"):setProgress(2)
         end
     end,
 
@@ -716,7 +777,7 @@ return {
                 cutscene:showNametag("Susie")
                 cutscene:text("* Yeah,[wait:5] honestly I'm impressed by that.", "neutral_side", "susie")
                 cutscene:showNametag("Berdly")
-                cutscene:text("* Oh stop,[wait:5] you're going to make me blush,[wait:5] Susan", "godly", "berdly")
+                cutscene:text("* Oh stop,[wait:5] you're going to make me blush,[wait:5] Susan.", "godly", "berdly")
                 cutscene:hideNametag()
             else
                 cutscene:showNametag("Hero")
@@ -727,5 +788,4 @@ return {
             end
         end
     end
-
 }

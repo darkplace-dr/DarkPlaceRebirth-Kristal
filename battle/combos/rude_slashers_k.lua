@@ -27,7 +27,7 @@ function Forest:init()
 end
 
 function Forest:doCutscene(cutscene, enemy)
-	cutscene:text("* YOU and Susie use Rude Slash!")
+	cutscene:text("* You and Susie use Rude Slash!")
 	-- Get players active, get initial positions
 	local krisPlayer = cutscene:getCharacter("kris")
 	local susiePlayer = cutscene:getCharacter("susie")

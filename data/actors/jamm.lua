@@ -26,7 +26,7 @@ function actor:init()
     -- Path to this actor's portrait for dialogue (optional)
     self.portrait_path = "face/jamm"
     -- Offset position for this actor's portrait (optional)
-    self.portrait_offset = {-19,-3}
+    self.portrait_offset = {-19, -3}
 
     -- Whether this actor as a follower will blush when close to the player
     self.can_blush = false
@@ -41,7 +41,7 @@ function actor:init()
 
         ["battle/attack"]       		= {"battle/attack", 1/15, false},
         ["battle/act"]          		= {"battle/act", 1/15, false},
-        ["battle/spell"]        		= {"battle/spell", 1/15, false},
+        ["battle/spell"]        		= {"battle/act", 1/15, false}, -- no spell animation
         ["battle/item"]         		= {"battle/item", 1/15, false, next="battle/idle"},
         ["battle/spare"]        		= {"battle/act", 1/15, false, next="battle/idle"},
 
@@ -58,16 +58,16 @@ function actor:init()
         ["battle/swooned"]              = {"battle/swooned", 1/15, false},
         ["battle/succumbed"]            = {"battle/swooned", 1/15, false},
 
-        ["battle/transition"]   		= {"battle/transition", 0.2, true},
+        ["battle/transition"]   		= {"battle/transition_out", 0.2, true},
         ["battle/intro"]        		= {"battle/intro", 1/15, true},
         ["battle/victory"]      		= {"battle/victory", 1/10, false},
 
         ["battle/tactic_freeze"] 		= {"battle/tactic_freeze", 1/15, false},
         ["battle/tactic_freeze_shiny"] 	= {"battle/tactic_freeze_shiny", 1/15, false},
-		
+
 		["battle/transition_out"]       = {"battle/transition_out", 1/15, false},
 
-        ["battle/charge"]               = {"battle/charge", 1/6, true},
+        ["battle/charge"]               = {"battle/charge", 1/6, true}, -- doesn't exist?
 
 		-- Cutscene animations
         ["jump_ball"]           = {"ball", 1/15, true},
@@ -76,6 +76,30 @@ function actor:init()
 		["dance"]               = {"dance", 1/10, true},
 
         ["pirouette"]           = {"pirouette", 4/30, true},
+    }
+
+    self.animations_serious = {
+        -- Battle animations
+        ["battle/idle"]         		= {"battle_serious/idle", 0.2, true},
+
+        ["battle/attack"]       		= {"battle_serious/attack", 1/15, false},
+        ["battle/act"]          		= {"battle_serious/act", 1/15, false},
+        ["battle/spell"]        		= {"battle_serious/act", 1/15, false}, -- no spell animation
+        ["battle/item"]         		= {"battle_serious/item", 1/15, false, next="battle/idle"},
+        ["battle/spare"]        		= {"battle_serious/act", 1/15, false, next="battle/idle"},
+
+        ["battle/attack_ready"] 		= {"battle_serious/attackready", 0.2, true},
+        ["battle/act_ready"]    		= {"battle_serious/actready", 0.2, true},
+        ["battle/spell_ready"]  		= {"battle_serious/actready", 0.2, true},
+        ["battle/item_ready"]   		= {"battle_serious/itemready", 0.2, true},
+        ["battle/defend_ready"] 		= {"battle_serious/defend", 1/15, false},
+
+        ["battle/act_end"]      		= {"battle_serious/actend", 1/15, false, next="battle/idle"},
+
+        ["battle/hurt"]         		= {"battle_serious/hurt", 1/15, false, temp=true, duration=0.5},
+
+        ["battle/intro"]        		= {"battle_serious/intro", 1/15, true},
+        ["battle/victory"]      		= {"battle_serious/victory", 1/10, false},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -119,11 +143,28 @@ function actor:init()
         ["battle/intro"] = {-9, 0},
         ["battle/victory"] = {-10, 0},
         ["battle/transition_out"] = {-10, 0},
-		
+
         ["battle/tactic_freeze"] = {-5, 0},
         ["battle/tactic_freeze_shiny"] = {-5, 0},
 
         ["battle/charge"] = {-9, -3},
+
+        -- Battle offsets (serious)
+        ["battle_serious/idle"] = {-5, 0},
+
+        ["battle_serious/attack"] = {-5, 1},
+        ["battle_serious/attackready"] = {-5, 0},
+        ["battle_serious/act"] = {-4, 0},
+        ["battle_serious/actend"] = {-4, 0},
+        ["battle_serious/actready"] = {-4, 0},
+        ["battle_serious/item"] = {-4, 0},
+        ["battle_serious/itemready"] = {-4, 0},
+        ["battle_serious/defend"] = {-4, 0},
+
+        ["battle_serious/hurt"] = {-5, 0},
+
+        ["battle_serious/intro"] = {-9, 0},
+        ["battle_serious/victory"] = {-10, 0},
 
 		["ball"] = {0, 18},
 
@@ -178,6 +219,14 @@ function actor:init()
 	end
 
 	self.shiny_id = "jamm"
+end
+
+function actor:getAnimation(anim)
+	if Game:getPartyMember("jamm"):getFlag("serious", false) and self.animations_serious[anim] ~= nil then
+        return self.animations_serious[anim] or nil
+    else
+        return super.getAnimation(self, anim)
+    end
 end
 
 return actor

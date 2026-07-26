@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -19,14 +19,12 @@ return {
     {
       name = "bg_dw_mansion_spamton_basement",
       firstgid = 1,
-      filename = "../../tilesets/bg_dw_mansion_spamton_basement.tsx",
-      exportfilename = "../../tilesets/bg_dw_mansion_spamton_basement.lua"
+      filename = "../../tilesets/bg_dw_mansion_spamton_basement.tsx"
     },
     {
       name = "bg_dw_mansion_basement_door",
       firstgid = 53,
-      filename = "../../tilesets/bg_dw_mansion_basement_door.tsx",
-      exportfilename = "../../tilesets/bg_dw_mansion_basement_door.lua"
+      filename = "../../tilesets/bg_dw_mansion_basement_door.tsx"
     }
   },
   layers = {
@@ -122,6 +120,7 @@ return {
           width = 960,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -135,6 +134,7 @@ return {
           width = 80,
           height = 560,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -148,6 +148,7 @@ return {
           width = 1120,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -161,6 +162,7 @@ return {
           width = 80,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -190,6 +192,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -219,6 +222,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "gamertime/bomb_entrance",
@@ -235,6 +239,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["item"] = "bomb"

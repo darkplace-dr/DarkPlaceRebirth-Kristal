@@ -27,7 +27,6 @@ function item:init()
         susie = 10,
         ralsei = 5,
         noelle = 5,
-        YOU = 10,
         dess = 15,
         brenda = 5,
 		jamm = 0,

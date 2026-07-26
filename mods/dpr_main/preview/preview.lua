@@ -131,8 +131,6 @@ function preview:update()
     end
     if self:isNameChosen("PAUL", false) then
         setSound("paul.ogg")
-    elseif self:isNameChosen("YOU", false) then
-        setSound("croakreverb.ogg", "static")
     elseif self.naming_sound then
         self.naming_sound:stop()
         self.naming_sound = nil

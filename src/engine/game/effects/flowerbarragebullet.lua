@@ -41,13 +41,13 @@ function FlowerBarrageBullet:update()
             end
         end
         if self.attack_dir < 360 then
-            self.attack_dir = self.attack_dir + self.bullet_speed
+            self.attack_dir = self.attack_dir + self.bullet_speed * DTMULT
         else
             self.attack_dir = self.bullet_speed
         end
     elseif self.state == 1 then
         if self.attack_dir < 360 then
-            self.attack_dir = self.attack_dir + self.bullet_speed
+            self.attack_dir = self.attack_dir + self.bullet_speed * DTMULT
         else
             self.attack_dir = self.bullet_speed
         end
