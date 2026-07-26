@@ -104,6 +104,41 @@
             "width": 1680,
             "x": -2600,
             "y": 840
+        },
+        {
+            "fileName": "maps/floor2/jam/main.tmx",
+            "height": 600,
+            "width": 1720,
+            "x": -5440,
+            "y": 840
+        },
+        {
+            "fileName": "maps/floor2/main_1/main_1.tmx",
+            "height": 560,
+            "width": 880,
+            "x": -3600,
+            "y": -40
+        },
+        {
+            "fileName": "maps/floor2/apartments/len/pre_enter.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -5240,
+            "y": -920
+        },
+        {
+            "fileName": "maps/floor2/apartments/len/main/main.tmx",
+            "height": 800,
+            "width": 1120,
+            "x": -5240,
+            "y": -2080
+        },
+        {
+            "fileName": "maps/floor2/left.tmx",
+            "height": 560,
+            "width": 640,
+            "x": -5120,
+            "y": -40
         }
     ],
     "onlyShowAdjacentMaps": false,
