@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="28">
+<map version="1.11" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="29">
  <editorsettings>
   <export target="main_2.lua" format="lua"/>
  </editorsettings>
@@ -111,21 +111,6 @@
     <property name="marker" value="entry_main_2"/>
    </properties>
   </object>
-  <object id="19" name="dogconegroup" x="0" y="600" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="20" name="dogconegroup" x="0" y="640" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="21" name="dogconegroup" x="0" y="560" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="23" name="transition" x="960" y="560" width="40" height="120">
    <properties>
     <property name="map" value="floor2/pre_diner"/>
@@ -135,6 +120,12 @@
   <object id="25" name="interactable" x="120" y="520" width="80" height="40">
    <properties>
     <property name="cutscene" value="floor2.deathlordsign"/>
+   </properties>
+  </object>
+  <object id="28" name="transition" x="-40" y="560" width="40" height="120">
+   <properties>
+    <property name="map" value="floor2/jam/main"/>
+    <property name="marker" value="entry_main_2"/>
    </properties>
   </object>
  </objectgroup>
