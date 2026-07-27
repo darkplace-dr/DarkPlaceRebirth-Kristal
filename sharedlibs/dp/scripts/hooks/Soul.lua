@@ -137,7 +137,7 @@ function Soul:canParry()
     -- Cooldown is over
     -- Parrying is enabled
     -- Not in the middle of damage i-frames
-    if self.parry_timer == 0 and self.cooldown_timer == 0 and self.can_parry == true and Game.inv_frames <= 0 then
+    if self.parry_timer == 0 and self.cooldown_timer == 0 and self.can_parry == true and not Game:hasInvulnerability() then
         return true
     else
         return false
@@ -247,7 +247,7 @@ function Soul:update()
 	-- Taunt code ends here
 
     -- Diamond shield code starts here
-    if Game.inv_frames <= 0 and Game.pp > 0 then
+    if not Game:hasInvulnerability() and Game.pp > 0 then
         self.glow_alpha = self.glow_alpha + self.glow_alpha_increase * DTMULT
         if self.glow_alpha >= 1 then
             self.glow_alpha = 1

@@ -35,7 +35,7 @@ function Dual_MovingArena_Mimic:spawnstarthing()
 
     function self.bullet:onCollide(soul)
         if not Game.battle.superpower then
-            if Game.inv_frames <= 0 then
+            if not Game:hasInvulnerability() then
                 self:onDamage(soul)
             end
 
@@ -139,7 +139,7 @@ function Dual_MovingArena_Mimic:update()
 
     function self.bullet:onCollide(soul)
         if not Game.battle.superpower then
-            if Game.inv_frames <= 0 then
+            if not Game:hasInvulnerability() then
                 self:onDamage(soul)
             end
 
