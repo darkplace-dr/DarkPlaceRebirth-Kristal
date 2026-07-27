@@ -57,7 +57,7 @@ function Bullet:onCollide(soul)
         self.destroy_on_hit = true
     end
     if self:getType() == "blue" and soul:isMoving() or self:getType() == "orange" and not soul:isMoving() or not TableUtils.contains({"blue", "orange"}, self:getType()) then
-        if Game.inv_frames <= 0 then
+        if not Game:hasInvulnerability() then
             self:onDamage(soul)
             if self.destroy_on_hit then
                 self:remove()

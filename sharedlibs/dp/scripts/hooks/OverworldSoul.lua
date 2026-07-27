@@ -16,7 +16,7 @@ function OverworldSoul:update()
     super.update(self)
 
     -- Diamond shield code starts here
-    if Game.inv_frames <= 0 and Game.pp > 0 and Game.world.battle_alpha > 0 then
+    if not Game:hasInvulnerability() and Game.pp > 0 and Game.world.battle_alpha > 0 then
         self.glow_alpha = self.glow_alpha + self.glow_alpha_increase * DTMULT
         if self.glow_alpha >= 1 then
             self.glow_alpha = 1

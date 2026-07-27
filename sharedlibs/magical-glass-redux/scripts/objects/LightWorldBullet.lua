@@ -22,7 +22,7 @@ function LightWorldBullet:getDebugInfo()
 end
 
 function LightWorldBullet:onCollide(soul)
-    if self.hazard_encounter and Game.inv_frames <= 0 then
+    if self.hazard_encounter and not Game:hasInvulnerability() then
         local inv_frames = self:getInvulnFrames()
         Game:setInvulnFrames(inv_frames)
         Game:encounter(self.hazard_encounter, true, nil, nil, self.light)
