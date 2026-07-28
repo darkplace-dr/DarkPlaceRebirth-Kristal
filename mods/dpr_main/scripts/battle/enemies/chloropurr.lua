@@ -114,7 +114,6 @@ end
 function Pebblin:onSpareable()
     super.onSpareable(self)
     self.waves = {
-        "pebblin/pebbledrop",
     }
 end
 

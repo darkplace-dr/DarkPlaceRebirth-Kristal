@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="43" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="37">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="43" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="38">
  <properties>
   <property name="music" value="mainhub"/>
  </properties>
@@ -59,7 +59,7 @@
   <object id="19" x="1280" y="200" width="120" height="40"/>
   <object id="20" x="1440" y="200" width="240" height="40"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="4" name="objects" visible="0">
+ <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="1" name="interactable" x="1520" y="200" width="80" height="40">
    <properties>
     <property name="text1" value="* (This room has the rooms that will be used for the Dark Jam 2026.)"/>
@@ -144,6 +144,9 @@
  </objectgroup>
  <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="35" name="entry_main_2" x="1680" y="400">
+   <point/>
+  </object>
+  <object id="37" name="entry_door1" x="1424" y="273">
    <point/>
   </object>
  </objectgroup>

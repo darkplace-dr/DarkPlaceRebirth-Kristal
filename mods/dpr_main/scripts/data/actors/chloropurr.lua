@@ -27,6 +27,9 @@ function actor:init()
 
     self.animations = {
         ["idle"] = {"idle", 0.1, true},
+        ["walk"] = {"walk", 0.13, true},
+        ["creepwalk"] = {"creepywalk", 0.5, true},
+        ["angry"] = {"cat_angry", 0.1, true},
         ["spared"] = {"spare", 1/4, true},
         ["hit"] = {"hit", 1/12, true},
         ["hitslow"] = {"hit", 1/6, true},

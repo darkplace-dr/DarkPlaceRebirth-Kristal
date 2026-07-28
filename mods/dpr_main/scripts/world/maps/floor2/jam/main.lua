@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 37,
+  nextobjectid = 38,
   properties = {
     ["music"] = "mainhub"
   },
@@ -24,7 +24,8 @@ return {
     {
       name = "jam-26-doors",
       firstgid = 171,
-      filename = "../../../tilesets/jam_26_doors.tsx"
+      filename = "../../../tilesets/jam_26_doors.tsx",
+      exportfilename = "../../../tilesets/jam_26_doors..lua"
     }
   },
   layers = {
@@ -122,7 +123,6 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -136,7 +136,6 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -150,7 +149,6 @@ return {
           width = 1640,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -164,7 +162,6 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -178,7 +175,6 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -192,7 +188,6 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -206,7 +201,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -220,7 +214,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -234,7 +227,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -248,7 +240,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -262,7 +253,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -276,7 +266,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -290,7 +279,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -304,7 +292,6 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -316,7 +303,7 @@ return {
       id = 4,
       name = "objects",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -334,7 +321,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (This room has the rooms that will be used for the Dark Jam 2026.)",
@@ -351,7 +337,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (The next room has the rooms that will be used for the Dark Jam 2027.)",
@@ -368,7 +353,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -384,7 +368,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -400,7 +383,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -416,7 +398,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -433,7 +414,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -450,7 +430,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -467,7 +446,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -484,7 +462,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -501,7 +478,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -518,7 +494,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -535,7 +510,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -552,7 +526,6 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/main_2",
@@ -585,7 +558,19 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "entry_door1",
+          type = "",
+          shape = "point",
+          x = 1424,
+          y = 273,
+          width = 0,
+          height = 0,
+          rotation = 0,
           visible = true,
           properties = {}
         }
