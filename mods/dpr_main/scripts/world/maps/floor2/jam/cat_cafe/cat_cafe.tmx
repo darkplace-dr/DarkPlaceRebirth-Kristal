@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="94">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="caramelldansen"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../tilesets/devroom_objects.tsx"/>
+ <tileset firstgid="8" source="../../../../tilesets/devroom_mono.tsx"/>
+ <tileset firstgid="152" source="../../../../tilesets/floor2.tsx"/>
+ <tileset firstgid="322" source="../../../../tilesets/floor2/cat_cafe_objects.tsx"/>
+ <objectgroup id="8" name="objects_cafe_bg" locked="1">
+  <object id="50" gid="322" x="0" y="800" width="1000" height="800"/>
+ </objectgroup>
+ <objectgroup id="2" name="objects">
+  <object id="3" name="transition" x="120" y="780" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/jam/main"/>
+    <property name="marker" value="room_5"/>
+   </properties>
+  </object>
+  <object id="7" name="spotlight" x="-10" y="-200" width="100" height="800"/>
+  <object id="8" name="spotlight" x="300" y="240" width="120" height="210"/>
+  <object id="13" name="spotlight" x="900" y="240" width="120" height="210"/>
+  <object id="14" name="npc" x="920" y="700">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="npc" x="760" y="700">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="npc" x="600" y="700">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="npc" x="760" y="580">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="18" name="npc" x="600" y="580">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="19" name="npc" x="920" y="580">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+    <property name="cutscene" value="cat_cafe.cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="22" name="dogconegroup" x="240" y="160" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="23" name="dogconegroup" x="240" y="200" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="24" name="dogconegroup" x="280" y="440" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="25" name="dogconegroup" x="320" y="440" width="40" height="40">
+   <properties>
+    <property name="default_state" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="51" gid="323" x="790" y="604" width="100" height="76"/>
+  <object id="52" gid="323" x="790" y="724" width="100" height="76"/>
+  <object id="53" gid="323" x="630" y="604" width="100" height="76"/>
+  <object id="54" gid="323" x="630" y="724" width="100" height="76"/>
+  <object id="55" gid="323" x="470" y="724" width="100" height="76"/>
+  <object id="56" gid="323" x="470" y="604" width="100" height="76"/>
+  <object id="57" gid="325" x="488" y="72" width="44" height="36"/>
+  <object id="58" gid="324" x="428" y="72" width="44" height="36"/>
+  <object id="59" gid="326" x="548" y="72" width="44" height="36"/>
+  <object id="60" gid="327" x="608" y="72" width="44" height="36"/>
+  <object id="61" gid="328" x="668" y="72" width="44" height="36"/>
+  <object id="62" gid="329" x="728" y="72" width="44" height="36"/>
+  <object id="63" gid="331" x="368" y="72" width="44" height="36"/>
+  <object id="64" gid="332" x="788" y="72" width="44" height="36"/>
+  <object id="65" gid="330" x="848" y="72" width="44" height="36"/>
+  <object id="66" name="interactable" x="70" y="494" width="150" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.counter"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="73" gid="333" x="40" y="524" width="202" height="206"/>
+  <object id="74" name="npc" x="146" y="500">
+   <properties>
+    <property name="actor" value="cafe_cat"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="75" name="interactable" x="282" y="150" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.cat_statue"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="77" name="interactable" x="370" y="86" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="pancakes"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="78" name="interactable" x="430" y="86" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="bloody_pancakes"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="80" name="interactable" x="490" y="86" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="blue_raspberry"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="81" name="interactable" x="550" y="86" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="castle_cake"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="82" name="interactable" x="610.333" y="86.3333" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="cat_food_fudge"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="83" name="interactable" x="670.333" y="86.3333" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="green_stacks"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="84" name="interactable" x="730.333" y="86.3333" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="knife_in_my_food"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="85" name="interactable" x="790.333" y="86.3333" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="purple_face_cake"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="86" name="interactable" x="850" y="86" width="40" height="20">
+   <properties>
+    <property name="cutscene" value="cat_cafe.pickup_food"/>
+    <property name="id" value="nothing"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="87" name="script" x="280" y="200" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.the_trigger"/>
+    <property name="once" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="88" name="interactable" x="480" y="560" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="18"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="89" name="interactable" x="480" y="680" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="16"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="90" name="interactable" x="640" y="560" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="17"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="91" name="interactable" x="640" y="680" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="15"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="92" name="interactable" x="800" y="680" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="14"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="93" name="interactable" x="800" y="560" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="cat_cafe.event_redirect"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="redirect" value="19"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="markers" visible="0">
+  <object id="2" name="spawn" x="160" y="750">
+   <point/>
+  </object>
+ </objectgroup>
+ <layer id="1" name="Tile Layer 1" width="25" height="20" visible="0" locked="1">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#5500ff" id="4" name="collision" locked="1">
+  <object id="27" x="0" y="480" width="40" height="200"/>
+  <object id="28" x="40" y="640" width="80" height="160"/>
+  <object id="29" x="200" y="640" width="160" height="160"/>
+  <object id="30" x="360" y="760" width="640" height="40"/>
+  <object id="32" x="360" y="240" width="40" height="200"/>
+  <object id="34" x="240" y="240" width="40" height="240"/>
+  <object id="35" x="240" y="80" width="120" height="80"/>
+  <object id="36" x="360" y="70" width="600" height="40"/>
+  <object id="37" x="960" y="80" width="40" height="160"/>
+  <object id="38" x="960" y="480" width="40" height="280"/>
+  <object id="40" x="400" y="240" width="600" height="120"/>
+  <object id="41" x="390" y="452" width="600" height="40"/>
+  <object id="49" x="360" y="452">
+   <polygon points="0,0 26,40 26,0"/>
+  </object>
+  <object id="70" x="261" y="486">
+   <polygon points="0,0 -40,40 -240,40 -280,0"/>
+  </object>
+  <object id="72" x="280" y="466">
+   <polygon points="0,0 0.181818,20.1818 -19.8182,40 -40,40 -40,0"/>
+  </object>
+ </objectgroup>
+</map>
