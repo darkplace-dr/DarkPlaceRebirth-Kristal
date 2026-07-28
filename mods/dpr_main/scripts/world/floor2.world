@@ -139,6 +139,13 @@
             "width": 640,
             "x": -5120,
             "y": -40
+        },
+        {
+            "fileName": "maps/floor2/jam/2026/room_6.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -5120,
+            "y": 360
         }
     ],
     "onlyShowAdjacentMaps": false,

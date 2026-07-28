@@ -789,4 +789,31 @@ return {
             cutscene:text("* (You're filled with the power of not having to choose again.)")
         end
     end,
+
+    ---@param cutscene WorldCutscene
+    ---@param event Event
+    jam26 = function(cutscene, event)
+        local properties = event.data["properties"]
+        local id = properties["id"]
+
+        if id == 5 then
+            cutscene:wait(cutscene:mapTransition("floor2/jam/cat_cafe", "entry_left"))
+            return
+
+        elseif id == 6 or id == -6 then
+            Assets.playSound("dooropen")
+
+            if id == 6 then
+                cutscene:wait(cutscene:mapTransition("floor2/jam/2026/room_6", "entry_main"))
+            elseif id == -6 then
+                cutscene:wait(cutscene:mapTransition("floor2/jam/main", "entry_room_6"))
+            end
+
+            Assets.playSound("doorclose")
+            return
+            
+        end
+
+        cutscene:text("* (Room " .. id .. ".)")
+    end,
 }
