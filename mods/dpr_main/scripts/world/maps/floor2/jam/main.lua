@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 43,
+  nextobjectid = 45,
   properties = {
     ["music"] = "mainhub"
   },
@@ -338,7 +338,7 @@ return {
           opacity = 1,
           visible = true,
           properties = {
-            ["text1"] = "* (This room has the rooms that will be used for the Dark Jam 2026.)",
+            ["text1"] = "* (This room has the rooms that has been used for the Dark Jam 2026.)",
             ["text2"] = "* (Enjoy.)"
           }
         },
@@ -580,7 +580,8 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "floor2.jam26",
-            ["id"] = 5
+            ["id"] = 5,
+            ["once"] = false
           }
         }
       }
@@ -648,6 +649,34 @@ return {
           shape = "point",
           x = 860,
           y = 380,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 43,
+          name = "entry_door1",
+          type = "",
+          shape = "point",
+          x = 1420,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 44,
+          name = "room3",
+          type = "",
+          shape = "point",
+          x = 1100,
+          y = 280,
           width = 0,
           height = 0,
           rotation = 0,
