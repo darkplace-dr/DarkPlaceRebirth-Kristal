@@ -59,7 +59,13 @@ function Bite:update()
     self.x_offset = math.cos(self.siner * 1.5) * 60
 
     -- Move the arena
-    Game.battle.arena:setPosition(self.arena_start_x + self.x_offset, self.arena_start_y + self.y_offset)
+    local battle = Game.battle
+    if battle then
+        local arena = battle.arena
+        if arena then
+            arena:setPosition(arena.init_x + self.x_offset, arena.init_y + self.y_offset)
+        end
+    end
 end
 
 return Bite
