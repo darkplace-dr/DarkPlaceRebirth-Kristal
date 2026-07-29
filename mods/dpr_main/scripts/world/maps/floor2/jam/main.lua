@@ -24,7 +24,8 @@ return {
     {
       name = "jam-26-doors",
       firstgid = 171,
-      filename = "../../../tilesets/jam_26_doors.tsx"
+      filename = "../../../tilesets/jam_26_doors.tsx",
+      exportfilename = "../../../tilesets/jam_26_doors..lua"
     }
   },
   layers = {
@@ -527,8 +528,7 @@ return {
           opacity = 1,
           visible = true,
           properties = {
-            ["cutscene"] = "floor2.jam26",
-            ["id"] = 1,
+            ["cutscene"] = "characatbattle.enemyencounter",
             ["solid"] = true
           }
         },
