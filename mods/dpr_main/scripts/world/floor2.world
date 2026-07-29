@@ -146,6 +146,27 @@
             "width": 640,
             "x": -5120,
             "y": 360
+        },
+        {
+            "fileName": "maps/floor2/jam/room3.tmx",
+            "height": 800,
+            "width": 1200,
+            "x": -4960,
+            "y": 2080
+        },
+        {
+            "fileName": "maps/floor2/jam/cat_cafe/cat_cafe.tmx",
+            "height": 800,
+            "width": 1000,
+            "x": -4760,
+            "y": 2960
+        },
+        {
+            "fileName": "maps/floor2/jam/darkjamroom1chara1.tmx",
+            "height": 520,
+            "width": 760,
+            "x": -4520,
+            "y": 1480
         }
     ],
     "onlyShowAdjacentMaps": false,
