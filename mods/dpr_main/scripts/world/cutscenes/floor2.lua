@@ -810,6 +810,7 @@ return {
             return
 
         elseif id == 4 then
+            Assets.playSound("splat")
             return
 
         elseif id == 5 then
