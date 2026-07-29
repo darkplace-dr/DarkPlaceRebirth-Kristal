@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 38,
+  nextobjectid = 43,
   properties = {
     ["music"] = "mainhub"
   },
@@ -105,7 +105,7 @@ return {
       id = 3,
       name = "collision",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -400,8 +400,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 8.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 8,
+            ["solid"] = true
           }
         },
         {
@@ -416,24 +417,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 6.)"
-          }
-        },
-        {
-          id = 32,
-          name = "interactable",
-          type = "",
-          shape = "rectangle",
-          x = 920,
-          y = 200,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 4.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 6,
+            ["solid"] = true
           }
         },
         {
@@ -448,8 +434,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 2.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 2,
+            ["solid"] = true
           }
         },
         {
@@ -464,8 +451,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 7.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 7,
+            ["solid"] = true
           }
         },
         {
@@ -473,15 +461,16 @@ return {
           name = "interactable",
           type = "",
           shape = "rectangle",
-          x = 760,
+          x = 920,
           y = 200,
           width = 40,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 5.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 4,
+            ["solid"] = true
           }
         },
         {
@@ -496,8 +485,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 3.)"
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 3,
+            ["solid"] = true
           }
         },
         {
@@ -512,7 +502,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["cutscene"] = "characatbattle.enemyencounter",
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 1,
             ["solid"] = true
           }
         },
@@ -530,6 +521,40 @@ return {
           properties = {
             ["map"] = "floor2/main_2",
             ["marker"] = "entry_left"
+          }
+        },
+        {
+          id = 38,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 780,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["actor"] = "cat_cafe",
+            ["cutscene"] = "hub.wah"
+          }
+        },
+        {
+          id = 39,
+          name = "script",
+          type = "",
+          shape = "rectangle",
+          x = 760,
+          y = 120,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["cutscene"] = "floor2.jam26",
+            ["id"] = 5
           }
         }
       }
@@ -571,6 +596,48 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "room_5",
+          type = "",
+          shape = "point",
+          x = 780,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "entry_room_6",
+          type = "",
+          shape = "point",
+          x = 620,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "spawn",
+          type = "",
+          shape = "point",
+          x = 860,
+          y = 380,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
