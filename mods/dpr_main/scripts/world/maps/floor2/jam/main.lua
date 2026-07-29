@@ -528,8 +528,7 @@ return {
           opacity = 1,
           visible = true,
           properties = {
-            ["cutscene"] = "floor2.jam26",
-            ["id"] = 1,
+            ["cutscene"] = "characatbattle.enemyencounter",
             ["solid"] = true
           }
         },
@@ -607,48 +606,6 @@ return {
           shape = "point",
           x = 1680,
           y = 400,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 40,
-          name = "room_5",
-          type = "",
-          shape = "point",
-          x = 780,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 41,
-          name = "entry_room_6",
-          type = "",
-          shape = "point",
-          x = 620,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 42,
-          name = "spawn",
-          type = "",
-          shape = "point",
-          x = 860,
-          y = 380,
           width = 0,
           height = 0,
           rotation = 0,
