@@ -86,7 +86,7 @@ function item:convertToLightEquip(chara)
 end
 
 function item:getAttackCritBoxSize(battler)
-    return 3
+    return 1.5
 end
 
 return item

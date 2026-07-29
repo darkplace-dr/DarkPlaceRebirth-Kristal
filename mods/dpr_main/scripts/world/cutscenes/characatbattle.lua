@@ -8,7 +8,7 @@ local cyber = {
 
     enemyencounter = function(cutscene, event)
 		cutscene:text("* The door here is faded, and missing a handle.")
-		if Game:getFlag("chloropurrBeaten") == 0 then
+		if Game:getFlag("encounter#dpr_main/chloropurr:done", false) == false then
 		local susie = cutscene:getCharacter("susie")
 		local hero = cutscene:getCharacter("hero")
 		if hero and susie then
@@ -114,14 +114,14 @@ local cyber = {
 		cutscene:wait(1)
         cutscene:startEncounter("chloropurr", true, boss)
 		susie:resetSprite()
-		if Game:getFlag("chloropurrBeaten") == 1 then
+		if Game:getFlag("encounter#dpr_main/chloropurr:violenced", false) == false then
 			cutscene:wait(2)
 			cutscene:text("* I will give you my strength.")
 			Game.inventory:addItem("everyweapon")
 			cutscene:text("* (You got the [color:yellow]Everyweapon[color:reset].)")
 		cutscene:text("* ...Goodbye.")
 		Game.world.timer:tween(5, boss, {x = player.x+500}, "in-cubic")
-        cutscene:wait(1)
+        cutscene:wait(5)
         boss:remove()
 		else
 			boss:remove()
@@ -139,8 +139,9 @@ else
         "No",
 		})
 		if choicer == 1 then
-			cutscene:text("* You crawl through the hole.")
-			cutscene:mapTransition("floor2/jam/darkjamroom1chara1", "spawn")
+			cutscene:text("* You crawl through the hole...")
+			cutscene:text("* But then you crawl back out. It seems that part is still under construction.")
+			--cutscene:mapTransition("floor2/jam/darkjamroom1chara1", "spawn")
 		else
 			cutscene:text("* You crawl on the lack of a handle instead. This achieves nothing.")
 		end
@@ -148,6 +149,7 @@ end
 end
 end,
 enemynpc = function(cutscene, event)
+	cutscene:text("* Go away.")
 end
 
 }

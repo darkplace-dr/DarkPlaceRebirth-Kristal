@@ -13,6 +13,7 @@ function Pebblin:init()
     self.money = 1000
     self.mercyamnt = 0
     self.mercy = 0
+    self.originy = 0
        self.tired_percentage = 0.15
     self.low_health_percentage = 0.15
         self.experience = 50
@@ -117,19 +118,16 @@ function Pebblin:onSpareable()
     self.waves = {
     }
 end
-function Pebblin:onDefeat(damage, battler)
-    if self.defeat_violent == true then
-Game:setFlag("chloropurrBeaten", 1)
-    else
-        Game:setFlag("chloropurrBeaten", 2)
-    end
-end
 function Pebblin:getEnemyDialogue()
     self:setAnimation("idle")
     local dialogue
-    if ((self.mercy >= 50) or (self.health <= 750)) and self.summons == 1 then
-    self.summons = 0
+    if ((self.mercy >= 50) or (self.health <= 750)) and self.summons > 0.5 then
+        self.originy = self.y
+        Game.world.timer:tween(1, self, {y = self.originy - 40}, "out-cubic")
+    self.summons = self.summons - 1
+    if self.summons <= 0 then
     Game.battle.encounter:addEnemy("charafriendling")
+    end
     self.waves = {
         "chloropurr/handthrowwaveslow",
         "chloropurr/vines",
