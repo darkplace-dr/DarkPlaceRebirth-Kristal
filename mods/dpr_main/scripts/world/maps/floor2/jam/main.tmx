@@ -134,7 +134,8 @@
   </object>
   <object id="33" name="interactable" x="1400" y="200" width="40" height="40">
    <properties>
-    <property name="cutscene" value="characatbattle.enemyencounter"/>
+    <property name="cutscene" value="floor2.jam26"/>
+    <property name="id" type="int" value="1"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
