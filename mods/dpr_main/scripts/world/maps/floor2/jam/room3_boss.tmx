@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="13">
+ <editorsettings>
+  <export target="room3_boss.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tilesets/floor2/room3.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="32" height="20">
+  <data encoding="csv">
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,8,2,2,2,2,2,2,2,2,2,2,8,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,8,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,8,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,8,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,8,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,2,2,2,2,2,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+</data>
+ </layer>
+ <objectgroup color="#ff00ff" id="2" name="objects">
+  <object id="1" name="transition" x="400" y="800" width="240" height="40">
+   <properties>
+    <property name="map" value="floor2/jam/room3_beforeboss"/>
+    <property name="marker" value="boss"/>
+   </properties>
+  </object>
+  <object id="8" name="script" x="400" y="640" width="240" height="40">
+   <properties>
+    <property name="cutscene" value="room3.boss_start"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="3" name="collision">
+  <object id="3" x="640" y="640" width="640" height="160"/>
+  <object id="4" x="880" y="-3.0303" width="404.848" height="643.03"/>
+  <object id="5" x="0" y="0" width="880" height="160"/>
+  <object id="6" x="0" y="160" width="160" height="640"/>
+  <object id="7" x="160" y="640" width="240" height="160"/>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="2" name="entry" x="520" y="760">
+   <point/>
+  </object>
+  <object id="9" x="280" y="280">
+   <point/>
+  </object>
+  <object id="10" x="320" y="360">
+   <point/>
+  </object>
+  <object id="11" x="280" y="440">
+   <point/>
+  </object>
+  <object id="12" x="240" y="360">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
