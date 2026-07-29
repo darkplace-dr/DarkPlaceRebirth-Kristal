@@ -17,6 +17,7 @@ function Pebblin:init()
     self.low_health_percentage = 0.15
         self.experience = 50
         self.summons = 1
+        self.boss = 1
 
     self.killable = false
 
@@ -116,7 +117,13 @@ function Pebblin:onSpareable()
     self.waves = {
     }
 end
-
+function Pebblin:onDefeat(damage, battler)
+    if self.defeat_violent == true then
+Game:setFlag("chloropurrBeaten", 1)
+    else
+        Game:setFlag("chloropurrBeaten", 2)
+    end
+end
 function Pebblin:getEnemyDialogue()
     self:setAnimation("idle")
     local dialogue

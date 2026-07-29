@@ -512,8 +512,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["solid"] = true,
-            ["text"] = "* (Room 1.)"
+            ["cutscene"] = "characatbattle.enemyencounter",
+            ["solid"] = true
           }
         },
         {
