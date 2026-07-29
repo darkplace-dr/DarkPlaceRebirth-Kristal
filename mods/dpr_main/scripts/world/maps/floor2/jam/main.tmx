@@ -66,7 +66,7 @@
   <object id="1" name="interactable" x="1520" y="200" width="80" height="40">
    <properties>
     <property name="text1" value="* (This room has the rooms that will be used for the Dark Jam 2026.)"/>
-    <property name="text2" value="* (Rest assured these will be used soon enough.)"/>
+    <property name="text2" value="* (Enjoy.)"/>
    </properties>
   </object>
   <object id="2" name="interactable" x="80" y="200" width="80" height="40">

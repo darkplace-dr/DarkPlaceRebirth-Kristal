@@ -796,10 +796,21 @@ return {
         local properties = event.data["properties"]
         local id = properties["id"]
 
-        if id == 2 then
+        if id == 1 then
+            return
+
+        elseif id == 2 then
             cutscene:text("* (Room 2.[wait:5] It seems as if the door's color has faded...)")
             cutscene:text("* \"Sorry for the disappointment.[wait:5] I promise I'll make up to it somehow.\"")
             cutscene:text("\n                       -N")
+            return
+
+        elseif id == 3 then
+            cutscene:wait(cutscene:mapTransition("floor2/jam/room3", "entrance"))
+            return
+
+        elseif id == 4 then
+            Assets.playSound("splat")
             return
 
         elseif id == 5 then
