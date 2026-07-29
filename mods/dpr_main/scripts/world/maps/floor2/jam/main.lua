@@ -339,7 +339,7 @@ return {
           visible = true,
           properties = {
             ["text1"] = "* (This room has the rooms that will be used for the Dark Jam 2026.)",
-            ["text2"] = "* (Rest assured these will be used soon enough.)"
+            ["text2"] = "* (Enjoy.)"
           }
         },
         {
