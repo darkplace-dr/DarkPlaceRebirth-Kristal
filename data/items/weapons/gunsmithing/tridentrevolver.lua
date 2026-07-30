@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
 		pauling = true,
+        len = true,
     }
 
     self.bolt_count = 3
@@ -58,7 +59,8 @@ function item:init()
         brenda = "It's fightin' time!",
 		jamm = "Three times what I'm used to...",
         calypso = "...Ye monsters concern me.",
-        ceroba = "That's some HEAVY firearm..."
+        ceroba = "That's some HEAVY firearm...",
+        len = "Triple pew!",
     }
 end
 

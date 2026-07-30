@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -52,12 +53,24 @@ function item:init()
         noelle = "That red... is that blood?",
         jamm = "Feels... vampiric.",
         calypso = "Aye, this feels wrong...",
-        ceroba = "Don't even try it." -- she's NOT getting scooped up
+        ceroba = "Don't even try it.", -- she's NOT getting scooped up
+        len = "This is *uf* heavy...",
     }
+
+    self.len_axe_progress_flag = "len_axe_handling"
 end
 
 function item:onAttackHit(battler, enemy, damage)
     local heal_amount = math.ceil(battler.chara:getStat("health") * 0.1)
+
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        local new_heal_amount = heal_amount * (len_axe_progress / 60)
+        if new_heal_amount > heal_amount then
+            new_heal_amount = heal_amount
+        end
+        Game:addFlag(len_axe_progress, 1)
+    end
 
     battler:heal(heal_amount)
 end
