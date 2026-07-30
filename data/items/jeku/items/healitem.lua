@@ -59,6 +59,7 @@ function item:init()
 		mario = "Sonic",
         noel = "Flavorless... As all things should be...",
         ceroba = "I, uh, can't taste anything??",
+        len = "Would it be weird if i said i like this taste?",
     }
 end
 

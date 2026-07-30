@@ -42,6 +42,11 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}
+
+    -- Character reactions (key = party member id)
+    self.reactions = {
+        len = "Not filling.",
+    }
 end
 
 function item:onWorldUse(target)

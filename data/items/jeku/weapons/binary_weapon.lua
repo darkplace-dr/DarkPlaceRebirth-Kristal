@@ -69,6 +69,7 @@ function item:init()
         ceroba = "Those are just numbers...",
         hero = "Good, I can't count.",
         mario = "I'm fucking Mario.",
+        len = "I'll miss the item...",
     }
 end
 
