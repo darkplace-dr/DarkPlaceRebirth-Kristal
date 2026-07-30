@@ -55,7 +55,7 @@ function item:init()
         susie = "W-HUH?! WHAT THE HELL?!",
         ralsei = "I've already had my fair share of this, haha.",
         noelle = "(WHERE THE FUCK DID YOU GET COCAINE)",
-        kris = "yummy",
+        kris = "yummy", -- kris talks???????
         brenda = "So... This IS legal here, right?",
         bor = "What? You want more o' that?",
         dess = "AYYYYY LETST GET FUCJKKED BABY!!!! WOSAAAAAAAAHSDFHGSDJFHK",
@@ -65,7 +65,8 @@ function item:init()
         calypso = "...No.",
 		mario = "Mario's got to piss.",
         noel = "No.",
-        ceroba = "Who the fuck do you think I am!?"
+        ceroba = "Who the fuck do you think I am!?",
+        len = "(Just a little won't hurt, right?)",
     }
 end
 
