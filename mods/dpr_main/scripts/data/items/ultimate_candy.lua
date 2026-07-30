@@ -52,6 +52,7 @@ function item:init()
         susie = "Hey! It's hollow inside!",
         ralsei = "I like the texture!",
         noelle = "That was underwhelming...",
+        len = "Mhh... candy."
     }
 end
 
