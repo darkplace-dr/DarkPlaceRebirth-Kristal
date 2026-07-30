@@ -44,7 +44,9 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions (key = party member id)
-    self.reactions = {}
+    self.reactions = {
+        len = "Unsettling..."
+    }
 end
 
 function item:canEquip(character, slot_type, slot_index)
