@@ -45,7 +45,8 @@ function item:init()
 
     -- Character reactions
     self.reactions = {
-	noel = "congatolations!",
+	    noel = "congatolations!",
+        len = "Yay! more Boilet Paper.",
     }
 end
 
