@@ -54,6 +54,7 @@ function item:init()
         calypso = "Huh... Neat.",
         noel = "Guess I'm a tree now.",
         ceroba = "The light is almost hypnotising...",
+        len = "This light is hurting my eyes...",
     }
 end
 

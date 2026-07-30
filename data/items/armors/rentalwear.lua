@@ -57,6 +57,7 @@ function item:init()
         calypso = "Aye, I be rich enough...",
         noel = "",
         ceroba = "Goodbye my earnings.",
+        len = "This feels like a scam.",
     }
 end
 

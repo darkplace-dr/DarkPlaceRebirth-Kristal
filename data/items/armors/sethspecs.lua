@@ -56,6 +56,7 @@ function item:init()
         jamm = "...I got some of my own.",
         calypso = "Aye, they be helpful...",
         ceroba = "I can see fine, thanks.",
+        len = "T-this doesn't have any graduation on it, right?",
     }
 end
 

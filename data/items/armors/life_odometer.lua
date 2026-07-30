@@ -34,6 +34,7 @@ function item:init()
 		ddelta = "how the hey does it work? dunno",
         jamm = "Could be a close call...",
         calypso = "It be a good one...",
+        len = "I have always been a huge fan of electronics.",
     }
 end
 

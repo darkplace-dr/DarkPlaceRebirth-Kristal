@@ -58,15 +58,8 @@ function item:init()
         ["jamm+marcy"] = "Hold on tight, Marcy!",
         noel = "Too much power for one man. Maybe enough power for two man. Defiently too much power for one man.",
         ceroba = "Hopefully I won't run into a wall.",
+        len = "Lets go Sonic speed!",
     }
-end
-
-function item:canEquip(character, slot_type, slot_index)
-    if character.id == "noel" then
-        return false
-    else
-        return true
-    end
 end
 
 return item

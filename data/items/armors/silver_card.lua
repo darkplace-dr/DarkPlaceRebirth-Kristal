@@ -54,6 +54,7 @@ function item:init()
         calypso = "(This be a lot o' power...)",
         noel = "How do I use one of these?",
         ceroba = "Wasn't this amber??",
+        len = "Powerful. but... not so useful.",
     }
 end
 

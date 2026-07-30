@@ -53,6 +53,7 @@ function item:init()
         calypso = "It be... what...?",
         noel = "I can equip this?",
         ceroba = "What IS this exactly?",
+        len = "Great! lets watch squid games.",
     }
 end
 

@@ -50,6 +50,7 @@ function item:init()
         ceroba = "That choice is on you.",
         jamm = "This is insane...",
         calypso = "Aye, a challenge...",
+        len = "Wow, this is useless.",
     }
 end
 

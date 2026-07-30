@@ -54,6 +54,7 @@ function item:init()
         calypso = "Only since it be defensive...",
         noel = "Ow! MOTHERFU-",
         ceroba = "\"Royal\", huh?",
+        len = "(Carefull... carefull... ok, there.)",
     }
 end
 

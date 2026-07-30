@@ -54,6 +54,7 @@ function item:init()
         calypso = "It be saying \"Adventure.\"",
         noel = "This isn't very useful.",
         ceroba = "\"Justice\", huh?",
+        len = "It spells \"C\"-uh \"Can't forget\"...",
     }
 end
 

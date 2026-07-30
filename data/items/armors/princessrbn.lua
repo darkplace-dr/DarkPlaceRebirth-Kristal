@@ -56,7 +56,8 @@ function item:init()
         dess = "it increases atk thats cool",
         jamm = "I'm already wearing gloves!",
         calypso = "...I'll bite.",
-        ceroba = "Not a big royalty fan."
+        ceroba = "Not a big royalty fan.",
+        len = "I really like this combo.",
     }
     self.susie_rejection = "Nah. Gloves don't fit."
 end

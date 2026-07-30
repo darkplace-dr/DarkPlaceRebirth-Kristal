@@ -51,6 +51,7 @@ function item:init()
         jamm = "I feel like a master!",
         ceroba = "I'm not sure if it's a good idea...",
         calypso = "Aye aye, captain!",
+        len = "(Im so scared...)",
     }
 
     -- Character reactions to wearing two
@@ -61,6 +62,7 @@ function item:init()
         jamm = "The ultimate daredevil!!!",
         ceroba = "... at least I still have my shield.",
         calypso = "Full speed ahead!",
+        len = "(Im so, so, SO scared...)",
     }
 end
 

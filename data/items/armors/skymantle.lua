@@ -55,6 +55,7 @@ function item:init()
         },
         calypso = "Aye, it wraps well...",
         ceroba = "Kind of like Asgore's...",
+        len = "It should've been called HolyMantle.",
     }
 
 end

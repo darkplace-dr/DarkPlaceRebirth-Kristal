@@ -10,6 +10,10 @@ function item:init()
 
     self.bonus_name = "Nightmares"
     self.bonus_icon = "ui/menu/icon/up"
+
+    self.reaction = {
+        len = "Lets have some nightmares."
+    }
 end
 
 function item:applyMoneyBonus(gold)

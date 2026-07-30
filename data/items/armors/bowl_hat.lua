@@ -64,7 +64,7 @@ function item:init()
             ceroba = "A bowl? Are you serious?",
             len = "...",
         },
-        len = "Cool armor! wonder who made it.",
+        len = "Pretty sturdy, eh?.",
     }
 end
 

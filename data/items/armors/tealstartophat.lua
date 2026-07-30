@@ -49,7 +49,27 @@ function item:init()
         jamm = "And for my next trick, my student loans wil disappear!",
         calypso = "...It be taking me back...",
         ceroba = "Ace would like that one.",
+        len = "Now i just need a tie.",
     }
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if user_id == "len" then
+        local len = Game:getPartyMember("len")
+        local tie
+        for _,party_item in pairs(len:getEquipment()) do
+            if party_item.id == "bshotbowtie" then
+                tie = party_item
+                break
+            end
+        end
+
+        if tie then
+            return "Perfectly elegant."
+        end
+    end
+
+    super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 return item

@@ -56,6 +56,7 @@ function item:init()
         },
         calypso = "...It suits me.",
         ceroba = "\"Yee-haw!\" (I think that was it?)", -- tries to remember Star's cowboy phrases
+        len = "Pew! pew! head-shot.",
     }
 end
 

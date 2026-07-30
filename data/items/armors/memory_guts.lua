@@ -44,12 +44,13 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        noel = false, 
+        noel = false,
     }
 
     -- Character reactions
     self.reactions = {
         noel = "I have no dreams.",
+        len = "Personally, i like dreams and nightmares equally... altough i prefer dreams.",
     }
 end
 

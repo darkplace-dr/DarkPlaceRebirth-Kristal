@@ -32,6 +32,7 @@ function item:init()
         noel = "Just no",
         jamm = "I've been meaning to read more...",
         calypso = "It's not fer me...",
+        len = "O-owch... (i need MORE.)",
     }
 end
 

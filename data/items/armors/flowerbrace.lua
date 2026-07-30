@@ -69,6 +69,7 @@ function item:init()
 		},
         dess = "ew im alergic to flowers AND love",
         ceroba = "Beautiful... But not mine.",
+        len = "Uh... Yeah, this totally fits me."
     }
 end
 
@@ -81,6 +82,13 @@ function item:onEquip(character, replacement)
         character:addSpell("electric_havoc")
         self.bonus_name = "Reminded"
         self.bonus_icon = "ui/menu/icon/magic"
+    elseif character.id == "len" then
+        local debuff = -999
+        character:increaseStat("defense", debuff)
+        character:increaseStat("magic", debuff)
+        character:increaseStat("attack", debuff)
+        character:increaseStat("health", debuff)
+        self.bonus_name = "(It doesn't)"
     end
     return true
 end
@@ -94,6 +102,13 @@ function item:onUnequip(character, replacement)
         character:removeSpell("electric_havoc")
         self.bonus_name = nil
         self.bonus_icon = nil
+    elseif character.id == "len" then
+        local debuff = 999
+        character:increaseStat("defense", debuff)
+        character:increaseStat("magic", debuff)
+        character:increaseStat("attack", debuff)
+        character:increaseStat("health", debuff)
+        self.bonus_name = nil
     end
     return true
 end

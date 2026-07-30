@@ -52,6 +52,7 @@ function item:init()
 		jamm = "Nice! This looks great!",
         calypso = "I don't understand it, but...",
         ceroba = "Isn't this computer stuff?", -- she means code, she's so stupid (in a nice way :) )
+        len = "I still don't understand binary...",
     }
 end
 

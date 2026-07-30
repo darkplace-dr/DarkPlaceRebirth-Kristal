@@ -61,7 +61,8 @@ function item:init()
         },
         calypso = "Aye, it be cool...",
         noel = "Now I can be an edgy bitch.",
-        ceroba = "I'd rather not."
+        ceroba = "I'd rather not.",
+        len = "Ow, ow, ow, ow, ow."
     }
 end
 
@@ -74,6 +75,10 @@ function item:onEquip(character, replacement)
         character:addSpell("flame_buster")
         self.bonus_name = "Awakened"
         self.bonus_icon = "ui/menu/icon/magic"
+    elseif characted.id == "len" then
+        self.bonus_name = "Ow."
+        self.bonus_icon = "ui/menu/icon/magic"
+        character:replaceSpell("dark_prayer", "ow_prayer")
     end
     return true
 end
@@ -87,6 +92,10 @@ function item:onUnequip(character, replacement)
         character:removeSpell("flame_buster")
         self.bonus_name = nil
         self.bonus_icon = nil
+    elseif characted.id == "len" then
+        self.bonus_name = nil
+        self.bonus_icon = nil
+        character:replaceSpell("ow_prayer", "dark_prayer")
     end
     return true
 end

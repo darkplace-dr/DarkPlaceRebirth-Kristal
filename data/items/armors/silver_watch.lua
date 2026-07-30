@@ -58,7 +58,8 @@ function item:init()
         jamm = "Nah, I got my own. It's a Halofit!",
         calypso = "This be a fancy sundial...", -- forgot what a clock is
         noel = "I already have a pocket watch...",
-        ceroba = "Looks expensive..."
+        ceroba = "Looks expensive...",
+        len = "Tick... tock... tick... what are you waiting for?",
     }
 end
 

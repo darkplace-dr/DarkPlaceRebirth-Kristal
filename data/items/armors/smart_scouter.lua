@@ -16,7 +16,6 @@ function item:init()
     -- Shop description
     self.shop = ""
     -- Menu description
-    self.description = "Grazing bullets reduces\nthe turn length by 5%"
     self.description = "An orange tinted lens and two white and green\npointed headsets."
 
     -- Default shop price (sell price is halved)
@@ -61,6 +60,7 @@ function item:init()
 		jamm = "So are they binoculars or something?",
         calypso = "...This be embarrassing.",
         ceroba = "Technology and I don't exactly mix well.",
+        len = "Can i run Minekraft on this?",
     }
 end
 

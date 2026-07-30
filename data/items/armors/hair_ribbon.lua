@@ -59,6 +59,7 @@ function item:init()
 		jamm = "I don't know how I'd make it work.",
         ["jamm+marcy"] = "It's way too big for you, Marcy!",
         calypso = "It be alright for me hair...",
+        len = "(Kinda wish the bell was yellow instead...)",
     }
 end
 

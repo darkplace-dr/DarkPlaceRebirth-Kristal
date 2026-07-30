@@ -54,6 +54,7 @@ function item:init()
         jamm = "Huh... neat.",
         calypso = "It be decent...",
         ceroba = "What a color combination.",
+        len = "This suits me very well.",
     }
 end
 

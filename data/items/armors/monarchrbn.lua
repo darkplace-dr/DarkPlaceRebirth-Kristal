@@ -52,6 +52,7 @@ function item:init()
         jamm = "(Can't show my wings, can't show my wings...)",
         calypso = "Aye, a perfect fit in me hair.",
         ceroba = "Right near the flower. What a match.", -- the one on her head
+        len = "Huh, so this is what being a bug feels like.",
     }
     self.susie_rejection = "I'll squash it."
 end

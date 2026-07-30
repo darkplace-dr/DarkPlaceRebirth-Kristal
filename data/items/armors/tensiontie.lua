@@ -52,6 +52,7 @@ function item:init()
         ceroba = "Feels more tense than usual.",
         jamm = "Tension's rising...",
         calypso = "It be gettin' pretty tense.",
+        len = "...uh, tension much?",
     }
 end
 

@@ -54,6 +54,7 @@ function item:init()
         calypso = "Aye, very sharp...",
         noel = "I feel like punching things now.",
         ceroba = "Is that considered looking \"badass\"?",
+        len = "(Better be careful while wearing this...)",
     }
 end
 

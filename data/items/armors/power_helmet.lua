@@ -58,6 +58,7 @@ function item:init()
         calypso = "Better than nothing...",
         noel = "Better safe then sorry?",
         ceroba = "It's pressing against my ears...",
+        len = "Isn't it... hot... in here?", -- yeah, that just kinda happens when you wear both a hoodie and a helmet at the same time.
     }
 end
 
