@@ -44,7 +44,8 @@ function item:init()
 	    jamm = "Is it supposed to be this sour?",
         calypso = "It be an interesting blend...",
         noel = "Meh...",
-        ceroba = "Not bad actually..."
+        ceroba = "Not bad actually...",
+        len = "Tastes... decent.",
     }
 end
 

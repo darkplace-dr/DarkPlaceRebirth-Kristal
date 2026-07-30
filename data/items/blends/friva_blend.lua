@@ -44,7 +44,8 @@ function item:init()
 	    jamm = "Ooh, spicy~!",
         calypso = "It reminds me of the curry I ate on the sea.",
         noel = "... Nothing happened...",
-        ceroba = "What an interesting mix of flavors."
+        ceroba = "What an interesting mix of flavors.",
+        len = "My tongue! My tongue is on fire! AHH!",
     }
 end
 
