@@ -45,7 +45,8 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
-        kangel = true
+        kangel = true,
+        len = true,
     }
 
     -- Character reactions
@@ -64,6 +65,7 @@ function item:init()
             calypso = "DON'T YE EAT THAT!!",
             noel = "WHY IS EVERYONE YELLING?!",
             dess = "lol",
+            len = "I WANT THAT,",
         },
         brenda = "A ring... for a ring?",
         noel = "Angel...? No...",
@@ -74,7 +76,8 @@ function item:init()
             calypso = "Aye. Back off.",
         },
         calypso = "Aye, not fer me...",
-        ceroba = "I'm nowhere close to an angel..."
+        ceroba = "I'm nowhere close to an angel...",
+        len = "Im no angel, but i'll take it!",
     }
 end
 
@@ -96,6 +99,22 @@ function item:getReaction(user_id, reactor_id)
         end
     end
     return super.getReaction(self, user_id, reactor_id)
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("defense", -10)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("defense", 10)
+    end
+
+    return true
 end
 
 return item

@@ -43,7 +43,8 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
-        hero = true
+        hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -62,6 +63,7 @@ function item:init()
         },
         ceroba = "Looks like something ancient...",
         noel = "Surely you joust?",
+        len = "This has such a huge tactical adventage.",
     }
 end
 

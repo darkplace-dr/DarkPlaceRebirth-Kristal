@@ -30,6 +30,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
         pauling = true,
+        len = true,
     }
 
     self.reactions = {
@@ -41,11 +42,28 @@ function item:init()
         jamm = "First time I've ever seen a gun made from stone.",
         calypso = "How do ye expect me to use this?",
         ceroba = "How.", -- Axis reference
+        len = "This is heavy!",
     }
 end
 
 function item:convertToLightEquip(inventory)
     return "light/foam_dart_rifle" -- Placeholder
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", -3)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", 3)
+    end
+
+    return true
 end
 
 return item
