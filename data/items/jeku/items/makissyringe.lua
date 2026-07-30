@@ -46,6 +46,11 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {}
+
+    -- Character reactions (key = party member id)
+    self.reactions = {
+        len = "This thing...",
+    }
 end
 
 -- Yes, that's surely an item you wouldn't want to use. Deal with it :spamtroll:
