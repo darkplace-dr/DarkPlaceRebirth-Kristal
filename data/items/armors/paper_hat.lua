@@ -66,7 +66,7 @@ function item:init()
         mario = "Mari-no",
         noel = "...",
         ceroba = "That's just childish.",
-        len = "*Chuckle*",
+        len = "*chuckle*",
     }
 end
 

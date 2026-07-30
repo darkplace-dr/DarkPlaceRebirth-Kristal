@@ -52,8 +52,12 @@ function item:init()
         dess = "ermmm unused item much?",
         jamm = "Seems like a torture device.",
         calypso = "It be ripping me clothes...",
-        noel = "Good job using debug cheater.",
+        noel = {
+            noel = "Good job using debug cheater.",
+            len = "(Don't worry, i won't snitch...)" -- originally would have used  " .. Game.save_name .. " but i couln't figure a way that didn't crash on load
+        },
         ceroba = "Hopefully it won't tear my clothes...",
+        len = "(Too close to my fur...)",
     }
 end
 

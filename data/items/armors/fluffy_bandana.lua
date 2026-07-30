@@ -76,20 +76,20 @@ function item:onUnequip(character, replacement)
     if character.id == "len" then
         local resolution = Game:getFlag("ken_quest_resolution")
         if resolution == 3 then
-            local sIndex
-            for index, chara in ipairs(Game.party) do
-                if chara.id == character.id then
-                    sIndex = index
-                    break
-                end
-            end
-
-            Game.world.healthbar.action_boxes[sIndex]:react("I think it'll be safer with me...")
             return false
         end
     end
 
     return true
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if user_id == "len" then
+        local resolution = Game:getFlag("ken_quest_resolution")
+        if resolution == 3 then
+            return "I think it'll be safer with me..."
+        end
+    end
 end
 
 function item:onPedestalSelect()

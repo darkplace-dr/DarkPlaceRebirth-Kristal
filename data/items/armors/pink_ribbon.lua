@@ -71,6 +71,7 @@ function item:init()
         noel = "More tension?",
         ceroba = "Just like the one I had...",
         hero = "Whatever.",
+        len = "Aww, how considerate!",
     })
 end
 

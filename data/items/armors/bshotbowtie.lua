@@ -57,8 +57,28 @@ function item:init()
         calypso = "I can tie me hair with it...",
         noel = "What brand is this?",
         ["jamm+marcy"] = "So, how do I look, Marcy? // It looks great!",
-        ceroba = "Looking official."
+        ceroba = "Looking official.",
+        len = "Now i just need a fedora.",
     }
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if user_id == "len" then
+        local len = Game:getPartyMember("len")
+        local tophat
+        for _,party_item in pairs(len:getEquipment()) do
+            if party_item.id == "tealstartophat" then
+                tophat = party_item
+                break
+            end
+        end
+
+        if tophat then
+            return "Perfectly elegant."
+        end
+    end
+
+    super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 return item

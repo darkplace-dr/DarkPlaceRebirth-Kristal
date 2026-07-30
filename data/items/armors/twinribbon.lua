@@ -60,6 +60,7 @@ function item:init()
         calypso = "I guess I'll tie me hair... twice?",
         noel = "Two bracelets?",
         ceroba = "This here, that there... Nice.",
+        len = "One with the other... join the tips and, there.",
     }
     self.susie_rejection = "... it gets worse and worse."
 end

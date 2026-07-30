@@ -69,6 +69,7 @@ function item:init()
         calypso = "It'll look good in me hair.",
         noel = "I'm so FANCY",
         ceroba = "Makes me feel nostalgic.",
+        len = "(White... suck a nice color.)",
     })
 end
 

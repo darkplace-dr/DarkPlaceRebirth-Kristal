@@ -54,7 +54,8 @@ function item:init()
         dess = "sn ail",
         jamm = "Slow and steady wins the race.",
         calypso = "Not full speed ahead!",
-        ceroba = "\"Snail snail...\""
+        ceroba = "\"Snail snail...\"",
+        len = "Everything feels so... slow.",
     }
 end
 

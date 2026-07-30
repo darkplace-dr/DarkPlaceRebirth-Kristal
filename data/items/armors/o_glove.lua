@@ -57,6 +57,7 @@ function item:init()
         jamm = "I already have gloves!",
         calypso = "Me claws would break them...",
         ceroba = "I don't usually punch stuff, but...",
+        len = "Maybe i can learn SCYTHEMARE some day.",
     }
 end
 

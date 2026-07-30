@@ -57,6 +57,7 @@ function item:init()
         calypso = "Aye, a big shield...",
         noel = "An oversized mug would be better.",
         ceroba = "Is somebody coming at us?",
+        len = "Better be ready.",
     }
 end
 

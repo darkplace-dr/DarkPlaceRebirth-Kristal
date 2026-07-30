@@ -62,6 +62,7 @@ function item:init()
         calypso = "I already have one...",
         noel = "I am not a circus.",
         ceroba = "I have my own.", -- at least I think???
+        len = "(Two tails...?)",
     }
 end
 

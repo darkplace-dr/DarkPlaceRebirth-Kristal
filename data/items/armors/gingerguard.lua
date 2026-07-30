@@ -52,7 +52,8 @@ function item:init()
         dess = "nom",
         jamm = "Christmas time already...?",
         calypso = "It smells of gingerbread...",
-        ceroba = "(If only I could bake...)"
+        ceroba = "(If only I could bake...)",
+        len = "Mhh, sugar- what? no! i didn't lick it!",
     }
 end
 

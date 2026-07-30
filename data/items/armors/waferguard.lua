@@ -53,7 +53,8 @@ function item:init()
         noelle = "What's next, cheezy armor? Faha!",
         jamm = "It looks... holy.",
         calypso = "It be deceptively strong...",
-        ceroba = "Gotta be careful with it..."
+        ceroba = "Gotta be careful with it...",
+        len = "Would make up a good breakfast.",
     }
 end
 

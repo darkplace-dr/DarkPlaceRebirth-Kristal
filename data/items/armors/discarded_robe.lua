@@ -57,6 +57,7 @@ function item:init()
         calypso = "Me tail sticks out...",
         noel = "Smells like cats!!! :D",
         ceroba = "Thanks, I have my own.",
+        len = "Mhhw... okay."
     }
 end
 

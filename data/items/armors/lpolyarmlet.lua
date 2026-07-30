@@ -53,6 +53,7 @@ function item:init()
         calypso = "This be uncomfortable...",
         noel = "dunno",
         ceroba = "It's a struggle to even put it on...",
+        len = "Better than most of my models, heh.",
     }
 end
 

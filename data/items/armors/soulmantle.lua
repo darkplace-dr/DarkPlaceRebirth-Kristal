@@ -63,6 +63,7 @@ function item:init()
         jamm = "It's a little warm still...",
         calypso = "Me magic be rising!",
         ceroba = "I'm not risking it.",
+        len = "So much power... good thing we're the good guys.",
     }
 end
 

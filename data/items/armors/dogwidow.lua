@@ -51,6 +51,7 @@ function item:init()
         jamm = "A statue of God.",
         calypso = "It be just a dog???",
         ceroba = "Somehow looks... Familiar.", -- I'd like to think that Toby dog is just running around the Underground so much she saw him at least once
+        len = "No! no my wallet, no! no...",
     }
 end
 

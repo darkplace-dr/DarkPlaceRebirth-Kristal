@@ -63,6 +63,7 @@ function item:init()
         calypso = "...Okay.",
         noel = "I wear the banana???",
         ceroba = "Do I just... Hold it?",
+        len = "Check, it, out, im in the floor. with Banana. Banana, Banana.", -- reference to the carpet song by toby fox
     }
 end
 

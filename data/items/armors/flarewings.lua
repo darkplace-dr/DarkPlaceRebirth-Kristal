@@ -57,8 +57,26 @@ function item:init()
         noel = "Cool anime shit.",
 		jamm = "So is this like an elytra, or...?",
         calypso = "Aye, a good fit.",
-        ceroba = "(I wonder if I'll be able to...)" -- fly like Martlet
+        ceroba = "(I wonder if I'll be able to...)", -- fly like Martlet
+        len = "Yay! wings!",
     }
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        Game.world.timer:after(1, function()
+            Assets.playSound("splat")
+            local sIndex
+            for index, chara in ipairs(Game.party) do
+                if chara.id == character.id then
+                    sIndex = index
+                    break
+                end
+            end
+
+            Game.world.healthbar.action_boxes[sIndex]:react("Yay! wings! *splat*")
+        end)
+    end
 end
 
 return item

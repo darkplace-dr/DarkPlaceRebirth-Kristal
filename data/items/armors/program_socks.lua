@@ -53,13 +53,22 @@ function item:init()
         susie = "...Just, no.",
         ralsei = "These really help?",
         noelle = "Sure?????",
-		dess = "These are for femboys",
+		dess = {
+            dess = "These are for femboys",
+            len = "(You read my mind.)"
+        },
         brenda = "D-do I look cute?",
 		jamm = "For (i = 0, i < 2, i++), equip socks.", -- he doesn't get it
         calypso = "...What.",
         noel = "*wears like gloves* Same stats...",
         ceroba = "I mean, those are just socks, so...",
+        len = ">-<",
     }
+
+    local doesnt_care = false
+    if not doesnt_care then
+        self.reactions.len = "Its... uh... and... yea..."
+    end
 end
 
 return item

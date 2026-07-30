@@ -50,6 +50,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "I have no soul.",
+        len = "Even tho i know i wouln't survive... i'll take it.",
     }
 end
 

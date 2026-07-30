@@ -50,7 +50,8 @@ function item:init()
         noelle = "Why always jewelry?",
         jamm = "I feel powered up!",
         calypso = "It be powerful...",
-        ceroba = "(If only I didn't cancel it...)" -- her gym membership (yes she canonically had one)
+        ceroba = "(If only I didn't cancel it...)", -- her gym membership (yes she canonically had one)
+        len = "Not bad, not bad at all.",
     }
 end
 

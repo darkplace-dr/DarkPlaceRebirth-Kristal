@@ -50,6 +50,7 @@ function item:init()
     -- Character reactions
     self.reactions = {
         noel = "I have no mind.",
+        len = "Yea...",
     }
 end
 

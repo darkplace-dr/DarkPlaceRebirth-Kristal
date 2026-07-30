@@ -59,6 +59,7 @@ function item:init()
         calypso = "Me hair be tied twice...",
         noel = "Two DIFFERENT bracelets?",
         ceroba = "The colors go well together.",
+        len = "Is it any different...?",
     }
     self.susie_rejection = "... those got worse too, huh."
 end

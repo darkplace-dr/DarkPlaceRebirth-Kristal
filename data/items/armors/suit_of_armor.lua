@@ -58,8 +58,25 @@ function item:init()
         },
         calypso = "Aye, I need to be flexible...",
         noel = "I totally get it now.",
-        ceroba = "(I don't remember assigning for the Royal Guard.)"
+        ceroba = "(I don't remember assigning for the Royal Guard.)",
+        len = "This is... heavy.",
     }
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", -5)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", 5)
+    end
+
+    return true
 end
 
 return item

@@ -56,6 +56,7 @@ function item:init()
         },
         noel = "I love gold. Wish I could see it for real.",
         ceroba = "Is that... Real gold?",
+        len = "Riches! Riches! money and Riches!",
     }
 end
 

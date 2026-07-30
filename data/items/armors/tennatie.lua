@@ -53,7 +53,8 @@ function item:init()
         dess = "now i can look stupid",
         jamm = "I'll just... wrap it around my arm.",
         calypso = "It could... Tie me hair???",
-        ceroba = "Guess it can go in my hair..."
+        ceroba = "Guess it can go in my hair...",
+        len = "Okay... i'll just balance it perfectly on my head then.",
     }
 end
 

@@ -58,6 +58,7 @@ function item:init()
         calypso = "...It be decent for me hair, at least.",
         noel = "Perfect for reverse weddings!",
         ceroba = "This might be just as old as me.",
+        len = "Not so bad, not so good either.",
     }
 end
 

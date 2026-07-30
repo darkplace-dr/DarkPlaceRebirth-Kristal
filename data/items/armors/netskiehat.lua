@@ -51,6 +51,7 @@ function item:init()
         jamm = "I won't even question this...",
         calypso = "Yer interests confuse me...",
         ceroba = "It's like it was made for me...!", -- she likes it
+        len = "(Four ears...?)",
     }
 end
 

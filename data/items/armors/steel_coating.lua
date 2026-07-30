@@ -51,6 +51,7 @@ function item:init()
         jamm = "How do you even... Ugh! Nevermind...",
         calypso = "Arr, I think this works...?",
         ceroba = "Doesn't feel like steel at all!",
+        len = "Latex...?",
     }
 end
 

@@ -62,6 +62,7 @@ function item:init()
         calypso = "Aye, it be a lot o' tying.",
         noel = "FOUR bracelets?",
         ceroba = "... I look childish now, don't I?",
+        len = "This is the power of frienship!",
     }
     self.susie_rejection = "THEY'RE ALL TOGETHER NOW???"
 end

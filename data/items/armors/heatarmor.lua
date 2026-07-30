@@ -54,7 +54,8 @@ function item:init()
 		},
         noel = "A heated blanket would do a better job.",
         dess = "i remember you're firegraves",
-        ceroba = "Warm and... Not really cozy."
+        ceroba = "Warm and... Not really cozy.",
+        len = "Finally! it was really chilly in here.",
     }
 end
 

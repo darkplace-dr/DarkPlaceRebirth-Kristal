@@ -53,6 +53,7 @@ function item:init()
         jamm = "Cooking skills, don't fail me now!",
         calypso = "Aye, it be not for me...",
         ceroba = "Not much of a cook, but I'll try.",
+        len = "Good for cooking pizza.",
     }
 end
 

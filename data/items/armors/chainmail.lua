@@ -54,6 +54,7 @@ function item:init()
         noel = "",
         ["jamm+marcy"] = "Marcy, we don't respond to these.",
         ceroba = "So is this a mail or an armor?",
+        len = "Someone didn't enable their adblock...",
     }
 end
 

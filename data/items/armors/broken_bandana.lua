@@ -43,7 +43,6 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = false,
-        len = false,
     }
 
     -- Character reactions
@@ -54,6 +53,35 @@ function item:init()
         dess = "Now, this is what a real armor looks like",
         len = "...",
     }
+
+    self.len_equip_flag = "broken_bandana_len_equip"
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        Game:addFlag(self.len_equip_flag, 1)
+        local equip_value = Game:getFlag(self.len_equip_flag, 0)
+        if equip_value < 4 then
+            return false
+        end
+    end
+
+    return true
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if user_id == "len" then
+        local equip_value = Game:getFlag(self.len_equip_flag, 0)
+        if equip_value < 4 then
+            return "..."
+        elseif equip_value == 4 then
+            return "Fine Fine!"
+        else
+            return ""
+        end
+    end
+
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 function item:onPedestalSelect()

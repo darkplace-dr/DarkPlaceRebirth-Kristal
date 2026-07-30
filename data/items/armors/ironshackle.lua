@@ -61,6 +61,10 @@ function item:init()
         calypso = "Huh, neat.",
         noel = "Am I being detained?",
         ceroba = "Surprisingly light.",
+        len = {
+            len = "Police! i swear im innocent!",
+            dess = "yeah yeah, save it to court."
+        },
     }
 end
 

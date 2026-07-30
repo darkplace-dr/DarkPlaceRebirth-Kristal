@@ -52,10 +52,27 @@ function item:init()
         jamm = "Oh neat, fancy!",
         calypso = "...It could be in me hair.",
         ceroba = "Would go well with a suit.",
+        len = "I-i shouln't be wearing this...",
     }
 
     -- TODO: Elemental resistance
     -- Resists element 6 by 0.2
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", -0.3)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", 0.3)
+    end
+
+    return true
 end
 
 return item

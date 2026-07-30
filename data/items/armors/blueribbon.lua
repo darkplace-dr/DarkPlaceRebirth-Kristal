@@ -57,7 +57,8 @@ function item:init()
         dess = "ew i hate healing things",
         jamm = "GO US!",
         calypso = "I'll tie me hair with it...",
-        ceroba = "I don't... Do healing."
+        ceroba = "I don't... Do healing.",
+        len = "I... uh, think it's broken for me."
     }
     self.susie_rejection = "ABSOLUTELY not."
     -- Ralsei cheer reactions (advanced on each equip)
@@ -121,12 +122,16 @@ function item:getReaction(user_id, reactor_id)
 end
 
 function item:calculateBattleHeal(heal, base_heal, caster, target)
-    -- Increase heal by 1/8 of the base heal for each equipped on the healer
+    -- Increase heal by 1/8 of the base heal for each equipped on the healer (unless you're dark based)
     local heal_add = math.ceil(base_heal / 8)
 
     if caster ~= nil then
         local _, amount = caster:checkArmor(self.id)
         heal_add = heal_add * amount
+    end
+
+    if caster.id == "len" then
+        heal_add = heal_add * -1
     end
 
     return heal + heal_add

@@ -54,7 +54,8 @@ function item:init()
         noelle = "E-Ew! Kris, get that away!",
         jamm = "(Does this apply to me...?)",
         calypso = "It be made of gold...!",
-        ceroba = "Widow to widow."
+        ceroba = "Widow to widow.",
+        len = "This spider is lowkey chill.",
     }
 end
 

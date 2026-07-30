@@ -52,6 +52,7 @@ function item:init()
         jamm = "Just glad it isn't for me...",
         calypso = "...This be nothing to me.",
         ceroba = "How did THAT become a ribbon?",
+        len = "Hopefully for me, i always pay up.",
     }
     self.susie_rejection = "Nah, I guess... not."
 end

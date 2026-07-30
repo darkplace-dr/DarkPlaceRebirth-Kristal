@@ -54,7 +54,8 @@ function item:init()
         jamm = "How'd you guys get this again?",
         calypso = "It be powerful...",
         dess = "nah fuck you John Mantle",
-        ceroba = "If you insist."
+        ceroba = "If you insist.",
+        len = "Feels retro-like.",
     }
 
     -- TODO: Elemental resistance

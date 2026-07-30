@@ -43,7 +43,8 @@ function item:init()
         noel = "Uwa~ True Emo~",
 		jamm = "Gotta support goth culture.",
         calypso = "Aye, something to tie me hair.",
-        ceroba = "Did someone die or...?"
+        ceroba = "Did someone die or...?",
+        len = "Kinda redundant.",
     }
 end
 

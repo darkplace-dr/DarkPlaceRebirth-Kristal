@@ -50,6 +50,7 @@ function item:init()
         ceroba = "... so why only after battles?",
         jamm = "For what it's worth... I like it.",
         calypso = "Ring the bell, mateys!",
+        len = "It'll go right on the neck.",
     }
 end
 
