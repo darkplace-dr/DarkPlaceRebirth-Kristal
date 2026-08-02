@@ -106,6 +106,7 @@ end
 
 function ChurchLightBeamFX:draw()
     super.draw(self)
+    local major, minor, revision = love.getVersion()
 	love.graphics.push()
     local mask_canvas = Draw.pushCanvas(SCREEN_WIDTH, SCREEN_HEIGHT)
 	local transformed = false
@@ -145,7 +146,11 @@ function ChurchLightBeamFX:draw()
 		love.graphics.setBlendMode("alpha", "alphamultiply")
 		self:setGMBlendMode("bm_subtract")
 		Draw.draw(mask_canvas)
-		self:setGMBlendMode("bm_normal")
+		if major >= 12 then -- Have to do this for some reason
+			love.graphics.setBlendMode("alpha", "alphamultiply")
+		else
+			self:setGMBlendMode("bm_normal")
+		end
 		Draw.popCanvas(true)
 		Draw.setColor(1, 1, 1, 1)
 		Draw.drawCanvas(dust_tiled_canvas)

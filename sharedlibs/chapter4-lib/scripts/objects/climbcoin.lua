@@ -24,7 +24,7 @@ function ClimbCoin:update()
 	local collider = Hitbox(self, 5, 5, 30, 30)
 	if self.con == 0 then
 		Object.startCache()
-		if Game.world.player:collidesWith(collider) and Game.world.player.state == "CLIMB" then
+		if Game.world.player:collidesWith(collider) and Game.world.player:isClimbing() then
 			if self.con == 0 then
 				self.con = 1
 			end

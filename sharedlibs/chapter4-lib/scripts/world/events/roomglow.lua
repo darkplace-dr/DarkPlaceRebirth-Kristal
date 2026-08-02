@@ -111,6 +111,7 @@ function RoomGlow:draw()
 		love.graphics.pop()
 	end
     super.draw(self)
+	love.graphics.setBlendMode("alpha", "alphamultiply")
 end
 
 return RoomGlow
