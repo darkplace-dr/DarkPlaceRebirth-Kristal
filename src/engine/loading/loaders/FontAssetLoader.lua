@@ -94,4 +94,16 @@ function FontAssetLoader:apply(asset_id, output)
     return font
 end
 
+function FontAssetLoader:release(asset)
+    for _, value in pairs({ asset.font, asset.image_data, asset.font_data }) do
+        self:releaseObject(value)
+    end
+end
+
+function FontAssetLoader:releaseOutput(output)
+    for _, value in pairs({ output.image_data, output.font_data }) do
+        self:releaseObject(value)
+    end
+end
+
 return FontAssetLoader

@@ -35,4 +35,8 @@ function ShaderAssetLoader:apply(asset_id, output)
     }
 end
 
+function ShaderAssetLoader:release(asset)
+    self:releaseObject(asset.shader)
+end
+
 return ShaderAssetLoader

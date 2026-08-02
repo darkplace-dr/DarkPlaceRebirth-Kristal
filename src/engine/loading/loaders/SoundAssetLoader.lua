@@ -42,4 +42,14 @@ function SoundAssetLoader:apply(asset_id, output)
     return Sound(output.sound_data, output.metadata)
 end
 
+function SoundAssetLoader:release(asset)
+    if asset.isDestroyed and asset:isDestroyed() then return end
+    asset:stop()
+    self:releaseObject(asset)
+end
+
+function SoundAssetLoader:releaseOutput(output)
+    self:releaseObject(output)
+end
+
 return SoundAssetLoader

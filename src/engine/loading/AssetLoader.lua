@@ -27,19 +27,38 @@ function AssetLoader:apply(asset_id, output)
     error(ClassUtils.getClassName(self) .. " has not overriden apply!")
 end
 
+---@param asset TAssetType
+function AssetLoader:release(asset) end
+
+---@param output TTaskResult
+function AssetLoader:releaseOutput(output) end
+
+---@param object love.Object?
+function AssetLoader:releaseObject(object)
+    if not object or not object.release then return end
+    if object.isDestroyed and object:isDestroyed() then return end
+    object:release()
+end
+
 ---@protected
 function AssetLoader:logDebug(message) end
 
 ---@protected
 function AssetLoader:logError(message)
-    -- TODO: How the hell will this work on a seperate thread?
-    Kristal.Console:error(message)
+    if Kristal.Console then
+        Kristal.Console:error(message)
+    else
+        print("[ERROR] " .. message)
+    end
 end
 
 ---@protected
 function AssetLoader:logWarn(message)
-    -- TODO: How the hell will this work on a seperate thread?
-    Kristal.Console:warn(message)
+    if Kristal.Console then
+        Kristal.Console:warn(message)
+    else
+        print("[WARNING] " .. message)
+    end
 end
 
 return AssetLoader

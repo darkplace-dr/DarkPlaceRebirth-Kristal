@@ -68,12 +68,48 @@ function Assets.init()
     Assets.clear()
     AssetLoaders.init()
     self.queued_tasks = {}
+    self.asset_load_in_channel = love.thread.getChannel("asset_load_in")
+    self.asset_load_out_channel = love.thread.getChannel("asset_load_out")
+    self.asset_load_in_channel:clear()
+    self.asset_load_out_channel:clear()
+    local thread_arg = Kristal.Args["asset-loader-threads"]
+    local configured_threads = tonumber(thread_arg and thread_arg[1])
+        or tonumber(Kristal.Config["assetLoaderThreads"])
+        or 0
+    local processor_count = love.system.getProcessorCount()
+    if configured_threads <= 0 then
+        configured_threads = math.min(4, math.max(1, processor_count - 1))
+    end
+    self.asset_load_worker_count = math.max(1, math.min(8, math.floor(configured_threads)))
+    self.asset_load_in_flight_limit = math.max(64, self.asset_load_worker_count * 32)
+    self.asset_load_threads = {}
+    for worker_id = 1, self.asset_load_worker_count do
+        local thread = love.thread.newThread("src/engine/loading/assetloadthread.lua")
+        thread:start(worker_id)
+        table.insert(self.asset_load_threads, thread)
+    end
+    print(string.format("[AssetLoader] Started %d decode worker(s) on %d logical processor(s), queue limit %d",
+        self.asset_load_worker_count, processor_count, self.asset_load_in_flight_limit))
     ---@type AssetBucket[]
     self.buckets = {
         AssetBucket("engine", { "assets" }),
         AssetBucket("project", { "assets" }),
     }
     self.getBucket("engine"):startLoading({ "assets" })
+end
+
+function Assets.shutdown()
+    for _, thread in ipairs(self.asset_load_threads or {}) do
+        if thread:isRunning() then self.asset_load_in_channel:push("stop") end
+    end
+end
+
+---@return boolean loading
+function Assets.isLoading()
+    for _, bucket in ipairs(self.buckets or {}) do
+        if bucket.state == AssetBucket.State.LOADING then return true end
+    end
+    return false
 end
 
 ---@return integer, integer
@@ -85,6 +121,12 @@ function Assets.getAssetCount()
         asset_total = asset_total + bucket.assets_total
     end
     return asset_loaded, asset_total
+end
+
+---@param bucket_id string
+---@return table? stats
+function Assets.getLoadStats(bucket_id)
+    return self.getBucket(bucket_id).last_load_stats
 end
 
 function Assets.clear()
@@ -204,6 +246,20 @@ function Assets.internalHas(asset_type, asset_id)
     end
     return false
     
+end
+
+---@private
+---@param exact_id string
+---@return love.Image? texture
+---@return love.ImageData? data
+function Assets.internalGetExactSprite(exact_id)
+    for i = #self.buckets, 1, -1 do
+        local bucket = self.buckets[i]
+        if bucket:hasExactSprite(exact_id) then
+            return bucket:getExactSprite(exact_id)
+        end
+    end
+    return nil, nil
 end
 
 ---@param bucket_id string
@@ -326,30 +382,60 @@ function Assets.update()
     for _, sound in ipairs(sounds_to_remove) do
         TableUtils.removeValue(self.sound_instances[sound.key], sound.value)
     end
-    if Kristal.Config["projectLoadingMode"] == LoadingMode.LAZY then
-        return
-    end
-    -- TODO: Make background loading happen on loadthread. Currently this can cause stutters when loading large assets
-    local time = love.timer.getTime()
-    for _,bucket in ipairs(self.buckets) do
-        if bucket.state == AssetBucket.State.LOADING then
-            for asset_type, queue in pairs(self.queued_tasks[bucket.bucket_id] or {}) do
-                for asset_id in pairs(queue) do
-                    bucket:get(asset_type, asset_id)
-                    if (love.timer.getTime() - time) + love.timer.getDelta() > 0.5/30 then
-                        if Kristal.Config["verboseLoader"] then
-                            Kristal.Loader.message = string.format("%s/%s: %s", bucket.bucket_id, asset_type, asset_id)
-                        end
-                        Kristal.Overlay.setLoading(true)
-                        return
-                    end
-                end
-            end
-            bucket.state = AssetBucket.State.LOADED
+    for _, thread in ipairs(self.asset_load_threads or {}) do
+        if not thread:isRunning() then
+            local thread_error = thread:getError()
+            if thread_error then error("Asset loader thread failed:\n" .. thread_error) end
         end
     end
-    Kristal.Loader.message = ""
-    Kristal.Overlay.setLoading(false)
+
+    local max_in_flight = self.asset_load_in_flight_limit or 64
+    local in_flight = 0
+    for _, bucket in ipairs(self.buckets) do in_flight = in_flight + bucket.pending_tasks end
+    for _, bucket in ipairs(self.buckets) do
+        if in_flight >= max_in_flight then break end
+        in_flight = in_flight + bucket:dispatchTasks(max_in_flight - in_flight)
+    end
+
+    local start_time = love.timer.getTime()
+    local state = Kristal.getState()
+    local blocking_load = MOD_LOADING
+        or state == Kristal.States["Loading"]
+        or state == Kristal.States["Empty"]
+    local apply_budget = blocking_load and (2 / 30) or (0.5 / 30)
+    while self.asset_load_out_channel:getCount() > 0 do
+        local message = self.asset_load_out_channel:pop()
+        local bucket = self.getBucket(message.bucket_id)
+        if bucket.state == AssetBucket.State.LOADING
+            and bucket.generation == message.generation then
+            bucket:receiveTask(message.asset_type, message.asset_id,
+                message.success, message.result, message.decode_time,
+                message.worker_id, message.worker_heap_kb)
+            if Kristal.Config["verboseLoader"] then
+                Kristal.Loader.message = string.format("%s/%s: %s",
+                    message.bucket_id, message.asset_type, message.asset_id)
+            end
+        elseif message.success then
+            AssetLoaders.get(message.asset_type):releaseOutput(message.result)
+        end
+        if love.timer.getTime() - start_time >= apply_budget then break end
+    end
+
+    in_flight = 0
+    for _, bucket in ipairs(self.buckets) do in_flight = in_flight + bucket.pending_tasks end
+    for _, bucket in ipairs(self.buckets) do
+        if in_flight >= max_in_flight then break end
+        in_flight = in_flight + bucket:dispatchTasks(max_in_flight - in_flight)
+    end
+
+    for _, bucket in ipairs(self.buckets) do bucket:finishIfReady() end
+
+    if self.isLoading() then
+        Kristal.Overlay.setLoading(true)
+    elseif Kristal.Loader.waiting == 0 then
+        Kristal.Loader.message = ""
+        Kristal.Overlay.setLoading(false)
+    end
 end
 
 ---@param path string
@@ -424,12 +510,12 @@ end
 ---@param path string
 ---@return love.Image
 function Assets.getTexture(path)
-    local identifier_split = StringUtils.split(path, "_")
+    local exact_texture = self.internalGetExactSprite(path)
+    if exact_texture then return exact_texture end
+
     local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
-    local frames = self.getFramesOrTexture(identifier)
-    if not frames then
-        return
-    end
+    local frames = self.getFrames(identifier)
+    if not frames then return nil end
     local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
     return texture
 end
@@ -446,8 +532,11 @@ end)]]
 ---@param path string
 ---@return love.ImageData
 function Assets.getTextureData(path)
-    local identifier_split = StringUtils.split(path, "_")
+    local _, exact_data = self.internalGetExactSprite(path)
+    if exact_data then return exact_data end
+
     local identifier, split_frame = SpriteAssetLoader.splitIdentifier(path)
+    if not self.internalHas("sprite", identifier) then return nil end
     local frames = self.get("sprite", identifier).data
     local texture = frames[split_frame or 1] or error(string.format("Out-of-bounds frame %s on sprite '%s'", split_frame, identifier))
     return texture
@@ -456,21 +545,18 @@ end
 ---@param texture love.Image|string
 ---@return string
 function Assets.getTextureID(texture)
+    if type(texture) == "string" then return texture end
     for bucket_n = #Assets.buckets, 1, -1 do
-        for sprite_id, sprite in pairs(Assets.buckets[bucket_n].loaded_assets.sprite or {}) do
-            for frame_n = 1, #sprite.textures do
-                if texture == sprite.textures[frame_n] then
-                    return sprite_id .. "_" .. frame_n
-                end
-            end
-        end
+        local id = Assets.buckets[bucket_n].texture_ids[texture]
+        if id then return id end
     end
 end
 
 ---@param path string
 ---@return love.Image[]
 function Assets.getFrames(path)
-    return self.getFramesOrTexture(path)
+    if not self.internalHas("sprite", path) then return nil end
+    return self.get("sprite", path).textures
 end
 
 --[[Utils.hook(Assets, "getFrames", function (orig, path)
@@ -480,28 +566,28 @@ end)]]
 ---@param path string
 ---@return string[]
 function Assets.getFrameIds(path)
-    local sprite_length = #self.getFrames(path)
-    local sprite_frame_ids = {}
-    for i = 1, sprite_length do
-        sprite_frame_ids[i] = path .. "_" .. i
-    end
-    return sprite_frame_ids
+    if not self.internalHas("sprite", path) then return nil end
+    return self.get("sprite", path).frame_ids
 end
 
 ---@param texture string
 ---@return string texture, number frame
 function Assets.getFramesFor(texture)
-    local identifier, frame = SpriteAssetLoader.splitIdentifier(texture)
-    return identifier, frame or 1
+    for bucket_n = #self.buckets, 1, -1 do
+        local bucket = self.buckets[bucket_n]
+        if bucket:hasExactSprite(texture) then
+            return bucket:getFramesForExactSprite(texture)
+        end
+    end
+    return nil, nil
 end
 
 ---@param path string
 ---@return love.Image[]
 function Assets.getFramesOrTexture(path)
-    if not self.hasSprite(path) then
-        return Kristal.Console:error(string.format("Attempt to get missing sprite with ID '%s", path))
-    end
-    return self.get("sprite", path).textures
+    local exact_texture = self.internalGetExactSprite(path)
+    if exact_texture then return { exact_texture } end
+    return self.getFrames(path)
 end
 
 ---@param x number
