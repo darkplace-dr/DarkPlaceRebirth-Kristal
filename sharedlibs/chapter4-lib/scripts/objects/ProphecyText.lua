@@ -90,6 +90,7 @@ function ProphecyText:drawToCanvas(func, clear)
     love.graphics.pop()
     Draw.popScissor()
     Draw.popCanvas()
+	love.graphics.setBlendMode("alpha", "alphamultiply")
 end
 
 function ProphecyText:onRemove()

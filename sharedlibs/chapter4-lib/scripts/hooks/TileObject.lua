@@ -41,7 +41,6 @@ function TileObject:drawLightA()
 				self.tileset:drawTile(self.tile, xx+self.width/2, yy+self.height/2, 0, sx, sy, tile_width/2, tile_height/2)
 				self:setGMBlendMode("bm_normal")
 				love.graphics.pop()
-				love.graphics.setBlendMode("alpha", "alphamultiply")
 			end
 		end
 		if Ch4Lib.accurate_blending then

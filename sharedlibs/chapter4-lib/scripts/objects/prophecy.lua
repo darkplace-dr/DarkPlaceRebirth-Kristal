@@ -41,6 +41,9 @@ function Prophecy:init(data)
 	self.no_back = properties["no_back"] or false
 
 	self.fade_edges = properties["fade_edges"] or false
+	self.draw_back = properties["draw_back"] or false
+	self.no_text = properties["no_text"] or false
+	self.text_only = properties["text_only"] or false
 
 	self.base_tex = properties["base_tex"] or "backgrounds/IMAGE_DEPTH_EXTEND_MONO_SEAMLESS"
 	self.faded_tex = properties["faded_tex"] or "backgrounds/IMAGE_DEPTH_EXTEND_SEAMLESS"
@@ -52,6 +55,10 @@ function Prophecy:init(data)
     self.panel.text_offset_y   = self.text_offset_y
 	self.panel.no_back		   = self.no_back
 	self.panel.fade_edges	   = self.fade_edges
+	self.panel.draw_back	   = self.draw_back
+	self.panel.no_text		   = self.no_text
+	self.panel.text_only	   = self.text_only
+	
 	if properties["propbluecol"] then
 		self.panel.propblue = properties["propbluecol"] and TiledUtils.parseColorProperty(properties["propbluecol"])
 	end
@@ -59,7 +66,16 @@ function Prophecy:init(data)
 		self.panel.liteblue = properties["litebluecol"] and TiledUtils.parseColorProperty(properties["litebluecol"])
 	end
 	if properties["ogbgcol"] then
-		self.panel.ogbg = TiledUtils.parseColorProperty(properties["ogbgcol"])
+		self.panel.ogbg = properties["ogbgcol"] and TiledUtils.parseColorProperty(properties["ogbgcol"])
+	end
+	if properties["gradcol"] then
+		self.panel.gradcol = properties["gradcol"] and TiledUtils.parseColorProperty(properties["gradcol"])
+	end
+	if properties["gradalpha"] then
+		self.panel.gradalpha = properties["gradalpha"] or 1
+	end
+	if properties["backcol"] then
+		self.panel.backcol = properties["gradcol"] and TiledUtils.parseColorProperty(properties["backcol"])
 	end
 	if properties["linecol1"] then
 		self.panel.linecol1 = properties["linecol1"] and TiledUtils.parseColorProperty(properties["linecol1"])
@@ -123,15 +139,26 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
     if #sprites == 0 then return end
 
     local delaytime = 30
-	if type == 2 then
+	if destroytype == 2 then
 		delaytime = 10
 	end
-	if type == 3 then
+	if destroytype == 3 then
 		delaytime = 5
 	end
 	if self.break_delay then
 		delaytime = self.break_delay
 	end
+
+	-- Someone needs to figure out the correct position
+	local broken_container = Object((self.x+self.width/2)-self.panel_width+self.container_offset_x/2, (self.y-self.height/2)-self.panel_height*2+self.container_offset_y/2, self.panel_width, self.panel_height)
+    --broken_container:setScaleOrigin(0.5, 0.5)
+    broken_container:setLayer(self:getLayer())
+	broken_container.draw_children_below = 0
+    self.parent:addChild(broken_container)
+
+    broken_container.timer = Timer()
+    broken_container:addChild(broken_container.timer)
+    local timer = broken_container.timer
 
 	self.world.timer:after(delaytime/30, function()
 		if sparkles then
@@ -139,7 +166,7 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 				local groundshard = ProphecyGroundShard((self.x - 199) + ((i * 398) / 30) + MathUtils.random(-30, 30), self.y + MathUtils.random(120))
 				groundshard.layer = self.layer
 				groundshard.ytarg = self.y + SCREEN_HEIGHT/2
-				if type == 3 then
+				if destroytype == 3 then
 					groundshard.ytarg = groundshard.ytarg + 10000
 					self.world.timer:after(280/30, function()
 						groundshard:remove()
@@ -148,35 +175,25 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 				Game.world:addChild(groundshard)
 			end
 		end
-		if type < 2 then
-			broken_container.timer:after(120/30, function()
+		if destroytype < 2 then
+			timer:after(120/30, function()
 				broken_container:remove()
 			end)
 			self:remove()
 		end
 	end)
 	if not silent then
-		if type ~= 3 then
+		if destroytype ~= 3 then
 			Assets.playSound("break1", 1, 0.95)
 		end
 		if not second_silent then
-			broken_container.timer:after(delaytime+2/30, function() Assets.playSound("glassbreak", 0.4, 0.6) end)
-			broken_container.timer:after(delaytime/30, function() Assets.playSound("sparkle_glock", 0.5, 0.8) end)
-			broken_container.timer:after(delaytime/30, function() Assets.playSound("sparkle_glock", 0.5, 0.71) end)
-			broken_container.timer:after(delaytime/30, function() Assets.playSound("punchmed", 0.95, 0.7) end)
+			timer:after(delaytime+2/30, function() Assets.playSound("glassbreak", 0.4, 0.6) end)
+			timer:after(delaytime/30, function() Assets.playSound("sparkle_glock", 0.5, 0.8) end)
+			timer:after(delaytime/30, function() Assets.playSound("sparkle_glock", 0.5, 0.71) end)
+			timer:after(delaytime/30, function() Assets.playSound("punchmed", 0.95, 0.7) end)
 		end
 	end
-	
-    local broken_container = Object(self.x-self.panel_width, self.y-self.panel_height)
-    broken_container:setScaleOrigin(0.5, 0.5)
-    broken_container:setLayer(self:getLayer())
-	broken_container.draw_children_below = 0
-    self.parent:addChild(broken_container)
 
-    broken_container.timer = Timer()
-    broken_container:addChild(broken_container.timer)
-
-    local timer = broken_container.timer
     for i, texture in ipairs(sprites) do
         local s = Sprite(texture)
         s:setScale(2)
@@ -187,7 +204,7 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 			s.physics.speed = 2
 			s.physics.friction = 0.5
 			s.physics.direction = math.rad(MathUtils.random(360))
-			broken_container.timer:after(delaytime/30, function()
+			timer:after(delaytime/30, function()
 				s.physics.gravity = 0.5 + MathUtils.random(0.1)
 				s.physics.friction = 0
 				s.physics.speed = 2
@@ -198,10 +215,10 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 			s.physics.speed = 2
 			s.physics.friction = 0.5
 			s.physics.direction = math.rad(MathUtils.random(360))
-			broken_container.timer:after(delaytime/30, function()
+			timer:after(delaytime/30, function()
 				s.physics.speed = 4
 				s.physics.friction = 0.4
-				broken_container.timer:lerpVar(s, "alpha", alpha, 0, 20)
+				timer:lerpVar(s, "alpha", s.alpha, 0, 20)
 			end)
 		end
 		if destroytype == 2 then
@@ -218,7 +235,7 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 			end
 			s.physics.speed, s.physics.direction = s:getSpeedDir()
 			s.physics.gravity_direction = math.rad(270)
-			broken_container.timer:after(delaytime/30, function()
+			timer:after(delaytime/30, function()
 				s.physics.gravity = 0.25 + MathUtils.random(0.1)
 				s.physics.friction = 0
 				s.physics.speed = 2 + (((#sprites - i) / #sprites) * 15)
@@ -233,7 +250,7 @@ function Prophecy:breakProphecy(type, sprite, sparkles, silent, second_silent)
 			s.physics.friction = 0.5
 			s.physics.direction = math.rad(270)
 			local delay = (delaytime * MathUtils.random(5)) + 1
-			broken_container.timer:after(delay/30, function()
+			timer:after(delay/30, function()
 				s.physics.gravity = 0.5 + MathUtils.random(0.1)
 				s.physics.friction = 0
 				s.physics.speed = 2

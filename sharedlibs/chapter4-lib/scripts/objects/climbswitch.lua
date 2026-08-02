@@ -42,7 +42,7 @@ function ClimbSwitch:update()
     local collider = Hitbox(self, 5, 5, 30, 30)
     if self.con == 0 then
         Object.startCache()
-        if Game.world.player:collidesWith(collider) and Game.world.player.state == "CLIMB" then
+        if Game.world.player:collidesWith(collider) and Game.world.player:isClimbing() then
             if self.con == 0 then
                 self.con = 1
             end
@@ -67,7 +67,7 @@ function ClimbSwitch:update()
         self.sprite:setFrame(2)
         if self.timed then
             Object.startCache()
-            if not Game.world.player:collidesWith(collider) and Game.world.player.state == "CLIMB" then
+            if not Game.world.player:collidesWith(collider) and Game.world.player:isClimbing() then
                 self.timber = self.timber - DTMULT
             end
             Object.endCache()
@@ -115,7 +115,7 @@ function ClimbSwitch:update()
         else
             if not self.stay then
                 Object.startCache()
-                if not Game.world.player:collidesWith(collider) and Game.world.player.state == "CLIMB" then
+                if not Game.world.player:collidesWith(collider) and Game.world.player:isClimbing() then
                     self.con = 0
                 end
                 Object.endCache()
