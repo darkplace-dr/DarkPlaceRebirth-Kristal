@@ -53,7 +53,7 @@ function item:init()
         susie = "Hell yeah! I feel so strong!",
         ralsei = "It's really heavy...",
         noelle = "(Smells like Susie...)",
-        dess = "I feel just like Halojack Metropolis",
+        dess = "deltarune fangames try not to get cancelled challenge",
         brenda = "Jeez it's hard to move my head...",
         jamm = {
             jamm = "No thanks. Not after last time.",

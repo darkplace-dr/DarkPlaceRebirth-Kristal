@@ -19,9 +19,9 @@ function item:init()
     self.description = "An old ax Susie had for a while.\nLost all of it's power, value, and color."
 
     -- Default shop price (sell price is halved)
-    self.price = 50
+    self.price = 0
     -- Whether the item can be sold
-    self.can_sell = true
+    self.can_sell = false
 
     -- Consumable target mode (ally, party, enemy, enemies, or none)
     self.target = "none"
