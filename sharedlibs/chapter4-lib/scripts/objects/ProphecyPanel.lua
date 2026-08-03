@@ -44,6 +44,9 @@ function ProphecyPanel:init(base_tex, faded_tex, sprite, text, width, height, mu
 	self.circlespr = Assets.getTexture("ui/circle_7x7")
 	self.musicproparrows = Assets.getFrames("world/events/prophecy/musicproparrows")
     self.text_color = {0, 1, 1, 1}
+	self.gradcol = COLORS.black
+	self.backcol = COLORS.black
+	self.gradalpha = 1
 	
 	self.panel_alpha = 0
 	self.ignore_onscreen_rules = false
@@ -169,17 +172,16 @@ function ProphecyPanel:draw()
 		local back_canvas = Draw.pushCanvas(self.width, self.height)
 		local ogbg = self.ogbg
 		local linecol = ColorUtils.mergeColor(self.linecol1, self.linecol2, 0.5 + (math.sin(self.siner / 120) * 0.5))
-		local gradalpha = 1
+		local gradalpha = self.gradalpha
+		Draw.setColor(ogbg, gradalpha)
 		if Ch4Lib.accurate_blending then
-			Draw.setColor(ogbg[1], ogbg[2], ogbg[3], gradalpha)
 			self:setGMBlendMode("bm_normal")
 		else
-			Draw.setColor(ogbg[1], ogbg[2], ogbg[3], gradalpha*0.45)
+			love.graphics.setBlendMode("alpha")
 		end
 		Draw.draw(self.pxwhite, 0, 0, 0, self.width + 1, self.height + 1)
-		Draw.rectangle("fill", 0, 0, 320, 240)
 		draw_sprite_tiled_ext(self.tiletex, 0, math.ceil(-self.siner / 2), math.ceil(-self.siner / 2), 1, 1, linecol, gradalpha)
-		local gradcol = COLORS.black
+		local gradcol = self.gradcol
 		if not self.no_back then
 			Draw.setColor(gradcol[1], gradcol[2], gradcol[3], gradalpha)
 			Draw.draw(self.gradient20, 0, 0, 0, self.width/20, -3, 0, 20)
@@ -191,7 +193,7 @@ function ProphecyPanel:draw()
 			if Ch4Lib.accurate_blending then
 				self:setGMBlendMode("bm_subtract")
 				love.graphics.setColorMask(false, false, false, true)
-				Draw.setColor(gradcol, 1)
+				Draw.setColor(gradcol, gradalpha)
 				Draw.draw(self.gradient20, 0, 0, 0, self.width/20, -3, 0, 20)
 				Draw.draw(self.gradient20, 0, self.height, 0, self.width/20, 3, 0, 20)
 				Draw.draw(self.gradient20, 0, 0, math.rad(90), self.height/20, 3, 0, 20)
@@ -201,7 +203,7 @@ function ProphecyPanel:draw()
 				self:setGMBlendMode("bm_normal")
 			else
 				local fade_edges_canvas = Draw.pushCanvas(self.width, self.height)
-				Draw.setColor(1,1,1,1)
+				Draw.setColor(gradcol, gradalpha)
 				Draw.draw(self.gradient20, 0, 0, 0, self.width/20, -3, 0, 20)
 				Draw.draw(self.gradient20, 0, self.height, 0, self.width/20, 3, 0, 20)
 				Draw.draw(self.gradient20, 0, 0, math.rad(90), self.height/20, 3, 0, 20)
@@ -212,6 +214,7 @@ function ProphecyPanel:draw()
 				love.graphics.setBlendMode("multiply", "premultiplied")
 				Draw.draw(fade_edges_canvas, 0, 0, 0)
 				love.graphics.setShader(last_shader)
+				love.graphics.setBlendMode("alpha", "alphamultiply")
 			end
 		end
 		if Ch4Lib.accurate_blending then
@@ -224,10 +227,10 @@ function ProphecyPanel:draw()
 			self:setGMBlendMode("bm_add")
 		else
 			if self.fade_edges then
-				love.graphics.setBlendMode("alpha")
+				love.graphics.setBlendMode("alpha", "alphamultiply")
 				Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
 			end
-			love.graphics.setBlendMode("add", "alphamultiply")		
+			love.graphics.setBlendMode("add", "alphamultiply")
 		end
 		Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
 		Draw.draw(sprite_canvas, 0, 0, 0, 1, 1)
@@ -239,10 +242,7 @@ function ProphecyPanel:draw()
 		end
 		Draw.popCanvas(true)
 		if self.draw_back then
-			local col = COLORS.black
-			if self.church == 2 then
-				col = ColorUtils.hexToRGB("#152FFF")
-			end
+			local col = self.backcol
 			Draw.setColor(col, 1)
 			Draw.draw(self.pxwhite, -self.width + xsin, -self.height + ysin, 0, self.width * 2, self.height * 2)
 		end
@@ -448,6 +448,7 @@ function ProphecyPanel:draw()
 			love.graphics.setBlendMode("alpha")
 		end
 		love.graphics.pop()
+		love.graphics.setBlendMode("alpha", "alphamultiply")
 	end
 end
 

@@ -9,7 +9,7 @@ end
 function RotatingTowerReticleDrawer:draw()
     local player = Game.world.player
 	local cyltower = self.cyltower
-    if not player.draw_reticle or player.state ~= "CLIMB" then
+    if not player.draw_reticle or not player:isClimbing() then
         return
     end
 	love.graphics.push()

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="7">
+ <tileset firstgid="1" source="../tilesets/topfloor.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="17" height="12">
+  <data encoding="csv">
+34,34,34,34,34,34,1,20,2,20,3,34,34,34,34,34,34,
+34,34,34,34,34,34,7,8,8,8,9,34,34,34,34,34,34,
+34,34,34,34,34,34,7,8,8,8,9,34,34,34,34,34,34,
+34,34,34,34,34,34,13,14,14,14,15,34,34,34,34,34,34,
+34,34,34,34,34,34,19,20,20,20,21,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34,
+34,34,34,34,34,34,25,26,26,26,27,34,34,34,34,34,34
+</data>
+ </layer>
+ <objectgroup id="3" name="collision">
+  <object id="2" x="200" y="160" width="40" height="320"/>
+  <object id="3" x="240" y="120" width="200" height="40"/>
+  <object id="4" x="440" y="160" width="40" height="320"/>
+  <object id="5" x="240" y="480" width="200" height="40"/>
+ </objectgroup>
+ <objectgroup id="4" name="objects"/>
+ <objectgroup id="2" name="objects_crystal">
+  <object id="1" name="neocrystal" x="284" y="80" width="112" height="160">
+   <properties>
+    <property name="char" value="susie"/>
+    <property name="char_spr" value="crystal_axe"/>
+    <property name="flag" value="susie_power_restored"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="markers">
+  <object id="6" name="spawn" x="340" y="440">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
