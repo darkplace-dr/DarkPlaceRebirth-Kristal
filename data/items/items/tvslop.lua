@@ -45,6 +45,7 @@ function item:init()
         dess = "i am the great mighty poo",
         jamm = "...School food. Yuck.",
         calypso = "This be a meal I had on the boat.",
+        len = "Tastes like home.",
     }
 end
 

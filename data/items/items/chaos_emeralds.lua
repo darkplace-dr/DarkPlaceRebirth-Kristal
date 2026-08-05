@@ -50,7 +50,8 @@ function item:init()
     -- Character reactions (key = party member id)
     self.reactions = {
 		jamm = "Woah! Felt a bit of energy for a second...",
-        ceroba = "Aren't those just big jewels?"
+        ceroba = "Aren't those just big jewels?",
+        len = "Super Len-ery!", -- Len's referencing to Flowery's "omega Flowery!" dialogue here
 	}
 end
 

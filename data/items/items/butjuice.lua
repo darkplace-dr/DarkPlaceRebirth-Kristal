@@ -58,6 +58,7 @@ function item:init()
         noel = "Why is it fluctuating?",
         ceroba = "What a magnificent glow...",
         berdly = "Heh. I had huge amounts of that.",
+        len = "Heh, ButJuice.",
     }
 end
 

@@ -43,6 +43,7 @@ function item:init()
         jamm = "Candy bullets... Interesting.",
         calypso = "At least I ain't firin' them.",
         ceroba = "Where have I seen these...?", -- may or may not have seen Flowey's pellets (NOT FLOWERY'S)
+        len = "Mhh... (\"It's me, Len!\")",
     }
 end
 

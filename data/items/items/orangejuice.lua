@@ -46,6 +46,7 @@ function item:init()
             jamm = "...Scurvy?",
         },
         ceroba = "Huh? Isn't it green?", -- completely missed the joke(s)
+        len = "Tasty. is there more?",
     }
 end
 

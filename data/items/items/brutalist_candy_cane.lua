@@ -21,6 +21,7 @@ function item:init()
     self.heal_amount = -9999
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
+        ["len"] = -999999,
     }
 
     -- Default shop price (sell price is halved)
@@ -53,6 +54,7 @@ function item:init()
         calypso = "...It be worth it.",
         ceroba = "Never felt worse in my life.",
         berdly = "MY HEALTH POINTS!!!",
+        len = "why.",
     }
 end
 

@@ -62,6 +62,7 @@ function item:init()
         calypso = "...Do I spy seaweed?",
         ["jamm+marcy"] = "It's good for you, Marcy!",
         ceroba = "At least it's good for me.",
+        len = "Take that big salad!",
     }
 	
 end

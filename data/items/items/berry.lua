@@ -70,6 +70,7 @@ function item:init()
 		noel = "If this was green I would die.",
         ceroba = "What? It's STOLEN?",
         berdly = "Don't worry, it's stolen from mere NPCs.",
+        len = "Doesn't count if it was from an NPC, right?"
     }
 	
 	--self.light_item = "light/gamerblood"

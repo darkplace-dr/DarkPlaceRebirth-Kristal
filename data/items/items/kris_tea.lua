@@ -70,6 +70,7 @@ function item:init()
         },
         noelle = "Tastes like cinnamon! (What is this aftertaste...?)",
 		dess = "tastes like shit",
+        len = "(There's 2 kris teas???)",
     }
 	
 end

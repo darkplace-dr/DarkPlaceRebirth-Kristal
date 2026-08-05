@@ -51,6 +51,7 @@ function item:init()
         jamm = "Is that... honey?",             -- Nintendo confirmed that starbits taste like honey
         calypso = "This be a taste I never tasted before...",
         ceroba = "I guess I reached for the star, heh.",
+        len = "Help! My mouth's glowing ;_;",
     }
 end
 

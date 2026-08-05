@@ -38,6 +38,7 @@ function item:init()
         ["pauling"] = placeholder,
 		["brenda"] = 20,
 		["ceroba"] = 30,
+		["len"] = 2,
     }
 
     -- Default shop price (sell price is halved)
@@ -137,6 +138,10 @@ function item:init()
 			calypso = "Ugh! Rotten water!?",
 			jamm = "(Water can go rotten?)",
 		},
+		len = {
+			len = "Tastes like potential.",
+			dess = "Uh ok?",
+		}
     }
 end
 

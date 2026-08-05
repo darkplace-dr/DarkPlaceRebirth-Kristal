@@ -35,6 +35,7 @@ function item:init()
         ["brenda"] = 200,
 		["jamm"] = 70,
         ["calypso"] = 80,
+        ["len"] = 6,
     }
 
     -- Default shop price (sell price is halved)
@@ -100,7 +101,8 @@ function item:init()
         calypso = {
             calypso = "Aye, a glass o' tropical storm...",
             ceroba = "(I guess that's good?)"
-        }
+        },
+        len = "Tastes like... sand. (and regret?)",
     }
 end
 

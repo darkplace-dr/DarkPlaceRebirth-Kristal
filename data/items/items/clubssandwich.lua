@@ -59,6 +59,7 @@ function item:init()
         jamm = "I can barely taste the tomato. Wait...",
         calypso = "Port Carva always made these well...",
         ceroba = "A pretty good sandwich.",
+        len = "Delicious.",
     }
 end
 

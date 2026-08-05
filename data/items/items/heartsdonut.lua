@@ -80,7 +80,8 @@ function item:init()
         calypso = "...Not bad.",
         ["jamm+marcy"] = "AcousticJAMM. // MarcyJAMM.",
         noel = "Chewy!",
-        ceroba = "What kind of jam is this? Cherry?"
+        ceroba = "What kind of jam is this? Cherry?",
+        len = "Jam, huh? new hallowen decoration.",
     }
 end
 

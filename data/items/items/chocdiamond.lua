@@ -75,6 +75,7 @@ function item:init()
         ["jamm+marcy"] = "Prepare for a sugar rush, guys...!",
         calypso = "Sugary...",
         ceroba = "Not a fan of chocolate personally...",
+        len = "(I shouln't be eating this.)",
     }
 end
 
@@ -84,6 +85,9 @@ function item:onWorldUse(target)
         local heal_amount = self:getWorldHealAmount(target.id)
         Game.world:heal("kris", heal_amount/2)
         Game.world:heal("noelle", heal_amount/2)
+        return true
+    elseif target.id == "len" then
+        target:heal(-self.heal_amount)
         return true
     else
         return super.onWorldUse(self, target)

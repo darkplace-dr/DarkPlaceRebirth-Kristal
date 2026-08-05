@@ -31,6 +31,7 @@ function item:init()
         brenda = 5,
 		jamm = 0,
         noel = 128,
+        len = 1,
     }
 
     -- Default shop price (sell price is halved)
@@ -68,6 +69,7 @@ function item:init()
         ["jamm+marcy"] = "...But we don't eat this part, Marcy.",
 		noel = "Don't waste food.",
         ceroba = "God, the taste is awful...",
+        len = "(Brings back memories...)",
     }
 end
 

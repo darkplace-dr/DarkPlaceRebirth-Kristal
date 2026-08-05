@@ -52,6 +52,7 @@ function item:init()
         jamm = "Mints aren't my favorite, but...",
         calypso = "Tastes cold...",
         ceroba = "Could've just gave it normally...",
+        len = "Ack! shi- gah! ckack!",
     }
 end
 

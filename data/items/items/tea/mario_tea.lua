@@ -36,6 +36,7 @@ function item:init()
         ["mario"] = 10,
         ["pauling"] = placeholder,
         ["ceroba"] = 10,
+        ["len"] = 1,
     }
 
     -- Default shop price (sell price is halved)
@@ -69,9 +70,11 @@ function item:init()
 		},
 		mario = {
 			mario = "Oh boy! Lotsa spaghetti!",
+            len = "(Isn't it tea?)",
 		},
         ceroba = "It's undercooked?",
         calypso = "It be... sugar water???",
+        len = "Not a fan of this taste...", -- tastes like pipes
     }
 end
 

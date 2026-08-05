@@ -67,6 +67,7 @@ function item:init()
 		noel = "Stay Hydrated!",
         ceroba = "It's good to stay hydrated.",
         calypso = "It be not salt water, at least.",
+        len = "I prefer soda.",
     }
 	
 	--self.light_item = "light/gamerblood"

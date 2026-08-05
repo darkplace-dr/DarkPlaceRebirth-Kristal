@@ -67,6 +67,7 @@ function item:init()
         calypso = "I hate energy drinks...",
 		noel = "Wait, it's not real blood?",
         ceroba = "There's GOTTA be tons of caffeine in there.",
+        len = "This... this flavour is...",
     }
 	
 	self.light_item = "light/gamerblood"

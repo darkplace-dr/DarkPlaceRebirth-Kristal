@@ -43,7 +43,8 @@ function item:init()
         ceroba = "Uh... What do I do with these?",
         jamm = "I always hated the accessories.",
         calypso = "It be very extravagant...",
-        ["jamm+marcy"] = "They look cute on you, Marcy!"
+        ["jamm+marcy"] = "They look cute on you, Marcy!",
+        len = "(These kinda look like my...)",
     }
 end
 

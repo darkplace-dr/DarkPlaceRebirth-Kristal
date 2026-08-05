@@ -66,8 +66,8 @@ function item:init()
         },
         ralsei = "Um... isn't this water?",
         noelle = "There's nothing in here!",
-		dess = "tastes like shit"
-        
+		dess = "tastes like shit",
+        len = "(There's 2 ralsei teas???)",
     }
 end
 

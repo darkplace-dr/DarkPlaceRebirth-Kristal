@@ -50,6 +50,7 @@ function item:init()
         calypso = "...What.",
 		noel = "Not going to question this.",
         ceroba = "I-is it alive?!",
+        len = "(Die, hotdog, die!)",
     }
 end
 

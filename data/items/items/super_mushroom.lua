@@ -66,11 +66,14 @@ function item:init()
 		mario = "Imma feel lightheaded! Wheeee!",
 		noel = "I'm big now?",
         ceroba = "W-what happened to me?!",
+        len = "It... It doesn't work on me...",
     }
 end
 
 function item:onWorldUse(target)
     Game.world:heal(target, self.heal_amount)
+    if target.id == "len" then return end
+
     self.map_id = Game.world.map.id
     Game.stage.timer:everyInstant(1/30, function()
         if self.map_id ~= Game.world.map.id then
@@ -104,6 +107,8 @@ end
 
 function item:onBattleUse(user, target)
     target:heal(self.heal_amount)
+    if target.id == "len" then return end
+
     self.map_id = Game.world.map.id
     Game.stage.timer:everyInstant(1/30, function()
         if self.map_id ~= Game.world.map.id then

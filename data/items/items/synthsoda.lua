@@ -56,6 +56,7 @@ function item:init()
         calypso = "Feels like I be at sea again...", -- TODO: Synth for Calypso
 		noel = "The Meat Factory.",
         ceroba = "Huh? That sounds familiar...",
+        len = "Mysterious.",
     }
 
     self.sounds = {
@@ -67,6 +68,7 @@ function item:init()
 		["dess"] = "synthsoda/dess",
 		["jamm"] = "synthsoda/jamm",
 		["noel"] = "synthsoda/noel",
+        ["len"] = "synthsoda/len",
     }
 end
 

@@ -28,6 +28,7 @@ function item:init()
         jamm = "The taste is deceptive...",
         calypso = "It be a good taste...",
         ceroba = "Everything about it is weird.",
+        len = "Tasty!",
     }
 end
 

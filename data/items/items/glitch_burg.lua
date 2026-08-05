@@ -39,6 +39,7 @@ function item:init()
         jamm = "Don't know what I just ate but okay...",
         calypso = "...It definitely be something...",
         ceroba = "You want me to eat... What, exactly?",
+        len = "Finally a good burger.",
     }
 end
 

@@ -49,6 +49,7 @@ function item:init()
         jamm = "Reminds me of the sky.",
         calypso = "Aye, brings back memories...",
         ceroba = "Hey, that's not ramen!",
+        len = "Heavenly.",
     }
 end
 

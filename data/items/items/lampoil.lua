@@ -64,7 +64,8 @@ function item:init()
         calypso = "Ye'd be a dunderhead to drink this.",
 		noel = "[color:red]kill me...",
         ceroba = "I'm NOT drinking OIL!",
-        hero = "Not the worst thing I've consumed."
+        hero = "Not the worst thing I've consumed.",
+        len = "Why, just, why."
 	}
 end
 
@@ -73,6 +74,9 @@ end
 function item:onWorldUse(target)
 	if target.id == "noelle" or target.id == "brenda" or target.id == "ceroba" then
 		return false
+    elseif target.id == "len" then
+        target:setHealth(1)
+        Assets.playSound("hurt")
     else
         return super.onWorldUse(self, target)
 	end

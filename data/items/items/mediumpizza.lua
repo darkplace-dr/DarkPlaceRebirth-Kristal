@@ -32,6 +32,7 @@ function item:init()
         ["calypso"] = 35,
         ["noel"] = 300,
         ["ceroba"] = 30,
+        ["len"] = 999999, -- i think Len likes pizza, idk i have a small suspicious
 	}
 
     -- Default shop price (sell price is halved)
@@ -60,6 +61,7 @@ function item:init()
         calypso = "This takes me back.",
 		noel = "So, THIS is a PIZZA!",
         ceroba = "Fancy.",
+        len = "PIZZA!",
 	}
 end
 

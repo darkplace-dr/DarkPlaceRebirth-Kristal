@@ -24,7 +24,8 @@ function item:init()
     self.heal_amount = 100
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
-        ["susie"] = 40
+        ["susie"] = 40,
+        ["len"] = 999999,
     }
 
     -- Default shop price (sell price is halved)
@@ -57,7 +58,10 @@ function item:init()
         ralsei = "A nice healthy snack to start the day!",
         noelle = "U-uh, sure..?",
 		dess = "OOOOOOH, BANANA",
-		noel = "AHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA", -- I have no idea what was going trough my mind at this point in time but instead of changing it im going to leave it as is and write this long sentence because I am feeling a bit overwhelmed right now somehow and i want to procrastonate on adding the other reactions at the moment (the dess reactions charbomber made (in the desshere dlc(that charbomber made(not noel(i made noel)))))
+		noel = {
+            noel = "AHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHA", -- I have no idea what was going trough my mind at this point in time but instead of changing it im going to leave it as is and write this long sentence because I am feeling a bit overwhelmed right now somehow and i want to procrastonate on adding the other reactions at the moment (the dess reactions charbomber made (in the desshere dlc(that charbomber made(not noel(i made noel)))))
+            len = "So we're just gonna pretend that didn't happen?",
+        },
 		jamm = {
             jamm = "Gotta cut it up so I don't look gay...",
             calypso = "We know you aren't.",
@@ -68,6 +72,7 @@ function item:init()
         ["jamm+marcy"] = "It's good for you, Marcy!",
         ceroba = "Haven't had one of these in a while...",
         brenda = "Would be better if it was a bit more ripe.",
+        len = "(Don't react, don't react, don't react, don't react......................................................................................................................................... is it off-screen already? i love bananas!)",
     }
 end
 

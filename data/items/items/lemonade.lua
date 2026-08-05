@@ -33,6 +33,7 @@ function item:init()
         ["noel"] = 20,
         ["ceroba"] = 20,
         ["hero"] = 20,
+        ["len"] = 21,
 	}
 
     -- Default shop price (sell price is halved)
@@ -62,6 +63,7 @@ function item:init()
 		noel = "",
         ceroba = "It's good.",
         hero = "",
+        len = "*sip* *sip* *sip* Wow this is!... decent.",
 	}
 end
 

@@ -56,6 +56,7 @@ function item:init()
         ["jamm+marcy"] = "Here. We'll split it, Marcy.",
         calypso = "It be powerful, at least...",
         ceroba = "Are we celebrating something?",
+        len = "It's salty! oh now it's sweet, ohhhh...",
     }
 end
 

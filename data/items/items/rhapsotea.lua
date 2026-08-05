@@ -46,6 +46,7 @@ function item:init()
             calypso = "(Jamm's singing...)",
             jamm = "...What's with that look, Callie?",
         },
+        len = "(My prime...)",
     }
 end
 

@@ -52,6 +52,7 @@ function item:init()
         jamm = "Blech! What is this!?",
         calypso = "...Been poisoned before. It be nothing new.",
         ceroba = "Yeah, uh... No.",
+        len = "This hurts!",
     }
 
     -- Amount the poison damages in the world

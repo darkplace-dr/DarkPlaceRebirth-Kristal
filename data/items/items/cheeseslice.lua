@@ -39,6 +39,7 @@ function item:init()
         calypso = "...Sandwich, anyone?",
         ceroba = "Needs some bread.",
         berdly = "Feels synthetic. Not just me, right?",
+        len = "(Saving some for later.)",
     }
 end
 

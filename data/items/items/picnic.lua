@@ -54,6 +54,7 @@ function item:init()
         jamm = "This... this brings me back.",
         calypso = "Wish I could've had times like these.",
         ceroba = "I wish Chujin and Kanako were here.",
+        len = "(It's... it's bringing back memories.)",
     }
 end
 

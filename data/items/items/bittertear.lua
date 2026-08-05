@@ -43,10 +43,15 @@ function item:init()
             jamm = "(Have you tasted seawater?)",
         },
         berdly = "Quite a creative water rebrand, I must say.",
+        len = "It's...",
     }
 end
 
 function item:getHealAmount(id)
+    if id == "len" then
+        return
+    end
+    
     local party_member = Game:getPartyMember(id)
 
     if not party_member then

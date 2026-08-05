@@ -58,6 +58,7 @@ function item:init()
         calypso = "They be terrible...",
 		noel = "Why not?",
         ceroba = "*aggressive coughing*",
+        len = "..."
     }
 end
 
@@ -71,6 +72,8 @@ function item:onWorldUse(target)
         health_dec = -10
     elseif target.id == "jamm" or target.id == "calypso" then
         health_dec = 40
+    elseif target.id == "len" then
+        health_dec = 0
     end
     target.health = math.max(1, target.health - health_dec)
     Assets.playSound("hurt")
@@ -92,6 +95,9 @@ function item:onBattleUse(user, target)
         end
         local char_health = target.chara:getHealth()
         if char_health > 1 then
+            if target.id == "len" then
+                char_health = char_health + 1
+            end
             target.chara:setHealth(char_health - 1)
             poison_left = poison_left - 1
         else

@@ -55,6 +55,7 @@ function item:init()
         jamm = "Not the first time I ate chalk. Not the last, either.",
         calypso = "...Dusty. What is it?",  -- never saw chalk before
         ceroba = "(...why does it remind me of chalk?)",
+        len = "Ecky!... is there more?",
     }
 end
 

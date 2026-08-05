@@ -45,12 +45,25 @@ function item:init()
         jamm = 70,
         ceroba = 130, -- experienced katana wielder, probably counts as a sword
         calypso = 150,
+        len = -1,
     }
+
+    self.len_axe_progress_flag = "len_axe_handling"
 end
 
 function item:onBattleSelect(user, target)
     Game.battle.timer:after(1, function()
         local value = self.hurt_values[user.id] or 60
+
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 0 then
+            local new_value = value * (len_axe_progress / 120) -- axe handling must count for trowing rocks propertly, right?
+            if new_value > value then
+                value = new_value
+            end
+            Game:addFlag(len_axe_progress, 0.3)
+        end
+
         target:hurt(value)
     end)
     return true

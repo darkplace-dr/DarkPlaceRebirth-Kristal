@@ -24,7 +24,8 @@ function item:init()
     self.heal_amount = 60
     -- Amount this item heals for specific characters in the overworld (optional)
     self.world_heal_amounts = {
-        ["noelle"] = 80
+        ["noelle"] = 80,
+        ["len"] = 78,
     }
 
     -- Default shop price (sell price is halved)
@@ -58,6 +59,7 @@ function item:init()
         jamm = "Oh, there's some left over!",
         calypso = "Still some left...",
         ceroba = "Ah, there's another one...",
+        len = "Ow, ow, (ow.)",
     }
 end
 

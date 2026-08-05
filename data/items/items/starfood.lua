@@ -39,6 +39,7 @@ function item:init()
         calypso = "Reminds me o' the night sky...",
         noel = "THAT'S SUPPOSED TO BE IMPOSSIBLE!?!?", -- curse of being forbidden to lead the party
         ceroba = "Woah, it's... Amazing!",
+        len = "Im in heaven...",
     }
 
     -- Good
@@ -51,6 +52,7 @@ function item:init()
         calypso = "Aye, a stellar taste.",
         noel = "Man am I glad I'm the second.",
         ceroba = "Better than I expected.",
+        len = "This taste...!",
     }
 
     -- Alright
@@ -63,6 +65,7 @@ function item:init()
         calypso = "Reminds me o' the endless nights...",
         noel = "At least I'm not in the back-back.",
         ceroba = "A bit... sour...?",
+        len = "I like it.",
     }
 
     -- Bad
@@ -75,6 +78,7 @@ function item:init()
         calypso = "Argh, there always be a bad one...",
         noel = "Of course the back ones get the worst.",
         ceroba = "Agh, it's all crunchy...",
+        len = "Not the best...",
     }
 end
 

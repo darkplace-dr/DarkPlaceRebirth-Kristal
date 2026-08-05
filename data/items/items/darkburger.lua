@@ -60,6 +60,7 @@ function item:init()
         jamm = "Burnt food isn't all that bad.",
         calypso = "It's at least better than the ship food...",
         ceroba = "Burnt, but still good.",
+        len = "I mean, it's still food.",
     }
 end
 

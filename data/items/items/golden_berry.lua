@@ -47,6 +47,7 @@ function item:init()
             jamm = "No, it just grows that way."
         },
         ceroba = "Not the best kind of berry I had...",
+        len = "(It's literally made of gold???)",
     }
 end
 
