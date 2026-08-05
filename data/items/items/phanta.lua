@@ -49,6 +49,7 @@ function item:init()
         jamm = "Grape's awesome.",
         calypso = "It be what I'm used to.",
         ceroba = "Hey, grapes are good.",
+        len = "Soo good... more please.",
     }
 end
 

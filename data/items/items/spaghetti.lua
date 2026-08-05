@@ -32,6 +32,7 @@ function item:init()
         ["pauling"] = 0,
         ["ceroba"] = 0,
         ["calypso"] = 0,
+        ["len"] = -1,
 	}
 
     -- Default shop price (sell price is halved)
@@ -56,7 +57,8 @@ function item:init()
         ["jamm+marcy"] = "You don't like it either, do you? It's okay!",
         calypso = "I thought it couldn't get worse...",
 		mario = "That's-a so nice!",
-        ceroba = "What's this even made from?!"
+        ceroba = "What's this even made from?!",
+        len = "Ew, Ew, Ew, Ewww.",
 	}
 end
 
@@ -65,7 +67,9 @@ end
 function item:onBattleUse(user, target)
 	if target.chara.id == "mario" then
 		target:heal(999)
-	else
+    elseif target.id == "len" then
+        target:hurt(1)
+    else
 		target:hurt(999)
 	end
 end

@@ -24,11 +24,13 @@ function item:init()
     self.heal_amount = 25
 
     self.heal_amounts = {
-        ["susie"] = 50
+        ["susie"] = 50,
+        ["len"] = 26,
     }
 
     self.world_heal_amounts = {
-        ["susie"] = 50
+        ["susie"] = 50,
+        ["len"] = 26,
     }
 
     self.tp_amount = 25
@@ -63,7 +65,8 @@ function item:init()
         noelle = "I'm glad you like it Susie!",
         jamm = "Huh. Tastes neat.",
         calypso = "Reminds me of the sleepless nights...",
-        ceroba = "Honestly? I'm loving 'em."
+        ceroba = "Honestly? I'm loving 'em.",
+        len = "These are delicious!",
     }
 end
 

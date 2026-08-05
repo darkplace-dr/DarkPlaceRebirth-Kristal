@@ -19,6 +19,7 @@ function item:init()
         ["dess"] = 50,
         ["ceroba"] = nil,
         ["jamm"] = 20,
+        ["len"] = 5,
     }
 
     self.price = 35
@@ -47,6 +48,7 @@ function item:init()
             calypso = "...I've tasted better rocks...",
             jamm = "(Callie???)",
         },
+        len = "I... im only eating the sugar.",
     }
 end
 

@@ -47,6 +47,7 @@ function item:init()
         jamm = "(Is that the Xbox logo???)",
         calypso = "Aye, it ain't stale...",
         ceroba = "(Why does it remind me of... That!?)", -- lots of regrets
+        len = "Wasn't i... Enough?",
     }
 end
 

@@ -25,6 +25,7 @@ function item:init()
         ["calypso"] = 120,
         ["noel"] = 40,
         ["ceroba"] = 110,
+        ["len"] = 200,
     }
 
     self.price = 260
@@ -44,6 +45,7 @@ function item:init()
         calypso = "Aye, a good start to me day!",
         noel = "What's a breakfast?",
         ceroba = "Not MY usual breakfast meal.",
+        len = "I've always wanted to try this.",
     }
 end
 

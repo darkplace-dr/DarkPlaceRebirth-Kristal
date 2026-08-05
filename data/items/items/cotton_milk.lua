@@ -23,6 +23,10 @@ function item:init()
     -- Amount healed (HealItem variable)
     self.heal_amount = 40
 
+    self.heal_amounts = {
+        ["len"] = 120,
+    }
+
     -- Default shop price (sell price is halved)
     self.price = 150
     -- Whether the item can be sold
@@ -54,6 +58,7 @@ function item:init()
         jamm = "I mean... Can't really complain.",
         calypso = "So... huh?",
         ceroba = "I just hope it's not really cotton.",
+        len = "(My favorite!)",
     }
 end
 

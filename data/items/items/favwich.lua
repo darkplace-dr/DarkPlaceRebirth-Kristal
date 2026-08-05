@@ -55,6 +55,7 @@ function item:init()
         jamm = "IT'S JUST SO GOOD!",
         calypso = "Never tasted anything this good on the ship...",
         ceroba = "(The taste takes me back...)",
+        len = "Huh, it's not clickbait.",
     }
 end
 

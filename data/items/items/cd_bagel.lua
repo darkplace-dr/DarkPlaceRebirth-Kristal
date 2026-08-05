@@ -56,7 +56,8 @@ function item:init()
         calypso = "...The wind of the waves.",
         noel = "I'm seeing stars.",
         ceroba = "Sounds like memories...",
-        brenda = "Sounds like home."
+        brenda = "Sounds like home.",
+        len = "Sounds familiar.",
     }
 
     self.sounds = {
@@ -67,6 +68,14 @@ function item:init()
 		["jamm"] = "cd_bagel/jamm",
 		["calypso"] = "cd_bagel/calypso",
 		["noel"] = "cd_bagel/noel",
+        ["len"] = "cd_bagel/len",
+    }
+
+    self.len_cd_songs = {
+        "castle",
+        "desert",
+        "ice",
+        "x34d",
     }
 end
 
@@ -76,10 +85,19 @@ function item:getShopDescription()
 end
 
 function item:onWorldUse(target)
+    if target.id == "len" and not Game.len_cd_bagel_song then
+        Game.len_cd_bagel_song = TableUtils.pick(self.len_cd_songs)
+    end
+
     local sound = self.sounds[target.id] or ("cd_bagel/"..target.id)
+    if target.id == "len" then
+        sound = sound .. "/" .. Game.len_cd_bagel_song .. "_" .. tostring(MathUtils.randomInt(1,6)) -- choose a random sample from 1 to 5 (even though it says six)
+    end
+
     if Assets.getSound(sound) then
         Assets.playSound(sound)
     end
+
     return super.onWorldUse(self, target)
 end
 

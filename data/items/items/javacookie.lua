@@ -61,7 +61,8 @@ function item:init()
         ["jamm+marcy"] = "You prefer Bedrock, Marcy?",
         calypso = "What be \"java\", anyways?",
 		noel = "uh... are ya sure?",
-        ceroba = "What's \"java\"?"
+        ceroba = "What's \"java\"?",
+        len = "(Never again.)",
     }
 end
 

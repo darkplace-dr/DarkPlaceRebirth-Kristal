@@ -55,6 +55,7 @@ function item:init()
         jamm = "We call this WET.",
         calypso = "It be... useful? I guess?",
         ceroba = "So is that food or...?",
+        len = "Hey, if it works it works.",
     }
 end
 

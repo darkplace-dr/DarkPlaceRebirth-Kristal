@@ -44,7 +44,9 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+        len = "(Tuning in 24/7.)",
+    }
 end
 
 function item:onWorldUse(target)

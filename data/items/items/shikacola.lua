@@ -47,6 +47,7 @@ function item:init()
         jamm = "...Why is there hair in it.",
         calypso = "Aye, too cheerful...",
         ceroba = "Pheh! It got on my tongue!",
+        len = "It's... uh, an intereting taste.",
     }
 end
 

@@ -31,6 +31,7 @@ function item:init()
 		jamm = 60,
         calypso = 60,
         noel = 60,
+        len = -100,
     }
 
     -- Default shop price (sell price is halved)
@@ -64,6 +65,7 @@ function item:init()
         calypso = "...How did that work?",
         ceroba = "I'm NOT eating the brick.",
         berdly = "Afraid I'll have to leave the solid part.",
+        len = "A brick? a brick with ice-cream??? really?", -- Len still eats it either way
     }
 end
 

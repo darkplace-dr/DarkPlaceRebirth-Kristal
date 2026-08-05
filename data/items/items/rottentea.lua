@@ -43,6 +43,7 @@ function item:init()
         ceroba = "You sure that's still a tea?",
         jamm = "It's all chunky...",
         calypso = "It be all wasted now...",
+        len = "...I've had worse.",
     }
 end
 

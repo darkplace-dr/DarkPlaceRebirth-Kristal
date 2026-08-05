@@ -52,6 +52,7 @@ function item:init()
         jamm = "Dust isn't my favorite, but...",
         calypso = "It be... Interesting...",
         ceroba = "*cough* *cough* What's that!?",
+        len = "Guys, i have a theory.", -- asriel dust theory oknookno
     }
 end
 

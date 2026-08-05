@@ -43,11 +43,12 @@ function item:init()
         ceroba = "Not the best soda I had.",
         jamm = "...What? Soda is soda.",
         calypso = "It be... plain?",
+        len = "Delicious soda.",
     }
 end
 
 function item:getHealAmount(id)
-    if id == "jamm" then
+    if id == "jamm" or id == "len" then
         return 30
     else
         return self.heal_amount

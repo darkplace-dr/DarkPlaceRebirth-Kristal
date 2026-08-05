@@ -60,6 +60,7 @@ function item:init()
         calypso = "It's moving...?",
 		dess = "(does a very realistic depiction of dance move titled 'the worm')",
         ceroba = "It's like sauce. (Wait, what's that in it?!)",
+        len = "(Don't think about the worms, don't think about the worms...)",
     }
 end
 

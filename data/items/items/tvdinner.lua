@@ -59,6 +59,7 @@ function item:init()
             jamm = "What flavor is this? I like it.",
             ["jamm+marcy"] = "Yeah, you deserve it, Marcy.",
             calypso = "Argh, brain freeze!!",
+            len = "TV TIME, TV TIME! like my impression?",
         },
         [2] = {
             hero = "Meaty.",
@@ -75,6 +76,7 @@ function item:init()
             },
             jamm = "It... TASTES like meat, at least.",
             calypso = "Vegan meat be nice for a change.",
+            len = "Not my usual choice, but i'll take it.",
         },
         [3] = {
             hero = "That's... not my favourite.",
@@ -85,6 +87,7 @@ function item:init()
             ceroba = "Would be great with some tea.",
             jamm = "Wow! Pie is delicious!",     -- Never had pie before
             calypso = "The flavor o' wildberry...?",
+            len = "Mhhh, i love this flavour.",
         },
         [4] = {
             hero = "At least that's edible.",
@@ -95,6 +98,7 @@ function item:init()
             ceroba = "That's a lot of stuff...",
             jamm = "I always liked trail mix.",
             calypso = "There be a lot here...",
+            len = "I hope this is edible.",
         }
     }
 end

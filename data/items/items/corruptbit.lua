@@ -57,6 +57,7 @@ function item:init()
         calypso = "I didn't taste anything...",
         ceroba = "Is this safe to consume?",
         berdly = "Smells like typical RNG.",
+        len = "UH, not the healthiest!",
     }
 end
 

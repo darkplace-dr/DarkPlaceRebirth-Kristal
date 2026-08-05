@@ -50,6 +50,7 @@ function item:init()
         ceroba = "Stop. That. Now.",
         brenda = "*HISSS*",
         calypso = "Ah, fresh like the waves...",
+        len = "W-Wait what did i do???",
     }
 end
 

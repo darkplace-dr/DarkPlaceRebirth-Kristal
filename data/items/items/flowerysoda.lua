@@ -49,6 +49,7 @@ function item:init()
         jamm = "...Carbonated milk???",
         calypso = "It be alright...",
         ceroba = "I guess not the worst thing I had...",
+        len = "Really like the flowery scent.",
     }
 end
 

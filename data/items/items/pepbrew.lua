@@ -59,6 +59,7 @@ function item:init()
         calypso = "Quite interesting...",
         noel = "What flavor is this?",
         ceroba = "Quite energizing.",
+        len = "Kinda like soda."
     }
 end
 

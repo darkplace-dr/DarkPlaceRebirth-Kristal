@@ -73,6 +73,7 @@ function item:init()
         calypso = "(Just like at sea...)",
         noel = "I AM WHO IS ALL YET NONE!!!",
         ceroba = "So many fruit flavors...",
+        len = "(So many flavours...)",
     }
 end
 

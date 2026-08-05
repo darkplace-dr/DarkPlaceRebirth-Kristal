@@ -67,6 +67,7 @@ function item:init()
         },
         noelle = "(Wonder if they sell this in gallons?)",
 		dess = "tastes like shit",
+        len = "(There's 2 susie teas???)",
     }
 end
 

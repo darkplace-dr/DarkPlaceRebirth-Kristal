@@ -57,13 +57,15 @@ function item:init()
 		jamm = {
             jamm = "A doctor a day keeps the apple away. Wait...",
             berdly = "It's \"An apple a day keeps the doctor away.\", of course!", -- nerd (probably too long to see in game lol)
-            calypso = "You be funny sometimes, Lu."
+            calypso = "You be funny sometimes, Lu.",
+            len = "(You said it wrong twice in a row?)",
         },
         calypso = "Aye, a good fruit.",
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Nom!",
         ceroba = "Perfectly average in sweetness.",
-        berdly = "Susie really likes to throw these." -- why would he say that (idk myself)
+        berdly = "Susie really likes to throw these.", -- why would he say that (idk myself)
+        len = "Half-An apple a day keeps the half-doctor away.",
     }
 end
 

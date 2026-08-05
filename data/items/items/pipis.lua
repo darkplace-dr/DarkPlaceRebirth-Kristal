@@ -77,11 +77,14 @@ function item:init()
             ceroba = "(Did she just...!?)",
             jamm = "(Oh, so you CAN crack it...)"
         },
+        len = {
+            len = "(... I-I'll eat it when no one's looking.)",
+        }
     }
 end
 
 function item:onWorldUse(target)
-    if target.id == "kris" or target.id == "dess" or target.id == "calypso" then
+    if target.id == "kris" or target.id == "dess" or target.id == "calypso" or target.id == "len" then
         -- ????
         Game.world:heal(target, 100)
         return true

@@ -33,6 +33,7 @@ function item:init()
         ["ceroba"] = 40,
         ["jamm"] = 50,
         ["calypso"] = 50,
+        ["len"] = -5,
     }
 
     -- Default shop price (sell price is halved)
@@ -77,12 +78,13 @@ function item:init()
         dess = "tastes like shit",
         ceroba = "Slight taste of... Something sour?",
         calypso = "Tastes like a salty dog...",
+        len = "(What is this chocolate taste?)",
     }
 end
 
 function item:getBattleHealAmount(id)
-    -- Dont heal less than 40HP in battles
-    return math.max(40, super.getBattleHealAmount(self, id))
+    -- Dont heal less than 40HP in battles (unless you're Len)
+    return (id == "len" and super.getBattleHealAmount(self, id)) or math.max(40, super.getBattleHealAmount(self, id))
 end
 
 return item

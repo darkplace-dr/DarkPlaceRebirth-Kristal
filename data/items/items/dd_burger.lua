@@ -53,13 +53,17 @@ function item:init()
 
     -- Character reactions (key = party member id)
     self.reactions = {
-        susie = "C'mon, gimme the rest!",
+        susie = {
+            susie = "C'mon, gimme the rest!",
+            len = "Noooo! give ME the rest!",
+        },
         ralsei = "M-maybe give Susie the rest?",
         noelle = "Th... there's MORE!?",
 		dess = "sorry man i REALLY only eat lettuce",
         jamm = "Huh. Leftovers. Neat.",
         calypso = "There be leftovers...?",
         ceroba = "I'll leave the rest.",
+        len = "Could eat more of this.",
     }
 end
 

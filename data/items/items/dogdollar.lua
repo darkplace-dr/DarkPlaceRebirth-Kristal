@@ -44,7 +44,9 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+        len = "CASH-ing.",
+    }
 end
 
 function item:onWorldUse(target)

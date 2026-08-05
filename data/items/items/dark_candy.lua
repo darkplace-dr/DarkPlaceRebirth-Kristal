@@ -77,6 +77,7 @@ function item:init()
         calypso = "And ye said this grew on a tree...?",
         ["jamm+marcy"] = "Here, Marcy. It's not my kind of snack.",
         ceroba = "It's a bit TOO sweet...",
+        len = "This much sugar must be illegal.",
     }
 end
 

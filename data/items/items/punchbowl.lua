@@ -20,6 +20,10 @@ function item:init()
 
     -- Amount healed (HealItem variable)
     self.heal_amount = 200
+    -- Amount this item heals for specific characters
+    self.heal_amounts = {
+        ["len"] = 199,
+    }
 
     -- Default shop price (sell price is halved)
     self.price = 600
@@ -43,6 +47,7 @@ function item:init()
         jamm = "Wow, quite the potion.",
         calypso = "...That be confusing.",
         ceroba = "My taste buds got puched HARD.",
+        len = "AHH, MY MOUTH! AHH!",
     }
 end
 

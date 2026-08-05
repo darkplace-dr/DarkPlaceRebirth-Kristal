@@ -37,6 +37,7 @@ function item:init()
         ["mario"] = 65,
         ["pauling"] = 40,
         ["ceroba"] = 70,
+        ["len"] = 0,
     }
 
     -- Default shop price (sell price is halved)
@@ -102,6 +103,10 @@ function item:init()
             calypso = "...Amazing rum...",
             jamm = "Heh, I'm glad you like it...!", -- blushing
         },
+        len = {
+            len = "Tastes... like nothing?",
+            jamm = "placeholder",
+        }
     }
 end
 

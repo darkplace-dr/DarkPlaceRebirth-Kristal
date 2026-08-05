@@ -45,7 +45,8 @@ function item:init()
         ceroba = "Phew, that's a strong taste!",
         jamm = "Down the hatch...",
         calypso = "It be like ship food...?",
-        ["jamm+marcy"] = "Plug your nose, Marcy..."
+        ["jamm+marcy"] = "Plug your nose, Marcy...",
+        len = "(I really don't like this flavour...)",
     }
 end
 

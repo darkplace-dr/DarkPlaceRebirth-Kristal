@@ -47,7 +47,9 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+        len = "How tense...",
+    }
 end
 
 return item

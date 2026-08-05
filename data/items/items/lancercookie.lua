@@ -69,7 +69,17 @@ function item:init()
         calypso = "Is this... just dough?",
         ["jamm+marcy"] = "(Quick, while Marcy isn't looking...!)",
         ceroba = "Who's face is this?",
+        len = "Mhuahaha!",
     }
+end
+
+function item:onWorldUse(target)
+    if target.id == "len" then
+        Assets.playSound("lancerlaugh")
+        return true
+    else
+        return super.onWorldUse(self, target)
+    end
 end
 
 return item

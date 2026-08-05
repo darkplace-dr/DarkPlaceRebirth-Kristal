@@ -36,6 +36,7 @@ function item:init()
         ["mario"] = placeholder,
         ["pauling"] = 10,
         ["ceroba"] = 20,
+        ["len"] = 60,
     }
 
     -- Default shop price (sell price is halved)
@@ -68,6 +69,7 @@ function item:init()
 		},
         calypso = "...Egg yolk?",
         ceroba = "I can barely taste anything...",
+        len = "Breakfast.",
     }
 end
 

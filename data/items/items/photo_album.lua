@@ -42,7 +42,9 @@ function item:init()
     self.can_equip = {}
 
     -- Character reactions
-    self.reactions = {}
+    self.reactions = {
+        len = "(Oh... im not in there.)",
+    }
 end
 
 function item:onWorldUse(target)

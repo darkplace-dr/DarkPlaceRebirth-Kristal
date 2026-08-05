@@ -59,6 +59,7 @@ function item:init()
         ["jamm+marcy"] = "It's good for you, Marcy!",
 		noel = "Nom!",
         ceroba = "Not a fan of sweet stuff, but it's good.",
+        len = "An apple a day keeps the doctor away.",
     }
 end
 

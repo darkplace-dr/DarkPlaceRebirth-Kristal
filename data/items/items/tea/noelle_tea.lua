@@ -33,6 +33,7 @@ function item:init()
         ["ceroba"] = 70,
         ["jamm"] = 60,
         ["calypso"] = 60,
+        ["len"] = -41,
     }
 
     -- Default shop price (sell price is halved)
@@ -74,7 +75,8 @@ function item:init()
         jamm = "Tastes like hot cocoa... I like it.",
         calypso = "Aye, a nice hurricane...",
         dess = "tastes like shit",
-        ceroba = "(It's so sweet...)"
+        ceroba = "(It's so sweet...)",
+        len = "It's too cold! ack!",
     }
 end
 

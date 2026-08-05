@@ -68,6 +68,7 @@ function item:init()
         ralsei = "It's soft and sweet.",
         noelle = "... this is just water! You're pranking me, right?!",
 		dess = "tastes like shit",
+        len = "(There's 2 noelle teas???)",
     }
 end
 

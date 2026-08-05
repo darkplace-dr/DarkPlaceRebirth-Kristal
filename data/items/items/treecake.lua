@@ -44,6 +44,7 @@ function item:init()
         jamm = "Mmm, cake.",
         calypso = "Aye, me first rum...",
         ceroba = "The taste from our family picnics...", -- she's tearing up here
+        len = "The day she found me...",
     }
 end
 

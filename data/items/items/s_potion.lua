@@ -43,6 +43,7 @@ function item:init()
         jamm = "Kinda spicy...",
         calypso = "Aye, it be no poison...",
         ceroba = "The taste is really weird.",
+        len = "(This is just expired poison...!)",
     }
 end
 

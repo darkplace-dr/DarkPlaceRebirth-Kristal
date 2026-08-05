@@ -40,6 +40,7 @@ function item:init()
         calypso = "Aye, the taste o' rum!",
         noel = "I got a good one.",
         ceroba = "Something... floral?",
+        len = "(Milk-shake, my favorite.)",
     }
 
     -- when the character gets the flavor they dislike or just some random flavor
@@ -52,6 +53,7 @@ function item:init()
         calypso = "Argh, seaweed...",
         noel = "HOW MANY STUFF IS IN HERE!?",
         ceroba = "Ugh... It's lemon...",
+        len = "Grass?! why does it taste like grass?!?",
     }
 
     self:setFlag("next_heal", TableUtils.pick({"good", "bad"}))

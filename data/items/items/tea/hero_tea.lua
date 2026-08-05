@@ -32,6 +32,7 @@ function item:init()
         ["jamm"] = 10,
         ["calypso"] = 50,
         ["ceroba"] = 40,
+        ["len"] = -1,
     }
 
     -- Default shop price (sell price is halved)
@@ -64,6 +65,7 @@ function item:init()
         jamm = "Is this just... water?",
         ceroba = "Cold drink with a hint of sweet...",
         calypso = "Sweet tea...",
+        len = "Potentially radioactive.",
     }
 end
 

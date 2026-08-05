@@ -57,6 +57,7 @@ function item:init()
         calypso = "...Ye be crazy.",
 		noel = "Keep it ... Trust me ...",
         ceroba = "This is not even food.",
+        len = "Okay... I guess im eating the core." -- its not said anywhere but Len takes the time to dismantle the gemapple and eat the core, which must be atleast edible
     }
 end
 
@@ -67,9 +68,15 @@ function item:getBattleText(user, target)
 end
 
 function item:onWorldUse(target)
-    if target.id ~= "susie" then
+    if target.id ~= "susie" or target.id ~= "len" then
         return true
     end
+    
+    if target.id == "len" then
+        target:heal(20)
+        return true
+    end
+
     target:setHealth(math.max(1, target:getHealth() - 1))
     Assets.playSound("hurt")
     return true
