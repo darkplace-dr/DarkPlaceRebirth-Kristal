@@ -9,8 +9,8 @@ return {
   height = 21,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 22,
-  nextobjectid = 134,
+  nextlayerid = 24,
+  nextobjectid = 137,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
@@ -31,7 +31,7 @@ return {
     },
     {
       name = "hometownshadowsobjects",
-      firstgid = 441,
+      firstgid = 459,
       filename = "../../../../tilesets/hometownshadowsobjects.tsx",
       exportfilename = "../../../../tilesets/hometownshadowsobjects.lua"
     }
@@ -476,6 +476,39 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 22,
+      name = "objects_morning",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 134,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 420,
+          width = 390,
+          height = 380,
+          rotation = 0,
+          opacity = 1,
+          gid = 456,
+          visible = true,
+          properties = {
+            ["sunrise"] = 1
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -934,6 +967,39 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 23,
+      name = "objects_morning_above",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 135,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 420,
+          width = 390,
+          height = 380,
+          rotation = 0,
+          opacity = 1,
+          gid = 445,
+          visible = true,
+          properties = {
+            ["sunrise"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 13,
       name = "objects_light_above_night",
       class = "",
@@ -951,7 +1017,7 @@ return {
       id = 16,
       name = "shadows",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -965,7 +1031,7 @@ return {
           id = 15,
           name = "objects_shadows_evening_cutout",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -980,7 +1046,7 @@ return {
           id = 19,
           name = "objects_shadows_morning_cutout",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -999,7 +1065,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1014,7 +1080,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1029,7 +1095,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1044,7 +1110,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1059,7 +1125,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1074,7 +1140,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1089,7 +1155,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1104,7 +1170,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1119,7 +1185,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1134,7 +1200,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1149,7 +1215,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1164,7 +1230,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1179,7 +1245,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1194,7 +1260,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1209,7 +1275,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1224,7 +1290,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1239,7 +1305,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1254,7 +1320,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1269,7 +1335,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1284,7 +1350,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 485,
+              gid = 503,
               visible = true,
               properties = {}
             },
@@ -1299,7 +1365,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1314,7 +1380,7 @@ return {
               height = 66,
               rotation = 0,
               opacity = 1,
-              gid = 475,
+              gid = 493,
               visible = true,
               properties = {}
             },
@@ -1329,7 +1395,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1344,7 +1410,7 @@ return {
               height = 120,
               rotation = 0,
               opacity = 1,
-              gid = 488,
+              gid = 506,
               visible = true,
               properties = {}
             },
@@ -1359,7 +1425,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 477,
+              gid = 495,
               visible = true,
               properties = {}
             },
@@ -1374,7 +1440,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 477,
+              gid = 495,
               visible = true,
               properties = {}
             },
@@ -1389,7 +1455,7 @@ return {
               height = 96,
               rotation = 0,
               opacity = 1,
-              gid = 486,
+              gid = 504,
               visible = true,
               properties = {}
             },
@@ -1404,7 +1470,7 @@ return {
               height = 92,
               rotation = 0,
               opacity = 1,
-              gid = 486,
+              gid = 504,
               visible = true,
               properties = {}
             },
@@ -1419,7 +1485,7 @@ return {
               height = 112,
               rotation = 0,
               opacity = 1,
-              gid = 486,
+              gid = 504,
               visible = true,
               properties = {}
             },
@@ -1434,7 +1500,7 @@ return {
               height = 18,
               rotation = 0,
               opacity = 1,
-              gid = 491,
+              gid = 509,
               visible = true,
               properties = {}
             },
@@ -1449,7 +1515,7 @@ return {
               height = 178,
               rotation = 0,
               opacity = 1,
-              gid = 476,
+              gid = 494,
               visible = true,
               properties = {}
             }
@@ -1461,7 +1527,7 @@ return {
           id = 21,
           name = "objects_shadows_evening",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -1476,7 +1542,7 @@ return {
           id = 20,
           name = "objects_shadows_morning",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -1495,7 +1561,7 @@ return {
               height = 380,
               rotation = 0,
               opacity = 1,
-              gid = 496,
+              gid = 514,
               visible = true,
               properties = {}
             },
@@ -1510,7 +1576,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1525,7 +1591,7 @@ return {
               height = 506.622,
               rotation = -45,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1540,7 +1606,7 @@ return {
               height = 96,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1555,7 +1621,7 @@ return {
               height = 166,
               rotation = -36.6376,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1570,7 +1636,7 @@ return {
               height = 220,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1585,7 +1651,7 @@ return {
               height = 199.738,
               rotation = -45,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1600,7 +1666,7 @@ return {
               height = 24,
               rotation = -90,
               opacity = 1,
-              gid = 508,
+              gid = 526,
               visible = true,
               properties = {}
             },
@@ -1615,7 +1681,7 @@ return {
               height = 140,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1630,7 +1696,7 @@ return {
               height = 370,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1645,7 +1711,7 @@ return {
               height = 24,
               rotation = -90,
               opacity = 1,
-              gid = 508,
+              gid = 526,
               visible = true,
               properties = {}
             },
@@ -1660,7 +1726,7 @@ return {
               height = 24,
               rotation = -90,
               opacity = 1,
-              gid = 508,
+              gid = 526,
               visible = true,
               properties = {}
             },
@@ -1675,7 +1741,7 @@ return {
               height = 24,
               rotation = 180,
               opacity = 1,
-              gid = 2147484156,
+              gid = 2147484174,
               visible = true,
               properties = {}
             },
@@ -1690,7 +1756,7 @@ return {
               height = 24,
               rotation = -90,
               opacity = 1,
-              gid = 508,
+              gid = 526,
               visible = true,
               properties = {}
             },
@@ -1705,7 +1771,7 @@ return {
               height = 24,
               rotation = -90,
               opacity = 1,
-              gid = 508,
+              gid = 526,
               visible = true,
               properties = {}
             },
@@ -1720,7 +1786,7 @@ return {
               height = 230,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1735,7 +1801,7 @@ return {
               height = 46,
               rotation = 0,
               opacity = 1,
-              gid = 497,
+              gid = 515,
               visible = true,
               properties = {}
             },
@@ -1750,7 +1816,7 @@ return {
               height = 46,
               rotation = 0,
               opacity = 1,
-              gid = 497,
+              gid = 515,
               visible = true,
               properties = {}
             },
@@ -1765,7 +1831,7 @@ return {
               height = 60,
               rotation = 0,
               opacity = 1,
-              gid = 500,
+              gid = 518,
               visible = true,
               properties = {}
             },
@@ -1780,7 +1846,7 @@ return {
               height = 46,
               rotation = 0,
               opacity = 1,
-              gid = 497,
+              gid = 515,
               visible = true,
               properties = {}
             },
@@ -1795,7 +1861,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1810,7 +1876,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1825,7 +1891,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1840,7 +1906,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1855,7 +1921,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1870,7 +1936,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1885,7 +1951,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1900,7 +1966,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1915,7 +1981,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1930,7 +1996,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1945,7 +2011,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1960,7 +2026,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             },
@@ -1975,7 +2041,7 @@ return {
               height = 40,
               rotation = 0,
               opacity = 1,
-              gid = 503,
+              gid = 521,
               visible = true,
               properties = {}
             }
@@ -1990,7 +2056,7 @@ return {
           id = 17,
           name = "tiles_shadows_evening",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -2031,7 +2097,7 @@ return {
           id = 18,
           name = "tiles_shadows_morning",
           class = "",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,

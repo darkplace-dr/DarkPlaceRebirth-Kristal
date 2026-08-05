@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   name = "hometownobjects",
   class = "",
   tilewidth = 1758,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 151,
+  tilecount = 169,
   tiles = {
     {
       id = 1,
@@ -930,6 +930,114 @@ return {
       image = "../../../assets/sprites/tilesets/objects/pew_night_5.png",
       width = 200,
       height = 68
+    },
+    {
+      id = 154,
+      image = "../../../assets/sprites/world/maps/hometown/tree_top.png",
+      width = 60,
+      height = 20
+    },
+    {
+      id = 155,
+      image = "../../../assets/sprites/world/maps/hometown/tree_top_tile.png",
+      width = 60,
+      height = 20
+    },
+    {
+      id = 156,
+      image = "../../../assets/sprites/world/maps/hometown/tree_trunk.png",
+      width = 60,
+      height = 40
+    },
+    {
+      id = 157,
+      image = "../../../assets/sprites/world/maps/hometown/noellehouse_dark.png",
+      width = 1128,
+      height = 470
+    },
+    {
+      id = 158,
+      image = "../../../assets/sprites/world/maps/hometown/krishouseover_dark.png",
+      width = 390,
+      height = 380
+    },
+    {
+      id = 159,
+      image = "../../../assets/sprites/world/maps/hometown/qcdiner_dark.png",
+      width = 446,
+      height = 280
+    },
+    {
+      id = 160,
+      image = "../../../assets/sprites/world/maps/hometown/churchup_dark.png",
+      width = 312,
+      height = 656
+    },
+    {
+      id = 161,
+      image = "../../../assets/sprites/world/maps/hometown/brathouse_dark.png",
+      width = 358,
+      height = 190
+    },
+    {
+      id = 162,
+      image = "../../../assets/sprites/world/maps/hometown/police_dark.png",
+      width = 302,
+      height = 244
+    },
+    {
+      id = 163,
+      image = "../../../assets/sprites/world/maps/hometown/cathouse_dark.png",
+      width = 472,
+      height = 226
+    },
+    {
+      id = 164,
+      image = "../../../assets/sprites/world/maps/hometown/townhall_dark.png",
+      width = 418,
+      height = 352
+    },
+    {
+      id = 165,
+      image = "../../../assets/sprites/world/maps/hometown/naphouse_dark.png",
+      width = 180,
+      height = 242
+    },
+    {
+      id = 166,
+      image = "../../../assets/sprites/world/maps/hometown/hospital_dark.png",
+      width = 468,
+      height = 234
+    },
+    {
+      id = 167,
+      image = "../../../assets/sprites/world/maps/hometown/townhallup_dark.png",
+      width = 418,
+      height = 352
+    },
+    {
+      id = 168,
+      image = "../../../assets/sprites/world/maps/hometown/church_dark.png",
+      width = 312,
+      height = 656
+    },
+    {
+      id = 169,
+      image = "../../../assets/sprites/world/maps/hometown/krishouse_dark.png",
+      width = 390,
+      height = 380
+    },
+    {
+      id = 170,
+      image = "../../../assets/sprites/world/maps/hometown/librarby_dark.png",
+      width = 462,
+      height = 218
+    },
+    {
+      id = 171,
+      image = "../../../assets/sprites/world/maps/hometown/flowking_dark.png",
+      width = 434,
+      height = 316
     }
   }
 }

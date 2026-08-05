@@ -16,7 +16,9 @@ function Mod:onMapMusic(map, music)
 	if music == "hometown" then
 		if Game:getFlag("hometown_time", "day") == "day" then
 			return "deltarune/town_day"
-		elseif Game:getFlag("hometown_time", "day") == "sunset" then
+		elseif Game:getFlag("hometown_time", "day") == "morning" then
+			return "deltarune/mus_birdnoise"
+		elseif Game:getFlag("hometown_time", "day") == "evening" then
 			return "deltarune/town"
 		elseif Game:getFlag("hometown_time", "day") == "night" then
 			return "forecasted_hometown_night"
@@ -29,8 +31,12 @@ function Mod:onMapMusic(map, music)
 			return "deltarune/church_lw"
 		end
 	end
-	if music == "deltarune/mus_birdnoise" and Game:getFlag("hometown_time", "day") == "night" then
-		return "deltarune/night_ambience"
+	if music == "deltarune/mus_birdnoise" then
+		if Game:getFlag("hometown_time", "day") == "night" then
+			return "deltarune/night_ambience"
+		elseif Game:getFlag("hometown_time", "day") == "evening" then
+			return "deltarune/wind_highplace"
+		end
 	end
 end
 

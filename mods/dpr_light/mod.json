@@ -39,7 +39,7 @@
     // These config values can control chapter-specific features as well.
     "config": {
         "kristal": {
-            // End of config
+			"newChoicers": true,
         },
         "chapter4lib": {},
         "magical-glass": {
