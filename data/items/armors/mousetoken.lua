@@ -41,7 +41,9 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -54,6 +56,7 @@ function item:init()
         calypso = "This skull be deformed...",
         noel = "Is this from a resturant?",
         ceroba = "Looks like a normal coin.",
+        len = "Please insert a coin.",
     }
 end
 
