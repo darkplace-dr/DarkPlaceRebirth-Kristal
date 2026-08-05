@@ -16,9 +16,8 @@ function HometownDayNight:init(data,...)
 	self.lut_strength = 1
 end
 
-function HometownDayNight:postLoad()
-    super.postLoad(self)
-    self.done = true
+function HometownDayNight:onLoad()
+    super.onLoad(self)
     self.inside = self.world.map.data.properties["inside"]
     self.church = self.world.map.data.properties["church"]
     self.no_shadows = self.world.map.data.properties["no_shadows"]
@@ -27,10 +26,6 @@ function HometownDayNight:postLoad()
 		if (Game:getFlag("hometown_time", "day") == "morning" or Game:getFlag("hometown_time", "day") == "evening") then
 			self.shadows = SunShadows()
 			self.shadows:setLayer(WORLD_LAYERS["below_ui"])
-			Game.world.player:addFX(SelfShadowFX())
-			for _, follower in ipairs(Game.world.followers) do
-				follower:addFX(SelfShadowFX())
-			end
 			if Game:getFlag("hometown_time", "day") == "morning" then
 				self.shadows.highlight_mode = 0
 				self.shadows.colour_shadowblend = ColorUtils.hexToRGB("#0D0538")
@@ -40,8 +35,7 @@ function HometownDayNight:postLoad()
 				self.shadows.asset_layer_names = {"objects_shadows_morning"}
 				self.shadows.cutout_tile_layer_names = {}
 				self.shadows.cutout_asset_layer_names = {"objects_shadows_morning_cutout"}
-				self.shadows:refreshCanvases()
-			elseif Game:getFlag("hometown_time", "day") == "morning" then
+			elseif Game:getFlag("hometown_time", "day") == "evening" then
 				self.shadows.evening_mode = true
 				self.shadows.highlight_mode = -1
 				self.shadows.colour_shadowblend = ColorUtils.hexToRGB("#230023")
@@ -51,7 +45,6 @@ function HometownDayNight:postLoad()
 				self.shadows.asset_layer_names = {"objects_shadows_evening"}
 				self.shadows.cutout_tile_layer_names = {}
 				self.shadows.cutout_asset_layer_names = {"objects_shadows_evening_cutout"}
-				self.shadows:refreshCanvases()
 			end
 			Game.world:addChild(self.shadows)
 		end
@@ -74,7 +67,7 @@ function HometownDayNight:postLoad()
 			if obj.layer == layer and obj then obj.visible = false end
 		end
 	end
-    if (not self.inside) or self.church then
+	if (not self.inside) or self.church then
         self.overlay = nil
         if self.world.map.data.properties["church"] and self.night == 1 then
             self.night = 2
@@ -99,33 +92,54 @@ function HometownDayNight:postLoad()
             end
         end
     end
+end
+
+function HometownDayNight:postLoad()
+    super.postLoad(self)
+    self.done = true
+    self.inside = self.world.map.data.properties["inside"]
+    self.church = self.world.map.data.properties["church"]
+    self.no_shadows = self.world.map.data.properties["no_shadows"]
+    self.no_lut = self.world.map.data.properties["no_lut"]
+	if not self.inside and not self.no_shadows then
+		if (Game:getFlag("hometown_time", "day") == "morning" or Game:getFlag("hometown_time", "day") == "evening") then
+			self.shadows:refreshCanvases()
+			Game.world.player:addFX(SelfShadowFX())
+			for _, follower in ipairs(Game.world.followers) do
+				follower:addFX(SelfShadowFX())
+			end
+		end
+	end
 	if Game:getFlag("hometown_time", "day") == "night" then
-		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+		for index, value in ipairs(Game.stage:getObjects(Object)) do
 			if value.day_mode or value.sunrise_mode or value.sunset_mode then
 				value:remove()
 			end
 		end
 	else
-		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+		for index, value in ipairs(Game.stage:getObjects(Object)) do
 			if value.night_mode then
 				value:remove()
 			end
-			if Game:getFlag("hometown_time", "day") == "morning" and value.sunrise_mode then
+			if Game:getFlag("hometown_time", "day") == "day" and (value.sunrise_mode or value.sunset_mode) then
 				value:remove()
 			end
-			if Game:getFlag("hometown_time", "day") == "evening" and value.sunset_mode then
+			if Game:getFlag("hometown_time", "day") == "morning" and (value.sunset_mode or value.day_mode) then
+				value:remove()
+			end
+			if Game:getFlag("hometown_time", "day") == "evening" and (value.sunrise_mode or value.day_mode) then
 				value:remove()
 			end
 		end
 	end
 	if Game.stage:hasWeather("rain") then
-		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+		for index, value in ipairs(Game.stage:getObjects(Object)) do
 			if value.rain_mode == 0 then
 				value:remove()
 			end
 		end
 	else
-		for index, value in ipairs(Game.world.stage:getObjects(Object)) do
+		for index, value in ipairs(Game.stage:getObjects(Object)) do
 			if value.rain_mode == 1 then
 				value:remove()
 			end

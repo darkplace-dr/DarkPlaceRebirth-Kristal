@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="30">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="30">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -118,7 +118,7 @@
  <imagelayer id="9" name="planks">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/church/entrance_planks.png" width="1280" height="480"/>
  </imagelayer>
- <objectgroup id="10" name="controllers">
+ <objectgroup id="10" name="objects_overlay">
   <object id="28" name="hometowndaynight" x="0" y="0">
    <properties>
     <property name="palette" value="world/church_palette"/>

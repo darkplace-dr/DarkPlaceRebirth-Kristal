@@ -9,6 +9,8 @@ function NoelleGate:init(data)
     self.gate_closed = Assets.getTexture("world/maps/hometown/gate")
     self.gate_right = Assets.getTexture("world/events/noellegate/gate_right")
     self.gate_left = nil
+	self.shadow_left = nil
+	self.shadow_right = nil
 	self.tree_mask = Assets.getTexture("world/events/noellegate/tree_mask")
 	self.gate_open_mask = false
 	
@@ -19,34 +21,88 @@ end
 
 function NoelleGate:onLoad()
 	super.onLoad(self)
-	self.gate_left = Sprite("world/events/noellegate/gate_left", self.x, self.y)	
+	self.gate_left = Sprite("world/events/noellegate/gate_left", self.x, self.y)
 	self.gate_left.layer = Game.world:parseLayer("objects")
 	self.gate_left:setOrigin(0, 0)
 	self.gate_left:setScale(2)
 	self.gate_left.alpha = false
 	Game.world:addChild(self.gate_left)
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.shadow_left = Sprite("world/events/noellegate/shadow_left", self.x, self.y)
+		self.shadow_left.layer = Game.world:parseLayer("objects_shadows_morning")
+		self.shadow_left:setOrigin(0, 0)
+		self.shadow_left:setScale(2)
+		self.shadow_left.visible = false
+		Game.world:addChild(self.shadow_left)
+		self.shadow_right = Sprite("world/events/noellegate/shadow_right", self.x, self.y)
+		self.shadow_right.layer = Game.world:parseLayer("objects_shadows_morning")
+		self.shadow_right:setOrigin(0, 0)
+		self.shadow_right:setScale(2)
+		self.shadow_right.visible = false
+		Game.world:addChild(self.shadow_right)
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.shadow_right = Sprite("world/events/noellegate/shadow_evening_right", self.x + 136, self.y)
+		self.shadow_right:setOrigin(1, 0)
+		self.shadow_right.layer = Game.world:parseLayer("objects_shadows_evening")
+		self.shadow_right:setScale(2)
+		self.shadow_right.visible = false
+		Game.world:addChild(self.shadow_right)
+		self.shadow_left = Sprite("world/events/noellegate/shadow_evening_left", self.x + 136, self.y)
+		self.shadow_left.layer = Game.world:parseLayer("objects_shadows_evening")
+		self.shadow_left:setOrigin(1, 0)
+		self.shadow_left:setScale(2)
+		self.shadow_left.visible = false
+		Game.world:addChild(self.shadow_left)
+	end
 	if Game:getFlag("noelle_gate_open", false) == true then
 		self.gate_left.x = self.x - 60
 		self.gate_left.y = self.y + 60
 		self.gate_right_x = 60
 		self.gate_right_y = -60
+		if Game:getFlag("hometown_time", "day") == "morning" then
+			self.shadow_left.x = self.x - 60
+			self.shadow_left.y = self.y + 60
+			self.shadow_right.x = self.x + 60
+			self.shadow_right.y = self.y - 60
+		elseif Game:getFlag("hometown_time", "day") == "evening" then
+			self.shadow_left.x = self.x + 136 - 60
+			self.shadow_left.y = self.y + 60
+			self.shadow_right.x = self.x + 136 + 60
+			self.shadow_right.y = self.y - 60
+		end			
 		self.gate_open_mask = true
 		self.gate_left.visible = true
 	end
 end
 
+function NoelleGate:postLoad()
+	super.postLoad(self)
+	local sun_shadows = Game.stage:getObjects(SunShadows)[1] or nil
+	if sun_shadows then
+		if Game:getFlag("hometown_time", "day") == "morning" then
+			table.insert(sun_shadows.movingshadow_objects, self.shadow_left)
+			table.insert(sun_shadows.movingshadow_objects, self.shadow_right)
+		elseif Game:getFlag("hometown_time", "day") == "evening" then
+			table.insert(sun_shadows.movingshadow_objects, self.shadow_left)
+			table.insert(sun_shadows.movingshadow_objects, self.shadow_right)
+			table.insert(sun_shadows.selfshadow_objects, self)
+			table.insert(sun_shadows.selfshadow_objects, self.gate_left)
+		end
+	end
+end
+
 function NoelleGate:spawnLeaf()
-	local leaf_x_pos = self.x + 80 + Utils.random(24)
+	local leaf_x_pos = self.x + 80 + MathUtils.random(24)
 	local leaf = Sprite("world/events/noellegate/leaf")
 	leaf:setOrigin(0, 0)
 	leaf:setScale(2, 2)
 	leaf.layer = self.layer + 0.01
-	leaf.x = leaf_x_pos + 60 + Utils.random(20)
+	leaf.x = leaf_x_pos + 60 + MathUtils.random(20)
 	leaf.y = self.y + 60
 	leaf.timer = 0
 	leaf.con = 0
 	leaf.alpha = 0
-	self.world.timer:tween(40/30, leaf, {x = leaf_x_pos + 70 + Utils.random(20), y = self.y + 120}, "out-sine")
+	self.world.timer:tween(40/30, leaf, {x = leaf_x_pos + 70 + MathUtils.random(20), y = self.y + 120}, "out-sine")
 	self.world.timer:tween(5/30, leaf, {alpha = 1}, "out-sine")
 	table.insert(self.leaves, leaf)
 	leaf:play(1/15, true)
@@ -66,6 +122,13 @@ function NoelleGate:open(lock)
 	self.gate_left.visible = true
 	self.world.timer:tween(40/30, self.gate_left, {x = self.x - 60, y = self.y + 60}, "out-sine")
 	self.world.timer:tween(40/30, self, {gate_right_x = 60, gate_right_y = -60}, "out-sine")
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.world.timer:tween(40/30, self.shadow_left, {x = self.x - 60, y = self.y + 60}, "out-sine")
+		self.world.timer:tween(40/30, self.shadow_right, {x = self.x + 60, y = self.y - 60}, "out-sine")
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.world.timer:tween(40/30, self.shadow_right, {x = self.x + 136 + 60, y = self.y - 60}, "out-sine")
+		self.world.timer:tween(40/30, self.shadow_left, {x = self.x + 136 - 60, y = self.y + 60}, "out-sine")
+	end
 	if Game.world.player.y >= 220 and Game.world.player.y <= 322 and math.max(508 - Game.world.player.x, 0) > 0 and not self.world:hasCutscene() then
 		moving_out_of_way = true
 		self.world:detachFollowers()
@@ -75,6 +138,9 @@ function NoelleGate:open(lock)
 		end
 		if Game.world.followers[2] and Game.world.followers[2].y >= 220 and Game.world.followers[2].y <= 322 and math.max(508 - Game.world.followers[2].x, 0) > 0 then
 			self.world.timer:tween(40/30, Game.world.followers[2], {x = Game.world.followers[2].x + 60}, "out-sine")
+		end
+		if Game.world.followers[3] and Game.world.followers[3].y >= 220 and Game.world.followers[3].y <= 322 and math.max(508 - Game.world.followers[3].x, 0) > 0 then
+			self.world.timer:tween(40/30, Game.world.followers[3], {x = Game.world.followers[3].x + 60}, "out-sine")
 		end
 	end
 	self.world.timer:script(function(wait)
@@ -105,7 +171,15 @@ function NoelleGate:close(lock)
 	Assets.playSound("paper_surf")
 	Game:setFlag("noelle_gate_open", false)
 	self.world.timer:tween(40/30, self.gate_left, {x = self.x, y = self.y}, "out-sine")
-	self.world.timer:tween(40/30, self, {gate_right_x = 0, gate_right_y = 0}, "out-sine")self.world.timer:script(function(wait)
+	self.world.timer:tween(40/30, self, {gate_right_x = 0, gate_right_y = 0}, "out-sine")
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.world.timer:tween(40/30, self.shadow_left, {x = self.x, y = self.y}, "out-sine")
+		self.world.timer:tween(40/30, self.shadow_right, {x = self.x, y = self.y}, "out-sine")
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.world.timer:tween(40/30, self.shadow_right, {x = self.x + 136, y = self.y}, "out-sine")
+		self.world.timer:tween(40/30, self.shadow_left, {x = self.x + 136, y = self.y}, "out-sine")
+	end
+	self.world.timer:script(function(wait)
 		wait(1/30)
 		self:spawnLeaf()
 		wait(8/30)
@@ -132,7 +206,7 @@ function NoelleGate:update()
 		end
 		if leaf.timer >= 50 then
 			leaf:remove()
-			Utils.removeFromTable(self.leaves, leaf)
+			TableUtils.removeValue(self.leaves, leaf)
 		end
 	end
 end

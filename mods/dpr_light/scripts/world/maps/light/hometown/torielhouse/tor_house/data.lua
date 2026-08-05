@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 134,
           height = 288,
           rotation = 0,
+          opacity = 1,
           gid = 72,
           visible = true,
           properties = {
@@ -98,6 +99,7 @@ return {
           width = 112,
           height = 140,
           rotation = 0,
+          opacity = 1,
           gid = 73,
           visible = true,
           properties = {}
@@ -128,6 +130,7 @@ return {
           width = 44,
           height = 236,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -141,6 +144,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -154,6 +158,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -172,6 +177,7 @@ return {
           width = 228,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -185,6 +191,7 @@ return {
           width = 134,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -198,6 +205,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -216,6 +224,7 @@ return {
           width = 40,
           height = 62,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -229,6 +238,7 @@ return {
           width = 290,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -242,6 +252,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -260,6 +271,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -279,6 +291,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -297,6 +310,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -315,6 +329,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -333,6 +348,7 @@ return {
           width = 40,
           height = 236,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -346,6 +362,7 @@ return {
           width = 1112,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -359,6 +376,7 @@ return {
           width = 308,
           height = 16,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -372,6 +390,7 @@ return {
           width = 282,
           height = 18,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -401,6 +420,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -421,6 +441,7 @@ return {
           width = 40,
           height = 42,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -441,6 +462,7 @@ return {
           width = 66,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -460,6 +482,7 @@ return {
           width = 44,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* It's a landline phone.\n[wait:5]* But you already have a cell phone."
@@ -475,6 +498,7 @@ return {
           width = 76,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* It's a sink. You could wash your hands here.",
@@ -491,6 +515,7 @@ return {
           width = 82,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tor_home.oven"
@@ -506,6 +531,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (Cookie cutters for gingerbread monsters and gingerbread humans.)"
@@ -521,6 +547,7 @@ return {
           width = 44,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tor_home.fridge"
@@ -536,6 +563,7 @@ return {
           width = 94,
           height = 46,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -552,6 +580,7 @@ return {
           width = 830,
           height = 94,
           rotation = 0,
+          opacity = 1,
           gid = 38,
           visible = true,
           properties = {}
@@ -566,6 +595,7 @@ return {
           width = 52,
           height = 18,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -582,6 +612,7 @@ return {
           width = 44,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* It's a trashcan.\n[wait:5]* Somehow,[wait:5] its floral scent has increased."
@@ -597,6 +628,7 @@ return {
           width = 94,
           height = 104,
           rotation = 0,
+          opacity = 1,
           gid = 39,
           visible = true,
           properties = {}
@@ -611,6 +643,7 @@ return {
           width = 88,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "tor_home.chairiel",
@@ -627,6 +660,7 @@ return {
           width = 230,
           height = 60,
           rotation = 0,
+          opacity = 1,
           gid = 74,
           visible = true,
           properties = {}
@@ -641,6 +675,7 @@ return {
           width = 52,
           height = 50,
           rotation = 0,
+          opacity = 1,
           gid = 77,
           visible = true,
           properties = {}
@@ -655,6 +690,7 @@ return {
           width = 52,
           height = 50,
           rotation = 0,
+          opacity = 1,
           gid = 77,
           visible = true,
           properties = {}
@@ -685,6 +721,7 @@ return {
           width = 230,
           height = 60,
           rotation = 0,
+          opacity = 1,
           gid = 75,
           visible = true,
           properties = {
@@ -701,6 +738,7 @@ return {
           width = 52,
           height = 50,
           rotation = 0,
+          opacity = 1,
           gid = 76,
           visible = true,
           properties = {
@@ -717,6 +755,7 @@ return {
           width = 52,
           height = 50,
           rotation = 0,
+          opacity = 1,
           gid = 76,
           visible = true,
           properties = {
@@ -749,6 +788,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -762,6 +802,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -775,6 +816,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -784,7 +826,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 9,
-      name = "controllers",
+      name = "objects_overlay",
       class = "",
       visible = true,
       opacity = 1,
@@ -804,6 +846,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
