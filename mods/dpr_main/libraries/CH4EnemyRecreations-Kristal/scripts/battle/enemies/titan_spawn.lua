@@ -197,10 +197,10 @@ function TitanSpawn:onAct(battler, name)
             cutscene:text("* "..battler.chara:getName().."'s SOUL emitted a brilliant \nlight!")
             battler:flash()
 
-            local bx, by = battler:getRelativePos(battler.width/2 + 4, battler.height/2 + 4)
+            local bx, by = battler:getRelativePos(battler.width / 2 + 4, battler.height / 2 + 4)
 
-            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by))
-            soul.color = Game:getPartyMember(Game.party[1].id).soul_color or { 1, 0, 0 }
+            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by, nil, Assets.getTexture("player/" .. battler.chara:getSoulFacing() .. "/heart_centered")))
+            soul.color = { battler.chara:getSoulColor() }
             soul.layer = 501
 
             local wait = function() return soul.t >= 500 end
@@ -333,6 +333,14 @@ function TitanSpawn:getEncounterText()
 	else
 		return super.getEncounterText(self)
 	end
+end
+
+function TitanSpawn:onPurifyStart()
+	self.x = self.x + 300
+end
+
+function TitanSpawn:onPurifyEnd()
+	self:spare()
 end
 
 return TitanSpawn

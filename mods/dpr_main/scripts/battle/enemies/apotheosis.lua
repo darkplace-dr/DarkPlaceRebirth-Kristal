@@ -90,12 +90,10 @@ function Apotheosis:onAct(battler, name)
             cutscene:text("* "..battler.chara:getName().."'s SOUL emitted a brilliant \nlight!")
             battler:flash()
 
-            local bx, by = battler:getRelativePos(battler.width/2 + 4, battler.height/2 + 4)
+            local bx, by = battler:getRelativePos(battler.width / 2 + 4, battler.height / 2 + 4)
 
-            local texture = "player/heart_centered"
-            if battler.chara.id == "susie" then texture = "player/heart_centered_flip" end -- hacky
-            local soul = Game.battle:addChild(TitanSpawnPurifySoul(texture, bx, by, semi, self))
-            soul.color = Game:getPartyMember(Game.party[1].id).soul_color or { 1, 0, 0 }
+            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by, { self }, Assets.getTexture("player/" .. battler.chara:getSoulFacing() .. "/heart_centered")))
+            soul.color = { battler.chara:getSoulColor() }
             soul.layer = 501
 
             cutscene:wait(function() return soul.t >= 500 end)

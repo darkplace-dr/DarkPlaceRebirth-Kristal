@@ -2,8 +2,8 @@
 ---@overload fun(...) : TitanSpawnPurifySoul
 local TitanSpawnPurifySoul, super = Class(Object)
 
-function TitanSpawnPurifySoul:init(x, y)
-    self.texture = Assets.getTexture("player/heart_centered") -- spr_heart_centered is the sprite used for the original object in DR.
+function TitanSpawnPurifySoul:init(x, y, targets, heart_texture)
+    self.texture = heart_texture or Assets.getTexture("player/heart_centered") -- spr_heart_centered is the sprite used for the original object in DR.
     super.init(self, x, y, self.texture:getWidth(), self.texture:getHeight())
 
     self:setOrigin(0.5, 0.5)
@@ -27,6 +27,9 @@ function TitanSpawnPurifySoul:init(x, y)
     self.soundcon = 1
     self.enemymovecon = 1
     self.enemysparecon = 1
+
+    -- for better customizability
+    self.targets = targets or Game.battle:getActiveEnemies()
 end
 
 function TitanSpawnPurifySoul:draw()
@@ -52,7 +55,7 @@ function TitanSpawnPurifySoul:draw()
     if self.faster then
         self.siner = self.siner + 1.5 * DTMULT
     end
-	
+
     --play "revival" sound
     if self.t >= 400 then
         if self.soundcon == 1 then
@@ -88,9 +91,9 @@ function TitanSpawnPurifySoul:draw()
     --white fade rectangle & move titan spawn enemies offscreen
     if self.t >= 450 then
         if self.enemymovecon == 1 then
-            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
-                if enemy.id == "titan_spawn" then
-                    enemy.x = enemy.x + 300
+            for _, enemy in ipairs(self.targets) do
+                if enemy.onPurifyStart then
+                    enemy:onPurifyStart()
                 end
             end
             self.enemymovecon = 2
@@ -121,9 +124,9 @@ function TitanSpawnPurifySoul:draw()
     --purify titan spawn enemies
     if self.t >= 500 then
         if self.enemysparecon == 1 then
-            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
-                if enemy.id == "titan_spawn" then
-                    enemy:spare()
+            for _, enemy in ipairs(self.targets) do
+                if enemy.onPurifyEnd then
+                    enemy:onPurifyEnd()
                 end
             end
             self.enemysparecon = 2
