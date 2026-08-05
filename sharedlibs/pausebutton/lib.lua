@@ -4,11 +4,11 @@ PauseLib = lib
 
 function PauseLib:init()
     self.paused = false
-    Utils.hook(Kristal, "callEvent", function (orig, f, ...)
+    HookSystem.hook(Kristal, "callEvent", function (orig, f, ...)
         if not self.paused then
             return orig(f,...)
         end
-        if Utils.startsWith(f, "onKey") then
+        if StringUtils.startsWith(f, "onKey") then
             return Kristal.libCall(self.info.id, f, ...)
         end
         return orig(f,...)
