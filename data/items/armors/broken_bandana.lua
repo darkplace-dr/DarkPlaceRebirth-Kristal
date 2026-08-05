@@ -70,7 +70,7 @@ function item:onEquip(character, replacement)
 end
 
 function item:getReaction(user_id, reactor_id, miniparty)
-    if user_id == "len" then
+    if reactor_id == "len" then
         local equip_value = Game:getFlag(self.len_equip_flag, 0)
         if equip_value < 4 then
             return "..."

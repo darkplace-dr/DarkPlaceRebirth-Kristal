@@ -54,7 +54,7 @@ function item:init()
 end
 
 function item:getReaction(user_id, reactor_id, miniparty)
-    if user_id == "len" then
+    if reactor_id == "len" then
         local len = Game:getPartyMember("len")
         local tie
         for _,party_item in pairs(len:getEquipment()) do

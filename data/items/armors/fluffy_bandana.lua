@@ -84,7 +84,7 @@ function item:onUnequip(character, replacement)
 end
 
 function item:getReaction(user_id, reactor_id, miniparty)
-    if user_id == "len" then
+    if reactor_id == "len" then
         local resolution = Game:getFlag("ken_quest_resolution")
         if resolution == 3 then
             return "I think it'll be safer with me..."

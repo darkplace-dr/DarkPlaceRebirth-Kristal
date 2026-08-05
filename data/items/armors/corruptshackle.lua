@@ -62,7 +62,7 @@ function item:init()
         calypso = "Aye, it be cool...",
         noel = "Now I can be an edgy bitch.",
         ceroba = "I'd rather not.",
-        len = "Ow, ow, ow, ow, ow."
+        len = "Ow, ow, ow, ow, ow.",
     }
 end
 
