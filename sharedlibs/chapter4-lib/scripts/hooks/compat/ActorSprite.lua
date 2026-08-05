@@ -2,7 +2,7 @@
 local ActorSprite, super = HookSystem.hookScript(ActorSprite)
 
 function ActorSprite:setSprite(texture, keep_anim, ignore_actor_callback)
-    if self:hasSprite("climb/climb") then
+    if Assets.hasSprite("climb/climb") then
         --old, let's revise and add
         local revise_animations = {
             "climb/jump_left",
