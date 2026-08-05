@@ -28,6 +28,7 @@ function item:init()
         kris = true,
         hero = true,
         ceroba = true,
+        len = true,
     }
 
     self.reactions = {
@@ -39,6 +40,7 @@ function item:init()
         ceroba = "A perfect fit.",
         jamm = "I respect the samurai, but...",
         calypso = "This be the blade of the Ketsukanes.",
+        len = "I'll try not to cut myself with this.",
     }
 end
 

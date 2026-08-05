@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         jamm = true,
+        len = true,
     }
 
     -- Character reactions
@@ -51,6 +52,7 @@ function item:init()
         jamm = "I've got a terrible feeling about this...",
         calypso = "This be holding some dark secrets...",   -- You're a little late on this one, Callie.
         ceroba = "No. Not a good idea.",
+        len = "Please don't do anything stupid...", -- swear drop????? yes yes, swear drop
     }
 end
 

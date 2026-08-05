@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,7 +54,8 @@ function item:init()
         jamm = "How do I even use this?",
         calypso = "More twisted than Darkbeard's desires...",
 		dess = "love the clickbait on this", -- ping me when this becomes outdated in chapter 3 & 4 or whatever -- it didn't -- still didn't in chapter 5
-        ceroba = "That's supposed to be a SWORD?"
+        ceroba = "That's supposed to be a SWORD?",
+        len = "Weird shape, but nothing i hadn't used before.",
     }
 end
 

@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -61,6 +62,7 @@ function item:init()
         },
         ceroba = "Mets, mets... What is that?",
         noel = "ok",
+        len = "(The mets???)", -- totally clueless
     }
 end
 

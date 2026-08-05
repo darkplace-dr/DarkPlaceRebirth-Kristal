@@ -41,7 +41,9 @@ function item:init()
     self.bonus_icon = nil
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -54,8 +56,30 @@ function item:init()
 	    jamm = "It's quite worn, isn't it...",
         calypso = "This old thing? Really?",
         noel = "",
-        ceroba = "That old stuff? No way."
+        ceroba = "That old stuff? No way.",
     }
+    self.len_axe_reactions = {
+        "Might not be the best to practice.",
+        "Light practice time.",
+        "And some more light practice.",
+        "Practice session.",
+        "Not bad to practice.",
+    }
+    self.len_axe_progress_flag = "len_axe_handling"
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        return TableUtils.pick(self.len_axe_reactions)
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onAttackHit(battler, enemy, damage)
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        Game:addFlag(len_axe_progress, 0.2)
+    end
 end
 
 return item

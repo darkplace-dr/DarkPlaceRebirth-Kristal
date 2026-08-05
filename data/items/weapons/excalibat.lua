@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,11 +57,13 @@ function item:init()
 		jamm = "I know I like green, but...",
         calypso = "Yer bat be too Christmasy...",   -- not the biggest fan of Christmas. Sorry, Noelle.
         noel = [[I WILL RULE "BASEBALL" ENGLAND!!!]],
-        ceroba = "Only for the worthy one, huh?"
+        ceroba = "Only for the worthy one, huh?",
+        len = "The Christmas Special.",
     }
 end
 
 function item:onEquip(character, replacement)
+    -- TO-DO: think whenever Len should or shouln't have this spell, cause idhafc
 	character:addSpell("save1stbase")
 	return true
 end

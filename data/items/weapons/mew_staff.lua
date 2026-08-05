@@ -43,11 +43,16 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
     self.reactions = {
-        hero = "Hero's response here.",
+        hero = {
+            hero = "Hero's response here.",
+            len = "You can't just say that!"
+        },
+        len = "*bling bling* What? no! i wasn't playing with it!",
     }
 end
 

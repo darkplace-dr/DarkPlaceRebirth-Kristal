@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,8 +57,9 @@ function item:init()
         ceroba = {
             ceroba = "I'm a widow, but not free to take.",
             brenda = "There go MY plans for tonight...",
-            jamm = "Preach, Ceroba. You got this."
-        }
+            jamm = "Preach, Ceroba. You got this.",
+        },
+        len = "Yes! wdym you're not proposing?",
     }
 end
 

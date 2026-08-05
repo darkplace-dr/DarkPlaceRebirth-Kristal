@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         jamm = true,
+        len = true,
     }
 
     -- Character reactions
@@ -59,8 +60,12 @@ function item:init()
         noel = "Crumbling, Pathetic, Embarrassing...",
         ceroba = {
             ceroba = "I thought only kids use these?",
-            jamm = "Nah. They're really good weapons."
-        }
+            jamm = "Nah. They're really good weapons.",
+            len = "See? he gets it.",
+        },
+        len = {
+            len = "Uh, yeah please!",
+        },
     }
 end
 

@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
 		pauling = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,7 +57,8 @@ function item:init()
         brenda = "Let's-a go!",
 		jamm = "Never thought I'd see one of these again...",
         calypso = "This be... a game controller?",
-        ceroba = "It's looking quite familiar..."
+        ceroba = "It's looking quite familiar...",
+        len = "*triggers the safety*",
     }
 end
 

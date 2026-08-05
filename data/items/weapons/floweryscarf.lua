@@ -43,7 +43,9 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/flowery"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -53,6 +55,7 @@ function item:init()
         jamm = "...I'm not that cheap.",
         calypso = "I don't like a guy I don't even know!",
         ceroba = "That smile annoys me.",
+        len = "I <3 Flowery!... Who's Flowery?",
     }
 end
 

@@ -42,7 +42,8 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        kris = true
+        kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,6 +54,7 @@ function item:init()
         jamm = "Is it at least a different type of wood?",
         calypso = "A practive blade be a practice blade...",
         ceroba = "At least it's more powerful.",
+        len = "Ready for action!",
     }
 end
 

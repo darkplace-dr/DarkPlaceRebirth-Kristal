@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         ralsei = true,
         prince = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,7 +57,8 @@ function item:init()
 		jamm = "Missed a spot. Yeah, right there.",
         calypso = "Ye did a bad job on this.",
         noel = "*thumbs up*",
-        ceroba = "Painted quite... Badly."
+        ceroba = "Painted quite... Badly.",
+        len = "I really like the design.",
     }
 end
 

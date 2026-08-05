@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,7 +54,8 @@ function item:init()
         jamm = "And I thought Ragger2 was bad...",
         calypso = "Try it and yer walkin' the plank.",
 		dess = "KILL!!!!!!!!!!!!!!!!!!!!!",
-        ceroba = "(Looks painful to wear...)"
+        ceroba = "(Looks painful to wear...)",
+        len = "Do i have to?... alright.",
     }
 end
 
@@ -64,6 +66,9 @@ function item:onBattleUpdate(battler)
         battler.thorn_ring_timer = battler.thorn_ring_timer - 6
 
         if battler.chara:getHealth() > MathUtils.round(battler.chara:getStat("health") / 3) then
+            if battler.chara.id == "len" then
+                Assets.playSound("hurt")
+            end
             battler.chara:setHealth(battler.chara:getHealth() - 1)
         end
     end

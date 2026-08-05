@@ -43,7 +43,8 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        noelle = true
+        noelle = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,6 +55,7 @@ function item:init()
         jamm = "Like the ThornScarf, but a ring?",      -- the ThornScarf is an unused Deoxynn item
         calypso = "...No.",
         ceroba = "It's nice, but I prefer actual weapons.",
+        len = "I accept!... it.",
     }
 end
 

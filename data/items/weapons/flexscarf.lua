@@ -53,7 +53,8 @@ function item:init()
         noelle = "Twist it and... it's a wreath!",
         jamm = "Flexible...",
         calypso = "Arr, that be the last scarf I use...",
-        ceroba = "What's that, a toy?"
+        ceroba = "What's that, a toy?",
+        len = "(Perfect for my... back.)", -- Len's definetly using it on the tail here
     }
 end
 

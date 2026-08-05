@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         dess = true,
 		susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -58,6 +59,7 @@ function item:init()
         calypso = "Sports aren't my thing.",
         ceroba = "Who's \"Casey\"?",
         noel = "It's fine...",
+        len = "Homerun!",
     }
 end
 

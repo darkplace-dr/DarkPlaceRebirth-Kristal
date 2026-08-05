@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,8 @@ function item:init()
         dess = "i wana eat dirt",
         jamm = "How'd you even...",
         calypso = "I may be a pirate, but I have standards.",
-        ceroba = "DO NOT approach me with that." -- girl is afraid of her clothes getting dirty
+        ceroba = "DO NOT approach me with that.", -- girl is afraid of her clothes getting dirty
+        len = "(Would i die if i...)", -- ate the toxic?
     }
 end
 

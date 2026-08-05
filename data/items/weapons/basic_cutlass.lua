@@ -43,12 +43,14 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         calypso = true,
+        len = true,
     }
 
     -- Character reactions
     self.reactions = {
         jamm = "I'm putting all that behind me.",
         calypso = "Aye, to better beginnings!",
+        len = "Still breathing.",
     }
 end
 

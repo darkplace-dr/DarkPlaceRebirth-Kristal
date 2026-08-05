@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,8 +57,10 @@ function item:init()
             calypso = "That be NOT what they said!"
         },
         calypso = "This be very impressive, but alas...",
-        ceroba = "It's like from a history book..."
+        ceroba = "It's like from a history book...",
+        len = "*uf* frienship is... really heavy."
     }
+    self.len_axe_progress_flag = "len_axe_handling"
 end
 
 function item:onEquip(character, replacement)
@@ -76,6 +79,31 @@ function item:onUnequip(character, replacement)
         self.bonus_icon = nil
     end
     return true
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 12 then
+            return "Teamwork makes the dream work!."
+        elseif len_axe_progress > 7 then
+            return "It's getting kinder."
+        elseif len_axe_progress > 3 then
+            return "Kind of getting lighter."
+        end
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onAttackHit(battler, enemy, damage)
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        local backslash = 40 / (1 + len_axe_progress / 20)
+        if backslash > 0 then
+            battler:hurt(backslash, true)
+        end
+        Game:addFlag(len_axe_progress, 1)
+    end
 end
 
 return item

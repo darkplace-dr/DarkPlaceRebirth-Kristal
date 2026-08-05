@@ -44,16 +44,18 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
+        len = true,
     }
 
     -- Character reactions
     self.reactions = {
-        iphone = "...",
+        iphone = "...", -- iphone?????????
         noel = [[Do you want me to make "HOT POCKET"s?]],
 		dess = "another unused thing i think smh",
 		jamm = "I mean, am I supposed to throw it, or...?",
         calypso = "...Ye can't be serious.",
-        ceroba = "You CANNOT be serious right now."
+        ceroba = "You CANNOT be serious right now.",
+        len = "A microwave??? A MICROWAVE???",
     }
 end
 
@@ -64,7 +66,14 @@ function item:onBattleUpdate(battler)
         battler.thorn_ring_timer = battler.thorn_ring_timer - 6
 
         if battler.chara:getHealth() > Utils.round(battler.chara:getStat("health") / 3) then
-            battler.chara:setHealth(battler.chara:getHealth() - 1)
+            if battler.chara.id == "len" then
+                battler.chara:setHealth(0)
+                Assets.playSound("boost", 2)
+                Assets.playSound("drive", 0.7)
+                Assets.playSound("back_attack", 0.3)
+            else
+                battler.chara:setHealth(battler.chara:getHealth() - 1)
+            end
         end
     end
 end

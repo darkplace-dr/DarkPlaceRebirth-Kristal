@@ -39,7 +39,9 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/down"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -51,12 +53,31 @@ function item:init()
         calypso = "I've seen better in a scrap yard...",
         ceroba = "It's not even usable!",
         noel = "... broken and unwanted...",
+        len = "...I guess i'll use these as daggers.",
     }
 end
 
 function item:getShopDescription()
     -- Don't automatically add item type
     return self.shop
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", 5)
+        character:increaseStat("defense", -3)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", -5)
+        character:increaseStat("defense", 3)
+    end
+
+    return true
 end
 
 return item

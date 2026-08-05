@@ -29,6 +29,7 @@ function item:init()
 
     self.can_equip = {
         susie = true,
+        len = true,
     }
 
     self.reactions = {
@@ -41,7 +42,34 @@ function item:init()
         calypso = "This material be intimidating...",
         ceroba = "I have so many questions.",
         noel = "Even nothing is something.",
+        len = "The void is *üf* really heavy!",
     }
+    self.len_axe_progress_flag = "len_axe_handling"
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 100 then
+            return "One with the void."
+        elseif len_axe_progress > 60 then
+            return "Don't you have anything else?"
+        elseif len_axe_progress > 20 then
+            return "The void's really voidless..."
+        end
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onAttackHit(battler, enemy, damage)
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        local backslash = 990 / (1 + len_axe_progress / 20)
+        if backslash > 0 then
+            battler:hurt(backslash, true)
+        end
+        Game:addFlag(len_axe_progress, 1)
+    end
 end
 
 return item

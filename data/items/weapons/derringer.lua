@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         pauling = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,12 +54,23 @@ function item:init()
         jamm = "Can't even aim a gun.",
         calypso = "I'm not a good aim...",
 		dess = "if only game programming would allow it",
-        ceroba = "Guns are... Not my type."
+        ceroba = "Guns are... Not my type.",
+        len = "Ready? set. FIRE!",
     }
 end
 
 function item:convertToLightEquip(inventory)
     return "light/rb_gun"
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        Assets.playSound("boost")
+        Game.world.timer:after(0.4, function()
+            Assets.playSound("bomb")
+        end)
+    end
+    return true
 end
 
 return item

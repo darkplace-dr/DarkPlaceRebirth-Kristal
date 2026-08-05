@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,7 +57,8 @@ function item:init()
         ["jamm+marcy"] = "We'll get you a better one, Marcy.",
         calypso = "...Yer pullin' me leg.",
         noel = "Fracturing from Foolhardiness...",
-        ceroba = "Never played baseball."
+        ceroba = "Never played baseball.",
+        len = "(Not touching the pointy end.)",
     }
 end
 

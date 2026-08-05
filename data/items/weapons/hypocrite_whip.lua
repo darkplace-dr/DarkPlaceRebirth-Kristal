@@ -47,6 +47,7 @@ function item:init()
         kris = true,
         ralsei = true,
         berdly = true,
+        len = true,
     }
 
     -- Character reactions
@@ -62,6 +63,7 @@ function item:init()
         susie = "Who the hell is John Wick?",
         jamm = "Not ready to be like John Wick...",
         calypso = "Ye make me feel like John Wick with this.",
+        len = "(Ahh i missed this feeling.)",
     }
 end
 
@@ -72,6 +74,9 @@ function item:onBattleUpdate(battler)
         battler.thorn_ring_timer = battler.thorn_ring_timer - 6
 
         if battler.chara:getHealth() > MathUtils.round(battler.chara:getStat("health") / 4) then
+            if battler.chara.id == "len" then
+                Assets.playSound("meow", 0.01, 1)
+            end
             battler.chara:setHealth(battler.chara:getHealth() - 1)
         end
     end

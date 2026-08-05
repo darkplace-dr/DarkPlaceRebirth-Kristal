@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ostarwalker = true,
+        len = true,
     }
 
     -- Character reactions
@@ -58,8 +59,16 @@ function item:init()
             calypso = "Don't ring it in me ear!"
         },
         calypso = "...Yer kidding, right?",
+        len = "*Ring*",
     }
 end
 
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        Assets.playSound("bell")
+    end
+
+    super.onEquip(self, character, replacement)
+end
 
 return item

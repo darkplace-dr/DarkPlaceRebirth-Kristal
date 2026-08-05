@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         mario = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,6 +54,7 @@ function item:init()
         ceroba = "What is this, a toy?",
         jamm = "(It barely stays together...)",
         calypso = "It's not fer me...",
+        len = "Fix it Len!",
     }
 end
 

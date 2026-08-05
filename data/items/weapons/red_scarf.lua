@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,8 @@ function item:init()
         jamm = "Red is... not my color.",
         calypso = "It be soft...",
 		dess = "fgdsfgsdfgsdf",
-        ceroba = "Cloth as a weapon? I'd rather not."
+        ceroba = "Cloth as a weapon? I'd rather not.",
+        len = "Blood colored, hell yeah!",
     }
 end
 

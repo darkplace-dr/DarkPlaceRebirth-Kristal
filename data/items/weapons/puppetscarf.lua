@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,8 @@ function item:init()
         jamm = "It feels weird...",
         calypso = "...It be staring...",
 		dess = "smth smth dess guitar",
-        ceroba = "String scarf? No thanks."
+        ceroba = "String scarf? No thanks.",
+        len = "Hopefully the strings won't tear much.",
     }
 end
 

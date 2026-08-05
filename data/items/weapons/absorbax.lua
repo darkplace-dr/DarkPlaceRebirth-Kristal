@@ -60,6 +60,20 @@ function item:init()
     self.len_axe_progress_flag = "len_axe_handling"
 end
 
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 12 then
+            return "Axe of the century."
+        elseif len_axe_progress > 7 then
+            return "Not... so heavy anymore?"
+        elseif len_axe_progress > 3 then
+            return "Still a bit heavy..."
+        end
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
 function item:onAttackHit(battler, enemy, damage)
     local heal_amount = math.ceil(battler.chara:getStat("health") * 0.1)
 

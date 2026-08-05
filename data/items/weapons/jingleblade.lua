@@ -46,6 +46,7 @@ function item:init()
         kris = true,
         noelle = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -55,7 +56,8 @@ function item:init()
         noelle = "What is this, a barber pole?",
         jamm = "I know Susie'd try to eat this.",
         calypso = "Yer sword be in bright colors...",
-        ceroba = "Smells like holidays."
+        ceroba = "Smells like holidays.",
+        len = "Kinda sticky.",
     }
 end
 

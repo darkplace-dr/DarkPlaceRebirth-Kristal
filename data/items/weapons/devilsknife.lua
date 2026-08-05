@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,6 +57,7 @@ function item:init()
         calypso = "This be laughing at me...",
         ceroba = "Is it... Alive?",
         noel = "Chaotic, Crazed, and... Cool...",
+        len = "\"I can do anything!\"",
     }
 end
 

@@ -42,7 +42,7 @@ function item:init()
         jamm = "First time I've ever seen a gun made from stone.",
         calypso = "How do ye expect me to use this?",
         ceroba = "How.", -- Axis reference
-        len = "This is heavy!",
+        len = "Heavy, but i can handle it!",
     }
 end
 
@@ -52,7 +52,7 @@ end
 
 function item:onEquip(character, replacement)
     if character.id == "len" then
-        character:increaseStat("attack", -3)
+        character:increaseStat("attack", -1)
     end
 
     return true
@@ -60,7 +60,7 @@ end
 
 function item:onUnequip(character, replacement)
     if character.id == "len" then
-        character:increaseStat("attack", 3)
+        character:increaseStat("attack", 1)
     end
 
     return true

@@ -47,6 +47,7 @@ function item:init()
         noelle = true,
         kris = true,
         calypso = true,
+        len = true,
     }
 
     -- Character reactions
@@ -59,6 +60,7 @@ function item:init()
         ceroba = "I'm not playing with electricity.",
         jamm = "It won't even go on my hand!",
         calypso = "Aye, it suits me just fine!",
+        len = "I can feel it's power...",
     }
 end
 

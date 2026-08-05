@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -52,7 +53,8 @@ function item:init()
         noelle = "(How old is this soup???)",
 	    jamm = "Guys, I'm not a cook!",
         calypso = "It be bent...",
-        ceroba = "That's a COOKING. UTENSIL."
+        ceroba = "That's a COOKING. UTENSIL.",
+        len = "Today's meal: our enemies.",
     }
 end
 

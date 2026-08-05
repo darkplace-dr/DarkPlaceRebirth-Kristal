@@ -47,6 +47,7 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -62,6 +63,7 @@ function item:init()
         calypso = "This feels wrong...",
         ceroba = "Don't ask me to equip that.",
         mario = "I'm fucking Mario.",
+        len = "(*pat pat pat*)",
     }
 end
 

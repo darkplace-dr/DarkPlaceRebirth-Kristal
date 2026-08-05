@@ -45,6 +45,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,7 +58,8 @@ function item:init()
         noel = "This is mockery.",
 		jamm = "Is this Nyarla's? No? Okay then.",
         calypso = "This be too evil for me.",
-        ceroba = "That thing is EVIL."
+        ceroba = "That thing is EVIL.",
+        len = "Ack! It pierced my hoodie!",
     }
 end
 

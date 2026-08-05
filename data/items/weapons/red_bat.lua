@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,12 +57,20 @@ function item:init()
             jamm = "Well, it's a guitar..."
         },
 		dess = "let's rock",
-        ceroba = "Huh? That's a BAT?"
+        ceroba = "Huh? That's a BAT?",
+        len = "Hell yeah! *music*",
     }
 end
 
 function item:convertToLight(inventory)
     return "dess_guitar"
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        Assets.playSound("len_red_bat", MathUtils.random(1, 2))
+    end
+    return super.onEquip(self, character, replacement)
 end
 
 return item
