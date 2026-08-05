@@ -48,6 +48,11 @@ function item:init()
         susie = true,
         len = true,
     }
+
+    self.reactions = {
+        susie = "Im feeling devil like today.",
+        len = "Aiming for the heart.",
+    }
 end
 
 return item

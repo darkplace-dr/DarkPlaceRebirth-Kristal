@@ -54,7 +54,8 @@ function item:init()
         noel = "Nice try...",
         jamm = "Now how do I use this...",
         calypso = "Can't explain myself, but...",
-        ceroba = "I... suppose I can use that?"
+        ceroba = "I... suppose I can use that?",
+        len = "Fitting!",
     }
 end
 

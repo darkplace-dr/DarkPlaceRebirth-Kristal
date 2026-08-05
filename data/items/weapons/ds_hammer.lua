@@ -43,13 +43,15 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         mario = true,
+        len = true,
     }
 
     -- Character reactions
     self.reactions = {
         mario = {
 			mario = "Who beat-a my high score!?",
-			brenda = "(Please don't hurt me, but...)"
+			brenda = "(Please don't hurt me, but...)",
+            len = "(Still happy with my 3rd place.)"
 		},
         noel = "wow... nintendo go supermario nintendo bes company go ninwahooo- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         jamm = "So, uh... How do I hold it?",
@@ -58,7 +60,8 @@ function item:init()
             jamm = "...She says, playing Tetris."
         },
 		dess = "check my custom emblem",
-        ceroba = "Aren't the screens gonna break??"
+        ceroba = "Aren't the screens gonna break??",
+        len = "I've always wanted to do this.",
     }
 end
 

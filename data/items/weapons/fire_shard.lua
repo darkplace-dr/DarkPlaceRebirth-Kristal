@@ -43,7 +43,8 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
-        bor = true
+        bor = true,
+        len = true,
     }
 
     -- Character reactions
@@ -52,6 +53,7 @@ function item:init()
         jamm = "Nope! Not holding THAT!",
         calypso = "Aye, flaming...",
         ceroba = "My fur's gonna burn...",
+        len = "Is it hot in here...?",
     }
 end
 

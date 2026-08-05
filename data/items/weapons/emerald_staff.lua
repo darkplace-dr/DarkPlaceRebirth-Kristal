@@ -49,6 +49,22 @@ function item:init()
         susie = true,
         len = true
     }
+
+    self.reactions = {
+        susie = "Huh, so this is what it feels like.",
+        len = {
+            len = "You think we could summon another dess with this?",
+            hero = "One is enough.",
+            susie = "One is enough.",
+            ralsei = "One is enough.",
+            noelle = "(One is enough.)",
+            dess = "One is enough.",
+            jamm = "One is enough.",
+            ["jamm+marcy"] = "One is enough. // One is enough.",
+            calypso = "One ar enough.",
+            ceroba = "One is enough.",
+        }
+    }
 end
 
 return item

@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         susie = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,6 +57,7 @@ function item:init()
         hero = "This thing is BUSTED!",
         jamm = "I don't have a green thumb.",
         calypso = "Ye want me to farm for you?",
+        len = "Good combo.",
     }
 end
 

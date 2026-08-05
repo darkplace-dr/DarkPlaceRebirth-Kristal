@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,8 @@ function item:init()
         jamm = "It's cold...",
         calypso = "Yer ring be cold...",
 		dess = "you aborted snowgrave for this dialogue?",
-        ceroba = "It's like touching the ice..."
+        ceroba = "It's like touching the ice...",
+        len = "It's... umh... thanks...?",
     }
 end
 

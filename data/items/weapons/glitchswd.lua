@@ -39,7 +39,9 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/down"
 
     -- Equippable characters (default true for armors, false for weapons)
-    self.can_equip = {}
+    self.can_equip = {
+        len = true,
+    }
 
     -- Character reactions
     self.reactions = {
@@ -47,7 +49,8 @@ function item:init()
         susie = "... what are you trying to equip?",
         jamm = "Uh... what?",
         calypso = "Ye concern me, landubber...",
-        ceroba = "Huh? What sword?"
+        ceroba = "Huh? What sword?",
+        len = "You want me to equip the air? okay.",
     }
 end
 

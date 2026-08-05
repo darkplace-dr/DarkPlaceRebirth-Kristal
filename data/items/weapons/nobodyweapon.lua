@@ -33,10 +33,25 @@ function item:init()
         ceroba = "... so why bother giving it?",
         jamm = "...Okay, now you're just taunting us.",
         calypso = "Ye should be ashamed...",
+        len = "What? it slips off!",
     }
 end
 
 function item:canEquip(character, slot_type, slot_index)
+    if character.id == "len" then
+        local party = Game:getPartyMember("len")
+        if party then
+            self.old_weapon = party:getWeapon()
+            Game.world.timer:after(0.3, function()
+                local weapon = party:getWeapon()
+                if weapon == self then
+                    Assets.playSound("equip")
+                    party:setWeapon(self.old_weapon)
+                end
+            end)
+            return true
+        end
+    end
     return false
 end
 

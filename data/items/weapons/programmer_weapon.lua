@@ -48,6 +48,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
         jamm = true,
+        len = true,
     }
 
     -- Character reactions
@@ -60,10 +61,12 @@ function item:init()
         calypso = {
             calypso = "This be... Barnary?",
             jamm = "Binary.",
-            brenda = "Binary."  -- if you want to change this, Brenda, feel free
+            brenda = "Binary.",  -- if you want to change this, Brenda, feel free
+            len = "Binary.",
         },
         ceroba = "Chujin would understand that. Not me.",
         noel = "This weapon is DEV CHARACTER SPECIFIC",
+        len = "What? This is just a script!",
     }
 end
 

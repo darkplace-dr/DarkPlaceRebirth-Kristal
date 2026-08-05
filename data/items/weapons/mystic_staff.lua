@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         nell = true,
+        len = true,
     }
 
     -- Character reactions
@@ -55,7 +56,8 @@ function item:init()
         jamm = "I'm not good with staffs.",
         calypso = "Me magic be not enough...",
         ceroba = "Not exactly MY type of staff...",
-        nell = "Back to origins, eh?"
+        nell = "Back to origins, eh?",
+        len = "You shall pass fast!", -- you shall not pass!
     }
 end
 

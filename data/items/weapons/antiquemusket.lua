@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         brenda = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,6 +58,7 @@ function item:init()
         ceroba = "I'm not good with firearms...",
         jamm = "I don't know how to...",
         calypso = "How do ye reload this...?",
+        len = "Ready and loaded.",
     }
 end
 

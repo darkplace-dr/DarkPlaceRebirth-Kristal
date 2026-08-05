@@ -28,7 +28,8 @@ function item:init()
     self.bonus_icon = "ui/menu/icon/angry"
 
     self.can_equip = {
-        susie = true
+        susie = true,
+        len = true,
     }
 
     self.reactions = {
@@ -44,7 +45,35 @@ function item:init()
         calypso = "...Disturbing.",
         ceroba = "(Who's blood is that...?)",
         noel = "Reckless, and soon rusted...",
+        len = "Still just as *uf* heavy!",
     }
+
+    self.len_axe_progress_flag = "len_axe_handling"
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 12 then
+            return "Berserker mode, ON!"
+        elseif len_axe_progress > 7 then
+            return "I can handle it."
+        elseif len_axe_progress > 3 then
+            return "It got... lighter?"
+        end
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onAttackHit(battler, enemy, damage)
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        local backslash = 40 / (1 + len_axe_progress / 20)
+        if backslash > 0 then
+            battler:hurt(backslash, true)
+        end
+        Game:addFlag(len_axe_progress, 1)
+    end
 end
 
 return item

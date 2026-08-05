@@ -45,6 +45,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,7 +58,8 @@ function item:init()
         noelle = "Look, ribbon dancing!",
         jamm = "...What?",
         calypso = "Aye, I be not very holy...",
-        ceroba = "Isn't that the bookmark?"
+        ceroba = "Isn't that the bookmark?",
+        len = "Leaving my mark.",
     }
 end
 

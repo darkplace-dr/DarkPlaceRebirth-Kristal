@@ -51,6 +51,16 @@ function item:init()
         susie = true,
         len = true,
     }
+
+    self.reactions = {
+        hero = "Not as heavy as i though.",
+        susie = {
+            susie = "Im evil!",
+            ralsei = "No, you're not!",
+            dess = "Yes, you are."
+        },
+        len = "Huh, it's strangely light.",
+    }
 end
 
 return item

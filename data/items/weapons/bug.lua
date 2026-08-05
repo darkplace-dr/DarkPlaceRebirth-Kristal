@@ -15,7 +15,7 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack  = -999999,
+        attack  = 0 / 0,
     }
 
     -- Whether this item is for the light world
@@ -39,6 +39,16 @@ function item:init()
     self.target = "none"
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "none"
+
+    -- Equippable characters (default true for armors, false for weapons)
+    self.can_equip = {
+        len = true,
+    }
+
+    -- Character reactions
+    self.reactions = {
+        len = "(Oh my mew...)",
+    }
 end
 
 return item

@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,6 +55,7 @@ function item:init()
         calypso = "...No.",
 		dess = "unused item alert",
         ceroba = "Lucky charm?",
+        len = "Can i eat the moss?",
     }
 end
 

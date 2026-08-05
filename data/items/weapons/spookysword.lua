@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,7 +54,8 @@ function item:init()
         jamm = "Not really my style...",
         calypso = "Aye, too spooky...",
 		dess = "HALLOWEEN IS BETTER FUCK CHRISTMAS",
-        ceroba = "Could be a nice Halloween decoration."
+        ceroba = "Could be a nice Halloween decoration.",
+        len = "(Is it made of candy? ...nope, ew.)",
     }
 end
 

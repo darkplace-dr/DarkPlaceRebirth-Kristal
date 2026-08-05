@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
         pauling = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,7 +58,8 @@ function item:init()
             calypso = "Do I be missing something?"
         },
         calypso = "There be no bullets...",
-        ceroba = "Just don't give it to kids, please." -- Clover reference
+        ceroba = "Just don't give it to kids, please.", -- Clover reference
+        len = "Oh yeaaaah.",
     }
 end
 

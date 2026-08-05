@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ddelta = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,11 +54,28 @@ function item:init()
         calypso = "The range is short...",
         ceroba = "You want me to hit with a CRYSTAL?",
         noel = "Dull, Drained, Useless.",
+        len = "Okay, i'll use the sharp side.",
     }
 end
 
 function item:convertToLightEquip(chara)
     return "light/magic_ball"
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", 1)
+    end
+
+    return true
+end
+
+function item:onUnequip(character, replacement)
+    if character.id == "len" then
+        character:increaseStat("attack", -1)
+    end
+
+    return true
 end
 
 return item

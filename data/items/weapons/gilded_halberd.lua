@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         berdly = true,
         jerdly = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,6 +57,7 @@ function item:init()
         ceroba = "Glow-y, tech-y... Yeah, not for me.",
         jamm = "I never got how to use these things...",
         calypso = "Glowing things be not fer me...",
+        len = "So... it's a rock?",
     }
 end
 

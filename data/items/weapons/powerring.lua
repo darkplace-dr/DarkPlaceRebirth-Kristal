@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         noelle = true,
+        len = true,
     }
 
     -- Character reactions
@@ -56,10 +57,12 @@ function item:init()
         brenda = "I've seen better rings sold at toy stores.",
 		jamm = {
             jamm = "Sorry, taken.",
-            calypso = "Aye. Back off."
+            calypso = "Aye. Back off.",
+            -- len = "Jealous much?", TO-DO: uhhhhhhhhhhhhhhh
         },
         calypso = "It doesn't even fit.",
-        ceroba = "That's... Plastic."
+        ceroba = "That's... Plastic.",
+        len = "Not for nothing plastic is the most lasting material.",
     }
 end
 

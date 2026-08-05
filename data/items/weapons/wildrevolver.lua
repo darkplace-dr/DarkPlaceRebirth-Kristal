@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         brenda = true,
 		pauling = true,
+        len = true,
     }
 
     self.bolt_count = 6
@@ -60,6 +61,7 @@ function item:init()
         noel = "(Pretty.)",
         jamm = "Never been of a fan of 6-shooters.",
         calypso = "I'm not good at me aiming...",
+        len = "Okay! now getting onto serious business here.",
     }
 end
 

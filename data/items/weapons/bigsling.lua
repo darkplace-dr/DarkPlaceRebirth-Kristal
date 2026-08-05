@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         jamm = true,
+        len = true,
     }
 
     -- Character reactions
@@ -51,7 +52,8 @@ function item:init()
         calypso = "I can't hold yer weapon.",
         noel = "(Hey, it fits in my hand.)",
 		dess = "still hate stardew",
-        ceroba = "I can hold it fine, but... No."
+        ceroba = "I can hold it fine, but... No.",
+        len = "(I should totally use it on dess.)",
     }
 end
 

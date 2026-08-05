@@ -45,6 +45,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -60,7 +61,8 @@ function item:init()
         },
         calypso = "...Ye can't be serious.",
         ceroba = "No.",
-        noel = "Soft, Sad, and Ineffective."
+        noel = "Soft, Sad, and Ineffective.",
+        len = "Soft as fur.",
     }
 end
 

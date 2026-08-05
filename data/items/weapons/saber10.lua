@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -55,12 +56,40 @@ function item:init()
         dess = "this is too op for me",
         jamm = "Ow! Prickly...",
         calypso = "...why 10?",
-        ceroba = "I'm not risking getting prickled."
+        ceroba = "I'm not risking getting prickled.",
     }
+    self.len_reactions = {
+        "Ow... (It's... that...)", -- blood?!
+        "WDYM THAT'S NOT HOW YOU USE IT?!?",
+        "...",
+    }
+    self.len_owchie_flag = "len_saber10_progress"
 end
 
 function item:convertToLightEquip(chara)
     return "light/cactusneedle"
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_owchie_progress = Game:getFlag(self.len_owchie_flag, 0)
+        local reaction = self.len_reactions[len_owchie_progress] or self.len_reactions[#self.len_reactions]
+        return reaction
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onEquip(character, replacement)
+    if character.id == "len" then
+        local len_owchie_progress = Game:getFlag(self.len_owchie_flag, 0)
+
+        if len_owchie_progress == 0 then
+            character:setHealth(character:getHealth() - 1)
+        end
+
+        Game:addFlag(self.len_owchie_flag, 1)
+    end
+    super.onEquip(self, character, replacement)
 end
 
 return item

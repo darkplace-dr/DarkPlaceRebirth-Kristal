@@ -31,6 +31,7 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
+        len = true,
     }
 
     self.reactions = {
@@ -42,7 +43,8 @@ function item:init()
 	    jamm = "A lot of holes... You sure it's effective?",
         calypso = "Are we having a snack break?",
         noel = "",
-        ceroba = "This... Doesn't look efficient to use."
+        ceroba = "This... Doesn't look efficient to use.",
+        len = "Not my favorite, but okay.",
     }
 end
 

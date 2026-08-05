@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -59,6 +60,7 @@ function item:init()
             calypso = "That's where yer wrong, Lu."
         },
         calypso = "Yer scarf lies...",
+        len = "I can do it!",
     }
 end
 

@@ -44,7 +44,8 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
-        noel = true
+        noel = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,7 +58,8 @@ function item:init()
 	    jamm = "What? I'm not a patient guy.",
         calypso = "Terrible craftsmanship...",
         noel = "#worth it",
-        ceroba = "Patience is important."
+        ceroba = "Patience is important.",
+        len = "This was worth it.",
     }
 
 end

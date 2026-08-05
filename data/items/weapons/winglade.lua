@@ -44,6 +44,7 @@ function item:init()
     self.can_equip = {
         kris = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -60,7 +61,9 @@ function item:init()
             dess = "bless yo ass",
             jamm = "Bless you.",
             ["jamm+marcy"] = "Bless you. // Bless you!",
+            len = "Not this way! uh i mean, Bless you...",
         },
+        len = "Perfect weigth.",
     }
 end
 

@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         kris = true,
+        len = true,
     }
 
     -- Character reactions
@@ -53,7 +54,8 @@ function item:init()
         jamm = "Mmm. Might accidentally extend it.",
         calypso = "...Can we get this as a cutlass?",
 		dess = "starwars movies for free 2024",
-        ceroba = "Huh. Just like a pen."
+        ceroba = "Huh. Just like a pen.",
+        len = "*chk*",
     }
 end
 

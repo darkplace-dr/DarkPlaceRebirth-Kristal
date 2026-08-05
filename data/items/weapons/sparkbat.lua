@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         dess = true,
+        len = true,
     }
 
     -- Character reactions
@@ -59,6 +60,7 @@ function item:init()
         jamm = "Shiny...",
         calypso = "It be flashing a lot.",
         ceroba = "Too flashy...",
+        len = "These colors are overstimulating, nice.",
     }
 end
 

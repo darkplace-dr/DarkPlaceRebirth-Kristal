@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         jamm = true,
+        len = true,
     }
 
     -- Character reactions
@@ -52,7 +53,8 @@ function item:init()
         calypso = "...It be a reference, huh?",
         noel = "SnIperMonkeyP",
 		dess = "play undertale 2 revenge of the robots",
-        ceroba = "Sort of like a toy."
+        ceroba = "Sort of like a toy.",
+        len = "*aiming*",
     }
 end
 

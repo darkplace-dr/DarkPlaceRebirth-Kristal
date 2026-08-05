@@ -42,6 +42,7 @@ function item:init()
 
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
+        len = true,
     }
 
     -- Character reactions
@@ -57,7 +58,8 @@ function item:init()
             calypso = "Aye, I can't read this...",
             jamm = "I didn't know you learned to read."
         },
-        ceroba = "Looks older than me..."
+        ceroba = "Looks older than me...",
+        len = "I know what is says, it says \"Guillible\".",
     }
 end
 

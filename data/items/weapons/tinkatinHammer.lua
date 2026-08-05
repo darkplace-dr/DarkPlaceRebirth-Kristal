@@ -45,6 +45,7 @@ function item:init()
     self.can_equip = {
         susie = true,
         mario = true,
+        len = true,
     }
 
     -- Character reactions
@@ -57,6 +58,7 @@ function item:init()
         calypso = "...Why?",
         mario = "Mario's gonna do something very illegal!",
         ceroba = "Wh- I- HOW!?", -- how tf did they rip off a sign
+        len = "Public property, nice.",
     }
 end
 

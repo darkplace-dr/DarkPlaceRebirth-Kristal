@@ -44,6 +44,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         ralsei = true,
+        len = true,
     }
 
     -- Character reactions
@@ -54,7 +55,8 @@ function item:init()
 		dess = "i dont have a reaction to EVERYTHING dipshit",
         jamm = "Too soft... Too... zzz...",
         calypso = "Aye! Static shock...",   -- Thanks, Ralsei
-        ceroba = "Comfortable... But I won't fight with it."
+        ceroba = "Comfortable... But I won't fight with it.",
+        len = "(This tickles me...)",
     }
 end
 

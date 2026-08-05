@@ -46,6 +46,7 @@ function item:init()
         kris = true,
         hero = true,
         susie = true,
+        len = true,
     }
 
     -- Character reactions
@@ -59,8 +60,36 @@ function item:init()
 	    jamm = "I mean, I'm not THAT strong...",
         calypso = "...Not fer me.",
         noel = "Now, I'm gonna pull a [Red Buster]!",
-        ceroba = "Definitely not my type of weapon."
+        ceroba = "Definitely not my type of weapon.",
+        len = "Good for starters like me.",
     }
+
+    self.len_axe_progress_flag = "len_axe_handling"
+end
+
+function item:getReaction(user_id, reactor_id, miniparty)
+    if reactor_id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        if len_axe_progress > 50 then
+            return "The chosen one."
+        elseif len_axe_progress > 20 then
+            return "Getting the hang of it.."
+        elseif len_axe_progress > 1 then
+            return "Will be hard to get used to..."
+        end
+    end
+    super.getReaction(self, user_id, reactor_id, miniparty)
+end
+
+function item:onAttackHit(battler, enemy, damage)
+    if battler.chara.id == "len" then
+        local len_axe_progress = Game:getFlag(self.len_axe_progress_flag, 0)
+        local backslash = 5 / (1 + len_axe_progress / 20)
+        if backslash > 0 then
+            battler:hurt(backslash, true)
+        end
+        Game:addFlag(len_axe_progress, 1)
+    end
 end
 
 return item

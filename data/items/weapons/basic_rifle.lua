@@ -43,6 +43,7 @@ function item:init()
     -- Equippable characters (default true for armors, false for weapons)
     self.can_equip = {
         brenda = true,
+        len = true,
     }
 
     -- Character reactions
@@ -55,7 +56,8 @@ function item:init()
 		jamm = "But I'm not an NRA member!",
         calypso = "I'd rather walk the plank.",
         noel = "Basic is an understatement...",
-        ceroba = "I'm not shooting anybody."
+        ceroba = "I'm not shooting anybody.",
+        len = "Now, this is more my style!",
     }
 end
 

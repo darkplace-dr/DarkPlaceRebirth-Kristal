@@ -47,6 +47,7 @@ function item:init()
         kris = true,
         noelle = true,
         hero = true,
+        len = true,
     }
 
     -- Character reactions
@@ -55,7 +56,9 @@ function item:init()
         ralsei = "I... shouldn't use it.",
         jamm = "...And you got this from the Knight?",
         calypso = "I don't trust this.",
-        ceroba = "I just... Don't trust this thing."
+        ceroba = "I just... Don't trust this thing.",
+        len = "Let's embrace my dark side.",
+
     }
 end
 
