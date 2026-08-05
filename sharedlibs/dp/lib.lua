@@ -116,6 +116,15 @@ local function handleRetroSave(data)
         data_changed = true
     end
 
+    -- Chapter change
+    if data.chapter < 5 then
+        table.insert(diff_data, {
+            value = 5,
+            path = { "chapter" }
+        })
+        data_changed = true
+    end
+
 
     return data_changed, diff_data
 end
