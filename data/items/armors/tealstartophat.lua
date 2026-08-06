@@ -69,7 +69,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
         end
     end
 
-    super.getReaction(self, user_id, reactor_id, miniparty)
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 return item

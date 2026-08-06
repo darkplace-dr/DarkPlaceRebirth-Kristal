@@ -76,7 +76,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
         local reaction = self.len_reactions[len_owchie_progress] or self.len_reactions[#self.len_reactions]
         return reaction
     end
-    super.getReaction(self, user_id, reactor_id, miniparty)
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 function item:onEquip(character, replacement)
