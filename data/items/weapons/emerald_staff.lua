@@ -59,9 +59,9 @@ function item:init()
             ralsei = "One is enough.",
             noelle = "(One is enough.)",
             dess = "One is enough.",
-            jamm = "One is enough.",
-            ["jamm+marcy"] = "One is enough. // One is enough.",
-            calypso = "One ar enough.",
+            jamm = "One is too much.",
+            ["jamm+marcy"] = "One is too much. // Papa is right.",
+            calypso = "One be enough.",
             ceroba = "One is enough.",
         }
     }

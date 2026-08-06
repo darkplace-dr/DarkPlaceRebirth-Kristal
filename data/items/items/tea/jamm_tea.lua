@@ -105,7 +105,7 @@ function item:init()
         },
         len = {
             len = "Tastes... like nothing?",
-            jamm = "placeholder",
+            jamm = "I... don't know if that's good or not...",
         }
     }
 end
