@@ -49,7 +49,7 @@ end
 
 function item:getHealAmount(id)
     if id == "len" then
-        return
+        return 0
     end
     
     local party_member = Game:getPartyMember(id)
