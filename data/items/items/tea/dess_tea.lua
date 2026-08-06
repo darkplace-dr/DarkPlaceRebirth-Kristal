@@ -141,6 +141,7 @@ function item:init()
 		len = {
 			len = "Tastes like potential.",
 			dess = "Uh ok?",
+            jamm = "You're considering trying it again???"
 		}
     }
 end

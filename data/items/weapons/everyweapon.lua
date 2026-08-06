@@ -74,8 +74,8 @@ function item:init()
         noelle = "That's a ring???",
         jamm = "...I guess it works as a sling.",
         calypso = {
-            calypso = "Equip dialogue.",
-            len = "You can't just say equip dialogue!",
+            calypso = "It be weird to hold, but...",
+            -- len = "You can't just say equip dialogue!",
         },
         ceroba = "...It fits.",
         berdly = "This is one floppy halberd.",
