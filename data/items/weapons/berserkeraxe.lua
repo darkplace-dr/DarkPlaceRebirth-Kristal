@@ -62,7 +62,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
             return "It got... lighter?"
         end
     end
-    super.getReaction(self, user_id, reactor_id, miniparty)
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 function item:onAttackHit(battler, enemy, damage)

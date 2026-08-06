@@ -72,7 +72,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
     if reactor_id == "len" then
         return TableUtils.pick(self.len_axe_reactions)
     end
-    super.getReaction(self, user_id, reactor_id, miniparty)
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 function item:onAttackHit(battler, enemy, damage)

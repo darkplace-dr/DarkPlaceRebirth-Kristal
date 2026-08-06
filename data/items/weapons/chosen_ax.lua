@@ -78,7 +78,7 @@ function item:getReaction(user_id, reactor_id, miniparty)
             return "Will be hard to get used to..."
         end
     end
-    super.getReaction(self, user_id, reactor_id, miniparty)
+    return super.getReaction(self, user_id, reactor_id, miniparty)
 end
 
 function item:onAttackHit(battler, enemy, damage)
