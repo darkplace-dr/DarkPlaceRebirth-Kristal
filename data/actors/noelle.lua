@@ -225,6 +225,9 @@ function actor:init()
         ["sneak/right"] = {2, 3},
     }
 
+    -- The x and y offsets of the ReviveSong spotlight
+    self.spotlight_offset = { 0, 0 }
+
     self.menu_anim = "blush"
 end
 

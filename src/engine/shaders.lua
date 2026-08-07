@@ -104,7 +104,7 @@ Shaders["Mask"] = love.graphics.newShader[[
         }
         return vec4(1.0);
     }
- ]]
+]]
 
 Shaders["ColorGradient"] = love.graphics.newShader[[
     extern vec4 from;

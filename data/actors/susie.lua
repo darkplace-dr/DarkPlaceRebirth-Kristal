@@ -403,6 +403,9 @@ function actor:init(style)
         ["kick_up"] = {-4, 2},
     }
 
+    -- The x and y offsets of the ReviveSong spotlight
+    self.spotlight_offset = { 0, -7 }
+
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.
     self.taunt_sprites = {"pose", "away_hand", "turn_around", "angry_down", "diagonal_kick_left_5", "shock_right"}
 
