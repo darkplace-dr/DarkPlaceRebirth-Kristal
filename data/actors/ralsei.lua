@@ -78,7 +78,8 @@ function actor:initChapter1()
         ["pullhat"]             = {"pullhat", 0.25, true},
         ["removehood"]          = {"removehood", 0.25, false, next="walk/down"},
         ["reveal"]              = {"reveal", 0.3, false},
-        ["sing_still"]          = {"sing", math.huge, true},
+
+        ["sing_ready"]          = {"sing_1", 16/30, true},
         ["sing"]                = {"sing", 0.4, true},
         ["sit"]                 = {"sit", 0.1, false},
 
@@ -149,7 +150,7 @@ function actor:initChapter1()
     }
 
     -- The x and y offsets of the ReviveSong spotlight
-    self.spotlight_offset = { 14, -1 }
+    self.spotlight_offset = { 10, -5 }
 end
 
 function actor:initChapter2()
@@ -318,6 +319,10 @@ function actor:initChapter2()
 
         ["splat"] = {-15, 21},
         ["stool"] = {-11, 18},
+
+        ["sing_ready"] = {-10, -2},
+        ["sing"] = {-2, -2},
+
         ["sneak/left"] = {-5, -3},
         ["sneak/right"] = {7, -3},
 
@@ -337,7 +342,7 @@ function actor:initChapter2()
     }
 
     -- The x and y offsets of the ReviveSong spotlight
-    self.spotlight_offset = { 14, -1 }
+    self.spotlight_offset = { 10, -5 }
 
     self.menu_anim = "pose"
 
