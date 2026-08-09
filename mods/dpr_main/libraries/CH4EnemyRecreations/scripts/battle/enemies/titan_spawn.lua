@@ -49,7 +49,7 @@ function TitanSpawn:init()
     self.first_barrage = true
     self.phaseturn = 1
     self.difficulty = 0
-	
+
 	self.wake_kris_count = 0
 end
 
@@ -194,14 +194,14 @@ function TitanSpawn:onAct(battler, name)
         return
     elseif name == "Banish" then
         battler:setAnimation("act")
-        Game.battle:startCutscene(function(cutscene)
+        Game.battle:startActCutscene(function(cutscene)
             cutscene:text("* "..battler.chara:getName().."'s SOUL emitted a brilliant \nlight!")
             battler:flash()
 
-            local bx, by = battler:getRelativePos(battler.width/2 + 4, battler.height/2 + 4)
+            local bx, by = battler:getRelativePos(battler.width / 2 + 4, battler.height / 2 + 4)
 
-            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by))
-            soul.color = Game:getPartyMember(Game.party[1].id).soul_color or { 1, 0, 0 }
+            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by, nil, Assets.getTexture("player/" .. battler.chara:getSoulFacing() .. "/heart_centered")))
+            soul.color = { battler.chara:getSoulColor() }
             soul.layer = 501
 
             local wait = function() return soul.t >= 500 end
@@ -210,7 +210,7 @@ function TitanSpawn:onAct(battler, name)
                 if #Game.battle.enemies == 0 then
                     Game.battle:setState("VICTORY")
                 end
-            end)
+            end, true)
         end)
         return
 	elseif name == "WakeKris" then
@@ -223,7 +223,7 @@ function TitanSpawn:onAct(battler, name)
 			end
 			battler:setAnimation("attack_unarmed")
 			Assets.playSound("ui_cancel_small")
-			Assets.playSound("damage",0.94)
+			Assets.playSound("damage", 0.94)
             local dmg_sprite = Sprite("effects/attack/slap_s")
             dmg_sprite:setOrigin(0.5, 0.5)
             dmg_sprite:setScale(1, 1)
@@ -286,7 +286,7 @@ end
 
 function TitanSpawn:onTurnEnd()
     self.phaseturn = self.phaseturn + 1
-	
+
     if self.phaseturn > 3 then
         self.phaseturn = 2
     end
@@ -334,6 +334,14 @@ function TitanSpawn:getEncounterText()
 	else
 		return super.getEncounterText(self)
 	end
+end
+
+function TitanSpawn:onPurifyStart()
+	self.x = self.x + 300
+end
+
+function TitanSpawn:onPurifyEnd()
+	self:spare()
 end
 
 return TitanSpawn
