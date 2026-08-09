@@ -206,11 +206,11 @@ function TitanSpawn:onAct(battler, name)
 
             local wait = function() return soul.t >= 500 end
             cutscene:wait(wait)
-            cutscene:after(function()
-                if #Game.battle.enemies == 0 then
+            if #Game.battle.enemies == 0 then
+                cutscene:after(function()
                     Game.battle:setState("VICTORY")
-                end
-            end, true)
+                end, true)
+            end
         end)
         return
 	elseif name == "WakeKris" then
@@ -329,7 +329,7 @@ end
 function TitanSpawn:getEncounterText()
 	if Game:getTension() < 64 and MathUtils.randomInt(100) < 4 then
 		return "* Smells like adrenaline."
-    elseif Game:getTension() >= 64 then 
+    elseif Game:getTension() >= 64 then
 		return "* The atmosphere feels tense...\n* (You can use [color:yellow]BANISH[color:reset]!)"
 	else
 		return super.getEncounterText(self)
