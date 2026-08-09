@@ -1297,3 +1297,29 @@ Utils.hook(Text,"drawChar", function(orig, self, node, state, use_color)
     end
     orig(self, node, state, use_color)
 end)
+
+function Mod:getPartyNPCProperties(map, pm_id)
+    if map.id == "floor2/dev/party" then
+        if pm_id == "kris" then
+            return { cutscene = "partyroom.kris" }
+        elseif pm_id == "susie" then
+            return { cutscene = "partyroom.susie", sprite = "wall_right" }
+        elseif pm_id == "ralsei" then
+            return { cutscene = "partyroom.ralsei", turn = true }
+        elseif pm_id == "noelle" then
+            return { cutscene = "partyroom.noelle", turn = true }
+        elseif pm_id == "berdly" then
+            return { cutscene = "partyroom.berdly", turn = true }
+        elseif pm_id == "hero" then
+            return { cutscene = "partyroom.hero", turn = true }
+        elseif pm_id == "dess" then
+            return { cutscene = "partyroom.dess", turn = true }
+        elseif pm_id == "pauling" then
+            return { cutscene = "partyroom.pauling" }
+        elseif pm_id == "mario" then
+            return { cutscene = "partyroom.mario", turn = true }
+        elseif pm_id == "ostarwalker" then
+            return { cutscene = "partyroom.ostarwalker", turn = true }
+        end
+    end
+end

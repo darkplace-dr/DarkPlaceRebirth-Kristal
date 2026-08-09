@@ -56,6 +56,7 @@ function DarkCharacterMenu:removeParty()
 		self.ui_cant_select:play()
 		self.heart_sprite:shake(0, 5)
 	else
+		self:spawnPartyMemberOnMap(self.sprites[self.selected].party)
 		Game:removePartyMember(self.sprites[self.selected].party.id)
 		if self.selected == 1 then
 			Game.world.player:remove()
@@ -67,6 +68,16 @@ function DarkCharacterMenu:removeParty()
 		end
 		self:partySprites()
 		self:selection(0)
+	end
+end
+
+function DarkCharacterMenu:spawnPartyMemberOnMap(party_member)
+	if not Game.world.map:allowsPartyNPCSpawn() then return end
+	local x, y, data = Game.world.map:getMarker(party_member.id)
+	if data ~= nil then
+		local actor = party_member:getActor()
+        local properties = Kristal.callEvent(KRISTAL_EVENT.getPartyNPCProperties, Game.world.map, party_member.id) or {}
+        Game.world:spawnNPC(actor, x, y, properties)
 	end
 end
 

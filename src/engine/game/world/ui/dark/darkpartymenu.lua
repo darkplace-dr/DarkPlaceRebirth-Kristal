@@ -83,6 +83,7 @@ function DarkPartyMenu:init(selected)
 
 	self.party_selected = 1
 
+	self.leader_x, self.leader_y = Game.world.player.x, Game.world.player.y
 end
 
 function DarkPartyMenu:selection(num)
@@ -169,6 +170,24 @@ function DarkPartyMenu:selection(num)
 	end
 end
 
+function DarkPartyMenu:removePartyMemberFromMap(party_member)
+	if not Game.world.map:allowsPartyNPCSpawn() then return end
+	local actor = party_member:getActor().id
+	if Game.world:getCharacter(actor) then
+		Game.world:getCharacter(actor):remove()
+	end
+end
+
+function DarkPartyMenu:spawnPartyMemberOnMap(party_member)
+	if not Game.world.map:allowsPartyNPCSpawn() then return end
+	local x, y, data = Game.world.map:getMarker(party_member.id)
+	if data ~= nil then
+		local actor = party_member:getActor()
+        local properties = Kristal.callEvent(KRISTAL_EVENT.getPartyNPCProperties, Game.world.map, party_member.id) or {}
+        Game.world:spawnNPC(actor, x, y, properties)
+	end
+end
+
 function DarkPartyMenu:update()
 	super.update(self)
 
@@ -230,13 +249,23 @@ function DarkPartyMenu:update()
 				local party = self.selected.char.id
 				local party_member = Game:getPartyMember(party)
 				if Game.party[self.slot_selected] then
+					self:removePartyMemberFromMap(party_member)
+					self:spawnPartyMemberOnMap(Game.party[self.slot_selected])
 					Game.party[self.slot_selected] = party_member
-					if self.slot_selected > 1 then
-						Game.world.followers[self.slot_selected - 1]:setActor(Game.party[self.slot_selected]:getActor())
+					if self.slot_selected == 1 then
+						Game.world.player:remove()
+						if Game.world.followers[1] then
+							Game.world.followers[1]:convertToPlayer()
+						else
+							Game.world:spawnPlayer(self.leader_x, self.leader_y, Game.party[1]:getActor())
+						end
 					else
-						Game.world.player:setActor(Game.party[1]:getActor())
+						if Game.world.followers[self.slot_selected - 1] then
+							Game.world.followers[self.slot_selected - 1]:remove()
+						end
 					end
 				else
+					self:removePartyMemberFromMap(party_member)
 					Game:addPartyMember(party)
 					if party == "noel" then
 						Game:setFlag("noel_SaveID", Noel:loadNoel()["SaveID"])

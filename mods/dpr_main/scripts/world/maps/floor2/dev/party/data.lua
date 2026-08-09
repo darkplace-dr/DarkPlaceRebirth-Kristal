@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -13,7 +13,8 @@ return {
   nextobjectid = 76,
   properties = {
     ["border"] = "dev",
-    ["music"] = "dev"
+    ["music"] = "dev",
+    ["spawn_party"] = true
   },
   tilesets = {
     {
@@ -30,7 +31,7 @@ return {
     },
     {
       name = "cctiles",
-      firstgid = 149,
+      firstgid = 152,
       filename = "../../../../tilesets/cctiles.tsx",
       exportfilename = "../../../../tilesets/cctiles.lua"
     }
@@ -132,6 +133,7 @@ return {
           width = 560,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -145,6 +147,7 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -158,6 +161,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -171,6 +175,7 @@ return {
           width = 120,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -184,6 +189,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -197,6 +203,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -210,6 +217,7 @@ return {
           width = 600,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -223,6 +231,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -236,6 +245,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -249,6 +259,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -262,6 +273,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -275,6 +287,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -288,6 +301,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -301,6 +315,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -314,6 +329,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -327,6 +343,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -340,6 +357,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -353,6 +371,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -366,6 +385,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -395,6 +415,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/dev/main_1",
@@ -411,6 +432,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -426,6 +448,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["default_state"] = true
@@ -441,6 +464,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -454,6 +478,7 @@ return {
           width = 62,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "partyroom.party",
@@ -487,6 +512,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -501,6 +527,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -515,6 +542,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -529,6 +557,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -543,6 +572,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -557,6 +587,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
@@ -571,179 +602,10 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 146,
           visible = true,
           properties = {}
-        },
-        {
-          id = 63,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 145,
-          y = 330,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "susie",
-            ["cutscene"] = "partyroom.susie",
-            ["sprite"] = "wall_right"
-          }
-        },
-        {
-          id = 64,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 330,
-          y = 420,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "hero",
-            ["cutscene"] = "partyroom.hero",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 68,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 690,
-          y = 224,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "dess",
-            ["cutscene"] = "partyroom.dess",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 69,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 464,
-          y = 240,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "noelle",
-            ["cutscene"] = "partyroom.noelle",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 71,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 304,
-          y = 290,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "kris",
-            ["cutscene"] = "partyroom.kris",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 73,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 624,
-          y = 290,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "mario",
-            ["cutscene"] = "partyroom.mario",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 74,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 676,
-          y = 290,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "pauling",
-            ["cutscene"] = "partyroom.pauling",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 75,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 830,
-          y = 500,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ostarwalker",
-            ["cutscene"] = "partyroom.ostarwalker",
-            ["sprite"] = "base"
-          }
-        },
-        {
-          id = 70,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 516,
-          y = 240,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "berdly",
-            ["cutscene"] = "partyroom.berdly",
-            ["facing"] = "down"
-          }
-        },
-        {
-          id = 72,
-          name = "npc",
-          type = "",
-          shape = "point",
-          x = 356,
-          y = 290,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "ralsei",
-            ["cutscene"] = "partyroom.ralsei",
-            ["facing"] = "down"
-          }
         },
         {
           id = 66,
@@ -755,6 +617,7 @@ return {
           width = 62,
           height = 104,
           rotation = 0,
+          opacity = 1,
           gid = 148,
           visible = true,
           properties = {}
@@ -785,6 +648,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -798,6 +662,147 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 71,
+          name = "kris",
+          type = "",
+          shape = "point",
+          x = 304,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "susie",
+          type = "",
+          shape = "point",
+          x = 145,
+          y = 330,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 72,
+          name = "ralsei",
+          type = "",
+          shape = "point",
+          x = 356,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 69,
+          name = "noelle",
+          type = "",
+          shape = "point",
+          x = 464,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 70,
+          name = "berdly",
+          type = "",
+          shape = "point",
+          x = 516,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "hero",
+          type = "",
+          shape = "point",
+          x = 330,
+          y = 420,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 73,
+          name = "mario",
+          type = "",
+          shape = "point",
+          x = 624,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 74,
+          name = "pauling",
+          type = "",
+          shape = "point",
+          x = 676,
+          y = 290,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 68,
+          name = "dess",
+          type = "",
+          shape = "point",
+          x = 690,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 75,
+          name = "ostarwalker",
+          type = "",
+          shape = "point",
+          x = 830,
+          y = 500,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -111,42 +111,32 @@ return {
         cutscene:hideNametag()
     end,
     dess = function(cutscene, event)
-        event:facePlayer()
         cutscene:showNametag("Dess")
         cutscene:text("* eyyy what's upp it's me Dess", "heckyeah", "dess")
         cutscene:hideNametag()
-        event:setFacing("down")
     end,
     noelle = function(cutscene, event)
-        event:facePlayer()
         cutscene:showNametag("Noelle")
         cutscene:text("* Oh,[wait:5] uh...[wait:5] Hey there.", "smile_closed", "noelle")
         cutscene:hideNametag()
-        event:setFacing("down")
     end,
     berdly = function(cutscene, event)
-        event:facePlayer()
         cutscene:showNametag("Berdly")
         cutscene:text("* Ah...[wait:5] Greetings,[wait:5] my fellow teammate.", "smirk", "berdly")
         cutscene:hideNametag()
-        event:setFacing("down")
     end,
     kris = function(cutscene, event)
         cutscene:text("* (They just stand in silence,[wait:5] seemingly looking in Susie's direction.)")
     end,
     ralsei = function(cutscene, event)
-        event:facePlayer()
         cutscene:showNametag("Ralsei")
         cutscene:text("* Oh,[wait:5] hello there![wait:5] You need anything?", "blush_smile", "ralsei")
         cutscene:hideNametag()
-        event:setFacing("down")
     end,
     mario = function(cutscene, event)
-        event:facePlayer()
         cutscene:showNametag("Mario")
         cutscene:text("* I wonder if they serve spaghetti in here", "main", "mario")
         cutscene:hideNametag()
-        event:setFacing("down")
     end,
     pauling = function(cutscene, event)
         cutscene:text("* (She seems to be concentrated on writing something down...)")

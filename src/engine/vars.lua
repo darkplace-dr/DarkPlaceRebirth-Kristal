@@ -309,6 +309,7 @@ KRISTAL_EVENT = {
     onDPUnlockPartyMember = "onDPUnlockPartyMember", -- player unlocked a new party member / in: Game:unlockPartyMember(member) / passes: string:member / returns: NONE
     onDPWarpBinUsed = "onDPWarpBinUsed", -- player used the warp bin / in: Game:unlockPartyMember(member) / passes: string:code, WarpBinCodeInfo?:action / returns: NONE
     drawScreen = "drawScreen", -- overrides drawing SCREEN_CANVAS and border / in: [HOOK]love.draw(...)J\love.load(args) / passes: Canvas:canvas / returns: bool
+    getPartyNPCProperties = "getPartyNPCProperties" -- get properties for party member NPCs spawned in rooms that allow them / at: Map:spawnPartyNPCs() / passes: Map:map, string:pm_id / returns: table
 }
 
 BUILTIN_DLCS = {"dpr_main", "dpr_light"}
