@@ -1,4 +1,4 @@
-local Timer, super = Utils.hookScript(Timer)
+local Timer, super = HookSystem.hookScript(Timer)
 
 ---@alias ease_in_out
 ---| "in"

@@ -28,6 +28,7 @@ function GueiChaser:init(data)
     self.can_chase = properties["chase"]
     self.chasing = properties["chasing"] or false
     self.chase_dist = properties["chasedist"] or 200
+    self.ignore_collision = properties["ignorecollision"] or true -- added that because in that one rooms Guei just attacks from above
 
     self.chase_type = properties["chasetype"] or "linear"
     self.chase_speed = properties["chasespeed"] or 9
@@ -100,7 +101,7 @@ function GueiChaser:update()
                 local in_radius = self.world.player:collidesWith(CircleCollider(self.world, self.x, self.y, self.chase_dist))
                 if in_radius then
                     local sight = LineCollider(self.world, self.x, self.y, self.world.player.x, self.world.player.y)
-                    if not self.world:checkCollision(sight, true) and not self.world:checkCollision(self.collider, true) then
+                    if self.ignore_collision or (not self.world:checkCollision(sight, true) and not self.world:checkCollision(self.collider, true)) then
 						if not self:getFlag("dont_chase", false) then
 							self.path = nil
 							self.chasing = true
