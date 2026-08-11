@@ -28,7 +28,7 @@ function Floradinn:init()
 
     self.text = {
         "* Floradinn is thinking out loud about your dad.",
-        "* Floradinn mutters how it likes flowers,[wait:5] then remembers it's a flower and smiles.", -- yes the wait thing is in Deltarune. Yes I was surprised too
+        "* Floradinn mutters how it likes flowers,[wait:5] then remembers it's a flower and smiles.", 
         "* Floradinn considers arranging itself beautifully with other enemies.",
         "* Floradinn has strong opinions about flowers."
     }
@@ -49,7 +49,7 @@ function Floradinn:selectWave()
     local waves = self:getNextWaves()
 
     if waves and #waves > 0 then
-        local wave = TableUtils.pick(waves)
+        local wave = Utils.pick(waves)
         if self.flattened or self:canSpare() then
             wave = "floradinn/homing_triangle"
         end
@@ -64,8 +64,10 @@ end
 
 function Floradinn:onAct(battler, name)
     if name == "Check" then
-        return "* Floradinn - Flowers are sweeter than diamonds...[wait:5] so it thinks." -- name is not in full uppercase so had to do that
+        return "* Floradinn - Flowers are sweeter than diamonds...[wait:5] so it thinks." 
+        
     elseif name == "Flatter" then
+        self:addMercy(60)
         Game:addFlag("floradinns_flattened", 1)
 		self.flattened = true
         self.dialogue_override = "Flowers,\nlast longer\nthan diamonds!"
@@ -74,51 +76,90 @@ function Floradinn:onAct(battler, name)
         else
             return "* You flattened Floradinn!"
         end
+        
     elseif name == "FlirtS" then
+        self:addMercy(100)
         self.dialogue_override = "Nice impression.\nReminds me of...\nFlowers."
-        return
+        
+        if not Game:getFlag("floradinn_flirts") then
+            Game:setFlag("floradinn_flirts", true)
+            Game.battle:startActCutscene(function(cutscene)
+                cutscene:text("* Susie gets ready to FLIRT!")
+                cutscene:text("* Heh, watch THIS. I'm way better at this now...!", "smirk", "susie")
+                cutscene:text("* ...", "neutral", "susie")
+                cutscene:text("* 'cept, I guess... if...", "shy", "susie")
+                cutscene:text("* If me and Noelle are... a thing...", "shy_down", "susie")
+                cutscene:text("* I should probably... save my flirts, right?", "nervous_side", "susie")
+                cutscene:text("* Susie got psyched out! You just did a flower impression instead!")
+            end)
+            return
+        else
+            return "* Susie abstains from flirting!\n* You did a flower impression!"
+        end
+        
     elseif name == "Convince" then
+        self:setTired(true)
         self.dialogue_override = "I'm tired.\nCan I just\nbeat someone up?"
-        return
+        
+        if not Game:getFlag("floradinn_convince") then
+            Game:setFlag("floradinn_convince", true)
+            Game.battle:startActCutscene(function(cutscene)
+                cutscene:text("* Ralsei tried to CONVINCE Floradinn!")
+                cutscene:text("* We don't want to fight you, Floradinn!", "pleased", "ralsei")
+                cutscene:text("* If you come to our side... we can all be friends!", "smile", "ralsei")
+                cutscene:text("* (Floradinn agreed!)")
+                cutscene:text("* (It's going to beat up everyone on its side!)")
+                cutscene:text("* Umm, w-wait! Don't do that!!", "surprise_frown", "ralsei")
+                cutscene:text("* (It seems confused... It became TIRED.)")
+            end)
+            return
+        else
+            return "* Ralsei made a boring speech!\n* Floradinn became increasingly TIRED!"
+        end
+        
     elseif name == "Standard" then
+        self:addMercy(40)
         if battler.chara.id == "susie" then
-            self:addMercy(40)
             local text = {
                 "* Susie sniffed wildly!",
                 "* Susie blasts hose water!",
                 "* Susie sneezes from pollen!"
             }
-            return TableUtils.pick(text)
+            return Utils.pick(text)
         elseif battler.chara.id == "ralsei" then
-            self:addMercy(40)
             local text = {
                 "* Ralsei pretends to be a bee!",
                 "* Ralsei waters daintily!",
                 "* Ralsei combs petals!"
             }
-            return TableUtils.pick(text)
+            return Utils.pick(text)
+        else
+
+            return "* "..battler.chara:getName().." does a flower impression!"
         end
     end
 end
 
 function Floradinn:onShortAct(battler, name)
     if name == "Standard" then
+        self:addMercy(40)
         if battler.chara.id == "susie" then
-            self:addMercy(40)
             local text = {
                 "* Susie sniffed wildly!",
                 "* Susie blasts hose water!",
                 "* Susie sneezes from pollen!"
             }
-            return TableUtils.pick(text)
+            return Utils.pick(text)
         elseif battler.chara.id == "ralsei" then
-            self:addMercy(40)
             local text = {
                 "* Ralsei pretends to be a bee!",
                 "* Ralsei waters daintily!",
                 "* Ralsei combs petals!"
             }
-            return TableUtils.pick(text)
+            return Utils.pick(text)
+        else
+
+            return "* "..battler.chara:getName().." poses like a flower!"
         end
     end
     return nil
@@ -142,11 +183,11 @@ function Floradinn:getEncounterText()
         return self.spareable_text
     end
 
-    if MathUtils.randomInt(100 + 1) < 3 then
+    if math.random(1, 100) <= 3 then
         return "* Oddly,[wait:5] it doesn't actually smell like flowers.[wait:5] Just like vines or grass."
     end
 
-    return TableUtils.pick(self.text)
+    return Utils.pick(self.text)
 end
 
 function Floradinn:getEnemyDialogue()
@@ -156,11 +197,11 @@ function Floradinn:getEnemyDialogue()
         return dialogue
     end
 
-    if MathUtils.randomInt(100 + 1) < 3 then
+    if math.random(1, 100) <= 3 then
         return "Do it for\nthe vine."
     end
 
-    return TableUtils.pick(self.dialogue)
+    return Utils.pick(self.dialogue)
 end
 
 return Floradinn
