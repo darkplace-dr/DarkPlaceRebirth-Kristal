@@ -100,7 +100,7 @@ function Floradinn:onAct(battler, name)
     elseif name == "Convince" then
         self:setTired(true)
         self.dialogue_override = "I'm tired.\nCan I just\nbeat someone up?"
-        
+        -- don't even think ralsei is in the game, but for completetion's sake
         if not Game:getFlag("floradinn_convince") then
             Game:setFlag("floradinn_convince", true)
             Game.battle:startActCutscene(function(cutscene)
