@@ -109,7 +109,7 @@ function Floradinn:onAct(battler, name)
                 cutscene:text("* If you come to our side... we can all be friends!", "smile", "ralsei")
                 cutscene:text("* (Floradinn agreed!)")
                 cutscene:text("* (It's going to beat up everyone on its side!)")
-                cutscene:text("* Umm, w-wait! Don't do that!!", "surprise_frown", "ralsei")
+                cutscene:text("* Umm, w-wait! Don't do that!!", "shock", "ralsei")
                 cutscene:text("* (It seems confused... It became TIRED.)")
             end)
             return
