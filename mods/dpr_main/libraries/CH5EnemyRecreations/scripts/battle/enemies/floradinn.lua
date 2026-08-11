@@ -49,7 +49,7 @@ function Floradinn:selectWave()
     local waves = self:getNextWaves()
 
     if waves and #waves > 0 then
-        local wave = Utils.pick(waves)
+        local wave = TableUtils.pick(waves)
         if self.flattened or self:canSpare() then
             wave = "floradinn/homing_triangle"
         end
@@ -81,15 +81,16 @@ function Floradinn:onAct(battler, name)
         self:addMercy(100)
         self.dialogue_override = "Nice impression.\nReminds me of...\nFlowers."
         
-        if not Game:getFlag("floradinn_flirts") then
-            Game:setFlag("floradinn_flirts", true)
+        if not self.flirt_acted then
+            self.flirt_acted = true
             Game.battle:startActCutscene(function(cutscene)
                 cutscene:text("* Susie gets ready to FLIRT!")
-                cutscene:text("* Heh, watch THIS. I'm way better at this now...!", "smirk", "susie")
+                cutscene:text("* Heh, watch THIS. I've been practicing!", "smirk", "susie")
                 cutscene:text("* ...", "neutral", "susie")
-                cutscene:text("* 'cept, I guess... if...", "shy", "susie")
-                cutscene:text("* If me and Noelle are... a thing...", "shy_down", "susie")
-                cutscene:text("* I should probably... save my flirts, right?", "nervous_side", "susie")
+                
+                -- Rewritten
+                cutscene:text("* I said I'd go the festival with Noelle...", "shy", "susie")
+                cutscene:text("* Wouldn't it be weird to flirt with someone else...?", "nervous_side", "susie")
                 cutscene:text("* Susie got psyched out! You just did a flower impression instead!")
             end)
             return
@@ -100,9 +101,9 @@ function Floradinn:onAct(battler, name)
     elseif name == "Convince" then
         self:setTired(true)
         self.dialogue_override = "I'm tired.\nCan I just\nbeat someone up?"
-        -- don't even think ralsei is in the game, but for completetion's sake
-        if not Game:getFlag("floradinn_convince") then
-            Game:setFlag("floradinn_convince", true)
+        
+        if not self.convince_acted then
+            self.convince_acted = true
             Game.battle:startActCutscene(function(cutscene)
                 cutscene:text("* Ralsei tried to CONVINCE Floradinn!")
                 cutscene:text("* We don't want to fight you, Floradinn!", "pleased", "ralsei")
@@ -125,16 +126,15 @@ function Floradinn:onAct(battler, name)
                 "* Susie blasts hose water!",
                 "* Susie sneezes from pollen!"
             }
-            return Utils.pick(text)
+            return TableUtils.pick(text)
         elseif battler.chara.id == "ralsei" then
             local text = {
                 "* Ralsei pretends to be a bee!",
                 "* Ralsei waters daintily!",
                 "* Ralsei combs petals!"
             }
-            return Utils.pick(text)
+            return TableUtils.pick(text)
         else
-
             return "* "..battler.chara:getName().." does a flower impression!"
         end
     end
@@ -149,16 +149,15 @@ function Floradinn:onShortAct(battler, name)
                 "* Susie blasts hose water!",
                 "* Susie sneezes from pollen!"
             }
-            return Utils.pick(text)
+            return TableUtils.pick(text)
         elseif battler.chara.id == "ralsei" then
             local text = {
                 "* Ralsei pretends to be a bee!",
                 "* Ralsei waters daintily!",
                 "* Ralsei combs petals!"
             }
-            return Utils.pick(text)
+            return TableUtils.pick(text)
         else
-
             return "* "..battler.chara:getName().." poses like a flower!"
         end
     end
@@ -183,11 +182,11 @@ function Floradinn:getEncounterText()
         return self.spareable_text
     end
 
-    if math.random(1, 100) <= 3 then
+    if MathUtils.randomInt(100 + 1) <= 3 then
         return "* Oddly,[wait:5] it doesn't actually smell like flowers.[wait:5] Just like vines or grass."
     end
 
-    return Utils.pick(self.text)
+    return TableUtils.pick(self.text)
 end
 
 function Floradinn:getEnemyDialogue()
@@ -197,11 +196,11 @@ function Floradinn:getEnemyDialogue()
         return dialogue
     end
 
-    if math.random(1, 100) <= 3 then
+    if MathUtils.randomInt(100 + 1) <= 3 then
         return "Do it for\nthe vine."
     end
 
-    return Utils.pick(self.dialogue)
+    return TableUtils.pick(self.dialogue)
 end
 
 return Floradinn
