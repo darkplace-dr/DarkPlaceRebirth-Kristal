@@ -43,8 +43,8 @@ function lib:onRegistered()
     ---@type table<string, CodeBlock>
     self.codeblocks = {}
 
-    for _,path,block in Registry.iterScripts("codeblocks", true) do
-        assert(block ~= nil, '"codeblocks/'..path..'.lua" does not return value')
+    for _, path,block in Registry.iterScripts("codeblocks", true) do
+        assert(block ~= nil, '"codeblocks/' .. path .. '.lua" does not return value')
         block.id = block.id or path
         self.codeblocks[block.id] = block
     end
@@ -64,7 +64,7 @@ end
 function lib:onPause()
     if Game.tutorial then
         PauseLib.paused = false
-        Assets.playSound("ui_cant_select",1.5)
+        Assets.playSound("ui_cant_select", 1.5)
     end
 end
 
@@ -80,15 +80,15 @@ local function handleRetroSave(data)
     local diff_data = {}
 
     -- Magical Glass update replaced "custom/<id>" with "mg/<id>"
-    for id,party_data in pairs(data.party_data) do
-        for flag,value in pairs(party_data.flags) do
+    for id, party_data in pairs(data.party_data) do
+        for flag, value in pairs(party_data.flags) do
             if type(value) == "string" then
                 local old_custom, item_id = StringUtils.startsWith(value, "custom/")
-                if old_custom and Registry.getItem("mg/"..item_id) then
-                    Kristal.Console:log("Old Magical Glass Item ID detected. Replacing \"custom/"..item_id.."\" with \"mg/"..item_id.."\"!")
-                    data.party_data[id].flags[flag] = "mg/"..item_id
+                if old_custom and Registry.getItem("mg/" .. item_id) then
+                    Kristal.Console:log("Old Magical Glass Item ID detected. Replacing \"custom/" .. item_id .. "\" with \"mg/" .. item_id .. "\"!")
+                    data.party_data[id].flags[flag] = "mg/" .. item_id
                     table.insert(diff_data, {
-                        value = "mg/"..item_id,
+                        value = "mg/" .. item_id,
                         path = {"party_data", id, "flags", flag}
                     })
                     data_changed = true
@@ -102,7 +102,7 @@ local function handleRetroSave(data)
     if TableUtils.contains(jamm_data.spells, "supersling") then
         local sling_index = 1
         -- This is probably redundant with TableUtils.contains() just above but eh whatever
-        for i,v in ipairs(jamm_data.spells) do
+        for i, v in ipairs(jamm_data.spells) do
             if v == "supersling" then
                 sling_index = i
                 jamm_data.spells[sling_index] = "healsling"
@@ -125,7 +125,6 @@ local function handleRetroSave(data)
         data_changed = true
     end
 
-
     return data_changed, diff_data
 end
 
@@ -136,7 +135,7 @@ local function applyRetroChangesToSave(base_data, diff)
         for i = 1, #patch.path - 1 do
             target = target[patch.path[i]]
         end
-        
+
         target[patch.path[#patch.path]] = patch.value
     end
 
@@ -162,15 +161,15 @@ function lib:postLoad()
         Kristal.Console:log("Save data was changed for retrocompatibility. Creating backup and saving!")
         local time = os.date("*t")
         -- This level of details is useless, yes. But I like wasting computer ressources
-        local time_id = 
-                        StringUtils.pad(tostring(time.year or 0), 4, true, "0").. -- Just in case someone plays Dark Place in the year 654
-                        StringUtils.pad(tostring(time.month or 0), 2, true, "0")..
-                        StringUtils.pad(tostring(time.day or 0), 2, true, "0")..
-                        StringUtils.pad(tostring(time.hour or 0), 2, true, "0")..
-                        StringUtils.pad(tostring(time.min or 0), 2, true, "0")..
+        local time_id =
+                        StringUtils.pad(tostring(time.year or 0), 4, true, "0") .. -- Just in case someone plays Dark Place in the year 654
+                        StringUtils.pad(tostring(time.month or 0), 2, true, "0") ..
+                        StringUtils.pad(tostring(time.day or 0), 2, true, "0") ..
+                        StringUtils.pad(tostring(time.hour or 0), 2, true, "0") ..
+                        StringUtils.pad(tostring(time.min or 0), 2, true, "0") ..
                         StringUtils.pad(tostring(time.sec or 0), 2, true, "0")
         local data = Kristal.getSaveFile()
-        love.filesystem.write("saves" .. "/file_" .. (Game.save_id or "unknown") .. "_"..time_id..".json_backup", JSON.encode(data))
+        love.filesystem.write("saves" .. "/file_" .. (Game.save_id or "unknown") .. "_" .. time_id .. ".json_backup", JSON.encode(data))
         Kristal.saveGame(nil, applyRetroChangesToSave(data, self.diff_data))
         TableUtils.clear(self.diff_data)
         self.diff_data = nil
@@ -179,40 +178,40 @@ function lib:postLoad()
 
     if not love.filesystem.getInfo("saves/achievements.json") then
         local data = {}
-        
+
         love.filesystem.createDirectory("saves/")
         love.filesystem.write("saves/achievements.json", JSON.encode(data))
     end
-    
+
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
-    
+
     if not data[Mod.info.id] then
         data[Mod.info.id] = {}
     end
-    
+
     if love.filesystem.getInfo(Mod.info.path .. "/achievements.lua") then
         local chunk = love.filesystem.load(Mod.info.path .. "/achievements.lua")
         success, result = pcall(chunk, Mod.info.path)
         if success then
             self.current_loaded_achievements = result
-            
+
             for i,ach in ipairs(result) do
                 if not data[Mod.info.id][ach.id] then
                     local info = {
                         progress = 0,
                         earned = false
                     }
-                    
+
                     if ach.data then
                         info = TableUtils.merge(info, ach.data)
                     end
-                    
+
                     data[Mod.info.id][ach.id] = info
                 end
             end
         end
     end
-    
+
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
@@ -257,16 +256,16 @@ end
 function lib:getAchProgress(achievement)
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
     local ach = data[Mod.info.id][achievement]
-	
+
     return ach.progress
 end
 
 function lib:addAchProgress(achievement, number)
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
     local ach = data[Mod.info.id][achievement]
-	
+
     data[Mod.info.id][achievement].progress = data[Mod.info.id][achievement].progress + (number or 1)
-	
+
 	if ach.steps then
 		if data[Mod.info.id][achievement].progress >= ach.steps then
 			self:completeAchievement(achievement)
@@ -274,16 +273,16 @@ function lib:addAchProgress(achievement, number)
 	else
 		self:completeAchievement(achievement)
 	end
-	
+
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
 function lib:setAchProgress(achievement, number)
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
     local ach = data[Mod.info.id][achievement]
-	
+
     data[Mod.info.id][achievement].progress = number
-	
+
 	if ach.steps then
 		if data[Mod.info.id][achievement].progress >= ach.steps then
 			self:completeAchievement(achievement)
@@ -291,40 +290,40 @@ function lib:setAchProgress(achievement, number)
 	else
 		self:completeAchievement(achievement)
 	end
-	
+
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
 function lib:completeAchievement(achievement)
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
     local ach = data[Mod.info.id][achievement]
-	
+
     if not data[Mod.info.id][achievement].earned then
         data[Mod.info.id][achievement].earned = true
-		
+
         local achi
         for k,v in ipairs(self.current_loaded_achievements) do
             if v.id == achievement then
                 achi = v
             end
         end
-        
+
         apu = AchievementPopUp(achi)
         Game.stage:addChild(apu)
     end
-	
+
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
 function lib:completeAchievementFor(dlc, achievement)
     local data = JSON.decode(love.filesystem.read("saves/achievements.json"))
     local ach = data[dlc][achievement]
-	
+
     if not data[dlc][achievement].earned then
         data[dlc][achievement].earned = true
-		
+
         local achi
-        
+
         if love.filesystem.getInfo(Kristal.Mods.getMod(dlc).path .. "/achievements.lua") then
             local chunk = love.filesystem.load(Kristal.Mods.getMod(dlc).path .. "/achievements.lua")
             success, result = pcall(chunk, Kristal.Mods.getMod(dlc).path)
@@ -334,7 +333,7 @@ function lib:completeAchievementFor(dlc, achievement)
                         achi = ach
                     end
                 end
-                
+
                 if achi.border then
                     achi.border = love.graphics.newImage(Kristal.Mods.getMod(dlc).path .. "/assets/sprites/achievements/frames/" .. achi.border .. ".png")
                 end
@@ -345,16 +344,16 @@ function lib:completeAchievementFor(dlc, achievement)
                 error("Achievements don't exist for DLC " .. dlc)
             end
         end
-        
+
         apu = AchievementPopUp(achi)
         Game.stage:addChild(apu)
     end
-	
+
     love.filesystem.write("saves/achievements.json", JSON.encode(data))
 end
 
 function lib:addEventTime(time_added)
-    for k,_ in pairs(Game:getFlag("PROMISES", {})) do
+    for k, _ in pairs(Game:getFlag("PROMISES", {})) do
         Game:getFlag("PROMISES")[k] = Game:getFlag("PROMISES")[k] - time_added
     end
     self:checkPromises()
@@ -420,26 +419,46 @@ end
 
 function lib:loadHooks()
     if MagicalGlassLib then
-        Utils.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
+        HookSystem.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
             orig(self)
             self.service_mercy = 20
         end)
-        Utils.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
-            if Game:getFlag("marcy_joined") then
-                self:registerShortActFor("jamm", name, description, party, tp, highlight, icons)
-                self.acts[#self.acts].color = {0, 1, 1}
-            end
-        end)
-        Utils.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
-            if Game:getFlag("marcy_joined") then
-                self:registerActFor("jamm", name, description, party, tp, highlight, icons)
-                self.acts[#self.acts].color = {0, 1, 1}
-            end
-        end)
-        Utils.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
-        Utils.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
+        HookSystem.hook(LightEnemyBattler, "registerAssistAct", function(orig, self, party_member, mini, name, description, party, tp, highlight, icons)
+            if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
+            if not Game:getPartyMember(party_member):getAssistID(--[[For some reason, there was a `mini` parameter here???]]) then return end
+            self:registerActFor(party_member, name, description, party, tp, highlight, icons)
 
-        Utils.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...)
+            local color = { Game:getPartyMember(party_member):getAssistColor() }
+
+            self.acts[#self.acts].color = color
+        end)
+        HookSystem.hook(LightEnemyBattler, "registerShortAssistAct", function(orig, self, party, mini, name, description, party, tp, highlight, icons)
+            if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
+            if not Game:getPartyMember(party_member):getAssistID(--[[For some reason, there was a `mini` parameter here???]]) then return end
+            self:registerShortActFor(party_member, name, description, party, tp, highlight, icons)
+
+            local color = { Game:getPartyMember(party_member):getAssistColor() }
+
+            self.acts[#self.acts].color = color
+        end)
+        HookSystem.hook(LightEnemyBattler, "registerMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            local info = debug.getinfo(2, "Sln")
+            love.timer.sleep(1)
+            Kristal.Console:warn("Deprecated LightEnemyBattler:registerMarcyAct used!")
+            Kristal.Console:warn(info.source .. ":" .. info.currentline)
+            self:registerAssistAct("jamm", "marcy", name, description, party, tp, highlight, icons)
+        end)
+        HookSystem.hook(LightEnemyBattler, "registerShortMarcyAct", function(orig, self, name, description, party, tp, highlight, icons)
+            local info = debug.getinfo(2, "Sln")
+            love.timer.sleep(1)
+            Kristal.Console:warn("Deprecated LightEnemyBattler:registerMarcyAct used!")
+            Kristal.Console:warn(info.source .. ":" .. info.currentline)
+            self:registerShortAssistAct("jamm", "marcy", name, description, party, tp, highlight, icons)
+        end)
+        HookSystem.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
+        HookSystem.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
+
+        HookSystem.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...)
             local enemy_obj
             if type(enemy) == "string" then
                 enemy_obj = MagicalGlassLib:createLightEnemy(enemy, ...)
@@ -454,7 +473,7 @@ function lib:loadHooks()
             return orig(self, enemy, x, y, ...)
         end)
 
-        Utils.hook(LightStatMenu, "draw", function(orig, self)
+        HookSystem.hook(LightStatMenu, "draw", function(orig, self)
             love.graphics.setFont(self.font)
             Draw.setColor(PALETTE["world_text"])
 
@@ -470,15 +489,17 @@ function lib:loadHooks()
             end
 
             if Game:getFlag("SHINY", {})[party.actor:getShinyID()] and not (Game.world and Game.world.map.dont_load_shiny) then
-                Draw.setColor({235/255, 235/255, 130/255})
+                Draw.setColor({ 235 / 255, 235 / 255, 130 / 255 })
             end
 
             love.graphics.print("\"" .. party:getName() .. "\"", 4, 8)
-
             Draw.setColor(PALETTE["world_text"])
-
-            if party:getLightStatText() and not party:getLightPortrait() then
-                love.graphics.print(party:getLightStatText(), 172, 8)
+            if party:getLightStatText() then
+                if party:getLightPortrait() then
+                    Draw.printAlign(party:getLightStatText(), 222, 116, {align = "center", line_offset = -10})
+                else
+                    love.graphics.print(party:getLightStatText(), 172, 8)
+                end
             end
 
             local ox, oy = party.actor:getPortraitOffset()
@@ -489,20 +510,23 @@ function lib:loadHooks()
             if #Game.party > 1 then
                 if self.state == "STATS" or self.state == "SPELLS" then
                     Draw.setColor(Game:getSoulColor())
-                    Draw.draw(self.heart_sprite, 212, 124, 0, 2, 2)
+                    Draw.draw(self.heart_sprite, 54, 46, 0, 2, 2)
                 end
 
                 Draw.setColor(PALETTE["world_text"])
-                love.graphics.print("<                >", 162, 116)
+                love.graphics.print("<                >", 4, 38)
             end
 
             Draw.setColor(PALETTE["world_text"])
 
-            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short").."  "..party:getLightLV(), 4, 68)
-            love.graphics.print("HP  "..party:getHealth().." / "..party:getStat("health"), 4, 100)
+            love.graphics.print(Kristal.getLibConfig("magical-glass", "light_level_name_short") .. "  " .. party:getLightLV(), 4, 68)
+            love.graphics.print("HP  " .. party:getHealth() .. " / " .. party:getStat("health"), 4, 100)
 
             if self.state == "STATS" then
-                local exp_needed = math.max(0, party:getLightEXPNeeded(party:getLightLV() + 1) - party:getLightEXP())
+                local exp_needed = party:getLightEXPNeeded()
+                if TableUtils.every({party:getLightLV(), exp_needed, party:getLightEXP()}, function(v) return type(v) == "number" end) then
+                    exp_needed = math.max(0, party:getLightEXPNeeded(party:getLightLV() + 1) - party:getLightEXP())
+                end
 
                 local at = party:getBaseStats()["attack"]
                 local df = party:getBaseStats()["defense"]
@@ -517,14 +541,13 @@ function lib:loadHooks()
                 if self.show_magic then
                     offset = 16
                     love.graphics.print("MG  ", 4, 228 - offset)
-                    love.graphics.print(mg  .. " ("..party:getEquipmentBonus("magic")   .. ")", 44, 228 - offset) -- alinging the numbers with the rest of the stats
+                    love.graphics.print(mg .. " (" .. party:getEquipmentBonus("magic") .. ")", 44, 228 - offset) -- alinging the numbers with the rest of the stats
                 end
-                love.graphics.print("AT  "  .. at  .. " ("..party:getEquipmentBonus("attack")  .. ")", 4, 164 - offset)
-                love.graphics.print("DF  "  .. df  .. " ("..party:getEquipmentBonus("defense") .. ")", 4, 196 - offset)
-
+                love.graphics.print("AT  " .. at .. " (" .. party:getEquipmentBonus("attack") .. ")", 4, 164 - offset)
+                love.graphics.print("DF  " .. df .. " (" .. party:getEquipmentBonus("defense") .. ")", 4, 196 - offset)
                 if party.id ~= "pauling" then
                     love.graphics.print("EXP: " .. party:getLightEXP(), 172, 164)
-                    love.graphics.print("NEXT: ".. exp_needed, 172, 196)
+                    love.graphics.print("NEXT: " .. exp_needed, 172, 196)
                 else
                     love.graphics.print("MILESTONE", 172, 164)
                 end
@@ -540,12 +563,12 @@ function lib:loadHooks()
                     armor_name = party:getArmor(1):getEquipDisplayName()
                 end
 
-                love.graphics.print("WEAPON: "..weapon_name, 4, 256)
-                love.graphics.print("ARMOR: "..armor_name, 4, 288)
+                love.graphics.print("WEAPON: " .. weapon_name, 4, 256)
+                love.graphics.print("ARMOR: " .. armor_name, 4, 288)
 
-                love.graphics.print(Game:getConfig("lightCurrency"):upper()..": "..Game.lw_money, 4, 328)
-                if MagicalGlassLib.kills > 20 then
-                    love.graphics.print("KILLS: "..MagicalGlassLib.kills, 172, 328)
+                love.graphics.print(Game:getConfig("lightCurrency"):upper() .. ": " .. Game.lw_money, 4, 328)
+                if Mod.libs["magical-glass"].kills > 20 then
+                    love.graphics.print("KILLS: " .. Mod.libs["magical-glass"].kills, 172, 328)
                 end
 
                 if self.show_magic then
@@ -571,7 +594,7 @@ function lib:loadHooks()
                     local spell = spells[i]
                     local offset = i - self.scroll_y
 
-                    love.graphics.print(tostring(spell:getTPCost(party)).."%", 20, 148 + offset * 32)
+                    love.graphics.print(tostring(spell:getTPCost(party)) .. "%", 20, 148 + offset * 32)
                     love.graphics.print(spell:getName(), 90, 148 + offset * 32)
                 end
 
@@ -593,7 +616,7 @@ function lib:loadHooks()
                     -- Move the arrows up and down only if we're in the spell selection state
                     local sine_off = 0
                     if self.state == "SELECTINGSPELL" then
-                        sine_off = math.sin((Kristal.getTime()*30)/12) * 3
+                        sine_off = math.sin((Kristal.getTime() * 30) / 12) * 3
                     end
 
                     if self.scroll_y > 1 then
@@ -613,49 +636,45 @@ function lib:loadHooks()
                     love.graphics.rectangle("fill", 294, 148 + 30, 6, scrollbar_height)
                     local percent = (self.scroll_y - 1) / (#spells - spell_limit)
                     Draw.setColor(1, 1, 1)
-                    love.graphics.rectangle("fill", 294, 148 + 30 + math.floor(percent * (scrollbar_height-6)), 6, 6)
+                    love.graphics.rectangle("fill", 294, 148 + 30 + math.floor(percent * (scrollbar_height - 6)), 6, 6)
                 end
 
                 if self.state == "PARTYSELECT" then
                     love.graphics.setStencilTest()
                     Draw.setColor(PALETTE["world_text"])
 
-                    local z = Mod.libs["moreparty"] and Kristal.getLibConfig("moreparty", "classic_mode") and 3 or 4
+                    local z = Mod.libs["moreparty"] and Mod.libs["moreparty"]:getPartyPerRowAmount()
 
-                    Draw.printAlign("Use " .. spells[self.spell_selecting]:getName() .. " on", 150, 231 + (#Game.party > z and 18 or 56), "center")
+                    Draw.printAlign("Cast " .. spells[self.spell_selecting]:getName() .. " on", 150, 231 + (#Game.party > z and 18 or 56), "center")
 
-                    for i,party in ipairs(Game.party) do
+                    for i, party_mem in ipairs(Game.party) do
                         if i <= z then
-                            love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 269 + (#Game.party > z and 18 or 56))
+                            love.graphics.print(party_mem:getShortName(), 63 - (math.min(#Game.party, z) - 2) * 70 + (i - 1) * 122, 269 + (#Game.party > z and 18 or 56))
                         else
-                            love.graphics.print(party:getShortName(), 63 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 269 + 38 + (#Game.party > z and 18 or 56))
+                            love.graphics.print(party_mem:getShortName(), 63 - (math.min(#Game.party - z, z) - 2) * 70 + (i - 1 - z) * 122, 269 + 38 + (#Game.party > z and 18 or 56))
                         end
                     end
 
                     Draw.setColor(Game:getSoulColor())
-                    for i,party in ipairs(Game.party) do
+                    for i, party_mem in ipairs(Game.party) do
                         if i == self.party_selecting_spell then
                             if i <= z then
-                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party,z) - 2) * 70 + (i - 1) * 122, 277 + (#Game.party > z and 18 or 56), 0, 2, 2)
+                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party, z) - 2) * 70 + (i - 1) * 122, 277 + (#Game.party > z and 18 or 56), 0, 2, 2)
                             else
-                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party - z,z) - 2) * 70 + (i - 1 - z) * 122, 277 + 38 + (#Game.party > z and 18 or 56), 0, 2, 2)
+                                Draw.draw(self.heart_sprite, 39 - (math.min(#Game.party - z, z) - 2) * 70 + (i - 1 - z) * 122, 277 + 38 + (#Game.party > z and 18 or 56), 0, 2, 2)
                             end
                         end
                     end
-                else
+                elseif Game:getConfig("overworldSpells") then
                     Draw.setColor(PALETTE["world_text"])
                     if self.state ~= "SPELLS" and not self:canCast(spells[self.spell_selecting]) then
                         Draw.setColor(PALETTE["world_gray"])
                     end
-                    love.graphics.print("USE" , 20 + 32 , 340)
+                    love.graphics.print("USE", 20 + 32, 340)
                     Draw.setColor(PALETTE["world_text"])
                     love.graphics.print("INFO", 230 - 32, 340)
                 end
             end
-            love.graphics.setFont(self.font)
-            local party = Game.party[self.party_selecting]
-
-            Draw.setColor(COLORS.white)
         end)
     end
 end
@@ -665,7 +684,7 @@ function lib:isTauntingAvaliable()
     if self.let_me_taunt then return true end
     if Game:isSpecialMode("PEPPINO") then return true end
 
-    for _,party in ipairs(Game.party) do
+    for _, party in ipairs(Game.party) do
         if party:checkArmor("pizza_toque") then return true end
     end
 
@@ -676,18 +695,17 @@ end
 function lib:initTaunt()
     self.taunt_lock_movement = false
     --[[
-    Utils.hook(Actor, "init", function(orig, self)
+    HookSystem.hook(Actor, "init", function(orig, self)
         orig(self)
         self.taunt_sprites = {}
     end)
     --]]
-    Utils.hook(Player, "isMovementEnabled",
+    HookSystem.hook(Player, "isMovementEnabled",
         ---@overload fun(orig:function, self:Player) : boolean
         function(orig, self)
             return not self.taunt_lock_movement and orig(self)
         end
     )
-
 end
 
 function lib:updateTaunt()
@@ -700,7 +718,7 @@ function lib:updateTaunt()
     then
         local any_taunted = false
 
-        for _,chara in ipairs(Game.stage:getObjects(Character)) do
+        for _, chara in ipairs(Game.stage:getObjects(Character)) do
             if not chara.actor or not chara.visible then goto continue end
 
             -- workaround due to actors being loaded first by registry
@@ -709,15 +727,15 @@ function lib:updateTaunt()
 
             any_taunted = true
 
-            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width/2, chara.height/2))
+            local shine = Sprite("effects/taunt", chara:getRelativePos(chara.width / 2, chara.height / 2))
             shine:setOrigin(0.5, 0.5)
             shine:setScale(1)
             chara.layer = chara.layer + 0.1
             shine.layer = chara.layer - 0.1
             Game.world:addChild(shine)
 
-            chara.sprite:set(Utils.pick(sprites))
-            shine:play(1/30, false, function()
+            chara.sprite:set(TableUtils.pick(sprites))
+            shine:play(1 / 30, false, function()
                 shine:remove()
                 chara:resetSprite()
                 chara.layer = chara.layer - 0.1
@@ -739,11 +757,11 @@ function lib:updateTaunt()
             Game.world.player:resetFollowerHistory()
 
             self.taunt_lock_movement = true
-            Game.world.timer:after(1/3, function()
+            Game.world.timer:after(1 / 3, function()
                 self.taunt_lock_movement = false
             end)
 
-            Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+            Assets.playSound("taunt", 0.5, MathUtils.random(0.9, 1.1))
         end
     end
 end
@@ -767,16 +785,16 @@ end
 
 function lib:updateBattleTaunt()
     if
-        Game:isTauntingAvaliable()
+        DP:isTauntingAvaliable()
         and Input.pressed("taunt", false)
         and self.taunt_cooldown == 0
         and (Game.state == "BATTLE" and not Game.battle:hasCutscene())
-        and not Utils.containsValue(self.state_blacklist, Game.battle.state)
+        and not TableUtils.contains(self.state_blacklist, Game.battle.state)
         and not (OVERLAY_OPEN or TextInput.active)
     then
         self.taunt_cooldown = 2.1
 
-        Assets.playSound("taunt", 0.5, Utils.random(0.9, 1.1))
+        Assets.playSound("taunt", 0.5, MathUtils.random(0.9, 1.1))
 
         for _,chara in ipairs(Game.battle.party) do
             if not chara.actor or chara.is_down then goto continue end
@@ -792,8 +810,8 @@ function lib:updateBattleTaunt()
             Game.battle:addChild(shine)
 
             chara:toggleOverlay(true)
-            chara.overlay_sprite:setSprite(Utils.pick(sprites))
-            shine:play(1/30, false, function()
+            chara.overlay_sprite:setSprite(TableUtils.pick(sprites))
+            shine:play(1 / 30, false, function()
                 shine:remove()
                 chara:toggleOverlay(false)
             end)
@@ -803,7 +821,7 @@ function lib:updateBattleTaunt()
 
     end
 
-    self.taunt_cooldown = Utils.approach(self.taunt_cooldown, 0, DT)
+    self.taunt_cooldown = MathUtils.approach(self.taunt_cooldown, 0, DT)
 end
 
 ---@param world World
@@ -872,16 +890,16 @@ function lib:getRankedDoorStatus(rank)
     local door_ranks_status = Game:getFlag("tvfloor_ranking_doors")
     if door_ranks_status == nil then
         door_ranks_status = {}
-        for i,rank in ipairs(valid_ranks) do
+        for i, rank in ipairs(valid_ranks) do
             door_ranks_status[rank] = false
         end
     end
-    assert(type(rank) == "string", "The given rank was "..type(rank)..". Should be a string.")
+    assert(type(rank) == "string", "The given rank was " .. type(rank) .. ". Should be a string.")
     rank = rank:upper()
 
     if not TableUtils.contains(TableUtils.getKeys(door_ranks_status), rank) then
         if not TableUtils.contains(valid_ranks, rank) then
-            error("The given rank ("..rank..") is not valid.")
+            error("The given rank (" .. rank .. ") is not valid.")
         else
             door_ranks_status[rank] = false
         end
@@ -895,17 +913,17 @@ function lib:setRankedDoorStatus(rank, bool)
     local door_ranks_status = Game:getFlag("tvfloor_ranking_doors")
     if door_ranks_status == nil then
         door_ranks_status = {}
-        for i,rank in ipairs(valid_ranks) do
+        for i, rank in ipairs(valid_ranks) do
             door_ranks_status[rank] = false
         end
     end
 
-    assert(type(rank) == "string", "The given rank was "..type(rank)..". Should be a string.")
-    assert(type(bool) == "boolean", "The given value was "..type(bool)..". Should be a boolean.")
+    assert(type(rank) == "string", "The given rank was " .. type(rank) .. ". Should be a string.")
+    assert(type(bool) == "boolean", "The given value was " .. type(bool) .. ". Should be a boolean.")
     rank = rank:upper()
 
     if not TableUtils.contains(TableUtils.getKeys(door_ranks_status), rank) and not TableUtils.contains(valid_ranks, rank) then
-        error("The given rank ("..rank..") is not valid.")
+        error("The given rank (" .. rank .. ") is not valid.")
     end
 
     door_ranks_status[rank] = bool
