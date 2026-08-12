@@ -3341,9 +3341,27 @@ function LightBattle:onKeyPressed(key)
         end
         if key == "k" then
             Game:setTension(Game:getMaxTension())
+            Assets.playSound("cardrive", 0.8, 1.4)
+
+            if self.tension_bar ~= nil then
+                self.tension_bar:flash()
+            end
         end
         if key == "n" then
             NOCLIP = not NOCLIP
+            if NOCLIP then
+                Assets.playSound("petrify")
+            else
+                Assets.playSound("bump")
+            end
+        end
+        if key == "i" then
+            INVINCIBILITY = not INVINCIBILITY
+            if INVINCIBILITY then
+                Assets.playSound("sparkle_glock")
+            else
+                Assets.playSound("bump")
+            end
         end
     end
 
