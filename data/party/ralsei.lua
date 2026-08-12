@@ -123,7 +123,7 @@ function character:init()
         }
     elseif Game.chapter >= 5 then
         self.max_stats = {
-            health = 210,
+            health = 244,
             attack = 17,
             magic = 16
         }

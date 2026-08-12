@@ -184,6 +184,9 @@ function love.load(args)
     Registry.initialize()
     Registry.saveData()
 
+    -- register collisions
+    CollisionRegistry.refresh()
+
     -- Chapter defaults
     Kristal.ChapterConfigs = {}
     Kristal.ChapterConfigs[1] = JSON.decode(love.filesystem.read("configs/chapter1.json"))
@@ -1310,6 +1313,9 @@ function Kristal.clearModState()
 
     Kristal.reloadnoel()
 
+    -- Refresh the collision registry
+    CollisionRegistry.refresh()
+
     -- force garbage collection
     collectgarbage("collect")
 end
@@ -1795,6 +1801,9 @@ function Kristal.preInitMod(id)
     Registry.initialize()
     -- Shove the warp bin cutscene into the registry
     Registry.registerWorldCutscene("warp_bin", WarpBinCS)
+
+    -- Refresh collision registry
+    CollisionRegistry.refresh()
 
     -- Return true if no "preInit" explicitly returns true
     return use_callback
