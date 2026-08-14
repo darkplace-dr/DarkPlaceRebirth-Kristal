@@ -422,6 +422,16 @@ function lib:loadHooks()
         HookSystem.hook(LightEnemyBattler, "init", function(orig, self, actor, use_overlay)
             orig(self)
             self.service_mercy = 20
+            self.resistances = {
+                ELEC = 1,
+                FIRE = 1,
+                STAR = 1,
+                DARK = 1,
+                RUDE = 1,
+                RED = 1,
+                ICE = 1,
+                HOLY = 1,
+            }
         end)
         HookSystem.hook(LightEnemyBattler, "registerAssistAct", function(orig, self, party_member, mini, name, description, party, tp, highlight, icons)
             if Game:getPartyMember(party_member) == nil then error("Party member with ID " .. party_member .. " does not exist.") end
@@ -457,6 +467,14 @@ function lib:loadHooks()
         end)
         HookSystem.hook(LightEnemyBattler, "onService", function(orig, self, spell) end)
         HookSystem.hook(LightEnemyBattler, "canService", function(orig, self, spell) return true end)
+        HookSystem.hook(LightEnemyBattler, "getResistance", function(orig, self, element)
+            for i, resist in pairs(self.resistances) do
+                if i == element then
+                    return resist
+                end
+            end
+            return 1
+        end)
 
         HookSystem.hook(LightEncounter, "addEnemy", function(orig, self, enemy, x, y, ...)
             local enemy_obj
