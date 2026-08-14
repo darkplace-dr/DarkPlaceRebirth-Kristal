@@ -23,7 +23,7 @@
     "party": ["hero"],
 
     // The inventory. Contains three darkburgers, a cell phone and a shadow crystal by default.
-    "inventory": {
+    "darkInventory": {
         "items": [],
         "key_items": []
     },
