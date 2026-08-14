@@ -520,8 +520,8 @@ function MainMenu:drawVersion()
         end
 
         --[[
-        if self.state == "TITLE" and Kristal.Version.major == 0 then
-            ver_string = ver_string .. " (Unstable)"
+        if (self.state == "TITLE" or self.state == "ABOUT") and Kristal.Version.major == 0 then
+            ver_string = ver_string .. " (In-development)"
         end
         ]]
 

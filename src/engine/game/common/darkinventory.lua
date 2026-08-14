@@ -95,7 +95,7 @@ function DarkInventory:convertToLight()
 
     new_inventory.storage_enabled = was_storage_enabled
 
-    Game.dark_inventory = self
+    Game.light_inventory = new_inventory
 
     return new_inventory
 end
