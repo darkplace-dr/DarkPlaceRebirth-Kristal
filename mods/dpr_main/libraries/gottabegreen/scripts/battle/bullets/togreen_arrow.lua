@@ -25,7 +25,7 @@ function GreenTransition:init(x, y, dir, soul_change_callback)
     self.can_graze = false
     self.destroy_on_hit = false
     self.damage = 0
-    self.inv_timer = 0
+    self.inv_frames = 0
     
     self.applied = false
     

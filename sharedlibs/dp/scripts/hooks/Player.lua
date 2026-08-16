@@ -7,7 +7,6 @@ function Player:init(chara, x, y)
     self.siner = 0
 
     self.invincible_colors = false
-    self.inv_timer = 0
     self.old_song = ""
     self.so_gamer = Assets.getShader("so_gamer")
 
@@ -85,11 +84,11 @@ function Player:update()
 end
 
 function Player:starman()
+    self.siner = self.siner + DT * 40
+
     if Kristal.Config["simplifyVFX"] then
-        self.siner = self.siner + DT * 40
-        self.inv_timer = self.inv_timer - DT
-        self:setColor(Utils.hsvToRgb(((self.siner * 8) % 255)/255, 255/255, 255/255))
-        if (self.inv_timer + DT) % 0.125 < self.inv_timer % 0.125 then
+        self:setColor(ColorUtils.HSVToRGB(((self.siner * 8) % 255) / 255, 255 / 255, 255 / 255))
+        if ((Game.inv_frames * 30) + DT) % 0.125 < (Game.inv_frames * 30) % 0.125 then
             local afterimage = Sprite(self.sprite:getTexture(), self.x - self.sprite:getOffset()[1], self.y - self.sprite:getOffset()[2])
             afterimage:setScale(2, 2)
             afterimage:setOrigin(0.5, 1)
@@ -99,7 +98,7 @@ function Player:starman()
                 afterimage:remove()
             end)
         end
-        if self.inv_timer <= 0 and self.invincible_colors then
+        if not Game:hasInvulnerability() and self.invincible_colors then
             self.invincible_colors = false
             Game.world.music:play(self.old_song or "none")
             self.old_song = nil
@@ -107,9 +106,6 @@ function Player:starman()
             self:removeFX("Power Star")
         end
     else
-        self.siner = self.siner + DT * 40
-        self.inv_timer = self.inv_timer - DT
-
         if not self.shader_applied then
             self:addFX(ShaderFX(self.so_gamer, {
                 ["iTime"] = function () return love.timer.getTime() end,
@@ -118,7 +114,7 @@ function Player:starman()
             self.shader_applied = true
         end
 
-        if (self.inv_timer + DT) % 0.125 < self.inv_timer % 0.125 then
+        if ((Game.inv_frames * 30) + DT) % 0.125 < (Game.inv_frames * 30) % 0.125 then
             local afterimage = Sprite(self.sprite:getTexture(), self.x - self.sprite:getOffset()[1], self.y - self.sprite:getOffset()[2])
             afterimage:setScale(2, 2)
             afterimage:setOrigin(0.5, 1)
@@ -135,7 +131,7 @@ function Player:starman()
             end)
         end
 
-        if self.inv_timer <= 0 and self.invincible_colors then
+        if not Game:hasInvulnerability() and self.invincible_colors then
             self.invincible_colors = false
             self:setColor(1, 1, 1, 1)
             self:removeFX("Power Star")

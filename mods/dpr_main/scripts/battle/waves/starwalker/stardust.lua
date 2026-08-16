@@ -18,7 +18,7 @@ function Stardust:onStart()
         self.timer:every(0.1, function()
             if self.spawn_bullets then
                 local stardust = self:spawnBullet("starwalker/stardust", self.starwalker.x, self.starwalker.y - 20)
-                stardust.inv_timer = 10/30
+                stardust.inv_frames = 10
             end
         end)
         self.timer:every(0.2, function()

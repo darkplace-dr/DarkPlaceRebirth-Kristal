@@ -44,7 +44,7 @@ function Bullet:update()
 end
 
 function Bullet:onCollide(soul)
-    if soul.inv_timer <= 0 and self.hitplayer then
+    if not Game:hasInvulnerability() and self.hitplayer then
         self:onDamage(soul)
     end
 

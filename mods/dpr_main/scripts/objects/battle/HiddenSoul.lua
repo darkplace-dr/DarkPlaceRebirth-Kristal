@@ -24,7 +24,7 @@ function HiddenSoul:update()
 		self:remove()
 		return
 	end
-    if Game.battle.soul.inv_timer > 0 then
+    if Game:hasInvulnerability() then
         local amt = math.floor(Game.battle.soul.inv_flash_timer / (4/30))
         if (amt % 2) == 1 then
             self.sprite:setColor(0.5, 0.5, 0.5)

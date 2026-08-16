@@ -851,7 +851,7 @@ function lib:loadObject(world, name, data)
     elseif name:lower() == "warpbin" then
         return WarpBin(data)
     elseif name:lower() == "superstar" then
-        return SuperStar(data.x, data.y, data.width, data.height, data.properties)
+        return SuperStar(data.x, data.y, data.properties)
     elseif name:lower() == "sprite" then
         local sprite = Sprite(data.properties["texture"], data.x, data.y)
         sprite:play(data.properties["speed"], true)
