@@ -358,6 +358,7 @@ function DebugSystem:appendBool(desc, bool)
 end
 
 function DebugSystem:refresh()
+    self:changeHeartTexture()
     self.menus = {}
     self.exclusive_menus = {}
     self.exclusive_menus["OVERWORLD"] = { "encounter_select", "select_shop", "select_map", "cutscene_select", "legend_select" }
@@ -794,6 +795,7 @@ function DebugSystem:registerSubMenus()
 
     for i, v in ipairs(dlc_ids) do
         self:registerOption("dlc_select", v, "Enter this DLC.", function ()
+            self:changeHeartTexture(true)
             Game:swapIntoMod(v, false)
             self:closeMenu()
         end)
@@ -1518,14 +1520,18 @@ function DebugSystem:closeSelection()
     self:setState("IDLE")
 end
 
-function DebugSystem:openMenu()
-    Assets.playSound("ui_select")
+function DebugSystem:changeHeartTexture(force_default)
     self.heart:setColor(Kristal.getSoulColor())
-    if (Kristal.getState() == Game) then
+    if (Kristal.getState() == Game) and not force_default then
         self.heart:setSprite("player/"..Game:getSoulPartyMember():getSoulFacing().."/heart_menu")
     else
         self.heart:setSprite("player/heart_menu")
     end
+end
+
+function DebugSystem:openMenu()
+    Assets.playSound("ui_select")
+    self:changeHeartTexture()
     self:setState("MENU")
 
     if (self.current_menu ~= nil) then
