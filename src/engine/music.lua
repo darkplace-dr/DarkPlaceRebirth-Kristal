@@ -288,7 +288,7 @@ function Music:updateBuffer()
         self.source:queue(soundData)
         if loop_sample_amount ~= 0 then
             -- FIXME: Find out where this offset comes from in the first place.
-            local mysterious_constant = (self.intro_played_time > 0 and 0 or 57344)
+            local mysterious_constant = 57344
             local buf_index = Music.BUFFER_COUNT - i - 1
             if buf_index > 0 then
                 self.buffer_samples_count[buf_index]

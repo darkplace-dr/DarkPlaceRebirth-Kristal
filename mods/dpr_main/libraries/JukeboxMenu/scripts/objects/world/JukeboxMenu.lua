@@ -400,19 +400,25 @@ function JukeboxMenu:draw()
         love.graphics.setColor(COLORS.dkgray)
         love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_size)
 
-        local function getDuration(_mus_data, _mus_loop_data)
-            return (_mus_loop_data and _mus_loop_data:getDuration() or 0) + _mus_data:getDuration()
-        end
+		if not self.mus_data or music_always.current == "none" then
+			love.graphics.setColor(COLORS.white)
+			love.graphics.setFont(self.font_2)
+			local x_off = self.font_2:getWidth("N/A") / 2
+			local y_off = self.font_2:getHeight() / 2
+			love.graphics.print("N/A", duration_x + duration_w / 2 - x_off, duration_y + 3 - y_off)
+		else
+			local function getDuration(_mus_data, _mus_loop_data)
+				return (_mus_loop_data and _mus_loop_data:getDuration() or 0) + _mus_data:getDuration()
+			end
 
-        if self.mus_loop_data then
-            local duration_loop_mark_percent = self.mus_data:getDuration() / getDuration(self.mus_data, self.mus_loop_data)
-            -- i hate doing math
-            local duration_loop_mark_x = MathUtils.round(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
-            Draw.setColor(COLORS.gray)
-            love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_size)
-        end
+			if self.mus_loop_data then
+				local duration_loop_mark_percent = self.mus_data:getDuration() / getDuration(self.mus_data, self.mus_loop_data)
+				-- i hate doing math
+				local duration_loop_mark_x = MathUtils.round(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
+				Draw.setColor(COLORS.gray)
+				love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_size)
+			end
 
-		if self.mus_data then
 			local duration_needle_percent = MathUtils.clamp((music_always:tell(true)) / getDuration(self.mus_data, self.mus_loop_data), 0, 1)
 			local duration_needle_x = MathUtils.round(duration_needle_percent * duration_w - (duration_size / 2))
 			Draw.setColor(COLORS.white)
