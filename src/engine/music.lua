@@ -143,6 +143,7 @@ function Music:playFile(path, volume, pitch, name)
             end
             self.source:setVolume(self:getVolume())
             self.source:setPitch(self:getPitch())
+            self:seek(0)
             self:resume()
             self.started = true
         else
@@ -226,6 +227,10 @@ function Music:stop()
     self.started = false
 end
 
+function Music:getDuration()
+    return self.decoder:getDuration()
+end
+
 function Music:updateBuffer()
     if not self.decoder or not self.source then
         return false
@@ -258,18 +263,21 @@ function Music:updateBuffer()
             if not soundData then
                 break
             end
+        else
         end
         self.samples_count = self.samples_count + self.buffer_samples_count[1]--[[@as -nil]]
         table.remove(self.buffer_samples_count, 1)
         self.buffer_samples_count[Music.BUFFER_COUNT] = soundData:getSampleCount()--[[@as integer]]
         self.source:queue(soundData)
         if loop_sample_amount ~= 0 then
+            -- FIXME: Find out where this offset comes from in the first place.
+            local mysterious_constant = 57344
             local buf_index = Music.BUFFER_COUNT - i - 1
             if buf_index > 0 then
                 self.buffer_samples_count[buf_index]
-                = math.floor(self.buffer_samples_count[buf_index]--[[@as -nil]] ) - loop_sample_amount
+                = math.floor(self.buffer_samples_count[buf_index]--[[@as -nil]] ) - (loop_sample_amount + mysterious_constant)
             else
-                self.samples_count = self.samples_count - loop_sample_amount
+                self.samples_count = self.samples_count - (loop_sample_amount + mysterious_constant)
             end
         end
     end
