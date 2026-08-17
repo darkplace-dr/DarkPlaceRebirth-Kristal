@@ -5,7 +5,7 @@
  </editorsettings>
  <properties>
   <property name="border" value="garden"/>
-  <property name="music" value="deltarune/field_of_hopes_insaneintherain_loop"/>
+  <property name="music" value="garden"/>
   <property name="name" value="Garden Floor - Beginning"/>
  </properties>
  <tileset firstgid="1" source="../../../tilesets/grasspink.tsx"/>

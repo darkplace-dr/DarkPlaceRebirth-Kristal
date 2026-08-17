@@ -450,8 +450,8 @@ return {
   },
   {
     name = "Garden of Hopes and Dreams",
-    file = "deltarune/field_of_hopes_insaneintherain_intro",
-    composer = "Toby Fox",
+    file = "deltarune/field_of_hopes_insaneintherain",
+    composer = "Toby Fox, insaneintherainmusic",
     released = "2026",
     origin = "Deltarune",
     album = "dr_ch5",

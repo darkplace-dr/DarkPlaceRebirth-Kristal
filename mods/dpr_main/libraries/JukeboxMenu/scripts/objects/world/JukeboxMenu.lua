@@ -454,7 +454,7 @@ function JukeboxMenu:update()
 
             if not song.locked and song.file then
                 local music = Game.world.music
-                if self.confirm_toggles_song and music.current == song.file then
+                if self.confirm_toggles_song and music.current == song.file and music.current ~= "none" then
                     if music:isPlaying() then
                         music:pause()
                     else

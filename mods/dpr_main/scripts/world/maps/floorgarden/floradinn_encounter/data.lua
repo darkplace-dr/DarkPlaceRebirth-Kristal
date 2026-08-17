@@ -13,7 +13,7 @@ return {
   nextobjectid = 109,
   properties = {
     ["border"] = "garden",
-    ["music"] = "deltarune/field_of_hopes_insaneintherain_loop",
+    ["music"] = "garden",
     ["name"] = "Garden Floor - Beginning"
   },
   tilesets = {

@@ -64,6 +64,61 @@ function World:loadMap(...)
     super.loadMap(self, ...)
 end
 
+function World:transitionMusic(next, fade_out)
+    local music = ""
+    local volume = 1
+    local pitch = 1
+    if type(next) == "table" then
+        music = next[1]
+        volume = next[2]
+        pitch = next[3]
+    else
+        music = next
+    end
+    --
+    if music and music ~= "" then
+        if self.music.current ~= music then
+            if self.music:isPlaying() and fade_out then
+                self.music:fade(0, 10 / 30, function() self.music:stop() end)
+            elseif not fade_out then
+				if not Assets.getMusicPath(music) then
+					if not music then
+						Kristal.Console:warn("Music not found: \"" .. music .. "\"")
+						return
+					end
+					self.music:playFile(music, volume, pitch)
+				else
+					self.music:play(music, volume, pitch)
+				end
+            end
+        else
+            if not self.music:isPlaying() then
+                if not fade_out then
+					if not Assets.getMusicPath(music) then
+						if not music then
+							Kristal.Console:warn("Music not found: \"" .. music .. "\"")
+							return
+						end
+						self.music:playFile(music, volume, pitch)
+					else
+						self.music:play(music, volume, pitch)
+					end
+                end
+            else
+                self.music:fade(volume)
+            end
+        end
+    else
+        if self.music:isPlaying() then
+            if fade_out then
+                self.music:fade(0, 10 / 30, function() self.music:stop() end)
+            else
+                self.music:stop()
+            end
+        end
+    end
+end
+
 function World:breakSoulShield()
     Assets.playSound("mirrorbreak")
     local expand_effect = Sprite(self.soul.sprite:getTexture(), 0, 0)

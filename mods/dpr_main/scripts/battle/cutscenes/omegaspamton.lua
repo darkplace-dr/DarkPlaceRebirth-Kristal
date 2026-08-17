@@ -16,7 +16,8 @@ return {
         src:setLooping(true)
         src:setVolume(0.75)
 
-        Game.battle.music:play("omega_spamton_intro", 1)
+        local mus = Assets.getMusic("omega_spamton").path
+        Game.battle.music:playFile(mus, 1)
 		Game.battle.music:setLooping(false)
 
 		cutscene:wait(6.5)
@@ -39,7 +40,8 @@ return {
 		cutscene:after(function()
 		    Game.battle:setState("ACTIONSELECT")
             omega:setAnimation("idle")
-            Game.battle.music:play("omega_spamton_loop")
+		    local mus = Assets.getMusic("omega_spamton").loop_path
+            Game.battle.music:playFile(mus)
 			Game.battle.music:setLooping(true)
         end, true)
     end,
