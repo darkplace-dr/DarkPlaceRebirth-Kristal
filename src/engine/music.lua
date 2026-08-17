@@ -18,6 +18,8 @@
 ---
 ---@field private samples_count integer
 ---@field private loop_start integer
+---@field private intro_played_time number
+---@field private just_looped integer
 ---@field private buffer_samples_count integer[]
 ---@field private BUFFER_COUNT integer
 ---
@@ -49,6 +51,8 @@ function Music:init()
 
     self.loop_start = 0
     self.samples_count = 0
+    self.intro_played_time = 0
+	self.just_looped = 0
     self.buffer_samples_count = {}
     self.builtin_pitch = 1
     self.builtin_volume = 1
@@ -143,6 +147,8 @@ function Music:playFile(path, volume, pitch, name)
             end
             self.source:setVolume(self:getVolume())
             self.source:setPitch(self:getPitch())
+			self.intro_played_time = 0
+			self.just_looped = 0
             self:seek(0)
             self:resume()
             self.started = true
@@ -212,16 +218,19 @@ function Music:seek(time)
 end
 
 ---@return number
-function Music:tell()
+function Music:tell(include_intro)
+	local intro_time = include_intro or false
     self:updateBuffer()
     assert(self.source)
-    return self.source:tell() + (self.samples_count / self.decoder:getSampleRate())
+    return self.source:tell() + (self.samples_count / self.decoder:getSampleRate()) + ((intro_time and self.just_looped == 2) and self.intro_played_time or 0)
 end
 
 function Music:stop()
     self.fade_speed = 0
     if self.source then
         self.source:stop()
+		self.intro_played_time = 0
+		self.just_looped = 0
         self:seek(0)
     end
     self.started = false
@@ -235,6 +244,10 @@ function Music:updateBuffer()
     if not self.decoder or not self.source then
         return false
     end
+	if self.just_looped == 1 and self.source:tell() + (self.samples_count / self.decoder:getSampleRate()) >= self.intro_played_time then
+		self.samples_count = 0
+		self.just_looped = 2
+	end
     local freeBufferCount = self.source:getFreeBufferCount()
     for i = 1, freeBufferCount do
         local loop_sample_amount = 0
@@ -242,6 +255,10 @@ function Music:updateBuffer()
         local soundData = self.decoder:decode()
         if not soundData then
             if self.queued_decoder then
+				if self.just_looped == 0 then
+					self.intro_played_time = self.decoder:getDuration()
+					self.just_looped = 1
+				end
                 self.decoder = self.queued_decoder
                 self.queued_decoder = nil
                 return self:updateBuffer()
@@ -271,7 +288,7 @@ function Music:updateBuffer()
         self.source:queue(soundData)
         if loop_sample_amount ~= 0 then
             -- FIXME: Find out where this offset comes from in the first place.
-            local mysterious_constant = 57344
+            local mysterious_constant = (self.intro_played_time > 0 and 0 or 57344)
             local buf_index = Music.BUFFER_COUNT - i - 1
             if buf_index > 0 then
                 self.buffer_samples_count[buf_index]

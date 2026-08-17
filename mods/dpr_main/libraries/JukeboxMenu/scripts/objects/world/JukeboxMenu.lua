@@ -231,6 +231,7 @@ function JukeboxMenu:onAddToStage(stage)
 
     self.heart_target_y = self:calculateHeartTargetY()
     self.heart.y = self.heart_target_y
+	self:_getMusicData(Game.world.music)
 end
 
 ---@param music Music?
@@ -246,6 +247,25 @@ function JukeboxMenu:getPlayingEntry(music, ignore_locked)
     if song and (ignore_locked or not song.locked) then
         return song
     end
+end
+
+---@private
+function JukeboxMenu:_getMusicData(music)
+	if self.mus_data then
+		self.mus_data:release()
+		self.mus_data = nil
+	end
+	if self.mus_loop_data then
+		self.mus_loop_data:release()
+		self.mus_loop_data = nil
+	end
+	local mus_info = Assets.getMusic(music.current)
+	if mus_info.path then
+		self.mus_data = love.audio.newSource(mus_info.path, "stream")
+		if mus_info.loop_path then
+			self.mus_loop_data = love.audio.newSource(mus_info.loop_path, "stream")
+		end
+	end
 end
 
 function JukeboxMenu:draw()
@@ -380,23 +400,25 @@ function JukeboxMenu:draw()
         love.graphics.setColor(COLORS.dkgray)
         love.graphics.rectangle("fill", duration_x, duration_y, duration_w, duration_size)
 
-        local function getDuration(_music) -- too pussy to make this an actual extension
-            return (_music.source_intro and _music.source_intro:getDuration() or 0) + _music.source:getDuration()
+        local function getDuration(_mus_data, _mus_loop_data)
+            return (_mus_loop_data and _mus_loop_data:getDuration() or 0) + _mus_data:getDuration()
         end
 
-        if music_always.source_intro then
-            local duration_loop_mark_percent = music_always.source_intro:getDuration() / getDuration(music_always)
+        if self.mus_loop_data then
+            local duration_loop_mark_percent = self.mus_data:getDuration() / getDuration(self.mus_data, self.mus_loop_data)
             -- i hate doing math
             local duration_loop_mark_x = MathUtils.round(duration_loop_mark_percent * duration_w - (duration_loop_mark_w / 2))
             Draw.setColor(COLORS.gray)
             love.graphics.rectangle("fill", duration_x + duration_loop_mark_x, duration_y, duration_loop_mark_w, duration_size)
         end
 
-        local duration_needle_percent = MathUtils.clamp(music_always:tell() / getDuration(music_always), 0, 1)
-        local duration_needle_x = MathUtils.round(duration_needle_percent * duration_w - (duration_size / 2))
-        Draw.setColor(COLORS.white)
-        love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_size, duration_size + duration_needle_h_bump*2)
-    end
+		if self.mus_data then
+			local duration_needle_percent = MathUtils.clamp((music_always:tell(true)) / getDuration(self.mus_data, self.mus_loop_data), 0, 1)
+			local duration_needle_x = MathUtils.round(duration_needle_percent * duration_w - (duration_size / 2))
+			Draw.setColor(COLORS.white)
+			love.graphics.rectangle("fill", duration_x + duration_needle_x, duration_y - duration_needle_h_bump, duration_size, duration_size + duration_needle_h_bump*2)
+		end
+	end
 
     Draw.popScissor()
 
@@ -434,6 +456,7 @@ function JukeboxMenu:update()
                     end
                 else
                     music:play(song.file, 1)
+					self:_getMusicData(music)
                     Kristal.callEvent("onJukeboxPlay", song)
                 end
             else
