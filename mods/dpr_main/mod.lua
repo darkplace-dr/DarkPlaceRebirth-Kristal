@@ -520,6 +520,13 @@ function Mod:onMapMusic(map, music)
         end
         return "deltarune/spamton_neo_meeting"
     end
+	-- Garden Floor music
+	if music == "garden" then
+		if Game.world.music.current ~= "deltarune/field_of_hopes_insaneintherain" and Game:getFlag("sawGardenMusicLogo", false) then
+			return Assets.getMusic("deltarune/field_of_hopes_insaneintherain").loop_path
+		end
+        return "deltarune/field_of_hopes_insaneintherain"
+	end
 end
 
 function Mod:onMapBorder(map, border)

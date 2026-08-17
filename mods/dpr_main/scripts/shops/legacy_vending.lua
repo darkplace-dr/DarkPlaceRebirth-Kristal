@@ -74,204 +74,63 @@ function LegacyVending:onStateChange(old,new)
 	super.onStateChange(self, old, self.state)
 end
 
-function LegacyVending:draw()
-    if self.state == "BUYMENU" then
-		super.super.draw(self)
+function LegacyVending:drawBuyItems(draw_soul)
+    local heart_pos = 30
+    local text_pos = 60
 
-		love.graphics.setFont(self.font)
-        while self.current_selecting - self.item_offset > 5 do
-            self.item_offset = self.item_offset + 1
-        end
+    local total_items = #self.items + 1
+    local visible_items = 5
 
-        while self.current_selecting - self.item_offset < 1 do
-            self.item_offset = self.item_offset - 1
-        end
+    local first_item = 1 + self.item_offset
+    local last_item = self.item_offset + visible_items
 
-        if self.item_offset + 5 > #self.items + 1 then
-            if #self.items + 1 > 5 then
-                self.item_offset = self.item_offset - 1
-            end
-        end
+    local return_index = math.max(last_item, total_items)
 
-        if #self.items + 1 == 5 then
-            self.item_offset = 0
-        end
+    -- Show items
+    for i = first_item, last_item do
+        local y = 220 + ((i - self.item_offset) * 40)
+        local item = self.items[i]
 
-        -- Item type (item, key, weapon, armor)
-        for i = 1 + self.item_offset, self.item_offset + math.max(4, math.min(5, #self.items)) do
-            if i == math.max(4, #self.items) + 1 then break end
-            local y = 220 + ((i - self.item_offset) * 40)
-            local item = self.items[i]
-            if not item then
-                -- If the item is null, add some empty space
-                Draw.setColor(COLORS.dkgray)
-                love.graphics.print("--------", 60, y)
-            elseif item.options["stock"] and (item.options["stock"] <= 0) then
-                -- If we've depleted the stock, show a "sold out" message
-                Draw.setColor(COLORS.gray)
-                love.graphics.print("--SOLD OUT--", 60, y)
-            else
-                Draw.setColor(item.options["color"])
-                love.graphics.print(item.options["name"], 60, y)
-                if not self.hide_price then
-                    Draw.setColor(COLORS.white)
-					if item.options["name"] == "FROWN" then
-						love.graphics.print("FREE", 60 + 240, y)
-					else
-						love.graphics.print(string.format(self.currency_text, item.options["price"] or 0), 60 + 240, y)
-					end
-                end
-            end
-        end
-        Draw.setColor(COLORS.white)
-        if self.item_offset == math.max(4, #self.items) - 4 then
-            love.graphics.print("Exit", 60, 220 + (math.max(4, #self.items) + 1 - self.item_offset) * 40)
-        end
-        Draw.setColor(Game:getSoulColor())
-        if not self.buy_confirming then
-            Draw.draw(self.heart_sprite, 30, 230 + ((self.current_selecting - self.item_offset) * 40))
+        if i == return_index then
+            Draw.setColor(COLORS.white)
+            love.graphics.print("Exit", text_pos, y)
+        elseif item == nil then
+            -- If there's no item there, show empty slot
+            Draw.setColor(COLORS.dkgray)
+            love.graphics.print("--------", text_pos, y)
+        elseif item.options["stock"] and (item.options["stock"] <= 0) then
+            -- If we've depleted the stock, show a "sold out" message
+            Draw.setColor(COLORS.gray)
+            love.graphics.print("--SOLD OUT--", text_pos, y)
         else
-            Draw.draw(self.heart_sprite, 30 + 420, 230 + 80 + 10 + (self.current_selecting_choice * 30))
-            Draw.setColor(COLORS.white)
-            local lines = Utils.split(string.format(self.buy_confirmation_text, string.format(self.currency_text, self.items[self.current_selecting].options["price"] or 0)), "\n")
-            for i = 1, #lines do
-                love.graphics.print(lines[i], 60 + 400, 420 - 160 + ((i - 1) * 30))
-            end
-            love.graphics.print("Yes", 60 + 420, 420 - 80)
-            love.graphics.print("No",  60 + 420, 420 - 80 + 30)
-        end
-        Draw.setColor(COLORS.white)
-
-        if (self.current_selecting <= #self.items) then
-            local current_item = self.items[self.current_selecting]
-            local box_left, box_top = self.info_box:getBorder()
-
-            local left = self.info_box.x - math.floor(self.info_box.width) - (box_left / 2) * 1.5
-            local top = self.info_box.y - math.floor(self.info_box.height) - (box_top / 2) * 1.5
-            local width = math.floor(self.info_box.width) + box_left * 1.5
-            local height = math.floor(self.info_box.height) + box_top * 1.5
-
-            Draw.pushScissor()
-            Draw.scissor(left, top, width, height)
-
-            Draw.setColor(COLORS.white)
-            love.graphics.print(current_item.options["description"], left + 32, top + 20)
-
-            if current_item.item.type == "armor" or current_item.item.type == "weapon" then
-                for i = 1, #Game.party do
-                    -- Turn the index into a 2 wide grid (0-indexed)
-                    local transformed_x = (i - 1) % 2
-                    local transformed_y = math.floor((i - 1) / 2)
-
-                    -- Transform the grid into coordinates
-                    local offset_x = transformed_x * 100
-                    local offset_y = transformed_y * 45
-
-                    local party_member = Game.party[i]
-                    local can_equip = party_member:canEquip(current_item.item)
-                    local head_path
-
-                    love.graphics.setFont(self.plain_font)
-                    Draw.setColor(COLORS.white)
-
-                    if can_equip then
-                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head")
-                        if current_item.item.type == "armor" then
-                            Draw.draw(self.stat_icons["defense_1"], offset_x + 470, offset_y + 127 + top)
-                            Draw.draw(self.stat_icons["defense_2"], offset_x + 470, offset_y + 147 + top)
-
-                            for j = 1, 2 do
-                                self:drawBonuses(party_member, party_member:getArmor(j), current_item.options["bonuses"], "defense", offset_x + 470 + 21, offset_y + 127 + ((j - 1) * 20) + top)
-                            end
-
-                        elseif current_item.item.type == "weapon" then
-                            Draw.draw(self.stat_icons["attack"], offset_x + 470, offset_y + 127 + top)
-                            Draw.draw(self.stat_icons["magic" ], offset_x + 470, offset_y + 147 + top)
-                            self:drawBonuses(party_member, party_member:getWeapon(), current_item.options["bonuses"], "attack", offset_x + 470 + 21, offset_y + 127 + top)
-                            self:drawBonuses(party_member, party_member:getWeapon(), current_item.options["bonuses"], "magic",  offset_x + 470 + 21, offset_y + 147 + top)
-                        end
-                    else
-                        head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_error")
-                    end
-
-                    Draw.draw(head_path, offset_x + 426, offset_y + 132 + top)
-                end
-            elseif current_item.item.type == "badge" then
-                local bp_text = current_item.item:getBadgePoints() .. " BP"
-                Draw.setColor(COLORS.orange)
-                if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
-                    Draw.setColor(COLORS.gray)
-                end
-                love.graphics.print(bp_text, left + width - 32 - self.font:getWidth(bp_text), top + 20)
-            end
-
-            Draw.popScissor()
-
-            Draw.setColor(COLORS.white)
-
-            if not self.hide_storage_text then
-				if current_item.options["name"] ~= "FROWN" then
-					local current_storage = Game.inventory:getDefaultStorage(current_item.item)
-					if not Game:getConfig("newShopSpaceUI") then
-						local space = Game.inventory:getFreeSpace(current_storage)
-						love.graphics.setFont(self.plain_font)
-
-						if space <= 0 then
-							love.graphics.print("NO SPACE", 521, 430)
-						else
-							love.graphics.print("Space:" .. space, 521, 430)
-						end
-					else
-						local item_type = current_item.item.type
-						
-						local space = Game.inventory:getFreeSpace(current_storage, false)
-						local space_count = Game.inventory:getItemCount(current_storage, false)
-						local total_space = space + space_count
-						
-						local storage_space = Game.inventory:getFreeSpace("storage")
-						local storage_space_count = Game.inventory:getItemCount("storage")
-						local storage_total_space = storage_space + storage_space_count
-						
-						love.graphics.setFont(self.space_font)
-						if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" and item_type ~= "badge" then
-							Draw.draw(self.ui_hold_sprite, 555, 398)
-							love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 412, 0, 0.5, 0.5)
-							Draw.draw(self.ui_storage_sprite, 555, 430)
-							love.graphics.print(string.format("%02d", storage_space_count) .. "/" .. string.format("%02d", storage_total_space), 556, 444, 0, 0.5, 0.5)
-						else
-							if item_type == "badge" then
-								Draw.draw(self.ui_badge_sprite, 555, 398)
-								Draw.draw(self.ui_hold_sprite, 555, 410)
-								love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 424, 0, 0.5, 0.5)
-								Draw.draw(self.ui_bp_sprite, 555, 444)
-								if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
-									Draw.setColor(COLORS.gray)
-								end
-								love.graphics.print(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), 576, 444, 0, 0.5, 0.5)
-								Draw.setColor(COLORS.white)
-							else
-								love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), 556, 436, 0, 0.5, 0.5)
-								Draw.draw(self.ui_hold_sprite, 555, 422)
-								if item_type == "armor" then
-									Draw.draw(self.ui_armor_sprite, 555, 410)
-								elseif item_type == "weapon" then
-									Draw.draw(self.ui_weapon_sprite, 555, 410)
-								elseif item_type == "key" then
-									Draw.draw(self.ui_pocket_sprite, 555, 410)
-								end
-							end
-						end
-					end
+            -- Valid item, show it
+            Draw.setColor(item.options["color"])
+            love.graphics.print(item.options["name"], text_pos, y)
+            if not self.hide_price then
+                Draw.setColor(COLORS.white)
+				if item.options["name"] == "FROWN" then
+					love.graphics.print("FREE", 60 + 240, y)
+				else
+					love.graphics.print(string.format(self.currency_text, item.options["price"] or 0), 60 + 240, y)
 				end
-			end 
-        end 
-		
-        Draw.setColor(COLORS.white)
-        love.graphics.setFont(self.font)
-        love.graphics.print(string.format(self.currency_text, self:getMoney()), 440, 420)
-		return
+            end
+        end
+
+        if draw_soul and (i == self.current_selected_item) then
+            -- Draw the soul if we're selecting this option
+            Draw.setColor(Game:getSoulColor())
+            Draw.draw(self.heart_sprite, heart_pos, y + 10)
+        end
     end
-	super.draw(self)
+end
+
+function LegacyVending:drawStorageDisplay()
+    local current_item = self.items[self.current_selected_item]
+
+    if current_item == nil or current_item.options["name"] == "FROWN" then
+        return
+    end
+	super.drawStorageDisplay(self)
 end
 
 function LegacyVending:buyItem(current_item)

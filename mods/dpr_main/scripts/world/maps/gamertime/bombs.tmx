@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="30" height="14" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="189">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="14" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="189">
  <editorsettings>
   <export target="bombs.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="simple"/>
-  <property name="music" value="nil"/>
+  <property name="music" value="none"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/bg_dw_mansion_spamton_basement.tsx"/>
  <tileset firstgid="53" source="../../tilesets/bg_dw_mansion_basement_door.tsx"/>

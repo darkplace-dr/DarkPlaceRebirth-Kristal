@@ -1286,59 +1286,68 @@ end
 ---@param box_y number The y offset of the info box.
 ---@param item Item The item being previewed.
 ---@param item_options table The options for the item being previewed.
-function Shop:drawPartyBonusInfo(box_y, item, item_options)
-    for i = 1, #Game.party do
-        -- Turn the index into a 2 wide grid (0-indexed)
-        local transformed_x = (i - 1) % 2
-        local transformed_y = math.floor((i - 1) / 2)
+function Shop:drawPartyBonusInfo(box_y, item, item_options, box_x, box_w)
+    if item.type == "armor" or item.type == "weapon" then
+		for i = 1, #Game.party do
+			-- Turn the index into a 2 wide grid (0-indexed)
+			local transformed_x = (i - 1) % 2
+			local transformed_y = math.floor((i - 1) / 2)
 
-        -- Transform the grid into coordinates
-        local offset_x = transformed_x * 100
-        local offset_y = transformed_y * 45
+			-- Transform the grid into coordinates
+			local offset_x = transformed_x * 100
+			local offset_y = transformed_y * 45
 
-        local party_member = Game.party[i]
-        local can_equip = party_member:canEquip(item)
-        local head_path
+			local party_member = Game.party[i]
+			local can_equip = party_member:canEquip(item)
+			local head_path
 
-        Draw.setColor(COLORS.white)
+			Draw.setColor(COLORS.white)
 
-        if can_equip then
-            head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head")
-            if item.type == "armor" then
-                Draw.draw(self.stat_icons["defense_1"], offset_x + 470, offset_y + 127 + box_y)
-                Draw.draw(self.stat_icons["defense_2"], offset_x + 470, offset_y + 147 + box_y)
+			if can_equip then
+				head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head")
+				if item.type == "armor" then
+					Draw.draw(self.stat_icons["defense_1"], offset_x + 470, offset_y + 127 + box_y)
+					Draw.draw(self.stat_icons["defense_2"], offset_x + 470, offset_y + 147 + box_y)
 
-                for j = 1, 2 do
-                    self:drawBonuses(party_member, party_member:getArmor(j), item_options["bonuses"], "defense", offset_x + 470 + 20, offset_y + 127 + ((j - 1) * 20) + box_y)
-                end
+					for j = 1, 2 do
+						self:drawBonuses(party_member, party_member:getArmor(j), item_options["bonuses"], "defense", offset_x + 470 + 20, offset_y + 127 + ((j - 1) * 20) + box_y)
+					end
 
-            elseif item.type == "weapon" then
-                Draw.draw(self.stat_icons["attack"], offset_x + 470, offset_y + 127 + box_y)
-                Draw.draw(self.stat_icons["magic"], offset_x + 470, offset_y + 147 + box_y)
+				elseif item.type == "weapon" then
+					Draw.draw(self.stat_icons["attack"], offset_x + 470, offset_y + 127 + box_y)
+					Draw.draw(self.stat_icons["magic"], offset_x + 470, offset_y + 147 + box_y)
 
-                self:drawBonuses(
-                    party_member,
-                    party_member:getWeapon(),
-                    item_options["bonuses"],
-                    "attack",
-                    offset_x + 470 + 20,
-                    offset_y + 127 + box_y
-                )
+					self:drawBonuses(
+						party_member,
+						party_member:getWeapon(),
+						item_options["bonuses"],
+						"attack",
+						offset_x + 470 + 20,
+						offset_y + 127 + box_y
+					)
 
-                self:drawBonuses(
-                    party_member,
-                    party_member:getWeapon(),
-                    item_options["bonuses"],
-                    "magic",
-                    offset_x + 470 + 20,
-                    offset_y + 147 + box_y
-                )
-            end
-        else
-            head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_error")
+					self:drawBonuses(
+						party_member,
+						party_member:getWeapon(),
+						item_options["bonuses"],
+						"magic",
+						offset_x + 470 + 20,
+						offset_y + 147 + box_y
+					)
+				end
+			else
+				head_path = Assets.getTexture(party_member:getHeadIcons() .. "/head_error")
+			end
+
+			Draw.draw(head_path, offset_x + 426, offset_y + 132 + box_y)
+		end
+	elseif item.type == "badge" then
+        local bp_text = item:getBadgePoints() .. " BP"
+        Draw.setColor(COLORS.orange)
+        if item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+            Draw.setColor(COLORS.gray)
         end
-
-        Draw.draw(head_path, offset_x + 426, offset_y + 132 + box_y)
+        love.graphics.print(bp_text, box_x + box_w - 32 - self.font:getWidth(bp_text), box_y + 20)
     end
 end
 
@@ -1363,8 +1372,8 @@ function Shop:drawItemDisplay()
     Draw.setColor(COLORS.white)
     love.graphics.print(current_item.options["description"], left + 32, top + 20)
 
-    if current_item.item.type == "armor" or current_item.item.type == "weapon" then
-        self:drawPartyBonusInfo(top, current_item.item, current_item.options)
+    if current_item.item.type == "armor" or current_item.item.type == "weapon" or current_item.item.type == "badge" then
+        self:drawPartyBonusInfo(top, current_item.item, current_item.options, left, width)
     end
 
     Draw.popScissor()
@@ -1413,21 +1422,31 @@ function Shop:drawStorageDisplay()
     local display_x = 545
 
     love.graphics.setFont(self.space_font)
-    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" then
+    if item_type ~= "armor" and item_type ~= "weapon" and item_type ~= "key" and item_type ~= "badge" then
         Draw.draw(self.ui_hold_sprite, display_x, 398)
         love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), display_x + 1, 412, 0, 0.5, 0.5)
         Draw.draw(self.ui_storage_sprite, display_x, 430)
         love.graphics.print(string.format("%02d", storage_space_count) .. "/" .. string.format("%02d", storage_total_space), display_x + 1, 444, 0, 0.5, 0.5)
-    else
-        love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), display_x + 1, 436, 0, 0.5, 0.5)
-        Draw.draw(self.ui_hold_sprite, display_x, 422)
-        if item_type == "armor" then
-            Draw.draw(self.ui_armor_sprite, display_x, 410)
-        elseif item_type == "weapon" then
-            Draw.draw(self.ui_weapon_sprite, display_x, 410)
-        elseif item_type == "key" then
-            Draw.draw(self.ui_pocket_sprite, display_x, 410)
-        end
+    elseif item_type ~= "key" then
+        if item_type == "badge" then
+            Draw.draw(self.ui_badge_sprite, display_x, 398)
+            Draw.draw(self.ui_hold_sprite, display_x, 410)
+            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), display_x + 1, 424, 0, 0.5, 0.5)
+            Draw.draw(self.ui_bp_sprite, display_x, 444)
+            if current_item.item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
+                Draw.setColor(COLORS.gray)
+            end
+            love.graphics.print(string.format("%02d", Game:getUsedBadgePoints()) .. "/" .. string.format("%02d", Game.total_bp), display_x + 21, 444, 0, 0.5, 0.5)
+            Draw.setColor(COLORS.white)
+        else
+            love.graphics.print(string.format("%02d", space_count) .. "/" .. string.format("%02d", total_space), display_x + 1, 436, 0, 0.5, 0.5)
+            Draw.draw(self.ui_hold_sprite, display_x, 422)
+            if item_type == "armor" then
+                Draw.draw(self.ui_armor_sprite, display_x, 410)
+            elseif item_type == "weapon" then
+                Draw.draw(self.ui_weapon_sprite, display_x, 410)
+            end
+		end
     end
 end
 
