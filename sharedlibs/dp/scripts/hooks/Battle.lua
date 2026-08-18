@@ -176,17 +176,17 @@ end
 
 function Battle:nextTurn()
     super.nextTurn(self)
-    
+
     if self.ally then
         self.ally:onTurnStart()
     end
-    
+
     self.headwind = self.headwind - 1
 end
 
 function Battle:update()
     super.update(self)
-    
+
     if self.ally then
         self.ally:onUpdate()
     end
@@ -194,7 +194,7 @@ end
 
 function Battle:updateActionsDone()
     super.updateActionsDone(self)
-    
+
     if self.ally then
         self.ally:onActionsEnd()
     end
@@ -220,7 +220,9 @@ function Battle:onFlee()
         self.tension_bar:hide()
     end
 
-    for _,battler in ipairs(self.party) do
+    Assets.playSound("defeatrun")
+
+    for _, battler in ipairs(self.party) do
         battler:setSleeping(false)
         battler.defending = false
         battler.action = nil
@@ -236,16 +238,14 @@ function Battle:onFlee()
             battler:setAnimation("battle/hurt")
         end
 
-        Assets.playSound("defeatrun")
-
         local sweat = Sprite("effects/defeat/sweat")
         sweat:setOrigin(0.5, 0.5)
         sweat:setScale(0.5, 0.5)
-        sweat:play(5/30, true)
+        sweat:play(5 / 30, true)
         sweat.layer = 100
         battler:addChild(sweat)
 
-        Game.battle.timer:after(15/30, function()
+        Game.battle.timer:after(15 / 30, function()
             sweat:remove()
             battler:getActiveSprite().run_away_2 = true
             flee_complete = true
@@ -264,26 +264,24 @@ function Battle:onFlee()
         local sweat = Sprite("effects/defeat/sweat")
         sweat:setOrigin(0.5, 0.5)
         sweat:setScale(0.5, 0.5)
-        sweat:play(5/30, true)
+        sweat:play(5 / 30, true)
         sweat.layer = 100
         self.back_row:addChild(sweat)
 
-        Game.battle.timer:after(15/30, function()
+        Game.battle.timer:after(15 / 30, function()
             sweat:remove()
             self.back_row:getActiveSprite().run_away_2 = true
             flee_complete = true
         end)
     end
 
-    -- self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
+    local tp_money = math.floor((Game:getTension() * 2.5) / 10) * Game.chapter
 
-    for _,battler in ipairs(self.party) do
-        for _,equipment in ipairs(battler.chara:getEquipment()) do
-            self.money = math.floor(equipment:applyMoneyBonus(self.money) or self.money)
-        end
-    end
+    if Game:getFlag("tension_storage", false) then tp_money = 0 end
 
-    self.money = math.floor(self.money)
+    self.money = self.money + tp_money
+    self.money = self:applyMoneyBonuses(self.money)
+    self.money = math.floor(math.max(self.money, 0))
 
     self.money = self.encounter:getVictoryMoney(self.money) or self.money
     self.xp = self.encounter:getVictoryXP(self.xp) or self.xp
@@ -297,12 +295,12 @@ function Battle:onFlee()
     if (Game.money < 0) then
         Game.money = 0
     end
-    
+
     local earn_text = ""
     if self.money ~= 0 or self.xp ~= 0 then
-        earn_text = "* Ran away with " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort").."."
+        earn_text = string.format("* Ran away with %s EXP and %s %s.", self.xp, self.money, Game:getConfig("darkCurrencyShort"))
     end
-        
+
     if self.used_violence and Game:getConfig("growStronger") then
         local stronger = "You"
 
@@ -315,35 +313,35 @@ function Battle:onFlee()
             end
         end
 
-        earn_text = "* Ran away with " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
+        earn_text = string.format("* Ran away with %s %s.\n* %s became stronger.", self.money, Game:getConfig("darkCurrencyShort"), stronger)
 
         Assets.playSound("dtrans_lw", 0.7, 2)
         --scr_levelup()
     end
-    
+
     local flee_text = "* "
-    
+
     local flee_list = {
         "I'm outta here.",
         "I've got better to do.",
         "Escaped...",
         "Don't slow me down."
     }
-    
-    for _,battler in pairs(Game.battle.party) do
+
+    for _, battler in pairs(Game.battle.party) do
         for _,text in pairs(battler.chara:getFleeText()) do
             table.insert(flee_list, text)
         end
     end
-    
+
     if earn_text == "" then
-        flee_text = flee_text .. Utils.pick(flee_list)
+        flee_text = flee_text .. TableUtils.pick(flee_list)
     else
         flee_text = earn_text
     end
-    
+
     self:battleText(flee_text, function()
-        for _,battler in ipairs(self.party) do
+        for _, battler in ipairs(self.party) do
             battler:getActiveSprite().run_away_2 = false
             battler.x = battler.x - 240
         end

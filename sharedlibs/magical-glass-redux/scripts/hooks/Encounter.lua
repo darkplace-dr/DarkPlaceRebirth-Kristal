@@ -121,23 +121,17 @@ end
 
 function Encounter:getVictoryMoney(money)
     if Game.battle.fled or Game:isLight() then
-        local tension_money = math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter
-        for _, battler in ipairs(Game.battle.party) do
-            for _, equipment in ipairs(battler.chara:getEquipment()) do
-                tension_money = math.floor(equipment:applyMoneyBonus(tension_money) or tension_money)
-            end
-        end
-        money = math.floor(money - tension_money)
+        local tp_money = math.floor((Game:getTension() * 2.5) / 10) * Game.chapter
+        if Game:getFlag("tension_storage", false) then tp_money = 0 end
+        money = money - tp_money
+        money = Game.battle:applyMoneyBonuses(money)
     end
 
     if Game:isLight() and Kristal.getLibConfig("magical-glass", "light_world_dark_battle_tension") and not Game.battle.fled then
-        local tension_money = math.floor(Game:getTension() / 5)
-        for _, battler in ipairs(Game.battle.party) do
-            for _, equipment in ipairs(battler.chara:getEquipment()) do
-                tension_money = math.floor(equipment:applyMoneyBonus(tension_money) or tension_money)
-            end
-        end
-        money = math.floor(money + tension_money)
+        local tp_money = math.floor(Game:getTension() / 5)
+        if Game:getFlag("tension_storage", false) then tp_money = 0 end
+        money = money + tp_money
+        money = Game.battle:applyMoneyBonuses(money)
     end
 
     return money

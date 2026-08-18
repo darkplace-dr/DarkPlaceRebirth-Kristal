@@ -807,6 +807,8 @@ function Battle:onVictory()
 
     local tp_money = math.floor((Game:getTension() * 2.5) / 10) * Game.chapter
 
+    if Game:getFlag("tension_storage", false) then tp_money = 0 end
+
     self.money = self.money + tp_money
     self.money = self:applyMoneyBonuses(self.money)
     self.money = math.floor(math.max(self.money, 0))
@@ -859,7 +861,7 @@ function Battle:onVictory()
 
     if self.killed then
         local levelup = false
-        for i,v in ipairs(self.party) do
+        for i, v in ipairs(self.party) do
             local love = v.chara.love
             v.chara:addExp(self.xp)
             if v.chara.love > love then
@@ -867,7 +869,7 @@ function Battle:onVictory()
             end
         end
         if levelup then
-            win_text = "* You won!\n* Got " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* Your LOVE increased!"
+            win_text = string.format("* You won!\n* Got %s EXP and %s %s.\n* Your LOVE increased!", self.xp, self.money, Game:getConfig("darkCurrencyShort"))
 
             Assets.playSound("levelup", 1, 1)
         end
@@ -885,139 +887,6 @@ function Battle:onVictory()
             return true
         end)
     end
-end
-
-function Battle:onFlee()
-    self.current_selecting = 0
-    local flee_complete = false
-
-    if self.tension_bar then
-        self.tension_bar:hide()
-    end
-
-    for _,battler in ipairs(self.party) do
-        battler:setSleeping(false)
-        battler.defending = false
-        battler.action = nil
-
-        if battler.chara:getHealth() <= 0 then
-            battler:revive()
-            battler.chara:setHealth(1)
-        end
-
-        battler:setAnimation("battle/hurt")
-
-        Assets.playSound("defeatrun")
-
-        local sweat = Sprite("effects/defeat/sweat")
-        sweat:setOrigin(0.5, 0.5)
-        sweat:setScale(0.5, 0.5)
-        sweat:play(5/30, true)
-        sweat.layer = 100
-        battler:addChild(sweat)
-
-        Game.battle.timer:after(15/30, function()
-            sweat:remove()
-            battler:getActiveSprite().run_away_2 = true
-            flee_complete = true
-        end)
-
-        local box = self.battle_ui.action_boxes[self:getPartyIndex(battler.chara.id)]
-        box:resetHeadIcon()
-    end
-    if self.back_row then
-        self.back_row:setAnimation("battle/hurt")
-
-        local sweat = Sprite("effects/defeat/sweat")
-        sweat:setOrigin(0.5, 0.5)
-        sweat:setScale(0.5, 0.5)
-        sweat:play(5/30, true)
-        sweat.layer = 100
-        self.back_row:addChild(sweat)
-
-        Game.battle.timer:after(15/30, function()
-            sweat:remove()
-            self.back_row:getActiveSprite().run_away_2 = true
-            flee_complete = true
-        end)
-    end
-
-    -- self.money = self.money + (math.floor(((Game:getTension() * 2.5) / 10)) * Game.chapter)
-
-    for _,battler in ipairs(self.party) do
-        for _,equipment in ipairs(battler.chara:getEquipment()) do
-            self.money = math.floor(equipment:applyMoneyBonus(self.money) or self.money)
-        end
-    end
-
-    self.money = math.floor(self.money)
-
-    self.money = self.encounter:getVictoryMoney(self.money) or self.money
-    self.xp = self.encounter:getVictoryXP(self.xp) or self.xp
-    -- if (in_dojo) then
-    --     self.money = 0
-    -- end
-
-    Game.money = Game.money + self.money
-    Game.xp = Game.xp + self.xp
-
-    if (Game.money < 0) then
-        Game.money = 0
-    end
-    
-    local earn_text = ""
-    if self.money ~= 0 or self.xp ~= 0 then
-        earn_text = "* Ran away with " .. self.xp .. " EXP and " .. self.money .. " "..Game:getConfig("darkCurrencyShort").."."
-    end
-        
-    if self.used_violence and Game:getConfig("growStronger") then
-        local stronger = "You"
-
-        for _,battler in ipairs(self.party) do
-            Game.level_up_count = Game.level_up_count + 1
-            battler.chara:onLevelUp(Game.level_up_count)
-
-            if battler.chara.id == Game:getConfig("growStrongerChara") then
-                stronger = battler.chara:getName()
-            end
-        end
-
-        earn_text = "* Ran away with " .. self.money .. " "..Game:getConfig("darkCurrencyShort")..".\n* "..stronger.." became stronger."
-
-        Assets.playSound("dtrans_lw", 0.7, 2)
-        --scr_levelup()
-    end
-    
-    local flee_text = "* "
-    
-    local flee_list = {
-        "I'm outta here.",
-        "I've got better to do.",
-        "Escaped...",
-        "Don't slow me down."
-    }
-    
-    for _,battler in pairs(Game.battle.party) do
-        for _,text in pairs(battler.chara:getFleeText()) do
-            table.insert(flee_list, text)
-        end
-    end
-    
-    if earn_text == "" then
-        flee_text = flee_text .. Utils.pick(flee_list)
-    else
-        flee_text = earn_text
-    end
-    
-    self:battleText(flee_text, function()
-        for _,battler in ipairs(self.party) do
-            battler:getActiveSprite().run_away_2 = false
-            battler.x = battler.x - 240
-        end
-        self:setState("TRANSITIONOUT")
-        self.encounter:onBattleEnd()
-        return true
-    end)
 end
 
 --- Called when the [`BattleState`](lua://BattleState) is changed to TRANSITIONOUT.

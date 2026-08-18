@@ -9,7 +9,7 @@ function badge:init()
     self.type = "badge"
 
     -- Menu description
-    self.description = "Keep your tension, to cast spells in the overworld."
+    self.description = "Keep TP after battles. However, the TP\nwon't be converted into money."
     self.shop = "Keeps tension\nafter battle"
     -- The cost of putting it on
     self.badge_points = 4
@@ -18,14 +18,20 @@ function badge:init()
     self.price = 830
 end
 
-function Badge:onBadgeEquipped()
+function badge:onBadgeEquipped()
     Game:setFlag("tension_storage", true)
     Game.world.tension_bar:show()
 end
 
-function Badge:onBadgeRemoved()
+function badge:onBadgeRemoved()
     Game:setFlag("tension_storage", false)
     Game.world.tension_bar:hide()
+    local tp_money = math.floor((Game:getTension() * 2.5) / 10) * Game.chapter
+    if tp_money > 0 then
+        Assets.playSound("equip")
+        Assets.playSound("bell_bounce_short", 0.6, 1.5)
+        Game.money = Game.money + tp_money
+    end
     Game:setTension(0)
 end
 

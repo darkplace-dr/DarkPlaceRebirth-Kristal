@@ -18,11 +18,11 @@ function badge:init()
     self.price = 400
 end
 
-function Badge:onBadgeEquipped()
+function badge:onBadgeEquipped()
     Game:setFlag("overworld_grazing", true)
 end
 
-function Badge:onBadgeRemoved()
+function badge:onBadgeRemoved()
     Game:setFlag("overworld_grazing", false)
 end
 
