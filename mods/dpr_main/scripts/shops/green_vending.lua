@@ -45,6 +45,7 @@ function GreenVending:init()
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function GreenVending:postInit()

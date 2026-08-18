@@ -44,6 +44,7 @@ function MikeVending:init()
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function MikeVending:postInit()

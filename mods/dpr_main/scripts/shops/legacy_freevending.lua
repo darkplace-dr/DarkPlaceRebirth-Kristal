@@ -44,6 +44,7 @@ function LegacyFreeVending:init()
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function LegacyFreeVending:postInit()

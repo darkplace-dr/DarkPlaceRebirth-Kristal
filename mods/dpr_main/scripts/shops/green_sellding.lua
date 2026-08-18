@@ -41,6 +41,7 @@ function GreenVending:init()
         {"Exit", "LEAVE"}
     }
 	self.hide_main_menu_currency = true
+	Input.clear("confirm")
 end
 
 function GreenVending:postInit()

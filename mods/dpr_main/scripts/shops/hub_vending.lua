@@ -45,6 +45,7 @@ function HubVending:init()
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function HubVending:postInit()

@@ -45,6 +45,7 @@ function LegacyVending:init()
         {"Exchange", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function LegacyVending:postInit()

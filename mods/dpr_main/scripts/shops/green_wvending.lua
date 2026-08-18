@@ -44,6 +44,7 @@ function WeaponVending:init()
         {"Check", "TALKMENU"},
         {"Exit", "LEAVE"}
     }
+	Input.clear("confirm")
 end
 
 function WeaponVending:postInit()
