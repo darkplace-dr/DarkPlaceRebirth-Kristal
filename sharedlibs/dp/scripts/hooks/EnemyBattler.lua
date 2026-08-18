@@ -3,13 +3,15 @@ local EnemyBattler, super = HookSystem.hookScript(EnemyBattler)
 
 function EnemyBattler:init(actor, use_overlay)
     super.init(self, actor, use_overlay)
-    
+
+    self.graze_tension_reduced = 0.2 -- like defend tension goes down from 16 to 2, graze tension's default goes down from 1.6 to 0.2
+
     self.tiredness = 0
-	
+
 	self.service_mercy = 20
 
     self.killable = false
-	
+
 	-- These next three variables are for the "Disarm" spell Jamm learns in Dark Future.
 	self.has_weapon = false
 	self.disarm_chance = -0.1
@@ -19,6 +21,13 @@ function EnemyBattler:init(actor, use_overlay)
 
     self.powder = false
     self.powder_damage = false
+end
+
+function EnemyBattler:getGrazeTension()
+    if Game.battle:hasReducedTension() then
+        return self.graze_tension_reduced
+    end
+    return self.graze_tension
 end
 
 function EnemyBattler:hurt(amount, battler, on_defeat, color, show_status, attacked)

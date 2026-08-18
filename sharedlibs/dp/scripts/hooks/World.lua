@@ -16,6 +16,12 @@ World.mb_blacklist = {
     },
 }
 
+function World:init(map)
+    super.init(self, map)
+
+    self.tension_bar = self:createTensionBar()
+end
+
 function World:canMb(map)
     if (Kristal.DebugSystem:isMenuOpen() or Game:getFlag("s", false) or (self:hasCutscene() or Game.battle)) then
         return false
@@ -117,6 +123,36 @@ function World:transitionMusic(next, fade_out)
             end
         end
     end
+end
+
+function World:createTensionBar()
+    local bar = TensionBar(-25, 88, true)
+    bar:setParallax(0, 0)
+    bar.layer = WORLD_LAYERS["ui"]
+    return self:addChild(bar)
+end
+
+function World:hasReducedTension()
+    return self.map:hasReducedTension()
+end
+
+function World:update()
+    if not self.tension_bar or self.tension_bar:isRemoved() then
+        self.tension_bar = self:createTensionBar()
+    end
+    if not Game.world.menu then -- allow to show the bar in the menu(s?)
+        if self:inBattle() and Game:getFlag("tension_storage", false) and Game:getFlag("overworld_grazing", false) then
+            if not self.tension_bar.shown then
+                self.tension_bar:show()
+            end
+        else
+            if self.tension_bar.shown then
+                self.tension_bar:hide()
+            end
+        end
+    end
+
+    super.update(self)
 end
 
 function World:breakSoulShield()

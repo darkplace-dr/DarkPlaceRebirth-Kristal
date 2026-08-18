@@ -4,6 +4,11 @@ local Map, super = HookSystem.hookScript(Map)
 function Map:init(world, data)
     super.init(self, world, data)
 
+    -- reduces the overworld tension if the player has the "Keep Tension" badge
+    self.reduced_tension = data and data.properties and data.properties["reduced_tension"] or false
+    -- if enabled, carries the tension reduction into battles initiated in this room
+    self.reduced_tension_battles = data and data.properties and data.properties["reduced_tension_battles"] or false
+
     -- spawns the party members at markers with the same id as them (if they're unlocked, and not already in the party)
     self.spawn_party = data and data.properties and data.properties["spawn_party"] or false
     -- if the party spawn enabled, spawn them only if THAT flagcheck is successful
@@ -43,6 +48,10 @@ function Map:onFootstep(char, num)
             Assets.playSound("spongestep_2")
         end
 	end
+end
+
+function Map:hasReducedTension()
+    return self.reduced_tension
 end
 
 function Map:allowsPartyNPCSpawn()

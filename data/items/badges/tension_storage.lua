@@ -18,13 +18,15 @@ function badge:init()
     self.price = 830
 end
 
-function badge:update(equipped)
-    if equipped then
-        Game:setFlag("tension_storage", true)
-    end
-    if not equipped then
-        Game:setFlag("tension_storage", false)
-    end
+function Badge:onBadgeEquipped()
+    Game:setFlag("tension_storage", true)
+    Game.world.tension_bar:show()
+end
+
+function Badge:onBadgeRemoved()
+    Game:setFlag("tension_storage", false)
+    Game.world.tension_bar:hide()
+    Game:setTension(0)
 end
 
 return badge

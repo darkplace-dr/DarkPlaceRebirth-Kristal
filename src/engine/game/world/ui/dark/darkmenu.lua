@@ -60,10 +60,8 @@ function DarkMenu:init()
     self.box_offset_y = 0
 
     if Game:getFlag("tension_storage") then
-        self.bar = TensionBar(-24, 100, true)
-        self:addChild(self.bar)
+        Game.world.tension_bar:show()
     end
-
 end
 
 function DarkMenu:getButtonSpacing()
@@ -242,6 +240,9 @@ function DarkMenu:transitionOut()
     self.animation_timer = 0
     self.animation_done = false
 
+    Game.world.tension_bar:hide()
+    if Game.world.soul then Game.world.soul:updateGrazeFactors() end -- I know, a weird place to put it. But when you exit this menu, you MAY have updated your equipment, and therefore graze factors
+
     self.state = "MAIN"
     if self.box then
         self.box:remove()
@@ -378,12 +379,6 @@ function DarkMenu:updateSelectedBoxes()
 end
 
 function DarkMenu:update()
-
-    if self.bar then
-        self.bar.x = (self.y/4) + 32
-        self.bar.rotation = self.y/-80
-    end
-
     self.animation_timer = self.animation_timer + DTMULT
 
     local max_time = self.animate_out and 3 or 8

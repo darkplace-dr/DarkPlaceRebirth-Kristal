@@ -8,6 +8,10 @@ function Encounter:init()
         self.music = "batterup"
     end
 
+    if Game.world:hasReducedTension() and Game.world.map.reduced_tension_battles then
+        self.reduced_tension = true
+    end
+
     -- Can the player flee the battle?
     self.flee = true
     -- Chance out of 100 that the player can flee this battle (x/100)
@@ -16,7 +20,7 @@ function Encounter:init()
     ---@type boolean
     -- Prevents the Dojo background from being added on Boss Rushes and Boss Refights
     self.no_dojo_bg = false
-    
+
     self.temperature = 50
 end
 
@@ -48,11 +52,11 @@ function Encounter:addEnemy(enemy, x, y, ...)
     else
         enemy_obj = enemy
     end
-    
+
     if enemy_obj.milestone and enemy_obj.experience > 0 then
         self.milestone = true
     end
-    
+
     return super.addEnemy(self, enemy, x, y, ...)
 end
 
