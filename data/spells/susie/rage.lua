@@ -20,11 +20,11 @@ function spell:init()
     self.target = "enemies"
 
     -- Tags that apply to this spell
-    self.tags = {"rage"}
+    self.tags = { "rage" }
 end
 
 function spell:getCastMessage(user, target)
-    return "* "..user.chara:getName().." goes into a RAGE!"
+    return "* " .. user.chara:getName() .. " goes into a RAGE!"
 end
 
 function spell:onCast(user, target)
@@ -33,7 +33,9 @@ function spell:onCast(user, target)
 	user.chara.rage_counter = 6
     Assets.playSound("scytheburst")
     Assets.playSound("criticalswing", 1.2, 1.3)
-	user:setAnimation("battle/attack", function()
+	user:setAnimation("battle/attack")
+
+    Game.battle.timer:after(10 / 30, function()
         local damage = self:getDamage(user, target)
 
         -- copied some stuff from normal attacking code to make it look like one
@@ -67,7 +69,7 @@ function spell:onCast(user, target)
             item:onAttackHit(user, target, damage)
         end
 
-		Game.battle.timer:after(15/30, function()
+		Game.battle.timer:after(15 / 30, function()
             user:setAnimation("battle/idle")
 			Game.battle:finishAction()
 		end)

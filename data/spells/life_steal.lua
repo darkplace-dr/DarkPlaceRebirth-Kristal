@@ -18,7 +18,6 @@ function spell:init()
     -- TP cost
     self.cost = 20
 
-
     -- Target mode (ally, party, enemy, enemies, or none)
     self.target = "enemy" or "ally"
     --self.target2 = "self"
@@ -31,7 +30,7 @@ end
 function spell:onCast(user, target)
     Assets.playSound("voice/noel-'")
     Assets.playSound("break2")
-    target:hurt(user.chara:getStat("magic") * 20 + 10)
+    target:hurt(user.chara:getStat("magic") * 20 + 10, user)
     user:heal(user.chara:getStat("magic") * 20 + 10)
 end
 
