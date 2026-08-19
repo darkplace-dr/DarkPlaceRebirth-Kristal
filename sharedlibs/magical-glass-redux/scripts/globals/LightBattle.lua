@@ -2800,6 +2800,10 @@ function LightBattle:shake(x, y, friction)
     end
 end
 
+function LightBattle:shakeCamera(x, y, friction)
+    self:shake(x, y, friction)
+end
+
 function LightBattle:randomTargetOld()
     local none_targetable = true
     for _, battler in ipairs(self.party) do
