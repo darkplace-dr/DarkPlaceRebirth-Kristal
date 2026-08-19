@@ -1033,7 +1033,7 @@ function Lib:init()
         end
     end)
     HookSystem.hook(DarkPowerMenu, "canCast", function (orig, self, spell)
-        if not Kristal.getLibConfig("ManaHealthResources", "use_propietary_darkpowermenu_spell_usability_changes") then orig(self, spell) return end
+        --if not Kristal.getLibConfig("ManaHealthResources", "use_propietary_darkpowermenu_spell_usability_changes") then orig(self, spell) return end
 
         if not Game:getConfig("overworldSpells") then return false end
         local resource = spell:getResourceType(self.party:getSelected())
