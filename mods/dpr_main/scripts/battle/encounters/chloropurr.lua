@@ -7,6 +7,7 @@ function Pebblin:init()
 
     self.music = "battle"
     self.background = true
+    self.flee = false
 
     self:addEnemy("chloropurr")
 end

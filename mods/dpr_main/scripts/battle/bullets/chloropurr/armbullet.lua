@@ -14,16 +14,20 @@ function SmallBullet:init(x, y, dir, speed)
     self.physics.direction = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
     self.speed = self.physics.speed
     self.timer = 30
-    self.movement = 8
+    self.movement = 3
     self:setHitbox(12, 8, self.width-24, self.height-16)
 end
 
 function SmallBullet:update()
     -- For more complicated bullet behaviours, code here gets called every update
     self.timer = self.timer - 1
-    if self.timer <= 0 and self.movement > 0 then
+    if self.timer <= 0 then
         Assets.stopAndPlaySound("wing")
-        self.physics.direction = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+        if self.movement <= 0 then
+        self.physics.direction = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)+180
+        else
+            self.physics.direction = MathUtils.angle(self.x, self.y, Game.battle.soul.x, Game.battle.soul.y)
+        end
         self.physics.speed = self.speed
         self.timer = 30
         self.movement = self.movement - 1
@@ -37,6 +41,7 @@ function SmallBullet:update()
 end
 function SmallBullet:onGraze()
     self.physics.speed = self.physics.speed - 0.1
+    self.movement = self.movement - 1
 end
 
 return SmallBullet
