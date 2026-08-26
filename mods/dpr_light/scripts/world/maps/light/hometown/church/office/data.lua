@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 25,
+  nextlayerid = 11,
+  nextobjectid = 32,
   properties = {
     ["border"] = "leaves",
     ["church"] = true,
@@ -204,8 +204,43 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 10,
+      name = "objects_light",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 78,
+          y = 320,
+          width = 160,
+          height = 32,
+          rotation = 0,
+          opacity = 1,
+          gid = 182,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -391,6 +426,44 @@ return {
           properties = {
             ["cutscene"] = "church.cupboard",
             ["solid"] = true
+          }
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 332,
+          width = 158,
+          height = 280,
+          rotation = 0,
+          opacity = 1,
+          gid = 183,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
+          }
+        },
+        {
+          id = 31,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 400,
+          width = 62,
+          height = 126,
+          rotation = 0,
+          opacity = 1,
+          gid = 185,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         }
       }

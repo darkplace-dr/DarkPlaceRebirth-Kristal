@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="15">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,9 +7,13 @@
   <property name="border" value="leaves"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="deltarune/mus_school"/>
+  <property name="school" type="bool" value="true"/>
  </properties>
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/school/abandoned_class.png" width="640" height="480"/>
+ </imagelayer>
+ <imagelayer id="7" name="room_night">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/school/abandoned_class_night.png" width="640" height="480"/>
  </imagelayer>
  <objectgroup color="#5500ff" id="3" name="collision">
   <object id="1" x="160" y="210">
@@ -48,6 +52,9 @@
     <property name="map" value="light/hometown/school/school_door"/>
     <property name="marker" value="entryunused"/>
    </properties>
+  </object>
+  <object id="15" name="hometowndaynight" x="0" y="0">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">

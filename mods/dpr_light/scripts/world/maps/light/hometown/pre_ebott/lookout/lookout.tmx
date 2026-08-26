@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" backgroundcolor="#32b9ff" nextlayerid="18" nextobjectid="69">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" backgroundcolor="#32b9ff" nextlayerid="20" nextobjectid="69">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -162,9 +162,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group id="12" name="shadows">
-  <objectgroup id="14" name="objects_shadows_evening_cutout" visible="0"/>
-  <objectgroup id="15" name="objects_shadows_morning_cutout" visible="0">
+ <group id="12" name="shadows" visible="0">
+  <objectgroup id="19" name="objects_shadows_evening_topcutout"/>
+  <objectgroup id="18" name="objects_shadows_morning_topcutout">
    <object id="16" gid="334" x="164" y="640" width="110" height="120"/>
    <object id="17" gid="334" x="84" y="600" width="110" height="120"/>
    <object id="18" gid="334" x="4" y="560" width="110" height="120"/>
@@ -173,6 +173,9 @@
    <object id="21" gid="334" x="444" y="600" width="110" height="120"/>
    <object id="22" gid="334" x="524" y="560" width="110" height="120"/>
    <object id="23" gid="334" x="604" y="520" width="110" height="120"/>
+  </objectgroup>
+  <objectgroup id="14" name="objects_shadows_evening_cutout"/>
+  <objectgroup id="15" name="objects_shadows_morning_cutout">
    <object id="24" gid="324" x="360" y="600" width="120" height="40"/>
    <object id="28" gid="323" x="234" y="668" width="40" height="40"/>
    <object id="29" gid="323" x="234" y="628" width="40" height="40"/>
@@ -191,8 +194,8 @@
    <object id="55" gid="332" x="560" y="720" width="80" height="240"/>
    <object id="68" gid="332" x="210" y="630" width="32" height="32"/>
   </objectgroup>
-  <objectgroup id="17" name="objects_shadows_evening" visible="0"/>
-  <objectgroup id="16" name="objects_shadows_morning" visible="0">
+  <objectgroup id="17" name="objects_shadows_evening"/>
+  <objectgroup id="16" name="objects_shadows_morning">
    <object id="56" gid="346" x="376" y="764" width="62.5685" height="225.194" rotation="-45"/>
    <object id="57" gid="346" x="280" y="960" width="100" height="280"/>
    <object id="66" gid="346" x="280" y="680" width="40" height="40"/>
@@ -205,7 +208,7 @@
    <object id="64" gid="349" x="266" y="940" width="14" height="40"/>
    <object id="65" gid="349" x="266" y="980" width="14" height="40"/>
   </objectgroup>
-  <layer id="11" name="tiles_shadows_evening" width="16" height="24" visible="0">
+  <layer id="11" name="tiles_shadows_evening" width="16" height="24">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -233,7 +236,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer id="13" name="tiles_shadows_morning" width="16" height="24" visible="0">
+  <layer id="13" name="tiles_shadows_morning" width="16" height="24">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

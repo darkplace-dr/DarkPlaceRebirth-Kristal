@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.12.1" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="169" columns="0">
+<tileset version="1.11" tiledversion="1.12.1" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="180" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -234,9 +234,6 @@
  </tile>
  <tile id="76">
   <image source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_small.png" width="26" height="25"/>
- </tile>
- <tile id="77">
-  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png" width="320" height="240"/>
  </tile>
  <tile id="79">
   <image source="../../../assets/sprites/tilesets/objects/bathroom_shower_curtain.png" width="94" height="240"/>
@@ -510,5 +507,41 @@
  </tile>
  <tile id="171">
   <image source="../../../assets/sprites/world/maps/hometown/flowking_dark.png" width="434" height="316"/>
+ </tile>
+ <tile id="172">
+  <image source="../../../assets/sprites/world/maps/hometown/apartment_dark.png" width="280" height="372"/>
+ </tile>
+ <tile id="173">
+  <image source="../../../assets/sprites/world/maps/hometown/apartmentbunny_dark.png" width="280" height="372"/>
+ </tile>
+ <tile id="174">
+  <image source="../../../assets/sprites/world/maps/hometown/apartmentwindow_dark.png" width="280" height="372"/>
+ </tile>
+ <tile id="175">
+  <image source="../../../assets/sprites/world/maps/hometown/icepizza_dark.png" width="336" height="284"/>
+ </tile>
+ <tile id="176">
+  <image source="../../../assets/sprites/world/maps/hometown/sanshouse_dark.png" width="414" height="406"/>
+ </tile>
+ <tile id="177">
+  <image source="../../../assets/sprites/world/maps/hometown/sansstore_dark.png" width="424" height="334"/>
+ </tile>
+ <tile id="178">
+  <image source="../../../assets/sprites/world/maps/hometown/graves_dark.png" width="570" height="198"/>
+ </tile>
+ <tile id="179">
+  <image source="../../../assets/sprites/world/maps/hometown/church/choir_light.png" width="80" height="16"/>
+ </tile>
+ <tile id="180">
+  <image source="../../../assets/sprites/world/maps/hometown/church/choir_light_window.png" width="93" height="121"/>
+ </tile>
+ <tile id="181">
+  <image source="../../../assets/sprites/world/maps/hometown/church/office_light.png" width="80" height="16"/>
+ </tile>
+ <tile id="182">
+  <image source="../../../assets/sprites/world/maps/hometown/church/office_light_window.png" width="79" height="140"/>
+ </tile>
+ <tile id="184">
+  <image source="../../../assets/sprites/tilesets/objects/cabinet_lit.png" width="62" height="126"/>
  </tile>
 </tileset>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="23" nextobjectid="15">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="25" nextobjectid="102">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,10 +7,10 @@
   <property name="border" value="leaves"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="hometown"/>
-  <property name="no_shadows" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/hometown.tsx"/>
  <tileset firstgid="287" source="../../../../tilesets/hometownobjects.tsx"/>
+ <tileset firstgid="472" source="../../../../tilesets/hometownshadowsobjects.tsx"/>
  <imagelayer id="7" name="shore">
   <image source="../../../../../../assets/sprites/world/maps/hometown/room_beach.png" width="1200" height="480"/>
  </imagelayer>
@@ -46,11 +46,77 @@
 150,151,150,151,150,151,150,151,150,151,150,151,150,151,150,151,150,151,150,153,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group id="16" name="shadows">
+ <group id="16" name="shadows" visible="0">
+  <objectgroup id="24" name="objects_shadows_evening_topcutout"/>
+  <objectgroup id="23" name="objects_shadows_morning_topcutout">
+   <object id="72" gid="519" x="-36" y="482" width="110" height="120"/>
+   <object id="73" gid="519" x="44" y="482" width="110" height="120"/>
+   <object id="74" gid="519" x="124" y="482" width="110" height="120"/>
+   <object id="75" gid="519" x="204" y="482" width="110" height="120"/>
+   <object id="76" gid="519" x="284" y="482" width="110" height="120"/>
+   <object id="77" gid="519" x="364" y="482" width="110" height="120"/>
+   <object id="78" gid="519" x="444" y="482" width="110" height="120"/>
+   <object id="79" gid="519" x="524" y="482" width="110" height="120"/>
+   <object id="80" gid="519" x="604" y="482" width="110" height="120"/>
+   <object id="81" gid="519" x="684" y="482" width="110" height="120"/>
+   <object id="38" gid="329" x="320" y="388" width="134" height="90"/>
+   <object id="39" gid="329" x="160" y="388" width="134" height="90"/>
+  </objectgroup>
   <objectgroup id="19" name="objects_shadows_evening_cutout"/>
-  <objectgroup id="20" name="objects_shadows_morning_cutout"/>
+  <objectgroup id="20" name="objects_shadows_morning_cutout">
+   <object id="56" gid="519" x="-36" y="200" width="110" height="120"/>
+   <object id="57" gid="519" x="44" y="200" width="110" height="120"/>
+   <object id="58" gid="519" x="124" y="200" width="110" height="120"/>
+   <object id="59" gid="519" x="204" y="200" width="110" height="120"/>
+   <object id="60" gid="519" x="284" y="200" width="110" height="120"/>
+   <object id="61" gid="519" x="364" y="200" width="110" height="120"/>
+   <object id="62" gid="519" x="444" y="200" width="110" height="120"/>
+   <object id="63" gid="519" x="524" y="200" width="110" height="120"/>
+   <object id="64" gid="519" x="604" y="200" width="110" height="120"/>
+   <object id="65" gid="519" x="684" y="200" width="110" height="120"/>
+   <object id="82" gid="517" x="0" y="480" width="770" height="52"/>
+   <object id="87" gid="509" x="680" y="480" width="120" height="40"/>
+   <object id="88" gid="509" x="680" y="440" width="120" height="40"/>
+  </objectgroup>
   <objectgroup id="22" name="objects_shadows_evening"/>
-  <objectgroup id="21" name="objects_shadows_morning"/>
+  <objectgroup id="21" name="objects_shadows_morning">
+   <object id="44" gid="528" x="8" y="180" width="80" height="46"/>
+   <object id="45" gid="528" x="-72" y="180" width="80" height="46"/>
+   <object id="46" gid="528" x="168" y="180" width="80" height="46"/>
+   <object id="47" gid="528" x="88" y="180" width="80" height="46"/>
+   <object id="48" gid="528" x="328" y="180" width="80" height="46"/>
+   <object id="49" gid="528" x="248" y="180" width="80" height="46"/>
+   <object id="50" gid="528" x="488" y="180" width="80" height="46"/>
+   <object id="51" gid="528" x="408" y="180" width="80" height="46"/>
+   <object id="52" gid="528" x="648" y="180" width="80" height="46"/>
+   <object id="53" gid="528" x="568" y="180" width="80" height="46"/>
+   <object id="55" gid="528" x="728" y="180" width="80" height="46"/>
+   <object id="83" gid="531" x="735" y="445" width="120.208" height="69.4975" rotation="45"/>
+   <object id="31" gid="539" x="480" y="304" width="80" height="24"/>
+   <object id="32" gid="539" x="560" y="304" width="80" height="24"/>
+   <object id="33" gid="539" x="640" y="304" width="80" height="24"/>
+   <object id="34" gid="539" x="720" y="304" width="80" height="24"/>
+   <object id="35" gid="539" x="240" y="304" width="80" height="24"/>
+   <object id="36" gid="539" x="320" y="304" width="80" height="24"/>
+   <object id="37" gid="539" x="400" y="304" width="80" height="24"/>
+   <object id="40" gid="539" x="160" y="304" width="80" height="24"/>
+   <object id="42" gid="539" x="0" y="304" width="80" height="24"/>
+   <object id="43" gid="539" x="80" y="304" width="80" height="24"/>
+   <object id="67" gid="534" x="786" y="140" width="14" height="40"/>
+   <object id="68" gid="534" x="786" y="100" width="14" height="40"/>
+   <object id="69" gid="534" x="786" y="60" width="14" height="40"/>
+   <object id="70" gid="534" x="786" y="20" width="14" height="40"/>
+   <object id="71" gid="531" x="800" y="280" width="160" height="280"/>
+   <object id="85" gid="539" x="893" y="475" width="80" height="24" rotation="225"/>
+   <object id="86" gid="539" x="860" y="440" width="80" height="24" rotation="225"/>
+   <object id="89" gid="539" x="800" y="304" width="80" height="24"/>
+   <object id="90" gid="539" x="878" y="302" width="80" height="24"/>
+   <object id="95" gid="539" x="982" y="280" width="80" height="24" rotation="-90"/>
+   <object id="96" gid="539" x="984" y="200" width="80" height="24" rotation="-90"/>
+   <object id="97" gid="539" x="984" y="120" width="80" height="24" rotation="-90"/>
+   <object id="98" gid="539" x="984" y="40" width="80" height="24" rotation="-90"/>
+   <object id="101" gid="531" x="0" y="280" width="800" height="100"/>
+  </objectgroup>
   <layer id="18" name="tiles_shadows_evening" width="30" height="12">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -84,7 +150,7 @@
 </data>
   </layer>
  </group>
- <objectgroup color="#5500ff" id="3" name="collision" visible="0">
+ <objectgroup color="#5500ff" id="3" name="collision">
   <object id="1" x="800" y="0" width="40" height="480"/>
   <object id="2" x="0" y="0" width="800" height="200"/>
   <object id="3" x="0" y="400" width="800" height="80"/>

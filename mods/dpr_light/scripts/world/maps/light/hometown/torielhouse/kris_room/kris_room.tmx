@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="28">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="28">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -14,13 +14,9 @@
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/torielhouse/kris_room.png" width="640" height="480"/>
  </imagelayer>
- <objectgroup id="6" name="objects_room_night" visible="0">
-  <object id="21" gid="78" x="0" y="480" width="640" height="480">
-   <properties>
-    <property name="night" type="int" value="1"/>
-   </properties>
-  </object>
- </objectgroup>
+ <imagelayer id="9" name="room_night">
+  <image source="../../../../../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png" width="640" height="480"/>
+ </imagelayer>
  <objectgroup color="#5500ff" id="3" name="collision">
   <object id="1" x="80" y="400" width="210" height="40"/>
   <object id="2" x="250" y="440" width="40" height="40"/>

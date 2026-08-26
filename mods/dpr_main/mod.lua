@@ -19,6 +19,7 @@ function Mod:init()
     end
 
     self:makeSpellsMissAgainstJackenstein()
+	self:doKikkyWorldHooks()
 end
 
 function Mod:postInit(new_file)
@@ -557,6 +558,85 @@ end
 
 function Mod:onJukeboxPlay(song)
     Game:setFlag("curJukeBoxSong", song.file)
+end
+
+function Mod:doKikkyWorldHooks()
+	HookSystem.hook(NPC, "onAdd", function(orig, self, parent)
+		self.world = Game.world
+	end)
+	HookSystem.hook(World, "onKeyPressed", function(orig, self, key)	
+		if Kristal.isDevMode() and Input.ctrl() then
+			if key == "m" then
+				if self.music then
+					if self.music:isPlaying() then
+						self.music:pause()
+					else
+						self.music:resume()
+					end
+				end
+			end
+			if key == "s" then
+				local save_pos = nil
+				if Input.shift() then
+					save_pos = { self.player.x, self.player.y }
+				end
+				if Game:getConfig("smallSaveMenu") then
+					self:openMenu(SimpleSaveMenu(Game.save_id, save_pos))
+				elseif Game:isLight() then
+					self:openMenu(LightSaveMenu(save_pos))
+				else
+					self:openMenu(SaveMenu(save_pos))
+				end
+			end
+			if key == "h" then
+				for _, party in ipairs(Game.party) do
+					party:heal(math.huge)
+				end
+			end
+			if key == "b" then
+				Game.world:hurtParty(math.huge)
+			end
+			if key == "k" then
+				Game:setTension(Game:getMaxTension())
+				Assets.playSound("cardrive", 0.8, 1.4)
+			end
+			if key == "n" then
+				NOCLIP = not NOCLIP
+				if NOCLIP then
+					Assets.playSound("petrify")
+				else
+					Assets.playSound("bump")
+				end
+			end
+			if key == "i" then
+				INVINCIBILITY = not INVINCIBILITY
+				if INVINCIBILITY then
+					Assets.playSound("sparkle_glock")
+				else
+					Assets.playSound("bump")
+				end
+			end
+		end
+
+		if Game.lock_movement then return end
+
+		if self.state == "GAMEPLAY" then
+			if not (Game.world.kikky_world and Game.world.kikky_world.gameplay_active) then
+				if Input.isConfirm(key) and self:canInteract() then
+					if self.player:interact() then
+						Input.clear("confirm")
+					end
+				elseif Input.isMenu(key) and self:canOpenMenu() then
+					self:openMenu(nil, WORLD_LAYERS["ui"] + 1)
+					Input.clear("menu")
+				end
+			end
+		elseif self.state == "MENU" then
+			if self.menu and self.menu.onKeyPressed then
+				self.menu:onKeyPressed(key)
+			end
+		end
+	end)
 end
 
 function Mod:makeSpellsMissAgainstJackenstein()

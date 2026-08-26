@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 16,
+  nextlayerid = 11,
+  nextobjectid = 18,
   properties = {
     ["border"] = "leaves",
     ["church"] = true,
@@ -162,8 +162,43 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 10,
+      name = "objects_light",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 336,
+          y = 296,
+          width = 160,
+          height = 32,
+          rotation = 0,
+          opacity = 1,
+          gid = 180,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -288,6 +323,25 @@ return {
           properties = {
             ["cutscene"] = "church.piano",
             ["solid"] = true
+          }
+        },
+        {
+          id = 16,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 334,
+          y = 296,
+          width = 186,
+          height = 242,
+          rotation = 0,
+          opacity = 1,
+          gid = 181,
+          visible = true,
+          properties = {
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         }
       }

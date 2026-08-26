@@ -9,7 +9,7 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
+  nextlayerid = 10,
   nextobjectid = 28,
   properties = {
     ["border"] = "leaves",
@@ -44,37 +44,20 @@ return {
       properties = {}
     },
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 6,
-      name = "objects_room_night",
+      type = "imagelayer",
+      image = "../../../../../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png",
+      id = 9,
+      name = "room_night",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 21,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 480,
-          width = 640,
-          height = 480,
-          rotation = 0,
-          opacity = 1,
-          gid = 78,
-          visible = true,
-          properties = {
-            ["night"] = 1
-          }
-        }
-      }
+      repeatx = false,
+      repeaty = false,
+      properties = {}
     },
     {
       type = "objectgroup",

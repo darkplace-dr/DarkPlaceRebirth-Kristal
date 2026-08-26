@@ -408,7 +408,7 @@ function Diamond_Store:drawPartyBonusInfo(box_y, item, item_options, box_x, box_
         if item:getBadgePoints() > (Game.total_bp -  Game:getUsedBadgePoints()) then
             Draw.setColor(COLORS.gray)
         end
-        love.graphics.print(bp_text, box_x + box_w - 32 - self.font:getWidth(bp_text), box_y + 20)
+        self:printOutline(bp_text, box_x + box_w - 32 - self.font:getWidth(bp_text), box_y + 20)
     end
 end
 
@@ -433,8 +433,8 @@ function Diamond_Store:drawItemDisplay()
     Draw.setColor(COLORS.white)
     self:printOutline(current_item.options["description"], left + 32, top + 20)
 
-    if current_item.item.type == "armor" or current_item.item.type == "weapon" then
-        self:drawPartyBonusInfo(top, current_item.item, current_item.options, left_width)
+    if current_item.item.type == "armor" or current_item.item.type == "weapon" or current_item.item.type == "badge" then
+        self:drawPartyBonusInfo(top, current_item.item, current_item.options, left, width)
     end
 
     Draw.popScissor()

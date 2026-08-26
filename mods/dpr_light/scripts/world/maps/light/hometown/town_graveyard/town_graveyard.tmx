@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="27" nextobjectid="25">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="30" nextobjectid="121">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -10,6 +10,8 @@
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/hometown.tsx"/>
  <tileset firstgid="287" source="../../../../tilesets/hometownobjects.tsx"/>
+ <tileset firstgid="472" source="../../../../tilesets/hometownshadowsobjects.tsx"/>
+ <tileset firstgid="548" source="../../../../tilesets/hometownshadows.tsx"/>
  <group id="7" name="main">
   <layer id="1" name="tile" width="30" height="12">
    <data encoding="csv">
@@ -92,11 +94,87 @@
 </data>
   </layer>
  </group>
- <group id="21" name="shadows">
+ <imagelayer id="13" name="gate" offsetx="996" offsety="82">
+  <image source="../../../../../../assets/sprites/world/maps/hometown/graveg.png" width="66" height="304"/>
+ </imagelayer>
+ <imagelayer id="17" name="graves" offsetx="152" offsety="70">
+  <image source="../../../../../../assets/sprites/world/maps/hometown/graves.png" width="570" height="198"/>
+ </imagelayer>
+ <group id="21" name="shadows" visible="0">
+  <objectgroup id="29" name="objects_shadows_evening_topcutout"/>
+  <objectgroup id="28" name="objects_shadows_morning_topcutout">
+   <object id="75" gid="519" x="964" y="522" width="110" height="120"/>
+   <object id="77" gid="519" x="1044" y="522" width="110" height="120"/>
+   <object id="78" gid="519" x="1124" y="522" width="110" height="120"/>
+   <object id="85" gid="519" x="244" y="522" width="110" height="120"/>
+   <object id="86" gid="519" x="164" y="522" width="110" height="120"/>
+   <object id="87" gid="519" x="84" y="522" width="110" height="120"/>
+   <object id="88" gid="519" x="4" y="522" width="110" height="120"/>
+   <object id="91" gid="519" x="564" y="522" width="110" height="120"/>
+   <object id="92" gid="519" x="484" y="522" width="110" height="120"/>
+   <object id="93" gid="519" x="404" y="522" width="110" height="120"/>
+   <object id="94" gid="519" x="324" y="522" width="110" height="120"/>
+   <object id="95" gid="519" x="884" y="522" width="110" height="120"/>
+   <object id="96" gid="519" x="804" y="522" width="110" height="120"/>
+   <object id="97" gid="519" x="724" y="522" width="110" height="120"/>
+   <object id="98" gid="519" x="644" y="522" width="110" height="120"/>
+  </objectgroup>
   <objectgroup id="23" name="objects_shadows_evening_cutout"/>
-  <objectgroup id="24" name="objects_shadows_morning_cutout"/>
+  <objectgroup id="24" name="objects_shadows_morning_cutout">
+   <object id="56" gid="516" x="760" y="100" width="120" height="40"/>
+   <object id="57" gid="516" x="760" y="140" width="120" height="40"/>
+   <object id="58" gid="516" x="760" y="180" width="120" height="40"/>
+   <object id="59" gid="519" x="724" y="120" width="110" height="120"/>
+   <object id="61" gid="519" x="644" y="120" width="110" height="120"/>
+   <object id="62" gid="519" x="564" y="120" width="110" height="120"/>
+   <object id="63" gid="519" x="484" y="120" width="110" height="120"/>
+   <object id="64" gid="519" x="404" y="120" width="110" height="120"/>
+   <object id="65" gid="519" x="324" y="120" width="110" height="120"/>
+   <object id="66" gid="519" x="244" y="120" width="110" height="120"/>
+   <object id="67" gid="519" x="164" y="120" width="110" height="120"/>
+   <object id="68" gid="519" x="84" y="120" width="110" height="120"/>
+   <object id="69" gid="519" x="4" y="120" width="110" height="120"/>
+   <object id="79" gid="519" x="764" y="240" width="110" height="120"/>
+   <object id="80" gid="519" x="844" y="240" width="110" height="120"/>
+   <object id="81" gid="519" x="924" y="240" width="110" height="120"/>
+   <object id="82" gid="519" x="1004" y="240" width="110" height="120"/>
+   <object id="83" gid="519" x="1084" y="240" width="110" height="120"/>
+   <object id="84" gid="519" x="1164" y="240" width="110" height="120"/>
+  </objectgroup>
   <objectgroup id="26" name="objects_shadows_evening"/>
-  <objectgroup id="25" name="objects_shadows_morning"/>
+  <objectgroup id="25" name="objects_shadows_morning">
+   <object id="33" gid="539" x="150" y="258" width="80" height="24"/>
+   <object id="34" gid="539" x="230" y="258" width="80" height="24"/>
+   <object id="35" gid="539" x="310" y="258" width="80" height="24"/>
+   <object id="36" gid="539" x="390" y="258" width="80" height="24"/>
+   <object id="37" gid="539" x="470" y="258" width="80" height="24"/>
+   <object id="38" gid="539" x="550" y="258" width="80" height="24"/>
+   <object id="39" gid="539" x="630" y="258" width="80" height="24"/>
+   <object id="40" gid="539" x="710" y="258" width="80" height="24"/>
+   <object id="43" gid="534" x="26" y="380" width="14" height="40"/>
+   <object id="44" gid="534" x="26" y="180" width="14" height="40"/>
+   <object id="45" gid="534" x="26" y="140" width="14" height="40"/>
+   <object id="46" gid="537" x="26" y="404" width="14" height="24"/>
+   <object id="47" gid="534" x="26" y="260" width="14" height="40"/>
+   <object id="48" gid="534" x="26" y="220" width="14" height="40"/>
+   <object id="49" gid="534" x="26" y="340" width="14" height="40"/>
+   <object id="50" gid="534" x="26" y="300" width="14" height="40"/>
+   <object id="51" gid="535" x="756" y="180" width="18" height="40"/>
+   <object id="52" gid="535" x="756" y="140" width="18" height="40"/>
+   <object id="53" gid="535" x="756" y="100" width="18" height="40"/>
+   <object id="55" gid="531" x="760" y="200" width="40" height="20"/>
+   <object id="70" gid="534" x="26" y="100" width="14" height="40"/>
+   <object id="103" gid="542" x="152" y="292" width="588" height="50"/>
+   <object id="107" gid="539" x="1040" y="384" width="80" height="24"/>
+   <object id="108" gid="539" x="1120" y="384" width="80" height="24"/>
+   <object id="109" gid="539" x="960" y="384" width="80" height="24"/>
+   <object id="111" gid="1073742363" x="160" y="270" width="80" height="24" rotation="90"/>
+   <object id="112" gid="1073742363" x="160" y="350" width="80" height="24" rotation="90"/>
+   <object id="116" gid="2147484187" x="765" y="274" width="80" height="24" rotation="45"/>
+   <object id="117" gid="2147484187" x="809" y="321" width="80" height="24" rotation="45"/>
+   <object id="118" gid="539" x="880" y="384" width="80" height="24"/>
+   <object id="120" gid="2147484187" x="735" y="248" width="80" height="24" rotation="45"/>
+  </objectgroup>
   <layer id="20" name="tiles_shadows_evening" width="30" height="12">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -116,26 +194,20 @@
   <layer id="22" name="tiles_shadows_morning" width="30" height="12">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,0,0,0,0,0,0,0,0,0,0,0,
+0,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,0,0,0,0,0,0,0,0,0,0,0,
+0,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,0,0,0,0,0,0,0,0,0,0,0,
+0,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,0,0,552,552,552,552,552,552,552,552,552,
+0,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,552,
+0,552,552,552,555,0,0,0,0,0,0,0,0,0,0,0,0,0,0,559,552,552,552,552,552,552,552,552,552,552,
+0,552,552,552,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,559,552,552,552,552,552,552,552,552,552,
+0,552,552,552,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,559,552,552,552,552,552,552,552,552,
+0,552,552,552,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,552,552,552,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
  </group>
- <imagelayer id="13" name="gate" offsetx="996" offsety="82">
-  <image source="../../../../../../assets/sprites/world/maps/hometown/graveg.png" width="66" height="304"/>
- </imagelayer>
- <imagelayer id="17" name="graves" offsetx="152" offsety="70">
-  <image source="../../../../../../assets/sprites/world/maps/hometown/graves.png" width="570" height="198"/>
- </imagelayer>
  <objectgroup color="#5500ff" id="8" name="collision">
   <object id="1" x="0" y="440" width="1200" height="40"/>
   <object id="2" x="0" y="0" width="40" height="440"/>
@@ -147,6 +219,13 @@
   <object id="8" x="712" y="120" width="10" height="120"/>
   <object id="13" x="152" y="240" width="234" height="28"/>
   <object id="14" x="152" y="120" width="10" height="120"/>
+ </objectgroup>
+ <objectgroup id="27" name="objects_morning" visible="0">
+  <object id="25" gid="465" x="152" y="268" width="570" height="198">
+   <properties>
+    <property name="sunrise" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="9" name="objects_party">
   <object id="9" name="interactable" x="614" y="132" width="54" height="40">
@@ -240,12 +319,12 @@
 151,152,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151,152,150,151
 </data>
  </layer>
- <imagelayer id="16" name="overlay" parallaxx="0.9">
-  <image source="../../../../../../assets/sprites/world/maps/hometown/graveyardover.png" width="1200" height="480"/>
- </imagelayer>
  <objectgroup color="#00aa00" id="19" name="objects_overlay">
   <object id="23" name="hometowndaynight" x="0" y="0">
    <point/>
   </object>
  </objectgroup>
+ <imagelayer id="16" name="overlay" parallaxx="0.9">
+  <image source="../../../../../../assets/sprites/world/maps/hometown/graveyardover.png" width="1200" height="480"/>
+ </imagelayer>
 </map>

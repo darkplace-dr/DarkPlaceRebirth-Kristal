@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="21">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="21">
  <editorsettings>
-  <export target="hacker_room.lua" format="lua"/>
+  <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="border" value="cyber"/>
@@ -37,7 +37,6 @@
   <object id="13" name="digitalmg" x="160" y="280" width="320" height="80"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="3" name="objects">
-  <object id="2" name="digital_bg" x="0" y="0" width="40" height="40"/>
   <object id="11" name="npc" x="320" y="300">
    <properties>
     <property name="actor" value="hacker"/>

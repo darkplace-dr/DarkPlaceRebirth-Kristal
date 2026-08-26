@@ -10,14 +10,27 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 16,
+  nextobjectid = 17,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
     ["music"] = "hometown",
     ["no_shadows"] = true
   },
-  tilesets = {},
+  tilesets = {
+    {
+      name = "hometownobjects",
+      firstgid = 1,
+      filename = "../../../../tilesets/hometownobjects.tsx",
+      exportfilename = "../../../../tilesets/hometownobjects.lua"
+    },
+    {
+      name = "hometownshadowsobjects",
+      firstgid = 180,
+      filename = "../../../../tilesets/hometownshadowsobjects.tsx",
+      exportfilename = "../../../../tilesets/hometownshadowsobjects.lua"
+    }
+  },
   layers = {
     {
       type = "imagelayer",
@@ -97,7 +110,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -302,6 +315,20 @@ return {
           type = "",
           shape = "point",
           x = 0,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 160,
           y = 0,
           width = 0,
           height = 0,

@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 45,
+  nextobjectid = 46,
   properties = {
     ["music"] = "mainhub"
   },
@@ -676,6 +676,20 @@ return {
           type = "",
           shape = "point",
           x = 1100,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "entry_room4",
+          type = "",
+          shape = "point",
+          x = 940,
           y = 280,
           width = 0,
           height = 0,

@@ -20,9 +20,10 @@ function HometownDayNight:onLoad()
     super.onLoad(self)
     self.inside = self.world.map.data.properties["inside"]
     self.church = self.world.map.data.properties["church"]
+    self.school = self.world.map.data.properties["school"]
     self.no_shadows = self.world.map.data.properties["no_shadows"]
     self.no_lut = self.world.map.data.properties["no_lut"]
-	if not self.inside and not self.no_shadows then
+	if not self.inside and not self.no_shadows and not self.school and not self.church then
 		if (Game:getFlag("hometown_time", "day") == "morning" or Game:getFlag("hometown_time", "day") == "evening") then
 			self.shadows = SunShadows()
 			self.shadows:setLayer(WORLD_LAYERS["below_ui"])
@@ -34,7 +35,9 @@ function HometownDayNight:onLoad()
 				self.shadows.tile_layer_names = {"tiles_shadows_morning"}
 				self.shadows.asset_layer_names = {"objects_shadows_morning"}
 				self.shadows.cutout_tile_layer_names = {}
+				self.shadows.topcutout_tile_layer_names = {}
 				self.shadows.cutout_asset_layer_names = {"objects_shadows_morning_cutout"}
+				self.shadows.topcutout_asset_layer_names = {"objects_shadows_morning_topcutout"}
 			elseif Game:getFlag("hometown_time", "day") == "evening" then
 				self.shadows.evening_mode = true
 				self.shadows.highlight_mode = -1
@@ -44,8 +47,12 @@ function HometownDayNight:onLoad()
 				self.shadows.tile_layer_names = {"tiles_shadows_evening"}
 				self.shadows.asset_layer_names = {"objects_shadows_evening"}
 				self.shadows.cutout_tile_layer_names = {}
+				self.shadows.topcutout_tile_layer_names = {}
 				self.shadows.cutout_asset_layer_names = {"objects_shadows_evening_cutout"}
+				self.shadows.topcutout_asset_layer_names = {"objects_shadows_evening_topcutout"}
 			end
+			TableUtils.merge(self.shadows.obj_list, Game.stage:getObjects(NPC))
+			TableUtils.merge(self.shadows.selfshadow_objects, self.shadows.obj_list)
 			Game.world:addChild(self.shadows)
 		end
 		Game.world.map:getTileLayer("tiles_shadows_evening").visible = false
@@ -57,6 +64,10 @@ function HometownDayNight:onLoad()
 		for _, obj in ipairs(Game.world.children) do
 			if obj.layer == layer and obj then obj.visible = false end
 		end	
+		layer = Game.world.map.layers["objects_shadows_evening_topcutout"]
+		for _, obj in ipairs(Game.world.children) do
+			if obj.layer == layer and obj then obj.visible = false end
+		end
 		Game.world.map:getTileLayer("tiles_shadows_morning").visible = false
 		layer = Game.world.map.layers["objects_shadows_morning"]
 		for _, obj in ipairs(Game.world.children) do
@@ -66,8 +77,12 @@ function HometownDayNight:onLoad()
 		for _, obj in ipairs(Game.world.children) do
 			if obj.layer == layer and obj then obj.visible = false end
 		end
+		layer = Game.world.map.layers["objects_shadows_morning_topcutout"]
+		for _, obj in ipairs(Game.world.children) do
+			if obj.layer == layer and obj then obj.visible = false end
+		end
 	end
-	if (not self.inside) or self.church then
+	if (not self.inside) or (self.church or self.school) then
         self.overlay = nil
         if self.world.map.data.properties["church"] and self.night == 1 then
             self.night = 2
@@ -90,8 +105,13 @@ function HometownDayNight:onLoad()
             if Game.world.map.image_layers["overlay"] then
                 Game.world.map.image_layers["overlay"]:setColor(ColorUtils.mergeColor(COLORS["black"], COLORS["navy"], 0.5))
             end
-        end
-    end
+		end
+	end
+    if Game:getFlag("hometown_time", "day") ~= "night" then
+		if Game.world.map.image_layers["room_night"] then
+			Game.world.map.image_layers["room_night"].visible = false
+		end
+	end
 end
 
 function HometownDayNight:postLoad()
@@ -99,15 +119,20 @@ function HometownDayNight:postLoad()
     self.done = true
     self.inside = self.world.map.data.properties["inside"]
     self.church = self.world.map.data.properties["church"]
+    self.school = self.world.map.data.properties["school"]
     self.no_shadows = self.world.map.data.properties["no_shadows"]
     self.no_lut = self.world.map.data.properties["no_lut"]
-	if not self.inside and not self.no_shadows then
+	if not self.inside and not self.no_shadows and not self.school and not self.church then
 		if (Game:getFlag("hometown_time", "day") == "morning" or Game:getFlag("hometown_time", "day") == "evening") then
 			self.shadows:refreshCanvases()
-			Game.world.player:addFX(SelfShadowFX())
+			--[[Game.world.player:addFX(SelfShadowFX())
 			for _, follower in ipairs(Game.world.followers) do
 				follower:addFX(SelfShadowFX())
 			end
+			for _, npc in ipairs(Game.stage:getObjects(NPC)) do
+				npc.self_shadow = true
+				npc:addFX(SelfShadowFX())
+			end]]
 		end
 	end
 	if Game:getFlag("hometown_time", "day") == "night" then
@@ -121,13 +146,13 @@ function HometownDayNight:postLoad()
 			if value.night_mode then
 				value:remove()
 			end
-			if Game:getFlag("hometown_time", "day") == "day" and (value.sunrise_mode or value.sunset_mode) then
+			if Game:getFlag("hometown_time", "day") == "day" and ((value.sunrise_mode or value.sunset_mode) and not value.day_mode) then
 				value:remove()
 			end
-			if Game:getFlag("hometown_time", "day") == "morning" and (value.sunset_mode or value.day_mode) then
+			if Game:getFlag("hometown_time", "day") == "morning" and ((value.sunset_mode or value.day_mode) and not value.sunrise_mode) then
 				value:remove()
 			end
-			if Game:getFlag("hometown_time", "day") == "evening" and (value.sunrise_mode or value.day_mode) then
+			if Game:getFlag("hometown_time", "day") == "evening" and ((value.sunrise_mode or value.day_mode) and not value.sunset_mode) then
 				value:remove()
 			end
 		end
@@ -171,7 +196,7 @@ function HometownDayNight:draw()
     Draw.popCanvas(true)
     love.graphics.clear(0, 0, 0, 1)
     if Game:getFlag("hometown_time", "day") == "night" then
-		if (not self.inside) or self.church then
+		if (not self.inside) or (self.church or self.school) then
 			love.graphics.setShader(self.palette_shader)
 			self.palette_shader:send("palette_tex", self.palette_tex)
 			local palw, palh = self.palette_tex:getWidth(), self.palette_tex:getHeight()
@@ -180,7 +205,7 @@ function HometownDayNight:draw()
 			self.palette_shader:send("palette_id", self.night)
 		end
     elseif Game:getFlag("hometown_time", "day") == "morning" or Game:getFlag("hometown_time", "day") == "evening" then
-		if not self.inside and not self.no_lut then
+		if not self.inside and not self.no_lut and not self.church and not self.school then
 		    love.graphics.setShader(self.lut_shader)
 			self.lut_shader:send("strength", self.lut_strength)
 			local lut_slot = 1

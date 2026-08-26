@@ -113,28 +113,28 @@ function TeevieTVs:update()
 			local jj = j - 1
 			screen.timer = screen.timer + (1 * DTMULT)
 			if screen.con == 0 then
-				if math.abs(screen.timer) % 8 == 0 then
+				if math.abs(math.floor(screen.timer)) % 8 == 0 then
 					screen.frame = screen.frame + 1
 				end
 				if math.abs(screen.timer) >= 120 and screen.nostatic == false then
 					self:setStatic(screen)
 				end
 			elseif screen.con == 1 then
-				if math.abs(screen.timer) % 2 == 0 then
+				if math.abs(math.floor(screen.timer)) % 2 == 0 then
 					screen.frame = screen.frame + 1
 				end
 				if math.abs(screen.timer) >= 15 then
 					self:setScreen(screen)
 				end
 			elseif screen.con == 2 then
-				if math.abs(screen.timer) % 4 == 0 then
+				if math.abs(math.floor(screen.timer)) % 4 == 0 then
 					screen.frame = screen.frame + 1
 				end
 				if math.abs(screen.timer) >= 120 and screen.nostatic == false then
 					self:setStatic(screen)
 				end
 			elseif screen.con == 3 then
-				if math.abs(screen.timer) % 6 == 0 then
+				if math.abs(math.floor(screen.timer)) % 6 == 0 then
 					screen.frame = screen.frame + 1
 				end
 				if screen.timer >= 120 and screen.nostatic == false then
@@ -148,7 +148,7 @@ function TeevieTVs:update()
 					screen.frame = 3
 				end
 			elseif screen.con == 5 then
-				if math.abs(screen.timer) % 1 == 0 then
+				if math.abs(math.floor(screen.timer)) % 1 == 0 then
 					screen.frame = screen.frame + 1
 				end
 				if screen.timer >= 120 and screen.nostatic == false then

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,12 +9,13 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 35,
+  nextlayerid = 10,
+  nextobjectid = 36,
   properties = {
     ["border"] = "leaves",
     ["light"] = true,
-    ["music"] = "deltarune/mus_school"
+    ["music"] = "deltarune/mus_school",
+    ["school"] = true
   },
   tilesets = {
     {
@@ -65,6 +66,7 @@ return {
           width = 494,
           height = 44,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -78,6 +80,7 @@ return {
           width = 40,
           height = 376,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -91,6 +94,7 @@ return {
           width = 40,
           height = 376,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -104,6 +108,7 @@ return {
           width = 398,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -117,6 +122,7 @@ return {
           width = 34,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -130,6 +136,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -143,6 +150,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -156,6 +164,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -169,6 +178,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -182,6 +192,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -195,6 +206,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -208,6 +220,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -221,6 +234,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -234,6 +248,7 @@ return {
           width = 74,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -247,6 +262,7 @@ return {
           width = 188,
           height = 32,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -273,9 +289,10 @@ return {
           shape = "rectangle",
           x = 472,
           y = 170,
-          width = 101,
+          width = 104,
           height = 118,
           rotation = 0,
+          opacity = 1,
           gid = 24,
           visible = true,
           properties = {}
@@ -286,7 +303,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -306,6 +323,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -320,6 +338,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -334,6 +353,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -348,6 +368,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -362,6 +383,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -376,6 +398,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -390,6 +413,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -404,6 +428,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -418,6 +443,7 @@ return {
           width = 78,
           height = 56,
           rotation = 0,
+          opacity = 1,
           gid = 23,
           visible = true,
           properties = {}
@@ -432,6 +458,7 @@ return {
           width = 188,
           height = 88,
           rotation = 0,
+          opacity = 1,
           gid = 26,
           visible = true,
           properties = {}
@@ -446,6 +473,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (You checked the time...)",
@@ -462,6 +490,7 @@ return {
           width = 82,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (Looks like motivational quotes from various literature.)",
@@ -479,6 +508,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (The computer wallpaper is updated.)",
@@ -496,6 +526,7 @@ return {
           width = 40,
           height = 64,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a bunch of roses.)"
@@ -511,6 +542,7 @@ return {
           width = 62,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 1,
@@ -547,6 +579,37 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "objects_overlay",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 35,
+          name = "hometowndaynight",
+          type = "",
+          shape = "point",
+          x = 30,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -594,6 +657,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
