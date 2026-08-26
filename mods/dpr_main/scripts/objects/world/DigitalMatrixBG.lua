@@ -29,6 +29,7 @@ function DigitalMatrixBG:init(x, y)
 		self.matrix_spawned[j][jrand] = false
 	end
 	self.matrix_time = 0
+	self.matrix_hide_char_val = 0
 end
 
 function DigitalMatrixBG:getChar()
@@ -68,11 +69,12 @@ function DigitalMatrixBG:draw()
 		for i = 1, 16 do
 			if self.matrix_lifetime[j][i] > 0 then
 				if self.matrix_lifetime[j][i] >= 150 then
-					love.graphics.setColor(ColorUtils.mergeColor(COLORS["white"], COLORS["green"], 1-((self.matrix_lifetime[j][i]-150)/150)))
+					Draw.setColor(ColorUtils.mergeColor(COLORS["white"], COLORS["green"], 1-((self.matrix_lifetime[j][i]-150)/150)), 1 - self.matrix_hide_char_val)
 				else
-					love.graphics.setColor(ColorUtils.mergeColor(COLORS["green"], COLORS["black"], 1-(self.matrix_lifetime[j][i]/150)))
+					Draw.setColor(ColorUtils.mergeColor(COLORS["green"], COLORS["black"], 1-(self.matrix_lifetime[j][i]/150)), 1 - self.matrix_hide_char_val)
 				end
-				love.graphics.print(self.matrix_char[j][i],(j-1)*32,(i-2)*32,0,1,1)
+				local char_x = MathUtils.lerp((j-1)*32, (j >= 10 and SCREEN_WIDTH or -32), self.matrix_hide_char_val)
+				love.graphics.print(self.matrix_char[j][i],char_x,(i-2)*32,0,1,1)
 			end
 		end
 	end

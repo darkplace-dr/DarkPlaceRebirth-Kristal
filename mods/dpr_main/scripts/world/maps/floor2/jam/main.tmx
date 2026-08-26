@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="43" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="45">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="43" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="46">
  <editorsettings>
   <export target="main.lua" format="lua"/>
  </editorsettings>
@@ -176,6 +176,9 @@
    <point/>
   </object>
   <object id="44" name="room3" x="1100" y="280">
+   <point/>
+  </object>
+  <object id="45" name="entry_room4" x="940" y="280">
    <point/>
   </object>
  </objectgroup>

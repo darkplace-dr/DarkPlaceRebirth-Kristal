@@ -21,7 +21,7 @@ function RankT:update()
 
 	for i = 1, self.screenController.tv_columns do
 		for j,screen in ipairs(self.screenController.tv_screens[i]) do
-			if math.abs(screen.timer) % 2 == 0 then
+			if math.abs(math.floor(screen.timer)) % 2 == 0 then
 				screen.frame = screen.frame + 1
 			end
 		end

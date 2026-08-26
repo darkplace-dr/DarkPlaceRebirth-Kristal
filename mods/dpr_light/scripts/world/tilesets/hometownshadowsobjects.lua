@@ -5,7 +5,7 @@ return {
   name = "hometownshadowsobjects",
   class = "",
   tilewidth = 303,
-  tileheight = 327,
+  tileheight = 328,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 37,
+  tilecount = 44,
   tiles = {
     {
       id = 31,
@@ -246,6 +246,48 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_treeline.png",
       width = 40,
       height = 12
+    },
+    {
+      id = 68,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_shelter.png",
+      width = 196,
+      height = 120
+    },
+    {
+      id = 69,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_shelter.png",
+      width = 196,
+      height = 120
+    },
+    {
+      id = 70,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_grave_fence.png",
+      width = 294,
+      height = 25
+    },
+    {
+      id = 71,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_church_tree2.png",
+      width = 175,
+      height = 45
+    },
+    {
+      id = 72,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_church.png",
+      width = 156,
+      height = 328
+    },
+    {
+      id = 74,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_townhall.png",
+      width = 209,
+      height = 176
+    },
+    {
+      id = 75,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_townhall_tree.png",
+      width = 55,
+      height = 60
     }
   }
 }

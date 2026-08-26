@@ -4,7 +4,7 @@ function BlueSoul:init(x, y)
     super.init(self, x, y)
 
 	-- Do not modify these variables
-	self.color = {0, 0, 1}
+	self.color = ColorUtils.hexToRGB("#003cff")
     self.jumped = false
     self.ground_pounded = false
     self.gravity = 0
@@ -77,6 +77,7 @@ function BlueSoul:doMovement()
 			self.jumped = true
 		end
 		if self.last_collided_y == -1 and self.gravity < 0 then
+			Assets.playSound("bump", nil, 1.5)
 			self.gravity = 0
 		end
 	elseif self.direction == "up" then
@@ -111,6 +112,7 @@ function BlueSoul:doMovement()
 			self.jumped = true
 		end
 		if self.last_collided_y == 1 and self.gravity < 0 then
+			Assets.playSound("bump", nil, 1.5)
 			self.gravity = 0
 		end
 	elseif self.direction == "left" then
@@ -145,6 +147,7 @@ function BlueSoul:doMovement()
 			self.jumped = true
 		end
 		if self.last_collided_x == 1 and self.gravity < 0 then
+			Assets.playSound("bump", nil, 1.5)
 			self.gravity = 0
 		end
 	elseif self.direction == "right" then
@@ -179,6 +182,7 @@ function BlueSoul:doMovement()
 			self.jumped = true
 		end
 		if self.last_collided_x == -1 and self.gravity < 0 then
+			Assets.playSound("bump", nil, 1.5)
 			self.gravity = 0
 		end
 	end
@@ -221,14 +225,34 @@ function BlueSoul:jumpStart()
 		if self.can_doublejump then
 			if self.jumps_left > 0 then
 				if self.jumps_left ~= self.jump_count then
-					local djumpfx = DoubleJumpEffect()
-					Game.battle:addChild(djumpfx)
+					local dust = Sprite("player/blue/jumpdust")
+					dust:play(1 / 30, false, function() dust:remove() end)
+					dust:setOrigin(1, 1)
+					dust:setScale(1, 1)
+					dust:setPosition(self.x, self.y + 10)
+					dust.layer = self.layer - 0.01
+					dust.debug_select = false
+					dust.color = self.color
+					dust.rotation = self.rotation
+					Game.battle:addChild(dust)
+					local dust_2 = Sprite("player/blue/jumpdust")
+					dust_2:play(1 / 30, false, function() dust_2:remove() end)
+					dust_2:setOrigin(1, 1)
+					dust_2:setScale(-1, 1)
+					dust_2:setPosition(self.x, self.y + 10)
+					dust_2.layer = self.layer - 0.01
+					dust_2.debug_select = false
+					dust_2.color = self.color
+					dust_2.rotation = self.rotation
+					Game.battle:addChild(dust_2)
 				end
 				self.gravity = -self.jump_height
-				self.jumps_left = self.jumps_left - 1*DTMULT
+				self.jumps_left = self.jumps_left - 1
+				Assets.playSound("ui_cancel_small", nil, 1.5 + (self.jump_count - self.jumps_left) * 0.1)
 			end
 		else
 			if not self.jumped then
+				Assets.playSound("ui_cancel_small", nil, 1.5)
 				self.gravity = -self.jump_height
 			end
 		end
@@ -242,6 +266,31 @@ function BlueSoul:jumpEnd()
 end
 
 function BlueSoul:jumpReset()
+	if self.jumped then
+		if self.gravity >= 6 then
+			local dust = Sprite("player/blue/landingdust")
+			dust:play(1 / 30, false, function() dust:remove() end)
+			dust:setOrigin(0.5, 1)
+			dust:setScale(1, 1)
+			dust:setPosition(self.x - 15, self.y + 10)
+			dust.layer = self.layer - 0.01
+			dust.debug_select = false
+			dust.color = self.color
+			dust.rotation = self.rotation
+			Game.battle:addChild(dust)
+			local dust_2 = Sprite("player/blue/landingdust")
+			dust_2:play(1 / 30, false, function() dust_2:remove() end)
+			dust_2:setOrigin(0.5, 1)
+			dust_2:setScale(-1, 1)
+			dust_2:setPosition(self.x + 15, self.y + 10)
+			dust_2.layer = self.layer - 0.01
+			dust_2.debug_select = false
+			dust_2.color = self.color
+			dust_2.rotation = self.rotation
+			Game.battle:addChild(dust_2)
+			Assets.playSound("noise", nil, 1.2)
+		end
+	end
 	self.jumps_left = self.jump_count
 	self.jumped = false
 	self.ground_pounded = false
@@ -251,7 +300,8 @@ end
 function BlueSoul:doGroundPound()
 	if self.can_groundpound then
 		if not self.ground_pounded and self.jumped then
-			--Assets.playSound("groundpound")
+			Assets.playSound("wing", nil, 1.2)
+			Assets.playSound("criticalswing", nil, 1.5)
 			self.ground_pounded = true
 		end
 	end

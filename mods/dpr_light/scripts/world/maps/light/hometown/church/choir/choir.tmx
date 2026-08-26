@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="16">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="18">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -25,7 +25,16 @@
   <object id="5" x="520" y="160" width="40" height="240"/>
   <object id="10" x="464" y="160" width="38" height="24"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="4" name="objects">
+ <objectgroup id="10" name="objects_light">
+  <object id="17" gid="180" x="336" y="296" width="160" height="32">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="sunrise" type="int" value="1"/>
+    <property name="sunset" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects_party">
   <object id="6" name="church_choir_door" x="360" y="40" width="80" height="120"/>
   <object id="7" name="transition" x="320" y="462" width="80" height="40">
    <properties>
@@ -59,6 +68,13 @@
    <properties>
     <property name="cutscene" value="church.piano"/>
     <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="16" gid="181" x="334" y="296" width="186" height="242">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="sunrise" type="int" value="1"/>
+    <property name="sunset" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>

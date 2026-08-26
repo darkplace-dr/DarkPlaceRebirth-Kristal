@@ -12,6 +12,7 @@ function SunShadows:init()
 	self.canv_static_shadows = nil
 	self.canv_static_cutout = nil
 	self.canv_static_hcutout = nil
+	self.canv_static_topcutout = nil
 	self.canv_resize = nil
 	self.obj_list = {}
 	self.selfshadow_objects = {}
@@ -32,9 +33,12 @@ function SunShadows:init()
 	self.cutout_asset_layer_names = {}
 	self.hcutout_tile_layer_names = {}
 	self.hcutout_asset_layer_names = {}
+	self.topcutout_tile_layer_names = {}
+	self.topcutout_asset_layer_names = {}
 	self.objects_shadows = {}
 	self.objects_cutout = {}
 	self.objects_hcutout = {}
+	self.objects_topcutout = {}
 	self.shadowblend_shader = Assets.getShader("shadowblend")
 	self.shadowblend_evening_shader = Assets.getShader("shadowblend_evening")
 	self.highlight_shader = Assets.getShader("forcecolour")
@@ -111,15 +115,15 @@ end
 function SunShadows:drawShadowCast(obj, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if arg0 == 0 or obj.scale_y == 0 then return end
 	if not obj.sprite.texture then return end
-	local sx = obj.x - Game.world.camera.x - SCREEN_WIDTH/2
-	local sy = obj.y - Game.world.camera.y - SCREEN_HEIGHT/2
+	local sx = obj.x + obj.sprite.x - Game.world.camera.x - SCREEN_WIDTH/2
+	local sy = obj.y + obj.sprite.y - Game.world.camera.y - SCREEN_HEIGHT/2
 	local spritedata = obj.sprite
 	local width = spritedata.texture:getWidth() * obj.scale_x * arg5
 	local height = spritedata.texture:getHeight() / math.abs(arg0)
-	local yy = (((arg4 and sy or obj.y)) - (obj.origin_y_exact or (height * obj.origin_y))) * arg5
+	local yy = (((arg4 and sy or obj.y + obj.sprite.y)) - (obj.origin_y_exact or (height * obj.origin_y))) * arg5
 	local bottom = height + arg2
 	local top = bottom - (height * arg0)
-	local xx = (((arg4 and sx or obj.x)) - (obj.origin_x_exact or (width * obj.origin_x))) * arg5
+	local xx = (((arg4 and sx or obj.x + obj.sprite.x)) - (obj.origin_x_exact or (width * obj.origin_x))) * arg5
 	local top = math.floor(top) - arg8
 	local bottom = math.floor(bottom) - arg8
 	if arg6 then
@@ -182,8 +186,8 @@ function SunShadows:castShadow(obj, arg1)
 			local use_special_shadowcast = true
 			local xxx = (obj.x + (self.skew_amt * dw_amp)) * resizemultiplier
 			local yyy = (obj.y + (obj.height * 2) + adj_y + (obj.height * (1 - self.sunlight_alpha))) * resizemultiplier
-			xxx = obj.x * resizemultiplier
-			yyy = (obj.y - adj_y) * resizemultiplier
+			xxx = (obj.x + obj.sprite.x) * resizemultiplier
+			yyy = (obj.y - adj_y + obj.sprite.y) * resizemultiplier
 			local spr = obj.sprite.texture
 			if (obj:includes(Player) or obj:includes(Follower)) and obj.state == "DASH" then
 				use_special_shadowcast = true
@@ -328,6 +332,10 @@ function SunShadows:onRemove(parent)
 		self.canv_static_hcutout:release()
 		self.canv_static_hcutout = nil
 	end
+	if self.canv_static_topcutout then
+		self.canv_static_topcutout:release()
+		self.canv_static_topcutout = nil
+	end
 end
 
 function SunShadows:refreshCanvases()
@@ -343,6 +351,10 @@ function SunShadows:refreshCanvases()
 		self.canv_static_hcutout:release()
 		self.canv_static_hcutout = nil
 	end
+	if self.canv_static_topcutout then
+		self.canv_static_topcutout:release()
+		self.canv_static_topcutout = nil
+	end
 	if not self.canv_static_shadows then
 		self.canv_static_shadows = self:generateShadowCanvas(self.tile_layer_names, self.asset_layer_names, self.objects_shadows)
 	end
@@ -351,6 +363,9 @@ function SunShadows:refreshCanvases()
 	end
 	if not self.canv_static_hcutout then
 		self.canv_static_hcutout = self:generateShadowCanvas(self.hcutout_tile_layer_names, self.hcutout_asset_layer_names, self.objects_hcutout)
+	end
+	if not self.canv_static_topcutout then
+		self.canv_static_topcutout = self:generateShadowCanvas(self.topcutout_tile_layer_names, self.topcutout_asset_layer_names, self.objects_topcutout)
 	end
 end
 
@@ -364,6 +379,9 @@ function SunShadows:postLoad()
 	end
 	if not self.canv_static_hcutout then
 		self.canv_static_hcutout = self:generateShadowCanvas(self.hcutout_tile_layer_names, self.hcutout_asset_layer_names, self.objects_hcutout)
+	end
+	if not self.canv_static_topcutout then
+		self.canv_static_topcutout = self:generateShadowCanvas(self.topcutout_tile_layer_names, self.topcutout_asset_layer_names, self.objects_topcutout)
 	end
 end
 
@@ -386,7 +404,7 @@ function SunShadows:draw()
 	super.draw(self)
 	local hide_follower_shadows = false --(Game.world.player:isClimbing() or Game.world.player.state == "CLIMB_MOUNT"
 	-- or Game.world.player.state == "CLIMB_DISMOUNT" or Game.world.player:isPlatforming()) and true or false
-	if not self.canv_static_shadows or not self.canv_static_cutout or not self.canv_static_hcutout then return end
+	if not self.canv_static_shadows or not self.canv_static_cutout or not self.canv_static_hcutout or not self.canv_static_topcutout then return end
 	love.graphics.push()
 	local last_shader = love.graphics.getShader()
 	local shadow_alpha = 1
@@ -444,6 +462,7 @@ function SunShadows:draw()
 				end
 			end
 			Draw.drawCanvas(self.canv_static_cutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
+			Draw.drawCanvas(self.canv_static_topcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 			if not skip_main_characters then
 				if Game.world.player.visible and Game.world.player.alpha > 0 and not hide_follower_shadows then
 					self:castShadowSelf(Game.world.player, true)
@@ -510,6 +529,7 @@ function SunShadows:draw()
 			end
 		end
 		Draw.draw(self.canv_static_cutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
+		Draw.draw(self.canv_static_topcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 		if not skip_main_characters then
 			if Game.world.player.visible and Game.world.player.alpha > 0 then
 				self:castShadowSelf(Game.world.player, true)
@@ -595,6 +615,7 @@ function SunShadows:draw()
 				if self.subtract_highlights then
 					Draw.drawCanvas(self.canv_static_cutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 					Draw.drawCanvas(self.canv_static_hcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
+					Draw.drawCanvas(self.canv_static_topcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 				end
 				love.graphics.setShader(last_shader_2)
 				love.graphics.pop()
@@ -654,6 +675,7 @@ function SunShadows:draw()
 			if self.subtract_highlights then
 				Draw.draw(self.canv_static_cutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 				Draw.draw(self.canv_static_hcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
+				Draw.draw(self.canv_static_topcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
 			end
 			love.graphics.setBlendMode("alpha")
 		else
@@ -663,11 +685,26 @@ function SunShadows:draw()
 		Draw.popCanvas(true)
 	end
 	Draw.pushCanvas(canv_dyna_shadows)
+	love.graphics.stencil(function()
+		love.graphics.clear(COLORS.black, 0)
+		love.graphics.push()
+		local last_shader_2 = love.graphics.getShader()
+		love.graphics.setShader(Kristal.Shaders["Mask"])
+		Draw.drawCanvas(self.canv_static_topcutout, -cx, -cy, 0, self.resize_mode and 2 or 1, self.resize_mode and 2 or 1)
+		love.graphics.setShader(last_shader_2)
+		love.graphics.pop()
+	end, "replace", 1)
+	love.graphics.setStencilTest("less", 1)
 	love.graphics.push()
 	love.graphics.origin()
-	--[[if Game.world.player:isClimbing() then
+	if Game.world.player.visible and Game.world.player.alpha > 0 then
 		self:castShadowSelf(Game.world.player, true)
-	end]]
+	end
+	for _, follower in ipairs(Game.world.followers) do
+		if follower.visible and follower.alpha > 0 then
+			self:castShadowSelf(follower, true)
+		end
+	end
 	if self.marker_mode then
 		for _, spr in ipairs(Game.stage:getObjects(Sprite)) do
 			if spr and not spr:isRemoved() then
@@ -677,11 +714,12 @@ function SunShadows:draw()
 	end
 	if #self.obj_list > 0 then
 		for _, obj in ipairs(self.obj_list) do
-			if obj and not obj:isRemoved() then
+			if obj and not obj.self_shadow and not obj:isRemoved() then
 				self:castShadowSelf(obj, true)
 			end
 		end
 	end
+	love.graphics.setStencilTest()
 	love.graphics.pop()
 	Draw.popCanvas(true)
 	love.graphics.setShader(self.shadowblend_shader)

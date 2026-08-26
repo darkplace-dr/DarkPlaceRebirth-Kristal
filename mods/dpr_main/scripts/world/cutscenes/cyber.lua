@@ -110,6 +110,160 @@ local cyber = {
 				cutscene:text("* Maybe our cyber paths will cyber cross once more in the near future.")
 				cutscene:text("* In the meantime,[wait:5] let me show you the power of the blue checkmarks...")
 				cutscene:hideNametag()
+				Game.world.music:fade(0, 1)
+				local check1 = Sprite("world/events/queenscreen/bluecheck", 430, 260)
+				check1.scale_y = 0.05
+				check1.scale_x = 0.1	
+				check1.layer = hacker.layer - 0.001
+				check1:setOriginExact(24, 16)
+				Game.world:addChild(check1)
+				local check2 = Sprite("world/events/queenscreen/bluecheck", 430, 260)
+				check2.scale_y = 0.05
+				check2.scale_x = 0.1	
+				check2.layer = hacker.layer - 0.001
+				check2:setOriginExact(24, 16)
+				Game.world:addChild(check2)
+				local check3 = Sprite("world/events/queenscreen/bluecheck", 430, 260)
+				check3.scale_y = 0.05
+				check3.scale_x = 0.1	
+				check3.layer = hacker.layer - 0.001
+				check3:setOriginExact(24, 16)
+				Game.world:addChild(check3)
+				local checktimer = 0
+				cutscene:wait(function()
+					checktimer = checktimer + DTMULT
+					if check1.scale_x ~= 2 then
+						check1.scale_x = MathUtils.lerp(check1.scale_x, 2, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check2.scale_x ~= 2 then
+						check2.scale_x = MathUtils.lerp(check2.scale_x, 2, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check3.scale_x ~= 2 then
+						check3.scale_x = MathUtils.lerp(check3.scale_x, 2, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check1.scale_y ~= 2 then
+						check1.scale_y = MathUtils.lerp(check1.scale_y, 2, 1 - (1 - 0.15) ^ DTMULT)
+					end
+					if check2.scale_y ~= 2 then
+						check2.scale_y = MathUtils.lerp(check2.scale_y, 2, 1 - (1 - 0.15) ^ DTMULT)
+					end
+					if check3.scale_x ~= 2 then
+						check3.scale_y = MathUtils.lerp(check3.scale_y, 2, 1 - (1 - 0.15) ^ DTMULT)
+					end
+					if math.floor(checktimer) % 2 == 0 then
+						local afterimage1 = SpriteAfterImage(check1.texture_path)
+						local afterimage2 = SpriteAfterImage(check2.texture_path)
+						local afterimage3 = SpriteAfterImage(check3.texture_path)
+						afterimage1:setScale(check1.scale_x, check1.scale_y)
+						afterimage2:setScale(check2.scale_x, check2.scale_y)
+						afterimage3:setScale(check3.scale_x, check3.scale_y)
+						afterimage1:setScreenPos(check1:getScreenPos())
+						afterimage2:setScreenPos(check2:getScreenPos())
+						afterimage3:setScreenPos(check3:getScreenPos())
+						afterimage1:setOriginExact(24, 16)
+						afterimage2:setOriginExact(24, 16)
+						afterimage3:setOriginExact(24, 16)
+						afterimage1:setLayer(check1.layer - 0.01)
+						afterimage2:setLayer(check2.layer - 0.01)
+						afterimage3:setLayer(check3.layer - 0.01)
+						afterimage1:fadeOutSpeedAndRemove(0.08)
+						afterimage2:fadeOutSpeedAndRemove(0.08)
+						afterimage3:fadeOutSpeedAndRemove(0.08)
+						afterimage1.debug_select = false
+						afterimage2.debug_select = false
+						afterimage3.debug_select = false
+						check1.parent:addChild(afterimage1)
+						check2.parent:addChild(afterimage2)
+						check3.parent:addChild(afterimage3)
+					end
+					if check1.x ~= 240 then
+						check1.x = MathUtils.lerp(check1.x, 240, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check1.y ~= 160 then
+						check1.y = MathUtils.lerp(check1.y, 160, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check2.x ~= 320 then
+						check2.x = MathUtils.lerp(check2.x, 320, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check2.y ~= 80 then
+						check2.y = MathUtils.lerp(check2.y, 80, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check3.x ~= 400 then
+						check3.x = MathUtils.lerp(check3.x, 400, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if check3.y ~= 160 then
+						check3.y = MathUtils.lerp(check3.y, 160, 1 - (1 - 0.125) ^ DTMULT)
+					end
+					if checktimer >= 40 then
+						checktimer = 0
+						check1.physics.speed_y = -0.02
+						check1.physics.speed_x = 0.02
+						check2.physics.speed_y = -0.02
+						check3.physics.speed_y = -0.02
+						check3.physics.speed_x = -0.02
+						return true
+					end
+				end)
+				Game.world.timer:after(25/30, function()
+					Game.world.timer:tween(45/30, Game.world.map.digital_bg, {matrix_hide_char_val = 1}, "out-cubic", function()
+						Game.world.map.demoscene_bg.demo_active = true
+						Game.world.music:play("keygen_credits", 1, nil)
+					end)
+				end)
+				cutscene:wait(function()
+					checktimer = checktimer + DTMULT
+					if check1 then
+						check1.physics.speed_x = check1.physics.speed_x * 1.1 ^ DTMULT
+						check1.physics.speed_y = check1.physics.speed_y * 1.1 ^ DTMULT
+						local afterimage1 = SpriteAfterImage(check1.texture_path)
+						afterimage1:setScale(check1.scale_x, check1.scale_y)
+						afterimage1:setScreenPos(check1:getScreenPos())
+						afterimage1:setOriginExact(24, 16)
+						afterimage1:setLayer(check1.layer - 0.01)
+						afterimage1:fadeOutSpeedAndRemove(0.08)
+						afterimage1.debug_select = false
+						check1.parent:addChild(afterimage1)
+						if check1.y < -80 then
+							check1:remove()
+							check1 = nil
+						end
+					end
+					if check2 then
+						check2.physics.speed_x = check2.physics.speed_x * 1.1 ^ DTMULT
+						check2.physics.speed_y = check2.physics.speed_y * 1.1 ^ DTMULT
+						local afterimage2 = SpriteAfterImage(check2.texture_path)
+						afterimage2:setScale(check2.scale_x, check2.scale_y)
+						afterimage2:setScreenPos(check2:getScreenPos())
+						afterimage2:setOriginExact(24, 16)
+						afterimage2:setLayer(check2.layer - 0.01)
+						afterimage2:fadeOutSpeedAndRemove(0.08)
+						afterimage2.debug_select = false
+						check2.parent:addChild(afterimage2)
+						if check2.y < -80 then
+							check2:remove()
+							check2 = nil
+						end
+					end
+					if check3 then
+						check3.physics.speed_x = check3.physics.speed_x * 1.1 ^ DTMULT
+						check3.physics.speed_y = check3.physics.speed_y * 1.1 ^ DTMULT
+						local afterimage3 = SpriteAfterImage(check3.texture_path)
+						afterimage3:setScale(check3.scale_x, check3.scale_y)
+						afterimage3:setScreenPos(check3:getScreenPos())
+						afterimage3:setOriginExact(24, 16)
+						afterimage3:setLayer(check3.layer - 0.01)
+						afterimage3:fadeOutSpeedAndRemove(0.08)
+						afterimage3.debug_select = false
+						check3.parent:addChild(afterimage3)
+						if check3.y < -80 then
+							check3:remove()
+							check3 = nil
+						end
+					end
+					if checktimer >= 90 then
+						return true
+					end
+				end)
 				Game:setFlag("hackerSidequest", 2)
 				DP:completeAchievement("checks_quest")
 			end

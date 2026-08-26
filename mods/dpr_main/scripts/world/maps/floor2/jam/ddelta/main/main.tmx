@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="18">
+ <editorsettings>
+  <export target="data.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="megaton_kikky"/>
+ </properties>
+ <tileset firstgid="1" source="../../../../../tilesets/floor2.tsx"/>
+ <tileset firstgid="171" source="../../../../../tilesets/jam26ddelta_kikkyworld_objects.tsx"/>
+ <layer id="1" name="tiles" width="16" height="12">
+  <data encoding="csv">
+4,36,36,36,36,36,36,36,36,36,36,36,36,36,36,5,
+20,53,53,53,53,53,53,53,53,53,53,53,53,53,53,18,
+20,55,53,53,53,53,53,53,53,53,53,53,53,53,53,18,
+20,53,53,53,53,53,53,53,53,53,53,53,53,53,39,18,
+20,53,53,53,53,53,53,53,53,53,53,53,53,53,53,18,
+20,53,53,53,53,53,53,53,53,53,53,53,53,53,53,18,
+20,56,53,53,53,53,53,53,53,53,53,53,53,53,55,18,
+20,70,70,70,70,70,70,70,70,70,70,70,70,70,70,18,
+20,6,7,7,7,7,7,7,7,7,7,7,7,7,8,18,
+20,40,41,41,41,41,41,26,27,41,41,41,41,41,42,18,
+21,2,2,2,2,2,3,23,25,1,2,2,2,2,2,22,
+0,0,0,0,0,0,20,23,25,18,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="4" name="collision">
+  <object id="2" x="40" y="400" width="240" height="80"/>
+  <object id="5" x="360" y="400" width="240" height="80"/>
+  <object id="7" x="600" y="280" width="40" height="160"/>
+  <object id="8" x="40" y="280" width="560" height="40"/>
+  <object id="10" x="0" y="280" width="40" height="160"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="2" name="objects">
+  <object id="1" name="transition" x="280" y="480" width="80" height="40">
+   <properties>
+    <property name="map" value="floor2/jam/main"/>
+    <property name="marker" value="entry_room4"/>
+   </properties>
+  </object>
+  <object id="13" name="jam26ddelta_kikkyscreen" x="48" y="48">
+   <point/>
+  </object>
+  <object id="15" gid="171" x="282" y="340" width="76" height="34"/>
+  <object id="17" name="interactable" x="282" y="320" width="76" height="20">
+   <properties>
+    <property name="cutscene" value="kikkyworld.use_console"/>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="5" name="markers">
+  <object id="11" name="entry" x="320" y="460">
+   <point/>
+  </object>
+  <object id="12" name="spawn" x="320" y="380">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

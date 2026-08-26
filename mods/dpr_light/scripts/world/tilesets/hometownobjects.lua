@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 169,
+  tilecount = 180,
   tiles = {
     {
       id = 1,
@@ -486,12 +486,6 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_small.png",
       width = 26,
       height = 25
-    },
-    {
-      id = 77,
-      image = "../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_dark.png",
-      width = 320,
-      height = 240
     },
     {
       id = 79,
@@ -1038,6 +1032,78 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/flowking_dark.png",
       width = 434,
       height = 316
+    },
+    {
+      id = 172,
+      image = "../../../assets/sprites/world/maps/hometown/apartment_dark.png",
+      width = 280,
+      height = 372
+    },
+    {
+      id = 173,
+      image = "../../../assets/sprites/world/maps/hometown/apartmentbunny_dark.png",
+      width = 280,
+      height = 372
+    },
+    {
+      id = 174,
+      image = "../../../assets/sprites/world/maps/hometown/apartmentwindow_dark.png",
+      width = 280,
+      height = 372
+    },
+    {
+      id = 175,
+      image = "../../../assets/sprites/world/maps/hometown/icepizza_dark.png",
+      width = 336,
+      height = 284
+    },
+    {
+      id = 176,
+      image = "../../../assets/sprites/world/maps/hometown/sanshouse_dark.png",
+      width = 414,
+      height = 406
+    },
+    {
+      id = 177,
+      image = "../../../assets/sprites/world/maps/hometown/sansstore_dark.png",
+      width = 424,
+      height = 334
+    },
+    {
+      id = 178,
+      image = "../../../assets/sprites/world/maps/hometown/graves_dark.png",
+      width = 570,
+      height = 198
+    },
+    {
+      id = 179,
+      image = "../../../assets/sprites/world/maps/hometown/church/choir_light.png",
+      width = 80,
+      height = 16
+    },
+    {
+      id = 180,
+      image = "../../../assets/sprites/world/maps/hometown/church/choir_light_window.png",
+      width = 93,
+      height = 121
+    },
+    {
+      id = 181,
+      image = "../../../assets/sprites/world/maps/hometown/church/office_light.png",
+      width = 80,
+      height = 16
+    },
+    {
+      id = 182,
+      image = "../../../assets/sprites/world/maps/hometown/church/office_light_window.png",
+      width = 79,
+      height = 140
+    },
+    {
+      id = 184,
+      image = "../../../assets/sprites/tilesets/objects/cabinet_lit.png",
+      width = 62,
+      height = 126
     }
   }
 }

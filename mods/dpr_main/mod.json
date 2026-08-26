@@ -148,6 +148,7 @@
         "seqwaves": {},
         "chapter4lib": {},
         "offseteditor": {},
+        "lz3d": {},
         "kristal": {
             "growStronger": false,
 			"newShopSpaceUI": true,

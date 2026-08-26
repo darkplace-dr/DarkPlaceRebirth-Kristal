@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="25">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="32">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -28,7 +28,16 @@
   <object id="13" x="360" y="252" width="40" height="108"/>
   <object id="18" x="120" y="348" width="18" height="52"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="4" name="objects">
+ <objectgroup id="10" name="objects_light">
+  <object id="26" gid="182" x="78" y="320" width="160" height="32">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="sunrise" type="int" value="1"/>
+    <property name="sunset" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects_party">
   <object id="8" name="transition" x="280" y="468" width="80" height="40">
    <properties>
     <property name="exit_sound" value="doorclose"/>
@@ -72,6 +81,20 @@
    <properties>
     <property name="cutscene" value="church.cupboard"/>
     <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="27" gid="183" x="80" y="332" width="158" height="280">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="sunrise" type="int" value="1"/>
+    <property name="sunset" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="31" gid="185" x="80" y="400" width="62" height="126">
+   <properties>
+    <property name="day" type="int" value="1"/>
+    <property name="sunrise" type="int" value="1"/>
+    <property name="sunset" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>

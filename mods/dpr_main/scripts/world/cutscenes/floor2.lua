@@ -810,7 +810,12 @@ return {
             return
 
         elseif id == 4 then
-            Assets.playSound("splat")
+            cutscene:text("* (Seems like this one was sent in a little later.)")
+            cutscene:text("* (It's \"[color:yellow]Bonus Content[color:reset]\" for Kikky Lover's.)")
+			local choice = cutscene:choicer({"Enter", "Do Not"})
+			if choice == 1 then
+				cutscene:wait(cutscene:mapTransition("floor2/jam/ddelta/main", "entry"))
+			end
             return
 
         elseif id == 5 then

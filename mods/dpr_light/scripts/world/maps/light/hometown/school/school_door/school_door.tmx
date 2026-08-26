@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="26">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="27">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -7,6 +7,7 @@
   <property name="border" value="leaves"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="deltarune/mus_school"/>
+  <property name="school" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../../../../tilesets/school.tsx"/>
  <layer id="1" name="tile" width="31" height="12">
@@ -51,7 +52,7 @@
   <object id="7" x="680" y="360" width="40" height="120"/>
   <object id="8" x="520" y="360" width="40" height="120"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="4" name="objects">
+ <objectgroup color="#ff00ff" id="4" name="objects_party">
   <object id="18" name="transition" x="560" y="480" width="120" height="40">
    <properties>
     <property name="facing" value="down"/>
@@ -86,6 +87,11 @@
    <point/>
   </object>
   <object id="23" name="entryunused" x="1040" y="280">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="8" name="objects_overlay">
+  <object id="26" name="hometowndaynight" x="20" y="0">
    <point/>
   </object>
  </objectgroup>

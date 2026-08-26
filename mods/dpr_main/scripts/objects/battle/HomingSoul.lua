@@ -3,7 +3,7 @@ local HomingSoul, super = Class(Soul)
 function HomingSoul:init(x, y)
     super.init(self, x, y)
     -- Do not modify these variables
-	self.color = {0, 0, 1}
+	self.color = ColorUtils.hexToRGB("#003cff")
     self.jumped = false
     self.ground_pounded = false
     self.gravity = 0
@@ -128,6 +128,7 @@ function HomingSoul:doMovement()
 			self.jumped = true
 		end
 		if self.last_collided_y == -1 and self.gravity < 0 then
+			Assets.playSound("bump", nil, 1.5)
 			self.gravity = 0
 		end
 		
@@ -146,6 +147,7 @@ function HomingSoul:jumpStart()
 	if not self.jumped then
 		self.gravity = self.start_gravity
 		self.jumped = true
+		Assets.playSound("ui_cancel_small", nil, 1.5)
 	end
 end
 
@@ -156,6 +158,31 @@ function HomingSoul:jumpEnd()
 end
 
 function HomingSoul:jumpReset()
+	if self.jumped then
+		if self.gravity >= 6 then
+			local dust = Sprite("player/blue/landingdust")
+			dust:play(1 / 30, false, function() dust:remove() end)
+			dust:setOrigin(0.5, 1)
+			dust:setScale(1, 1)
+			dust:setPosition(self.x - 15, self.y + 10)
+			dust.layer = self.layer - 0.01
+			dust.debug_select = false
+			dust.color = self.color
+			dust.rotation = self.rotation
+			Game.battle:addChild(dust)
+			local dust_2 = Sprite("player/blue/landingdust")
+			dust_2:play(1 / 30, false, function() dust_2:remove() end)
+			dust_2:setOrigin(0.5, 1)
+			dust_2:setScale(-1, 1)
+			dust_2:setPosition(self.x + 15, self.y + 10)
+			dust_2.layer = self.layer - 0.01
+			dust_2.debug_select = false
+			dust_2.color = self.color
+			dust_2.rotation = self.rotation
+			Game.battle:addChild(dust_2)
+			Assets.playSound("noise", nil, 1.2)
+		end
+	end
 	self.jumps_left = self.jump_count
 	self.jumped = false
 	self.gravity = 0

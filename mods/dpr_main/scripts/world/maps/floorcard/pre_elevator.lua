@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 30,
+  nextobjectid = 31,
   properties = {
     ["border"] = "castle",
     ["music"] = "deltarune/bird",
@@ -25,8 +25,7 @@ return {
     {
       name = "tree_objects",
       firstgid = 73,
-      filename = "../../tilesets/tree_objects.tsx",
-      exportfilename = "../../tilesets/tree_objects.lua"
+      filename = "../../tilesets/tree_objects.tsx"
     }
   },
   layers = {
@@ -99,6 +98,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -112,6 +112,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -125,6 +126,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -138,6 +140,7 @@ return {
           width = 40,
           height = 400,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -151,6 +154,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -164,6 +168,7 @@ return {
           width = 40,
           height = 400,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -177,6 +182,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -190,6 +196,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -203,6 +210,7 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -216,6 +224,7 @@ return {
           width = 440,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -229,6 +238,7 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -242,6 +252,7 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -271,6 +282,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["double_doors"] = "true",
@@ -303,6 +315,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "hub_elevator",
@@ -319,6 +332,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floorcard/first_rudinn",
@@ -335,8 +349,25 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
+        },
+        {
+          id = 30,
+          name = "footstep",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 0,
+          width = 40,
+          height = 40,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["player"] = true
+          }
         }
       }
     },
@@ -364,6 +395,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 74,
           visible = true,
           properties = {}
@@ -378,6 +410,7 @@ return {
           width = 210,
           height = 136,
           rotation = 0,
+          opacity = 1,
           gid = 75,
           visible = true,
           properties = {}
@@ -392,6 +425,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 73,
           visible = true,
           properties = {}
@@ -406,6 +440,7 @@ return {
           width = 210,
           height = 136,
           rotation = 0,
+          opacity = 1,
           gid = 76,
           visible = true,
           properties = {}
@@ -420,6 +455,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 73,
           visible = true,
           properties = {}
@@ -434,6 +470,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 74,
           visible = true,
           properties = {}
@@ -448,6 +485,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 73,
           visible = true,
           properties = {}
@@ -462,6 +500,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 74,
           visible = true,
           properties = {}
@@ -476,6 +515,7 @@ return {
           width = 210,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 73,
           visible = true,
           properties = {}
@@ -506,6 +546,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -519,6 +560,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
