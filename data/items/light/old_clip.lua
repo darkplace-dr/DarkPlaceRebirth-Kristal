@@ -1,24 +1,26 @@
-local item, super = Class(LightEquipItem, "light/big_ribbon")
+local item, super = Class(LightEquipItem, "light/old_clip")
 
 function item:init()
     super.init(self)
 
     -- Display name
-    self.name = "Big Ribbon"
-    self.short_name = "BigRibbn"
+    self.name = "Old Clip"
 
     -- Item type (item, key, weapon, armor)
     self.type = "armor"
     -- Whether this item is for the light world
     self.light = true
 
-    self.price = 200
+    self.price = 100
 
     -- Item description text (unused by light items outside of debug menu)
-    self.description = "A big, red ribbon with a yellow bell.\nMade from high quality rope materials."
+    self.description = "An old, wooden hairclip of a peculiar form.\nHas various flowers painted on it."
 
     -- Light world check text
-    self.check = {"Armor 7 DF\n* A big,[wait:5] red ribbon with a\nyellow bell.", "* Made from high quality rope materials."}
+    self.check = {
+        "Armor 4 DF\n* An old,[wait:5] wooden hairclip of a peculiar form.",
+        "* Has various flowers painted on it."
+    }
 
     -- Where this item can be used (world, battle, all, or none)
     self.usable_in = "all"
@@ -27,35 +29,30 @@ function item:init()
 
     -- Equip bonuses (for weapons and armor)
     self.bonuses = {
-        attack = 0,
-        defense = 7
+        defense = 3
     }
 
     -- Default dark item conversion for this item
-    self.dark_item = "hair_ribbon"
-end
-
-function item:convertToDarkEquip(chara)
-    return "hair_ribbon"
+    self.dark_item = "flowerclip"
 end
 
 function item:showEquipText(target)
     if target.id == "ceroba" then
-        Game.world:showText("* Ceroba equipped her ribbon.")
+        Game.world:showText("* Ceroba equipped her clip.")
     elseif target.id == Game.party[1].id then
-        Game.world:showText("* You equipped Big Ribbon.")
+        Game.world:showText("* You equipped Old Clip.")
     else
-        Game.world:showText("* "..target:getName().." equipped Big Ribbon.")
+        Game.world:showText("* " .. target:getName() .. " equipped Old Clip.")
     end
 end
 
 function item:getLightBattleText(user, target)
     if target.chara.id == "ceroba" then
-        return "* Ceroba equipped her ribbon."
+        return "* Ceroba equipped her clip."
     elseif target.chara.id == Game.battle.party[1].chara.id then
-        return "* You equipped Big Ribbon."
+        return "* You equipped Old Clip."
     else
-        return "* "..target.chara:getName().." equipped Big Ribbon."
+        return "* " .. target.chara:getName() .. " equipped Old Clip."
     end
 end
 

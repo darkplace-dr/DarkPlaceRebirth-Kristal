@@ -74,10 +74,138 @@ function lib:save(data)
     end
 end
 
--- TODO: fuse checkSaveStatus with this function
-local function handleRetroSave(data)
+local function handleDeprecatedItems(data)
+    -- note: UPDATE THE LIST WHEN YOU REMOVE OR REPLACE ITEMS!
+    -- instructions:
+    -- if you want to replace a removed item, put a table with first the removed item id, and the second new item id
+    -- if you want to just remove an item, put it's id as a single string
+    local list = {
+        { "hair_ribbon", "flowerclip" },
+        { "light/big_ribbon", "light/old_clip" }
+    }
+
     local data_changed = false
     local diff_data = {}
+
+    for _, item in ipairs(list) do
+        local dep_item = type(item) == "table" and item[1] or item
+        local item_replacement = type(item) == "table" and item[2] or nil
+
+        -- check inventory (???)
+        if not data.inventory then goto continue end -- for some reason if this isn't here, it causes a crash when changing mods
+        for storage, storage_data in pairs(data.inventory.storages) do
+            for item_i, item_data in pairs(storage_data.items) do
+                if item_data.id == dep_item then
+                    if item_replacement then
+                        item_data.id = item_replacement
+                        table.insert(diff_data, {
+                            value = item_replacement,
+                            path = { "inventory", "storages", storage, "items", item_i, "id" }
+                        })
+                    else
+                        item_data = {}
+                        table.insert(diff_data, {
+                            value = nil,
+                            path = { "inventory", "storages", storage, "items", item_i }
+                        })
+                    end
+                    data_changed = true
+                end
+            end
+        end
+        ::continue::
+
+        -- check dark inventory
+        for storage, storage_data in pairs(data.dark_inventory.storages) do
+            for item_i, item_data in pairs(storage_data.items) do
+                if item_data.id == dep_item then
+                    if item_replacement then
+                        item_data.id = item_replacement
+                        table.insert(diff_data, {
+                            value = item_replacement,
+                            path = { "dark_inventory", "storages", storage, "items", item_i, "id" }
+                        })
+                    else
+                        item_data = {}
+                        table.insert(diff_data, {
+                            value = nil,
+                            path = { "dark_inventory", "storages", storage, "items", item_i }
+                        })
+                    end
+                    data_changed = true
+                end
+            end
+        end
+
+        -- check light inventory
+        for storage, storage_data in pairs(data.light_inventory.storages) do
+            for item_i, item_data in pairs(storage_data.items) do
+                if item_data.id == dep_item then
+                    if item_replacement then
+                        item_data.id = item_replacement
+                        table.insert(diff_data, {
+                            value = item_replacement,
+                            path = { "light_inventory", "storages", storage, "items", item_i, "id" }
+                        })
+                    else
+                        item_data = {}
+                        table.insert(diff_data, {
+                            value = nil,
+                            path = { "light_inventory", "storages", storage, "items", item_i }
+                        })
+                    end
+                    data_changed = true
+                end
+            end
+        end
+
+        -- check everyone's equipment
+        for id, party_data in pairs(data.party_data) do
+            -- check weapon
+            if party_data.equipped.weapon and party_data.equipped.weapon.id == dep_item then
+                if item_replacement then
+                    party_data.equipped.weapon.id = item_replacement
+                    table.insert(diff_data, {
+                        value = item_replacement,
+                        path = { "party_data", id, "equipped", "weapon", "id" }
+                    })
+                else
+                    party_data.equipped.weapon = {}
+                    table.insert(diff_data, {
+                        value = {},
+                        path = { "party_data", id, "equipped", "weapon" }
+                    })
+                end
+                data_changed = true
+            end
+            -- check armors
+            for armor_index, armor_data in pairs(party_data.equipped.armor) do
+                if armor_data.id == dep_item then
+                    if item_replacement then
+                        armor_data.id = item_replacement
+                        table.insert(diff_data, {
+                            value = item_replacement,
+                            path = { "party_data", id, "equipped", "armor", armor_index, "id" }
+                        })
+                    else
+                        armor_data = {}
+                        table.insert(diff_data, {
+                            value = nil,
+                            path = { "party_data", id, "equipped", "armor", armor_index }
+                        })
+                    end
+                    data_changed = true
+                end
+            end
+        end
+    end
+
+    return data_changed, diff_data
+end
+
+-- TODO: fuse checkSaveStatus with this function
+local function handleRetroSave(data)
+    local data_changed, diff_data = handleDeprecatedItems(data)
 
     -- Magical Glass update replaced "custom/<id>" with "mg/<id>"
     for id, party_data in pairs(data.party_data) do
@@ -694,9 +822,12 @@ function lib:loadHooks()
                 end
             end
         end)
+
+        HookSystem.hook(LightTensionBar, "hasReducedTension", function(orig, self)
+            return ((Game.battle and Game.battle:hasReducedTension()) or (not Game.battle and Game.world:hasReducedTension())) or false
+        end)
     end
 end
-
 
 function lib:isTauntingAvaliable()
     if self.let_me_taunt then return true end

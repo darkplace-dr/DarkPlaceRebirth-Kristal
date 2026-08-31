@@ -126,7 +126,12 @@ function World:transitionMusic(next, fade_out)
 end
 
 function World:createTensionBar()
-    local bar = TensionBar(-25, 88, true)
+    local bar
+    if Game:isLight() and MagicalGlassLib then
+        bar = LightTensionBar(-25, 88, true)
+    else
+        bar = TensionBar(-25, 88, true)
+    end
     bar:setParallax(0, 0)
     bar.layer = WORLD_LAYERS["ui"]
     return self:addChild(bar)

@@ -55,10 +55,10 @@ function character:init()
     self.weapon_icon = "ui/menu/equip/katana"
 
     self:setWeapon("k_blade")
-    self:setArmor(1, "hair_ribbon")
+    self:setArmor(1, "flowerclip")
 
     self.lw_weapon_default = "light/cerobas_staff"
-    self.lw_armor_default = "light/big_ribbon"
+    self.lw_armor_default = "light/old_clip"
 
     self.color = {253/255, 0, 85/255}
     self.dmg_color = {229/255, 0, 95/255}
