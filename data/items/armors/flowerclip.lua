@@ -43,9 +43,9 @@ function item:init()
 		dess = "日本語", -- "Japanese"
         ceroba = "Ah, my hair needed that back.",
         noel = "",
-		jamm = "",
-        ["jamm+marcy"] = "",
-        calypso = "",
+		jamm = "I don't even know how it'd work for me.",
+        ["jamm+marcy"] = "It, uh... Hm. Probably not.",
+        calypso = "...It be better than nothing.",
         len = "",
     }
 end
