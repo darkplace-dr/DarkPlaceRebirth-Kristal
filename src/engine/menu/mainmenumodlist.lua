@@ -411,7 +411,7 @@ function MainMenuModList:buildModListFavorited()
                     result:init(mod, button)
                 end
             else
-                Kristal.Console:warn("preview.lua error in " .. mod.name .. ": " .. result)
+                Logging.warn("preview.lua error in " .. mod.name .. ": " .. result)
             end
         end
 
@@ -519,7 +519,7 @@ function MainMenuModList:buildModList()
                     result:init(mod, button)
                 end
             else
-                Kristal.Console:warn("preview.lua error in " .. mod.name .. ": " .. result)
+                Logging.warn("preview.lua error in " .. mod.name .. ": " .. result)
             end
         end
 

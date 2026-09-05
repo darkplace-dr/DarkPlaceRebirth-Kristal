@@ -1686,7 +1686,7 @@ function Battle:processAction(action)
         return false
     else
         -- we don't know how to handle this...
-        Kristal.Console:warn("Unhandled battle action: " .. tostring(action.action))
+        Logging.warn("Unhandled battle action: " .. tostring(action.action))
         return true
     end
 end
@@ -1888,10 +1888,7 @@ function Battle:powerAct(spell, battler, user, target)
     local user_battler = self:getPartyBattler(user)
     local user_index = self:getPartyIndex(user)
 
-    if user_battler == nil then
-        Kristal.Console:error("Invalid power act user: " .. tostring(user))
-        return
-    end
+    assert(battler ~= nil, "Invalid battler for powerAct: " .. tostring(battler))
 
     if type(spell) == "string" then
         spell = Registry.createSpell(spell)
@@ -2691,7 +2688,7 @@ function Battle:nextTurn()
     while not (self.party[self.current_selecting]:isActive()) do
         self.current_selecting = self.current_selecting + 1
         if self.current_selecting > #self.party then
-            Kristal.Console:warn("Nobody up! This shouldn't happen...")
+            Logging.warn("Nobody up! This shouldn't happen...")
             self.current_selecting = 1
             break
         end

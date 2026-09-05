@@ -94,7 +94,7 @@ local loaders = {
                     error = mod,
                     file = "mod.json"
                 })
-                print("[WARNING] Project \"" .. path .. "\" has an invalid mod.json!")
+                Logging.warn("Project \"" .. path .. "\" has an invalid mod.json!")
                 return
             end
 
@@ -288,7 +288,7 @@ local loaders = {
                             error = error,
                             file = "lib.json"
                         })
-                        print("[WARNING] Issue loading mod \"" .. path .. "\" - " .. error)
+                        Logging.warn("Project \"" .. path .. "\" has a library with an unfulfilled dependency: " .. error)
                         return
                     end
                 end
