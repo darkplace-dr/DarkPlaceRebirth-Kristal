@@ -84,7 +84,7 @@ function Kristal.fetch(url, options)
     options.headers["User-Agent"] = options.headers["User-Agent"] or ("Kristal/" .. tostring(Kristal.Version))
 
     if not options["disable_message"] then
-        Kristal.Console:log("Fetching from URL "..url)
+        Logging.info("Fetching from URL " .. url)
     end
 
     Kristal.HTTPS.in_channel:push({

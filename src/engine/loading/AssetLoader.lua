@@ -46,7 +46,7 @@ function AssetLoader:logDebug(message) end
 ---@protected
 function AssetLoader:logError(message)
     if Kristal.Console then
-        Kristal.Console:error(message)
+        Logging.error(message)
     else
         print("[ERROR] " .. message)
     end
@@ -55,7 +55,7 @@ end
 ---@protected
 function AssetLoader:logWarn(message)
     if Kristal.Console then
-        Kristal.Console:warn(message)
+        Logging.warn(message)
     else
         print("[WARNING] " .. message)
     end
