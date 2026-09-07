@@ -129,6 +129,8 @@ function actor:init()
     self.running_sprites = true
 
     self.directional_talking = true
+
+    self.animated_alert = true
 end
 
 function actor:onTextSound()

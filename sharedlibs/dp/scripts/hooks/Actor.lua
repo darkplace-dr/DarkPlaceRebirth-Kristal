@@ -15,6 +15,8 @@ function Actor:init()
 
     self.running_sprites = false
     self.directional_talking = false
+
+    self.animated_alert = false
 end
 
 function Actor:getShinyID() return self.shiny_id or self.id end
@@ -28,5 +30,7 @@ function Actor:getTalkSpritesPath() return self.talk_path end
 function Actor:usesRunningSprites() return self.running_sprites end
 
 function Actor:usesDirectionalTalking() return self.directional_talking end
+
+function Actor:hasAnimatedAlertIcon() return self.animated_alert end
 
 return Actor
