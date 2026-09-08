@@ -76,6 +76,7 @@ end
 
 function MainMenuTitle:onKeyPressed(key, is_repeat)
     if Input.isConfirm(key) and not self.debounce then
+        Assets.stopAndPlaySound("ui_select")
         self.debounce = true
 		self.continue_text:fadeOutAndRemove(0.5)
         MainMenu.stage.timer:tween(

@@ -19,6 +19,8 @@ function DebugSystem:init()
     super.init(self, 0, 0)
     self.layer = 10000000 - 2
 
+    self.logger = Logger("Debug", ConsoleFormats.MAGENTA)
+
     self.font_size = 32
     self.font_name = "main"
 
@@ -1177,6 +1179,18 @@ function DebugSystem:registerDefaults()
 
     self:registerOption(
         "main",
+        "Logger Popups",
+        function()
+            return string.format("Whether or not the logger's pop-ups are only warnings or not. (%s)", Kristal.Config["loggerOnlyWarns"] and "Warnings Only" or "All")
+        end,
+        function()
+            Kristal.Config["loggerOnlyWarns"] = not Kristal.Config["loggerOnlyWarns"]
+            Kristal.saveConfig()
+        end
+    )
+
+    self:registerOption(
+        "main",
         "Hotswap",
         "Swap out code from the files. Might be unstable.",
         function()
@@ -1191,7 +1205,7 @@ function DebugSystem:registerDefaults()
         local hard_reset = Kristal.getModOption("hardReset")
         if hard_reset then
             self:registerOption(
-                "main", "Reload", "Reload the mod.",
+                "main", "Reload", "Reload the project.",
                 function()
                     love.event.quit("restart")
                 end,
@@ -1201,7 +1215,7 @@ function DebugSystem:registerDefaults()
             self:registerOption(
                 "main",
                 "Reload (tempsave)",
-                "Reload the mod, creating a temporary save.",
+                "Reload the project, creating a temporary save.",
                 function()
                     if Kristal.getModOption("hardReset") then
                         love.event.quit("restart")
@@ -1216,7 +1230,7 @@ function DebugSystem:registerDefaults()
                 self:registerOption(
                     "main",
                     "Reload (from save)",
-                    "Reload the mod from your current save.",
+                    "Reload the project from your current save.",
                     function()
                         Kristal.quickReload("save")
                     end,
@@ -1421,13 +1435,23 @@ function DebugSystem:registerDefaults()
         end
     )
 
+    self:registerOption(
+        "main",
+        "Kill Party",
+        "Applies fatal damage to all party members.",
+        function()
+            Game.world:hurtParty(math.huge)
+            self:closeMenu()
+        end,
+        in_overworld
+    )
+
     self:registerOption("main", "Select DLC", "Select a DLC to load into.",
         function()
             self:enterMenu("dlc_select", 0)
         end,
         in_overworld
     )
-
 
 	self:registerOption("main", "Party Menu", "Enter the Party Menu.",
         function()
@@ -1454,6 +1478,17 @@ function DebugSystem:registerDefaults()
         "Start multiple waves at once.",
         function()
             self:enterMenu("wave_select_multiple", 0)
+        end,
+        in_battle
+    )
+
+    self:registerOption(
+        "main",
+        "Kill Party",
+        "Applies fatal damage to all party members.",
+        function()
+            Game.battle:hurt(math.huge, true, "ALL")
+            self:closeMenu()
         end,
         in_battle
     )

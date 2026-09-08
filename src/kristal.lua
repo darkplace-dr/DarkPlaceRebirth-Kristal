@@ -102,7 +102,7 @@ function Kristal.verifySoundSystem()
     local source = love.audio.newSource("assets/music/none.ogg", "static")
     local success = source:play()
     if not success then
-        Logging.warn("Audio has been detected as unavailable, disabling sound for the rest of the session")
+        Logging.warnNotify("Audio has been detected as unavailable, disabling sound for the rest of the session")
         SOUND_DISABLED = true
     end
 end
@@ -588,15 +588,18 @@ function Kristal.onKeyPressed(key, is_repeat)
             Input.resetBinds()
             Input.saveBinds()
             Assets.playSound("impact")
+            Logging.warnNotify("Input binds reset to defaults")
             return
         end
 
         if Mod ~= nil then
             if Input.ctrl() and Input.shift() and Input.alt() and key == "m" and not is_repeat then -- Enable developer mode for the current project
-                if not DEBUG_OVERRIDE then
+                if (not DEBUG_OVERRIDE) and (not Mod.info.dev) then
                     DEBUG_OVERRIDE = true
                     Assets.playSound("bump")
                     Assets.playSound("him_quick")
+
+                    Logging.infoNotify("Developer mode enabled for this session")
                 end
                 return
             end
@@ -635,6 +638,8 @@ function Kristal.onKeyPressed(key, is_repeat)
 
     if not is_repeat and Input.shouldProcess(key) then
         if Kristal.isDevMode() then
+            local debug_logger = Kristal.DebugSystem and Kristal.DebugSystem.logger or Logging.INSTANCE
+
             -- Developer hotkeys
             if key == "f2" or (Input.is("fast_forward", key) and not console_open) then
                 FAST_FORWARD = not FAST_FORWARD
@@ -643,7 +648,7 @@ function Kristal.onKeyPressed(key, is_repeat)
             elseif key == "f6" then
                 DEBUG_RENDER = not DEBUG_RENDER
             elseif key == "f8" then
-                Hotswapper.LOGGER:info("Hotswapping files...\nNOTE: Might be unstable. If anything goes wrong, it's not our fault :P")
+                Hotswapper.LOGGER:infoNotify("Hotswapping files...\nNOTE: Might be unstable. If anything goes wrong, it's not our fault :P")
                 Hotswapper.scan()
             elseif key == "r" and Input.ctrl() and (not console_open) then
                 -- CTRL+R to reload
@@ -871,7 +876,7 @@ function Kristal.errorHandler(msg, trace_level)
     local w = 0
     local h = 18
     if Mod then
-        mod_string = "Mod: " .. Mod.info.id .. " " .. (Mod.info.version or "v?.?.?")
+        mod_string = "Project: " .. Mod.info.id .. " " .. (Mod.info.version or "v?.?.?")
         if TableUtils.getKeyCount(Mod.libs) > 0 then
             lib_string = "Libraries:"
             for _, lib in Kristal.iterLibraries() do
@@ -1004,7 +1009,7 @@ function Kristal.errorHandler(msg, trace_level)
             love.graphics.print("Press ESC to restart the game", 8, window_height - (critical and 20 or 40))
         else
             Draw.setColor(1, 1, 1, 1)
-            love.graphics.print("Press ESC to return to mod menu", 8, window_height - (critical and 20 or 40))
+            love.graphics.print("Press ESC to return to menu", 8, window_height - (critical and 20 or 40))
         end
         if not critical then
             Draw.setColor(copy_color)
@@ -2095,7 +2100,8 @@ function Kristal.getDefaultConfig()
         rightStickDeadzone = 0.2,
         defaultName = "",
         skipNameEntry = false,
-        verboseLoader = false
+        verboseLoader = false,
+        loggerOnlyWarns = false
     }
 
     return config
@@ -2104,25 +2110,25 @@ end
 --- Called internally. Loads the saved user config, with default values.
 ---@return table config The user config.
 function Kristal.loadConfig()
-    Logging.info("Loading settings from " .. FormatString("settings.json", ConsoleFormats.GRAY))
+    Logging.infoNotify("Loading settings from " .. FormatString("settings.json", ConsoleFormats.GRAY))
     local config = Kristal.getDefaultConfig()
 
     if love.filesystem.getInfo("settings.json") then
         local success, message = pcall(JSON.decode, love.filesystem.read("settings.json"))
         if not success then
-            Logging.error("Error loading settings.json: " .. tostring(message) .. "\nUsing default config.")
+            Logging.errorNotify("Error loading settings.json: " .. tostring(message) .. "\nUsing default config.")
             return config
         end
 
         local config_type = type(message)
         if config_type ~= "table" then
-            Logging.error("Error loading settings.json: Expected table, got " .. config_type .. "\nUsing default config.")
+            Logging.errorNotify("Error loading settings.json: Expected table, got " .. config_type .. "\nUsing default config.")
             return config
         end
 
         TableUtils.merge(config, message)
     else
-        Logging.info("No settings.json found, using default config.")
+        Logging.infoNotify("No settings.json found, using default config.")
     end
 
     return config
@@ -2130,11 +2136,11 @@ end
 
 --- Saves the current config table to the `settings.json`.
 function Kristal.saveConfig()
-    Logging.info("Saving " .. FormatString("settings.json", ConsoleFormats.GRAY))
+    Logging.infoNotify("Saving " .. FormatString("settings.json", ConsoleFormats.GRAY))
     local success, message = love.filesystem.write("settings.json", JSON.encode(Kristal.Config))
 
     if not success then
-        Logging.error("Error saving settings.json: " .. tostring(message))
+        Logging.errorNotify("Error saving settings.json: " .. tostring(message))
     end
 end
 
@@ -2482,11 +2488,11 @@ function Kristal.markDeprecated(level, name, api_type, deprecation_type, new_nam
     end
     local info = debug.getinfo(level + 1, "Sl")
     if not info then
-        Logging.warn("Failed to find debug info for deprecation warning: " .. deprecation_message)
+        Logging.warnNotify("Failed to find debug info for deprecation warning: " .. deprecation_message)
         return
     end
     local source_line = string.format("%s:%s", info.short_src, info.currentline)
-    Logging.warn(string.format("%s: %s", source_line, deprecation_message))
+    Logging.warnNotify(string.format("%s: %s", source_line, deprecation_message))
 end
 
 --- Executes a `.lua` script inside the project folder.
