@@ -679,7 +679,7 @@ function Assets.playSound(sound, volume, pitch)
 
         return src
     else
-        Kristal.Console:warn("Sound not found: \"" .. sound .. "\"")
+        Logging.warnNotify("Sound not found: \"" .. sound .. "\"")
     end
 end
 
