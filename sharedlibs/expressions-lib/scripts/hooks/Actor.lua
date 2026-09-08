@@ -72,11 +72,12 @@ end
 
 -- for compatibility with the old talksprites, which took a number as the value instead of a table
 function Actor:getTalkSpeed(sprite)
-    local talk_sprite = self:getTalkSprite(sprite)
-    if type(talk_sprite) == "table" then
-        return talk_sprite[2]
+    if not self.talk_sprites or not sprite then return 0.25 end
+    local entry = self.talk_sprites[sprite]
+    if type(entry) == "table" then
+        return entry[2]
     else
-        return talk_sprite or 0.25
+        return entry
     end
 end
 
