@@ -40,7 +40,7 @@ end
 function WicabelActorSprite:update()
     super.update(self)
 
-    self.animsiner = self.animsiner + 1 * DTMULT
+    self.animsiner = self.animsiner + DTMULT
 
     local anim = self.anim or "idle"
     if anim == "idle" then

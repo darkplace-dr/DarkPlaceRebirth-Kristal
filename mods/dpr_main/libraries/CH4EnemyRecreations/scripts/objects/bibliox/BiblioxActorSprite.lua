@@ -36,7 +36,7 @@ function BiblioxActorSprite:update()
         self.head.alpha = self.alpha
         self.body.alpha = self.alpha
 
-        self.animsiner = self.animsiner + 1 * DTMULT
+        self.animsiner = self.animsiner + DTMULT
 
         local anim = self.anim or "idle"
         if anim == "idle" then
@@ -46,7 +46,7 @@ function BiblioxActorSprite:update()
             self.head:setFrame(math.floor(self.animsiner / 5))
         elseif anim == "beard_stroke" then
             if self.beardtimer < 32 then
-                self.beardtimer = self.beardtimer + 1 * DTMULT
+                self.beardtimer = self.beardtimer + DTMULT
             end
             self.head:setPosition(1, 0)
             self.head:setSprite(self:getTexturePath("head_beard_stroke"))

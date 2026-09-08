@@ -42,24 +42,32 @@ function Winglade:init()
     self.low_health_text = "* Winglade sheds feathers heavily."
     self.tired_text = "* Winglade's eye flutters shut."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Spin", "Spin\n50%\nmercy")
-    self:registerAct("SpinS", "60%\nMercy\nto all", {"susie"})
-    self:registerAct("Whirl", "SPARE\nall!", {"susie", "ralsei"}, 64)
+    self:registerAct("SpinS", "60%\nMercy\nto all", { "susie" })
+    self:registerAct("Whirl", "SPARE\nall!", { "susie", "ralsei" }, 64)
 
     self.transition_ended = false
+    self.floatsiner = 0
 end
 
 function Winglade:onAdd(parent)
     super.onAdd(self, parent)
-    self:setAnimation("blank")
+    self:setAnimation("hurt")
 end
 
 function Winglade:update()
     super.update(self)
 
-    if not self.transition_ended and Game.battle.state ~= 'TRANSITION' and Game.battle.state ~= 'INTRO' then
+    local dont = { "TRANSITION", "INTRO", "DEFENDING" }
+    if not TableUtils.contains(dont, Game.battle.state) and self.done_state == nil then
+        self.floatsiner = self.floatsiner + DTMULT
+    end
+    local sprite = self:getActiveSprite()
+    sprite.y = sprite.init_y + (math.sin(self.floatsiner / 12) * 4) / 2
+
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
         self.transition_ended = true
         self:setAnimation("idle")
     end
@@ -85,21 +93,21 @@ function Winglade:onAct(battler, name)
             if enemy ~= self then enemy:addMercy(10) end
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
+        battler:setAnimation("pirouette")
         return "* You spun masterfully!"
     elseif name == "SpinS" then
         for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             enemy:addMercy(60)
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
-        Game.battle:getPartyBattler('susie'):setAnimation('pirouette')
+        battler:setAnimation("pirouette")
+        Game.battle:getPartyBattler("susie"):setAnimation("pirouette")
         return "* You and Susie spun masterfully!"
     elseif name == "Whirl" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        Game.battle:getPartyBattler('kris'):setAnimation('pirouette')
-        Game.battle:getPartyBattler('susie'):setAnimation('pirouette')
-        Game.battle:getPartyBattler('ralsei'):setAnimation('pirouette')
+        Game.battle:getPartyBattler("kris"):setAnimation("pirouette")
+        Game.battle:getPartyBattler("susie"):setAnimation("pirouette")
+        Game.battle:getPartyBattler("ralsei"):setAnimation("pirouette")
         Game.battle:startActCutscene("wingladewhirl")
         return
     elseif name == "Standard" then
@@ -112,7 +120,7 @@ end
 function Winglade:onShortAct(battler, name)
     if name == "Standard" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
+        battler:setAnimation("pirouette")
         if battler.chara.id == "ralsei" then
             self:addMercy(50)
             for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
@@ -124,26 +132,13 @@ function Winglade:onShortAct(battler, name)
             return "* Susie wobbles like a top!"
         else
             self:addMercy(40)
-            return "* "..battler.chara:getName().." wobbles like a top!"
+            return "* " .. battler.chara:getName() .. " wobbles like a top!"
         end
     end
-
-    return super.onShortAct(self, battler, name)
-end
-
-function Winglade:onHurt(...)
-    self:setAnimation("blank")
-    super.onHurt(self, ...)
-end
-
-function Winglade:onHurtEnd()
-    if self:canSpare() then self:onSpareable()
-    else self:setAnimation("idle") end
-    super.onHurtEnd(self)
 end
 
 function Winglade:onSpared()
-    self:setAnimation("blank")
+    self:setAnimation("hurt")
 end
 
 function Winglade:getEnemyDialogue()
@@ -178,7 +173,7 @@ function Winglade:getEncounterText()
         return self.spareable_text
     end
 
-    if MathUtils.randomInt(100) < 3 then
+    if MathUtils.randomInt(101) < 3 then
         return "* Smells like old down pillow."
     end
 

@@ -209,7 +209,7 @@ function Balthizard:update()
             self.lightupmessage = true
             self.sprite.lightup = true
         end
-        self.lightuptimer = self.lightuptimer + 1 * DTMULT
+        self.lightuptimer = self.lightuptimer + DTMULT
     end
 end
 

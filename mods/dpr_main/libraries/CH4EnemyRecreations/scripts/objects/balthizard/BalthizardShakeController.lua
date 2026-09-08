@@ -80,7 +80,7 @@ function BalthizardShakeController:update()
         if not self.shakex then
             self.shaketimer = self.shaketimer + 3 * DTMULT
         end
-        self.shaketimer = self.shaketimer + 1 * DTMULT
+        self.shaketimer = self.shaketimer + DTMULT
     end
 
     if Input.pressed("left") then

@@ -227,7 +227,7 @@ function Mizzle:update()
     super.update(self)
 
     if self.dazzle then -- handles dazzle
-        self.dazzletimer = self.dazzletimer + 1 * DTMULT
+        self.dazzletimer = self.dazzletimer + DTMULT
         if self.dazzletimer == 1 then
             Assets.playSound("bell_bounce_short")
         elseif self.dazzletimer == 11 then
@@ -251,7 +251,7 @@ function Mizzle:update()
         local susie = Game.battle:getPartyBattler("susie")
         local ralsei = Game.battle:getPartyBattler("ralsei")
 
-        self.timer = self.timer + 1 * DTMULT
+        self.timer = self.timer + DTMULT
 
         if self.embezzle then -- handles embezzle
             if self.timer == 20 then

@@ -104,21 +104,21 @@ end
 function OrganNoteManager:update()
     super.update(self)
     if self.alarm_0 > 0 and self.alarm_0_start then
-        self.alarm_0 = self.alarm_0 - 1 * DTMULT
+        self.alarm_0 = self.alarm_0 - DTMULT
         if self.alarm_0 <= 0 then
             self.alarm_0_start = false
             self:alarm0()
         end
     end
     if self.alarm_1 > 0 and self.alarm_1_start then
-        self.alarm_1 = self.alarm_1 - 1 * DTMULT
+        self.alarm_1 = self.alarm_1 - DTMULT
         if self.alarm_1 <= 0 then
             self.alarm_1_start = false
             self:alarm1()
         end
     end
     if self.alarm_2 > 0 and self.alarm_2_start then
-        self.alarm_2 = self.alarm_2 - 1 * DTMULT
+        self.alarm_2 = self.alarm_2 - DTMULT
         if self.alarm_2 <= 0 then
             self.alarm_2_start = false
             self.timeron = false

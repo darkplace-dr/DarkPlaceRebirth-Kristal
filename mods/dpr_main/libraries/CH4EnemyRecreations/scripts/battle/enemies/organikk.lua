@@ -66,8 +66,13 @@ function Organikk:init()
 
     self.lullabied = 0
 
+    self.wicabell_tuning = false
+
     self.showtempmercy = false
     self.mercyget = 0
+
+    self.transition_ended = false
+    self.idling = false
 
     self.sprite.active = false
 
@@ -75,7 +80,7 @@ function Organikk:init()
     for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
         if enemy.id == self.id then
             self.sprite.siner = (i + 1) * 100
-            self.sprite.siner_2 = i * 33
+            self.sprite.siner2 = i * 33
             i = i + 1
         end
     end
@@ -90,13 +95,13 @@ function Organikk:onAct(battler, name)
 
         for i = 1, 6 do
             local x = battler.x
-            local y = battler.y - battler.height + MathUtils.randomInt(20)
+            local y = battler.y - battler.height + MathUtils.randomInt(21)
             local particle = DazzleParticle(x, y)
             particle.layer = battler.layer - 0.01
             Game.battle:addChild(particle)
         end
 
-        if Game.battle.wicabel_tuning then
+        if self.wicabell_tuning then
             Assets.playSound("act_perform_better")
             self:addMercy(100)
             return "* You performed a tune! It was\nsuper effective!"
@@ -145,7 +150,7 @@ function Organikk:onAct(battler, name)
         else
             self.organsound = true
             self:addMercy(20)
-            return "* "..battler.chara:getName().." played random notes!"
+            return "* " .. battler.chara:getName() .. " played random notes!"
         end
     end
 
@@ -184,20 +189,29 @@ function Organikk:getEncounterText()
         return self.spareable_text
     end
 
-    if MathUtils.randomInt(100) < 3 then
+    if MathUtils.randomInt(101) < 3 then
         return "* Smells like brass and satin."
     end
 
     return TableUtils.pick(self.text)
 end
 
-function Organikk:onTurnEnd()
-    for _,enemys in ipairs(Game.battle:getActiveEnemies()) do
-        if enemys.mercy >= 100 then
-            enemys:setAnimation("spared")
+function Organikk:setIdling(bool)
+    self.idling = bool
+    if self.idling then
+        self:setAnimation("idle")
+    elseif not self.idling then
+        if self.mercy >= 100 then
+            self:setAnimation("spared")
         end
     end
+end
 
+function Organikk:onSpareable()
+    self:setIdling(false)
+end
+
+function Organikk:onTurnEnd()
     self.harmonize = false
     self.showtempmercy = false
     self.mercyget = 0
@@ -207,15 +221,21 @@ end
 function Organikk:update()
     super.update(self)
 
-    if self.mercy >= 100 then
-		self:setAnimation("spared")
-	else
-		self:setAnimation("idle")
-	end
-
-    if Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
         self.sprite.active = true
-        self.sprite.x = (math.sin(self.sprite.siner_2 / 1.5)) * 3
+        self:setIdling(true)
+    end
+
+    local do_always = { "DEFENDINGBEGIN", "DEFENDING" }
+    if TableUtils.contains(do_always, Game.battle.state) and not self.idling then
+        self:setIdling(true)
+    elseif not TableUtils.contains(do_always, Game.battle.state) and self.idling and self.mercy >= 100 then
+        self:setIdling(false)
+    end
+
+    if self.idling then
+        self.sprite.x = self.sprite.init_x + (math.sin(self.sprite.siner2 / 1.5)) * 3
     end
 
     local king = TableUtils.filter(Game.battle:getActiveEnemies(), function(e) return e.id == "organikking" end)
@@ -239,7 +259,7 @@ function Organikk:update()
     end
 
     if self.organsound then
-        self.organsoundtimer = self.organsoundtimer + 1 * DTMULT
+        self.organsoundtimer = self.organsoundtimer + DTMULT
 
         if
             (self.organsoundtimer >= 1 and not self.organsoundplayed[1]) or
@@ -250,8 +270,7 @@ function Organikk:update()
             for _, note in ipairs(notes) do
                 Assets.stopSound("organ/" .. note)
             end
-            local rand = MathUtils.randomInt(1, 8)
-            Assets.playSound("organ/" .. notes[rand])
+            Assets.playSound("organ/" .. TableUtils.pick(notes))
             if self.organsoundtimer >= 1  then self.organsoundplayed[1] = true end
             if self.organsoundtimer >= 8  then self.organsoundplayed[2] = true end
             if self.organsoundtimer >= 15 then self.organsoundplayed[3] = true end
@@ -287,34 +306,12 @@ function Organikk:getNextWaves()
 end
 
 function Organikk:onDefeatRun(damage, battler)
-
     self.harmonize = false
     self.showtempmercy = false
     self.mercyget = 0
     self.mercyget2 = 0
 
-    self:getActiveSprite():stopShake()
-    self.hurt_timer = -1
-    self.defeated = true
-
-    Assets.playSound("defeatrun")
-
-    local sweat = Sprite("effects/defeat/sweat")
-    sweat:setOrigin(0.5, 0.5)
-    sweat:play(5/30, true)
-    sweat.layer = 100
-    self:addChild(sweat)
-
-    Game.battle.timer:after(15/30, function()
-        sweat:remove()
-        self:getActiveSprite().run_away = true
-
-        Game.battle.timer:after(15/30, function()
-            self:remove()
-        end)
-    end)
-
-    self:defeat("VIOLENCED", true)
+    super.onDefeatRun(self, damage, battler)
 end
 
 return Organikk

@@ -92,7 +92,12 @@ function WicabelTuning:onPress()
     end
     if bar_x >= 196 and bar_x <= 224 then
         self.success = 1
-        Game.battle.wicabel_tuning = true
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+            if enemy.id == "organikk" then
+                enemy.wicabell_tuning = true
+            end
+        end
+        Game.battle.wicabell_tuning = true
         Assets.playSound("tuning_fork")
         self.tuning_fork:shake()
         Assets.playSound("laz_c")
@@ -150,7 +155,11 @@ function WicabelTuning:onPress()
         if not self.double then self:setFinalText() end
     else
         self.success = 2
-        Game.battle.wicabel_tuning = true
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+            if enemy.id == "organikk" then
+                enemy.wicabell_tuning = true
+            end
+        end
         Assets.playSound("tuning_fork")
         self.tuning_fork:shake()
         Assets.playSound("laz_c")
@@ -214,7 +223,7 @@ function WicabelTuning:update()
     end
 
     if self.con == 1 then
-        self.timer = self.timer + 1 * DTMULT
+        self.timer = self.timer + DTMULT
         if self.timer > 12 then
             if self.double then
                 self.double = false

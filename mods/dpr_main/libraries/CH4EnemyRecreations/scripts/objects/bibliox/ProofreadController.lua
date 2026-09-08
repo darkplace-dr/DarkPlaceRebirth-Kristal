@@ -209,7 +209,7 @@ end
 function ProofreadController:update()
     super.update(self)
 
-    self.timer = self.timer + 1 * DTMULT
+    self.timer = self.timer + DTMULT
 
     self.highlightindex = self.highlightindex + 0.5 * DTMULT
 
@@ -218,7 +218,7 @@ function ProofreadController:update()
     self.highlights[3]:setFrame(math.floor(self.highlightindex))
 
     if not self.selectionmade then
-        self.acttimer = self.acttimer + 1 * DTMULT
+        self.acttimer = self.acttimer + DTMULT
         if self.acttimer > self.acttimermax then
             self.selectionmade = true
             self.timeout = true
@@ -227,7 +227,7 @@ function ProofreadController:update()
     end
 
     if self.selectionmade and not self.timeout then
-        self.colortimer = self.colortimer + 1 * DTMULT
+        self.colortimer = self.colortimer + DTMULT
     end
 
     if self.colortimer == 3 then

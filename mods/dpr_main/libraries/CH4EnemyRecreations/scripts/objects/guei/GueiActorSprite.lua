@@ -62,7 +62,7 @@ function GueiActorSprite:update()
     super.update(self)
 
     if self.anim == "idle" or self.anim == "spared" then
-        self.animsiner = self.animsiner + (1 * DTMULT)
+        self.animsiner = self.animsiner + DTMULT
 
         self.arm_back:setFrame(math.floor((self.animsiner + 2) / 6))
         self.body:setFrame(math.floor(self.animsiner / 6))
@@ -83,7 +83,7 @@ function GueiActorSprite:update()
 		self.chase2.alpha = 0
 		self.encounter.alpha = 0
     elseif self.anim == "chase" then
-        self.animsiner = self.animsiner + (1 * DTMULT)
+        self.animsiner = self.animsiner + DTMULT
 		
 		self.arm_back.alpha = 0
 		self.body.alpha = 0
@@ -101,8 +101,8 @@ function GueiActorSprite:update()
 		self.chase2.y = 34 + (math.cos(self.animsiner / 12) * 8)/2
 		self.chase2.alpha = 0.5
     elseif self.anim == "encounter" then
-        self.animsiner = self.animsiner + (1 * DTMULT)
-		self.timer = self.timer + (1 * DTMULT)
+        self.animsiner = self.animsiner + DTMULT
+		self.timer = self.timer + DTMULT
 		local prog = MathUtils.clamp(self.timer / 20, 0, 1)
 		
 		self.arm_back.alpha = 0

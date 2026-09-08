@@ -23,7 +23,7 @@ function PendulumCH4:update()
     super.update(self)
 
     if not self.cut then
-        self.timer = self.timer + (1 * DTMULT)
+        self.timer = self.timer + DTMULT
     
         if self.angle < 270 then
             self.angle_spd = self.angle_spd + (0.1 * DTMULT)

@@ -170,10 +170,10 @@ function BalthizardActorSprite:update()
         self.headoffsety = self.headoffsety + 0.5 * DTMULT
     end
     if self.eyedelay < 1 then
-        self.eyesiner = self.eyesiner + 1 * DTMULT
+        self.eyesiner = self.eyesiner + DTMULT
     end
 
-    self.animsiner = self.animsiner + 1 * DTMULT
+    self.animsiner = self.animsiner + DTMULT
 	
     if self.shaking then
         self.headamplitude = MathUtils.lerp(self.headamplitude, 0, 0.25 * DTMULT)
@@ -181,7 +181,7 @@ function BalthizardActorSprite:update()
         self.headamplitude = MathUtils.lerp(self.headamplitude, 5/2, 0.25 * DTMULT)
     end
 	
-    self.eyedelay = self.eyedelay - 1 * DTMULT
+    self.eyedelay = self.eyedelay - DTMULT
 
     if self.eyedelay < 1 then
         self.headindex = 7 + (math.sin(self.eyesiner / 12)) * 5

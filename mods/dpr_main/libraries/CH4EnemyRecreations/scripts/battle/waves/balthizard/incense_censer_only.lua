@@ -36,7 +36,7 @@ function wave:update()
                 if smoke.collidable and smoke:isBullet("balthizard/incense_fire_bullet") then
                     for _,bullet in ipairs(Game.stage:getObjects(Bullet)) do
                         if bullet:isBullet("balthizard/cloud") then
-                            if not infected[bullet] and bullet:collidesWith(smoke.infect_collider) then
+                            if not infected[bullet] and bullet:meetsCollider(smoke.infect_collider) then
                                 infected[bullet] = true
                                 smoke:infect(bullet)
                                 break
@@ -52,7 +52,7 @@ function wave:update()
                 if destroyed.collidable and destroyed:isBullet("balthizard/cloud_destroyed") then
                     for _,bullet in ipairs(Game.stage:getObjects(Bullet)) do
                         if bullet:isBullet("balthizard/cloud") then
-                            if not infected2[bullet] and bullet:collidesWith(destroyed.infect_collider) then
+                            if not infected2[bullet] and bullet:meetsCollider(destroyed.infect_collider) then
                                 infected2[bullet] = true
                                 destroyed:infect(bullet)
                                 break
@@ -68,7 +68,7 @@ function wave:update()
                 if fire.collidable and fire:isBullet("balthizard/incense_bullet_fire") then
                     for _,bullet in ipairs(Game.stage:getObjects(Bullet)) do
                         if bullet:isBullet("balthizard/cloud") then
-                            if not infected3[bullet] and bullet:collidesWith(fire.infect_collider) then
+                            if not infected3[bullet] and bullet:meetsCollider(fire.infect_collider) then
                                 infected3[bullet] = true
                                 fire:infect(bullet)
                                 break

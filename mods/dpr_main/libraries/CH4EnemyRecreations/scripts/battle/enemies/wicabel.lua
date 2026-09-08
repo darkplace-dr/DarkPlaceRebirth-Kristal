@@ -137,7 +137,7 @@ function Wicabel:update()
 
     if Game.battle.state == "ENEMYDIALOGUE" and not self.talksounddone then
         self.talksoundcon = 1
-        self.talksoundtimer = self.talksoundtimer + 1 * DTMULT
+        self.talksoundtimer = self.talksoundtimer + DTMULT
         if (self.talksoundtimer == 8 or self.talksoundtimer == 16 or self.talksoundtimer == 24) and self.talksoundcon == 1 then
             Assets.stopSound("musicbox")
             Assets.playSound("musicbox", 0.35, (0.7 + MathUtils.random(0.6)))

@@ -34,13 +34,4 @@ function actor:createSprite()
     return OrganikkActorSprite(self)
 end
 
-function actor:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == 'table' then anim = anim[1] end
-
-    if anim == "hurt" or anim == "spare" then
-        sprite:setPartVisible(false)
-    end
-end
-
 return actor
