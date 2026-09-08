@@ -126,10 +126,10 @@ function MainMenuAch:registerModAchievements(mod)
             
             for i,ach in ipairs(result) do
                 if self.achievements_data[mod.id] and self.achievements_data[mod.id][ach.id] then
-                    Kristal.Console:log("We have data for " .. ach.name .. "!")
+                    Logging.info("We have data for " .. ach.name .. "!")
                     ach.data = self.achievements_data[mod.id][ach.id]
                 else
-                    Kristal.Console:log("We don't have data for " .. ach.name .. "...")
+                    Logging.info("We don't have data for " .. ach.name .. "...")
                     ach.data = {
                         progress = 0,
                         earned = false
