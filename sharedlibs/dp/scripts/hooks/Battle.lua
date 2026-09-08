@@ -97,7 +97,7 @@ function Battle:postInit(state, encounter)
         self:addChild(self.doki_bar)
     end
     
-    Kristal.Console:log(self.temperature)
+    Logging.info(self.temperature)
 end
 
 function Battle:incTemp(amount)
