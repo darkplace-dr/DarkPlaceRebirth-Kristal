@@ -3,6 +3,8 @@ local Bibliox, super = HookSystem.hookScript("bibliox")
 function Bibliox:init()
     super.init(self)
 
+    self.killable = true
+
     self:registerAct("EasyProof", "More\ntime to\nfix", {"jamm"})
 end
 

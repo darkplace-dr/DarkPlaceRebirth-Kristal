@@ -15,7 +15,7 @@ function actor:init()
     self.flip = nil
 
     self.path = "battle/enemies/mizzle"
-    self.default = "alarm"
+    self.default = "idle"
 
     self.talk_sprites = {}
 
@@ -23,6 +23,7 @@ function actor:init()
         ["idle"] = {"idle", 1/5, true},
         ["alarm"] = {"alarm", 1/5, true},
         ["hurt"] = {"hurt", 1, true},
+        ["transition"] = {"idle_1", 1, true},
     }
     self.animations_pink = {
         ["idle"] = {"idle_pink", 1/5, true},

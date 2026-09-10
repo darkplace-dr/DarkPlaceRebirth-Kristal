@@ -13,13 +13,14 @@ function actor:init()
     self.flip = nil
 
     self.path = "battle/enemies/organikk"
-    self.default = "idle"
+    self.default = "base"
 
     self.talk_sprites = {}
 
     self.animations = {
         ["hurt"]   = {"hurt", 1, true},
         ["spared"] = {"spare", 1, true},
+        ["transition"] = {"base", 1, true},
     }
 
     self.offsets = {}

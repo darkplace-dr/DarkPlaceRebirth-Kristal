@@ -33,7 +33,7 @@ function wave:onStart()
         self.atx = attacker.x
         self.aty = attacker.y - 50
         self:spawnBullet("balthizard/censer", self.atx, self.aty)
-        attacker:setAnimation("transition")
+        attacker:setAnimation("transition_wave")
     end
     self:spawnBullet("balthizard/cloud_manager", Game.battle.arena.x, Game.battle.arena.y)
 end

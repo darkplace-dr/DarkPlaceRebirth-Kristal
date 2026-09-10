@@ -5,6 +5,7 @@ function Wicabel:init()
 
     self.name = "Wicabel"
     self:setActor("wicabel")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -37,12 +38,13 @@ function Wicabel:init()
     self.tired_text = "* Wicabel chimes a sleeping\nspell."
 	self.spareable_text = "* Wicabel plays peacefully."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Tuning", "Good\ntiming=\nmercy")
-    self:registerAct("Tuningx2", "Tuning\ntwice", {"susie"})
+    self:registerAct("Tuningx2", "Tuning\ntwice", { "susie" })
 
-    self.killable = true
+    self.sprite.active = false
+    self.transition_ended = false
 
     self.talksoundcon = 0
     self.talksoundtimer = 7
@@ -61,16 +63,7 @@ function Wicabel:onAct(battler, name)
         Game.battle:addChild(tuning)
         return
     elseif name == "Standard" then
-        if battler.chara.id == "susie" then
-            self:addMercy(40)
-            return  "* Susie hammers a bell!"
-        elseif battler.chara.id == "ralsei" then
-            self:addMercy(20)
-            return "* Ralsei tapped a bell!"
-        else
-            self:addMercy(25)
-            return "* "..battler.chara:getName().." hit the bell!"
-        end
+        return self:onShortAct(battler, name)
     end
 
     return super.onAct(self, battler, name)
@@ -86,7 +79,7 @@ function Wicabel:onShortAct(battler, name)
             return "* Ralsei tapped a bell!"
         else
             self:addMercy(25)
-            return "* "..battler.chara:getName().." hit the bell!"
+            return "* " .. battler.chara:getName() .. " hit the bell!"
         end
     end
 
@@ -125,7 +118,7 @@ function Wicabel:getEncounterText()
         return self.spareable_text
     end
 
-    if MathUtils.randomInt(100) < 3 then
+    if MathUtils.randomInt(101) < 3 then
         return "* Smells like damp wood and rust."
     end
 
@@ -134,6 +127,12 @@ end
 
 function Wicabel:update()
     super.update(self)
+
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
+        self.sprite.active = true
+        self:setAnimation("idle")
+    end
 
     if Game.battle.state == "ENEMYDIALOGUE" and not self.talksounddone then
         self.talksoundcon = 1

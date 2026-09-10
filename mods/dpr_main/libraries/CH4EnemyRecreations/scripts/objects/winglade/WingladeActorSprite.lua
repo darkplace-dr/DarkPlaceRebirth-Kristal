@@ -60,10 +60,6 @@ function WingladeActorSprite:getTexturePath(sprite_name)
     return self.actor:getSpritePath() .. "/" .. self.actor.parts[sprite_name][1]
 end
 
-function WingladeActorSprite:set(anim, ...)
-    self.actor:onSetAnimation(self, anim, ...)
-end
-
 function WingladeActorSprite:setPartVisible(boolean)
     for _, child in ipairs(self.children) do
         child.visible = boolean

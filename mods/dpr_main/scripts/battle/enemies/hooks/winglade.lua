@@ -5,6 +5,7 @@ function Winglade:init()
 
     self.name = "Winglade"
     self:setActor("winglade")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -49,6 +50,9 @@ function Winglade:init()
     self:registerAct("SpinJ", "60%\nMercy\nto all", { "jamm" })
     self:registerAct("Whirl", "SPARE\nall!", "all", 64)
 
+    self.killable = true
+
+    self.sprite.active = false
     self.transition_ended = false
     self.floatsiner = 0
 end
@@ -59,8 +63,8 @@ function Winglade:onAct(battler, name)
             enemy:addMercy(60)
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
-        Game.battle:getPartyBattler('jamm'):setAnimation('pirouette')
+        battler:setAnimation("pirouette")
+        Game.battle:getPartyBattler("jamm"):setAnimation("pirouette")
         return "* You and Jamm spun masterfully!"
     elseif name == "Whirl" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
@@ -77,7 +81,7 @@ end
 function Winglade:onShortAct(battler, name)
     if name == "Standard" and battler.chara.id == "jamm" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
+        battler:setAnimation("pirouette")
         self:addMercy(40)
         return "* Jamm twirls like a ballerina!"
     end

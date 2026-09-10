@@ -3,83 +3,82 @@ local BalthizardActorSprite, super = Class(ActorSprite)
 function BalthizardActorSprite:init(actor)
     super.init(self, actor)
 
-    self.tail = Sprite(self:getTexturePath("tail"), 0, 0)
+    self.tail = Sprite(self:getTexturePath("tail"))
+    self.tail.visible = false
     self.tail.debug_select = false
     self:addChild(self.tail)
 
-    self.leg1 = Sprite(self:getTexturePath("leg1"), 0, 0)
+    self.leg1 = Sprite(self:getTexturePath("leg1"))
+    self.leg1.visible = false
     self.leg1.debug_select = false
     self:addChild(self.leg1)
 
-    self.leg1_transition = Sprite(self:getTexturePath("leg1_transition"), 0, 0)
-    self.leg1_transition.alpha = 0
+    self.leg1_transition = Sprite(self:getTexturePath("leg1_transition"))
+    self.leg1_transition.visible = false
     self.leg1_transition.debug_select = false
     self:addChild(self.leg1_transition)
 
-    self.body = Sprite(self:getTexturePath("body"), 0, 0)
+    self.body = Sprite(self:getTexturePath("body"))
+    self.body.visible = false
     self.body.debug_select = false
     self:addChild(self.body)
 
-    self.body_transition = Sprite(self:getTexturePath("body_transition"), 0, 0)
+    self.body_transition = Sprite(self:getTexturePath("body_transition"))
     self.body_transition:setOriginExact(0, 14)
-    self.body_transition.alpha = 0
+    self.body_transition.visible = false
     self.body_transition.debug_select = false
     self:addChild(self.body_transition)
 
-    self.leg2 = Sprite(self:getTexturePath("leg2"), 0, 0)
+    self.leg2 = Sprite(self:getTexturePath("leg2"))
+    self.leg2.visible = false
     self.leg2.debug_select = false
     self:addChild(self.leg2)
 
-    self.leg2_transition = Sprite(self:getTexturePath("leg2_transition"), 0, 0)
-    self.leg2_transition.alpha = 0
+    self.leg2_transition = Sprite(self:getTexturePath("leg2_transition"))
+    self.leg2_transition.visible = false
     self.leg2_transition.debug_select = false
     self:addChild(self.leg2_transition)
 
-    self.leg3 = Sprite(self:getTexturePath("leg3"), 0, 0)
+    self.leg3 = Sprite(self:getTexturePath("leg3"))
+    self.leg3.visible = false
     self.leg3.debug_select = false
     self:addChild(self.leg3)
 
-    self.leg3_transition = Sprite(self:getTexturePath("leg3_transition"), 0, 0)
-    self.leg3_transition.alpha = 0
+    self.leg3_transition = Sprite(self:getTexturePath("leg3_transition"))
+    self.leg3_transition.visible = false
     self.leg3_transition.debug_select = false
     self:addChild(self.leg3_transition)
 
-    self.neckpiece1 = Sprite(self:getTexturePath("neckpiece"), 0, 0)
+    self.neckpiece1 = Sprite(self:getTexturePath("neckpiece"), 13, 28)
     self.neckpiece1:setOriginExact(4, 4)
     self.neckpiece1:setColor({166/255, 94/255, 122/255})
-    self.neckpiece1.x = self.x + 13
-    self.neckpiece1.y = self.y + 28
+    self.neckpiece1.visible = false
     self.neckpiece1.debug_select = false
     self:addChild(self.neckpiece1)
 
-    self.neckpiece2 = Sprite(self:getTexturePath("neckpiece"), 0, 0)
+    self.neckpiece2 = Sprite(self:getTexturePath("neckpiece"), 13, 28)
     self.neckpiece2:setOriginExact(4, 4)
     self.neckpiece2:setColor({166/255, 94/255, 122/255})
-    self.neckpiece2.x = self.x + 13
-    self.neckpiece2.y = self.y + 28
+    self.neckpiece2.visible = false
     self.neckpiece2.debug_select = false
     self:addChild(self.neckpiece2)
 
-    self.neckpiece3 = Sprite(self:getTexturePath("neckpiece"), 0, 0)
+    self.neckpiece3 = Sprite(self:getTexturePath("neckpiece"), 13, 28)
     self.neckpiece3:setOriginExact(4, 4)
     self.neckpiece3:setColor({166/255, 94/255, 122/255})
-    self.neckpiece3.x = self.x + 13
-    self.neckpiece3.y = self.y + 28
+    self.neckpiece3.visible = false
     self.neckpiece3.debug_select = false
     self:addChild(self.neckpiece3)
 
-    self.head = Sprite(self:getTexturePath("head"), 0, 0)
+    self.head = Sprite(self:getTexturePath("head"), 13, 28)
     self.head:setOriginExact(13, 10)
-    self.head.x = self.x + 13
-    self.head.y = self.y + 28
+    self.head.visible = false
     self.head.debug_select = false
     self:addChild(self.head)
 
-    self.headfire = Sprite(self:getTexturePath("head_fire"), 0, 0)
+    self.headfire = Sprite(self:getTexturePath("head_fire"), 13, 23)
     self.headfire:setOriginExact(30, 24)
-    self.headfire.x = self.x + 13
-    self.headfire.y = self.y + 23
-    self.headfire.alpha = 0
+    self.headfire.visible = false
     self.headfire.debug_select = false
     self:addChild(self.headfire)
 
@@ -114,17 +113,33 @@ function BalthizardActorSprite:init(actor)
 end
 
 function BalthizardActorSprite:getTexturePath(sprite_name)
-    return self.actor:getSpritePath() .. '/' .. self.actor.parts[sprite_name][1]
-end
-
-function BalthizardActorSprite:set(anim, ...)
-    self.actor:onSetAnimation(self, anim, ...)
+    return self.actor:getSpritePath() .. "/" .. self.actor.parts[sprite_name][1]
 end
 
 function BalthizardActorSprite:setPartVisible(boolean)
     for _, child in ipairs(self.children) do
         child.visible = boolean
     end
+end
+
+function BalthizardActorSprite:setAnimation(anim, callback, ignore_actor_callback)
+    local animations = { "idle", "spared", "transition_wave", "transition_wave_end" }
+    if TableUtils.contains(animations, anim) then
+        self:setSprite() -- no sprite
+        self:setPartVisible(true)
+        if anim == "idle" or anim == "spared" then
+            self.leg1_transition.visible = false
+            self.leg2_transition.visible = false
+            self.leg3_transition.visible = false
+            self.body_transition.visible = false
+        end
+        if not self.lightup then
+            self.headfire.visible = false
+        end
+    else
+        self:setPartVisible(false)
+    end
+    return super.setAnimation(self, anim, callback, ignore_actor_callback)
 end
 
 function BalthizardActorSprite:update()
@@ -174,13 +189,13 @@ function BalthizardActorSprite:update()
     end
 
     self.animsiner = self.animsiner + DTMULT
-	
+
     if self.shaking then
         self.headamplitude = MathUtils.lerp(self.headamplitude, 0, 0.25 * DTMULT)
     else
         self.headamplitude = MathUtils.lerp(self.headamplitude, 5/2, 0.25 * DTMULT)
     end
-	
+
     self.eyedelay = self.eyedelay - DTMULT
 
     if self.eyedelay < 1 then
@@ -195,7 +210,7 @@ function BalthizardActorSprite:update()
         if self.lightup then
             self.headfire.alpha = 1
             self.lightupfireframes = self.lightupfireframes + 0.25 * DTMULT
-            self.headfire:setFrame(math.floor(self.lightupfireframes))
+            self.headfire:setFrame(1 + math.floor(self.lightupfireframes))
             self.headfire.x = self.x + 13 + self.headoffsetx + (math.sin(self.animsiner / 8)) * self.headamplitude --8
             self.headfire.y = self.y + 23 + self.headoffsety + (math.cos(self.animsiner / 6)) * self.headamplitude / 2 -- 6
         else
@@ -205,7 +220,7 @@ function BalthizardActorSprite:update()
         if anim == "spared" then
             self.head:setSprite(self:getTexturePath("head_spared"))
         end
-        self.head:setFrame(math.floor(self.headindex))
+        self.head:setFrame(1 + math.floor(self.headindex))
         self.head.x = self.x + 13 + self.headoffsetx + (math.sin(self.animsiner / 8) * self.headamplitude)
         self.head.y = self.y + 28 + self.headoffsety + ((math.cos(self.animsiner / 6) * self.headamplitude) / 2)
 
@@ -252,7 +267,7 @@ function BalthizardActorSprite:update()
             self.neckpiece3.alpha = 0
         end
     end
-    if anim == "transition" then
+    if anim == "transition_wave" then
         if(self.transitioncon == 0) then
             self.animsiner = 0
             self.headoffsetx = 0
@@ -260,7 +275,7 @@ function BalthizardActorSprite:update()
             self.headindex = 0
             self.eyedelay = 0
             self.eyesiner = 0
-            self.head:setFrame(math.floor(self.headindex))
+            self.head:setFrame(1 + math.floor(self.headindex))
             self.head.x = self.x + 13
             self.head.y = self.y + 28
             self.head_last_x = self.head.x
@@ -278,7 +293,7 @@ function BalthizardActorSprite:update()
             if(self.transitiontimer < 6) then
                 self.body.alpha = 0
                 self.body_transition.alpha = 1
-                self.body_transition:setFrame(math.floor(self.bodyindex))
+                self.body_transition:setFrame(1 + math.floor(self.bodyindex))
                 self.bodyindex = self.bodyindex + 1
             end
             self.headfire.alpha = 0
@@ -288,9 +303,9 @@ function BalthizardActorSprite:update()
             self.leg1_transition.alpha = 1
             self.leg2_transition.alpha = 1
             self.leg3_transition.alpha = 1
-            self.leg1_transition:setFrame(math.floor(self.leg1index))
-            self.leg2_transition:setFrame(math.floor(self.leg1index))
-            self.leg3_transition:setFrame(math.floor(self.leg1index))
+            self.leg1_transition:setFrame(1 + math.floor(self.leg1index))
+            self.leg2_transition:setFrame(1 + math.floor(self.leg1index))
+            self.leg3_transition:setFrame(1 + math.floor(self.leg1index))
             self.leg1index = self.leg1index + 0.5
             self.head.y = self.head.y + 1
             self.head.scale_x = MathUtils.lerp(1, 0.8, self.transitiontimer / 5);
@@ -364,7 +379,7 @@ function BalthizardActorSprite:update()
             end
         end
     end
-    if anim == "transition_end" then
+    if anim == "transition_wave_end" then
         if(self.transitioncon == 4) then
             self.transitiontimer = 0
             self.body_transition.alpha = 1
@@ -408,12 +423,12 @@ function BalthizardActorSprite:update()
             self.transitiontimer = self.transitiontimer + 1
             self.tail.x = MathUtils.lerp(-30, 0, self.transitiontimer / 5)
             if(self.transitiontimer < 6 and self.bodyindex ~= 0) then
-                self.body_transition:setFrame(math.floor(self.bodyindex))
+                self.body_transition:setFrame(1 + math.floor(self.bodyindex))
                 self.bodyindex = self.bodyindex - 1
             end
-            self.leg1_transition:setFrame(math.floor(self.leg1index))
-            self.leg2_transition:setFrame(math.floor(self.leg1index))
-            self.leg3_transition:setFrame(math.floor(self.leg1index))
+            self.leg1_transition:setFrame(1 + math.floor(self.leg1index))
+            self.leg2_transition:setFrame(1 + math.floor(self.leg1index))
+            self.leg3_transition:setFrame(1 + math.floor(self.leg1index))
             self.leg1index = self.leg1index - 0.5
             self.head.y = self.head.y - 1
             self.head.scale_x = MathUtils.lerp(0.8, 1, self.transitiontimer / 5);

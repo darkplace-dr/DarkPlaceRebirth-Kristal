@@ -5,6 +5,7 @@ function Winglade:init()
 
     self.name = "Winglade"
     self:setActor("winglade")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -48,13 +49,9 @@ function Winglade:init()
     self:registerAct("SpinS", "60%\nMercy\nto all", { "susie" })
     self:registerAct("Whirl", "SPARE\nall!", { "susie", "ralsei" }, 64)
 
+    self.sprite.active = false
     self.transition_ended = false
     self.floatsiner = 0
-end
-
-function Winglade:onAdd(parent)
-    super.onAdd(self, parent)
-    self:setAnimation("hurt")
 end
 
 function Winglade:update()
@@ -69,6 +66,7 @@ function Winglade:update()
 
     if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
         self.transition_ended = true
+        self.sprite.active = true
         self:setAnimation("idle")
     end
 end

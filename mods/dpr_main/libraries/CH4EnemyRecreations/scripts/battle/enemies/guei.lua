@@ -5,7 +5,7 @@ function Guei:init()
 
     self.name = "Guei"
     self:setActor("guei")
-    self:setAnimation("idle")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -34,14 +34,15 @@ function Guei:init()
     self.low_health_text = "* Guei's flames flicker weakly."
 	self.spareable_text = "* Guei looks satisfied in some\nodd way."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:getAct("Check").description = "Useless\nanalysis"
     self:registerAct("Exercism", "20% &\nDelayed\nTIRED")
     self:registerAct("Xercism", "60% &\nDelayed\nTIRED", {"ralsei"})
     --self:registerAct("OldMan", "I'm\nold!") -- yeahhh you're not here yet
 
-    self.killable = true
+    self.sprite.active = false
+    self.transition_ended = false
 
     self.excerism = false
 end
@@ -67,20 +68,12 @@ function Guei:onAct(battler, name)
             self:addMercy(40)
             return "* Ralsei told a family-friendly\nstory about a lovable yet\nlonely ghost!"
         else
-            self:addMercy(40)
-            local text = {
-                "* "..battler.chara:getName().." lit an incense stick!",
-                "* "..battler.chara:getName().." did something mysterious!",
-                "* "..battler.chara:getName().." said a prayer!",
-                "* "..battler.chara:getName().." made a ghastly sound!"
-            }
-            return TableUtils.pick(text)
+            return self:onShortAct(battler, name)
         end
     end
 
     return super.onAct(self, battler, name)
 end
-
 
 function Guei:onShortAct(battler, name)
     if name == "Standard" then
@@ -93,16 +86,20 @@ function Guei:onShortAct(battler, name)
         else
             self:addMercy(40)
             local text = {
-                "* "..battler.chara:getName().." lit an incense stick!",
-                "* "..battler.chara:getName().." did something mysterious!",
-                "* "..battler.chara:getName().." said a prayer!",
-                "* "..battler.chara:getName().." made a ghastly sound!"
+                "* " .. battler.chara:getName() .. " lit an incense stick!",
+                "* " .. battler.chara:getName() .. " did something mysterious!",
+                "* " .. battler.chara:getName() .. " said a prayer!",
+                "* " .. battler.chara:getName() .. " made a ghastly sound!"
             }
             return TableUtils.pick(text)
         end
     end
 
     return super.onShortAct(self, battler, name)
+end
+
+function Guei:onSpared()
+    self:setAnimation("spared_overlay")
 end
 
 function Guei:getEncounterText()
@@ -173,6 +170,16 @@ function Guei:onTurnEnd()
     if self.excerism then
         self.excerism = false
 		self:setTired(true)
+    end
+end
+
+function Guei:update()
+    super.update(self)
+
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
+        self.sprite.active = true
+        self:setAnimation("idle")
     end
 end
 

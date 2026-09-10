@@ -5,6 +5,7 @@ function Balthizard:init()
 
     self.name = "Balthizard"
     self:setActor("balthizard")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -44,14 +45,15 @@ function Balthizard:init()
     self.tired_text = "* Balthizard releases a scent of\ncandles and chamomile."
 	self.spareable_text = "* Balthizard laughs plumes of\nheart-shaped gas."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Shake", "Left &\nRight=\nMercy")
     self:registerAct("ShakeX", "Left &\nRight=\nMercy", {"susie"})
     self:registerAct("LightUp", "50% &\nTIRE\nothers", {"ralsei"})
     --self:registerAct("OldMan", "I'm\nold!") -- he's old
 
-    self.killable = true
+    self.sprite.active = false
+    self.transition_ended = false
 
     self.lightuptimer = 0
     self.lightuptime = false
@@ -106,8 +108,7 @@ function Balthizard:onAct(battler, name)
         end)
         return
     elseif name == "Standard" then
-        self:addMercy(30)
-        return "* "..battler.chara:getName().." shakes Balthizard!"
+        return self:onShortAct(battler, name)
     end
 
     return super.onAct(self, battler, name)
@@ -116,7 +117,7 @@ end
 function Balthizard:onShortAct(battler, name)
     if name == "Standard" then
         self:addMercy(30)
-        return "* "..battler.chara:getName().." shakes Balthizard!"
+        return "* "..battler.chara:getName() .. " shakes Balthizard!"
     end
 
     return super.onShortAct(self, battler, name)
@@ -169,6 +170,12 @@ end
 
 function Balthizard:update()
     super.update(self)
+
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
+        self.sprite.active = true
+        self:setAnimation("idle")
+    end
 
     if self.mercy >= 100 and not self.sprite.spareable then
         self.sprite.spareable = true

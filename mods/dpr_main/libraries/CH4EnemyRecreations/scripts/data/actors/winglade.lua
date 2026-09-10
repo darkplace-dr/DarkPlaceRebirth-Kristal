@@ -7,24 +7,19 @@ function Winglade:init()
 
     self.width = 61
     self.height = 63
+
+    self.color = {0, 0, 1}
+
     self.flip = nil
 
     self.path = "battle/enemies/winglade"
-
-    self.default = "idle"
-
-    self.voice = nil
-
-    self.portrait_path = nil
-
-    self.portrait_offset = nil
-
-    self.can_blush = false
+    self.default = "base"
 
     self.talk_sprites = {}
 
     self.animations = {
-        ["hurt"] = { "base", 1, false }
+        ["hurt"] = { "base", 1, false },
+        ["transition"] = { "base", 1, false }
     }
 
     self.offsets = {

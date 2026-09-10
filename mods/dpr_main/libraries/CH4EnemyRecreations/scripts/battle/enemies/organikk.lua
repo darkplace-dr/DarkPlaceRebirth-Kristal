@@ -5,6 +5,7 @@ function Organikk:init()
 
     self.name = "Organikk"
     self:setActor("organikk")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -51,8 +52,6 @@ function Organikk:init()
     self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"susie"})
     self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"ralsei"})
 
-    self.killable = true
-
     self.harmon_sound = nil
     self.harmonize = false
     self.chorus = false
@@ -71,10 +70,9 @@ function Organikk:init()
     self.showtempmercy = false
     self.mercyget = 0
 
+    self.sprite.active = false
     self.transition_ended = false
     self.idling = false
-
-    self.sprite.active = false
 
     local i = 1
     for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
