@@ -67,7 +67,7 @@ function spell:onCast(user, target)
                 z_parent:addChild(z)
             end, 8)
         else
-            target:statusMessage("msg", "half-cify")
+            target:statusMessage("msg", "half-cify", ColorUtils.mergeColor(COLORS.aqua, COLORS.blue, 0.3))
             Assets.playSound("spell_pacify", 1, 2)
             target.half_pacify = true
         end

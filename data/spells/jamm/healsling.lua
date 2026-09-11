@@ -73,7 +73,7 @@ function spell:onCast(user, target)
 		if heal > 0 then
 			target:heal(heal)
 		else
-			target:statusMessage("msg", "miss", {0, 1, 0})
+			target:statusMessage("msg", "miss", COLORS.lime)
 		end
 		if target:canService(self.id) then
 			target:addMercy(math.ceil(target.service_mercy * 1.3 * self:getMercyMult(user, target, heal)))

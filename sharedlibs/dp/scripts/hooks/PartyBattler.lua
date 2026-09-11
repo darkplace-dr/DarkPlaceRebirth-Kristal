@@ -130,7 +130,7 @@ function PartyBattler:hurt(amount, exact, color, options)
     end
 
     if (self.chara:getHealth() <= 0) then
-        self:statusMessage("msg", swoon and "swoon" or "down", color, true)
+        self:statusMessage("msg", swoon and "swoon" or "down", COLORS.red, true)
     else
         if self.chara.id == "noel" then
         -- Logic is done in noel's damage function         
@@ -164,14 +164,14 @@ function PartyBattler:heal(amount, sparkle_color, show_up)
 
 		if self.health_rolling_to >= self.chara:getStat("health") then
 			self.health_rolling_to = self.chara:getStat("health")
-			self:statusMessage("msg", "max")
+			self:statusMessage("msg", "max", COLORS.lime)
 		else
 			if show_up then
 				if was_down ~= self.is_down then
-					self:statusMessage("msg", "up")
+					self:statusMessage("msg", "up", COLORS.lime)
 				end
 			else
-				self:statusMessage("heal", amount, {0, 1, 0})
+				self:statusMessage("heal", amount, COLORS.lime)
 			end
 		end
 
@@ -207,7 +207,7 @@ end
 function PartyBattler:succumb() -- this one's meant to be called manually so it has some stuff the down() and swoon() don't have
     self.chara:setHealth(-math.huge)
 	self.health_rolling_to = self.chara:getHealth()
-    self:statusMessage("msg", "succumb")
+    self:statusMessage("msg", "succumb", COLORS.red)
     self.succumbed = true
     self.is_down = true
     self.sleeping = false
@@ -411,7 +411,7 @@ function PartyBattler:pierce(amount, exact, color, options)
         end
 
         if (self.chara:getHealth() <= 0) then
-            self:statusMessage("msg", "down", color, true)
+            self:statusMessage("msg", "down", COLORS.red, true)
         else
             self:statusMessage("damage", amount, color, true)
         end

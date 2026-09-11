@@ -55,7 +55,7 @@ function PartyBattler:hurt(amount, exact, color, options)
 
     if options["msg"]  then
         if (self.chara:getHealth() <= 0) then
-            self:statusMessage("msg", swoon and "swoon" or "down", color, true)
+            self:statusMessage("msg", swoon and "swoon" or "down", COLORS.red, true)
         else
             self:statusMessage("damage", amount, color, true)
         end
@@ -142,7 +142,7 @@ function PartyBattler:depleteMana(amount, exact, color, options)
     end
 
     if (self.chara:getMana() <= 0) then
-        --self:statusMessage("msg", swoon and "swoon" or "down", color, true)
+        --self:statusMessage("msg", swoon and "swoon" or "down", COLORS.red, true)
     --else
         self:statusMessage("damage", -amount, color or self.chara:getManaMessageColor(), true)
     end
@@ -196,7 +196,7 @@ function PartyBattler:regenMana(amount, sparkle_color)
 
     if self.chara:usesMana() and self.chara:getMana() >= self.chara:getStat("mana") then
         self.chara:setMana(self.chara:getStat("mana"))
-        self:statusMessageMana("msg", "max_white", self.chara:getManaMessageColor(), nil, 8)
+        self:statusMessageMana("msg", "max", self.chara:getManaMessageColor(), nil, 8)
         --self:statusMessage("heal", amount)
     elseif not self.chara:usesMana() then
         self:statusMessageMana("regen", 0, self.chara:getManaMessageColor())
