@@ -46,12 +46,12 @@ function ManeThorn:update()
 			local mane = self:spawnBullet("floradinn/mane", xx + 32, yy + 32)
 			mane.alarm_timer = 45
 			mane.targx = Game.battle.arena.x + ((45 + MathUtils.random(40)) * TableUtils.pick({1, -1}))
-			mane.targx = Game.battle.arena.y + ((45 + MathUtils.random(40)) * TableUtils.pick({1, -1}))
+			mane.targy = Game.battle.arena.y + ((45 + MathUtils.random(40)) * TableUtils.pick({1, -1}))
 			mane.physics.speed_x = (mane.targx - mane.x) / mane.alarm_timer
 			mane.physics.speed_y = (mane.targy - mane.y) / mane.alarm_timer
 			mane.physics.gravity = 0.35
 			mane.physics.speed_y = mane.physics.speed_y - ((mane.physics.gravity * mane.alarm_timer) / 2)
-			for tempnum = 0, triangle_count / 2 do
+			for tempnum = 0, (triangle_count / 2) - 1 do
 				local flip = -1 + ((triangle_count % 2 and tempnum == 0) and 1 or 0)
 				while flip <= 1 do
 					local bullet = self:spawnBullet("floradinn/mane_bullet", mane.x, mane.y)

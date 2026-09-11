@@ -77,7 +77,7 @@ function farm_tile:bananaCheck(nosound)
     if not self.grown and Game.playtime > self.plant[2] then
         self.grown = true
 
-		self.crop:addFX(PaletteFX("world/banana_pal", 1, nil, 1))
+		self.crop:addFX(PaletteFX("world/banana_pal", 1, nil, nil, 1))
 
         if not nosound then
             Assets.playSound("barrel_jump", 0.6)

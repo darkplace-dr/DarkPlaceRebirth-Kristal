@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 74,
           height = 124,
           rotation = 0,
+          opacity = 1,
           gid = 107,
           visible = true,
           properties = {}
@@ -80,6 +81,7 @@ return {
           width = 14,
           height = 20,
           rotation = 0,
+          opacity = 1,
           gid = 135,
           visible = true,
           properties = {}
@@ -94,6 +96,7 @@ return {
           width = 22,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 134,
           visible = true,
           properties = {}
@@ -108,6 +111,7 @@ return {
           width = 22,
           height = 60,
           rotation = 0,
+          opacity = 1,
           gid = 132,
           visible = true,
           properties = {}
@@ -122,6 +126,7 @@ return {
           width = 14,
           height = 20,
           rotation = 0,
+          opacity = 1,
           gid = 135,
           visible = true,
           properties = {}
@@ -136,6 +141,7 @@ return {
           width = 22,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 134,
           visible = true,
           properties = {}
@@ -150,6 +156,7 @@ return {
           width = 14,
           height = 34,
           rotation = 0,
+          opacity = 1,
           gid = 133,
           visible = true,
           properties = {}
@@ -164,6 +171,7 @@ return {
           width = 22,
           height = 60,
           rotation = 0,
+          opacity = 1,
           gid = 132,
           visible = true,
           properties = {}
@@ -178,6 +186,7 @@ return {
           width = 56,
           height = 32,
           rotation = 0,
+          opacity = 1,
           gid = 153,
           visible = true,
           properties = {}
@@ -208,6 +217,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_sound"] = "doorclose",
@@ -227,6 +237,7 @@ return {
           width = 42,
           height = 74,
           rotation = 0,
+          opacity = 1,
           gid = 103,
           visible = true,
           properties = {}
@@ -241,6 +252,7 @@ return {
           width = 44,
           height = 66,
           rotation = 0,
+          opacity = 1,
           gid = 105,
           visible = true,
           properties = {}
@@ -255,6 +267,7 @@ return {
           width = 230,
           height = 68,
           rotation = 0,
+          opacity = 1,
           gid = 106,
           visible = true,
           properties = {}
@@ -269,6 +282,7 @@ return {
           width = 92,
           height = 54,
           rotation = 0,
+          opacity = 1,
           gid = 104,
           visible = true,
           properties = {}
@@ -283,6 +297,7 @@ return {
           width = 104,
           height = 77,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's Noelle's bed. There's ample space to hide underneath.)"
@@ -298,6 +313,7 @@ return {
           width = 68,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "noellehouse.noelle_computer"
@@ -313,6 +329,7 @@ return {
           width = 100,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a state of the art high-definition TV with old game consoles under it.)"
@@ -328,6 +345,7 @@ return {
           width = 218,
           height = 54,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a couch,[wait:5] for watching the TV.)"
@@ -343,6 +361,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "noellehouse.noelle_plant"
@@ -358,6 +377,7 @@ return {
           width = 40,
           height = 94,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's Noelle's homework desk.)"
@@ -373,6 +393,7 @@ return {
           width = 52,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (A clothes wardrobe. A pair of small angel wings are inside...[wait:5] worn out and tattered.)"
@@ -404,6 +425,7 @@ return {
           width = 440,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -417,6 +439,7 @@ return {
           width = 40,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -430,6 +453,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -443,6 +467,7 @@ return {
           width = 360,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -456,6 +481,7 @@ return {
           width = 80,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -469,6 +495,7 @@ return {
           width = 72,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -482,6 +509,7 @@ return {
           width = 98,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -495,6 +523,7 @@ return {
           width = 84,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -508,6 +537,7 @@ return {
           width = 196,
           height = 32,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -521,6 +551,7 @@ return {
           width = 46,
           height = 140,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -534,6 +565,7 @@ return {
           width = 46,
           height = 44,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -547,6 +579,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -565,6 +598,7 @@ return {
           width = 14,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -578,6 +612,7 @@ return {
           width = 234,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -591,6 +626,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -609,6 +645,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -643,6 +680,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -656,6 +694,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -81,11 +81,15 @@ function WeatherLib:init()
             if Game.stage.overlay and force then 
                 if Game.stage.weather then
                     for i, o in ipairs(Game.stage.overlay) do
-                        o[2]:remove()
+						if not force then
+							o[2]:remove()
+						end
                     end
                 end
             end
-            Game.stage.overlay = {}
+			if force or not Game.stage.overlay then
+				Game.stage.overlay = {}
+			end
             if Game.stage.weather then
                 for i, weather in ipairs(Game.stage.weather) do
 					if force then
@@ -93,12 +97,17 @@ function WeatherLib:init()
 					else
 						weather.wrap_up = true
 						if weather.weathersounds then
-							weather.weathersounds:fade(0, 28/30)
+							weather.weathersounds:fade(0, 110/30)
+						end
+						if weather.weathersounds_indoor then
+							weather.weathersounds_indoor:fade(0, 110/30)
 						end
 					end
                 end
             end
-            Game.stage.weather = {}
+			if force or not Game.stage.weather then
+				Game.stage.weather = {}
+			end
             Game.stage.weather_type = typer
             Game:setFlag("weather_save", false)
 
@@ -126,20 +135,29 @@ function WeatherLib:init()
 					else
 						weather.wrap_up = true
 						if weather.weathersounds then
-							weather.weathersounds:fade(0, 28/30)
+							weather.weathersounds:fade(0, 110/30)
+						end
+						if weather.weathersounds_indoor then
+							weather.weathersounds_indoor:fade(0, 110/30)
 						end
 					end
                 end
             end
-            self.weather = {}
+			if force or not self.weather then
+				self.weather = {}
+			end
             if Game.stage.overlay and force then 
                 if Game.stage.weather then
                     for i, o in ipairs(Game.stage.overlay) do
-                        o[2]:remove()
+						if not force then
+							o[2]:remove()
+						end
                     end
                 end
             end
-            Game.stage.overlay = {}
+			if force or not Game.stage.overlay then
+				Game.stage.overlay = {}
+			end
 
             if keep then
                 Game.stage.keep_weather = true

@@ -8,8 +8,7 @@ function EbottCloud:init(asset, x, y, speed, parallax_x, parallax_y)
     self.asset = asset
     self.speed = speed or 0.2
 
-    self.parallax_x = parallax_x or 0.6
-    self.parallax_y = parallax_y or 0.8
+    self:setParallax(parallax_x or 0.6, parallax_y or 0.9)
 
     self.initial_y = y
 end

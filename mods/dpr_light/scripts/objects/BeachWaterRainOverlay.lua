@@ -7,6 +7,17 @@ function BeachWaterRainOverlay:init(x, y)
     self.sprite:setScale(2)
     self:addChild(self.sprite)
     
+    self.extleaves_sprite = Sprite("world/maps/hometown/beachwater_rain_extleaves", 0, 0)
+    self.extleaves_sprite:setScale(2)
+	self.extleaves_sprite.layer = 0.001
+	self.extleaves_sprite.alpha = 0
+    self:addChild(self.extleaves_sprite)
+	
+	self.extleaves_color = {
+		{ColorUtils.hexToRGB("#8f8c6b"), ColorUtils.hexToRGB("#806040")},
+		{ColorUtils.hexToRGB("#a76108"), ColorUtils.hexToRGB("#a73308")}
+	}
+    
 	self.layer = 0
 
     self.shader = love.graphics.newShader([[
@@ -26,13 +37,39 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords) {
     ]])
 	
 	self.siner = 0
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.sprite:setSprite("world/maps/hometown/beachwater_rain_morning")
+		self.extleaves_sprite.alpha = 1
+		self.extleaves_sprite:setColor(self.extleaves_color[1][1])
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.sprite:setSprite("world/maps/hometown/beachwater_rain_evening")
+		self.extleaves_sprite.alpha = 1
+		self.extleaves_sprite:setColor(self.extleaves_color[2][1])
+	end
+end
+
+function BeachWaterRainOverlay:update()
+	super.update(self)
+	local overcast_power = 0
+	if Game.stage.weather then
+		for i, w in ipairs(Game.stage.weather) do
+			if w.type == "rain" or w.type == "rain_prewarmed" or w.type == "overcast" then
+				overcast_power = (w.weathertimer / 120)
+			end
+		end
+	end
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.extleaves_sprite:setColor(ColorUtils.mergeColor(self.extleaves_color[1][1], self.extleaves_color[1][2], overcast_power))
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.extleaves_sprite:setColor(ColorUtils.mergeColor(self.extleaves_color[2][1], self.extleaves_color[2][2], overcast_power))
+	end
 end
 
 function BeachWaterRainOverlay:draw()
     love.graphics.setShader(self.shader)
 
     self.shader:send("time", self.siner)
-    self.shader:send("texture_dim", {240, 280})
+    self.shader:send("texture_dim", {194, 280})
     super.draw(self)
     love.graphics.setShader()
 end
