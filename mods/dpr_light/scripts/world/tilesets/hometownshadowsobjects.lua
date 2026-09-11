@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 46,
+  tilecount = 47,
   tiles = {
     {
       id = 31,
@@ -292,7 +292,7 @@ return {
     {
       id = 79,
       image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_graves.png",
-      width = 237,
+      width = 238,
       height = 55
     },
     {
@@ -300,6 +300,12 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_gravegate.png",
       width = 35,
       height = 160
+    },
+    {
+      id = 81,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_treegraveyard.png",
+      width = 200,
+      height = 23
     }
   }
 }

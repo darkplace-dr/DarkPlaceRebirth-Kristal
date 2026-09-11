@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.12.1" name="hometownshadowsobjects" tilewidth="303" tileheight="328" tilecount="46" columns="0">
+<tileset version="1.11" tiledversion="1.12.1" name="hometownshadowsobjects" tilewidth="303" tileheight="328" tilecount="47" columns="0">
  <editorsettings>
   <export target="hometownshadowsobjects.lua" format="lua"/>
  </editorsettings>
@@ -137,9 +137,12 @@
   <image source="../../../assets/sprites/world/maps/hometown/shadows/shadowbit_sunflower.png" width="40" height="13"/>
  </tile>
  <tile id="79">
-  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_graves.png" width="237" height="55"/>
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_graves.png" width="238" height="55"/>
  </tile>
  <tile id="80">
   <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_gravegate.png" width="35" height="160"/>
+ </tile>
+ <tile id="81">
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_treegraveyard.png" width="200" height="23"/>
  </tile>
 </tileset>
