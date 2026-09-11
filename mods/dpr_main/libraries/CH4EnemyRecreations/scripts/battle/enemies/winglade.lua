@@ -47,7 +47,7 @@ function Winglade:init()
 
     self:registerAct("Spin", "Spin\n50%\nmercy")
     self:registerAct("SpinS", "60%\nMercy\nto all", { "susie" })
-    self:registerAct("Whirl", "SPARE\nall!", { "susie", "ralsei" }, 64)
+    self:registerAct("Whirl", "SPARE\nall!", "all", 64)
 
     self.sprite.active = false
     self.transition_ended = false
@@ -103,9 +103,9 @@ function Winglade:onAct(battler, name)
         return "* You and Susie spun masterfully!"
     elseif name == "Whirl" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        Game.battle:getPartyBattler("kris"):setAnimation("pirouette")
-        Game.battle:getPartyBattler("susie"):setAnimation("pirouette")
-        Game.battle:getPartyBattler("ralsei"):setAnimation("pirouette")
+        for _, battler in ipairs(Game.battle.party) do
+            battler:setAnimation("pirouette")
+        end
         Game.battle:startActCutscene("wingladewhirl")
         return
     elseif name == "Standard" then

@@ -64,12 +64,14 @@ function BalthizardShakeController:addMercyCustom(amount)
         self.enemy.temp_mercy = self.enemy.temp_mercy + amount
     end
     self.enemy.temp_mercy = MathUtils.clamp(self.enemy.temp_mercy, 0, self.mercylimit)
-    if not self.enemy.temp_mercy_percent and Game:getConfig("mercyMessages") then
-        Assets.playSound("mercyadd", 0.8, 1.4)
-        self.enemy.temp_mercy_percent = self.enemy:statusMessage("mercy", self.enemy.temp_mercy)
-        self.enemy.temp_mercy_percent.kill_condition = function() return self.enemy.sprite.shaking == false end
-    else
-        self.enemy.temp_mercy_percent:setDisplay("mercy", self.enemy.temp_mercy)
+    if Game:getConfig("mercyMessages") then
+        if not self.enemy.temp_mercy_percent then
+            Assets.playSound("mercyadd", 0.8, 1.4)
+            self.enemy.temp_mercy_percent = self.enemy:statusMessage("mercy", self.enemy.temp_mercy, self.enemy.temp_mercy == 100 and COLORS.lime or COLORS.white)
+            self.enemy.temp_mercy_percent.kill_condition = function() return self.enemy.sprite.shaking == false end
+        else
+            self.enemy.temp_mercy_percent:setDisplay("mercy", self.enemy.temp_mercy, self.enemy.temp_mercy == 100 and COLORS.lime or COLORS.white)
+        end
     end
 end
 

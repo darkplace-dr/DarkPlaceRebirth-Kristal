@@ -1,18 +1,18 @@
-local Organikk, super = Class(Encounter)
+local SteelSong, super = Class(Encounter)
 
-function Organikk:init()
+function SteelSong:init()
     super.init(self)
 
-    self.text = "* Organikk accosts you!"
+    self.text = "* Steel clangs in a song."
 
     self.music = "ch4_battle"
     self.background = true
 
-    self.organ_1 = self:addEnemy("organikk", 524, 193)
-    self.organ_2 = self:addEnemy("organikk", 524, 314)
+    self.winglade = self:addEnemy("winglade", 531, 158)
+    self.organikk = self:addEnemy("organikk", 527, 306)
 end
 
-function Organikk:getPartyPosition(index)
+function SteelSong:getPartyPosition(index)
     local krloc = {94, 50}
     local suloc = {80, 122}
     local raloc = {72, 200}
@@ -35,4 +35,4 @@ function Organikk:getPartyPosition(index)
     end
 end
 
-return Organikk
+return SteelSong

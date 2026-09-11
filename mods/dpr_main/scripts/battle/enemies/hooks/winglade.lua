@@ -66,13 +66,6 @@ function Winglade:onAct(battler, name)
         battler:setAnimation("pirouette")
         Game.battle:getPartyBattler("jamm"):setAnimation("pirouette")
         return "* You and Jamm spun masterfully!"
-    elseif name == "Whirl" then
-        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-		for k,v in ipairs(Game.battle.party) do
-			v:setAnimation("pirouette")
-		end
-        Game.battle:startActCutscene("wingladewhirl")
-        return
     end
 
     return super.onAct(self, battler, name)

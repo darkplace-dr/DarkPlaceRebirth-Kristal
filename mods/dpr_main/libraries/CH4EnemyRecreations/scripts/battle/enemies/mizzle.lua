@@ -70,24 +70,12 @@ function Mizzle:onAdd(parent)
 end
 
 function Mizzle:setTired(bool, hide_message)
-    local old_tired = self.tired
-    self.tired = bool
-    if self.tired then
+    if bool and not self.tired then
         self:setAnimation("idle")
-        self.comment = "(Tired)"
-        if Game:getConfig("tiredMessages") and not old_tired and not hide_message then
-            if self.parent then
-                self:statusMessage("msg", "tired")
-                Assets.playSound("spellcast", 0.5, 0.9)
-            end
-        end
-    else
+    elseif not bool and self.tired then
         self:setAnimation("alarm")
-        self.comment = ""
-        if Game:getConfig("awakeMessages") and old_tired and not hide_message then
-            if self.parent then self:statusMessage("msg", "awake") end
-        end
     end
+    super.setTired(self, bool, hide_message)
 end
 
 function Mizzle:onSpareable()

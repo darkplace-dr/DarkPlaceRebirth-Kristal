@@ -1,18 +1,19 @@
-local Cacophony, super = Class(Encounter)
+local WaterFireAir, super = Class(Encounter)
 
-function Cacophony:init()
+function WaterFireAir:init()
     super.init(self)
 
-    self.text = "* It's a cacophony!"
+    self.text = "* Water, fire, air."
 
     self.music = "ch4_battle"
     self.background = true
 
-    self.organikk = self:addEnemy("organikk", 550, 182)
-    self.wicabel = self:addEnemy("wicabel", 526, 284)
+    self.balthizard = self:addEnemy("balthizard", 543, 134)
+    self.mizzle = self:addEnemy("mizzle", 551, 220)
+    self.guei = self:addEnemy("guei", 541, 324)
 end
 
-function Cacophony:getPartyPosition(index)
+function WaterFireAir:getPartyPosition(index)
     local krloc = {94, 50}
     local suloc = {80, 122}
     local raloc = {72, 200}
@@ -35,4 +36,4 @@ function Cacophony:getPartyPosition(index)
     end
 end
 
-return Cacophony
+return WaterFireAir
