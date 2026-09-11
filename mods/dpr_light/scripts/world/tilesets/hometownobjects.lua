@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 180,
+  tilecount = 196,
   tiles = {
     {
       id = 1,
@@ -375,13 +375,13 @@ return {
     },
     {
       id = 56,
-      image = "../../../assets/sprites/world/maps/hometown/policeline.png",
-      width = 104,
-      height = 266
+      image = "../../../assets/sprites/world/maps/hometown/policeline_1.png",
+      width = 134,
+      height = 270
     },
     {
       id = 57,
-      image = "../../../assets/sprites/world/maps/hometown/policeplate.png",
+      image = "../../../assets/sprites/world/maps/hometown/policeplate_1.png",
       width = 102,
       height = 200
     },
@@ -926,24 +926,6 @@ return {
       height = 68
     },
     {
-      id = 154,
-      image = "../../../assets/sprites/world/maps/hometown/tree_top.png",
-      width = 60,
-      height = 20
-    },
-    {
-      id = 155,
-      image = "../../../assets/sprites/world/maps/hometown/tree_top_tile.png",
-      width = 60,
-      height = 20
-    },
-    {
-      id = 156,
-      image = "../../../assets/sprites/world/maps/hometown/tree_trunk.png",
-      width = 60,
-      height = 40
-    },
-    {
       id = 157,
       image = "../../../assets/sprites/world/maps/hometown/noellehouse_dark.png",
       width = 1128,
@@ -1104,6 +1086,120 @@ return {
       image = "../../../assets/sprites/tilesets/objects/cabinet_lit.png",
       width = 62,
       height = 126
+    },
+    {
+      id = 185,
+      image = "../../../assets/sprites/world/maps/hometown/icepizza_dark_sign.png",
+      width = 314,
+      height = 118
+    },
+    {
+      id = 186,
+      image = "../../../assets/sprites/world/maps/hometown/icepizza_sign.png",
+      width = 314,
+      height = 118
+    },
+    {
+      id = 187,
+      image = "../../../assets/sprites/world/maps/hometown/beach_coverup.png",
+      width = 40,
+      height = 20
+    },
+    {
+      id = 188,
+      image = "../../../assets/sprites/world/maps/hometown/beach_bg_table.png",
+      width = 67,
+      height = 55
+    },
+    {
+      id = 190,
+      image = "../../../assets/sprites/world/maps/hometown/beach_bg_table2.png",
+      width = 67,
+      height = 55
+    },
+    {
+      id = 195,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 192,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 193,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_dark_big.png",
+      width = 115,
+      height = 30
+    },
+    {
+      id = 194,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_dark_small.png",
+      width = 26,
+      height = 25
+    },
+    {
+      id = 191,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_rain_window.png",
+      width = 23,
+      height = 31
+    },
+    {
+      id = 196,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/door_frame_rain.png",
+      width = 67,
+      height = 144
+    },
+    {
+      id = 197,
+      image = "../../../assets/sprites/world/maps/hometown/torielhouse/door_frame_rain_dark.png",
+      width = 67,
+      height = 144
+    },
+    {
+      id = 198,
+      image = "../../../assets/sprites/tilesets/objects/asgore_car_shadow.png",
+      width = 146,
+      height = 110
+    },
+    {
+      id = 199,
+      image = "../../../assets/sprites/world/maps/hometown/policeline_2.png",
+      width = 134,
+      height = 270
+    },
+    {
+      id = 200,
+      image = "../../../assets/sprites/world/maps/hometown/policeplate_2.png",
+      width = 102,
+      height = 200
+    },
+    {
+      id = 201,
+      image = "../../../assets/sprites/world/maps/hometown/policeline_3.png",
+      width = 134,
+      height = 270
+    },
+    {
+      id = 202,
+      image = "../../../assets/sprites/world/maps/hometown/policeplate_3.png",
+      width = 102,
+      height = 200
+    },
+    {
+      id = 203,
+      image = "../../../assets/sprites/world/maps/hometown/naphouse_noshadow.png",
+      width = 180,
+      height = 242
+    },
+    {
+      id = 204,
+      image = "../../../assets/sprites/world/maps/hometown/graves_evening.png",
+      width = 570,
+      height = 198
     }
   }
 }

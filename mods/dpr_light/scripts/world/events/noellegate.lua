@@ -17,15 +17,18 @@ function NoelleGate:init(data)
 	self.gate_right_x = 0
 	self.gate_right_y = 0
 	self.leaves = {}
+	self.skip_selfshadowing = false
 end
 
 function NoelleGate:onLoad()
 	super.onLoad(self)
+	self.alternate_shadow_transform = true
 	self.gate_left = Sprite("world/events/noellegate/gate_left", self.x, self.y)
 	self.gate_left.layer = Game.world:parseLayer("objects")
 	self.gate_left:setOrigin(0, 0)
 	self.gate_left:setScale(2)
-	self.gate_left.alpha = false
+	self.gate_left.visible = false
+	self.gate_left.alternate_shadow_transform = true
 	Game.world:addChild(self.gate_left)
 	if Game:getFlag("hometown_time", "day") == "morning" then
 		self.shadow_left = Sprite("world/events/noellegate/shadow_left", self.x, self.y)
@@ -101,11 +104,20 @@ function NoelleGate:spawnLeaf()
 	leaf.y = self.y + 60
 	leaf.timer = 0
 	leaf.con = 0
-	leaf.alpha = 0
+	leaf.fake_alpha = 0
+	leaf.has_palette = false
 	self.world.timer:tween(40/30, leaf, {x = leaf_x_pos + 70 + MathUtils.random(20), y = self.y + 120}, "out-sine")
-	self.world.timer:tween(5/30, leaf, {alpha = 1}, "out-sine")
+	self.world.timer:tween(5/30, leaf, {fake_alpha = 1}, "out-sine")
 	table.insert(self.leaves, leaf)
 	leaf:play(1/15, true)
+	if Game:getFlag("hometown_time", "day") == "evening" then
+		leaf:addFX(PaletteFX("world/events/noellegate/leaf_palette", 1, (function() return leaf.fake_alpha end), nil, 1))
+		leaf.has_palette = true
+	end
+	if Game:getFlag("hometown_time", "day") == "night" then
+		leaf.visible = false
+		leaf.night_leaf_hack = true
+	end
 	Game.world:addChild(leaf)
 end
 
@@ -129,18 +141,14 @@ function NoelleGate:open(lock)
 		self.world.timer:tween(40/30, self.shadow_right, {x = self.x + 136 + 60, y = self.y - 60}, "out-sine")
 		self.world.timer:tween(40/30, self.shadow_left, {x = self.x + 136 - 60, y = self.y + 60}, "out-sine")
 	end
-	if Game.world.player.y >= 220 and Game.world.player.y <= 322 and math.max(508 - Game.world.player.x, 0) > 0 and not self.world:hasCutscene() then
+	if Game.world.player.y >= 220 and Game.world.player.y <= 344 and math.max(508 - Game.world.player.x, 0) > 0 and not self.world:hasCutscene() then
 		moving_out_of_way = true
 		self.world:detachFollowers()
 		self.world.timer:tween(40/30, Game.world.player, {x = Game.world.player.x + 60}, "out-sine")
-		if Game.world.followers[1] and Game.world.followers[1].y >= 220 and Game.world.followers[1].y <= 322 and math.max(508 - Game.world.followers[1].x, 0) > 0 then
-			self.world.timer:tween(40/30, Game.world.followers[1], {x = Game.world.followers[1].x + 60}, "out-sine")
-		end
-		if Game.world.followers[2] and Game.world.followers[2].y >= 220 and Game.world.followers[2].y <= 322 and math.max(508 - Game.world.followers[2].x, 0) > 0 then
-			self.world.timer:tween(40/30, Game.world.followers[2], {x = Game.world.followers[2].x + 60}, "out-sine")
-		end
-		if Game.world.followers[3] and Game.world.followers[3].y >= 220 and Game.world.followers[3].y <= 322 and math.max(508 - Game.world.followers[3].x, 0) > 0 then
-			self.world.timer:tween(40/30, Game.world.followers[3], {x = Game.world.followers[3].x + 60}, "out-sine")
+		for _, follower in ipairs(Game.world.followers) do
+			if follower and follower.y >= 220 and follower.y <= 344 and math.max(508 - follower.x, 0) > 0 then
+				self.world.timer:tween(40/30, Game.world.followers[1], {x = follower.x + 60}, "out-sine")
+			end
 		end
 	end
 	self.world.timer:script(function(wait)
@@ -202,7 +210,10 @@ function NoelleGate:update()
 		leaf.timer = leaf.timer + DTMULT
 		if leaf.timer >= 20 and leaf.con == 0 then
 			leaf.con = 1
-			Game.world.timer:tween(15/30, leaf, {alpha = 0}, "out-sine")
+			Game.world.timer:tween(15/30, leaf, {fake_alpha = 0}, "out-sine")
+		end
+		if not leaf.has_palette then
+			leaf.alpha = leaf.fake_alpha
 		end
 		if leaf.timer >= 50 then
 			leaf:remove()
@@ -214,15 +225,17 @@ end
 function NoelleGate:draw()
 	super.draw(self)
 	if self.gate_open_mask then
-		love.graphics.stencil(function()
-			local last_shader = love.graphics.getShader()
-			love.graphics.setShader(Kristal.Shaders["Mask"])
-			Draw.draw(self.tree_mask, 484 - self.x, 60 - self.y, 0, 2, 2)
-			love.graphics.setShader(last_shader)
-		end, "replace", 1)
-		love.graphics.setStencilTest("less", 1)
-		Draw.draw(self.gate_right, self.gate_right_x, self.gate_right_y, 0, 2, 2)
-		love.graphics.setStencilTest()
+		if not self.skip_selfshadowing then
+			love.graphics.stencil(function()
+				local last_shader = love.graphics.getShader()
+				love.graphics.setShader(Kristal.Shaders["Mask"])
+				Draw.draw(self.tree_mask, 484 - self.x, 60 - self.y, 0, 2, 2)
+				love.graphics.setShader(last_shader)
+			end, "replace", 1)
+			love.graphics.setStencilTest("less", 1)
+		end
+		Draw.draw(self.gate_right, self.gate_right_x, self.gate_right_y, 0, 2, 2)		
+		if not self.skip_selfshadowing then love.graphics.setStencilTest() end
 	else
 		Draw.draw(self.gate_closed, 0, 0)
 	end

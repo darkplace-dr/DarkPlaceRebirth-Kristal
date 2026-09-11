@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 44,
+  tilecount = 46,
   tiles = {
     {
       id = 31,
@@ -248,18 +248,6 @@ return {
       height = 12
     },
     {
-      id = 68,
-      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_shelter.png",
-      width = 196,
-      height = 120
-    },
-    {
-      id = 69,
-      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_shelter.png",
-      width = 196,
-      height = 120
-    },
-    {
       id = 70,
       image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_grave_fence.png",
       width = 294,
@@ -288,6 +276,30 @@ return {
       image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_townhall_tree.png",
       width = 55,
       height = 60
+    },
+    {
+      id = 76,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadowbit_festival_rounded.png",
+      width = 40,
+      height = 13
+    },
+    {
+      id = 77,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadowbit_sunflower.png",
+      width = 40,
+      height = 13
+    },
+    {
+      id = 79,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_graves.png",
+      width = 237,
+      height = 55
+    },
+    {
+      id = 80,
+      image = "../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_gravegate.png",
+      width = 35,
+      height = 160
     }
   }
 }

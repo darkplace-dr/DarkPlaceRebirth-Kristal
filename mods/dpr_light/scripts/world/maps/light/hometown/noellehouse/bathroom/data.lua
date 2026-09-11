@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 26,
           height = 80,
           rotation = 0,
+          opacity = 1,
           gid = 81,
           visible = true,
           properties = {}
@@ -80,6 +81,7 @@ return {
           width = 94,
           height = 240,
           rotation = 0,
+          opacity = 1,
           gid = 80,
           visible = true,
           properties = {}
@@ -94,6 +96,7 @@ return {
           width = 214,
           height = 186,
           rotation = 0,
+          opacity = 1,
           gid = 82,
           visible = true,
           properties = {}
@@ -108,6 +111,7 @@ return {
           width = 56,
           height = 34,
           rotation = 0,
+          opacity = 1,
           gid = 117,
           visible = true,
           properties = {}
@@ -138,6 +142,7 @@ return {
           width = 40,
           height = 118,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -151,6 +156,7 @@ return {
           width = 40,
           height = 118,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -164,6 +170,7 @@ return {
           width = 40,
           height = 202,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -177,6 +184,7 @@ return {
           width = 322,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -190,6 +198,7 @@ return {
           width = 40,
           height = 200,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -203,6 +212,7 @@ return {
           width = 126,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -216,6 +226,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -229,6 +240,7 @@ return {
           width = 46,
           height = 54,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -242,6 +254,7 @@ return {
           width = 36,
           height = 36,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -255,6 +268,7 @@ return {
           width = 94,
           height = 46,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -268,6 +282,7 @@ return {
           width = 26,
           height = 88,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -281,6 +296,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -315,6 +331,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_sound"] = "doorclose",
@@ -334,6 +351,7 @@ return {
           width = 36,
           height = 48,
           rotation = 0,
+          opacity = 1,
           gid = 83,
           visible = true,
           properties = {}
@@ -364,6 +382,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -202,7 +202,7 @@ function MainMenuOptions:draw()
         Draw.drawWrapped(self.clouds_2, true, false, (self.clouds2_x - 640), 270, 0, 1, 1)
     end
     if not self.retro then
-        Draw.draw(self.dog[math.floor(self.dog_talk_frame % 2) + 1], 556, 296 + offset, 0, 2, 2)
+        Draw.draw(self.dog[math.floor(self.dog_talk_frame % 2) + 1], 566, 296 + offset, 0, 2, 2)
 	end
     if self.retro then
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 260, 0, 1, 1)
@@ -210,7 +210,7 @@ function MainMenuOptions:draw()
         Draw.draw(self.dialogue_bubble, 560, 330 + math.floor(offset / 2) * 2, 0, -2, 2)
     else
         Draw.drawWrapped(self.clouds_1, true, false, (self.clouds1_x - 640), 380, 0, 1, 1)
-        Draw.draw(self.dialogue_bubble, 556, 330 + offset, 0, -1, 1)
+        Draw.draw(self.dialogue_bubble, 566, 330 + offset, 0, -1, 1)
     end
 
     if self.retro then
@@ -222,7 +222,7 @@ function MainMenuOptions:draw()
 	else
         love.graphics.setFont(Assets.getFont("plain"))
         Draw.setColor(COLORS.black)
-        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 414, 332 + offset)
+        love.graphics.print(self:getOptionText() or "test FUCKING\noptions\ndialogue", 424, 332 + offset)
         Draw.setColor(COLORS.white)
         love.graphics.setFont(Assets.getFont("main"))
     end
@@ -859,7 +859,7 @@ function MainMenuOptions:initializeOptions()
         self.menu:pushState("plugins")
     end)
 
-    self:registerConfigOption("gameplay", "Descriptive Loading", "dLoad")
+    self:registerConfigOption("gameplay", "Show File Loaded", "dLoad")
     self:registerConfigOption("gameplay", "Alt Attack Style", "altAttack")
     self:registerConfigOption("gameplay", "Run Animations", "runAnimations")
     self:registerConfigOption("gameplay", "Silly RTX Mode", "silly_mode")
@@ -869,37 +869,39 @@ end
 
 function MainMenuOptions:getOptionText()
     local texts = {
-        ["Master Volume"] = "change how\nloud the\ngame is",
+        ["Master Volume"] = "adjust the\noverall\nvolume of\nmusic and\nsound fx",
         ["Keyboard Controls"] = "change what\nkeys do what\nactions",
         ["Gamepad Controls"] = "change what\ncontroller\nbuttons\ndo what\nactions",
         ["Auto-Run"] = "change\nwhether you\nrun by\ndefault",
         ["Discord RPC"] = "if enabled,\ngives a\ncustom\ndiscord\nstatus",
         ["Fullscreen"] = "toggles\nfullscreen",
         ["Window Scale"] = "change the\nwindow scale\nfor windowed\nmode",
-        ["Border"] = "whether or\nnot the game\nwill have\na border",
+        ["Auto Scale Window"] = "automatically\nscales the\nwindow to\nfit your\ndisplay size",
+        ["Border"] = "adds a border\nto the game\ngood for\nwidescreen\ndisplays",
         ["Simplify VFX"] = "simplifies\nvisual fx for\nthose with\nphoto-\nsensitivity",
-        ["Auto-Reload DLC"] = "i have no\nidea what\nthis does \n\nlol",
+        ["Auto-Reload DLC"] = "automatically\nreload the\ndlc list when\nentering the\ndlc menu",
         ["Target FPS"] = "sets the\ntarget fps",
-        ["VSync"] = "toggles\nvsync",
-        ["Frame Skip"] = "toggles\nframe skip",
+        ["VSync"] = "reduces\nscreen tear\nbut may\nincrease\ninput lag",
+        ["Frame Skip"] = "skip frames\ninstead of\nslowing down\nwhen game is\nlagging",
         ["Broken Menu Boxes"] = "does some-\nthing and\nbreaks the\noptions\nmusic",
-        ["Skip Intro"] = "toggles\nskipping the\nintro when\nopening\nthe game",
+        ["Skip Intro"] = "toggles\nskipping the\nintro when\nstarting\nthe game",
         ["Display FPS"] = "toggles\ndisplaying\nthe current\nfps count",
         ["Default Name"] = "change the\ndefault name\nfor save\nfiles",
         ["Skip Name Entry"] = "toggles\nskipping the\nsave file\nname entry",
-        ["Verbose Loader"] = "i have no\nidea what\nthis does \n\nlol",
-        ["Loader Mode"] = "change what\nloading sys-\ntem to use",
+        ["Verbose Loader"] = "asset loader\nlogs more\ninformation\nwhen enabled",
+        ["Loader Mode"] = "change what\nloading sys-\ntem to use\nsemi-lazy is\nrecommended",
         ["Use System Mouse"] = "show the\nsystem's\nmouse cursor\ninstead of\nkristal's",
         ["Always Show Mouse"] = "show the\nmouse cursor\nalways",
         ["Instant Quit"] = "instantly\nclose the\ngame when\npressing\nESC",
         ["Prefer Goner Keybd."] = "whether to\nuse the\ngoner key-\nboard when\ntyping",
         ["Enable Shatter"] = "enables\nshatter\nif it's\ninstalled",
         ["Plugins"] = "manage\ninstalled\nplugins",
-        ["Descriptive Loading"] = "i have no\nidea what\nthis does \n\nlol",
+        ["Show File Loaded"] = "top-left\nmessage shows\nwhen loading\na save file",
         ["Alt Attack Style"] = "when\nattacking,\nuse z, x,\nand c instead\nof just z",
         ["Run Animations"] = "wheter to\nuse special\nanimations\nwhen running",
         ["Silly RTX Mode"] = "enable an\nungodly\namount of\nbloom",
         ["Low-Health Music"] = "vibrato the\ngame music\nwhen everyone\nhas low hp",
+        ["Logger Popups"] = "show all\ndebug\nmessages or\njust warnings\nin top-left",
         ["Back"] = "go back\nto the\nmain menu"
     }
 

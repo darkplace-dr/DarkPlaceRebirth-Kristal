@@ -14,7 +14,7 @@ function WeatherOverlay:init(type, handler)
     end
 
     self.paused = false
-    if self.handler.pause then self.paused = true self.pause = true end
+    if self.handler.pause then self.paused = true end
 	
     if self.type == "hot" or self.type == "volcanic" then
 
@@ -123,10 +123,10 @@ function WeatherOverlay:draw()
 					str = self.handler.weathertimer / 120
 				end
 				love.graphics.setBlendMode("screen")
-				Draw.setColor(Utils.mergeColor(COLORS["black"], COLORS["orange"], 0.3 * str), 0)
+				Draw.setColor(ColorUtils.mergeColor(COLORS["black"], COLORS["orange"], 0.3 * str), 0)
                 love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 				love.graphics.setBlendMode("add")
-                Draw.setColor(Utils.mergeColor(COLORS["black"], COLORS["white"], 0.1 * str))
+                Draw.setColor(ColorUtils.mergeColor(COLORS["black"], COLORS["white"], 0.1 * str))
                 love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 				love.graphics.setBlendMode("alpha")
             elseif self.type == "thunder" or self.type == "dark_overcast" then

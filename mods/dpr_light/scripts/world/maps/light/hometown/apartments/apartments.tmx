@@ -10,7 +10,7 @@
   <property name="no_shadows" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../../../../tilesets/hometownobjects.tsx"/>
- <tileset firstgid="180" source="../../../../tilesets/hometownshadowsobjects.tsx"/>
+ <tileset firstgid="205" source="../../../../tilesets/hometownshadowsobjects.tsx"/>
  <imagelayer id="2" name="room" offsetx="240" offsety="0">
   <image source="../../../../../../assets/sprites/world/maps/hometown/apartmentsroom.png" width="160" height="480"/>
  </imagelayer>

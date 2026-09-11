@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 160,
           height = 182,
           rotation = 0,
+          opacity = 1,
           gid = 91,
           visible = true,
           properties = {}
@@ -80,6 +81,7 @@ return {
           width = 56,
           height = 32,
           rotation = 0,
+          opacity = 1,
           gid = 118,
           visible = true,
           properties = {}
@@ -110,6 +112,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -123,6 +126,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -136,6 +140,7 @@ return {
           width = 190,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -149,6 +154,7 @@ return {
           width = 210,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -162,6 +168,7 @@ return {
           width = 480,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -175,6 +182,7 @@ return {
           width = 166,
           height = 46,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -188,6 +196,7 @@ return {
           width = 34,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -201,6 +210,7 @@ return {
           width = 44,
           height = 32,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -214,6 +224,7 @@ return {
           width = 20,
           height = 56,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -227,6 +238,7 @@ return {
           width = 38,
           height = 46,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -240,6 +252,7 @@ return {
           width = 50,
           height = 92,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -253,6 +266,7 @@ return {
           width = 108,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -266,6 +280,7 @@ return {
           width = 104,
           height = 42,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -295,6 +310,7 @@ return {
           width = 116,
           height = 64,
           rotation = 0,
+          opacity = 1,
           gid = 92,
           visible = true,
           properties = {}
@@ -309,6 +325,7 @@ return {
           width = 58,
           height = 50,
           rotation = 0,
+          opacity = 1,
           gid = 93,
           visible = true,
           properties = {}
@@ -323,6 +340,7 @@ return {
           width = 48,
           height = 136,
           rotation = 0,
+          opacity = 1,
           gid = 95,
           visible = true,
           properties = {}
@@ -337,6 +355,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_sound"] = "doorclose",
@@ -356,6 +375,7 @@ return {
           width = 156,
           height = 92,
           rotation = 0,
+          opacity = 1,
           gid = 94,
           visible = true,
           properties = {}
@@ -370,6 +390,7 @@ return {
           width = 36,
           height = 68,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["flagcheck"] = "!dess_guitar_stolen"
@@ -385,6 +406,7 @@ return {
           width = 124,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (It's Dess's bed. Underneath are army rations,[wait:5] guitar picks,[wait:5] paintball gear,[wait:5] ice skates...)",
@@ -401,6 +423,7 @@ return {
           width = 94,
           height = 28,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a CD player. Underneath are tons of punk rock CDs...[wait:5] and one still-sealed ska CD.)"
@@ -416,6 +439,7 @@ return {
           width = 76,
           height = 34,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a computer. The monitor is unplugged.)"
@@ -431,6 +455,7 @@ return {
           width = 36,
           height = 72,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "noellehouse.dess_shelf"
@@ -446,6 +471,7 @@ return {
           width = 26,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* Rollerblades,[wait:5] wiffle bat. Looking at these things make your head hurt."
@@ -461,6 +487,7 @@ return {
           width = 156,
           height = 50,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's an excessively large walk-in closet.)"
@@ -476,6 +503,7 @@ return {
           width = 42,
           height = 28,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "noellehouse.dess_box"
@@ -491,6 +519,7 @@ return {
           width = 26,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* A violin,[wait:5] a flute,[wait:5] a microphone...",
@@ -523,6 +552,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -536,6 +566,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

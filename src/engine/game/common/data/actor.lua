@@ -169,6 +169,12 @@ function Actor:getAnimation(anim) return self.animations[anim] end
 function Actor:getMirrorSprites() return self.mirror_sprites end
 function Actor:getMirrorSprite(sprite) return self:getMirrorSprites()[sprite] end
 
+function Actor:getEveningShadowSprites() return self.evening_shadow_sprites end
+function Actor:getEveningShadowSprite(sprite) return self:getEveningShadowSprites()[sprite] end
+
+function Actor:getEveningFloorShadowSprites() return self.evening_shadow_floor_sprites end
+function Actor:getEveningFloorShadowSprite(sprite) return self:getEveningFloorShadowSprites()[sprite] end
+
 function Actor:hasOffset(sprite) return self.offsets[sprite] ~= nil end
 function Actor:getOffset(sprite) return unpack(self.offsets[sprite] or { 0, 0 }) end
 function Actor:onTextSound(node, state) end

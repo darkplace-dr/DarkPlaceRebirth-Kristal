@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.12.1" name="hometownshadowsobjects" tilewidth="303" tileheight="328" tilecount="44" columns="0">
+<tileset version="1.11" tiledversion="1.12.1" name="hometownshadowsobjects" tilewidth="303" tileheight="328" tilecount="46" columns="0">
  <editorsettings>
   <export target="hometownshadowsobjects.lua" format="lua"/>
  </editorsettings>
@@ -115,12 +115,6 @@
  <tile id="67">
   <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_treeline.png" width="40" height="12"/>
  </tile>
- <tile id="68">
-  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_shelter.png" width="196" height="120"/>
- </tile>
- <tile id="69">
-  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_morning_shelter.png" width="196" height="120"/>
- </tile>
  <tile id="70">
   <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_grave_fence.png" width="294" height="25"/>
  </tile>
@@ -135,5 +129,17 @@
  </tile>
  <tile id="75">
   <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_townhall_tree.png" width="55" height="60"/>
+ </tile>
+ <tile id="76">
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadowbit_festival_rounded.png" width="40" height="13"/>
+ </tile>
+ <tile id="77">
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadowbit_sunflower.png" width="40" height="13"/>
+ </tile>
+ <tile id="79">
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_graves.png" width="237" height="55"/>
+ </tile>
+ <tile id="80">
+  <image source="../../../assets/sprites/world/maps/hometown/shadows/shadow_cutout_gravegate.png" width="35" height="160"/>
  </tile>
 </tileset>

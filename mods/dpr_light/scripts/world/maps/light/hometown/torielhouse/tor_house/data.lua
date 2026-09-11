@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 10,
-  nextobjectid = 53,
+  nextlayerid = 15,
+  nextobjectid = 71,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -45,6 +45,158 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 14,
+      name = "objects_below",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 39,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
+          rotation = 0,
+          opacity = 1,
+          gid = 74,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 77,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 77,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 944,
+          y = 310,
+          width = 112,
+          height = 140,
+          rotation = 0,
+          opacity = 1,
+          gid = 73,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "objects_rain_windows",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 54,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
+          rotation = 0,
+          opacity = 1,
+          gid = 193,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 196,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 196,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1222,
+          y = 400,
+          width = 134,
+          height = 288,
+          rotation = 0,
+          opacity = 1,
+          gid = 197,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 7,
       name = "objects_night_below",
       class = "",
@@ -72,16 +224,67 @@ return {
           properties = {
             ["night"] = 1
           }
+        },
+        {
+          id = 68,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
+          rotation = 0,
+          opacity = 1,
+          gid = 75,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 69,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 76,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 70,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 76,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
         }
       }
     },
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 8,
-      name = "objects_below",
+      id = 11,
+      name = "objects_rain_windows_night",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -90,19 +293,72 @@ return {
       properties = {},
       objects = {
         {
-          id = 51,
+          id = 57,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 944,
-          y = 310,
-          width = 112,
-          height = 140,
+          x = 886,
+          y = 196,
+          width = 230,
+          height = 60,
           rotation = 0,
           opacity = 1,
-          gid = 73,
+          gid = 194,
           visible = true,
-          properties = {}
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 59,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 630,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 195,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 60,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 474,
+          y = 158,
+          width = 52,
+          height = 50,
+          rotation = 0,
+          opacity = 1,
+          gid = 195,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
+        },
+        {
+          id = 66,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1222,
+          y = 400,
+          width = 134,
+          height = 288,
+          rotation = 0,
+          opacity = 1,
+          gid = 198,
+          visible = true,
+          properties = {
+            ["night"] = 1
+          }
         }
       }
     },
@@ -649,51 +905,6 @@ return {
             ["cutscene"] = "tor_home.chairiel",
             ["solid"] = true
           }
-        },
-        {
-          id = 39,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 886,
-          y = 196,
-          width = 230,
-          height = 60,
-          rotation = 0,
-          opacity = 1,
-          gid = 74,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 40,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 474,
-          y = 158,
-          width = 52,
-          height = 50,
-          rotation = 0,
-          opacity = 1,
-          gid = 77,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 41,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 630,
-          y = 158,
-          width = 52,
-          height = 50,
-          rotation = 0,
-          opacity = 1,
-          gid = 77,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -703,66 +914,14 @@ return {
       id = 6,
       name = "objects_night",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 43,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 886,
-          y = 196,
-          width = 230,
-          height = 60,
-          rotation = 0,
-          opacity = 1,
-          gid = 75,
-          visible = true,
-          properties = {
-            ["night"] = 1
-          }
-        },
-        {
-          id = 44,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 474,
-          y = 158,
-          width = 52,
-          height = 50,
-          rotation = 0,
-          opacity = 1,
-          gid = 76,
-          visible = true,
-          properties = {
-            ["night"] = 1
-          }
-        },
-        {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 630,
-          y = 158,
-          width = 52,
-          height = 50,
-          rotation = 0,
-          opacity = 1,
-          gid = 76,
-          visible = true,
-          properties = {
-            ["night"] = 1
-          }
-        }
-      }
+      objects = {}
     },
     {
       type = "objectgroup",

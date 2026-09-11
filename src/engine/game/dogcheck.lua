@@ -58,7 +58,13 @@ function DogCheck:init(variant)
     self.pumpkin_frame = 1
     self.pumpkins_made = 0
 	
+    self.dogcon = 0
+    self.dogtimer = 0
+    self.con = 0
+	
     self.prophecy_siner = 0
+	
+    self.head_siner = 0
 
     love.window.setTitle("Dog Place: REBIRTH")
 	self.font = Assets.getFont("main")
@@ -118,9 +124,10 @@ function DogCheck:start()
     if not self.variant then
         local month = os.date("*t").month
         local day = os.date("*t").day
-        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "chapter3", "chapter4", "montypython", "house"}
+        local variant_choices = {"dance", "sleep", "maracas", "piano", "banned", "banned_b", "chapter2", "chapter3", "chapter4", "chapter5", "montypython", "house"}
         if month >= 3 and month <= 5 then
             table.insert(variant_choices, "spring")
+            -- table.insert(variant_choices, "spring2023")
         elseif month >= 6 and month <= 8 then
             table.insert(variant_choices, "summer")
         elseif month >= 9 and month <= 11 then
@@ -217,6 +224,9 @@ function DogCheck:start()
 			end
 		end
 		playSong(song_path.."annoying_prophecy")
+    elseif self.variant == "chapter5" then
+        playSong(song_path.."inukuma_wip")
+        self.timer:script(function(...) self:chapter5Script(...) end)
     elseif self.variant == "montypython" then
         playSong(song_path.."intermission")
     elseif self.variant == "house" then
@@ -229,7 +239,27 @@ function DogCheck:start()
             self.pumpkins_made = self.pumpkins_made + 1
         end
         self.timer:script(function(...) self:pumpkinDudeScript(...) end)
-    end
+
+    elseif self.variant == "spring2023" then
+        playSong(song_path.."dog_balloon")
+
+        self.dog = Sprite(cust_sprites_base.."/spring2023/dog_balloon", 300, 206)
+        self.dog:setScale(2)
+        self.dog.y = self.dog.y - 2
+        self:addChild(self.dog)
+	
+        self.shadow = Sprite(cust_sprites_base.."/spring2023/shadow", 300, 232)
+        self.shadow:setScale(2)
+        self:addChild(self.shadow)
+	
+        self.flower1 = Sprite(cust_sprites_base.."/spring2023/flower", 264, 304)
+        self.flower1:setScale(-2, 2)
+        self:addChild(self.flower1)
+		
+        self.flower2 = Sprite(cust_sprites_base.."/spring2023/flower", 374, 304)
+        self.flower2:setScale(2)
+        self:addChild(self.flower2)
+	end
 end
 
 function DogCheck:update()
@@ -278,6 +308,161 @@ function DogCheck:update()
             self:makeBGPumpkin(-1, SCREEN_HEIGHT-50-44)
             self.pumpkins_made = self.pumpkins_made + 1
         end
+    end
+	
+	-- TODO: Fix this.
+	if self.variant == "spring2023" then
+        if self.dogcon >= 0 and self.dogcon < 1 then
+            if math.floor(self.dogtimer % 20) == 0 then
+                self.dog.x = self.dog.x - 2
+                self.shadow.x = self.dog.x - 8
+			
+                if self.dogcon ~= 0.5 then
+                    if self.shadow.frame == 1 then
+                        self.con = self.con + 0.5
+                    end
+                    if self.shadow.frame == 2 then
+                        self.con = self.con - 0.5
+                    end
+                end
+			
+                if self.con > 0 then
+                    if self.dogcon ~= 0.5 then
+                        self.shadow.frame = self.shadow.frame + 1
+                    end
+                end
+                if self.con < 0 then
+                    if self.dogcon ~= 0.5 then
+                        self.shadow.frame = self.shadow.frame - 1
+                    end
+                end
+				
+                if self.shadow.frame == 1.1 then
+                    self.shadow.frame = 1
+                end
+            end
+            if self.dogcon ~= 0.5 then
+                if math.floor(self.dogtimer % 40) == 0 then
+                    if self.dog.y > self.dog.init_y then
+                        self.dog.y = self.dog.y - 2
+                    else
+                        self.dog.y = self.dog.y + 2
+                    end
+                end
+            end
+		
+            if self.dogcon == 0.5 then
+                if math.floor(self.dogtimer % 20) == 0 then
+                    self.dog.y = self.dog.y - 4
+
+                    if self.shadow.frame > 2 then
+                        self.shadow.frame = self.shadow.frame - 1
+                        if self.shadow.frame <= 3 then
+                            self.shadow.x = self.shadow.x - 2
+                        end
+                    else
+                        self.shadow.x = self.shadow.x - 2
+                        self.shadow.frame = self.shadow.frame - 1
+                        self.dogcon = 0
+                        self.con = 0
+                        dog.y = dog.y + 4
+                    end
+                end
+            end
+            if self.dog.x <= (self.flower1.x - 10) then
+                self.shadow.frame = 2
+                self.dog.x = self.dog.x + 2
+                self.dogcon = 1
+                self.dogtimer = 0
+            end
+        end
+		
+        if self.dogcon >= 1 and self.dogcon < 2.5 then
+            if self.dogcon < 2 then
+                if math.floor(self.dogtimer % 20) == 0 then
+                    if self.shadow.frame < 4 then
+                        self.shadow.frame = self.shadow.frame + 1
+                        if self.shadow.frame == 4 then
+                            self.shadow.x = self.shadow.x - 2
+                        end
+                    end
+                    self.dog.y = self.dog.y + 2
+                end
+            elseif math.floor(self.dogtimer % 20) == 0 then
+                if self.shadow.frame > 2 then
+                    self.shadow.frame = self.shadow.frame - 1
+                    if self.shadow.frame <= 3 then
+                        self.shadow.x = self.shadow.x + 2
+                    end
+                
+                else
+                    self.shadow.x = self.shadow.x + 2
+                end
+                self.dog.y = self.dog.y - 4
+            end
+			
+            if self.dogtimer >= 40 and self.dogcon < 2 then
+                self.dogcon = 2
+                self.con = 0
+                self.dog:setFrame(2)
+                self.dog.x = self.dog.x - 2
+                
+                self.shadow.x = self.shadow.x + 9
+                self.shadow.frame = self.shadow.frame - 1
+            end
+        end
+
+
+        if self.dogcon >= 2 and self.dogcon < 3 then
+            if math.floor(self.dogtimer % 20) == 0 then
+                self.dog.x = self.dog.x + 2
+			
+                if self.dogcon == 2.5 then
+                    self.shadow.x = self.dog.x + 62
+                    if self.shadow.frame == 1 then
+                        self.con = self.con + 0.5
+                    end
+                    if self.shadow.frame == 2 then
+                        self.con = self.con - 0.5
+                    end
+                    if self.con > 0 then
+                        self.shadow.frame = self.shadow.frame + 1
+                    end
+                    if self.con < 0 then
+                        self.shadow.frame = self.shadow.frame - 1
+                    end
+                    if self.shadow.frame == 1.1 then
+                        self.shadow.frame = 1
+						self.shadow.scale_x = -2
+                    end
+                else
+                    self.shadow.x = self.shadow.x + 2
+                end
+            end
+            if self.dogcon == 2.5 then
+                if math.floor(self.dogtimer % 40) == 0 then
+                    if self.dog.y > self.dog.init_y then
+                        self.dog.y = self.dog.y - 2
+                    else
+                        self.dog.y = self.dog.y + 2
+                    end
+                end
+            end
+            if self.dog.x <= (self.flower2.x - 42) then
+                self.shadow.frame = 2
+                self.dog.x = self.dog.x - 2
+                self.dog.y = self.dog.y + 2
+                self.dogcon = 3
+                self.dogtimer = 0
+            end
+            if self.dogtimer >= 80 then
+                self.dogcon = 2.5
+                self.shadow.frame = 0
+            end
+        end
+		
+		self.shadow:setFrame(self.shadow.frame)
+        self.dogtimer = self.dogtimer + DTMULT
     end
 end
 
@@ -576,6 +761,10 @@ function DogCheck:draw()
 		end
 		Draw.draw(back_canvas, SCREEN_WIDTH/2 + xsin, SCREEN_HEIGHT/2 + ysin, 0, 4, 4, w/2, h/2)
 	end
+    if self.variant == "chapter5" then
+        self.head_siner = self.head_siner + 0.06 * DTMULT
+        self.head_sprite.rotation = -math.rad(math.sin(self.head_siner) * 6)
+    end
 	Draw.setColor(0,0,0,self.fade_alpha)
 	love.graphics.rectangle("fill", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 	Draw.setColor(1,1,1,1)
@@ -646,6 +835,22 @@ function DogCheck:chapter2Script(wait)
         animateMainDog(8)
         wait(1.03)
     end
+end
+
+function DogCheck:chapter5Script()
+    local sprite = "kristal/dogcheck/inukuma"
+
+    self.body_sprite = Sprite(sprite.."/body", 320, 318)
+    self.body_sprite:setScale(1)
+    self.body_sprite:setOriginExact(185, 0)
+    self.body_sprite.layer = 1
+    self:addChild(self.body_sprite)
+
+    self.head_sprite = Sprite(sprite.."/head", self.body_sprite.x - 7, self.body_sprite.y + 70)
+    self.head_sprite:setScale(1)
+    self.head_sprite:setOriginExact(141, 300)
+    self.head_sprite.layer = 1
+    self:addChild(self.head_sprite)
 end
 
 function DogCheck:pumpkinDudeScript(wait)

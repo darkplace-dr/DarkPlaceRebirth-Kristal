@@ -33,7 +33,7 @@ function Interactable:init(x, y, shape, properties)
 
     self.cutscene = properties["cutscene"]
     self.script = properties["script"]
-    self.text = Utils.parsePropertyMultiList("text", properties)
+    self.text = TiledUtils.parsePropertyMultiList("text", properties)
 
     self.set_flag = properties["setflag"]
     self.set_value = properties["setvalue"]
@@ -47,19 +47,19 @@ function Interactable:init(x, y, shape, properties)
 	self.sunrise_text = nil
 	self.rain_text = nil
 	if properties["daytext"] or properties["daytext1"] then
-		self.day_text = Utils.parsePropertyMultiList("daytext", properties)
+		self.day_text = TiledUtils.parsePropertyMultiList("daytext", properties)
 	end
 	if properties["sunsettext"] or properties["sunsettext1"] then
-		self.sunset_text = Utils.parsePropertyMultiList("sunsettext", properties)
+		self.sunset_text = TiledUtils.parsePropertyMultiList("sunsettext", properties)
 	end
 	if properties["nighttext"] or properties["nighttext1"] then
-		self.night_text = Utils.parsePropertyMultiList("nighttext", properties)
+		self.night_text = TiledUtils.parsePropertyMultiList("nighttext", properties)
 	end
 	if properties["sunrisetext"] or properties["sunrisetext1"] then
-		self.sunrise_text = Utils.parsePropertyMultiList("sunrisetext", properties)
+		self.sunrise_text = TiledUtils.parsePropertyMultiList("sunrisetext", properties)
 	end
 	if properties["raintext"] or properties["raintext1"] then
-		self.rain_text = Utils.parsePropertyMultiList("raintext", properties)
+		self.rain_text = TiledUtils.parsePropertyMultiList("raintext", properties)
 	end
 end
 
@@ -78,17 +78,17 @@ function Interactable:onInteract(player, dir)
 			local time = Game:getFlag("hometown_time", nil)
 			if self.day_text and time == "day" then
 				text = self.day_text
-			elseif self.sunset_text and time == "sunset" then
+			elseif self.sunset_text and time == "evening" then
 				text = self.sunset_text
 			elseif self.night_text and time == "night" then
 				text = self.night_text
-			elseif self.sunrise_text and time == "sunrise" then
+			elseif self.sunrise_text and time == "morning" then
 				text = self.sunrise_text
 			end
 			if self.rain_text and Game.stage:hasWeather("rain") then
 				text = self.rain_text
 			end
-            local text_index = Utils.clamp(self.interact_count, 1, #text)
+            local text_index = MathUtils.clamp(self.interact_count, 1, #text)
             if type(text[text_index]) == "table" then
                 text = text[text_index]
             end
