@@ -100,6 +100,72 @@ function Battle:postInit(state, encounter)
     Logging.info(self.temperature)
 end
 
+function Battle:registerDefaultActionButtons()
+    super.registerDefaultActionButtons(self)
+    self:registerActionButton("skill", function(battler, x, y) return SkillButton(battler, x, y) end)
+    self:registerActionButton("tension", function(battler, x, y) return TensionButton(battler, x, y) end)
+end
+
+function Battle:enterItemsMenu()
+    Game.battle:clearMenuItems()
+
+    for _, item in ipairs(Game.inventory:getStorage("items")) do
+        Game.battle:addMenuItem({
+            ["name"] = item:getName(),
+            ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
+            ["description"] = item:getBattleDescription(),
+            ["data"] = item,
+            ["callback"] = function(menu_item)
+                Game.battle.selected_item = menu_item
+
+                if not item:getTarget() or item:getTarget() == "none" then
+                    Game.battle:pushAction("ITEM", nil, menu_item)
+                elseif item:getTarget() == "ally" then
+                    Game.battle:setState("PARTYSELECT", "ITEM")
+                elseif item:getTarget() == "enemy" then
+                    Game.battle:setState("ENEMYSELECT", "ITEM")
+                elseif item:getTarget() == "party" then
+                    Game.battle:pushAction("ITEM", Game.battle.party, menu_item)
+                elseif item:getTarget() == "enemies" then
+                    Game.battle:pushAction("ITEM", Game.battle:getActiveEnemies(), menu_item)
+                end
+            end
+        })
+    end
+
+    if Game.inventory:hasItem("oddstone") then
+        local item = Game.inventory:getItemByID("oddstone")
+        Game.battle:addMenuItem({
+            ["name"] = item:getName(),
+            ["unusable"] = item.usable_in ~= "all" and item.usable_in ~= "battle",
+            ["description"] = item:getBattleDescription(),
+            ["data"] = item,
+            ["callback"] = function(menu_item)
+                Game.battle.selected_item = menu_item
+
+                if not item:getTarget() or item:getTarget() == "none" then
+                    Game.battle:pushAction("ITEM", nil, menu_item)
+                elseif item:getTarget() == "ally" then
+                    Game.battle:setState("PARTYSELECT", "ITEM")
+                elseif item:getTarget() == "enemy" then
+                    Game.battle:setState("ENEMYSELECT", "ITEM")
+                elseif item:getTarget() == "party" then
+                    Game.battle:pushAction("ITEM", Game.battle.party, menu_item)
+                elseif item:getTarget() == "enemies" then
+                    Game.battle:pushAction("ITEM", Game.battle:getActiveEnemies(), menu_item)
+                end
+            end
+        })
+    end
+
+    if #Game.battle.menu_items > 0 then
+        Game.battle:setState("MENUSELECT", "ITEM")
+        return true
+    end
+
+    return false
+end
+
 function Battle:incTemp(amount)
     self.temperature = math.min(self.max_temperature, self.temperature + amount)
 end

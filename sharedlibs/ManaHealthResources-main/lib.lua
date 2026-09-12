@@ -439,10 +439,8 @@ function Lib:init()
 
             for i, button in ipairs(self:getSelectableButtons()) do
                 if (Game.battle.current_selecting == self.index) then
-                    button.selectable = true
                     button.hovered = (self.selected_button == i)
                 else
-                    button.selectable = false
                     button.hovered = false
                 end
             end

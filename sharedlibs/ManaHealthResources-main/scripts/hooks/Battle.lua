@@ -2,6 +2,93 @@
 ---@overload fun(...) : Battle
 local Battle, super = HookSystem.hookScript(Battle)
 
+--- An internal function responsible for adding X-Actions to the battle menu.
+function Battle:addXActionMenuItems(battler)
+    if Game.battle.encounter.default_xactions and battler.chara:hasXAct() then
+        self:addDefaultXActionMenuItems(battler)
+    end
+
+    for id, action in ipairs(Game.battle.xactions) do
+        if action.party == battler.chara.id then
+            local spell = {
+                ["name"] = action.name,
+                ["target"] = "xact",
+                ["id"] = id,
+                ["default"] = false,
+                ["party"] = {},
+                ["tp"] = action.tp or 0,
+                ["resource"] = action.resource or "tension"
+            }
+
+            Game.battle:addMenuItem({
+                ["name"] = action.name,
+                ["tp"] = action.tp or 0,
+                ["resource"] = action.resource or "tension",
+                ["description"] = action.description,
+                ["color"] = action.color or { 1, 1, 1, 1 },
+                ["data"] = spell,
+                ["callback"] = function(menu_item)
+                    Game.battle.selected_xaction = spell
+                    Game.battle:setState("ENEMYSELECT", "XACT")
+                end
+            })
+        end
+    end
+end
+
+--- An internal function responsible for adding spells to the battle menu.
+function Battle:addSpellMenuItems(battler)
+    for _, spell in ipairs(battler.chara:getSpells()) do
+        ---@type table|function
+        local color = spell.color or { 1, 1, 1, 1 }
+        if spell:hasTag("spare_tired") then
+            local has_tired = false
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+                if enemy.tired then
+                    has_tired = true
+                    break
+                end
+            end
+            if has_tired then
+                color = { 0, 178 / 255, 1, 1 }
+                if Game:getConfig("pacifyGlow") then
+                    color = function()
+                        return ColorUtils.mergeColor({ 0, 0.7, 1, 1 }, COLORS.white, 0.5 + math.sin(Game.battle.pacify_glow_timer / 4) * 0.5)
+                    end
+                end
+            end
+        end
+
+        Game.battle:addMenuItem({
+            ["name"] = spell:getName(),
+            ["tp"] = spell:getTPCost(battler.chara),
+            ["mp"] = spell:getMPCost(battler.chara),
+            ["resource"] = spell:getResourceType(battler.chara),
+            ["hp"] = spell:getHPCost(battler.chara),
+            ["unusable"] = not spell:isUsable(battler.chara),
+            ["description"] = spell:getBattleDescription(),
+            ["party"] = spell.party,
+            ["color"] = color,
+            ["data"] = spell,
+            ["callback"] = function(menu_item)
+                Game.battle.selected_spell = menu_item
+
+                if not spell:getTarget() or spell:getTarget() == "none" then
+                    Game.battle:pushAction("SPELL", nil, menu_item)
+                elseif spell:getTarget() == "ally" then
+                    Game.battle:setState("PARTYSELECT", "SPELL")
+                elseif spell:getTarget() == "enemy" then
+                    Game.battle:setState("ENEMYSELECT", "SPELL")
+                elseif spell:getTarget() == "party" then
+                    Game.battle:pushAction("SPELL", Game.battle.party, menu_item)
+                elseif spell:getTarget() == "enemies" then
+                    Game.battle:pushAction("SPELL", Game.battle:getActiveEnemies(), menu_item)
+                end
+            end
+        })
+    end
+end
+
 --- Hurts the `target` party member(s)
 ---@param amount    number # The amount of damage which should be dealt.
 ---@param exact?    boolean # Whether or not the damage should be applied exactly (defaults to `false`)
