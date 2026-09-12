@@ -398,7 +398,7 @@ function Battle:commitSingleAction(action)
         end
     else
         --if not action.spenders then
-            if action.tp and (action.resource == "tension" or action.action == "DEFEND") then
+            if action.tp and (action.resource == "tension" or action.action == "DEFEND" or action.action == "TENSION") then
                 --print(action.tp)
                 if action.tp > 0 then
                     Game:giveTension(action.tp)
