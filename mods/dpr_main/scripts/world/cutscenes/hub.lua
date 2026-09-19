@@ -4,6 +4,21 @@ local hub = {
     -- This allows it to fetch us useful documentation that shows all of the available cutscene functions while writing our cutscenes!
 
     ---@param cutscene WorldCutscene
+    
+    fuselings = function(cutscene,event)
+        if Game:getFlag("fuseling", false) then
+            cutscene:text("* I am THE fuseling.\nI have been fused.")
+            cutscene:text("* ...Now. We shall fuse a way for you to exit!")
+            Assets.playSound("closet_impact")
+            Game.world.map:getTileLayer("showme").visible = false
+			Game.world.map:getHitbox("remove").collidable = false
+            cutscene:shakeCamera(0,16,1)
+        else
+            cutscene:text("* We are the fuselings!\nWe await our fusing!")
+            Game:setFlag("fuseling", true)
+            event:explode()
+        end
+    end,
     wall = function(cutscene, event)
         -- Open textbox and wait for completion
         cutscene:text("* The wall seems cracked.")
