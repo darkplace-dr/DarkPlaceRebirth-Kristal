@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 400,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -79,6 +80,7 @@ return {
           width = 40,
           height = 480,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -92,6 +94,7 @@ return {
           width = 560,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -105,6 +108,7 @@ return {
           width = 40,
           height = 480,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -118,6 +122,7 @@ return {
           width = 232,
           height = 124,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -131,6 +136,7 @@ return {
           width = 244,
           height = 123,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -144,6 +150,7 @@ return {
           width = 144,
           height = 46,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -157,6 +164,7 @@ return {
           width = 50,
           height = 132,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -170,6 +178,7 @@ return {
           width = 50,
           height = 132,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -199,6 +208,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 6,
           visible = true,
           properties = {}
@@ -213,6 +223,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 5,
           visible = true,
           properties = {}
@@ -227,6 +238,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 9,
           visible = true,
           properties = {}
@@ -241,6 +253,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 4,
           visible = true,
           properties = {}
@@ -255,6 +268,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 8,
           visible = true,
           properties = {}
@@ -269,6 +283,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 7,
           visible = true,
           properties = {}
@@ -283,6 +298,7 @@ return {
           width = 46,
           height = 62,
           rotation = 0,
+          opacity = 1,
           gid = 10,
           visible = true,
           properties = {}
@@ -297,6 +313,7 @@ return {
           width = 60,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -313,6 +330,7 @@ return {
           width = 68,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "hometown.asgorefridge",
@@ -329,6 +347,7 @@ return {
           width = 58,
           height = 44,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -345,6 +364,7 @@ return {
           width = 100,
           height = 68,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -361,6 +381,7 @@ return {
           width = 84,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -377,6 +398,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a green flower,[wait:5] protected in a container...)"
@@ -392,6 +414,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a orange flower,[wait:5] protected in a container...)"
@@ -407,6 +430,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a yellow flower,[wait:5] protected in a container...)"
@@ -422,6 +446,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a golden flower,[wait:5] protected in a container...)"
@@ -437,6 +462,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a cyan flower,[wait:5] protected in a container...)"
@@ -452,6 +478,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a blue flower,[wait:5] protected in a container...)"
@@ -467,6 +494,7 @@ return {
           width = 42,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a purple flower,[wait:5] protected in a container...)"
@@ -482,6 +510,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -501,6 +530,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -520,6 +550,7 @@ return {
           width = 60,
           height = 42,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -536,6 +567,7 @@ return {
           width = 68,
           height = 72,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* (It's a note.)\n* (It says...)",
@@ -553,6 +585,7 @@ return {
           width = 108,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's an air mattress.)\n[wait:5]* (It's certainly not king-sized...)"
@@ -584,6 +617,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -597,6 +631,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

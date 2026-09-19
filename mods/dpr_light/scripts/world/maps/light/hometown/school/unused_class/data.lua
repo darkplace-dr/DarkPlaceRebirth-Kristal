@@ -13,6 +13,7 @@ return {
   nextobjectid = 16,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "deltarune/mus_school",
     ["school"] = true
@@ -41,7 +42,7 @@ return {
       id = 7,
       name = "room_night",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

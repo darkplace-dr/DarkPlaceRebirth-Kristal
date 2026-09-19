@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.11" tiledversion="1.12.1" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="180" columns="0">
+<tileset version="1.11" tiledversion="1.12.1" name="hometownobjects" tilewidth="1758" tileheight="1240" tilecount="196" columns="0">
  <editorsettings>
   <export target="hometownobjects.lua" format="lua"/>
  </editorsettings>
@@ -179,10 +179,10 @@
   <image source="../../../assets/sprites/world/maps/hometown/police.png" width="302" height="242"/>
  </tile>
  <tile id="56">
-  <image source="../../../assets/sprites/world/maps/hometown/policeline.png" width="104" height="266"/>
+  <image source="../../../assets/sprites/world/maps/hometown/policeline_1.png" width="134" height="270"/>
  </tile>
  <tile id="57">
-  <image source="../../../assets/sprites/world/maps/hometown/policeplate.png" width="102" height="200"/>
+  <image source="../../../assets/sprites/world/maps/hometown/policeplate_1.png" width="102" height="200"/>
  </tile>
  <tile id="58">
   <image source="../../../assets/sprites/world/maps/hometown/qcdiner.png" width="446" height="280"/>
@@ -454,15 +454,6 @@
  <tile id="150">
   <image source="../../../assets/sprites/tilesets/objects/pew_night_5.png" width="200" height="68"/>
  </tile>
- <tile id="154">
-  <image source="../../../assets/sprites/world/maps/hometown/tree_top.png" width="60" height="20"/>
- </tile>
- <tile id="155">
-  <image source="../../../assets/sprites/world/maps/hometown/tree_top_tile.png" width="60" height="20"/>
- </tile>
- <tile id="156">
-  <image source="../../../assets/sprites/world/maps/hometown/tree_trunk.png" width="60" height="40"/>
- </tile>
  <tile id="157">
   <image source="../../../assets/sprites/world/maps/hometown/noellehouse_dark.png" width="1128" height="470"/>
  </tile>
@@ -543,5 +534,62 @@
  </tile>
  <tile id="184">
   <image source="../../../assets/sprites/tilesets/objects/cabinet_lit.png" width="62" height="126"/>
+ </tile>
+ <tile id="185">
+  <image source="../../../assets/sprites/world/maps/hometown/icepizza_dark_sign.png" width="314" height="118"/>
+ </tile>
+ <tile id="186">
+  <image source="../../../assets/sprites/world/maps/hometown/icepizza_sign.png" width="314" height="118"/>
+ </tile>
+ <tile id="187">
+  <image source="../../../assets/sprites/world/maps/hometown/beach_coverup.png" width="40" height="20"/>
+ </tile>
+ <tile id="188">
+  <image source="../../../assets/sprites/world/maps/hometown/beach_bg_table.png" width="67" height="55"/>
+ </tile>
+ <tile id="190">
+  <image source="../../../assets/sprites/world/maps/hometown/beach_bg_table2.png" width="67" height="55"/>
+ </tile>
+ <tile id="195">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_small.png" width="26" height="25"/>
+ </tile>
+ <tile id="192">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_big.png" width="115" height="30"/>
+ </tile>
+ <tile id="193">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_dark_big.png" width="115" height="30"/>
+ </tile>
+ <tile id="194">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/windows_rain_dark_small.png" width="26" height="25"/>
+ </tile>
+ <tile id="191">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/kris_room_rain_window.png" width="23" height="31"/>
+ </tile>
+ <tile id="196">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/door_frame_rain.png" width="67" height="144"/>
+ </tile>
+ <tile id="197">
+  <image source="../../../assets/sprites/world/maps/hometown/torielhouse/door_frame_rain_dark.png" width="67" height="144"/>
+ </tile>
+ <tile id="198">
+  <image source="../../../assets/sprites/tilesets/objects/asgore_car_shadow.png" width="146" height="110"/>
+ </tile>
+ <tile id="199">
+  <image source="../../../assets/sprites/world/maps/hometown/policeline_2.png" width="134" height="270"/>
+ </tile>
+ <tile id="200">
+  <image source="../../../assets/sprites/world/maps/hometown/policeplate_2.png" width="102" height="200"/>
+ </tile>
+ <tile id="201">
+  <image source="../../../assets/sprites/world/maps/hometown/policeline_3.png" width="134" height="270"/>
+ </tile>
+ <tile id="202">
+  <image source="../../../assets/sprites/world/maps/hometown/policeplate_3.png" width="102" height="200"/>
+ </tile>
+ <tile id="203">
+  <image source="../../../assets/sprites/world/maps/hometown/naphouse_noshadow.png" width="180" height="242"/>
+ </tile>
+ <tile id="204">
+  <image source="../../../assets/sprites/world/maps/hometown/graves_evening.png" width="570" height="198"/>
  </tile>
 </tileset>

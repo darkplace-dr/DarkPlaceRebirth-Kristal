@@ -47,7 +47,7 @@ function Mod:onMapBorder(map, border)
 		elseif Game:getFlag("hometown_time", "day") == "morning" then
 			return "town_morning"
 		elseif Game:getFlag("hometown_time", "day") == "evening" then
-			return "town_evening"
+			return "town_sunset"
 		end
 	end
 end
@@ -70,6 +70,7 @@ function Mod:loadObject(world, name, data)
 		tobj.sunset_mode = data.properties["sunset"] or nil
 		tobj.sunrise_mode = data.properties["sunrise"] or nil
 		tobj.rain_mode = data.properties["rain"] or nil
+		tobj.overcast_fade = data.properties["overcast_fade"] or nil
 		return tobj
     end
 	return nil

@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 10,
-  nextobjectid = 28,
+  nextlayerid = 11,
+  nextobjectid = 29,
   properties = {
     ["border"] = "leaves",
     ["inside"] = true,
@@ -42,6 +42,37 @@ return {
       repeatx = false,
       repeaty = false,
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "objects_rain_windows",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 306,
+          y = 154,
+          width = 46,
+          height = 62,
+          rotation = 0,
+          opacity = 1,
+          gid = 192,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "imagelayer",
@@ -200,6 +231,7 @@ return {
           opacity = 1,
           visible = true,
           properties = {
+            ["cutscene"] = "hometown.asriel_drawer",
             ["solid"] = true,
             ["text"] = "* A very old school ID with an embarrassing haircut."
           }
@@ -235,10 +267,11 @@ return {
           visible = true,
           properties = {
             ["nighttext1"] = "* (It's a quiet night outside.)",
+            ["raintext1"] = "* (Rainwater falls from the sky.)",
             ["solid"] = true,
-            ["text1"] = "* (It's a beautiful day outside.)",
-            ["text2"] = "* (...)",
-            ["text3"] = "* (You felt a strange feeling of judgement.)"
+            ["sunrisetext1"] = "* (The sun has not fully risen.)",
+            ["sunsettext1"] = "* (The sun is setting,[wait:5] waiting for a new day.)",
+            ["text1"] = "* (It's a beautiful day outside.)"
           }
         },
         {
@@ -291,23 +324,6 @@ return {
           visible = true,
           properties = {
             ["solid"] = true
-          }
-        },
-        {
-          id = 14,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 466,
-          y = 274,
-          width = 92,
-          height = 76,
-          rotation = 0,
-          opacity = 1,
-          gid = 35,
-          visible = true,
-          properties = {
-            ["day"] = 1
           }
         },
         {

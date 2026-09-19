@@ -99,7 +99,7 @@ function SpotlightController:update()
 	if not self.alert then
 		Object.startCache()
 		for _, light in ipairs(self.spotlight) do
-			if light:collidesWith(Game.battle.soul) then
+			if light:meetsObject(Game.battle.soul) then
 				Game.battle.wave_timer = 0
 				Game.battle.wave_length = 180/30
 				for _, enemy in ipairs(Game.battle.enemies) do

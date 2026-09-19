@@ -3,6 +3,8 @@ local Guei, super = HookSystem.hookScript("guei")
 function Guei:init()
     super.init(self)
 
+    self.killable = true
+
     self:registerAct("Xercism", "60% &\nDelayed\nTIRED", {"jamm"})
 end
 

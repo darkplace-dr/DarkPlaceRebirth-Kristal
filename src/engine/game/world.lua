@@ -428,16 +428,14 @@ end
 ---@param key string
 function World:onKeyPressed(key)
     if Kristal.isDevMode() and Input.ctrl() then
-        local debug_logger = Kristal.DebugSystem and Kristal.DebugSystem.logger or Logging.INSTANCE
-
         if key == "m" then
             if self.music then
                 if self.music:isPlaying() then
                     self.music:pause()
-                    debug_logger:infoNotify("World music: " .. FormatString("PAUSED", ConsoleFormats.YELLOW))
+                    Debug.LOGGER:infoNotify("World music: " .. FormatString("PAUSED", ConsoleFormats.YELLOW))
                 else
                     self.music:resume()
-                    debug_logger:infoNotify("World music: " .. FormatString("RESUMED", ConsoleFormats.GREEN))
+                    Debug.LOGGER:infoNotify("World music: " .. FormatString("RESUMED", ConsoleFormats.GREEN))
                 end
             end
         end
@@ -458,31 +456,31 @@ function World:onKeyPressed(key)
             for _, party in ipairs(Game.party) do
                 party:heal(math.huge)
             end
-            debug_logger:infoNotify(FormatString("Healed party", ConsoleFormats.GREEN))
+            Debug.LOGGER:infoNotify(FormatString("Healed party", ConsoleFormats.GREEN))
         end
         if key == "k" then
             Game:setTension(Game:getMaxTension())
             Assets.playSound("cardrive", 0.8, 1.4)
-            debug_logger:infoNotify("Tension: " .. FormatString("100%", ConsoleFormats.YELLOW))
+            Debug.LOGGER:infoNotify("Tension: " .. FormatString("100%", ConsoleFormats.YELLOW))
         end
         if key == "n" then
             NOCLIP = not NOCLIP
             if NOCLIP then
                 Assets.playSound("petrify")
-                debug_logger:infoNotify("Noclip: " .. FormatString("ON", ConsoleFormats.GREEN))
+                Debug.LOGGER:infoNotify("Noclip: " .. FormatString("ON", ConsoleFormats.GREEN))
             else
                 Assets.playSound("bump")
-                debug_logger:infoNotify("Noclip: " .. FormatString("OFF", ConsoleFormats.RED))
+                Debug.LOGGER:infoNotify("Noclip: " .. FormatString("OFF", ConsoleFormats.RED))
             end
         end
         if key == "i" then
             INVINCIBILITY = not INVINCIBILITY
             if INVINCIBILITY then
                 Assets.playSound("sparkle_glock")
-                debug_logger:infoNotify("Invincibility: " .. FormatString("ON", ConsoleFormats.GREEN))
+                Debug.LOGGER:infoNotify("Invincibility: " .. FormatString("ON", ConsoleFormats.GREEN))
             else
                 Assets.playSound("bump")
-                debug_logger:infoNotify("Invincibility: " .. FormatString("OFF", ConsoleFormats.RED))
+                Debug.LOGGER:infoNotify("Invincibility: " .. FormatString("OFF", ConsoleFormats.RED))
             end
         end
     end
@@ -940,7 +938,7 @@ end
 --- Creates a reaction text on a party member's healthbar (usually used for equipment and items)
 ---@param party_member  string|PartyMember  The party member who will react
 ---@param text          string              The text to display for the reaction
----@param display_time? number              The display time, in seconds, of the reaction (defaults to 5/3 seconds)
+---@param display_time  number?              The display time, in seconds, of the reaction (defaults to 5/3 seconds)
 function World:partyReact(party_member, text, display_time)
     local action_box = self:getActionBox(party_member)
     if action_box then
@@ -950,9 +948,9 @@ end
 
 --- Gets a specific event present in the current map.
 ---
---- If multiple objects are found (if you pass in a name), only the first will be returned. Use `Map:getEvents` to get all of them.
+--- If multiple objects are found (if you pass in a name), only the first will be returned. Use [`getEvents`](lua://World.getEvents) to get all of them.
 ---@param id string|number|TiledObjectRef The id of the event to search for, either as a string or a number
----@return Event event The name of the event, the unique numerical ID, or a Tiled object reference.
+---@return Event? event The name of the event, the unique numerical ID, or a Tiled object reference.
 function World:getEvent(id)
     return self.map:getEvent(id)
 end

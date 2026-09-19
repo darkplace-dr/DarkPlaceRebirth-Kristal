@@ -56,31 +56,57 @@ function WeatherHandler:init(typer, sfx, child, intensity, overlay)
     self.intensity = intensity or 1
 
     self.pause = false
+	self.skip = false
 
     self.haveoverlay = overlay
-    self:postInit()
 	
-	self.prewarm = true
 	self.cam_x = 0
 	self.cam_y = 0
 	self.inside = false
 	self.faded_in = false
 	self.stop_gen = false
+    self:postInit()
+	self.prewarm = true
 end
 
 function WeatherHandler:postInit()
+	local overlay
 	if self.haveoverlay and not self.skip then
-		self:addOverlay()
+		overlay = self:addOverlay()
 	end
 	if self.prewarm or self.type == "rain_prewarmed" then
 		self.prewarm = true
 		self.weathertimer = 120
 		self.rainsplash = true
 		if self.sfx and not self.skip then
-			self.weathersounds:setVolume(0.5)
+			if Game.world.map.inside or Game.world.map.data.properties["inside"] then
+				self.weathersounds_indoor:setVolume(0.75)
+			else
+				self.weathersounds:setVolume(0.5)
+			end
 		end
 		if self.type == "rain_prewarmed" then
 			self.type = "rain"
+		end
+	end
+	if not self.skip then
+		if Game.world.map.inside or Game.world.map.data.properties["inside"] then
+			if Game.stage.weather then
+				for i, weather in ipairs(Game.stage.weather) do
+					weather.pause = true
+					weather.inside = true
+				end
+			end
+			self.pause = true
+			self.inside = true
+			if Game.stage.overlay then 
+				for i, o in ipairs(Game.stage.overlay) do
+					o.paused = true
+				end
+			end
+			overlay.paused = true
+			Game.stage.wpaused = true
+			Game.stage.pause_reason = "inside"
 		end
 	end
 end
@@ -96,11 +122,14 @@ function WeatherHandler:update()
 			for i, o in ipairs(Game.stage.overlay) do
 				if o.type == self.type then
 					o:remove()
+					TableUtils.removeValue(Game.stage.overlay, o)
 				end
             end
 			self:remove()
+			TableUtils.removeValue(Game.stage.weather, self)
 		end
 		if self.weathertimer < 100 then
+			self.rainsplash = false
 			self.stop_gen = true
 		end
 	else
@@ -109,13 +138,17 @@ function WeatherHandler:update()
 			self.weathertimer = 120
 		end
 		if self.weathertimer >= 10 and not self.faded_in then
-			self.weathersounds:fade(0.5, 110/30)
+			if self.inside then
+				self.weathersounds_indoor:fade(0.75, 110/30)
+			else
+				self.weathersounds:fade(0.5, 110/30)
+			end
 			self.faded_in = true
 		end
 	end
     if not self.pause and not self.stop_gen then
         if self.type == "rain" or self.type == "rain_prewarmed" or self.type == "thunder" or self.type == "cd" then
-			if self.weathertimer < 120 and not self.wrap_up then
+			if self.weathertimer < 120 then
 				self.gen = math.floor(MathUtils.lerp(self.genspeed - 20, self.genspeed, self.weathertimer/120))
 			else
 				self.gen = self.genspeed
@@ -153,7 +186,6 @@ function WeatherHandler:update()
                 if self.type == "thunder" then speedmult = speedmult + 1 end
 
                 for i = 1, amount do
-                    self.raintimer = self.gen
                     local number = "rain_"..tostring(MathUtils.randomInt(1, 11))
                     if self.type == "cd" then number = TableUtils.pick({"cat", "dog"}) end
 					local x, y
@@ -175,6 +207,7 @@ function WeatherHandler:update()
 				
 				self.prewarm = false
 				
+                self.raintimer = self.gen
 				self.timer = self.gen
             end
             self.raintimer = self.raintimer + 1 * DTMULT

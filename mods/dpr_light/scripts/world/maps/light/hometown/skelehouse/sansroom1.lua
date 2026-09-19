@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -58,6 +58,7 @@ return {
           width = 40,
           height = 320,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -71,6 +72,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -84,6 +86,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -97,6 +100,7 @@ return {
           width = 55,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -110,6 +114,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -123,6 +128,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -136,6 +142,7 @@ return {
           width = 80,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -149,6 +156,7 @@ return {
           width = 320,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -162,6 +170,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -175,6 +184,7 @@ return {
           width = 200,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -188,6 +198,7 @@ return {
           width = 97,
           height = 61.5,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -201,6 +212,7 @@ return {
           width = 75,
           height = 88,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -230,6 +242,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -243,6 +256,7 @@ return {
           width = 55,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* TBA"
@@ -258,6 +272,7 @@ return {
           width = 80,
           height = 100,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* TBA"
@@ -273,6 +288,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "light/hometown/skelehouse/sansroom2",
@@ -289,6 +305,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "light/hometown/skelehouse/mainroom",
@@ -305,6 +322,7 @@ return {
           width = 97,
           height = 45,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* TBA"
@@ -320,6 +338,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "sans_meme",
@@ -353,6 +372,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -366,6 +386,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -379,6 +400,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

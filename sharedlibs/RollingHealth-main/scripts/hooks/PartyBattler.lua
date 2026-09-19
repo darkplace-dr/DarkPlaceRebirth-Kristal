@@ -162,7 +162,7 @@ function PartyBattler:update()
 					if self.health_rolling_swooned then
 						self.chara:setHealth(-999)
 						self.health_rolling_to = self.chara:getHealth()
-						self:statusMessage("msg", "swoon", nil, true)
+						self:statusMessage("msg", "swoon", COLORS.red, true)
 						Assets.playSound("impact", 0.7)
 						Assets.playSound("glassbreak", 0.7, 0.4)
 						Assets.playSound("bageldefeat", 0.8, 0.8)
@@ -170,7 +170,7 @@ function PartyBattler:update()
 					else
 						self.chara:setHealth(MathUtils.round(((-self.chara:getStat("health")) / 2)))
 						self.health_rolling_to = self.chara:getHealth()
-						self:statusMessage("msg", "down", nil, true)
+						self:statusMessage("msg", "down", COLORS.red, true)
 						Assets.playSound("bageldefeat")
 						Game.battle:shakeCamera(4)
 					end
@@ -195,14 +195,14 @@ function PartyBattler:heal(amount, sparkle_color, show_up)
 
 		if self.health_rolling_to >= self.chara:getStat("health") then
 			self.health_rolling_to = self.chara:getStat("health")
-			self:statusMessage("msg", "max")
+			self:statusMessage("msg", "max", COLORS.lime)
 		else
 			if show_up then
 				if was_down ~= self.is_down then
-					self:statusMessage("msg", "up")
+					self:statusMessage("msg", "up", COLORS.lime)
 				end
 			else
-				self:statusMessage("heal", amount, {0, 1, 0})
+				self:statusMessage("heal", amount, COLORS.lime)
 			end
 		end
 

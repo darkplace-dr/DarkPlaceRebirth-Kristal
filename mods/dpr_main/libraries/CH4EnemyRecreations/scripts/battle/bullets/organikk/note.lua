@@ -29,7 +29,7 @@ function Note:update()
         self.siner = self.siner + (1 / 6) * DTMULT
         self.x = self.x + (math.sin(self.siner / 2)) * 3 * DTMULT
 
-        self.timer = self.timer + (1 * DTMULT)
+        self.timer = self.timer + DTMULT
         if self.timer >= 2 then
             local aimg = AfterImage(self.sprite, 0.7, 0.07)
             Game.battle:addChild(aimg)
@@ -56,7 +56,7 @@ function Note:update()
         self.siner2 = self.siner2 + (1 / 6) * DTMULT
         self.y = self.y + (math.sin(self.siner2 / 1)) * 2 * DTMULT
 
-        self.timer = self.timer + (1 * DTMULT)
+        self.timer = self.timer + DTMULT
         if self.timer >= 2 then
             local aimg = AfterImage(self.sprite, 0.7, 0.07)
             Game.battle:addChild(aimg)

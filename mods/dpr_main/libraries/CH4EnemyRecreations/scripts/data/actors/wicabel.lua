@@ -13,18 +13,19 @@ function actor:init()
     self.flip = nil
 
     self.path = "battle/enemies/wicabel"
-    self.default = "idle"
+    self.default = "body_1"
 
     self.talk_sprites = {}
 
     self.animations = {
         ["hurt"]   = {"body_1", 1, true},
         ["spared"] = {"spare", 1, true},
+        ["transition"] = {"body_1", 1, true}
     }
 
     self.offsets = {
-        ["body"] = {1.5, -4},
-        ["spare"] = {1.5, -4}
+        ["body"] = {1.5, 0},
+        ["spare"] = {1.5, 0}
     }
 
     self.parts = {
@@ -39,15 +40,6 @@ end
 
 function actor:createSprite()
     return WicabelActorSprite(self)
-end
-
-function actor:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == 'table' then anim = anim[1] end
-
-    if anim == "body_1" or anim == "spare" then
-        sprite:setPartVisible(false)
-    end
 end
 
 return actor

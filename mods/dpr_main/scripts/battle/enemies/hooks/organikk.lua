@@ -3,8 +3,10 @@ local Organikk, super = HookSystem.hookScript("organikk")
 function Organikk:init()
     super.init(self)
 
+	self.killable = true
+
     self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"jamm"})
-	
+
 	self.mus_scale = 1
 end
 

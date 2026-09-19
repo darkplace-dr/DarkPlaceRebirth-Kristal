@@ -3,6 +3,8 @@ local Mizzle, super = HookSystem.hookScript("mizzle")
 function Mizzle:init()
     super.init(self)
 
+    self.killable = true
+
     self:registerAct("Sozzle", "TIRE by\nchance", {"jamm"})
 end
 

@@ -1,6 +1,6 @@
-local Whirlwind, super = Class(Object)
+local WingladeWhirlwind, super = Class(Object)
 
-function Whirlwind:init(x, y)
+function WingladeWhirlwind:init(x, y)
     super.init(self, x, y)
 
     self.width = 150
@@ -30,7 +30,7 @@ function Whirlwind:init(x, y)
 
     self.canvas_1 = love.graphics.newCanvas(self.max_width, self.height)
     self.canvas_2 = love.graphics.newCanvas(self.max_width, self.height)
-    self.texture = Assets.getTexture('effects/winglade/noise')
+    self.texture = Assets.getTexture("effects/winglade/noise")
 
     local vertexFormat = {
         {"VertexPosition", "float", 2},
@@ -47,7 +47,7 @@ function Whirlwind:init(x, y)
     self.mesh_2 = love.graphics.newMesh(vertexFormat, vertices, "strip", "static")
 end
 
-function Whirlwind:getVertexAttributes(number)
+function WingladeWhirlwind:getVertexAttributes(number)
     local percent = (number - 1) / (self.parts - 1)
     local width = MathUtils.lerp(self.min_width, self.max_width, percent)
     local middle_x = math.sin(number * 8 / 10 + self.timer * self.spin_speed / 10) * self.wave_length
@@ -58,7 +58,7 @@ function Whirlwind:getVertexAttributes(number)
            {middle_x + width / 2, y, 1, v}
 end
 
-function Whirlwind:update()
+function WingladeWhirlwind:update()
     super.update(self)
     self.timer = self.timer + DTMULT
 
@@ -89,7 +89,7 @@ function Whirlwind:update()
         end
     elseif self.state == "MOVE_TO_END" then
         self.move_across_time = self.move_across_time + DTMULT
-        self.x = Utils.ease(self.init_x, self.x_end, self.move_across_time / self.move_across_duration, 'inOutSine')
+        self.x = Utils.ease(self.init_x, self.x_end, self.move_across_time / self.move_across_duration, "inOutSine")
         if self.move_across_time >= self.move_across_duration then
             self.state = "SPINDOWN"
         end
@@ -100,17 +100,20 @@ function Whirlwind:update()
             self.state = "DONE"
         end
     elseif self.state == "DONE" then
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+            enemy:spare()
+        end
         self:remove()
     end
 end
 
-function Whirlwind:getEndCallback()
+function WingladeWhirlwind:getEndCallback()
     return function()
         return self:isRemoved()
     end
 end
 
-function Whirlwind:draw()
+function WingladeWhirlwind:draw()
     super.draw(self)
     local tex_width, tex_height = self.texture:getDimensions()
 
@@ -144,15 +147,15 @@ function Whirlwind:draw()
         size = {width, height},
         factor = 3
     })
-    local r1, g1, b1 = TableUtils.unpack(ColorUtils.hexToRGB('#9E7FFF'))
+    local r1, g1, b1 = TableUtils.unpack(ColorUtils.hexToRGB("#9E7FFF"))
     Draw.setColor(r1, g1, b1, 0.6 * self.alpha)
-    love.graphics.setBlendMode('add')
+    love.graphics.setBlendMode("add")
     Draw.draw(self.mesh_1, self.width / 2 - 1, -1)
-    local r2, g2, b2 = TableUtils.unpack(ColorUtils.hexToRGB('#7FC2FF'))
+    local r2, g2, b2 = TableUtils.unpack(ColorUtils.hexToRGB("#7FC2FF"))
     Draw.setColor(r2, g2, b2, 0.6 * self.alpha)
     Draw.draw(self.mesh_2, self.width / 2)
-    love.graphics.setBlendMode('alpha')
+    love.graphics.setBlendMode("alpha")
     Draw.popShader()
 end
 
-return Whirlwind
+return WingladeWhirlwind

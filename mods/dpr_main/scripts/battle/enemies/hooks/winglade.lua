@@ -5,6 +5,7 @@ function Winglade:init()
 
     self.name = "Winglade"
     self:setActor("winglade")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -42,23 +43,18 @@ function Winglade:init()
     self.low_health_text = "* Winglade sheds feathers heavily."
     self.tired_text = "* Winglade's eye flutters shut."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Spin", "Spin\n50%\nmercy")
-    self:registerAct("SpinS", "60%\nMercy\nto all", {"susie"})
-    self:registerAct("SpinJ", "60%\nMercy\nto all", {"jamm"})
-	
-	local followers = {}
-	
-	for k,v in pairs(Game.battle.party) do
-		if k ~= 1 then
-			table.insert(followers, v.chara.id)
-		end
-	end
-	
-    self:registerAct("Whirl", "SPARE\nall!", followers, 64)
+    self:registerAct("SpinS", "60%\nMercy\nto all", { "susie" })
+    self:registerAct("SpinJ", "60%\nMercy\nto all", { "jamm" })
+    self:registerAct("Whirl", "SPARE\nall!", "all", 64)
 
+    self.killable = true
+
+    self.sprite.active = false
     self.transition_ended = false
+    self.floatsiner = 0
 end
 
 function Winglade:onAct(battler, name)
@@ -67,16 +63,9 @@ function Winglade:onAct(battler, name)
             enemy:addMercy(60)
         end
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
-        Game.battle:getPartyBattler('jamm'):setAnimation('pirouette')
+        battler:setAnimation("pirouette")
+        Game.battle:getPartyBattler("jamm"):setAnimation("pirouette")
         return "* You and Jamm spun masterfully!"
-    elseif name == "Whirl" then
-        Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-		for k,v in ipairs(Game.battle.party) do
-			v:setAnimation("pirouette")
-		end
-        Game.battle:startActCutscene("wingladewhirl")
-        return
     end
 
     return super.onAct(self, battler, name)
@@ -85,7 +74,7 @@ end
 function Winglade:onShortAct(battler, name)
     if name == "Standard" and battler.chara.id == "jamm" then
         Assets.stopAndPlaySound("pirouette", 0.7, 1.1)
-        battler:setAnimation('pirouette')
+        battler:setAnimation("pirouette")
         self:addMercy(40)
         return "* Jamm twirls like a ballerina!"
     end

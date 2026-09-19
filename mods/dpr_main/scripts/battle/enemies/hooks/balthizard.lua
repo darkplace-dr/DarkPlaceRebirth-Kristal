@@ -3,6 +3,8 @@ local Balthizard, super = HookSystem.hookScript("balthizard")
 function Balthizard:init()
     super.init(self)
 
+    self.killable = true
+
     self:registerAct("ArmUp", "50% &\nHURT\nothers", {"jamm"})
 end
 

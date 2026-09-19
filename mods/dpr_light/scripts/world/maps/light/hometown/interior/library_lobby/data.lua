@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -59,6 +59,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -72,6 +73,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -85,6 +87,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -98,6 +101,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -111,6 +115,7 @@ return {
           width = 40,
           height = 440,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -124,6 +129,7 @@ return {
           width = 480,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -137,6 +143,7 @@ return {
           width = 40,
           height = 280,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -150,6 +157,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -163,6 +171,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -176,6 +185,7 @@ return {
           width = 48,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -189,6 +199,7 @@ return {
           width = 42,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -202,6 +213,7 @@ return {
           width = 34,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -215,6 +227,7 @@ return {
           width = 168,
           height = 62,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -228,6 +241,7 @@ return {
           width = 104,
           height = 62,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -241,6 +255,7 @@ return {
           width = 48,
           height = 30,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -270,6 +285,7 @@ return {
           width = 72,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -289,6 +305,7 @@ return {
           width = 84,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -309,6 +326,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["facing"] = "down",
@@ -326,6 +344,7 @@ return {
           width = 58,
           height = 82,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -344,6 +363,7 @@ return {
           width = 78,
           height = 86,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -363,6 +383,7 @@ return {
           width = 78,
           height = 86,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -380,6 +401,7 @@ return {
           width = 68,
           height = 86,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -397,6 +419,7 @@ return {
           width = 78,
           height = 86,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -414,6 +437,7 @@ return {
           width = 52,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["flagcheck"] = "!hometown_digisetup",
@@ -432,6 +456,7 @@ return {
           width = 104,
           height = 82,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["solid"] = true,
@@ -449,6 +474,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "susie_lw",
@@ -468,6 +494,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "dess",
@@ -486,6 +513,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "ceroba",
@@ -504,6 +532,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "brenda_lw",
@@ -522,6 +551,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "noelle_lw",
@@ -540,6 +570,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "jammarcy_light",
@@ -558,6 +589,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "hometown_digi.library",
@@ -574,6 +606,7 @@ return {
           width = 82.5,
           height = 15,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "hometown_digi.wrongway_library",
@@ -607,6 +640,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -620,6 +654,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -633,6 +668,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

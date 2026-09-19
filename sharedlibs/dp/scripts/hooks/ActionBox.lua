@@ -52,18 +52,25 @@ function ActionBox:createButtons()
         start_x = 30
     end
 
-    for i, btn in ipairs(btn_types) do
-        if type(btn) == "string" then
-            local button = ActionButton(btn, self.battler, math.floor(start_x + ((i - 1) * 35)) + 0.5, 21)
-            button.actbox = self
+    for i, button in ipairs(btn_types) do
+        local button_x = math.floor(start_x + ((i - 1) * 35)) + 0.5
+        local button_y = 21
+
+        if type(button) == "string" then
+            -- It's a string, we should create this
+            local new_button = Game.battle:createActionButton(button, self.battler, button_x, button_y)
+            table.insert(self.buttons, new_button)
+            self:addChild(new_button)
+        elseif isClass(button) and button:includes(ActionButton) then
+            -- We're passing in an ActionButton instance, so...
+            button:setPosition(button_x, button_y)
+            button:setPartyBattler(self.battler)
             table.insert(self.buttons, button)
             self:addChild(button)
-        elseif type(btn) ~= "boolean" then -- nothing if a boolean value, used to create an empty space
-            btn:setPosition(math.floor(start_x + ((i - 1) * 35)) + 0.5, 21)
-            btn.battler = self.battler
-            btn.actbox = self
-            table.insert(self.buttons, btn)
-            self:addChild(btn)
+        elseif type(button) == "boolean" then
+            -- Nothing, just an empty space
+        else
+            Logging.warnNotify("Attempted to create invalid action button: ", button)
         end
     end
 

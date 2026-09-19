@@ -7,7 +7,7 @@ function Guei:init()
 
     self.width = 71
     self.height = 64
-	
+
     self.hitbox = {6, 46, self.width - 12, 18}
 
     self.flip = "right"
@@ -18,7 +18,9 @@ function Guei:init()
     self.animations = {
 	    ["idle_nowisp"] = {"idle_nowisp", 0.2, true},
 	    ["overworld"]   = {"overworld", 0.2, true},
-        ["hurt"]        = {"hurt", 0, false},
+        ["hurt"]        = {"hurt", 1, false},
+        ["spared_overlay"]  = {"overworld_1", 1, false},
+        ["transition"]  = {"idle_nowisp_1", 1, false}
     }
 
     self.parts = {
@@ -35,15 +37,6 @@ end
 
 function Guei:createSprite()
     return GueiActorSprite(self)
-end
-
-function Guei:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == 'table' then anim = anim[1] end
-
-    if anim == "idle_nowisp" or anim == "overworld" or anim == "hurt" then
-        sprite:setPartVisible(false)
-    end
 end
 
 return Guei

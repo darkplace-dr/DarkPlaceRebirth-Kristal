@@ -13,13 +13,14 @@ function actor:init()
     self.flip = nil
 
     self.path = "battle/enemies/bibliox"
-    self.default = "idle"
+    self.default = "talk"
 
     self.talk_sprites = {}
 
     self.animations = {
         ["hurt"]   = {"hurt", 1, true},
         ["spared"] = {"spare", 1, true},
+        ["transition"] = {"talk_1", 1, true}
     }
 
     self.offsets = {
@@ -35,15 +36,6 @@ end
 
 function actor:createSprite()
     return BiblioxActorSprite(self)
-end
-
-function actor:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == 'table' then anim = anim[1] end
-
-    if anim == "hurt" or anim == "spare" then
-        sprite:setPartVisible(false)
-    end
 end
 
 return actor

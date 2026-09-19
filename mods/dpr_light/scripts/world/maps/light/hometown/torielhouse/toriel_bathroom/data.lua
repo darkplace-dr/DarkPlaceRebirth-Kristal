@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -59,6 +59,7 @@ return {
           width = 442,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -72,6 +73,7 @@ return {
           width = 40,
           height = 262,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -85,6 +87,7 @@ return {
           width = 40,
           height = 262,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -98,6 +101,7 @@ return {
           width = 192,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -111,6 +115,7 @@ return {
           width = 118,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -124,6 +129,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -142,6 +148,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -160,6 +167,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -194,6 +202,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -214,6 +223,7 @@ return {
           width = 116,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* On the shower ledge,[wait:5] there's a small container of apple-scented shampoo.",
@@ -230,6 +240,7 @@ return {
           width = 44,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "hometown.toilet"
@@ -245,6 +256,7 @@ return {
           width = 62,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text1"] = "* You looked inside the sink cupboard.\n[wait:5]* There's...",
@@ -278,6 +290,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

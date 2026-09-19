@@ -5,6 +5,7 @@ function Bibliox:init()
 
     self.name = "Bibliox"
     self:setActor("bibliox")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -27,7 +28,7 @@ function Bibliox:init()
         "... whose do we?\nWhose do we\ndecimal..."
     }
 
-    self.check = {"A worldly wizard that\ncast spells by spelling.", "Unfortunately prone to typos."}
+    self.check = { "A worldly wizard that\ncast spells by spelling.", "Unfortunately prone to typos." }
 
     self.text = {
         "* Bibliox rearranges bookmarks in\nhis beard.",
@@ -40,12 +41,13 @@ function Bibliox:init()
     self.tired_text = "* Bibliox can't keep its pages\nopen."
 	self.spareable_text = "* Bibliox's beard flaps happily."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Proofread", "Fix typo\nfor\nMERCY")
-    self:registerAct("EasyProof", "More\ntime to\nfix", {"ralsei"})
+    self:registerAct("EasyProof", "More\ntime to\nfix", { "ralsei" })
 
-    self.killable = true
+    self.sprite.active = false
+    self.transition_ended = false
 
     self.beardstroke = false
 end
@@ -62,16 +64,7 @@ function Bibliox:onAct(battler, name)
         Game.battle:addChild(proofread)
         return
     elseif name == "Standard" then
-        if battler.chara.id == "susie" then
-            self:addMercy(15)
-            return  "* Susie attempted to read!"
-        elseif battler.chara.id == "ralsei" then
-            self:addMercy(30)
-            return "* Ralsei wore reading glasses!"
-        else
-            self:addMercy(25)
-            return "* "..battler.chara:getName().." read something!"
-        end
+        return self:onShortAct(battler, name)
     end
 
     return super.onAct(self, battler, name)
@@ -87,7 +80,7 @@ function Bibliox:onShortAct(battler, name)
             return "* Ralsei wore reading glasses!"
         else
             self:addMercy(25)
-            return "* "..battler.chara:getName().." read something!"
+            return "* " .. battler.chara:getName() .. " read something!"
         end
     end
 
@@ -112,7 +105,7 @@ function Bibliox:getEncounterText()
         return self.spareable_text
     end
 
-    if MathUtils.randomInt(100) < 3 then
+    if MathUtils.randomInt(101) < 3 then
         return "* Smells like parchment."
     end
 
@@ -121,6 +114,12 @@ end
 
 function Bibliox:update()
     super.update(self)
+
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
+        self.sprite.active = true
+        self:setAnimation("idle")
+    end
 
     if Game.battle.state == "ENEMYDIALOGUE" and not self.beardstroke and self.mercy < 100 then
         self.beardstroke = true

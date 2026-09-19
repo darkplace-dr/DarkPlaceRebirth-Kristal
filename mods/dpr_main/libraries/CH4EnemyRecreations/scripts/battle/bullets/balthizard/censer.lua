@@ -193,17 +193,16 @@ function Censer:update()
                 elseif(Game.battle.enemies[3].id == "balthizard") then
                     attacker = Game.battle.enemies[3]
                 end
-                attacker:setAnimation("transition_end")
+                attacker:setAnimation("transition_wave_end")
             else
                 for _, attacker in ipairs(self.wave:getAttackers()) do
-                    attacker:setAnimation("transition_end")
+                    attacker:setAnimation("transition_wave_end")
                 end
             end
         end
         if self.timer == 21 then
             self.alpha = 0
         end
-        
     end
 end
 

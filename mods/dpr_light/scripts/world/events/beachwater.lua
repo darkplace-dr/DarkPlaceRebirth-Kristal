@@ -7,7 +7,11 @@ function BeachWater:init(data)
     self.sprite:setScale(2)
     self:addChild(self.sprite)
     
-	self.layer = BeachWater:setLayer("below_ui")
+    self.overcast_sprite = Sprite("world/maps/hometown/beachwater", 0, 0)
+    self.overcast_sprite:setScale(2)
+	self.overcast_sprite.layer = 0.001
+    self:addChild(self.overcast_sprite)
+	self.layer = self:setLayer("below_ui")
 
     self.shader = love.graphics.newShader([[
         extern float time; // seconds
@@ -37,6 +41,13 @@ function BeachWater:onLoad()
 	super.onLoad(self)
 
 	self.rain_sprite.layer = self.layer + 0.02
+	if Game:getFlag("hometown_time", "day") == "morning" then
+		self.sprite:setSprite("world/maps/hometown/beachwater_morning")
+		self.overcast_sprite:setSprite("world/maps/hometown/beachwater_morning_overcast")
+	elseif Game:getFlag("hometown_time", "day") == "evening" then
+		self.sprite:setSprite("world/maps/hometown/beachwater_evening")
+		self.overcast_sprite:setSprite("world/maps/hometown/beachwater_evening_overcast")
+	end
 end
 
 function BeachWater:update()
@@ -51,14 +62,25 @@ function BeachWater:update()
 		self.rain_sprite.visible = false
 		self.rain_mode = false
 	end
+	self.overcast_sprite.alpha = 0
+	if Game.stage.weather then
+		for i, w in ipairs(Game.stage.weather) do
+			if w.type == "rain" or w.type == "rain_prewarmed" or w.type == "overcast" then
+				self.overcast_sprite.alpha = (w.weathertimer / 120)
+			end
+		end
+	end
 	if self.rain_mode then
 		self.timer = self.timer - DTMULT
 		if self.timer < 0 then
 			self.timer = 2
             local splash = Sprite("effects/rain_splash")
+			if Game:getFlag("hometown_time", "day") == "evening" then
+				splash:setSprite("effects/rain_splash_evening")
+			end
             splash:setOrigin(0.5, 0.5)
             splash:setScale(2, 2)
-            splash:setPosition(self.x + Utils.random(384) + 20, self.y + Utils.random(440) + 20)
+            splash:setPosition(self.x + MathUtils.random(384) + 20, self.y + MathUtils.random(440) + 20)
 			splash.layer = self.layer + 0.01
             splash:play(1/15, false, function(s) s:remove() end)
             Game.world:addChild(splash)
@@ -67,10 +89,11 @@ function BeachWater:update()
 end
 
 function BeachWater:draw()
+    super.draw(self)
     love.graphics.setShader(self.shader)
 
     self.shader:send("time", self.siner)
-    self.shader:send("texture_dim", {240, 280})
+    self.shader:send("texture_dim", {194, 280})
     super.draw(self)
     love.graphics.setShader()
 end

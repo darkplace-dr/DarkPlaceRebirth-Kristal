@@ -1,7 +1,7 @@
 return {
   version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -59,6 +59,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -72,6 +73,7 @@ return {
           width = 40,
           height = 260,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -85,6 +87,7 @@ return {
           width = 400,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -98,6 +101,7 @@ return {
           width = 40,
           height = 260,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -111,6 +115,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -124,6 +129,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -137,6 +143,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -150,6 +157,7 @@ return {
           width = 80,
           height = 100,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -163,6 +171,7 @@ return {
           width = 122,
           height = 70,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -176,6 +185,7 @@ return {
           width = 44,
           height = 48,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -189,6 +199,7 @@ return {
           width = 40,
           height = 110,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -218,6 +229,7 @@ return {
           width = 70,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (Patient Name:)\n[wait:5]* (Rudolph \"Rudy\" Holiday)"
@@ -233,6 +245,7 @@ return {
           width = 40,
           height = 38,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's an angel doll.)\n[wait:5]* (Its lack of facial features is unsettling.)"
@@ -248,6 +261,7 @@ return {
           width = 44,
           height = 48,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a chair.)"
@@ -263,6 +277,7 @@ return {
           width = 82,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a bouquet of flowers in a glass container.)"
@@ -278,6 +293,7 @@ return {
           width = 40,
           height = 56,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["text"] = "* (It's a sink.)"
@@ -293,6 +309,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_delay"] = 0.3,
@@ -313,6 +330,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "rudy",
@@ -345,6 +363,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

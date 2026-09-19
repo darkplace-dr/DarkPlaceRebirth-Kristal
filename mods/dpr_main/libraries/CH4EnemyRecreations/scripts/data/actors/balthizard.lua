@@ -13,15 +13,14 @@ function actor:init()
     self.flip = nil
 
     self.path = "battle/enemies/balthizard"
-    self.default = "idle"
+    self.default = "body_full"
 
     self.talk_sprites = {}
 
     self.animations = {
         ["hurt"]   = {"hurt", 1, true},
         ["spared_overlay"] = {"spared", 1, true},
-        ["transition"]   = {nil, 1, false},
-        ["transition_end"]   = {nil, 1, false},
+        ["transition"]  = {"idle", 1, false}
     }
 
     self.offsets = {}
@@ -45,15 +44,6 @@ end
 
 function actor:createSprite()
     return BalthizardActorSprite(self)
-end
-
-function actor:onSetAnimation(sprite, anim, ...)
-    local args = {...}
-    if type(anim) == "table" then anim = anim[1] end
-
-    if anim == "hurt" or anim == "spared" then
-        sprite:setPartVisible(false)
-    end
 end
 
 return actor

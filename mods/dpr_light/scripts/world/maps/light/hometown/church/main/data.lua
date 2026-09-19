@@ -738,7 +738,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 4,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -815,7 +815,9 @@ return {
           gid = 115,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -832,7 +834,9 @@ return {
           gid = 119,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -849,7 +853,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -866,7 +872,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -883,7 +891,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -900,7 +910,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -917,7 +929,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -934,7 +948,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -951,7 +967,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -968,7 +986,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -985,7 +1005,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1002,7 +1024,9 @@ return {
           gid = 88,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1019,7 +1043,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1036,7 +1062,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1053,7 +1081,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1070,7 +1100,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1087,7 +1119,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1104,7 +1138,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1121,7 +1157,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1138,7 +1176,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1155,7 +1195,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {
@@ -1172,7 +1214,9 @@ return {
           gid = 113,
           visible = true,
           properties = {
-            ["day"] = 1
+            ["day"] = 1,
+            ["sunrise"] = 1,
+            ["sunset"] = 1
           }
         },
         {

@@ -9,10 +9,11 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 10,
+  nextlayerid = 11,
   nextobjectid = 36,
   properties = {
     ["border"] = "leaves",
+    ["inside"] = true,
     ["light"] = true,
     ["music"] = "deltarune/mus_school",
     ["school"] = true
@@ -621,6 +622,22 @@ return {
       id = 7,
       name = "sunset",
       class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 6,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      repeatx = false,
+      repeaty = false,
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      image = "../../../../../../../assets/sprites/world/maps/hometown/school/toriel_class_sunset_overcast.png",
+      id = 10,
+      name = "sunset_overcast",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 6,
@@ -629,9 +646,7 @@ return {
       parallaxy = 1,
       repeatx = false,
       repeaty = false,
-      properties = {
-        ["cond"] = "Game:getFlag(\"hometown_time\", \"day\") == \"sunset\""
-      }
+      properties = {}
     },
     {
       type = "objectgroup",

@@ -5,6 +5,7 @@ function Mizzle:init()
 
     self.name = "Mizzle"
     self:setActor("mizzle")
+    self:setAnimation("transition")
 
     self.max_health = 470
     self.health = 470
@@ -13,6 +14,12 @@ function Mizzle:init()
     self.money = 110
     self.experience = 0
     self.spare_points = 10
+
+    if not Game:getFlag("mizzle_awoken") then
+        Game:setFlag("mizzle_awoken", true)
+        self.tired = true
+        self.comment = "(Tired)"
+    end
 
     self.dialogue = {
         "Who's there?\nWho's there?",
@@ -33,14 +40,16 @@ function Mizzle:init()
     self.tired_text = "* Mizzle is dozing."
 	self.spareable_text = "* Mizzle turns the hue of\nunsweetened caffeine-free pink\nlemonade."
 
-    self.low_health_percentage = 1/3
-
-    self.itemstolen = false
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Dazzle", "35%\nMercy")
     self:registerAct("Embezzle", "TIRE,\nsteal\nitem", {"susie"})
     self:registerAct("Nuzzle", "TIRE by\nfluffy\nmove", {"ralsei"})
     self:registerAct("LullabyX", "Sing to\neveryone\n...?", {"susie", "ralsei"})
+
+    self.transition_ended = false
+
+    self.havestolenbefore = false
 
     self.siner = MathUtils.random(100)
 
@@ -53,25 +62,20 @@ function Mizzle:init()
     self.lullaby = false
 end
 
-function Mizzle:setTired(bool, hide_message)
-    local old_tired = self.tired
-    self.tired = bool
+function Mizzle:onAdd(parent)
+    super.onAdd(self, parent)
     if self.tired then
-        self:setAnimation("idle")
-        self.comment = "(Tired)"
-        if Game:getConfig("tiredMessages") and not old_tired and not hide_message then
-            if self.parent then
-                self:statusMessage("msg", "tired")
-                Assets.playSound("spellcast", 0.5, 0.9)
-            end
-        end
-    else
-        self:setAnimation("alarm")
-        self.comment = ""
-        if Game:getConfig("awakeMessages") and old_tired and not hide_message then
-            if self.parent then self:statusMessage("msg", "awake") end
-        end
+        self.encounter.text = "* Mizzle is sleeping peacefully!"
     end
+end
+
+function Mizzle:setTired(bool, hide_message)
+    if bool and not self.tired then
+        self:setAnimation("idle")
+    elseif not bool and self.tired then
+        self:setAnimation("alarm")
+    end
+    super.setTired(self, bool, hide_message)
 end
 
 function Mizzle:onSpareable()
@@ -226,8 +230,31 @@ end
 function Mizzle:update()
     super.update(self)
 
+    if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.transition_ended = true
+        if self.tired then
+            self:setAnimation("idle")
+        else
+            self:setAnimation("alarm")
+        end
+    end
+
+    if Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
+        self.siner = self.siner + (1 / 6) * DTMULT
+        self.sprite.y = self.sprite.init_y + math.sin(self.siner * 0.5) * 5 / 2
+        if self.bubble then
+            local spr = self.sprite or self
+            local x, y = spr:getRelativePos(0, spr.height / 2, Game.battle)
+            if self.tired then
+                self.bubble.y = y - 8
+            else
+                self.bubble.y = y
+            end
+        end
+    end
+
     if self.dazzle then -- handles dazzle
-        self.dazzletimer = self.dazzletimer + 1 * DTMULT
+        self.dazzletimer = self.dazzletimer + DTMULT
         if self.dazzletimer == 1 then
             Assets.playSound("bell_bounce_short")
         elseif self.dazzletimer == 11 then
@@ -239,7 +266,7 @@ function Mizzle:update()
         elseif self.dazzletimer == 23 then
             for i = 1, 6 do
                 local x = self.dazzlebattler.x
-                local y = self.dazzlebattler.y - self.dazzlebattler.height + MathUtils.randomInt(20)
+                local y = self.dazzlebattler.y - self.dazzlebattler.height + MathUtils.randomInt(21)
                 local particle = DazzleParticle(x, y)
                 particle.layer = self.dazzlebattler.layer - 0.01
                 Game.battle:addChild(particle)
@@ -251,7 +278,7 @@ function Mizzle:update()
         local susie = Game.battle:getPartyBattler("susie")
         local ralsei = Game.battle:getPartyBattler("ralsei")
 
-        self.timer = self.timer + 1 * DTMULT
+        self.timer = self.timer + DTMULT
 
         if self.embezzle then -- handles embezzle
             if self.timer == 20 then
@@ -266,19 +293,19 @@ function Mizzle:update()
                 self:shake()
                 susie:shake()
                 Assets.playSound("bump")
-                if self.itemstolen then
+                if self.havestolenbefore then
                     Assets.playSound("ui_cant_select")
                     self.embezzle_result = "* But, there was nothing to steal!"
                 elseif Game.inventory:isFull("items", true) then
                     Assets.playSound("ui_cant_select")
                     self.embezzle_result = "* But, your items are full!"
-                elseif not self.tired and MathUtils.randomInt(100) < 50 then
+                elseif not self.tired and MathUtils.randomInt(101) < 50 then
                     Assets.playSound("ui_cant_select")
                     self.embezzle_result = "* But, she failed!"
                 else
                     Assets.playSound("item")
-                    self.itemstolen = true
-                    local rand = MathUtils.randomInt(100)
+                    self.havestolenbefore = true
+                    local rand = MathUtils.randomInt(101)
                     if rand <= 30 then
                         self.embezzle_result = "* Stole 100 Dark Dollars!"
                         Game.money = Game.money + 100
@@ -353,20 +380,6 @@ function Mizzle:update()
                 ralsei:setSprite("battle/hurt")
                 Assets.stopSound("ralseising1")
                 ralsei:shake()
-            end
-        end
-    end
-
-    if Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
-        self.siner = self.siner + (1 / 6) * DTMULT
-        self.sprite.y = (math.sin(self.siner * 0.5)) * 5
-        if self.bubble then
-            local spr = self.sprite or self
-            local x, y = spr:getRelativePos(0, spr.height/2, Game.battle)
-            if self.tired then
-                self.bubble.y = y - 8
-            else
-                self.bubble.y = y
             end
         end
     end

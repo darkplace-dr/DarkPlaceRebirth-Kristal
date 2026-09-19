@@ -26,7 +26,7 @@ return {
     },
     {
       name = "hometownshadowsobjects",
-      firstgid = 180,
+      firstgid = 205,
       filename = "../../../../tilesets/hometownshadowsobjects.tsx",
       exportfilename = "../../../../tilesets/hometownshadowsobjects.lua"
     }

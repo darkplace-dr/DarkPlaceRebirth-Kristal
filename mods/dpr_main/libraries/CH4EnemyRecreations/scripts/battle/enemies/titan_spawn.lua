@@ -12,10 +12,9 @@ function TitanSpawn:init()
     self.defense = 0
     self.money = 0
 
-    self.disable_mercy = true
+    self.spare_points = 0
 
-    self.tired = false
-    self.tired_percentage = -1
+    self.disable_mercy = true
 
     self.can_freeze = false
 
@@ -28,14 +27,12 @@ function TitanSpawn:init()
         table.insert(self.text, "* Ralsei mutters to himself to \nstay calm.")
     end
 
-	self.low_health_text = nil
-	self.tired_text = nil
-	self.spareable_text = nil
+	self.tired_percentage = 0
 
     self:getAct("Check").description = "Consider\nstrategy"
     self:registerAct("Brighten", "Powerup\nlight", "all", 4)
-    self:registerAct("DualHeal", "Heal\nparty", {"susie", "ralsei"}, 16)
-    self:registerAct("Banish",   "Defeat\nenemy",  nil,   64)
+    self:registerAct("DualHeal", "Heal\nparty", { "susie", "ralsei" }, 16)
+    self:registerAct("Banish", "Defeat\nenemy", nil, 64)
 
     self.dualhealcount = 0
 
@@ -56,7 +53,7 @@ end
 function TitanSpawn:update()
     super.update(self)
     if Game.battle.state == "MENUSELECT" and Game.battle.state_reason == "ACT" and Game.tension >= 64 then
-        self.t_siner = self.t_siner + (1 * DTMULT)
+        self.t_siner = self.t_siner + DTMULT
         if Game.battle.menu_items[self.banish_act_index] then
             Game.battle.menu_items[self.banish_act_index].color = function()
                 return (ColorUtils.mergeColor(COLORS.yellow, COLORS.white, 0.5 + (math.sin(self.t_siner / 4) * 0.5)))
@@ -137,7 +134,7 @@ function TitanSpawn:onAct(battler, name)
         soul:setScale(2, 2)
         Game.battle:addChild(soul)
 		Game.battle.encounter.light_radius = 63
-        return "* "..battler.chara:getName().."'s SOUL shone brighter!"
+        return "* " .. battler.chara:getName() .. "'s SOUL shone brighter!"
     elseif name == "DualHeal" then
         self.dualhealcount = self.dualhealcount + 1
         Game.battle:startActCutscene(function(cutscene)
@@ -166,19 +163,19 @@ function TitanSpawn:onAct(battler, name)
             cutscene:wait(function() return canproceed == true end)
             susie:setAnimation("heal_end_short", function() susie:setAnimation("battle/idle") end)
             ralsei:setAnimation("battle/spell", function()
-                for _,party in ipairs(Game.battle.party) do
+                for _, party in ipairs(Game.battle.party) do
                     local healnum = MathUtils.round((susie.chara:getStat("magic") + ralsei.chara:getStat("magic")) * 6)
                     healnum = Game.battle:applyHealBonuses(healnum, susie.chara)
                     healnum = Game.battle:applyHealBonuses(healnum, ralsei.chara)
-                    local healmultiplier = 1.5
-                    if self.dualhealcount == 2 then
+                    local healmultiplier = 0.2
+                    if self.dualhealcount == 1 then
+                        healmultiplier = 1.5
+                    elseif self.dualhealcount == 2 then
                         healmultiplier = 1
                     elseif self.dualhealcount == 3 then
                         healmultiplier = 0.8
                     elseif self.dualhealcount == 4 then
                         healmultiplier = 0.3
-                    elseif self.dualhealcount > 4 then
-                        healmultiplier = 0.2
                     end
                     party:heal(MathUtils.round(healnum * healmultiplier))
                 end
@@ -195,7 +192,7 @@ function TitanSpawn:onAct(battler, name)
     elseif name == "Banish" then
         battler:setAnimation("act")
         Game.battle:startActCutscene(function(cutscene)
-            cutscene:text("* "..battler.chara:getName().."'s SOUL emitted a brilliant \nlight!")
+            cutscene:text("* " .. battler.chara:getName() .. "'s SOUL emitted a brilliant \nlight!")
             battler:flash()
 
             local bx, by = battler:getRelativePos(battler.width / 2 + 4, battler.height / 2 + 4)
@@ -217,7 +214,7 @@ function TitanSpawn:onAct(battler, name)
         Game.battle:startActCutscene(function(cutscene)
             local kris = Game.battle:getPartyBattler("kris")
 			self.wake_kris_count = self.wake_kris_count + 1
-            cutscene:text("* "..battler.chara:getName().." used Wake Up!")
+            cutscene:text("* " .. battler.chara:getName() .. " used Wake Up!")
 			if self.wake_kris_count == 1 then
 				cutscene:text("* Hey, dumbass! Get up!")
 			end
@@ -235,45 +232,41 @@ function TitanSpawn:onAct(battler, name)
 			kris:shake()
 			cutscene:wait(0.5)
 			battler:setAnimation("battle/idle")
-			if kris then
-				local kris_member = Game:getPartyMember("kris")
-				if kris_member.health <= 0 then
-					local reviveamt = math.abs(kris_member.health) + 1
-					kris:heal(reviveamt)
-				else
-					cutscene:text("* (But, Kris wasn't DOWNed...)")
-				end
+			if kris.chara.health <= 0 then
+				local reviveamt = math.abs(kris.chara.health) + 1
+				kris:heal(reviveamt)
+			else
+				cutscene:text("* (But, Kris wasn't DOWNed...)")
 			end
         end)
         return
 	elseif name == "ReviveKris" then
         Game.battle:startActCutscene(function(cutscene)
             local kris = Game.battle:getPartyBattler("kris")
-			local kris_member = Game:getPartyMember("kris")
-            cutscene:text("* "..battler.chara:getName().." used Reviver!")
+            cutscene:text("* " .. battler.chara:getName() .. " used Reviver!")
 			battler:setAnimation("battle/spell")
             local bx, by = kris:getRelativePos(0, 0)
-            local cherub = Game.battle:addChild(TitanRalseiCherub(kris, bx+20, by+10))
-			if kris_member.health > 0 then
+            local cherub = Game.battle:addChild(TitanRalseiCherub(kris, bx + 20, by + 10))
+			if kris.chara.health > 0 then
 				cherub.xoff = cherub.xoff - 6
 				cherub.yoff = cherub.yoff - 20
 			end
             cherub.layer = kris.layer
-			cutscene:wait(58/30)
+			cutscene:wait(58 / 30)
 			battler:setAnimation("battle/idle")
 			if kris then
-				local starthp = kris_member.health
+				local starthp = kris.chara.health
 				if starthp <= 0 then
-					kris:heal(math.abs(starthp) + math.ceil(kris_member:getStat("health") / 3))
+					kris:heal(math.abs(starthp) + math.ceil(kris.chara:getStat("health") / 3))
 				else
-					kris:heal(math.ceil(kris_member:getStat("health") * 0.5))					
+					kris:heal(math.ceil(kris.chara:getStat("health") * 0.5))
 				end
 			end
         end)
         return
     elseif name == "Standard" then
         Game.battle:startActCutscene(function(cutscene)
-            cutscene:text("* "..battler.chara:getName().." tried to \"[color:yellow]ACT[color:reset]\"...\n* But, the enemy couldn't understand!")
+            cutscene:text("* " .. battler.chara:getName() .. " tried to \"[color:yellow]ACT[color:reset]\"...\n* But, the enemy couldn't understand!")
         end)
         return
     end
@@ -322,26 +315,14 @@ function TitanSpawn:onDefeat(damage, battler)
     self:onDefeatFatal(damage, battler)
 end
 
-function TitanSpawn:freeze()
-    self:onDefeat()
-end
-
 function TitanSpawn:getEncounterText()
-	if Game:getTension() < 64 and MathUtils.randomInt(100) < 4 then
-		return "* Smells like adrenaline."
-    elseif Game:getTension() >= 64 then
+    if Game:getTension() >= 64 then
 		return "* The atmosphere feels tense...\n* (You can use [color:yellow]BANISH[color:reset]!)"
+    elseif MathUtils.randomInt(100) < 4 then
+		return "* Smells like adrenaline."
 	else
 		return super.getEncounterText(self)
 	end
-end
-
-function TitanSpawn:onPurifyStart()
-	self.x = self.x + 300
-end
-
-function TitanSpawn:onPurifyEnd()
-	self:spare()
 end
 
 return TitanSpawn

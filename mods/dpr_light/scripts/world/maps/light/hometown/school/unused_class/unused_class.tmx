@@ -5,6 +5,7 @@
  </editorsettings>
  <properties>
   <property name="border" value="leaves"/>
+  <property name="inside" type="bool" value="true"/>
   <property name="light" type="bool" value="true"/>
   <property name="music" value="deltarune/mus_school"/>
   <property name="school" type="bool" value="true"/>
@@ -12,7 +13,7 @@
  <imagelayer id="2" name="room">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/school/abandoned_class.png" width="640" height="480"/>
  </imagelayer>
- <imagelayer id="7" name="room_night">
+ <imagelayer id="7" name="room_night" visible="0">
   <image source="../../../../../../../assets/sprites/world/maps/hometown/school/abandoned_class_night.png" width="640" height="480"/>
  </imagelayer>
  <objectgroup color="#5500ff" id="3" name="collision">

@@ -8,8 +8,8 @@ function Organikk:init()
     self.music = "ch4_battle"
     self.background = true
 
-    self.organ_1 = self:addEnemy("organikk", 550, 182)
-    self.organ_2 = self:addEnemy("organikk", 526, 284)
+    self.organ_1 = self:addEnemy("organikk", 524, 193)
+    self.organ_2 = self:addEnemy("organikk", 524, 314)
 end
 
 function Organikk:getPartyPosition(index)

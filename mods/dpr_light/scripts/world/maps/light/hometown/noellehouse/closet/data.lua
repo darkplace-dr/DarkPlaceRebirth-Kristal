@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -66,6 +66,7 @@ return {
           width = 56,
           height = 32,
           rotation = 0,
+          opacity = 1,
           gid = 127,
           visible = true,
           properties = {}
@@ -96,6 +97,7 @@ return {
           width = 56,
           height = 32,
           rotation = 90,
+          opacity = 1,
           gid = 136,
           visible = true,
           properties = {}
@@ -126,6 +128,7 @@ return {
           width = 64,
           height = 60,
           rotation = 0,
+          opacity = 1,
           gid = 138,
           visible = true,
           properties = {}
@@ -140,6 +143,7 @@ return {
           width = 40,
           height = 54,
           rotation = 0,
+          opacity = 1,
           gid = 141,
           visible = true,
           properties = {}
@@ -154,6 +158,7 @@ return {
           width = 48,
           height = 36,
           rotation = 0,
+          opacity = 1,
           gid = 142,
           visible = true,
           properties = {}
@@ -168,6 +173,7 @@ return {
           width = 34,
           height = 32,
           rotation = 0,
+          opacity = 1,
           gid = 140,
           visible = true,
           properties = {}
@@ -182,6 +188,7 @@ return {
           width = 38,
           height = 34,
           rotation = 0,
+          opacity = 1,
           gid = 139,
           visible = true,
           properties = {}
@@ -196,6 +203,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           gid = 137,
           visible = true,
           properties = {}
@@ -210,6 +218,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["exit_sound"] = "doorclose",
@@ -245,6 +254,7 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -258,6 +268,7 @@ return {
           width = 80,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -271,6 +282,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -284,6 +296,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -297,6 +310,7 @@ return {
           width = 160,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -310,6 +324,7 @@ return {
           width = 38,
           height = 24,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -323,6 +338,7 @@ return {
           width = 38,
           height = 24,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -336,6 +352,7 @@ return {
           width = 48,
           height = 24,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -349,6 +366,7 @@ return {
           width = 64,
           height = 48,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -362,6 +380,7 @@ return {
           width = 34,
           height = 20,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -375,6 +394,7 @@ return {
           width = 40,
           height = 43,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -404,6 +424,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
