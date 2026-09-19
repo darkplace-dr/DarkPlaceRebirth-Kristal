@@ -4,6 +4,21 @@ local hub = {
     -- This allows it to fetch us useful documentation that shows all of the available cutscene functions while writing our cutscenes!
 
     ---@param cutscene WorldCutscene
+    
+    fuselings = function(cutscene,event)
+        if Game:getFlag("fuseling", false) then
+            cutscene:text("* I am THE fuseling.\nI have been fused.")
+            cutscene:text("* ...Now. We shall fuse a way for you to exit!")
+            Assets.playSound("closet_impact")
+            Game.world.map:getTileLayer("showme").visible = false
+			Game.world.map:getHitbox("remove").collidable = false
+            cutscene:shakeCamera(0,16,1)
+        else
+            cutscene:text("* We are the fuselings!\nWe await our fusing!")
+            Game:setFlag("fuseling", true)
+            event:explode()
+        end
+    end,
     wall = function(cutscene, event)
         -- Open textbox and wait for completion
         cutscene:text("* The wall seems cracked.")
@@ -408,6 +423,29 @@ local hub = {
         cutscene:text("* I am this room's smith, [wait:5]MALIUS.")
         cutscene:text("* Using my skills, [wait:5]I can FUSE items to create NEW ONES.")
         cutscene:text("* Or I can REPAIR whatever broken items you possess.")
+        if Game:getFlag("Fusequest", 0) == 1 then
+            cutscene:text("* ...What's that? You need me to fuse some... 'new f%%%ing dialogue' ?")
+            cutscene:text("* [wait:3].[wait:3].[wait:3].[wait:3]I guess,[wait:3] just a little couldn't hurt.")
+            Game.world.music:pause()
+            local malius = cutscene:getCharacter("malius")
+            Assets.playSound("noise")
+            malius:setAnimation("powerup")
+            cutscene:wait(1.5)
+                malius:setAnimation("hit")
+                Assets.playSound("squeaky")
+                cutscene:wait(9/15)
+                malius:setAnimation("hit")
+                Assets.playSound("squeaky")
+                cutscene:wait(9/15)
+                malius:setAnimation("hit")
+                Assets.playSound("squeaky")
+                cutscene:wait(9/15)
+                malius:resetSprite()
+                Game.world.music:resume()
+                cutscene:wait(0.5)
+                Game:setFlag("Fusequest", 2)
+                cutscene:text("* Done! Now you just need to apply it!")
+        end
 
         local choice = cutscene:choicer({"Fix Item", "Fuse", "Fix Us", "Leave"})
         if choice == 2 then

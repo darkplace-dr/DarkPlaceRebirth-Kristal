@@ -1,17 +1,16 @@
-local actor, super = Class(Actor, "fuselings")
+local actor, super = Class(Actor, "cuppity")
 
 function actor:init()
     super.init(self)
 
     -- Display name (optional)
-    self.name = "Fuselings"
+    self.name = "cup1t3"
 
     -- Width and height for this actor, used to determine its center
-    self.width = 50
-    self.height = 30
+    self.width = 29
+    self.height = 24
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    --self.hitbox = {2, 26, 27, 10}
 
     -- Color for this actor used in outline areas (optional, defaults to red)
     self.color = {1, 1, 0}
@@ -20,13 +19,9 @@ function actor:init()
     self.flip = nil
 
     -- Path to this actor's sprites (defaults to "")
-    self.path = "world/npcs"
+    self.path = "world/npcs/npc_update/cuppity"
     -- This actor's default sprite or animation, relative to the path (defaults to "")
-    if Game:getFlag("fuseling", false) == false then
-    self.default = "fuselings_1"
-    else
-    self.default = "fuselings_2"
-    end
+    self.default = ""
 
     -- Sound to play when this actor speaks (optional)
     self.voice = nil
@@ -39,11 +34,10 @@ function actor:init()
     self.can_blush = false
 
     -- Table of talk sprites and their talk speeds (default 0.25)
-    self.talk_sprites = {["fuselings_1"] = 0}
+    self.talk_sprites = {[""] = 0.2}
 
     -- Table of sprite animations
-    self.animations = {["fuselings_2"]={"fuselings_2", 0, true},
-                        ["fuselings_1"]={"fuselings_1",0,true}}
+    self.animations = {}
 
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {}

@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 12,
+  nextlayerid = 8,
+  nextobjectid = 13,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub"
@@ -50,9 +50,9 @@ return {
         0, 0, 79, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 81, 43, 44, 45, 0, 0, 0, 0, 0,
         0, 0, 79, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 81, 43, 44, 45, 0, 0, 0, 0, 0,
         0, 0, 92, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 94, 43, 44, 45, 0, 0, 0, 0, 0,
-        0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0, 0, 0,
-        0, 0, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 0, 0, 0, 0, 0,
-        0, 0, 27, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 0, 0, 0, 0, 0,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0, 0, 0,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 0, 0, 0, 0, 0,
+        28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
@@ -89,6 +89,38 @@ return {
       }
     },
     {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 24,
+      height = 12,
+      id = 7,
+      name = "showme",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        15, 15, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        15, 15, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        15, 15, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
       type = "objectgroup",
       draworder = "topdown",
       id = 3,
@@ -105,7 +137,7 @@ return {
         {
           id = 1,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 760,
           y = 200,
@@ -118,7 +150,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 80,
@@ -131,11 +163,11 @@ return {
         {
           id = 3,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 80,
+          x = 0,
           y = 120,
-          width = 560,
+          width = 640,
           height = 200,
           rotation = 0,
           visible = true,
@@ -143,8 +175,8 @@ return {
         },
         {
           id = 4,
-          name = "",
-          class = "",
+          name = "remove",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 320,
@@ -157,11 +189,11 @@ return {
         {
           id = 5,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
-          x = 80,
+          x = 0,
           y = 440,
-          width = 680,
+          width = 760,
           height = 40,
           rotation = 0,
           visible = true,
@@ -186,7 +218,7 @@ return {
         {
           id = 6,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 120,
@@ -202,7 +234,7 @@ return {
         {
           id = 9,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 360,
           y = 340,
@@ -218,7 +250,7 @@ return {
         {
           id = 11,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 160,
           y = 338,
@@ -228,7 +260,23 @@ return {
           visible = true,
           properties = {
             ["actor"] = "fuselings",
-            ["text"] = "* We are the fuselings\nWe await our fusing."
+            ["cutscene"] = "hub.fuselings"
+          }
+        },
+        {
+          id = 12,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = 320,
+          width = 40,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "floor1/highroom",
+            ["marker"] = "spawn"
           }
         }
       }
@@ -250,7 +298,7 @@ return {
         {
           id = 7,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 920,
           y = 160,
@@ -263,7 +311,7 @@ return {
         {
           id = 8,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 700,
           y = 160,

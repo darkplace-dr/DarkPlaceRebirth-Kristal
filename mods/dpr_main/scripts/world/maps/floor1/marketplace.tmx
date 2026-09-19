@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="65">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="31" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="69">
  <editorsettings>
   <export target="marketplace.lua" format="lua"/>
  </editorsettings>
@@ -9,7 +9,8 @@
  </properties>
  <tileset firstgid="1" source="../../tilesets/main_area.tsx"/>
  <tileset firstgid="209" source="../../tilesets/other-objects.tsx"/>
- <tileset firstgid="213" source="../../tilesets/hub_objects.tsx"/>
+ <tileset firstgid="214" source="../../tilesets/hub_objects.tsx"/>
+ <tileset firstgid="232" source="../../tilesets/Tilesetthingy.tsx"/>
  <layer id="1" name="Tile Layer 1" width="31" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32,9 +33,25 @@
 0,0,0,0,0,0,0,134,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,131,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,147,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,144,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,160,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,157,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,170,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,186,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,183,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,170,0,0,56,57,58,0,0,
+0,0,0,0,0,0,0,186,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,183,0,0,0,70,71,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,110,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="6" name="Tile Layer 3" width="31" height="12" opacity="0.23" tintcolor="#0009b5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,239,239,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,239,239,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,239,239,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,239,239,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -43,7 +60,7 @@
 </data>
  </layer>
  <objectgroup color="#0000ff" id="3" name="collision">
-  <object id="2" x="1040" y="240" width="200" height="40"/>
+  <object id="2" x="1160" y="120" width="80" height="160"/>
   <object id="6" x="649" y="180" width="100" height="40"/>
   <object id="21" x="0" y="240" width="200" height="40"/>
   <object id="37" x="320" y="40" width="600" height="160"/>
@@ -64,6 +81,7 @@
   </object>
   <object id="57" x="0" y="360" width="200" height="40"/>
   <object id="58" x="1040" y="360" width="200" height="40"/>
+  <object id="65" x="1040" y="120" width="40" height="160"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="14" name="transition" x="1240" y="280" width="40" height="80">
@@ -108,7 +126,7 @@
    <point/>
   </object>
   <object id="53" gid="211" x="642" y="220" width="114" height="140"/>
-  <object id="59" name="npc" x="1000" y="280">
+  <object id="59" name="npc" x="1000" y="387">
    <properties>
     <property name="actor" value="boxer"/>
     <property name="text1">* (Shuffle  shuffle.)
@@ -117,15 +135,28 @@
    </properties>
    <point/>
   </object>
-  <object id="63" gid="229" x="210" y="270" width="60" height="88"/>
+  <object id="63" gid="230" x="210" y="270" width="60" height="88"/>
   <object id="64" name="interactable" x="210.005" y="229.253" width="60" height="40.75">
    <properties>
     <property name="cutscene" value="hub.vending"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="66" name="transition" x="1080" y="120" width="80" height="40">
+   <properties>
+    <property name="map" value="floor1/doorsroom"/>
+    <property name="marker" value="door1"/>
+   </properties>
+  </object>
+  <object id="68" name="npc" x="1000" y="269">
+   <properties>
+    <property name="actor" value="glassy"/>
+    <property name="text1" value="* How classy! I just love this strange, ALLURING banner!"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
- <objectgroup color="#7f00ff" id="5" name="markers" visible="0">
+ <objectgroup color="#7f00ff" id="5" name="markers">
   <object id="15" name="entry" x="1200" y="320">
    <point/>
   </object>
@@ -133,6 +164,9 @@
    <point/>
   </object>
   <object id="27" name="exit_shop" x="40" y="320">
+   <point/>
+  </object>
+  <object id="67" name="door1" x="1120" y="200">
    <point/>
   </object>
  </objectgroup>
