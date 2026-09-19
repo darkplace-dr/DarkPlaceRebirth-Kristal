@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 68,
+  nextobjectid = 69,
   properties = {
     ["border"] = "mainhub",
     ["music"] = "mainhub"
@@ -493,7 +493,7 @@ return {
           type = "",
           shape = "point",
           x = 1000,
-          y = 280,
+          y = 387,
           width = 0,
           height = 0,
           rotation = 0,
@@ -548,6 +548,22 @@ return {
           properties = {
             ["map"] = "floor1/doorsroom",
             ["marker"] = "door1"
+          }
+        },
+        {
+          id = 68,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 1000,
+          y = 269,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "glassy",
+            ["text1"] = "* How classy! I just love this strange, ALLURING banner!"
           }
         }
       }

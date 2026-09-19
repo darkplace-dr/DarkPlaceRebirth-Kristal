@@ -10,8 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 15,
-  nextobjectid = 26,
-  properties = {},
+  nextobjectid = 29,
+  properties = {
+    ["music"] = "doorsroom"
+  },
   tilesets = {
     {
       name = "main_area",
@@ -291,8 +293,8 @@ return {
       encoding = "lua",
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 377, 378, 0, 379, 380, 381, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 395, 396, 0, 397, 398, 399, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 377, 378, 0, 379, 380, 381, 0, 0, 1, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0,
+        0, 0, 395, 396, 0, 397, 398, 399, 0, 0, 27, 28, 28, 28, 28, 29, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 237, 237, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 255, 237, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -487,10 +489,10 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 520,
-          y = 40,
-          width = 160,
-          height = 80,
+          x = 640,
+          y = 0,
+          width = 40,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {}
@@ -502,7 +504,7 @@ return {
           shape = "rectangle",
           x = 360,
           y = 0,
-          width = 200,
+          width = 280,
           height = 40,
           rotation = 0,
           visible = true,
@@ -542,6 +544,19 @@ return {
           x = 203,
           y = 64,
           width = 120,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 62,
+          width = 80,
           height = 40,
           rotation = 0,
           visible = true,
@@ -621,7 +636,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "* Test FUCKING dialogue"
+            ["text"] = "* (It's a flier, advertising some 'Test FUCKING dialogue')"
           }
         },
         {
@@ -654,6 +669,37 @@ return {
             ["actor"] = "tearful",
             ["text1"] = "* (It seems to be crying! But why?)",
             ["text2"] = "* (It cries to cry, that is why?                       )"
+          }
+        },
+        {
+          id = 26,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "gumbler",
+            ["cutscene"] = "loopness.gumbler"
+          }
+        },
+        {
+          id = 28,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 80,
+          y = 60,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "loopness.console"
           }
         }
       }

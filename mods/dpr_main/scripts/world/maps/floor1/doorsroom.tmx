@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="28">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="30">
  <editorsettings>
   <export target="doorsroom.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="music" value="doorsroom"/>
+ </properties>
  <tileset firstgid="1" source="../../tilesets/church.tsx"/>
  <tileset firstgid="583" source="../../tilesets/hell.tsx"/>
  <layer id="8" name="Tile Layer 2" width="25" height="15">
@@ -85,9 +88,19 @@
     <property name="cutscene" value="loopness.door1"/>
    </properties>
   </object>
-  <object id="27" name="interactable" x="400" y="240" width="40" height="40">
+  <object id="27" name="interactable" x="400" y="240" width="80" height="40">
    <properties>
-    <property name="text" value="...It's broken."/>
+    <property name="text" value="* ...It's broken."/>
+   </properties>
+  </object>
+  <object id="28" name="interactable" x="520" y="120" width="80" height="80">
+   <properties>
+    <property name="text" value="* It appears to not work, currently."/>
+   </properties>
+  </object>
+  <object id="29" name="interactable" x="800" y="240" width="120" height="120">
+   <properties>
+    <property name="text" value="* It's solid..."/>
    </properties>
   </object>
  </objectgroup>

@@ -10,8 +10,10 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 28,
-  properties = {},
+  nextobjectid = 30,
+  properties = {
+    ["music"] = "doorsroom"
+  },
   tilesets = {
     {
       name = "church",
@@ -382,12 +384,42 @@ return {
           shape = "rectangle",
           x = 400,
           y = 240,
-          width = 40,
+          width = 80,
           height = 40,
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "...It's broken."
+            ["text"] = "* ...It's broken."
+          }
+        },
+        {
+          id = 28,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 520,
+          y = 120,
+          width = 80,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* It appears to not work, currently."
+          }
+        },
+        {
+          id = 29,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 240,
+          width = 120,
+          height = 120,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text"] = "* It's solid..."
           }
         }
       }

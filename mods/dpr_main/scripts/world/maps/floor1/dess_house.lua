@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -82,7 +82,7 @@ return {
         {
           id = 23,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 256,
@@ -112,7 +112,7 @@ return {
         {
           id = 2,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 200,
@@ -125,7 +125,7 @@ return {
         {
           id = 12,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 160,
@@ -138,7 +138,7 @@ return {
         {
           id = 13,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 160,
@@ -151,7 +151,7 @@ return {
         {
           id = 14,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 120,
@@ -164,7 +164,7 @@ return {
         {
           id = 15,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 200,
@@ -177,7 +177,7 @@ return {
         {
           id = 16,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 40,
           y = 440,
@@ -190,7 +190,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 120,
           y = 480,
@@ -203,7 +203,7 @@ return {
         {
           id = 20,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 440,
           y = 440,
@@ -216,7 +216,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 520,
           y = 360,
@@ -229,7 +229,7 @@ return {
         {
           id = 24,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 130,
           y = 148,
@@ -258,7 +258,7 @@ return {
         {
           id = 1,
           name = "transition",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 240,
@@ -274,7 +274,7 @@ return {
         {
           id = 22,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 440,
           y = 240,
@@ -290,7 +290,7 @@ return {
         {
           id = 27,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 133.333,
           y = 174,
@@ -299,13 +299,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text1"] = "* This is also an air conditioner but I was indeciseive on where to put it so I put two of them."
+            ["cutscene"] = "loopness.aircon1"
           }
         },
         {
           id = 28,
           name = "interactable",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 289.333,
           y = 174,
@@ -321,7 +321,7 @@ return {
         {
           id = 29,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 80,
           y = 430,
@@ -354,7 +354,7 @@ return {
         {
           id = 9,
           name = "entry",
-          class = "",
+          type = "",
           shape = "point",
           x = 600,
           y = 320,
@@ -367,7 +367,7 @@ return {
         {
           id = 10,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 280,
           y = 360,

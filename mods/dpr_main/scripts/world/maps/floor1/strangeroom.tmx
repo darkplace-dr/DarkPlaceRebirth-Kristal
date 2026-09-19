@@ -3,6 +3,9 @@
  <editorsettings>
   <export target="strangeroom.lua" format="lua"/>
  </editorsettings>
+ <properties>
+  <property name="music" value="evilnoises"/>
+ </properties>
  <tileset firstgid="1" source="../../tilesets/Tilesetthingy.tsx"/>
  <layer id="8" name="Tile Layer 2" width="20" height="14">
   <data encoding="csv">
@@ -125,8 +128,8 @@
   <object id="7" name="slidearea" x="440" y="352" width="40" height="208"/>
   <object id="8" name="transition" x="400" y="520" width="120" height="40">
    <properties>
-    <property name="map" value=""/>
-    <property name="marker" value=""/>
+    <property name="map" value="floor1/groundarea"/>
+    <property name="marker" value="slidearea"/>
    </properties>
   </object>
   <object id="11" name="transition" x="760" y="240" width="40" height="80">

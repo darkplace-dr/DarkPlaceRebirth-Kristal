@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="22">
+ <editorsettings>
+  <export target="normalroom.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="name" value="Castle - ???"/>
+ </properties>
+ <tileset firstgid="1" source="../../tilesets/castle.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="20" height="20">
+  <data encoding="csv">
+0,0,0,32,33,33,33,33,33,33,31,34,0,0,0,0,0,0,0,0,
+0,0,0,32,33,33,33,33,33,33,33,34,0,0,0,0,0,0,0,0,
+0,0,0,32,31,33,33,33,33,33,33,34,0,0,0,0,0,0,0,0,
+0,0,0,32,33,33,33,31,33,33,33,34,0,0,0,0,0,0,0,0,
+0,0,0,38,39,39,39,39,39,39,39,40,0,0,0,0,0,0,0,0,
+0,0,0,8,9,9,9,9,9,9,9,10,0,0,0,0,0,0,0,0,
+0,0,0,14,15,15,15,15,15,15,15,16,0,0,0,0,0,0,0,0,
+0,0,0,14,15,15,15,15,15,15,15,16,0,26,27,28,0,0,0,0,
+0,0,0,14,15,15,15,15,15,15,15,16,0,32,33,34,0,0,0,0,
+0,0,0,20,21,21,21,15,15,15,21,22,0,32,33,34,0,0,0,0,
+0,0,0,26,27,27,28,2,3,4,0,0,0,32,1,34,0,0,0,0,
+0,0,0,32,33,33,34,2,3,4,0,0,0,8,9,10,0,0,0,0,
+0,0,0,38,39,39,40,2,3,4,0,0,0,14,15,16,0,0,0,0,
+0,0,0,8,9,9,9,15,15,15,9,9,9,15,15,22,0,0,0,0,
+0,0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,0,0,0,
+0,0,0,14,15,15,15,15,15,15,15,15,15,15,16,0,0,0,0,0,
+0,0,0,20,21,21,21,21,21,21,21,21,21,21,22,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="Tile Layer 2" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,44,45,46,0,0,15,9,9,9,9,9,9,9,9,
+0,0,0,0,0,0,50,51,52,0,0,15,21,0,0,0,21,21,21,21,
+0,0,0,0,0,0,56,57,58,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="2" name="collision">
+  <object id="1" x="480" y="160" width="320" height="80"/>
+  <object id="3" x="400" y="400" width="120" height="120"/>
+  <object id="4" x="480" y="320" width="320" height="120"/>
+  <object id="6" x="120" y="160" width="360" height="40"/>
+  <object id="7" x="120" y="400" width="160" height="120"/>
+  <object id="8" x="80" y="160" width="40" height="520"/>
+  <object id="9" x="80" y="680" width="520" height="40"/>
+  <object id="10" x="600" y="560" width="40" height="160"/>
+  <object id="11" x="640" y="440" width="40" height="160"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" id="3" name="paths"/>
+ <objectgroup color="#ff00ff" id="4" name="objects">
+  <object id="12" name="npc" x="307" y="240">
+   <properties>
+    <property name="actor" value="wallguy"/>
+    <property name="text" value="* WOAH WOAH WOAH! THIS WALL IS OFF-LIMITS FOR YOU!"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="npc" x="520" y="640">
+   <properties>
+    <property name="actor" value="walksterer"/>
+    <property name="text1" value="These stairs are pissing me off."/>
+    <property name="text2" value="I'm original. Walking stars."/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="savepoint" x="160" y="320">
+   <properties>
+    <property name="text" value="The silence fills you with a power."/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="transition" x="800" y="240" width="40" height="80">
+   <properties>
+    <property name="map" value="floor1/traininggrounds"/>
+    <property name="marker" value="entry"/>
+   </properties>
+  </object>
+  <object id="21" name="interactable" x="560" y="400" width="40" height="40">
+   <properties>
+    <property name="cutscene" value="loopness.mouse"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00c000" id="5" name="controllers"/>
+ <objectgroup color="#7f00ff" id="6" name="markers">
+  <object id="15" name="spawn" x="320" y="320">
+   <point/>
+  </object>
+  <object id="18" name="entry" x="760" y="280">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="7" name="battleareas"/>
+ <layer id="9" name="Tile Layer 3" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,26,27,28,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

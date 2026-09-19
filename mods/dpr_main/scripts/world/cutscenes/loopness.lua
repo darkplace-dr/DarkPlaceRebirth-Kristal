@@ -88,6 +88,88 @@ Game.world:detachFollowers()
     cutscene:attachFollowers()
 end,
 
+aircon1 = function(cutscene,event)
+    cutscene:text("* This is also an air conditioner but I was indeciseive on where to put it so I put two of them.")
+    cutscene:text("* ...Walk through it?")
+        local choicer = cutscene:choicer({
+        "Yes",
+        "No",
+        })
+        if  choicer == 1 then
+        cutscene:mapTransition("doorsroom", "door3")
+        else
+        cutscene:text("* You sigh in relief.")
+        end
+end,
+console = function(cutscene,event)
+    cutscene:text("* There's a console here.")
+    local choicer = cutscene:choicer({
+        "Yes",
+        "No",
+        })
+        if  choicer == 1 then
+        cutscene:mapTransition("floor1/normalroom", "spawn")
+        else
+        cutscene:text("* You sigh in relief.")
+        end
+end,
+gumbler = function(cutscene,event)
+    local gumbler = cutscene:getCharacter("gumbler")
+cutscene:setSpeaker(gumbler)
+    if Game:getFlag("Fusequest", 0) == 3 then
+        cutscene:text("* TEST FUCKING DIALOGUE")
+    else
+    cutscene:text("* Oh, you can FUSE?")
+    cutscene:text("* Well Go FUSE Me SOME NEW F%%%ING DIALOGUE!")
+    if Game:getFlag("Fusequest", 0) == 2 then
+        cutscene:text("* (Apply the new dialogue?)")
+        local choicer = cutscene:choicer({
+        "Yes",
+        "No"
+        })
+        if choicer == 1 then
+            cutscene:text("* TEST FUCKING DIALOGUE")
+            Game:setFlag("Fusequest", 3)
+        else
+            cutscene:text("* (You don't apply the new dialogue)")
+        end
+    else
+    Game:setFlag("Fusequest", 1)
+    end
+    end
+end,
+
+crazy = function(cutscene,event)
+    local dino = cutscene:getCharacter("johndino")
+    cutscene:setSpeaker(dino)
+    if Game.inventory:hasItem("special_spaghetti") then
+    cutscene:text("* IT? THAT'S A'S pasta")
+    cutscene:text("* GIVE IT TO mE'S, MEMEMEMEMEMEMEME'S!!!")
+    cutscene:text("* (Give?)")
+    local choicer = cutscene:choicer({
+        "No",
+        "No",
+        "No",
+        "PASTA"
+        })
+        if choicer == 4 then
+           cutscene:text("* this is burning my nose. thank you. i will now bestow upon you only the finest of gifts. goodbye, kind people.")
+           cutscene:text("* You got the [color:yellow]Dino blend[color:reset].", nil, event)
+			Game.inventory:addItem("dino_blend")
+            cutscene:mapTransition("floor1/doorsroom", "door3")
+        else
+            cutscene:text("* WHY??? WHY DO YOU tORTURE??z? GIVE ME NOW!!!")
+            cutscene:mapTransition("floor1/doorsroom", "door3")
+        end
+else
+    cutscene:text("* OH! YOU WANT out. Of THIS DUMP!!!! ?")
+    cutscene:text("* Well,[wait:3] well well, WELL, well, wellWELLWELLWELLWELLWELLLWELLWELL!!!,")
+    cutscene:text("* Oh JOY oh bEE! Do EYE have THE JUST THE THING THE for yOU!")
+    cutscene:text("* I'M HUNGERS!!! bRING ME's the PASTA'S WHEN STORE BACK!!!")
+    cutscene:mapTransition("floorcyber/dog_highway", "east")
+end
+end,
+
 door1 = function(cutscene, event)
         -- Open textbox and wait for completion
         cutscene:text("* There's a door here.")
@@ -172,6 +254,9 @@ door3 = function(cutscene, event)
             -- Get the bottom-center of the broken wall
             cutscene:text("* You doorn't.")
     end
+    end,
+    mouse = function(cutscene,event)
+        Assets.playSound("notmouse")
     end,
     door4 = function(cutscene, event)
         -- Open textbox and wait for completion

@@ -11,7 +11,9 @@ return {
   tileheight = 40,
   nextlayerid = 13,
   nextobjectid = 13,
-  properties = {},
+  properties = {
+    ["music"] = "evilnoises"
+  },
   tilesets = {
     {
       name = "Tilesetthingy",
@@ -373,8 +375,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "",
-            ["marker"] = ""
+            ["map"] = "floor1/groundarea",
+            ["marker"] = "slidearea"
           }
         },
         {

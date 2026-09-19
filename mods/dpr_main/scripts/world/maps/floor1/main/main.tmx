@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="45" nextobjectid="99">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="23" height="27" tilewidth="40" tileheight="40" infinite="0" nextlayerid="45" nextobjectid="100">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -315,6 +315,13 @@
     <property name="cutscene" value="hub.transitionS"/>
     <property name="once" type="bool" value="false"/>
    </properties>
+  </object>
+  <object id="99" name="npc" x="236" y="332">
+   <properties>
+    <property name="actor" value="kicksguy"/>
+    <property name="text" value="* Hey man! Checks out my sick's kicks! They're coolio!"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="4" name="markers">
