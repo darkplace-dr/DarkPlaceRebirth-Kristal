@@ -175,8 +175,6 @@ door1 = function(cutscene, event)
         cutscene:text("* There's a door here.")
 
         -- If we have Susie, play a cutscene
-            cutscene:detachCamera()
-            cutscene:detachFollowers()
             cutscene:text("* Open it?")
             local choicer = cutscene:choicer({
         "Yes",
@@ -184,7 +182,8 @@ door1 = function(cutscene, event)
     })
 
     if choicer == 1 then
-        
+                    cutscene:detachCamera()
+            cutscene:detachFollowers()
         local x = event.x + event.width/2
             local y = event.y + event.height/2
 
@@ -218,8 +217,6 @@ door3 = function(cutscene, event)
         cutscene:text("* There's a console here.")
 
         -- If we have Susie, play a cutscene
-            cutscene:detachCamera()
-            cutscene:detachFollowers()
             cutscene:text("* Use it?")
             local choicer = cutscene:choicer({
         "Yes",
@@ -227,7 +224,8 @@ door3 = function(cutscene, event)
     })
 
     if choicer == 1 then
-        
+                    cutscene:detachCamera()
+            cutscene:detachFollowers()
         local x = event.x + event.width/2
             local y = event.y + event.height/2
 
@@ -263,8 +261,7 @@ door3 = function(cutscene, event)
         cutscene:text("* There's a door here.")
 
         -- If we have Susie, play a cutscene
-            cutscene:detachCamera()
-            cutscene:detachFollowers()
+
             cutscene:text("* Open it?")
             local choicer = cutscene:choicer({
         "Yes",
@@ -272,7 +269,8 @@ door3 = function(cutscene, event)
     })
 
     if choicer == 1 then
-        
+                    cutscene:detachCamera()
+            cutscene:detachFollowers()
         local x = event.x + event.width/2
             local y = event.y + event.height/2
 
