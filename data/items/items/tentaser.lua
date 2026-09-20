@@ -52,4 +52,23 @@ function item:init()
     }
 end
 
+function item:getDescription()
+    if Game:getFlag("tension_storage", false) then
+        return "Raises TP by 20%. Can be used as much as you need... But only in battle."
+    end
+    return self.description
+end
+
+function item:onWorldUse(target)
+    if Game:getFlag("tension_storage") then -- haha no you're not getting infinite TP in the overworld
+        Game.world:showText({
+            "* You used TENTASER!",
+            "* ... but,[wait:5] it didn't seem to work...",
+            "* (... try using it in battle.)"
+        })
+        return false
+    end
+    return super.onWorldUse(self, target)
+end
+
 return item

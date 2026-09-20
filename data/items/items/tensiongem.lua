@@ -52,4 +52,11 @@ function item:init()
     }
 end
 
+function item:getDescription()
+    if Game:getFlag("tension_storage", false) then
+        return "Raises TP by 50%."
+    end
+    return self.description
+end
+
 return item

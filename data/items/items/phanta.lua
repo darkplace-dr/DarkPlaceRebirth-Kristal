@@ -53,6 +53,15 @@ function item:init()
     }
 end
 
+function item:onWorldUse(target)
+    if Game:getFlag("tension_storage", false) then
+        Game:giveTension(self.tp_amount)
+        Assets.playSound("cardrive", 0.8, 1.4)
+    end
+
+    return super.onWorldUse(self, target)
+end
+
 -- Functions copied from TensionItem
 
 function item:onBattleSelect(user, target)

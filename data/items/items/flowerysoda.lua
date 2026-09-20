@@ -59,6 +59,11 @@ function item:onWorldUse(target)
         return false
     end
 
+    if Game:getFlag("tension_storage", false) then
+        Game:giveTension(self.tp_amount)
+        Assets.playSound("cardrive", 0.8, 1.4)
+    end
+
     return super.onWorldUse(self, target)
 end
 

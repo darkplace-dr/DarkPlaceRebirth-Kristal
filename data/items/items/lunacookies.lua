@@ -73,13 +73,9 @@ end
 function item:onBattleSelect(user, target)
     self.tension_given = Game:giveTension(self.tp_amount)
 
+    Assets.playSound("cardrive", 0.8, 1.4)
+
     user:flash()
-
-    local sound = Assets.newSound("cardrive")
-    sound:setPitch(1.4)
-    sound:setVolume(0.8)
-    sound:play()
-
     user:sparkle(1, 0.625, 0.25)
 end
 
@@ -88,12 +84,11 @@ function item:onBattleDeselect(user, target)
 end
 
 function item:onWorldUse(target)
-    -- Heal all party members
-    for _,party_member in ipairs(target) do
-        local amount = self:getWorldHealAmount(party_member.id)
-        Game.world:heal(party_member, amount)
+    if Game:getFlag("tension_storage", false) then
+        Game:giveTension(self.tp_amount)
+        Assets.playSound("cardrive", 0.8, 1.4)
     end
-    return true
+    return super.onWorldUse(self, target)
 end
 
 return item
