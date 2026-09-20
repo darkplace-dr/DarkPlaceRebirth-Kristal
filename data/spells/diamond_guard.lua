@@ -49,17 +49,17 @@ function spell:onLightCast(user, target)
 	Game.battle.no_buff_loop = false
 end
 
-function spell:hasWorldUsage(chara)
+function spell:hasWorldUsage(user)
     if Game.pp > 0 then
         return false
     end
     return true
 end
 
-function spell:onWorldCast(chara)
+function spell:onWorldCast(user, target)
     Game.pp = 1
     Assets.playSound("ceroba_trap")
-    Game.world.timer:after((1/15)*8, function()
+    Game.world.timer:after((1 / 15) * 8, function()
         -- plays on the 8th frame of the diamond animation
         -- no diamond, so we just imitate the delay
         Assets.playSound("equip_armor")

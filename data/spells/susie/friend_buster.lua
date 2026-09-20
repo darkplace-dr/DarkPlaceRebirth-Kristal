@@ -81,7 +81,7 @@ function spell:getDamage(user, target, damage_bonus)
     local damage = math.ceil(magic_part + attack_part - (target.chara:getStat("defense") * 3)) + damage_bonus
 
     if user.chara:checkWeapon("virobuster") then
-        if target.health <= target.max_health / 2 then
+        if target.chara:getHealth() <= target.chara:getStat("health") / 2 then
             damage = damage * 2
         end
     end
@@ -97,12 +97,23 @@ function spell:hasWorldUsage(chara)
     return true
 end
 
-function spell:onWorldCast(chara)
-    Assets.playSound("scytheburst")
-    local _, yellowhat_count = user.chara:checkArmor("yellowhat")
-    local damage = 250
-    damage = damage + damage * (0.2 * yellowhat_count)
-    Game.world:hurt(chara, damage)
+function spell:onWorldCast(user, target)
+    local _, yellowhat_count = user:checkArmor("yellowhat")
+
+    local magic_part = user:getStat("magic") * (5 + (yellowhat_count * 0.5))
+    local attack_part = user:getStat("attack") * (11 + yellowhat_count)
+
+    local damage = math.ceil(magic_part + attack_part - (target:getStat("defense") * 3))
+
+    if user:checkWeapon("virobuster") then
+        if target:getHealth() <= target:getStat("health") / 2 then
+            damage = damage * 2
+        end
+    end
+
+    Assets.playSound("rudebuster_hit")
+    Assets.playSound("hurt")
+    target:setHealth(math.max(1, target:getHealth() - damage))
 end
 
 return spell

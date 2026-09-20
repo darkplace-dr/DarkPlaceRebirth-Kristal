@@ -125,11 +125,11 @@ function spell:onLightCast(user, target)
     return false
 end
 
-function spell:hasWorldUsage(chara)
+function spell:hasWorldUsage(user)
     return false
 end
 
-function spell:onWorldCast(chara)
+function spell:onWorldCast(user, target)
     Assets.playSound("celestial_hit")
 end
 

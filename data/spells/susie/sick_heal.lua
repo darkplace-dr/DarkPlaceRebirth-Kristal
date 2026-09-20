@@ -98,7 +98,31 @@ function spell:getTPCost(chara)
         return cost - 30
     end
 
-    return cost - chara:getFlag("healing_used", 0)
+    return chara and cost - chara:getFlag("healing_used", 0) or cost
+end
+
+function spell:hasWorldUsage(user)
+    return true
+end
+
+function spell:onWorldCast(user, target)
+    local _, yellowhat_count = user:checkArmor("yellowhat")
+
+    if user:getFlag("healing_used", 0) < 30 and not Game:getFlag("kindness_heal") then
+        local base_heal = user:getStat("magic") * 6 + 15 + user:getFlag("healing_used", 0) * 4
+        base_heal = base_heal + ((base_heal * 0.2) * yellowhat_count)
+        Game.world:heal(target, base_heal)
+        user:addFlag("healing_used", 1)
+    elseif Game:getFlag("kindness_heal") then
+        local base_heal = user:getStat("magic") * 8 + user:getStat("attack") * 3 + user:getFlag("healing_used", 0) * 5
+        base_heal = base_heal + ((base_heal * 0.2) * yellowhat_count)
+        Game.world:heal(target, base_heal)
+    else
+        local base_heal = user:getStat("magic") * 8 + user:getStat("attack") * 3 + user:getFlag("healing_used", 0) * 4
+        base_heal = base_heal + ((base_heal * 0.2) * yellowhat_count)
+        Game.world:heal(target, base_heal)
+        user:setFlag("healing_used", 30)
+    end
 end
 
 return spell

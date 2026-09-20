@@ -41,7 +41,13 @@ function spell:hasWorldUsage(user)
 end
 
 function spell:onWorldCast(user, target)
-    Game.world:heal(target, 100)
+    --Game.world:heal(target, 100)
+
+    local _, yellowhat_count = user:checkArmor("yellowhat")
+
+    local heal = user:getStat("magic") * (5 + yellowhat_count)
+
+    Game.world:heal(target, heal)
 end
 
 return spell
