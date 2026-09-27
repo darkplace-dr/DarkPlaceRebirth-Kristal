@@ -1180,11 +1180,11 @@ function Lib:init()
             else
                 Draw.setColor(Game.battle.encounter:getSoulColor())
             end
-            local heart_sprite = Assets.getTexture("player/"..party:getSoulFacing().."/heart")
+            local heart_sprite = Assets.getTexture("player/" .. party:getSoulFacing() .. "/heart")
             if party.heart_sprite then
                 heart_sprite = Assets.getTexture(party.heart_sprite)
             end
-            Draw.draw(heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 230), 30 + ((Game.battle.current_menu_y - (page*3)) * 30))
+            Draw.draw(heart_sprite, 5 + ((Game.battle.current_menu_x - 1) * 225), 30 + ((Game.battle.current_menu_y - (page * 3)) * 30))
 
             local font = Assets.getFont("main")
             love.graphics.setFont(font)
@@ -1268,14 +1268,11 @@ function Lib:init()
             end
 
             -- Print information about currently selected item
-            local tp_offset, _ = 0, nil --initialize placeholdder variable so it doenst go in global scope
             local current_item = Game.battle.menu_items[Game.battle:getItemIndex()]
             if current_item.description then
                 Draw.setColor(COLORS.gray)
                 love.graphics.print(current_item.description, 260 + 240, 50)
                 Draw.setColor(1, 1, 1, 1)
-                _, tp_offset = current_item.description:gsub('\n', '\n')
-                tp_offset = tp_offset + 1
             end
     -------------------------------------------------------------------------------------------------------------
             --local battler = Game.battle.party[Game.battle.current_selecting]
@@ -1283,16 +1280,16 @@ function Lib:init()
 
             if current_item.tp and current_item.tp ~= 0 and current_item.resource == ("tension") then
                 Draw.setColor(PALETTE["tension_desc"])
-                love.graphics.print(math.floor((current_item.tp / Game:getMaxTension()) * 100) .. "% "..Game:getConfig("tpName"), 260 + 240, 50 + (tp_offset * 32))
+                love.graphics.print(math.floor((current_item.tp / Game:getMaxTension()) * 100) .. "% "..Game:getConfig("tpName"), 260 + 240, 115)
                 Game:setTensionPreview(current_item.tp)
             else
                 if current_item.mp and current_item.mp ~= 0 and current_item.resource == "mana" then
                     local text_offset = 0
                     Draw.setColor(ManaHealthResources.PALETTE["mana_desc"])
-                    love.graphics.print(current_item.mp .. " MP", text_offset + 260 + 240, 50 + (tp_offset * 32))
+                    love.graphics.print(current_item.mp .. " MP", text_offset + 260 + 240, 115)
                 elseif current_item.hp and current_item.hp ~= 0 and current_item.resource == "health" then
                     Draw.setColor(ManaHealthResources.PALETTE["health_cost_desc"])
-                    love.graphics.print(current_item.hp .. " HP", 260 + 240, 50 + (tp_offset * 32))
+                    love.graphics.print(current_item.hp .. " HP", 260 + 240, 115)
                 end
                 Game:setTensionPreview(0)
             end
