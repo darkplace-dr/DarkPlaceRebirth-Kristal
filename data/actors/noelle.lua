@@ -163,19 +163,20 @@ function actor:init()
         -- Battle offsets
         ["battle/idle"] = {-3, 0},
 
-        ["battle/attack"] = {-8, 0},
+        ["battle/attack"] = {-6, 0},
         ["battle/attackready"] = {0, 0},
-        ["battle/act"] = {0, 0},
-        ["battle/actend"] = {-3, 0},
-        ["battle/actready"] = {0, 0},
-        ["battle/spell"] = {-3, 0},
+        ["battle/act"] = {-1, 0},
+        ["battle/actend"] = {-1, 0},
+        ["battle/actready"] = {-1, 0},
+        ["battle/spell"] = {-2, 0},
+        ["battle/spellend"] = {-2, 0},
         ["battle/spellready"] = {0, 0},
         ["battle/item"] = {-2, 0},
         ["battle/itemready"] = {0, 0},
-        ["battle/defend"] = {-9, 0},
+        ["battle/defend"] = {-7, 0},
 
         ["battle/defeat"] = {0, 0},
-        ["battle/hurt"] = {-9, 0},
+        ["battle/hurt"] = {-7, 0},
 
         ["battle/intro"] = {-11, -7},
         ["battle/victory"] = {0, 0},
@@ -186,7 +187,7 @@ function actor:init()
         ["battle_alt/intro"] = {-11, -7},
         ["battle_alt/float"] = {-11, -7},
         ["battle_alt/pray"] = {-3, 0},
-        ["battle_alt/spell_special"] = {-5, -1},
+        ["battle_alt/spell_special"] = {-4, 1},
 
         -- Cutscene offsets
         ["blush"] = {0, 0},
@@ -197,7 +198,7 @@ function actor:init()
 
         ["laugh"] = {0, 0},
 
-        ["point_up"] = {-4, 1},
+        ["point_up"] = {-3, 1},
 
         ["shocked"] = {0, 0},
         ["shocked_behind"] = {0, 0},
@@ -224,6 +225,9 @@ function actor:init()
         ["sneak/left"] = {-4, 3},
         ["sneak/right"] = {2, 3},
     }
+
+    -- The x and y offsets of the "target" sprite
+    self.target_offset = { 0, 0 }
 
     -- The x and y offsets of the ReviveSong spotlight
     self.spotlight_offset = { 0, 0 }

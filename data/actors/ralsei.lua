@@ -149,6 +149,9 @@ function actor:initChapter1()
         ["fallen"] = {-8, 20}
     }
 
+    -- The x and y offsets of the "target" sprite
+    self.target_offset = { -3, -2 }
+
     -- The x and y offsets of the ReviveSong spotlight
     self.spotlight_offset = { 10, -5 }
 end
@@ -340,6 +343,9 @@ function actor:initChapter2()
         ["shocked_right"] = {14, -6},
         ["shocked_left"] = {0, -6},
     }
+
+    -- The x and y offsets of the "target" sprite
+    self.target_offset = { -2, -6 }
 
     -- The x and y offsets of the ReviveSong spotlight
     self.spotlight_offset = { 10, -5 }

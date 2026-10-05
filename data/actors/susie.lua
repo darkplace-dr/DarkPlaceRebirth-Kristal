@@ -403,6 +403,9 @@ function actor:init(style)
         ["kick_up"] = {-4, 2},
     }
 
+    -- The x and y offsets of the "target" sprite
+    self.target_offset = { -3, -1 }
+
     -- The x and y offsets of the ReviveSong spotlight
     self.spotlight_offset = { 0, -7 }
 
