@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 6,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {
     ["border"] = "mainhub"
   },
@@ -96,6 +96,7 @@ return {
           width = 400,
           height = 560,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -109,6 +110,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -122,6 +124,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -135,6 +138,7 @@ return {
           width = 120,
           height = 560,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -148,6 +152,7 @@ return {
           width = 1600,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -161,6 +166,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -174,6 +180,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -187,6 +194,7 @@ return {
           width = 960,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -216,6 +224,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor1/main",
@@ -232,6 +241,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor1/greatdoor",
@@ -248,10 +258,29 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor1/benchroom",
             ["marker"] = "west"
+          }
+        },
+        {
+          id = 20,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 340,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["actor"] = "starwalker",
+            ["cond"] = "Game:hasUnlockedPartyMember(\"ostarwalker\")",
+            ["cutscene"] = "hub.darkfountainwalker"
           }
         }
       }
@@ -280,6 +309,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -293,6 +323,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -306,6 +337,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -319,6 +351,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

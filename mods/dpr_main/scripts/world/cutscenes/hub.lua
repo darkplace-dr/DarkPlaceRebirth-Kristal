@@ -2904,6 +2904,10 @@ local hub = {
             event.interact_count = 0
         end
     end,
+
+    darkfountainwalker = function(cutscene, event)
+        cutscene:text("* I am the[wait:10]\n [funnytext:dark_fountain/dark_fountain,ftext_dark_fountain,-20,-30,220,40][wait:60]\n                        walker")
+    end
 }
 
 return hub

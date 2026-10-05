@@ -38,6 +38,21 @@ function actor:init()
         ["starwalker_pointing"] = {-8, -1},
         ["starwalker_pointing_up"] = {-6, -11}
     }
+
+    self.siner = 0
+end
+
+function actor:onWorldUpdate(chara)
+    if Game.world.map.id == "floor1/pregreatdoor" then
+        self.siner = self.siner + DTMULT
+
+        local function fcolor(h, s, v)
+            self.hue = (h / 255) % 1
+            return ColorUtils.HSVToRGB((h / 255) % 1, s / 255, v / 255)
+        end
+
+        chara:setColor(fcolor(self.siner / 4, 160 + (math.sin(self.siner / 32) * 60), 255))
+    end
 end
 
 return actor
