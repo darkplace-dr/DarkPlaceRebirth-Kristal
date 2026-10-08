@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="76">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="78">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -79,16 +79,6 @@
     <property name="marker" value="party"/>
    </properties>
   </object>
-  <object id="17" name="dogconegroup" x="0" y="360" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="18" name="dogconegroup" x="0" y="400" width="40" height="40">
-   <properties>
-    <property name="default_state" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="19" name="jukebox" x="746.8" y="222">
    <point/>
   </object>
@@ -97,6 +87,12 @@
     <property name="cutscene" value="partyroom.party"/>
     <property name="once" type="bool" value="false"/>
     <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="77" name="transition" x="-40" y="360" width="40" height="80">
+   <properties>
+    <property name="map" value="floor2/dev/dance"/>
+    <property name="marker" value="spawn"/>
    </properties>
   </object>
  </objectgroup>
@@ -145,6 +141,9 @@
    <point/>
   </object>
   <object id="75" name="ostarwalker" x="830" y="500">
+   <point/>
+  </object>
+  <object id="76" name="dance" x="40" y="400">
    <point/>
   </object>
  </objectgroup>

@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 76,
+  nextobjectid = 78,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev",
@@ -423,38 +423,6 @@ return {
           }
         },
         {
-          id = 17,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 360,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
-          id = 18,
-          name = "dogconegroup",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 400,
-          width = 40,
-          height = 40,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {
-            ["default_state"] = true
-          }
-        },
-        {
           id = 19,
           name = "jukebox",
           type = "",
@@ -484,6 +452,23 @@ return {
             ["cutscene"] = "partyroom.party",
             ["once"] = false,
             ["solid"] = true
+          }
+        },
+        {
+          id = 77,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = -40,
+          y = 360,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/dev/dance",
+            ["marker"] = "spawn"
           }
         }
       }
@@ -799,6 +784,20 @@ return {
           shape = "point",
           x = 830,
           y = 500,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 76,
+          name = "dance",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 400,
           width = 0,
           height = 0,
           rotation = 0,

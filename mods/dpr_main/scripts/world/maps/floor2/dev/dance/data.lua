@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 46,
+  nextobjectid = 47,
   properties = {
     ["border"] = "dev",
     ["music"] = "deltarune/castle_funk_long",
@@ -558,6 +558,23 @@ return {
           opacity = 1,
           visible = true,
           properties = {}
+        },
+        {
+          id = 46,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 760,
+          width = 40,
+          height = 80,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["map"] = "floor2/dev/party",
+            ["marker"] = "dance"
+          }
         }
       }
     },
