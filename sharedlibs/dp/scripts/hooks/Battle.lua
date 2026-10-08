@@ -34,14 +34,6 @@ function Battle:init()
 
         skeledance.layer = BATTLE_LAYERS["bottom"]
     end
-	-- TODO: spawnWeb function is missing for some reason?
-    --[[if self.month == 10 then
-        self.lines = {}
-        for _=1,4 do
-            self:spawnWeb(0,love.math.random(40,480), love.math.random(40,120),0)
-            self:spawnWeb(640,love.math.random(40,480), 640-love.math.random(40,120),0)
-        end
-    end]]
     
     self.particles = {}
     self.particle_interval = 0
@@ -81,6 +73,17 @@ function Battle:init()
     self.victory = false
     
     self.headwind = 0
+end
+
+function Battle:createUI()
+	super.createUI(self)
+    if self.month == 10 and self.background then
+        self.lines = {}
+        for _=1,4 do
+            self.background:spawnWeb(0,love.math.random(40,480), love.math.random(40,120),0)
+            self.background:spawnWeb(640,love.math.random(40,480), 640-love.math.random(40,120),0)
+        end
+    end
 end
 
 function Battle:postInit(state, encounter)
