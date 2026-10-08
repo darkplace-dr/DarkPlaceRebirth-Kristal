@@ -1,6 +1,12 @@
 ---@class Character : Character
 local Character, super = HookSystem.hookScript(Character)
 
+function Character:init(actor, x, y)
+    super.init(self, actor, x, y)
+
+    self.dancing = false
+end
+
 function Character:getDebugOptions(context)
     if (self.party or self.actor.id) == "noel" then
         context = Noel:getDebugOptions(context, self)
@@ -27,6 +33,33 @@ end
 
 function Character:getFont()
     return self.actor:getFont()
+end
+
+function Character:update()
+    if self:isDancing() and self:isMoving() then
+        self:setDancing(false)
+    end
+
+    super.update(self)
+end
+
+-- Dancing stuff
+
+function Character:isMoving()
+    return self.x ~= self.last_x or self.y ~= self.last_y
+end
+
+function Character:isDancing()
+    return self.dancing
+end
+
+function Character:setDancing(bool)
+    self.dancing = bool
+    if self.dancing then
+        self:setAnimation("dance")
+    else
+        self:resetSprite()
+    end
 end
 
 return Character
