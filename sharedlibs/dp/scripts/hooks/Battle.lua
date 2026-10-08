@@ -77,7 +77,7 @@ end
 
 function Battle:createUI()
 	super.createUI(self)
-    if self.month == 10 and self.background then
+    if self.month == 10 and self.background and self.background.spawnWeb then
         self.lines = {}
         for _=1,4 do
             self.background:spawnWeb(0,love.math.random(40,480), love.math.random(40,120),0)
