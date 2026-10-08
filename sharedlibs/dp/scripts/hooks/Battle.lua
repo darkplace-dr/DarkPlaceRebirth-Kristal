@@ -34,13 +34,14 @@ function Battle:init()
 
         skeledance.layer = BATTLE_LAYERS["bottom"]
     end
-    if self.month == 10 then
+	-- TODO: spawnWeb function is missing for some reason?
+    --[[if self.month == 10 then
         self.lines = {}
         for _=1,4 do
             self:spawnWeb(0,love.math.random(40,480), love.math.random(40,120),0)
             self:spawnWeb(640,love.math.random(40,480), 640-love.math.random(40,120),0)
         end
-    end
+    end]]
     
     self.particles = {}
     self.particle_interval = 0
