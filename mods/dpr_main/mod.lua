@@ -1408,5 +1408,7 @@ function Mod:getPartyNPCProperties(map, pm_id)
         elseif pm_id == "ostarwalker" then
             return { cutscene = "partyroom.ostarwalker", turn = true }
         end
+    elseif map.id == "floor2/dev/dance" then
+        return { cutscene = "danceroom." .. pm_id, animation = "dance" }
     end
 end
