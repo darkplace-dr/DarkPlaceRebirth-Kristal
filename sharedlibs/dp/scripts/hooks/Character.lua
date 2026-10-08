@@ -37,7 +37,7 @@ end
 
 function Character:update()
     if self:isDancing() then
-        if (self:includes(Player) and self:isMoving()) or self:includes(Follower) and Game.world.player and Game.world.player:isMoving() then
+        if (self:includes(Player) and self:isMoving()) or (self:includes(Follower) and Game.world.player and Game.world.player:isMoving()) then
             self:setDancing(false)
         end
     end
