@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 45,
+  nextobjectid = 46,
   properties = {
     ["border"] = "dev",
     ["music"] = "deltarune/castle_funk_long",
@@ -542,6 +542,20 @@ return {
           rotation = 0,
           opacity = 1,
           gid = 146,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "dancefloorzone",
+          type = "",
+          shape = "rectangle",
+          x = 120,
+          y = 400,
+          width = 400,
+          height = 400,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
