@@ -36,8 +36,10 @@ function Character:getFont()
 end
 
 function Character:update()
-    if self:includes(Follower) and Game.world.player and Game.world.player:isMoving() and self:isDancing() then
-        self:setDancing(false)
+    if self:isDancing() then
+        if (self:includes(Player) and self:isMoving()) or self:includes(Follower) and Game.world.player and Game.world.player:isMoving() then
+            self:setDancing(false)
+        end
     end
 
     super.update(self)
