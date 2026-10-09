@@ -33,7 +33,6 @@ function field:onEnter()
 		"I hope my brother stays safe.",
 		"I hope all of the fighting can end.",
 		"I pray for everyone who has passed on.",
-		"I hope VexSaber will be okay.",
 		"I hope this world grows until it ends.\nI want too see how far we've gone.",
 		"I pray for a good night's rest.",
 		"I dream about this magical world.",
