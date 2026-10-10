@@ -25,7 +25,7 @@ return {
                 cutscene:text("* feeling evil think ill kill them all", "dess.exe", "dess")
             elseif map == "floor1/spamgolor_meeting" then
                 cutscene:text("* hey breloom when are you gonna stop being lazy and port over spamgolor", "angry", "dess")
-                cutscene:showNametag("BrendaK7200")
+                cutscene:showNametag("NorthernlightBella")
                 cutscene:text("* Shut the fuck up, Dess.[wait:10]\n* I'll add him eventually.", nil, "brenda")
                 cutscene:showNametag("Dess")
                 cutscene:text("* ", "wtf_b", "dess")

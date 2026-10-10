@@ -13,7 +13,7 @@ function field:onEnter()
 	-- I wish I could do more for her, but all I can really do is be there for her, I just hope one day that everything will go well for her. \
 	-- For anyone else reading this, feel free to leave your own messages wishing her well. \
 	-- I love you, Lizzie. \
-    --      - BrendaK7200
+    --      - NorthernlightBella
 	---@type string[]
 	self.hopes_and_dreams = {
 		"Racckoon, I hope you end up okay.", -- This deserves to show up twice as often.

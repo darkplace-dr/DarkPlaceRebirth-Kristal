@@ -66,7 +66,7 @@ return {
   {
     name = "Checkpoint",
     file = "checkpoint",
-    composer = "BrendaK7200",
+    composer = "NorthernlightBella",
     released = "2023",
     origin = "Dark Place",
     album = "dark_place",
@@ -75,7 +75,7 @@ return {
   {
     name = "BIGGEST SHOT",
     file = "omega_spamton",
-    composer = "BrendaK7200",
+    composer = "NorthernlightBella",
     released = "2025",
     origin = "Dark Place: REBIRTH",
     album = "dark_place",

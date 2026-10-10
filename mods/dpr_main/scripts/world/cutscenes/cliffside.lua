@@ -17,7 +17,7 @@ local cliffside = {
     intro = function (cutscene, event)
         Kristal.hideBorder(0)
         cutscene:wait(function ()
-            if Game.world.map.id == [[grey_cliffside/cliffside_start]] then -- why is this using brackets instead of quotation marks lol. - J.A.R.U. -- Spamton G. Spamton / That's my fucking name / I am secret boss / in Deltarune game - BrendaK7200
+            if Game.world.map.id == [[grey_cliffside/cliffside_start]] then -- why is this using brackets instead of quotation marks lol. - J.A.R.U. -- Spamton G. Spamton / That's my fucking name / I am secret boss / in Deltarune game - NorthernlightBella
                 return true
             else
                 return false
@@ -1583,7 +1583,7 @@ local cliffside = {
     -- HUGE NOTE: THIS IS THE UGLIEST OF ALL BUTT UGLY HACKS
     -- DO NOT DO WHAT I'M DOING, THIS SHOULD BE REPLACED WITH A SPECIAL EVENT INSTEAD OF DOING EVERYTHING IN THIS CUTSCENE
     -- It is almost 1 AM for me so I can't be bothered to do it myself
-    --                                                                     - BrendaK7200
+    --                                                                     - NorthernlightBella
     cutscene:text("* It's the warp bin.")
     cutscene:text("* Would you like to warp?[wait:10]\n* You only need the code.")
 
