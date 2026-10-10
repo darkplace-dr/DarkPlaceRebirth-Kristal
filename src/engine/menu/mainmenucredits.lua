@@ -40,94 +40,27 @@ function MainMenuCredits:init(menu)
                 "Team Forecasted",
                 "The CrockerFan team"
             }
-        },
-        {
-            "Dark Place",
-            {
-                {"Mod Idea", COLORS.silver},
-                "Racckoon",
-                "",
-                {"GitHub Managers", COLORS.silver},
-                "J.A.R.U.",
-                "BrendaK7200",
-                "",
-                {"Name Idea, Title Screen", COLORS.silver},
-                "AccousticJamm",
-            },
-            {
-                {"Contributors", COLORS.silver},
-                "AcousticJamm",
-                "Agent 7",
-                "AlexGamingSW",
-                "NyakoFox",
-                "BrendaK7200",
-                "Charbomber",
-                "PatateauBeurr",
-                "DiamondBor",
-                "Dobby233Liu",
-                "Radix121_",
-            }
-        },
-        {
-            "Dark Place",
-            {
-                {"Contributors", COLORS.silver},
-                "Hyperboid",
-                "J.A.R.U.",
-                "NelleMonelle",
-                "Racckoon",
-                "SpunkyTunky",
-                "THat",
-                "vitellary",
-                "YoshifanJordan",
-                "Bryan The Celestial",
-                "Elioze",
-            },
-            {
-                {"Contributors", COLORS.silver},
-                "FireRainV",
-                "SadDiamondMan",
-                "Sam Deluxe",
-                "Simbel",
-                "Silvaz",
-                "Tick358",
-                "ArleePuncher",
-                "Tkcool",
-                "Diamond Deltahedron",
-                "Science2048",
-            },
-        },
-        {
-            "Dark Place",
-            {
-                {"Contributors", COLORS.silver},
-                "TritraSerpifeu",
-                "vamp",
-                "CharaCterDreemurr",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-            },
-            {
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-            }
-        },
+        }
     }
 
     self:generateContributorPages()
+
+    table.insert(self.pages, {
+        "Dark Place",
+        {
+            {"Mod Idea", COLORS.silver},
+            "Racckoon",
+            "",
+            {"GitHub Managers", COLORS.silver},
+            "J.A.R.U.",
+            "BrendaK7200",
+            "",
+            {"Name Idea, Title Screen", COLORS.silver},
+            "AccousticJamm",
+        },
+    })
+
+    self:generateDPContributorPages()
 
     self.selected_page = 1
 
@@ -196,6 +129,83 @@ function MainMenuCredits:generateContributorPages()
     while #contributors > 0 do
         local page = {
             "Kristal Engine",
+            {
+                { "GitHub Contributors", COLORS.silver },
+            },
+            {
+                { "GitHub Contributors", COLORS.silver },
+            }
+        }
+
+        for _ = 1, 9 do
+            if #contributors <= 0 then
+                break
+            end
+
+            table.insert(page[2], table.remove(contributors, 1))
+        end
+
+        for _ = 1, 9 do
+            if #contributors <= 0 then
+                break
+            end
+            table.insert(page[3], table.remove(contributors, 1))
+        end
+
+        table.insert(self.pages, page)
+    end
+
+    for _, page in ipairs(pages) do
+        table.insert(self.pages, page)
+    end
+end
+
+--- The function responsible for generating the contributors pages in the credits.
+function MainMenuCredits:generateDPContributorPages()
+    -- Please add yourself here under the name you'd like to be credited as.
+    -- Try to keep it in alphabetical order!
+
+    local contributors = {
+        "AcousticJamm",
+        "Agent 7",
+        "AlexGamingSW",
+        "ArleePuncher",
+        "BrendaK7200",
+        "Bryan The Celestial",
+        "CharaCterDreemurr",
+        "Charbomber",
+        "DiamondBor",
+        "Diamond Deltahedron",
+        "Dobby233Liu",
+        "Elioze",
+        "FireRainV",
+        "Hyperboid",
+        "J.A.R.U.",
+        "NelleMonelle",
+        "NyakoFox",
+        "PatateauBeurr",
+        "Racckoon",
+        "Radix121_",
+        "SadDiamondMan",
+        "Sam Deluxe",
+        "Science2048",
+        "Silvaz",
+        "Simbel",
+        "SpunkyTunky",
+        "THat",
+        "Tick358",
+        "Tkcool",
+        "TritraSerpifeu",
+        "vamp",
+        "vitellary",
+        "YoshifanJordan",
+    }
+
+    local pages = {}
+
+    while #contributors > 0 do
+        local page = {
+            "Dark Place",
             {
                 { "GitHub Contributors", COLORS.silver },
             },
