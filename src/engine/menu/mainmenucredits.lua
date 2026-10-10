@@ -48,14 +48,14 @@ function MainMenuCredits:init(menu)
     table.insert(self.pages, {
         "Dark Place",
         {
-            {"Mod Idea", COLORS.silver},
+            { "Mod Idea", COLORS.silver },
             "Racckoon",
             "",
-            {"GitHub Managers", COLORS.silver},
+            { "GitHub Managers", COLORS.silver },
             "J.A.R.U.",
             "BrendaK7200",
             "",
-            {"Name Idea, Title Screen", COLORS.silver},
+            { "Name Idea, Title Screen", COLORS.silver },
             "AccousticJamm",
         },
     })
@@ -174,8 +174,8 @@ function MainMenuCredits:generateDPContributorPages()
         "Bryan The Celestial",
         "CharaCterDreemurr",
         "Charbomber",
-        "DiamondBor",
         "Diamond Deltahedron",
+        "DiamondBor",
         "Dobby233Liu",
         "Elioze",
         "FireRainV",
