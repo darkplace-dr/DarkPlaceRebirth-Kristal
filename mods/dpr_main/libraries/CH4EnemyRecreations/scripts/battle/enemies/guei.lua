@@ -102,8 +102,8 @@ function Guei:onSpared()
     self:setAnimation("spared_overlay")
 end
 
-function Guei:getEncounterText()
-    for _,v in ipairs(Game.battle.enemies) do
+function Guei:getTiredText()
+    for _, v in ipairs(Game.battle.enemies) do
 		if v.tired then
 			local multi = 0
 			local tp = math.huge
@@ -123,7 +123,7 @@ function Guei:getEncounterText()
 			end
 			if multi == 0 then
 				return "* Guei looks [color:blue]TIRED[color:reset]."
-			elseif Game.tension >= tp then
+			elseif Game:getTension() >= tp then
 				if multi > 1 then
 					return "* Guei looks [color:blue]TIRED[color:reset]. Perhaps a [color:blue]sleep spell[color:reset] would be effective..."
 				else
@@ -133,21 +133,18 @@ function Guei:getEncounterText()
 			return "* Guei looks [color:blue]TIRED[color:reset]. [color:yellow]DEFEND[color:reset] to gain [color:yellow]TP[color:reset], then try " .. name .. "'s MAGIC, [color:blue]" .. spellname .. "[color:reset]...!"
 		end
 	end
-    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
-        return self.low_health_text
+end
 
-    elseif self.tired_text and self.tired then
-        return self.tired_text
-
-    elseif self.spareable_text and self:canSpare() then
-        return self.spareable_text
+function Guei:getEncounterText()
+    if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
+        return super.getEncounterText(self)
     end
-	if love.math.random(0, 100) < 3 then
+
+	if MathUtils.randomInt(101) < 3 then
 		return "* Smells like teens.\n* Smells like spirits."
-	else
-		local text = super.getEncounterText(self)
-		return text
 	end
+
+    return super.getEncounterText(self)
 end
 
 function Guei:spawnSpeechBubble(...)

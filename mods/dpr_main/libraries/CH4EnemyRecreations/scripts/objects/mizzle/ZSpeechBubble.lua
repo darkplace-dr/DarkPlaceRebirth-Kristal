@@ -8,7 +8,7 @@ function ZSpeechBubble:init(x, y)
 
     self.done = false
 
-    self.wait_timer = 15/30
+    self.wait_timer = 15 / 30
 end
 
 function ZSpeechBubble:advance()
@@ -26,20 +26,12 @@ function ZSpeechBubble:isDone()
     return self.done
 end
 
-function ZSpeechBubble:onAddToStage(stage)
-    super.onAddToStage(self, stage)
-end
-
 function ZSpeechBubble:update()
     self.wait_timer = MathUtils.approach(self.wait_timer, 0, DT)
 
     if Input.pressed("confirm") or Input.down("menu") then
         self:advance()
     end
-end
-
-function ZSpeechBubble:draw()
-    super.draw(self)
 end
 
 return ZSpeechBubble

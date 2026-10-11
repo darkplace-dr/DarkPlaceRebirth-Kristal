@@ -55,8 +55,6 @@ function PillarHarmony:init(x, y, green)
     self.layer = 400
 
     self.gainmercytimer = 0
-    self.gainmercytimer2 = 0
-    self.showtempmercy = true
 end
 
 function PillarHarmony:onWaveSpawn()
@@ -286,22 +284,6 @@ function PillarHarmony:update()
             self.particle_timer = self.particle_timer - 3
         end
 
-        self.gainmercytimer = self.gainmercytimer + DTMULT
-        for _, attacker in ipairs(self.wave:getAttackers()) do
-		    if self.gainmercytimer >= 2 then
-                attacker.mercyget = 1
-			    self.gainmercytimer = 1
-		    end
-        end
-
-        self.gainmercytimer2 = self.gainmercytimer2 + DTMULT
-        for _, attacker in ipairs(self.wave:getAttackers()) do
-		    if self.gainmercytimer2 >= 4 then
-                attacker.mercyget2 = 1
-			    self.gainmercytimer2 = 1
-		    end
-        end
-
     elseif self.green then
         if self.charge_sfx then
             self.charge_sfx:stop()
@@ -313,6 +295,28 @@ function PillarHarmony:update()
         end
     else
         -- Nothing
+    end
+
+    -- mercy
+    self.gainmercytimer = self.gainmercytimer + DTMULT
+
+    if self:meetsObject(Game.battle.soul) and self.gainmercytimer >= 1 then
+        local a = 1
+        if Game.battle:getEnemyBattler("organikk") and Game.battle:getEnemyBattler("organikk").wicabell_tuning then
+            a = 2
+        end
+        for i = 1, a do
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+                if enemy.mercy < 100 then
+                    local mercyamount = 1
+                    if enemy.harmonizer then
+                        mercyamount = 3
+                    end
+                    enemy:addTemporaryMercy(mercyamount, true, {0, 100 - enemy.mercy}, (function() return Game.battle.state == "DEFENDINGEND" end))
+                end
+            end
+        end
+        self.gainmercytimer = 0
     end
 end
 

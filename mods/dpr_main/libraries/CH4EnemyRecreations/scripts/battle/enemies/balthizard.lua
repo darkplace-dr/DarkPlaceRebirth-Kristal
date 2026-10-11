@@ -48,17 +48,12 @@ function Balthizard:init()
     self.low_health_percentage = 1 / 3
 
     self:registerAct("Shake", "Left &\nRight=\nMercy")
-    self:registerAct("ShakeX", "Left &\nRight=\nMercy", {"susie"})
-    self:registerAct("LightUp", "50% &\nTIRE\nothers", {"ralsei"})
+    self:registerAct("ShakeX", "Left &\nRight=\nMercy", { "susie" })
+    self:registerAct("LightUp", "50% &\nTIRE\nothers", { "ralsei" })
     --self:registerAct("OldMan", "I'm\nold!") -- he's old
 
     self.sprite.active = false
     self.transition_ended = false
-
-    self.lightuptimer = 0
-    self.lightuptime = false
-
-    self.fires = {}
 
     self.lightup = false
     self.lightupmessage = false
@@ -74,7 +69,7 @@ function Balthizard:onAct(battler, name)
         if name == "ShakeX" then shakex = true end
         local shake = BalthizardShakeController(self, shakex)
         Game.battle:addChild(shake)
-        if not self.sprite.lightup then
+        if not self.lightup then
             self.dialogue_override = "[speed:0.5]A nice\nmassage."
         else
             self.dialogue_override = "What a\nblast!\nHoh hoh!"
@@ -83,28 +78,71 @@ function Balthizard:onAct(battler, name)
     elseif name == "LightUp" then
         Game.battle:startActCutscene(function(cutscene)
             cutscene:text("* Ralsei lit up!")
-            self.lightuptime = true
-            cutscene:wait(function() return self.lightuptimer >= 50 end)
-            self.lightuptime = false
-            self.lightuptimer = 0
-            self:addMercy(50)
-            local line1 = "* The room got smokey!"
-            local line2 = "* Other enemies became TIRED!"
-            local madetired = 0
-            for _,enemy in ipairs(Game.battle.enemies) do
-                if enemy ~= self then
-                    if not enemy.tired then
-                        madetired = madetired + 1
-                        enemy:setTired(true)
-                    end
+            local litup = false
+            local fires = {}
+            local ralsei = Game.battle:getPartyBattler("ralsei")
+            local function makeFire()
+                local b = 0
+                local rand = MathUtils.randomInt(31)
+                Assets.playSound("wing")
+                for i = 1, 9 do
+                    local x, y = ralsei:getRelativePos()
+                    local fire = BalthizardFire(x + 62, y + 22)
+                    fire.physics.direction = -math.rad(b * 45 + rand)
+                    fire.physics.speed = 14
+                    fire.physics.gravity_direction = -math.rad(270)
+                    fire.physics.gravity = 0.4
+                    fire:setScale(1.5)
+                    fire.layer = ralsei.layer + 0.1
+                    Game.battle:addChild(fire)
+                    table.insert(fires, fire)
+                    b = b + 1
                 end
             end
-            if madetired == 0 then
+            ralsei:setAnimation("battle/spell")
+            Game.battle.timer:after(16 / 30, function()
+                ralsei:setSprite("battle/spellend")
+                makeFire()
+            end)
+            Game.battle.timer:after(18 / 30, function()
+                local screenflash = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+                screenflash.color = { 1, 1, 1 }
+                screenflash.alpha = 0
+                screenflash.layer = BATTLE_LAYERS["top"]
+                Game.battle:addChild(screenflash)
+                screenflash:fadeToSpeed(1.1, 0.05, function()
+                    for _, fire in ipairs(fires) do fire:remove() end
+                    screenflash:fadeOutSpeedAndRemove(0.02)
+                end)
+            end)
+            Game.battle.timer:after(22 / 30, function() makeFire() end)
+            Game.battle.timer:after(28 / 30, function() makeFire() end)
+            Game.battle.timer:after(34 / 30, function() makeFire() end)
+            Game.battle.timer:after(38 / 30, function()
+                Assets.playSound("rocket", 0.9, 0.9)
+                self.dialogue_override = "Ah! That\nwakes\nme up!!!"
+                self.lightup = true
+                self.lightupmessage = true
+                self.sprite.lightup = true
+                ralsei:setAnimation("battle/idle")
+            end)
+            Game.battle.timer:after(49 / 30, function() litup = true end)
+            cutscene:wait(function() return litup end)
+            self:addMercy(50)
+            local maketired = 0
+            local line1 = "* The room got smokey!"
+            local line2 = "* Other enemies became TIRED!"
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+                if enemy ~= self and not enemy.tired then
+                    enemy:setTired(true)
+                    maketired = 1
+                end
+            end
+            if maketired == 0 then
                 cutscene:text(line1)
             else
-                cutscene:text(line1.."\n"..line2)
+                cutscene:text(line1 .. "\n" .. line2)
             end
-            self.dialogue_override = "Ah! That\nwakes\nme up!!!"
         end)
         return
     elseif name == "Standard" then
@@ -117,10 +155,8 @@ end
 function Balthizard:onShortAct(battler, name)
     if name == "Standard" then
         self:addMercy(30)
-        return "* "..battler.chara:getName() .. " shakes Balthizard!"
+        return "* " .. battler.chara:getName() .. " shakes Balthizard!"
     end
-
-    return super.onShortAct(self, battler, name)
 end
 
 function Balthizard:onSpared()
@@ -134,7 +170,7 @@ function Balthizard:getEnemyDialogue()
         return dialogue
     end
 
-    if self.sprite.lightup then
+    if self.lightup then
         return TableUtils.pick(self.dialogue_lightup)
     end
 
@@ -142,30 +178,16 @@ function Balthizard:getEnemyDialogue()
 end
 
 function Balthizard:getEncounterText()
-    local has_spareable_text = self.spareable_text and self:canSpare()
-
-    local priority_spareable_text = Game:getConfig("prioritySpareableText")
-    if priority_spareable_text and has_spareable_text then
-        return self.spareable_text
-    end
-
-    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
-        return self.low_health_text
-
-    elseif self.tired_text and self.tired then
-        return self.tired_text
-
-    elseif has_spareable_text then
-        return self.spareable_text
+    if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
+        return super.getEncounterText(self)
     end
 
     if self.lightupmessage then
         self.lightupmessage = false
-        --self.lightup = false
         return "* Balthizard burns with taco-scented excitement."
     end
 
-    return TableUtils.pick(self.text)
+    return super.getEncounterText(self)
 end
 
 function Balthizard:update()
@@ -180,43 +202,6 @@ function Balthizard:update()
     if self.mercy >= 100 and not self.sprite.spareable then
         self.sprite.spareable = true
         self:setAnimation("spared")
-    end
-
-    if self.lightuptime then
-        local ralsei = Game.battle:getPartyBattler("ralsei")
-        if self.lightuptimer == 0 then
-            ralsei:setSprite("battle/spell")
-            ralsei.sprite:play(1/15, false, function() ralsei:setSprite("battle/spellend") end)
-        end
-        if self.lightuptimer == 16 or self.lightuptimer == 22 or self.lightuptimer == 28 or self.lightuptimer == 34 then
-            local b = 0
-            local rand = MathUtils.randomInt(30)
-            Assets.playSound("wing")
-            for i = 1, 9 do
-                local fire = BalthizardFire(ralsei.x + 34, ralsei.y - 70) -- ehh seems somewhat correct at least
-                fire.physics.direction = -math.rad(b * 45 + rand)
-                fire.physics.speed = 14
-                fire.physics.gravity_direction = -math.rad(270)
-                fire.physics.gravity = 0.4
-                fire:setScale(1.5)
-                fire.layer = ralsei.layer + 0.1
-                Game.battle:addChild(fire)
-                table.insert(self.fires, fire)
-                b = b + 1
-            end
-        end
-        if self.lightuptimer == 18 then
-            local screenflash = BalthizardScreenFlash(self.fires)
-            Game.battle:addChild(screenflash)
-        end
-        if self.lightuptimer == 38 then
-            ralsei:setAnimation("battle/idle")
-            Assets.playSound("rocket", 0.9, 0.9)
-            self.lightup = true
-            self.lightupmessage = true
-            self.sprite.lightup = true
-        end
-        self.lightuptimer = self.lightuptimer + DTMULT
     end
 end
 

@@ -46,16 +46,16 @@ function Organikk:init()
     self.tired_text = "* Organikk extolls the virtues of\nnaptime."
 	self.spareable_text = "* Organikk extolls the virtues of\nmercy."
 
-    self.low_health_percentage = 1/3
+    self.low_health_percentage = 1 / 3
 
     self:registerAct("Perform", "Musical\nmercy")
-    self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"susie"})
-    self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", {"ralsei"})
+    self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", { "susie" })
+    self:registerAct("Harmonize", "Musical,\ntouch\nGREEN", { "ralsei" })
 
-    self.harmon_sound = nil
     self.harmonize = false
     self.chorus = false
     self.harmonize_highlight = false
+    self.harmonizer = false
 
     self.particle_timer = 0
 
@@ -66,9 +66,6 @@ function Organikk:init()
     self.lullabied = 0
 
     self.wicabell_tuning = false
-
-    self.showtempmercy = false
-    self.mercyget = 0
 
     self.sprite.active = false
     self.transition_ended = false
@@ -91,13 +88,14 @@ function Organikk:onAct(battler, name)
     elseif name == "Perform" then
         battler:setAnimation("battle/act", function() battler:setAnimation("battle/idle") end) -- ends early, doesn't wait for act end
 
-        for i = 1, 6 do
-            local x = battler.x
-            local y = battler.y - battler.height + MathUtils.randomInt(21)
-            local particle = DazzleParticle(x, y)
-            particle.layer = battler.layer - 0.01
-            Game.battle:addChild(particle)
-        end
+        Game.battle.timer:after(2 / 30, function()
+            for i = 1, 6 do
+                local x, y = battler:getRelativePos()
+                local particle = DazzleParticle(x + 40, y + 20 + MathUtils.randomInt(41))
+                particle.layer = battler.layer - 1
+                Game.battle:addChild(particle)
+            end
+        end)
 
         if self.wicabell_tuning then
             Assets.playSound("act_perform_better")
@@ -111,12 +109,7 @@ function Organikk:onAct(battler, name)
 
     elseif name == "Harmonize" then
         self.harmonize = true
-        self.showtempmercy = true
-        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
-            if enemy.mercy < 100 then
-                enemy:addTemporaryMercy(1, true, {0, 100 - enemy.mercy}, (function() return self.showtempmercy == false end))
-            end
-        end
+        self.harmonizer = true
         return "* You tried to harmonize!\n* Touch the GREEN!"
     elseif name == "Standard" then
         if battler.chara.id == "susie" then
@@ -170,28 +163,15 @@ function Organikk:getEnemyDialogue()
 end
 
 function Organikk:getEncounterText()
-    local has_spareable_text = self.spareable_text and self:canSpare()
-
-    local priority_spareable_text = Game:getConfig("prioritySpareableText")
-    if priority_spareable_text and has_spareable_text then
-        return self.spareable_text
-    end
-
-    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
-        return self.low_health_text
-
-    elseif self.tired_text and self.tired then
-        return self.tired_text
-
-    elseif has_spareable_text then
-        return self.spareable_text
+    if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
+        return super.getEncounterText(self)
     end
 
     if MathUtils.randomInt(101) < 3 then
         return "* Smells like brass and satin."
     end
 
-    return TableUtils.pick(self.text)
+    return super.getEncounterText(self)
 end
 
 function Organikk:setIdling(bool)
@@ -211,9 +191,6 @@ end
 
 function Organikk:onTurnEnd()
     self.harmonize = false
-    self.showtempmercy = false
-    self.mercyget = 0
-    self.mercyget2 = 0
 end
 
 function Organikk:update()
@@ -234,26 +211,6 @@ function Organikk:update()
 
     if self.idling then
         self.sprite.x = self.sprite.init_x + (math.sin(self.sprite.siner2 / 1.5)) * 3
-    end
-
-    local king = TableUtils.filter(Game.battle:getActiveEnemies(), function(e) return e.id == "organikking" end)
-    local other = TableUtils.filter(Game.battle:getActiveEnemies(), function(e) return e.id ~= "organikking" end)
-
-    if self.harmonize and self.mercyget == 1 then
-        self.id = "organikking"
-        for _, attacker in ipairs(king) do
-            attacker:addTemporaryMercy(1, false, {0, 100}, (function() return self.showtempmercy == false end))
-        end
-        self.mercyget = 0
-    else
-        self.id = "organikk"
-    end
-
-    if self.harmonize and self.mercyget2 == 1 then
-        for _, attacker in ipairs(other) do
-            attacker:addTemporaryMercy(1, false, {0, 100}, (function() return self.showtempmercy == false end))
-        end
-        self.mercyget2 = 0
     end
 
     if self.organsound then
@@ -305,9 +262,6 @@ end
 
 function Organikk:onDefeatRun(damage, battler)
     self.harmonize = false
-    self.showtempmercy = false
-    self.mercyget = 0
-    self.mercyget2 = 0
 
     super.onDefeatRun(self, damage, battler)
 end

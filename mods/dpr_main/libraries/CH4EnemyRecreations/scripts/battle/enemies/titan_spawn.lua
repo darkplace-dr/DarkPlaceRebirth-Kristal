@@ -123,7 +123,7 @@ function TitanSpawn:onAct(battler, name)
             }
         end
     elseif name == "Brighten" then
-        for _,party in ipairs(Game.battle.party) do
+        for _, party in ipairs(Game.battle.party) do
             party:flash()
         end
         Assets.playSound("boost")
@@ -138,12 +138,21 @@ function TitanSpawn:onAct(battler, name)
     elseif name == "DualHeal" then
         self.dualhealcount = self.dualhealcount + 1
         Game.battle:startActCutscene(function(cutscene)
+            local function getNumId(id)
+                for i, battler in ipairs(Game.battle.party) do
+                    if battler.chara.id == id then
+                        return i
+                    end
+                end
+            end
             local susie = Game.battle:getPartyBattler("susie")
             local ralsei = Game.battle:getPartyBattler("ralsei")
             local canproceed = false
             local hashealed = false
             Game.battle.timer:after(10 / 30, function()
-                susie:setAnimation("heal_charge") -- Susie starts the animation with the effects
+                susie:setAnimation("heal_charge")
+                Game.battle.battle_ui.action_boxes[getNumId("susie")]:setHeadIcon("spell")
+                Game.battle.battle_ui.action_boxes[getNumId("ralsei")]:setHeadIcon("spell")
                 Assets.playSound("boost")
                 battler:flash()
                 susie:flash()
@@ -156,13 +165,20 @@ function TitanSpawn:onAct(battler, name)
                 Game.battle:addChild(soul)
             end)
             Game.battle.timer:after(20 / 30, function()
-                ralsei:setAnimation("battle/spell_ready") -- Ralsei starts the animation after a pause
+                susie:setAnimation("heal_charge_loop")
+                ralsei:setAnimation("battle/spell_ready")
+                Game.battle.battle_ui.action_boxes[getNumId(battler.chara.id)]:setHeadIcon("head")
+                battler:setAnimation("battle/act_end")
                 canproceed = true
             end)
             cutscene:text("* Your SOUL shined its power on\nRALSEI and SUSIE!")
-            cutscene:wait(function() return canproceed == true end)
-            susie:setAnimation("heal_end_short", function() susie:setAnimation("battle/idle") end)
+            cutscene:wait(function() return canproceed end)
+            Game.battle.timer:after(8 / 30, function()
+                Game.battle.battle_ui.action_boxes[getNumId("susie")]:setHeadIcon("head")
+                susie:setAnimation("heal_end_short", function() susie:setAnimation("battle/idle") end)
+            end)
             ralsei:setAnimation("battle/spell", function()
+                Game.battle.battle_ui.action_boxes[getNumId("ralsei")]:setHeadIcon("head")
                 for _, party in ipairs(Game.battle.party) do
                     local healnum = MathUtils.round((susie.chara:getStat("magic") + ralsei.chara:getStat("magic")) * 6)
                     healnum = Game.battle:applyHealBonuses(healnum, susie.chara)
@@ -186,18 +202,17 @@ function TitanSpawn:onAct(battler, name)
             else
                 cutscene:text("* Susie and Susie cast DUAL HEAL!")
             end
-            cutscene:wait(function() return hashealed == true end)
+            cutscene:wait(function() return hashealed end)
         end)
         return
     elseif name == "Banish" then
-        battler:setAnimation("act")
         Game.battle:startActCutscene(function(cutscene)
             cutscene:text("* " .. battler.chara:getName() .. "'s SOUL emitted a brilliant \nlight!")
             battler:flash()
 
             local bx, by = battler:getRelativePos(battler.width / 2 + 4, battler.height / 2 + 4)
 
-            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by, nil, Assets.getTexture("player/" .. battler.chara:getSoulFacing() .. "/heart_centered")))
+            local soul = Game.battle:addChild(TitanSpawnPurifySoul(bx, by))
             soul.color = { battler.chara:getSoulColor() }
             soul.layer = 501
 
@@ -233,8 +248,7 @@ function TitanSpawn:onAct(battler, name)
 			cutscene:wait(0.5)
 			battler:setAnimation("battle/idle")
 			if kris.chara.health <= 0 then
-				local reviveamt = math.abs(kris.chara.health) + 1
-				kris:heal(reviveamt)
+				kris:heal(math.abs(kris.chara.health) + 1)
 			else
 				cutscene:text("* (But, Kris wasn't DOWNed...)")
 			end
@@ -254,13 +268,10 @@ function TitanSpawn:onAct(battler, name)
             cherub.layer = kris.layer
 			cutscene:wait(58 / 30)
 			battler:setAnimation("battle/idle")
-			if kris then
-				local starthp = kris.chara.health
-				if starthp <= 0 then
-					kris:heal(math.abs(starthp) + math.ceil(kris.chara:getStat("health") / 3))
-				else
-					kris:heal(math.ceil(kris.chara:getStat("health") * 0.5))
-				end
+			if kris.chara.health <= 0 then
+				kris:heal(math.abs(kris.chara.health) + math.ceil(kris.chara:getStat("health") / 3))
+			else
+				kris:heal(math.ceil(kris.chara:getStat("health") * 0.5))
 			end
         end)
         return
@@ -271,10 +282,6 @@ function TitanSpawn:onAct(battler, name)
         return
     end
     return super.onAct(self, battler, name)
-end
-
-function TitanSpawn:getEnemyDialogue()
-    return false
 end
 
 function TitanSpawn:onTurnEnd()
@@ -308,7 +315,7 @@ end
 function TitanSpawn:onHurt(damage, battler)
 	super.onHurt(self, damage, battler)
 
-    Assets.stopAndPlaySound("spawn_weaker")
+    Game.battle.timer:after(1 / 30, function() Assets.stopAndPlaySound("spawn_weaker") end)
 end
 
 function TitanSpawn:onDefeat(damage, battler)
@@ -318,11 +325,22 @@ end
 function TitanSpawn:getEncounterText()
     if Game:getTension() >= 64 then
 		return "* The atmosphere feels tense...\n* (You can use [color:yellow]BANISH[color:reset]!)"
-    elseif MathUtils.randomInt(100) < 4 then
+    elseif MathUtils.randomInt(101) < 4 then
 		return "* Smells like adrenaline."
 	else
 		return super.getEncounterText(self)
 	end
+end
+
+function TitanSpawn:onRemoveFromStage(stage)
+    super.onRemove(self, stage)
+
+    -- accuracy thing
+    for _, purify in ipairs(Game.stage:getObjects(TitanSpawnPurifySoul)) do
+        if purify.t < 540 then
+            purify.t = 540
+        end
+    end
 end
 
 return TitanSpawn

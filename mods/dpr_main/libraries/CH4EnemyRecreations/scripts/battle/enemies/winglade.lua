@@ -154,28 +154,15 @@ function Winglade:getEnemyDialogue()
 end
 
 function Winglade:getEncounterText()
-    local has_spareable_text = self.spareable_text and self:canSpare()
-
-    local priority_spareable_text = Game:getConfig("prioritySpareableText")
-    if priority_spareable_text and has_spareable_text then
-        return self.spareable_text
-    end
-
-    if self.low_health_text and self.health <= (self.max_health * self.low_health_percentage) then
-        return self.low_health_text
-
-    elseif self.tired_text and self.tired then
-        return self.tired_text
-
-    elseif has_spareable_text then
-        return self.spareable_text
+    if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
+        return super.getEncounterText(self)
     end
 
     if MathUtils.randomInt(101) < 3 then
         return "* Smells like old down pillow."
     end
 
-    return TableUtils.pick(self.text)
+    return super.getEncounterText(self)
 end
 
 return Winglade
