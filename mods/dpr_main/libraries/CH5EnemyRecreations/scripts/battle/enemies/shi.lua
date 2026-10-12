@@ -53,16 +53,7 @@ function Shi:onAct(battler, name)
         return
 
     elseif name == "Standard" then
-        if battler.chara.id == "susie" then
-            self:addMercy(40)
-            return  "* Susie hammers a bell!"
-        elseif battler.chara.id == "ralsei" then
-            self:addMercy(20)
-            return "* Ralsei tapped a bell!"
-        else
-            self:addMercy(25)
-            return "* "..battler.chara:getName().." hit the bell!"
-        end
+        return self:onShortAct(battler, name)
     end
 
     return super.onAct(self, battler, name)
@@ -71,18 +62,31 @@ end
 function Shi:onShortAct(battler, name)
     if name == "Standard" then
         if battler.chara.id == "susie" then
-            self:addMercy(40)
-            return  "* Susie hammers a bell!"
+            if #Game.battle:getActiveParty() == 1 then
+                self:addMercy(50)
+            else
+                self:addMercy(30)
+            end
+            local text = {
+                "* Susie eats hay!",
+                "* Susie pretends to scare crows!",
+                "* Susie beats up the ground!"
+            }
+            return TableUtils.pick(text)
         elseif battler.chara.id == "ralsei" then
-            self:addMercy(20)
-            return "* Ralsei tapped a bell!"
-        else
-            self:addMercy(25)
-            return "* "..battler.chara:getName().." hit the bell!"
+            if #Game.battle:getActiveParty() == 1 then
+                self:addMercy(50)
+            else
+                self:addMercy(30)
+            end
+            local text = {
+                "* Ralsei trades hats!",
+                "* Ralsei poses like a scarecrow!",
+                "* Ralsei eats hay!"
+            }
+            return TableUtils.pick(text)
         end
     end
-
-    return super.onShortAct(self, battler, name)
 end
 
 function Shi:getEnemyDialogue()
