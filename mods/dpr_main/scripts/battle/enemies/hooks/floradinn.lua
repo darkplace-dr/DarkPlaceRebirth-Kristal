@@ -1,12 +1,12 @@
-local Wicabel, super = HookSystem.hookScript("floradinn")
+local Floradinn, super = HookSystem.hookScript("floradinn")
 
-function Wicabel:init()
+function Floradinn:init()
     super.init(self)
 
     self.killable = true
 end
 
-function Wicabel:onAct(battler, name)
+function Floradinn:onAct(battler, name)
     if name == "FlirtS" then
         Game.battle:startActCutscene(function(cutscene)
             local susie = Game.battle:getPartyBattler("susie")
@@ -50,4 +50,19 @@ function Wicabel:onAct(battler, name)
     return super.onAct(self, battler, name)
 end
 
-return Wicabel
+function Floradinn:onShortAct(battler, name)
+    if name == "Standard" then
+        if battler.chara.id == "jamm" then
+            self:addMercy(40)
+            local text = {
+                "* Jamm pretends to like the smell.", -- no sense of smell :P
+                "* Jamm enjoys the sunlight.",
+                "* Jamm waters gently!"
+            }
+            return TableUtils.pick(text)
+        end
+    end
+    return super.onShortAct(self, battler, name)
+end
+
+return Floradinn
