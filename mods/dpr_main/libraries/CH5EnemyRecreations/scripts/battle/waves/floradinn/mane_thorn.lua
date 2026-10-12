@@ -39,7 +39,7 @@ function ManeThorn:update()
 		end
 		self.special[i] = self.special[i] - DTMULT
 		if self.special[i] <= 1 and not self.did_special[i] then
-			Assets.playSound("board_throw", 0.7)
+			Assets.playSound("board/throw", 0.7)
 			attacker.sprite.maneanimcon = 1
 			local triangle_count = 12
 			local xx, yy = attacker:getRelativePos(0, 0)

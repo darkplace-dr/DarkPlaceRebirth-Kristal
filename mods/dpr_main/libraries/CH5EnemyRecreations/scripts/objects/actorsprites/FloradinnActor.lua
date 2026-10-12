@@ -78,12 +78,9 @@ function FloradinnActor:update()
 		end
 	end
 	if self.spikes_returning then
-		self.spikegrowtimer = self.spikegrowtimer + 1 * DTMULT
+		self.spikegrowtimer = self.spikegrowtimer + DTMULT
 		if self.spikegrowtimer < 3 then
 			self.headx = MathUtils.lerp(self.headx, 0, 1 - (1 - (self.spikegrowtimer / 2)) ^ DTMULT)
-		end
-		if self.spikegrowtimer >= 2.125 and FRAMERATE > 30 then
-			self.headx = 0
 		end
 		if self.spikegrowtimer >= 16 then
 			self.spikes_returning = false

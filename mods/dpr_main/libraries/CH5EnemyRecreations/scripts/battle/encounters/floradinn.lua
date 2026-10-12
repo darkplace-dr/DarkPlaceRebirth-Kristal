@@ -8,8 +8,8 @@ function Floradinn:init()
     self.music = "rakuichi_buster_wip"
     self.background = true
 
-    self:addEnemy("floradinn")
-    self:addEnemy("floradinn")
+    self:addEnemy("floradinn", 497, 180)
+    self:addEnemy("floradinn", 517, 270)
 end
 
 function Floradinn:onReturnToWorld(events)
