@@ -10,7 +10,7 @@ function BallDude:init()
     self.recruit_amount = 4
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 41
+    self.index = 49
 
     -- Selection Display
     self.description = "A ball that is a dude. Or a dude\nthat is a ball...?"
@@ -27,11 +27,11 @@ function BallDude:init()
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {1,177/255,0,1}
+    self.box_gradient_color = { 1, 177 / 255, 0, 1 }
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/balldude/idle", 0, 0}
+    self.box_sprite = { "recruits/balldude/idle", 0, 0 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

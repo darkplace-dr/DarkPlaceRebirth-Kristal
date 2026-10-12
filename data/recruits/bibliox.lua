@@ -21,17 +21,18 @@ function Bibliox:init()
     self.element = "MAGIC"
     self.like = "Ancient Text"
     self.dislike = "Autocorrect"
+    self.wish = "Glasses. And eyes"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,0,1,1}
+    self.box_gradient_color = COLORS.blue
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/bibliox/spare", -3, 22}
+    self.box_sprite = { "recruits/bibliox/spare", -3, 22 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

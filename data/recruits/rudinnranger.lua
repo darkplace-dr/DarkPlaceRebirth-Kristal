@@ -21,17 +21,18 @@ function RudinnRanger:init()
     self.element = "JEWEL:BLADE"
     self.like = "Sucking Up"
     self.dislike = "Show Getting Taped Over"
+    self.wish = "Told \"good job\""
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {128/255,0,128/255,1}
+    self.box_gradient_color = COLORS.purple
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/rudinnranger/overworld", -3, 30}
+    self.box_sprite = { "recruits/rudinnranger/overworld", -3, 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

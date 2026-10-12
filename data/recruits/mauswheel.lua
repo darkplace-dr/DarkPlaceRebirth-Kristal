@@ -1,6 +1,6 @@
-local mauswheel, super = Class(Recruit)
+local Mauswheel, super = Class(Recruit)
 
-function mauswheel:init()
+function Mauswheel:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function mauswheel:init()
     self.element = "MOUSE:MOUSE:MOUSE"
     self.like = "Pretending To Be A Tire"
     self.dislike = "Losing Momentum"
+    self.wish = "Race course"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/mauswheel/idle", -3, 5, 4/30}
+    self.box_sprite = { "recruits/mauswheel/idle", -3, 5, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function mauswheel:init()
     self.recruited = 0
 end
 
-return mauswheel
+return Mauswheel

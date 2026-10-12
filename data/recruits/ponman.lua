@@ -21,17 +21,18 @@ function Ponman:init()
     self.element = "ORDER"
     self.like = "Sleeping"
     self.dislike = "Moving Backwards"
+    self.wish = "Loam > Soil"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {128/255,0,128/255,1}
+    self.box_gradient_color = COLORS.purple
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/ponman/idle", -3, 26, 4/30}
+    self.box_sprite = { "recruits/ponman/idle", -3, 26, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

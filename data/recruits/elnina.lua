@@ -21,17 +21,18 @@ function Elnina:init()
     self.element = "WATER:ICE"
     self.like = "Lanino"
     self.dislike = "Being Alone"
+    self.wish = "Lanino less jealous"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,128/255,0,1}
+    self.box_gradient_color = COLORS.green
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/elnina/idle_left", -3, 14}
+    self.box_sprite = { "recruits/elnina/idle_left", -3, 14 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

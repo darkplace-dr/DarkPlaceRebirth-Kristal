@@ -10,7 +10,7 @@ function Dummy:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 35
+    self.index = 43
 
     -- Selection Display
     self.description = "A training dummy made by Ralsei.\nHow did it get here...?"
@@ -27,11 +27,11 @@ function Dummy:init()
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {68/255,41/255,1,1}
+    self.box_gradient_color = { 68 / 255, 41 / 255, 1, 1 }
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/dummy/idle", 0, 0}
+    self.box_sprite = { "recruits/dummy/idle", 0, 0 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

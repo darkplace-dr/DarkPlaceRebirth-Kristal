@@ -10,7 +10,7 @@ function GoogleDino:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 37
+    self.index = 45
 
     -- Selection Display
     self.description = "A dinosaur that appears when your\nWi-Fi is down."
@@ -27,11 +27,11 @@ function GoogleDino:init()
     self.box_gradient_type = "dark"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {1,1,1,1}
+    self.box_gradient_color = { 1, 1, 1, 1 }
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/googledino/idle", 0, 0, 1/2}
+    self.box_sprite = { "recruits/googledino/idle", 0, 0, 1 / 2 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

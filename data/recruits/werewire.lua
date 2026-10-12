@@ -1,6 +1,6 @@
-local werewire, super = Class(Recruit)
+local Werewire, super = Class(Recruit)
 
-function werewire:init()
+function Werewire:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function werewire:init()
     self.element = "ELEC"
     self.like = "Shock Therapy"
     self.dislike = "Emotional Therapy"
+    self.wish = "Cordless phone"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/werewire/idle", -3, -1, 4/30}
+    self.box_sprite = { "recruits/werewire/idle", -3, -1, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function werewire:init()
     self.recruited = 0
 end
 
-return werewire
+return Werewire

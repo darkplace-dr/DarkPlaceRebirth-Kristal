@@ -10,7 +10,7 @@ function Mimic:init()
     self.recruit_amount = 1
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 39
+    self.index = 47
 
     -- Selection Display
     self.description = "A shapeshifter that loves to say\n\"Happy New Year 1998!\"."
@@ -27,11 +27,11 @@ function Mimic:init()
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {1,1,1,1}
+    self.box_gradient_color = { 1, 1, 1, 1 }
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/ufoofdoom/idle", 0, 0, (75/120)/4}
+    self.box_sprite = { "recruits/ufoofdoom/idle", 0, 0, (75 / 120) / 4 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

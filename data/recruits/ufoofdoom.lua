@@ -10,7 +10,7 @@ function UFOOfDoom:init()
     self.recruit_amount = 7
 
     -- Organize the order that recruits show up in the recruit menu
-    self.index = 38
+    self.index = 46
 
     -- Selection Display
     self.description = "A UFO just like from those\nmovies about aliens."
@@ -27,11 +27,11 @@ function UFOOfDoom:init()
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {1,1,1,1}
+    self.box_gradient_color = { 1, 1, 1, 1 }
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/ufoofdoom/idle", 0, 0, (75/120)/4}
+    self.box_sprite = { "recruits/ufoofdoom/idle", 0, 0, (75 / 120) / 4 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

@@ -1,6 +1,6 @@
-local tasque, super = Class(Recruit)
+local Tasque, super = Class(Recruit)
 
-function tasque:init()
+function Tasque:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function tasque:init()
     self.element = "CAT:ELEC"
     self.like = "Cat Food"
     self.dislike = "Cat Food"
+    self.wish = "Unlosable toy"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/tasque/idle_cafe", -3, 30, 4/30}
+    self.box_sprite = { "recruits/tasque/idle_cafe", -3, 30, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function tasque:init()
     self.recruited = 0
 end
 
-return tasque
+return Tasque

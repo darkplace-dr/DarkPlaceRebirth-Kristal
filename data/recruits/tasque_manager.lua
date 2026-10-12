@@ -1,6 +1,6 @@
-local tasquemanager, super = Class(Recruit)
+local TasqueManager, super = Class(Recruit)
 
-function tasquemanager:init()
+function TasqueManager:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function tasquemanager:init()
     self.element = "CAT:ORDER"
     self.like = "New Wave Synth Pop"
     self.dislike = "Mismatched Socks"
+    self.wish = "Secret <3"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/tasquemanager/npc", -3, 1, 4/30}
+    self.box_sprite = { "recruits/tasque_manager/npc", -3, 1, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function tasquemanager:init()
     self.recruited = 0
 end
 
-return tasquemanager
+return TasqueManager

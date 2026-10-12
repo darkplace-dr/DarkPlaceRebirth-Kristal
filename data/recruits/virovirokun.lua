@@ -21,17 +21,18 @@ function Virovirokun:init()
     self.element = "VIRUS"
     self.like = "Retro Games"
     self.dislike = "Federal Justice System"
+    self.wish = "World peace? Anyone?"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/virovirokun/idle", -3, 12, 4/30}
+    self.box_sprite = { "recruits/virovirokun/idle", -3, 12, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

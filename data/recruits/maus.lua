@@ -1,6 +1,6 @@
-local maus, super = Class(Recruit)
+local Maus, super = Class(Recruit)
 
-function maus:init()
+function Maus:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function maus:init()
     self.element = "MOUSE:ELEC"
     self.like = "Clicking"
     self.dislike = "Clicking on Poppup"
+    self.wish = "Michael"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/maus/idle", -3, 52, 4/30}
+    self.box_sprite = { "recruits/maus/idle", -3, 52, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function maus:init()
     self.recruited = 0
 end
 
-return maus
+return Maus

@@ -1,6 +1,6 @@
-local ambyulance, super = Class(Recruit)
+local AmbyuLance, super = Class(Recruit)
 
-function ambyulance:init()
+function AmbyuLance:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function ambyulance:init()
     self.element = "ORDER:ELEC"
     self.like = "Loud Sirens"
     self.dislike = "Funny Sound Effects"
+    self.wish = "The cure? Anyone?"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/ambyulance/idle", -3, 13, 4/30}
+    self.box_sprite = { "recruits/ambyulance/idle", -3, 13, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function ambyulance:init()
     self.recruited = 0
 end
 
-return ambyulance
+return AmbyuLance

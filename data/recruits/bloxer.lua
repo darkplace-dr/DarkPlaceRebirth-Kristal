@@ -21,17 +21,18 @@ function Bloxer:init()
     self.element = "FIGHT"
     self.like = "Cross-Trainers"
     self.dislike = "Formal Shoewear"
+    self.wish = "Other new parts"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {128/255,0,128/255,1}
+    self.box_gradient_color = COLORS.purple
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/bloxer/spared", -3, 16}
+    self.box_sprite = { "recruits/bloxer/spared", -3, 16 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

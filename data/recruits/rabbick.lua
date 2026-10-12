@@ -21,17 +21,18 @@ function Rabbick:init()
     self.element = "RABBIT:DUST"
     self.like = "Dusty Places"
     self.dislike = "Vacuum"
+    self.wish = "Likes being bigger"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {128/255,0,128/255,1}
+    self.box_gradient_color = COLORS.purple
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/rabbick/clean", -3, 29}
+    self.box_sprite = { "recruits/rabbick/clean", -3, 29 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress

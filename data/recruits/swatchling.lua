@@ -1,6 +1,6 @@
-local swatchling, super = Class(Recruit)
+local Swatchling, super = Class(Recruit)
 
-function swatchling:init()
+function Swatchling:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function swatchling:init()
     self.element = "COLOR"
     self.like = "Paint by Numbers"
     self.dislike = "Mixed Messages"
+    self.wish = "Bunny vacation"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/swatchling/npc", -3, 1, 4/30}
+    self.box_sprite = { "recruits/swatchling/npc", -3, 1, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function swatchling:init()
     self.recruited = 0
 end
 
-return swatchling
+return Swatchling

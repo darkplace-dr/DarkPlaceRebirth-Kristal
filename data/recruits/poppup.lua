@@ -1,6 +1,6 @@
-local poppup, super = Class(Recruit)
+local Poppup, super = Class(Recruit)
 
-function poppup:init()
+function Poppup:init()
     super.init(self)
 
     -- Display Name
@@ -21,17 +21,18 @@ function poppup:init()
     self.element = "VIRUS"
     self.like = "LEEMO FRUIT"
     self.dislike = "ADBLOCK"
+    self.wish = "Celebrate birthday"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,1,1,1}
+    self.box_gradient_color = COLORS.aqua
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y, animation_speed
-    self.box_sprite = {"recruits/poppup/idle", -3, 12, 4/30}
+    self.box_sprite = { "recruits/poppup/idle", -3, 12, 4 / 30 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
@@ -39,4 +40,4 @@ function poppup:init()
     self.recruited = 0
 end
 
-return poppup
+return Poppup

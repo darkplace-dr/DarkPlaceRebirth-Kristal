@@ -21,17 +21,18 @@ function Balthizard:init()
     self.element = "STEEL:SMELL"
     self.like = "Scent Candle"
     self.dislike = "Spinning fast"
+    self.wish = "Turbo boosters"
 
     -- Controls the type of the box gradient
     -- Available options: dark, bright
     self.box_gradient_type = "bright"
 
     -- Dyes the box gradient
-    self.box_gradient_color = {0,0,1,1}
+    self.box_gradient_color = COLORS.blue
 
     -- Sets the animated sprite in the box
     -- Syntax: Sprite/Animation path, offset_x, offset_y
-    self.box_sprite = {"recruits/balthizard/spared", -3, 26}
+    self.box_sprite = { "recruits/balthizard/spared", -3, 26 }
 
     -- Recruit Status (saved to the save file)
     -- Number: Recruit Progress
