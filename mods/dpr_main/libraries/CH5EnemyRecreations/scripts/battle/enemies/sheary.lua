@@ -14,9 +14,7 @@ function Sheary:init()
 
     self.spare_points = 10
 
-    -- self.waves = {
-    --     "sheary/scissor_attack"
-    -- }
+    self.waves = { --[[\"sheary/scissor_attack"]] }
 
 	self.firstturnballoon = false
 
@@ -40,9 +38,9 @@ function Sheary:init()
 
     self.low_health_percentage = 1 / 4
 
-    self:registerAct("SalonCut", "Relaxed\ncut")
+    self:registerAct("SalonCut", "Relaxed\ncut", "all")
     self:registerAct("ValueCut", "Cut\nquick!", "susie")
-    self:registerAct("HyperCut", "Cut\nFAST!!!", "ralsei")
+    self:registerAct("HyperCut", "Cut\nFAST!!!")
 
 	self.acttimer = 0
 	self.cuttextcon = 0
@@ -53,19 +51,6 @@ function Sheary:init()
 	self.valuecut = false
 	self.hypercut = false
 	self.truancy = false
-end
-
-function Sheary:selectWave()
-    local waves = self:getNextWaves()
-
-    if waves and #waves > 0 then
-        local wave = TableUtils.pick(waves)
-        if self.flattened or self:canSpare() then
-            wave = "floradinn/homing_triangle"
-        end
-        self.selected_wave = wave
-        return wave
-    end
 end
 
 function Sheary:isXActionShort(battler)
@@ -85,13 +70,21 @@ function Sheary:onShortAct(battler, name)
     if name == "Standard" then
         if battler.chara.id == "susie" then
             self:addMercy(40)
+            local oy = -2 / 2
+            battler:setActSprite("party/susie/dark/hairs_" .. TableUtils.pick({ 1, 2, 3 }), -3 - 18, -1 - 2 + oy)
             return "* Susie received a haircut!"
         elseif battler.chara.id == "ralsei" then
             self:addMercy(40)
+            if battler.actor:getSpritePath() == "party/ralsei/dark_ch1" then
+                local ox, oy = -2 / 2, -6 / 2
+                battler:setActSprite("party/ralsei/dark_ch1/hairs_" .. TableUtils.pick({ 1, 2, 3 }), -3 + ox, -2 + oy)
+            else
+                local oy = -2 / 2
+                battler:setActSprite("party/ralsei/dark/hairs_" .. TableUtils.pick({ 1, 2, 3, 4 }), -2 + 1, -6 + 2 + oy)
+            end
             return "* Ralsei received a haircut!"
         end
     end
-    return nil
 end
 
 function Sheary:getEncounterText()
@@ -116,8 +109,8 @@ function Sheary:getEnemyDialogue()
 
     if self.firstturnballoon == false then
         self.firstturnballoon = true
-
         return "Half-Off?\nOff-Half?"
+
     else
         return TableUtils.pick(self.dialogue)
     end
