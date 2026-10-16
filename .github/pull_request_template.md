@@ -17,5 +17,5 @@ Thank you for making a pull request. Before submitting, please read through thes
 ## Additional Information:
 <!-- Fill out the following as they apply to your PR: -->
 
-[ ] I have tested my changes
-[ ] I checked what repository I'm sending this to before submitting the PR
+- [ ] I have tested my changes
+- [ ] I checked what repository I'm sending this to before submitting the PR
