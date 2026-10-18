@@ -5,8 +5,6 @@ function Sheary:init()
 
     self.killable = true
 
-    self.dialogue = {}
-
     self.dialogue_characters = {
         kris = "Short-Hair?\nLong-Hair?\nNo-Where?",
         susie = "Wash-hair?\nHair-wash?\nCar-wash?",
@@ -19,12 +17,6 @@ function Sheary:init()
     self.small_bubble = {
         noelle = true
     }
-
-    for _, party in ipairs(Game.party) do
-        if self.dialogue_characters[party.id] then
-            table.insert(self.dialogue, party:getName() .. ":\n" .. self.dialogue_characters[party.id])
-        end
-    end
 end
 
 function Sheary:onShortAct(battler, name)
@@ -53,10 +45,9 @@ function Sheary:getEnemyDialogue()
         local function getPartyDialogue(battler)
             return self.dialogue_characters[battler.chara.id] or "No-Thing?\nNo-Thing?\nNo-Thing?"
         end
-        local party = Game.battle.party
-        if Game.battle.back_row then
-            table.insert(party, Game.battle.back_row)
-        end
+        local party = {}
+        for _, battler in ipairs(Game.battle.party) do table.insert(party, battler) end
+        if Game.battle.back_row then table.insert(party, Game.battle.back_row) end
         local battler = TableUtils.pick(party)
         local dialogue = battler.chara:getName() .. ":\n" .. getPartyDialogue(battler)
         if self.small_bubble[battler.chara.id] then
