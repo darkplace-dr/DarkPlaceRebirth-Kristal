@@ -16,12 +16,12 @@ function Sheary:init()
 
     self.waves = { --[[\"sheary/scissor_attack"]] }
 
-	self.firstturnballoon = false
+    self.firstturnballoon = false
 
     self.dialogue = {
-        "Kris:\nShort-Hair?\nLong-Hair?\nNo-Where?", 
-        "Susie:\nWash-hair?\nHair-wash?\nCar-wash?", 
-        "Ralsei:\nHot-Shave?\nHot-Wax?\nHot-Shock?", 
+        "Kris:\nShort-Hair?\nLong-Hair?\nNo-Where?",
+        "Susie:\nWash-hair?\nHair-wash?\nCar-wash?",
+        "Ralsei:\nHot-Shave?\nHot-Wax?\nHot-Shock?",
         "Noelle:\nSnow-Flake?\nSnow-Flake?"
     }
 
@@ -34,7 +34,7 @@ function Sheary:init()
 
     self.low_health_text = "* Sheary refuses to run.[wait:5] (It'd be dangerous.)"
     self.tired_text = "* Sheary looks ready to shear sheep."
-	self.spareable_text = "* Sheary dances spareably."
+    self.spareable_text = "* Sheary dances spareably."
 
     self.low_health_percentage = 1 / 4
 
@@ -42,15 +42,15 @@ function Sheary:init()
     self:registerAct("ValueCut", "Cut\nquick!", "susie")
     self:registerAct("HyperCut", "Cut\nFAST!!!")
 
-	self.acttimer = 0
-	self.cuttextcon = 0
-	self.cuttexttimer = 30
-	self.mercy_to_add = 0
+    self.acttimer = 0
+    self.cuttextcon = 0
+    self.cuttexttimer = 30
+    self.mercy_to_add = 0
 
-	self.saloncut = false
-	self.valuecut = false
-	self.hypercut = false
-	self.truancy = false
+    self.saloncut = false
+    self.valuecut = false
+    self.hypercut = false
+    self.truancy = false
 end
 
 function Sheary:isXActionShort(battler)
@@ -60,6 +60,18 @@ end
 function Sheary:onAct(battler, name)
     if name == "Check" then
         return "* SHEARY - An elegant dancer with sharp legs.[wait:5] Part of Blue's dance troupe,[wait:5] which Aqua also attends."
+
+    elseif name == "SalonCut" or name == "ValueCut" or name == "HyperCut" then
+        if name == "SalonCut" then
+            self:salonCutSprites()
+            self.saloncut = true
+        elseif name == "ValueCut" then
+            self.valuecut = true
+        elseif name == "HyperCut" then
+            self.hypercut = true
+        end
+        Game.battle:addChild(ScissorsActController(self))
+        return
 
     elseif name == "Standard" then
         return self:onShortAct(battler, name)
@@ -87,6 +99,24 @@ function Sheary:onShortAct(battler, name)
     end
 end
 
+function Sheary:salonCutSprites()
+    for _, battler in ipairs(Game.battle.party) do
+        if battler.chara.id == "kris" then
+            battler:setActSprite("party/kris/dark/papersnow", -2, -1)
+        elseif battler.chara.id == "susie" then
+            battler:setActSprite("party/susie/dark/papersnow", -3 + 5, -1 + 2)
+        elseif battler.chara.id == "ralsei" then
+            battler:setActSprite("party/ralsei/dark/papersnow", -2, -6 + 6)
+        end
+    end
+end
+
+function Sheary:onTurnEnd()
+    self.saloncut = false
+    self.valuecut = false
+    self.hypercut = false
+end
+
 function Sheary:getEncounterText()
     if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
         return super.getEncounterText(self)
@@ -99,7 +129,6 @@ function Sheary:getEncounterText()
     return super.getEncounterText(self)
 end
 
--- Figure out how to set up Sheary's unique speech bubbles.
 function Sheary:getEnemyDialogue()
     if self.dialogue_override then
         local dialogue = self.dialogue_override
@@ -109,42 +138,18 @@ function Sheary:getEnemyDialogue()
 
     if self.firstturnballoon == false then
         self.firstturnballoon = true
+        self.dialogue_bubble = "sheary_special"
         return "Half-Off?\nOff-Half?"
 
     else
-        return TableUtils.pick(self.dialogue)
+        local dialogue = TableUtils.pick(self.dialogue)
+        if dialogue == self.dialogue[4] then
+            self.dialogue_bubble = "sheary"
+        else
+            self.dialogue_bubble = "sheary_long"
+        end
+        return dialogue
     end
-end
-
-function Sheary:spawnSpeechBubble(text, options)
-    options = options or {}
-    local bubble
-    local spr = self.sprite or self
-    local x, y = spr:getRelativePos(0, spr.height/2, Game.battle)
-    x, y = x - self.dialogue_offset[1], y + self.dialogue_offset[2]
-
-    bubble = SpeechBubble(text, x, y, {}, self)
-    self.bubble = bubble
-
-    if self.dialogue[4] or self.firstturnballoon == false then
-        bubble:setStyle("sheary")
-    else
-        bubble:setStyle("sheary_long")
-    end
-
-    self:onBubbleSpawn(bubble)
-    bubble:setCallback(function()
-        self:onBubbleRemove(bubble)
-        bubble:remove()
-        self.bubble = nil
-    end)
-    bubble:setLineCallback(function(index)
-        Game.battle.textbox_timer = 3 * 30
-    end)
-
-    Game.battle:addChild(bubble)
-
-    return bubble
 end
 
 return Sheary

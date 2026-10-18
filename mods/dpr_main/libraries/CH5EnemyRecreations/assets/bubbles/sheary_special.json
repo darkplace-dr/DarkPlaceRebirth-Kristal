@@ -1,0 +1,10 @@
+{
+    "auto": false,
+    "sprites": "sheary",
+    "text_bounds": {
+        "left": 20,
+        "top": 24,
+        "width": 100,
+        "height": 60
+    }
+}

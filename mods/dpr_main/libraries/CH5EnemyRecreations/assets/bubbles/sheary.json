@@ -2,9 +2,9 @@
     "auto": false,
     "sprites": "sheary",
     "text_bounds": {
-        "left": 12,
-        "top": 10,
-        "width": 126,
-        "height": 80
+        "left": 15,
+        "top": 14,
+        "width": 100,
+        "height": 60
     }
 }

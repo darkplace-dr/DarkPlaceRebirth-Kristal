@@ -58,6 +58,10 @@ function Leafling:init()
     self:registerAct("BlowAway", "Mash for\nMercy", "ralsei")
 
     self.pinneddown = false
+    self.spinsfxtimer = 12
+
+    self.spinning = false
+    self.turbospin_sprite = nil
 end
 
 function Leafling:isXActionShort(battler)
@@ -72,6 +76,50 @@ function Leafling:onAct(battler, name)
             return "* Leafling - A responsible leaf.[wait:5] The air feels stagnant around it."
         end
     elseif name == "TurboSpin" then
+        Game.battle:startActCutscene(function(cutscene)
+            local susie = Game.battle:getPartyBattler("susie")
+            local susie_wasdown = false
+            battler:setAnimation("pirouette")
+            battler.sprite:play(1 / 30, true)
+            local offsets = battler:getActiveSprite():getOffset()
+            battler:actEffect(battler:getActiveSprite():getTexture(), offsets[1], offsets[2])
+            if susie then
+                susie_wasdown = susie.is_down
+                susie:toggleOverlay(false) -- bug replication if she's down
+                susie:setActSprite("party/susie/dark/looksup", -3 - 21, -1 - 24)
+            end
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+                if enemy.id == "leafling" then
+                    local x, y = enemy:getRelativePos()
+                    local inst = TurbospinSprite(x + 20, y + 72, enemy:canSpare())
+                    inst:setScale(2)
+                    Game.battle:addChild(inst)
+                    enemy.visible = false
+                    enemy.turbospin_sprite = inst
+                end
+            end
+            self.spinning = true
+            cutscene:text("* " .. battler.chara:getName() .. " spun extremely fast!")
+            self.spinsfxtimer = 0
+            self.spinning = false
+            battler:resetSprite()
+            if susie then
+                local sx, sy = susie:getRelativePos()
+                susie:setAnimation("battle/idle_dizzy")
+                cutscene:battlerText(susie, "Stop it!![wait:5] You're\nmaking me dizzy!!", { right = true, x = sx + 100 - 31, y = sy + 40 - 1 })
+                if susie_wasdown then susie:toggleOverlay(true) end
+                susie:resetSprite()
+            end
+            for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
+                enemy:addMercy(100)
+                if enemy.id == "leafling" then
+                    enemy.visible = true
+                    enemy.turbospin_sprite:remove()
+                    enemy.turbospin_sprite = nil
+                end
+            end
+        end)
+        return
     elseif name == "PinDown" then
     elseif name == "BlowAway" then
     elseif name == "Standard" then
@@ -99,7 +147,6 @@ function Leafling:onShortAct(battler, name)
             return TableUtils.pick(text)
         end
     end
-    return nil
 end
 
 function Leafling:getEncounterText()
@@ -137,6 +184,13 @@ function Leafling:getEnemyDialogue()
 end
 
 function Leafling:update()
+    if self.spinning then
+        self.spinsfxtimer = self.spinsfxtimer + DTMULT
+        if self.spinsfxtimer >= 12 then
+            Assets.stopAndPlaySound("pirouette", 0.4, 1.4)
+            self.spinsfxtimer = 0
+        end
+    end
 
     super.update(self)
 end
