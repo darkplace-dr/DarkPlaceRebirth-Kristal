@@ -2187,9 +2187,13 @@ function DebugSystem:draw()
 
         Draw.setColor(1, 1, 1, 1)
 
+        local texture_found = {}
         local textures = {}
         for id in Assets.iterate("sprite", "face/") do
-            table.insert(textures, id:sub(6))
+            if not texture_found[id] then
+                table.insert(textures, id:sub(6))
+                texture_found[id] = true
+            end
         end
 
         -- Sort textures alphabetically

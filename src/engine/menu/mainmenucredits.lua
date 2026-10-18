@@ -100,6 +100,7 @@ function MainMenuCredits:generateContributorPages()
         "Lionmeow",
         "Luna",
         "Maks7594",
+        "masondevelops",
         "MaybeSamo",
         "MCdeDaxia",
         "MihBoss96",
