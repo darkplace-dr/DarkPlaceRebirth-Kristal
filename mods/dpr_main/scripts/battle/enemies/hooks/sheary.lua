@@ -19,6 +19,15 @@ function Sheary:init()
     }
 end
 
+function Sheary:salonCutSprites()
+    for _, battler in ipairs(Game.battle.party) do
+        if battler.chara.id == "jamm" then
+            battler:setActSprite("party/jamm/dark/papersnow", -5, 0)
+        end
+    end
+    super.salonCutSprites(self)
+end
+
 function Sheary:onShortAct(battler, name)
     if name == "Standard" then
         if battler.chara.id == "jamm" then
