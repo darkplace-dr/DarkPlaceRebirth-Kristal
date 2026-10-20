@@ -221,6 +221,7 @@ function WicabelTuning:update()
                 self.alpha2 = self.alpha2 - 0.1 * DTMULT
                 self.tuning_fork.alpha = self.tuning_fork.alpha - 0.1 * DTMULT
                 if self.alpha1 < 0 then
+                    self.tuning_fork:remove()
                     self.alpha3 = 0
                     if not self.result_text then
                         self:result()
@@ -233,7 +234,6 @@ function WicabelTuning:update()
     if self.result_text and not Game.battle.battle_ui.encounter_text:isTyping() and (Input.pressed("confirm") or Input.pressed("menu")) then
         self:clearText()
         Game.battle:finishAction()
-        self.tuning_fork:remove()
         self:remove()
     end
 end
