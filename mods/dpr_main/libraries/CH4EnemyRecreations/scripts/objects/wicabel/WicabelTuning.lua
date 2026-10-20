@@ -1,45 +1,38 @@
 local WicabelTuning, super = Class(Object)
 
-function WicabelTuning:init(enemy, battler, isdouble)
-    super.init(self, 0, 0)
-    self:setLayer(BATTLE_LAYERS["below_ui"])
+function WicabelTuning:init(enemy, battler, double, battler2)
+    super.init(self)
 
     self.enemy = enemy
     self.battler = battler
-    self.double = isdouble or false
+    self.battler2 = battler2
 
-    self.alpha = 0
-    self.alpha2 = 0
-    self.xscale = 0
-
-    self.timer = 0
     self.con = 0
-    self.automiss = false
+    self.timer = 0
     self.mercy = 0
-    self.success = 0
+    self.loudringing = double or false
+    self.box_scale_x = 0
+    self.box_scale_y = 0.5
+    self.alpha1 = 0
+    self.alpha2 = 0
+    self.alpha3 = 0
     self.bar_x = 0
 
+    self.success = 0
+    self.result_text = false
+
+    self.font = Assets.getFont("main")
+
+    self.box = Assets.getTexture("ui/battle/tuning/ut_combat_board")
+    self.bar = Assets.getFrames("ui/battle/tuning/ut_combat_bar")[1]
+
     self.tuning_fork = Sprite("ui/battle/tuning/tuning_fork", 304, 80)
-    self.tuning_fork:setOriginExact(0, 0)
     self.tuning_fork.alpha = 0
     self.tuning_fork.debug_select = false
-    self:addChild(self.tuning_fork)
-
-    self.text = Text("HIT IT!", 278, 260)
-    self.text.alpha = 0
-    self.text.debug_select = false
-    self:addChild(self.text)
-
-    -- original x coord is (x + bar_x - 137 - 7 - 60)
-    self.bar = Sprite("ui/battle/tuning/ut_combat_bar", 116, 188)
-    self.bar:setOriginExact(0, 0)
-    self.bar:setScale(0.5)
-    self.bar.alpha = 0
-    self.bar.debug_select = false
-    self:addChild(self.bar)
+    Game.battle:addChild(self.tuning_fork)
 
     Input.clear("confirm")
-    self:setText("* Press button with the right\ntiming!", true)
+    self:setText("* Press button with the right \ntiming!", true)
 end
 
 function WicabelTuning:setText(text, can_skip)
@@ -54,105 +47,67 @@ function WicabelTuning:clearText()
     Game.battle.battle_ui:clearEncounterText()
 end
 
-function WicabelTuning:setFinalText()
-    self.finaltext = true
-    local firstline = "* A bit off-tune!"
-    if self.success == 1 then
-        firstline = "* Perfectly in tune!"
-    elseif self.success == 2 then
-        firstline = "* Somewhat in tune!"
-    end
-    self:setText(firstline.."\n* All musical ACTs became stronger!", true)
+function WicabelTuning:progress(arg0, arg1, arg2, arg3, arg4) -- port from Deltarune
+    return MathUtils.clamp(arg3 + (((arg0 - arg1) / (arg2 - arg1)) * (arg4 - arg3)), arg3, arg4)
 end
 
-function WicabelTuning:progress(argument0, argument1, argument2, argument3, argument4) -- port from Gamemaker
-    return MathUtils.clamp((argument3 + (argument0 - argument1) / (argument2 - argument1) * (argument4 - argument3)), argument3, argument4)
+function WicabelTuning:easeOutCubic(arg0, arg1, arg2, arg3) -- port from Deltarune
+    return (arg2 * (math.pow((arg0 / arg3) - 1, 3) + 1)) + arg1
 end
 
 function WicabelTuning:onPress()
+    local config = Kristal.getLibConfig("CH4EnemyRecreations", "wicabel_tuning_fixes")
+    local pitch_fix = config.attack_sound_pitch
+
+    local attacker = self.loudringing and self.battler2 or self.battler
+
     local maxmercy = 70
-    if self.double then
+
+    if self.loudringing then
         maxmercy = 60
     end
 
-    local bar_x = self.bar_x -- I THINK it's accurate??? Maybe not really??????
-    if bar_x < 86 or bar_x > 334 then
+    if self.bar_x < 86 or self.bar_x > 334 then
         maxmercy = 0
     end
 
-    local maximperfectmercy = math.max((maxmercy - 1), 0)
-    local ind
-    if bar_x >= 86 and bar_x < 196 then
-        ind = self:progress(bar_x, 86, 196, 0, 1)
-        self.mercy = math.ceil(Utils.ease(ind, maximperfectmercy, 1, "outCubic"))
+    local maximperfectmercy = math.max(maxmercy - 1, 0)
+
+    if self.bar_x >= 86 and self.bar_x < 196 then
+        local ind = self:progress(self.bar_x, 86, 196, 0, 1)
+        self.mercy = math.ceil(self:easeOutCubic(ind, 0, maximperfectmercy, 1))
     end
-    if bar_x > 224 then
-        ind = self:progress(bar_x, 334, 224, 0, 1)
-        self.mercy = math.ceil(Utils.ease(ind, maximperfectmercy, 1, "outCubic"))
+
+    if self.bar_x > 224 then
+        local ind = self:progress(self.bar_x, 334, 224, 0, 1)
+        self.mercy = math.ceil(self:easeOutCubic(ind, 0, maximperfectmercy, 1))
     end
-    if bar_x >= 196 and bar_x <= 224 then
+
+    if self.bar_x >= 196 and self.bar_x <= 224 then
+        self.mercy = maxmercy
         self.success = 1
         for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             if enemy.id == "organikk" then
                 enemy.wicabell_tuning = true
             end
         end
-        Game.battle.wicabell_tuning = true
-        Assets.playSound("tuning_fork")
-        self.tuning_fork:shake()
-        Assets.playSound("laz_c")
-        self.tuning_fork:play(1/33)
-        if self.double then
-            Game.battle:getPartyBattler("susie"):setAnimation("battle/attack", function() Game.battle:getPartyBattler("susie"):setAnimation("battle/idle") end)
-        else
-            self.battler:setAnimation("battle/attack", function() self.battler:setAnimation("battle/idle") end)
-        end
-        local attacksprite = self.battler.chara:getWeapon() and self.battler.chara:getWeapon():getAttackSprite(self.battler) or self.battler.chara:getAttackSprite()
-        local attack
-        if self.double then
-            Assets.playSound("impact")
-            attack = Sprite("effects/attack/mash", self.tuning_fork.x + 20, self.tuning_fork.y + 30)
-            attack:play(1/15, false, function() attack:remove() end)
-        else
-            attack = Sprite(attacksprite, self.tuning_fork.x + 20, self.tuning_fork.y + 30)
-            attack:play(1/10, false, function() attack:remove() end)
-        end
-        attack:setOrigin(0.5, 0.5)
-        attack:setScale(2)
-        self:addChild(attack)
+        self:onTuningForkHit()
+        self:createAttackSprite(self.tuning_fork.x + 20, self.tuning_fork.y + 30, false)
+        self:onAttack(attacker)
         self.enemy.hurt_timer = 1
         self.enemy:onHurt()
-        -- self.mercy doesn't give a perfect number and I dunno why so we're bruteforcing it
-        local mercy = 70
-        if self.double then mercy = 60 end
-        if self.enemy.mercy < 100 then self.enemy:addMercy(mercy) end
-        for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+        self.enemy:addMercy(self.mercy)
+        for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
             if enemy ~= self.enemy and enemy.mercy < 100 then
                 enemy:addMercy(20)
             end
         end
-        if not self.double then self:setFinalText() end
     elseif self.mercy < 10 then
         self.success = 0
         Assets.playSound("laz_c")
-        if self.double then
-            Game.battle:getPartyBattler("susie"):setAnimation("battle/attack", function() Game.battle:getPartyBattler("susie"):setAnimation("battle/idle") end)
-        else
-            self.battler:setAnimation("battle/attack", function() self.battler:setAnimation("battle/idle") end)
-        end
-        local attacksprite = self.battler.chara:getWeapon() and self.battler.chara:getWeapon():getAttackSprite(self.battler) or self.battler.chara:getAttackSprite()
-        local attack
-        if self.double then
-            attack = Sprite("effects/attack/mash", self.tuning_fork.x + 90, self.tuning_fork.y + 30)
-            attack:play(1/15, false, function() attack:remove() end)
-        else
-            attack = Sprite(attacksprite, self.tuning_fork.x + 90, self.tuning_fork.y + 30)
-            attack:play(1/10, false, function() attack:remove() end)
-        end
-        attack:setOrigin(0.5, 0.5)
-        attack:setScale(2)
-        self:addChild(attack)
-        if not self.double then self:setFinalText() end
+        self:createAttackSprite(self.tuning_fork.x + 90, self.tuning_fork.y + 30, true)
+        local miss = Game.battle:addChild(DamageNumber("msg", "miss", self.tuning_fork.x + 90, self.tuning_fork.y + 30))
+        miss.layer = self.layer - 1
     else
         self.success = 2
         for _, enemy in ipairs(Game.battle:getActiveEnemies()) do
@@ -160,118 +115,153 @@ function WicabelTuning:onPress()
                 enemy.wicabell_tuning = true
             end
         end
-        Assets.playSound("tuning_fork")
-        self.tuning_fork:shake()
-        Assets.playSound("laz_c")
-        self.tuning_fork:play(1/33)
-        if self.double then
-            Game.battle:getPartyBattler("susie"):setAnimation("battle/attack", function() Game.battle:getPartyBattler("susie"):setAnimation("battle/idle") end)
-        else
-            self.battler:setAnimation("battle/attack", function() self.battler:setAnimation("battle/idle") end)
-        end
-        local attacksprite = self.battler.chara:getWeapon() and self.battler.chara:getWeapon():getAttackSprite(self.battler) or self.battler.chara:getAttackSprite()
-        local attack
-        if self.double then
-            Assets.playSound("impact")
-            attack = Sprite("effects/attack/mash", self.tuning_fork.x + 20, self.tuning_fork.y + 30)
-            attack:play(1/15, false, function() attack:remove() end)
-        else
-            attack = Sprite(attacksprite, self.tuning_fork.x + 20, self.tuning_fork.y + 30)
-            attack:play(1/10, false, function() attack:remove() end)
-        end
-        attack:setOrigin(0.5, 0.5)
-        attack:setScale(2)
-        self:addChild(attack)
+        self:onTuningForkHit()
+        self:createAttackSprite(self.tuning_fork.x + 20, self.tuning_fork.y + 30, false)
+        self:onAttack(attacker)
         self.enemy.hurt_timer = 1
         self.enemy:onHurt()
-        if self.enemy.mercy < 100 then self.enemy:addMercy(self.mercy) end
-        for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
-            if enemy ~= self.enemy and enemy.mercy < 100 then
-                enemy:addMercy(20)
-            end
-        end
-        if not self.double then self:setFinalText() end
+        self.enemy:addMercy(self.mercy)
     end
+
+    attacker:setAnimation("battle/attack", function() attacker:setAnimation("battle/idle") end)
+    Assets.playSound(attacker.chara:getAttackSound(), pitch_fix and attacker.chara:getAttackPitch() or 1)
+
+    self.con = 1
+end
+
+function WicabelTuning:onTuningForkHit()
+    Assets.playSound("tuning_fork")
+    self.tuning_fork:shake()
+    Assets.playSound("laz_c")
+    self.tuning_fork:play(1 / 33)
+end
+
+function WicabelTuning:createAttackSprite(x, y, miss)
+    local config = Kristal.getLibConfig("CH4EnemyRecreations", "wicabel_tuning_fixes")
+    local _, sprite_fix, speed_fix, miss_fix = config.attack_sound_pitch, config.attack_sprite_override, config.attack_sprite_speed, config.attack_sprite_miss
+
+    local attacker = self.loudringing and self.battler2 or self.battler
+    if miss and not miss_fix then
+        attacker = self.battler
+    end
+    local attacksprite = attacker.chara:getWeapon() and attacker.chara:getWeapon():getAttackSprite(attacker) or attacker.chara:getAttackSprite()
+    if not sprite_fix then
+        attacksprite = attacker.chara:getAttackSprite()
+    end
+    local attack = Sprite(attacksprite, x, y)
+    attack:setScale(2)
+    attack:setOrigin(0.5, 0.5)
+    local playspeed = 1 / 15
+    if (attacker == self.battler and not speed_fix) or (speed_fix and attacksprite == "effects/attack/shard") then
+        playspeed = 1 / 10
+    end
+    attack:play(playspeed, false, function() attack:remove() end)
+    Game.battle:addChild(attack)
+end
+
+function WicabelTuning:onAttack(battler)
+    if battler.chara.id == "susie" then
+        Assets.playSound("impact")
+        Game.battle:shakeCamera(4)
+    end
+end
+
+function WicabelTuning:result()
+    self.result_text = true
+    local firstline = "* A bit off-tune!"
+    if self.success == 1 then
+        firstline = "* Perfectly in tune!"
+    elseif self.success == 2 then
+        firstline = "* Somewhat in tune!"
+    end
+    self:setText(firstline .. "\n* All musical ACTs became stronger!", true)
 end
 
 function WicabelTuning:update()
     super.update(self)
 
-    self.bar.x = (320 + self.bar_x - 204)
+    if not self.result_text and not Game.battle.battle_ui.encounter_text:isTyping() then
+        self.tuning_fork.alpha = self.tuning_fork.alpha + 0.1 * DTMULT
+    end
+
+    local automiss = false
 
     if self.con ~= 1 and not Game.battle.battle_ui.encounter_text:isTyping() then
-        if self.alpha < 1 then
-            self.alpha = self.alpha + 0.1 * DTMULT
-            self.tuning_fork.alpha = self.alpha
-            self.text.alpha = self.alpha
-        end
-        if self.xscale < 0.5 then
-            self.xscale = self.xscale + 0.05 * DTMULT
+        if self.alpha1 < 1 then
+            self.alpha1 = self.alpha1 + 0.1 * DTMULT
         end
         if self.bar_x > 324 then
-            self.bar.alpha = self.bar.alpha - 0.1 * DTMULT
-            if self.bar.alpha <= 0 then
-                self.automiss = true
+            self.alpha3 = self.alpha3 - 0.1 * DTMULT
+            if self.alpha3 <= 0 then
+                automiss = true
             end
             self.bar_x = self.bar_x + 7 * DTMULT
-        elseif self.text.alpha >= 1 then
-            if self.bar.alpha < 1 then
-                self.bar.alpha = self.bar.alpha + 0.1 * DTMULT
+        elseif self.alpha2 >= 1 then
+            if self.alpha3 < 1 then
+                self.alpha3 = self.alpha3 + 0.1 * DTMULT
             end
             self.bar_x = self.bar_x + 7 * DTMULT
         end
+    end
+
+    if ((Input.pressed("confirm") or Input.pressed("cancel") or Input.pressed("menu") or automiss) and self.bar_x >= 70 and self.con == 0 and self.alpha1 >= 0.6) then
+        self:onPress()
     end
 
     if self.con == 1 then
         self.timer = self.timer + DTMULT
         if self.timer > 12 then
-            if self.double then
-                self.double = false
-                self.con = 0
-                self.bar.alpha = 0
+            if self.loudringing then
                 self.bar_x = 0
+                self.alpha3 = 0
+                self.con = 0
+                self.loudringing = false
             else
-                self.alpha = self.alpha - 0.1 * DTMULT
-                self.tuning_fork.alpha = self.alpha
-                if self.alpha <= 0 then
-                    self.bar.alpha = 0
+                self.alpha1 = self.alpha1 - 0.1 * DTMULT
+                self.alpha2 = self.alpha2 - 0.1 * DTMULT
+                self.tuning_fork.alpha = self.tuning_fork.alpha - 0.1 * DTMULT
+                if self.alpha1 < 0 then
+                    self.alpha3 = 0
+                    if not self.result_text then
+                        self:result()
+                    end
                 end
             end
         end
     end
 
-    if ((Input.pressed("confirm") or Input.pressed("cancel") or Input.pressed("menu") or self.automiss == true) and self.bar_x >= 70 and self.con == 0 and self.alpha >= 0.6) then
-        self.con = 1
-        if self.double then
-            self.automiss = false
-        else
-            self.text.alpha = 0
-        end
-        self:onPress()
-    end
-
-    if self.finaltext and not Game.battle.battle_ui.encounter_text:isTyping() and Input.pressed("confirm") then
+    if self.result_text and not Game.battle.battle_ui.encounter_text:isTyping() and (Input.pressed("confirm") or Input.pressed("menu")) then
         self:clearText()
         Game.battle:finishAction()
+        self.tuning_fork:remove()
         self:remove()
     end
 end
 
 function WicabelTuning:draw()
-    Draw.draw(Assets.getTexture("ui/battle/tuning/ut_combat_board"), 320, 220, 0, self.xscale, 0.5, 273, 57)
-
-    if DEBUG_RENDER then
-        love.graphics.setColor(1, 0, 0, 1)
-        love.graphics.setFont(Assets.getFont("main"))
-        local dbg = string.format(
-            [[bar_x_real = %d    bar_x = %d]],
-            320 + self.bar_x - 204,
-            self.bar_x
-        )
-        love.graphics.printf(dbg, 0, 0, SCREEN_WIDTH*2, "right", 0, 0.5, 0.5)
+    if self.box_scale_x < 0.5 and not Game.battle.battle_ui.encounter_text:isTyping() then
+        self.box_scale_x = self.box_scale_x + 0.05 * DTMULT
     end
 
     super.draw(self)
+
+    local x, y = 320, 220
+    local r, g, b = ColorUtils.unpackColor(COLORS.white)
+
+    Draw.setColor(r, g, b, self.alpha1)
+    Draw.draw(self.box, x, y, 0, self.box_scale_x, self.box_scale_y, 273, 57)
+
+    love.graphics.setFont(self.font)
+    if not Game.battle.battle_ui.encounter_text:isTyping() then
+        self.alpha2 = self.alpha2 + 0.1 * DTMULT
+    end
+    if self.con == 0 then
+        Draw.setColor(r, g, b, self.alpha2)
+        love.graphics.print("HIT IT!", x - 42, y + 40)
+    end
+
+    Draw.setColor(r, g, b, self.alpha3)
+    Draw.draw(self.bar, (x + self.bar_x) - 137 - 7 - 60, y - 32, 0, 0.5, 0.5)
 end
 
 return WicabelTuning

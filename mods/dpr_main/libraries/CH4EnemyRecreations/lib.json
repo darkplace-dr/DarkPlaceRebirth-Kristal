@@ -23,5 +23,17 @@
         "NyakoFox",            // being awesome and swag
     ],
 
-    "config": {}
+    "config": {
+        // Wicabel's Tuning action fixes config
+        "wicabel_tuning_fixes": {
+            // Gets the pitch for attack sound. Otherwise plays at pitch 1
+            "attack_sound_pitch": true,
+            // Allows weapons to override attack animation for Wicabel's Tuning action
+            "attack_sprite_override": true,
+            // Fixes a flaw where attack animation would play at slower speed
+            "attack_sprite_speed": true,
+            // Fixes a flaw where missing with second battler would show the wrong attack animation
+            "attack_sprite_miss": true
+        }
+    }
 }

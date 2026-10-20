@@ -1,62 +1,55 @@
 local ProofreadController, super = Class(Object)
 
-function ProofreadController:init(enemy, iseasy)
-    super.init(self, 0, 0)
-    self:setLayer(BATTLE_LAYERS["below_ui"])
+function ProofreadController:init(enemy, easyproof)
+    super.init(self)
 
     self.enemy = enemy
-    self.timer = 0
-    self.colortimer = 0
-    self.easy = iseasy or false
-    self.movespeed = self.easy and 15 or 10
-    self.acttimer = 0
-    self.acttimermax = self.easy and 200 or 110
-    self.rand = MathUtils.randomInt(1, 10) -- in Deltarune it's mistakingly set to (1, 9) so it makes 9 not a possible outcome lol
-    self.rand2 = TableUtils.pick({1, 2})
-    self.currentchoice = 1
-    self.correctchoice = TableUtils.pick({1, 2, 3})
-    self.font = Assets.getFont("main")
-    self.wronglastcolor = "white"
 
-    local str1
-    local str2
-    local str3
+    self.timer = 0
+    self.con = 0
+    self.easyproof = easyproof or false
+    self.movespeed = self.easyproof and 15 or 10
+    self.acttimer = 0
+    self.acttimermax = self.easyproof and 200 or 110
+    self.str1 = "1"
+    self.str2 = "2"
+    self.str3 = "3"
+    self.rand = MathUtils.randomInt(1, 10)
+    self.rand2 = TableUtils.pick({ 1, 2 })
+    self.currentchoice = 1
+    self.correctchoice = TableUtils.pick({ 1, 2, 3 })
+    self.creatorid = -1
+    self.highlightindex = 0
+    self.endtimer = 0
+    self.dottedlinecolor1 = "red"
+    self.dottedlinecolor2 = "white"
+    self.colortimer = 0
+
+    self.result_text_advanced = false
+
+    self.font = Assets.getFont("main")
+    self.highlight = Assets.getFrames("ui/battle/proofread/bubble_highlight")
+    self.heart = Assets.getTexture("player/heart")
+
+    local str1, str2, str3 = nil, nil, nil
     if self.rand == 1 then
-        str1 = "GALLERY"
-        str2 = "GALLURY"
-        str3 = "GALLORY"
+        str1, str2, str3 = "GALLERY", "GALLURY", "GALLORY"
     elseif self.rand == 2 then
-        str1 = "ROOTS"
-        str2 = "REETS"
-        str3 = "RAATS"
+        str1, str2, str3 = "ROOTS", "REETS", "RAATS"
     elseif self.rand == 3 then
-        str1 = "FESTIVAL"
-        str2 = "FESTIAVL"
-        str3 = "FESTAVIL"
+        str1, str2, str3 = "FESTIVAL", "FESTIAVL", "FESTAVIL"
     elseif self.rand == 4 then
-        str1 = "FLASHBACK"
-        str2 = "FLESHBECK"
-        str3 = "FLOSHBOCK"
+        str1, str2, str3 = "FLASHBACK", "FLESHBECK", "FLOSHBOCK"
     elseif self.rand == 5 then
-        str1 = "SWORD"
-        str2 = "SORWD"
-        str3 = "SOWRD"
+        str1, str2, str3 = "SWORD", "SORWD", "SOWRD"
     elseif self.rand == 6 then
-        str1 = "GUARDIAN"
-        str2 = "GAURDIAN"
-        str3 = "GAURDAIN"
+        str1, str2, str3 = "GUARDIAN", "GAURDIAN", "GAURDAIN"
     elseif self.rand == 7 then
-        str1 = "ATRIUM"
-        str2 = "ATRUIM"
-        str3 = "ARTIUM"
+        str1, str2, str3 = "ATRIUM", "ATRUIM", "ARTIUM"
     elseif self.rand == 8 then
-        str1 = "SYNTHESIS"
-        str2 = "SYNTEHSIS"
-        str3 = "SINTHESIS"
+        str1, str2, str3 = "SYNTHESIS", "SYNTEHSIS", "SINTHESIS"
     elseif self.rand == 9 then
-        str1 = "AMPHITHEATER"
-        str2 = "AMPITHEATER"
-        str3 = "AMPITHEATRE"
+        str1, str2, str3 = "AMPHITHEATER", "AMPITHEATER", "AMPITHEATRE"
     end
     if self.correctchoice == 1 then
         self.str1 = str1
@@ -87,71 +80,8 @@ function ProofreadController:init(enemy, iseasy)
         end
     end
 
-    self.textscale = 1
-    if self.rand == 9 then
-        self.textscale = 0.7
-    end
-
-    local x = SCREEN_WIDTH / 2
-    local y = SCREEN_HEIGHT / 2 - 70
-
-    self.clock = Sprite("ui/clock", 200, 300)
-    self.clock.debug_select = false
-    self.clock:setOrigin(0.5, 0.5)
-    self.clock:setScale(2, 2)
-    self:addChild(self.clock)
-
-    self.heart = Sprite("player/heart", x-104, y-88)
-    self.heart.debug_select = false
-    self.heart:setColor(Game:getSoulColor())
-    self:addChild(self.heart)
-
-    self.highlights = {}
-
-    local highlight1 = Sprite("ui/battle/proofread/bubble_highlight", x, y-80)
-    highlight1.debug_select = false
-    highlight1:setOrigin(0.5, 0.5)
-    highlight1:setColor(COLORS["red"])
-    self:addChild(highlight1)
-
-    local highlight2 = Sprite("ui/battle/proofread/bubble_highlight", x, y)
-    highlight2.debug_select = false
-    highlight2:setOrigin(0.5, 0.5)
-    self:addChild(highlight2)
-
-    local highlight3 = Sprite("ui/battle/proofread/bubble_highlight", x, y+80)
-    highlight3.debug_select = false
-    highlight3:setOrigin(0.5, 0.5)
-    self:addChild(highlight3)
-
-    self.highlights = {
-        [1] = highlight1,
-        [2] = highlight2,
-        [3] = highlight3,
-    }
-
-    self.highlightindex = 0
-
     Input.clear("confirm")
     self:setText("[instant]* Select the right spelling!", false)
-end
-
-function ProofreadController:onHeartMove()
-    local x = SCREEN_WIDTH / 2
-    local y = SCREEN_HEIGHT / 2 - 70
-    if self.currentchoice == 1 then
-        self.heart:setPosition(x-104, y-88)
-        self.highlights[3]:setColor(COLORS["white"])
-        self.highlights[1]:setColor(COLORS["red"])
-    elseif self.currentchoice == 2 then
-        self.heart:setPosition(x-104, y-8)
-        self.highlights[1]:setColor(COLORS["white"])
-        self.highlights[2]:setColor(COLORS["red"])
-    elseif self.currentchoice == 3 then
-        self.heart:setPosition(x-104, y+72)
-        self.highlights[2]:setColor(COLORS["white"])
-        self.highlights[3]:setColor(COLORS["red"])
-    end
 end
 
 function ProofreadController:setText(text, can_skip)
@@ -166,135 +96,165 @@ function ProofreadController:clearText()
     Game.battle.battle_ui:clearEncounterText()
 end
 
-function ProofreadController:onSelect(correct)
-    self.heart.alpha = 0
-    if self.currentchoice == 1 then
-        self.highlights[1]:setColor(COLORS["white"])
-        self.highlights[2]:setColor(COLORS["blue"])
-        self.highlights[3]:setColor(COLORS["blue"])
-    elseif self.currentchoice == 2 then
-        self.highlights[2]:setColor(COLORS["white"])
-        self.highlights[1]:setColor(COLORS["blue"])
-        self.highlights[3]:setColor(COLORS["blue"])
-    elseif self.currentchoice == 3 then
-        self.highlights[3]:setColor(COLORS["white"])
-        self.highlights[1]:setColor(COLORS["blue"])
-        self.highlights[2]:setColor(COLORS["blue"])
-    end
-    if correct then
+function ProofreadController:result()
+    if self.con == 1 then
         Assets.playSound("coin")
-        if self.easy then self.enemy:setTired(true) end
         self.enemy:addMercy(100)
         self:setText("* Success!", true)
-    else
+    elseif self.con == 2 then
         Assets.playSound("error")
         self.enemy.hurt_timer = 1
         self.enemy:onHurt()
-        if self.easy then self.enemy:setTired(true) end
         self:setText("* ...[wait:5] but,[wait:5] it was misspelled!", true)
+    else
+        Assets.playSound("error")
+        self:setText("* Out of time!", true)
     end
 end
 
-function ProofreadController:onTimeout()
-    Assets.playSound("error")
-    self.clock.alpha = 0
-    self.heart.alpha = 0
-    self.highlights[1].alpha = 0
-    self.highlights[2].alpha = 0
-    self.highlights[3].alpha = 0
-    self.alpha = 0
-    self:setText("* Out of time!", true)
+function ProofreadController:drawHighlight(x, y, color)
+    Draw.setColor(ColorUtils.unpackColor(COLORS[color]))
+    local frame = math.floor(self.highlightindex) % #self.highlight + 1
+    Draw.draw(self.highlight[frame], x, y, 0, 1, 1, 78, 34)
 end
 
-function ProofreadController:update()
-    super.update(self)
-
-    self.timer = self.timer + DTMULT
-
-    self.highlightindex = self.highlightindex + 0.5 * DTMULT
-
-    self.highlights[1]:setFrame(math.floor(self.highlightindex))
-    self.highlights[2]:setFrame(math.floor(self.highlightindex))
-    self.highlights[3]:setFrame(math.floor(self.highlightindex))
-
-    if not self.selectionmade then
-        self.acttimer = self.acttimer + DTMULT
-        if self.acttimer > self.acttimermax then
-            self.selectionmade = true
-            self.timeout = true
-            self:onTimeout()
-        end
-    end
-
-    if self.selectionmade and not self.timeout then
-        self.colortimer = self.colortimer + DTMULT
-    end
-
-    if self.colortimer == 3 then
-        self.colortimer = 0
-        if self.wronglastcolor == "white" then
-            self.wronglastcolor = "notwhite"
-            if self.currentchoice == self.correctchoice then
-                self.highlights[self.currentchoice]:setColor(COLORS["yellow"])
-            else
-                self.highlights[self.currentchoice]:setColor(COLORS["red"])
-            end
-        else
-            self.wronglastcolor = "white"
-            self.highlights[self.currentchoice]:setColor(COLORS["white"])
-        end
-    end
-
-    if self.timer > self.movespeed and not self.selectionmade then
-        self.timer = 0
-        Assets.playSound("ui_move")
-        if self.currentchoice == 3 then
-            self.currentchoice = 1
-        else
-            self.currentchoice = self.currentchoice + 1
-        end
-        self:onHeartMove()
-    end
-
-    if Input.pressed("confirm") and not self.selectionmade then
-        Input.clear("confirm")
-        self.selectionmade = true
-        local correct = false
-        if self.currentchoice == self.correctchoice then correct = true end
-        self:onSelect(correct)
-    end
-
-    if self.selectionmade and not Game.battle.battle_ui.encounter_text:isTyping() and Input.pressed("confirm") then
-        self:clearText()
-        Game.battle:finishAction()
-        self:remove()
-    end
+function ProofreadController:drawSoul(x, y)
+    Draw.setColor(Game:getSoulColor())
+    Draw.draw(self.heart, x, y)
 end
 
 function ProofreadController:draw()
+    super.draw(self)
+
+    if self.acttimer >= 10 then
+        self.timer = self.timer + DTMULT
+    end
+
+    if self.timer > self.movespeed and self.con == 0 then
+        self.timer = 0
+        Assets.playSound("ui_move")
+        self.currentchoice = self.currentchoice + 1
+        if self.currentchoice == 4 then
+            self.currentchoice = 1
+        end
+    end
+
     local x = SCREEN_WIDTH / 2
     local y = SCREEN_HEIGHT / 2 - 70
 
-    Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y - 80, 0, 1, 0.62, 68, 43)
-    Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y, 0, 1, 0.62, 68, 43)
-    Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y + 80, 0, 1, 0.62, 68, 43)
+    if self.con ~= -1 then
+        Draw.setColor(ColorUtils.unpackColor(COLORS.white))
+        Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y - 80, 0, 1, 0.62, 68, 43)
+        Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y, 0, 1, 0.62, 68, 43)
+        Draw.draw(Assets.getTexture("ui/battle/proofread/bubble"), x, y + 80, 0, 1, 0.62, 68, 43)
 
-    if not self.timeout then
+        Draw.setColor(ColorUtils.unpackColor(COLORS.black))
         love.graphics.setFont(self.font)
-        love.graphics.setColor(COLORS["black"])
-        love.graphics.print(self.str1, x - self.font:getWidth(self.str1)*self.textscale/2, y - 80 - 16, 0, self.textscale, 1)
-        love.graphics.print(self.str2, x - self.font:getWidth(self.str2)*self.textscale/2, y - 16, 0, self.textscale, 1)
-        love.graphics.print(self.str3, x - self.font:getWidth(self.str3)*self.textscale/2, y + 80 - 16, 0, self.textscale, 1)
+        local textscale = 1
+        if self.rand == 9 then
+            textscale = 0.7
+        end
+        love.graphics.print(self.str1, x - self.font:getWidth(self.str1) * textscale / 2, y - 80 - 16, 0, textscale, 1)
+        love.graphics.print(self.str2, x - self.font:getWidth(self.str2) * textscale / 2, y - 16, 0, textscale, 1)
+        love.graphics.print(self.str3, x - self.font:getWidth(self.str3) * textscale / 2, y + 80 - 16, 0, textscale, 1)
+        Draw.setColor(ColorUtils.unpackColor(COLORS.white))
+    end
 
-        Draw.setColor(COLORS["aqua"])
-        love.graphics.setLineWidth(10)
-        local b
-        if not self.easy then
-            b = 220 - self.acttimer * 2
+    self.highlightindex = self.highlightindex + 0.5 * DTMULT
+
+    if self.con ~= -1 then
+        if self.currentchoice == 1 then
+            if self.con == 0 then
+                self:drawSoul(x - 104, y - 88)
+            end
+            self:drawHighlight(x, y - 80, self.dottedlinecolor1)
         else
+            self:drawHighlight(x, y - 80, self.dottedlinecolor2)
+        end
+        if self.currentchoice == 2 then
+            if self.con == 0 then
+                self:drawSoul(x - 104, y - 8)
+            end
+            self:drawHighlight(x, y, self.dottedlinecolor1)
+        else
+            self:drawHighlight(x, y, self.dottedlinecolor2)
+        end
+        if self.currentchoice == 3 then
+            if self.con == 0 then
+                self:drawSoul(x - 104, y + 72)
+            end
+            self:drawHighlight(x, y + 80, self.dottedlinecolor1)
+        else
+            self:drawHighlight(x, y + 80, self.dottedlinecolor2)
+        end
+
+        local b = 220 - self.acttimer * 2
+        if self.easyproof then
             b = 200 - self.acttimer
         end
-        love.graphics.line(200, 300, 200 + b, 300)
+        Draw.setColor(ColorUtils.unpackColor(COLORS.aqua))
+        Draw.rectangle("fill", 200, 295, b + 1, 305 - 295 + 1)
+        Draw.setColor(ColorUtils.unpackColor(COLORS.white))
+        Draw.draw(Assets.getTexture("ui/clock"), 200, 300, 0, 2, 2, 9, 9)
+    end
+
+    if self.con == 0 then
+        self.acttimer = self.acttimer + DTMULT
+    end
+
+    if self.acttimer > self.acttimermax and self.con ~= -1 then
+        self.con = -1
+        self:result()
+    end
+
+    if self.con == 0 and self.acttimer > 12 and (Input.pressed("confirm") or Input.pressed("menu")) then
+        if self.currentchoice == self.correctchoice then
+            self.con = 1
+        else
+            self.con = 2
+        end
+        if self.easyproof then
+            self.enemy:setTired(true)
+        end
+        Game.battle.timer:after(1 / 30, self:result())
+    end
+
+    if self.con ~= 0 then
+        self.endtimer = self.endtimer + DTMULT
+    end
+
+    if self.con == 1 then
+        self.colortimer = self.colortimer + DTMULT
+        if self.colortimer >= 3 then
+            self.colortimer = 0
+            if self.dottedlinecolor1 == "red" or self.dottedlinecolor1 == "yellow" then
+                self.dottedlinecolor1 = "white"
+                self.dottedlinecolor2 = "blue"
+            elseif self.dottedlinecolor1 == "white" then
+                self.dottedlinecolor1 = "yellow"
+            end
+        end
+    elseif self.con == 2 then
+        self.colortimer = self.colortimer + DTMULT
+        if self.colortimer >= 3 then
+            self.colortimer = 0
+            if self.dottedlinecolor1 == "red" then
+                self.dottedlinecolor1 = "white"
+                self.dottedlinecolor2 = "blue"
+            elseif self.dottedlinecolor1 == "white" then
+                self.dottedlinecolor1 = "red"
+            end
+        end
+    end
+
+    if (self.con ~= 0 and self.endtimer > 17) and not Game.battle.battle_ui.encounter_text:isTyping() and (Input.pressed("confirm") or Input.pressed("menu")) then
+        self:clearText()
+        self.result_text_advanced = true
+    end
+
+    if self.result_text_advanced and (((self.con == 1 or self.con == 2) and self.endtimer >= 60) or self.con == -1) then
+        Game.battle:finishAction()
+        self:remove()
     end
 
     super.draw(self)

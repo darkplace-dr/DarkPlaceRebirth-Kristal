@@ -58,10 +58,11 @@ end
 
 function Bibliox:onAct(battler, name)
     if name == "Proofread" or name == "EasyProof" then
-        local iseasy = false
-        if name == "EasyProof" then iseasy = true end
-        local proofread = ProofreadController(self, iseasy)
-        Game.battle:addChild(proofread)
+        Game.battle.timer:after(5 / 30, function()
+            local easyproof = false
+            if name == "EasyProof" then easyproof = true end
+            Game.battle:addChild(ProofreadController(self, easyproof))
+        end)
         return
     elseif name == "Standard" then
         return self:onShortAct(battler, name)

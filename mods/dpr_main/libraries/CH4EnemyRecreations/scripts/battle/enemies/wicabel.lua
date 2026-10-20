@@ -57,10 +57,9 @@ end
 
 function Wicabel:onAct(battler, name)
     if name == "Tuning" or name == "Tuningx2" then
-        local isdouble = false
-        if name == "Tuningx2" then isdouble = true end
-        local tuning = WicabelTuning(self, battler, isdouble)
-        Game.battle:addChild(tuning)
+        local double = false
+        if name == "Tuningx2" then double = true end
+        Game.battle:addChild(WicabelTuning(self, battler, double, Game.battle:getPartyBattler("susie")))
         return
     elseif name == "Standard" then
         return self:onShortAct(battler, name)
