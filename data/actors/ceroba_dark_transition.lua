@@ -16,11 +16,11 @@ function actor:init()
     self.default = "run"
 
     self.offsets = {
-        ["ball"] = {-2, 10},
-        ["dark"] = {-1, -1},
-        ["landed"] = {-1, -1},
-        ["smear"] = {-1, -1},
-        ["white"] = {-1, -1},
+        ["ball"] = { -2, 10 },
+        ["dark"] = { -1, -1 },
+        ["landed"] = { -1, -1 },
+        ["smear"] = { -1, -1 },
+        ["white"] = { -1, -1 },
     }
 end
 
