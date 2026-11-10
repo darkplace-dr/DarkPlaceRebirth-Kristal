@@ -2,7 +2,7 @@ local spell, super = Class("sleep_mist", true)
 
 function spell:init()
     super.init(self)
-    
+
     self.check = "A cold mist sweeps through, sparing all tired enemies."
 end
 
@@ -10,7 +10,7 @@ function spell:onLightCast(user, target)
     local count = 0
     for _, enemy in ipairs(target) do
         if enemy.done_state == nil then
-            local success = enemy.tired
+            local success = enemy:isTired()
 
             if success then
                 enemy.done_state = "PACIFIED"
@@ -23,7 +23,7 @@ function spell:onLightCast(user, target)
                     Assets.playSound("spell_pacify")
                 end
 
-                local x, y = enemy:getRelativePos(enemy.width/2, enemy.height/2)
+                local x, y = enemy:getRelativePos(enemy.width / 2, enemy.height / 2)
 
                 local effect = SleepMistEffect(x, y, success)
                 effect.layer = math.max(enemy.layer, LIGHT_BATTLE_LAYERS["above_arena_border"]) + 0.1
