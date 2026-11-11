@@ -22,8 +22,8 @@ end
 
 function spell:getCastMessage(user, target)
     local message = super.getCastMessage(self, user, target)
-    if target.tired then
-        if target.half_pacify == true then
+    if target:isTired() then
+        if target.half_pacify then
             return message
         else
             return message .. "\n* [color:blue]Pacify[color:reset] level is now at [color:blue]50%[color:reset]!"
@@ -37,8 +37,8 @@ end
 
 function spell:getLightCastMessage(user, target)
     local message = super.getCastMessage(self, user, target) -- intentional
-    if target.tired then
-        if target.half_pacify == true then
+    if target:isTired() then
+        if target.half_pacify then
             return message
         else
             return message .. "\n* [color:blue]Pacify[color:reset] level is now at [color:blue]50%[color:reset]!"
@@ -51,8 +51,8 @@ function spell:getLightCastMessage(user, target)
 end
 
 function spell:onCast(user, target)
-    if target.tired then
-        if target.half_pacify == true then
+    if target:isTired() then
+        if target.half_pacify then
             Assets.playSound("spell_pacify")
 
             target:spare(true)
@@ -67,7 +67,7 @@ function spell:onCast(user, target)
                 z_parent:addChild(z)
             end, 8)
         else
-            target:statusMessage("msg", "half-cify", ColorUtils.mergeColor(COLORS.aqua, COLORS.blue, 0.3))
+            target:statusMessage("tired", 50, ColorUtils.mergeColor(COLORS.blue, COLORS.white, 0.4))
             Assets.playSound("spell_pacify", 1, 2)
             target.half_pacify = true
         end
@@ -86,8 +86,8 @@ function spell:onCast(user, target)
 end
 
 function spell:onLightCast(user, target)
-    if target.tired then
-        if target.half_pacify == true then
+    if target:isTired() then
+        if target.half_pacify then
             Assets.playSound("spell_pacify")
 
             target:spare(true)
@@ -102,7 +102,7 @@ function spell:onLightCast(user, target)
                 z_parent:addChild(z)
             end, 8)
         else
-            target:lightStatusMessage("text", "+50%", { 0, 178 / 255, 1, 1 })
+            target:lightStatusMessage("text", "+50%", { 0, 71 / 255, 1, 1 })
             Assets.playSound("spell_pacify", 1, 2)
             Game.battle.timer:after(1 / 30, function() target.half_pacify = true end) -- needed for the correct cast message
         end

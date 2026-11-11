@@ -150,18 +150,6 @@ function EnemyBattler:init(actor, use_overlay)
     self.temporary_mercy_percent = nil
 
     self.graze_tension = 1.6 -- (1/10 of a defend, or cheap spell)
-
-    -- An enemies elemental resistances.
-    self.resistances = {
-        ELEC = 1,
-        FIRE = 1,
-        STAR = 1,
-        DARK = 1,
-        RUDE = 1,
-        RED = 1,
-        ICE = 1,
-        HOLY = 1,
-    }
 end
 
 --- *(Override)* Get what this enemy's HP should display in the enemy select menu.
@@ -426,8 +414,10 @@ function EnemyBattler:spare(pacify)
                 self:remove()
             end
         )
+
         self:defeat(pacify and "PACIFIED" or "SPARED", false)
     end
+
     self:onSpared()
 end
 
@@ -970,10 +960,6 @@ function EnemyBattler:onDodge(battler, attacked) end
 ---@param damage?    number
 ---@param battler?   PartyBattler
 function EnemyBattler:onDefeat(damage, battler)
-    if self.killable and Game:getFlag("can_kill") then
-        self:onDefeatFatal(damage, battler)
-        return
-    end
     if self.exit_on_defeat then
         self:onDefeatRun(damage, battler)
     elseif self.sprite then
@@ -1079,37 +1065,6 @@ function EnemyBattler:freeze()
     self:defeat("FROZEN", true)
 end
 
---- Darkens this enemy and defeats them with the reason `"DARKENED"` \
---- If this enemy can not be darkened, it acts as if it was defeated though violence normally instead
-function EnemyBattler:darkify()
-    if not self.can_darken then
-        self:onDefeat()
-        return
-    end
-
-    Assets.playSound("petrify")
-
-    self:toggleOverlay(true)
-
-    local sprite = self:getActiveSprite()
-    if not sprite:setAnimation("darkened") then
-        sprite:setAnimation("hurt")
-    end
-    sprite:stopShake()
-
-    self:recruitMessage("darkened")
-
-    self.hurt_timer = -1
-
-    sprite.darkened = true
-    sprite.darkened_progress = 0
-
-    Game.battle.timer:tween(20 / 30, sprite, { darkened_progress = 1 })
-
-    Game.battle.money = Game.battle.money + 44
-    self:defeat("DARKENED", true)
-end
-
 --- An override of [`Battler:statusMessage()`](lua://Battler.statusMessage) that positions the message for this EnemyBattler
 ---@param ... unknown
 ---@return DamageNumber
@@ -1149,35 +1104,11 @@ function EnemyBattler:defeat(reason, violent)
     if violent then
         Game.battle.used_violence = true
         if self:isRecruitable() and self:getRecruitStatus() ~= false then
-            if Game:getConfig("enableRecruits") and self.done_state ~= "FROZEN" and self.done_state ~= "DARKENED" then
+            if Game:getConfig("enableRecruits") and self.done_state ~= "FROZEN" then
                 self:recruitMessage("lost")
             end
             self:setRecruitStatus(false)
         end
-        if self.done_state == "KILLED" or self.done_state == "FROZEN" or self.done_state == "DARKENED"then
-            Game.battle.killed = true
-            for i, battler in ipairs(Game.battle.party) do
-                battler.chara.kills = battler.chara.kills + 1
-                if battler.chara.name == "Noel" then
-                    local newData = {
-                        Kills = battler.chara.kills
-                    }    
-                    Noel:saveNoel(newData)
-                end
-            end
-            if self.done_state == "FROZEN" then
-                Game.battle.freeze_xp = Game.battle.freeze_xp + self.experience
-            elseif self.done_state == "DARKENED" then
-                Game.battle.dark_xp = Game.battle.dark_xp + self.experience
-            else
-                Game.battle.xp = Game.battle.xp + self.experience
-            end
-            if Game:hasPartyMember("hero") then
-                Game:getPartyMember("hero"):addKarma(-1)
-            end
-        end
-    elseif MagicalGlassLib then -- Compactability with Magical-Glass: Redux
-        Game.battle.xp = Game.battle.xp + self.experience -- MGR reduces EXP gain from not killing, so basically, this just makes sure that the enemy adds 0 EXP
     end
 
     if self:isRecruitable() and type(self:getRecruitStatus()) == "number" and (self.done_state == "PACIFIED" or self.done_state == "SPARED") then
@@ -1190,14 +1121,11 @@ function EnemyBattler:defeat(reason, violent)
         end
         if self:getRecruitStatus() >= Game:getRecruit(self.id):getRecruitAmount() then
             self:setRecruitStatus(true)
-            Game:addSP(1)
-            if Game:hasPartyMember("hero") then
-                Game:getPartyMember("hero"):addKarma(1)
-            end
         end
     end
 
     Game.battle.money = Game.battle.money + self.money
+    Game.battle.xp = Game.battle.xp + self.experience
 
     Game.battle:removeEnemy(self, true)
 end
@@ -1271,15 +1199,6 @@ end
 ---@return number new_value
 function EnemyBattler:addFlag(flag, amount)
     return Game:addFlag("enemy#" .. self.id .. ":" .. flag, amount)
-end
-
-function EnemyBattler:getResistance(element)
-    for i, resist in pairs(self.resistances) do
-        if i == element then
-            return resist
-        end
-    end
-    return 1
 end
 
 return EnemyBattler
