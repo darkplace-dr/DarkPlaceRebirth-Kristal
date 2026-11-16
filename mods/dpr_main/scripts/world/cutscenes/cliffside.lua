@@ -1455,6 +1455,23 @@ local cliffside = {
         Game.world.player:setFacing("down")
     end,
 
+    reverse_cliff_3 = function(cutscene,event)
+        Game.world.player:setState("WALK")
+        Game.world.player.physics.speed_y = 0
+        Game.world.player:setState("SLIDE")
+        local player = Game.world.player
+        Game.world.timer:tween(3, player, {y = player.y-1500}, "in-cubic")
+        cutscene:wait(3)
+        Game.world.player:setSprite("walk/down_1")
+        Game.world.player.physics.speed_y = -8
+        Game.world.player.physics.friction = 0.2
+        cutscene:wait(0.5)
+        Game.world.timer:tween(1, player, {y = player.y+100}, "in-cubic")
+        cutscene:wait(1)
+        Game.world.player:setState("WALK")
+        Game.world.player:resetSprite()
+    end,
+
 
     reverse_cliff_0 = function (cutscene, event)
         if Game.world.player.jumping then return end

@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 64,
+      firstgid = 90,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -256,8 +256,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/first_chr_encounter",
-            ["marker"] = "left"
+            ["map"] = "grey_cliffside/worse_vents_2",
+            ["marker"] = "top"
           }
         },
         {
@@ -270,7 +270,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         },
@@ -284,7 +284,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
-          gid = 66,
+          gid = 92,
           visible = true,
           properties = {}
         }
@@ -346,7 +346,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -360,7 +360,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -374,7 +374,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -388,7 +388,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -402,7 +402,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         }

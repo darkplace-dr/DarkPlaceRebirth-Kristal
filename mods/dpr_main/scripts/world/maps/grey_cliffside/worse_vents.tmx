@@ -7,7 +7,7 @@
   <property name="music" value="demonic_little_grey_cliffs"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
- <tileset firstgid="64" source="../../tilesets/cliffs_objs.tsx"/>
+ <tileset firstgid="90" source="../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="7" name="objects_bg">
   <object id="55" name="glitch_bg" x="1959" y="0" width="40" height="40"/>
  </objectgroup>
@@ -133,68 +133,75 @@
  <objectgroup color="#55ffff" id="8" name="objects_vents">
   <object id="250" name="ventlauncher" x="1840" y="800" width="40" height="40">
    <properties>
+    <property name="direction" value="left"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="251"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="255" name="ventlauncher" x="1440" y="760" width="40" height="40">
    <properties>
+    <property name="direction" value="up"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="257"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="256" name="ventlauncher" x="1360" y="840" width="40" height="40">
    <properties>
+    <property name="direction" value="down"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="258"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="259" name="ventlauncher" x="1338" y="400" width="40" height="40">
    <properties>
+    <property name="direction" value="left"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="260"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="261" name="ventlauncher" x="680" y="400" width="40" height="40">
    <properties>
+    <property name="direction" value="left"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="262"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="267" name="ventlauncher" x="200" y="360" width="40" height="40">
    <properties>
+    <property name="direction" value="up"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="221"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
   <object id="270" name="ventlauncher" x="1400" y="1200" width="40" height="40">
    <properties>
+    <property name="direction" value="up"/>
     <property name="launch_sound" value="jump"/>
     <property name="launch_time" type="float" value="1"/>
-    <property name="make_steam" type="bool" value="false"/>
+    <property name="make_steam" type="bool" value="true"/>
     <property name="marker" type="object" value="251"/>
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
-  <object id="301" gid="64" x="1280" y="120" width="70" height="136"/>
+  <object id="301" gid="90" x="1280" y="120" width="70" height="136"/>
  </objectgroup>
  <objectgroup color="#ff007f" id="5" name="objects_party">
   <object id="27" name="footstep" x="1879" y="0" width="40" height="40"/>
@@ -234,22 +241,22 @@
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="276" gid="65" x="1000" y="1040" width="180" height="168"/>
-  <object id="278" gid="64" x="1920" y="1120" width="70" height="136"/>
-  <object id="279" gid="64" x="800" y="680" width="70" height="136"/>
-  <object id="280" gid="64" x="200" y="920" width="70" height="136"/>
-  <object id="284" gid="64" x="1320" y="800" width="70" height="136"/>
+  <object id="276" gid="91" x="1000" y="1040" width="180" height="168"/>
+  <object id="278" gid="90" x="1920" y="1120" width="70" height="136"/>
+  <object id="279" gid="90" x="800" y="680" width="70" height="136"/>
+  <object id="280" gid="90" x="200" y="920" width="70" height="136"/>
+  <object id="284" gid="90" x="1320" y="800" width="70" height="136"/>
   <object id="328" name="chest" x="1420" y="1320">
    <properties>
     <property name="item" value="glitchswd"/>
    </properties>
    <point/>
   </object>
-  <object id="329" gid="65" x="440" y="1240" width="180" height="168"/>
-  <object id="330" gid="65" x="640" y="280" width="180" height="168"/>
-  <object id="331" gid="2147483713" x="154" y="696" width="180" height="168"/>
-  <object id="332" gid="65" x="1840" y="480" width="180" height="168"/>
-  <object id="334" gid="65" x="1680" y="200" width="180" height="168"/>
+  <object id="329" gid="91" x="440" y="1240" width="180" height="168"/>
+  <object id="330" gid="91" x="640" y="280" width="180" height="168"/>
+  <object id="331" gid="2147483739" x="154" y="696" width="180" height="168"/>
+  <object id="332" gid="91" x="1840" y="480" width="180" height="168"/>
+  <object id="334" gid="91" x="1680" y="200" width="180" height="168"/>
  </objectgroup>
  <layer id="11" name="Tile Layer 3" width="50" height="37">
   <data encoding="csv">

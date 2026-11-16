@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 11,
-  nextobjectid = 115,
+  nextobjectid = 116,
   properties = {
     ["border"] = "cliffside",
     ["music"] = "demonic_little_grey_cliffs",
@@ -653,6 +653,23 @@ return {
           gid = 65,
           visible = true,
           properties = {}
+        },
+        {
+          id = 115,
+          name = "npc",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "vessel_thing",
+            ["text1"] = "* Is that your face? Or your part of your of your eye?",
+            ["text2"] = "* The pain its the pain its the pain itself is the pain itself"
+          }
         }
       }
     },
