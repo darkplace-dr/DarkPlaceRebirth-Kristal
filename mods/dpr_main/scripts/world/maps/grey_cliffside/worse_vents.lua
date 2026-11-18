@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 64,
+      firstgid = 90,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -669,9 +669,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "left",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 251 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -688,9 +689,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "up",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 257 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -707,9 +709,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "down",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 258 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -726,9 +729,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "left",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 260 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -745,9 +749,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "left",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 262 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -764,9 +769,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "up",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 221 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -783,9 +789,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "up",
             ["launch_sound"] = "jump",
             ["launch_time"] = 1,
-            ["make_steam"] = false,
+            ["make_steam"] = true,
             ["marker"] = { id = 251 },
             ["sprite"] = "world/events/worse_vent"
           }
@@ -800,7 +807,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         }
@@ -939,7 +946,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -953,7 +960,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         },
@@ -967,7 +974,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         },
@@ -981,7 +988,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         },
@@ -995,7 +1002,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 90,
           visible = true,
           properties = {}
         },
@@ -1024,7 +1031,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -1038,7 +1045,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -1052,7 +1059,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 2147483713,
+          gid = 2147483739,
           visible = true,
           properties = {}
         },
@@ -1066,7 +1073,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         },
@@ -1080,7 +1087,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         }

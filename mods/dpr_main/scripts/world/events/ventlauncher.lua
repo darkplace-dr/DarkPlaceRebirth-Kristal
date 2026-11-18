@@ -115,7 +115,7 @@ function VentLauncher:update()
             steam.physics.direction = math.rad(directions[self.direction])
             if self.direction == "down" then
                 steam.physics.speed = 4
-                steam.physics.direction = math.rad(180)
+                steam.physics.direction = math.rad(90)
             end
         end
 

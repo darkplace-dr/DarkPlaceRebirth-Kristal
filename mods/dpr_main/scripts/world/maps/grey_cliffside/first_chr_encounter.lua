@@ -24,7 +24,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 64,
+      firstgid = 90,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -242,8 +242,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["map"] = "grey_cliffside/the_end",
-            ["marker"] = "entry"
+            ["map"] = "grey_cliffside/worse_vents_2",
+            ["marker"] = "entry1"
           }
         },
         {
@@ -297,7 +297,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 91,
           visible = true,
           properties = {}
         }
