@@ -10,7 +10,7 @@ local ClassUtils = {}
 ---@return string? name         # The name of the class, or `nil` if it cannot find one.
 ---
 function ClassUtils.getClassName(class, parent_check)
-    assert(isClass(class), "Expected class, got " .. ClassUtils.getType(class))
+    assert(isClass(class), "Expected class, got " .. type(class))
 
     -- If the class is a global variable, return its name.
     for k, v in pairs(_G) do
