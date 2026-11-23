@@ -1246,8 +1246,16 @@ function Kristal.clearModState()
 
     -- Close the console or debug menu if open
     -- (We don't care much if someone "smuggles" them out of the Game state, but we'll try to close them if we can)
-    if Kristal.DebugSystem then
+    if Kristal.DebugSystem ~= nil then
         Kristal.DebugSystem:closeMenu()
+
+        if Kristal.DebugSystem.context ~= nil then
+            Kristal.DebugSystem.context:close()
+        end
+
+        if Kristal.DebugSystem.window ~= nil then
+            Kristal.DebugSystem.window:close()
+        end
     end
 
     if Kristal.Console then
