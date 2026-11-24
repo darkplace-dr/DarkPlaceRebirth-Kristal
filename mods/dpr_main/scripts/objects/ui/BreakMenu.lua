@@ -13,6 +13,7 @@ function BreakMenu:init()
 
     self.ui_move = Assets.newSound("ui_move")
 
+    self.arrow = Assets.getTexture("ui/break_menu/arrow_left")
     self.heart = Assets.getTexture("player/" .. Game:getSoulPartyMember():getSoulFacing() .. "/heart")
 
     self.currently_selected = 1
@@ -110,7 +111,7 @@ function BreakMenu:getSmallBoxText()
         return "Make more friends,\nhave more breaks?"
     end
 
-    return "Tea Time!" -- "Flower Tea Time!\nF$: $" .. Game.flowery_dollars
+    return "Diner Tea Time!" -- "Flower Tea Time!\nF$: $" .. Game.flowery_dollars
 end
 
 function BreakMenu:updateActors(break_prev)
@@ -191,20 +192,20 @@ function BreakMenu:update()
             return
         end
 
-        Game.world.player.alpha = MathUtils.lerp(Game.world.player.alpha, 1, math.pow(0.7, 4))
+        Game.world.player.alpha = MathUtils.lerp(Game.world.player.alpha, 1, 1 - (1 - math.pow(0.7, 4)) ^ DTMULT)
         for _, follower in ipairs(Game.world.followers) do
-            follower.alpha = MathUtils.lerp(follower.alpha, 1, math.pow(0.7, 4))
+            follower.alpha = MathUtils.lerp(follower.alpha, 1, 1 - (1 - math.pow(0.7, 4)) ^ DTMULT)
         end
 
         self.resetcameratimer = MathUtils.clamp(self.resetcameratimer + DTMULT, 0, resetcamtime)
         local tx, ty = Game.world.camera:getTargetPosition()
         if data ~= nil then
             local targ = {
-                x = MathUtils.round(MathUtils.lerp(Game.world.camera.x, tx, easeOutCubic(self.resetcameratimer / resetcamtime, 0, 1, 1))),
-                y = MathUtils.round(MathUtils.lerp(Game.world.camera.y, ty, easeOutCubic(self.resetcameratimer / resetcamtime, 0, 1, 1)))
+                x = MathUtils.round(MathUtils.lerp(Game.world.camera.x, tx, 1 - (1 - easeOutCubic(self.resetcameratimer / resetcamtime, 0, 1, 1)) ^ DTMULT)),
+                y = MathUtils.round(MathUtils.lerp(Game.world.camera.y, ty, 1 - (1 - easeOutCubic(self.resetcameratimer / resetcamtime, 0, 1, 1)) ^ DTMULT))
             }
             Game.world.camera:setPosition(targ.x, targ.y)
-	    end
+        end
 
         if self.resetcameratimer >= resetcamtime then
             Game.world.player.alpha = 1
@@ -217,15 +218,15 @@ function BreakMenu:update()
             return
         end
     else
-        Game.world.player.alpha = MathUtils.lerp(Game.world.player.alpha, 0, math.pow(0.7, 4))
+        Game.world.player.alpha = MathUtils.lerp(Game.world.player.alpha, 0, 1 - (1 - math.pow(0.7, 4)) ^ DTMULT)
         for _, follower in ipairs(Game.world.followers) do
-            follower.alpha = MathUtils.lerp(follower.alpha, 0, math.pow(0.7, 4))
+            follower.alpha = MathUtils.lerp(follower.alpha, 0, 1 - (1 - math.pow(0.7, 4)) ^ DTMULT)
         end
 
         if data ~= nil then
             local targ = {
-                x = MathUtils.round(MathUtils.lerp(Game.world.camera.x, x, easeInoutCirc(self.cammove / resetcamtime, 0, 1, 1))),
-                y = MathUtils.round(MathUtils.lerp(Game.world.camera.y, y, easeInoutCirc(self.cammove / resetcamtime, 0, 1, 1)))
+                x = MathUtils.round(MathUtils.lerp(Game.world.camera.x, x, 1 - (1 - easeInoutCirc(self.cammove / resetcamtime, 0, 1, 1)) ^ DTMULT)),
+                y = MathUtils.round(MathUtils.lerp(Game.world.camera.y, y, 1 - (1 - easeInoutCirc(self.cammove / resetcamtime, 0, 1, 1)) ^ DTMULT)),
             }
             Game.world.camera:setPosition(targ.x, targ.y)
         end
@@ -240,7 +241,7 @@ function BreakMenu:update()
     end
 
     local prog = self.cammove / resetcamtime
-    self.flyoff = MathUtils.lerp(0, 80, easeInoutCubic(prog, 0, 1, 1))
+    self.flyoff = MathUtils.lerp(0, 80, 1 - (1 - easeInoutCubic(prog, 0, 1, 1)) ^ DTMULT)
     self.box_small.y = self.box_small.init_y - self.flyoff
 
     local selected_break = (self.page - 1) * 6 - 1 + self.currently_selected
@@ -388,14 +389,59 @@ function BreakMenu:draw()
     Draw.setColor(PALETTE["world_text"])
 
     if self.pages_total > 1 then
+        local numspace = 24
+        local totalnumberwidth = (self.pages_total * (numspace / 2)) + ((self.pages_total - 1) * (numspace / 2))
+        local truex = 312 + (301 / 2) - (totalnumberwidth / 2)
+        local thisy = 319
         for i = 1, self.pages_total do
+            local thisx = truex + ((i - 1) * numspace)
             Draw.setColor(ColorUtils.hexToRGB("#65687B"))
             if self.page == i then
                 Draw.setColor(PALETTE["world_text"])
             end
-            love.graphics.print(tostring(i), 479, 167)
+            love.graphics.print(tostring(i), math.floor(thisx) - 3, thisy - 9)
+            local coll, colr = PALETTE["world_text"], PALETTE["world_text"]
+            if self.state == "SELECTING" then
+                coll = (Input.down("left") and PALETTE["world_text"] or ColorUtils.hexToRGB("#65687B"))
+                colr = (Input.down("right") and PALETTE["world_text"] or ColorUtils.hexToRGB("#65687B"))
+            end
+            if i == 1 then
+                Draw.setColor(coll)
+                Draw.draw(self.arrow, math.floor(thisx) - 18, thisy + 8, 0, 1, 1, 3, 5)
+            end
+            if i == self.pages_total then
+                Draw.setColor(colr)
+                Draw.draw(self.arrow, math.floor(thisx) + 24, thisy + 8, 0, -1, 1, 3, 5)
+            end
+            if #Game.stage:getObjects(Choicebox) <= 0 then -- It's like this in Deltarune. All of this.
+                local camera_x = Game.world.camera.x - SCREEN_WIDTH / 2
+                local camera_y = Game.world.camera.y - SCREEN_HEIGHT / 2
+                if i == 1 and Input.pressed("left") then
+                    local afterimage = Sprite(self.arrow, thisx - 18 + camera_x, thisy + 8 + camera_y)
+                    afterimage.physics.speed_x = -3
+                    afterimage.physics.friction = 0.4
+                    afterimage:setScale(1)
+                    afterimage:fadeOutSpeedAndRemove(0.16666666666666666)
+                    afterimage:setOrigin(0.5)
+                    afterimage.debug_select = false
+                    afterimage.layer = WORLD_LAYERS["textbox"] + 10
+                    self.parent:addChild(afterimage)
+                end
+                if i == self.pages_total and Input.pressed("right") then
+                    local afterimage = Sprite(self.arrow, thisx + 24 + camera_x, thisy + 8 + camera_y)
+                    afterimage.physics.speed_x = 3
+                    afterimage.physics.friction = 0.4
+                    afterimage:setScale(-1, 1)
+                    afterimage:fadeOutSpeedAndRemove(0.16666666666666666)
+                    afterimage:setOrigin(0.5)
+                    afterimage.debug_select = false
+                    afterimage.layer = WORLD_LAYERS["textbox"] + 10
+                    self.parent:addChild(afterimage)
+                end
+            end
         end
     end
+    Draw.setColor(PALETTE["world_text"])
 
     local function drawOption(name, i, selected, drawnew)
         local x, y = 350, 119 + (i - 1) * 32
