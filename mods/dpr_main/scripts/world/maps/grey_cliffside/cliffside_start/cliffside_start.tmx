@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="63">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="84">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -14,6 +14,38 @@
    <properties>
     <property name="marker" value="camtargy"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="11" name="objects_back">
+  <object id="63" name="cloud" x="40" y="560">
+   <point/>
+  </object>
+  <object id="64" name="cloud" x="600" y="600">
+   <point/>
+  </object>
+  <object id="65" name="cloud" x="520" y="120">
+   <point/>
+  </object>
+  <object id="66" name="cloud" x="40" y="920">
+   <point/>
+  </object>
+  <object id="67" name="cloud" x="320" y="80">
+   <point/>
+  </object>
+  <object id="68" name="cloud" x="400" y="160">
+   <point/>
+  </object>
+  <object id="69" name="cloud" x="80" y="200">
+   <point/>
+  </object>
+  <object id="70" name="cloud" x="0" y="80">
+   <point/>
+  </object>
+  <object id="71" name="cloud" x="0" y="360">
+   <point/>
+  </object>
+  <object id="72" name="cloud" x="640" y="480">
+   <point/>
   </object>
  </objectgroup>
  <layer id="9" name="black" width="16" height="24">
@@ -158,6 +190,39 @@
     <property name="map" value="grey_cliffside/floating_blocks_intro"/>
     <property name="marker" value="entry"/>
    </properties>
+  </object>
+  <object id="73" name="cloud" x="360" y="640">
+   <point/>
+  </object>
+  <object id="74" name="cloud" x="520" y="600">
+   <point/>
+  </object>
+  <object id="75" name="cloud" x="120" y="440">
+   <point/>
+  </object>
+  <object id="76" name="cloud" x="240" y="520">
+   <point/>
+  </object>
+  <object id="77" name="cloud" x="120" y="600">
+   <point/>
+  </object>
+  <object id="78" name="cloud" x="120" y="920">
+   <point/>
+  </object>
+  <object id="79" name="cloud" x="560" y="960">
+   <point/>
+  </object>
+  <object id="80" name="cloud" x="320" y="960">
+   <point/>
+  </object>
+  <object id="81" name="cloud" x="600" y="400">
+   <point/>
+  </object>
+  <object id="82" name="cloud" x="520" y="200">
+   <point/>
+  </object>
+  <object id="83" name="cloud" x="200" y="120">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#aa00ff" id="5" name="markers">

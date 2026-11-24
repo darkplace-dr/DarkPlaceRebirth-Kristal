@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="26">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="16" nextobjectid="42">
  <editorsettings>
   <export target="upper_location.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,32 @@
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <objectgroup id="11" name="objects_bg">
   <object id="23" name="glitch_bg" x="560" y="80" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup id="15" name="objects_back">
+  <object id="34" name="cloud" x="440" y="240">
+   <point/>
+  </object>
+  <object id="35" name="cloud" x="80" y="480">
+   <point/>
+  </object>
+  <object id="36" name="cloud" x="520" y="600">
+   <point/>
+  </object>
+  <object id="37" name="cloud" x="560" y="840">
+   <point/>
+  </object>
+  <object id="38" name="cloud" x="600" y="480">
+   <point/>
+  </object>
+  <object id="39" name="cloud" x="40" y="280">
+   <point/>
+  </object>
+  <object id="40" name="cloud" x="80" y="120">
+   <point/>
+  </object>
+  <object id="41" name="cloud" x="520" y="120">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="9" name="Tile Layer 3" width="16" height="20">
   <data encoding="csv">
@@ -106,6 +132,14 @@
 0,0,0,0,0,16,17,17,17,19,18,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="14" name="objects_thisfuckingchestthatihate">
+  <object id="26" name="chest" x="280" y="160">
+   <properties>
+    <property name="money" type="float" value="100"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="12" name="hideme" width="16" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -174,12 +208,6 @@
     <property name="sprite" value="world/events/worse_vent"/>
    </properties>
   </object>
-  <object id="18" name="chest" x="280" y="200">
-   <properties>
-    <property name="money" type="float" value="100"/>
-   </properties>
-   <point/>
-  </object>
   <object id="19" name="transition" x="200" y="800" width="240" height="40">
    <properties>
     <property name="map" value="grey_cliffside/cliffside_right"/>
@@ -187,11 +215,32 @@
    </properties>
   </object>
   <object id="22" name="footstep" x="480" y="80" width="40" height="40"/>
-  <object id="24" name="script" x="200" y="720" width="240" height="56">
+  <object id="24" name="script" x="200" y="600" width="240" height="56">
    <properties>
     <property name="cutscene" value="cliffside.openwall"/>
     <property name="once" type="bool" value="false"/>
    </properties>
+  </object>
+  <object id="27" name="cloud" x="40" y="600">
+   <point/>
+  </object>
+  <object id="28" name="cloud" x="560" y="720">
+   <point/>
+  </object>
+  <object id="29" name="cloud" x="600" y="240">
+   <point/>
+  </object>
+  <object id="30" name="cloud" x="40" y="760">
+   <point/>
+  </object>
+  <object id="31" name="cloud" x="480" y="560">
+   <point/>
+  </object>
+  <object id="32" name="cloud" x="360" y="160">
+   <point/>
+  </object>
+  <object id="33" name="cloud" x="120" y="80">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#00c000" id="5" name="controllers"/>

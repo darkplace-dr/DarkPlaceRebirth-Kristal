@@ -160,6 +160,13 @@
             "width": 640,
             "x": 3360,
             "y": -200
+        },
+        {
+            "fileName": "maps/grey_cliffside/puzzle_intro_better.tmx",
+            "height": 480,
+            "width": 960,
+            "x": 0,
+            "y": -920
         }
     ],
     "onlyShowAdjacentMaps": false,

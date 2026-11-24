@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="28">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="37">
  <editorsettings>
   <export target="first_chr_encounter.lua" format="lua"/>
  </editorsettings>
@@ -11,6 +11,26 @@
  <tileset firstgid="85" source="../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="4" name="objects_bg">
   <object id="7" name="glitch_bg" x="520" y="40" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup id="10" name="objects_back">
+  <object id="30" name="cloud" x="80" y="240">
+   <point/>
+  </object>
+  <object id="31" name="cloud" x="320" y="280">
+   <point/>
+  </object>
+  <object id="32" name="cloud" x="600" y="240">
+   <point/>
+  </object>
+  <object id="34" name="cloud" x="240" y="160">
+   <point/>
+  </object>
+  <object id="35" name="cloud" x="520" y="200">
+   <point/>
+  </object>
+  <object id="36" name="cloud" x="640" y="360">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="5" name="Tile Layer 2" width="17" height="12">
   <data encoding="csv">
@@ -44,6 +64,17 @@
 65,65,65,65,65,65,65,65,65,65,65,65,66,16,18,64,65
 </data>
  </layer>
+ <objectgroup color="#00ff3c" id="9" name="objects_middle">
+  <object id="28" name="cloud" x="80" y="440">
+   <point/>
+  </object>
+  <object id="29" name="cloud" x="400" y="480">
+   <point/>
+  </object>
+  <object id="33" name="cloud" x="240" y="460">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="7" name="Tile Layer 3" width="17" height="12" offsetx="0" offsety="-12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -99,7 +130,7 @@
   </object>
   <object id="24" gid="86" x="400" y="120" width="180" height="168"/>
  </objectgroup>
- <objectgroup color="#5500ff" id="2" name="collision">
+ <objectgroup color="#5500ff" id="2" name="collision" visible="0">
   <object id="5" x="0" y="240" width="640" height="40"/>
   <object id="25" x="0" y="360" width="520" height="120"/>
   <object id="26" x="600" y="360" width="40" height="120"/>

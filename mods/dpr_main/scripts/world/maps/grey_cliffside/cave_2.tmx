@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="19">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="37">
  <editorsettings>
   <export target="cave_2.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,26 @@
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <tileset firstgid="85" source="../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="2" name="objects_bg"/>
+ <objectgroup id="7" name="objects_back">
+  <object id="19" name="cloud" x="280" y="200">
+   <point/>
+  </object>
+  <object id="20" name="cloud" x="520" y="320">
+   <point/>
+  </object>
+  <object id="21" name="cloud" x="600" y="440">
+   <point/>
+  </object>
+  <object id="22" name="cloud" x="480" y="40">
+   <point/>
+  </object>
+  <object id="23" name="cloud" x="120" y="240">
+   <point/>
+  </object>
+  <object id="24" name="cloud" x="560" y="520">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="6" name="Tile Layer 2" width="16" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -85,6 +105,24 @@
   </object>
   <object id="17" gid="86" x="520" y="400" width="180" height="168"/>
   <object id="18" gid="85" x="40" y="160" width="70" height="136"/>
+  <object id="31" name="cloud" x="40" y="440">
+   <point/>
+  </object>
+  <object id="32" name="cloud" x="280" y="80">
+   <point/>
+  </object>
+  <object id="33" name="cloud" x="560" y="120">
+   <point/>
+  </object>
+  <object id="34" name="cloud" x="640" y="240">
+   <point/>
+  </object>
+  <object id="35" name="cloud" x="160" y="320">
+   <point/>
+  </object>
+  <object id="36" name="cloud" x="440" y="80">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">
   <object id="13" name="entry" x="320" y="440">

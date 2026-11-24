@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="90">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="13" nextobjectid="105">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -10,6 +10,29 @@
  <tileset firstgid="85" source="../../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="5" name="objects_bg">
   <object id="28" name="glitch_bg" x="520" y="560" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup id="12" name="objects_bottom">
+  <object id="96" name="cloud" x="600" y="200">
+   <point/>
+  </object>
+  <object id="97" name="cloud" x="120" y="80">
+   <point/>
+  </object>
+  <object id="98" name="cloud" x="600" y="560">
+   <point/>
+  </object>
+  <object id="99" name="cloud" x="760" y="880">
+   <point/>
+  </object>
+  <object id="100" name="cloud" x="640" y="600">
+   <point/>
+  </object>
+  <object id="101" name="cloud" x="720" y="320">
+   <point/>
+  </object>
+  <object id="102" name="cloud" x="40" y="440">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="8" name="Tile Layer 2" width="20" height="24">
   <data encoding="csv">
@@ -143,6 +166,30 @@
     <property name="flagcheck" value="!cliffside_susie"/>
     <property name="once" type="bool" value="false"/>
    </properties>
+  </object>
+  <object id="90" name="cloud" x="640" y="360">
+   <point/>
+  </object>
+  <object id="91" name="cloud" x="720" y="120">
+   <point/>
+  </object>
+  <object id="92" name="cloud" x="520" y="640">
+   <point/>
+  </object>
+  <object id="93" name="cloud" x="680" y="920">
+   <point/>
+  </object>
+  <object id="94" name="cloud" x="40" y="640">
+   <point/>
+  </object>
+  <object id="95" name="cloud" x="120" y="440">
+   <point/>
+  </object>
+  <object id="103" name="cloud" x="680" y="600">
+   <point/>
+  </object>
+  <object id="104" name="cloud" x="720" y="640">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">

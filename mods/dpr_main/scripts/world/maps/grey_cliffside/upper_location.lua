@@ -9,8 +9,8 @@ return {
   height = 20,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 14,
-  nextobjectid = 26,
+  nextlayerid = 16,
+  nextobjectid = 42,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -46,6 +46,126 @@ return {
           y = 80,
           width = 40,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 15,
+      name = "objects_back",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 34,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 440,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 840,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 38,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 39,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 120,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 120,
+          width = 0,
+          height = 0,
           rotation = 0,
           visible = true,
           properties = {}
@@ -210,6 +330,37 @@ return {
         0, 0, 0, 0, 0, 16, 17, 19, 17, 20, 18, 77, 78, 0, 0, 0,
         0, 0, 0, 0, 0, 16, 20, 17, 17, 17, 18, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 16, 17, 17, 17, 19, 18, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 14,
+      name = "objects_thisfuckingchestthatihate",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 26,
+          name = "chest",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["money"] = 100
+          }
+        }
       }
     },
     {
@@ -511,21 +662,6 @@ return {
           }
         },
         {
-          id = 18,
-          name = "chest",
-          type = "",
-          shape = "point",
-          x = 280,
-          y = 200,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["money"] = 100
-          }
-        },
-        {
           id = 19,
           name = "transition",
           type = "",
@@ -560,7 +696,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 200,
-          y = 720,
+          y = 600,
           width = 240,
           height = 56,
           rotation = 0,
@@ -569,6 +705,97 @@ return {
             ["cutscene"] = "cliffside.openwall",
             ["once"] = false
           }
+        },
+        {
+          id = 27,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 720,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 760,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 360,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

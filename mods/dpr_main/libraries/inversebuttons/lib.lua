@@ -25,6 +25,9 @@ Game:registerEvent("c", function(data)
         Game:registerEvent("cmaker", function(data)
         return cmaker(data.x, data.y, {data.width, data.height, data.polygon})
     end)
+    Game:registerEvent("cloud", function(data)
+        return cloud(data.x, data.y, {data.width, data.height, data.polygon})
+    end)
 
 end
 

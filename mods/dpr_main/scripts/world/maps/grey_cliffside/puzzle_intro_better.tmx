@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="19" nextobjectid="41">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="20" nextobjectid="55">
  <editorsettings>
   <export target="puzzle_intro_better.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,32 @@
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <objectgroup id="12" name="objects_bg" visible="0">
   <object id="1" name="glitch_bg" x="360" y="40" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup id="19" name="objects_lowest">
+  <object id="47" name="cloud" x="520" y="80">
+   <point/>
+  </object>
+  <object id="48" name="cloud" x="800" y="40">
+   <point/>
+  </object>
+  <object id="49" name="cloud" x="880" y="80">
+   <point/>
+  </object>
+  <object id="50" name="cloud" x="240" y="40">
+   <point/>
+  </object>
+  <object id="51" name="cloud" x="680" y="120">
+   <point/>
+  </object>
+  <object id="52" name="cloud" x="440" y="200">
+   <point/>
+  </object>
+  <object id="53" name="cloud" x="520" y="160">
+   <point/>
+  </object>
+  <object id="54" name="cloud" x="40" y="80">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="9" name="Tile Layer 3" width="24" height="12">
   <data encoding="csv">
@@ -147,7 +173,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#0000ff" id="2" name="collision">
+ <objectgroup color="#0000ff" id="2" name="collision" visible="0">
   <object id="8" x="680" y="400" width="280" height="40"/>
   <object id="9" x="520" y="0" width="440" height="40"/>
   <object id="10" x="0" y="0" width="320" height="40"/>
@@ -189,6 +215,21 @@
    <properties>
     <property name="cutscene" value="cliffside.blocksintrofinished"/>
    </properties>
+  </object>
+  <object id="41" name="cloud" x="480" y="440">
+   <point/>
+  </object>
+  <object id="42" name="cloud" x="720" y="480">
+   <point/>
+  </object>
+  <object id="43" name="cloud" x="120" y="480">
+   <point/>
+  </object>
+  <object id="44" name="cloud" x="320" y="440">
+   <point/>
+  </object>
+  <object id="45" name="cloud" x="600" y="480">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#00c000" id="5" name="controllers"/>

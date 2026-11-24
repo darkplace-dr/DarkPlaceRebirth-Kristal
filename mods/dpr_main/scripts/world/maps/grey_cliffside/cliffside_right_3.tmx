@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="22" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="22">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="22" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="44">
  <editorsettings>
   <export target="cliffside_right_3.lua" format="lua"/>
  </editorsettings>
@@ -9,6 +9,20 @@
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <tileset firstgid="85" source="../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="2" name="objects_bg"/>
+ <objectgroup id="10" name="objects_back">
+  <object id="40" name="cloud" x="760" y="400">
+   <point/>
+  </object>
+  <object id="41" name="cloud" x="840" y="240">
+   <point/>
+  </object>
+  <object id="42" name="cloud" x="440" y="120">
+   <point/>
+  </object>
+  <object id="43" name="cloud" x="160" y="160">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="1" name="Tile Layer 2" width="22" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -103,6 +117,62 @@
    </properties>
   </object>
   <object id="19" gid="86" x="200" y="240" width="180" height="168"/>
+  <object id="22" name="cloud" x="40" y="440">
+   <point/>
+  </object>
+  <object id="23" name="cloud" x="280" y="520">
+   <point/>
+  </object>
+  <object id="24" name="cloud" x="440" y="400">
+   <point/>
+  </object>
+  <object id="25" name="cloud" x="320" y="600">
+   <point/>
+  </object>
+  <object id="26" name="cloud" x="80" y="480">
+   <point/>
+  </object>
+  <object id="27" name="cloud" x="240" y="400">
+   <point/>
+  </object>
+  <object id="28" name="cloud" x="160" y="600">
+   <point/>
+  </object>
+  <object id="29" name="cloud" x="440" y="560">
+   <point/>
+  </object>
+  <object id="30" name="cloud" x="720" y="600">
+   <point/>
+  </object>
+  <object id="31" name="cloud" x="840" y="440">
+   <point/>
+  </object>
+  <object id="32" name="cloud" x="880" y="560">
+   <point/>
+  </object>
+  <object id="33" name="cloud" x="760" y="200">
+   <point/>
+  </object>
+  <object id="34" name="cloud" x="280" y="80">
+   <point/>
+  </object>
+  <object id="35" name="cloud" x="80" y="120">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="objects_higher">
+  <object id="36" name="cloud" x="520" y="480">
+   <point/>
+  </object>
+  <object id="37" name="cloud" x="600" y="560">
+   <point/>
+  </object>
+  <object id="38" name="cloud" x="640" y="480">
+   <point/>
+  </object>
+  <object id="39" name="cloud" x="560" y="520">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="5" name="markers">
   <object id="6" name="west" x="40" y="260">

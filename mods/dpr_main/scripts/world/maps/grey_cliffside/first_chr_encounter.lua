@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 28,
+  nextlayerid = 11,
+  nextobjectid = 37,
   properties = {
     ["music"] = "demonic_little_grey_cliffs",
     ["name"] = "WATCH YOUR STEP"
@@ -53,6 +53,100 @@ return {
           y = 40,
           width = 40,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "objects_back",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 30,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 360,
+          width = 0,
+          height = 0,
           rotation = 0,
           visible = true,
           properties = {}
@@ -121,6 +215,61 @@ return {
         41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 42, 32, 31, 40, 4,
         53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 54, 16, 18, 52, 28,
         65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 66, 16, 18, 64, 65
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "objects_middle",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 28,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 400,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 460,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     },
     {
@@ -309,7 +458,7 @@ return {
       id = 2,
       name = "collision",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

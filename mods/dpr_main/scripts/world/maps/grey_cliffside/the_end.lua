@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 40,
+  nextobjectid = 46,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 136,
+      firstgid = 85,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -270,7 +270,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 136,
+          gid = 85,
           visible = true,
           properties = {}
         },
@@ -284,7 +284,7 @@ return {
           width = 120,
           height = 80,
           rotation = 0,
-          gid = 138,
+          gid = 87,
           visible = true,
           properties = {}
         }
@@ -346,7 +346,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 137,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -360,7 +360,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 137,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -374,7 +374,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 137,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -388,7 +388,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 137,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -402,7 +402,85 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 137,
+          gid = 86,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 40,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 40,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 41,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 40,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 43,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 680,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 44,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 0,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 400,
+          width = 0,
+          height = 0,
+          rotation = 0,
           visible = true,
           properties = {}
         }

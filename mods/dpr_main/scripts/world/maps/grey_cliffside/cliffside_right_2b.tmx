@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="79">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="10" nextobjectid="93">
  <editorsettings>
   <export target="cliffside_right_2b.lua" format="lua"/>
  </editorsettings>
@@ -11,6 +11,32 @@
  <objectgroup id="2" name="objects_bg">
   <object id="23" name="footstep" x="0" y="0" width="40" height="40"/>
   <object id="24" name="glitch_bg" x="80" y="0" width="40" height="40"/>
+ </objectgroup>
+ <objectgroup id="9" name="objects_back">
+  <object id="79" name="cloud" x="440" y="240">
+   <point/>
+  </object>
+  <object id="80" name="cloud" x="600" y="360">
+   <point/>
+  </object>
+  <object id="81" name="cloud" x="480" y="480">
+   <point/>
+  </object>
+  <object id="82" name="cloud" x="600" y="560">
+   <point/>
+  </object>
+  <object id="83" name="cloud" x="80" y="560">
+   <point/>
+  </object>
+  <object id="84" name="cloud" x="0" y="360">
+   <point/>
+  </object>
+  <object id="85" name="cloud" x="120" y="160">
+   <point/>
+  </object>
+  <object id="86" name="cloud" x="520" y="40">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="6" name="Tile Layer 2" width="16" height="16">
   <data encoding="csv">
@@ -87,6 +113,21 @@
     <property name="cutscene" value="cliffside.reverse_cliff_2"/>
     <property name="once" type="bool" value="false"/>
    </properties>
+  </object>
+  <object id="87" name="cloud" x="240" y="480">
+   <point/>
+  </object>
+  <object id="88" name="cloud" x="320" y="560">
+   <point/>
+  </object>
+  <object id="90" name="cloud" x="360" y="520">
+   <point/>
+  </object>
+  <object id="91" name="cloud" x="280" y="600">
+   <point/>
+  </object>
+  <object id="92" name="cloud" x="440" y="80">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ff00ff" id="5" name="markers">

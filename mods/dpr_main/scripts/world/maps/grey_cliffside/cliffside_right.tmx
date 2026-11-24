@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="40" tileheight="40" infinite="0" nextlayerid="11" nextobjectid="122">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="40" tileheight="40" infinite="0" nextlayerid="14" nextobjectid="144">
  <editorsettings>
   <export target="cliffside_right.lua" format="lua"/>
  </editorsettings>
@@ -11,6 +11,29 @@
  <tileset firstgid="1" source="../../tilesets/cliffs.tsx"/>
  <tileset firstgid="85" source="../../tilesets/cliffs_objs.tsx"/>
  <objectgroup id="10" name="objects_bg"/>
+ <objectgroup id="13" name="objects_back">
+  <object id="126" name="cloud" x="600" y="160">
+   <point/>
+  </object>
+  <object id="127" name="cloud" x="720" y="320">
+   <point/>
+  </object>
+  <object id="128" name="cloud" x="720" y="40">
+   <point/>
+  </object>
+  <object id="129" name="cloud" x="80" y="160">
+   <point/>
+  </object>
+  <object id="130" name="cloud" x="40" y="40">
+   <point/>
+  </object>
+  <object id="131" name="cloud" x="600" y="520">
+   <point/>
+  </object>
+  <object id="132" name="cloud" x="760" y="280">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="3" name="Tile Layer 2" width="30" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32,13 +55,48 @@
 45,45,45,45,45,45,45,45,45,0,0,45,45,45,0,45,45,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="11" name="Tile Layer 3" width="30" height="17">
+  <data encoding="csv">
+0,0,0,0,0,16,8,20,17,7,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,28,29,29,29,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,40,41,41,41,41,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,52,53,53,53,53,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,64,65,65,65,65,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="12" name="objects_between">
+  <object id="122" name="cloud" x="200" y="120">
+   <point/>
+  </object>
+  <object id="123" name="cloud" x="400" y="160">
+   <point/>
+  </object>
+  <object id="124" name="cloud" x="320" y="160">
+   <point/>
+  </object>
+  <object id="125" name="cloud" x="440" y="120">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="1" name="Tile Layer 1" width="30" height="17">
   <data encoding="csv">
-0,0,0,0,0,16,8,20,17,7,18,0,0,0,0,0,0,0,0,16,20,17,17,19,17,8,17,17,7,17,
-0,0,0,0,0,28,29,29,29,29,30,0,0,0,0,4,5,6,0,16,7,17,17,17,17,17,20,17,17,17,
-0,0,0,0,0,40,41,41,41,41,42,0,0,0,0,16,17,18,0,16,17,17,17,17,17,17,8,17,19,17,
-0,0,0,0,0,52,53,53,53,53,54,0,0,0,0,28,29,30,0,16,8,17,17,20,17,7,17,17,17,17,
-0,0,0,0,0,64,65,65,65,65,66,0,0,0,0,40,41,42,0,16,17,19,17,17,17,17,17,17,8,20,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,20,17,17,19,17,8,17,17,7,17,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,5,6,0,16,7,17,17,17,17,17,20,17,17,17,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,17,18,0,16,17,17,17,17,17,17,8,17,19,17,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,29,30,0,16,8,17,17,20,17,7,17,17,17,17,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,41,42,0,16,17,19,17,17,17,17,17,17,8,20,
 5,5,5,5,5,5,5,5,5,5,5,5,5,6,0,52,53,54,0,16,17,17,17,8,17,19,17,7,17,17,
 20,17,17,7,17,17,7,17,8,17,17,19,7,18,0,64,65,66,0,16,7,17,17,17,17,17,17,17,20,17,
 17,8,20,17,8,17,17,20,7,8,17,17,20,18,0,0,0,0,0,28,29,29,29,32,17,17,31,29,29,29,
@@ -151,6 +209,39 @@
     <property name="map" value="grey_cliffside/upper_location"/>
     <property name="marker" value="entry"/>
    </properties>
+  </object>
+  <object id="133" name="cloud" x="40" y="440">
+   <point/>
+  </object>
+  <object id="134" name="cloud" x="320" y="640">
+   <point/>
+  </object>
+  <object id="135" name="cloud" x="240" y="440">
+   <point/>
+  </object>
+  <object id="136" name="cloud" x="520" y="600">
+   <point/>
+  </object>
+  <object id="137" name="cloud" x="640" y="640">
+   <point/>
+  </object>
+  <object id="138" name="cloud" x="680" y="280">
+   <point/>
+  </object>
+  <object id="139" name="cloud" x="1080" y="80">
+   <point/>
+  </object>
+  <object id="140" name="cloud" x="840" y="120">
+   <point/>
+  </object>
+  <object id="141" name="cloud" x="1080" y="240">
+   <point/>
+  </object>
+  <object id="142" name="cloud" x="1160" y="360">
+   <point/>
+  </object>
+  <object id="143" name="cloud" x="840" y="360">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup color="#aa00ff" id="6" name="markers">

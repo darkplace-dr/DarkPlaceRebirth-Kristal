@@ -1987,5 +1987,10 @@ local cliffside = {
             Game.world.map:getTileLayer("hidemethreetoo").visible = false
         cutscene:fadeIn()
     end,
+    openwall = function (cutscene, event)
+        if Game:getFlag("Puzzle_done", 0) == 1 then
+        Game.world.map:getHitbox("killme").collidable = false
+        end
+    end,
 }
 return cliffside
