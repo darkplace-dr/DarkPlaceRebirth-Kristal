@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 8,
-  nextobjectid = 48,
+  nextlayerid = 9,
+  nextobjectid = 54,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev",
@@ -163,6 +163,7 @@ return {
           width = 200,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -176,6 +177,7 @@ return {
           width = 160,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -189,6 +191,7 @@ return {
           width = 400,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -202,6 +205,7 @@ return {
           width = 400,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -215,6 +219,7 @@ return {
           width = 200,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -228,6 +233,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -241,6 +247,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -254,6 +261,7 @@ return {
           width = 400,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -267,6 +275,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -286,6 +295,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
@@ -305,6 +315,7 @@ return {
           width = 160,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -318,6 +329,7 @@ return {
           width = 80,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -331,6 +343,7 @@ return {
           width = 40,
           height = 240,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -344,6 +357,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -357,6 +371,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -370,6 +385,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -383,6 +399,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -396,6 +413,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -405,7 +423,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 6,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -425,6 +443,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["facing"] = "down",
@@ -442,6 +461,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/dev/coffeeshop",
@@ -458,6 +478,7 @@ return {
           width = 40,
           height = 80,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/dev/pre_elevator",
@@ -474,6 +495,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/pre_diner",
@@ -490,6 +512,7 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "floor2/dev/party",
@@ -506,20 +529,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
-          gid = 145,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 25,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 590,
-          y = 390,
-          width = 100,
-          height = 70,
-          rotation = 0,
+          opacity = 1,
           gid = 145,
           visible = true,
           properties = {}
@@ -534,6 +544,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 145,
           visible = true,
           properties = {}
@@ -548,6 +559,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 145,
           visible = true,
           properties = {}
@@ -562,6 +574,7 @@ return {
           width = 100,
           height = 70,
           rotation = 0,
+          opacity = 1,
           gid = 145,
           visible = true,
           properties = {}
@@ -576,6 +589,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "devroom_pc",
@@ -592,6 +606,7 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -605,6 +620,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "arlee",
@@ -622,11 +638,57 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "chara",
             ["cutscene"] = "devroom.chara"
           }
+        },
+        {
+          id = 49,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 580,
+          y = 390,
+          width = 118,
+          height = 68,
+          rotation = 0,
+          opacity = 1,
+          gid = 154,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 53,
+          name = "break_spot",
+          type = "",
+          shape = "point",
+          x = 639,
+          y = 336,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -654,6 +716,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -667,6 +730,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -680,6 +744,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -693,6 +758,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -706,6 +772,49 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "break_camera_target",
+          type = "",
+          shape = "point",
+          x = 800,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "break_pos_1",
+          type = "",
+          shape = "point",
+          x = 556,
+          y = 384,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 52,
+          name = "break_pos_2",
+          type = "",
+          shape = "point",
+          x = 724,
+          y = 382,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="8" nextobjectid="48">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="54">
  <editorsettings>
   <export target="main_1.lua" format="lua"/>
  </editorsettings>
@@ -94,7 +94,7 @@
   <object id="32" x="720" y="450" width="80" height="40"/>
   <object id="34" x="840" y="350" width="80" height="40"/>
  </objectgroup>
- <objectgroup color="#ff00ff" id="6" name="objects">
+ <objectgroup color="#ff00ff" id="6" name="objects_party">
   <object id="13" name="transition" x="320" y="190" width="80" height="40">
    <properties>
     <property name="facing" value="down"/>
@@ -127,7 +127,6 @@
    </properties>
   </object>
   <object id="24" gid="145" x="350" y="390" width="100" height="70"/>
-  <object id="25" gid="145" x="590" y="390" width="100" height="70"/>
   <object id="26" gid="145" x="830" y="390" width="100" height="70"/>
   <object id="27" gid="145" x="470" y="490" width="100" height="70"/>
   <object id="28" gid="145" x="710" y="490" width="100" height="70"/>
@@ -154,6 +153,12 @@
    </properties>
    <point/>
   </object>
+  <object id="49" gid="154" x="580" y="390" width="118" height="68"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="8" name="objects">
+  <object id="53" name="break_spot" x="639" y="336">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
   <object id="19" name="shop" x="360" y="280">
@@ -169,6 +174,15 @@
    <point/>
   </object>
   <object id="23" name="party" x="1160" y="400">
+   <point/>
+  </object>
+  <object id="50" name="break_camera_target" x="800" y="360">
+   <point/>
+  </object>
+  <object id="51" name="break_pos_1" x="556" y="384">
+   <point/>
+  </object>
+  <object id="52" name="break_pos_2" x="724" y="382">
    <point/>
   </object>
  </objectgroup>
