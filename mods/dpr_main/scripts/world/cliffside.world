@@ -33,7 +33,7 @@
             "height": 480,
             "width": 680,
             "x": -3880,
-            "y": -2640
+            "y": -3320
         },
         {
             "fileName": "maps/grey_cliffside/cliffside_right_2/cliffside_right_2.tmx",
@@ -167,6 +167,13 @@
             "width": 960,
             "x": 0,
             "y": -920
+        },
+        {
+            "fileName": "maps/grey_cliffside/return_beforebin.tmx",
+            "height": 600,
+            "width": 1400,
+            "x": -3880,
+            "y": -2760
         }
     ],
     "onlyShowAdjacentMaps": false,

@@ -351,7 +351,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#0000ff" id="2" name="collision" visible="0">
+ <objectgroup color="#0000ff" id="2" name="collision">
   <object id="3" x="524" y="760" width="80" height="240"/>
   <object id="4" x="396" y="760" width="80" height="240"/>
   <object id="5" x="600" y="480" width="40" height="280"/>
@@ -401,7 +401,7 @@
   <object id="65" x="920" y="1000" width="40" height="40"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="3" name="paths"/>
- <objectgroup color="#ff00ff" id="4" name="objects" visible="0">
+ <objectgroup color="#ff00ff" id="4" name="objects">
   <object id="1" name="transition" x="1400" y="440" width="40" height="80">
    <properties>
     <property name="map" value="grey_cliffside/first_chr_encounter"/>
