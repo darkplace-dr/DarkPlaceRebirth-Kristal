@@ -3,8 +3,12 @@ local BreakSpot, super = Class(Event)
 function BreakSpot:init(data)
     super.init(self, data.x, data.y, { data.width, data.height })
 
-    self:setOrigin(0.5)
-    self:setSprite("world/events/shine", 8 / 30)
+    local properties = data and data.properties or nil
+    self.shine = Sprite("world/events/shine", properties.shine_x or MathUtils.round(self.width / 2), properties.shine_y or MathUtils.round(self.height / 2))
+    self.shine:play(8 / 30, true)
+    self.shine:setOrigin(0.5)
+    self.shine:setScale(2)
+    self:addChild(self.shine)
 
     self.siner = 0
 end
@@ -22,7 +26,7 @@ function BreakSpot:update()
         alphatarg = 0
     end
 
-    self.sprite.alpha = MathUtils.lerp(self.sprite.alpha, alphatarg, 0.5)
+    self.shine.alpha = MathUtils.lerp(self.shine.alpha, alphatarg, 1 - (1 - 0.5) ^ DTMULT)
 
     super.update(self)
 end

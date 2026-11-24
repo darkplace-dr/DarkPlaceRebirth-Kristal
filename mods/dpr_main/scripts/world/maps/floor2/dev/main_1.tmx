@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="54">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="55">
  <editorsettings>
   <export target="main_1.lua" format="lua"/>
  </editorsettings>
@@ -156,8 +156,10 @@
   <object id="49" gid="154" x="580" y="390" width="118" height="68"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="8" name="objects">
-  <object id="53" name="break_spot" x="639" y="336">
-   <point/>
+  <object id="54" name="break_spot" x="580" y="322" width="118" height="68">
+   <properties>
+    <property name="shine_y" type="int" value="12"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup color="#7f00ff" id="7" name="markers">
