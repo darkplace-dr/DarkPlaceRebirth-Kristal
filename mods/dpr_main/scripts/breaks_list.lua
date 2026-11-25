@@ -22,4 +22,11 @@ return {
     cutscene = "breaks.susie_dess",
     unlocked_party_checks = { "dess" }
   },
+  {
+    name = "1225",
+    actors = { "dess" },
+    actors_sprites = { dess = "teehee" },
+    cutscene = "breaks.onetwotwofive",
+    unlocked_party_checks = { "dess" }
+  },
 }
