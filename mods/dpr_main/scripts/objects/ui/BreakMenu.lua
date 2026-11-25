@@ -117,6 +117,7 @@ end
 function BreakMenu:updateActors(break_prev)
     local break_current = (self.page - 1) * 6 - 1 + self.currently_selected
 
+    -- previously selected break
     for _, actor in ipairs(self.actors_fading) do
         actor:remove()
     end
@@ -126,21 +127,39 @@ function BreakMenu:updateActors(break_prev)
             if self.breaks[break_prev].actors[i] ~= "none" then
                 local x, y = Game.world.map:getMarker("break_pos_" .. i)
                 local actor_id = self.breaks[break_prev].actors[i]
+                local actor_options = self.breaks[break_prev].actor_options
                 local actor = Game.world:spawnNPC(actor_id, x, y)
+
                 if i == 1 then
                     actor:setFacing("right")
                 elseif i == 2 then
                     actor:setFacing("left")
                 end
-                if self.breaks[break_prev].actors_sprites and self.breaks[break_prev].actors_sprites[actor_id] then
-                    actor:setSprite(self.breaks[break_prev].actors_sprites[actor_id])
+
+                if actor_options and actor_options[actor_id] then
+                    if actor_options[actor_id].sprite then
+                        actor:setSprite(actor_options[actor_id].sprite)
+                    end
+
+                    if actor_options[actor_id].offset then
+                        actor.x = actor.init_x + (actor_options[actor_id].offset[1] or 0)
+                        actor.y = actor.init_y + (actor_options[actor_id].offset[2] or 0)
+                    end
+
+                    if actor_options[actor_id].flip then
+                        actor.scale_x = -2
+                    else
+                        actor.scale_x = 2
+                    end
                 end
+
                 table.insert(self.actors_fading, actor)
                 Game.world.timer:tween(3 / 30, actor, { alpha = 0 })
             end
         end
     end
 
+    -- currently selected break
     for _, actor in ipairs(self.actors) do
         actor:remove()
     end
@@ -150,15 +169,32 @@ function BreakMenu:updateActors(break_prev)
             if self.breaks[break_current].actors[i] ~= "none" then
                 local x, y = Game.world.map:getMarker("break_pos_" .. i)
                 local actor_id = self.breaks[break_current].actors[i]
+                local actor_options = self.breaks[break_current].actor_options
                 local actor = Game.world:spawnNPC(actor_id, x, y)
+
                 if i == 1 then
                     actor:setFacing("right")
                 elseif i == 2 then
                     actor:setFacing("left")
                 end
-                if self.breaks[break_current].actors_sprites and self.breaks[break_current].actors_sprites[actor_id] then
-                    actor:setSprite(self.breaks[break_current].actors_sprites[actor_id])
+
+                if actor_options and actor_options[actor_id] then
+                    if actor_options[actor_id].sprite then
+                        actor:setSprite(actor_options[actor_id].sprite)
+                    end
+
+                    if actor_options[actor_id].offset then
+                        actor.x = actor.init_x + (actor_options[actor_id].offset[1] or 0)
+                        actor.y = actor.init_y + (actor_options[actor_id].offset[2] or 0)
+                    end
+
+                    if actor_options[actor_id].flip then
+                        actor.scale_x = -2
+                    else
+                        actor.scale_x = 2
+                    end
                 end
+
                 table.insert(self.actors, actor)
                 actor.alpha = 0
                 Game.world.timer:tween(3 / 30, actor, { alpha = 1 })
@@ -248,127 +284,129 @@ function BreakMenu:update()
     local options_on_page = #self.breaks - (self.page - 1) * 6 + 1
     options_on_page = MathUtils.clamp(options_on_page, 1, 6)
 
-    if Input.pressed("down") then
-        if self.state == "SELECTING" then
-            self.ui_move:play()
-            local break_prev = selected_break
-            if self.currently_selected == options_on_page then
-                self.currently_selected = 1
-            else
-                self.currently_selected = self.currently_selected + 1
-            end
-            self:updateActors(break_prev)
-        end
-        return
-    end
-
-    if Input.pressed("up") then
-        if self.state == "SELECTING" then
-            self.ui_move:play()
-            local break_prev = selected_break
-            if self.currently_selected == 1 then
-                self.currently_selected = options_on_page
-            else
-                self.currently_selected = self.currently_selected - 1
-            end
-            self:updateActors(break_prev)
-        end
-        return
-    end
-
-    if Input.pressed("left") then
-        if self.state == "SELECTING" then
-            if self.pages_total > 1 then
+    if not OVERLAY_OPEN then
+        if Input.pressed("down") then
+            if self.state == "SELECTING" then
                 self.ui_move:play()
                 local break_prev = selected_break
-                self.currently_selected = 1
-                if self.page == 1 then
-                    self.page = self.pages_total
+                if self.currently_selected == options_on_page then
+                    self.currently_selected = 1
                 else
-                    self.page = self.page - 1
+                    self.currently_selected = self.currently_selected + 1
                 end
                 self:updateActors(break_prev)
             end
+            return
         end
-        return
-    end
 
-    if Input.pressed("right") then
-        if self.state == "SELECTING" then
-            if self.pages_total > 1 then
+        if Input.pressed("up") then
+            if self.state == "SELECTING" then
                 self.ui_move:play()
                 local break_prev = selected_break
-                self.currently_selected = 1
-                if self.page == self.pages_total then
-                    self.page = 1
+                if self.currently_selected == 1 then
+                    self.currently_selected = options_on_page
                 else
-                    self.page = self.page + 1
+                    self.currently_selected = self.currently_selected - 1
                 end
                 self:updateActors(break_prev)
             end
+            return
         end
-        return
-    end
 
-    if Input.pressed("confirm") then
-        if self.state == "SELECTING" then
-            if self.page == 1 and self.currently_selected == 1 then
-                Game.world:closeMenu()
-            else
-                self.state = "TEXT"
-
-                local text = "* Have this break?"
-                if TableUtils.contains(self.breaks_watched, self.breaks[selected_break]) then
-                    text = "* Have this break again?"
+        if Input.pressed("left") then
+            if self.state == "SELECTING" then
+                if self.pages_total > 1 then
+                    self.ui_move:play()
+                    local break_prev = selected_break
+                    self.currently_selected = 1
+                    if self.page == 1 then
+                        self.page = self.pages_total
+                    else
+                        self.page = self.page - 1
+                    end
+                    self:updateActors(break_prev)
                 end
-                local width, height = 529, 103
-                if Game:isLight() then
-                    width, height = 530, 104
+            end
+            return
+        end
+
+        if Input.pressed("right") then
+            if self.state == "SELECTING" then
+                if self.pages_total > 1 then
+                    self.ui_move:play()
+                    local break_prev = selected_break
+                    self.currently_selected = 1
+                    if self.page == self.pages_total then
+                        self.page = 1
+                    else
+                        self.page = self.page + 1
+                    end
+                    self:updateActors(break_prev)
                 end
-
-                self.textbox = Textbox(56, 344, width, height)
-                self.textbox.layer = WORLD_LAYERS["textbox"]
-                Game.world:addChild(self.textbox)
-                self.textbox:setParallax(0, 0)
-                self.textbox.active = true
-                self.textbox.visible = true
-
-                self.textbox:setText(text, function()
-                    self.state = "CHOICE"
-
-                    self.textbox:remove()
-                    self.textbox = nil
-
-                    self.choicebox = Choicebox(56, 344, width, height, false)
-                    self.choicebox.layer = WORLD_LAYERS["textbox"]
-                    Game.world:addChild(self.choicebox)
-                    self.choicebox:setParallax(0, 0)
-
-                    self.choicebox:addChoice("Break")
-                    self.choicebox:addChoice("Do not")
-
-                    self.choicebox.active = true
-                    self.choicebox.visible = true
-                end)
             end
-        elseif self.state == "CHOICE" then
-            if self.choicebox.current_choice == 1 then
-                Game:setFlag("break#" .. self.breaks[selected_break].cutscene .. "#watched", true)
-                self.selected_break = self.breaks[selected_break]
+            return
+        end
+
+        if Input.pressed("confirm") then
+            if self.state == "SELECTING" then
+                if self.page == 1 and self.currently_selected == 1 then
+                    Game.world:closeMenu()
+                else
+                    self.state = "TEXT"
+
+                    local text = "* Have this break?"
+                    if TableUtils.contains(self.breaks_watched, self.breaks[selected_break]) then
+                        text = "* Have this break again?"
+                    end
+                    local width, height = 529, 103
+                    if Game:isLight() then
+                        width, height = 530, 104
+                    end
+
+                    self.textbox = Textbox(56, 344, width, height)
+                    self.textbox.layer = WORLD_LAYERS["textbox"]
+                    Game.world:addChild(self.textbox)
+                    self.textbox:setParallax(0, 0)
+                    self.textbox.active = true
+                    self.textbox.visible = true
+
+                    self.textbox:setText(text, function()
+                        self.state = "CHOICE"
+
+                        self.textbox:remove()
+                        self.textbox = nil
+
+                        self.choicebox = Choicebox(56, 344, width, height, false)
+                        self.choicebox.layer = WORLD_LAYERS["textbox"]
+                        Game.world:addChild(self.choicebox)
+                        self.choicebox:setParallax(0, 0)
+
+                        self.choicebox:addChoice("Break")
+                        self.choicebox:addChoice("Do not")
+
+                        self.choicebox.active = true
+                        self.choicebox.visible = true
+                    end)
+                end
+            elseif self.state == "CHOICE" then
+                if self.choicebox.current_choice == 1 then
+                    Game:setFlag("break#" .. self.breaks[selected_break].cutscene .. "#watched", true)
+                    self.selected_break = self.breaks[selected_break]
+                    Game.world:closeMenu()
+                else
+                    self.state = "SELECTING"
+                end
+                self.choicebox = nil
+            end
+            return
+        end
+
+        if Input.pressed("cancel") then
+            if self.state == "SELECTING" then
                 Game.world:closeMenu()
-            else
-                self.state = "SELECTING"
             end
-            self.choicebox = nil
+            return
         end
-        return
-    end
-
-    if Input.pressed("cancel") then
-        if self.state == "SELECTING" then
-            Game.world:closeMenu()
-        end
-        return
     end
 end
 
