@@ -116,7 +116,7 @@ function actor:init(style)
 
     -- Alternate animations to use for Susie without a smile
     self.animations_serious = {
-        ["battle/idle"]         = {"battle_serious/idle", 0.2, true},
+        ["battle/idle"]         = {"battle_serious/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle_serious/attack", 1/15, false},
         ["battle/spell"]        = {"battle_serious/spell", 1/15, false, next="battle/idle"},
@@ -130,8 +130,8 @@ function actor:init(style)
 
     -- Alternate animations to use for Susie with visible eyes
     self.animations_eyes = {
-        ["battle/idle"]         = {"battle_eyes/idle", 0.2, true},
-        ["battle/idle_serious"] = {"battle_eyes/idle_serious", 0.2, true},
+        ["battle/idle"]         = {"battle_eyes/idle", 1/6, true},
+        ["battle/idle_serious"] = {"battle_eyes/idle_serious", 1/6, true},
 
         ["battle/attack"]       = {"battle_eyes/attack", 1/15, false},
         ["battle/attack_serious"] = {"battle_eyes/attack_serious", 1/15, false},
@@ -161,7 +161,7 @@ function actor:init(style)
 
     -- Alternate animations to use for Susie when she's enraged
     self.animations_rage = {
-        ["battle/idle"]         = {"battle_enraged/idle", 0.2, true},
+        ["battle/idle"]         = {"battle_enraged/idle", 1/6, true},
 
         ["battle/attack"]       = {"battle_enraged/attack", 1/15, false},
 

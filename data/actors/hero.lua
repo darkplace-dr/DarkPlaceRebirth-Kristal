@@ -11,14 +11,14 @@ function actor:init()
     self.height = 36
 
     -- Hitbox for this actor in the overworld (optional, uses width and height by default)
-    self.hitbox = {5, 24, 18, 14}
+    self.hitbox = { 5, 24, 18, 14 }
 
     -- A table that defines where the Soul should be placed on this actor if they are a player.
     -- First value is x, second value is y.
-    self.soul_offset = {15, 25}
+    self.soul_offset = { 15, 25 }
 
     -- Color for this actor used in outline areas (optional, defaults to red)
-    self.color = {1, 0.5, 0}
+    self.color = { 1, 0.5, 0 }
 
     -- Path to this actor's sprites (defaults to "")
     self.path = "party/hero/dark"
@@ -38,39 +38,40 @@ function actor:init()
     -- Table of sprite animations
     self.animations = {
         -- Movement animations
-        ["slide"]               = {"slide", 4/30, true},
+        ["slide"]               = { "slide", 4 / 30, true },
 
         -- Battle animations
-        ["battle/idle"]         = {"battle/idle", 0.2, true},
+        ["battle/idle"]         = { "battle/idle", 1 / 6, true },
 
-        ["battle/defeat"]       = {"battle/defeat", 1/15, false},
-        ["battle/swooned"]      = {"battle/swooned", 1/15, false},
-        ["battle/succumbed"]    = {"battle/swooned", 1/15, false},
+        ["battle/defeat"]       = { "battle/defeat", 1 / 15, false },
+        ["battle/swooned"]      = { "battle/swooned", 1 / 15, false },
+        ["battle/succumbed"]    = { "battle/swooned", 1 / 15, false },
 
-        ["battle/attack"]       = {"battle/attack", 1/15, false},
-        --"battle/act"]          = {"battle/act", 1/15, false},
-        --["battle/spell"]        = {"battle/spell", 1/15, false},
-        --[[["battle/item"]         = {"battle/item", 1/12, false, next="battle/idle"},
-        ["battle/spare"]        = {"battle/act", 1/15, false, next="battle/idle"},]]
+        ["battle/attack"]       = { "battle/attack", 1 / 15, false },
+        ["battle/act"]          = { "battle/act", 1 / 15, false },
+        ["battle/spell"]        = { "battle/spell", 1 / 12, false },
+        ["battle/item"]         = { "battle/item", 1 / 12, false, next = "battle/idle" },
+        ["battle/spare"]        = { "battle/act", 1 / 15, false, next = "battle/idle" },
 
-        ["battle/attack_ready"] = {"battle/attackready", 0.2, true},
-        --["battle/act_ready"]    = {"battle/actready", 0.2, true},
-        ["battle/spell_ready"]  = {"battle/spellready", 0.2, true},
-        --[[["battle/item_ready"]   = {"battle/itemready", 0.2, true},
-        ["battle/defend_ready"] = {"battle/defend", 1/15, false},
+        ["battle/attack_ready"] = { "battle/attackready", 0.2, true },
+        ["battle/act_ready"]    = { "battle/actready", 0.2, true },
+        ["battle/spell_ready"]  = { "battle/spellready", 0.2, true },
+        ["battle/item_ready"]   = { "battle/itemready", 0.2, true },
+        ["battle/defend_ready"] = { "battle/defend", 1 / 15, false },
 
-        ["battle/act_end"]      = {"battle/actend", 1/15, false, next="battle/idle"},]]
+        ["battle/act_end"]      = { "battle/actend", 1 / 15, false, next = "battle/idle" },
+        ["battle/attack_end"]   = { "battle/attackend", 1 / 15, false, next = "battle/idle" },
 
-        ["battle/hurt"]         = {"battle/hurt", 1/15, false, temp=true, duration=0.5},
+        ["battle/hurt"]         = { "battle/hurt", 1 / 15, false, temp = true, duration = 0.5 },
 
-        ["battle/transition"]   = {"battle/attackready", 0.2, true},
-        ["battle/intro"]        = {"battle/attack", 1/15, true},
-        ["battle/victory"]      = {"battle/victory", 1/10, false},
+        ["battle/transition"]   = { "battle/attackready", 0.2, true },
+        ["battle/intro"]        = { "battle/attack", 1 / 15, true },
+        ["battle/victory"]      = { "battle/victory", 1 / 10, false },
 
         -- Cutscene animations
-        ["jump_fall"]           = {"fall", 1/5, true},
-        ["jump_ball"]           = {"ball", 1/15, true},
-        ["wall_slam"]           = {"wall_slam", 1/10, false},
+        ["jump_fall"]           = { "fall", 1 / 5, true },
+        ["jump_ball"]           = { "ball", 1 / 15, true },
+        ["wall_slam"]           = { "wall_slam", 1 / 10, false },
     }
 
     -- Tables of sprites to change into in mirrors
@@ -84,54 +85,55 @@ function actor:init()
     -- Table of sprite offsets (indexed by sprite name)
     self.offsets = {
         -- Movement offsets
-        ["walk/left"] = {0, 0},
-        ["walk/right"] = {0, 0},
-        ["walk/up"] = {0, 0},
-        ["walk/down"] = {0, 0},
+        ["walk/left"] = { 0, 0 },
+        ["walk/right"] = { 0, 0 },
+        ["walk/up"] = { 0, 0 },
+        ["walk/down"] = { 0, 0 },
 
-        ["slide"] = {0, 0},
+        ["slide"] = { 0, 0 },
 
         -- Battle offsets
-        ["battle/idle"] = {3, 0},
+        ["battle/idle"] = { 3, 0 },
 
-        ["battle/attack"] = {-1, -8},
-        ["battle/attackready"] = {0, -8},
-        ["battle/act"] = {-6, -6},
-        ["battle/actend"] = {-6, -6},
-        ["battle/actready"] = {-6, -6},
-        ["battle/spell"] = {-6, -6},
-        ["battle/spellready"] = {-1, -8},
-        ["battle/item"] = {-6, -6},
-        ["battle/itemready"] = {-6, -6},
-        ["battle/defend"] = {-5, -3},
+        ["battle/attack"] = { -1, -8 },
+        ["battle/attackready"] = { 0, -8 },
+        ["battle/attackend"] = { 3, 0 },
+        ["battle/act"] = { -1, -8 },
+        ["battle/actend"] = { 3, 0 },
+        ["battle/actready"] = { 4, -24 },
+        ["battle/spell"] = { 5, -41 },
+        ["battle/spellready"] = { -1, -8 },
+        ["battle/item"] = { 4, -23 },
+        ["battle/itemready"] = { 3, 0 },
+        ["battle/defend"] = { 3, 0 },
 
-        ["battle/defeat"] = {1, 6},
-        ["battle/hurt"] = {3, 0},
-        ["battle/swooned"] = {-6, 1},
+        ["battle/defeat"] = { 1, 6 },
+        ["battle/hurt"] = { 3, 0 },
+        ["battle/swooned"] = { -6, 1 },
 
-        ["battle/victory"] = {2, -25},
+        ["battle/victory"] = { 2, -25 },
 
         -- Cutscene offsets
-        ["ball"] = {1, 8},
-        ["landed"] = {-4, -2},
+        ["ball"] = { 1, 8 },
+        ["landed"] = { -4, -2 },
 
-        ["fell"] = {-14, 1},
+        ["fell"] = { -14, 1 },
 
-        ["wall_slam"] = {-1, 0},
+        ["wall_slam"] = { -1, 0 },
 
         --- Climbing offsets
-        ["climb/climb"] = {-0, 4},
-        ["climb/charge"] = {-0, 4},
-        ["climb/slip_left"] = {-0, 4},
-        ["climb/slip_right"] = {-0, 4},
-        ["climb/land_left"] = {-0, 4},
-        ["climb/land_right"] = {-0, 4},
-        ["climb/jump_up"] = {-0, 4},
-        ["climb/jump_left"] = {-0, 4},
-        ["climb/jump_right"] = {-0, 4},
+        ["climb/climb"] = { 0, 4 },
+        ["climb/charge"] = { 0, 4 },
+        ["climb/slip_left"] = { 0, 4 },
+        ["climb/slip_right"] = { 0, 4 },
+        ["climb/land_left"] = { 0, 4 },
+        ["climb/land_right"] = { 0, 4 },
+        ["climb/jump_up"] = { 0, 4 },
+        ["climb/jump_left"] = { 0, 4 },
+        ["climb/jump_right"] = { 0, 4 },
     }
 
-	self.shiny_id = "hero"
+    self.shiny_id = "hero"
 end
 
 --[[function actor:getAnimation(anim)

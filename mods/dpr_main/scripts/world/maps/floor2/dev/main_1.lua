@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 54,
+  nextobjectid = 55,
   properties = {
     ["border"] = "dev",
     ["music"] = "dev",
@@ -677,18 +677,20 @@ return {
       properties = {},
       objects = {
         {
-          id = 53,
+          id = 54,
           name = "break_spot",
           type = "",
-          shape = "point",
-          x = 639,
-          y = 336,
-          width = 0,
-          height = 0,
+          shape = "rectangle",
+          x = 580,
+          y = 322,
+          width = 118,
+          height = 68,
           rotation = 0,
           opacity = 1,
           visible = true,
-          properties = {}
+          properties = {
+            ["shine_y"] = 12
+          }
         }
       }
     },

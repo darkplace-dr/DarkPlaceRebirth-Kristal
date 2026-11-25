@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 9,
-  nextobjectid = 79,
+  nextlayerid = 10,
+  nextobjectid = 93,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 113,
+      firstgid = 85,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -65,6 +65,126 @@ return {
           y = 0,
           width = 40,
           height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "objects_back",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 79,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 440,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 80,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 81,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 82,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 83,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 80,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 84,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 0,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 85,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 86,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 40,
+          width = 0,
+          height = 0,
           rotation = 0,
           visible = true,
           properties = {}
@@ -130,17 +250,17 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 4, 5, 5, 5, 6, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 13, 7, 14, 17, 15, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 13, 16, 8, 7, 15, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 13, 14, 14, 14, 15, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 22, 23, 23, 23, 24, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 31, 32, 32, 32, 33, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 16, 7, 17, 20, 18, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 16, 19, 8, 7, 18, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 16, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 28, 29, 29, 29, 30, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 40, 41, 41, 41, 42, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -169,14 +289,14 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 19, 20, 21, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 28, 29, 30, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 25, 26, 27, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 37, 38, 39, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 28, 29, 30, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 49, 50, 51, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 37, 38, 39, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 28, 29, 30, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 37, 38, 39, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 0, 49, 50, 51, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 37, 38, 39, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 49, 50, 51, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -253,6 +373,71 @@ return {
             ["cutscene"] = "cliffside.reverse_cliff_2",
             ["once"] = false
           }
+        },
+        {
+          id = 87,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 240,
+          y = 480,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 88,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 90,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 360,
+          y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 91,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 92,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 440,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

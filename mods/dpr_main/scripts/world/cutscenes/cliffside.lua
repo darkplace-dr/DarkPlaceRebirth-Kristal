@@ -219,6 +219,7 @@ local cliffside = {
 
             for e,a in ipairs(Game.party) do
                 Game.world:getCharacter(a.actor.id):setActor(a.lw_actor.id)
+                Game.world:getCharacter(a.actor.id):setAnimation("jump_ball")
             end
 
             Game.light = true
@@ -230,6 +231,7 @@ local cliffside = {
 
             for e,a in ipairs(Game.party) do
                 Game.world:getCharacter(a.lw_actor.id):setActor(a.actor.id)
+                Game.world:getCharacter(a.actor.id):setAnimation("jump_ball")
             end
 
             Game.light = false
@@ -1465,8 +1467,11 @@ local cliffside = {
         Game.world.player:setSprite("walk/down_1")
         Game.world.player.physics.speed_y = -8
         Game.world.player.physics.friction = 0.2
+        Game.world.player:shake(10)
+        Game.world:shake(1, 30)
+        Assets.playSound("dtrans_flip")
         cutscene:wait(0.5)
-        Game.world.timer:tween(1, player, {y = player.y+100}, "in-cubic")
+        Game.world.timer:tween(1, player, {y = 245}, "in-cubic")
         cutscene:wait(1)
         Game.world.player:setState("WALK")
         Game.world.player:resetSprite()
@@ -1903,6 +1908,89 @@ local cliffside = {
         end)
         cutscene:interpolateFollowers()
         cutscene:attachFollowers()
+    end,
+    blocksintroright = function (cutscene, event)
+         cutscene:fadeOut(0.25, {color = COLORS.black})
+         cutscene:wait(0.5)
+        cutscene:loadMap("grey_cliffside/puzzle_intro_better", "entry1")
+        cutscene:wait(0.1)
+        if Game:getFlag("Blocks_done", 0) <= 1 then
+        cutscene:getEvent("pushblock").x = 800
+        cutscene:getEvent("pushblock").y = 240
+        end
+        cutscene:fadeIn()
+        if Game:getFlag("Blocks_done", 0) == 0 then
+        cutscene:detachFollowers()
+        local hero = cutscene:getCharacter("hero")
+        local susie = cutscene:getCharacter("susie")
+        cutscene:walkTo(hero, 720, 200, 2, "left")
+        cutscene:walkTo(susie, 720, 240, 2, "left")
+        	cutscene:setSpeaker(susie)
+			cutscene:text("[noskip]* So,[wait:3] as I was saying, Hero-[wait:8]","small_smile", {auto = true})
+            cutscene:wait(0.5)
+            hero:setSprite("shock")
+			susie:setSprite("shock_down")
+            susie:shake()
+            hero:shake()
+            Assets.playSound("closet_impact")
+            Game.world.map:getTileLayer("hideme").visible = false
+            cutscene:shakeCamera(0,8,1)
+            cutscene:text("* WHAT THE-", "shock_down")
+            cutscene:wait(0.7)
+            Assets.playSound("closet_impact")
+            Game.world.map:getTileLayer("hidemetoo").visible = false
+            cutscene:shakeCamera(0,12,1)
+            cutscene:wait(0.7)
+            Assets.playSound("closet_impact",0.7)
+            Assets.playSound("screenshake",0.6)
+            Assets.playSound("rumble")
+            Game.world.map:getTileLayer("hidemethree").visible = false
+            Game.world.map:getTileLayer("hidemethreetoo").visible = false
+            cutscene:shakeCamera(0,12,1)
+            cutscene:wait(0.2)
+            susie:resetSprite()
+            hero:resetSprite()
+            cutscene:walkTo(susie, 690, 280, 0.8, "down")
+            cutscene:text("* WHAT JUST-", "shock_down", {auto = true})
+            cutscene:walkTo(susie, 600, 280, 0.8, "left")
+            cutscene:text("* I'M SORRY???", "sad", {auto = true})
+            cutscene:walkTo(susie, 720, 240, 0.8, "right")
+            cutscene:text("* HOLY CHEESE AND CRACKERS THIS IS JUST LIKE AMOGUS", "shock_down", {auto = true})
+            cutscene:walkTo(susie, 680, 120, 0.8, "up")
+            cutscene:text("* ...Well...", "shock_nervous")
+            cutscene:attachFollowers()
+            cutscene:text("* I guess??? We're stuck???", "shock_nervous")
+            cutscene:text("* Unless you can get us out.", "shock_nervous")
+            Game:setFlag("Blocks_done", 1)
+        else
+            Game.world.map:getTileLayer("hideme").visible = false
+            Game.world.map:getTileLayer("hidemetoo").visible = false
+            Game.world.map:getTileLayer("hidemethree").visible = false
+            Game.world.map:getTileLayer("hidemethreetoo").visible = false
+        end
+    end,
+
+    blocksintrofinished = function (cutscene, event)
+        local susie = cutscene:getCharacter("susie")
+        cutscene:setSpeaker(susie)
+        cutscene:text("* Hell yeah we won", "smile")
+        Game:setFlag("Blocks_done", 2)
+    end,
+
+    blocksintroleft = function (cutscene, event)
+          cutscene:fadeOut(0.25, {color = COLORS.black})
+         cutscene:wait(0.5)
+        cutscene:loadMap("grey_cliffside/puzzle_intro_better", "entry2")
+                    Game.world.map:getTileLayer("hideme").visible = false
+            Game.world.map:getTileLayer("hidemetoo").visible = false
+            Game.world.map:getTileLayer("hidemethree").visible = false
+            Game.world.map:getTileLayer("hidemethreetoo").visible = false
+        cutscene:fadeIn()
+    end,
+    openwall = function (cutscene, event)
+        if Game:getFlag("Puzzle_done", 0) == 1 then
+        Game.world.map:getHitbox("killme").collidable = false
+        end
     end,
 }
 return cliffside

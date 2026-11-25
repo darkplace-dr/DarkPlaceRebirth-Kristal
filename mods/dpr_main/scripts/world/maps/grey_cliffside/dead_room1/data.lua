@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 24,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 12,
-  nextobjectid = 89,
+  nextlayerid = 13,
+  nextobjectid = 105,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 113,
+      firstgid = 85,
       filename = "../../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../../tilesets/cliffs_objs.lua"
     }
@@ -53,7 +53,113 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 12,
+      name = "objects_bottom",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 96,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 97,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 98,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 560,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 99,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 760,
+          y = 880,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 100,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 101,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 720,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
           visible = true,
           properties = {}
         }
@@ -87,20 +193,20 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 41, 42, 0, 0, 0, 0, 0, 0,
-        0, 36, 0, 0, 0, 0, 0, 0, 0, 32, 33, 41, 50, 51, 0, 0, 0, 0, 0, 0,
-        0, 36, 36, 36, 0, 0, 0, 0, 0, 41, 42, 50, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 36, 36, 36, 36, 0, 0, 0, 0, 50, 51, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 36, 36, 36, 36, 36, 0, 0, 0, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 36, 36, 36, 36, 36, 0, 0, 0, 36, 36, 0, 0, 0, 0, 0, 36, 0, 36, 0,
-        36, 36, 36, 36, 36, 36, 0, 0, 0, 36, 36, 36, 36, 36, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 36, 36, 36, 0, 0, 0, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 36, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 53, 54, 0, 0, 0, 0, 0, 0,
+        0, 45, 0, 0, 0, 0, 0, 0, 0, 41, 42, 53, 65, 66, 0, 0, 0, 0, 0, 0,
+        0, 45, 45, 45, 0, 0, 0, 0, 0, 53, 54, 65, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 45, 45, 45, 45, 0, 0, 0, 0, 65, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 45, 45, 45, 45, 45, 0, 0, 0, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 45, 45, 45, 45, 45, 0, 0, 0, 45, 45, 0, 0, 0, 0, 0, 45, 0, 45, 0,
+        45, 45, 45, 45, 45, 45, 0, 0, 0, 45, 45, 45, 45, 45, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 45, 45, 45, 0, 0, 0, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 45, 0
       }
     },
     {
@@ -125,26 +231,26 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0, 0,
-        0, 13, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 16, 15, 0, 0, 0, 0, 0, 0,
-        0, 13, 14, 14, 16, 14, 14, 7, 14, 14, 14, 14, 14, 15, 0, 0, 0, 0, 0, 0,
-        0, 13, 14, 8, 14, 14, 14, 14, 14, 16, 14, 7, 14, 15, 0, 0, 0, 0, 0, 0,
-        0, 13, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 0, 0, 0, 0, 0, 0,
-        0, 13, 14, 16, 14, 14, 8, 14, 14, 7, 14, 14, 16, 15, 0, 0, 0, 0, 0, 0,
-        0, 22, 23, 23, 26, 14, 14, 14, 14, 14, 25, 23, 23, 24, 0, 0, 0, 0, 0, 0,
-        0, 31, 32, 32, 22, 23, 26, 14, 25, 23, 24, 32, 32, 33, 0, 0, 0, 0, 0, 0,
-        0, 40, 41, 41, 31, 32, 13, 16, 15, 32, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        6, 49, 50, 50, 31, 32, 13, 14, 15, 0, 0, 4, 5, 6, 0, 0, 4, 5, 6, 0,
-        15, 0, 0, 0, 40, 41, 13, 8, 15, 0, 0, 13, 14, 15, 0, 0, 13, 14, 15, 0,
-        24, 0, 0, 0, 49, 50, 13, 7, 15, 0, 0, 22, 23, 24, 0, 0, 22, 23, 24, 0,
-        33, 0, 0, 0, 0, 0, 13, 14, 15, 0, 0, 31, 32, 33, 0, 0, 40, 41, 42, 0,
-        42, 0, 0, 0, 0, 0, 13, 14, 15, 0, 0, 40, 41, 42, 0, 0, 49, 50, 51, 0,
-        51, 0, 0, 0, 0, 0, 13, 16, 15, 0, 0, 49, 50, 51, 0, 0, 4, 5, 6, 0,
-        5, 5, 5, 5, 5, 5, 35, 14, 34, 5, 5, 5, 5, 5, 5, 5, 35, 16, 15, 0,
-        14, 14, 8, 14, 16, 14, 14, 8, 14, 14, 7, 17, 14, 16, 14, 17, 7, 14, 15, 0,
-        16, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 25, 23, 23, 23, 24, 0,
-        14, 14, 14, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 8, 15, 32, 32, 32, 33, 0,
-        7, 14, 8, 17, 16, 14, 17, 14, 14, 14, 8, 7, 14, 16, 15, 41, 41, 41, 42, 0,
-        23, 23, 23, 23, 23, 23, 26, 14, 25, 23, 23, 23, 23, 23, 24, 50, 50, 50, 51, 0
+        0, 16, 7, 17, 17, 17, 17, 17, 17, 17, 17, 17, 19, 18, 0, 0, 0, 0, 0, 0,
+        0, 16, 17, 17, 19, 17, 17, 7, 17, 17, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0,
+        0, 16, 17, 8, 17, 17, 17, 17, 17, 19, 17, 7, 17, 18, 0, 0, 0, 0, 0, 0,
+        0, 16, 7, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0,
+        0, 16, 17, 19, 17, 17, 8, 17, 17, 7, 17, 17, 19, 18, 0, 0, 0, 0, 0, 0,
+        0, 28, 29, 29, 32, 17, 17, 17, 17, 17, 31, 29, 29, 30, 0, 0, 0, 0, 0, 0,
+        0, 40, 41, 41, 28, 29, 32, 17, 31, 29, 30, 41, 41, 42, 0, 0, 0, 0, 0, 0,
+        0, 52, 53, 53, 40, 41, 16, 19, 18, 41, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        6, 64, 65, 65, 40, 41, 16, 17, 18, 0, 0, 4, 5, 6, 0, 0, 4, 5, 6, 0,
+        18, 0, 0, 0, 52, 53, 16, 8, 18, 0, 0, 16, 17, 18, 0, 0, 16, 17, 18, 0,
+        30, 0, 0, 0, 64, 65, 16, 7, 18, 0, 0, 28, 29, 30, 0, 0, 28, 29, 30, 0,
+        42, 0, 0, 0, 0, 0, 16, 17, 18, 0, 0, 40, 41, 42, 0, 0, 52, 53, 54, 0,
+        54, 0, 0, 0, 0, 0, 16, 17, 18, 0, 0, 52, 53, 54, 0, 0, 64, 65, 66, 0,
+        66, 0, 0, 0, 0, 0, 16, 19, 18, 0, 0, 64, 65, 66, 0, 0, 4, 5, 6, 0,
+        5, 5, 5, 5, 5, 5, 44, 17, 43, 5, 5, 5, 5, 5, 5, 5, 44, 19, 18, 0,
+        17, 17, 8, 17, 19, 17, 17, 8, 17, 17, 7, 20, 17, 19, 17, 20, 7, 17, 18, 0,
+        19, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 31, 29, 29, 29, 30, 0,
+        17, 17, 17, 7, 17, 17, 17, 17, 17, 17, 17, 17, 17, 8, 18, 41, 41, 41, 42, 0,
+        7, 17, 8, 20, 19, 17, 20, 17, 17, 17, 8, 7, 17, 19, 18, 53, 53, 53, 54, 0,
+        29, 29, 29, 29, 29, 29, 32, 17, 31, 29, 29, 29, 29, 29, 30, 65, 65, 65, 66, 0
       }
     },
     {
@@ -171,7 +277,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -185,7 +290,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["broken"] = true
@@ -217,7 +321,6 @@ return {
           width = 112,
           height = 160,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["char"] = "susie",
@@ -252,7 +355,6 @@ return {
           width = 40,
           height = 256,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -266,7 +368,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -280,7 +381,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -294,7 +394,6 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -308,7 +407,6 @@ return {
           width = 280,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -322,7 +420,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -336,7 +433,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -350,7 +446,6 @@ return {
           width = 520,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -364,7 +459,6 @@ return {
           width = 40,
           height = 84,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -378,7 +472,6 @@ return {
           width = 40,
           height = 100,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -392,7 +485,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -406,7 +498,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -420,7 +511,6 @@ return {
           width = 40,
           height = 224,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -434,7 +524,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -448,7 +537,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -462,7 +550,6 @@ return {
           width = 80,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -476,7 +563,6 @@ return {
           width = 80,
           height = 16,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -490,7 +576,6 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -504,7 +589,6 @@ return {
           width = 160,
           height = 120,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -518,7 +602,6 @@ return {
           width = 40,
           height = 160,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -532,7 +615,6 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -546,7 +628,6 @@ return {
           width = 240,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -560,7 +641,6 @@ return {
           width = 40,
           height = 256,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -590,7 +670,6 @@ return {
           width = 40,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -604,28 +683,10 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "grey_cliffside/cliffside_start",
             ["marker"] = "entry2"
-          }
-        },
-        {
-          id = 40,
-          name = "transition",
-          type = "",
-          shape = "rectangle",
-          x = -40,
-          y = 720,
-          width = 40,
-          height = 216,
-          rotation = 0,
-          opacity = 1,
-          visible = true,
-          properties = {
-            ["map"] = "grey_cliffside/worse_vents",
-            ["marker"] = "spawn"
           }
         },
         {
@@ -638,7 +699,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "stranger",
@@ -656,8 +716,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          opacity = 1,
-          gid = 114,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -671,8 +730,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          opacity = 1,
-          gid = 114,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -686,8 +744,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          opacity = 1,
-          gid = 114,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -701,8 +758,7 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          opacity = 1,
-          gid = 113,
+          gid = 85,
           visible = true,
           properties = {}
         },
@@ -716,8 +772,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          opacity = 1,
-          gid = 114,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -726,18 +781,137 @@ return {
           name = "script",
           type = "",
           shape = "rectangle",
+          x = -40,
+          y = 720,
+          width = 40,
+          height = 216,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["cutscene"] = "cliffside.blocksintroright",
+            ["once"] = false
+          }
+        },
+        {
+          id = 89,
+          name = "script",
+          type = "",
+          shape = "rectangle",
           x = 0,
           y = 720,
           width = 40,
           height = 216,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {
             ["cutscene"] = "cliffside.force_susie",
             ["flagcheck"] = "!cliffside_susie",
             ["once"] = false
           }
+        },
+        {
+          id = 90,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 91,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 720,
+          y = 120,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 92,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 640,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 93,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 680,
+          y = 920,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 94,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 640,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 95,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 103,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 680,
+          y = 600,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 104,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 720,
+          y = 640,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -765,7 +939,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -779,7 +952,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -793,7 +965,6 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          opacity = 1,
           visible = true,
           properties = {}
         }

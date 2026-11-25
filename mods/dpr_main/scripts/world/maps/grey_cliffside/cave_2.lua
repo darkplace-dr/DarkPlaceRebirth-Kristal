@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
-  nextobjectid = 19,
+  nextlayerid = 8,
+  nextobjectid = 37,
   properties = {
     ["music"] = "demonic_little_grey_cliffs"
   },
@@ -23,7 +23,7 @@ return {
     },
     {
       name = "cliffs_objs",
-      firstgid = 64,
+      firstgid = 85,
       filename = "../../tilesets/cliffs_objs.tsx",
       exportfilename = "../../tilesets/cliffs_objs.lua"
     }
@@ -45,6 +45,100 @@ return {
       objects = {}
     },
     {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects_back",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 19,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 200,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 20,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 520,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 21,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 600,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 22,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 40,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 23,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 120,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 24,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 520,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
       type = "tilelayer",
       x = 0,
       y = 0,
@@ -64,16 +158,16 @@ return {
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0,
-        36, 36, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 36, 36, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0,
+        45, 45, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 45, 45, 0
       }
     },
     {
@@ -94,18 +188,18 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 33, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 41, 42, 0,
-        4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 50, 51, 0,
-        13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        22, 23, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        31, 32, 33, 0, 0, 4, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0,
-        40, 41, 42, 0, 0, 13, 7, 14, 16, 17, 15, 0, 0, 0, 0, 0,
-        49, 50, 51, 0, 0, 13, 17, 8, 14, 14, 15, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 13, 14, 16, 14, 7, 15, 0, 0, 4, 5, 6,
-        0, 0, 0, 0, 0, 13, 7, 14, 8, 17, 15, 0, 0, 13, 14, 15,
-        0, 0, 0, 0, 0, 22, 23, 26, 25, 23, 24, 0, 0, 22, 23, 24,
-        0, 0, 0, 0, 0, 40, 41, 13, 15, 41, 42, 0, 0, 31, 32, 33
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 53, 54, 0,
+        4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 65, 66, 0,
+        16, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        28, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        40, 41, 42, 0, 0, 4, 5, 5, 5, 5, 6, 0, 0, 0, 0, 0,
+        52, 53, 54, 0, 0, 16, 7, 17, 19, 20, 18, 0, 0, 0, 0, 0,
+        64, 65, 66, 0, 0, 16, 20, 8, 17, 17, 18, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 16, 17, 19, 17, 7, 18, 0, 0, 4, 5, 6,
+        0, 0, 0, 0, 0, 16, 7, 17, 8, 20, 18, 0, 0, 16, 17, 18,
+        0, 0, 0, 0, 0, 28, 29, 32, 31, 29, 30, 0, 0, 28, 29, 30,
+        0, 0, 0, 0, 0, 52, 53, 16, 18, 53, 54, 0, 0, 40, 41, 42
       }
     },
     {
@@ -307,7 +401,7 @@ return {
           width = 180,
           height = 168,
           rotation = 0,
-          gid = 65,
+          gid = 86,
           visible = true,
           properties = {}
         },
@@ -321,7 +415,85 @@ return {
           width = 70,
           height = 136,
           rotation = 0,
-          gid = 64,
+          gid = 85,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 440,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 280,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 560,
+          y = 120,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 640,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 160,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "cloud",
+          type = "",
+          shape = "point",
+          x = 440,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
           visible = true,
           properties = {}
         }
