@@ -56,7 +56,7 @@ function item:init()
 		noelle = "I'm not good at baseball!!",
 		brenda = "I don't play sports.",
 		jamm = "Don't want to hit a crotch again!", -- there's a true story behind this, it's kinda funny in hindsight
-        calypso = "Sports aren't my thing.",
+        calypso = "Sports aren't me thing.",
         ceroba = "Who's \"Casey\"?",
         noel = "It's fine...",
         len = "Homerun!",

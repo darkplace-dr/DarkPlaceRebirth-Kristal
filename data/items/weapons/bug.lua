@@ -48,6 +48,8 @@ function item:init()
     -- Character reactions
     self.reactions = {
         len = "(Oh my mew...)",
+        jamm = "Not a good idea.",
+        calypso = "What even be this..."
     }
 end
 

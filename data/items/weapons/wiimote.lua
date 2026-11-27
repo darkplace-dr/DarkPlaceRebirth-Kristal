@@ -52,6 +52,8 @@ function item:init()
 		-- Sword
         hero = true,
         kris = true,
+        calypso = true, -- technically
+        -- ceroba = true,  -- also technically
 		
 		-- Bat
         dess = true,

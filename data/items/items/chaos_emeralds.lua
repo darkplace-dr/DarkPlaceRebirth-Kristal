@@ -53,6 +53,10 @@ function item:init()
         ceroba = "Aren't those just big jewels?",
         len = "Super Len-ery!", -- Len's referencing to Flowery's "omega Flowery!" dialogue here
 	}
+    
+    self.reactions_battle = {
+        jamm = "Super Jamm style!"
+    }
 end
 
 function item:getBattleText(user, target)

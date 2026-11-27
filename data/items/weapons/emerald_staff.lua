@@ -63,7 +63,9 @@ function item:init()
             ["jamm+marcy"] = "One is too much. // Papa is right.",
             calypso = "One be enough.",
             ceroba = "One is enough.",
-        }
+        },
+        jamm = "What's the fascination with the emeralds...",
+        calypso = "This must be worth a fortune!"
     }
 end
 
