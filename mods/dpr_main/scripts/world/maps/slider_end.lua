@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.12.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -18,8 +18,7 @@ return {
     {
       name = "bg_darktiles1",
       firstgid = 1,
-      filename = "../tilesets/bg_darktiles1.tsx",
-      exportfilename = "../tilesets/bg_darktiles1.lua"
+      filename = "../tilesets/bg_darktiles1.tsx"
     }
   },
   layers = {
@@ -79,6 +78,7 @@ return {
           width = 200,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -92,6 +92,7 @@ return {
           width = 640,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -105,6 +106,7 @@ return {
           width = 200,
           height = 320,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         },
@@ -118,6 +120,7 @@ return {
           width = 440,
           height = 160,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -147,6 +150,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {}
         }
@@ -176,6 +180,7 @@ return {
           width = 40,
           height = 120,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["map"] = "slider",
@@ -192,10 +197,11 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["actor"] = "mario",
-            ["cond"] = "slide_hs <= 18",
+            ["cond"] = "slide_hs <= 22",
             ["cutscene"] = "slider.mario"
           }
         },
@@ -209,6 +215,7 @@ return {
           width = 120,
           height = 40,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["skin"] = "cyber_city"
@@ -240,6 +247,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
+          opacity = 1,
           visible = true,
           properties = {
             ["flag"] = "!mario_obtained",

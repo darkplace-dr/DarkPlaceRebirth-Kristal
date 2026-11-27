@@ -4,7 +4,7 @@ return {
     end,
     ending = function(cutscene, event)
         Game.world.map.sliding = false
-		if Game.world.map.slide_time > 18 and Game:isDessMode() then
+		if Game.world.map.slide_time > 22 and Game:isDessMode() then
 			cutscene:showNametag("Dess")
 			cutscene:text("* FUCK", "annoyed", "dess")
 			cutscene:text("* dude this slide is so fuckin aids", "angry", "dess")
@@ -19,7 +19,7 @@ return {
 			cutscene:showNametag("Dess")
 			cutscene:text("* ezpz lemon squeezy", "hackerman", "dess")
 			cutscene:hideNametag()
-		elseif Game.world.map.slide_time <= 18 and Game:isDessMode() then
+		elseif Game.world.map.slide_time <= 22 and Game:isDessMode() then
 			cutscene:showNametag("Dess")
 			cutscene:text("* first try baybeeeeee", "swag", "dess")
 			cutscene:hideNametag()
