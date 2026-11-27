@@ -33,10 +33,10 @@ function actor:init()
 
     -- Table of sprite animations
     self.animations = {
-        --[[-- Movement animations
+        -- Movement animations
         ["slide"]               		= {"slide", 4/30, true},
 
-        -- Battle animations
+        --[[-- Battle animations
         ["battle/idle"]         		= {"battle/idle", 0.2, true},
 
         ["battle/attack"]       		= {"battle/attack", 1/15, false},
@@ -73,9 +73,9 @@ function actor:init()
         ["walk/up"] = {0, 0},
         ["walk/down"] = {0, 0},
 
-        --[[["slide"] = {0, 0},
+        ["slide"] = {-2, 0},
 
-        -- Battle offsets
+        --[[-- Battle offsets
         ["battle/idle"] = {-5, 0},
 
         ["battle/attack"] = {-5, 1},
