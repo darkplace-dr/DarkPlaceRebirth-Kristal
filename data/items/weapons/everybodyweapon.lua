@@ -53,7 +53,7 @@ function item:init()
 		dess = "boringggg but ok",
         noel = "Nice try...",
         jamm = "Now how do I use this...",
-        calypso = "Can't explain myself, but...",
+        calypso = "Can't explain meself, but...",
         ceroba = "I... suppose I can use that?",
         len = "Fitting!",
     }

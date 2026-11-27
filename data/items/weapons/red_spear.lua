@@ -60,6 +60,8 @@ function item:init()
             dess = "Yes, you are."
         },
         len = "Huh, it's strangely light.",
+        jamm = "I'm... not throwing my weapon.",
+        calypso = "It be worse than mine..."
     }
 end
 

@@ -66,7 +66,7 @@ function item:init()
     TableUtils.merge(self.reactions, {
         dess = "ew i hate pink things",
         jamm = "How adorable!",
-        calypso = "It be looking good in my hair.",
+        calypso = "It be looking good in me hair.",
         ["jamm+marcy"] = "It looks great on you, Marcy!",
         noel = "More tension?",
         ceroba = "Just like the one I had...",

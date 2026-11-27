@@ -52,6 +52,8 @@ function item:init()
     self.reactions = {
         susie = "Im feeling devil like today.",
         len = "Aiming for the heart.",
+        jamm = "I think this'll get us... One loaf of bread.",
+        calypso = "Why aren't we selling it?"
     }
 end
 

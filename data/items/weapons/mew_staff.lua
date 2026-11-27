@@ -53,6 +53,11 @@ function item:init()
             len = "You can't just say that!"
         },
         len = "*bling bling* What? no! i wasn't playing with it!",
+        jamm = {
+            jamm = "More of a bird person, to be honest...",
+            calypso = "Now yer talkin'!",
+        },
+        calypso = "Too girly fer me..."
     }
 end
 

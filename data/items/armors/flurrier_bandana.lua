@@ -52,6 +52,8 @@ function item:init()
         noelle = "This fluff feels illegal...",
         dess = "Even better",
         len = "...",
+        jamm = "Too comfortable...",
+        calypso = "It can cover me own.",
     }
 
     self.len_equip_flag = "broken_bandana_len_equip"

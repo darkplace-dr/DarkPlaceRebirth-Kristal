@@ -51,6 +51,8 @@ function item:init()
         ralsei = "This... doesn't feel very stable",
         noelle = "W-Why it's half transparent?",
         dess = "Now, this is what a real armor looks like",
+        jamm = "Very buggy indeed...",
+        calypso = "It can cover me own...",
         len = "...",
     }
 
