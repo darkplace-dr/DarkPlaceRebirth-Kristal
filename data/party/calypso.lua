@@ -5,7 +5,7 @@ function character:init()
 
     self.name = "Calypso"
 
-    self:setActor("kris")   -- temporary
+    self:setActor("calypso")
     self:setLightActor("kris_lw")   -- temporary
     self:setDarkTransitionActor("kris_dark_transition")   -- temporary
 
