@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="11">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="11">
  <editorsettings>
   <export target="slider_end.lua" format="lua"/>
  </editorsettings>
@@ -44,7 +44,7 @@
   <object id="8" name="npc" x="240" y="200">
    <properties>
     <property name="actor" value="mario"/>
-    <property name="cond" value="slide_hs &lt;= 18"/>
+    <property name="cond" value="slide_hs &lt;= 22"/>
     <property name="cutscene" value="slider.mario"/>
    </properties>
    <point/>
