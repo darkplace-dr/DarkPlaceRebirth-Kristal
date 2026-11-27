@@ -22,6 +22,12 @@ return {
         unlocked_party_checks = { "dess" }
     },
     {
+        name = "Ceroba & Jamm",
+        actors = { "ceroba", "jamm" },
+        cutscene = "breaks.ceroba_jamm",
+        unlocked_party_checks = { "ceroba", "jamm" }
+    },
+    {
         name = "1225",
         actors = { "dess" },
         actor_options = { dess = { sprite = "teehee" } },

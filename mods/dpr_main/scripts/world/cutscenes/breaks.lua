@@ -5,11 +5,39 @@ return {
         cutscene:text("* break dialogue", "surprise_smile", "susie")
         susie:explode()
         cutscene:wait(2)
-        cutscene:gotoCutscene("breaks.after", hero, susie)
+        cutscene:gotoCutscene("breaks.after", { hero, susie })
     end,
     susie_dess = function(cutscene, susie, dess)
         cutscene:text("") -- placeholder
-        cutscene:gotoCutscene("breaks.after", susie, dess)
+        cutscene:gotoCutscene("breaks.after", { susie, dess })
+    end,
+    ceroba_jamm = function(cutscene, ceroba, jamm)
+        cutscene:text("* Say,[wait:5] Jamm...[wait:10]\n* I was wondering.", "neutral", "ceroba")
+        cutscene:text("* What made you pick a slingshot out of all things?", "surprised", "ceroba")
+        cutscene:text("* I dunno,[wait:5] what made you pick a katana?", "side_smile", "jamm")
+        cutscene:text("* Hmm...[wait:10]\n* Well,[wait:5] for starters...", "closed_eyes", "ceroba")
+        cutscene:text("* It can be wielded fastly.[wait:5] Doing many quick cuts in a few swings.", "smile", "ceroba")
+        cutscene:text("* Another point is that it's effective for blocking.", "smile_alt", "ceroba")
+        cutscene:text("* And...[wait:5] It's just something I was comfortable to hold.", "neutral", "ceroba")
+        cutscene:text("* Oh,[wait:5] it's also something that has a connection to Japanese culture.", "surprised", "ceroba")
+        cutscene:text("* And I am...", "snarky", "ceroba")
+        cutscene:text("* Well,[wait:5] a fan of it.", "happy", "ceroba")
+        cutscene:text("* There you go.[wait:5] One of mine was among yours.", "smile", "jamm")
+        cutscene:text("* Huh?", "surprised", "ceroba")
+        cutscene:text("* I feel comfortable with it.[wait:5] I feel like it fits me just right.", "smirk", "jamm")
+
+        local susie = Game.world:spawnNPC("susie", 980, 320)
+        cutscene:wait(cutscene:walkToSpeed(susie, 810, susie.y, 6))
+        susie:setSprite("walk_back_arm/left")
+        cutscene:text("* Heh,[wait:5] just like my ax fits ME.", "smile", "susie")
+
+        local hero = Game.world:spawnNPC("hero", 980, 440)
+        cutscene:wait(cutscene:walkToSpeed(hero, 810, hero.y, 6))
+        cutscene:text("* And like my sword fits ME!", "happy", "hero")
+
+        cutscene:text("* I suppose I get that,[wait:5] then...", "smile_alt", "ceroba")
+
+        cutscene:gotoCutscene("breaks.after", { ceroba, jamm, susie, hero })
     end,
     onetwotwofive = function(cutscene, dess)
         cutscene:text("* Hey look at my impersonations.", "teehee", "dess")
@@ -54,13 +82,14 @@ return {
         cutscene:text("* I like sealing fountains too~~~", "surprise_smile", "susie")
         cutscene:walkTo(susie, 1160, 360, 0, "right")
         susie:explode()
-        cutscene:gotoCutscene("breaks.after", dess)
+        cutscene:gotoCutscene("breaks.after", { dess })
     end,
-    after = function(cutscene, actor1, actor2)
+    after = function(cutscene, to_remove)
         cutscene:wait(cutscene:fadeOut(0.5))
 
-        if actor1 then actor1:remove() end
-        if actor2 then actor2:remove() end
+        for _, actor in ipairs(to_remove) do
+            actor:remove()
+        end
 
         local tx, ty = Game.world.camera:getTargetPosition()
         Game.world:setCameraAttached(true)
