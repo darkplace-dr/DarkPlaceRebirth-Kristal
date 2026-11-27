@@ -36,6 +36,16 @@ return {
         cutscene:text("* And like my sword fits ME!", "happy", "hero")
 
         cutscene:text("* I suppose I get that,[wait:5] then...", "smile_alt", "ceroba")
+        
+        cutscene:look(jamm, "right")
+        
+        cutscene:resetSprite(susie)
+        cutscene:walkToSpeed(susie, 980, susie.y, 6)
+        cutscene:wait(cutscene:walkToSpeed(hero, 980, hero.y, 6))
+        
+        cutscene:text("* Also,[wait:5] don't tell the others,[wait:5] but...", "neutral", "jamm")
+        cutscene:look(jamm, "left")
+        cutscene:text("* I'm kinda ass at melee combat.", "nervous", "jamm")
 
         cutscene:gotoCutscene("breaks.after", { ceroba, jamm, susie, hero })
     end,
