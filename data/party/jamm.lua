@@ -78,6 +78,7 @@ function character:init()
     self.battle_offset = {2, 1}
     self.head_icon_offset = {0, -3}
     self.menu_icon_offset = nil
+	self.rhythm_icon_offset = 21
 
     self.gameover_message = nil
 

@@ -112,6 +112,16 @@ function actor:init(style)
         ["pirouette"] = {"pirouette", 4/30, true},
 
         ["kick_up"] = {"kick_up", 1/12, false},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]             = {"rhythm_game/idle", 0, false},
+        ["rhythm_game/ready"]            = {"rhythm_game/ready", 0, false},
+        ["rhythm_game/play_left"]        = {"rhythm_game/play_left", 1/15, false},
+        ["rhythm_game/play_mid"]         = {"rhythm_game/play_mid", 1/15, false},
+        ["rhythm_game/play_right"]       = {"rhythm_game/play_right", 1/15, false},
+        ["rhythm_game/bored"]            = {"rhythm_game/bored", 1/15, false},
+        ["rhythm_game/drumsticks"]       = {"rhythm_game/drumsticks", 1/15, false},
+        ["rhythm_game/drumsticks_smile"] = {"rhythm_game/drumsticks_smile", 1/15, false},
     }
 
     -- Alternate animations to use for Susie without a smile
@@ -401,6 +411,16 @@ function actor:init(style)
         ["pirouette"] = {-3, -1},
 
         ["kick_up"] = {-4, 2},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]             = {0, 2.5},
+        ["rhythm_game/ready"]            = {0, 2.5},
+        ["rhythm_game/play_left"]        = {0, 2.5},
+        ["rhythm_game/play_mid"]         = {0, -0.5},
+        ["rhythm_game/play_right"]       = {0, 2.5},
+        ["rhythm_game/bored"]            = {0, -0.5},
+        ["rhythm_game/drumsticks"]       = {0, -0.5},
+        ["rhythm_game/drumsticks_smile"] = {0, -0.5},
     }
 
     -- The x and y offsets of the "target" sprite

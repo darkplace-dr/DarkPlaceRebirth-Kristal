@@ -82,7 +82,6 @@ function actor:initChapter1()
         ["sing_ready"]          = {"sing_1", 16/30, true},
         ["sing"]                = {"sing", 0.4, true},
         ["sit"]                 = {"sit", 0.1, false},
-
     }
 
     -- Tables of sprites to change into in mirrors
@@ -146,7 +145,7 @@ function actor:initChapter1()
         ["sing"] = {-10, -2},
         ["sit"] = {0, 0},
         ["shock"] = {-17, -4},
-        ["fallen"] = {-8, 20}
+        ["fallen"] = {-8, 20},
     }
 
     -- The x and y offsets of the "target" sprite
@@ -241,6 +240,16 @@ function actor:initChapter2()
         ["pirouette"]           = {"pirouette", 4/30, true},
 
         ["nuzzle"]              = {"nuzzle", 1/10, false},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]      = {"rhythm_game/idle", 0, false},
+        ["rhythm_game/ready"]     = {"rhythm_game/sing_polite_closed", 0, false},
+        ["rhythm_game/play"]      = {"rhythm_game/sing_polite", 0, false},
+        ["rhythm_game/play_rude"] = {"rhythm_game/sing_rude", 0, false},
+        ["rhythm_game/clap"]      = {"rhythm_game/clap", 0, false},
+        ["rhythm_game/clap_wait"] = {"rhythm_game/clap_wait", 0, false},
+        ["rhythm_game/cuss"]      = {"rhythm_game/cuss", 0, false},
+        ["rhythm_game/shock"]     = {"rhythm_game/shock", 0, false},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -342,6 +351,16 @@ function actor:initChapter2()
         ["nuzzle"] = {-1, 0},
         ["shocked_right"] = {14, -6},
         ["shocked_left"] = {0, -6},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]      = {0, 0},
+        ["rhythm_game/ready"]     = {-5, 1},
+        ["rhythm_game/play"]      = {-5, 1},
+        ["rhythm_game/play_rude"] = {-12, 5},
+        ["rhythm_game/clap"]      = {-5, 1},
+        ["rhythm_game/clap_wait"] = {-5, 1},
+        ["rhythm_game/cuss"]      = {-5, 1},
+        ["rhythm_game/shock"]     = {-5, 1},
     }
 
     -- The x and y offsets of the "target" sprite

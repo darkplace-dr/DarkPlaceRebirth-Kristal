@@ -75,6 +75,13 @@ function actor:init()
         -- ACTs
         ["dance"]               = {"dance", 1/6, true},
         ["pirouette"]           = {"pirouette", 4/30, true},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]           = {"rhythm_game/idle", 0, false},
+        ["rhythm_game/ready"]          = {"rhythm_game/ready", 0, false},
+        ["rhythm_game/play"]           = {"rhythm_game/guitar", 1/15, false},
+        ["rhythm_game/play_high"]      = {"rhythm_game/guitar_high", 1/15, false},
+        ["rhythm_game/play_high_hold"] = {"rhythm_game/guitar_high_hold", 1/15, false},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -160,6 +167,13 @@ function actor:init()
         ["run/right"] = {0, 0},  -- I dunno the offsets and neither where to find them in DR code
         --["run/up"] = {0, 0}, -- not existing, might be added in the future(?)
         ["run/down"] = {0, 0},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]             = {0, 1},
+        ["rhythm_game/ready"]            = {0, 1},
+        ["rhythm_game/guitar"]           = {0, 1},
+        ["rhythm_game/guitar_high"]      = {1, -1},
+        ["rhythm_game/guitar_high_hold"] = {1, -3},
     }
 
     -- Table of sprites to be used as taunts for the Taunt/Parry mechanic.

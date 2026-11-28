@@ -131,6 +131,16 @@ im pretty sure this is the case and you can trust me because i made wikihow
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
     self.menu_icon_offset = nil
+    -- Rhythm icon position offset (optional)
+	self.rhythm_icon_offset = 21
+	-- Note colors (optional)
+	self.note_colors = {
+		COLORS.maroon,
+		ColorUtils.hexToRGB("#DC1510"),
+		ColorUtils.mergeColor(COLORS.red, COLORS.orange, 0.4),
+		COLORS.maroon,
+		ColorUtils.hexToRGB("#DC1510")
+    }
 
     -- Message shown on gameover (optional)
     self.gameover_message = { "You aren't done,\nbuddy.[wait:10] Give em'\nhell!" }

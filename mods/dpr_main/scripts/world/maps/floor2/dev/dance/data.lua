@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.12.2",
+  tiledversion = "1.12.1",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 9,
-  nextobjectid = 47,
+  nextobjectid = 48,
   properties = {
     ["border"] = "dev",
     ["music"] = "deltarune/castle_funk_long",
@@ -575,6 +575,20 @@ return {
             ["map"] = "floor2/dev/party",
             ["marker"] = "dance"
           }
+        },
+        {
+          id = 47,
+          name = "rhythmgame_mic_stand",
+          type = "",
+          shape = "point",
+          x = 320,
+          y = 260,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {}
         }
       }
     },

@@ -351,21 +351,21 @@ function Mod:postLoad()
 end
 
 function Mod:enableMicAccess(id)
-    Game:setFlag("mic_active", true)
+    Game:setFlag("micActive", true)
 	if self.mic_controller.right_click_mic == 0 then
 		self.mic_controller:startRecordMic(id or 1)
 	end
 end
 
 function Mod:disableMicAccess()
-    Game:setFlag("mic_active", false)
+    Game:setFlag("micActive", false)
 	if self.mic_controller.right_click_mic == 0 then
 		self.mic_controller:stopRecordMic()
 	end
 end
 
 function Mod:openMicMenu()
-    if not Game:getFlag("mic_active", false) then
+    if not Game:getFlag("micActive", false) then
         Mod:enableMicAccess(1)
     end
     Game.world:openMenu(MicMenu())
@@ -465,17 +465,16 @@ end
 function Mod:unload()
     if self.mic_controller then
         -- I have no idea if this will even fix the potential memory leak but it's worth a shot
+		self.mic_controller:stopRecordMic()
         self.mic_controller.cleaning_up = true
-        self.mic_controller.mic_recording = false
-        if self.mic_controller.mic_data then
-            self.mic_controller.mic_data:release()
-            self.mic_controller.mic_data = nil
-        end
         if self.mic_controller.mic_inputs then
             for _, inputs in ipairs(self.mic_controller.mic_inputs) do
                 inputs:release()
             end
         end
+		if self.mic_controller.mic_thread then
+			self.mic_controller.mic_thread:release()
+		end
         self.mic_controller:remove()
         collectgarbage()
     end

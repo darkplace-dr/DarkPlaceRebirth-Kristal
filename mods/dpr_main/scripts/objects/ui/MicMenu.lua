@@ -101,7 +101,7 @@ function MicMenu:update()
     elseif self.state == "MIC_SELECT" then
         if Input.pressed("cancel") then
 			mic.mic_id = self.mic_id
-			if not mic.mic_recording then
+			if not mic.mic_thread:isRunning() then
 				mic:startRecordMic()
 			end
 			self.selected_y = 1
@@ -114,7 +114,7 @@ function MicMenu:update()
 			end
 			if Kristal.isConsole() or self.selected_y ~= self.menu_max - 1 then
 				mic:startRecordMic(self.selected_y)
-				if mic.mic_recording then
+				if mic.mic_thread:isRunning() then
 					self.mic_wait = 21
 				end
 			end
@@ -127,7 +127,7 @@ function MicMenu:update()
 			end
 			if Kristal.isConsole() or self.selected_y ~= self.menu_max - 1 then
 				mic:startRecordMic(self.selected_y)
-				if mic.mic_recording then
+				if mic.mic_thread:isRunning() then
 					self.mic_wait = 21
 				end
 			end
@@ -136,7 +136,7 @@ function MicMenu:update()
         if Input.pressed("confirm") then
 			if self.selected_y == self.menu_max then
 				mic.mic_id = self.mic_id
-				if not mic.mic_recording then
+				if not mic.mic_thread:isRunning() then
 					mic:startRecordMic()
 				end
 				self.state = "MAIN"
@@ -207,7 +207,8 @@ function MicMenu:draw()
         Draw.setColor(Game:getSoulColor())
         Draw.draw(self.heart_sprite, self.box.x - 32 + 32, self.box.y - 32 + 40 + 40 + (self.selected_y - 1) * 30, 0, 1, 1, 7, 7)
         Draw.setColor(COLORS.red)
-        love.graphics.print("NOTE: Microphone support in LOVE2D is kind of bad\nat the moment. If the game runs poorly when using\na microphone, or if it can't detect your volume,\nuse Mouse Right-Click or ", self.box.x - 32 + 48, self.box.y - 32 + 40 + 120, 0, 0.5, 0.5)
+		--Turns out I was just doing it poorly LOL
+        --[[love.graphics.print("NOTE: Microphone support in LOVE2D is kind of bad\nat the moment. If the game runs poorly when using\na microphone, or if it can't detect your volume,\nuse Mouse Right-Click or ", self.box.x - 32 + 48, self.box.y - 32 + 40 + 120, 0, 0.5, 0.5)
 		local input_str = Input.getText("cancel")
 		if Input.usingGamepad() then
 			input_str = "     "
@@ -215,7 +216,7 @@ function MicMenu:draw()
 			Draw.draw(Input.getTexture("cancel"), self.box.x - 32 + 46 + self.font:getWidth("use Mouse Right-Click or  ")/2, self.box.y - 32 + 42 + 120 + 16*3, 0, 1, 1)
 			Draw.setColor(COLORS.red)
 		end
-		love.graphics.print(input_str.." instead.", self.box.x - 32 + 48 + self.font:getWidth("use Mouse Right-Click or ")/2, self.box.y - 32 + 40 + 120 + 16*3, 0, 0.5, 0.5)
+		love.graphics.print(input_str.." instead.", self.box.x - 32 + 48 + self.font:getWidth("use Mouse Right-Click or ")/2, self.box.y - 32 + 40 + 120 + 16*3, 0, 0.5, 0.5)]]
 	end 
 	if self.state == "MIC_SELECT" then
 		Draw.setColor(0.5, 0.5, 0.5)

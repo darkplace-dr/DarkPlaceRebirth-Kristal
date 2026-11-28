@@ -7,6 +7,14 @@ function Battle:postInit(state, encounter)
 	self.mike_mode = self.encounter.mike_battle or false
 end
 
+function Battle:createTensionBar()
+    if self.encounter.mike_battle then
+        return self:addChild(VolumeBar(-25, 40, true))
+    else
+        return self:addChild(TensionBar(-25, 40, true))
+    end
+end
+
 function Battle:handleAttackingInput(key)
 	if Kristal.Config["altAttack"] then
 		local key_to_party_index = {

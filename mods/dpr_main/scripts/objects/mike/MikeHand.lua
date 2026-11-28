@@ -1,0 +1,374 @@
+local MikeHand, super = Class(Object)
+
+function MikeHand:init(x, y)
+    super.init(self, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+	
+    self:setParallax(0, 0)
+	self.collider = CircleCollider(self, 0, 0, 21)	
+	self.debug_select = false
+	
+	self.hand_x = x or SCREEN_WIDTH/2
+	self.hand_y = y or SCREEN_HEIGHT/2
+	
+	self.mouse_x = 0
+	self.mouse_y = 0
+	self.mouse_shake_x = 0
+	self.mouse_shake_y = 0
+	
+	self.hand_sprite = {
+		Assets.getTexture("player/mike/hand"),
+		Assets.getTexture("player/mike/grab"),
+		Assets.getTexture("player/mike/grab_b"),
+		Assets.getTexture("player/mike/give"),
+		Assets.getTexture("player/mike/give_b"),
+		Assets.getTexture("player/mike/ouch"),
+		Assets.getTexture("player/mike/grab_c")
+	}
+
+	self.outlined_hand_sprite = {
+		Assets.getTexture("player/mike/hand_outlined"),
+		Assets.getTexture("player/mike/grab_outlined"),
+		Assets.getTexture("player/mike/grab_outlined_b"),
+		self.hand_sprite[4],
+		self.hand_sprite[5],
+		self.hand_sprite[6],
+		Assets.getTexture("player/mike/grab_outlined_c")
+	}
+
+	self.hand_offset = {
+		{44, 86},
+		{42, 76},
+		{60, 16},
+		{50, 78},
+		{56, 78},
+		{44, 82},
+		{42, 76}
+	}
+
+	self.outlined_hand_offset = {
+		{51, 89},
+		self.hand_offset[2],
+		{57, 16},
+		self.hand_offset[4],
+		self.hand_offset[5],
+		self.hand_offset[6],
+		self.hand_offset[7]
+	}
+
+	self.mouse_sprite = Assets.getTexture("player/mike/mouse")
+
+	self.hand_angle = 0
+	self.hand_type = 1
+	self.hand_alpha = 1
+	self.hand_outlined = false
+	self.hand_shake = 0
+	self.hand_shake_con = 1
+	self.hand_distance = 140
+	self.hand_scale_x = 1
+	self.hand_speed = 0
+	self.hand_fruit = 0
+	self.hand_wait = 0
+	self.hand_anim = 10
+
+	self.fruit_scale = 0
+	self.fruit_scale_2 = 0
+	self.fruit_scale_3 = 0
+	
+	self.size1 = 0
+	self.size2 = 31
+	self.size3 = 10
+
+	self.juggle = false
+	
+	self.hand_flash = 0
+	self.hand_distance_offset = 0
+end
+
+function MikeHand:update()
+	super.update(self)
+
+	local handdist = self.hand_distance - self.hand_distance_offset
+	if Kristal.isConsole() then
+		local mx, my = Input.getThumbstick("left", true)
+		local dist = (MathUtils.dist(0, 0, mx, my) - self.hand_distance_offset) * handdist
+		local mn =  math.sqrt(mx * mx + my * my)
+		local dir = math.atan2(my / mn, mx / mn)
+
+		if math.abs(mx) > 0 or math.abs(my) > 0 then
+			self.mouse_x = self.mouse_x + ((self.hand_x + math.cos(dir) * dist) - self.mouse_x) * 0.2 ^ DTMULT
+			self.mouse_y = self.mouse_y + ((self.hand_y + math.sin(dir) * math.min(dist, 200 - self.hand_distance_offset)) - self.mouse_y) * 0.2 ^ DTMULT
+		end
+
+		self.hand_speed = MathUtils.approach(self.hand_speed, 0.999, 1 - (1 - 0.1) ^ DTMULT)
+
+		if Input.pressed("confirm") and self.hand_type == 1 then
+			self:onLeftClick()
+		end
+	else
+		local mx, my = Input.getMousePosition()
+		local dist = math.min(handdist, MathUtils.dist(self.hand_x, self.hand_y, mx, my) - self.hand_distance_offset)
+		local dir = MathUtils.angle(self.hand_x, self.hand_y, mx, my)
+
+		self.hand_speed = MathUtils.approach(self.hand_speed, 0.999, 1 - (1 - 0.1) ^ DTMULT)
+		self.mouse_x = self.mouse_x + ((self.hand_x + math.cos(dir) * dist) - self.mouse_x) * self.hand_speed ^ DTMULT
+		self.mouse_y = self.mouse_y + ((self.hand_y + math.sin(dir) * math.min(dist, 200 - self.hand_distance_offset)) - self.mouse_y) * self.hand_speed ^ DTMULT
+
+		if Input.mousePressed(1) and self.hand_type == 1 then
+			self:onLeftClick()
+		end
+	end
+
+	if self.hand_wait > 0 then
+		self.hand_angle = math.rad(math.sin(Kristal.getTime() * 50) * 15)
+	else
+		self.hand_angle = MathUtils.approach(self.hand_angle, 0, 2*DTMULT)
+	end
+	
+	local hand_type = self:getHandType()
+	if hand_type == "PONGPADDLE" then
+		self.x = self.mouse_x
+		self.y = self.mouse_y
+		self.rotation = MathUtils.angle(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) + -math.rad(90)
+		self.collider = Hitbox(self, 18-31, 18-16, 24, 4)
+		self.hand_flash = MathUtils.approach(self.hand_flash, 0, DTMULT)
+		self.hand_distance_offset = MathUtils.approach(self.hand_distance_offset, 0, ((0.1 * self.hand_distance_offset) ^ DTMULT) + DTMULT)
+	else
+		self.x = 0
+		self.y = 0
+		self.rotation = 0
+		local xx = self.mouse_x + math.cos(MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y)) * 21
+		local yy = self.mouse_y + math.sin(MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y)) * 21
+		self.collider = CircleCollider(self, xx, yy, 21)
+		self.hand_distance_offset = 0
+	end
+	self.hand_wait = self.hand_wait - DTMULT
+end
+
+function MikeHand:getHandType()
+	local mike_con = Game.stage:getObjects(MikeController)[1]
+	if mike_con then
+		return mike_con:getHandMode()
+	else
+		return "DEFAULT"
+	end
+end
+
+function MikeHand:onLeftClick()
+	local hand_type = self:getHandType()
+	--[[ Use code below for collisions with hairballs:
+	if hand_type == "PONGPADDLE" then
+		local mike_con = Game.stage:getObjects(MikeController)[1]
+		local poof = Sprite("effects/mike/hairball_poof")
+		poof:play(1 / 30, false, function() poof:remove() end)
+        poof:setOrigin(0.5, 0.5)
+        poof:setScale(2, 2)
+        poof:setPosition(self.x, self.y)
+        poof.layer = self.layer - 0.01
+        poof.debug_select = false
+        Game.battle:addChild(poof)
+		local p = 2 + (0.2 * (self.y - mike_con.hand.mouse_y))
+		Assets.stopAndPlaySound("ui_cancel_small", 0.5, p)
+		mike_con.hand.hand_flash = 4
+		mike_con.hand.hand_distance_offset = 8
+	end --]]
+	if hand_type == "DEFAULT" then
+		if self.hand_wait >= 0 then
+			return
+		end
+
+		self.hand_wait = self.hand_anim
+
+		if not self.juggle then
+			Assets.playSound("wing", 0.5, MathUtils.random(0.95, 1.05))
+
+			Game.stage.timer:after(6/30, function()
+				Assets.playSound("wing", 0.5, MathUtils.random(0.9, 1.1))
+			end)
+
+			local xx = self.mouse_x + math.cos(MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y)) * 16
+			local yy = self.mouse_y + math.sin(MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y)) * 16
+			local dir = MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y) - math.rad(90)
+
+			local effect = Sprite("effects/mike/shake")
+			effect:setOrigin(0.5)
+			effect:setScale(1)
+			effect:setPosition(xx + math.cos(dir) * 8, yy + math.sin(dir) * 8)
+			effect.layer = self.layer
+			effect.rotation = dir
+			effect.physics.speed = 2
+			effect.physics.friction = 0.1
+			effect.physics.match_rotation = true
+			effect.alpha = 1.5
+			effect:fadeOutSpeedAndRemove(0.1)
+			self:addChild(effect)
+
+			dir = MathUtils.angle(self.hand_x, self.hand_y, self.mouse_x, self.mouse_y) + math.rad(90)
+
+			effect = Sprite("effects/mike/shake")
+			effect:setOrigin(0.5)
+			effect:setScale(1)
+			effect:setPosition(xx + math.cos(dir) * 8, yy + math.sin(dir) * 8)
+			effect.layer = self.layer
+			effect.rotation = dir
+			effect.physics.speed = 2
+			effect.physics.friction = 0.1
+			effect.physics.match_rotation = true
+			effect.alpha = 1.5
+			effect:fadeOutSpeedAndRemove(0.1)
+			self:addChild(effect)
+		end
+	end
+end
+
+function MikeHand:draw()
+	super.draw(self)
+
+	love.graphics.push()
+	love.graphics.origin()
+	local hand_type = self:getHandType()
+	if hand_type ~= "INACTIVE" then
+		local mx, my = Input.getMousePosition()
+		local handdist = self.hand_distance - self.hand_distance_offset
+		local dist = MathUtils.dist(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) / (handdist / 2)
+		local shake = 0
+		local tx, ty = mx, my
+
+		if Kristal.isConsole() then
+			tx = self.mouse_x
+			ty = self.mouse_y
+		end
+
+		Draw.setColor(ColorUtils.mergeColor(COLORS.lime, COLORS.yellow, dist))
+		if MathUtils.dist(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) >= (handdist / 2) then
+			dist = (MathUtils.dist(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) - (handdist / 2)) / (handdist / 2)
+			Draw.setColor(ColorUtils.mergeColor(COLORS.yellow, COLORS.red, dist))
+		end
+
+		if math.ceil(MathUtils.dist(self.hand_x, self.hand_y, tx, ty)) >= handdist then
+			shake = 1
+			Draw.setColor(COLORS.red)
+		end
+
+		if Game.state ~= "BATTLE" then
+		end
+
+		for i = 1, math.floor(MathUtils.dist(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) / 16)-1 do
+			local xx = math.cos(MathUtils.angle(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y)) * (i * 16)
+			local yy = math.sin(MathUtils.angle(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y)) * (i * 16)
+
+			if MathUtils.dist(self.mouse_x + xx, self.mouse_y + yy, self.hand_x, self.hand_y) > self.size1 * 1.5 then
+				if Game.state == "BATTLE" then
+					love.graphics.setLineWidth(1)
+					love.graphics.circle("line", self.mouse_x + love.math.random(-1, 1) * shake + xx, self.mouse_y + love.math.random(-1, 1) * shake +yy, 2)
+				else
+					local randx = MathUtils.randomInt(1+1, -1-1)
+					local randy = MathUtils.randomInt(1+1, -1-1)
+					Draw.setColor(COLORS.black)
+					love.graphics.circle("fill", self.mouse_x + randx * shake + xx, self.mouse_y + randy * shake + yy, 3)
+					Draw.setColor(COLORS.white)
+					love.graphics.circle("fill", self.mouse_x + randx * shake + xx, self.mouse_y + randy * shake + yy, 2)
+				end
+			end
+		end
+		love.graphics.pop()
+		if hand_type == "DEFAULT" then
+			local angle = MathUtils.angle(self.mouse_x, self.mouse_y, self.hand_x, self.hand_y) + -math.rad(90) + self.hand_angle
+			if self.hand_type == 2 or self.hand_type == 7 then
+				if self.mouse_y > self.hand_y then
+					angle = -math.rad(180)
+				else
+					angle = -math.rad(0)
+				end
+			end
+
+			if self.hand_type == 3 or self.hand_type == 4 or self.hand_type == 5 then
+				angle = -math.rad(0)
+			end
+
+			local spr = self.hand_sprite[self.hand_type]
+			local ox, oy = self.hand_offset[self.hand_type][1], self.hand_offset[self.hand_type][2]
+			if self.hand_outlined then
+				spr = self.outlined_hand_sprite[self.hand_type]
+				ox, oy = self.outlined_hand_offset[self.hand_type][1], self.outlined_hand_offset[self.hand_type][2]
+			end
+		
+			Draw.setColor(1,1,1,self.hand_alpha)
+			Draw.draw(spr, self.mouse_x + self.mouse_shake_x, self.mouse_y + self.mouse_shake_y, angle, self.hand_scale_x * 0.5, 0.5, ox, oy)
+			Draw.setColor(1,1,1,1)
+
+			self.fruit_scale = self.fruit_scale + (self.fruit_scale_2 - self.fruit_scale) * 0.25*DTMULT
+			self.fruit_scale_2 = self.fruit_scale_2 + (self.fruit_scale_3 - self.fruit_scale_2) * 0.25*DTMULT
+
+			if self.fruit_scale > 0 and self.hand_fruit ~= 0 then
+				Draw.draw(spr, self.mouse_x + self.mouse_shake_x - 6, self.mouse_y + self.mouse_shake_y - self.fruit_scale*32, angle, self.fruit_scale, self.fruit_scale, ox, oy)
+			end
+
+			if MathUtils.dist(self.mouse_x + self.mouse_shake_x, self.mouse_y + self.mouse_shake_y, mx, my) > 64 and not Kristal.isConsole() then
+				Draw.draw(self.mouse_sprite, mx, my)
+			end
+				
+			self.hand_shake = self.hand_shake - DTMULT
+			if self.hand_shake > 0 then
+				self.mouse_shake_x = -MathUtils.random(-2, 2)
+				self.mouse_shake_y = -MathUtils.random(-2, 2)
+			end
+				
+			if self.hand_shake <= 0 and self.hand_shake_con == 0 then
+				if self.hand_type == 4 then
+					self.hand_type = 5
+					self.fruit_scale_3 = 2
+					self.hand_fruit = 1
+				end
+
+				if self.hand_type == 6 then
+					self.hand_type = 1
+				end
+
+				self.mouse_shake_x = 0
+				self.mouse_shake_y = 0
+				self.hand_shake_con = 1
+			end
+				
+			if self.hand_shake < -60 then
+				if self.hand_shake_con == 1 then
+					if self.hand_type == 5 then
+						self.hand_type = 1
+						self.fruit_scale_3 = 0
+						self.fruit_scale_2 = 0
+						self.fruit_scale = 0
+						self.hand_fruit = 0
+					end
+
+					self.hand_shake_con = 2
+				end
+			else
+				self.fruit_scale_3 = MathUtils.approach(self.fruit_scale_3, 1, 0.1*DTMULT)
+			end
+		elseif hand_type == "PONGPADDLE" then
+			local spr = Assets.getTexture("player/mike/pongpaddle")
+			local flashspr = Assets.getTexture("player/mike/pongpaddle_flash")
+			local ox, oy = 31, 16
+		
+			Draw.setColor(1,1,1,self.hand_alpha)
+			Draw.draw(spr, 0, 0, 0, 1, 1, ox, oy)
+			if self.hand_flash > 0 then
+				Draw.setColor(1,1,1,self.hand_alpha * (self.hand_flash / 4))
+				Draw.draw(flashspr, 0, 0, 0, 1, 1, ox, oy)
+			end
+			Draw.setColor(1,1,1,1)
+
+			love.graphics.push()
+			love.graphics.origin()
+			if MathUtils.dist(self.mouse_x, self.mouse_y, mx, my) > 64 and not Kristal.isConsole() then
+				Draw.draw(self.mouse_sprite, mx, my)
+			end	
+			love.graphics.pop()
+		end
+		
+		if DEBUG_RENDER then
+			self.collider:draw(0, 1, 1)
+		end
+	end
+end
+
+return MikeHand

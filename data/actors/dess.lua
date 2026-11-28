@@ -69,6 +69,16 @@ function actor:init()
         --["laugh"]               = {"laugh", 4/30, true},
 
         ["jump_ball"] = {"ball", 1/15, true},
+
+		-- Rhythm Game
+        ["rhythm_game/idle"]      = {"rhythm_game/idle", 0, false},
+        ["rhythm_game/ready"]     = {"rhythm_game/sing_polite_closed", 0, false},
+        ["rhythm_game/play"]      = {"rhythm_game/sing_polite", 0, false},
+        ["rhythm_game/play_rude"] = {"rhythm_game/sing_rude", 0, false},
+        ["rhythm_game/clap"]      = {"rhythm_game/clap", 0, false},
+        ["rhythm_game/clap_wait"] = {"rhythm_game/clap_wait", 0, false},
+        ["rhythm_game/cuss"]      = {"rhythm_game/cuss", 0, false},
+        ["rhythm_game/shock"]     = {"rhythm_game/shock", 0, false},
     }
 
     -- Table of sprite offsets (indexed by sprite name)
@@ -118,6 +128,16 @@ function actor:init()
         ["sneak/left"] = {-5, 3},
         ["sneak/right"] = {7, 3},
         ["teehee"] = {-4, 0},
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]      = {0, 0},
+        ["rhythm_game/ready"]     = {-5, 1},
+        ["rhythm_game/play"]      = {-5, 1},
+        ["rhythm_game/play_rude"] = {-12, 5},
+        ["rhythm_game/clap"]      = {-5, 1},
+        ["rhythm_game/clap_wait"] = {-5, 1},
+        ["rhythm_game/cuss"]      = {-5, 1},
+        ["rhythm_game/shock"]     = {-5, 1},
     }
 
     self.taunt_sprites = {"reddit_gold", "sonic_adventure", "bup", "beatbox", "angreh", "oc", "paneton", "dab"}

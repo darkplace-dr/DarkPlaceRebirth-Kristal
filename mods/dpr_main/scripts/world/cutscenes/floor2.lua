@@ -837,4 +837,14 @@ return {
 
         cutscene:text("* (Room " .. id .. ".)")
     end,
+	
+    rhythmgame_start = function(cutscene, event)
+        cutscene:text("* (The microphone shines with rhythmic power.)[wait:5]\n* (Play the RHYTHM GAME?)")
+		local choice = cutscene:choicer({"Play", "Do Not"})
+		if choice == 1 then
+            cutscene:after(function()
+                Game.world:openMenu(RhythmGameSongSelectMenu())
+            end)
+		end
+    end,	
 }

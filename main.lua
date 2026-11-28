@@ -268,6 +268,11 @@ PunchOutBaseball = require("src.engine.game.minigames.punchout.punchoutbaseball"
 RareCats = require("src.engine.game.minigames.rarecats.rarecats")
 RareCatsEntity = require("src.engine.game.minigames.rarecats.rarecatsentity")
 
+RhythmGame = require("src.engine.game.minigames.rhythmgame.rhythmgame")
+RhythmGameChart = require("src.engine.game.minigames.rhythmgame.rhythmgamechart")
+RhythmGameSong = require("src.engine.game.minigames.rhythmgame.rhythmgamesong")
+RhythmGamePerformer = require("src.engine.game.minigames.rhythmgame.rhythmgameperformer")
+
 SaveMenu = require("src.engine.game.world.ui.savemenu")
 SimpleSaveMenu = require("src.engine.game.world.ui.simplesavemenu")
 LightSaveMenu = require("src.engine.game.world.ui.lightsavemenu")

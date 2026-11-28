@@ -1063,14 +1063,14 @@ function Game:enterShop(shop, options)
     self.shop:onEnter()
 end
 
-function Game:startMinigame(game)
+function Game:startMinigame(game, ...)
     if Game.minigame then
         error("Attempt to enter minigame while already being in one")
     end
 
     Game.state = "MINIGAME"
 
-    Game.minigame = Registry.createMinigame(game)
+    Game.minigame = Registry.createMinigame(game, ...)
 
     Game.minigame:postInit()
 
