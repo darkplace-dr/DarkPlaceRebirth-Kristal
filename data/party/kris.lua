@@ -199,6 +199,16 @@ function character:init()
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
     self.menu_icon_offset = nil
+	-- Rhythm icon position offset (optional)
+	self.rhythm_icon_offset = 21
+	-- Note colors (optional)
+	self.note_colors = {
+		ColorUtils.hexToRGB("#01EA9E"),
+		ColorUtils.hexToRGB("#17EEFF"),
+		COLORS.orange,
+		ColorUtils.hexToRGB("#00ABAB"),
+		ColorUtils.hexToRGB("#4BC9FF")
+    }
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil

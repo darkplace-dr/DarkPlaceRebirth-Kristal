@@ -112,6 +112,7 @@ function character:init()
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
     self.menu_icon_offset = nil
+	self.rhythm_icon_offset = 24
 
     -- Message shown on gameover (optional)
     self.gameover_message = nil

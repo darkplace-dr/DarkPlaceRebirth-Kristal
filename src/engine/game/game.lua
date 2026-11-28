@@ -305,12 +305,15 @@ function Game:setBorder(border, time)
     time = time or 1
     local new_border_id = border
     if type(border) ~= "string" then
+        assert(isClass(border) and border:includes(Border), "Expected Border, got " .. ClassUtils.getType(border))
         new_border_id = border.id
     end
+
     local current_border_id
     if Kristal.getBorder() then
         current_border_id = Kristal.getBorder().id
     end
+
     if time == 0 then
         Kristal.showBorder(0)
     elseif time > 0 and current_border_id ~= new_border_id then
@@ -1060,14 +1063,14 @@ function Game:enterShop(shop, options)
     self.shop:onEnter()
 end
 
-function Game:startMinigame(game)
+function Game:startMinigame(game, ...)
     if Game.minigame then
         error("Attempt to enter minigame while already being in one")
     end
 
     Game.state = "MINIGAME"
 
-    Game.minigame = Registry.createMinigame(game)
+    Game.minigame = Registry.createMinigame(game, ...)
 
     Game.minigame:postInit()
 

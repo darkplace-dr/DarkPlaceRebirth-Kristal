@@ -72,6 +72,13 @@ function actor:init()
         ["jump_fall"]           = { "fall", 1 / 5, true },
         ["jump_ball"]           = { "ball", 1 / 15, true },
         ["wall_slam"]           = { "wall_slam", 1 / 10, false },
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]           = {"rhythm_game/idle", 0, false},
+        ["rhythm_game/ready"]          = {"rhythm_game/ready", 0, false},
+        ["rhythm_game/play"]           = {"rhythm_game/guitar", 1/15, false},
+        ["rhythm_game/play_high"]      = {"rhythm_game/guitar_high", 1/15, false},
+        ["rhythm_game/play_high_hold"] = {"rhythm_game/guitar_high_hold", 1/15, false},
     }
 
     -- Tables of sprites to change into in mirrors
@@ -131,6 +138,13 @@ function actor:init()
         ["climb/jump_up"] = { 0, 4 },
         ["climb/jump_left"] = { 0, 4 },
         ["climb/jump_right"] = { 0, 4 },
+		
+		-- Rhythm Game
+        ["rhythm_game/idle"]             = {0, 1},
+        ["rhythm_game/ready"]            = {0, 1},
+        ["rhythm_game/guitar"]           = {0, 1},
+        ["rhythm_game/guitar_high"]      = {1, -1},
+        ["rhythm_game/guitar_high_hold"] = {1, -3},
     }
 
     self.shiny_id = "hero"

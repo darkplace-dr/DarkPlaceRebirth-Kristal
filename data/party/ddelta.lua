@@ -75,6 +75,7 @@ function character:init()
     self.battle_offset = {2, 1}
     self.head_icon_offset = nil
     self.menu_icon_offset = {3, 0}
+	self.rhythm_icon_offset = 30
 
     self.gameover_message = {
         "don't give up\nalready man...",

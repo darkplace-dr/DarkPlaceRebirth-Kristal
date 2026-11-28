@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="47">
+<map version="1.11" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="16" height="24" tilewidth="40" tileheight="40" infinite="0" nextlayerid="9" nextobjectid="48">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -155,6 +155,9 @@
     <property name="map" value="floor2/dev/party"/>
     <property name="marker" value="dance"/>
    </properties>
+  </object>
+  <object id="47" name="rhythmgame_mic_stand" x="320" y="260">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="markers">

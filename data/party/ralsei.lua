@@ -204,7 +204,17 @@ function character:init()
     self.head_icon_offset = nil
     -- Menu icon position offset (optional)
     self.menu_icon_offset = nil
-
+	-- Rhythm icon position offset (optional)
+	self.rhythm_icon_offset = 30
+	-- Note colors (optional)
+	self.note_colors = {
+		COLORS.green,
+		ColorUtils.hexToRGB("#B5E61D"),
+        COLORS.lime,
+        COLORS.green,
+        ColorUtils.hexToRGB("#B5E61D")
+    }
+	
     -- Message shown on gameover (optional)
     self.gameover_message = {
         "This is not\nyour fate...!",

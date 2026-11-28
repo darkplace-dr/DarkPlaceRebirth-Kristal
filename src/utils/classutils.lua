@@ -10,6 +10,8 @@ local ClassUtils = {}
 ---@return string? name         # The name of the class, or `nil` if it cannot find one.
 ---
 function ClassUtils.getClassName(class, parent_check)
+    assert(isClass(class), "Expected class, got " .. type(class))
+
     -- If the class is a global variable, return its name.
     for k, v in pairs(_G) do
         if class.__index == v then
@@ -61,6 +63,17 @@ end
 ---@return (fun(table: table<K, V>, index?: K):K, V), T
 function ClassUtils.iterClass(class)
     return next_noclassvars, class
+end
+
+--- Gets the type of a variable, returning the class type if the variable is a class instance, or the normal type otherwise
+---@param var any
+---@return string
+function ClassUtils.getType(var)
+    if isClass(var) then
+        return ClassUtils.getClassName(var) or "<unknown class>"
+    else
+        return type(var)
+    end
 end
 
 return ClassUtils

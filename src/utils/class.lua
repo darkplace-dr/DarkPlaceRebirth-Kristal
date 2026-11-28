@@ -6,7 +6,11 @@ CLASS_NAME_GETTER = DEFAULT_CLASS_NAME_GETTER
 ---@param o any
 ---@diagnostic disable-next-line: lowercase-global
 function isClass(o)
-    return type(o) == "table" and getmetatable(o) and true or false
+    if type(o) ~= "table" then
+        return false
+    end
+
+    return getmetatable(o)
 end
 
 return function(include, id)
