@@ -154,7 +154,7 @@
 			"newShopSpaceUI": true,
 			"shopSpaceUIFont": "8bit",
 			"newChoicers": true,
-			"partyStats": 5,
+			"partyStats": 1,
 		},
     }
 }
