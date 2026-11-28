@@ -123,7 +123,7 @@ function ScissorsActController:setActSprites()
     end
 end
 
-function ScissorsActController:finish(truancy)
+function ScissorsActController:finish()
     self.finished = true
     self:cleanUp()
     self:result()
@@ -206,7 +206,7 @@ function ScissorsActController:result()
 end
 
 function ScissorsActController:update()
-    if self.finished and not Game.battle.battle_ui.encounter_text:isTyping() and (Input.pressed("confirm") or Input.down("menu")) then
+    if self.finished and not Game.battle.battle_ui.encounter_text:isTyping() and (Input.pressed("confirm") or Input.pressed("menu")) then
         self:clearText()
         Game.battle:finishAction()
         self:remove()

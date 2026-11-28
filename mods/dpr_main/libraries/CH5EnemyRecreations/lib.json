@@ -1,0 +1,18 @@
+{
+    "id": "CH5EnemyRecreations",
+    "version": "1.0.0",
+    "engineVersion": "0.11.0-dev",
+
+    "authors": [ // probably needs corrections I don't remember much stuff
+        "JaruEthaus",          // Manager of the library.
+
+        "NelleMonelle",        // Recreated nearly all of the ActorSprites for the enemies, a majority of their ACTs, and made their enemy & encounter files.
+
+        "Diamond Deltahedron", // Helped recreate a few enemy attacks, namely Floradinn's.
+    ],
+
+    "config": {
+        // Fixes a bug when object ShiIntimidate wouldn't do special effect upon perfect posing in Flowery Mode
+        "perfect_pose_fix": true
+    }
+}

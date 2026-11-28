@@ -8,7 +8,7 @@ function actor:init()
     self.width = 65
     self.height = 60
 
-    self.hitbox = {18, 18, 22, 38}
+    self.hitbox = { 18, 18, 22, 38 }
 
     self.flip = "right"
 
@@ -16,22 +16,24 @@ function actor:init()
     self.default = "idle"
 
     self.animations = {
-        ["idle"]   = {"idle",  1/5,  true},
-        ["hurt"]   = {"hurt",  1,    true},
-        ["spared"] = {"spare", 1/5,  true},
+        ["idle"]   = { "idle", 1 / 5, true },
+        ["hurt"]   = { "hurt", 1, true },
+        ["spared"] = { "spare", 1 / 5, true },
+        ["defeat"] = { "surrender", 1 / 10, true },
 
-        ["sad"]    = {"sad",   1/5,  true},
-        ["smear"]  = {"smear", 1/15, true},
+        ["sad"]    = { "sad", 1 / 5, true },
+        ["smear"]  = { "smear", 1 / 15, true },
     }
 
     self.offsets = {
-        ["idle"]  = { 0, 0 },
-        ["hurt"]  = { 0, 0 },
-        ["spare"] = { 0, 0 },
+        ["idle"]      = { 0, 0 },
+        ["hurt"]      = { 0, 0 },
+        ["spare"]     = { 0, 0 },
+        ["surrender"] = { 9, 5 },
 
-        ["sad"]   = { 6, 8 },
-        ["smear"] = { -2, 1 },
-        ["taunt"] = { 8, 8 },
+        ["sad"]       = { 6, 8 },
+        ["smear"]     = { -2, 1 },
+        ["taunt"]     = { 8, 8 },
     }
 end
 

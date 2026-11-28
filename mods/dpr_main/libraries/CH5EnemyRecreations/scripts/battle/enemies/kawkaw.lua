@@ -31,26 +31,12 @@ function Kawkaw:init()
     self.tired_text = "* Kawkaw is ready to sleep in a nest."
     self.spareable_text = "* Kawkaw looks peaceful."
 
-    self.low_health_percentage = 1/4
+    self.low_health_percentage = 1 / 4
 
     self:registerAct("Hoop", "60%\nMercy")
-    self:registerAct("ShooOrCall", "Leave\nor Love", {"susie", "ralsei"})
-    
+    self:registerAct("ShooOrCall", "Leave\nor Love", { "susie", "ralsei" })
+
     self.slowsoul = false
-end
-
-function Kawkaw:update()
-    super.update(self)
-
-    if self.slowsoul == true then
-        if Game.battle.soul then
-            Game.battle.soul.speed = 2
-            
-            if #Game.stage:getObjects(SoulSlime) == 0 then
-                Game.battle:addChild(SoulSlime(Game.battle.soul.x, Game.battle.soul.y))
-            end
-        end
-    end
 end
 
 function Kawkaw:isXActionShort(battler)
@@ -60,13 +46,10 @@ end
 function Kawkaw:onAct(battler, name)
     if name == "Check" then
         return "* KAWKAW - It thinks battle is play.[wait:5] Loves scarecrows."
-
     elseif name == "Hoop" then
         return
-
     elseif name == "ShooOrCall" then
         return
-
     elseif name == "Standard" then
         return self:onShortAct(battler, name)
     end
@@ -104,9 +87,23 @@ function Kawkaw:getEncounterText()
 end
 
 function Kawkaw:onHurt(damage, battler)
-	super.onHurt(self, damage, battler)
+    super.onHurt(self, damage, battler)
 
     Game.battle.timer:after(1 / 30, function() Assets.stopAndPlaySound("kawkaw/damage") end)
+end
+
+function Kawkaw:update()
+    super.update(self)
+
+    if self.slowsoul == true then
+        if Game.battle.soul then
+            Game.battle.soul.speed = 2
+
+            if #Game.stage:getObjects(SoulSlime) == 0 then
+                Game.battle:addChild(SoulSlime(Game.battle.soul.x, Game.battle.soul.y))
+            end
+        end
+    end
 end
 
 return Kawkaw

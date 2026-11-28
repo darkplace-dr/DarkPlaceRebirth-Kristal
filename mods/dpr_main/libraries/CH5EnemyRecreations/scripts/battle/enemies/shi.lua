@@ -10,12 +10,24 @@ function Shi:init()
     self.health = 515
     self.attack = 16
     self.defense = 0
-    self.money = 280
+    self.money = 300
     self.spare_points = 10
 
     self.waves = {
-        "floradinn/homing_triangle",
-        "floradinn/mane_thorn"
+        "shi/easy_attack",
+        --"shi/scythebomb"
+    }
+
+    self.dialogue = {
+        "HEH![wait:5] I'm on\nthat PSYCHO DRIFT![wait:5] Try\nand CATCH me!",
+        "HEH![wait:5] Follow\nTHIS![wait:5] RISING...\nSUMMERSALT!!",
+        "Real boys\ncan't do THIS!\nSONIC DASH!!!",
+        "CROW KICK!\nHAH,[wait:5] did you see that?\nToo slow..."
+    }
+    self.dialogue_sad = {
+        "Uhh... don't\nlook at this.",
+        "Oh, GROSS!\nSomeone's, uh...\neww! Bullets!",
+        "Oh, no! That,\ngreen box!! Ugh!\nWhat IS that?"
     }
 
     self.check = {
@@ -31,13 +43,16 @@ function Shi:init()
     }
 
     self.low_health_text = "* Shi leaks straw."
-    self.tired_text      = "* Shi's movements finally slow."
+    self.tired_text = "* Shi's movements finally slow."
 	self.spareable_text  = "* Shi seems satisfied."
 
     self.low_health_percentage = 1 / 4
 
-    self:registerAct("ActScared",  "30%\nMercy")
+    self:registerShortAct("ActScared", "30%\nMercy")
     self:registerAct("Intimidate", "Pose for\nMercy", "all")
+
+    self.do_defeat = false
+    self.defeatanim = nil
 
     self.sadboy = false
 end
@@ -48,11 +63,9 @@ end
 
 function Shi:onAct(battler, name)
     if name == "Intimidate" then
-        local intimidation = ShiIntimidate(self, battler)
-        Game.battle:addChild(intimidation)
+        Game.battle:addChild(ShiIntimidate(self, battler))
         return
-
-    elseif name == "Standard" then
+    elseif name == "ActScared" or name == "Standard" then
         return self:onShortAct(battler, name)
     end
 
@@ -60,7 +73,15 @@ function Shi:onAct(battler, name)
 end
 
 function Shi:onShortAct(battler, name)
-    if name == "Standard" then
+    if name == "ActScared" then
+        if #Game.battle:getActiveParty() == 1 then
+            self:addMercy(50)
+        else
+            self:addMercy(30)
+        end
+        battler:setActSprite("party/kris/dark/chicken", -2 + 3, -1 + 5, 1 / 5)
+        return "* You acted like a scared crow!"
+    elseif name == "Standard" then
         if battler.chara.id == "susie" then
             if #Game.battle:getActiveParty() == 1 then
                 self:addMercy(50)
@@ -97,44 +118,77 @@ function Shi:getEnemyDialogue()
     end
 
     if self.sadboy then
-        self.dialogue = {
-            "Uhh... don't\nlook at this.",
-            "Oh, GROSS!\nSomeone's, uh...\neww! Bullets!",
-            "Oh, no! That,\ngreen box!! Ugh!\nWhat IS that?"
-        }
+        return TableUtils.pick(self.dialogue_sad)
     else
-        self.dialogue = {
-            "HEH![wait:5] I'm on\nthat PSYCHO DRIFT![wait:5] Try\nand CATCH me!",
-            "HEH![wait:5] Follow\nTHIS![wait:5] RISING...\nSUMMERSALT!!",
-            "Real boys\ncan't do THIS!\nSONIC DASH!!!",
-            "CROW KICK!\nHAH,[wait:5] did you see that?\nToo slow..."
-        }
+        return TableUtils.pick(self.dialogue)
     end
-
-    return TableUtils.pick(self.dialogue)
 end
 
 function Shi:getEncounterText()
+    if self.sadboy then
+        return "* The opponent...\n* ... denies being the opponent."
+    end
+
     if (self:getSpareableText() and self:canSpare()) or (self:getLowHealthText() and self:hasLowHealth()) or (self:getTiredText() and self:isTired()) then
         return super.getEncounterText(self)
     end
 
-    if MathUtils.randomInt(100+1) < 3 then
+    if MathUtils.randomInt(101) < 3 then
         return "* Smells like straw."
-    end
-
-    if self.sadboy then
-        return "* The opponent...\n* ... denies being the opponent."
     end
 
     return super.getEncounterText(self)
 end
 
+function Shi:onHurt(damage, battler)
+	super.onHurt(self, damage, battler)
+
+    if self.health <= 0 then
+        Game.battle.timer:after(29 / 30, function()
+            if self.done_state == nil then
+                self.do_defeat = true
+                self:onDefeat()
+            end
+        end)
+    end
+end
+
+function Shi:onDefeat(damage, battler)
+    if not self.do_defeat then
+        return
+    end
+    self.visible = false
+    local x, y = self:getRelativePos()
+    self.defeatanim = Sprite("battle/enemies/shi/surrender", x - 38, y - 2)
+    self.defeatanim:setScale(2)
+    self.defeatanim:setColor(ColorUtils.mergeColor(COLORS.gray, COLORS.white, 0.1))
+    self.defeatanim:setOriginExact(-9, -5)
+    self.defeatanim:setLayer(self.layer)
+    self.defeatanim:play(1 / 10, true)
+    Game.battle:addChild(self.defeatanim)
+    for i = 0, 7 do
+        local cloud = ShinobeetleSmokecloud(x + 40 + MathUtils.randomInt(41), y + 20 + MathUtils.randomInt(61))
+        cloud.layer = self.layer + 1
+        cloud:setFrame(i + 1)
+        cloud:stop()
+        cloud.physics.direction = -math.rad(45 + (i * 90))
+        cloud.physics.speed = 2 + MathUtils.random(1)
+        cloud.alpha = cloud.alpha - MathUtils.random(0.07)
+        cloud.fadespeed = 0.08
+        Game.battle:addChild(cloud)
+    end
+    self:defeat("VIOLENCED", true)
+end
+
 function Shi:update()
     super.update(self)
 
-    if Game.battle.state == "ENEMYDIALOGUE" and not self.talksounddone then
-    elseif Game.battle.state ~= "ENEMYDIALOGUE" then
+    if self.defeatanim ~= nil and Game.battle.state == "TRANSITIONOUT" then
+        local fade = self.defeatanim:getFX("battle_end")
+        if not fade then
+            fade = self.defeatanim:addFX(AlphaFX(1), "battle_end")
+        end
+        fade.alpha = Game.battle.transition_timer / 10
     end
 end
 

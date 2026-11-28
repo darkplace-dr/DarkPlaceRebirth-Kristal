@@ -165,6 +165,10 @@ function Shinobeetle:getEnemyDialogue()
     end
 end
 
+function Shinobeetle:canSpare()
+    return self.mercy >= 100 or #Game.battle:getActiveEnemies() == 1
+end
+
 function Shinobeetle:update()
     if not self.transition_ended and Game.battle.state ~= "TRANSITION" and Game.battle.state ~= "INTRO" then
         self.transition_ended = true
@@ -173,7 +177,7 @@ function Shinobeetle:update()
     end
 
     if #Game.battle:getActiveEnemies() == 1 then
-        if self.alone == false and self.done_state == nil then
+        if not self.alone and self.done_state == nil then
             self.alone = true
             self:addMercy(100)
         end

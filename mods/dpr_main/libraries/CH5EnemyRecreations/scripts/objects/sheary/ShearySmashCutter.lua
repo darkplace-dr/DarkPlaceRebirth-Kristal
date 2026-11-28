@@ -1,3 +1,8 @@
+local GMGraphics = modRequire('libraries.gmutils.src.utils.GMGraphics')
+local GMBlendModes = modRequire('libraries.gmutils.src.utils.constants.GMBlendModes')
+local BlendMode = modRequire("libraries.gmutils.src.utils.BlendMode")
+local LOVEBlendMode = modRequire("libraries.gmutils.src.utils.LOVEBlendMode")
+
 local ShearySmashCutter, super = Class(Object)
 
 function ShearySmashCutter:init(x, y)
@@ -16,6 +21,7 @@ function ShearySmashCutter:init(x, y)
     self.rotation = -math.rad(180)
     self.warp = 0
     self.shake = 0
+    self.difficulty = 0
 end
 
 function ShearySmashCutter:update()
@@ -32,7 +38,7 @@ function ShearySmashCutter:update()
         Game.battle.timer:tween(8/30,  self, { x = self.x + 45 }, "out-back")
         Game.battle.timer:tween(25/30, self, { y = Game.battle.arena.y }, "out-back")
         Game.battle.timer:tween(12/30, self, { xscale = 2, yscale = 1 }, "out-back")
-        image_angle = 180;
+        self.rotation = -math.rad(0)
         Game.battle.timer:tween(28/30, self, { rotation = -math.rad(180) }, "out-back")
         Assets.playSound("spearrise", 0.8)
     end
@@ -56,14 +62,12 @@ function ShearySmashCutter:update()
 
         Assets.playSound("scytheburst", 0.4)
 
-        self.physics.speed_y = 0
-        self.physics.gravity = 0
-        local smashcut_manager = self.wave:spawnObject(TennaSmashCutManager(self.x, self.y))
+        self:resetPhysics()
+        local smashcut_manager = self.wave:spawnObject(ShearySmashCutManager(Game.battle.arena.x, Game.battle.arena.y))
         smashcut_manager:setLayer(BATTLE_LAYERS["top"])
         Game.battle:shakeCamera()
 
-        local _smashcut = Game.stage:getObjects(Registry.getBullet("sheary/smashcut_attack"))[1]
-        _smashcut.rumble_loop:play()
+        local _smashcut = self.wave:spawnBullet("sheary/smashcut_attack")
         _smashcut.type = self.type
         _smashcut.do_flip = self.do_flip
         _smashcut.difficulty = self.difficulty
@@ -98,14 +102,19 @@ function ShearySmashCutter:update()
     end
 end
 
-local function draw_rectangle(x, y, w, h, outline)
+local function drawRectangle(x, y, w, h, outline)
     Draw.rectangle(outline, x, y, w - x + 1, h - y + 1)
 end
 
+local function lengthDirX(length, dir)
+    return math.cos(dir) * length
+end
+
+local function lengthDirY(length, dir)
+    return math.sin(dir) * length
+end
 
 function ShearySmashCutter:drawSelf()
-    super.drawSelf(self)
-
     local width = MathUtils.clamp(15 - math.abs(45 - self.timer), 0, 10)
 
     if width > 0 then
@@ -113,7 +122,7 @@ function ShearySmashCutter:drawSelf()
         local warn = math.ceil(width / 2)
         
         while (warn <= width) do
-            draw_rectangle(Game.battle.arena.x - 70, Game.battle.arena.y - warn, Game.battle.arena.x + 71, Game.battle.arena.y + warn, "fill")
+            drawRectangle(Game.battle.arena.x - 70, Game.battle.arena.y - warn, Game.battle.arena.x + 71, Game.battle.arena.y + warn, "fill")
             warn = warn + 2
         end
         
@@ -128,29 +137,34 @@ function ShearySmashCutter:drawSelf()
     love.graphics.clear(0, 0, 0, 0)
 
     Draw.setColor(1, 1, 1, 1)
-    Draw.draw(Assets.getTexture("battle/bullets/sheary/scissor_blade"), 57 + (self.bladescale * 3), 57, self.angle, self.bladescale, -1, 3, 16)
+    
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[1], 57 + (self.bladescale * 3), 57, -math.rad(self.angle), self.bladescale, -1, 3, 16)
 
-    love.graphics.setBlendMode("replace", "alphamultiply")
+    -- love.graphics.setBlendMode("replace", "alphamultiply")
     -- Draw.draw(spr_battlebg_0, 1, ceil(56.5 - ((obj_growtangle.x - x) / 2)), 58, 1, 2, 0, c_white, 0);
     -- Draw.draw(spr_battlebg_0, 0, ceil(56.5 - ((obj_growtangle.x - x) / 2)), 58, 1, 2, 0, c_white, 0);
+    -- love.graphics.setBlendMode("alpha", "alphamultiply")
+
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[1], 57 + (self.bladescale * 3), 59, -math.rad(-self.angle), self.bladescale, 1, 3, 16)
+
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[1], 57, 58 - self.bladescale, -math.rad(-self.angle), 1, -self.bladescale, 30, 17)
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[1], 57, 58 + self.bladescale, -math.rad(self.angle), 1, self.bladescale, 30, 17)
+
+    GMGraphics.setBlendMode(BlendMode("add", "add", "srccolor", "zero", "oneminussrcalpha", "dstalpha", LOVEBlendMode("screen", "premultiplied")))
+
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[2], 57 + (self.bladescale * 3), 59, -math.rad(-self.angle), self.bladescale, 1, 3, 16)
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[2], 57 + (self.bladescale * 3), 57, -math.rad(self.angle), self.bladescale, -1, 3, 16)
+
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[2], 57, 58 - self.bladescale, -math.rad(-self.angle), 1, -self.bladescale, 30, 17)
+    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[2], 57, 58 + self.bladescale, -math.rad(self.angle), 1, self.bladescale, 30, 17)
+
     love.graphics.setBlendMode("alpha", "alphamultiply")
-
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[1], 57 + (self.bladescale * 3), 59, -self.angle, self.bladescale, 1, 3, 16)
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[1], 57, 58 - self.bladescale, -self.angle, 1, -self.bladescale, 30, 17)
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[1], 57, 58 + self.bladescale, -self.angle, 1, self.bladescale, 30, 17)
-
-    -- gpu_set_blendmode_ext_sepalpha(bm_src_color, bm_inv_src_alpha, bm_zero, bm_dest_alpha);
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[2], 57 + (bladescale * 3), 59, -self.angle, self.bladescale, 1, 3, 16)
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_blade")[2], 57 + (self.bladescale * 3), 57, self.angle, self.bladescale, -1, 3, 16)
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[2], 57, 58 - self.bladescale, -self.angle, 1, -self.bladescale, 30, 17)
-    Draw.draw(Assets.getFrames("battle/bullets/sheary/scissor_handle")[2], 57, 58 + self.bladescale, self.angle, 1, self.bladescale, 30, 17)
-    love.graphics.setBlendMode("alpha")
 
     Draw.popCanvas(true)
     Draw.setColor(1, 1, 1, self.alpha)
     Draw.drawCanvas(self.my_surface, 
-        ((self.x - MathUtils.lengthDirX(58 * self.xscale, self.rotation)) + MathUtils.lengthDirX(58 * self.yscale, self.rotation + 90) + MathUtils.random(self.shake)) - (self.shake / 2), 
-        ((self.y - MathUtils.lengthDirY(58 * self.yscale, self.rotation - 90)) + MathUtils.lengthDirY(58 * self.xscale, self.rotation + 180) + MathUtils.random(shake)) - (self.shake / 2), 
+        ((self.x - lengthDirX(58 * self.xscale, self.rotation)) + lengthDirX(58 * self.yscale, self.rotation + -math.rad(90)) + MathUtils.random(self.shake)) - (self.shake / 2), 
+        ((self.y - lengthDirY(58 * self.yscale, self.rotation - -math.rad(90))) + lengthDirY(58 * self.xscale, self.rotation + -math.rad(180)) + MathUtils.random(self.shake)) - (self.shake / 2), 
         self.rotation, self.xscale, self.yscale
     )
 end

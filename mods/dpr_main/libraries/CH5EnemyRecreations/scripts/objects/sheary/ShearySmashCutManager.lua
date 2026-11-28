@@ -23,17 +23,20 @@ function ShearySmashCutManager:update()
     if self.fadetype == 1 then
         self.intensity = MathUtils.approach(self.intensity, 0, 0.1*DTMULT)
     
-        if self.intensity == 0 then
+        if self.intensity <= 0 then
             self:remove()
         end
     end
 end
 
+local function drawRectangle(x, y, w, h, outline)
+    Draw.rectangle(outline, x, y, w - x + 1, h - y + 1)
+end
+
 function ShearySmashCutManager:draw()
     super.draw(self)
 
-    local remaining_time = Game.battle.wave_length - Game.battle.wave_timer
-    if remaining_time < (1/30) then
+    if Game.battle.wave_timer > Game.battle.wave_length - (1/30) then
         self:remove()
     end
 
@@ -45,16 +48,17 @@ function ShearySmashCutManager:draw()
 
 	love.graphics.push()
 	love.graphics.origin()
+
     local cut = 0
     if Game.battle.arena then
         cut = Game.battle.arena.y
     end
     local cut2 = SCREEN_HEIGHT - cut
+    local xoffset = 0
 
     local old_t2 = self.timer2
     self.timer2 = self.timer2 + DTMULT
 
-    local xoffset = 0
 
     if old_t2 < 1 and self.timer2 >= 1 then
         xoffset = 10
@@ -93,12 +97,12 @@ function ShearySmashCutManager:draw()
 	Draw.setColor(0,0,0,1)
     Draw.rectangle("fill", 0, 0, SCREEN_WIDTH - 0 + 1, SCREEN_HEIGHT - 0 + 1)
 	Draw.setColor(1,1,1,1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.sin(self.timer) * 24 * self.intensity)),                0,       0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.sin(self.timer) * 24 * self.intensity)) - SCREEN_WIDTH, 0,       0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.sin(self.timer) * 24 * self.intensity)) + SCREEN_WIDTH, 0,       0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.cos(self.timer) * 24 * self.intensity)),                0 + cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.cos(self.timer) * 24 * self.intensity)) - SCREEN_WIDTH, 0 + cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
-    Draw.drawPart(canvas, (0 + xoffset + (math.cos(self.timer) * 24 * self.intensity)) + SCREEN_WIDTH, 0 + cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.sin(self.timer) * 24 * self.intensity)),                0,   0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.sin(self.timer) * 24 * self.intensity)) - SCREEN_WIDTH, 0,   0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.sin(self.timer) * 24 * self.intensity)) + SCREEN_WIDTH, 0,   0, 0,   SCREEN_WIDTH, cut,  0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.cos(self.timer) * 24 * self.intensity)),                cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.cos(self.timer) * 24 * self.intensity)) - SCREEN_WIDTH, cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
+    Draw.drawPart(canvas, (xoffset + (math.cos(self.timer) * 24 * self.intensity)) + SCREEN_WIDTH, cut, 0, cut, SCREEN_WIDTH, cut2, 0, 1, 1)
 
     self.bar_v = MathUtils.approach(self.bar_v, 0, (self.bar_v * 0.5)*DTMULT)
 
@@ -113,7 +117,7 @@ function ShearySmashCutManager:draw()
         local x, y = Game.battle.arena.x - bar_width, Game.battle.arena.y - bar_height
         local w, h = Game.battle.arena.x + bar_width, Game.battle.arena.y + bar_height
         Draw.setColor(1,1,1,1)
-        Draw.rectangle("fill", x, y, w - x + 1, h - y + 1)
+        drawRectangle(x, y, w, h, "fill")
     end
 
     love.graphics.pop()
