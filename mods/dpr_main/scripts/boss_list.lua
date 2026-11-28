@@ -30,9 +30,9 @@ return {
     preview = "mimic",
     description = "A shapeshifter of unknown origin. Has been residing in DESSHERE for as long as it can remember.",
     locked_description = "Complete the DESSHERE area to unlock this fight!",
-    health = 4400,
-    attack = 10,
-    defense = 2,
+    health = 2200,
+    attack = 7,
+    defense = 0,
     flag = "mimic_defeated"
   },
   {

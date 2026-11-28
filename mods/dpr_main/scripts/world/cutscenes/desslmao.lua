@@ -824,7 +824,8 @@ return {
 
             cutscene:textTagged("* Suit yourself![wait:5] Uheehee!", nil, boss, whodis)
             ]]
-            Game:setFlag("mimic_rematch", true)
+
+            --Game:setFlag("mimic_rematch", true) -- was put here orignally to skip the cutscene if you died, but it's kinda complicated to do
             Game:saveQuick("spawn")
 
             cutscene:hideNametag()
