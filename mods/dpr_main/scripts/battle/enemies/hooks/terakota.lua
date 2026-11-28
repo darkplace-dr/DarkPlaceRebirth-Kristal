@@ -16,8 +16,17 @@ function Terakota:onShortAct(battler, name)
                 "* Jamm cares for the soil!"
             }
             return TableUtils.pick(text)
+        elseif battler.chara.id == "ceroba" then
+            self:addMercy(18)
+            local text = {
+                "* Ceroba cares to plants!",
+                "* Ceroba makes a plant pot!",
+                "* Ceroba grows flowers!"
+            }
+            return TableUtils.pick(text)
         end
     end
+
     return super.onShortAct(self, battler, name)
 end
 

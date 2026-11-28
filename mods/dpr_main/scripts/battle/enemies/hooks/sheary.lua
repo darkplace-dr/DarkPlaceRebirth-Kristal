@@ -23,6 +23,9 @@ function Sheary:salonCutSprites()
     for _, battler in ipairs(Game.battle.party) do
         if battler.chara.id == "jamm" then
             battler:setActSprite("party/jamm/dark/papersnow", -5, 0)
+        elseif battler.chara.id == "ceroba" then
+            -- TODO
+            --battler:setActSprite("party/ceroba/dark/papersnow", 0, 0)
         end
     end
     super.salonCutSprites(self)
@@ -30,10 +33,19 @@ end
 
 function Sheary:onShortAct(battler, name)
     if name == "Standard" then
-        if battler.chara.id == "jamm" then
+        if battler.chara.id == "dess" then
+            self:addMercy(40)
+            battler:setActSprite("party/dess/hairs_" .. TableUtils.pick({ 1, 2, 3 }), -20, 0)
+            return "* Dess received a haircut!"
+        elseif battler.chara.id == "jamm" then
             self:addMercy(40)
             battler:setActSprite("party/jamm/dark/hairs_" .. TableUtils.pick({ 1, 2, 3 }), -5, 0)
             return "* Jamm received a haircut!"
+        elseif battler.chara.id == "ceroba" then
+            self:addMercy(40)
+            -- TODO
+            --battler:setActSprite("party/ceroba/dark/hairs_" .. TableUtils.pick({ 1, 2, 3 }), 0, 0)
+            return "* Ceroba received a haircut!"
         end
     end
 

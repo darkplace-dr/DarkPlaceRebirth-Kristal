@@ -16,8 +16,17 @@ function Kawkaw:onShortAct(battler, name)
                 "* Jamm offers trash for a nest!"
             }
             return TableUtils.pick(text)
+        elseif battler.chara.id == "ceroba" then
+            self:addMercy(40)
+            local text = {
+                "* Ceroba spreads flower seeds!",
+                "* Ceroba gives a gentle hug!",
+                "* Ceroba flaps her arms!"
+            }
+            return TableUtils.pick(text)
         end
     end
+
     return super.onShortAct(self, battler, name)
 end
 

@@ -60,8 +60,17 @@ function Floradinn:onShortAct(battler, name)
                 "* Jamm waters gently!"
             }
             return TableUtils.pick(text)
+        elseif battler.chara.id == "ceroba" then
+            self:addMercy(40)
+            local text = {
+                "* Ceroba makes a flower bouquet!",
+                "* Ceroba spreads pollen!",
+                "* Ceroba throws Sakura petals!"
+            }
+            return TableUtils.pick(text)
         end
     end
+
     return super.onShortAct(self, battler, name)
 end
 

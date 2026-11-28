@@ -25,6 +25,26 @@ function Netskie:onShortAct(battler, name)
                 battler:setActSprite("party/susie/dark/ralsei_pose", -3, -1)
                 return "* Jamm's Ralsei impression!"]]
             end
+        elseif battler.chara.id == "ceroba" then
+            if #Game.battle:getActiveParty() == 1 then
+                self:addMercy(29)
+            else
+                self:addMercy(9)
+            end
+            local rand = TableUtils.pick({ 0, 1, 2 })
+            if rand == 0 then
+                -- TODO
+                --battler:setActSprite("party/ceroba/dark/martlet", 0, 0)
+                return "* Ceroba's Martlet impression!"
+            elseif rand == 1 then
+                -- TODO
+                --battler:setActSprite("party/ceroba/dark/starlo", 0, 0)
+                return "* Ceroba's Starlo impression!"
+            elseif rand == 2 then
+                -- TODO
+                --battler:setActSprite("party/ceroba/dark/axis", 0, 0)
+                return "* Ceroba's Axis impression!"
+            end
         end
     end
 
