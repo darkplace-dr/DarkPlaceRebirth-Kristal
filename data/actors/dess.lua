@@ -89,6 +89,9 @@ function actor:init()
         ["walk/left"] = {-4, 0},
         ["walk/up"] = {-4, 0},
 
+        ["sneak/left"] = {-5, 3},
+        ["sneak/right"] = {7, 3},
+
         -- Battle offsets
         ["battle/idle"] = {-20, 0},
 
@@ -117,18 +120,18 @@ function actor:init()
         ["battle/spellsuperend"] = {-18, 0},
         ["battle/tactic_freeze"] = {-20, 0},
 
-        ["reddit_gold"] = {-20, -20},
-        ["sonic_adventure"] = {-20, -10},
-        ["bup"] = {-20, -10},
-        ["beatbox"] = {-20, -10},
         ["angreh"] = {-20, -10},
+        ["beatbox"] = {-20, -10},
+        ["bup"] = {-20, -10},
+        ["d_pose"] = {-20, -10},
+        ["dab"] = {-20, -10},
         ["oc"] = {-20, -10},
         ["paneton"] = {-20, -10},
-        ["dab"] = {-20, -10},
-        ["sneak/left"] = {-5, 3},
-        ["sneak/right"] = {7, 3},
+        ["reddit_gold"] = {-20, -20},
+        ["sonic_adventure"] = {-20, -10},
+        ["t_pose"] = {-20, -10},
         ["teehee"] = {-4, 0},
-		
+
 		-- Rhythm Game
         ["rhythm_game/idle"]      = {0, 0},
         ["rhythm_game/ready"]     = {-5, 1},
